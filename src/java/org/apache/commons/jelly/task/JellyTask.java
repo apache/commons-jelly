@@ -79,7 +79,7 @@ public class JellyTask extends Task {
             JellyContext context = getJellyContext();
             context.setVariable( "project", project );
             script.run( context, getXMLOutput() );
-            getXMLOutput().close();
+            getXMLOutput().flush();
         }
         catch (Exception e) {
             throw new BuildException(e, location);
