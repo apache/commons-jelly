@@ -28,6 +28,7 @@ import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /** <p><code>JellyContext</code> represents the Jelly context.</p>
@@ -460,6 +461,26 @@ public class JellyContext {
         return script.compile();
     }
 
+    /** 
+     * Attempts to parse the script from the given InputSource using the 
+     * {@link #getResource} method then returns the compiled script.
+     */
+    public Script compileScript(InputSource source) throws JellyException {
+        XMLParser parser = getXMLParser();
+        parser.setContext(this);
+        
+        Script script = null;
+        try {
+            script = parser.parse(source);
+        } catch (IOException e) {
+            throw new JellyException("Could not parse Jelly script",e);
+        } catch (SAXException e) {
+            throw new JellyException("Could not parse Jelly script",e);
+        }
+        
+        return script.compile();
+    }
+
     /**
      * @return a thread pooled XMLParser to avoid the startup overhead
      * of the XMLParser
@@ -498,6 +519,16 @@ public class JellyContext {
      */
     public JellyContext runScript(URL url, XMLOutput output) throws JellyException {
         return runScript(url, output, JellyContext.DEFAULT_EXPORT,
+            JellyContext.DEFAULT_INHERIT);
+    }
+
+    /** 
+     * Parses the script from the given InputSource then compiles it and runs it.
+     * 
+     * @return the new child context that was used to run the script
+     */
+    public JellyContext runScript(InputSource source, XMLOutput output) throws JellyException {
+        return runScript(source, output, JellyContext.DEFAULT_EXPORT,
             JellyContext.DEFAULT_INHERIT);
     }
 
@@ -565,11 +596,21 @@ public class JellyContext {
      */
     public JellyContext runScript(URL url, XMLOutput output,
                           boolean export, boolean inherit) throws JellyException {
-        Script script = compileScript(url);
+        return runScript(new InputSource(url.toString()), output, export, inherit);
+    }
+
+    /** 
+     * Parses the script from the given InputSource then compiles it and runs it.
+     * 
+     * @return the new child context that was used to run the script
+     */
+    public JellyContext runScript(InputSource source, XMLOutput output,
+                          boolean export, boolean inherit) throws JellyException {
+        Script script = compileScript(source);
         
         URL newJellyContextURL = null;
         try {
-            newJellyContextURL = getJellyContextURL(url);
+            newJellyContextURL = getJellyContextURL(source);
         } catch (MalformedURLException e) {
             throw new JellyException(e.toString());
         }
@@ -586,7 +627,7 @@ public class JellyContext {
         } 
 
         if (log.isDebugEnabled() ) {
-            log.debug( "About to run script: " + url );
+            log.debug( "About to run script: " + source.getSystemId() );
             log.debug( "root context URL: " + newJellyContext.rootURL );
             log.debug( "current context URL: " + newJellyContext.currentURL );
         }
@@ -838,6 +879,16 @@ public class JellyContext {
      */
     protected URL getJellyContextURL(URL url) throws MalformedURLException {
         String text = url.toString();
+        int idx = text.lastIndexOf('/');
+        text = text.substring(0, idx + 1);
+        return new URL(text);
+    }
+
+    /** 
+     * Strips off the name of a script to create a new context URL
+     */
+    protected URL getJellyContextURL(InputSource source) throws MalformedURLException {
+        String text = source.getSystemId();
         int idx = text.lastIndexOf('/');
         text = text.substring(0, idx + 1);
         return new URL(text);

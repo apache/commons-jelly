@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-beta-4-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="add" issue="JELLY-108" due-to="Maarten Coene">Run a script from an input source</action>
       <action dev="dion" type="add" issue="JELLY-113" due-to="Gary Franklin">Thread safety of tag support</action>
       <action dev="dion" type="add" issue="JELLY-115" due-to="Felipe Leme">Add var to break tag</action>
       <action dev="dion" type="add" issue="JELLY-116" due-to="Felipe Leme">Add exceptionVar to invoke and invokeStatic</action>
