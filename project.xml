@@ -280,21 +280,10 @@
     </dependency>
     
     <dependency>
-      <id>nekohtml</id>
-      <version>0.7.1</version>
-    </dependency>
-    
-    <dependency>
       <id>servletapi</id>
       <version>2.3</version>
     </dependency>
     
-    <!-- used by werkz library 
-    <dependency>
-      <id>werkz</id>
-      <version>1.0-beta-5</version>
-    </dependency> -->
-
     <dependency>
       <id>xalan</id>
       <version>2.3.1</version>
@@ -305,13 +294,6 @@
       || Optional tag library dependencies
       || These will be sub-projects one day, when Maven handles them gracefully
       -->
-
-	<!-- antlr taglib 
-    <dependency>
-      <id>antlr</id>
-      <version>2.7.1</version>
-      <jar>antlrall-2.7.1.jar</jar>
-    </dependency> -->
 
 	<!-- beanshell taglib -->
     <dependency>
@@ -325,24 +307,6 @@
       <version>2.2</version>
     </dependency>
 
-	<!-- betwixt taglib
-    <dependency>
-      <id>commons-betwixt</id>
-      <version>SNAPSHOT</version>
-    </dependency> -->
-
-	<!-- http taglib 
-    <dependency>
-      <id>commons-httpclient</id>
-      <version>SNAPSHOT</version>
-    </dependency> -->
-    
-    <!-- http server taglib 
-    <dependency>
-      <id>jetty</id>
-      <version>4.2.3</version>
-    </dependency> -->
-    
 	<!-- jms taglib -->
     <dependency>
       <id>commons-messenger</id>
@@ -354,47 +318,11 @@
       <version>1.0.2b</version>
     </dependency>
     
-	<!-- validate taglib 
-    <dependency>
-      <id>isorelax</id>
-      <version>20020414</version>
-    </dependency>
-
-    <dependency>
-      <id>msv</id>
-      <version>20020414</version>
-    </dependency>-->
-
-	<!-- runtime dependency for validate taglib 
-    <dependency>
-      <id>xsdlib</id>
-      <version>20020414</version>
-    </dependency>
-
-    <dependency>
-      <id>relaxngDatatype</id>
-      <version>20020414</version>
-    </dependency>-->
-
-
 	<!-- scheduler taglib -->
     <dependency>
       <id>quartz</id>
       <version>SNAPSHOT</version>
     </dependency>
-
-<!--
-    <dependency>
-      <id>log4j</id>
-      <version>1.1.3</version>
-    </dependency>
--->
-
-	<!-- runtime dependencies for test programs 
-    <dependency>
-      <id>hsqldb</id>
-      <version>1.7.0</version>
-    </dependency> -->
 
 	<!-- email taglib -->
     <dependency>
@@ -427,20 +355,6 @@
       <version>1.0</version>
     </dependency>
 -->    
-
-	<!-- xmlunit taglib 
-    <dependency>
-      <id>xmlunit</id>
-      <version>0.8</version>
-    </dependency>-->
-
-	<!-- swt taglib 
-    <dependency>
-      <id>swt</id>-->
-      
-      <!-- don't know how to support OS-dependent jars in Maven yet
-      <version>win32-2.1.0</version>
-    </dependency> -->
   </dependencies>
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
