@@ -83,7 +83,7 @@ public class FatalTag extends LogTagSupport {
     public void doTag(XMLOutput output) throws Exception {
         Log log = getLog();
         if ( log.isFatalEnabled() ) {
-            log.fatal( getBodyText() );
+            log.fatal( getBodyText(isEncode()) );
         }
     }
 }

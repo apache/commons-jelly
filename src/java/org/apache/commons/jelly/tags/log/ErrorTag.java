@@ -83,7 +83,7 @@ public class ErrorTag extends LogTagSupport {
     public void doTag(XMLOutput output) throws Exception {
         Log log = getLog();
         if ( log.isErrorEnabled() ) {
-            log.error( getBodyText() );
+            log.error( getBodyText(isEncode()) );
         }
     }
 }

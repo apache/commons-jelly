@@ -77,6 +77,7 @@ import org.apache.commons.logging.LogFactory;
 public abstract class LogTagSupport extends TagSupport {
 
     private Log log;
+    private boolean encode;
     
     public LogTagSupport() {
     }
@@ -107,4 +108,20 @@ public abstract class LogTagSupport extends TagSupport {
     public void setLog(Log log) {
         this.log = log;
     }
+    
+    /**
+     * Returns whether the body of this tag will be XML encoded or not.
+     */
+    public boolean isEncode() {
+        return encode;
+    }
+
+    /**
+     * Sets whether the body of the tag should be encoded as text (so that &lt; and &gt; are
+     * encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.
+     */
+    public void setEncode(boolean encode) {
+        this.encode = encode;
+    }
+
 }

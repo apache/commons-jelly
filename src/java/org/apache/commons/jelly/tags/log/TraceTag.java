@@ -83,7 +83,7 @@ public class TraceTag extends LogTagSupport {
     public void doTag(XMLOutput output) throws Exception {
         Log log = getLog();
         if ( log.isTraceEnabled() ) {
-            log.trace( getBodyText() );
+            log.trace( getBodyText(isEncode()) );
         }
     }
 }

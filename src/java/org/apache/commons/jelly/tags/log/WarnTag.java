@@ -83,7 +83,7 @@ public class WarnTag extends LogTagSupport {
     public void doTag(XMLOutput output) throws Exception {
         Log log = getLog();
         if ( log.isWarnEnabled() ) {
-            log.warn( getBodyText() );
+            log.warn( getBodyText(isEncode()) );
         }
     }
 }

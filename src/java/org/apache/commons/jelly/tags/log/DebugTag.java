@@ -83,7 +83,7 @@ public class DebugTag extends LogTagSupport {
     public void doTag(XMLOutput output) throws Exception {
         Log log = getLog();
         if ( log.isDebugEnabled() ) {
-            log.debug( getBodyText() );
+            log.debug( getBodyText(isEncode()) );
         }
     }
 }

@@ -83,7 +83,7 @@ public class InfoTag extends LogTagSupport {
     public void doTag(XMLOutput output) throws Exception {
         Log log = getLog();
         if ( log.isInfoEnabled() ) {
-            log.info( getBodyText() );
+            log.info( getBodyText(isEncode()) );
         }
     }
 }
