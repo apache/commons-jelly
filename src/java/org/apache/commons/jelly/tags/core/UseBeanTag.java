@@ -175,7 +175,11 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      */    
     protected Class loadClass(String className) throws ClassNotFoundException {
         try {
-          return Thread.currentThread().getContextClassLoader().loadClass(className);
+          ClassLoader loader = Thread.currentThread().getContextClassLoader();
+          if (loader == null) {
+              loader = getClass().getClassLoader();
+          }
+          return loader.loadClass(className);
         } catch (ClassNotFoundException e) {
             return getClass().getClassLoader().loadClass(className);
         }
