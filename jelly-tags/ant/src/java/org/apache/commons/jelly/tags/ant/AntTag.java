@@ -80,6 +80,7 @@ import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.IntrospectionHelper;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
@@ -426,9 +427,16 @@ public class AntTag extends MapTagSupport implements TaskSource {
             if ( ih != null ) {
                 try {
                     dataType = ih.createElement( getAntProject(), object, name.toLowerCase() );
-                }
-                catch (Exception e) {
-                    log.error(e);
+                } catch (BuildException be) {
+                    if (be.getMessage().indexOf("doesn't support the nested") != -1
+                        && be.getMessage().indexOf("org.apache.commons.jelly.") != -1)
+                    {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Failed attempt to create an ant datatype for a jelly tag", be);
+                        }
+                    } else {
+                        log.error(be);
+                    }
                 }
             }
         }
@@ -448,7 +456,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
         if ( type != null ) {
 
-            try {
+//            try {
                 Constructor ctor = null;
                 boolean noArg = false;
 
@@ -459,23 +467,46 @@ public class AntTag extends MapTagSupport implements TaskSource {
                     noArg = true;
                 }
                 catch (NoSuchMethodException nse) {
-                    ctor = type.getConstructor(new Class[] { Project.class });
-                    noArg = false;
+                    try {
+                        ctor = type.getConstructor(new Class[] { Project.class });
+                        noArg = false;
+                    } catch (NoSuchMethodException nsme) {
+                        log.error("datatype '" + name 
+                            + "' couldn't be created by passing an Ant project", nsme);
+                    }
                 }
 
                 if (noArg) {
-                    dataType = ctor.newInstance(new Object[0]);
+                    try {
+                        dataType = ctor.newInstance(new Object[0]);
+                    } catch (InstantiationException ie) {
+                        log.error("datatype '" + name + "' couldn't be created with no-arg constructor", ie);
+                    } catch (IllegalAccessException iae) {
+                        log.error("datatype '" + name + "' couldn't be created with no-arg constructor", iae);
+                    } catch (InvocationTargetException ite) {
+                        log.error("datatype '" + name + "' couldn't be created with no-arg constructor", ite);
+                    }
                 }
                 else {
-                    dataType = ctor.newInstance(new Object[] { getAntProject() });
+                    try {
+                        dataType = ctor.newInstance(new Object[] { getAntProject() });
+                    } catch (InstantiationException ie) {
+                        log.error("datatype '" + name + "' couldn't be created with an Ant project", ie);
+                    } catch (IllegalAccessException iae) {
+                        log.error("datatype '" + name + "' couldn't be created with an Ant project", iae);
+                    } catch (InvocationTargetException ite) {
+                        log.error("datatype '" + name + "' couldn't be created with an Ant project", ite);
+                    }
                 }
-                ((DataType)dataType).setProject( getAntProject() );
+                if (dataType != null) {
+                    ((DataType)dataType).setProject( getAntProject() );
+                } 
 
-            }
-            catch (Throwable t) {
+//            }
+//            catch (Throwable t) {
                 // ignore
-                log.error(t);
-            }
+//                log.error(t);
+//            }
         }
 
         return dataType;
