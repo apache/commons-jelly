@@ -101,12 +101,12 @@ public class PostTag extends HttpTagSupport {
      * This method <strong>must</strong> be called after 
      *  {@link getHttpUrlMethod}
      */
-    protected void setParameters() {
+    protected void setParameters(HttpUrlMethod method) {
         NameValuePair nvp = null;
         for (int index = 0; index < getParameters().size(); index++) {
             NameValuePair parameter = (NameValuePair) getParameters().
                 get(index);
-            _postMethod.addParameter(parameter);
+            ((UrlPostMethod) method).addParameter(parameter);
         }
     }
 
