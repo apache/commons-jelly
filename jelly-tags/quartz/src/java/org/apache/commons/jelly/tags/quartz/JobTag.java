@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/JobTag.java,v 1.1 2003/01/07 14:54:15 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 14:54:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/JobTag.java,v 1.2 2003/01/26 07:01:35 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 07:01:35 $
  *
  * ====================================================================
  *
@@ -61,10 +61,12 @@ package org.apache.commons.jelly.tags.quartz;
  *
  */
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
 
 import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 import org.quartz.JobDetail;
 import org.quartz.JobDataMap;
 
@@ -145,7 +147,7 @@ public class JobTag extends QuartzTagSupport
      *
      *  @throws Exception If an error occurs.
      */
-    public void doTag(XMLOutput output) throws Exception
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException
     {
         if ( getName() == null )
         {
@@ -156,8 +158,6 @@ public class JobTag extends QuartzTagSupport
         {
             throw new MissingAttributeException( "group" );
         }
-
-        Scheduler sched = getScheduler();
 
         JobDetail detail = new JobDetail( getName(),
                                           getGroup(),
@@ -178,8 +178,14 @@ public class JobTag extends QuartzTagSupport
 
         detail.setJobDataMap( data );
 
-        sched.addJob( detail,
-                      true );
+        try {
+            Scheduler sched = getScheduler();
+            sched.addJob( detail,
+                          true );
+        }
+        catch (SchedulerException e) {
+            throw new JellyTagException(e);
+        }
     }
 }
 

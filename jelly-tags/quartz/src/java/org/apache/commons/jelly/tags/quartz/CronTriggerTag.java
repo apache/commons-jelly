@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/CronTriggerTag.java,v 1.1 2003/01/07 14:54:15 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 14:54:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/CronTriggerTag.java,v 1.2 2003/01/26 07:01:35 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 07:01:35 $
  *
  * ====================================================================
  *
@@ -61,11 +61,15 @@ package org.apache.commons.jelly.tags.quartz;
  *
  */
 
+import java.text.ParseException;
+ 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
 
 import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 
 import java.util.Date;
 
@@ -208,7 +212,7 @@ public class CronTriggerTag extends QuartzTagSupport
      *
      *  @throws Exception If an error occurs.
      */
-    public void doTag(XMLOutput output) throws Exception
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException
     {
         if ( getSpec() == null )
         {
@@ -237,12 +241,22 @@ public class CronTriggerTag extends QuartzTagSupport
 
         CronTrigger trigger = new CronTrigger( getName(),
                                                getGroup() );
-
-        trigger.setCronExpression( getSpec() );
+        try {
+            trigger.setCronExpression( getSpec() );
+        }
+        catch (ParseException e) {
+            throw new JellyTagException(e);
+        }
         trigger.setJobName( getJobName() );
         trigger.setJobGroup( getJobGroup() );
         trigger.setStartTime( new Date() );
-        Scheduler sched = getScheduler();
-        sched.scheduleJob( trigger );
+        
+        try {
+            Scheduler sched = getScheduler();
+            sched.scheduleJob( trigger );
+        }
+        catch (SchedulerException e) {
+            throw new JellyTagException(e);
+        }
     }
 }

@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/WaitForSchedulerTag.java,v 1.1 2003/01/07 14:54:15 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 14:54:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/WaitForSchedulerTag.java,v 1.2 2003/01/26 07:01:35 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 07:01:35 $
  *
  * ====================================================================
  *
@@ -63,7 +63,10 @@ package org.apache.commons.jelly.tags.quartz;
 
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.commons.jelly.JellyTagException;
+
 import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
 
 /** Block and wait for the Quartz scheduler to shutdown.
  *
@@ -96,20 +99,25 @@ public class WaitForSchedulerTag extends QuartzTagSupport
      *
      *  @throws Exception If an error occurs.
      */
-    public void doTag(XMLOutput output) throws Exception
+    public void doTag(XMLOutput output) throws JellyTagException
     {
-        Scheduler sched = getScheduler();
+        try {
+            Scheduler sched = getScheduler();
 
-        while ( ! sched.isShutdown() )
-        {
-            try
+            while ( ! sched.isShutdown() )
             {
-                Thread.sleep( 500 );
+                try
+                {
+                    Thread.sleep( 500 );
+                }
+                catch (InterruptedException e)
+                {
+                    break;
+                }
             }
-            catch (InterruptedException e)
-            {
-                break;
-            }
+        }
+        catch (SchedulerException e) {
+            throw new JellyTagException(e);
         }
     }
 }
