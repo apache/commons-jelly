@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.8 2002/04/25 18:58:47 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/04/25 18:58:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.9 2002/04/26 11:28:55 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/04/26 11:28:55 $
  *
  * ====================================================================
  *
@@ -57,13 +57,19 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.8 2002/04/25 18:58:47 jstrachan Exp $
+ * $Id: Context.java,v 1.9 2002/04/26 11:28:55 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
+import java.io.File;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+
+import org.apache.commons.jelly.parser.XMLParser;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,10 +78,16 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>Context</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class Context {
 
+    /** The root URL context (where scripts are located from) */
+    private URL rootContext;
+    
+    /** The current URL context (where relative scripts are located from) */
+    private URL currentContext;
+    
     /** Tag libraries found so far */
     private Map taglibs = new Hashtable();
     
@@ -86,12 +98,30 @@ public class Context {
     private Log log = LogFactory.getLog( Context.class );
 
     public Context() {
+        this.currentContext = rootContext;
     }
     
-    public Context(Map variables) {
-        this.variables.putAll( variables );
+    public Context(URL rootContext) {
+        this.rootContext = rootContext;
+        this.currentContext = rootContext;
     }
     
+    public Context(URL rootContext, URL currentContext) {
+        this.rootContext = rootContext;
+        this.currentContext = currentContext;
+    }
+    
+    public Context(Context parentContext) {
+        this.rootContext = parentContext.rootContext;
+        this.currentContext = parentContext.currentContext;
+        this.taglibs = parentContext.taglibs;
+    }
+    
+    public Context(Context parentContext, URL currentContext) {
+        this( parentContext );
+        this.currentContext = currentContext;
+    }
+        
     /** @return the value of the given variable name */
     public Object getVariable( String name ) {
         return variables.get( name );
@@ -145,8 +175,8 @@ public class Context {
         // XXXX: Or at least publish the parent scope
         // XXXX: as a Map in this new variable scope?
         newVariables.put( "parentScope", variables );
-        Context answer = new Context( newVariables );
-        answer.taglibs = this.taglibs;
+        Context answer = new Context( this );
+        answer.setVariables( newVariables );
         return answer;
     }
     
@@ -191,5 +221,96 @@ public class Context {
      */
     public TagLibrary getTagLibrary(String namespaceURI) {
         return (TagLibrary) taglibs.get( namespaceURI );
+    }
+
+
+    /** 
+     * Attempts to parse the script from the given uri using the 
+     * {#link getResource()} method then returns the compiled script.
+     */
+    public Script compileScript(String uri) throws Exception {
+        XMLParser parser = new XMLParser();
+        parser.setContext( this );
+        
+        Script script = parser.parse( getResourceAsStream( uri ) );
+        return script.compile();
+    }
+
+    /** 
+     * Attempts to parse the script from the given uri using the 
+     * Context.getResource() API then compiles it and runs it.
+     */
+    public void runScript(String uri, XMLOutput output) throws Exception {
+        Script script = compileScript( uri );
+        script.run( this, output );
+    }
+
+    /**
+     * Returns a URL for the given resource from the specified path.
+     * If the uri starts with "/" then the path is taken as relative to 
+     * the current context root. If the uri is a well formed URL then it
+     * is used. Otherwise the uri is interpreted as relative to the current
+     * context (the location of the current script).
+     */
+    public URL getResource(String uri) throws MalformedURLException {
+        if ( uri.startsWith( "/" ) ) {
+            // append this uri to the context root
+            return createRelativeURL( rootContext, uri.substring(1) );
+        }
+        else {
+            try {
+                return new URL( uri );
+            }
+            catch (MalformedURLException e) {
+                // lets try find a relative resource
+                try {
+                    return createRelativeURL( currentContext, uri );
+                }
+                catch (MalformedURLException e2) {
+                    throw e;
+                }
+            }
+        }
+    }
+    
+    /**
+     * Attempts to open an InputStream to the given resource at the specified path.
+     * If the uri starts with "/" then the path is taken as relative to 
+     * the current context root. If the uri is a well formed URL then it
+     * is used. Otherwise the uri is interpreted as relative to the current
+     * context (the location of the current script).
+     *
+     * @return null if this resource could not be loaded, otherwise the resources 
+     *  input stream is returned.
+     */
+    public InputStream getResourceAsStream(String uri) {
+        try {
+            URL url = getResource( uri );
+            return url.openStream();
+        }
+        catch (Exception e) {
+            if ( log.isTraceEnabled() ) {
+                log.trace( "Caught exception attempting to open: " + uri + ". Exception: " + e, e );
+            }
+            return null;
+        }
+    }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+    
+    /**
+     * @return a new relative URL from the given root and with the addition of the
+     * extra relative URI
+     *
+     * @param rootURL is the root context from which the relative URI will be applied
+     * @param relativeURI is the relative URI (without a leading "/")
+     * @throws MalformedURLException if the URL is invalid.
+     */
+    protected URL createRelativeURL(URL rootURL, String relativeURI) throws MalformedURLException {
+        if ( rootURL == null ) {
+            return new URL( "file://" + relativeURI );
+        }
+        return new URL( rootURL.toString() + relativeURI );
     }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/04/25 18:58:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTag.java,v 1.3 2002/04/26 11:28:55 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/04/26 11:28:55 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynamicTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
+ * $Id: DynamicTag.java,v 1.3 2002/04/26 11:28:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * as variables and will allow the template to invoke its instance body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class DynamicTag extends TagSupport implements DynaTag {
 
@@ -106,6 +106,8 @@ public class DynamicTag extends TagSupport implements DynaTag {
     public void run(Context context, XMLOutput output) throws Exception {
 
         log.info( "Invoking dynamic tag with attributes: " + attributes );
+
+        attributes.put( "jelly.body", getBody() );
         
         // create new context based on current attributes
         Context newContext = context.newContext( attributes );

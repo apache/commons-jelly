@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.5 2002/04/25 18:58:47 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/04/25 18:58:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.6 2002/04/26 11:28:55 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/04/26 11:28:55 $
  *
  * ====================================================================
  *
@@ -57,37 +57,56 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.5 2002/04/25 18:58:47 jstrachan Exp $
+ * $Id: Jelly.java,v 1.6 2002/04/26 11:28:55 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import org.apache.commons.jelly.parser.XMLParser;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** <p><code>Jelly</code> an application which runs a Jelly script.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
-  */
+/** 
+ * <p><code>Jelly</code> is a helper class which is capable of
+ * running a Jelly script. This class can be used from the command line
+ * or can be used as the basis of an Ant task.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.6 $
+ */
 public class Jelly {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog( Jelly.class );
 
-
+    /** The Context to use */
+    private Context context;
+    
+    /** The URL of the script to execute */
+    private URL url;
+    
+    public Jelly() {
+    }
+    
+    
     public static void main(String[] args) throws Exception {
         if ( args.length <= 0 ) {
             System.out.println( "Usage: Jelly scriptFile [outputFile]" );
             return;
         }
-        String input = args[0];
+        
+        Jelly jelly = new Jelly();
+        jelly.setScript( args[0] );
+        
         
 /*
         // later we might wanna add some command line arguments 
@@ -103,25 +122,78 @@ public class Jelly {
             new OutputStreamWriter( System.out )
         );
         
-        // add the system properties and the command line arguments
-        //Context context = new Context( System.getProperties() );
-        Context context = new Context();
-        context.setVariable( "args", args );
-        
-        XMLParser parser = new XMLParser();
-        parser.setContext( context );
-        Script script = parser.parse( input );
-    
-        script = script.compile();
-        
-        if ( log.isDebugEnabled() ) {
-            log.debug( "Compiled script: " + script );
-        }
-        
+        Script script = jelly.compileScript();                
         XMLOutput output = XMLOutput.createXMLOutput( writer );
         
+        // add the system properties and the command line arguments
+        Context context = jelly.getContext();        
+        context.setVariable( "args", args );
+
         script.run( context, output );
         
         writer.close();
     }    
+
+    /**
+     * Compiles the script
+     */
+    public Script compileScript() throws Exception {
+        XMLParser parser = new XMLParser();
+        parser.setContext( getContext() );
+        Script script = parser.parse( getUrl().openStream() );
+        script = script.compile();
+        
+        if ( log.isDebugEnabled() ) {
+            log.debug( "Compiled script: " + getUrl() );
+        }
+        return script;
+    }
+    
+        
+    // Properties
+    //-------------------------------------------------------------------------                
+    
+    /** 
+     * Sets the script URL to use as an absolute URL or a relative filename
+     */
+    public void setScript(String script) throws MalformedURLException {
+        setUrl( resolveURL( script ) );
+    }
+    
+    public URL getUrl() {
+        return url;
+    }
+
+    /** 
+     * Sets the script URL to use 
+     */
+    public void setUrl(URL url) {
+        this.url = url;
+    }
+    
+    
+    /**
+     * The context to use
+     */
+    public Context getContext() {
+        if ( context == null ) {
+            context = new Context( getUrl() );
+        }
+        return context;
+    }
+    
+    // Properties
+    //-------------------------------------------------------------------------                
+    
+    /**
+     * @return the URL for the relative file name or absolute URL 
+     */
+    protected URL resolveURL(String name) throws MalformedURLException {
+        File file = new File(name);
+        if ( file.exists() ) {
+            return file.toURL();
+        }
+        return new URL( name );
+    }
+    
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/04/25 18:58:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.3 2002/04/26 11:28:55 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/04/26 11:28:55 $
  *
  * ====================================================================
  *
@@ -57,12 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.3 2002/04/26 11:28:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -77,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class InvokeBodyTag extends TagSupport {
 
@@ -91,16 +92,22 @@ public class InvokeBodyTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void run(Context context, XMLOutput output) throws Exception {
-        
-        // #### note this mechanism does not work properly for arbitrarily 
-        // #### nested dynamic tags. A better way is required.
-        Tag tag = findAncestorWithClass(this, DynamicTag.class);
-        if ( tag == null ) {
-            // throw new JellyException( "Cannot invoke body, no dynamic tag is defined in this block" );
-            log.warn( "Cannot invoke body, no dynamic tag is defined in this block" );
+
+        // Try find find the body from the reserved 'jelly.body' variable
+        Script script = (Script) context.getVariable( "jelly.body" );
+        if ( script != null ) {
+            script.run( context, output );
         }
         else {
-            tag.getBody().run(context, output);
+            // note this mechanism does not work properly for arbitrarily 
+            // nested dynamic tags. A better way is required.
+            Tag tag = findAncestorWithClass(this, DynamicTag.class);
+            if ( tag == null ) {
+                throw new JellyException( "Cannot invoke body, no dynamic tag is defined in this block" );
+            }
+            else {
+                tag.getBody().run(context, output);
+            }
         }
     }    
 }
