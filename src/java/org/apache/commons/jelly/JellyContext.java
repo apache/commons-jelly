@@ -88,7 +88,9 @@ public class JellyContext {
      */
     protected boolean useContextClassLoader = false;
 
-
+    /** String used to denote a script can't be parsed */
+    private static final String BAD_PARSE = "Could not parse Jelly script";
+    
     public JellyContext() {
         this.currentURL = rootURL;
         init();
@@ -440,9 +442,9 @@ public class JellyContext {
         try {
             script = parser.parse(in);
         } catch (IOException e) {
-            throw new JellyException("Could not parse Jelly script",e);
+            throw new JellyException(JellyContext.BAD_PARSE, e);
         } catch (SAXException e) {
-            throw new JellyException("Could not parse Jelly script",e);
+            throw new JellyException(JellyContext.BAD_PARSE, e);
         }
         
         return script.compile();
@@ -460,9 +462,9 @@ public class JellyContext {
         try {
             script = parser.parse(url.toString());
         } catch (IOException e) {
-            throw new JellyException("Could not parse Jelly script",e);
+            throw new JellyException(JellyContext.BAD_PARSE, e);
         } catch (SAXException e) {
-            throw new JellyException("Could not parse Jelly script",e);
+            throw new JellyException(JellyContext.BAD_PARSE, e);
         }
         
         return script.compile();
@@ -480,9 +482,9 @@ public class JellyContext {
         try {
             script = parser.parse(source);
         } catch (IOException e) {
-            throw new JellyException("Could not parse Jelly script",e);
+            throw new JellyException(JellyContext.BAD_PARSE, e);
         } catch (SAXException e) {
-            throw new JellyException("Could not parse Jelly script",e);
+            throw new JellyException(JellyContext.BAD_PARSE, e);
         }
         
         return script.compile();
