@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.9 2002/06/13 08:16:47 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/13 08:16:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.10 2002/06/13 14:07:25 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/06/13 14:07:25 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.9 2002/06/13 08:16:47 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.10 2002/06/13 14:07:25 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -72,7 +72,7 @@ import java.util.List;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -123,7 +123,7 @@ public abstract class TagSupport implements Tag {
         }
     }
 
-    public boolean getTrim() {
+    public boolean isTrim() {
         if ( this.shouldTrim == null ) {
             Tag parent = getParent();
             if ( parent == null ) {
@@ -133,7 +133,7 @@ public abstract class TagSupport implements Tag {
                 if ( parent instanceof TagSupport ) {
                     TagSupport parentSupport = (TagSupport) parent;
 
-                    this.shouldTrim = ( parentSupport.getTrim() ? Boolean.TRUE : Boolean.FALSE );
+                    this.shouldTrim = ( parentSupport.isTrim() ? Boolean.TRUE : Boolean.FALSE );
                 } 
                 else {
                     this.shouldTrim = Boolean.TRUE;
@@ -156,7 +156,7 @@ public abstract class TagSupport implements Tag {
     
     /** @return the body of the tag */
     public Script getBody() {
-        if ( getTrim()
+        if ( isTrim()
              &&
              ! hasTrimmed )
         {
