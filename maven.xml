@@ -48,13 +48,13 @@
   <!-- ================================================================== -->
 
   <!-- build the timestamp after compiling -->
-  <postGoal name="java:compile">
-    <echo file="${maven.build.dest}/org/apache/commons/jelly/jelly-version.txt"
-      >${pom.currentVersion}</echo>
+  <postGoal name="java:jar-resources">
+    <j:file name="${maven.build.dest}/org/apache/commons/jelly/jelly-version.txt" omitXmlDeclaration="true"
+      >${pom.currentVersion}</j:file>
     <tstamp><format property="now" pattern="yyyy-MM-dd kk:mm:ss zzz"/></tstamp>
-    <echo file="${maven.build.dest}/org/apache/commons/jelly/jelly-build-date.txt"
-      >${now}</echo>
-    </postGoal>
+    <j:file name="${maven.build.dest}/org/apache/commons/jelly/jelly-build-date.txt" omitXmlDeclaration="true"
+      >${now}</j:file>
+  </postGoal>
   
   <!-- create the lib and bin directories in the binary distro -->
   <preGoal name="dist:build">
