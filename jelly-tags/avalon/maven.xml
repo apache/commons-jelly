@@ -1,0 +1,15 @@
+<project default="java:jar">
+
+  <!-- define the classpath used to run examples -->
+  <goal name="create-classpath" prereqs="java:compile,test:compile">
+		<path id="test.classpath">
+			<pathelement path="${maven.build.dest}"/>
+			<pathelement path="target/classes"/>
+			<pathelement path="target/test-classes"/>
+			<path refid="maven.dependency.classpath"/>
+		</path>
+  </goal>
+
+	<!-- demos -->
+
+</project>
