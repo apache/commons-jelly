@@ -237,12 +237,6 @@
       <version>SNAPSHOT</version>
     </dependency>
   
-    <dependency>
-      <id>servletapi</id>
-      <version>2.2</version>
-      <url>http://jakarta.apache.org/tomcat/</url>
-    </dependency>
-
 	<!-- http taglib -->
     <dependency>
       <id>commons-httpclient</id>
@@ -261,7 +255,17 @@
       <id>commons-jelly+tags-http</id>
       <version>SNAPSHOT</version>
     </dependency>
+
+    <!-- END for testing -->
     
+    <!-- for runtime -->
+    <dependency>
+      <id>servletapi</id>
+      <version>2.2</version>
+      <url>http://jakarta.apache.org/tomcat/</url>
+    </dependency>
+    <!-- END for runtime -->
+
     
   </dependencies>
   
