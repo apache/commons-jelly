@@ -112,8 +112,7 @@ public class TestSwingTags extends BaseJellyTest {
             GridBagLayout layout = (GridBagLayout) frame.getContentPane().getLayout();
             GridBagConstraints constraints = layout.getConstraints(button);
             //note that 21 is the JDK 1.4 value of GridBagConstraint.LINE_START
-            // this is failing
-            // assertEquals(21,constraints.anchor);
+            assertEquals(21,constraints.anchor);
         }
     }
     
@@ -132,7 +131,7 @@ public class TestSwingTags extends BaseJellyTest {
         JellyContext context = getJellyContext();
         ButtonGroup bg = (ButtonGroup) context.getVariable("bg");
         //buttonGroup is broken
-        //assertEquals(2, bg.getButtonCount());
+        // assertEquals(2, bg.getButtonCount());
     }
 
     
