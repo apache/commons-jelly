@@ -56,6 +56,7 @@
 package org.apache.commons.jelly.tags.junit;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -91,10 +92,10 @@ public class AssertThrowsTag extends AssertTagSupport {
     
 	// Tag interface
 	//-------------------------------------------------------------------------
-	public void doTag(XMLOutput output) throws Exception {
-		Class throwableClass = getThrowableClass();
-
+	public void doTag(XMLOutput output) throws JellyTagException {
+        Class throwableClass = null;
 		try {
+            throwableClass = getThrowableClass();
 			invokeBody(output);
 		} 
         catch (Throwable t) {

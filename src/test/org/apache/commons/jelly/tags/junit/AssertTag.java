@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/tags/junit/AssertTag.java,v 1.1 2003/01/19 06:03:12 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/19 06:03:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/tags/junit/AssertTag.java,v 1.2 2003/01/27 02:35:26 dion Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/27 02:35:26 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AssertTag.java,v 1.1 2003/01/19 06:03:12 dion Exp $
+ * $Id: AssertTag.java,v 1.2 2003/01/27 02:35:26 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.expression.Expression;
@@ -69,6 +70,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
+import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
 /** 
@@ -76,7 +78,7 @@ import org.jaxen.XPath;
  * true. If the expression returns false then this test fails.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class AssertTag extends AssertTagSupport {
 
@@ -94,7 +96,7 @@ public class AssertTag extends AssertTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if (test == null && xpath == null) {
             throw new MissingAttributeException( "test" );
         }
@@ -104,10 +106,15 @@ public class AssertTag extends AssertTagSupport {
             }
         }
         else {
-            Object xpathContext = getXPathContext();
-            if (! xpath.booleanValueOf(xpathContext)) {
-                fail( getBodyText(), "evaluating xpath: "+ xpath );
+            try {
+                Object xpathContext = getXPathContext();
+                if (! xpath.booleanValueOf(xpathContext)) {
+                    fail( getBodyText(), "evaluating xpath: "+ xpath );
+                }
+            } catch (JaxenException anException) {
+                throw new JellyTagException("Error evaluating xpath", anException);
             }
+            
         }
 
     }

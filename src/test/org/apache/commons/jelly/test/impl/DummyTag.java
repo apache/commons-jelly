@@ -56,6 +56,7 @@
  */
 package org.apache.commons.jelly.test.impl;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -77,7 +78,7 @@ public class DummyTag extends TagSupport {
      * @see org.apache.commons.jelly.Tag#doTag(XMLOutput)
      * @see org.apache.commons.jelly.tags.core.JellyTag
      */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if (log.isDebugEnabled())
             log.debug("********Executing DummyTag Body*********");
         if (m_classToBeLoaded != null) {

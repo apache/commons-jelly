@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/tags/junit/RunTag.java,v 1.1 2003/01/19 06:03:12 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/19 06:03:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/tags/junit/RunTag.java,v 1.2 2003/01/27 02:35:26 dion Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/27 02:35:26 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: RunTag.java,v 1.1 2003/01/19 06:03:12 dion Exp $
+ * $Id: RunTag.java,v 1.2 2003/01/27 02:35:26 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
@@ -69,6 +69,7 @@ import junit.framework.Test;
 import junit.framework.TestListener;
 import junit.framework.TestResult;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -83,7 +84,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * as XML so that they can be formatted in some custom manner.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class RunTag extends TagSupport {
 
@@ -96,7 +97,7 @@ public class RunTag extends TagSupport {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         Test test = getTest();
         if ( test == null ) {
             test = (Test) context.getVariable("org.apache.commons.jelly.junit.suite");        
