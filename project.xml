@@ -94,7 +94,9 @@
     <contributor>
       <name>Erik Fransen</name>
       <email>erik167@xs4all.nl</email>
-      <role>Log designer</role>
+      <roles>
+      	<role>Log designer</role>
+      </roles>
     </contributor>
   </contributors>
 
