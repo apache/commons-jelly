@@ -97,8 +97,9 @@ public class BreakTag extends TagSupport {
     }
 
     /** 
-     * Sets the Jelly expression to evaluate. 
-     * If this returns true then the loop is terminated
+     * Sets the Jelly expression to evaluate (optional). 
+     * If this is <code>null</code> or evaluates to
+     * <code>true</code> then the loop is terminated
      *
      * @param test the Jelly expression to evaluate
      */
