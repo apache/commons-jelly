@@ -68,7 +68,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.53 $
+ * @version $Revision: 1.54 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -147,7 +147,7 @@ public class XMLParser extends DefaultHandler {
      * is required because documents can declare nested uses of the same
      * prefix for different Namespace URIs).
      */
-    protected HashMap namespaces = new HashMap();
+    protected Map namespaces = new HashMap();
 
     /** The Map of the namespace prefix -&gt; URIs defined for the current element */
     private Map elementNamespaces;
