@@ -6,33 +6,33 @@
     <test:assert test="${2 == 2}">This should never fail</test:assert>
     
     <j:catch var="ex">
-	  <test:assert test="${2 != 2}">This should always fail</test:assert>
-	</j:catch>    	
+			<test:assert test="${2 != 2}">This should always fail</test:assert>
+		</j:catch>    	
 	
-	<test:assert test="${ex != null}">We should have created an exception</test:assert>
-
-	<log:info>The exception was: ${ex.message}</log:info>	
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+	
+		<log:info>The exception was: ${ex.message}</log:info>	
 	
   </test:case>
 
 
   <test:case name="failTests">
   
+		<j:catch var="ex">
+			<test:fail>This should always fail</test:fail>
+		</j:catch>    	
+		
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+		
+		<log:info>The exception was: ${ex.message}</log:info>	
+	
     <j:catch var="ex">
-	  <test:fail>This should always fail</test:fail>
-	</j:catch>    	
+		  <test:fail message="This should always fail"/>
+		</j:catch>    	
 	
-	<test:assert test="${ex != null}">We should have created an exception</test:assert>
-	
-	<log:info>The exception was: ${ex.message}</log:info>	
-	
-    <j:catch var="ex">
-	  <test:fail message="This should always fail"/>
-	</j:catch>    	
-	
-	<test:assert test="${ex != null}">We should have created an exception</test:assert>
-	
-	<log:info>The exception was: ${ex.message}</log:info>	
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+		
+		<log:info>The exception was: ${ex.message}</log:info>	
   </test:case>
 
 	
@@ -44,11 +44,57 @@
     
     <j:catch var="ex">
       <test:assertEquals actual="${foo}" expected="def">This should always fail</test:assertEquals>
-	</j:catch>    	
-	
-	<test:assert test="${ex != null}">We should have created an exception</test:assert>
-	
-	<log:info>The exception was: ${ex.message}</log:info>	
+		</j:catch>    	
+		
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+		
+		<log:info>The exception was: ${ex.message}</log:info>	
+  </test:case>
+
+
+  <test:case name="assertThrownTests">
+
+    <!-- test using var attribute -->
+    <test:assertThrown var="ex">
+      <test:fail message="This exeption should be exported"/>
+    </test:assertThrown>
+    <test:assert test="${ex != null}">No exception exported</test:assert>
+
+    <!-- test using superclass of expected throwable -->
+    <test:assertThrown expected="java.lang.Exception">
+      <test:fail message="This should always fail"/>
+    </test:assertThrown>
+
+    <!-- test using non exception class -->
+    <test:assertThrown expected="java.lang.Class">
+      <test:fail message="This should always fail"/>
+    </test:assertThrown>
+
+    <!-- test using undefined class -->
+    <test:assertThrown expected="java.lang.ClassNotFoundException">
+			<test:assertThrown expected="foo.bar.Baz">
+				<test:fail message="This should always fail"/>
+			</test:assertThrown>
+		</test:assertThrown>
+
+    <!-- test using other exception class -->
+    <j:catch var="ex">
+      <test:assertThrown expected="java.io.IOException">
+        <test:fail message="This should always fail"/>
+      </test:assertThrown>
+    </j:catch>
+    
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+
+    <!-- test with no exception from body -->
+    <j:catch var="ex">
+      <test:assertThrown>
+      </test:assertThrown>
+    </j:catch>
+    
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+    <test:assert test="${ex.message.startsWith('No exception was thrown.')}"/>
+
   </test:case>
 
 <!--
