@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.48 $
+ * @version $Revision: 1.49 $
  */
 public class TagScript implements Script {
 
@@ -291,9 +291,9 @@ public class TagScript implements Script {
             tag = createTag();
             if ( tag != null ) {
                 context.setTagForScript(this,tag);
+                configureTag(tag,context);
             }
         }
-        configureTag(tag,context);
         return tag;
     }
 

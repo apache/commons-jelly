@@ -391,7 +391,12 @@ public class JellyContext {
     public Tag getTagOfTagScript(TagScript script) {
         if( script == null )
             return null;
-        return (Tag) tagHolderMap.get(script);
+        Tag tag = (Tag) tagHolderMap.get(script);
+		if( tag == null && getParent() != null) {
+			return getParent().getTagOfTagScript(script);
+		} else {
+			return tag;
+		}
     }
 	
 	/** @return the Map that associates the the Tags to Scripts */
