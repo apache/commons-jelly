@@ -18,6 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-jsl</id>
   <name>commons-jelly-tags-jsl</name>
+  <currentVersion>1.0</currentVersion>
 
   <package>org.apache.commons.jelly.tags.jsl</package>
 
@@ -26,6 +27,14 @@
   </description>
   <shortDescription>Commons Jelly JSL Tag Library</shortDescription>
   
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS_JELLY_JSL-1_0</tag>
+    </version>
+  </versions>
+
   <dependencies>
 
     <!-- START for compilation -->
