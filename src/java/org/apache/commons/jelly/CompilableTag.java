@@ -1,6 +1,6 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -19,18 +19,19 @@ package org.apache.commons.jelly;
 /** <p><code>Compilable</code> represents a Tag that is compilable.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 
 public interface CompilableTag {
 
     /** 
      * Called by the parser to allow a more tag to create a more efficient 
-     * format of the tag
+     * format of the tag.
+     * @throws JellyException on any error
      */
 
     // #### should this return Tag?
     
-    public void compile() throws JellyException;
+    void compile() throws JellyException;
 
 }
