@@ -31,7 +31,8 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-/** <p><code>JellyContext</code> represents the Jelly context.</p>
+/**
+  * <p><code>JellyContext</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.10 $
@@ -135,17 +136,38 @@ public class JellyContext {
         init();
     }
 
+    /**
+     * Create a new context with the given parent context.
+     * The parent's rootURL are set on the child, and the parent's variables are
+     * available in the child context under the name <code>parentScope</code>.
+     * 
+     * @param parentJellyContext the parent context for the newly created context.
+     * @param currentURL the root URL used in resolving relative resources 
+     */
     public JellyContext(JellyContext parentJellyContext, URL currentURL) {
         this(parentJellyContext);
         this.currentURL = currentURL;
     }
 
+    /**
+     * Create a new context with the given parent context.
+     * The parent's variables are available in the child context under the name <code>parentScope</code>.
+     * 
+     * @param parentJellyContext the parent context for the newly created context.
+     * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/' 
+     * @param currentURL the root URL used in resolving relative resources 
+     */
     public JellyContext(JellyContext parentJellyContext, URL rootURL, URL currentURL) {
         this(parentJellyContext, currentURL);
         this.rootURL = rootURL;
     }
 
-	private void init() {
+    /**
+     * Initialize the context.
+     * This includes adding the context to itself under the name <code>context</code> and
+     * making the System Properties available as <code>systemScope</code>
+     */
+    private void init() {
 		variables.put("context",this);
 		try {
 			variables.put("systemScope", System.getProperties() );
@@ -255,7 +277,7 @@ public class JellyContext {
     
     
 
-    /** Sets the value of the given variable name */
+    /** Sets the value of the named variable */
     public void setVariable(String name, Object value) {
         if ( isExport() ) {
             getParent().setVariable( name, value );
@@ -814,6 +836,9 @@ public class JellyContext {
         this.export = export;
     }
 
+    /**
+     * @return whether we should export variable definitions to our parent context
+     */
     public boolean isExport() {
         return this.export;
     }
@@ -825,6 +850,9 @@ public class JellyContext {
         this.inherit = inherit;
     }
 
+    /**
+     * @return whether we should inherit variables from our parent context
+     */
     public boolean isInherit() {
         return this.inherit;
     }
