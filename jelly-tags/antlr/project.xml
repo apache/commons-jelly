@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-antlr</id>
+  <name>commons-jelly-tags-antlr</name>
+  <groupId>commons-jelly</groupId>
+  <package>org.apache.commons.jelly.tags.antlr</package>
+
+  <description>
+      This is a Jelly interface for Antlr.
+  </description>
+  <shortDescription>Commons Jelly Antlr Tag Library</shortDescription>
+  
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/antlr</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/antlr</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/antlr/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/antlr/</url>
+  </repository>
+  
+    
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+  
+    <dependency>
+      <id>antlr</id>
+      <version>2.7.1</version>
+      <jar>antlrall-2.7.1.jar</jar>
+    </dependency> -->
+    
+    <!-- END for compilation -->
+    
+  </dependencies>
+  
+</project>
