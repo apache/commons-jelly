@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.12 2002/04/25 19:25:08 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/04/25 19:25:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.13 2002/04/26 12:28:56 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/04/26 12:28:56 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.12 2002/04/25 19:25:08 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.13 2002/04/26 12:28:56 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -118,7 +118,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -604,7 +604,7 @@ public class XMLParser extends DefaultHandler {
         // otherwise pass the text to the current body
         tagScript = createTag( namespaceURI, localName, list );
         if ( tagScript == null ) {
-            tagScript = createStaticTag( namespaceURI, localName, list );
+            tagScript = createStaticTag( namespaceURI, localName, qName, list );
         }
         tagScriptStack.add( tagScript );
 
@@ -997,9 +997,9 @@ public class XMLParser extends DefaultHandler {
     /**
      * Factory method to create a static Tag that represents some static content.
      */
-    protected TagScript createStaticTag( String namespaceURI, String localName, Attributes list ) throws SAXException {
+    protected TagScript createStaticTag( String namespaceURI, String localName, String qName, Attributes list ) throws SAXException {
         try {
-            StaticTag tag = new StaticTag( namespaceURI, localName );
+            StaticTag tag = new StaticTag( namespaceURI, localName, qName );
             
             DynaTagScript script = new DynaTagScript( tag );
                 
