@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/CaseTag.java,v 1.1 2002/10/22 15:13:43 rwaldhoff Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/22 15:13:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/CaseTag.java,v 1.2 2002/10/22 16:15:49 rwaldhoff Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/22 16:15:49 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CaseTag.java,v 1.1 2002/10/22 15:13:43 rwaldhoff Exp $
+ * $Id: CaseTag.java,v 1.2 2002/10/22 16:15:49 rwaldhoff Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -79,7 +79,7 @@ import org.apache.commons.jelly.expression.Expression;
  * @see SwitchTag
  * 
  * @author Rodney Waldhoff
- * @version $Revision: 1.1 $ $Date: 2002/10/22 15:13:43 $
+ * @version $Revision: 1.2 $ $Date: 2002/10/22 16:15:49 $
  */
 public class CaseTag extends TagSupport {
 
@@ -103,6 +103,9 @@ public class CaseTag extends TagSupport {
         SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
         if(null == tag) {
             throw new JellyException("This tag must be enclosed inside a <switch> tag" );
+        }
+        if(tag.hasDefaultBeenEncountered()) {
+            throw new JellyException("<default> should be the last tag within a <switch>" );
         }
         Object value = valueExpression.evaluate(context);        
         if(tag.isFallingThru() || 

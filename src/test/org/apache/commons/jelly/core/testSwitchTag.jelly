@@ -17,6 +17,16 @@
         </j:default>
     </j:switch>
     
+    <j:if test="${switch.without.on}">
+        <j:switch>
+            <j:case value="one" fallThru="true"/>
+            <j:case value="two"/>
+            <j:case value="three"/>
+            <j:case value="${null}"/>
+            <j:default/>
+        </j:switch>
+    </j:if>
+
     <j:if test="${case.without.switch}">
         <j:case value="this tag should cause an exception"/>
     </j:if>
@@ -45,5 +55,14 @@
         </j:switch>
     </j:if>
     
+    <j:if test="${case.after.default}">
+        <j:switch on="foo">
+            <j:default>
+            </j:default>
+            <j:case value="bar">
+                <!-- this one should cause an exception (or even better, fail on validation) -->
+            </j:case>
+        </j:switch>
+    </j:if>
 
 </j:jelly>
