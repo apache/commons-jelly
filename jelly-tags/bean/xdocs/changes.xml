@@ -24,6 +24,9 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+    <release version="1.0.1" date="in CVS">
+      <action dev="dion" type="fix">Test cases not functioning</action>
+    </release>
     <release version="1.0" date="2004-09-10">
       <action dev="dion" type="add">Initial Release</action>
     </release>

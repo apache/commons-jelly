@@ -48,16 +48,16 @@
         <test:assertEquals expected="James" actual="${c1.name}"/>
         <test:assertEquals expected="London" actual="${c1.location}"/>
     
-        <test:assertTrue test="${size(c1.orders) == 2}"/>
+        <test:assert test="${size(c1.orders) == 2}"/>
     
-        <test:assertTrue test="${c1.orders[0].amount == 100}"/>
-        <test:assertTrue test="${c1.orders[0].price == 2.99}"/>
+        <test:assert test="${c1.orders[0].amount == 100}"/>
+        <test:assert test="${c1.orders[0].price == 2.99}"/>
         
-        <test:assertTrue test="${c1.orders[1].amount == 200}"/>
-        <test:assertTrue test="${c1.orders[1].price == 4.99}"/>
+        <test:assert test="${c1.orders[1].amount == 200}"/>
+        <test:assert test="${c1.orders[1].price == 4.99}"/>
     
-        <test:assertTrue test="${c1.orders[0].product != null}"/>
-        <test:assertTrue test="${c1.orders[1].product != null}"/>
+        <test:assert test="${c1.orders[0].product != null}"/>
+        <test:assert test="${c1.orders[1].product != null}"/>
         
         <test:assertEquals expected="p1" actual="${c1.orders[0].product.id}"/>
         <test:assertEquals expected="Beer" actual="${c1.orders[0].product.name}"/>
@@ -88,16 +88,16 @@
             <test:assertEquals expected="James" actual="${c1.name}"/>
             <test:assertEquals expected="London" actual="${c1.location}"/>
     
-            <test:assertTrue test="${size(c1.orders) == 2}"/>
+            <test:assert test="${size(c1.orders) == 2}"/>
     
-            <test:assertTrue test="${c1.orders[0].amount == 100}"/>
-            <test:assertTrue test="${c1.orders[0].price == 2.99}"/>
+            <test:assert test="${c1.orders[0].amount == 100}"/>
+            <test:assert test="${c1.orders[0].price == 2.99}"/>
     
-            <test:assertTrue test="${c1.orders[1].amount == 200}"/>
-            <test:assertTrue test="${c1.orders[1].price == 4.99}"/>
+            <test:assert test="${c1.orders[1].amount == 200}"/>
+            <test:assert test="${c1.orders[1].price == 4.99}"/>
     
-            <test:assertTrue test="${c1.orders[0].product != null}"/>
-            <test:assertTrue test="${c1.orders[1].product != null}"/>
+            <test:assert test="${c1.orders[0].product != null}"/>
+            <test:assert test="${c1.orders[1].product != null}"/>
     
             <test:assertEquals expected="p1" actual="${c1.orders[0].product.id}"/>
             <test:assertEquals expected="Beer" actual="${c1.orders[0].product.name}"/>
@@ -129,16 +129,16 @@
             <test:assertEquals expected="James" actual="${c1.name}"/>
             <test:assertEquals expected="London" actual="${c1.location}"/>
     
-            <test:assertTrue test="${size(c1.orders) == 2}"/>
+            <test:assert test="${size(c1.orders) == 2}"/>
     
-            <test:assertTrue test="${c1.orders[0].amount == 100}"/>
-            <test:assertTrue test="${c1.orders[0].price == 2.99}"/>
+            <test:assert test="${c1.orders[0].amount == 100}"/>
+            <test:assert test="${c1.orders[0].price == 2.99}"/>
     
-            <test:assertTrue test="${c1.orders[1].amount == 200}"/>
-            <test:assertTrue test="${c1.orders[1].price == 4.99}"/>
+            <test:assert test="${c1.orders[1].amount == 200}"/>
+            <test:assert test="${c1.orders[1].price == 4.99}"/>
     
-            <test:assertTrue test="${c1.orders[0].product != null}"/>
-            <test:assertTrue test="${c1.orders[1].product != null}"/>
+            <test:assert test="${c1.orders[0].product != null}"/>
+            <test:assert test="${c1.orders[1].product != null}"/>
     
             <test:assertEquals expected="p1" actual="${c1.orders[0].product.id}"/>
             <test:assertEquals expected="Beer" actual="${c1.orders[0].product.name}"/>
@@ -168,21 +168,21 @@
             
         <log:info>Created a list of customers ${list}</log:info>
     
-        <test:assertTrue test="${size(list) == 2}"/>
+        <test:assert test="${size(list) == 2}"/>
     
         <test:assertEquals expected="James" actual="${list[0].name}"/>
         <test:assertEquals expected="London" actual="${list[0].location}"/>
     
-        <test:assertTrue test="${size(list[0].orders) == 2}"/>
+        <test:assert test="${size(list[0].orders) == 2}"/>
     
-        <test:assertTrue test="${list[0].orders[0].amount == 100}"/>
-        <test:assertTrue test="${list[0].orders[0].price == 2.99}"/>
+        <test:assert test="${list[0].orders[0].amount == 100}"/>
+        <test:assert test="${list[0].orders[0].price == 2.99}"/>
         
-        <test:assertTrue test="${list[0].orders[1].amount == 200}"/>
-        <test:assertTrue test="${list[0].orders[1].price == 4.99}"/>
+        <test:assert test="${list[0].orders[1].amount == 200}"/>
+        <test:assert test="${list[0].orders[1].price == 4.99}"/>
     
-        <test:assertTrue test="${list[0].orders[0].product != null}"/>
-        <test:assertTrue test="${list[0].orders[1].product != null}"/>
+        <test:assert test="${list[0].orders[0].product != null}"/>
+        <test:assert test="${list[0].orders[1].product != null}"/>
         
         <test:assertEquals expected="p1" actual="${list[0].orders[0].product.id}"/>
         <test:assertEquals expected="Beer" actual="${list[0].orders[0].product.name}"/>
@@ -214,8 +214,8 @@
             </customer>
         </manager>    
 
-        <test:assertTrue test="${foo.isInvoked()}"/>
-        <test:assertTrue test="${size(foo.customers) == 2}"/>
+        <test:assert test="${foo.isInvoked()}"/>
+        <test:assert test="${size(foo.customers) == 2}"/>
         
     </test:case>
 
@@ -237,21 +237,21 @@
             </customer>
         </myContainer>    
 
-        <test:assertTrue test="${size(list) == 2}"/>
+        <test:assert test="${size(list) == 2}"/>
         
         Created list: ${list}
 
         <test:assertEquals expected="James" actual="${list[0].name}"/>
         <test:assertEquals expected="London" actual="${list[0].location}"/>
         
-        <test:assertTrue test="${list[0].orders[0].amount == 100}"/>
-        <test:assertTrue test="${list[0].orders[0].price == 2.99}"/>
+        <test:assert test="${list[0].orders[0].amount == 100}"/>
+        <test:assert test="${list[0].orders[0].price == 2.99}"/>
         
-        <test:assertTrue test="${list[0].orders[1].amount == 200}"/>
-        <test:assertTrue test="${list[0].orders[1].price == 4.99}"/>
+        <test:assert test="${list[0].orders[1].amount == 200}"/>
+        <test:assert test="${list[0].orders[1].price == 4.99}"/>
     
-        <test:assertTrue test="${list[0].orders[0].product != null}"/>
-        <test:assertTrue test="${list[0].orders[1].product != null}"/>
+        <test:assert test="${list[0].orders[0].product != null}"/>
+        <test:assert test="${list[0].orders[1].product != null}"/>
         
         <test:assertEquals expected="p1" actual="${list[0].orders[0].product.id}"/>
         <test:assertEquals expected="Beer" actual="${list[0].orders[0].product.name}"/>

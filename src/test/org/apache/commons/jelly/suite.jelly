@@ -256,7 +256,7 @@
             </j:if>
         </j:forEach>
 
-        <test:assertTrue test="${i==4}"/> 
+        <test:assert test="${i==4}"/> 
 
         <j:while test="${i != 10}">
             <j:if test="${i==6}">
@@ -265,7 +265,7 @@
             <j:set var="i" value="${i+1}"/>
         </j:while>
 
-        <test:assertTrue test="${i==6}"/> 
+        <test:assert test="${i==6}"/> 
         
   </test:case>
   
@@ -275,14 +275,14 @@
             <j:break test="${i==4}"/>
         </j:forEach>
 
-        <test:assertTrue test="${i==4}"/> 
+        <test:assert test="${i==4}"/> 
 
         <j:while test="${i != 10}">
             <j:break test="${i==6}"/>
             <j:set var="i" value="${i+1}"/>
         </j:while>
 
-        <test:assertTrue test="${i==6}"/> 
+        <test:assert test="${i==6}"/> 
         
   </test:case>
 
@@ -315,7 +315,7 @@
          but export to them -->
     <j:set var="test1" value="original"/>
     <j:import uri="import1.jelly"/>
-    <test:assertTrue test="${test1 == null}"/> 
+    <test:assert test="${test1 == null}"/> 
 
     <!-- inherit parent vars, and export to them -->
     <j:set var="test1" value="original"/>
@@ -326,7 +326,7 @@
          but export to them -->
     <j:set var="test1" value="original"/>
     <j:import uri="import1.jelly" inherit="false"/>
-    <test:assertTrue test="${test1 == null}"/> 
+    <test:assert test="${test1 == null}"/> 
 
   </test:case>
 
