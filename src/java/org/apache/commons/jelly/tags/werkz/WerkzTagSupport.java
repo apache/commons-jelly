@@ -72,8 +72,14 @@ import org.apache.commons.jelly.TagSupport;
  */
 public abstract class WerkzTagSupport extends TagSupport {
 
+    public WerkzTagSupport(boolean trim) {
+        super( trim );
+    }
+
     public WerkzTagSupport() {
     }
+
+    
 
     
     // Implementation methods

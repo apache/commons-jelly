@@ -74,12 +74,13 @@ import org.apache.commons.jelly.XMLOutput;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class ProjectTag extends TagSupport {
+public class ProjectTag extends WerkzTagSupport {
 
     /** the project */
     private Project project;
         
     public ProjectTag() {
+        super( true );
     }
 
 

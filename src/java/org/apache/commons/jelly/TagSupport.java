@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.7 2002/05/25 18:27:21 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/25 18:27:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.8 2002/06/12 19:28:08 werken Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/06/12 19:28:08 $
  *
  * ====================================================================
  *
@@ -57,18 +57,22 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.7 2002/05/25 18:27:21 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.8 2002/06/12 19:28:08 werken Exp $
  */
 package org.apache.commons.jelly;
 
+import org.apache.commons.jelly.impl.ScriptBlock;
+import org.apache.commons.jelly.impl.TextScript;
+
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.List;
 
 /** <p><code>TagSupport</code> an abstract base class which is useful to 
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -79,6 +83,9 @@ public abstract class TagSupport implements Tag {
     /** the body of the tag */  
     protected Script body;
     /** The current context */
+
+    protected Boolean shouldTrim;
+    protected boolean hasTrimmed;
     
     protected JellyContext context;
 
@@ -99,6 +106,44 @@ public abstract class TagSupport implements Tag {
         }
         return null;
     }
+
+    public TagSupport()
+    {
+    }
+
+    public TagSupport(boolean shouldTrim)
+    {
+        setTrim( shouldTrim );
+    }
+
+    public void setTrim(boolean shouldTrim)
+    {
+        if ( shouldTrim ) {
+            this.shouldTrim = Boolean.TRUE;
+        } else {
+            this.shouldTrim = Boolean.FALSE;
+        }
+    }
+
+    public boolean getTrim()
+    {
+        if ( this.shouldTrim == null ) {
+            Tag parent = getParent();
+            if ( parent == null ) {
+                return false;
+            } else {
+                if ( parent instanceof TagSupport ) {
+                    TagSupport parentSupport = (TagSupport) parent;
+
+                    this.shouldTrim = ( parentSupport.getTrim() ? Boolean.TRUE : Boolean.FALSE );
+                } else {
+                    this.shouldTrim = Boolean.FALSE;
+                }
+            }
+        }
+
+        return this.shouldTrim.booleanValue();
+    }
     
     /** @return the parent of this tag */
     public Tag getParent() {
@@ -112,12 +157,19 @@ public abstract class TagSupport implements Tag {
     
     /** @return the body of the tag */
     public Script getBody() {
+        if ( getTrim()
+             &&
+             ! hasTrimmed )
+        {
+            trimBody();
+        }
         return body;
     }
     
     /** Sets the body of the tag */
     public void setBody(Script body) {
         this.body = body;
+        this.hasTrimmed = false;
     }
     
     /** @return the context in which the tag will be run */
@@ -149,7 +201,43 @@ public abstract class TagSupport implements Tag {
     protected String getBodyText() throws Exception {
         // XXX: could maybe optimise this later on by having a pool of buffers
         StringWriter writer = new StringWriter();
-        body.run(context, XMLOutput.createXMLOutput(writer));
+        getBody().run(context, XMLOutput.createXMLOutput(writer));
         return writer.toString();
+    }
+
+    /** 
+     * Find all text nodes inside the top level of this body and 
+     * if they are just whitespace then remove them
+     */
+    protected void trimBody() { // throws Exception {
+        // System.err.println( "trimBody() " + this.getClass().getName() );
+        if ( body instanceof ScriptBlock ) {
+            ScriptBlock block = (ScriptBlock) body;
+            List list = block.getScriptList();
+            for ( int i = list.size() - 1; i >= 0; i-- ) {
+                Script script = (Script) list.get(i);
+                if ( script instanceof TextScript ) {
+                    TextScript textScript = (TextScript) script;
+                    String text = textScript.getText();
+                    text = text.trim();
+                    // if ( text.length() == 0 ) {
+                        // list.remove(i);
+                        // System.err.println( "removeText(" + i + ")" );
+                    // }
+                    // else {
+                        // System.err.println( "setText(" + text + ")" );
+                        textScript.setText(text);
+                    // }
+                }
+            }                
+        }
+        else if ( body instanceof TextScript ) {
+            TextScript textScript = (TextScript) body;
+            String text = textScript.getText();
+            text = text.trim();
+            textScript.setText(text);
+        }
+
+        this.hasTrimmed = true;
     }
 }

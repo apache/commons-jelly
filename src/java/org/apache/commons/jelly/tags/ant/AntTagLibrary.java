@@ -173,7 +173,8 @@ public class AntTagLibrary extends TagLibrary {
             Task task = (Task) type.newInstance();
             task.setProject(project);
             task.setTaskName(name);
-            Tag tag = new TaskTag( task );
+            TaskTag tag = new TaskTag( task );
+            tag.setTrim( true );
             return TagScript.newInstance(tag);
         }
         
