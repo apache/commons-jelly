@@ -93,6 +93,9 @@ public class JellyInterpreter extends Interpreter {
             Object value = context.getVariable(name);
             set( name, value );
         }
+        
+        // lets pass in the Jelly context 
+        set( "jellyContext", context );
     }
 
 /*

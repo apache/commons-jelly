@@ -73,8 +73,12 @@ import org.apache.commons.jelly.tags.core.CoreTagLibrary;
 public class BeanShellTagLibrary extends CoreTagLibrary {
 
     private ExpressionFactory expressionFactory = new BeanShellExpressionFactory();
+
+    public BeanShellTagLibrary() {
+        registerTag("script", ScriptTag.class);
+    }
     
-        /** Allows derived tag libraries to use their own factory */
+    /** Allows derived tag libraries to use their own factory */
     protected ExpressionFactory getExpressionFactory() {
         return expressionFactory;
     }

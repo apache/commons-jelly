@@ -61,6 +61,9 @@
  */
 package org.apache.commons.jelly.tags.beanshell;
 
+import bsh.EvalError;
+
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 
@@ -71,12 +74,24 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
   */
 public class BeanShellExpressionFactory implements ExpressionFactory {
 
-    /** The interpreter */
-    private JellyInterpreter interpreter = new JellyInterpreter();
+    /**
+     * A helper method to return the JellyInterpreter for the given JellyContext
+     */
+    public static JellyInterpreter getInterpreter(JellyContext context) throws EvalError {
+        JellyInterpreter interpreter 
+            = (JellyInterpreter) context.getVariable( "org.apache.commons.jelly.beanshell.JellyInterpreter" );
+        if ( interpreter == null ) {
+            interpreter = new JellyInterpreter();
+            interpreter.setJellyContext(context);
+            context.setVariable( "org.apache.commons.jelly.beanshell.JellyInterpreter", interpreter );
+        }            
+        return interpreter;
+    }
+    
     
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
     public Expression createExpression(String text) throws Exception {
-        return new BeanShellExpression(text, interpreter);
+        return new BeanShellExpression(text);
     }
 }
