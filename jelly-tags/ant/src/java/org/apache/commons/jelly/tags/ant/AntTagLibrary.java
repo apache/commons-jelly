@@ -134,6 +134,8 @@ public class AntTagLibrary extends TagLibrary {
         
         project.init();
         project.getBaseDir();
+        project.setProperty("ant.file", 
+                            context.getCurrentURL().toExternalForm());
 
         return project;
     }
