@@ -12,6 +12,6 @@
     <!-- here we could parse the file or process it in some way -->
     <!-- such as by calling <ant> with the given build.xml file -->
       
-    Found <j:expr value="${file.absolutePath}"/>
+    Found ${file.absolutePath}
   </j:forEach>
 </j:jelly>

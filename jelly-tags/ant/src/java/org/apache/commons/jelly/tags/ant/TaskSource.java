@@ -61,10 +61,8 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
-import org.apache.commons.beanutils.DynaBean;
-
 /** 
- * A tag which provides an Ant Task object on which to set Ant DataTypes
+ * A tag which provides an Ant Task object on which to set Ant DataTypes or create nested types
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.6 $
@@ -72,12 +70,7 @@ import org.apache.commons.beanutils.DynaBean;
 public interface TaskSource {
 
     /** 
-     * @return the task object which may be an Ant Task.
+     * @return the Ant object which may be an Ant Task or nested element
      */
     public Object getTaskObject() throws Exception;
-    
-    /**
-     * @return a DynaBean wrapper around the Task object
-     */
-    public DynaBean getDynaBean();
 }

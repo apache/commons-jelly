@@ -97,7 +97,7 @@ public class FileScanner {
     /**
      * Adds a set of files (nested fileset attribute).
      */
-    public void addFileset(FileSet set) {
+    public void addFileset(FileSet set) {   
         filesets.add(set);
     }
 

@@ -81,15 +81,11 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     /** The file walker that gets created */
     private FileScanner fileScanner;
 
-    /** The DynaBean wrapping the FileScanner */
-    private DynaBean dynaBean;
-    
     /** the variable exported */
     private String var;
     
     public FileScannerTag(FileScanner fileScanner) {
         this.fileScanner = fileScanner;
-        this.dynaBean = new ConvertingWrapDynaBean(fileScanner);
     }
 
     // Tag interface
@@ -109,10 +105,6 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     //------------------------------------------------------------------------- 
     public Object getTaskObject() {
         return fileScanner;
-    }
-    
-    public DynaBean getDynaBean() {
-        return dynaBean;
     }
     
     // Properties

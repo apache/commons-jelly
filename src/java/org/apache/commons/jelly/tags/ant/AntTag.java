@@ -92,7 +92,7 @@ import org.apache.tools.ant.types.Reference;
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
-public class AntTag extends MapTagSupport {
+public class AntTag extends MapTagSupport implements TaskSource {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(AntTag.class);
@@ -185,26 +185,14 @@ public class AntTag extends MapTagSupport {
             task.perform(); 
         } 
         else {
-            
-            // System.err.println( "Setting datatype/nested object of name: " + tagName );
+            Object nested = null;
+            Object parentObject = null;
             
             // must be a datatype.
-            AntTag ancestor = (AntTag) findAncestorWithClass( AntTag.class );
-
-            Object nested = null;
-            
+            TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
             if ( ancestor != null ) {
-                nested = ancestor.createNestedObject( tagName );
-            }
-            else
-            {
-                // System.err.println( "No ancestor" );
-
-                AntTagSupport ancestorToo = (AntTagSupport) findAncestorWithClass( AntTagSupport.class );
-
-                if ( ancestorToo != null ) {
-                    nested = ancestorToo.createNestedObject( tagName );
-                }
+                parentObject = ancestor.getTaskObject();
+                nested = createNestedObject( parentObject, tagName );
             }
             
             if ( nested == null ) {
@@ -234,16 +222,13 @@ public class AntTag extends MapTagSupport {
             setBeanProperties();
 
             // now lets add it to its parent
-            if ( ancestor != null ) {
-                Object parentObj =  ancestor.getObject();                
-                if ( parentObj != null ) {
-                    IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObj.getClass() );                    
-                    try {
-                        ih.storeElement( project, parentObj, nested, tagName );
-                    }
-                    catch (Exception e) {
-                        //log.warn( "Caught exception setting nested: " + tagName, e );
-                    }
+            if ( parentObject != null ) {
+                IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );                    
+                try {
+                    ih.storeElement( project, parentObject, nested, tagName );
+                }
+                catch (Exception e) {
+                    //log.warn( "Caught exception setting nested: " + tagName, e );
                 }
             }
         }
@@ -260,7 +245,7 @@ public class AntTag extends MapTagSupport {
      *
      *  @return The object underlying this tag.
      */
-    public Object getObject() {
+    public Object getTaskObject() {
         return this.object;
     }
     
@@ -287,7 +272,7 @@ public class AntTag extends MapTagSupport {
      * Sets the properties on the Ant task
      */
     public void setBeanProperties() throws Exception {
-        Object object = getObject();
+        Object object = getTaskObject();
         if ( object != null ) {
 		    Map map = getAttributes();
 		    for ( Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
@@ -300,7 +285,9 @@ public class AntTag extends MapTagSupport {
     }
     
     public void setBeanProperty(Object object, String name, Object value) throws Exception {
-        // System.err.println( "Setting bean property on: "+  object + " name: " + name + " value: " + value );
+        if ( log.isDebugEnabled() ) {
+            log.debug( "Setting bean property on: "+  object + " name: " + name + " value: " + value );
+        }
         
         IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
 
@@ -326,10 +313,11 @@ public class AntTag extends MapTagSupport {
     }
 
 
-    public Object createNestedObject(String name) throws Exception {
+    /**
+     * Creates a nested object of the given object with the specified name
+     */
+    public Object createNestedObject(Object object, String name) throws Exception {
         Object dataType = null;
-
-        Object object = getObject();
         if ( object != null ) {
             IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
             
