@@ -99,7 +99,7 @@ public class ActionTag extends UseBeanTag {
                     public void actionPerformed(ActionEvent event) {
                         context.setVariable( "event", event );
                         try {
-                            invokeBody(output);
+                            ActionTag.super.invokeBody(output);
                         }
                         catch (Exception e) {
                             log.error( "Caught: " + e, e );
@@ -110,6 +110,10 @@ public class ActionTag extends UseBeanTag {
         }
         return action;
     }
+	
+	public void invokeBody(XMLOutput output) {
+		// do nothing
+	}
 
 
     /**

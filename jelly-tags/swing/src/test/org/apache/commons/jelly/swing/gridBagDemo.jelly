@@ -40,14 +40,14 @@
     
       <panel name="metadata-panel">
                 <gridBagLayout>
-                    <gbc name="Title-cell" gridx="0" gridy="0" idpadx="20" fill="horizontal"> 
+                    <gbc gridx="0" gridy="0" ipadx="20" fill="horizontal"> 
                         <!-- prefer a title ?? dnd may be harder -->
                         <panel name="head-panel">
                         <label text="Definition: Definition of a metrics"/><!-- need fonts ! -->
                         <!-- this should be a draggable label, being the source to drop a relation -->
                         </panel>
                     </gbc>
-                    <gbc name="panes-cell" gridx="0" gridy="1" fill="both">
+                    <gbc gridx="0" gridy="1" fill="both">
                         <!-- constraints variable definitions... for later use, in the children of the center element -->
                             <gbc var="labelConstraints" 
                                     weightx="0" weighty="0" 
@@ -126,7 +126,7 @@
                                 </gbc>
                             </gridBagLayout>
                         </gbc>
-                    <gbc name="content-display" gridx="0" gridy="2" fill="horizontal">
+                    <gbc gridx="0" gridy="2" fill="horizontal">
                         <!-- would need a separator here." -->
                         </gbc>
                 </gridBagLayout>
