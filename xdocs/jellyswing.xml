@@ -39,7 +39,8 @@
         <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swing/example.jelly?rev=HEAD">here</a>
       </p>
       <p>
-        To try running the example type the following command then you should see a full Swing user interface 
+        To run the example type the following command (from within the <code>jelly-tags/swing</code>
+        directory) and then you should see a full Swing user interface 
         appear with pull down menus, a splitter pane, a form, entry fields, buttons and a table.
       </p>
       <source>
