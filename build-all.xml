@@ -157,7 +157,7 @@
     </antcall>
   </target>
   
-  <target name="jar-betwixt" depends="jar-jelly,jar-junit">
+  <target name="jar-betwixt" depends="jar-jelly,jar-junit,jar-log">
     <antcall target="taglib-template">
       <param name="sub.taglib" value="betwixt"/>
     </antcall>
