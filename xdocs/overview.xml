@@ -12,7 +12,7 @@
 <section name="Jelly Overview">
 
 <p>Jelly is an XML based <i>processing engine</i>. The basic idea is that XML 
-elements can be bound to a Java <i>action</i> which is a Java bean that performs 
+elements can be bound to a Java <i>Tag</i> which is a Java bean that performs 
 some function. Here's an example action</p>
 
 <pre>public class FooTag extends TagSupport {    
@@ -35,7 +35,7 @@ some function. Here's an example action</p>
 &lt;/f:foo&gt;</pre>
 
 <p>Jelly is totally extendable 
-via custom actions (in a similar way to JSP custom tags) as well as cleanly integrating with  scripting 
+via custom actions (in a similar way to JSP custom tags) as well as cleanly integrating with scripting 
 languages such as Jexl, Velocity, pnuts, beanshell and via BSF (Bean Scripting Framework) 
 languages like JavaScript &amp; JPython</p>
 
