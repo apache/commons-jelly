@@ -23,12 +23,13 @@ import org.apache.commons.jelly.JellyContext;
   * expression language.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision$
   */
 public interface Expression {
 
     /**
-     * @return the textual representation of this expression     */
+     * @return the textual representation of this expression
+     */
     public String getExpressionText();
 
     /**

@@ -29,7 +29,7 @@ import org.xml.sax.SAXException;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class TestFileTag extends BaseJellyTest
 {

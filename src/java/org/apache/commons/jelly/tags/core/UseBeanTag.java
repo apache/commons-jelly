@@ -46,7 +46,7 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision$
  */
 public class UseBeanTag extends MapTagSupport implements BeanSource {
 

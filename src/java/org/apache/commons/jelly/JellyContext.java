@@ -38,7 +38,7 @@ import org.xml.sax.SAXException;
   * <p><code>JellyContext</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision$
   */
 public class JellyContext {
 

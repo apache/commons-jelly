@@ -20,7 +20,7 @@ import org.apache.commons.jelly.TagSupport;
 /** An abstract base class useful for implementation inheritence
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision$
   */
 public abstract class XPathTagSupport extends TagSupport {
 

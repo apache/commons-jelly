@@ -23,7 +23,7 @@ import org.apache.commons.jelly.JellyTagException;
  * &lt;forEach&gt; and &lt;while&gt; tags.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision$
  */
 
 public class BreakException extends JellyTagException {

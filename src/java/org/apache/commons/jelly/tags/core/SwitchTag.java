@@ -31,7 +31,7 @@ import org.apache.commons.jelly.expression.Expression;
  * @see DefaultTag
  *
  * @author Rodney Waldhoff
- * @version $Revision: 1.7 $ $Date$
+ * @version $Revision$ $Date$
  */
 public class SwitchTag extends TagSupport {
 

@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * which is why this class is needed instead of just using a BeanFactory.
  *
  * @author Dave Pekarek Krohn
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class DialogTag extends UseBeanTag implements ContainerTag {
 

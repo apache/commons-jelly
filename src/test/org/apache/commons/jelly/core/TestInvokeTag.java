@@ -24,7 +24,7 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.9 $ $Date: 2004/10/26 23:54:37 $
+ * @version $Revision$ $Date$
  */
 public class TestInvokeTag extends BaseJellyTest {
 

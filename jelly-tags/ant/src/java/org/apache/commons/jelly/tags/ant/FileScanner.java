@@ -27,7 +27,7 @@ import org.apache.tools.ant.types.FileSet;
  * over a number of files from a colleciton of FileSet instances.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision$
  */
 public class FileScanner {
 

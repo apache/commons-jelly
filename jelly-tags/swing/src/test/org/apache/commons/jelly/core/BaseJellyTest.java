@@ -25,7 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.2 $ $Date: 2004/09/09 12:16:59 $
+ * @version $Revision$ $Date$
  */
 public abstract class BaseJellyTest extends TestCase {
 

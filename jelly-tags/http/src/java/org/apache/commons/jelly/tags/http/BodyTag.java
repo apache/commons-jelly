@@ -29,7 +29,7 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag to set the body for posts and puts etc
  *
  * @author  dion
- * @version $Id: BodyTag.java,v 1.3 2002/07/14 16:44:10 dion Exp $
+ * @version $Id$
  */
 public class BodyTag extends TagSupport {
 

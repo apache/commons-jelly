@@ -23,7 +23,7 @@ import org.apache.commons.jelly.JellyTagException;
 /** Creates a JMS TextMessage
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision$
   */
 public class TextMessageTag extends MessageTag {
 

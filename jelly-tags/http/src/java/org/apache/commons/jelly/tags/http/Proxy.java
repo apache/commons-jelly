@@ -22,7 +22,7 @@ package org.apache.commons.jelly.tags.http;
  * get added to as time goes by
  *
  * @author  dion
- * @version $Id: Proxy.java,v 1.3 2002/07/04 14:06:32 dion Exp $
+ * @version $Id$
  */
 public class Proxy {
 

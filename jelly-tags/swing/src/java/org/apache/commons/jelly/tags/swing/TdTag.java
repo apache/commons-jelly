@@ -29,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
  * tag which mimicks the &lt;td&gt; HTML tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class TdTag extends TagSupport implements ContainerTag {
 

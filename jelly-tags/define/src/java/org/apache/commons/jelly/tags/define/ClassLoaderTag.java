@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * load tags froms.
  *
  * @author <a href="mailto:stephenh@chase3000.com">Stephen Haberman</a>
- * @version $Revision: 1.6 $
+ * @version $Revision$
  */
 public class ClassLoaderTag extends BeanTag {
 

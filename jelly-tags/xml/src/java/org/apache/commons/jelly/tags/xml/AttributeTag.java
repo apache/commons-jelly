@@ -23,7 +23,7 @@ import org.apache.commons.jelly.XMLOutput;
   * the <code>&lt;xsl:attribute&gt;</code> tag.
   *
   * @author James Strachan
-  * @version $Revision: 1.6 $
+  * @version $Revision$
   */
 public class AttributeTag extends TagSupport {
 

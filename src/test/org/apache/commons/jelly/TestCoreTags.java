@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.15 $
+  * @version $Revision$
   */
 public class TestCoreTags extends TestCase {
 

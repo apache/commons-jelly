@@ -24,7 +24,7 @@ import org.apache.commons.logging.Log;
  * the given category name.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class TraceTag extends LogTagSupport {
 

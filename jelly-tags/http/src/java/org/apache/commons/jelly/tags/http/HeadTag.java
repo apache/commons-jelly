@@ -25,7 +25,7 @@ import org.apache.commons.httpclient.methods.HeadMethod;
  * A http get tag
  *
  * @author  dion
- * @version $Id: HeadTag.java,v 1.2 2002/07/14 12:38:22 dion Exp $
+ * @version $Id$
  */
 public class HeadTag extends HttpTagSupport {
 

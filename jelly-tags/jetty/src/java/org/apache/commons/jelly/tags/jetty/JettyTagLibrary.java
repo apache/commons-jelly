@@ -24,7 +24,7 @@ import org.apache.commons.jelly.TagLibrary;
  * A set of jelly tags for instantiating a Jetty HTTP server
  *
  * @author rtl
- * @version $Id: JettyTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
+ * @version $Id$
  */
 public class JettyTagLibrary extends TagLibrary {
 

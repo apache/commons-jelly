@@ -25,7 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
  * to a context in a Jetty http server
  *
  * @author  rtl
- * @version $Id: JellyResourceHandlerTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * @version $Id$
  */
 public class JellyResourceHandlerTag extends TagSupport {
 

@@ -30,7 +30,7 @@ import org.apache.commons.jelly.XMLOutput;
   *
   *
   * @author Rodney Waldhoff
-  * @version $Revision: 1.10 $
+  * @version $Revision$
   */
 public class InvokeTag extends TagSupport implements ArgTagParent {
 

@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.18 $
+ * @version $Revision$
  */
 
 public class JexlExpression extends ExpressionSupport {

@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version   $Revision: 1.11 $
+ * @version   $Revision$
  */
 public class BeanTag extends UseBeanTag {
 

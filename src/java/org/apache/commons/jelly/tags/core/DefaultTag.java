@@ -31,7 +31,7 @@ import org.apache.commons.jelly.XMLOutput;
  * @see SwitchTag
  *
  * @author Rodney Waldhoff
- * @version $Revision: 1.8 $ $Date: 2004/09/09 12:27:53 $
+ * @version $Revision$ $Date$
  */
 public class DefaultTag extends TagSupport {
 

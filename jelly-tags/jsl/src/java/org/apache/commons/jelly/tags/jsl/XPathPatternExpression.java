@@ -23,7 +23,7 @@ import org.jaxen.VariableContext;
 /** An expression which returns an XPath based Pattern (like an XSLT pattern).
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision$
   */
 public class XPathPatternExpression extends ExpressionSupport implements VariableContext {
 

@@ -25,7 +25,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
  * A http put
  *
  * @author  dion
- * @version $Id: PutTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * @version $Id$
  */
 public class PutTag extends HttpTagSupport {
 

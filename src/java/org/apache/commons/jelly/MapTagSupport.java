@@ -28,7 +28,7 @@ import java.util.Map;
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision$
  */
 
 public abstract class MapTagSupport extends DynaTagSupport {

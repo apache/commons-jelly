@@ -30,7 +30,7 @@ import org.apache.commons.jelly.XMLOutput;
  * doesn't do anything funky.
  *
  * @author Morgan Delagrange
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class TestDummyXMLOutput extends TestCase {
 

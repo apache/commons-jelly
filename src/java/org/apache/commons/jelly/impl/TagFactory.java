@@ -27,7 +27,7 @@ import org.xml.sax.Attributes;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.16 $
+ * @version $Revision$
  */
 public interface TagFactory {
 

@@ -28,7 +28,7 @@ import java.util.StringTokenizer;
  * Declare a static file resource handler for a Jetty http server
  *
  * @author  rtl
- * @version $Id: ResourceHandlerTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * @version $Id$
  */
 public class ResourceHandlerTag extends TagSupport {
 

@@ -28,7 +28,7 @@ import org.apache.oro.text.regex.MalformedPatternException;
  * Base class for tags using the Oro Regexp library.
  *
  * @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
- * @version $Revision: 1.1 $
+ * @version $Revision$
  */
 public abstract class RegexpTag extends TagSupport {
     private Perl5Matcher patternMatcher = new Perl5Matcher();

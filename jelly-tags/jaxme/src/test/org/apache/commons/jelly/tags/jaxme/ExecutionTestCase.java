@@ -22,7 +22,7 @@ import junit.framework.TestSuite;
  *
  *
  * @author <a href="mailto:commons-dev at jakarta.apache.org">Jakarta Commons Development Team</a>
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 public class ExecutionTestCase extends JellyTestSuite {
 

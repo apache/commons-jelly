@@ -21,7 +21,7 @@ import org.apache.commons.jelly.JellyException;
 /** <p><code>ExpressionFactory</code> is a factory of Expression objects.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision$
   */
 public interface ExpressionFactory {
 

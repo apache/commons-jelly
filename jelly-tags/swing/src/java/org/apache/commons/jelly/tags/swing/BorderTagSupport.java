@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
  * and sets then on parent widgets and optionally export them as variables .
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public abstract class BorderTagSupport extends TagSupport {
 

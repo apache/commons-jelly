@@ -37,7 +37,7 @@ import org.apache.ws.jaxme.js.JavaSourceFactory;
  *
  * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
  * @author <a href="mailto:commons-dev at jakarta.apache.org">Jakarta Commons Development Team</a>
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 public class GeneratorTag extends TagSupport {
         

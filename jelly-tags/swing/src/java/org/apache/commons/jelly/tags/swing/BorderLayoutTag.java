@@ -25,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
  * A Layout tag which uses nested &lt;borderAlign&gt; tags to implement a BorderLayout
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class BorderLayoutTag extends LayoutTagSupport {
 

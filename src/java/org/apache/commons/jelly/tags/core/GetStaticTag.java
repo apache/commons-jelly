@@ -38,7 +38,7 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
  *              field="EXIT_ON_CLOSE"/&gt;
  * </pre>
  *
- * @version $Revision: 1.3 $
+ * @version $Revision$
  */
 
 public class GetStaticTag extends TagSupport {

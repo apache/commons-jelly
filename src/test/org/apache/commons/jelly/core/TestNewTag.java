@@ -25,7 +25,7 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.8 $ $Date: 2004/10/26 23:54:37 $
+ * @version $Revision$ $Date$
  */
 public class TestNewTag extends BaseJellyTest {
 

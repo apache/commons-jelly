@@ -27,7 +27,7 @@ import org.apache.commons.jelly.XMLOutput;
  * JUnit's TestSuite class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class SuiteTag extends TagSupport {
 

@@ -24,7 +24,7 @@ import org.apache.commons.jelly.TagLibrary;
  * The set of jelly tags provided by Latka
  *
  * @author dion
- * @version $Id: HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
+ * @version $Id$
  */
 public class HttpTagLibrary extends TagLibrary {
 

@@ -35,7 +35,7 @@ import org.xml.sax.SAXException;
   * html property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision$
   */
 public class ParseTag extends ParseTagSupport {
 

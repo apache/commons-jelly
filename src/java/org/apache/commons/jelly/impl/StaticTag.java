@@ -27,7 +27,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.19 $
+ * @version $Revision$
  */
 
 public class StaticTag extends DynaTagSupport {

@@ -31,7 +31,7 @@ import org.jaxen.XPath;
  * true. If the expression returns false then this test fails.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class AssertTag extends AssertTagSupport {
 

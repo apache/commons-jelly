@@ -40,7 +40,7 @@ import java.util.Map;
  * The actual http handler implementation for an http context in an http server
  *
  * @author  rtl
- * @version $Id: JellyResourceHttpHandler.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * @version $Id$
  */
 class JellyResourceHttpHandler extends AbstractHttpHandler {
 

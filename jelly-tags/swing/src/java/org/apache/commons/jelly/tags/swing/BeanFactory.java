@@ -19,7 +19,7 @@ package org.apache.commons.jelly.tags.swing;
  * A default Factory implementation that creates new instances from a bean class
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class BeanFactory implements Factory {
 

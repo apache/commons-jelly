@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  * the tag set the bean properties..
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision$
  */
 public class BeandefTag extends TagSupport {
 

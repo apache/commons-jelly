@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author <a href="mailto:jason@zenplex.com">Jason van Zyl</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
 

@@ -20,7 +20,7 @@ package org.apache.commons.jelly;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 public class MissingAttributeException extends JellyTagException {
 

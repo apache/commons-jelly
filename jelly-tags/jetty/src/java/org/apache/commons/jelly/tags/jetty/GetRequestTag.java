@@ -20,7 +20,7 @@ package org.apache.commons.jelly.tags.jetty;
  * Respond to a GET request to a Jetty http server
  *
  * @author  rtl
- * @version $Id: PutRequestTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * @version $Id$
  */
 public class GetRequestTag extends AbstractMethodHandlerTag {
 

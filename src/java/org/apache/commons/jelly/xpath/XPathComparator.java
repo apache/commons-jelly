@@ -28,7 +28,7 @@ import org.jaxen.XPath;
  * comparing it.
  *
  * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
- * @version $Id: XPathComparator.java,v 1.4 2004/09/09 12:29:36 dion Exp $
+ * @version $Id$
  */
 
 public class XPathComparator implements Comparator {

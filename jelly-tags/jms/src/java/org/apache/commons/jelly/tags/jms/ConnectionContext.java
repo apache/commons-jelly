@@ -24,7 +24,7 @@ import org.apache.commons.messenger.Messenger;
 /** Represents a context capable of providing a Messenger connection to use
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision$
   */
 public interface ConnectionContext {
 

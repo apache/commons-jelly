@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * class will be loaded.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision$
  */
 public class DefaultTagLibraryResolver implements TagLibraryResolver {
 

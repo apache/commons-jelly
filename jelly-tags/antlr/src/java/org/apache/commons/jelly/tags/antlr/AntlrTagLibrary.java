@@ -20,7 +20,7 @@ import org.apache.commons.jelly.TagLibrary;
 /** Implements tags that are useful for working with ANTLR.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- *  @version $Revision: 1.4 $
+ *  @version $Revision$
  */
 public class AntlrTagLibrary extends TagLibrary
 {

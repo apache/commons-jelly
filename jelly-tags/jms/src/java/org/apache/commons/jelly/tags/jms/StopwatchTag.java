@@ -30,7 +30,7 @@ import org.apache.commons.messenger.tool.StopWatchMessageListener;
  * This tag can be wrapped around any custom JMS tag which consumes JMS messages.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
 

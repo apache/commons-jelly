@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
   * <code>forEach</code> tag does.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.29 $
+  * @version $Revision$
   */
 public class ForEachTag extends TagSupport {
 

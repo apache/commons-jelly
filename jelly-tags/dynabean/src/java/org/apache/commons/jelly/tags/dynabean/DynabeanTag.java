@@ -26,7 +26,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author Theo Niemeijer
-  * @version $Revision: 1.5 $
+  * @version $Revision$
   */
 public class DynabeanTag extends TagSupport {
 

@@ -28,7 +28,7 @@ import org.xml.sax.SAXParseException;
  * JellyUnit to implement an assertion.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class AssertValidTag extends ValidateTag {
 

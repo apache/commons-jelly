@@ -22,7 +22,7 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author <a href="mailto:bwalding@apache.org">Ben Walding</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class TestChooseTag extends BaseJellyTest
 {

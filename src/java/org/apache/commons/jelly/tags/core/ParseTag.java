@@ -39,7 +39,7 @@ import org.xml.sax.XMLReader;
  * then either outputting the Script as a variable or executing the script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class ParseTag extends TagSupport {
 

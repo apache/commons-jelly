@@ -37,7 +37,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Servlet for handling display of Jelly-fied XML files. Modelled after VelocityServlet.
  *
  * @author Kelvin Tan
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class JellyServlet extends HttpServlet {
     /**

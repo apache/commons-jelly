@@ -32,7 +32,7 @@ import org.apache.commons.jelly.XMLOutput;
  * The base tag for all http requests
  *
  * @author  dion
- * @version $Id: HttpTagSupport.java,v 1.3 2002/07/14 16:51:33 dion Exp $
+ * @version $Id$
  */
 public abstract class HttpTagSupport extends TagSupport {
 

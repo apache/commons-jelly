@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
  *    (using {@link setBasedOn}.
  *
  * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
- * @version $Revision: $
+ * @version $Revision$
  */
 public class GridBagConstraintBean extends GridBagConstraints {
 

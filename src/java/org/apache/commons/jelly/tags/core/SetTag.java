@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which sets a variable from the result of an expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.18 $
+  * @version $Revision$
   */
 public class SetTag extends TagSupport {
 

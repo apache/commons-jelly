@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
  * Tests the Swing converters
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision$
  */
 public class TestConverters extends TestCase {
 

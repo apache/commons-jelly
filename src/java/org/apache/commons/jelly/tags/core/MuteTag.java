@@ -28,7 +28,7 @@ import org.xml.sax.helpers.DefaultHandler;
  * A future version should go more internally so that this is avoided.
  *
  * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
   */
 public class MuteTag extends TagSupport {
 

@@ -35,7 +35,7 @@ import java.io.Writer;
  * JellyContext or in a specified file.
  *
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id: MergeTag.java,v 1.4 2004/09/09 12:23:16 dion Exp $
+ * @version $Id$
  */
 public class MergeTag extends VelocityTagSupport
 {

@@ -25,7 +25,7 @@ import org.xml.sax.SAXException;
 /** <p><code>TextScript</code> outputs some static text.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.17 $
+  * @version $Revision$
   */
 public class TextScript implements Script {
 

@@ -33,7 +33,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Invokes a web service
  * 
  * @author <a href="mailto:jim@bnainc.net">James Birchfield</a>
- * @version $Revision: 1.1 $
+ * @version $Revision$
  */
 public class InvokeRawTag extends TagSupport
 {

@@ -28,7 +28,7 @@ import org.apache.commons.messenger.Messenger;
 /** A tag which creates a JMS message
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision$
   */
 public class MessageTag extends TagSupport {
 

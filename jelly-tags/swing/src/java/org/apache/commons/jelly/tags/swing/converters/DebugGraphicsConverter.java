@@ -26,7 +26,7 @@ import org.apache.commons.beanutils.ConvertUtils;
  *    {@link DebugGraphics} to their appropriate integer constant.
  *
  * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
- * @version $Revision: $
+ * @version $Revision$
  */
 public class DebugGraphicsConverter implements Converter {
 

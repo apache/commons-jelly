@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
 /** Receives a JMS message.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision$
   */
 public class ReceiveTag extends MessageOperationTag {
 

@@ -24,7 +24,7 @@ import org.apache.commons.jelly.TagLibrary;
  * The generation tag is JaxMe specific.
  *
  * @author <a href="mailto:commons-dev at jakarta.apache.org">Jakarta Commons Development Team</a>
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 public class JaxMeTagLibrary extends TagLibrary {
         

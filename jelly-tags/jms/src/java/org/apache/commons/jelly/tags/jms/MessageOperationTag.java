@@ -25,7 +25,7 @@ import org.apache.commons.messenger.Messenger;
 /** An abstract base class for JMS Message operation tags such as send, receive or call.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision$
   */
 public abstract class MessageOperationTag extends TagSupport implements ConnectionContext {
 

@@ -28,7 +28,7 @@ import org.apache.tools.ant.Project;
 /** <p><code>AntJellyContext</code> represents the Jelly context from inside Ant.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision$
   */
 
 public class AntJellyContext extends JellyContext {

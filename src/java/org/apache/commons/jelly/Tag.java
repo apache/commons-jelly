@@ -25,7 +25,7 @@ package org.apache.commons.jelly;
  * in JSP 1.x.(</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.17 $
+ * @version $Revision$
  */
 public interface Tag {
 

@@ -59,7 +59,7 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class ComponentTag extends UseBeanTag implements ContainerTag {
 

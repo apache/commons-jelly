@@ -26,7 +26,7 @@ import org.apache.commons.jelly.util.TagUtils;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.35 $
+  * @version $Revision$
   */
 
 public abstract class TagSupport implements Tag {

@@ -21,7 +21,7 @@ package org.apache.commons.jelly;
  * implementation.</p>
  *
  * @author <a href="mailto:morgand@apache.org">Morgan Delagrange</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 
 public class JellyTagException extends JellyException {

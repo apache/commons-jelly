@@ -20,7 +20,7 @@ package org.apache.commons.jelly.tags.swing;
  * An interface to represent a factory of beans
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public interface Factory {
 

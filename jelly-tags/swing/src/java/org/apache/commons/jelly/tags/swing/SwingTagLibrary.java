@@ -44,7 +44,7 @@ import org.xml.sax.Attributes;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.6 $
+ * @version $Revision$
  */
 public class SwingTagLibrary extends TagLibrary {
 

@@ -24,7 +24,7 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag to hold parameters
  *
  * @author  dion
- * @version $Id: ParameterTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * @version $Id$
  */
 public class ParameterTag extends TagSupport {
     /** parameter name */

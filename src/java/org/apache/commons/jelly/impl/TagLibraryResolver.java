@@ -23,7 +23,7 @@ import org.apache.commons.jelly.TagLibrary;
  * resolving a URI to a TagLibrary instance.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision$
  */
 public interface TagLibraryResolver {
 

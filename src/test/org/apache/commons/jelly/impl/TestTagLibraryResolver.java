@@ -23,7 +23,7 @@ import junit.textui.TestRunner;
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision$
   */
 public class TestTagLibraryResolver extends TestCase {
 

@@ -24,7 +24,7 @@ import org.apache.commons.jelly.XMLOutput;
  * a tag extends an existing tag
  *
  * @author <a href="mailto:tima@intalio.com">Tim Anderson</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  * @see ExtendTag
  */
 public class SuperTag extends TagSupport {

@@ -22,7 +22,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
- * @version $Revision: 1.3 $
+ * @version $Revision$
  */
 
 public class TestGetStaticTag extends BaseJellyTest {

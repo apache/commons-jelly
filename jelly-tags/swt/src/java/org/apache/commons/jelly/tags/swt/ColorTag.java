@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Widget;
  *
  * @author <a href="mailto:crafterm@apache.org">Marcus Crafter</a>
  * @author Written with much help thanks to the ImageTag class
- * @version CVS $Id: ColorTag.java,v 1.2 2004/09/09 12:20:26 dion Exp $
+ * @version CVS $Id$
  */
 public class ColorTag extends TagSupport {
 

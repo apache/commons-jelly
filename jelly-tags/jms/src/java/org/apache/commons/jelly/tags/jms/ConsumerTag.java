@@ -24,7 +24,7 @@ import javax.jms.MessageListener;
  * transactional message consumer tags, stopwatch wrappers etc.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision$
  */
 public interface ConsumerTag {
 

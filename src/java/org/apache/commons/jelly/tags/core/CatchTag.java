@@ -25,7 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
  * are thrown or to do some kind of custom exception logging logic.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class CatchTag extends TagSupport {
 

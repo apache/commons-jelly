@@ -26,7 +26,7 @@ import org.apache.commons.jelly.impl.TextScript;
  * Tests the whitespace triming of scripts.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision$
  */
 public class TestTrim extends TestCase {
 

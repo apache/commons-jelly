@@ -19,7 +19,7 @@ package org.apache.commons.jelly.tags.regexp;
  * This tag checks whether a regexp matches a string.
  *
  * @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
- * @version $Revision: 1.1 $
+ * @version $Revision$
  */
 public class MatchTag extends RegexpTag {
     protected boolean getResult() {

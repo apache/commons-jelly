@@ -31,7 +31,7 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
  * allowing runtime extension of tag libraries
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision$
  */
 public class TaglibTag extends TagSupport {
 

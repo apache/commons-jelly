@@ -25,7 +25,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
 /** Represents a factory of <a href="http://www.beanshell.org">beanshell</a> expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision$
   */
 public class BeanShellExpressionFactory implements ExpressionFactory {
 

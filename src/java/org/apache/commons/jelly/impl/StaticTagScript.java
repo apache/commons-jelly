@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
  * a new dynamic tag has not been generated.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision$
  */
 public class StaticTagScript extends TagScript {
 

@@ -33,7 +33,7 @@ import org.apache.commons.jelly.expression.Expression;
  * So this class is like a {@link DynaBean} implemenation of {@link DynamicBeanTag}
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource {
 

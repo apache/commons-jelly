@@ -28,7 +28,7 @@ import java.io.IOException;
   * or elements like the <code>&lt;xsl:element&gt;</code> tag.
   *
   * @author James Strachan
-  * @version $Revision: 1.5 $
+  * @version $Revision$
   */
 public class ElementTag extends TagSupport {
 

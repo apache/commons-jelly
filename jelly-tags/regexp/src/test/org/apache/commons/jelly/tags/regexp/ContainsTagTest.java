@@ -24,7 +24,7 @@ import org.apache.commons.jelly.tags.regexp.ContainsTag;
 * in strings.</p>
 *
 * @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
-* @version $Revision: 1.1 $
+* @version $Revision$
 */
 public class ContainsTagTest extends TestCase {
 

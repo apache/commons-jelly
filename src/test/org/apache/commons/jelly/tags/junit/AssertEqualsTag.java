@@ -24,7 +24,7 @@ import org.apache.commons.jelly.expression.Expression;
  * then the test will fail.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class AssertEqualsTag extends AssertTagSupport {
 

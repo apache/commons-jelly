@@ -48,7 +48,8 @@ public class AssertThrowsTag extends AssertTagSupport {
     private String expected;
 
     /**
-     * Sets the ClassLoader to be used when loading an exception class     */
+     * Sets the ClassLoader to be used when loading an exception class
+     */
     private ClassLoader classLoader;
 
     // Tag interface
@@ -100,7 +101,8 @@ public class AssertThrowsTag extends AssertTagSupport {
     }
 
     /**
-     * Sets the class loader to be used to load the exception type     */
+     * Sets the class loader to be used to load the exception type
+     */
     public void setClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
     }

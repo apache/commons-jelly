@@ -31,7 +31,7 @@ import org.apache.commons.logging.LogFactory;
  * specified for the named event type.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision$
  */
 public class WindowListenerTag extends TagSupport {
 

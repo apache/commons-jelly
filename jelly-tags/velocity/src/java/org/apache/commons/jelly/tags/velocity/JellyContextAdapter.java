@@ -33,7 +33,7 @@ import org.apache.velocity.context.Context;
  * to the JellyContext.
  *
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id: JellyContextAdapter.java,v 1.4 2004/09/09 12:23:16 dion Exp $
+ * @version $Id$
  */
 public class JellyContextAdapter implements Context
 {

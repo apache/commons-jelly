@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
 
 /**
  * @author stephen
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class DynamicTag extends TagSupport
 {

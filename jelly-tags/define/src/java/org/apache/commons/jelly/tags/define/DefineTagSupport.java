@@ -24,7 +24,7 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
  * An abstract base class useful for implementation inheritence.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public abstract class DefineTagSupport extends TagSupport {
 

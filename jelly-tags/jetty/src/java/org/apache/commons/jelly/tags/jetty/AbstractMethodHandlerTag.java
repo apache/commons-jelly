@@ -25,7 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
  * in an http context in an http server
  *
  * @author  rtl
- * @version $Id: AbstractMethodHandlerTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * @version $Id$
  */
 abstract public class AbstractMethodHandlerTag extends TagSupport {
 

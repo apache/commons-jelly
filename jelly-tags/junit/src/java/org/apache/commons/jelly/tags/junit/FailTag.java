@@ -23,7 +23,7 @@ import org.apache.commons.jelly.XMLOutput;
  * be specified in the tags body or via the message attribute.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class FailTag extends AssertTagSupport {
 

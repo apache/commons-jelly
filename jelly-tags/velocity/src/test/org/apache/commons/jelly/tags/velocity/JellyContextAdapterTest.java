@@ -30,7 +30,7 @@ import org.apache.commons.collections.CollectionUtils;
  * Unit test for <code>JellyContextAdapter</code>.
  *
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id: JellyContextAdapterTest.java,v 1.3 2004/09/09 12:23:17 dion Exp $
+ * @version $Id$
  */
 public class JellyContextAdapterTest extends TestCase
 {

@@ -34,7 +34,7 @@ import java.io.PrintWriter;
  * </pre>
  *
  * @author James Strachan
- * @version $Revision: 1.2 $
+ * @version $Revision$
  */
 
 public class NestedRuntimeException extends RuntimeException {

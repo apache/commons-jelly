@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.RGB;
  * A Converter that converts Strings in the form "#uuuuuu" or "x,y,z" into a RGB object
  *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
- * @version $Revision: 1.5 $
+ * @version $Revision$
  */
 public class ColorConverter implements Converter {
 

@@ -32,7 +32,7 @@ import org.apache.commons.jelly.XMLOutput;
  * that do not exist
  *
  * @author Morgan Delagrange
- * @version $Revision: 1.6 $
+ * @version $Revision$
  */
 public class TestNonexistentTags extends TestCase {
      Jelly jelly = null;
