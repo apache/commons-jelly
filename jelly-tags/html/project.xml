@@ -39,7 +39,21 @@
       <version>0.7.1</version>
     </dependency>
     
-    <!-- END for compilation -->
+
+    <!-- START for running demos -->
+
+    <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+      <id>commons-jelly+tags-jsl</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    
+    <!-- END for running demos -->
+  
     
   </dependencies>
   

@@ -1,3 +1,23 @@
 <project default="java:jar">
 
+	<!-- define jelly task --> 
+		
+	<goal name="set-classpath" prereqs="java:compile, test:compile"> 
+		<path id="test.classpath"> 
+			<pathelement path="${maven.build.dest}"/> 
+			<pathelement path="target/classes"/> 
+			<pathelement path="target/test-classes"/> 
+			<path refid="maven.dependency.classpath"/> 
+		</path> 
+	</goal> 
+
+  <goal name="demo:radio2pda" prereqs="set-classpath" 
+  	description="Converts the HTML news output of Radio Userland to simple HTML viewable on a PDA"> 
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes"> 
+      <classpath refid="test.classpath"/> 
+      <arg value="src/test/org/apache/commons/jelly/html/radioToPDA.jelly"/> 
+        <sysproperty key="outputFile" value="${pdaOutputFile}"/> 
+     </java> 
+  </goal> 
+
 </project>
