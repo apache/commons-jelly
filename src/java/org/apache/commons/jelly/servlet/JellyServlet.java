@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/servlet/JellyServlet.java,v 1.3 2002/12/17 08:32:56 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/12/17 08:32:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/servlet/JellyServlet.java,v 1.4 2003/01/24 10:04:33 morgand Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/01/24 10:04:33 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyServlet.java,v 1.3 2002/12/17 08:32:56 jstrachan Exp $
+ * $Id: JellyServlet.java,v 1.4 2003/01/24 10:04:33 morgand Exp $
  */
 
 package org.apache.commons.jelly.servlet;
@@ -76,13 +76,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Servlet for handling display of Jelly-fied XML files. Modelled after VelocityServlet.
  * 
  * @author Kelvin Tan
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class JellyServlet extends HttpServlet {
 	/**
@@ -183,14 +184,14 @@ public class JellyServlet extends HttpServlet {
 	 * @param res
 	 * @throws IOException
 	 * @throws UnsupportedEncodingException
-	 * @throws Exception
+	 * @throws JellyException
 	 */
 	protected void runScript(
 		URL script,
 		JellyContext context,
 		HttpServletRequest req,
 		HttpServletResponse res)
-		throws IOException, UnsupportedEncodingException, Exception {
+		throws IOException, UnsupportedEncodingException, JellyException {
 
 		ServletOutputStream output = res.getOutputStream();
 		XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);

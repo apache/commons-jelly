@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.33 2003/01/24 05:26:13 morgand Exp $
- * $Revision: 1.33 $
- * $Date: 2003/01/24 05:26:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.34 2003/01/24 10:04:32 morgand Exp $
+ * $Revision: 1.34 $
+ * $Date: 2003/01/24 10:04:32 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.33 2003/01/24 05:26:13 morgand Exp $
+ * $Id: TagScript.java,v 1.34 2003/01/24 10:04:32 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -96,7 +96,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.33 $
+ * @version $Revision: 1.34 $
  */
 public class TagScript implements Script {
 
@@ -565,7 +565,7 @@ public class TagScript implements Script {
      * @param requiredType the type that the value should be converted to
      */
     protected Object convertType(Object value, Class requiredType)
-        throws Exception {
+        throws JellyException {
         if (requiredType.isInstance(value)) {
             return value;
         }

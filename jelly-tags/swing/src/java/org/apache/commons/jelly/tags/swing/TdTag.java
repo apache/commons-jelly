@@ -98,7 +98,7 @@ public class TdTag extends TagSupport implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
-    public void addChild(Component component, Object constraints) throws Exception {
+    public void addChild(Component component, Object constraints) throws JellyException {
         // add my child component to the layout manager
         TrTag tag = (TrTag) findAncestorWithClass( TrTag.class );
         if (tag == null) {

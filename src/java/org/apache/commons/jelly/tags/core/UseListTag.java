@@ -106,12 +106,12 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
-    protected void setBeanProperties(Object bean, Map attributes) throws Exception {
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyException {
         items = (Expression) attributes.remove("items");
         super.setBeanProperties(bean, attributes);
     }
     
-    protected void processBean(String var, Object bean) throws Exception {
+    protected void processBean(String var, Object bean) throws JellyException {
         super.processBean(var, bean);
         
         List list = getList();

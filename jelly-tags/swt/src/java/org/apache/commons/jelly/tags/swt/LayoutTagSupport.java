@@ -62,11 +62,13 @@
 package org.apache.commons.jelly.tags.swt;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -118,7 +120,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     /**
      * Either defines a variable or adds the current component to the parent
      */
-    protected void processBean(String var, Object bean) throws Exception {
+    protected void processBean(String var, Object bean) throws JellyException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -128,7 +130,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
      */
     protected void setBeanProperties(Object bean, Map attributes)
-        throws Exception {
+        throws JellyException {
             
         if (bean != null) {
             Class theClass = bean.getClass();
@@ -139,16 +141,24 @@ public abstract class LayoutTagSupport extends UseBeanTag {
                 
                 value = convertValue(bean, name, value);
                 
-                // lets first see if there's a field available
-                Field field = theClass.getField(name);
-                if (field != null) {
-                    if (value instanceof String) {
-                        value = ConvertUtils.convert((String) value, field.getType());
+                try {
+                    // lets first see if there's a field available
+                    Field field = theClass.getField(name);
+                    if (field != null) {
+                        if (value instanceof String) {
+                            value = ConvertUtils.convert((String) value, field.getType());
+                        }
+                        field.set(bean, value);
                     }
-                    field.set(bean, value);
-                }
-                else {
-                    BeanUtils.setProperty(bean, name, value);
+                    else {
+                        BeanUtils.setProperty(bean, name, value);
+                    }
+                } catch (NoSuchFieldException e) {
+                    throw new JellyException(e);
+                } catch (IllegalAccessException e) {
+                    throw new JellyException(e);
+                } catch (InvocationTargetException e) {
+                    throw new JellyException(e);
                 }
             }
         }
@@ -163,7 +173,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @param value the value of the property
      * @return the new value
      */
-    protected Object convertValue(Object bean, String name, Object value) throws Exception {
+    protected Object convertValue(Object bean, String name, Object value) throws JellyException {
         return value;
     }
 

@@ -96,7 +96,7 @@ public class TrTag extends TagSupport {
     /**
      * Adds a new cell to this row
      */
-    public void addCell(Component component, GridBagConstraints constraints) throws Exception {
+    public void addCell(Component component, GridBagConstraints constraints) throws JellyException {
         constraints.gridx = cells.size();
         cells.add(new Cell(constraints, component));
     }        

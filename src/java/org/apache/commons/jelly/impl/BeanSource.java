@@ -61,6 +61,8 @@
  */
 package org.apache.commons.jelly.impl;
 
+import org.apache.commons.jelly.JellyException;
+
 /** 
  * A tag which is associated with a JavaBean, such as a {@link DynamicBeanTag}
  *
@@ -72,5 +74,5 @@ public interface BeanSource {
     /** 
      * @return the bean to which this tag is associated
      */
-    public Object getBean() throws Exception;
+    public Object getBean() throws JellyException;
 }

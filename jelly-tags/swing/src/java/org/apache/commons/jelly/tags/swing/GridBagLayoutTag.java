@@ -87,7 +87,7 @@ public class GridBagLayoutTag extends LayoutTagSupport {
     /**
      * Creates a GridBagLayout
      */
-    protected LayoutManager createLayoutManager() throws Exception {
+    protected LayoutManager createLayoutManager() {
         return new GridBagLayout();        
     }
 }

@@ -66,6 +66,7 @@ import java.awt.GridBagConstraints;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.jelly.tags.swing.impl.GridBagConstraintBean;
@@ -106,7 +107,7 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
-    public void addChild(Component component, Object constraints) throws Exception {
+    public void addChild(Component component, Object constraints) throws JellyException {
         GridBagLayoutTag tag = (GridBagLayoutTag) findAncestorWithClass( GridBagLayoutTag.class );
         if (tag == null) {
             throw new JellyException( "this tag must be nested within a <tr> tag" );
@@ -120,7 +121,8 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     /**
      * A class may be specified otherwise the Factory will be used.
      */
-    protected Class convertToClass(Object classObject) throws Exception {
+    protected Class convertToClass(Object classObject) 
+    throws MissingAttributeException, ClassNotFoundException {
         if (classObject == null) {
             return null;
         }
@@ -132,9 +134,15 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     /**
      * A class may be specified otherwise the Factory will be used.
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws Exception {
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyException {
         if (theClass != null ) {
-            return theClass.newInstance();
+            try {
+                return theClass.newInstance();
+            } catch (IllegalAccessException e) {
+                throw new JellyException(e);
+            } catch (InstantiationException e) {
+                throw new JellyException(e);
+            }
         }
         else {
             return new GridBagConstraintBean();

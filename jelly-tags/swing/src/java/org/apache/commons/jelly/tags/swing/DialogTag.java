@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/swing/src/java/org/apache/commons/jelly/tags/swing/DialogTag.java,v 1.1 2003/01/03 21:22:36 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/03 21:22:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/swing/src/java/org/apache/commons/jelly/tags/swing/DialogTag.java,v 1.2 2003/01/24 10:04:30 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/24 10:04:30 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DialogTag.java,v 1.1 2003/01/03 21:22:36 morgand Exp $
+ * $Id: DialogTag.java,v 1.2 2003/01/24 10:04:30 morgand Exp $
  */
 package org.apache.commons.jelly.tags.swing;
 
@@ -68,6 +68,7 @@ import java.awt.Frame;
 import java.util.Map;
 import javax.swing.JDialog;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
@@ -78,7 +79,7 @@ import org.apache.commons.logging.LogFactory;
  * which is why this class is needed instead of just using a BeanFactory.
  *
  * @author Dave Pekarek Krohn
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class DialogTag extends UseBeanTag implements ContainerTag {
 
@@ -95,7 +96,8 @@ public class DialogTag extends UseBeanTag implements ContainerTag {
     /**
      * Creates a JDialog.  The constructor used depends on the value of the owner attribute.
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws Exception {
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) 
+    throws JellyException {
         Object owner = attributes.remove( "owner" );
         if (owner instanceof Frame) {
             return new JDialog((Frame) owner);

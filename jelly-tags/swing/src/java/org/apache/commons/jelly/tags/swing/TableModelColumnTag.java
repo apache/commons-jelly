@@ -87,7 +87,7 @@ public class TableModelColumnTag extends UseBeanTag {
 
     // Implementation methods
     //-------------------------------------------------------------------------                    
-    protected void processBean(String var, Object bean) throws Exception {
+    protected void processBean(String var, Object bean) throws JellyException {
         super.processBean(var, bean);
 
         TableModelTag tag = (TableModelTag) findAncestorWithClass( TableModelTag.class );

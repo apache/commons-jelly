@@ -82,7 +82,7 @@ public class TableModelTag extends UseBeanTag {
 
     // Implementation methods
     //-------------------------------------------------------------------------                    
-    protected void processBean(String var, Object bean) throws Exception {
+    protected void processBean(String var, Object bean) throws JellyException {
         super.processBean(var, bean);
 
         ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );

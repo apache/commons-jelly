@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.10 2002/12/11 12:40:54 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/12/11 12:40:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.11 2003/01/24 10:04:33 morgand Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/01/24 10:04:33 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.10 2002/12/11 12:40:54 jstrachan Exp $
+ * $Id: SetTag.java,v 1.11 2003/01/24 10:04:33 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -75,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which sets a variable from the result of an expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 public class SetTag extends TagSupport {
 
@@ -187,7 +188,7 @@ public class SetTag extends TagSupport {
 
     // Implementation methods
     //-------------------------------------------------------------------------                
-    protected void setPropertyValue( Object target, String property, Object value ) throws Exception {
+    protected void setPropertyValue( Object target, String property, Object value ) {
         try {
             if ( target instanceof Map ) {
                 Map map = (Map) target;
@@ -196,8 +197,9 @@ public class SetTag extends TagSupport {
             else {
                 BeanUtils.setProperty( target, property, value );       
             }
-        }
-        catch (Exception e) {
+        } catch (InvocationTargetException e) {
+            log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
+        } catch (IllegalAccessException e) {
             log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
         }
     }

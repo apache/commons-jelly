@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.44 2003/01/23 22:25:01 morgand Exp $
- * $Revision: 1.44 $
- * $Date: 2003/01/23 22:25:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.45 2003/01/24 10:04:33 morgand Exp $
+ * $Revision: 1.45 $
+ * $Date: 2003/01/24 10:04:33 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.44 2003/01/23 22:25:01 morgand Exp $
+ * $Id: XMLParser.java,v 1.45 2003/01/24 10:04:33 morgand Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -79,6 +79,7 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.commons.collections.ArrayStack;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
@@ -113,7 +114,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.44 $
+ * @version $Revision: 1.45 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -745,11 +746,7 @@ public class XMLParser extends DefaultHandler {
             else {
                 tagScript = (TagScript) tagScriptStack.get(tagScriptStack.size() - 1);
             }
-        }
-        catch (SAXException e) {
-            throw e;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error( "Caught exception: " + e, e );
             throw new SAXException( "Runtime Exception: " + e, e );            
         }
@@ -1159,7 +1156,7 @@ public class XMLParser extends DefaultHandler {
      * Adds the text to the current script block parsing any embedded
      * expressions inot ExpressionScript objects.
      */
-    protected void addTextScript(String text) throws Exception {
+    protected void addTextScript(String text) throws JellyException {
         Expression expression =
             CompositeExpression.parse(text, getExpressionFactory());
 
@@ -1199,8 +1196,7 @@ public class XMLParser extends DefaultHandler {
     protected Expression createConstantExpression(
         String tagName,
         String attributeName,
-        String attributeValue)
-        throws Exception {
+        String attributeValue)  {
         return new ConstantExpression(attributeValue);
     }
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/21 15:16:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.3 2003/01/24 10:04:30 morgand Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/24 10:04:30 $
  *
  * ====================================================================
  *
@@ -57,11 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * $Id: BeanTag.java,v 1.3 2003/01/24 10:04:30 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
@@ -81,7 +82,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version   $Revision: 1.2 $
+ * @version   $Revision: 1.3 $
  */
 public class BeanTag extends UseBeanTag {
 
@@ -118,7 +119,7 @@ public class BeanTag extends UseBeanTag {
      * Output the tag as a named variable. If the parent bean has an adder or setter
      * method then invoke that to register this bean with its parent.
      */
-    protected void processBean(String var, Object bean) throws Exception {
+    protected void processBean(String var, Object bean) throws JellyException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -144,7 +145,13 @@ public class BeanTag extends UseBeanTag {
                         }
                     }
                     else {
-                        BeanUtils.setProperty(parentObject, tagName, bean);
+                        try {
+                          BeanUtils.setProperty(parentObject, tagName, bean);
+                        } catch (IllegalAccessException e) {
+                            throw new JellyException(e);
+                        } catch (InvocationTargetException e) {
+                            throw new JellyException(e);
+                        }
                     }
                 }
                 
@@ -180,7 +187,7 @@ public class BeanTag extends UseBeanTag {
     /**
      * @return the parent bean object
      */
-    protected Object getParentObject() throws Exception {
+    protected Object getParentObject() throws JellyException {
         BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
         if (tag != null) {
             return tag.getBean();

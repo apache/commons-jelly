@@ -69,6 +69,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
@@ -128,7 +129,7 @@ public class ActionTag extends UseBeanTag {
      * An existing Action could be specified via the 'action' attribute or an action class 
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
-    protected Class convertToClass(Object classObject) throws Exception {
+    protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
         if (classObject == null) {
             return null;
         }
@@ -141,11 +142,19 @@ public class ActionTag extends UseBeanTag {
      * An existing Action could be specified via the 'action' attribute or an action class 
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
-    protected Object newInstance(Class theClass, Map attributes, final XMLOutput output) throws Exception {
+    protected Object newInstance(Class theClass, Map attributes, final XMLOutput output) throws JellyException {
         Action action = (Action) attributes.remove( "action" );
         if ( action == null ) {
             if (theClass != null ) {
-                return theClass.newInstance();
+                
+                try {
+                    return theClass.newInstance();
+                } catch (InstantiationException e) {
+                    throw new JellyException(e);
+                } catch (IllegalAccessException e) {
+                    throw new JellyException(e);
+                }
+                
             }
             else {
                 action = new AbstractAction() {
@@ -168,7 +177,7 @@ public class ActionTag extends UseBeanTag {
     /**
      * Either defines a variable or adds the current component to the parent
      */    
-    protected void processBean(String var, Object bean) throws Exception {
+    protected void processBean(String var, Object bean) throws JellyException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -187,7 +196,7 @@ public class ActionTag extends UseBeanTag {
     /**
      * Perform the strange setting of Action properties using its custom API
      */
-    protected void setBeanProperties(Object bean, Map attributes) throws Exception {
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyException {
         Action action = getAction();
         for ( Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iter.next();

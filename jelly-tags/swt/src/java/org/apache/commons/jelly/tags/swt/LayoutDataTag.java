@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.tags.swt;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyException;
@@ -93,7 +94,7 @@ public class LayoutDataTag extends LayoutTagSupport {
     /**
      * Either defines a variable or adds the current component to the parent
      */
-    protected void processBean(String var, Object bean) throws Exception {
+    protected void processBean(String var, Object bean) throws JellyException {
         super.processBean(var, bean);
 
         Widget parent = getParentWidget();
@@ -115,7 +116,7 @@ public class LayoutDataTag extends LayoutTagSupport {
         Class theClass,
         Map attributes,
         XMLOutput output)
-        throws Exception {
+        throws JellyException {
             
         String text = (String) attributes.remove("style");
         if (text != null) {
@@ -123,10 +124,21 @@ public class LayoutDataTag extends LayoutTagSupport {
             
             // now lets try invoke a constructor
             Class[] types = { int.class };
-            Constructor constructor = theClass.getConstructor(types);
-            if (constructor != null) {
-                Object[] values = { new Integer(style) };
-                return constructor.newInstance(values);
+            
+            try {
+                Constructor constructor = theClass.getConstructor(types);
+                if (constructor != null) {
+                    Object[] values = { new Integer(style) };
+                    return constructor.newInstance(values);
+                }
+            } catch (NoSuchMethodException e) {
+                throw new JellyException(e);
+            } catch (InstantiationException e) {
+                throw new JellyException(e);
+            } catch (IllegalAccessException e) {
+                throw new JellyException(e);
+            } catch (InvocationTargetException e) {
+                throw new JellyException(e);
             }
         }
         return super.newInstance(theClass, attributes, output);

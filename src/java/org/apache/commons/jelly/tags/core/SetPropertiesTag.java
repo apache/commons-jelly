@@ -56,10 +56,12 @@
  */
 package org.apache.commons.jelly.tags.core;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -112,7 +114,13 @@ public class SetPropertiesTag extends MapTagSupport  {
      * Sets the properties on the bean. Derived tags could implement some custom 
      * type conversion etc.
      */
-    protected void setBeanProperties(Object bean, Map attributes) throws Exception {
-        BeanUtils.populate(bean, attributes);
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyException {
+        try {
+            BeanUtils.populate(bean, attributes);
+        } catch (IllegalAccessException e) {
+            throw new JellyException("could not set the properties on a bean",e);
+        } catch (InvocationTargetException e) {
+            throw new JellyException("could not set the properties on a bean",e);
+        }
     }
 }

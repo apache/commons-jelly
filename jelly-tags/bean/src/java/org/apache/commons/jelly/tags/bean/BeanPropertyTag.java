@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/21 15:16:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java,v 1.3 2003/01/24 10:04:30 morgand Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/24 10:04:30 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanPropertyTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * $Id: BeanPropertyTag.java,v 1.3 2003/01/24 10:04:30 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -78,7 +78,7 @@ import org.apache.commons.jelly.XMLOutput;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class BeanPropertyTag extends BeanTag {
 
@@ -105,7 +105,7 @@ public class BeanPropertyTag extends BeanTag {
     /**
      * Creates a new instance by calling a create method on the parent bean
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws Exception {
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyException {
         Object parentObject = getParentObject();
         if (parentObject != null) {
             // now lets try call the create method...

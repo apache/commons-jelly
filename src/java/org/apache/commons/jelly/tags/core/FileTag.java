@@ -69,6 +69,8 @@ import org.dom4j.io.HTMLWriter;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
+import org.xml.sax.SAXException;
+
 /** 
  * A tag that pipes its body to a file denoted by the name attribute or to an in memory String
  * which is then output to a variable denoted by the var variable.
@@ -183,23 +185,24 @@ public class FileTag extends TagSupport {
     /**
      * Writes the body fo this tag to the given Writer
      */
-    protected void writeBody(Writer writer) throws Exception {
+    protected void writeBody(Writer writer) throws JellyException {
 
         XMLOutput newOutput = createXMLOutput(writer);
         try {
             newOutput.startDocument();
             invokeBody(newOutput);
             newOutput.endDocument();
-        }
-        finally {
-            newOutput.close();
+        } catch (SAXException e) {
+            throw new JellyException(e);
+        } finally {
+            try { newOutput.close(); } catch (IOException e) {}
         }
     }
     
     /**
      * A Factory method to create a new XMLOutput from the given Writer.
      */
-    protected XMLOutput createXMLOutput(Writer writer) throws Exception {
+    protected XMLOutput createXMLOutput(Writer writer) throws JellyException {
         
         OutputFormat format = null;
         if (prettyPrint) {

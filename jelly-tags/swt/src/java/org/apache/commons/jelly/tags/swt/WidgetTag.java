@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.tags.swt;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyException;
@@ -126,7 +127,7 @@ public class WidgetTag extends UseBeanTag {
     /**
      * Factory method to create a new widget
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws Exception {
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyException {
         int style = getStyle(attributes);
         
         // now lets call the constructor with the parent
@@ -157,43 +158,53 @@ public class WidgetTag extends UseBeanTag {
      * @param style the SWT style code
      * @return the new Widget
      */
-    protected Object createWidget(Class theClass, Widget parent, int style) throws Exception {
+    protected Object createWidget(Class theClass, Widget parent, int style) throws JellyException {
         if (theClass == null) {
             throw new JellyException( "No Class available to create the new widget");
         }
-        if (parent == null) {
-            // lets try call a constructor with a single style
-            Class[] types = { int.class };
-            Constructor constructor = theClass.getConstructor(types);
-            if (constructor != null) {
-                Object[] arguments = { new Integer(style)};
-                return constructor.newInstance(arguments);
-            }
-        }
-        else {
-            // lets try to find the constructor with 2 arguments with the 2nd argument being an int
-            Constructor[] constructors = theClass.getConstructors();
-            if (constructors != null) {
-                for (int i = 0, size = constructors.length; i < size; i++ ) {
-                    Constructor constructor = constructors[i];
-                    Class[] types = constructor.getParameterTypes();
-                    if (types.length == 2 && types[1].isAssignableFrom(int.class)) {
-                        if (types[0].isAssignableFrom(parent.getClass())) {
-                            Object[] arguments = { parent, new Integer(style)};
-                            return constructor.newInstance(arguments);
+        
+        try {
+            if (parent == null) {
+                // lets try call a constructor with a single style
+                Class[] types = { int.class };
+                Constructor constructor = theClass.getConstructor(types);
+                if (constructor != null) {
+                    Object[] arguments = { new Integer(style)};
+                    return constructor.newInstance(arguments);
+                }
+            } else {
+                // lets try to find the constructor with 2 arguments with the 2nd argument being an int
+                Constructor[] constructors = theClass.getConstructors();
+                if (constructors != null) {
+                    for (int i = 0, size = constructors.length; i < size; i++ ) {
+                        Constructor constructor = constructors[i];
+                        Class[] types = constructor.getParameterTypes();
+                        if (types.length == 2 && types[1].isAssignableFrom(int.class)) {
+                            if (types[0].isAssignableFrom(parent.getClass())) {
+                                Object[] arguments = { parent, new Integer(style)};
+                                return constructor.newInstance(arguments);
+                            }
                         }
                     }
                 }
             }
+            return theClass.newInstance();
+        } catch (NoSuchMethodException e) {
+            throw new JellyException(e);
+        } catch (InstantiationException e) {
+            throw new JellyException(e);
+        } catch (IllegalAccessException e) {
+            throw new JellyException(e);
+        } catch (InvocationTargetException e) {
+            throw new JellyException(e);
         }
-        return theClass.newInstance();
     }
     
     /**
      * Creates the SWT style code for the current attributes
      * @return the SWT style code
      */
-    protected int getStyle(Map attributes) throws Exception {
+    protected int getStyle(Map attributes) throws JellyException {
         String text = (String) attributes.remove("style");
         if (text != null) {
             return SwtHelper.parseStyle(SWT.class, text);

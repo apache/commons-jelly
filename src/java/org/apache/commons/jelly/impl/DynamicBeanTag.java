@@ -223,10 +223,10 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
                 method.invoke( bean, emptyArgs );
             }
             catch (IllegalAccessException e) {
-                methodInvocationError(bean, method, e);
+                methodInvocationException(bean, method, e);
             }
             catch (IllegalArgumentException e) {
-                methodInvocationError(bean, method, e);
+                methodInvocationException(bean, method, e);
             }
             catch (InvocationTargetException e) {
                 // methodInvocationError(bean, method, e);
@@ -254,7 +254,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
      * @param method Method that was invoked
      * @param e Exception throw when <code>method</code> was invoked
      */
-    private void methodInvocationError(Object bean, Method method, Exception e) throws Exception {
+    private void methodInvocationException(Object bean, Method method, Exception e) throws Exception {
         log.error("Could not invoke " + method, e);
         BeanMap beanMap = new BeanMap(bean);
         

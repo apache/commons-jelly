@@ -106,7 +106,7 @@ public class CompositeExpression extends ExpressionSupport {
      * 
      * @return the Expresssion for the given String.
      * @throws JellyException if the text is invalid (such as missing '}' character).
-     * @throws Exception if there was some problem creating the underlying Expression object 
+     * @throws JellyException if there was some problem creating the underlying Expression object 
      *  from the ExpressionFactory
      */
     public static Expression parse(String text, ExpressionFactory factory) throws JellyException {

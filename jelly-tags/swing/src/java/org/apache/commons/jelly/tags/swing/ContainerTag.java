@@ -61,6 +61,8 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
+import org.apache.commons.jelly.JellyException;
+
 import java.awt.Component;
 
 /** 
@@ -77,5 +79,5 @@ public interface ContainerTag {
      * Adds a child component to this container with optional constraints.
      * If the constraints are null they are ignored
      */
-    public void addChild(Component component, Object constraints) throws Exception;
+    public void addChild(Component component, Object constraints) throws JellyException;
 }

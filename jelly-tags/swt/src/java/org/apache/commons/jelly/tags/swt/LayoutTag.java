@@ -105,7 +105,7 @@ public class LayoutTag extends LayoutTagSupport {
     /**
      * Either defines a variable or adds the current component to the parent
      */
-    protected void processBean(String var, Object bean) throws Exception {
+    protected void processBean(String var, Object bean) throws JellyException {
         super.processBean(var, bean);
         
         Widget parent = getParentWidget();
@@ -122,7 +122,7 @@ public class LayoutTag extends LayoutTagSupport {
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     protected Object convertValue(Object bean, String name, Object value)
-        throws Exception {
+        throws JellyException {
             
         if (bean instanceof FillLayout && name.equals("type") && value instanceof String) {
             int style = SwtHelper.parseStyle(SWT.class, (String) value);

@@ -90,7 +90,7 @@ public abstract class LayoutTagSupport extends TagSupport {
     /**
      * Adds the given layout component to the container with the specified constraints
      */
-    public void addLayoutComponent(Component component, Object constraints) throws Exception {
+    public void addLayoutComponent(Component component, Object constraints) throws JellyException {
         getComponentTag().addChild(component, constraints);
     }
     
@@ -130,7 +130,7 @@ public abstract class LayoutTagSupport extends TagSupport {
     /**
      * @return the parent component tag or throw an exception
      */
-    protected ComponentTag getComponentTag() throws Exception {
+    protected ComponentTag getComponentTag() throws JellyException {
         ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
         if ( tag == null ) {
             throw new JellyException( "This tag must be nested within a JellySwing widget tag" );
