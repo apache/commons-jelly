@@ -371,6 +371,7 @@
   <reports>
     <report>maven-changelog-plugin</report>
     <report>maven-changes-plugin</report>
+    <report>maven-checkstyle-plugin</report>
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>
     <report>maven-javadoc-plugin</report>
