@@ -62,9 +62,12 @@
 package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+
+import org.xml.sax.SAXException;
 
 /** 
  * <p><code>ExpressionScript</code> outputs the value of an expression as text.</p>
@@ -105,10 +108,16 @@ public class ExpressionScript implements Script {
     }
 
     /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws JellyException {
         String text = expression.evaluateAsString(context);
         if ( text != null ) {
-            output.write(text);
+            
+            try {
+              output.write(text);
+            } catch (SAXException e) {
+                throw new JellyException("Could not write to XMLOutput",e);
+            }
+            
         }
     }
 }

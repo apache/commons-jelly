@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Script.java,v 1.7 2003/01/24 02:22:59 morgand Exp $
- * $Revision: 1.7 $
- * $Date: 2003/01/24 02:22:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Script.java,v 1.8 2003/01/24 05:26:13 morgand Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/01/24 05:26:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Script.java,v 1.7 2003/01/24 02:22:59 morgand Exp $
+ * $Id: Script.java,v 1.8 2003/01/24 05:26:13 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -70,7 +70,7 @@ package org.apache.commons.jelly;
  * so multi threading is not a concern for Tag developers.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public interface Script {
 
@@ -80,6 +80,6 @@ public interface Script {
     public Script compile() throws JellyException;
 
     /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws Exception;
+    public void run(JellyContext context, XMLOutput output) throws JellyException;
 
 }

@@ -69,6 +69,7 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.custom.*;
 import org.eclipse.swt.widgets.*;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
@@ -160,7 +161,7 @@ public class SwtTagLibrary extends TagLibrary {
                  * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                  */
                 public Tag createTag(String name, Attributes attributes)
-                    throws Exception {
+                    throws JellyException {
                     return new LayoutTag(layoutClass);
                 }
             }
@@ -178,7 +179,7 @@ public class SwtTagLibrary extends TagLibrary {
                  * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                  */
                 public Tag createTag(String name, Attributes attributes)
-                    throws Exception {
+                    throws JellyException {
                     return new LayoutDataTag(layoutDataClass);
                 }
             }
@@ -196,7 +197,7 @@ public class SwtTagLibrary extends TagLibrary {
                  * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                  */
                 public Tag createTag(String name, Attributes attributes)
-                    throws Exception {
+                    throws JellyException {
                     return new WidgetTag(widgetClass);
                 }
             }

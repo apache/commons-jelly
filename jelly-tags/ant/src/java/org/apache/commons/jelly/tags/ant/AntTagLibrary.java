@@ -65,6 +65,7 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.grant.GrantProject;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
@@ -190,7 +191,7 @@ public class AntTagLibrary extends TagLibrary {
         if ( answer == null ) {
             answer = new TagScript(
                 new TagFactory() {
-                    public Tag createTag(String name, Attributes attributes) throws Exception {
+                    public Tag createTag(String name, Attributes attributes) throws JellyException {
                         return AntTagLibrary.this.createTag(name, attributes);
                     }
                 }
@@ -207,7 +208,7 @@ public class AntTagLibrary extends TagLibrary {
         if ( name.equals("fileScanner") ) {      
             return new TagScript(
                 new TagFactory() {
-                    public Tag createTag(String name, Attributes attributes) throws Exception {
+                    public Tag createTag(String name, Attributes attributes) throws JellyException {
                         return new FileScannerTag(new FileScanner());
                     }
                 }
@@ -216,7 +217,7 @@ public class AntTagLibrary extends TagLibrary {
         if ( name.equals("setProperty") ) {      
             return new TagScript(
                 new TagFactory() {
-                    public Tag createTag(String name, Attributes attributes) throws Exception {
+                    public Tag createTag(String name, Attributes attributes) throws JellyException {
                         return new SetPropertyTag();
                     }
                 }
@@ -228,7 +229,7 @@ public class AntTagLibrary extends TagLibrary {
     /**
      * A helper method which creates an AntTag instance for the given element name
      */
-    public Tag createTag(String name, Attributes attributes) throws Exception {
+    public Tag createTag(String name, Attributes attributes) throws JellyException {
         AntTag tag = new AntTag( name );
         if ( name.equals( "echo" ) ) {
             tag.setTrim(false);

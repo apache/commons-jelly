@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.11 2002/12/11 12:40:55 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/12/11 12:40:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.12 2003/01/24 05:26:13 morgand Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/01/24 05:26:13 $
  *
  * ====================================================================
  *
@@ -57,18 +57,21 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TextScript.java,v 1.11 2002/12/11 12:40:55 jstrachan Exp $
+ * $Id: TextScript.java,v 1.12 2003/01/24 05:26:13 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+
+import org.xml.sax.SAXException;
 
 /** <p><code>TextScript</code> outputs some static text.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 public class TextScript implements Script {
  
@@ -143,9 +146,13 @@ public class TextScript implements Script {
     }
 
     /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws JellyException {
         if ( text != null ) {
-            output.write(text);
+            try {
+              output.write(text);
+            } catch (SAXException e) {
+                throw new JellyException("could not write to XMLOutput",e);
+            }
         }
     }
 }

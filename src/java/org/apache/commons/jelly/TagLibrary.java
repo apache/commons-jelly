@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.19 2003/01/18 05:21:08 jstrachan Exp $
- * $Revision: 1.19 $
- * $Date: 2003/01/18 05:21:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.20 2003/01/24 05:26:13 morgand Exp $
+ * $Revision: 1.20 $
+ * $Date: 2003/01/24 05:26:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.19 2003/01/18 05:21:08 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.20 2003/01/24 05:26:13 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -81,7 +81,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.19 $
+  * @version $Revision: 1.20 $
   */
 
 public abstract class TagLibrary {
@@ -130,12 +130,18 @@ public abstract class TagLibrary {
     
     /** Creates a new Tag for the given tag name and attributes */
     public Tag createTag(String name, Attributes attributes)
-        throws Exception {
+        throws JellyException {
 
         Object value = tags.get(name);
         if (value instanceof Class) {
             Class type = (Class) value;
-            return (Tag) type.newInstance();
+            try {
+                return (Tag) type.newInstance();
+            } catch (InstantiationException e) {
+                throw new JellyException(e.toString());
+            } catch (IllegalAccessException e) {
+                throw new JellyException(e.toString());
+            }
         }
         else if (value instanceof TagFactory) {
             TagFactory factory = (TagFactory) value;

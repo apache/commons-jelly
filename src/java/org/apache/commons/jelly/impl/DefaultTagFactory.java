@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.impl;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 
 import org.xml.sax.Attributes;
@@ -85,8 +86,14 @@ public class DefaultTagFactory implements TagFactory {
 
     // TagFactory interface
     //-------------------------------------------------------------------------      
-    public Tag createTag(String name, Attributes attributes) throws Exception {
-        return (Tag) tagClass.newInstance();
+    public Tag createTag(String name, Attributes attributes) throws JellyException {
+        try {
+          return (Tag) tagClass.newInstance();
+        } catch (InstantiationException e) {
+            throw new JellyException(e.toString());
+        } catch (IllegalAccessException e) {
+            throw new JellyException(e.toString());
+        }
     }
 
     

@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.impl;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 
 import org.xml.sax.Attributes;
@@ -79,5 +80,5 @@ public interface TagFactory {
     /**
      * Creates a Tag for the given local name and the SAX attributes
      */
-    public Tag createTag(String name, Attributes attributes) throws Exception;
+    public Tag createTag(String name, Attributes attributes) throws JellyException;
 }

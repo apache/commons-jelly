@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.32 2003/01/24 02:22:59 morgand Exp $
- * $Revision: 1.32 $
- * $Date: 2003/01/24 02:22:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.33 2003/01/24 05:26:13 morgand Exp $
+ * $Revision: 1.33 $
+ * $Date: 2003/01/24 05:26:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.32 2003/01/24 02:22:59 morgand Exp $
+ * $Id: TagScript.java,v 1.33 2003/01/24 05:26:13 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -96,7 +96,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.32 $
+ * @version $Revision: 1.33 $
  */
 public class TagScript implements Script {
 
@@ -219,7 +219,7 @@ public class TagScript implements Script {
     //-------------------------------------------------------------------------                
 
     /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws JellyException {
         if ( ! context.isCacheTags() ) {
             clearTag();
         }
@@ -282,10 +282,15 @@ public class TagScript implements Script {
         }
         catch (Exception e) {
             handleException(e);
-        }
-        catch (Error e) {
+        } catch (Error e) {
+           /*
+            * Not sure if we should be converting errors to exceptions,
+            * but not trivial to remove because JUnit tags throw 
+            * Errors in the normal course of operation.  Hmm...
+            */
             handleException(e);
         }
+        
     }
     
     
@@ -295,7 +300,7 @@ public class TagScript implements Script {
     /** 
      * @return the tag to be evaluated, creating it lazily if required.
      */
-    public Tag getTag() throws Exception {
+    public Tag getTag() throws JellyException {
         Tag tag = (Tag) tagHolder.get();
         if ( tag == null ) {
             tag = createTag();
@@ -481,7 +486,7 @@ public class TagScript implements Script {
      * Factory method to create a new Tag instance. 
      * The default implementation is to delegate to the TagFactory
      */
-    protected Tag createTag() throws Exception {    
+    protected Tag createTag() throws JellyException {    
         if ( tagFactory != null) {
             return tagFactory.createTag(localName, getSaxAttributes());
         }
@@ -492,7 +497,7 @@ public class TagScript implements Script {
     /**
      * Compiles a newly created tag if required, sets its parent and body.
      */
-    protected void configureTag(Tag tag) throws Exception {
+    protected void configureTag(Tag tag) throws JellyException {
         if (tag instanceof CompilableTag) {
             ((CompilableTag) tag).compile();
         }
@@ -606,7 +611,7 @@ public class TagScript implements Script {
      * This method adorns the JellyException with location information
      * such as adding line number information etc.
      */
-    protected void handleException(JellyException e) throws Exception {
+    protected void handleException(JellyException e) throws JellyException {
         if (log.isTraceEnabled()) {
             log.trace( "Caught exception: " + e, e );
         }
@@ -634,7 +639,7 @@ public class TagScript implements Script {
      * This method will rethrow the exception, wrapped in a JellyException
      * while adding line number information etc.
      */
-    protected void handleException(Exception e) throws Exception {
+    protected void handleException(Exception e) throws JellyException {
         if (log.isTraceEnabled()) {
             log.trace( "Caught exception: " + e, e );
         }
@@ -645,7 +650,7 @@ public class TagScript implements Script {
 
         if ( e instanceof JellyException ) {
             e.fillInStackTrace();
-            throw e;
+            throw (JellyException) e;
         }
 
         if ( e instanceof InvocationTargetException) {
@@ -663,6 +668,8 @@ public class TagScript implements Script {
      * A helper method to handle this non-Jelly exception.
      * This method will rethrow the exception, wrapped in a JellyException
      * while adding line number information etc.
+     *
+     * Is this method wise?
      */
     protected void handleException(Error e) throws Error, JellyException {
         if (log.isTraceEnabled()) {

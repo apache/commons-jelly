@@ -70,6 +70,7 @@ import javax.swing.*;
 
 import org.apache.commons.beanutils.ConvertUtils;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagScript;
@@ -150,7 +151,7 @@ public class SwingTagLibrary extends TagLibrary {
             if ( factory != null ) {
                 return new TagScript(
                     new TagFactory() {
-                        public Tag createTag(String name, Attributes attributes) throws Exception {
+                        public Tag createTag(String name, Attributes attributes) throws JellyException {
 							if ( factory instanceof TagFactory ) {
 								return ((TagFactory) factory).createTag(name, attributes);
                             }

@@ -64,6 +64,7 @@ package org.apache.commons.jelly.impl;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
@@ -95,7 +96,7 @@ public class DynamicTagLibrary extends TagLibrary {
 
         return new TagScript(
             new TagFactory() {
-                public Tag createTag(String name, Attributes attributes) throws Exception {
+                public Tag createTag(String name, Attributes attributes) throws JellyException {
                     return DynamicTagLibrary.this.createTag(name, attributes);
                 }
             }
@@ -104,7 +105,7 @@ public class DynamicTagLibrary extends TagLibrary {
 
     /** Creates a new Tag for the given tag name if it exists */
     public Tag createTag(String name, Attributes attributes)
-        throws Exception {
+        throws JellyException {
 
         Object value = templates.get(name);
         if ( value instanceof Script ) {            

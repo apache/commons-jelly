@@ -46,7 +46,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
 			public ConstantFactory(Object c) { this.constant = c;}
 			private Object constant;
 			public Object newInstance() { return constant; }
-			public Tag createTag(String name, Attributes attributes) throws Exception {
+			public Tag createTag(String name, Attributes attributes) throws JellyException {
 				return new ConstraintTag ( this );
 			}
 		} // class ConstatnStringFactory

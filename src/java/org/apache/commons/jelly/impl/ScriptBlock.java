@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.10 2003/01/24 02:22:59 morgand Exp $
- * $Revision: 1.10 $
- * $Date: 2003/01/24 02:22:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.11 2003/01/24 05:26:13 morgand Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/01/24 05:26:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptBlock.java,v 1.10 2003/01/24 02:22:59 morgand Exp $
+ * $Id: ScriptBlock.java,v 1.11 2003/01/24 05:26:13 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -73,7 +73,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 public class ScriptBlock implements Script {
 
@@ -122,7 +122,7 @@ public class ScriptBlock implements Script {
     }
 
     /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws JellyException {
 /*        
         for (int i = 0, size = scripts.length; i < size; i++) {
             Script script = scripts[i];

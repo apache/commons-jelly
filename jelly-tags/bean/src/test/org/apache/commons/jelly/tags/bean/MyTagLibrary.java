@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/MyTagLibrary.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/21 15:16:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/MyTagLibrary.java,v 1.3 2003/01/24 05:26:13 morgand Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/24 05:26:13 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: MyTagLibrary.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * $Id: MyTagLibrary.java,v 1.3 2003/01/24 05:26:13 morgand Exp $
  */
 package org.apache.commons.jelly.tags.bean;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
@@ -74,7 +75,7 @@ import org.xml.sax.Attributes;
  * beandef&gt; tag
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class MyTagLibrary extends TagLibrary {
 
@@ -87,7 +88,7 @@ public class MyTagLibrary extends TagLibrary {
     public TagScript createTagScript(String name, Attributes attributes) throws Exception {
 
         TagFactory factory = new TagFactory() {
-            public Tag createTag(String name, Attributes attributes) throws Exception {
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return createBeanTag(name, attributes);
             }
         };
@@ -102,7 +103,7 @@ public class MyTagLibrary extends TagLibrary {
      * tag matches a root bean, then a BeanTag will be created, otherwise a
      * BeanPropertyTag is created to make a nested property.
      */
-    protected Tag createBeanTag(String name, Attributes attributes) throws Exception {
+    protected Tag createBeanTag(String name, Attributes attributes) throws JellyException {
         // is the name bound to a specific class
         Class beanType = getBeanType(name, attributes);
         if (beanType != null) {

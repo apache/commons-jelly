@@ -74,6 +74,8 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.xml.sax.SAXException;
+
 /** 
  * <p><code>StaticTagScript</code> is a script that evaluates a StaticTag, a piece of static XML
  * though its attributes or element content may contain dynamic expressions.
@@ -98,9 +100,13 @@ public class StaticTagScript extends TagScript {
 
     // Script interface
     //-------------------------------------------------------------------------                
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws JellyException {
 
-        startNamespacePrefixes(output);
+        try {
+            startNamespacePrefixes(output);
+        } catch (SAXException e) {
+            throw new JellyException("could not start namespace prefixes",e);
+        }
             
         Tag tag = getTag();                
         
@@ -138,14 +144,18 @@ public class StaticTagScript extends TagScript {
             handleException(e);
         }
         
-        endNamespacePrefixes(output);
+        try {
+            endNamespacePrefixes(output);
+        } catch (SAXException e) {
+            throw new JellyException("could not end namespace prefixes",e);
+        }
     }
 
     /**
      * Attempts to find a dynamically created tag that has been created since this
      * script was compiled
      */    
-    protected Tag findDynamicTag(JellyContext context, StaticTag tag) throws Exception {
+    protected Tag findDynamicTag(JellyContext context, StaticTag tag) throws JellyException {
         // lets see if there's a tag library for this URI...
         TagLibrary taglib = context.getTagLibrary( tag.getUri() );
         if ( taglib instanceof DynamicTagLibrary ) {
