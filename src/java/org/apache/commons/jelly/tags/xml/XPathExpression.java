@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.7 2002/10/30 19:16:23 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/10/30 19:16:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.8 2002/11/08 18:27:51 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/11/08 18:27:51 $
  *
  * ====================================================================
  *
@@ -57,36 +57,54 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.7 2002/10/30 19:16:23 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.8 2002/11/08 18:27:51 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Map;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.expression.ExpressionSupport;
+import org.apache.commons.jelly.impl.TagScript;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.jaxen.XPath;
+import org.jaxen.NamespaceContext;
+import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.VariableContext;
 
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
     
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog(XPathExpression.class);
+
     private XPath xpath;
     private JellyContext context;
     
     public XPathExpression() {
     }
 
-    public XPathExpression(XPath xpath) {
+    public XPathExpression(XPath xpath, TagScript tagScript) {
         this.xpath = xpath;
+        
+        Map uris = tagScript.getNamespaceContext();
+        
+        if (log.isDebugEnabled()) {
+        	log.debug( "Setting the namespace context to be: " + uris );
+        }
+        
+        xpath.setNamespaceContext( new SimpleNamespaceContext( uris ) );
     }
     
     public String toString() {

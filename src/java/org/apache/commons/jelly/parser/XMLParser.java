@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.38 2002/10/30 19:16:33 jstrachan Exp $
- * $Revision: 1.38 $
- * $Date: 2002/10/30 19:16:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.39 2002/11/08 18:27:51 jstrachan Exp $
+ * $Revision: 1.39 $
+ * $Date: 2002/11/08 18:27:51 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.38 2002/10/30 19:16:33 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.39 2002/11/08 18:27:51 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -121,7 +121,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.38 $
+ * @version $Revision: 1.39 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -637,22 +637,13 @@ public class XMLParser extends DefaultHandler {
             
             // if this is a tag then create a script to run it
             // otherwise pass the text to the current body
-            TagScript parentTagScript = tagScript;
-            tagScript = createTag(namespaceURI, localName, list);
-            if (tagScript == null) {
-                tagScript = createStaticTag(namespaceURI, localName, qName, list);
+            TagScript newTagScript = createTag(namespaceURI, localName, list);
+            if (newTagScript == null) {
+                newTagScript = createStaticTag(namespaceURI, localName, qName, list);
             }
+            tagScript = newTagScript;
             tagScriptStack.add(tagScript);
             if (tagScript != null) {
-                // set parent relationship...
-                tagScript.setParent(parentTagScript);
-
-                // set the namespace Map
-                if ( elementNamespaces != null ) {
-                    tagScript.setNamespacesMap( elementNamespaces );
-                    elementNamespaces = null;
-                }                
-                
                 // set the line number details
                 if ( locator != null ) {
                     tagScript.setLocator(locator);
@@ -1054,6 +1045,8 @@ public class XMLParser extends DefaultHandler {
             if (taglib != null) {
                 TagScript script = taglib.createTagScript(localName, list);
                 if ( script != null ) {
+                	configureTagScript(script);
+                	
                     // clone the attributes to keep them around after this parse
                     script.setSaxAttributes(new AttributesImpl(list));
                     
@@ -1065,7 +1058,7 @@ public class XMLParser extends DefaultHandler {
                         Expression expression =
                             taglib.createExpression(
                                 getExpressionFactory(),
-                                localName,
+                                script,
                                 attributeName,
                                 attributeValue);
                         if (expression == null) {
@@ -1085,6 +1078,7 @@ public class XMLParser extends DefaultHandler {
             throw createSAXException(e);
         }
     }
+                
     
     /**
      * Factory method to create a static Tag that represents some static content.
@@ -1104,6 +1098,7 @@ public class XMLParser extends DefaultHandler {
                     }
                 }
             );
+            configureTagScript(script);
 
             // now iterate through through the expressions
             int size = list.getLength();
@@ -1127,6 +1122,23 @@ public class XMLParser extends DefaultHandler {
             throw createSAXException(e);
         }
     }
+
+
+	/**
+	 * Configure a newly created TagScript instance before any Expressions are created
+	 *
+	 * @param tagScript
+	 */
+	protected void configureTagScript(TagScript aTagScript) {		
+	    // set parent relationship...
+	    aTagScript.setParent(this.tagScript);
+	
+	    // set the namespace Map
+	    if ( elementNamespaces != null ) {
+	        aTagScript.setTagNamespacesMap( elementNamespaces );
+	        elementNamespaces = null;
+	    }
+	}                
     
     /**
      * Adds the text to the current script block parsing any embedded

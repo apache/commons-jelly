@@ -71,6 +71,7 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.tags.xml.ExprTag;
 import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
 import org.apache.commons.jelly.tags.xml.XPathExpression;
@@ -105,7 +106,7 @@ public class JSLTagLibrary extends XMLTagLibrary {
 
     public Expression createExpression(
         ExpressionFactory factory,
-        String tagName,
+        TagScript tagScript,
         String attributeName,
         String attributeValue) throws Exception {
 
@@ -118,7 +119,7 @@ public class JSLTagLibrary extends XMLTagLibrary {
             
             try {
                 XPath xpath = new Dom4jXPath(attributeValue);
-                return new XPathExpression(xpath);
+                return new XPathExpression(xpath, tagScript);
             }
             catch (JaxenException e) {
                 throw new JellyException( "Could not parse XPath expression: \"" + attributeValue + "\" reason: " + e, e );            
@@ -140,7 +141,7 @@ public class JSLTagLibrary extends XMLTagLibrary {
         }
         
         // will use the default expression instead
-        return super.createExpression(factory, tagName, attributeName, attributeValue);
+        return super.createExpression(factory, tagScript, attributeName, attributeValue);
     }
     
     

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.25 2002/10/30 19:29:15 jstrachan Exp $
- * $Revision: 1.25 $
- * $Date: 2002/10/30 19:29:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.26 2002/11/08 18:27:51 jstrachan Exp $
+ * $Revision: 1.26 $
+ * $Date: 2002/11/08 18:27:51 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.25 2002/10/30 19:29:15 jstrachan Exp $
+ * $Id: TagScript.java,v 1.26 2002/11/08 18:27:51 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -82,6 +82,7 @@ import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.DynaTag;
+import org.apache.commons.jelly.NamespaceAwareTag;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
@@ -101,7 +102,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.25 $
+ * @version $Revision: 1.26 $
  */
 public class TagScript implements Script {
 
@@ -121,8 +122,15 @@ public class TagScript implements Script {
     /** The attribute expressions that are created */
     protected Map attributes = new Hashtable();
     
-    /** the optional namespaces Map of prefix -> URI */
-    private Map namespacesMap;
+    /** the optional namespaces Map of prefix -> URI of this single Tag */
+    private Map tagNamespacesMap;
+    
+    /** 
+     * The optional namespace context mapping all prefixes -> URIs in scope
+     * at the point this tag is used.
+     * This Map is only created lazily if it is required by the NamespaceAwareTag.
+     */
+    private Map namespaceContext;
     
     /** the Jelly file which caused the problem */
     private String fileName;
@@ -182,14 +190,15 @@ public class TagScript implements Script {
     }
     
     /**
-     * Sets the optional namespaces prefix -> URI map
+     * Sets the optional namespaces prefix -> URI map of 
+     * the namespaces attached to this Tag
      */
-    public void setNamespacesMap(Map namespacesMap) {
+    public void setTagNamespacesMap(Map tagNamespacesMap) {
         // lets check that this is a thread-safe map
-        if ( ! (namespacesMap instanceof Hashtable) ) {
-            namespacesMap = new Hashtable( namespacesMap );
+        if ( ! (tagNamespacesMap instanceof Hashtable) ) {
+            tagNamespacesMap = new Hashtable( tagNamespacesMap );
         }
-        this.namespacesMap = namespacesMap;
+        this.tagNamespacesMap = tagNamespacesMap;
     }
         
     /**
@@ -437,6 +446,34 @@ public class TagScript implements Script {
         this.localName = localName;
     }
 
+
+	/**
+	 * Returns the namespace context of this tag. This is all the prefixes
+	 * in scope in the document where this tag is used which are mapped to
+	 * their namespace URIs.
+	 * 	 * @return a Map with the keys are namespace prefixes and the values are
+	 * namespace URIs.	 */
+	public synchronized Map getNamespaceContext() {
+		if (namespaceContext == null) {
+			if (parent != null) {
+				namespaceContext = getParent().getNamespaceContext();
+				if (tagNamespacesMap != null && !tagNamespacesMap.isEmpty()) {
+					// create a new child context
+					Hashtable newContext = new Hashtable(namespaceContext.size()+1);
+					newContext.putAll(namespaceContext);
+					newContext.putAll(tagNamespacesMap);
+					namespaceContext = newContext;
+				}
+			}
+			else {
+				namespaceContext = tagNamespacesMap;
+				if (namespaceContext == null) {
+					namespaceContext = new Hashtable();
+				}
+			}
+		}
+		return namespaceContext;
+	}
     
     // Implementation methods
     //-------------------------------------------------------------------------      
@@ -466,6 +503,11 @@ public class TagScript implements Script {
         }
         tag.setParent( parentTag );
         tag.setBody( tagBody );
+        
+        if (tag instanceof NamespaceAwareTag) {
+        	NamespaceAwareTag naTag = (NamespaceAwareTag) tag;
+        	naTag.setNamespaceContext(getNamespaceContext());
+        }
     }
      
     /**
@@ -487,8 +529,8 @@ public class TagScript implements Script {
      * Output the new namespace prefixes used for this element
      */    
     protected void startNamespacePrefixes(XMLOutput output) throws SAXException {
-        if ( namespacesMap != null ) {
-            for ( Iterator iter = namespacesMap.entrySet().iterator(); iter.hasNext(); ) {
+        if ( tagNamespacesMap != null ) {
+            for ( Iterator iter = tagNamespacesMap.entrySet().iterator(); iter.hasNext(); ) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 String prefix = (String) entry.getKey();
                 String uri = (String) entry.getValue();
@@ -501,8 +543,8 @@ public class TagScript implements Script {
      * End the new namespace prefixes mapped for the current element
      */    
     protected void endNamespacePrefixes(XMLOutput output) throws SAXException {
-        if ( namespacesMap != null ) {
-            for ( Iterator iter = namespacesMap.keySet().iterator(); iter.hasNext(); ) {
+        if ( tagNamespacesMap != null ) {
+            for ( Iterator iter = tagNamespacesMap.keySet().iterator(); iter.hasNext(); ) {
                 String prefix = (String) iter.next();
                 output.endPrefixMapping(prefix);
             }

@@ -28,12 +28,33 @@
     <test:assert xpath="$doc/foo/bar = 'cheese'">This should never fail</test:assert>
     
     <j:catch var="ex">
-	  <test:assert xpath="$doc/foo/xyz">This should always fail</test:assert>
-	</j:catch>    	
-	
-	<test:assert test="${ex != null}">We should have created an exception</test:assert>
-	
-	The exception was: ${ex.message}
+		  <test:assert xpath="$doc/foo/xyz">This should always fail</test:assert>
+		</j:catch>    	
+		
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+		
+		The exception was: ${ex.message}
+  </test:case>
+
+	<!-- test the use of namespaces with XPath -->
+  <test:case name="assertXPathWithNamespaceTests" xmlns:a="fooURI" xmlns:z="doesNotMatch">
+  
+    <x:parse var="doc">
+      <foo xmlns="fooURI">
+      	<bar>cheese</bar>
+      </foo>
+    </x:parse>  
+     
+    <test:assert xpath="$doc/a:foo/a:bar">This should never fail</test:assert>
+    <test:assert xpath="$doc/b:foo/b:bar" xmlns:b="fooURI">This should never fail</test:assert>
+    
+    <j:catch var="ex">
+		  <test:assert xpath="$doc/z:foo/z:bar">This should always fail</test:assert>
+		</j:catch>    	
+		
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+		
+		The exception was: ${ex.message}
   </test:case>
 
 
