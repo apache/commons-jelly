@@ -1,0 +1,6 @@
+<j:jelly xmlns:j="jelly:core">
+	<j:file name="target/testFileTag.tmp" outputMode="html">
+      <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+      </html>
+    </j:file>
+</j:jelly>
