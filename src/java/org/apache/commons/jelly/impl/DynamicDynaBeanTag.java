@@ -126,7 +126,7 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
         setAttributesSet.clear();                    
     }
 
-    public void setAttribute(String name, Object value) throws JellyException {        
+    public void setAttribute(String name, Object value) throws JellyTagException {        
         boolean isVariableName = false;
         if (variableNameAttribute != null ) {
             if ( variableNameAttribute.equals( name ) ) {
@@ -154,7 +154,7 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         // lets find any attributes that are not set and 
         for ( Iterator iter = attributes.values().iterator(); iter.hasNext(); ) {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.12 2003/01/24 19:03:24 morgand Exp $
- * $Revision: 1.12 $
- * $Date: 2003/01/24 19:03:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.13 2003/01/26 10:55:56 morgand Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/01/26 10:55:56 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Tag.java,v 1.12 2003/01/24 19:03:24 morgand Exp $
+ * $Id: Tag.java,v 1.13 2003/01/26 10:55:56 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -71,7 +71,7 @@ package org.apache.commons.jelly;
  * in JSP 1.x.(</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 public interface Tag {
 
@@ -103,12 +103,12 @@ public interface Tag {
     /** 
      * Sets the context in which the tag will be run 
      */
-    public void setContext(JellyContext context) throws JellyException;
+    public void setContext(JellyContext context) throws JellyTagException;
 
     /** 
      * Evaluates this tag after all the tags properties have been initialized.
      */
-    public void doTag(XMLOutput output) throws Exception;
+    public void doTag(XMLOutput output) throws JellyTagException;
 
     /**
      * A helper method to invoke this tags body

@@ -95,7 +95,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
     
     /** Sets an attribute value of this tag before the tag is invoked
      */
-    public void setAttribute(String name, Object value) throws JellyException {
+    public void setAttribute(String name, Object value) throws JellyTagException {
         getDynaBean().set(name, value);
     }
 

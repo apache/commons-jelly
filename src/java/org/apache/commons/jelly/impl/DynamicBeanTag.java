@@ -147,7 +147,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         setAttributesSet.clear();                    
     }
 
-    public void setAttribute(String name, Object value) throws JellyException {        
+    public void setAttribute(String name, Object value) throws JellyTagException {        
         boolean isVariableName = false;
         if (variableNameAttribute != null ) {
             if ( variableNameAttribute.equals( name ) ) {
@@ -175,7 +175,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         // lets find any attributes that are not set and 
         for ( Iterator iter = attributes.values().iterator(); iter.hasNext(); ) {
@@ -234,14 +234,8 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
 
                 Throwable inner = e.getTargetException();
 
-                if ( inner instanceof Exception )
-                {
-                    throw (Exception) inner;
-                }
-                else
-                {
-                    throw new JellyException( inner );
-                }
+                throw new JellyTagException(e);
+                
             }
         }
     }
@@ -255,7 +249,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
      * @param method Method that was invoked
      * @param e Exception throw when <code>method</code> was invoked
      */
-    private void methodInvocationException(Object bean, Method method, Exception e) throws Exception {
+    private void methodInvocationException(Object bean, Method method, Exception e) throws JellyTagException {
         log.error("Could not invoke " + method, e);
         BeanMap beanMap = new BeanMap(bean);
         
@@ -267,7 +261,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         }
         
         log.error(beanMap);
-        throw e;
+        throw new JellyTagException(e);
     }
     
     // Properties

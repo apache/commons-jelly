@@ -66,6 +66,7 @@ import java.util.Map;
 
 import org.apache.commons.jelly.DynaTagSupport;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -101,7 +102,7 @@ public class DynamicTag extends DynaTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if ( log.isDebugEnabled() ) {
             log.debug("Invoking dynamic tag with attributes: " + attributes);
         }
