@@ -61,7 +61,6 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
-import java.io.File;
 import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
@@ -99,20 +98,6 @@ public class DataTypeTag extends DynaBeanTagSupport {
         this.dataType = dataType;
         setDynaBean( new ConvertingWrapDynaBean(dataType) );
     }
-    
-    // DynaTag interface
-    //------------------------------------------------------------------------- 
-    public void setAttribute(String name, Object value) {
-        if ( name.equals( "dir" ) ) {
-            // ### this is a hack - we should install some standard converters
-            // ### for Reference and File types
-            if ( value instanceof String ) {
-                value = new File( (String) value );
-            }
-        }
-        super.setAttribute(name, value);
-    }
-
 
     // Tag interface
     //------------------------------------------------------------------------- 

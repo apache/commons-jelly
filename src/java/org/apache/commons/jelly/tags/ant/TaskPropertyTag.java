@@ -78,7 +78,6 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.DataType;
-import org.apache.tools.ant.types.Reference;
 
 /** 
  * A tag which configures a property bean of a Task, 
@@ -100,17 +99,6 @@ public class TaskPropertyTag extends DynaBeanTagSupport implements CompilableTag
 
     public TaskPropertyTag(String name) {
         setName(name);
-    }
-
-    // DynaTag interface
-    //------------------------------------------------------------------------- 
-    public void setAttribute(String name, Object value) {
-        if ( name.equals( "refid" ) ) {
-            if ( value instanceof String ) {
-                value = new Reference( (String) value );
-            }
-        }
-        super.setAttribute(name, value);
     }
 
     // CompilableTag interface

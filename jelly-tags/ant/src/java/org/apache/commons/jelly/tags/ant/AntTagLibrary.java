@@ -61,8 +61,12 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils.ConvertUtils;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -77,6 +81,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.DataType;
+import org.apache.tools.ant.types.Reference;
 
 import org.xml.sax.Attributes;
 
@@ -93,7 +98,43 @@ public class AntTagLibrary extends TagLibrary {
     
     /** the Ant Project for this tag library */
     private Project project;
+
+    static {
+
+        // register standard converters for Ant types
+               
+        ConvertUtils.register(
+            new Converter() {
+                public Object convert(Class type, Object value) {
+                    if ( value instanceof File ) {
+                        return (File) value;
+                    }
+                    else if ( value != null ) {
+                        String text = value.toString();
+                        return new File( text );
+                    }
+                    return null;
+                }
+            },
+            File.class
+        );
         
+        ConvertUtils.register(
+            new Converter() {
+                public Object convert(Class type, Object value) {
+                    if ( value instanceof Reference ) {
+                        return (Reference) value;
+                    }
+                    else if ( value != null ) {
+                        String text = value.toString();
+                        return new Reference( text );
+                    }
+                    return null;
+                }
+            },
+            Reference.class
+        );
+    }        
         
     public AntTagLibrary() {
     }
