@@ -20,15 +20,13 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 
-import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
-import org.apache.commons.jelly.impl.ScriptBlock;
-import org.apache.commons.jelly.impl.TextScript;
+import org.apache.commons.jelly.util.TagUtils;
 
 /** <p><code>TagSupport</code> an abstract base class which is useful to
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.34 $
+  * @version $Revision: 1.35 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -243,21 +241,7 @@ public abstract class TagSupport implements Tag {
      * if they are just whitespace then remove them
      */
     protected void trimBody() {
-        synchronized(body) {
-            if ( body instanceof CompositeTextScriptBlock ) {
-                CompositeTextScriptBlock block = (CompositeTextScriptBlock) body;
-                block.trimWhitespace();
-            }
-            else
-            if ( body instanceof ScriptBlock ) {
-                ScriptBlock block = (ScriptBlock) body;
-                block.trimWhitespace();
-            }
-            else if ( body instanceof TextScript ) {
-                TextScript textScript = (TextScript) body;
-                textScript.trimWhitespace();
-            }
-        }
+        TagUtils.trimScript(body);
     }
 
     /**
