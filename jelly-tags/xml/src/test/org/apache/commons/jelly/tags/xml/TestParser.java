@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/test/org/apache/commons/jelly/tags/xml/TestParser.java,v 1.1 2003/01/16 23:11:13 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/16 23:11:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/test/org/apache/commons/jelly/tags/xml/TestParser.java,v 1.2 2003/01/17 04:53:14 dion Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/17 04:53:14 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestParser.java,v 1.1 2003/01/16 23:11:13 dion Exp $
+ * $Id: TestParser.java,v 1.2 2003/01/17 04:53:14 dion Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -70,6 +70,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.parser.XMLParser;
@@ -79,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class TestParser extends TestCase {
 
@@ -99,12 +101,11 @@ public class TestParser extends TestCase {
     }
 
     /**
-     * FIXME: Move to XML
      * Tests that parsing an example script correctly creates the parent
      * relationships
-
+     */
     public void testParser() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/example2.jelly");
+        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/tags/xml/example2.jelly");
         XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
@@ -113,7 +114,7 @@ public class TestParser extends TestCase {
         
         assertTagsHaveParent( script, null );
     }
-*/    
+
     /**
      * Tests that the Tag in the TagScript has the given parent and then
      * recurse to check its children has the correct parent and so forth.

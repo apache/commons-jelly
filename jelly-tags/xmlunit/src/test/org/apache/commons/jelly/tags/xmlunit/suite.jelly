@@ -3,7 +3,6 @@
 	xmlns:j="jelly:core" 
 	xmlns:x="jelly:xml" 
 	xmlns:test="jelly:junit" 
-	xmlns:log="jelly:log"
 	xmlns:xu="jelly:xmlunit">
 
 	<test:case name="illegalArgument">
@@ -16,7 +15,7 @@
 		</j:catch>
 
 		<test:assert test="${ex != null}">An exception should have been thrown</test:assert>
-		<log:info>The exception was ${ex.message}</log:info>
+		The exception was ${ex.message}
 
 	</test:case>
 
@@ -58,7 +57,7 @@
 		</j:catch>
 
 		<test:assert test="${ex != null}">An exception should have been thrown</test:assert>
-		<log:info>The exception was ${ex.message}</log:info>
+		The exception was ${ex.message}
 
 	</test:case>
 
@@ -85,7 +84,7 @@
 		</j:catch>
 
 		<test:assert test="${ex != null}">An exception should have been thrown</test:assert>
-		<log:info>The exception was ${ex.message}</log:info>
+		The exception was ${ex.message}
 
 	</test:case>
 

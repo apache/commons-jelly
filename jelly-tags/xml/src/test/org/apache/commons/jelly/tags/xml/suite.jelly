@@ -2,8 +2,7 @@
 <test:suite 
 	xmlns:j="jelly:core" 
 	xmlns:x="jelly:xml" 
-	xmlns:test="jelly:junit" 
-	xmlns:log="jelly:log">
+	xmlns:test="jelly:junit">
 
 	<test:case name="testUriParse">
 		<x:parse var="doc" xml="dummy.xml"/>
@@ -35,14 +34,14 @@
   
   <test:case name="testBadElementAndAttribute">
 
-		<log:info>
+		
 			<j:catch var="ex">
 				<x:element name="foo">
 					some text
 					<x:attribute name="x">1234</x:attribute>
 				</x:element>
 			</j:catch>    	
-		</log:info>  	
+		  	
 		
 		<test:assert test="${ex != null}">
 			We should have created an exception as some text is output before the attributes
@@ -67,7 +66,7 @@
 		
 		<test:assert test="${ex != null}">We should have created an exception</test:assert>
 		
-		<log:info>The exception was: ${ex.message}</log:info>
+		The exception was: ${ex.message}
   </test:case>
 
 	<!-- test the use of namespaces with XPath -->
