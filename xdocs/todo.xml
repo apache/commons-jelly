@@ -56,13 +56,6 @@
 </pre>
 		</li>
         <li>
-        	A threading tag library so that parts of a Jelly script can be executed asynchronously. For example
-<pre>
-&lt;thread:async threadPool="${myThreadPool}"&gt;
-	some async Jelly goes here...
-&lt;/thread:async&gt;</pre>
-        </li>
-        <li>
         	An XSD tag library that can be used to parse XSD documents and create DynaBeans from the complex types.
 <pre>
 &lt;xsd:element name="MyDynamicClass"&gt;
@@ -93,7 +86,6 @@
     <section name="Changes to existing tag libraries"> 
       <ul>
 		<li>Add JSL test cases to test for ordering of patterns and that the correct output comes out.</li>
-		<li>Add tags &lt;copy&gt; &lt;copyOf&gt; &lt;element&gt; &lt;attribute&gt; to JSL </li>
 	  </ul>
     </section>
 

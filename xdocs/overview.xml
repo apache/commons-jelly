@@ -196,12 +196,15 @@ access Ant properties and use all other Jelly tags such as for logic, looping, w
 
 <p>Jelly has various possible uses. Here's a few to think about</p>
 <ul>
-  <li>An additional tool for Ant users to provide Ant scripting</li>
+  <li>An additional tool for Ant users to provide more flexible Ant scripting. 
+  	Indeed Jelly is already used in Maven to provide a more flexible build system 
+  	while still preserving existing investment in Ant tasks.
+  </li>
+  <li>HTTP, JMS, SOAP, XML and SQL based unit testing framework similar to Latka and AntEater</li>
   <li>SOAP scripting or XML processing engine</li>
-  <li>HTTP and JMS based scripting and unit testing framework similar to Latka and AntEater</li>
-  <li>XML or page templating system</li>
+  <li>XML or page templating system, possibly a Generator for Cocoon</li>
   <li>Alternative (very lightweight) implementation of JSTL that can be run from 
-  Ant to generate static content</li>
+  	Ant to generate static content</li>
   <li>A workflow, EAI or integration, maybe integrated into commons-workflow</li>
   <li>Code generation system, maybe an enhanced scripting engine for XDoclet</li>
 </ul>
