@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.1 2002/04/24 13:03:03 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/04/24 13:03:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.2 2002/04/26 04:29:41 geirm Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/26 04:29:41 $
  *
  * ====================================================================
  *
@@ -57,9 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpression.java,v 1.1 2002/04/24 13:03:03 jstrachan Exp $
+ * $Id: JexlExpression.java,v 1.2 2002/04/26 04:29:41 geirm Exp $
  */
 package org.apache.commons.jelly.expression.jexl;
+
+import java.util.Map;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.expression.ExpressionSupport;
@@ -78,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class JexlExpression extends ExpressionSupport {
 
@@ -96,10 +98,22 @@ public class JexlExpression extends ExpressionSupport {
     //------------------------------------------------------------------------- 
     public Object evaluate(Context context) {
         try {
-            // ##### this sucks - avoid doing a copy by value ASAP
-            HashMapContext jexlContext = new HashMapContext();
-            jexlContext.putAll( context.getVariables() );
-            
+
+	    JexlContext jexlContext = new JexlContext() {
+		    
+		    Map ctx;
+
+		    public void setVars(Map vars) {
+			ctx = vars;
+		    }
+
+		    public Map getVars() {
+			return ctx;
+		    }
+		};
+
+	    jexlContext.setVars(context.getVariables());
+
             if ( log.isDebugEnabled() ) {            
                 log.debug( "Evaluating EL: " + expression );
             }
