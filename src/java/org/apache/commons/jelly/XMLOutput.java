@@ -38,7 +38,7 @@ import org.xml.sax.helpers.DefaultHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.15 $
+  * @version $Revision: 1.16 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -60,6 +60,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(XMLOutput.class);
 
+    /** the default for escaping of text */
+    private static final boolean DEFAULT_ESCAPE_TEXT = true;
+    
     public XMLOutput() {
     }
 
@@ -132,8 +135,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * text and writes to the underlying Writer.
      */
     public static XMLOutput createXMLOutput(Writer writer) {
-        XMLWriter xmlWriter = new XMLWriter(writer);
-        return createXMLOutput(xmlWriter);
+        return createXMLOutput(writer, DEFAULT_ESCAPE_TEXT);
     }
 
     /** 
@@ -156,8 +158,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * text and writes to the underlying OutputStream.
      */
     public static XMLOutput createXMLOutput(OutputStream out) throws UnsupportedEncodingException {
-        XMLWriter xmlWriter = new XMLWriter(out);
-        return createXMLOutput(xmlWriter);
+        return createXMLOutput(out, DEFAULT_ESCAPE_TEXT);
     }
     
     /** 
