@@ -63,6 +63,7 @@
 package org.apache.commons.jelly;
 
 import org.apache.commons.beanutils.DynaBean;
+import org.apache.commons.beanutils.DynaProperty;
 
 /** 
  * <p><code>DynaBeanTag</code> is a DynaTag implementation which uses a DynaBean
@@ -74,7 +75,7 @@ import org.apache.commons.beanutils.DynaBean;
  * @version $Revision: 1.3 $
  */
 
-public abstract class DynaBeanTagSupport extends TagSupport implements DynaTag {
+public abstract class DynaBeanTagSupport extends DynaTagSupport {
 
     /** the DynaBean which is used to store the attributes of this tag */
     private DynaBean dynaBean;
@@ -98,6 +99,18 @@ public abstract class DynaBeanTagSupport extends TagSupport implements DynaTag {
         getDynaBean().set(name, value);
     }
 
+    /**
+     * @return the type of the given attribute. By default just return
+     * Object.class if this is not known.
+     */
+    public Class getAttributeType(String name) throws Exception {
+        DynaProperty property = getDynaBean().getDynaClass().getDynaProperty(name);
+        if (property != null) {
+            return property.getType();
+        }
+        return Object.class;
+    }
+    
     /** 
      * @return the DynaBean which is used to store the
      *  attributes of this tag

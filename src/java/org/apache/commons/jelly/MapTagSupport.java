@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/MapTagSupport.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/MapTagSupport.java,v 1.4 2002/09/30 17:38:16 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/09/30 17:38:16 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: MapTagSupport.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: MapTagSupport.java,v 1.4 2002/09/30 17:38:16 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -74,10 +74,10 @@ import java.util.Map;
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
-public abstract class MapTagSupport extends TagSupport implements DynaTag {
+public abstract class MapTagSupport extends DynaTagSupport {
 
     private Map map;
 

@@ -66,8 +66,8 @@ import java.util.Map;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.DynaTag;
+import org.apache.commons.jelly.DynaTagSupport;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
@@ -82,7 +82,7 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.10 $
  */
-public class DynamicTag extends TagSupport implements DynaTag {
+public class DynamicTag extends DynaTagSupport {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(DynamicTag.class);

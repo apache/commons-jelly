@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.12 2002/08/13 08:04:38 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/08/13 08:04:38 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.13 2002/09/30 17:38:16 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/09/30 17:38:16 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DynaTagScript.java,v 1.12 2002/08/13 08:04:38 jstrachan Exp $
+ * $Id: DynaTagScript.java,v 1.13 2002/09/30 17:38:16 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * <p><code>DynaTagScript</code> is a script evaluates a custom DynaTag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 public class DynaTagScript extends TagScript {
 
@@ -120,8 +120,15 @@ public class DynaTagScript extends TagScript {
                     Map.Entry entry = (Map.Entry) iter.next();
                     String name = (String) entry.getKey();
                     Expression expression = (Expression) entry.getValue();
-        
-                    Object value = expression.evaluate(context);
+
+                    Class type = dynaTag.getAttributeType(name);
+                    Object value = null;        
+                    if (type != null && type.isAssignableFrom(Expression.class) && !type.isAssignableFrom(Object.class)) {
+                        value = expression;
+                    }
+                    else {
+                        value = expression.evaluate(context);
+                    }
                     dynaTag.setAttribute(name, value);
                 }
             }
@@ -133,6 +140,16 @@ public class DynaTagScript extends TagScript {
                     String name = (String) entry.getKey();
                     Expression expression = (Expression) entry.getValue();
         
+/*
+ * @todo should implement this                    
+                    Object value = null;        
+                    if (type.isAssignableFrom(Expression.class) && !type.isAssignableFrom(Object.class)) {
+                        value = expression;
+                    }
+                    else {
+                        value = expression.evaluate(context);
+                    }
+*/                    
                     Object value = expression.evaluate(context);
                     dynaBean.set(name, value);
                 }

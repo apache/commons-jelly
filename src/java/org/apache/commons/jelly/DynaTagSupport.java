@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/DynaTag.java,v 1.5 2002/09/30 17:38:16 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/09/30 17:38:16 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/DynaTagSupport.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/05/17 15:18:12 $
  *
  * ====================================================================
  *
@@ -57,37 +57,27 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynaTag.java,v 1.5 2002/09/30 17:38:16 jstrachan Exp $
+ * $Id: DynaTagSupport.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
 
 /** 
- * <p><code>DynaTag</code> represents a Jelly custom tag which
- * can take its attributes dynamically and store them in some data structure.
- * Typically a DynaTag may use either a Map or a DynaBean to implement itself
- * which avoids writing explicit getter and setter methods for each possible attribute.
+ * <p><code>DynaTagSupport</code> is an abstract base class
+ * for any DynaTag implementation to derive from.
  * </p>
- * <p>
- * This kind of tag can be extremely useful when making HTML-like tags which
- * generally output all the attributes which are used in the markup, except
- * one or two special attributes are used, all others pass through.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.3 $
  */
 
-public interface DynaTag extends Tag {
-
-    /** Sets an attribute value of this tag before the tag is invoked
-     */
-    public void setAttribute(String name, Object value) throws Exception;
+public abstract class DynaTagSupport extends TagSupport implements DynaTag {
 
     /**
      * @return the type of the given attribute. By default just return
      * Object.class if this is not known.
-     * If this method returns Expression.class then the expression will not
-     * be evaluated and just passed in as the attribute value.
      */
-    public Class getAttributeType(String name) throws Exception;
+    public Class getAttributeType(String name) throws Exception {
+        return Object.class;
+    }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.10 2002/07/15 11:22:27 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/07/15 11:22:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.11 2002/09/30 17:38:16 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/09/30 17:38:16 $
  *
  * ====================================================================
  *
@@ -57,13 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StaticTag.java,v 1.10 2002/07/15 11:22:27 jstrachan Exp $
+ * $Id: StaticTag.java,v 1.11 2002/09/30 17:38:16 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.DynaTag;
-import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.DynaTagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.xml.sax.Attributes;
@@ -74,10 +74,10 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
-public class StaticTag extends TagSupport implements DynaTag {
+public class StaticTag extends DynaTagSupport {
     
     /** The namespace URI */
     private String uri;
