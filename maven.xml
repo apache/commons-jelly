@@ -470,5 +470,15 @@
      <arg value="src/test/org/apache/commons/jelly/swing/run.jelly"/> 
     </java>
   </goal>
-	
+
+	<!-- a simple example program to demonstrate the use of <tableModel> -->	
+  <goal name="jelly:showvars" prereqs="jelly-task"
+    description="Displays the current variables in the Maven project">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <sysproperty key="http.proxyHost" value="${maven.proxy.host}"/>
+      <sysproperty key="http.proxyPort" value="${maven.proxy.port}"/>
+      <arg value="src/test/org/apache/commons/jelly/swing/showVariables.jelly"/> 
+    </java>
+  </goal>
 </project>

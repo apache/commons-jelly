@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<j:jelly 
+	xmlns:j="jelly:core" 
+	xmlns="jelly:swing" 
+	xmlns:log="jelly:log">
+
+	<!-- lets create the model -->
+	<j:useList var="list" items="${context.getVariableNames()}"/>
+
+	<log:info>Created list ${list}</log:info>
+		
+	<!-- create the dialog -->
+	<dialog var="dialog" size="400,150" location="200,200" title="Variables">
+		<scrollPane>
+  		<table>
+				<tableModel rows="${list}">
+					<tableModelColumn headerValue="ID" value="${rowIndex}"/>
+					<tableModelColumn headerValue="Name" value="${row}"/>
+					<tableModelColumn headerValue="Value" value="${context.getVariable(row)}"/>
+					<tableModelColumn headerValue="Type" value="${context.getVariable(row).getClass().getName()}"/>
+				</tableModel>
+    	</table>
+    </scrollPane>
+	</dialog>
+
+	${dialog.setVisible(true)}
+
+</j:jelly>
+
+
+
