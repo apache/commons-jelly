@@ -139,7 +139,36 @@ public class AntTagLibrary extends TagLibrary {
     }        
         
     public AntTagLibrary() {
-        this.project = new Project();
+        this.project = createProject();
+    }
+
+    public AntTagLibrary(Project project) {
+        this.project = project;
+    }
+
+
+    /**
+     * A helper method which will attempt to find a project in the current context
+     * or install one if need be.
+     * 
+     * #### this method could move to an AntUtils class.
+     */
+    public static Project getProject(JellyContext context) {
+        Project project = (Project) context.findVariable( "org.apache.commons.jelly.ant.Project" );
+        if ( project == null ) {
+            project = createProject();
+            context.setVariable( "org.apache.commons.jelly.ant.Project", project );
+        }
+        return project;
+    }
+
+    /**
+     * A helper method to create a new project
+     * 
+     * #### this method could move to an AntUtils class.
+     */    
+    public static Project createProject() {
+        Project project = new Project();
 
         BuildLogger logger = new NoBannerLogger();
 
@@ -150,11 +179,9 @@ public class AntTagLibrary extends TagLibrary {
         project.addBuildListener( logger );
         
         project.init();
+        return project;
     }
 
-    public AntTagLibrary(Project project) {
-        this.project = project;
-    }
 
     /** Creates a new script to execute the given tag name and attributes */
     public TagScript createTagScript(String name, Attributes attributes) throws Exception {

@@ -94,7 +94,9 @@ public abstract class WerkzTagSupport extends TagSupport {
         if ( project == null ) {
             throw new JellyException( "Must use this tag inside a <maven:project> tag" );
         }
-        Goal goal = project.getGoal(name);
+        
+        // #### allow lazy creation of callbacks before the goal is defined...
+        Goal goal = project.getGoal(name, true);
         if ( goal == null ) {
             throw new JellyException( "No such target name: " + name );
         }

@@ -112,10 +112,10 @@ public class ProjectTag extends WerkzTagSupport {
         // force project to be lazily constructed        
         getProject(); 
 
-        // AntTagLibrary ant = (AntTagLibrary) context.getTagLibrary( "jelly:ant" );
-
-        org.apache.tools.ant.Project antProject =
-            (org.apache.tools.ant.Project) context.findVariable( "org.apache.commons.jelly.ant.Project" );
+        org.apache.tools.ant.Project antProject = AntTagLibrary.getProject( context );
+        
+        // allow access to Ant methods via the project class
+        context.setVariable( "project", antProject );
 
         antProject.getBuildListeners().clear();
 

@@ -19,6 +19,12 @@
   	<echo message="About to run the tests!"/>
   </werkz:goal>
 
+  <!-- call all the targets made on the command line -->	
+  <werkz:attain>
+    <j:forEach var="arg" items="${args}" begin="1">
+      <werkz:attainGoal name="${arg}"/>
+    </j:forEach>
+  </werkz:attain>
 
 </werkz:project>
 
