@@ -400,7 +400,10 @@
       </j:choose>
         
       <j:forEach var="reactorProject" items="${reactorProjects}">
-        <j:forEach var="dep" items="${reactorProject.dependencies}">${deps.add(dep)}</j:forEach>
+        <j:forEach var="dep" items="${reactorProject.dependencies}">
+					<j:if test="${dep.artifactId eq 'commons-jelly'}">${dep.setVersion("SNAPSHOT")}</j:if>
+					${deps.add(dep)}
+				</j:forEach>
       </j:forEach>
       <j:forEach var="tl" items="${jellyTaglibNames}">
         <j:new var="tlD" className="org.apache.maven.project.Dependency"/>
