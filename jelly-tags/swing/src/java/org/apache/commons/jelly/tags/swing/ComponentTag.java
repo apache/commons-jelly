@@ -61,11 +61,14 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.LayoutManager;
 import java.awt.Point;
+import java.awt.Color;
 import java.awt.Window;
 import java.awt.event.WindowListener;
 import java.util.Iterator;
@@ -91,7 +94,7 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public class ComponentTag extends UseBeanTag {
+public class ComponentTag extends UseBeanTag implements ContainerTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ComponentTag.class);
@@ -106,10 +109,90 @@ public class ComponentTag extends UseBeanTag {
         this.factory = factory;
     }
 
+    public String toString() {
+        String componentName = getComponent().getName();
+        if (componentName == null || componentName.length() == 0)
+            componentName = getComponent().toString();
+        return "ComponentTag with bean " + componentName;
+    }
+
+    /**
+     * Sets the Action of this component
+     */
+    public void setAction(Action action) throws Exception {
+        Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'action' property
+            BeanUtils.setProperty( component, "action", action );
+        }
+    }
+
+    /**
+     * Sets the Font of this component
+     */
+    public void setFont(Font font) throws Exception {
+        Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'font' property
+            BeanUtils.setProperty( component, "font", font );
+        }
+    }
+
+    /**
+     * Sets the Border of this component
+     */
+    public void setBorder(Border border) throws Exception {
+        Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'border' property
+            BeanUtils.setProperty( component, "border", border );
+        }
+    }
+
+    /**
+     * Sets the LayoutManager of this component
+     */
+    public void setLayout(LayoutManager layout) throws Exception {
+        Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'layout' property
+            BeanUtils.setProperty( component, "layout", layout );
+        }
+    }
+
+    /**
+     * Adds a WindowListener to this component
+     */
+    public void addWindowListener(WindowListener listener) throws Exception {
+        Component component = getComponent();
+        if ( component instanceof Window ) {
+            Window window = (Window) component;
+            window.addWindowListener(listener);
+        }
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------                    
+
+    /**
+     * @return the visible component, if there is one.
+     */
+    public Component getComponent() {
+        Object bean = getBean();
+        if ( bean instanceof Component ) {
+            return (Component) bean;
+        }
+        return null;
+    }    
+    
+    
+    // ContainerTag interface
+    //-------------------------------------------------------------------------                    
+    
     /**
      * Adds a child component to this parent
      */
-    public void addChild(Component component) {
+    public void addChild(Component component, Object constraints) {
         Object parent = getBean();
         if ( parent instanceof JFrame && component instanceof JMenuBar ) {
             JFrame frame = (JFrame) parent;
@@ -148,69 +231,15 @@ public class ComponentTag extends UseBeanTag {
         }
         else if ( parent instanceof Container ) {
             Container container = (Container) parent;
-            container.add( component );
+            if (constraints != null) {
+                container.add( component, constraints );
+            }
+            else {
+                container.add( component );
+            }
         }            
     }
 
-
-    /**
-     * Sets the Action of this component
-     */
-    public void setAction(Action action) throws Exception {
-        Component component = getComponent();
-        if ( component != null ) {
-            // lets just try set the 'action' property
-            BeanUtils.setProperty( component, "action", action );
-        }
-    }
-
-    /**
-     * Sets the Font of this component
-     */
-    public void setFont(Font font) throws Exception {
-        Component component = getComponent();
-        if ( component != null ) {
-            // lets just try set the 'font' property
-            BeanUtils.setProperty( component, "font", font );
-        }
-    }
-
-    /**
-     * Sets the Border of this component
-     */
-    public void setBorder(Border border) throws Exception {
-        Component component = getComponent();
-        if ( component != null ) {
-            // lets just try set the 'border' property
-            BeanUtils.setProperty( component, "border", border );
-        }
-    }
-
-    /**
-     * Adds a WindowListener to this component
-     */
-    public void addWindowListener(WindowListener listener) throws Exception {
-        Component component = getComponent();
-        if ( component instanceof Window ) {
-            Window window = (Window) component;
-            window.addWindowListener(listener);
-        }
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------                    
-
-    /**
-     * @return the visible component, if there is one.
-     */
-    public Component getComponent() {
-        Object bean = getBean();
-        if ( bean instanceof Component ) {
-            return (Component) bean;
-        }
-        return null;
-    }    
-    
     
     // Implementation methods
     //-------------------------------------------------------------------------                    
@@ -247,15 +276,15 @@ public class ComponentTag extends UseBeanTag {
         if (var != null) {
             context.setVariable(var, bean);
         }
-        else {
-            Component component = getComponent();
-            if ( component != null ) {
-                ComponentTag parentTag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-                if ( parentTag != null ) {
-                    parentTag.addChild(component);
-                }
-                else {
-                    throw new JellyException( "This tag must be used within a JellySwing widget tag or the 'var' attribute must be specified" );
+        Component component = getComponent();
+        if ( component != null ) {
+            ContainerTag parentTag = (ContainerTag) findAncestorWithClass( ContainerTag.class );
+            if ( parentTag != null ) {
+                parentTag.addChild(component, getConstraint());
+            }
+            else {
+                if (var == null) {
+                    throw new JellyException( "The 'var' attribute must be specified or this tag must be nested inside a JellySwing container tag like a widget or a layout" );
                 }
             }
         }
@@ -272,27 +301,72 @@ public class ComponentTag extends UseBeanTag {
 
             // ### special hacks for properties that don't introspect properly            
             Component component = getComponent();
-            if ( component != null ) {
-                if ( name.equals( "location" ) ) {
+            if (component != null) {
+                if (name.equals("location")) {
                     Point p = null;
-                    if ( value instanceof Point ) {
+                    if (value instanceof Point) {
                         p = (Point) value;
                     }
-                    else if ( value != null) {
-                        p = (Point) ConvertUtils.convert( value.toString(), Point.class );
+                    else if (value != null) {
+                        p =
+                            (Point) ConvertUtils.convert(
+                                value.toString(),
+                                Point.class);
                     }
                     component.setLocation(p);
                 }
-                else if ( name.equals( "size" ) ) {                
+                else if (name.equals("size")) {
                     Dimension d = null;
-                    if ( value instanceof Dimension ) {
+                    if (value instanceof Dimension) {
                         d = (Dimension) value;
                     }
-                    else if ( value != null) {
-                        d = (Dimension) ConvertUtils.convert( value.toString(), Dimension.class );
+                    else if (value != null) {
+                        d =
+                            (Dimension) ConvertUtils.convert(
+                                value.toString(),
+                                Dimension.class);
                     }
                     component.setSize(d);
-                }                    
+                }
+                else if (
+                    name.equalsIgnoreCase("background")
+                        || name.equalsIgnoreCase("foreground")) {
+                    Color c = null;
+                    if (value instanceof Color) {
+                        c = (Color) value;
+                    }
+                    else if (value != null) {
+                        c =
+                            (Color) ConvertUtils.convert(
+                                value.toString(),
+                                Color.class);
+                    }
+
+                    if (name.equalsIgnoreCase("background")) {
+                        component.setBackground(c);
+                    }
+                    else {
+                        component.setForeground(c);
+                    }
+                }
+                else if (
+                    name.equalsIgnoreCase("debugGraphicsOption")
+                        || name.equalsIgnoreCase("debugGraphics")
+                        || name.equalsIgnoreCase("debug")) {
+
+                    Integer v = null;
+                    if (!(value instanceof Integer))
+                        v =
+                            (Integer) ConvertUtils.convert(
+                                value.toString(),
+                                Integer.class);
+                    else
+                        v = (Integer) value;
+                    if (!(component instanceof JComponent))
+                        throw new IllegalArgumentException("DebugGraphics can only be set on a JComponent subclass.");
+                    ((JComponent) component).setDebugGraphicsOptions(
+                        v.intValue());
+                }
                 else {
                     BeanUtils.setProperty(component, name, value);
                 }
@@ -301,5 +375,9 @@ public class ComponentTag extends UseBeanTag {
                 BeanUtils.setProperty(bean, name, value);
             }
         }
+    }
+
+    protected Object getConstraint() {
+        return null;
     }
 }

@@ -61,74 +61,92 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import javax.swing.border.Border;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.swing.impl.Cell;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+ * Represents a tabular row inside a &lt;tableLayout&gt; tag which mimicks the
+ * &lt;tr&gt; HTML tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public abstract class BorderTagSupport extends TagSupport {
+public class TrTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
+    private static final Log log = LogFactory.getLog(TrTag.class);
 
-    private String var;
-
-    public BorderTagSupport() {
+    private TableLayoutTag tableLayoutTag;
+    private List cells = new ArrayList();
+    private int rowIndex;
+    
+    public TrTag() {
     }
+
+    /**
+     * Adds a new cell to this row
+     */
+    public void addCell(Component component, GridBagConstraints constraints) throws Exception {
+        constraints.gridx = cells.size();
+        cells.add(new Cell(constraints, component));
+    }        
+    
 
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(final XMLOutput output) throws Exception {
-
-        Border border = createBorder();
-
-        // allow some nested tags to set properties        
+        tableLayoutTag = (TableLayoutTag) findAncestorWithClass( TableLayoutTag.class );
+        if (tableLayoutTag == null) {
+            throw new JellyException( "this tag must be nested within a <tableLayout> tag" );
+        }
+        rowIndex = tableLayoutTag.nextRowIndex();
+        cells.clear();
+        
         invokeBody(output);
         
-        if (var != null) {
-            context.setVariable(var, border);
-        }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
+        // now iterate through the rows and add each one to the layout...
+        for (Iterator iter = cells.iterator(); iter.hasNext(); ) {
+            Cell cell = (Cell) iter.next();
+            GridBagConstraints c = cell.getConstraints();
+
+            // are we the last cell in the row
+            if ( iter.hasNext() ) {
+                // not last in row
+                c.gridwidth = GridBagConstraints.RELATIVE;                
             }
-        }
+            else {
+                // end of row
+                c.gridwidth = GridBagConstraints.REMAINDER;
+            }
+            c.gridy = rowIndex;
+            
+            // now lets add the cell to the table
+            tableLayoutTag.addCell(cell);
+        }        
+        cells.clear();
     }
     
     // Properties
     //-------------------------------------------------------------------------                    
-
-
+    
     /**
-     * Sets the name of the variable to use to expose the new Border object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
+     * @return the row index of this row
      */
-    public void setVar(String var) {
-        this.var = var;
+    public int getRowIndex() {
+        return rowIndex;
     }
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
-    /**
-     * Factory method to create a new Border instance.
-     */
-    protected abstract Border createBorder() throws Exception;   
+
 }

@@ -34,6 +34,14 @@
         <menuItem text="Properties" font="${bigfont}"/>
         <menuItem action="${fooAction}"/>
       </menu>
+      <menu text="Demo">
+        <menuItem>
+          <action name="GridBagLayout demo">
+          	<log:info>about to run the GridBagLayout demo...</log:info>
+          	<j:include uri="gridBagDemo.jelly"/>
+          </action>
+        </menuItem>
+      </menu>
       <menu text="Help">
 				<font family="Verdana" size="14"/>
 
@@ -44,14 +52,36 @@
 		<splitPane>    
       <panel>
       	<titledBorder title="Sample Border Title"/>
-        <label text="Enter your name"/>
-        <textField text="James" font="${bigfont}"/>
-        <button>
-          <action name="OK">
-          	<log:info>Clicked on the OK button</log:info>
-          </action>
-        </button>
-        <button action="${fooAction}"/>
+      	<tableLayout>
+      		<tr>
+      			<td>
+			        <label text="Name"/>
+						</td>			        
+      			<td>
+			        <textField text="James"/>
+						</td>			        
+      		</tr>
+      		<tr>
+      			<td>
+			        <label text="Location"/>
+						</td>			        
+      			<td>
+			        <textField text="London"/>
+						</td>			        
+      		</tr>
+      		<tr>
+      			<td colspan="2" align="center">
+      				<panel>
+				        <button>
+				          <action name="OK">
+				          	<log:info>Clicked on the OK button</log:info>
+				          </action>
+				        </button>
+				        <button action="${fooAction}"/>
+							</panel>				        
+						</td>			        
+    		</tr>
+      	</tableLayout>
       </panel>
       <scrollPane>
       	<!-- this tag can set properties on the bean model too -->

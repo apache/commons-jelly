@@ -142,6 +142,13 @@
       	<role>Developer</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>Paul Libbrecht</name>
+      <email>paul@activemath.org</email>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>    
   </contributors>
 
   <dependencies>

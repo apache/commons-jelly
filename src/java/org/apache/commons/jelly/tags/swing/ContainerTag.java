@@ -61,74 +61,21 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import javax.swing.border.Border;
-
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.awt.Component;
 
 /** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+ * An interface which represents a Tag which is capable of containing AWT Components.
+ * So tags such as ContainerTag and LayoutTagSupport implement this interface as they can have
+ * nested child component tags.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public abstract class BorderTagSupport extends TagSupport {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
-
-    private String var;
-
-    public BorderTagSupport() {
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
-
-        Border border = createBorder();
-
-        // allow some nested tags to set properties        
-        invokeBody(output);
-        
-        if (var != null) {
-            context.setVariable(var, border);
-        }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
-            }
-        }
-    }
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
-
+public interface ContainerTag {
 
     /**
-     * Sets the name of the variable to use to expose the new Border object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
+     * Adds a child component to this container with optional constraints.
+     * If the constraints are null they are ignored
      */
-    public void setVar(String var) {
-        this.var = var;
-    }
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
-    /**
-     * Factory method to create a new Border instance.
-     */
-    protected abstract Border createBorder() throws Exception;   
+    public void addChild(Component component, Object constraints) throws Exception;
 }

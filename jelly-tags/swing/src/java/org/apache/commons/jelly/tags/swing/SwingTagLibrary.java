@@ -77,6 +77,8 @@ import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.tags.swing.converters.DimensionConverter;
 import org.apache.commons.jelly.tags.swing.converters.PointConverter;
+import org.apache.commons.jelly.tags.swing.converters.ColorConverter;
+import org.apache.commons.jelly.tags.swing.converters.DebugGraphicsConverter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -104,6 +106,8 @@ public class SwingTagLibrary extends TagLibrary {
         // ### Icon, KeyStroke etc.
         ConvertUtils.register( new DimensionConverter(), Dimension.class );
         ConvertUtils.register( new PointConverter(), Point.class );
+        ConvertUtils.register( new ColorConverter(), java.awt.Color.class );
+        DebugGraphicsConverter.register();
     }
         
     public SwingTagLibrary() {
@@ -113,8 +117,18 @@ public class SwingTagLibrary extends TagLibrary {
         
         // the border tags...
         registerTag( "titledBorder", TitledBorderTag.class );
-        
+        // @todo the other kinds of borders, empty, bevelled, compound etc
+            
         // the layout tags...
+        
+        // HTML style table, tr, td layouts
+        registerTag( "tableLayout", TableLayoutTag.class );
+        registerTag( "tr", TrTag.class );
+        registerTag( "td", TdTag.class );
+        
+        // GridBagLayout
+        registerTag( "gridBagLayout", GridBagLayoutTag.class );
+        registerTag( "gbc", GbcTag.class );
     }
 
     /** Creates a new script to execute the given tag name and attributes */
@@ -126,7 +140,12 @@ public class SwingTagLibrary extends TagLibrary {
                 return new DynaTagScript(
                     new TagFactory() {
                         public Tag createTag() throws Exception {
-                            return new ComponentTag(factory);
+							if ( factory instanceof TagFactory ) {
+								return ((TagFactory) factory).createTag();
+                            }
+							else {
+                                return new ComponentTag(factory);
+                            }
                         }
                     }
                 );
@@ -153,6 +172,10 @@ public class SwingTagLibrary extends TagLibrary {
         registerBeanFactory( "checkBox", JCheckBox.class );
         registerBeanFactory( "checkBoxMenuItem", JCheckBoxMenuItem.class );
         registerBeanFactory( "comboBox", JComboBox.class );
+					// how to add content there ?
+					// Have a ComboBoxModel (just one should have a Table or Tree Model objects) ?
+					// can the element control it's children ?
+					// but children should also be able to be any component (as Swing comps. are all container)
         registerBeanFactory( "desktopPane", JDesktopPane.class );
         registerBeanFactory( "dialog", JDesktopPane.class );
         registerBeanFactory( "frame", JFrame.class );

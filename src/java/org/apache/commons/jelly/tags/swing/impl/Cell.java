@@ -59,76 +59,63 @@
  * 
  * $Id: DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.swing;
+package org.apache.commons.jelly.tags.swing.impl;
 
-import javax.swing.border.Border;
-
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+ * A simple class to represent the information for a single cell in a table
+ * when using the GridBagLayout
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public abstract class BorderTagSupport extends TagSupport {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
-
-    private String var;
-
-    public BorderTagSupport() {
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
-
-        Border border = createBorder();
-
-        // allow some nested tags to set properties        
-        invokeBody(output);
-        
-        if (var != null) {
-            context.setVariable(var, border);
-        }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
-            }
-        }
+public class Cell {
+    private GridBagConstraints constraints;
+    private Component component;
+    
+    public Cell() {
     }
     
-    // Properties
-    //-------------------------------------------------------------------------                    
-
-
-    /**
-     * Sets the name of the variable to use to expose the new Border object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
-     */
-    public void setVar(String var) {
-        this.var = var;
+    public Cell(GridBagConstraints constraints, Component component) {
+        this.constraints = constraints;
+        this.component = component;
     }
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
     
     /**
-     * Factory method to create a new Border instance.
+     * Returns the component.
+     * @return Component
      */
-    protected abstract Border createBorder() throws Exception;   
+    public Component getComponent() {
+        return component;
+    }
+
+    /**
+     * Returns the constraints.
+     * @return GridBagConstraints
+     */
+    public GridBagConstraints getConstraints() {
+        return constraints;
+    }
+
+    /**
+     * Sets the component.
+     * @param component The component to set
+     */
+    public void setComponent(Component component) {
+        this.component = component;
+    }
+
+    /**
+     * Sets the constraints.
+     * @param constraints The constraints to set
+     */
+    public void setConstraints(GridBagConstraints constraints) {
+        this.constraints = constraints;
+    }
+
 }

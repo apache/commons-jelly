@@ -59,76 +59,60 @@
  * 
  * $Id: DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.swing;
+package org.apache.commons.jelly.tags.swing.converters;
 
-import javax.swing.border.Border;
+import javax.swing.DebugGraphics;
+import java.util.StringTokenizer;
 
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils.ConvertUtils;
 
 /** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+ * A Converter that turns Strings in one of the constants of
+ *	{@link DebugGraphics} to their appropriate integer constant.
  *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
+ * @version $Revision: $
  */
-public abstract class BorderTagSupport extends TagSupport {
+public class DebugGraphicsConverter implements Converter {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
-
-    private String var;
-
-    public BorderTagSupport() {
+    private static String usageText =
+        "DebugGraphics options are set as a \"|\" separated list of words using one of the constants of DebugGraphics: log, flash, or buffered.";
+        
+    public static void register() {
+        ConvertUtils.register(
+            new DebugGraphicsConverter(),
+            java.lang.Integer.class);
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
-
-        Border border = createBorder();
-
-        // allow some nested tags to set properties        
-        invokeBody(output);
-        
-        if (var != null) {
-            context.setVariable(var, border);
+    public Object convert(Class type, Object value) {
+        if (value != null) {
+            int result = 0;
+            StringTokenizer stok =
+                new StringTokenizer(value.toString(), ", \t|", false);
+            while (stok.hasMoreTokens()) {
+                String tok = stok.nextToken();
+                result = result | recognizeOption(tok);
+            }
+            return new Integer(result);
         }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
+        return null;
+    }
+
+    protected int recognizeOption(String value) {
+        value = value.toString().toLowerCase();
+
+        if ("log".equals(value) || "log_option".equals(value)) {
+            return DebugGraphics.LOG_OPTION;
+        }
+        else if ("flash".equals(value) || "flash_option".equals(value)) {
+                return DebugGraphics.FLASH_OPTION;
+        }
+        else if ("buffered".equals(value) || "buffered_option".equals(value)) {
+            return DebugGraphics.BUFFERED_OPTION;
         }
         else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
-            }
+            throw new IllegalArgumentException(usageText);
         }
     }
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
-
-
-    /**
-     * Sets the name of the variable to use to expose the new Border object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
-    /**
-     * Factory method to create a new Border instance.
-     */
-    protected abstract Border createBorder() throws Exception;   
 }

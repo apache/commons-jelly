@@ -59,76 +59,77 @@
  * 
  * $Id: DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.swing;
+package org.apache.commons.jelly.tags.swing.converters;
 
-import javax.swing.border.Border;
+import java.awt.Color;
+import java.awt.SystemColor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.beanutils.Converter;
 
 /** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+ * A Converter that turns Strings in the form "#uuuuuu" (as RGB triple) 
+ * or the name of one of the {@link Color}-constants of the class
+ * {@link Color} or {@link SystemColor}.
+ *	<p>
+ *	TODO: provide support of ARGB colors as well.<br>
+ * Future: provide support for color-spaces, indexed colors...
+ *		(in particular theme-based colors)
  *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
+ * @version $Revision: $
  */
-public abstract class BorderTagSupport extends TagSupport {
+public class ColorConverter implements Converter {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
+    private static String usageText =
+        "A color is encoded as a java.awt.Color name or a #xxxxxx triple of hex-bytes.";
 
-    private String var;
-
-    public BorderTagSupport() {
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
-
-        Border border = createBorder();
-
-        // allow some nested tags to set properties        
-        invokeBody(output);
-        
-        if (var != null) {
-            context.setVariable(var, border);
-        }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
+    public Object convert(Class type, Object value) {
+        if (value != null) {
+            String s = value.toString();
+            if (s.length() <= 1) {
+                throw new IllegalArgumentException(usageText);
+            }
+            if (s.charAt(0) == '#') {
+                if (s.length() != 7) {
+                    throw new IllegalArgumentException(usageText);
+                }
+                int colorValue = 0;
+                try {
+                    colorValue = Integer.parseInt(s.substring(1), 16);
+                    return new Color(colorValue);
+                }
+                catch (NumberFormatException ex) {
+                    throw new IllegalArgumentException(
+                        "Can't parse \""
+                            + s
+                            + "\" as an hexadecimal number: "
+                            + ex);
+                }
+            }
+            else {
+                // a color name
+                try {
+                    // could it be this is already somewhere: get the value of  a static final by string
+                    Field f = SystemColor.class.getField(s);
+                    if (f == null
+                        || !Modifier.isStatic(f.getModifiers())
+                        || !Modifier.isFinal(f.getModifiers())
+                        || !Modifier.isPublic(f.getModifiers())
+                        || !Color.class.isAssignableFrom(f.getType())) {
+                            
+                        throw new IllegalArgumentException(usageText);
+                    }
+                    return (Color) f.get(SystemColor.class);
+                }
+                catch (Exception ex) {
+                    throw new IllegalArgumentException(
+                        "Can't parse \"" + s + "\" as a color-name: " + ex);
+                }
             }
         }
+        return null;
     }
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
 
-
-    /**
-     * Sets the name of the variable to use to expose the new Border object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
-    /**
-     * Factory method to create a new Border instance.
-     */
-    protected abstract Border createBorder() throws Exception;   
 }

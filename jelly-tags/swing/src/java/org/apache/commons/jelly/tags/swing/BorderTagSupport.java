@@ -73,7 +73,7 @@ import org.apache.commons.logging.LogFactory;
 
 /** 
  * An abstract base class used for concrete border tags which create new Border implementations
- * and either export them as variables or set them on parent widgets.
+ * and sets then on parent widgets and optionally export them as variables .
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
@@ -100,12 +100,12 @@ public abstract class BorderTagSupport extends TagSupport {
         if (var != null) {
             context.setVariable(var, border);
         }
+        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+        if ( tag != null ) {
+            tag.setBorder(border);
+        }
         else {
-            ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-            if ( tag != null ) {
-                tag.setBorder(border);
-            }
-            else {
+            if (var == null) {
                 throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
             }
         }

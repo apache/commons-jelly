@@ -61,74 +61,40 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import javax.swing.border.Border;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.swing.impl.Cell;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+ * A Layout tag which uses nested &lt;gbc&gt; tags to implement a GridBagLayout
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public abstract class BorderTagSupport extends TagSupport {
+public class GridBagLayoutTag extends LayoutTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
+    private static final Log log = LogFactory.getLog(LayoutTagSupport.class);
 
-    private String var;
-
-    public BorderTagSupport() {
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
-
-        Border border = createBorder();
-
-        // allow some nested tags to set properties        
-        invokeBody(output);
-        
-        if (var != null) {
-            context.setVariable(var, border);
-        }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
-            }
-        }
-    }
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
-
-
-    /**
-     * Sets the name of the variable to use to expose the new Border object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
-     */
-    public void setVar(String var) {
-        this.var = var;
+    public GridBagLayoutTag() {
     }
     
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
     /**
-     * Factory method to create a new Border instance.
+     * Creates a GridBagLayout
      */
-    protected abstract Border createBorder() throws Exception;   
+    protected LayoutManager createLayoutManager() throws Exception {
+        return new GridBagLayout();        
+    }
 }

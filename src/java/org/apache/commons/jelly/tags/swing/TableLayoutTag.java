@@ -61,74 +61,65 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import javax.swing.border.Border;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.LayoutManager;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.swing.impl.Cell;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+ * A Layout tag which mimicks the table, tr and td tags of HTML.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public abstract class BorderTagSupport extends TagSupport {
+public class TableLayoutTag extends LayoutTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
+    private static final Log log = LogFactory.getLog(LayoutTagSupport.class);
 
-    private String var;
-
-    public BorderTagSupport() {
+    private int rowCount;
+    
+    public TableLayoutTag() {
     }
 
+    /**
+     * Adds a new cell to the current grid
+     */
+    public void addCell(Cell cell) throws Exception {
+        // find the parent container and add the component with the grid bag constraints
+        addLayoutComponent(cell.getComponent(), cell.getConstraints());
+    }        
+
+    /**
+     * Creates a new row index for child <tr> tags 
+     */
+    public int nextRowIndex() {
+        return rowCount++;
+    }
+    
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(final XMLOutput output) throws Exception {
-
-        Border border = createBorder();
-
-        // allow some nested tags to set properties        
-        invokeBody(output);
-        
-        if (var != null) {
-            context.setVariable(var, border);
-        }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
-            }
-        }
-    }
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
-
-
-    /**
-     * Sets the name of the variable to use to expose the new Border object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
-     */
-    public void setVar(String var) {
-        this.var = var;
+        rowCount = 0;
+        super.doTag(output);
     }
     
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
+    
     /**
-     * Factory method to create a new Border instance.
+     * Creates a GridBagLayout
      */
-    protected abstract Border createBorder() throws Exception;   
+    protected LayoutManager createLayoutManager() throws Exception {
+        return new GridBagLayout();        
+    }
 }

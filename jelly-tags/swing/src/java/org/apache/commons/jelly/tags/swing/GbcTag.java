@@ -61,74 +61,89 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import javax.swing.border.Border;
+import java.awt.Component;
+import java.awt.GridBagConstraints;
+import java.util.Map;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
 
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.core.UseBeanTag;
+import org.apache.commons.jelly.tags.swing.impl.GridBagConstraintBean;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+/** This class represents a {@link GridBagConstraint} constraints as passed in
+ * the second argument of {@link Component#add(Component,Object)}.
+ * It supports inheritence between such tags in the following fashion:
+ * <ul>
+ * 	<li>either using a <code>basedOn</code> attribute which is
+ * 		supposed to provide a reference to another {@link GbcTag}.</li>
+ * 	<li>either using a parent {@link GbcTag}.</li>
+ * </ul>
+ * The first version takes precedence.
+ * A Grid-bag-constraint inherits from another simply by setting other attributes
+ * as is done in {@link GridBagConstraintBean#setValueFrom}.
+ * <p>
+ * In essence, it looks really like nothing else than a bean-class...
+ * with {@link #getConstraintObject}.
+ * Probably a shorter java-source is do-able.
+ * <p>
+ * TODO: this class should probably be extended with special treatment for dimensions
+ * using the converter package.
  *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
+ * @version $Revision: $
  */
-public abstract class BorderTagSupport extends TagSupport {
+public class GbcTag extends UseBeanTag implements ContainerTag {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
-
-    private String var;
-
-    public BorderTagSupport() {
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
-
-        Border border = createBorder();
-
-        // allow some nested tags to set properties        
-        invokeBody(output);
-        
-        if (var != null) {
-            context.setVariable(var, border);
-        }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
-            }
-        }
+    public GridBagConstraints getConstraints() {
+        return (GridBagConstraints) getBean();
     }
     
-    // Properties
+    
+    // ContainerTag interface
     //-------------------------------------------------------------------------                    
-
-
+    
     /**
-     * Sets the name of the variable to use to expose the new Border object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
+     * Adds a child component to this parent
      */
-    public void setVar(String var) {
-        this.var = var;
+    public void addChild(Component component, Object constraints) throws Exception {
+        GridBagLayoutTag tag = (GridBagLayoutTag) findAncestorWithClass( GridBagLayoutTag.class );
+        if (tag == null) {
+            throw new JellyException( "this tag must be nested within a <tr> tag" );
+        }
+        tag.addLayoutComponent(component, getConstraints());
     }
     
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
     /**
-     * Factory method to create a new Border instance.
+     * A class may be specified otherwise the Factory will be used.
      */
-    protected abstract Border createBorder() throws Exception;   
+    protected Class convertToClass(Object classObject) throws Exception {
+        if (classObject == null) {
+            return null;
+        }
+        else {
+            return super.convertToClass(classObject);
+        }
+    }
+    
+    /**
+     * A class may be specified otherwise the Factory will be used.
+     */
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws Exception {
+        if (theClass != null ) {
+            return theClass.newInstance();
+        }
+        else {
+            return new GridBagConstraintBean();
+        }
+    }
 }
+

@@ -61,7 +61,8 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import javax.swing.border.Border;
+import java.awt.Component;
+import java.awt.LayoutManager;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
@@ -72,43 +73,44 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * An abstract base class used for concrete border tags which create new Border implementations
- * and sets then on parent widgets and optionally export them as variables .
+ * An abstract base class used for concrete layout tags which create new LayoutManager implementations
+ * and either export them as variables or set them on parent widgets.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public abstract class BorderTagSupport extends TagSupport {
+public abstract class LayoutTagSupport extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
+    private static final Log log = LogFactory.getLog(LayoutTagSupport.class);
 
     private String var;
 
-    public BorderTagSupport() {
+    public LayoutTagSupport() {
     }
+
+    /**
+     * Adds the given layout component to the container with the specified constraints
+     */
+    public void addLayoutComponent(Component component, Object constraints) throws Exception {
+        getComponentTag().addChild(component, constraints);
+    }
+    
 
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(final XMLOutput output) throws Exception {
 
-        Border border = createBorder();
+        LayoutManager layout = createLayoutManager();
 
+        if (var != null) {
+            context.setVariable(var, layout);
+        }
+
+        getComponentTag().setLayout(layout);
+        
         // allow some nested tags to set properties        
         invokeBody(output);
-        
-        if (var != null) {
-            context.setVariable(var, border);
-        }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
-            }
-        }
     }
     
     // Properties
@@ -116,9 +118,9 @@ public abstract class BorderTagSupport extends TagSupport {
 
 
     /**
-     * Sets the name of the variable to use to expose the new Border object. 
+     * Sets the name of the variable to use to expose the new LayoutManager object. 
      * If this attribute is not set then the parent widget tag will have its 
-     * border property set.
+     * layout property set.
      */
     public void setVar(String var) {
         this.var = var;
@@ -126,9 +128,20 @@ public abstract class BorderTagSupport extends TagSupport {
     
     // Implementation methods
     //-------------------------------------------------------------------------                    
+
+    /**
+     * @return the parent component tag or throw an exception
+     */
+    protected ComponentTag getComponentTag() throws Exception {
+        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+        if ( tag == null ) {
+            throw new JellyException( "This tag must be nested within a JellySwing widget tag" );
+        }
+        return tag;
+    }
     
     /**
-     * Factory method to create a new Border instance.
+     * Factory method to create a new LayoutManager instance.
      */
-    protected abstract Border createBorder() throws Exception;   
+    protected abstract LayoutManager createLayoutManager() throws Exception;   
 }
