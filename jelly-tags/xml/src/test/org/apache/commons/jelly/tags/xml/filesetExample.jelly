@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns="jelly:ant">
+
+	<fileScanner var="scanner">
+		<fileset dir="src/test/org/apache/commons/jelly/xml" includes="**/*.xml"/>
+	</fileScanner>
+	
+	<j:forEach var="file" items="${scanner.iterator()}">
+	    <j:set var="fileFullName" value="${file.name}"/>
+	    <j:set var="fileName" value="${fileFullName.substring(0, fileFullName.length() - 4)}"/>
+		About to process file ${file} and generate file name ${fileName}.html
+
+		<j:file name="target/${fileName}.html">
+			<x:transform xml="${file}" xslt="transformExample.xsl">
+				<x:param name="filename" value="${file.canonicalPath}"/>
+			</x:transform>
+		</j:file>
+	</j:forEach>
+
+</j:jelly>
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+
+<x:parse xml="${inputFile}" var="doc"/>
+<x:set var="rootElementName" select="string($doc/transactionBean/@rootName)"/>
+
+<info primitiveTypes="element">
+  <element name="${rootElementName}">
+    <x:forEach select="$doc/transactionBean/fields/field">
+      <x:set var="fieldName" select="string(@name)"/>
+      <x:set var="fieldType" select="string(@type)"/>
+      <element name="${fieldName}" property="${fieldName}"/>
+    </x:forEach>
+  </element>
+</info>
+</j:jelly>

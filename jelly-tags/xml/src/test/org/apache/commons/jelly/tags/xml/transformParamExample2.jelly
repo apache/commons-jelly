@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+
+    <x:parse var="xsl_doc">
+        <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+          <xsl:param name="param1" select="'default value 1'"/>
+          <xsl:param name="param2" select="'default value 2'"/>
+          <xsl:template match="doc">
+            <out><xsl:value-of select="$param1"/><xsl:value-of select="$param2"/></out>
+          </xsl:template>
+        </xsl:stylesheet>
+    </x:parse>
+
+  <x:transform xslt="${xsl_doc}" var="doc">
+    <doc>Hello</doc>
+    <x:param name="param1" value="It "/>
+    <x:param name="param2">works!</x:param>
+  </x:transform>
+
+  <x:expr select="$doc/out"/>
+
+</j:jelly>
+
+
