@@ -281,7 +281,7 @@
     
     <dependency>
       <id>nekohtml</id>
-      <version>0.6.5</version>
+      <version>0.7.1</version>
     </dependency>
     
     <dependency>
@@ -376,11 +376,6 @@
       <version>20020414</version>
     </dependency>-->
 
-	<!-- html taglib 
-    <dependency>
-      <id>nekohtml</id>
-      <version>0.6.5</version>
-    </dependency>-->
 
 	<!-- scheduler taglib -->
     <dependency>
