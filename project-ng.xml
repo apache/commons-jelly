@@ -150,6 +150,21 @@
       <jar>werkz-1.0-beta-2.jar</jar>
     </dependency>
     
+    <dependency>
+      <name>xmlParseAPIs</name>
+      <type>required</type>
+      <version>2.0.0</version>
+      <jar>xmlParserAPIs-2.0.0.jar</jar>
+    </dependency>
+    
+    <dependency>
+      <name>xercesImpl</name>
+      <type>required</type>
+      <version>2.0.0</version>
+      <jar>xercesImpl-2.0.0.jar</jar>
+    </dependency>
+    
+    
     <!-- 
       || Optional tag library dependencies
       || These will be sub-projects one day, when Maven handles them gracefully
@@ -242,30 +257,7 @@
       <version>1.7.0</version>
       <jar>hsqldb-1.7.0.jar</jar>
     </dependency>
-    <!--
-    <dependency>
-      <name>xmlParseAPIs</name>
-      <type>required</type>
-      <version>2.0.0</version>
-      <jar>xmlParserAPIs-2.0.0.jar</jar>
-    </dependency>
-    
-    <dependency>
-      <name>xercesImpl</name>
-      <type>required</type>
-      <version>2.0.0</version>
-      <jar>xercesImpl-2.0.0.jar</jar>
-    </dependency>
 
-
-    <dependency>
-      <name>xerces</name>
-      <type>required</type>
-      <version>1.4.4</version>
-      <jar>xerces-1.4.4.jar</jar>
-    </dependency>
-    
--->
 
   </dependencies>
   <build>

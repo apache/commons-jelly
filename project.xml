@@ -83,12 +83,25 @@
   </developers>
 
   <dependencies>
-<!--
     <dependency>
       <id>junit</id>
       <version>3.7</version>
     </dependency>
--->
+    
+    <dependency>
+      <name>xmlParseAPIs</name>
+      <type>required</type>
+      <version>2.0.0</version>
+      <jar>xmlParserAPIs-2.0.0.jar</jar>
+    </dependency>
+    
+    <dependency>
+      <name>xercesImpl</name>
+      <type>required</type>
+      <version>2.0.0</version>
+      <jar>xercesImpl-2.0.0.jar</jar>
+    </dependency>
+    
     <dependency>
       <name>ant</name>
       <version>1.4.1</version>
@@ -242,31 +255,6 @@
       <version>1.7.0</version>
       <jar>hsqldb-1.7.0.jar</jar>
     </dependency>
-    <!--
-    <dependency>
-      <name>xmlParseAPIs</name>
-      <type>required</type>
-      <version>2.0.0</version>
-      <jar>xmlParserAPIs-2.0.0.jar</jar>
-    </dependency>
-    
-    <dependency>
-      <name>xercesImpl</name>
-      <type>required</type>
-      <version>2.0.0</version>
-      <jar>xercesImpl-2.0.0.jar</jar>
-    </dependency>
-
-
-    <dependency>
-      <name>xerces</name>
-      <type>required</type>
-      <version>1.4.4</version>
-      <jar>xerces-1.4.4.jar</jar>
-    </dependency>
-    
--->
-
   </dependencies>
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
