@@ -27,13 +27,13 @@
 		
 			<!-- strip out these elements-->
 			<jsl:template match="form|table|td|center">
-				<jsl:applyTemplates select="*|text()"/>
+				<jsl:applyTemplates select="child::node()"/>
 			</jsl:template>
 				
 			<jsl:template match="tr">
 				<br />
 				<div>
-					<jsl:applyTemplates select="*|text()"/>
+					<jsl:applyTemplates select="child::node()"/>
 				</div>
 			</jsl:template>
 				
