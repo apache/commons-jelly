@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<j:jelly trim="false" xmlns:j="jelly:core">
+<testcase>
+	
+  <j:set var="topping">cheese</j:set>
+  <j:set var="base">deep pan</j:set>
+
+  <j:set var="test" value="pizza has ${topping} on top"/>
+  
+  <j:if test="${test != 'pizza has cheese on top'}">
+  	<fail>attribute test failed. Found <j:expr value="${test}"/> and expected 'pizza has cheese on top'</fail>
+  </j:if>
+  	
+  <j:set var="test">pizza has ${topping} on top</j:set>
+  
+  <j:if test="${test != 'pizza has cheese on top'}">
+  	<fail>element test failed. Found <j:expr value="${test}"/> and expected 'pizza has cheese on top'</fail>
+  </j:if>
+  	
+</testcase>
+</j:jelly>
+
