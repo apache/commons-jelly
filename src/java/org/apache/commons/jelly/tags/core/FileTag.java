@@ -59,6 +59,8 @@ package org.apache.commons.jelly.tags.core;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import org.apache.commons.jelly.JellyException;
@@ -90,7 +92,8 @@ public class FileTag extends TagSupport {
     //------------------------------------------------------------------------- 
     public void doTag(final XMLOutput output) throws Exception {
         if ( name != null ) {
-            Writer writer = new FileWriter(name);
+            String encoding = (this.encoding != null) ? this.encoding : "UTF-8";
+            Writer writer = new OutputStreamWriter( new FileOutputStream( name ), encoding );
             writeBody(writer);
         }
         else if (var != null) {
