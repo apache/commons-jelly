@@ -31,7 +31,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
@@ -101,7 +101,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
         for (int i = 0, size = chars.length; i < size; i++ ) {
             char ch = chars[i];
             // could maybe be a bit more restrictive...
-            if ( Character.isWhitespace(ch) || ch == '[' ) {
+            if ( Character.isWhitespace(ch) || ch == '[' || ch == ']' || ch == '(' || ch == ')') {
                 return false;
             }
         }
