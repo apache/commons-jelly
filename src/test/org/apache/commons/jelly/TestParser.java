@@ -65,6 +65,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.Iterator;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -132,9 +133,8 @@ public class TestParser extends TestCase {
         }
         else if ( script instanceof ScriptBlock ) {
             ScriptBlock block = (ScriptBlock) script;
-            Script[] scripts = block.getScripts();
-            for ( int i = 0; i < scripts.length; i++ ) {
-                assertTagsHaveParent( scripts[i], parent );
+            for ( Iterator iter = block.getScriptList().iterator(); iter.hasNext(); ) {
+                assertTagsHaveParent( (Script) iter.next(), parent );
             }
         }
     }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.8 2002/06/12 19:28:08 werken Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/12 19:28:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.9 2002/06/13 08:16:47 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/06/13 08:16:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.8 2002/06/12 19:28:08 werken Exp $
+ * $Id: TagSupport.java,v 1.9 2002/06/13 08:16:47 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -72,7 +72,7 @@ import java.util.List;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -107,37 +107,36 @@ public abstract class TagSupport implements Tag {
         return null;
     }
 
-    public TagSupport()
-    {
+    public TagSupport() {
     }
 
-    public TagSupport(boolean shouldTrim)
-    {
+    public TagSupport(boolean shouldTrim) {
         setTrim( shouldTrim );
     }
 
-    public void setTrim(boolean shouldTrim)
-    {
+    public void setTrim(boolean shouldTrim) {
         if ( shouldTrim ) {
             this.shouldTrim = Boolean.TRUE;
-        } else {
+        } 
+        else {
             this.shouldTrim = Boolean.FALSE;
         }
     }
 
-    public boolean getTrim()
-    {
+    public boolean getTrim() {
         if ( this.shouldTrim == null ) {
             Tag parent = getParent();
             if ( parent == null ) {
-                return false;
-            } else {
+                return true;
+            } 
+            else {
                 if ( parent instanceof TagSupport ) {
                     TagSupport parentSupport = (TagSupport) parent;
 
                     this.shouldTrim = ( parentSupport.getTrim() ? Boolean.TRUE : Boolean.FALSE );
-                } else {
-                    this.shouldTrim = Boolean.FALSE;
+                } 
+                else {
+                    this.shouldTrim = Boolean.TRUE;
                 }
             }
         }
@@ -209,8 +208,7 @@ public abstract class TagSupport implements Tag {
      * Find all text nodes inside the top level of this body and 
      * if they are just whitespace then remove them
      */
-    protected void trimBody() { // throws Exception {
-        // System.err.println( "trimBody() " + this.getClass().getName() );
+    protected void trimBody() { 
         if ( body instanceof ScriptBlock ) {
             ScriptBlock block = (ScriptBlock) body;
             List list = block.getScriptList();
@@ -220,14 +218,12 @@ public abstract class TagSupport implements Tag {
                     TextScript textScript = (TextScript) script;
                     String text = textScript.getText();
                     text = text.trim();
-                    // if ( text.length() == 0 ) {
-                        // list.remove(i);
-                        // System.err.println( "removeText(" + i + ")" );
-                    // }
-                    // else {
-                        // System.err.println( "setText(" + text + ")" );
+                    if ( text.length() == 0 ) {
+                        list.remove(i);
+                    }
+                    else {
                         textScript.setText(text);
-                    // }
+                    }
                 }
             }                
         }

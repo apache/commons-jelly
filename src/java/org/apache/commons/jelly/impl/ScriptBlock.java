@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.6 2002/05/17 15:18:11 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/17 15:18:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.7 2002/06/13 08:16:47 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/13 08:16:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptBlock.java,v 1.6 2002/05/17 15:18:11 jstrachan Exp $
+ * $Id: ScriptBlock.java,v 1.7 2002/06/13 08:16:47 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -73,19 +73,12 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class ScriptBlock implements Script {
 
-    private static final Script[] EMPTY_ARRAY = {
-    };
-
     /** The list of scripts */
     private List list = new ArrayList();
-
-    /** Compiled form uses arrays for speed 
-     * - no Iterator, object allocation or typecast */
-    private Script[] scripts = EMPTY_ARRAY;
 
     public ScriptBlock() {
     }
@@ -104,12 +97,10 @@ public class ScriptBlock implements Script {
         list.remove(script);
     }
 
-    /** Gets the child scripts that make up this block */
-    public Script[] getScripts() {
-        return scripts;
-    }
-
-    /** Allows direct modification of the List of scripts */
+    /** 
+     * Gets the child scripts that make up this block. This list is live
+     * so that it can be modified if requried
+     */
     public List getScriptList() {
         return list;
     }
@@ -122,20 +113,24 @@ public class ScriptBlock implements Script {
             Script script = (Script) list.get(0);
             return script.compile();
         }
-        scripts = new Script[size];
-        list.toArray(scripts);
         // now compile children
         for (int i = 0; i < size; i++) {
-            Script script = scripts[i];
-            script.compile();
+            Script script = (Script) list.get(i);
+            list.set(i, script.compile());
         }
         return this;
     }
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
+/*        
         for (int i = 0, size = scripts.length; i < size; i++) {
             Script script = scripts[i];
+            script.run(context, output);
+        }
+*/    
+        for (Iterator iter = list.iterator(); iter.hasNext(); ) {
+            Script script = (Script) iter.next();
             script.run(context, output);
         }
     }
