@@ -284,6 +284,14 @@
 	
    </goal>
 
+  <goal name="demo:swing" prereqs="jelly-task"
+    description="Runs a sample Swing demo, creating a Swing UI from Jelly script">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/swing/example.jelly"/> 
+    </java>
+  </goal>
+	
 
    <goal name="demo:sql" prereqs="jelly-task" 
       description="Runs an SQL demo">

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:swing">
+
+  <frame title="This is a frame" var="frame">
+    <menuBar>
+      <menu text="File">
+        <menuItem text="File"/>
+        <menuItem text="Open"/>
+        <menuItem text="Save" enabled="false" />
+        <separator/>
+        <menuItem text="Properties"/>
+      </menu>
+      <menu text="Help">
+        <menuItem text="About"/>
+      </menu>
+    </menuBar>
+    
+	<splitPane>    
+      <panel>
+        <label text="Enter your name"/>
+        <textField text="James"/>
+        <button text="OK"/>
+      </panel>
+      <scrollPane>
+        <j:new className="org.apache.commons.jelly.swing.MyTableModel" var="tableModel"/>
+        <table model="${tableModel}"/>
+      </scrollPane>
+    </splitPane>
+  </frame>
+
+	
+  ${frame.setSize(800, 400)}
+  ${frame.setVisible(true)}
+  
+</j:jelly>
+
+
+
