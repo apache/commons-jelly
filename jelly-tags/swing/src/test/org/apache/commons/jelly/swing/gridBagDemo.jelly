@@ -44,37 +44,32 @@
 									fill="horizontal"
 									anchor="east" />
 						<gridBagLayout>
-							<gridBagConstraint gridx="0" weightx="1" weighty="1" ipadx="5" ipady="2">
 								<gbc gridy="0">
 									<panel name="dc_metadata"><!-- should be a collapasble panel !! -->
 										<label text="... still todo..."/>
-										</panel>
-								</gbc><gbc gridy="1">
+									</panel>
+								</gbc>
+								<gbc gridy="1">
 									<panel name="pedagogical metadata"><!-- should be a collapasble panel !! --><gridBagLayout>
 
 										<gbc gridx="0" gridy="0" basedOn="${labelConstraints}"><label text="Difficulty:"/>
 											</gbc>
 											<gbc gridx="1" gridy="0" basedOn="${pop_up_constraints}">
-												<comboBox name="comboZero" var="comboZero">
-															<!-- while we're waiting for a comboBox model tag...
-																	note that something like "this" would make a lot of sense 
-																	here instead of polluting with variables ! -->
-																${comboZero.addItem("easy")}
-																${comboZero.addItem("fair")}
-																${comboZero.addItem("difficult")}
-																${comboZero.setSelectedIndex(1)}$
-													</comboBox>
+												<comboBox name="comboZero" var="comboZero"/>
+												${comboZero.addItem("easy")}
+												${comboZero.addItem("fair")}
+												${comboZero.addItem("difficult")}
+												${comboZero.setSelectedIndex(1)}$
 												</gbc>
 
 										<gbc gridx="0" gridy="1" basedOn="${labelConstraints}"><label text="Abstractness:"/>
 											</gbc>
 											<gbc gridx="1" gridy="1" basedOn="${pop_up_constraints}">
-												<comboBox name="c" var="c">
-																${c.addItem("concrete")}
-																${c.addItem("medium")}
-																${c.addItem("abstract")}
-																${c.setSelectedIndex(1)}$
-													</comboBox>
+												<comboBox name="c" var="c"/>
+												${c.addItem("concrete")}
+												${c.addItem("medium")}
+												${c.addItem("abstract")}
+												${c.setSelectedIndex(1)}$
 												</gbc>
 
 										<gbc gridx="2" gridy="0" basedOn="${labelConstraints}" gridheight="2"
@@ -82,40 +77,38 @@
 										<gbc gridx="3" gridy="0" basedOn="${labelConstraints}"><label text="Learning-context:"/>
 											</gbc>
 											<gbc gridx="4" gridy="0" basedOn="${pop_up_constraints}">
-												<comboBox name="c" var="c">
-																${c.addItem("primary-education")}
-																${c.addItem("secondary-education")}
-																${c.addItem("higher-education")}
-																${c.addItem("university-first-cycle")}
-																${c.addItem("university-second-cycle")}
-																${c.addItem("university-postgraduate")}
-																${c.addItem("technical-school-first-cycle")}
-																${c.addItem("technical-school-second-cycle")}
-																${c.addItem("professional-formation")}
-																${c.addItem("continuous-formation")}
-													</comboBox>
+												<comboBox name="c" var="c"/>
+												${c.addItem("primary-education")}
+												${c.addItem("secondary-education")}
+												${c.addItem("higher-education")}
+												${c.addItem("university-first-cycle")}
+												${c.addItem("university-second-cycle")}
+												${c.addItem("university-postgraduate")}
+												${c.addItem("technical-school-first-cycle")}
+												${c.addItem("technical-school-second-cycle")}
+												${c.addItem("professional-formation")}
+												${c.addItem("continuous-formation")}
 												</gbc>
 
 										<gbc gridx="3" gridy="1" basedOn="${labelConstraints}"><label text="Field:"/>
 											</gbc>
 											<gbc gridx="4" gridy="1" basedOn="${pop_up_constraints}">
-												<comboBox name="c" var="c">
-																${c.addItem("mathematics")}
-																${c.addItem("statistics")}
-																${c.addItem("engineering")}
-																${c.addItem("psychology")}
-																${c.addItem("biology")}
-																${c.addItem("chemistry")}
-																${c.addItem("physics")}
-																${c.addItem("computer-science")}
-																${c.addItem("economy")}
-																${c.addItem("historical")}
-																${c.addItem("other")}
-													</comboBox>
+												<comboBox name="c" var="c"/>
+												${c.addItem("mathematics")}
+												${c.addItem("statistics")}
+												${c.addItem("engineering")}
+												${c.addItem("psychology")}
+												${c.addItem("biology")}
+												${c.addItem("chemistry")}
+												${c.addItem("physics")}
+												${c.addItem("computer-science")}
+												${c.addItem("economy")}
+												${c.addItem("historical")}
+												${c.addItem("other")}
 												</gbc>
 
 											</gridBagLayout></panel>
-								</gbc></gridBagConstraint>
+								</gbc>
 							</gridBagLayout>
 						</gbc>
 					<gbc name="content-display" gridx="0" gridy="2" fill="horizontal">
