@@ -62,7 +62,7 @@
 package org.apache.commons.jelly.tags.xml;
 
 import org.apache.commons.jelly.XMLOutput;
-
+import org.apache.commons.jelly.xpath.XPathTagSupport;
 
 /** 
  * A tag which outputs a comment to the underlying XMLOutput based on the

@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.tags.xml;
 
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.dom4j.Element;
 import org.dom4j.io.SAXWriter;
 import org.jaxen.XPath;

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvspublic/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/ForEachTag.java,v 1.10 2002/10/30 19:16:23 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/10/30 19:16:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/xpath/XPathComparator.java,v 1.1 2003/01/15 06:42:48 morgand Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 06:42:48 $
  *
  * ====================================================================
  *
@@ -57,9 +57,9 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id$
+ * $Id: XPathComparator.java,v 1.1 2003/01/15 06:42:48 morgand Exp $
  */
-package org.apache.commons.jelly.tags.xml;
+package org.apache.commons.jelly.xpath;
 
 import java.util.Comparator;
 import java.util.List;
@@ -74,7 +74,7 @@ import org.jaxen.XPath;
  * comparing it.
  *
  * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
- * @version $Id$
+ * @version $Id: XPathComparator.java,v 1.1 2003/01/15 06:42:48 morgand Exp $
  */
 
 public class XPathComparator implements Comparator {

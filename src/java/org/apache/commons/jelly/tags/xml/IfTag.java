@@ -63,6 +63,7 @@ package org.apache.commons.jelly.tags.xml;
 
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.jaxen.XPath;
 
 /** 

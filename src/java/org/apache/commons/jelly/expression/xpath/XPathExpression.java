@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.12 2002/12/24 04:50:19 werken Exp $
- * $Revision: 1.12 $
- * $Date: 2002/12/24 04:50:19 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/xpath/XPathExpression.java,v 1.1 2003/01/15 06:42:46 morgand Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 06:42:46 $
  *
  * ====================================================================
  *
@@ -57,9 +57,9 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.12 2002/12/24 04:50:19 werken Exp $
+ * $Id: XPathExpression.java,v 1.1 2003/01/15 06:42:46 morgand Exp $
  */
-package org.apache.commons.jelly.tags.xml;
+package org.apache.commons.jelly.expression.xpath;
 
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -80,7 +80,7 @@ import org.jaxen.dom4j.Dom4jXPath;
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.12 $
+  * @version $Revision: 1.1 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
     
@@ -161,7 +161,8 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     
     /**
      * Factory method to create a synchronized Map of non-null and non-blank
-     * namespace prefixes to namespace URIs     */ 
+     * namespace prefixes to namespace URIs
+     */ 
     protected Map createUriMap(Map namespaceContext) {
         // now lets clone the Map but ignoring default or null prefixes
         Map uris = new Hashtable(namespaceContext.size());

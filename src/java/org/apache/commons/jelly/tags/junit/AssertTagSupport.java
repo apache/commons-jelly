@@ -61,7 +61,7 @@
  */
 package org.apache.commons.jelly.tags.junit;
 
-import org.apache.commons.jelly.tags.xml.XPathTagSupport;
+import org.apache.commons.jelly.xpath.XPathTagSupport;
 
 /** 
  * The abstract base class of any assertion tag which is

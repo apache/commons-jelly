@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/16 16:29:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/xpath/XPathTagSupport.java,v 1.1 2003/01/15 06:42:48 morgand Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 06:42:48 $
  *
  * ====================================================================
  *
@@ -57,20 +57,26 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
+ * $Id: XPathTagSupport.java,v 1.1 2003/01/15 06:42:48 morgand Exp $
  */
-package org.apache.commons.jelly.tags.xml;
+package org.apache.commons.jelly.xpath;
 
+import org.apache.commons.jelly.TagSupport;
 
-/** 
- * A tag which is capable of producing a source of XPath context objects
- * such as &lt;x:forEach&gt;
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
- */
-public interface XPathSource {
+/** An abstract base class useful for implementation inheritence
+  *
+  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+  * @version $Revision: 1.1 $
+  */
+public abstract class XPathTagSupport extends TagSupport {
 
-    public Object getXPathSource();
-    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+    protected Object getXPathContext() {
+        XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );    
+        if ( tag != null ) {
+            return tag.getXPathSource();
+        }
+        return null;
+    }    
 }

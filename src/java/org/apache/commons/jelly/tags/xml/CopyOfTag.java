@@ -66,6 +66,7 @@ import java.util.List;
 
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.dom4j.Node;
 import org.dom4j.io.SAXWriter;
 import org.jaxen.XPath;

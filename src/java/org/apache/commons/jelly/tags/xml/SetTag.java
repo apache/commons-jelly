@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/SetTag.java,v 1.11 2002/11/27 19:22:41 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/11/27 19:22:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/SetTag.java,v 1.12 2003/01/15 06:42:47 morgand Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/01/15 06:42:47 $
  *
  * ====================================================================
  *
@@ -57,12 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.11 2002/11/27 19:22:41 jstrachan Exp $
+ * $Id: SetTag.java,v 1.12 2003/01/15 06:42:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.xpath.XPathComparator;
+import org.apache.commons.jelly.xpath.XPathTagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -76,7 +78,7 @@ import java.util.Collections;
 /** A tag which defines a variable from an XPath expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 public class SetTag extends XPathTagSupport {
 

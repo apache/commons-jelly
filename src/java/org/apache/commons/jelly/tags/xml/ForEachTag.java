@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.12 2002/11/27 19:22:41 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/11/27 19:22:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.13 2003/01/15 06:42:47 morgand Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/01/15 06:42:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.12 2002/11/27 19:22:41 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.13 2003/01/15 06:42:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -66,6 +66,9 @@ import java.util.List;
 import java.util.Collections;
 
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.xpath.XPathComparator;
+import org.apache.commons.jelly.xpath.XPathSource;
+import org.apache.commons.jelly.xpath.XPathTagSupport;
 
 import org.jaxen.XPath;
 import org.jaxen.JaxenException;
@@ -73,7 +76,7 @@ import org.jaxen.JaxenException;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.12 $
+  * @version $Revision: 1.13 $
   */
 public class ForEachTag extends XPathTagSupport implements XPathSource {
 
@@ -155,4 +158,12 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
         if (xpCmp == null) xpCmp = new XPathComparator();
         xpCmp.setDescending(descending);
     }
+    
+    /*
+     * Override superclass so method can be access by IfTag
+     */
+    protected Object getXPathContext() {
+        return super.getXPathContext();
+    }
+    
 }
