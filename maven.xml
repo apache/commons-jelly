@@ -2,7 +2,7 @@
 
   <!-- create the lib and bin directories in the binary distro -->
   <preGoal name="dist:build">
-<echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
+    <echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
 
     <mkdir dir="${maven.dist.assembly.dir}/bin"/>
     <mkdir dir="${maven.dist.assembly.dir}/lib"/>
@@ -92,6 +92,7 @@
     <echo>
       +-------------------------------------------------------+
       | I N S T A L L I N G   J E L L Y                       |
+      | to ${maven.dist.install.dir}                          |
       +-------------------------------------------------------+
     </echo>
     <mkdir dir="${maven.dist.install.dir}"/>
