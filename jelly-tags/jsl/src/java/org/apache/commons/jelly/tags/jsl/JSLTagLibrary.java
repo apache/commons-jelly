@@ -69,9 +69,10 @@ import java.util.List;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.tags.xml.ExprTag;
+import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
 import org.apache.commons.jelly.tags.xml.XPathExpression;
 
 import org.apache.commons.logging.Log;
@@ -89,7 +90,7 @@ import org.jaxen.dom4j.Dom4jXPath;
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.6 $
   */
-public class JSLTagLibrary extends TagLibrary {
+public class JSLTagLibrary extends XMLTagLibrary {
 
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(JSLTagLibrary.class);
@@ -98,6 +99,7 @@ public class JSLTagLibrary extends TagLibrary {
         registerTag("stylesheet", StylesheetTag.class);
         registerTag("template", TemplateTag.class);
         registerTag("applyTemplates", ApplyTemplatesTag.class);
+        registerTag("valueOf", ExprTag.class);
     }
 
     public Expression createExpression(
