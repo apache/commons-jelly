@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-jms</id>
+  <name>commons-jelly-tags-jms</name>
+  <package>org.apache.commons.jelly.tags.jms</package>
+
+  <description>
+      This is a Jelly interface for the Java Message Service.
+  </description>
+  <shortDescription>Commons Jelly JMS Tag Library</shortDescription>
+  
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/jms</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/jms</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/jms/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/jms/</url>
+  </repository>
+  
+    
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+      <id>commons-messenger</id>
+      <version>1.0-dev-8</version>
+    </dependency>
+    
+    <dependency>
+      <id>jms</id>
+      <version>1.0.2b</version>
+    </dependency>
+ 
+  </dependencies>
+  
+</project>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<jelly xmlns="jelly:core" xmlns:jms="jelly:jms">
+
+About to send a JMS Object message
+
+<new className="java.util.Date" var="d"/>
+
+<jms:connection name="queue">
+  <jms:send>
+    <jms:destination name="myQueue"/>
+    <jms:objectMessage object="${d}" type="Date" correlationID="4321"/>
+  </jms:send>
+</jms:connection>
+
+Message sent!
+
+</jelly>
+
+

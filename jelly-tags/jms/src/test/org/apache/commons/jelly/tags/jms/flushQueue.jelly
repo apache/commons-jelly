@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<jelly xmlns="jelly:core" xmlns:jms="jelly:jms">
+
+Flushing the input queue
+
+<jms:connection name="queue" var="conn">
+  <forEach begin="1" end="1000">
+    <jms:receive var="message" timeout="1">
+      <jms:destination name="myQueue"/>
+    </jms:receive>
+    <if test="${message != null}">
+Found message: ${message}.
+	</if>
+  </forEach>
+  	
+</jms:connection>
+	
+</jelly>
