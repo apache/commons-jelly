@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/InfoTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/soap/src/java/org/apache/commons/jelly/tags/soap/InvokeTag.java,v 1.1 2003/01/07 14:10:03 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/07 14:10:03 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: SoapTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: InvokeTag.java,v 1.1 2003/01/07 14:10:03 dion Exp $
  */
 package org.apache.commons.jelly.tags.soap;
 
@@ -76,7 +76,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Invokes a web service
  * 
  * @author <a href="mailto:jim@bnainc.net">James Birchfield</a>
- * @version $Revision: 1.0 $
+ * @version $Revision: 1.1 $
  */
 public class InvokeTag extends TagSupport {
 

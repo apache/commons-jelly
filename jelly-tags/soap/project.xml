@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-soap</id>
+  <name>commons-jelly-tags-soap</name>
+  <package>org.apache.commons.jelly.tags.soap</package>
+
+  <description>
+      This is a Jelly interface for SOAP.
+  </description>
+  <shortDescription>Commons Jelly SOAP Tag Library</shortDescription>
+  
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/soap</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/soap</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/soap/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/soap/</url>
+  </repository>
+  
+    
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+      <id>axis</id>
+      <version>1.0</version>
+    </dependency>
+    
+    <dependency>
+      <id>jaxrpc</id>
+      <version>1.0</version>
+    </dependency>
+    
+    <dependency>
+      <id>saaj</id>
+      <version>1.1</version>
+    </dependency>
+  
+  </dependencies>
+  
+</project>

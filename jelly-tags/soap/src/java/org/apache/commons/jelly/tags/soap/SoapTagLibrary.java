@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvspublic/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/util/UtilTagLibrary.java,v 1.1 2002/07/16 05:43:32 werken Exp $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/soap/src/java/org/apache/commons/jelly/tags/soap/SoapTagLibrary.java,v 1.1 2003/01/07 14:10:03 dion Exp $
  * $Revision: 1.1 $
- * $Date: 2002/07/16 05:43:32 $
+ * $Date: 2003/01/07 14:10:03 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SoapTagLibrary.java,v 1.1 2002/07/16 05:43:32 moatas Exp $
+ * $Id: SoapTagLibrary.java,v 1.1 2003/01/07 14:10:03 dion Exp $
  */
 package org.apache.commons.jelly.tags.soap;
 
