@@ -84,6 +84,8 @@ public class TaglibTag extends TagSupport {
     private String uri;
     /** The new tags being added */
     private DynamicTagLibrary tagLibrary;
+    /** Whether or not inheritence is enabled */
+    private boolean inherit = true;
     
     public TaglibTag() {
     }
@@ -95,9 +97,14 @@ public class TaglibTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
-        tagLibrary = new DynamicTagLibrary( getUri() );
+        String uri = getUri();
+        tagLibrary = new DynamicTagLibrary( uri );
 
-        context.registerTagLibrary( getUri(), tagLibrary );
+        // inherit tags from an existing tag library
+        if ( isInherit() ) {
+            tagLibrary.setParent( context.getTagLibrary( uri ) );
+        }
+        context.registerTagLibrary( uri, tagLibrary );
         
         invokeBody(output);
 
@@ -109,7 +116,10 @@ public class TaglibTag extends TagSupport {
     public String getUri() {
         return uri;
     }
-    
+
+    /**
+     * Sets the namespace URI to register this new dynamic tag library with
+     */    
     public void setUri(String uri) {
         this.uri = uri;
     }
@@ -117,4 +127,27 @@ public class TaglibTag extends TagSupport {
     public DynamicTagLibrary getTagLibrary() {
         return tagLibrary;
     }
+    
+    /**
+     * Returns the inherit.
+     * @return boolean
+     */
+    public boolean isInherit() {
+        return inherit;
+    }
+
+    /**
+     * Sets whether this dynamic tag should inherit from the current existing tag library 
+     * of the same URI. This feature is enabled by default so that tags can easily be
+     * some tags can be overridden in an existing library, such as when making Mock Tags.
+     * 
+     * You can disable this option if you want to disable any tags in the base library,
+     * turning them into just normal static XML.
+     *
+     * @param inherit The inherit to set
+     */
+    public void setInherit(boolean inherit) {
+        this.inherit = inherit;
+    }
+
 }
