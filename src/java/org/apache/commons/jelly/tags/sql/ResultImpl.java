@@ -89,8 +89,8 @@ public class ResultImpl implements Result {
      * @exception if a database error occurs
      */
     public ResultImpl(ResultSet rs, int startRow, int maxRows)
-        throws SQLException 
-    {
+        throws SQLException {
+            
         rowMap = new ArrayList();
         rowByIndex = new ArrayList();
 
@@ -131,6 +131,52 @@ public class ResultImpl implements Result {
             rowMap.add(columnMap);
             rowByIndex.add(columns);
             processedRows++;
+        }
+    }
+
+    /**
+     * This constructor is given a List of Maps where each Map represents a Row of data.
+     * This constructor is typically used to create a Mock Object representing a result set.
+     *
+     * @param listOfMaps is a list of Maps where a Map represents a Row keyed by the column name
+     */
+    public ResultImpl(List listOfMaps) {
+            
+        rowMap = new ArrayList();
+        rowByIndex = new ArrayList();
+        isLimited = false;
+
+        // lets build up a Set of all the unique column names
+        HashSet keySet = new HashSet();
+        for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
+            Map row = (Map) iter.next();
+            keySet.addAll( row.keySet() );
+        }
+        
+        // Create the column name array
+        int noOfColumns = keySet.size();
+        columnNames = new String[noOfColumns];        
+        int i = 0;
+        for (Iterator iter = keySet.iterator(); iter.hasNext(); i++ ) {
+            columnNames[i] = (String) iter.next();
+        }
+        
+        // Now add each row to the result set
+        for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
+            Map row = (Map) iter.next();
+            
+            Object[] columns = new Object[noOfColumns];
+            SortedMap columnMap = 
+                new TreeMap(String.CASE_INSENSITIVE_ORDER);
+
+            for (i = 0; i < noOfColumns; i++) {
+                String columnName = columnNames[i];
+                Object value = row.get(columnName);
+                columns[i] = value;
+                columnMap.put(columnName, value);
+            }
+            rowMap.add(columnMap);
+            rowByIndex.add(columns);
         }
     }
 
