@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- defines a new taglib of babelfish soap services -->
+
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:define="jelly:define" xmlns:http="notImplementedYet">
+  <define:taglib uri="babelfish">  
+
+    <!-- defines the <translate> tag                                            -->
+    <!-- notice how the 'from' and 'to' attributes are available as variables   -->
+    <!-- and the body of the <translate> tag is invoked via <define:invokeBody> -->
+    <define:tag name="translate">
+      <http:post url="http://services.xmethods.net:80/perl/soaplite.cgi">
+       <http:header name="SOAPAction" value="urn:xmethodsBabelFish#BabelFish"/>
+       <http:header name="Content-Type" value="text/xml"/>
+       <http:body>
+        <env:Envelope 
+          xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+          env:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <env:Body>
+            <m:BabelFish xmlns:m="urn:xmethodsBabelFish">
+              <translationmode>${from}_${to}</translationmode>      
+              <sourcedata>
+                <define:invokeBody/>
+              </sourcedata>    
+            </m:BabelFish>
+          </env:Body>
+        </env:Envelope>
+       </http:body>
+      </http:post>
+    </define:tag>
+    
+  </define:taglib>    
+</j:jelly>
+
