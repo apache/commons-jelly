@@ -514,7 +514,7 @@
 
     <echo>XXXX</echo>
 
-		<util:sleep millis="1000"/>
+<!-- FIXME: util now in a sep taglib		<util:sleep millis="1000"/> -->
   </goal>
 
   <goal name="demo:asyncOtherThread"
