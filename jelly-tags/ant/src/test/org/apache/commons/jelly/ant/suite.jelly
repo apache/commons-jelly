@@ -97,6 +97,7 @@
   </ant:copy>
   
   <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
+  <ant:delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
   
   <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
 
@@ -118,6 +119,56 @@
   </ant:copy>
   
   <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
+  <ant:delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
+  
+  <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
+
+</test:case>
+
+
+<test:case name="parallelCopy">
+
+	<ant:mkdir dir="${base.dir}/target/tmp/ant-tests"/>
+	
+	<ant:parallel>
+		<ant:copy
+			overwrite="true"
+			file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
+			tofile="${basedir}/target/tmp/ant-tests/output.txt">
+			<ant:filterset>
+				<ant:filter token="foo" value="bar"/>
+			</ant:filterset>
+		</ant:copy>
+		<ant:echo>Performing copy in parallel</ant:echo>
+	</ant:parallel>
+  
+  <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
+  <ant:delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
+  
+  <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
+
+</test:case>
+
+<test:case name="parallelCopyWithReference">
+
+	<ant:mkdir dir="${base.dir}/target/tmp/ant-tests"/>
+
+	<ant:filterset id="myFilter">
+		<ant:filter token="foo" value="bar"/>
+	</ant:filterset>
+
+	<ant:parallel>
+		<ant:copy
+			overwrite="true"
+			file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
+			tofile="${basedir}/target/tmp/ant-tests/output.txt">
+			<ant:filterset refid="myFilter"/>
+		</ant:copy>
+		<ant:echo>Performing copy in parallel</ant:echo>
+	</ant:parallel>	
+  
+  <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
+  <ant:delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
   
   <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
 
