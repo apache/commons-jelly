@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.14 2002/11/27 15:22:31 jstrachan Exp $
- * $Revision: 1.14 $
- * $Date: 2002/11/27 15:22:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.15 2003/09/30 16:37:10 dion Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/09/30 16:37:10 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpression.java,v 1.14 2002/11/27 15:22:31 jstrachan Exp $
+ * $Id: JexlExpression.java,v 1.15 2003/09/30 16:37:10 dion Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 
 public class JexlExpression extends ExpressionSupport {
@@ -155,7 +155,7 @@ class JellyMap implements Map {
     }
 
     public Object get(Object key) {
-        return context.findVariable( (String) key );
+        return context.getVariable( (String) key );
     }
 
     public void clear() {
