@@ -277,8 +277,20 @@
     <!-- Unit test classes -->
 
     <unitTestPatterns>
-      <unitTestPattern>include = **/Test*.java</unitTestPattern>
+      <unitTestPattern>**/Test*.java</unitTestPattern>
     </unitTestPatterns>
+    
+    <!-- Unit test classes -->
+    <unitTest>
+      <includes>
+        <include>**/Test*.java</include>
+      </includes>
+<!--
+      <excludes>
+        <exclude>**/*BuildTest.java</exclude>
+      </excludes>
+-->
+    </unitTest>
     <!-- Integration unit test classes -->
 
     <integrationUnitTestPatterns></integrationUnitTestPatterns>

@@ -277,7 +277,7 @@
     <!-- Unit test classes -->
 
     <unitTestPatterns>
-      <unitTestPattern>include = **/Test*.java</unitTestPattern>
+      <unitTestPattern>**/Test*.java</unitTestPattern>
     </unitTestPatterns>
     <!-- Integration unit test classes -->
 
