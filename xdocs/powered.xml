@@ -46,7 +46,7 @@
           </td>
         </tr>
         <tr>
-          <td><a href="http://jakarta.apache.org/turbine/maven/">Maven</a></td>
+          <td><a href="http://maven.apache.org/">Maven</a></td>
           <td>
             A java project management and project comprehension tool.
           </td>

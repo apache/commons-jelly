@@ -15,12 +15,12 @@
 So Jelly is a Java and XML based scripting and processing engine. 
 Jelly can be used as a more flexible and powerful front end 
 to <a href="http://jakarta.apache.org/ant/">Ant</a> 
-such as in the <a href="http://jakarta.apache.org/turbine/maven/">Maven</a> 
+such as in the <a href="http://maven.apache.org/">Maven</a>
 project, as a testing framework such as <a href="jellyunit.html">JellyUnit</a>, 
 in an intergration or workflow
 system such as <a href="http://werkflow.werken.com/">werkflow</a> 
 or as a page templating system inside engines like 
-<a href="http://xml.apache.org/cocoon/">Cocoon</a>.
+<a href="http://cocoon.apache.org/">Cocoon</a>.
 </p>
 
 <p>
@@ -252,7 +252,7 @@ testing web applications and web services.
 
 <p>
 Currently Jelly is being used inside the new version of 
-<a href="http://jakarta.apache.org/turbine/maven/">Maven</a> 
+<a href="http://maven.apache.org/">Maven</a>
 to provide more flexible and powerful build mechanism while still preserving investment in Ant tasks.
 </p>
 

@@ -308,7 +308,7 @@ public class FooTag extends TagSupport {
         <dd>
           Jelly uses Maven for its build system. So you should be able to build Jelly just like
           any other Maven enabled project. Please see the
-          <a href="http://jakarta.apache.org/turbine/maven/start/index.html">Maven</a>
+          <a href="http://maven.apache.org/start/index.html">Maven</a>
           documentation for details.
         </dd>
       </dl>
