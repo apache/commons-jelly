@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-threads</id>
+  <name>commons-jelly-tags-threads</name>
+
+  <package>org.apache.commons.jelly.tags.threads</package>
+
+  <description>
+  	  A library for processing Jelly scripts using multiple threads.
+  </description>
+  <shortDescription>Commons Jelly Threads Tag Library</shortDescription>
+  
+  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/threads/</url>
+
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/threads/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/threads</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/threads/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/threads/</url>
+  </repository>
+  
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+      
+    <!-- END for compilation -->
+    
+  </dependencies>
+  
+</project>
