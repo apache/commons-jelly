@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.30 2002/12/16 10:46:42 jstrachan Exp $
- * $Revision: 1.30 $
- * $Date: 2002/12/16 10:46:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.31 2002/12/19 10:50:22 jstrachan Exp $
+ * $Revision: 1.31 $
+ * $Date: 2002/12/19 10:50:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.30 2002/12/16 10:46:42 jstrachan Exp $
+ * $Id: TagScript.java,v 1.31 2002/12/19 10:50:22 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -96,7 +96,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.30 $
+ * @version $Revision: 1.31 $
  */
 public class TagScript implements Script {
 
@@ -245,7 +245,7 @@ public class TagScript implements Script {
                         value = expression;
                     }
                     else {
-                        value = expression.evaluate(context);
+                        value = expression.evaluateRecurse(context);
                     }
                     dynaTag.setAttribute(name, value);
                 }
@@ -269,7 +269,7 @@ public class TagScript implements Script {
                         value = expression;
                     }
                     else {
-                        value = expression.evaluate(context);
+                        value = expression.evaluateRecurse(context);
                     }
                     dynaBean.set(name, value);
                 }
