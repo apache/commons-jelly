@@ -145,7 +145,7 @@
     <dependency>
       <id>werkz</id>
       <type>required</type>
-      <version>1.0-build-2</version>
+      <version>1.0-dev.20020613.091536</version>
     </dependency>
     
     <!-- 

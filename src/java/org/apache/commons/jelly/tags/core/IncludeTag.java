@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.5 2002/06/05 07:00:58 werken Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/05 07:00:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.6 2002/06/13 21:31:14 werken Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/13 21:31:14 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IncludeTag.java,v 1.5 2002/06/05 07:00:58 werken Exp $
+ * $Id: IncludeTag.java,v 1.6 2002/06/13 21:31:14 werken Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -77,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 
 public class IncludeTag extends TagSupport {
@@ -89,7 +89,7 @@ public class IncludeTag extends TagSupport {
 
     public IncludeTag() {
         this.shouldExport = false;
-        this.shouldInherit = false;
+        this.shouldInherit = true;
     }
 
     public void setInherit(String inherit) {

@@ -206,6 +206,7 @@ public class JellyContext {
         if ( getInherit() ) {
             return getParent().findVariable( name );
         }
+
         return variables.get(name);
     }
 
@@ -290,11 +291,27 @@ public class JellyContext {
         taglibs.put(namespaceURI, className);
     }
 
+    public boolean isTagLibraryRegistered(String namespaceURI) {
+        return taglibs.containsKey( namespaceURI );
+    }
+
     /** 
      * @return the TagLibrary for the given namespace URI or null if one could not be found
      */
     public TagLibrary getTagLibrary(String namespaceURI) {
-        Object answer = taglibs.get(namespaceURI);
+
+        Object answer = null;
+
+        if ( getInherit()
+             &&
+             getParent() != null ) {
+            answer = getParent().getTagLibrary( namespaceURI );
+        }
+
+        if ( answer == null ) {
+            answer = taglibs.get(namespaceURI);
+        }
+
         if ( answer instanceof TagLibrary ) {
             return (TagLibrary) answer;
         }
@@ -329,6 +346,7 @@ public class JellyContext {
                 }
             }
         }
+
         return null;
     }
 
@@ -383,10 +401,15 @@ public class JellyContext {
         Script script = compileScript(url);
         
         URL newJellyContextURL = getJellyContextURL(url);
-        JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
+        JellyContext newJellyContext = null;
 
-        newJellyContext.setExport( export );
-        newJellyContext.setInherit( inherit );
+        if ( inherit ) {
+            newJellyContext = this;
+        } else {
+            newJellyContext = new JellyContext(this, newJellyContextURL);
+            newJellyContext.setExport( export );
+            newJellyContext.setInherit( inherit );
+        }
 
         script.run(newJellyContext, output);
     }

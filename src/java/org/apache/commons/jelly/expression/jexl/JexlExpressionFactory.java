@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.6 2002/06/13 09:27:14 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/13 09:27:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.7 2002/06/13 21:31:14 werken Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/13 21:31:14 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.6 2002/06/13 09:27:14 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.7 2002/06/13 21:31:14 werken Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -74,7 +74,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
@@ -85,20 +85,25 @@ public class JexlExpressionFactory implements ExpressionFactory {
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
     public Expression createExpression(final String text) throws Exception {
+
         final Expression jexlExpression = new JexlExpression(
             org.apache.commons.jexl.ExpressionFactory.createExpression(text)
         );
         
         if ( isSupportAntVariables() && isValidAntVariableName(text) ) {
-            return new ExpressionSupport() {
+            ExpressionSupport expr = new ExpressionSupport() {
                 public Object evaluate(JellyContext context) {
                     Object answer = jexlExpression.evaluate(context);
+
                     if ( answer == null ) {
-                        answer = context.getVariable(text);
+                        answer = context.getScopedVariable(text);
                     }
+
                     return answer;
                 }
             };
+
+            return expr;
         }
         return jexlExpression;
     }

@@ -139,7 +139,6 @@ public class AntTagLibrary extends TagLibrary {
     }        
         
     public AntTagLibrary() {
-
         this.project = new Project();
 
         BuildLogger logger = new NoBannerLogger();
@@ -151,6 +150,8 @@ public class AntTagLibrary extends TagLibrary {
         project.addBuildListener( logger );
         
         project.init();
+
+        throw new RuntimeException( "foo" );
     }
 
     public AntTagLibrary(Project project) {
