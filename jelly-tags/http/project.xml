@@ -31,13 +31,20 @@
       <id>commons-jelly</id>
       <version>SNAPSHOT</version>
     </dependency>
-  
-	<!-- http taglib -->
+
     <dependency>
       <id>commons-httpclient</id>
       <version>SNAPSHOT</version>
     </dependency>
-    
+
+    <!--  testing -->
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-define</artifactId>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/define/</url>
+    </dependency>
+
   </dependencies>
   
 </project>
