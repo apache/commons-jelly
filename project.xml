@@ -143,10 +143,9 @@
       <jar>jdbc2_0-stdext.jar</jar>
     </dependency>
     <dependency>
-      <name>werkz</name>
+      <id>werkz</id>
       <type>required</type>
-      <version>1.0-dev</version>
-      <jar>werkz-1.0-dev.jar</jar>
+      <version>1.0-build-1</version>
     </dependency>
     
     <!-- 
