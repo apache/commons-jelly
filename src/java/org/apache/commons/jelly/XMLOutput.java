@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.4 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.5 2002/06/18 18:36:42 werken Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/18 18:36:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XMLOutput.java,v 1.4 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: XMLOutput.java,v 1.5 2002/06/18 18:36:42 werken Exp $
  */
 
 package org.apache.commons.jelly;
@@ -84,7 +84,7 @@ import org.xml.sax.ext.LexicalHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -136,6 +136,10 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * underlying OutputStream or Writer 
      */
     public void close() throws IOException {
+    }
+
+    public void flush() throws IOException {
+        ((XMLWriter)contentHandler).flush();
     }
 
     // Static helper methods

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.5 2002/06/14 10:24:14 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/14 10:24:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.6 2002/06/18 18:36:42 werken Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/18 18:36:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DynaTagScript.java,v 1.5 2002/06/14 10:24:14 jstrachan Exp $
+ * $Id: DynaTagScript.java,v 1.6 2002/06/18 18:36:42 werken Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -69,6 +69,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.DynaTag;
+import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
@@ -78,7 +79,7 @@ import org.apache.commons.logging.LogFactory;
  * <p><code>DynaTagScript</code> is a script evaluates a custom DynaTag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class DynaTagScript extends TagScript {
 
@@ -108,15 +109,21 @@ public class DynaTagScript extends TagScript {
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
+
         tag.setContext(context);
         
         DynaTag dynaTag = (DynaTag) tag;
+
+        if (dynaTag instanceof DynaBeanTagSupport) {
+            ((DynaBeanTagSupport)dynaTag).beforeSetAttributes();
+        }
         
         // ### probably compiling this to 2 arrays might be quicker and smaller
         for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
             Map.Entry entry = (Map.Entry) iter.next();
             String name = (String) entry.getKey();
             Expression expression = (Expression) entry.getValue();
+
             Object value = expression.evaluate(context);
             dynaTag.setAttribute(name, value);
         }

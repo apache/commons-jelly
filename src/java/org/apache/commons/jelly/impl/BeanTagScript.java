@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.8 2002/05/28 23:38:57 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/28 23:38:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.9 2002/06/18 18:36:42 werken Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/06/18 18:36:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.8 2002/05/28 23:38:57 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.9 2002/06/18 18:36:42 werken Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -160,6 +160,8 @@ public class BeanTagScript extends TagScript {
                 }
             }
         }
+
+        // System.err.println( "BeanTagScript::compile() " + this );
         
         // now create the arrays to avoid object allocation & casting when
         // running the script

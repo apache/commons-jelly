@@ -73,9 +73,12 @@ import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.Tag;
 
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.DataType;
+import org.apache.tools.ant.types.Path;
+import org.apache.tools.ant.types.Reference;
 
 /** 
  * A tag which manages a DataType used to configure a Task
@@ -83,67 +86,115 @@ import org.apache.tools.ant.types.DataType;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.6 $
  */
-public class DataTypeTag extends DynaBeanTagSupport {
+public class DataTypeTag extends AntTagSupport {
 
     /** the name of the DataType */
     private String name;
     
     /** the Ant DataType */
-    private Object dataType;
+    private DataType dataType;
 
     public DataTypeTag() {
     }
 
-    public DataTypeTag(String name, Object dataType) {
+    public DataTypeTag(String name, DataType dataType) {
         this.name = name;
         this.dataType = dataType;
         setDynaBean( new ConvertingWrapDynaBean(dataType) );
     }
 
+    public Object getObject() {
+        return this.dataType;
+    }
+
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        TaskSource tag = (TaskSource) findAncestorWithClass( TaskSource.class );
-        if ( tag == null ) {
-            throw new JellyException( "You should only use Ant DataType tags within an Ant Task" );
-        }        
-        
-        Object task = tag.getTaskObject();
-        Object dataType = getDataType();
 
-        // now we need to configure the task with the data type
-        
-        // first try setting a property on the DynaBean wrapper of the task
-        DynaBean dynaBean = tag.getDynaBean();
-        DynaClass dynaClass = dynaBean.getDynaClass();
-        DynaProperty dynaProperty = dynaClass.getDynaProperty(name);
-        if ( dynaProperty != null ) {
-            // lets set the bean property
-            dynaBean.set( name, dataType );
-        }
-        else {
-            // lets invoke the addFoo() method instead
-            String methodName = "add" + name.substring(0,1).toUpperCase() + name.substring(1);
-            Class taskClass = task.getClass();
-            Class[] parameterTypes = new Class[] { dataType.getClass() };
-            Method method = MethodUtils.getAccessibleMethod(
-                taskClass, methodName, parameterTypes 
-            );
-            if ( method == null ) {
-                throw new JellyException( 
-                    "Cannot add dataType: " + dataType + " to Ant task: " + task 
-                    + " as no method called: " + methodName + " could be found" 
-                );
-            }
-            
-            Object[] parameters = new Object[] { dataType };
-            method.invoke( task, parameters );
-        }
-        
-        
-                
         // run the body first to configure any nested DataType instances
         getBody().run(context, output);
+
+        AntTagSupport parentTag = (AntTagSupport) findAncestorWithClass( AntTagSupport.class);
+
+        if ( parentTag == null ) {
+            // ignore, as all it can be is a top-level datatype with
+            // an id which has -already- added it to the project thanks
+            // to the setAttribute() call.
+            return;
+        }
+
+        Object   targetObj = parentTag.getObject();
+        DataType dataType  = getDataType();
+
+        if ( targetObj == null ) {
+            // ignore, as all it can be is a top-level datatype with
+            // an id which has -already- added it to the project thanks
+            // to the setAttribute() call.
+            return;
+        }
+
+        if( parentTag instanceof DynaBeanTagSupport ) {
+            DynaBean dynaBean = ((DynaBeanTagSupport)parent).getDynaBean();
+            DynaClass dynaClass = dynaBean.getDynaClass();
+            DynaProperty dynaProperty = dynaClass.getDynaProperty(name);
+
+            if ( dynaProperty != null ) {
+                // lets set the bean property
+                try {
+                    dynaBean.set( name, dataType );
+                    return;
+                } catch (Exception e) {
+                    // ignore, maybe something else will work.
+                }
+            }
+        }
+
+        if ( targetObj instanceof Path
+             &&
+             dataType instanceof Path ) {
+            ((Path)targetObj).append( (Path)dataType );
+            return;
+        }
+        
+        IntrospectionHelper ih = IntrospectionHelper.getHelper( targetObj.getClass() );
+        
+        try
+        {
+            ih.storeElement( getAntProject(),
+                             targetObj,
+                             dataType,
+                             getName() );
+        }
+        catch (Exception e) {
+            String dataTypeName = dataType.getClass().getName();
+            String baseName = dataTypeName.substring( dataTypeName.lastIndexOf( "." ) + 1 );
+
+            String methName = "add" + baseName;
+
+            Method m = MethodUtils.getAccessibleMethod( targetObj.getClass(),
+                                                        methName,
+                                                        dataType.getClass() );
+
+            if ( m == null ) {
+                String lname = baseName.toLowerCase();
+                methName = "add" + lname.substring( 0, 1 ).toUpperCase() + lname.substring( 1 );
+
+                m = MethodUtils.getAccessibleMethod( targetObj.getClass(),
+                                                     methName,
+                                                     dataType.getClass() );
+            }
+
+            if ( m != null ) {
+                try
+                {
+                    m.invoke( targetObj, new Object[] { dataType } );
+                    return;
+                }
+                catch (Exception i) {
+                    i.printStackTrace();
+                }
+            }
+        }
     }
     
     // Properties
@@ -166,16 +217,39 @@ public class DataTypeTag extends DynaBeanTagSupport {
     /** 
      * @return the Ant dataType
      */
-    public Object getDataType() {
+    public DataType getDataType() {
         return dataType;
     }
     
     /** 
      * Sets the Ant dataType
      */
-    public void setDataType(Object dataType) {
+    public void setDataType(DataType dataType) {
         this.dataType = dataType;
         setDynaBean( new ConvertingWrapDynaBean(dataType) );
+    }
+
+    public void setAttribute(String name, Object value) {
+        if ( "id".equals( name ) ) {
+            getAntProject().addReference( (String) value, dataType );
+            return;
+        }
+
+        if ( "refid".equals( name ) ) {
+
+            Object refd = getAntProject().getReferences().get( value );
+
+
+            this.dataType.setRefid( new Reference( (String) value ) );
+            return;
+        }
+
+        super.setAttribute( name, value );
+    }
+
+    public String toString() {
+        return "[DataTypeTag: name=" + getName()
+            + "; dataType=" + getDataType() + "]";
     }
     
 }

@@ -70,11 +70,14 @@ import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.CompilableTag;
 
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
+import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.Echo;
+import org.apache.tools.ant.types.DataType;
 
 /** 
  * A tag which invokes an Ant Task
@@ -82,7 +85,7 @@ import org.apache.tools.ant.taskdefs.Echo;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.6 $
  */
-public class TaskTag extends DynaBeanTagSupport implements TaskSource {
+public class TaskTag extends AntTagSupport implements TaskSource { 
 
     /** argumment types */
     private static final Class[] addTaskParamTypes = { String.class };
@@ -96,16 +99,30 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
     /** the name of the Ant task */
     private String taskName;
 
-    /** the current Ant project */
-    private Project project;
-
     public TaskTag() {
     }
 
     public TaskTag(Project project, Class taskType, String taskName) {
-        this.project = project;
+        super( project );
         this.taskType = taskType;
         this.taskName = taskName;
+    }
+
+    public TaskTag(Project project, String taskName) {
+        super( project );
+        this.taskName = taskName;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
+    }
+
+    public Class getTaskType() {
+        return this.taskType;
+    }
+
+    public void setTaskType(Class taskType) {
+        this.taskType = taskType;
     }
     
     /**
@@ -124,24 +141,45 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
         Task task = getTask();                
-
-        String text = getBodyText();
+        // setDynaBean( new ConvertingWrapDynaBean( task ) );
 
 		// if the task has an addText()
 		Method method = MethodUtils.getAccessibleMethod(
             taskType, "addText", addTaskParamTypes
         );            
+
 		if (method != null) {
+            String text = getBodyText();
+
 			Object[] args = { text };
 			method.invoke(task, args);
-		}
+		} else {
+            getBody().run(context, output);
+        }
         
         task.perform();   
     }
+
+    // DataTypeCreator interface
+    //------------------------------------------------------------------------- 
+
+    public DataType createDataType(String name) throws Exception {
+
+        IntrospectionHelper helper = IntrospectionHelper.getHelper( getTask().getClass() );
+
+        return (DataType) helper.createElement( getAntProject(),
+                                                getTask(),
+                                                name );
+    }
+
     
     // TaskSource interface
     //------------------------------------------------------------------------- 
     public Object getTaskObject() throws Exception {
+        return getTask();
+    }
+
+    public Object getObject() throws Exception {
         return getTask();
     }
     
@@ -152,22 +190,40 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
      * @return the Ant task
      */
     public Task getTask() throws Exception {
-        if ( task == null ) {
-            task = (Task) taskType.newInstance();
-            task.setProject(project);
-            task.setTaskName(taskName);
-            task.init();
-            setDynaBean( new ConvertingWrapDynaBean(task) );
+
+        if ( this.task == null ) {
+            if ( getTaskType() == null ) {
+                setTaskType( (Class) getAntProject().getTaskDefinitions().get( getTaskName() ) );
+            }
+            
+            this.task = createTask( getTaskName(),
+                                    getTaskType() );
+            setDynaBean( new ConvertingWrapDynaBean( this.task ) );
         }
-        return task;
+        return this.task;
     }
-    
+
     /** 
      * Sets the Ant task
      */
     public void setTask(Task task) {
         this.task = task;
-        setDynaBean( new ConvertingWrapDynaBean(task) );
+        setDynaBean( new ConvertingWrapDynaBean( this.task ) );
     }
     
+
+    public String toString() {
+        try
+        {
+            return "[TaskTag: task=" + getTask().getClass().getName() + "]";
+        }
+        catch (Exception e) {
+            return "[TaskTag: unknown: " + e.getLocalizedMessage() + " ]";
+        }
+    }
+
+    public void beforeSetAttributes() throws Exception {
+        getTask();
+    }
+
 }

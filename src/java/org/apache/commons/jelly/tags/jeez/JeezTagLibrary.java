@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.2 2002/06/14 14:13:48 werken Exp $
- * $Revision: 1.2 $
- * $Date: 2002/06/14 14:13:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.3 2002/06/18 18:36:43 werken Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/06/18 18:36:43 $
  *
  * ====================================================================
  *
@@ -63,6 +63,8 @@ package org.apache.commons.jelly.tags.jeez;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -71,8 +73,8 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.tags.werkz.WerkzTagLibrary;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
-import org.apache.commons.jelly.tags.core.CoreTagLibrary;
-
+// import org.apache.commons.jelly.tags.core.CoreTagLibrary;
+import org.apache.tools.ant.Project;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -82,7 +84,7 @@ import org.xml.sax.Attributes;
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class JeezTagLibrary extends TagLibrary {
 
@@ -90,22 +92,30 @@ public class JeezTagLibrary extends TagLibrary {
     private Log log = LogFactory.getLog(JeezTagLibrary.class);
 
     /** jelly:core taglib. */
-    private TagLibrary coreTagLib;
+    // private TagLibrary coreTagLib;
 
     /** jelly:werkz taglib. */
     private TagLibrary werkzTagLib;
 
     /** jelly:ant taglib. */
-    private TagLibrary antTagLib;
+    private AntTagLibrary antTagLib;
+
+    private Set runtimeTasks;
+
+    private Project project;
     
     /** Construct.
      *
      *  @param antProject The ant Project.
      */
-    public JeezTagLibrary(org.apache.tools.ant.Project antProject) {
-        this.coreTagLib  = new CoreTagLibrary();
-        this.antTagLib   = new AntTagLibrary( antProject );
-        this.werkzTagLib = new WerkzTagLibrary();
+    public JeezTagLibrary(Project antProject) {
+
+        this.project      = antProject;
+        this.runtimeTasks = new HashSet();
+
+        // this.coreTagLib   = new CoreTagLibrary();
+        this.antTagLib    = new AntTagLibrary( antProject );
+        this.werkzTagLib  = new WerkzTagLibrary();
 
         registerTag( "target",
                      TargetTag.class );
@@ -114,23 +124,45 @@ public class JeezTagLibrary extends TagLibrary {
     public TagScript createTagScript(String name,
                                      Attributes attrs) throws Exception
     {
-        
         TagScript script = super.createTagScript( name, attrs );
 
         if ( script == null ) {
 
-            script = this.coreTagLib.createTagScript( name, attrs );
+            // script = this.coreTagLib.createTagScript( name, attrs );
 
             if ( script == null ) {
                 
                 script = this.werkzTagLib.createTagScript( name, attrs );
                 
                 if ( script == null ) {
-                    script = this.antTagLib.createTagScript( name, attrs );
+
+                    if ( isRuntimeTask( name ) ) {
+                        if ( ! project.getTaskDefinitions().containsKey( name ) ) {
+                            script = this.antTagLib.createRuntimeTaskTagScript( name, attrs );
+                        } else {
+                            this.runtimeTasks.remove( name );
+                        }
+                    }
+
+                    if ( script == null ) {
+                        script = this.antTagLib.createTagScript( name, attrs );
+                    }
+
+                    if ( name.equals( "taskdef" ) ) {
+                        addRuntimeTask( attrs.getValue( "name" ) );
+                    } 
                 }
             }
         }
 
         return script;
+    }
+
+    protected void addRuntimeTask(String name) {
+        this.runtimeTasks.add( name );
+    }
+
+    protected boolean isRuntimeTask(String name) {
+        return this.runtimeTasks.contains( name );
     }
 }

@@ -107,5 +107,8 @@ public abstract class DynaBeanTagSupport extends TagSupport implements DynaTag {
     public void setDynaBean(DynaBean dynaBean) {
         this.dynaBean = dynaBean;
     }
+
+    public void beforeSetAttributes() throws Exception {
+    }
     
 }

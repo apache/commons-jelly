@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.7 2002/06/13 21:31:14 werken Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/13 21:31:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.8 2002/06/18 18:36:42 werken Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/06/18 18:36:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.7 2002/06/13 21:31:14 werken Exp $
+ * $Id: JexlExpressionFactory.java,v 1.8 2002/06/18 18:36:42 werken Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -74,7 +74,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
@@ -88,20 +88,20 @@ public class JexlExpressionFactory implements ExpressionFactory {
 
         final Expression jexlExpression = new JexlExpression(
             org.apache.commons.jexl.ExpressionFactory.createExpression(text)
-        );
+            );
         
         if ( isSupportAntVariables() && isValidAntVariableName(text) ) {
             ExpressionSupport expr = new ExpressionSupport() {
-                public Object evaluate(JellyContext context) {
-                    Object answer = jexlExpression.evaluate(context);
+                    public Object evaluate(JellyContext context) {
+                        Object answer = jexlExpression.evaluate(context);
 
-                    if ( answer == null ) {
-                        answer = context.getScopedVariable(text);
+                        if ( answer == null ) {
+                            answer = context.getVariable(text);
+                        }
+
+                        return answer;
                     }
-
-                    return answer;
-                }
-            };
+                };
 
             return expr;
         }

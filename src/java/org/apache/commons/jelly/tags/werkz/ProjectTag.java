@@ -117,9 +117,15 @@ public class ProjectTag extends WerkzTagSupport {
         // allow access to Ant methods via the project class
         context.setVariable( "project", antProject );
 
+/*
         antProject.getBuildListeners().clear();
 
         antProject.addBuildListener( new JellyBuildListener( output ) );
+        PrintStream demuxOut = new PrintStream(new DemuxOutputStream(antProject, false));
+        PrintStream demuxErr = new PrintStream(new DemuxOutputStream(antProject, true));
+        System.setOut( demuxOut );
+        System.setErr( demuxErr );
+*/
         
         getBody().run(context, output);
     }

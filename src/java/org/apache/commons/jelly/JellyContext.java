@@ -185,8 +185,10 @@ public class JellyContext {
     }
 
     public void setScopedVariable(String name, Object value) {
-        if ( getExport() ) {
+        if ( getExport() && getParent() != null ) {
             getParent().setScopedVariable( name, value );
+        } else {
+            setVariable( name, value );
         }
     }
 
@@ -209,11 +211,15 @@ public class JellyContext {
         
     /** @return the value of the given variable name */
     public Object getVariable(String name) {
-        if ( getInherit() ) {
-            return getParent().findVariable( name );
+        Object value = variables.get(name);
+
+        if ( value == null 
+             &&
+             getInherit() ) {
+            value = getParent().findVariable( name );
         }
 
-        return variables.get(name);
+        return value;
     }
 
     /** Sets the value of the given variable name */

@@ -79,11 +79,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.ProjectComponent;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildLogger;
 import org.apache.tools.ant.NoBannerLogger;
 import org.apache.tools.ant.types.DataType;
 import org.apache.tools.ant.types.Reference;
+import org.apache.tools.ant.types.EnumeratedAttribute;
+import org.apache.tools.ant.taskdefs.optional.junit.FormatterElement;
 
 import org.xml.sax.Attributes;
 
@@ -91,6 +94,7 @@ import org.xml.sax.Attributes;
  * A Jelly custom tag library that allows Ant tasks to be called from inside Jelly.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  * @version $Revision: 1.6 $
  */
 public class AntTagLibrary extends TagLibrary {
@@ -119,7 +123,7 @@ public class AntTagLibrary extends TagLibrary {
                 }
             },
             File.class
-        );
+            );
         
         ConvertUtils.register(
             new Converter() {
@@ -135,8 +139,27 @@ public class AntTagLibrary extends TagLibrary {
                 }
             },
             Reference.class
-        );
-    }        
+            );
+        
+        ConvertUtils.register(
+            new Converter() {
+                public Object convert(Class type, Object value) {
+                    if ( value instanceof EnumeratedAttribute ) {
+                        return (EnumeratedAttribute) value;
+                    }
+                    else if ( value instanceof String ) {
+                        FormatterElement.TypeAttribute attr = new FormatterElement.TypeAttribute();
+                        attr.setValue( (String) value );
+                        return attr;
+                    }
+                    return null;
+                }
+                
+            },
+            FormatterElement.TypeAttribute.class
+            );
+    }
+
         
     public AntTagLibrary() {
         this.project = createProject();
@@ -185,6 +208,7 @@ public class AntTagLibrary extends TagLibrary {
 
     /** Creates a new script to execute the given tag name and attributes */
     public TagScript createTagScript(String name, Attributes attributes) throws Exception {
+
         Project project = getProject();
         
         // custom Ant tags
@@ -202,24 +226,57 @@ public class AntTagLibrary extends TagLibrary {
         }
         
         // an Ant DataType?
-        Object dataType = null;
+        DataType dataType = null;
         type = (Class) project.getDataTypeDefinitions().get(name);
+        
         if ( type != null ) {            
-            dataType = type.newInstance();
-        }
-        else {
-            dataType = project.createDataType(name);
+
+            try {
+                java.lang.reflect.Constructor ctor = null;
+                boolean noArg = false;
+                // DataType can have a "no arg" constructor or take a single 
+                // Project argument.
+                try {
+                    ctor = type.getConstructor(new Class[0]);
+                    noArg = true;
+                } catch (NoSuchMethodException nse) {
+                    ctor = type.getConstructor(new Class[] { Project.class });
+                    noArg = false;
+                }
+                
+                if (noArg) {
+                    dataType = (DataType) ctor.newInstance(new Object[0]);
+                } else {
+                    dataType = (DataType) ctor.newInstance(new Object[] {project});
+                }
+                dataType.setProject( project );
+
+            } catch (Throwable t) {
+                t.printStackTrace();
+                // ignore 
+            }
         }
         if ( dataType != null ) {
             DataTypeTag tag = new DataTypeTag( name, dataType );
+            tag.setAntProject( getProject() );
             tag.getDynaBean().set( "project", project );
             return TagScript.newInstance(tag);
         }
         
-        // assume its an Ant property object (classpath, arg etc).
-        Tag tag = new TaskPropertyTag( name );
-        return TagScript.newInstance(tag);
+        // Since ant resolves so many dynamically loaded/created
+        // things at run-time, we can make virtually no assumptions
+        // as to what this tag might be.  
+        Tag tag = new OtherAntTag( project,
+                                   name );
+
+        return TagScript.newInstance( tag );
     }
+
+    public TagScript createRuntimeTaskTagScript(String taskName, Attributes attributes) throws Exception {
+        TaskTag tag = new TaskTag( project, taskName );
+        return TagScript.newInstance( tag );
+    }
+                                                
 
     
     // Properties
