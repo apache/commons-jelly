@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.13 2002/07/25 01:51:20 werken Exp $
- * $Revision: 1.13 $
- * $Date: 2002/07/25 01:51:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.14 2002/08/09 19:11:56 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/08/09 19:11:56 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.13 2002/07/25 01:51:20 werken Exp $
+ * $Id: Jelly.java,v 1.14 2002/08/09 19:11:56 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -80,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
  * or can be used as the basis of an Ant task.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 public class Jelly {
     
@@ -115,7 +115,7 @@ public class Jelly {
             // later we might wanna add some command line arguments 
             // checking stuff using commons-cli to specify the output file
             // and input file via command line arguments
-            Writer writer = ( args.length > 1 ) 
+            final Writer writer = ( args.length > 1 ) 
                 ? new FileWriter( args[1] ) 
                 : new OutputStreamWriter( System.out );
             
@@ -126,7 +126,20 @@ public class Jelly {
             JellyContext context = jelly.getJellyContext();
             context.setVariable("args", args);
             script.run(context, output);
-            writer.close();
+            
+            // now lets wait for all threads to close
+            Runtime.getRuntime().addShutdownHook(
+                new Thread() {
+                    public void run() {
+                        try {
+                            writer.close();
+                        }
+                        catch (Exception e) {
+                            // ignore errors
+                        }
+                    }
+                }
+            );
         }
         catch (JellyException e)
         {
