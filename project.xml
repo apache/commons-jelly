@@ -280,6 +280,11 @@
     </dependency>
     
     <dependency>
+      <id>nekohtml</id>
+      <version>0.6.5</version>
+    </dependency>
+    
+    <dependency>
       <id>servletapi</id>
       <version>2.3</version>
     </dependency>
@@ -349,7 +354,7 @@
       <version>1.0.2b</version>
     </dependency>
     
-	<!-- validate taglib -->
+	<!-- validate taglib 
     <dependency>
       <id>isorelax</id>
       <version>20020414</version>
@@ -358,9 +363,9 @@
     <dependency>
       <id>msv</id>
       <version>20020414</version>
-    </dependency>
+    </dependency>-->
 
-	<!-- runtime dependency for validate taglib -->
+	<!-- runtime dependency for validate taglib 
     <dependency>
       <id>xsdlib</id>
       <version>20020414</version>
@@ -369,13 +374,13 @@
     <dependency>
       <id>relaxngDatatype</id>
       <version>20020414</version>
-    </dependency>
+    </dependency>-->
 
-	<!-- html taglib -->
+	<!-- html taglib 
     <dependency>
       <id>nekohtml</id>
       <version>0.6.5</version>
-    </dependency>
+    </dependency>-->
 
 	<!-- scheduler taglib -->
     <dependency>
@@ -402,6 +407,7 @@
       <version>1.0.2</version>
       <jar>activation-1.0.2.jar</jar>
     </dependency>
+    
     <dependency>
       <id>javamail</id>
       <version>1.2</version>
@@ -433,13 +439,13 @@
       <version>0.8</version>
     </dependency>-->
 
-	<!-- swt taglib -->
+	<!-- swt taglib 
     <dependency>
-      <id>swt</id>
+      <id>swt</id>-->
       
-      <!-- don't know how to support OS-dependent jars in Maven yet -->
+      <!-- don't know how to support OS-dependent jars in Maven yet
       <version>win32-2.1.0</version>
-    </dependency>
+    </dependency> -->
   </dependencies>
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
