@@ -1,8 +1,9 @@
 build.properties
 demopage.html
 dist
-junit*.properties
+jcoverage.ser
 jms
+junit*.properties
 lib
 snapshot.bat
 target
