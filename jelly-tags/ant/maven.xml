@@ -1,3 +1,32 @@
 <project default="java:jar">
 
+  <!-- define the classpath used to run examples -->
+  <goal name="create-classpath" prereqs="java:compile,test:compile">
+		<path id="test.classpath">
+			<pathelement path="${maven.build.dest}"/>
+			<pathelement path="target/classes"/>
+			<pathelement path="target/test-classes"/>
+			<path refid="maven.dependency.classpath"/>
+		</path>
+  </goal>
+
+	<!-- demos -->
+  <goal name="demo:fileset" prereqs="create-classpath"
+		description="A demo of the fileScanner tag to walk Ant fileSets">
+
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/ant/filescanner.jelly"/>
+    </java>
+  </goal>
+
+
+  <goal name="demo:antjar" prereqs="create-classpath"
+    description="Runs a sample which creates a jar using the Ant tag library">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/ant/example_jar.jelly"/>
+    </java>
+  </goal>
+
 </project>
