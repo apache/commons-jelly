@@ -25,6 +25,8 @@
   </properties>
   <body>
     <release version="1.0-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="add" issue="JELLY-133" due-to="Hans Gilde">ComponentTag methods should throw JellyTagException.</action>
+      <action dev="dion" type="add" issue="JELLY-132" due-to="Hans Gilde">ButtonGroup tag is broken.</action>
       <action dev="dion" type="add" issue="JELLY-114">Action tag ignores enabled property.</action>
       <action dev="dion" type="add" issue="JELLY-131" due-to="Hans Gilde">Unit tests for swing tag lib.</action>
       <action dev="dion" type="fix" issue="JELLY-128" due-to="Hans Gilde">Layout constraints don't work with RootPaneContainer classes.</action>

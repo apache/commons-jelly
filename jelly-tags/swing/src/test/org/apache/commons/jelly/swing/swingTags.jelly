@@ -62,7 +62,8 @@
         <frame name="frame" var="frame">
             <buttonGroup var="bg">
                 <checkBox name="cb1"/>
-                <checkBox name="cb2"/>
+				<checkBox name="cb2" selected="true"/>
+				<checkBox name="cb3"/>
             </buttonGroup>
         </frame>
     </j:if>

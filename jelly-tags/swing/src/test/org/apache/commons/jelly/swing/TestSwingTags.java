@@ -130,8 +130,8 @@ public class TestSwingTags extends BaseJellyTest {
         runSwingScript("test.buttonGroup");
         JellyContext context = getJellyContext();
         ButtonGroup bg = (ButtonGroup) context.getVariable("bg");
-        //buttonGroup is broken
-        // assertEquals(2, bg.getButtonCount());
+        assertEquals(3, bg.getButtonCount());
+        assertNotNull(bg.getSelection());
     }
 
     

@@ -162,7 +162,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a WindowListener to this component
      */
-    public void addWindowListener(WindowListener listener) {
+    public void addWindowListener(WindowListener listener) throws JellyTagException {
         Component component = getComponent();
         if ( component instanceof Window ) {
             Window window = (Window) component;
@@ -173,7 +173,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a FocusListener to this component
      */
-    public void addFocusListener(FocusListener listener) {
+    public void addFocusListener(FocusListener listener) throws JellyTagException {
         Component component = getComponent();
         component.addFocusListener(listener);    
     }
@@ -181,7 +181,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a KeyListener to this component
      */
-    public void addKeyListener(KeyListener listener) {
+    public void addKeyListener(KeyListener listener) throws JellyTagException {
         Component component = getComponent();
         component.addKeyListener(listener);
     }
@@ -207,7 +207,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
-    public void addChild(Component component, Object constraints) {
+    public void addChild(Component component, Object constraints) throws JellyTagException {
         Object parent = getBean();
         if ( parent instanceof JFrame && component instanceof JMenuBar ) {
             JFrame frame = (JFrame) parent;

@@ -66,6 +66,7 @@ public class SwingTagLibrary extends TagLibrary {
         
     public SwingTagLibrary() {
         registerTag( "action", ActionTag.class );
+        registerTag( "buttonGroup", ButtonGroupTag.class );
         registerTag( "component", ComponentTag.class );
         registerTag( "font", FontTag.class );
         registerTag( "windowListener", WindowListenerTag.class );
@@ -139,7 +140,6 @@ public class SwingTagLibrary extends TagLibrary {
      */
     protected void registerFactories() {
         registerBeanFactory( "button", JButton.class );
-        registerBeanFactory( "buttonGroup", ButtonGroup.class );        
         registerBeanFactory( "checkBox", JCheckBox.class );
         registerBeanFactory( "checkBoxMenuItem", JCheckBoxMenuItem.class );
         registerBeanFactory( "comboBox", JComboBox.class );
