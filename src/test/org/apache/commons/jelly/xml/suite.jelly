@@ -5,6 +5,12 @@
 	xmlns:test="jelly:junit" 
 	xmlns:log="jelly:log">
 
+	<test:case name="testUriParse">
+		<x:parse var="doc" xml="dummy.xml"/>
+		
+		<test:assert xpath="$doc/dummy/entry[@id='2']"/>		
+	</test:case>
+	
   <test:case name="testElementAndAttribute">
   	
   	<x:parse var="doc">
