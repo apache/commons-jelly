@@ -190,6 +190,13 @@ public class TestXMLTags extends TestCase {
         assertEquals("Produces the correct output", "It works!", text);
     }
 
+    public void testDoctype() throws Exception {
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/testDoctype.jelly"
+        );
+        assertEquals("Produces the correct output", "<!DOCTYPE foo PUBLIC \"publicID\" \"foo.dtd\">\n<foo></foo>", text);
+    }
+
     public void runUnitTest(String name) throws Exception {
         Document document = parseUnitTest(name);
 
