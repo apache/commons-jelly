@@ -427,11 +427,11 @@
     </dependency>
 -->    
 
-	<!-- xmlunit taglib -->
+	<!-- xmlunit taglib 
     <dependency>
       <id>xmlunit</id>
       <version>0.8</version>
-    </dependency>
+    </dependency>-->
 
 	<!-- swt taglib -->
     <dependency>
