@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.49 $
+ * @version $Revision: 1.50 $
  */
 public class TagScript implements Script {
 
@@ -286,11 +286,11 @@ public class TagScript implements Script {
      * @return the tag to be evaluated, creating it lazily if required.
      */
     public Tag getTag(JellyContext context) throws JellyException {
-        Tag tag = context.getTagOfTagScript(this);
+        Tag tag = (Tag) context.getThreadScriptData(this);
         if ( tag == null ) {
             tag = createTag();
             if ( tag != null ) {
-                context.setTagForScript(this,tag);
+                context.setThreadScriptData(this,tag);
                 configureTag(tag,context);
             }
         }
@@ -514,7 +514,7 @@ public class TagScript implements Script {
      * when a StaticTag is switched with a DynamicTag
      */
     protected void setTag(Tag tag, JellyContext context) {
-        context.setTagForScript(this,tag);
+        context.setThreadScriptData(this,tag);
     }
 
     /**

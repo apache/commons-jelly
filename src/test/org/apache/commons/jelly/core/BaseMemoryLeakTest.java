@@ -117,6 +117,10 @@ public class BaseMemoryLeakTest extends TestCase {
             // PL: I don't see why but removing the clear here 
             //     does make the test fail!
             //     As if the WeakHashMap wasn't weak enough...
+            
+            //Hans: The structure of the relationship
+            //  between TagScript and Tag prevents WeakHashMap
+            //  from working in this case, which is why I removed it.
             jc.clear();
 
             if (outputEveryXIterations != 0 && i % outputEveryXIterations == 0) {
@@ -126,7 +130,7 @@ public class BaseMemoryLeakTest extends TestCase {
                 rt.runFinalization();
                 rt.gc();
                 long middle = rt.totalMemory() - rt.freeMemory();
-                log.info("TagHolderMap has " + jc.getTagHolderMap().size() + " entries.");
+                log.info("TagHolderMap has " + jc.getThreadScriptDataMap().size() + " entries.");
                 log.info("Memory test after " + i + " runs: "
                         + (middle - start));
             }
