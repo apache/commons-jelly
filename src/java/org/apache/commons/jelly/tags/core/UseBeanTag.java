@@ -18,10 +18,12 @@ package org.apache.commons.jelly.tags.core;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.MissingAttributeException;
@@ -58,6 +60,15 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * Map of attributes before passing to ConvertUtils)
      */
     private Set ignoreProperties;
+    
+    /** 
+     * If this tag finds an attribute in the XML that's not
+     * ignored by {@link #ignoreProperties} and isn't a
+     * bean property, should it throw an exception?
+     * @see #setIgnoreUnknownProperties(boolean)
+     */
+    private boolean ignoreUnknownProperties = false;
+
 
     public UseBeanTag() {
     }
@@ -84,6 +95,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
         String var = (String) attributes.get( "var" );
         Object classObject = attributes.get( "class" );
         addIgnoreProperty("class");
+        addIgnoreProperty("var");
         
         try {
             // this method could return null in derived classes
@@ -178,13 +190,34 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         Map attrsToUse = new HashMap(attributes);
         attrsToUse.keySet().removeAll(getIgnorePropertySet());
-
+           
+        validateBeanProperties(bean, attrsToUse);
+        
         try {
             BeanUtils.populate(bean, attrsToUse);
         } catch (IllegalAccessException e) {
             throw new JellyTagException("could not set the properties of the bean",e);
         } catch (InvocationTargetException e) {
             throw new JellyTagException("could not set the properties of the bean",e);
+        }
+    }
+    
+    /**
+     * If {@link #isIgnoreUnknownProperties()} return true, make sure that
+     * every non ignored ({@see #addIgnoreProperty(String)}) property
+     * matches a writable property on the target bean.
+     * @param bean
+     * @param attributes
+     * @throws JellyTagException
+     */
+    protected void validateBeanProperties(Object bean, Map attributes) throws JellyTagException {
+        if (!isIgnoreUnknownProperties()) {
+            for (Iterator i=attributes.keySet().iterator();i.hasNext();) {
+                String attrName = (String)i.next();
+                if (! PropertyUtils.isWriteable(bean, attrName)) {
+                    throw new JellyTagException("No bean property found: " + attrName);
+                }
+            }
         }
     }
 
@@ -212,7 +245,8 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
         return defaultClass;
     }
 
-    /** Adds a name to the Set of property names that will be skipped when setting
+    /**
+     * Adds a name to the Set of property names that will be skipped when setting
      * bean properties. In other words, names added here won't be set into the bean
      * if they're present in the attribute Map.
      * @param name
@@ -231,5 +265,23 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
         }
 
         return ignoreProperties;
+    }
+    
+    /**
+     * @see {@link #setIgnoreUnknownProperties(boolean)}
+     * @return
+     */
+    public boolean isIgnoreUnknownProperties() {
+        return ignoreUnknownProperties;
+    }
+    
+    /**
+     * If this tag finds an attribute in the XML that's not
+     * ignored by {@link #ignoreProperties} and isn't a
+     * bean property, should it throw an exception?
+     * @param ignoreUnknownProperties Sets {@link #ignoreUnknownProperties}.
+     */
+    public void setIgnoreUnknownProperties(boolean ignoreUnknownProps) {
+        this.ignoreUnknownProperties = ignoreUnknownProps;
     }
 }

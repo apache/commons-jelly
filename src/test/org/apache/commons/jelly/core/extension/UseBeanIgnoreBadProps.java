@@ -15,16 +15,13 @@
  */
 package org.apache.commons.jelly.core.extension;
 
-import org.apache.commons.jelly.tags.core.CoreTagLibrary;
+import org.apache.commons.jelly.tags.core.UseBeanTag;
 
 /**
- * Test tag lib for extending core
+ * @author Hans Gilde
  */
-public class CoreExtensionTagLibrary extends CoreTagLibrary {
-
-    public CoreExtensionTagLibrary() {
-        super();
-        registerTag("useBeanX", UseBeanExtendedTag.class);
-        registerTag("useBeanXP", UseBeanIgnoreBadProps.class);
+public class UseBeanIgnoreBadProps extends UseBeanTag {
+    public UseBeanIgnoreBadProps() {
+        setIgnoreUnknownProperties(true);
     }
 }
