@@ -62,7 +62,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-http</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
 
     <!-- PL: Commented out as it might be this is part of JDK 1.4...
