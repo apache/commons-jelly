@@ -13,7 +13,7 @@
     
     <!-- Standard Maven target to produce Javadocs, source -->
     <!-- and binary distributions.                         -->
-    <ant buildfile="build-gump.xml" target="jar">
+    <ant buildfile="build.xml" target="jar">
       <property name="maven.final.name" value="commons-jelly-@@DATE@@"/>
     </ant>
 
@@ -23,6 +23,12 @@
     <depend project="jakarta-ant"/>
     <depend project="xml-xerces"/>
 
+    <depend project="junit"/>
+    <depend project="javadoc"/>
+    <depend project="xmlParseAPIs"/>
+    <depend project="xercesImpl"/>
+    <depend project="ant"/>
+    <depend project="ant-optional"/>
     <depend project="commons-logging"/>
     <depend project="commons-beanutils"/>
     <depend project="commons-collections"/>

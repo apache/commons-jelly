@@ -95,7 +95,7 @@
     </dependency>
     
     <dependency>
-      <name>xmlParseAPIs</name>
+      <id>xmlParseAPIs</id>
       <type>required</type>
       <version>2.0.0</version>
       <jar>xmlParserAPIs-2.0.0.jar</jar>
