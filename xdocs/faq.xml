@@ -24,6 +24,11 @@
           What is Jelly?
         </a>
       </li>
+      <li>
+        <a href="#why-called-jelly">
+          Why is this called Jelly?
+        </a>
+      </li>
     </ol>
     <p><strong>Using Jelly</strong></p>
     <ol>
@@ -55,6 +60,29 @@
           href="overview.html">Overview</a> documents for more detail.
         </dd>
       </dl>
+      
+      <dl>
+        <dt>
+          <a name="why-called-jelly">
+          	Why is this called Jelly?
+          </a>
+        </dt>
+        <dd>
+          The name started out as 'Jele' as in Java ELEments but then I thought Jelly was a nicer spelling :-).
+          The basic idea behind Jelly that Java code is bound on to XML elements.
+        </dd>
+        <dd>
+          Also Jelly (in British or Jello in American) can be molded to fit any shape required which kinda fits
+          with Jelly's main aim to be a flexible Java and XML based scripting engine that can do anything.
+        </dd>
+        <dd>
+          There are many different specific frameworks that take an XML document, bind it to some kind of bean or object
+          and then evaluate it in some kind of script or process, so Jelly was an attempt at a generic engine
+          using ideas from JSP, JSTL, Velocity, Cocoon and Ant.
+        </dd>
+      </dl>
+      
+      
     </section>
     <section name="Using Jelly">
       <dl>
