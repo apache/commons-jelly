@@ -121,7 +121,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
             // this method could return null in derived classes
             Class theClass = convertToClass(classObject);
             
-            this.bean = newInstance(theClass, attributes, output);
+            bean = newInstance(theClass, attributes, output);
             setBeanProperties(bean, attributes);
         
             // invoke body which could result in other properties being set
@@ -223,7 +223,8 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
-        } else {
+        } 
+        else {
             ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
             if(null != parentArg) {
                 parentArg.setValue(bean);
