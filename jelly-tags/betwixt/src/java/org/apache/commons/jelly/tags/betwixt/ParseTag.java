@@ -61,18 +61,22 @@
  */
 package org.apache.commons.jelly.tags.betwixt;
 
+import java.beans.IntrospectionException;
+import java.io.IOException;
 import java.net.URL;
 
 import org.apache.commons.betwixt.XMLIntrospector;
 import org.apache.commons.betwixt.io.BeanReader;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import org.xml.sax.SAXException;
 
 /** 
  * Parses some XML specified via the given URI (which can be relative or an absolute URL) and outputs the
@@ -104,7 +108,7 @@ public class ParseTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( var == null ) {
             throw new MissingAttributeException( "var" );
         }
@@ -119,25 +123,37 @@ public class ParseTag extends TagSupport {
             theClass = getClassLoader().loadClass( rootClass );
         }
         catch (Exception e) {
-            throw new JellyException( "Could not load class called: " + rootClass, e );
+            throw new JellyTagException( "Could not load class called: " + rootClass, e );
         }
         
         if ( theClass == null ) {
-            throw new JellyException( "Could not load class called: " + rootClass );
-        }        
-        if ( path != null ) {
-            reader.registerBeanClass( path, theClass );
+            throw new JellyTagException( "Could not load class called: " + rootClass );
         }
-        else {
-            reader.registerBeanClass( theClass );
+
+        try {       
+            if ( path != null ) {
+                reader.registerBeanClass( path, theClass );
+            }
+            else {
+                reader.registerBeanClass( theClass );
+            }
+        }
+        catch (IntrospectionException e) {
+            throw new JellyTagException(e);
         }
         
         Object value = null;
         if ( uri != null ) {
             invokeBody(output);
         
-            URL url = context.getResource( uri );
-            value = reader.parse( url.toString() );
+            try {
+                URL url = context.getResource( uri );
+                value = reader.parse( url.toString() );
+            } catch (IOException e) {
+                throw new JellyTagException(e);
+            } catch (SAXException e) {
+                throw new JellyTagException(e);
+            }
         }
         else {
 

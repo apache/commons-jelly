@@ -64,11 +64,14 @@ package org.apache.commons.jelly.tags.betwixt;
 import org.apache.commons.beanutils.ConversionException;
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
+
 import org.apache.commons.betwixt.XMLIntrospector;
 import org.apache.commons.betwixt.strategy.CapitalizeNameMapper;
 import org.apache.commons.betwixt.strategy.DecapitalizeNameMapper;
 import org.apache.commons.betwixt.strategy.HyphenatedNameMapper;
 import org.apache.commons.betwixt.strategy.NameMapper;
+
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -121,7 +124,7 @@ public class IntrospectorTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if ( var == null ) {
             throw new MissingAttributeException( "var" );
