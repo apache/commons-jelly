@@ -43,6 +43,7 @@
     
 		<splitPane>    
       <panel>
+      	<titledBorder title="Sample Border Title"/>
         <label text="Enter your name"/>
         <textField text="James" font="${bigfont}"/>
         <button>

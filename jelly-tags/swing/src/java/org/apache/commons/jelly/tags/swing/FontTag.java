@@ -91,14 +91,18 @@ public class FontTag extends MapTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
+/*    
+ * maybe do some type conversions or name mapping code...
+ * 
     public void setAttribute(String name, Object value) {
         if (name.equals("size")) {
-            super.setAttribute(name, ConvertUtils.value);
+            super.setAttribute(name, ConvertUtils.convert(Integer.class, value));
         }
         else {
             super.setAttribute(name, value);
         }
     }
+*/    
     
     public void doTag(final XMLOutput output) throws Exception {
         Map attributes = getAttributes();

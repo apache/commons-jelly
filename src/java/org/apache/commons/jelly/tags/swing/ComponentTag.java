@@ -72,6 +72,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -171,6 +172,17 @@ public class ComponentTag extends UseBeanTag {
         if ( component != null ) {
             // lets just try set the 'font' property
             BeanUtils.setProperty( component, "font", font );
+        }
+    }
+
+    /**
+     * Sets the Border of this component
+     */
+    public void setBorder(Border border) throws Exception {
+        Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'border' property
+            BeanUtils.setProperty( component, "border", border );
         }
     }
 

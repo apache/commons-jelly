@@ -61,66 +61,52 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import java.awt.Font;
-import java.util.Map;
+import javax.swing.border.Border;
 
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MapTagSupport;
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Creates an Font and attaches it to the parent component or exports the font as
- * a reusable variable that can be attached to multiple widgets. 
+ * An abstract base class used for concrete border tags which create new Border implementations
+ * and either export them as variables or set them on parent widgets.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public class FontTag extends MapTagSupport {
+public abstract class BorderTagSupport extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(FontTag.class);
+    private static final Log log = LogFactory.getLog(BorderTagSupport.class);
 
-    /** the current font instance */
-    private Font font;
+    private String var;
 
-    public FontTag() {
+    public BorderTagSupport() {
     }
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-/*    
- * maybe do some type conversions or name mapping code...
- * 
-    public void setAttribute(String name, Object value) {
-        if (name.equals("size")) {
-            super.setAttribute(name, ConvertUtils.convert(Integer.class, value));
-        }
-        else {
-            super.setAttribute(name, value);
-        }
-    }
-*/    
-    
     public void doTag(final XMLOutput output) throws Exception {
-        Map attributes = getAttributes();
-        String var = (String) attributes.remove("var");
-        
-        font = createFont(attributes);
 
+        Border border = createBorder();
+
+        // allow some nested tags to set properties        
+        invokeBody(output);
+        
         if (var != null) {
-            context.setVariable(var, font);
+            context.setVariable(var, border);
         }
         else {
-            // now lets add this font to its parent if we have one
             ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
             if ( tag != null ) {
-                tag.setFont(font);
+                tag.setBorder(border);
             }
             else {
-                throw new JellyException( "this tag must be nested within a JellySwing widget tag or the 'var' attribute must be specified" );
+                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
             }
         }
     }
@@ -128,25 +114,21 @@ public class FontTag extends MapTagSupport {
     // Properties
     //-------------------------------------------------------------------------                    
 
-    /**
-     * @return the Font object for this tag
-     */
-    public Font getFont() {
-        return font;
-    }
 
+    /**
+     * Sets the name of the variable to use to expose the new Border object. 
+     * If this attribute is not set then the parent widget tag will have its 
+     * border property set.
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
     
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
     /**
-     * Factory method to create a new Font based on the given properties
+     * Factory method to create a new Border instance.
      */
-    protected Font createFont(Map map) {
-        log.info( "Creating font from properties: " + map );
-        Font font = new Font(map);
-        //Font font = Font.getFont(map);
-        log.info( "Created font: " + font );
-        return font;
-    }
+    protected abstract Border createBorder() throws Exception;   
 }
