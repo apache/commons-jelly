@@ -11,32 +11,120 @@
 
 <section name="Jelly : Java and XML based scripting engine">
 
-<p>
-  <b>Jelly</b> 
-</p>
-
-<p><em>Jelly</em> is an XML based scripting and processing engine. Jelly borrows many 
-good ideas from both JSP custom tags, Velocity, Cocoon and the 
+<p><em>Jelly</em> is a Java and XML based scripting and processing engine. Jelly borrows many 
+good ideas from both JSP custom tags, Velocity, Cocoon, Ant and the 
 scripting engine inside XDoclet. Jelly can be used from the command line, inside 
-Ant or inside a Servlet. 
+Ant or inside a Servlet, Web Service, JMS MessageListener or embedded directly into your software. 
 </p>
 
 <p>
 Jelly is completely extendable via custom tags in a similar way to JSP. 
 Though Jelly is really simple and has no dependencies either Servlets or JSP.
+Jelly has native support for plugin expression languages and includes support 
+for the JSP, JSTL and JSF expression language via 
+
+<!-- #### update Jexl link when it gets Maven-ized -->
+
+<a href="http://jakarta.apache.org/commons/">Jexl</a> as well as others like XPath via 
+<a href="http://jaxen.org">Jaxen</a>.
+</p>
+</section>
+
+<section name="How it works">
+<p>A Jelly script is an XML document. 
+XML elements can be bound to <i>Tags</i> (or should that be Jelly Beans ;-) which are typically 
+just Java Beans which also implement Jelly's 
+<a href="apidocs/org/apache/commons/jelly/Tag.html">Tag</a> interface. 
 </p>
 
 <p>
-Jelly is based on an XML event pipeline architecture (SAX), like Cocoon, rather than being purely text
-based like JSP and Velocity. This means that Jelly tags can consume XML events and emit them. Each
-Jelly custom tag can then act as an XML source, result or transformation.
+When a Jelly script is run, the properties of the Jelly Bean are configured using the XML attributes.
+Then the tag is run by calling its <i>doTag()</i> method. 
+The Tag can then perform some processing and invoke its body (the contents of the XML element) 
+if it wishes, however many times it wants. So Jelly Tags are very like JSP custom tags and Ant Tasks.
 </p>
 
-<p>We hope Jelly can be both an XML processing and transformation engine, 
+<p>
+Also Jelly Tags can be defined at runtime in dynamic Jelly script using the <i>define</i> tag 
+library so that simple yet powerful macros can be made very easily.
+</p>
+</section>
+
+<section name="JSTL">
+<p>
+<a href="http://java.sun.com/products/jsp/jstl/">JSTL</a> 
+is the JSP Standard Tag Library which is being standardized through the JCP process.
+</p>
+
+<p>
+Jelly implements a collection of JSTL tags to peform core features like 
+evalute expressions, conditional branching and looping, as well the processing of beans, XML, XPath and SQL. 
+</p>
+
+<p>
+Jelly can act as a stand alone lightweight engine for running JSTL 
+scripts which can be run from the command line or from Ant or that can be easily 
+embedded into SOAP services, Servlet engines, JMS MessageListeners or your own software.
+</p>
+</section>
+
+<section name="Ant">
+<p>
+There is a JellyTask for calling Jelly from 
+<a href="http://jakarta.apache.org/ant/">Ant</a> 
+as well as a Jelly tag library for  calling Ant Tasks from inside a Jelly script!
+Jelly's support for the Expresssion Language in JSTL, which looks very like Ant's 
+own expresssion language, means that Ant properties can be used inside Jelly scripts seamlessly.
+</p>
+
+<p>
+So Jelly can be a scripting engine for Ant tasks which can be easily integrated into your Ant build. 
+</p>
+</section>
+
+
+<section name="XML and Web Services">
+<p>
+Jelly is based on an XML event pipeline architecture (SAX), like Cocoon, rather than being purely text
+based like JSP and Velocity. This means that Jelly tags can consume XML events and emit them. Each
+Jelly Tag can then act as an XML source, result or transformation.
+Also because this is an XML event pipeline, XML can be processed very efficiently without redundant
+runtime parsing.
+</p>
+
+<p>
+In addition there is a tag library called the Jelly Stylesheet Library (JSL) for
+performing XSLT-style declarative processsing of XML documents using a pattern match approach.
+</p>
+
+<p>
+Using the dynamic tag creation features of the <i>define</i> tag library we can easily script SOAP services using
+a simple tag based macro language. 
+</p>
+
+<p>
+For example the following piece of Jelly script could evaluate its dynamic 
+body (which can contain any Jelly tags, JSTL or Ant tasks) then convert the body into the correct SOAP message, call a SOAP service
+then format the results neatly as XML.
+</p>
+
+<pre>
+&lt;babelfish:translate from="en" to="fr"&gt;
+  Welcome &lt;j:expr value="${user.name}"/&gt; to Jelly!
+&lt;/babelfish:translate&gt;
+</pre>
+
+<p>
+A Jelly script is an XML document, which means that Jelly can process itself.
+All of these things make Jelly a good choice for for working with XML and Web Services.
+</p>
+
+</section>
+
+<section name="Other uses">
+<p>We hope Jelly can be both generic and powerful XML processing and transformation engine, 
 a web and XML based scripting engine as well as a unit testing framework for 
 testing web applications and web services.
-In addition Jelly can act as a stand alone lightweight engine for running JSTL 
-scripts which can be run from the command line, inside SOAP services or from Ant.
 </p>
 
 </section>

@@ -19,6 +19,7 @@
         	It'd be handy for recursive builds!</li>
         <li>autogenerate tag library documentation, in a kinda javadoc style, showing all tag libraries, 
 			their tags and descriptions of their tags</li>
+        <li>Develop a http tag library, probably based on commons-httpclient, that can be used for scripting web services</li>
         <li>Patch TagLibrary to alias all &lt;mixedCase&gt; tags to &lt;mixed-case&gt;  tags</li>
 		<li>Add tags &lt;copy&gt; &lt;copyOf&gt; &lt;element&gt; &lt;attribute&gt; to JSL </li>
 		<li>Add JSL test cases to test for ordering of patterns and that the correct output comes out.</li>
