@@ -16,6 +16,10 @@
       
     <section name="Core tasks"> 
       <ul>
+        <li>
+        	add a SAX Locator to TagScript instances so that exceptions get adorned with nice 
+        	line number information for debugging when things go wrong
+        </li>
         <li>write a Cocoon JellyTransformer so that Jelly scripts can be used easily inside Cocoon</li>
         <li>autogenerate tag library documentation, in a kinda javadoc style, showing all tag libraries, 
 			their tags and descriptions of their tags. 
