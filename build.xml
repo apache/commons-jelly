@@ -172,7 +172,6 @@
 	  <maven-ant antfile="${maven.home}/plugins/j2ee/build.xml" target="validate-war"/>
 	</target>
 	
-
   <!-- maven:end -->
 
 <!-- ========== Helper Targets ============================================ -->

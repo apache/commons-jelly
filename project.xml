@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <version>2</version>
+  <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <id>commons-jelly</id>
   <currentVersion>1.0-dev</currentVersion>
   <organization>
-	  <name>Apache Software Foundation</name>
-	  <url>http://www.apache.org</url>
+    <name>Apache Software Foundation</name>
+    <url>http://www.apache.org</url>
   </organization>
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly</package>
   <shortDescription>Commons Jelly</shortDescription>
+
+  <!-- Gump integration -->
   <gumpRepositoryId>jakarta</gumpRepositoryId>
-  <description>Commons Jelly: simple XML scripting engine</description>
-  <url>http://jakarta.apache.org/commons/sandbox/jelly.html</url>
-  <cvsWebUrl>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/</cvsWebUrl>
-  <cvsModule>jakarta-commons-sandbox/jelly</cvsModule>
-  <issueTrackingUrl>http://nagoya.apache.org/</issueTrackingUrl>
+  
+  <description>
+  	Jelly is a Java and XML based scripting engine. 
+  	Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple
+  	yet powerful scripting engine.
+  </description>
+  
+  <url>http://jakarta.apache.org/commons/sandbox/jelly/</url>
+  <issueTrackingUrl>http://nagoya.apache.org/scarab/servlet/scarab/</issueTrackingUrl>
   <siteAddress>jakarta.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/dist/</distributionDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/</url>
+  </repository>
+  
+  <versions>
+    <version>
+      <id>b1</id>
+      <name>1.0-b1</name>
+      <tag>HEAD</tag>
+    </version>
+  </versions>
+  <branches></branches>
   
   <mailingLists>
     <mailingList>
@@ -30,7 +49,6 @@
       <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
     </mailingList>
   </mailingLists>
-
   
   <developers>
     <developer>
@@ -48,72 +66,63 @@
   </developers>
   
   <dependencies>
-    
     <dependency>
       <name>commons-logging</name>
       <type>required</type>
       <version>1.0</version>
       <jar>commons-logging-1.0.jar</jar>
     </dependency>
-
     <dependency>
       <name>commons-beanutils</name>
       <type>required</type>
       <version>1.4-dev</version>
       <jar>commons-beanutils-1.4-dev.jar</jar>
     </dependency>
-
     <dependency>
       <name>commons-collections</name>
       <type>required</type>
       <version>2.0</version>
       <jar>commons-collections-2.0.jar</jar>
     </dependency>
-
     <dependency>
       <name>commons-digester</name>
       <type>required</type>
       <version>1.2</version>
       <jar>commons-digester-1.2.jar</jar>
     </dependency>
-
     <dependency>
       <name>dom4j</name>
       <type>required</type>
       <version>1.4-dev</version>
       <jar>dom4j-1.4-dev.jar</jar>
     </dependency>
-
     <dependency>
       <name>commons-jexl</name>
       <type>required</type>
       <version>1.0-dev</version>
       <jar>commons-jexl-1.0-dev.jar</jar>
     </dependency>
-
     <dependency>
       <name>velocity</name>
       <type>required</type>
       <version>1.4-dev</version>
       <jar>velocity-1.4-dev.jar</jar>
     </dependency>
-
     <dependency>
       <name>jdbc-stdext</name>
       <type>required</type>
       <version>2.0</version>
       <jar>jdbc2_0-stdext.jar</jar>
     </dependency>
+    <!-- runtime dependencies only required for testing and sample programs -->
 
-<!-- runtime dependencies only required for testing and sample programs -->
     <dependency>
       <name>hsqldb</name>
       <type>required</type>
       <version>1.7.0</version>
       <jar>hsqldb-1.7.0.jar</jar>
     </dependency>
-
-<!--
+    <!--
     <dependency>
       <name>xmlParseAPIs</name>
       <type>required</type>
@@ -139,22 +148,26 @@
 -->
 
   </dependencies>
-  
   <build>
-    <sourceDirectories>
-      <sourceDirectory>src/java</sourceDirectory>
-    </sourceDirectories>
+    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
+    <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <aspectSourceDirectories></aspectSourceDirectories>
+    <integrationUnitTestSourceDirectory/>
+    <aspectSourceDirectory/>
+    <!-- Unit test classes -->
+
     <unitTestPatterns>
-      <unitTestPattern>include = **/*Test*.java</unitTestPattern>
+      <unitTestPattern>include = **/Test*.java</unitTestPattern>
     </unitTestPatterns>
+    <!-- Integration unit test classes -->
+
+    <integrationUnitTestPatterns></integrationUnitTestPatterns>
+    <!-- J A R  R E S O U R C E S -->
+    <!-- Resources that are packaged up inside the JAR file -->
 
     <jarResources>
-   	  <jarResource>include = **/*.properties</jarResource>
+      <jarResource>include = **/*.properties</jarResource>
     </jarResources>
-
     <jars></jars>
-    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
   </build>
 </project>

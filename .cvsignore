@@ -2,6 +2,7 @@ build.properties
 dist
 target
 velocity.log
+maven.log
 .project
 
 commons-jelly-1.0-dev-site.tar.gz
