@@ -407,6 +407,25 @@
       <version>1.2</version>
     </dependency>
 
+	<!-- soap taglib -->
+    <dependency>
+      <id>axis</id>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <id>jaxrpc</id>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <id>saaj</id>
+      <version>1.1</version>
+    </dependency>
+<!--    
+    <dependency>
+      <id>wsdl4j</id>
+      <version>1.0</version>
+    </dependency>
+-->    
   </dependencies>
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>

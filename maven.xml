@@ -181,21 +181,21 @@
 
   	
   <goal name="demo:quartz" prereqs="jelly-task" 
-	description="Runs the example quartz demo">
+		description="Runs the example quartz demo">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/quartz/example.jelly"/> 
     </java>
   </goal>
 
-  <goal name="demo:soap" prereqs="jelly-task" 
-	description="Runs the example SOAP demo">
+  <goal name="demo:soapmacro" prereqs="jelly-task" 
+		description="Runs a sample SOAP macro">
 	
-	<jelly file="src/test/org/apache/commons/jelly/define/example.jelly"/> 
+		<jelly file="src/test/org/apache/commons/jelly/define/example.jelly"/> 
   </goal>
 
   <goal name="demo:bean" prereqs="jelly-task" 
-	description="Runs the example of binding beans to tags">
+		description="Runs the example of binding beans to tags">
 
 <!--	
 	<jelly file="src/test/org/apache/commons/jelly/define/beanSample.jelly"/> 
@@ -516,5 +516,15 @@
   	description="A private target invoked by the async demo">
     <echo>YYYY</echo>
   </goal>
+
+
+  <goal name="demo:soap" prereqs="jelly-task" 
+		description="Runs a sample using Apache Axis to invoke a web service from inside Jelly">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/soap/example.jelly"/> 
+    </java>
+  </goal>
+
 
 </project>
