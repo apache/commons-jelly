@@ -274,10 +274,10 @@
         <x:set var="blopSingle" select="$blopElements/root/blop" sort="text()" single="true"/>
         <!-- should return the second -->
         <j:invokeStatic var="eltClass" className="java.lang.Class" method="forName"><j:arg value="org.dom4j.Element"/></j:invokeStatic>
-      <test:assert test="${eltClass.isAssignableFrom(blopSingle.getClass())}"/>
+        <test:assert test="${eltClass.isAssignableFrom(blopSingle.getClass())}"/>
         <j:set var="blopSingleText"><x:expr select="$blopSingle/text()"/></j:set>
         <test:assertEquals actual="${blopSingleText}" expected="blop0"/>
-        </test:case>
+  </test:case>
     
     
 </test:suite>
