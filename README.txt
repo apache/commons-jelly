@@ -8,7 +8,11 @@ install Ant and Maven and just type
 
 For more help using Maven please go to
 
-http://jakarta.apache.org/turbine/maven/index.html
+  http://jakarta.apache.org/turbine/maven/
+
+You can install Ant from here
+
+  http://jakarta.apache.org/ant/
 
 
 Enjoy!
