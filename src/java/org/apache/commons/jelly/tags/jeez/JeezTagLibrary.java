@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.11 2002/12/11 12:41:00 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/12/11 12:41:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.12 2002/12/31 07:38:29 jvanzyl Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/12/31 07:38:29 $
  *
  * ====================================================================
  *
@@ -57,10 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JeezTagLibrary.java,v 1.11 2002/12/11 12:41:00 jstrachan Exp $
+ * $Id: JeezTagLibrary.java,v 1.12 2002/12/31 07:38:29 jvanzyl Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
+
+import com.werken.werkz.jelly.WerkzTagLibrary;
 
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
@@ -68,7 +70,6 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
-import org.apache.commons.jelly.tags.werkz.WerkzTagLibrary;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
@@ -77,7 +78,7 @@ import org.xml.sax.Attributes;
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public class JeezTagLibrary extends DynamicTagLibrary {
 

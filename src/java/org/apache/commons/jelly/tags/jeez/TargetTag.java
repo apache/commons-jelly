@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/TargetTag.java,v 1.3 2002/10/30 19:16:20 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/10/30 19:16:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/TargetTag.java,v 1.4 2002/12/31 07:38:29 jvanzyl Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/12/31 07:38:29 $
  *
  * ====================================================================
  *
@@ -57,18 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TargetTag.java,v 1.3 2002/10/30 19:16:20 jstrachan Exp $
+ * $Id: TargetTag.java,v 1.4 2002/12/31 07:38:29 jvanzyl Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
 
-import org.apache.commons.jelly.tags.werkz.GoalTag;
+import com.werken.werkz.jelly.GoalTag;
 
 /** Wraps a Werkz <code>&lt;goal&gt;</code> to appear as an
  *  ant <code>&lt;target&gt;</code>.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class TargetTag extends GoalTag {
 

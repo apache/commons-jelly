@@ -335,7 +335,7 @@
     <!-- used by werkz library -->
     <dependency>
       <id>werkz</id>
-      <version>1.0-beta-4</version>
+      <version>1.0-beta-5</version>
     </dependency>
 
     <dependency>
@@ -536,6 +536,8 @@
 						<include>**/*.xsl</include>
 						<include>**/*.rng</include>
 						<include>**/*.dtd</include>
+						<include>**/*.properties</include>
+						<include>**/*.html</include>
 					</includes>
 				</resource>
 			</resources>
