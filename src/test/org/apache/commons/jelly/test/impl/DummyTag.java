@@ -18,6 +18,7 @@ package org.apache.commons.jelly.test.impl;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -42,8 +43,7 @@ public class DummyTag extends TagSupport {
             log.debug("********Executing DummyTag Body*********");
         if (m_classToBeLoaded != null) {
             try {
-                Class clazz =
-                    getClass().getClassLoader().loadClass(m_classToBeLoaded);
+                Class clazz = ClassLoaderUtils.loadClass(m_classToBeLoaded, getClass());
                 if (log.isDebugEnabled())
                     log.debug("Class[" + m_classToBeLoaded + "] FOUND");
             }

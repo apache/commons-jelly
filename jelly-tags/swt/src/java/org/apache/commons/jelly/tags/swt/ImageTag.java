@@ -19,6 +19,7 @@ import java.io.InputStream;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Decorations;
@@ -147,8 +148,8 @@ public class ImageTag extends TagSupport {
      * Creates an Image, loaded from a specified resource.
      */
     private Image loadResourceImage(Display display) {
-        InputStream stream =
-            getClass().getClassLoader().getResourceAsStream(getResource());
+        ClassLoader loader = ClassLoaderUtils.getClassLoader(null, getContext().getUseContextClassLoader(), getClass());
+        InputStream stream = loader.getResourceAsStream(getResource());
         return new Image(display, stream);
     }
 

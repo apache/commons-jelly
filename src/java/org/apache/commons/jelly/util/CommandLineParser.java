@@ -43,7 +43,7 @@ import org.apache.commons.jelly.XMLOutput;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Morgan Delagrange
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class CommandLineParser {
 
@@ -80,7 +80,7 @@ public class CommandLineParser {
         //
         // Use classloader to find file
         //
-        URL url = this.getClass().getClassLoader().getResource(scriptFile);
+        URL url = ClassLoaderUtils.getClassLoader(getClass()).getResource(scriptFile);
         // check if the script file exists
         if (url == null && !(new File(scriptFile)).exists()) {
             throw new JellyException("Script file " + scriptFile + " not found");

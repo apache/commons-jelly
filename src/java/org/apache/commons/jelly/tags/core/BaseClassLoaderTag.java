@@ -16,12 +16,13 @@
 package org.apache.commons.jelly.tags.core;
 
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 
 /** Abstract base tag providing {@link ClassLoader} support.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @author Rodney Waldhoff
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public abstract class BaseClassLoaderTag extends TagSupport {
     /**
@@ -49,16 +50,7 @@ public abstract class BaseClassLoaderTag extends TagSupport {
      * </ul>
      */
     public ClassLoader getClassLoader() {
-        if (this.classLoader != null) {
-            return (this.classLoader);
-        }
-        if (this.useContextClassLoader) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            if (classLoader != null) {
-                return (classLoader);
-            }
-        }
-        return (this.getClass().getClassLoader());
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
     }
 
     /**

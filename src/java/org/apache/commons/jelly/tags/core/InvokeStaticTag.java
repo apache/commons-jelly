@@ -24,6 +24,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 
 /**
   * A Tag which can invoke a static method on a class, without an
@@ -42,7 +43,7 @@ import org.apache.commons.jelly.XMLOutput;
   * </p>
   *
   * @author <a href="mailto:robert@bull-enterprises.com>Robert McIntosh</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 
@@ -163,16 +164,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      * current threads context class loader
      */
     protected Class loadClass() throws ClassNotFoundException {
-        ClassLoader loader = getClass().getClassLoader();
-        if (loader != null) {
-            try {
-                return loader.loadClass( className );
-            }
-            catch (ClassNotFoundException e) {
-                // ignore this exception as we'll try another loader
-            }
-        }
-        return getClass().getClassLoader().loadClass( className );
+        return ClassLoaderUtils.loadClass(className, getClass());
     }
 
     /**

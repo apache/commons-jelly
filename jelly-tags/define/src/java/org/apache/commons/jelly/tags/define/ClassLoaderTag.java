@@ -23,6 +23,7 @@ import java.net.URLClassLoader;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -32,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * load tags froms.
  *
  * @author <a href="mailto:stephenh@chase3000.com">Stephen Haberman</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class ClassLoaderTag extends BeanTag {
 
@@ -89,7 +90,7 @@ public class ClassLoaderTag extends BeanTag {
 
         ClassLoader parent = Thread.currentThread().getContextClassLoader();
         if (parent == null) {
-            parent = getClass().getClassLoader();
+            parent = ClassLoaderUtils.getClassLoader(getClass());
         }
 
         URLClassLoader newClassLoader = null;

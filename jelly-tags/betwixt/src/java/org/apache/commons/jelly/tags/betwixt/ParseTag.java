@@ -26,6 +26,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -201,14 +202,6 @@ public class ParseTag extends TagSupport {
      * @return the ClassLoader to be used to load bean classes.
      */
     protected ClassLoader getClassLoader() {
-        if ( classLoader != null ) {
-            return classLoader;
-        }
-        if ( useContextClassLoader ) {
-            return Thread.currentThread().getContextClassLoader();
-        }
-        else {
-            return getClass().getClassLoader();
-        }
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
     }
 }

@@ -45,6 +45,7 @@ import org.apache.commons.jelly.impl.StaticTagScript;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
@@ -68,7 +69,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.56 $
+ * @version $Revision: 1.57 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -364,16 +365,7 @@ public class XMLParser extends DefaultHandler {
      * </ul>
      */
     public ClassLoader getClassLoader() {
-        if (this.classLoader != null) {
-            return (this.classLoader);
-        }
-        if (this.useContextClassLoader) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            if (classLoader != null) {
-                return (classLoader);
-            }
-        }
-        return (this.getClass().getClassLoader());
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
     }
 
     /**

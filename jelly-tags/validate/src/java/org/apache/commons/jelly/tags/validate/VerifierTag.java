@@ -26,6 +26,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.iso_relax.verifier.Schema;
 import org.iso_relax.verifier.Verifier;
 import org.iso_relax.verifier.VerifierConfigurationException;
@@ -37,7 +38,7 @@ import org.xml.sax.SAXException;
  * so that it can be used by a &lt;validate&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class VerifierTag extends TagSupport {
 
@@ -166,10 +167,7 @@ public class VerifierTag extends TagSupport {
     public VerifierFactory getFactory() throws JellyTagException {
         if ( factory == null ) {
             try {
-                ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                if (loader == null) {
-                    loader = getClass().getClassLoader();
-                }
+                ClassLoader loader = ClassLoaderUtils.getClassLoader(null, true, getClass());
                 factory = (VerifierFactory)loader.loadClass(
                     "com.sun.msv.verifier.jarv.TheFactoryImpl").newInstance();
             } catch (ClassNotFoundException e) {

@@ -20,6 +20,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 
 
 /**
@@ -37,7 +38,7 @@ import org.apache.commons.jelly.XMLOutput;
  *              field="EXIT_ON_CLOSE"/&gt;
  * </pre>
  *
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
 public class GetStaticTag extends TagSupport {
@@ -102,7 +103,7 @@ public class GetStaticTag extends TagSupport {
             throw new MissingAttributeException(message);
 
         try {
-            Class type     = getClass().getClassLoader().loadClass(className);
+            Class type     = ClassLoaderUtils.getClassLoader(getClass()).loadClass(className);
             Object result  = type.getField(field).get(null);
             JellyContext context = getContext();
 

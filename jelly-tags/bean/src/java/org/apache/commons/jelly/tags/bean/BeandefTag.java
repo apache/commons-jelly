@@ -25,6 +25,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -34,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  * the tag set the bean properties..
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class BeandefTag extends TagSupport {
 
@@ -79,26 +80,13 @@ public class BeandefTag extends TagSupport {
 
         Class theClass = null;
         try {
-            ClassLoader classLoader = getClassLoader();
-            theClass = classLoader.loadClass(className);
-        }
-        catch (ClassNotFoundException e) {
-            try {
-                theClass = getClass().getClassLoader().loadClass(className);
-            }
-            catch (ClassNotFoundException e2) {
-                try {
-                    theClass = Class.forName(className);
-                }
-                catch (ClassNotFoundException e3) {
-                    log.error( "Could not load class: " + className + " exception: " + e, e );
-                    throw new JellyTagException(
-                        "Could not find class: "
-                            + className
-                            + " using ClassLoader: "
-                            + classLoader);
-                }
-            }
+            theClass = ClassLoaderUtils.loadClass(className, classLoader, getContext().getUseContextClassLoader(), getClass());
+        } catch (ClassNotFoundException e) {
+            log.error( "Could not load class: " + className + " exception: " + e, e );
+            throw new JellyTagException("Could not find class: "
+                    + className
+                    + " using ClassLoader: "
+                    + classLoader);
         }
 
         Method invokeMethod = getInvokeMethod(theClass);
@@ -139,14 +127,7 @@ public class BeandefTag extends TagSupport {
      *  or will use the thread context loader if none is specified.
      */
     public ClassLoader getClassLoader() {
-        if ( classLoader == null ) {
-            ClassLoader answer = Thread.currentThread().getContextClassLoader();
-            if ( answer == null ) {
-                answer = getClass().getClassLoader();
-            }
-            return answer;
-        }
-        return classLoader;
+        return ClassLoaderUtils.getClassLoader(classLoader, true, getClass());
     }
 
     /**

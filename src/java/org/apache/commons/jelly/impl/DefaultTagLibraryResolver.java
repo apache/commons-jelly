@@ -20,6 +20,7 @@ import org.apache.commons.discovery.ResourceClassIterator;
 import org.apache.commons.discovery.resource.ClassLoaders;
 import org.apache.commons.discovery.resource.classes.DiscoverClasses;
 import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -125,16 +126,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * </ul>
      */
     public ClassLoader getClassLoader() {
-        if (this.classLoader != null) {
-            return (this.classLoader);
-        }
-        if (this.useContextClassLoader) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            if (classLoader != null) {
-                return (classLoader);
-            }
-        }
-        return (this.getClass().getClassLoader());
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
     }
 
     /**

@@ -29,6 +29,7 @@ import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BeanSource;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 
 /**
  * A tag which instantiates an instance of the given class
@@ -154,15 +155,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * otherise use the class loader which loaded this class.
      */
     protected Class loadClass(String className) throws ClassNotFoundException {
-        try {
-          ClassLoader loader = Thread.currentThread().getContextClassLoader();
-          if (loader == null) {
-              loader = getClass().getClassLoader();
-          }
-          return loader.loadClass(className);
-        } catch (ClassNotFoundException e) {
-            return getClass().getClassLoader().loadClass(className);
-        }
+        return ClassLoaderUtils.loadClass(className, getClass());
     }
 
     /**

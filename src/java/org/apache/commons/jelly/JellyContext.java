@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -869,16 +870,7 @@ public class JellyContext {
      * </ul>
      */
     public ClassLoader getClassLoader() {
-        if (this.classLoader != null) {
-            return (this.classLoader);
-        }
-        if (this.useContextClassLoader) {
-            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
-            if (contextClassLoader != null) {
-                return (contextClassLoader);
-            }
-        }
-        return (this.getClass().getClassLoader());
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
     }
 
     /**

@@ -27,6 +27,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.Attribute;
 import org.apache.commons.jelly.impl.DynamicBeanTag;
 import org.apache.commons.jelly.impl.TagFactory;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -38,7 +39,7 @@ import org.xml.sax.Attributes;
  * the tag set the bean properties..
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class BeanTag extends DefineTagSupport {
 
@@ -88,25 +89,15 @@ public class BeanTag extends DefineTagSupport {
         Class theClass = null;
         try {
             ClassLoader classLoader = getClassLoader();
-            theClass = classLoader.loadClass(className);
+            theClass = ClassLoaderUtils.loadClass(className, getClassLoader(), getContext().getUseContextClassLoader(), getClass());
         }
         catch (ClassNotFoundException e) {
-            try {
-                theClass = getClass().getClassLoader().loadClass(className);
-            }
-            catch (ClassNotFoundException e2) {
-                try {
-                    theClass = Class.forName(className);
-                }
-                catch (ClassNotFoundException e3) {
-                    log.error( "Could not load class: " + className + " exception: " + e, e );
-                    throw new JellyTagException(
-                        "Could not find class: "
-                            + className
-                            + " using ClassLoader: "
-                            + classLoader);
-                }
-            }
+            log.error( "Could not load class: " + className + " exception: " + e, e );
+            throw new JellyTagException(
+                "Could not find class: "
+                    + className
+                    + " using ClassLoader: "
+                    + classLoader);
         }
 
         final Class beanClass = theClass;
@@ -153,18 +144,11 @@ public class BeanTag extends DefineTagSupport {
     }
 
     /**
-     * @return the ClassLoader to use to load classes
-     *  or will use the thread context loader if none is specified.
+     * @return the ClassLoader to use to load classes specified by this object, 
+     *  the thread context loader if the context flag is set, or the class used to load this class.
      */
     public ClassLoader getClassLoader() {
-        if ( classLoader == null ) {
-            ClassLoader answer = Thread.currentThread().getContextClassLoader();
-            if ( answer == null ) {
-                answer = getClass().getClassLoader();
-            }
-            return answer;
-        }
-        return classLoader;
+        return ClassLoaderUtils.getClassLoader(classLoader, getContext().getUseContextClassLoader(), getClass());
     }
 
     /**

@@ -24,6 +24,7 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 import org.apache.commons.jelly.tags.Resources;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,7 +52,7 @@ public class DataSourceWrapper implements DataSource {
         }
 
         this.driverClassName = driverClassName;
-        getClass().getClassLoader().loadClass(driverClassName).newInstance();
+        ClassLoaderUtils.getClassLoader(getClass()).loadClass(driverClassName).newInstance();
     }
 
     public void setJdbcURL(String jdbcURL) {

@@ -18,6 +18,7 @@ package org.apache.commons.jelly.tags.junit;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -105,10 +106,7 @@ public class AssertThrowsTag extends AssertTagSupport {
     }
 
     public ClassLoader getClassLoader() {
-        if (classLoader == null) {
-            return getClass().getClassLoader();
-        }
-        return classLoader;
+        return ClassLoaderUtils.getClassLoader(classLoader, getClass());
     }
 
     // Implementation methods

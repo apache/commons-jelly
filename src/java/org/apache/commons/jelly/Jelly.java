@@ -26,6 +26,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.jelly.util.CommandLineParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -42,7 +43,7 @@ import org.xml.sax.SAXException;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.33 $
+ * @version $Revision: 1.34 $
  */
 public class Jelly {
     
@@ -217,7 +218,7 @@ public class Jelly {
      */
     protected URL resolveURL(String name) throws MalformedURLException {
         
-        URL resourceUrl = this.getClass().getClassLoader().getResource(name);
+        URL resourceUrl = ClassLoaderUtils.getClassLoader(getClass()).getResource(name);
         if (resourceUrl == null)
         {
             File file = new File(name);
@@ -245,7 +246,7 @@ public class Jelly {
         loadProperties(f);
         
         
-        is = getClass().getClassLoader().getResourceAsStream("jelly.properties");
+        is = ClassLoaderUtils.getClassLoader(getClass()).getResourceAsStream("jelly.properties");
         if (is != null) {
             try {
                 loadProperties(is);
