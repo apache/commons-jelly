@@ -60,6 +60,15 @@
       <version>1.0-beta-4</version>
     </dependency>
 
+    <dependency>
+		<id>commons-jelly+tags-beanshell</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+	<dependency>
+      <id>bsh</id>
+      <version>1.2-b3</version>
+    </dependency>
     
   </dependencies>
   

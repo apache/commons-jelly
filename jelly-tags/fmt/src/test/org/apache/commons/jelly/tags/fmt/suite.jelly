@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <test:suite xmlns:j="jelly:core" 
-			xmlns:fmt="jelly:org.apache.commons.jelly.tags.fmt.FmtTagLibrary"
+			xmlns:fmt="jelly:fmt"
 			xmlns:m="jelly:ant"
+			xmlns:b="jelly:beanshell" 
             xmlns:test="jelly:junit" 
             xmlns:log="jelly:log">
 

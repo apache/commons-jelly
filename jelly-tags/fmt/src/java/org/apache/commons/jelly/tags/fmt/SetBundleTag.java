@@ -1,7 +1,7 @@
 /*
- * /home/cvs/jakarta-commons-sandbox/jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/FmtTagLibrary.java,v 1.1 2003/01/16 16:21:46 jstrachan Exp
- * 1.1
- * 2003/01/16 16:21:46
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/SetBundleTag.java,v 1.1 2003/01/18 06:35:27 dion Exp $ 
+ * $Revision: 1.1 $ 
+ * $Date: 2003/01/18 06:35:27 $ 
  *
  * ====================================================================
  *
@@ -56,36 +56,67 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * FmtTagLibrary.java,v 1.2 2003/01/18 06:35:27 dion Exp
  *
+ * $Id: SetBundleTag.java,v 1.1 2003/01/18 06:35:27 dion Exp $ 
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.expression.Expression;
+import java.util.Locale;
 
-/** Describes the tag library for tags in JSTL.
- *
+/**
+ * Support for tag handlers for &lt;setLocale&gt;, the bundle setting
+ * tag in JSTL.
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- * @version 1.2
+ * @version $Revision: 1.1 $
  *
- * @task implement &lt;fmt:formatNumber&gt;
- * @task implement &lt;fmt:parseNumber&gt;
- * @task implement &lt;fmt:parseDate&gt;
- * @task decide how to support &lt;fmt:requestEncoding&gt;
  */
-public class FmtTagLibrary extends TagLibrary {
+public class SetBundleTag extends TagSupport {
 	
-	/** Creates a new instance of FmtTagLibrary */
-	public FmtTagLibrary() {
-		registerTag("bundle", BundleTag.class);
-		registerTag("formatDate", FormatDateTag.class);
-		registerTag("message", MessageTag.class);
-		registerTag("param", ParamTag.class);
-		registerTag("setBundle", SetBundleTag.class);
-		registerTag("setLocale", SetLocaleTag.class);
-		registerTag("setTimeZone", SetTimeZoneTag.class);
-		registerTag("timeZone", TimeZoneTag.class);
+	private String var;
+	
+	private Expression basename;
+	
+	private String scope;
+	
+	/** Creates a new instance of SetBundleTag */
+	public SetBundleTag() {
 	}
 	
+	/**
+	 * Evaluates this tag after all the tags properties have been initialized.
+	 *
+	 */
+	public void doTag(XMLOutput output) throws Exception {
+		Object basenameInput = null;
+		if (this.basename != null) {
+			basenameInput = this.basename.evaluate(context);
+		}
+		
+		LocalizationContext locCtxt = BundleTag.getLocalizationContext(
+			context, (String) basenameInput);
+		
+		String varname = (var != null) ? var : Config.FMT_LOCALIZATION_CONTEXT;
+		
+		if (scope != null) {
+			context.setVariable(varname, scope, locCtxt);
+		}
+		else {
+			context.setVariable(varname, locCtxt);
+		}
+	}
+	
+	public void setVar(String var) {
+		this.var = var;
+	}
+	
+	public void setBasename(Expression basename) {
+		this.basename = basename;
+	}
+	
+	public void setScope(String scope) {
+		this.scope = scope;
+	}
 }
