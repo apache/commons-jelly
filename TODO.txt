@@ -25,6 +25,8 @@ TO DO LIST
 
 * make Ant task to run Jelly
 
+* add an adapter to run JSP tag libraries inside Jelly when Jelly is used in a Servlet / JSP environment?
+
 * document much more!
 
 * add demo of tag which parses its body at compile time and modifies it. 

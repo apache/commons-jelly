@@ -3,7 +3,7 @@
 
 <!--
         "Digester" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.4 2002/02/13 17:03:09 jstrachan Exp $
+        $Id: build.xml,v 1.5 2002/02/15 18:25:06 jstrachan Exp $
 -->
 
 
@@ -296,6 +296,17 @@
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/testing123.jelly"/> 
+      <arg value="one"/> 
+      <arg value="two"/> 
+      <arg value="three"/> 
+    </java>
+   </target>
+
+   <target name="demo.3" depends="compile" 
+      description="Runs demo #3">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/example3.jelly"/> 
       <arg value="one"/> 
       <arg value="two"/> 
       <arg value="three"/> 

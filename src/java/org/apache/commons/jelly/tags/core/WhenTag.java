@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.2 2002/02/13 17:03:09 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/13 17:03:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.1 2002/02/15 18:25:06 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/02/15 18:25:06 $
  *
  * ====================================================================
  *
@@ -57,74 +57,59 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestBeanShellEL.java,v 1.2 2002/02/13 17:03:09 jstrachan Exp $
+ * $Id: WhenTag.java,v 1.1 2002/02/15 18:25:06 jstrachan Exp $
  */
-package org.apache.commons.jelly.beanshell;
+package org.apache.commons.jelly.tags.core;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import java.io.IOException;
+import java.io.Writer;
 
 import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.expression.beanshell.BeanShellExpressionFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
-
-
-/** Tests the BeanShell EL
+/** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
-public class TestBeanShellEL extends TestCase {
-    
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TestBeanShellEL.class );
+public class WhenTag extends TagSupport {
 
-    /** Jelly context */
-    protected Context context;
+    /** The expression to evaluate. */
+    private Expression test;        
+
+    /** whether this tag evaluated its body after calling run() */
+    private boolean value;
     
-    /** The factory of Expression objects */
-    protected ExpressionFactory factory;
+    public WhenTag() {
+    }
+
+    // Tag interface
+    //------------------------------------------------------------------------- 
+    public void run(Context context, Writer writer) throws Exception {
+        value = false;
+        if ( test != null ) {            
+            if ( test.evaluateAsBoolean( context ) ) {
+                value = true;
+                getBody().run( context, writer );
+            }
+        }
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------                
     
-    
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
+    /** Sets the XPath expression to evaluate. */
+    public void setTest(Expression test) {
+        this.test = test;
     }
     
-    public static Test suite() {
-        return new TestSuite(TestBeanShellEL.class);
+    /** 
+     * @return the last evaluation of this tag. This method is used
+     * by the choose tag to determine if this tag evaluated anything.
+     */
+    public boolean getValue() {
+        return value;
     }
-    
-    public TestBeanShellEL(String testName) {
-        super(testName);
-    }
-    
-    public void setUp() {
-        context = new Context();
-        context.setVariable( "foo", "abc" );
-        context.setVariable( "bar", new Integer( 123 ) );
-        factory = new BeanShellExpressionFactory();
-    }
-    
-    public void testEL() throws Exception {
-        assertExpression( "foo", "abc" );
-        assertExpression( "bar * 2", new Integer( 246 ) );
-        assertExpression( "bar == 123", Boolean.TRUE );
-        assertExpression( "bar == 124", Boolean.FALSE );
-        assertExpression( "foo.equals( \"abc\" )", Boolean.TRUE );
-        assertExpression( "foo.equals( \"xyz\" )", Boolean.FALSE );
-    }    
-    
-    /** Evaluates the given expression text and tests it against the expected value */
-    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
-        Expression expr = factory.createExpression( expressionText );
-        Object value = expr.evaluate( context );
-        assertEquals( "Value of expression: " + expressionText, expectedValue, value );
-    }        
 }
-

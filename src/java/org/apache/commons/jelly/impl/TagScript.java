@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.4 2002/02/15 18:25:06 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/02/15 18:25:06 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: TagScript.java,v 1.4 2002/02/15 18:25:06 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -74,6 +74,7 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.ConvertUtils;
 
+import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
@@ -85,7 +86,7 @@ import org.apache.commons.logging.LogSource;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class TagScript implements Script {
     
@@ -135,6 +136,9 @@ public class TagScript implements Script {
       * Will only be called once by the parser 
       */
     public Script compile() throws Exception {
+        if ( tag instanceof CompilableTag ) {
+            ((CompilableTag) tag).compile();
+        }
         List typeList = new ArrayList();
         List methodList = new ArrayList();
         List expressionList = new ArrayList();
