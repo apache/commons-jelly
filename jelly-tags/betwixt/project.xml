@@ -25,11 +25,11 @@
   </description>
   <shortDescription>Commons Jelly Betwixt Tag Library</shortDescription>
   
-  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/betwixt/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/betwixt</distributionDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/betwixt/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/betwixt</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/betwixt/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/betwixt/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/betwixt/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/betwixt/</url>
   </repository> -->
   
   <dependencies>
@@ -41,18 +41,18 @@
     <dependency>
       <id>commons-jelly</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/</url>
+      <url>http://jakarta.apache.org/commons/jelly/</url>
     </dependency>
   
     <dependency>
       <id>commons-betwixt</id>
-      <version>SNAPSHOT</version>
+      <version>1.0-beta-1</version>
       <url>http://jakarta.apache.org/commons/betwixt/</url>
     </dependency>
     
     <dependency>
       <id>commons-digester</id>
-      <version>SNAPSHOT</version>
+      <version>1.5</version>
       <url>http://jakarta.apache.org/commons/digester/</url>
     </dependency>
     
@@ -63,13 +63,13 @@
     <dependency>
       <id>commons-jelly+tags-log</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
     </dependency>
       
     <dependency>
       <id>commons-jelly+tags-junit</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
     </dependency>
 
     <!-- END for test -->
