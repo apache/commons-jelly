@@ -113,10 +113,9 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     public void setVar(String var) {
         this.var = var;
     }
-    
+
     // Implementation methods
     //-------------------------------------------------------------------------                    
-
     /**
      * Either defines a variable or adds the current component to the parent
      */
@@ -125,22 +124,21 @@ public abstract class LayoutTagSupport extends UseBeanTag {
             context.setVariable(var, bean);
         }
     }
-    
+
     /**
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
      */
-    protected void setBeanProperties(Object bean, Map attributes)
-        throws JellyTagException {
-            
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
+
         if (bean != null) {
             Class theClass = bean.getClass();
-            for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
+            for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 String name = (String) entry.getKey();
                 Object value = entry.getValue();
-                
+
                 value = convertValue(bean, name, value);
-                
+
                 try {
                     // lets first see if there's a field available
                     Field field = theClass.getField(name);
@@ -149,8 +147,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
                             value = ConvertUtils.convert((String) value, field.getType());
                         }
                         field.set(bean, value);
-                    }
-                    else {
+                    } else {
                         BeanUtils.setProperty(bean, name, value);
                     }
                 } catch (NoSuchFieldException e) {
@@ -163,7 +160,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
             }
         }
     }
-    
+
     /**
      * Provides a strategy method that allows values to be converted,
      * particularly to support integer enumerations and String representations.
@@ -173,7 +170,8 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @param value the value of the property
      * @return the new value
      */
-    protected Object convertValue(Object bean, String name, Object value) throws JellyTagException {
+    protected Object convertValue(Object bean, String name, Object value)
+        throws JellyTagException {
         return value;
     }
 

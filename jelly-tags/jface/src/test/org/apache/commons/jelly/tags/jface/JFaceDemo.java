@@ -54,61 +54,38 @@
 * <http://www.apache.org/>.
 * 
 */
-package org.apache.commons.jelly.tags.jface.preference;
+package org.apache.commons.jelly.tags.jface;
 
-import java.util.Map;
+import java.net.URL;
 
-import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.core.UseBeanTag;
-import org.apache.commons.jelly.tags.jface.window.ApplicationWindowTag;
-import org.eclipse.jface.preference.PreferenceDialog;
-import org.eclipse.jface.preference.PreferenceManager;
-import org.eclipse.swt.widgets.Shell;
+import org.apache.commons.jelly.tags.jface.JFaceTagLibrary;
 
 /**
- * This Tag creates a JFace PreferenceDialog
- * 
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
  */
-public class PreferenceDialogTag extends UseBeanTag {
+public class JFaceDemo {
 
-    public PreferenceDialogTag(Class arg0) {
-        super(arg0);
-    }
+    public static void main(String[] args) {
+        try {
+          
+            JellyContext context = new JellyContext();
+            
+            /** @todo zap the following line once the Jelly core has this default */
+            context.registerTagLibrary("jelly:jface", new JFaceTagLibrary());
+            
+            URL url = JFaceDemo.class.getResource("JFaceDemo.jelly");
+            
+            XMLOutput output = XMLOutput.createXMLOutput(System.out, true);
+            context.runScript( url, output );
+            output.flush();
 
-    /**
-     * @return PreferenceDialog
-     */
-    public PreferenceDialog getPreferenceDialog() {
-        Object bean = getBean();
-        if (bean instanceof PreferenceDialog) {
-            return (PreferenceDialog) bean;
+        } 
+        catch (Exception e) {
+            e.printStackTrace();
         }
-        return null;
-    }
 
-    /**
-     * @return Shell
-     * @throws JellyTagException
-     */
-    protected Shell getShell() throws JellyTagException {
-        ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
-
-        if (tag == null) {
-            throw new JellyTagException("This tag must be nested inside a <applicationWindow>");
-        } else {
-            return tag.getWindow().getShell();
-        }
-    }
-
-    /* 
-     * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
-     */
-    protected Object newInstance(Class arg0, Map arg1, XMLOutput arg2) throws JellyTagException {
-        PreferenceManager pm = new PreferenceManager();
-        return new PreferenceDialog(getShell(), pm);
     }
 
 }

@@ -62,7 +62,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
-import org.apache.commons.jelly.tags.jface.ApplicationWindowTag;
+import org.apache.commons.jelly.tags.jface.window.ApplicationWindowTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.jface.wizard.IWizard;

@@ -59,72 +59,73 @@
  * 
  * SwtTagLibrary.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  */
- package org.apache.commons.jelly.tags.jface;
-
-import java.util.Map;
+package org.apache.commons.jelly.tags.jface;
 
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.core.UseBeanTag;
+import org.apache.commons.jelly.tags.jface.window.ApplicationWindowImpl;
 import org.apache.commons.jelly.tags.jface.window.ApplicationWindowTag;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.window.ApplicationWindow;
+import org.apache.commons.jelly.tags.swt.ImageTag;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Widget;
 
 /**
- * This tag creates an JFace MenuManager
+ * Implementation of SWT ImageTag
  * 
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
  */
-public class MenuManagerTag extends UseBeanTag {
+public class JFaceImageTag extends ImageTag {
 
-    private String text;
-    private MenuManager mm;
-    
     /**
-     * @return the parent window which this widget will be added to.
+     * @return the parent window 
      */
     public Window getParentWindow() {
-
         ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag
-                .class);
+            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
         if (tag != null) {
             return tag.getWindow();
         }
-
         return null;
     }
 
-    /* (non-Javadoc)
+    /**
+     * Set default image Window
+     * @param window
+     * @param image
+     */
+    private void setWindowImage(Window window, Image image) {
+        Window.setDefaultImage(image);
+    }
+
+    /* 
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-
-        Map attributes = getAttributes();
-        text = attributes.remove("text").toString();
-
-        if (text == null)
-            throw new MissingAttributeException("text attribute is missing");
-
-        mm = new MenuManager(text);
-
-        ApplicationWindow window = (ApplicationWindow) getParentWindow();
-        if (window != null) {
-            window.getMenuBarManager().add(mm);
-        }
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         // invoke by body just in case some nested tag configures me
         invokeBody(output);
-    }
 
-    /**
-     * @return MenuManager
-     */
-    public MenuManager getMenuManager() {
-        return mm;
+        Widget parent = getParentWidget();
+        Window window = null;
+        if (parent == null) {
+            window = getParentWindow();
+            if (window != null && window instanceof ApplicationWindowImpl) {
+                parent = ((ApplicationWindowImpl) window).getContents();
+            }
+        }
+
+        if (parent == null && window == null) {
+            throw new JellyTagException("This tag must be nested within a Widget or a Window");
+        }
+
+        Image image = new Image(parent.getDisplay(), getSrc());
+        if (window != null) {
+            setWindowImage(window, image);
+        } else {
+            setWidgetImage(parent, image);
+        }
+
     }
 
 }

@@ -74,38 +74,38 @@ import org.eclipse.swt.widgets.Widget;
  */
 public class ImageTag extends TagSupport {
 
-	/** path to file */
-	private String src;
+    /** path to file */
+    private String src;
 
-	public ImageTag() {
-	}
+    public ImageTag() {
+    }
 
-	/**
-	 * Sets the src.
-	 * @param src The src to set
-	 */
-	public void setSrc(String src) {
-		this.src = src;
-	}
+    /**
+     * Sets the src.
+     * @param src The src to set
+     */
+    public void setSrc(String src) {
+        this.src = src;
+    }
 
-	/**
-	 * Method getSrc.
-	 * @return String
-	 */
-	public String getSrc() {
-		return src;
-	}
+    /**
+     * Method getSrc.
+     * @return String
+     */
+    public String getSrc() {
+        return src;
+    }
 
-	/**
-	 * @return the parent widget which this widget will be added to.
-	 */
-	public Widget getParentWidget() {
-		WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
-		if (tag != null) {
-			return tag.getWidget();
-		}
-		return null;
-	}
+    /**
+     * @return the parent widget which this widget will be added to.
+     */
+    public Widget getParentWidget() {
+        WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
+        if (tag != null) {
+            return tag.getWidget();
+        }
+        return null;
+    }
 
     // Tag interface
     //-------------------------------------------------------------------------
@@ -116,33 +116,42 @@ public class ImageTag extends TagSupport {
     public void doTag(XMLOutput output) throws JellyTagException {
         // invoke by body just in case some nested tag configures me
         invokeBody(output);
-        
-		Widget parent = getParentWidget();
+
+        Widget parent = getParentWidget();
+
         if (parent == null) {
-            throw new JellyTagException("This tag must be nested within a widget");
+            throw new JellyTagException("This tag must be nested within a Widget or a Window");
         }
-        
-		Image image = new Image(parent.getDisplay(), getSrc());
 
-		if (parent instanceof Label) {
-			Label label = (Label) parent;
-			label.setImage(image);
+        Image image = new Image(parent.getDisplay(), getSrc());
+        setWidgetImage(parent, image);
+    }
 
-		} else if (parent instanceof Button) {
-			Button button = (Button) parent;
-			button.setImage(image);
-			
-		} else if (parent instanceof Item) {
-			Item item = (Item) parent;
-			item.setImage(image);
-			
-		} else if (parent instanceof Decorations) {
-			Decorations item = (Decorations) parent;
-			item.setImage(image);
-			
-		} else {
-			throw new JellyTagException("This tag must be nested inside a <label>, <button> or <item> tag");
-		}
-	}
+    /**
+     * Add image to a widget
+     * @param parent
+     * @param image
+     * @throws JellyTagException
+     */
+    protected void setWidgetImage(Widget parent, Image image) throws JellyTagException {
+        if (parent instanceof Label) {
+            Label label = (Label) parent;
+            label.setImage(image);
 
+        } else if (parent instanceof Button) {
+            Button button = (Button) parent;
+            button.setImage(image);
+
+        } else if (parent instanceof Item) {
+            Item item = (Item) parent;
+            item.setImage(image);
+
+        } else if (parent instanceof Decorations) {
+            Decorations item = (Decorations) parent;
+            item.setImage(image);
+
+        } else {
+            throw new JellyTagException("This tag must be nested inside a <label>, <button> or <item> tag");
+        }
+    }
 }

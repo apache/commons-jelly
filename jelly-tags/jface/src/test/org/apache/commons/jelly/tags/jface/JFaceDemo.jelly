@@ -1,32 +1,33 @@
 <?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:jface" xmlns:log="jelly:log">
 
   <applicationWindow var="mainapp">
 
-	<menuManager text="File">
+		<menuManager text="File">
 			<action text="Test">
-					<log:error> Very Nice !!!</log:error>
+				<log:info> Very Nice !!!</log:info>
 			</action>
 			<separator />
-			<action text="Check me" checked="true" />
-	</menuManager>
+			
+			<action text="Check me" checked="true">
+				<log:info>I've been checked</log:info>
+			</action>
+		</menuManager>
 		
-	<menuManager text="Edit">
+		<menuManager text="Edit">
 			<action text="Say Hi Statusbar">
 				  ${mainapp.setStatus('Hello ...')} 
 			</action>
-	</menuManager>
+		</menuManager>
 	
-<!--	
-	<fillLayout type="vertical"/>	
--->
-
-	<label text="A big red label 1" background="204, 0, 0"/>
-	<label text="I can barelly read this ;-(" foreground="#f2f2f2" />
-	<label text="It sure looks like the dutch flag ;-)" foreground="#ffffff" background="0, 0, 153" />		
+		<fillLayout type="vertical"/>	
+	
+		<label text="A big red label 1" background="204, 0, 0"/>
+		<label text="I can barelly read this ;-(" foreground="#f2f2f2" />
+		<label text="It sure looks like the dutch flag ;-)" foreground="#ffffff" background="0, 0, 153" />		
 	
   </applicationWindow>
-
+  
   ${mainapp.MenuBarManager.updateAll(true)} 
   ${mainapp.open()}
 

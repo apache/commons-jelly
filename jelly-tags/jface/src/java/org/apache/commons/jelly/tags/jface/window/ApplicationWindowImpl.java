@@ -59,72 +59,44 @@
  * 
  * SwtTagLibrary.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  */
- package org.apache.commons.jelly.tags.jface;
+package org.apache.commons.jelly.tags.jface.window;
 
-import java.util.Map;
-
-import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.core.UseBeanTag;
-import org.apache.commons.jelly.tags.jface.window.ApplicationWindowTag;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
-import org.eclipse.jface.window.Window;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 
 /**
- * This tag creates an JFace MenuManager
+ * This is the default implementation for a ApplicationWindowTag
  * 
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
  */
-public class MenuManagerTag extends UseBeanTag {
-
-    private String text;
-    private MenuManager mm;
-    
-    /**
-     * @return the parent window which this widget will be added to.
-     */
-    public Window getParentWindow() {
-
-        ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag
-                .class);
-        if (tag != null) {
-            return tag.getWindow();
-        }
-
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-     */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-
-        Map attributes = getAttributes();
-        text = attributes.remove("text").toString();
-
-        if (text == null)
-            throw new MissingAttributeException("text attribute is missing");
-
-        mm = new MenuManager(text);
-
-        ApplicationWindow window = (ApplicationWindow) getParentWindow();
-        if (window != null) {
-            window.getMenuBarManager().add(mm);
-        }
-
-        // invoke by body just in case some nested tag configures me
-        invokeBody(output);
-    }
+public class ApplicationWindowImpl extends ApplicationWindow {
 
     /**
-     * @return MenuManager
+     * @param shell
      */
-    public MenuManager getMenuManager() {
-        return mm;
+    public ApplicationWindowImpl(Shell parentShell) {
+
+        super(parentShell);
+
+        // default at all
+        addMenuBar();
+        addStatusLine();
+        addToolBar(SWT.NULL);
+
+        setBlockOnOpen(true);
+
+        // create window 
+        create();
+    }
+
+    /* 
+     * override to make public
+     * @see org.eclipse.jface.window.Window#getContents()
+     */
+    public Control getContents() {
+        return super.getContents();
     }
 
 }

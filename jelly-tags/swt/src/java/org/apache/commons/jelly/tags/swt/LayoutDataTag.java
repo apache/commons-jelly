@@ -94,21 +94,20 @@ public class LayoutDataTag extends LayoutTagSupport {
     /**
      * Either defines a variable or adds the current component to the parent
      */
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(String var, Object bean)
+        throws JellyTagException {
         super.processBean(var, bean);
 
         Widget parent = getParentWidget();
-        
+
         if (parent instanceof Control) {
             Control control = (Control) parent;
             control.setLayoutData(getBean());
-        }
-        else {
+        } else {
             throw new JellyTagException("This tag must be nested within a control widget tag");
         }
     }
-    
-    
+
     /**
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
@@ -117,18 +116,18 @@ public class LayoutDataTag extends LayoutTagSupport {
         Map attributes,
         XMLOutput output)
         throws JellyTagException {
-            
+
         String text = (String) attributes.remove("style");
         if (text != null) {
             int style = SwtHelper.parseStyle(theClass, text);
-            
+
             // now lets try invoke a constructor
             Class[] types = { int.class };
-            
+
             try {
                 Constructor constructor = theClass.getConstructor(types);
                 if (constructor != null) {
-                    Object[] values = { new Integer(style) };
+                    Object[] values = { new Integer(style)};
                     return constructor.newInstance(values);
                 }
             } catch (NoSuchMethodException e) {
@@ -152,7 +151,8 @@ public class LayoutDataTag extends LayoutTagSupport {
 
         if (bean instanceof GridData) {
             if (name.endsWith("Alignment") && value instanceof String) {
-                int style = SwtHelper.parseStyle(bean.getClass(), (String) value);
+                int style =
+                    SwtHelper.parseStyle(bean.getClass(), (String) value);
                 return new Integer(style);
             }
         }

@@ -59,72 +59,65 @@
  * 
  * SwtTagLibrary.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  */
- package org.apache.commons.jelly.tags.jface;
-
-import java.util.Map;
+package org.apache.commons.jelly.tags.jface;
 
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.core.UseBeanTag;
+import org.apache.commons.jelly.tags.jface.window.ApplicationWindowImpl;
 import org.apache.commons.jelly.tags.jface.window.ApplicationWindowTag;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.window.ApplicationWindow;
+import org.apache.commons.jelly.tags.swt.LayoutTag;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Widget;
 
 /**
- * This tag creates an JFace MenuManager
+ * Implementation of SWT LayoutTag
  * 
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
  */
-public class MenuManagerTag extends UseBeanTag {
+public class JFaceLayoutTag extends LayoutTag {
 
-    private String text;
-    private MenuManager mm;
-    
     /**
-     * @return the parent window which this widget will be added to.
+     * @param layoutClass
      */
-    public Window getParentWindow() {
-
-        ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag
-                .class);
-        if (tag != null) {
-            return tag.getWindow();
-        }
-
-        return null;
+    public JFaceLayoutTag(Class layoutClass) {
+        super(layoutClass);
+        // TODO Auto-generated constructor stub
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+     * @see org.apache.commons.jelly.tags.core.UseBeanTag#processBean(java.lang.String, java.lang.Object)
      */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
 
-        Map attributes = getAttributes();
-        text = attributes.remove("text").toString();
-
-        if (text == null)
-            throw new MissingAttributeException("text attribute is missing");
-
-        mm = new MenuManager(text);
-
-        ApplicationWindow window = (ApplicationWindow) getParentWindow();
-        if (window != null) {
-            window.getMenuBarManager().add(mm);
+        Widget parent = getParentWidget();
+        if (parent == null) { // perhaps parent is a Window
+            Window window = getParentWindow();
+            if (window != null && window instanceof ApplicationWindowImpl) {
+                parent = ((ApplicationWindowImpl) window).getContents();
+            }
         }
 
-        // invoke by body just in case some nested tag configures me
-        invokeBody(output);
-    }
+        if (parent instanceof Composite) {
+            Composite composite = (Composite) parent;
+            composite.setLayout(getLayout());
 
+        } else {
+            throw new JellyTagException("This tag must be nested within a composite widget tag");
+        }
+
+    }
+    
     /**
-     * @return MenuManager
+     * @return the parent window 
      */
-    public MenuManager getMenuManager() {
-        return mm;
+    public Window getParentWindow() {
+        ApplicationWindowTag tag =
+            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
+        if (tag != null) {
+            return tag.getWindow();
+        }
+        return null;
     }
-
 }
+
+

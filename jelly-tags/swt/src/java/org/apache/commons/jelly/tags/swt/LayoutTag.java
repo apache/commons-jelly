@@ -93,7 +93,7 @@ public class LayoutTag extends LayoutTagSupport {
      */
     public Layout getLayout() {
         Object bean = getBean();
-        if ( bean instanceof Layout ) {
+        if (bean instanceof Layout) {
             return (Layout) bean;
         }
         return null;
@@ -105,26 +105,30 @@ public class LayoutTag extends LayoutTagSupport {
     /**
      * Either defines a variable or adds the current component to the parent
      */
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(String var, Object bean)
+        throws JellyTagException {
         super.processBean(var, bean);
-        
+
         Widget parent = getParentWidget();
+
         if (parent instanceof Composite) {
             Composite composite = (Composite) parent;
             composite.setLayout(getLayout());
-        }
-        else {
+
+        } else {
             throw new JellyTagException("This tag must be nested within a composite widget tag");
         }
     }
-    
+
     /**
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     protected Object convertValue(Object bean, String name, Object value)
         throws JellyTagException {
-            
-        if (bean instanceof FillLayout && name.equals("type") && value instanceof String) {
+
+        if (bean instanceof FillLayout
+            && name.equals("type")
+            && value instanceof String) {
             int style = SwtHelper.parseStyle(SWT.class, (String) value);
             return new Integer(style);
         }

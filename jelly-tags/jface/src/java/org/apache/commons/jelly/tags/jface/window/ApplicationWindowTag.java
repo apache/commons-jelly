@@ -59,7 +59,7 @@
  * 
  * SwtTagLibrary.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  */
-package org.apache.commons.jelly.tags.jface;
+package org.apache.commons.jelly.tags.jface.window;
 
 import java.util.Map;
 
@@ -67,7 +67,6 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
-import org.apache.commons.jelly.tags.jface.impl.ApplicationWindowImpl;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Shell;
@@ -81,7 +80,7 @@ public class ApplicationWindowTag extends UseBeanTag {
 
     private Shell parent;
     private int style = SWT.NULL;
-
+    
     /**
      * @param widgetClass
      */

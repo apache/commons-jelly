@@ -59,72 +59,85 @@
  * 
  * SwtTagLibrary.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  */
- package org.apache.commons.jelly.tags.jface;
-
-import java.util.Map;
+package org.apache.commons.jelly.tags.jface;
 
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.core.UseBeanTag;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.tags.jface.window.ApplicationWindowImpl;
 import org.apache.commons.jelly.tags.jface.window.ApplicationWindowTag;
-import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.window.ApplicationWindow;
+import org.apache.commons.jelly.tags.jface.wizard.WizardPageTag;
+import org.apache.commons.jelly.tags.swt.WidgetTag;
 import org.eclipse.jface.window.Window;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Widget;
 
 /**
- * This tag creates an JFace MenuManager
+ * Implementation of SWT WidgetTag  
  * 
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
  */
-public class MenuManagerTag extends UseBeanTag {
+public class JFaceWidgetTag extends WidgetTag implements Tag {
 
-    private String text;
-    private MenuManager mm;
-    
     /**
-     * @return the parent window which this widget will be added to.
+     * @param widgetClass
      */
-    public Window getParentWindow() {
-
-        ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag
-                .class);
-        if (tag != null) {
-            return tag.getWindow();
-        }
-
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
-     */
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-
-        Map attributes = getAttributes();
-        text = attributes.remove("text").toString();
-
-        if (text == null)
-            throw new MissingAttributeException("text attribute is missing");
-
-        mm = new MenuManager(text);
-
-        ApplicationWindow window = (ApplicationWindow) getParentWindow();
-        if (window != null) {
-            window.getMenuBarManager().add(mm);
-        }
-
-        // invoke by body just in case some nested tag configures me
-        invokeBody(output);
+    public JFaceWidgetTag(Class widgetClass) {
+        super(widgetClass);
     }
 
     /**
-     * @return MenuManager
+     * @param widgetClass
+     * @param style
      */
-    public MenuManager getMenuManager() {
-        return mm;
+    public JFaceWidgetTag(Class widgetClass, int style) {
+        super(widgetClass, style);
+    }
+
+    /* 
+     * @see org.apache.commons.jelly.tags.swt.WidgetTag#attachWidgets(java.lang.Object, org.eclipse.swt.widgets.Widget)
+     */
+    protected void attachWidgets(Object parent, Widget widget) throws JellyTagException {
+        super.attachWidgets(parent, widget);
+
+        // set Parent composite of wizard page
+        if (getParent() instanceof WizardPageTag) {
+            WizardPageTag tag = (WizardPageTag) getParent();
+            if (tag.getWizardPageImpl().getParentControl() == null) {
+                if (widget instanceof Composite) {
+                    tag.getWizardPageImpl().setParentComposite((Composite) widget);
+                } else {
+                    throw new JellyTagException("First child of a <wizardPage> must be of type Composite");
+                }
+            }
+        }
+    }
+
+    /* 
+     * @see org.apache.commons.jelly.tags.swt.WidgetTag#getParentWidget()
+     */
+    public Widget getParentWidget() {
+        parent = super.getParentWidget();
+
+        if (parent == null && getParent() instanceof WizardPageTag) {
+            WizardPageTag tag = (WizardPageTag) getParent();
+            if (tag != null) {
+                WizardPageTag.WizardPageImpl page = tag.getWizardPageImpl();
+                return page.getControl();
+            }
+        }
+
+        if (parent == null) {
+            ApplicationWindowTag tag =
+                (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
+            if (tag != null) {
+                Window window = tag.getWindow();
+                if (window != null && window instanceof ApplicationWindowImpl) {
+                    return ((ApplicationWindowImpl) window).getContents();
+                }
+            }
+        }
+
+        return parent;
     }
 
 }

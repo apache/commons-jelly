@@ -84,16 +84,16 @@ public class ViewerTag extends WidgetTag {
     /**
      * @param widgetClass
      */
-    public ViewerTag(Class widgetClass) {
-        super(widgetClass);
+    public ViewerTag(Class tagClass) {
+        super(tagClass);
     }
 
     /**
      * @param widgetClass
      * @param style
      */
-    public ViewerTag(Class widgetClass, int style) {
-        super(widgetClass);
+    public ViewerTag(Class tagClass, int style) {
+        super(tagClass);
         this.style = style;
     }
 
