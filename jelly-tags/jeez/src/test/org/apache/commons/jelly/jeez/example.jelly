@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:jeez">
+
+    <tagdef name="foo">
+      This is called when the foo tag is created...
+      
+	  <echo>Called with ${n}. The value of x is ${x} and now will increment</echo>    	
+	  <j:set var="x" value="${x + 1}"/>
+	</tagdef>
+	
+	<!-- now lets use the tag -->
+	<foo n="a"/>
+	<foo n="b"/>			  			  	
+  	
+
+</j:jelly>

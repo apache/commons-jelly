@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.3 2002/06/18 18:36:43 werken Exp $
- * $Revision: 1.3 $
- * $Date: 2002/06/18 18:36:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.4 2002/07/19 23:05:21 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/07/19 23:05:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2001 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,7 +56,8 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- *
+ * 
+ * $Id: JeezTagLibrary.java,v 1.4 2002/07/19 23:05:21 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
@@ -71,10 +72,13 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.tags.werkz.WerkzTagLibrary;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
+import org.apache.commons.jelly.tags.define.DynamicTagLibrary;
+import org.apache.commons.jelly.tags.werkz.WerkzTagLibrary;
 // import org.apache.commons.jelly.tags.core.CoreTagLibrary;
+
 import org.apache.tools.ant.Project;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -84,9 +88,9 @@ import org.xml.sax.Attributes;
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
-public class JeezTagLibrary extends TagLibrary {
+public class JeezTagLibrary extends DynamicTagLibrary {
 
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(JeezTagLibrary.class);
@@ -103,6 +107,14 @@ public class JeezTagLibrary extends TagLibrary {
     private Set runtimeTasks;
 
     private Project project;
+
+    /**
+     * Use a default ant Project
+     */
+    public JeezTagLibrary() {
+        this( AntTagLibrary.createProject() );
+    }
+
     
     /** Construct.
      *
@@ -117,8 +129,15 @@ public class JeezTagLibrary extends TagLibrary {
         this.antTagLib    = new AntTagLibrary( antProject );
         this.werkzTagLib  = new WerkzTagLibrary();
 
+        // #### this is a bit of a hack. 
+        // when we introduce the concept of TagFactory objects
+        // we could do a cleaner mechanism for this...
+        TagDefTag.tagLibrary = this;
+        
         registerTag( "target",
                      TargetTag.class );
+        registerTag( "tagdef",
+                     TagDefTag.class );
     }
 
     public TagScript createTagScript(String name,
