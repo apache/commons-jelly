@@ -42,8 +42,9 @@
     <!-- START for compilation -->
   
     <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-beta-4</version>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly</artifactId>
+      <version>SNAPSHOT</version>
     </dependency>
       
     <!-- END for compilation -->
