@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-swt</id>
-  <name>commons-jelly-tags-swt</name>
+  <id>commons-jelly-tags-jface</id>
+  <name>commons-jelly-tags-jface</name>
 
-  <package>org.apache.commons.jelly.tags.swt</package>
+  <package>org.apache.commons.jelly.tags.jface</package>
 
   <description>
-      This is a Jelly interface for SWT.
+      This is a Jelly interface for jface.
   </description>
-  <shortDescription>Commons Jelly SWT Tag Library</shortDescription>
+  <shortDescription>Commons Jelly jface Tag Library</shortDescription>
   
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/swt</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/swt</distributionDirectory>
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/jface</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/jface</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/swt/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/swt/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/jface/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/jface/</url>
   </repository>
   
     
@@ -35,15 +35,14 @@
       <version>SNAPSHOT</version>
     </dependency>
   
-		<!-- swt library -->
+    <!-- swt library -->
     <dependency>
       <id>swt</id>
-      
       <!-- don't know how to support OS-dependent jars in Maven yet -->
       <version>win32-2.1.0</version>
     </dependency>
     
-		<!-- jface libraries -->
+    <!-- jface libraries -->
     <dependency>
       <id>eclipse+boot</id>
       <version>2.1.0</version>
@@ -73,7 +72,7 @@
       <id>commons-jelly+tags-define</id>
       <version>SNAPSHOT</version>
     </dependency>
-    	
+      
     <!-- END for running demos -->
   </dependencies>
   
