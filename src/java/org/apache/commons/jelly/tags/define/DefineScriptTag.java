@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineScriptTag.java,v 1.1 2002/04/26 07:56:10 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/04/26 07:56:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineScriptTag.java,v 1.2 2002/04/26 10:00:49 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/26 10:00:49 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineScriptTag.java,v 1.1 2002/04/26 07:56:10 jstrachan Exp $
+ * $Id: DefineScriptTag.java,v 1.2 2002/04/26 10:00:49 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -72,7 +72,7 @@ import org.apache.commons.jelly.XMLOutput;
  * maybe from inside Jexl.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class DefineScriptTag extends TagSupport {
     
@@ -87,7 +87,7 @@ public class DefineScriptTag extends TagSupport {
         if ( var == null ) {
             throw new JellyException( "<define:script> must have a var attribute" );
         }
-        context.setVariable( var, getbody() );
+        context.setVariable( var, getBody() );
     }    
     
     // Properties
