@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.13 2002/09/05 16:43:29 jstrachan Exp $
- * $Revision: 1.13 $
- * $Date: 2002/09/05 16:43:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.14 2002/09/24 16:49:40 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/09/24 16:49:40 $
  *
  * ====================================================================
  *
@@ -57,13 +57,17 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.13 2002/09/05 16:43:29 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.14 2002/09/24 16:49:40 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.Converter;
 
 import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.ConstantExpression;
@@ -76,12 +80,33 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 
 public abstract class TagLibrary {
 
     private Map tags = new HashMap();
+
+    static {
+
+        // register standard converters 
+               
+        ConvertUtils.register(
+            new Converter() {
+                public Object convert(Class type, Object value) {
+                    if ( value instanceof File ) {
+                        return (File) value;
+                    }
+                    else if ( value != null ) {
+                        String text = value.toString();
+                        return new File( text );
+                    }
+                    return null;
+                }
+            },
+            File.class
+        );
+    }        
 
     public TagLibrary() {
 
