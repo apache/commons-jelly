@@ -32,6 +32,7 @@
     <ant dir="." target="${sub.target}"/>
     <ant dir="jelly-tags/ant" target="${sub.target}"/>
     <ant dir="jelly-tags/antlr" target="${sub.target}"/>
+    <ant dir="jelly-tags/avalon" target="${sub.target}"/>
     <ant dir="jelly-tags/bean" target="${sub.target}"/>
     <ant dir="jelly-tags/beanshell" target="${sub.target}"/>
     <ant dir="jelly-tags/betwixt" target="${sub.target}"/>
@@ -72,7 +73,7 @@
      dependency on a java extension "javax/net/SocketFactory"
   -->
   <target name="jar" 
-    depends="jar-jelly,jar-ant,jar-antlr,jar-bean,jar-beanshell,
+    depends="jar-jelly,jar-ant,jar-antlr,jar-avalon,jar-bean,jar-beanshell,
              jar-betwixt,jar-bsf,jar-email,jar-fmt,
              jar-http,jar-interaction,jar-jms,jar-jsl,
              jar-junit,jar-log,jar-ojb,jar-quartz,jar-soap,jar-sql,
@@ -93,6 +94,12 @@
   <target name="jar-antlr" depends="jar-jelly">
     <antcall target="taglib-template">
       <param name="sub.taglib" value="antlr"/>
+    </antcall>
+  </target>
+
+  <target name="jar-avalon" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="avalon"/>
     </antcall>
   </target>
   
