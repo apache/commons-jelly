@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestXMLParserCache.java,v 1.1 2002/10/22 21:57:47 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/22 21:57:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestXMLParserCache.java,v 1.2 2002/10/22 22:23:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/22 22:23:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLParserCache.java,v 1.1 2002/10/22 21:57:47 morgand Exp $
+ * $Id: TestXMLParserCache.java,v 1.2 2002/10/22 22:23:47 morgand Exp $
  */
 package org.apache.commons.jelly.test.xml;
 
@@ -80,7 +80,7 @@ import org.xml.sax.SAXParseException;
  * reject iff jelly.setValidateXML(true)
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TestXMLParserCache extends TestCase {
 
@@ -147,6 +147,6 @@ public class TestXMLParserCache extends TestCase {
         script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have var when default namspace is set",
-                   context.getVariable("usedDefaultNamespace").equals("tru"));
+                   context.getVariable("usedDefaultNamespace").equals("true"));
     }
 }
