@@ -87,6 +87,8 @@ public class WerkzTagLibrary extends TagLibrary {
         registerTag("goal", GoalTag.class);
         registerTag("preGoal", PreGoalTag.class);
         registerTag("postGoal", PostGoalTag.class);
+        registerTag("preAction", PreActionTag.class);
+        registerTag("postAction", PostActionTag.class);
         registerTag("attain", AttainTag.class);
         registerTag("attainGoal", AttainGoalTag.class);
     }

@@ -68,11 +68,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Implements a &lt;preTarget&gt; tag which provides a callback 
- * which is evaluated before a target.
+ * Implements a &lt;preGoal&gt; tag which provides a callback 
+ * which is evaluated before a goal.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class PreGoalTag extends CallbackTagSupport {
 
@@ -93,7 +93,7 @@ public class PreGoalTag extends CallbackTagSupport {
             new PreGoalCallback() {
                 public void firePreGoal(Goal goal) throws Exception {
                     // lets run the body
-                    log.debug( "Running pre target: " + getName() );
+                    log.debug( "Running pre goal: " + getName() );
                     getBody().run( context, output);               
                 }                
             }

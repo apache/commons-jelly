@@ -59,7 +59,7 @@
 package org.apache.commons.jelly.tags.werkz;
 
 import com.werken.werkz.Goal;
-import com.werken.werkz.PostGoalCallback;
+import com.werken.werkz.PostActionCallback;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -68,15 +68,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Implements a &lt;postGoal&gt; tag which provides a callback 
- * which is evaluated after a goal has executed.
+ * Implements a &lt;postAction&gt; tag which provides a callback 
+ * which is evaluated after an action.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.1 $
  */
-public class PostGoalTag extends CallbackTagSupport {
+public class PostActionTag extends CallbackTagSupport {
 
-    public PostGoalTag() {
+    public PostActionTag() {
     }
 
 
@@ -89,11 +89,11 @@ public class PostGoalTag extends CallbackTagSupport {
      */
     public void doTag(final XMLOutput output) throws Exception {
         
-        getGoal(getName()).addPostGoalCallback(
-            new PostGoalCallback() {
-                public void firePostGoal(Goal goal) throws Exception {
+        getGoal(getName()).addPostActionCallback(
+            new PostActionCallback() {
+                public void firePostAction(Goal goal) throws Exception {
                     // lets run the body
-                    log.info( "Running post goal: " + getName() );
+                    log.info( "Running post action: " + getName() );
                     getBody().run( context, output);                                        
                 }                
             }
