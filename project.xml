@@ -256,6 +256,14 @@
         <role>Developer</role>
       </roles>
     </contributor>            
+    <contributor>
+      <name>Pete Kazmier</name>
+      <email>kaz@apache.org</email>
+      <organization></organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>            
   </contributors>
   
   <dependencies>
