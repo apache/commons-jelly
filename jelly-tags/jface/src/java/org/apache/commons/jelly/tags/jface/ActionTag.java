@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,8 @@ import org.eclipse.swt.widgets.Event;
 
 /**
  * This tag creates an JFace Action
- * 
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
+ *
+ * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class ActionTag extends UseBeanTag {
 
@@ -57,7 +57,7 @@ public class ActionTag extends UseBeanTag {
     private static final Log log = LogFactory.getLog(ActionTag.class);
     private XMLOutput output;
     private String var = "event";
-    
+
     /**
      * @param arg0
      */
@@ -84,7 +84,7 @@ public class ActionTag extends UseBeanTag {
         throws MissingAttributeException, JellyTagException {
 
         Map attributes = getAttributes();
-		
+
         Action action = new ActionImpl();
         setBeanProperties(action, attributes);
 

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -74,7 +74,7 @@ public class ThreadTag extends TagSupport {
             // lets default to system.out
             try {
                 xmlOutput = XMLOutput.createXMLOutput(System.out);
-            } 
+            }
             catch (UnsupportedEncodingException e) {
                 throw new JellyTagException(e);
             }
@@ -90,11 +90,11 @@ public class ThreadTag extends TagSupport {
                     getBody().run(useThisContext, xmlOutput);
                     if (closeOutput) {
                         xmlOutput.close();
-                    } 
+                    }
                     else {
                         xmlOutput.flush();
                     }
-                } 
+                }
                 catch (JellyTagException e) {
                     // jelly wraps the exceptions thrown
                     Throwable subException = e.getCause();
@@ -116,10 +116,10 @@ public class ThreadTag extends TagSupport {
 
                     // wrap the exception with a RuntimeException
                     if (e instanceof RuntimeException) {
-                    	throw (RuntimeException) e;
+                        throw (RuntimeException) e;
                     }
                     else {
-                    	throw new NestedRuntimeException(e);
+                        throw new NestedRuntimeException(e);
                     }
                 }
             }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import org.apache.commons.jelly.core.Customer;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.7 $ $Date: 2004/08/16 03:44:28 $
+ * @version $Revision: 1.8 $ $Date: 2004/09/08 04:36:52 $
  */
 public class TestInvokeTag extends BaseJellyTest {
 
@@ -32,16 +32,16 @@ public class TestInvokeTag extends BaseJellyTest {
     }
 
     public static TestSuite suite() throws Exception {
-        return new TestSuite(TestInvokeTag.class);        
+        return new TestSuite(TestInvokeTag.class);
     }
 
     public void setUp() throws Exception {
         super.setUp();
-    }    
-    
+    }
+
     public void tearDown() throws Exception {
         super.tearDown();
-    }    
+    }
 
     public void testSimpleInvoke() throws Exception {
         setUpScript("testInvokeTag.jelly");
@@ -94,7 +94,7 @@ public class TestInvokeTag extends BaseJellyTest {
         assertNotNull(getJellyContext().getVariable("argtwo"));
         assertEquals("Chicago",getJellyContext().getVariable("argtwo"));
     }
-    
+
     public void testInvokeThatThrowsException() throws Exception {
         setUpScript("testInvokeTag.jelly");
         Script script = getJelly().compileScript();
@@ -109,7 +109,7 @@ public class TestInvokeTag extends BaseJellyTest {
         assertNotNull( exception );
         assertEquals( exceptionMessage, exception.getMessage() );
     }
-    
+
     public void testInvokeThatDoesNotHandleException() throws Exception {
         setUpScript("testInvokeTag.jelly");
         Script script = getJelly().compileScript();
@@ -122,10 +122,10 @@ public class TestInvokeTag extends BaseJellyTest {
         assertNotNull( jellyException );
         assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
         assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
-        		exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
+                exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
         assertNotNull( jellyException.getCause() );
         assertEquals( exceptionMessage, jellyException.getCause().getMessage() );
     }
-    
+
 
 }

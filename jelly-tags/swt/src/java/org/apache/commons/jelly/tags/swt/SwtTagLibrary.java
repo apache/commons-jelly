@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -72,7 +72,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.xml.sax.Attributes;
 
-/** 
+/**
  * A Jelly custom tag library that creates SWT user interfaces
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -84,11 +84,11 @@ public class SwtTagLibrary extends TagLibrary {
     private static final Log log = LogFactory.getLog(SwtTagLibrary.class);
 
     static {
-        // register the various beanutils Converters from Strings to various SWT types 
+        // register the various beanutils Converters from Strings to various SWT types
         ConvertUtils.register( new PointConverter(), Point.class );
         ConvertUtils.register( new ColorConverter(), Color.class );
     }
-        
+
     public SwtTagLibrary() {
         // widgets
         registerWidgetTag( "button", Button.class, SWT.BORDER | SWT.PUSH | SWT.CENTER );
@@ -96,12 +96,12 @@ public class SwtTagLibrary extends TagLibrary {
         registerWidgetTag( "caret", Caret.class );
         registerWidgetTag( "combo", Combo.class, SWT.DROP_DOWN );
         registerWidgetTag( "composite", Composite.class );
-	 	registerWidgetTag( "scrolledComposite", ScrolledComposite.class, SWT.H_SCROLL | SWT.V_SCROLL);
+         registerWidgetTag( "scrolledComposite", ScrolledComposite.class, SWT.H_SCROLL | SWT.V_SCROLL);
         registerWidgetTag( "coolBar", CoolBar.class, SWT.VERTICAL );
         registerWidgetTag( "coolItem", CoolItem.class );
         registerWidgetTag( "decorations", Decorations.class );
         registerWidgetTag( "group", Group.class );
-        registerWidgetTag( "label", Label.class, SWT.HORIZONTAL | SWT.SHADOW_IN ); 
+        registerWidgetTag( "label", Label.class, SWT.HORIZONTAL | SWT.SHADOW_IN );
         registerWidgetTag( "list", List.class );
         registerMenuTag( "menu", SWT.DEFAULT );
         registerMenuTag( "menuBar", SWT.BAR );
@@ -131,7 +131,7 @@ public class SwtTagLibrary extends TagLibrary {
         registerWidgetTag( "tableTree", TableTree.class );
         registerWidgetTag( "tableTreeItem", TableTreeItem.class );
 
-        // layouts        
+        // layouts
         registerLayoutTag("fillLayout", FillLayout.class);
         registerLayoutTag("gridLayout", GridLayout.class);
         registerLayoutTag("rowLayout", RowLayout.class);
@@ -140,16 +140,16 @@ public class SwtTagLibrary extends TagLibrary {
         registerLayoutDataTag( "gridData", GridData.class );
         registerLayoutDataTag( "rowData", RowData.class );
 
-        // dialogs        
-		registerDialogTag( "colorDialog", ColorDialog.class );
-		registerDialogTag( "directoryDialog", DirectoryDialog.class );
-		registerDialogTag( "fileDialog", FileDialog.class );
-		registerDialogTag( "fontDialog", FontDialog.class );
-        
+        // dialogs
+        registerDialogTag( "colorDialog", ColorDialog.class );
+        registerDialogTag( "directoryDialog", DirectoryDialog.class );
+        registerDialogTag( "fileDialog", FileDialog.class );
+        registerDialogTag( "fontDialog", FontDialog.class );
+
         // events
         registerTag("onEvent", OnEventTag.class);
 
-        // other tags                    
+        // other tags
         registerTag("color", ColorTag.class);
         registerTag("colour", FontTag.class);
         registerTag("font", FontTag.class);
@@ -200,7 +200,7 @@ public class SwtTagLibrary extends TagLibrary {
     protected void registerWidgetTag(String name, Class widgetClass) {
         registerWidgetTag(name, widgetClass, SWT.NULL);
     }
-    
+
     /**
      * Register a widget tag for the given name
      */
@@ -218,31 +218,31 @@ public class SwtTagLibrary extends TagLibrary {
             }
         );
     }
-   
-	/**
-	 * Register a registerDialogTag tag for the given name
-	 */
-	protected void registerDialogTag(String name, Class widgetClass) {
-		registerDialogTag(name, widgetClass, SWT.NULL);
-	}
-	 
-	/**
-	   * Register a dialog tag for the given name
-	   */
-	protected void registerDialogTag(String name, final Class widgetClass, final int style) {
-		  registerTagFactory(
-			  name,
-			  new TagFactory() {
-				  /**
-				   * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-				   */
-				  public Tag createTag(String name, Attributes attributes)
-					  throws JellyException {
-					  return new DialogTag(widgetClass, style);
-				  }
-			  }
-		  );
-	  }
+
+    /**
+     * Register a registerDialogTag tag for the given name
+     */
+    protected void registerDialogTag(String name, Class widgetClass) {
+        registerDialogTag(name, widgetClass, SWT.NULL);
+    }
+
+    /**
+       * Register a dialog tag for the given name
+       */
+    protected void registerDialogTag(String name, final Class widgetClass, final int style) {
+          registerTagFactory(
+              name,
+              new TagFactory() {
+                  /**
+                   * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+                   */
+                  public Tag createTag(String name, Attributes attributes)
+                      throws JellyException {
+                      return new DialogTag(widgetClass, style);
+                  }
+              }
+          );
+      }
 
     /**
      * Register a menu tag for the given name and style
@@ -261,7 +261,7 @@ public class SwtTagLibrary extends TagLibrary {
             }
         );
     }
-    
 
- 
+
+
 }

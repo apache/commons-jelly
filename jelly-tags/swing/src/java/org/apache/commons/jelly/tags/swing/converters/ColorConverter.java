@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,14 +22,14 @@ import java.lang.reflect.Modifier;
 
 import org.apache.commons.beanutils.Converter;
 
-/** 
- * A Converter that turns Strings in the form "#uuuuuu" (as RGB triple) 
+/**
+ * A Converter that turns Strings in the form "#uuuuuu" (as RGB triple)
  * or the name of one of the {@link Color}-constants of the class
  * {@link Color} or {@link SystemColor}.
- *	<p>
- *	TODO: provide support of ARGB colors as well.<br>
+ *    <p>
+ *    TODO: provide support of ARGB colors as well.<br>
  * Future: provide support for color-spaces, indexed colors...
- *		(in particular theme-based colors)
+ *        (in particular theme-based colors)
  *
  * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
  * @version $Revision: $
@@ -72,7 +72,7 @@ public class ColorConverter implements Converter {
                         || !Modifier.isFinal(f.getModifiers())
                         || !Modifier.isPublic(f.getModifiers())
                         || !Color.class.isAssignableFrom(f.getType())) {
-                            
+
                         throw new IllegalArgumentException(usageText);
                     }
                     return (Color) f.get(SystemColor.class);

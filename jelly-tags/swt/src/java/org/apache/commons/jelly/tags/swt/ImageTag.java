@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -59,7 +59,7 @@ public class ImageTag extends TagSupport {
     public String getResource() {
         return resource;
     }
-	
+
     /**
      * Sets the variable name
      */
@@ -74,7 +74,7 @@ public class ImageTag extends TagSupport {
     public String getVar() {
       return this.var;
     }
-	
+
     /**
      * Sets the src.
      * @param src The src to set
@@ -127,9 +127,9 @@ public class ImageTag extends TagSupport {
         } else {
             throw new JellyTagException("Either an image location or a resource must be specified");
         }
-									     
+
         setWidgetImage(parent, image);
-	    
+
         // store the image as a context variable if specified
         if (var != null) {
             context.setVariable(var, image);
@@ -151,7 +151,7 @@ public class ImageTag extends TagSupport {
             getClass().getClassLoader().getResourceAsStream(getResource());
         return new Image(display, stream);
     }
-	
+
     /**
      * Add image to a widget
      * @param parent

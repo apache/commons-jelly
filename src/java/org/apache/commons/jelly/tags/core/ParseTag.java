@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,12 +34,12 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
-/** 
+/**
  * Parses the output of this tags body or of a given String as a Jelly script
  * then either outputting the Script as a variable or executing the script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class ParseTag extends TagSupport {
 
@@ -48,21 +48,21 @@ public class ParseTag extends TagSupport {
 
     /** The variable that will be generated for the document */
     private String var;
-    
+
     /** The markup text to be parsed */
     private String text;
 
     /** The XMLReader used to parser the document */
     private XMLReader xmlReader;
 
-	/** The Jelly parser */
-	private XMLParser jellyParser;
-	
+    /** The Jelly parser */
+    private XMLParser jellyParser;
+
     public ParseTag() {
     }
 
     // Tag interface
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
 
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
@@ -74,10 +74,10 @@ public class ParseTag extends TagSupport {
         if (text != null) {
             parseText(text);
         }
-        else {            
+        else {
             parseBody(output);
         }
-	
+
         Script script = getJellyParser().getScript();
         if (var != null) {
             context.setVariable(var, script);
@@ -89,7 +89,7 @@ public class ParseTag extends TagSupport {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     /** The variable name that will be used for the Document variable created
      */
     public String getVar() {
@@ -118,7 +118,7 @@ public class ParseTag extends TagSupport {
         this.text = text;
     }
 
-    
+
     /** @return the XMLReader used for parsing, creating one lazily if need be  */
     public XMLReader getXMLReader() throws ParserConfigurationException, SAXException {
         if (xmlReader == null) {
@@ -140,7 +140,7 @@ public class ParseTag extends TagSupport {
         if (jellyParser == null) {
             jellyParser = createJellyParser();
         }
-	    return jellyParser;
+        return jellyParser;
     }
 
     /**
@@ -150,39 +150,39 @@ public class ParseTag extends TagSupport {
     public void setJellyParser(XMLParser jellyParser) {
         this.jellyParser = jellyParser;
     }
-    
+
 
     // Implementation methods
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
 
     /**
      * Factory method to create a new XMLReader
-     */    
+     */
     protected XMLReader createXMLReader() throws ParserConfigurationException, SAXException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
         SAXParser parser = factory.newSAXParser();
-        return parser.getXMLReader(); 
+        return parser.getXMLReader();
     }
-    
-    
+
+
     /**
      * Parses the body of this tag and returns the parsed document
      */
     protected void parseBody(XMLOutput output) throws JellyTagException {
         ContentHandler handler = getJellyParser();
         XMLOutput newOutput = new XMLOutput(handler);
-        
+
         try {
             handler.startDocument();
             invokeBody(newOutput);
             handler.endDocument();
-        } 
+        }
         catch (SAXException e) {
             throw new JellyTagException(e);
         }
     }
-    
+
     /**
      * Parses the give piece of text as being markup
      */
@@ -190,22 +190,22 @@ public class ParseTag extends TagSupport {
         if ( log.isDebugEnabled() ) {
             log.debug( "About to parse: " + text );
         }
-        
+
         try {
             getXMLReader().parse( new InputSource( new StringReader( text ) ) );
-        } 
+        }
         catch (Exception e) {
             throw new JellyTagException(e);
         }
     }
-    
+
     /**
      * Factory method to create a new Jelly parser
      * @return XMLParser
      */
     protected XMLParser createJellyParser() {
         XMLParser answer = new XMLParser();
-        answer.setContext(context); 
+        answer.setContext(context);
         return answer;
     }
 }

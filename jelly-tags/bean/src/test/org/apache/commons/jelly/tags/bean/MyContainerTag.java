@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,19 +25,19 @@ import org.apache.commons.jelly.impl.CollectionTag;
 
 /**
  * A simple tag which demonstrates how to process beans generically.
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version  $Revision: 1.3 $
+ * @version  $Revision: 1.4 $
  */
 public class MyContainerTag extends TagSupport implements CollectionTag {
-    
+
     private List list = new ArrayList();
     private String var;
-    
+
     public MyContainerTag() {
     }
 
-	// Tag interface
+    // Tag interface
     //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
         invokeBody(output);
@@ -45,13 +45,13 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
         list = new ArrayList();
     }
 
-	// CollectionTag interface
+    // CollectionTag interface
     //-------------------------------------------------------------------------
     public void addItem(Object value) {
         list.add(value);
     }
 
-	// Properties
+    // Properties
     //-------------------------------------------------------------------------
     /**
      * @return String

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,48 +25,48 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * This tag creates an SWT dialog.
- *  
+ *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
- * 
+ *
  */
 public class DialogTag extends WidgetTag {
 
-	/**
-	 * @param widgetClass
-	 * @param style
-	 */
-	public DialogTag(Class widgetClass, int style) {
-		super(widgetClass, style);
-	}
+    /**
+     * @param widgetClass
+     * @param style
+     */
+    public DialogTag(Class widgetClass, int style) {
+        super(widgetClass, style);
+    }
 
-	/**
-	 * @param widgetClass
-	 */
-	public DialogTag(Class widgetClass) {
-		super(widgetClass);
-	}
+    /**
+     * @param widgetClass
+     */
+    public DialogTag(Class widgetClass) {
+        super(widgetClass);
+    }
 
-	// Implementation methods
-	//-------------------------------------------------------------------------                    
+    // Implementation methods
+    //-------------------------------------------------------------------------
 
-	/**
-	 * Factory method to create a new dialog
-	 */
-	protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
-		throws JellyTagException {
-		int style = getStyle(attributes);
+    /**
+     * Factory method to create a new dialog
+     */
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
+        throws JellyTagException {
+        int style = getStyle(attributes);
 
-		// now lets call the constructor with the parent
-		Widget parent = getParentWidget();
+        // now lets call the constructor with the parent
+        Widget parent = getParentWidget();
 
-		boolean isParentShell = parent instanceof Shell;
-		if (parent == null || !isParentShell) {
-			throw new JellyTagException("This tag must be nested within a Shell");
-		}
+        boolean isParentShell = parent instanceof Shell;
+        if (parent == null || !isParentShell) {
+            throw new JellyTagException("This tag must be nested within a Shell");
+        }
 
-		Dialog dialog = (Dialog) createWidget(theClass, parent, style);
+        Dialog dialog = (Dialog) createWidget(theClass, parent, style);
 
-		return dialog;
-	}
+        return dialog;
+    }
 
 }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,12 +26,12 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Binds a Java bean to the given named Jelly tag so that the attributes of
  * the tag set the bean properties..
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class ServerTag extends TagSupport {
 
@@ -39,24 +39,24 @@ public class ServerTag extends TagSupport {
     private static final Log log = LogFactory.getLog(ServerTag.class);
 
     private MBeanServer server;
-    
+
     public ServerTag() {
     }
-    
+
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        
+
         // force the creation of a Server
         MBeanServer server = getServer();
 
-        // allow children to register beans        
+        // allow children to register beans
         invokeBody(output);
-	}
+    }
 
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     /**
      * @return MBeanServer
      */
@@ -75,13 +75,13 @@ public class ServerTag extends TagSupport {
         this.server = server;
     }
 
-    
-    
+
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     /**
      * Factory method to lazily create an MBeanServer if none is supplied
-     * 
+     *
      * @return MBeanServer
      */
     protected MBeanServer createServer() {

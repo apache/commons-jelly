@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,34 +27,34 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-/** A tag which sets a variable from the result of an expression 
+/** A tag which sets a variable from the result of an expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.17 $
+  * @version $Revision: 1.18 $
   */
 public class SetTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(SetTag.class);
-    
+
     /** The variable name to export. */
     private String var;
 
     /** The variable scope to export */
     private String scope;
-    
+
     /** The expression to evaluate. */
     private Expression value;
 
-	/** The default value */
-	private Expression defaultValue;
-	
+    /** The default value */
+    private Expression defaultValue;
+
     /** The target object on which to set a property. */
     private Object target;
 
     /** The name of the property to set on the target object. */
     private String property;
-    
+
     /** Should we XML encode the body of this tag as text? */
     private boolean encode = true;
 
@@ -62,7 +62,7 @@ public class SetTag extends TagSupport {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
         // perform validation up front to fail fast
         if ( var != null ) {
@@ -89,7 +89,7 @@ public class SetTag extends TagSupport {
         else {
             answer = getBodyText(isEncode());
         }
-        
+
         if ( var != null ) {
             if ( scope != null ) {
                 context.setVariable(var, scope, answer);
@@ -104,47 +104,47 @@ public class SetTag extends TagSupport {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     /** Sets the variable name to define for this expression
      */
     public void setVar(String var) {
         this.var = var;
     }
-    
-    /** 
+
+    /**
      * Sets the variable scope for this variable. For example setting this value to 'parent' will
      * set this value in the parent scope. When Jelly is run from inside a Servlet environment
      * then other scopes will be available such as 'request', 'session' or 'application'.
-     * 
+     *
      * Other applications may implement their own custom scopes.
      */
     public void setScope(String scope) {
         this.scope = scope;
     }
-    
+
     /** Sets the expression to evaluate. */
     public void setValue(Expression value) {
         this.value = value;
     }
-    
-    /** 
-     * Sets the default value to be used if the value exprsesion results 
+
+    /**
+     * Sets the default value to be used if the value exprsesion results
      * in a null value or blank String
      */
     public void setDefaultValue(Expression defaultValue) {
         this.defaultValue = defaultValue;
     }
-    
+
     /** Sets the target object on which to set a property. */
     public void setTarget(Object target) {
         this.target = target;
     }
-           
+
     /** Sets the name of the property to set on the target object. */
     public void setProperty(String property) {
         this.property = property;
     }
-    
+
     /**
      * Returns whether the body of this tag will be XML encoded or not.
      */
@@ -164,7 +164,7 @@ public class SetTag extends TagSupport {
 
 
     // Implementation methods
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     protected void setPropertyValue( Object target, String property, Object value ) {
         try {
             if ( target instanceof Map ) {
@@ -172,7 +172,7 @@ public class SetTag extends TagSupport {
                 map.put( property, value );
             }
             else {
-                BeanUtils.setProperty( target, property, value );       
+                BeanUtils.setProperty( target, property, value );
             }
         } catch (InvocationTargetException e) {
             log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
@@ -180,7 +180,7 @@ public class SetTag extends TagSupport {
             log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
         }
     }
-    
+
     /**
      * @param value
      * @return true if the given value is null or an empty String

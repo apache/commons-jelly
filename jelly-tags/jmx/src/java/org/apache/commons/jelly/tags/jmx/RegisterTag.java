@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,37 +30,37 @@ import org.apache.commons.jelly.impl.CollectionTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Registers a JavaBean or JMX MBean with a server..
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class RegisterTag extends TagSupport implements CollectionTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(RegisterTag.class);
 
-    private ObjectName name;    
+    private ObjectName name;
     private MBeanServer server;
 
     public RegisterTag() {
     }
 
-    
+
     // CollectionTag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void addItem(Object bean) throws JellyTagException {
         try {
-            register(server, bean);            
-        } 
+            register(server, bean);
+        }
         catch (Exception e) {
-            throw new JellyTagException("Failed to register bean: " + bean, e);                
-        } 
+            throw new JellyTagException("Failed to register bean: " + bean, e);
+        }
     }
-    
+
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException("name");
@@ -73,13 +73,13 @@ public class RegisterTag extends TagSupport implements CollectionTag {
             server = serverTag.getServer();
         }
         invokeBody(output);
-	}
+    }
 
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
-    
-   
+    //-------------------------------------------------------------------------
+
+
     /**
      * @return ObjectName
      */
@@ -105,7 +105,7 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     /**
      * Sets the MBeanServer. If this attribute is not supplied then the parent &lt;server&gt; tag
      * is used to get the MBeanServer instance to use.
-     * 
+     *
      * @param server The MBeanServer to register the mbeans with.
      */
     public void setServer(MBeanServer server) {
@@ -113,8 +113,8 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------   
-                     
+    //-------------------------------------------------------------------------
+
     /**
      * Registers the given bean with the MBeanServer
      */

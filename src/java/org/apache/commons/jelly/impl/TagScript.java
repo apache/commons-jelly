@@ -51,7 +51,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.41 $
+ * @version $Revision: 1.42 $
  */
 public class TagScript implements Script {
 
@@ -267,7 +267,7 @@ public class TagScript implements Script {
                 tagHolder.set(tag);
             }
         }
-		configureTag(tag);
+        configureTag(tag);
         return tag;
     }
 
@@ -408,35 +408,35 @@ public class TagScript implements Script {
     }
 
 
-	/**
-	 * Returns the namespace context of this tag. This is all the prefixes
-	 * in scope in the document where this tag is used which are mapped to
-	 * their namespace URIs.
-	 * 
-	 * @return a Map with the keys are namespace prefixes and the values are
-	 * namespace URIs.
-	 */
-	public synchronized Map getNamespaceContext() {
-		if (namespaceContext == null) {
-			if (parent != null) {
-				namespaceContext = getParent().getNamespaceContext();
-				if (tagNamespacesMap != null && !tagNamespacesMap.isEmpty()) {
-					// create a new child context
-					Hashtable newContext = new Hashtable(namespaceContext.size()+1);
-					newContext.putAll(namespaceContext);
-					newContext.putAll(tagNamespacesMap);
-					namespaceContext = newContext;
-				}
-			}
-			else {
-				namespaceContext = tagNamespacesMap;
-				if (namespaceContext == null) {
-					namespaceContext = new Hashtable();
-				}
-			}
-		}
-		return namespaceContext;
-	}
+    /**
+     * Returns the namespace context of this tag. This is all the prefixes
+     * in scope in the document where this tag is used which are mapped to
+     * their namespace URIs.
+     * 
+     * @return a Map with the keys are namespace prefixes and the values are
+     * namespace URIs.
+     */
+    public synchronized Map getNamespaceContext() {
+        if (namespaceContext == null) {
+            if (parent != null) {
+                namespaceContext = getParent().getNamespaceContext();
+                if (tagNamespacesMap != null && !tagNamespacesMap.isEmpty()) {
+                    // create a new child context
+                    Hashtable newContext = new Hashtable(namespaceContext.size()+1);
+                    newContext.putAll(namespaceContext);
+                    newContext.putAll(tagNamespacesMap);
+                    namespaceContext = newContext;
+                }
+            }
+            else {
+                namespaceContext = tagNamespacesMap;
+                if (namespaceContext == null) {
+                    namespaceContext = new Hashtable();
+                }
+            }
+        }
+        return namespaceContext;
+    }
     
     // Implementation methods
     //-------------------------------------------------------------------------      

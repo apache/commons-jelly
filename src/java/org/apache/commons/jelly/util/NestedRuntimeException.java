@@ -39,51 +39,51 @@ import java.io.PrintWriter;
 
 public class NestedRuntimeException extends RuntimeException {
 
-	/**
-	 * Holds the reference to the exception or error that caused
-	 * this exception to be thrown.
-	 */
-	private Throwable cause = null;
+    /**
+     * Holds the reference to the exception or error that caused
+     * this exception to be thrown.
+     */
+    private Throwable cause = null;
 
-	/**
-	 * Constructs a new <code>NestedRuntimeException</code> with specified
-	 * nested <code>Throwable</code>.
-	 *
-	 * @param cause the exception or error that caused this exception to be
-	 * thrown
-	 */
-	public NestedRuntimeException(Throwable cause) {
-		super(cause.getMessage());
-		this.cause = cause;
-	}
+    /**
+     * Constructs a new <code>NestedRuntimeException</code> with specified
+     * nested <code>Throwable</code>.
+     *
+     * @param cause the exception or error that caused this exception to be
+     * thrown
+     */
+    public NestedRuntimeException(Throwable cause) {
+        super(cause.getMessage());
+        this.cause = cause;
+    }
 
-	/**
-	 * Constructs a new <code>NestedRuntimeException</code> with specified
-	 * detail message and nested <code>Throwable</code>.
-	 *
-	 * @param msg    the error message
-	 * @param cause  the exception or error that caused this exception to be
-	 * thrown
-	 */
-	public NestedRuntimeException(String msg, Throwable cause) {
-		super(msg);
-		this.cause = cause;
-	}
+    /**
+     * Constructs a new <code>NestedRuntimeException</code> with specified
+     * detail message and nested <code>Throwable</code>.
+     *
+     * @param msg    the error message
+     * @param cause  the exception or error that caused this exception to be
+     * thrown
+     */
+    public NestedRuntimeException(String msg, Throwable cause) {
+        super(msg);
+        this.cause = cause;
+    }
 
-	public Throwable getCause() {
-		return cause;
-	}
+    public Throwable getCause() {
+        return cause;
+    }
 
-	public void printStackTrace() {
-		cause.printStackTrace();
-	}
+    public void printStackTrace() {
+        cause.printStackTrace();
+    }
 
-	public void printStackTrace(PrintStream out) {
-		cause.printStackTrace(out);
-	}
+    public void printStackTrace(PrintStream out) {
+        cause.printStackTrace(out);
+    }
 
-	public void printStackTrace(PrintWriter out) {
-		cause.printStackTrace(out);
-	}
+    public void printStackTrace(PrintWriter out) {
+        cause.printStackTrace(out);
+    }
 
 }

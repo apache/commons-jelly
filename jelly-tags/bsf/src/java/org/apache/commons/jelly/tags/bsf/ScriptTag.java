@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,35 +29,35 @@ import org.apache.bsf.BSFEngine;
 import org.apache.bsf.BSFManager;
 import org.apache.bsf.BSFException;
 
-/** 
+/**
  * A tag which evaluates its body using the current scripting language
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class ScriptTag extends TagSupport implements LocationAware {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ScriptTag.class.getName() + ".evaluating");
-	
+
     private BSFEngine engine;
     private BSFManager manager;
     private String elementName;
     private String fileName;
     private int columnNumber;
     private int lineNumber;
-    
+
     public ScriptTag(BSFEngine engine, BSFManager manager) {
         this.engine = engine;
         this.manager = manager;
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         String text = getBodyText();
 
-        log.debug(text);        
+        log.debug(text);
 
         // XXXX: unfortunately we must sychronize evaluations
         // so that we can swizzle in the context.
@@ -66,7 +66,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
         synchronized (getRegistry()) {
             getRegistry().setJellyContext(context);
 
-            try {            
+            try {
                 // XXXX: hack - there must be a better way!!!
                 for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
                     String name = (String) iter.next();
@@ -80,9 +80,9 @@ public class ScriptTag extends TagSupport implements LocationAware {
             }
         }
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     /**
      * @return int
      */
@@ -161,5 +161,5 @@ public class ScriptTag extends TagSupport implements LocationAware {
     private JellyContextRegistry getRegistry()
     {
         return (JellyContextRegistry) this.manager.getObjectRegistry();
-    }    
+    }
 }

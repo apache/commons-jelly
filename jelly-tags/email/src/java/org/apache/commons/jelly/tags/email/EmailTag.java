@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,7 +47,7 @@ import java.io.FileNotFoundException;
  *
  * @author  Jason Horman
  * @author  <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- * @version  $Id: EmailTag.java,v 1.5 2004/02/25 01:32:00 dion Exp $
+ * @version  $Id: EmailTag.java,v 1.6 2004/09/08 04:49:23 dion Exp $
  */
 
 public class EmailTag extends TagSupport {
@@ -73,7 +73,7 @@ public class EmailTag extends TagSupport {
 
     /** file attachment */
     private File attachment     = null;
-    
+
     /** whether we should encode the XML body as text */
     private boolean encodeXML = false;
 
@@ -131,7 +131,7 @@ public class EmailTag extends TagSupport {
         this.attachment = attachment;
     }
 
-    /** 
+    /**
      * Sets whether we should encode the XML body as text or not. The default
      * is false so that the body will assumed to be valid XML
      */
@@ -148,9 +148,9 @@ public class EmailTag extends TagSupport {
 
         // if a server was set then configure the system property
         if (server != null) {
-			Object serverInput = this.server.evaluate(context);
+            Object serverInput = this.server.evaluate(context);
             props.put("mail.smtp.host", serverInput.toString());
-        } 
+        }
         else {
             if (props.get("mail.smtp.host") == null) {
                 throw new JellyTagException("no smtp server configured");
@@ -167,24 +167,24 @@ public class EmailTag extends TagSupport {
             throw new JellyTagException("no from address specified");
         }
 
-		String messageBody = null;
-		if (this.message != null) {
-			messageBody = this.message.evaluate(context).toString();
-		}
-		else {
-			// get message from body
-			messageBody = getBodyText(encodeXML);
-		}
+        String messageBody = null;
+        if (this.message != null) {
+            messageBody = this.message.evaluate(context).toString();
+        }
+        else {
+            // get message from body
+            messageBody = getBodyText(encodeXML);
+        }
 
-		Object fromInput = this.from.evaluate(context);
-		Object toInput = this.to.evaluate(context);
+        Object fromInput = this.from.evaluate(context);
+        Object toInput = this.to.evaluate(context);
 
         // configure the mail session
         Session session = Session.getDefaultInstance(props, null);
 
         // construct the mime message
         MimeMessage msg = new MimeMessage(session);
- 
+
         try {
             // set the from address
             msg.setFrom(new InternetAddress(fromInput.toString()));
@@ -202,7 +202,7 @@ public class EmailTag extends TagSupport {
 
             // parse out the cc addresses
             if (cc != null) {
-				Object ccInput = this.cc.evaluate(context);
+                Object ccInput = this.cc.evaluate(context);
                 st = new StringTokenizer(ccInput.toString(), ";");
                 InternetAddress[] ccAddresses = new InternetAddress[st.countTokens()];
                 int ccAddressCount = 0;
@@ -213,10 +213,10 @@ public class EmailTag extends TagSupport {
                 // set the cc recipients
                 msg.setRecipients(Message.RecipientType.CC, ccAddresses);
             }
-        } 
+        }
         catch (AddressException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (MessagingException e) {
             throw new JellyTagException(e);
         }
@@ -224,7 +224,7 @@ public class EmailTag extends TagSupport {
         try {
             // set the subject
             if (subject != null) {
-				Object subjectInput = this.subject.evaluate(context);
+                Object subjectInput = this.subject.evaluate(context);
                 msg.setSubject(subjectInput.toString());
             }
 
@@ -236,7 +236,7 @@ public class EmailTag extends TagSupport {
 
                 msg.setText(messageBody);
 
-            } 
+            }
             else {
 
                 // attach the multipart mime message
@@ -263,7 +263,7 @@ public class EmailTag extends TagSupport {
 
             // send the email
             Transport.send(msg);
-        } 
+        }
         catch (MessagingException e) {
             throw new JellyTagException(e);
         }

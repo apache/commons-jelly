@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,12 +34,12 @@ import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 
-/** 
+/**
  * This tag creates an SWT widget based on the parent tag, optionally declaring
  * this widget as a variable if the <i>var</i> attribute is specified.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
+ * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  * @version 1.1
  */
 public class WidgetTag extends UseBeanTag {
@@ -64,7 +64,7 @@ public class WidgetTag extends UseBeanTag {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * @return the visible widget, if there is one.
@@ -112,7 +112,7 @@ public class WidgetTag extends UseBeanTag {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * Factory method to create a new widget
@@ -132,7 +132,7 @@ public class WidgetTag extends UseBeanTag {
         return widget;
     }
 
-    /* 
+    /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
      */
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
@@ -146,15 +146,15 @@ public class WidgetTag extends UseBeanTag {
             setSize(control, size);
 
             // Special handling of color property as the Control object breaks the
-            // JavaBean naming conventions by overloading the setBackground() or setForeground() method 	
+            // JavaBean naming conventions by overloading the setBackground() or setForeground() method
             Object colorValue = attributes.remove("background");
-            Color background = 
-                (colorValue instanceof Color) 
+            Color background =
+                (colorValue instanceof Color)
                     ? (Color) colorValue : getColor(control, colorValue);
             control.setBackground(background);
 
             colorValue = attributes.remove("foreground");
-            Color foreground = 
+            Color foreground =
                 (colorValue instanceof Color)
                     ? (Color) colorValue : getColor(control, colorValue);
             control.setForeground(foreground);
@@ -164,7 +164,7 @@ public class WidgetTag extends UseBeanTag {
     }
 
     /**
-     * Get a color for the control  		
+     * Get a color for the control
      * @param control
      * @param colorValue
      */
@@ -183,7 +183,7 @@ public class WidgetTag extends UseBeanTag {
     }
 
     /**
-     * set the size of the control 		
+     * set the size of the control
      * @param control
      * @param size
      */
@@ -203,7 +203,7 @@ public class WidgetTag extends UseBeanTag {
     /**
      * Provides a strategy method to allow a new child widget to be attached to
      * its parent
-     * 
+     *
      * @param parent is the parent widget which is never null
      * @param widget is the new child widget to be attached to the parent
      */
@@ -218,7 +218,7 @@ public class WidgetTag extends UseBeanTag {
     /**
      * Factory method to create an instance of the given Widget class with
      * the given parent and SWT style
-     * 
+     *
      * @param theClass is the type of widget to create
      * @param parent is the parent widget
      * @param style the SWT style code

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,12 +33,12 @@ import org.apache.commons.logging.LogFactory;
 
 import org.xml.sax.Attributes;
 
-/** 
+/**
  * Binds a Java bean to the given named Jelly tag so that the attributes of
  * the tag set the bean properties..
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class BeanTag extends DefineTagSupport {
 
@@ -50,21 +50,21 @@ public class BeanTag extends DefineTagSupport {
 
     /** the name of the tag to create */
     private String name;
-    
+
     /** the Java class name to use for the tag */
     private String className;
 
     /** the ClassLoader used to load beans */
     private ClassLoader classLoader;
-    
+
     /** the name of the attribute used for the variable name */
     private String varAttribute = "var";
 
     /** the attribute definitions for this dynamic tag */
     private Map attributes;
-    
+
     /**
-     * Adds a new attribute definition to this dynamic tag 
+     * Adds a new attribute definition to this dynamic tag
      */
     public void addAttribute(Attribute attribute) {
         if ( attributes == null ) {
@@ -72,79 +72,79 @@ public class BeanTag extends DefineTagSupport {
         }
         attributes.put( attribute.getName(), attribute );
     }
-    
+
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         invokeBody(output);
-        
-		if (name == null) {
-			throw new MissingAttributeException("name");
-		}
-		if (className == null) {
-			throw new MissingAttributeException("className");
-		}
-        
-		Class theClass = null;
-		try {
-			ClassLoader classLoader = getClassLoader();
-			theClass = classLoader.loadClass(className);
-		} 
-		catch (ClassNotFoundException e) {
-			try {
-				theClass = getClass().getClassLoader().loadClass(className);
-			} 
+
+        if (name == null) {
+            throw new MissingAttributeException("name");
+        }
+        if (className == null) {
+            throw new MissingAttributeException("className");
+        }
+
+        Class theClass = null;
+        try {
+            ClassLoader classLoader = getClassLoader();
+            theClass = classLoader.loadClass(className);
+        }
+        catch (ClassNotFoundException e) {
+            try {
+                theClass = getClass().getClassLoader().loadClass(className);
+            }
             catch (ClassNotFoundException e2) {
-				try {
-					theClass = Class.forName(className);
-				} 
+                try {
+                    theClass = Class.forName(className);
+                }
                 catch (ClassNotFoundException e3) {
                     log.error( "Could not load class: " + className + " exception: " + e, e );
-					throw new JellyTagException(
-						"Could not find class: "
-							+ className
-							+ " using ClassLoader: "
-							+ classLoader);
-				}
-			}
-		}
-        
+                    throw new JellyTagException(
+                        "Could not find class: "
+                            + className
+                            + " using ClassLoader: "
+                            + classLoader);
+                }
+            }
+        }
+
         final Class beanClass = theClass;
         final Method invokeMethod = getInvokeMethod( theClass );
         final Map beanAttributes = (attributes != null) ? attributes : EMPTY_MAP;
-        
+
         TagFactory factory = new TagFactory() {
             public Tag createTag(String name, Attributes attributes) {
                 return  new DynamicBeanTag(beanClass, beanAttributes, varAttribute, invokeMethod);
             }
         };
-        
+
         getTagLibrary().registerBeanTag(name, factory);
-        
+
         // now lets clear the attributes for next invocation and help the GC
         attributes = null;
-	}
+    }
 
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
-    
-    /** 
+    //-------------------------------------------------------------------------
+
+    /**
      * Sets the name of the tag to create
      */
     public void setName(String name) {
         this.name = name;
     }
-    
-    /** 
+
+    /**
      * Sets the Java class name to use for the tag
      */
     public void setClassName(String className) {
         this.className = className;
     }
-    
+
     /**
-     * Sets the ClassLoader to use to load the class. 
+     * Sets the ClassLoader to use to load the class.
      * If no value is set then the current threads context class
      * loader is used.
      */
@@ -155,7 +155,7 @@ public class BeanTag extends DefineTagSupport {
     /**
      * @return the ClassLoader to use to load classes
      *  or will use the thread context loader if none is specified.
-     */    
+     */
     public ClassLoader getClassLoader() {
         if ( classLoader == null ) {
             ClassLoader answer = Thread.currentThread().getContextClassLoader();
@@ -172,14 +172,14 @@ public class BeanTag extends DefineTagSupport {
      * tag will output its results as. This defaults to 'var' though this property
      * can be used to change this if it conflicts with a bean property called 'var'.
      */
-    public void setVarAttribute(String varAttribute) {    
+    public void setVarAttribute(String varAttribute) {
         this.varAttribute = varAttribute;
     }
-        
-    
+
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Extracts the invoke method for the class if one is used.
      */

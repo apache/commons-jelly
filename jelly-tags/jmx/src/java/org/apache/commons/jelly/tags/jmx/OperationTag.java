@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,11 +29,11 @@ import org.apache.commons.jelly.impl.CollectionTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Registers a JavaBean or JMX MBean with a server..
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class OperationTag extends TagSupport implements CollectionTag {
 
@@ -41,30 +41,30 @@ public class OperationTag extends TagSupport implements CollectionTag {
     private static final Log log = LogFactory.getLog(OperationTag.class);
 
     private String name;
-    private Object arguments;    
+    private Object arguments;
     private List argList = null;
     private String[] parameters;
 
     public OperationTag() {
     }
 
-    
+
     // CollectionTag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void addItem(Object value) {
         if (argList == null) {
             argList = new ArrayList();
         }
         argList.add(value);
     }
-    
+
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException("name");
         }
-        
+
         RegisterTag registerTag = (RegisterTag) findAncestorWithClass(RegisterTag.class);
         if (registerTag == null) {
             throw new JellyTagException("This class must be nested inside a <register> tag");
@@ -74,24 +74,24 @@ public class OperationTag extends TagSupport implements CollectionTag {
             invokeBody(output);
 
             ObjectName objectName = registerTag.getName();
-            registerTag.getServer().invoke(objectName, getName(), getArgumentArray(), getParameters()); 
-        } 
+            registerTag.getServer().invoke(objectName, getName(), getArgumentArray(), getParameters());
+        }
         catch (JellyTagException e) {
-            throw e;                
-        } 
+            throw e;
+        }
         catch (Exception e) {
-            throw new JellyTagException("Failed to register bean: " + bean, e);                
-        } 
+            throw new JellyTagException("Failed to register bean: " + bean, e);
+        }
         finally {
             argList = null;
         }
-	}
+    }
 
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
-    
-   
+    //-------------------------------------------------------------------------
+
+
 
     /**
      * @return Object
@@ -140,7 +140,7 @@ public class OperationTag extends TagSupport implements CollectionTag {
 
     // Implementation methods
     //-------------------------------------------------------------------------
-    
+
     /**
      * Converts the argument property into an Object[] or converts the list of
      * added argument objects (added via child tags) to an Object[] or

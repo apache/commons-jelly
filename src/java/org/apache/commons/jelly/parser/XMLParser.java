@@ -68,7 +68,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.54 $
+ * @version $Revision: 1.55 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -679,19 +679,19 @@ public class XMLParser extends DefaultHandler {
     public void endElement(String namespaceURI, String localName, String qName)
         throws SAXException {
         try {            
-	        tagScript = (TagScript) tagScriptStack.remove(tagScriptStack.size() - 1);
-	        if (tagScript != null) {
-	            if (textBuffer.length() > 0) {
-	                addTextScript(textBuffer.toString());
-	                textBuffer.setLength(0);
-	            }
-	            script = (ScriptBlock) scriptStack.pop();
-	        }
-	        else {
-	            textBuffer.append("</");
-	            textBuffer.append(qName);
-	            textBuffer.append(">");
-	        }
+            tagScript = (TagScript) tagScriptStack.remove(tagScriptStack.size() - 1);
+            if (tagScript != null) {
+                if (textBuffer.length() > 0) {
+                    addTextScript(textBuffer.toString());
+                    textBuffer.setLength(0);
+                }
+                script = (ScriptBlock) scriptStack.pop();
+            }
+            else {
+                textBuffer.append("</");
+                textBuffer.append(qName);
+                textBuffer.append(">");
+            }
             
             // now lets set the parent tag variable
             if ( tagScriptStack.isEmpty() ) {
@@ -1011,8 +1011,8 @@ public class XMLParser extends DefaultHandler {
             if (taglib != null) {
                 TagScript script = taglib.createTagScript(localName, list);
                 if ( script != null ) {
-                	configureTagScript(script);
-                	
+                    configureTagScript(script);
+                    
                     // clone the attributes to keep them around after this parse
                     script.setSaxAttributes(new AttributesImpl(list));
                     
@@ -1090,21 +1090,21 @@ public class XMLParser extends DefaultHandler {
     }
 
 
-	/**
-	 * Configure a newly created TagScript instance before any Expressions are created
-	 *
-	 * @param aTagScript
-	 */
-	protected void configureTagScript(TagScript aTagScript) {		
-	    // set parent relationship...
-	    aTagScript.setParent(this.tagScript);
-	
-	    // set the namespace Map
-	    if ( elementNamespaces != null ) {
-	        aTagScript.setTagNamespacesMap( elementNamespaces );
-	        elementNamespaces = null;
-	    }
-	}                
+    /**
+     * Configure a newly created TagScript instance before any Expressions are created
+     *
+     * @param aTagScript
+     */
+    protected void configureTagScript(TagScript aTagScript) {        
+        // set parent relationship...
+        aTagScript.setParent(this.tagScript);
+    
+        // set the namespace Map
+        if ( elementNamespaces != null ) {
+            aTagScript.setTagNamespacesMap( elementNamespaces );
+            elementNamespaces = null;
+        }
+    }                
     
     /**
      * Adds the text to the current script block parsing any embedded

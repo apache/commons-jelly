@@ -23,7 +23,7 @@ import java.io.PrintWriter;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 
 public class JellyException extends Exception implements LocationAware {
@@ -173,12 +173,12 @@ public class JellyException extends Exception implements LocationAware {
         }
     }
 
-	public void printStackTrace() {
-		super.printStackTrace();
-		if (cause != null) {
-			System.out.println("Root cause");
-			cause.printStackTrace();
-		}
-	}
+    public void printStackTrace() {
+        super.printStackTrace();
+        if (cause != null) {
+            System.out.println("Root cause");
+            cause.printStackTrace();
+        }
+    }
 
 }

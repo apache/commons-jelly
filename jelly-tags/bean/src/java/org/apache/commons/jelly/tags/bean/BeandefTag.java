@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,12 +29,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-/** 
+/**
  * Binds a Java bean to the given named Jelly tag so that the attributes of
  * the tag set the bean properties..
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class BeandefTag extends TagSupport {
 
@@ -43,90 +43,90 @@ public class BeandefTag extends TagSupport {
 
     /** An empty Map as I think Collections.EMPTY_MAP is only JDK 1.3 onwards */
     private static final Map EMPTY_MAP = new HashMap();
-    
+
     protected static final Class[] EMPTY_ARGUMENT_TYPES = {};
 
     /** the name of the tag to create */
     private String name;
-    
+
     /** the Java class name to use for the tag */
     private String className;
 
-	/** the name of the invoke method */
-	private String methodName;
-	 
+    /** the name of the invoke method */
+    private String methodName;
+
     /** the ClassLoader used to load beans */
     private ClassLoader classLoader;
-    
+
     /** the library in which to define this new bean tag */
     private BeanTagLibrary library;
-    
+
     public BeandefTag(BeanTagLibrary library) {
         this.library = library;
     }
-    
+
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         invokeBody(output);
-        
-		if (name == null) {
-			throw new MissingAttributeException("name");
-		}
-		if (className == null) {
-			throw new MissingAttributeException("className");
-		}
-        
-		Class theClass = null;
-		try {
-			ClassLoader classLoader = getClassLoader();
-			theClass = classLoader.loadClass(className);
-		} 
-		catch (ClassNotFoundException e) {
-			try {
-				theClass = getClass().getClassLoader().loadClass(className);
-			} 
+
+        if (name == null) {
+            throw new MissingAttributeException("name");
+        }
+        if (className == null) {
+            throw new MissingAttributeException("className");
+        }
+
+        Class theClass = null;
+        try {
+            ClassLoader classLoader = getClassLoader();
+            theClass = classLoader.loadClass(className);
+        }
+        catch (ClassNotFoundException e) {
+            try {
+                theClass = getClass().getClassLoader().loadClass(className);
+            }
             catch (ClassNotFoundException e2) {
-				try {
-					theClass = Class.forName(className);
-				} 
+                try {
+                    theClass = Class.forName(className);
+                }
                 catch (ClassNotFoundException e3) {
                     log.error( "Could not load class: " + className + " exception: " + e, e );
-					throw new JellyTagException(
-						"Could not find class: "
-							+ className
-							+ " using ClassLoader: "
-							+ classLoader);
-				}
-			}
-		}
-		
-		Method invokeMethod = getInvokeMethod(theClass);
-        
+                    throw new JellyTagException(
+                        "Could not find class: "
+                            + className
+                            + " using ClassLoader: "
+                            + classLoader);
+                }
+            }
+        }
+
+        Method invokeMethod = getInvokeMethod(theClass);
+
         // @todo should we allow the variable name to be specified?
         library.registerBean(name, theClass, invokeMethod);
-	}
+    }
 
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
-    
-    /** 
+    //-------------------------------------------------------------------------
+
+    /**
      * Sets the name of the tag to create
      */
     public void setName(String name) {
         this.name = name;
     }
-    
-    /** 
+
+    /**
      * Sets the Java class name to use for the tag
      */
     public void setClassName(String className) {
         this.className = className;
     }
-    
+
     /**
-     * Sets the ClassLoader to use to load the class. 
+     * Sets the ClassLoader to use to load the class.
      * If no value is set then the current threads context class
      * loader is used.
      */
@@ -137,7 +137,7 @@ public class BeandefTag extends TagSupport {
     /**
      * @return the ClassLoader to use to load classes
      *  or will use the thread context loader if none is specified.
-     */    
+     */
     public ClassLoader getClassLoader() {
         if ( classLoader == null ) {
             ClassLoader answer = Thread.currentThread().getContextClassLoader();
@@ -163,9 +163,9 @@ public class BeandefTag extends TagSupport {
     public void setMethodName(String methodName) {
         this.methodName = methodName;
     }
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     protected Method getInvokeMethod(Class theClass) {
         if (methodName != null) {
             // lets lookup the method name

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,9 +21,9 @@ import java.util.StringTokenizer;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.ConvertUtils;
 
-/** 
+/**
  * A Converter that turns Strings in one of the constants of
- *	{@link DebugGraphics} to their appropriate integer constant.
+ *    {@link DebugGraphics} to their appropriate integer constant.
  *
  * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
  * @version $Revision: $
@@ -32,7 +32,7 @@ public class DebugGraphicsConverter implements Converter {
 
     private static String usageText =
         "DebugGraphics options are set as a \"|\" separated list of words using one of the constants of DebugGraphics: log, flash, or buffered.";
-        
+
     public static void register() {
         ConvertUtils.register(
             new DebugGraphicsConverter(),

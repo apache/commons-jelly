@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -66,7 +66,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     /** Task, if this tag represents a task. */
     protected Task task;
-    
+
 
     /** Construct with a project and tag name.
      *
@@ -82,7 +82,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     // TaskSource interface
     //-------------------------------------------------------------------------
-    
+
     /** Retrieve the general object underlying this tag.
      *
      *  @return The object underlying this tag.
@@ -108,10 +108,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
         Project project = getAntProject();
         String tagName = getTagName();
         Object parentObject = findBeanAncestor();
-		Object parentTask = findParentTaskObject();
-		
+        Object parentTask = findParentTaskObject();
+
         // lets assume that Task instances are not nested inside other Task instances
-        // for example <manifest> inside a <jar> should be a nested object, where as 
+        // for example <manifest> inside a <jar> should be a nested object, where as
         // if the parent is not a Task the <manifest> should create a ManifestTask
         //
         // also its possible to have a root Ant tag which isn't a task, such as when
@@ -121,20 +121,20 @@ public class AntTag extends MapTagSupport implements TaskSource {
         if (parentObject != null && !( parentTask instanceof TaskContainer) ) {
             nested = createNestedObject( parentObject, tagName );
         }
-        
+
         if (nested == null) {
             task = createTask( tagName );
-            
+
             if (task != null) {
 
                 if ( log.isDebugEnabled() ) {
-                    log.debug( "Creating an ant Task for name: " + tagName );            
+                    log.debug( "Creating an ant Task for name: " + tagName );
                 }
-    
+
                 // the following algorithm follows the lifetime of a tag
                 // http://jakarta.apache.org/ant/manual/develop.html#writingowntask
                 // kindly recommended by Stefan Bodewig
-    
+
                 // create and set its project reference
                 if ( task instanceof TaskAdapter ) {
                     setObject( ((TaskAdapter)task).getProxy() );
@@ -142,24 +142,24 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 else {
                     setObject( task );
                 }
-    
+
                 // set the task ID if one is given
                 Object id = getAttributes().remove( "id" );
                 if ( id != null ) {
                     project.addReference( (String) id, task );
                 }
-    
+
                 // ### we might want to spoof a Target setting here
-    
+
                 // now lets initialize
                 task.init();
-    
+
                 // now lets invoke the body to call all the createXXX() or addXXX() methods
                 String body = getBodyText();
-    
+
                 // now lets set any attributes of this tag...
                 setBeanProperties();
-    
+
                 // now lets set the addText() of the body content, if its applicaable
                 Method method = MethodUtils.getAccessibleMethod( task.getClass(),
                                                                  "addText",
@@ -168,30 +168,30 @@ public class AntTag extends MapTagSupport implements TaskSource {
                     Object[] args = { body };
                     try {
                         method.invoke(this.task, args);
-                    } 
+                    }
                     catch (IllegalAccessException e) {
                         throw new JellyTagException(e);
-                    } 
+                    }
                     catch (InvocationTargetException e) {
                         throw new JellyTagException(e);
                     }
                 }
-    
+
                 // now lets set all the attributes of the child elements
                 // XXXX: to do!
-    
+
                 // now we're ready to invoke the task
                 // XXX: should we call execute() or perform()?
                 task.perform();
             }
         }
-        
+
         if (task == null) {
-            
+
             if (nested == null) {
-            
-                if ( log.isDebugEnabled() ) {                            
-                    log.debug( "Trying to create a data type for tag: " + tagName );            
+
+                if ( log.isDebugEnabled() ) {
+                    log.debug( "Trying to create a data type for tag: " + tagName );
                 }
                 nested = createDataType( tagName );
             }
@@ -221,59 +221,59 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
                 // now lets invoke the body
                 String body = getBodyText();
-    
+
                 // now lets set any attributes of this tag...
                 setBeanProperties();
-    
+
                 // now lets add it to its parent
                 if ( parentObject != null ) {
                     IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );
                     try {
-                    	if (log.isDebugEnabled()) {
-                    		log.debug("About to set the: " + tagName 
-                    			+ " property on: " + parentObject + " to value: " 
-                    			+ nested + " with type: " + nested.getClass() 
-                			);
-                    	}
-                    	
+                        if (log.isDebugEnabled()) {
+                            log.debug("About to set the: " + tagName
+                                + " property on: " + parentObject + " to value: "
+                                + nested + " with type: " + nested.getClass()
+                            );
+                        }
+
                         ih.storeElement( project, parentObject, nested, tagName.toLowerCase() );
                     }
                     catch (Exception e) {
                         log.warn( "Caught exception setting nested: " + tagName, e );
                     }
-                    
+
                     // now try to set the property for good measure
                     // as the storeElement() method does not
                     // seem to call any setter methods of non-String types
                     try {
-        				BeanUtils.setProperty( parentObject, tagName, nested );
+                        BeanUtils.setProperty( parentObject, tagName, nested );
                     }
                     catch (Exception e) {
-                    	log.debug("Caught exception trying to set property: " + tagName + " on: " + parentObject);
+                        log.debug("Caught exception trying to set property: " + tagName + " on: " + parentObject);
                     }
                 }
             }
             else {
                 log.warn("Could not convert tag: " + tagName + " into an Ant task, data type or property");
-                
-                // lets treat this tag as static XML...                
+
+                // lets treat this tag as static XML...
                 StaticTag tag = new StaticTag("", tagName, tagName);
                 tag.setParent( getParent() );
                 tag.setBody( getBody() );
-    
+
                 tag.setContext(context);
-        
+
                 for (Iterator iter = getAttributes().entrySet().iterator(); iter.hasNext();) {
                     Map.Entry entry = (Map.Entry) iter.next();
                     String name = (String) entry.getKey();
                     Object value = entry.getValue();
-        
+
                     tag.setAttribute(name, value);
                 }
-            
+
                 tag.doTag(output);
             }
-        }        
+        }
     }
 
 
@@ -330,9 +330,9 @@ public class AntTag extends MapTagSupport implements TaskSource {
             }
             else
             {
-            	super.setAttribute( name, value.toString() );
-        	}                            
-    	}
+                super.setAttribute( name, value.toString() );
+            }
+        }
     }
 
     public void setBeanProperty(Object object, String name, Object value) throws JellyTagException {
@@ -361,7 +361,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
             try {
                 // let any exceptions bubble up from here
                 BeanUtils.setProperty( object, name, value );
-            } 
+            }
             catch (IllegalAccessException ex) {
                 throw new JellyTagException(ex);
             }
@@ -425,7 +425,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                     ctor = type.getConstructor(new Class[] { Project.class });
                     noArg = false;
                 } catch (NoSuchMethodException nsme) {
-                    log.info("datatype '" + name 
+                    log.info("datatype '" + name
                         + "' didn't have a constructor with an Ant Project", nsme);
                 }
             }
@@ -438,7 +438,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
             }
             if (dataType != null) {
                 ((DataType)dataType).setProject( getAntProject() );
-            } 
+            }
         }
 
         return dataType;
@@ -477,7 +477,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     public Task createTask(String taskName,
                            Class taskType) throws JellyTagException {
-                            
+
         if (taskType == null) {
             return null;
         }
@@ -491,7 +491,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         catch (IllegalAccessException e) {
             throw new JellyTagException(e);
         }
-        
+
         Task task = null;
         if ( o instanceof Task ) {
             task = (Task) o;
@@ -507,11 +507,11 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
         return task;
     }
-    
+
     /**
-     * Attempts to look up in the parent hierarchy for a tag that implements the 
+     * Attempts to look up in the parent hierarchy for a tag that implements the
      * TaskSource interface, which returns an Ant Task object or that implements
-     * BeanSource interface which creates a bean, 
+     * BeanSource interface which creates a bean,
      * or will return the parent tag, which is also a bean.
      */
     protected Object findBeanAncestor() throws JellyTagException {
@@ -522,14 +522,14 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 return beanSource.getBean();
             }
             if (tag instanceof TaskSource) {
-            	TaskSource taskSource = (TaskSource) tag;
-            	return taskSource.getTaskObject();
+                TaskSource taskSource = (TaskSource) tag;
+                return taskSource.getTaskObject();
             }
             tag = tag.getParent();
         }
         return getParent();
     }
-	
+
     /**
      * Walks the hierarchy until it finds a parent TaskSource and returns its source or returns null
      */
@@ -537,12 +537,12 @@ public class AntTag extends MapTagSupport implements TaskSource {
         Tag tag = getParent();
         while (tag != null) {
             if (tag instanceof TaskSource) {
-            	TaskSource source = (TaskSource) tag;
-            	return source.getTaskObject();
+                TaskSource source = (TaskSource) tag;
+                return source.getTaskObject();
             }
             tag = tag.getParent();
         }
         return null;
     }
-    
+
 }

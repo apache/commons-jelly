@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,14 +28,14 @@ import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.jelly.tags.swing.impl.GridBagConstraintBean;
 import org.apache.commons.lang.StringUtils;
 
-/** 
+/**
  * This class represents a {@link GridBagConstraints} constraints as passed in
  * the second argument of {@link Container#add(Component,Object)}.
  * It supports inheritence between such tags in the following fashion:
  * <ul>
- * 	<li>either using a <code>basedOn</code> attribute which is
- * 		supposed to provide a reference to another {@link GbcTag}.</li>
- * 	<li>either using a parent {@link GbcTag}.</li>
+ *     <li>either using a <code>basedOn</code> attribute which is
+ *         supposed to provide a reference to another {@link GbcTag}.</li>
+ *     <li>either using a parent {@link GbcTag}.</li>
  * </ul>
  * The first version takes precedence.
  * A Grid-bag-constraint inherits from another simply by setting other attributes
@@ -56,15 +56,15 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     public GridBagConstraints getConstraints() {
         return (GridBagConstraints) getBean();
     }
-    
-    
+
+
     // ContainerTag interface
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Adds a child component to this parent
      * @param component the child to add
-     * @param constraints the constraints to use 
+     * @param constraints the constraints to use
      * @TODO constraints looks like it's ignored
      */
     public void addChild(Component component, Object constraints) throws JellyTagException {
@@ -74,15 +74,15 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
         }
         tag.addLayoutComponent(component, getConstraints());
     }
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * A class may be specified otherwise the Factory will be used.
      * @param classObject the object to be converted
      */
-    protected Class convertToClass(Object classObject) 
+    protected Class convertToClass(Object classObject)
     throws MissingAttributeException, ClassNotFoundException {
         if (classObject == null) {
             return null;
@@ -91,7 +91,7 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
             return super.convertToClass(classObject);
         }
     }
-    
+
     /**
      * A class may be specified otherwise the Factory will be used.
      */
@@ -118,7 +118,7 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
         if (insetString instanceof String) {
             attributes.remove("insets");
 
-            
+
             String[] parts = StringUtils.split((String) insetString, ",");
 
             if (parts.length != 4) {

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,10 +22,10 @@ import java.lang.reflect.Field;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * This class is a simple "bean-wrapper" for the {@link GridBagConstraints} class
- * which also tracks wether values are set allowing inheritance 
- *	(using {@link setBasedOn}.
+ * which also tracks wether values are set allowing inheritance
+ *    (using {@link setBasedOn}.
  *
  * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
  * @version $Revision: $
@@ -42,10 +42,10 @@ public class GridBagConstraintBean extends GridBagConstraints {
     private boolean ipadySet = false;
     private boolean anchorSet = false;
     private boolean fillSet = false;
-    
+
     /** Logging output */
     private static final Log LOG = LogFactory.getLog(GridBagConstraintBean.class);
-    
+
     /** error message */
     private static final String ILLEGAL_ANCHOR_MSG = "Anchor must be one of  the GridBagLayout constants for the current Java version.";
 
@@ -125,10 +125,10 @@ public class GridBagConstraintBean extends GridBagConstraints {
     }
 
     /** Returns the lower-case variant of the constant-name
-    	*	corresponding to the stored {@link #anchor} attribute.
-    	*
-    	*	@see	#anchor
-    	*/
+        *    corresponding to the stored {@link #anchor} attribute.
+        *
+        *    @see    #anchor
+        */
     public String getAnchor() {
         switch (this.anchor) {
             case CENTER :
@@ -150,7 +150,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
             case NORTHWEST :
                 return "northwest";
         }
-        
+
         if (this.anchor == getByReflection("LINE_START"))
             return "line_start";
         else if (this.anchor == getByReflection("LINE_END"))
@@ -167,16 +167,16 @@ public class GridBagConstraintBean extends GridBagConstraints {
             return "last_line_start";
         else if (this.anchor ==  getByReflection("LAST_LINE_END"))
             return "last_line_end";
-        
+
         throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
     }
 
-    /** Accepts one of the strings with the same name as the constants 
-    	* and sets the {@link #anchor} value accordingly.
-    	*	The accepted strings are case-insensitive.
-    	*
-    	*	@see #anchor
-    	*/
+    /** Accepts one of the strings with the same name as the constants
+        * and sets the {@link #anchor} value accordingly.
+        *    The accepted strings are case-insensitive.
+        *
+        *    @see #anchor
+        */
     public void setAnchor(String anchorString) {
         String lcAnchorString = anchorString.toLowerCase();
         if (lcAnchorString.equals("center"))
@@ -219,10 +219,10 @@ public class GridBagConstraintBean extends GridBagConstraints {
     }
 
     /** Returns the lower-case variant of the constant-name
-    	*	corresponding to the stored {@link #fill} attribute.
-    	*
-    	*	@see	#fill
-    	*/
+        *    corresponding to the stored {@link #fill} attribute.
+        *
+        *    @see    #fill
+        */
     public String getFill() {
         switch (fill) {
             case NONE :
@@ -237,12 +237,12 @@ public class GridBagConstraintBean extends GridBagConstraints {
                 throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants: NONE, HORIZONTAL, VERTICAL, BOTH.");
         }
     }
-    /** Accepts one of the strings with the same name as the constants 
-    	* and sets the {@link #fill} value accordingly.
-    	*	The accepted strings are case-insensitive.
-    	*
-    	*	@see #fill
-    	*/
+    /** Accepts one of the strings with the same name as the constants
+        * and sets the {@link #fill} value accordingly.
+        *    The accepted strings are case-insensitive.
+        *
+        *    @see #fill
+        */
     public void setFill(String fillString) {
         String lcFillString = fillString.toLowerCase();
         if (lcFillString.equals("none"))
@@ -259,8 +259,8 @@ public class GridBagConstraintBean extends GridBagConstraints {
     }
 
     /** Reads the values in the given grid-bag-constraint-bean that are set and sets
-    	* them in this object if they have not been set yet.
-    	*/
+        * them in this object if they have not been set yet.
+        */
     public void setBasedOn(GridBagConstraintBean from) {
         if (!gridxSet && from.gridxSet) {
             gridx = from.gridx;
@@ -330,7 +330,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
             + insets
             + "]";
     }
-    
+
     private int getByReflection(String field) {
         try {
             Field f = getClass().getField(field);

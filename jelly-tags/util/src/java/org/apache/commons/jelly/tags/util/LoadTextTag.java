@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -34,11 +34,11 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
- * A tag which loads text from a file or URI into a Jelly variable. 
+/**
+ * A tag which loads text from a file or URI into a Jelly variable.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class LoadTextTag extends TagSupport {
 
@@ -54,7 +54,7 @@ public class LoadTextTag extends TagSupport {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException("var");
@@ -67,7 +67,7 @@ public class LoadTextTag extends TagSupport {
             if (! file.exists()) {
                 throw new JellyTagException( "The file: " + file + " does not exist" );
             }
-            
+
             try {
                 if ( encoding == null )
                     reader = new FileReader(file);
@@ -78,7 +78,7 @@ public class LoadTextTag extends TagSupport {
             } catch (UnsupportedEncodingException e) {
                 throw new JellyTagException("Could not use the encoding \"" + encoding + "\".",e);
             }
-        }   
+        }
         else {
             InputStream in = context.getResourceAsStream(uri);
             if (in == null) {
@@ -87,22 +87,22 @@ public class LoadTextTag extends TagSupport {
             // @todo should we allow an encoding to be specified?
             reader = new InputStreamReader(in);
         }
-        
+
         String text = null;
-        
+
         try {
             text = loadText(reader);
-        } 
+        }
         catch (IOException e) {
             throw new JellyTagException(e);
         }
-        
+
         context.setVariable(var, text);
     }
 
     // Properties
-    //------------------------------------------------------------------------- 
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Sets the name of the variable which will be exported with the text value of the
      * given file.
@@ -142,20 +142,20 @@ public class LoadTextTag extends TagSupport {
     }
 
     /**
-     * Sets the uri to be parsed as text. 
-     * This can be an absolute URL or a relative or absolute URI 
+     * Sets the uri to be parsed as text.
+     * This can be an absolute URL or a relative or absolute URI
      * from this Jelly script or the root context.
      */
     public void setUri(String uri) {
         this.uri = uri;
     }
-    
+
     /** Sets the encoding to be used to read the file, defaults to the platform-encoding.
       */
     public void setEncoding(String encName) {
         this.encoding = encName;
     }
-    
+
     /** Returns the encoding set.
     * @return the encoding set with {@link #setEncoding(String)}
       */
@@ -165,36 +165,36 @@ public class LoadTextTag extends TagSupport {
 
 
     // Implementation methods
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
 
     /**
      * Loads all the text from the given Reader
      */
     protected String loadText(Reader reader) throws IOException {
         StringBuffer buffer = new StringBuffer();
-        
+
         // @todo its probably more efficient to use a fixed char[] buffer instead
-		try {        
-	        BufferedReader bufferedReader = new BufferedReader(reader);
-	        while (true) {
-	            String line = bufferedReader.readLine();
-	            if (line == null) {
-	                break;
-	            }
-	            else {
-	                buffer.append(line);
-	                buffer.append('\n');
-	            }
-	        }
-	        return buffer.toString();
-		}
-		finally {
-			try {
-				reader.close();
-			}
-			catch (Exception e) {
-				log.error( "Caught exception closing Reader: " + e, e);
-			}
-		}
+        try {
+            BufferedReader bufferedReader = new BufferedReader(reader);
+            while (true) {
+                String line = bufferedReader.readLine();
+                if (line == null) {
+                    break;
+                }
+                else {
+                    buffer.append(line);
+                    buffer.append('\n');
+                }
+            }
+            return buffer.toString();
+        }
+        finally {
+            try {
+                reader.close();
+            }
+            catch (Exception e) {
+                log.error( "Caught exception closing Reader: " + e, e);
+            }
+        }
     }
 }

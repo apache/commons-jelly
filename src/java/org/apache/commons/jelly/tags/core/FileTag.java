@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.xml.sax.SAXException;
 
-/** 
+/**
  * A tag that pipes its body to a file denoted by the name attribute or to an in memory String
  * which is then output to a variable denoted by the var variable.
  *
@@ -45,12 +45,12 @@ public class FileTag extends TagSupport {
     private String outputMode = "xml";
     private boolean prettyPrint;
     private String encoding;
-    
+
     public FileTag(){
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws JellyTagException {
         try {
             if ( name != null ) {
@@ -74,25 +74,25 @@ public class FileTag extends TagSupport {
             throw new JellyTagException("could not write file",e);
         }
     }
-        
+
     // Properties
-    //------------------------------------------------------------------------- 
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Sets the file name for the output
      */
     public void setName(String name) {
         this.name = name;
     }
-    
+
     /**
-     * Sets whether the XML declaration should be output or not 
+     * Sets whether the XML declaration should be output or not
      */
     public void setOmitXmlDeclaration(boolean omitXmlDeclaration) {
         this.omitXmlDeclaration = omitXmlDeclaration;
     }
-    
-    
+
+
     /**
      * Sets the output mode, whether XML or HTML
      */
@@ -106,14 +106,14 @@ public class FileTag extends TagSupport {
     public void setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
     }
-        
+
     /**
      * Sets the XML encoding mode, which defaults to UTF-8
      */
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
-        
+
     /**
      * Returns the var.
      * @return String
@@ -139,22 +139,22 @@ public class FileTag extends TagSupport {
         try {
             // we need to avoid multiple start/end document events
             newOutput.setContentHandler(
-            	new SafeContentHandler(newOutput.getContentHandler())
+                new SafeContentHandler(newOutput.getContentHandler())
             );
             newOutput.startDocument();
             invokeBody(newOutput);
             newOutput.endDocument();
-        }  
+        }
         finally {
             try { newOutput.close(); } catch (IOException e) {}
         }
     }
-    
+
     /**
      * A Factory method to create a new XMLOutput from the given Writer.
      */
     protected XMLOutput createXMLOutput(Writer writer) {
-        
+
         OutputFormat format = null;
         if (prettyPrint) {
             format = OutputFormat.createPrettyPrint();
@@ -164,13 +164,13 @@ public class FileTag extends TagSupport {
         }
         if ( encoding != null ) {
             format.setEncoding( encoding );
-        }           
+        }
         if ( omitXmlDeclaration ) {
             format.setSuppressDeclaration(true);
         }
-                    
+
         boolean isHtml = outputMode != null && outputMode.equalsIgnoreCase( "html" );
-        final XMLWriter xmlWriter = (isHtml) 
+        final XMLWriter xmlWriter = (isHtml)
             ? new HTMLWriter(writer, format)
             : new XMLWriter(writer, format);
 
