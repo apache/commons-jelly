@@ -4,17 +4,10 @@
   <!ENTITY commonDeps SYSTEM "file:commonDependencies.ent">
 ]>
 <project>
-  <pomVersion>3</pomVersion>
+  <extend>../project.xml</extend>
   <name>commons-jelly</name>
   <id>commons-jelly</id>
   <currentVersion>1.0-beta-4-SNAPSHOT</currentVersion>
-  
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://jakarta.apache.org/</url>
-    <logo>http://jakarta.apache.org/images/jakarta-logo-blue.gif</logo>
-  </organization>
-  <logo>/images/logo.gif</logo>
 
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly</package>
@@ -41,9 +34,6 @@
     </packageGroup>
   </packageGroups>
   <shortDescription>Commons Jelly</shortDescription>
-
-  <!-- Gump integration -->
-  <gumpRepositoryId>jakarta</gumpRepositoryId>
   
   <description>
     Jelly is a Java and XML based scripting engine. 
@@ -53,13 +43,6 @@
   
   <url>http://jakarta.apache.org/commons/jelly/</url>
   <issueTrackingUrl>http://jira.werken.com/BrowseProject.jspa?id=10012</issueTrackingUrl>
-  <siteAddress>jakarta.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/commons/jelly/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/</distributionDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/</url>
-  </repository>
   
   <versions>
     <version>
@@ -69,21 +52,6 @@
     </version>
   </versions>
   <branches></branches>
-  
-  <mailingLists>
-    <mailingList>
-      <name>Commons Dev List</name>
-      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
-    </mailingList>
-    <mailingList>
-      <name>Commons User List</name>
-      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
-    </mailingList>
-  </mailingLists>
   
   <developers>
     <developer>
@@ -122,6 +90,11 @@
       <name>Rodney Waldhoff</name>
       <id>rwaldhoff</id>
       <email>rwaldhoff@apache.org</email>
+    </developer>
+    <developer>
+      <name>Peter Royal</name>
+      <id>proyal</id>
+      <email>proyal@apache.org</email>
     </developer>
   </developers>
 
@@ -276,16 +249,16 @@
       <version>2.3</version>
     </dependency>
 
-		<!-- for command line interface support -->
+    <!-- for command line interface support -->
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
 
     <!-- this is brought in by the commons-cli dependency -->
     <dependency>
       <id>commons-lang</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
 
     <dependency>
@@ -302,23 +275,6 @@
   </dependencies>
   
   <build>
-    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
-    <sourceDirectory>src/java</sourceDirectory>
-    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <integrationUnitTestSourceDirectory/>
-    <aspectSourceDirectory/>
-
-    <!-- Resources that are packaged up inside the JAR file -->
-    <resources>      
-      <resource>      
-        <directory>src/java</directory>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-    </resources>
-    
-    
     <!-- Unit test classes -->
     <unitTest>
       <includes>
@@ -339,11 +295,5 @@
         </resource>
       </resources>
     </unitTest>
-
-    
-    <!-- Integration unit test classes -->
-
-    <integrationUnitTestPatterns></integrationUnitTestPatterns>
-
   </build>
 </project>
