@@ -68,6 +68,7 @@ import java.util.Set;
 
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.jelly.DynaBeanTagSupport;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
@@ -111,9 +112,15 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
         this.variableNameAttribute = variableNameAttribute;
     }
 
-    public void beforeSetAttributes() throws Exception {
+    public void beforeSetAttributes() throws JellyException {
         // create a new dynabean before the attributes are set
-        setDynaBean( beanClass.newInstance() );
+        try {
+            setDynaBean( beanClass.newInstance() );
+        } catch (IllegalAccessException e) {
+            throw new JellyException("Could not instantiate dynabean",e);
+        } catch (InstantiationException e) {
+            throw new JellyException("Could not instantiate dynabean",e);
+        }
 
         setAttributesSet.clear();                    
     }

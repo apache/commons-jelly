@@ -130,7 +130,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
     /**
      * Callback to allow processing to occur before the attributes are about to be set
      */
-    public void beforeSetAttributes() throws Exception {
+    public void beforeSetAttributes() throws JellyException {
     }
     
 }
