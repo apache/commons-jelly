@@ -74,7 +74,7 @@ public interface TaskSource {
     /** 
      * @return the task object which may be an Ant Task.
      */
-    public Object getTaskObject();
+    public Object getTaskObject() throws Exception;
     
     /**
      * @return a DynaBean wrapper around the Task object

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.4 2002/05/17 15:18:11 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.5 2002/06/14 10:24:14 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/14 10:24:14 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DynaTagScript.java,v 1.4 2002/05/17 15:18:11 jstrachan Exp $
+ * $Id: DynaTagScript.java,v 1.5 2002/06/14 10:24:14 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * <p><code>DynaTagScript</code> is a script evaluates a custom DynaTag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class DynaTagScript extends TagScript {
 
@@ -108,6 +108,8 @@ public class DynaTagScript extends TagScript {
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
+        tag.setContext(context);
+        
         DynaTag dynaTag = (DynaTag) tag;
         
         // ### probably compiling this to 2 arrays might be quicker and smaller
@@ -118,7 +120,6 @@ public class DynaTagScript extends TagScript {
             Object value = expression.evaluate(context);
             dynaTag.setAttribute(name, value);
         }
-        tag.setContext(context);
         tag.doTag(output);
     }
 }

@@ -61,6 +61,8 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
+import java.lang.reflect.Method;
+
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.DynaBean;
 
@@ -81,46 +83,74 @@ import org.apache.tools.ant.taskdefs.Echo;
  */
 public class TaskTag extends DynaBeanTagSupport implements TaskSource {
 
+    /** argumment types */
+    private static final Class[] addTaskParamTypes = { String.class };
+    
+    /** the type of the Ant task */
+    private Class taskType;
+
     /** the Ant task */
     private Task task;
+
+    /** the name of the Ant task */
+    private String taskName;
+
+    /** the current Ant project */
+    private Project project;
 
     public TaskTag() {
     }
 
-    public TaskTag(Task task) {
-        this.task = task;
-        setDynaBean( new ConvertingWrapDynaBean(task) );
+    public TaskTag(Project project, Class taskType, String taskName) {
+        this.project = project;
+        this.taskType = taskType;
+        this.taskName = taskName;
+    }
+    
+    /**
+     * Override this method as it is called before the tag is configured with its attributes.
+     * We will create a new task object and let the DynaBean configure it.
+     */ 
+    public void setContext(JellyContext context) throws Exception {
+        super.setContext(context);
+        task = null;
+        
+        // force task to be recreated
+        getTask();                
     }
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
+        Task task = getTask();                
+
+        String text = getBodyText();
+
+        // if the task has an addText()
+		try {
+			Method method = taskType.getMethod("addText", addTaskParamTypes);
+			if (method != null) {
+				Object[] args = { text };
+				method.invoke(task, args);
+			}
+		}
+        catch (NoSuchMethodException e) {
+            // this is hardly an exceptional case unfortunately
+            // the JDK should just return null!
+        }
         
-        task.init();
-
-        if ( "echo".equals( task.getTaskName() ) )
-        {
-            Echo echoTask = (Echo) task;
-
-            echoTask.addText( getBodyText() );
-            echoTask.perform();   
-            echoTask.setMessage( "" );
-        }
-        else
-        {
-            // run the body first to configure the task via nested
-            getBody().run(context, output);
-            task.perform();   
-        }
+        task.perform();   
     }
     
     // TaskSource interface
     //------------------------------------------------------------------------- 
-    public Object getTaskObject() {
-        return task;
+    public Object getTaskObject() throws Exception {
+        return getTask();
     }
 
-
+/*
+    This should not be required now... 
+    
     public void setAttribute(String name,
                              Object value)
     {
@@ -135,6 +165,7 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
         super.setAttribute( name,
                             newValue );
     }
+*/    
     
     // Properties
     //-------------------------------------------------------------------------                
@@ -142,7 +173,14 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
     /** 
      * @return the Ant task
      */
-    public Task getTask() {
+    public Task getTask() throws Exception {
+        if ( task == null ) {
+            task = (Task) taskType.newInstance();
+            task.setProject(project);
+            task.setTaskName(taskName);
+            task.init();
+            setDynaBean( new ConvertingWrapDynaBean(task) );
+        }
         return task;
     }
     

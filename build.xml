@@ -189,7 +189,7 @@
 	  <delete file="velocity.log"/>
 	</target>
 	
-	<target name="compile" depends="maven:compile, maven:jar-resources">
+	<target name="compile" depends="maven:compile">
 
 	  <path id="test.classpath">
 	    <pathelement path="${maven.build.dest}"/>

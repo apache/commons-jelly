@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.6 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.7 2002/06/14 10:24:14 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/14 10:24:14 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Tag.java,v 1.6 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: Tag.java,v 1.7 2002/06/14 10:24:14 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -65,7 +65,7 @@ package org.apache.commons.jelly;
 /** <p><code>Tag</code> represents a Jelly custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 
 public interface Tag {
@@ -87,7 +87,7 @@ public interface Tag {
     public JellyContext getContext();
 
     /** Sets the context in which the tag will be run */
-    public void setContext(JellyContext context);
+    public void setContext(JellyContext context) throws Exception;
 
     /** Evaluates this tag after all the tags properties have been initialized.
      */

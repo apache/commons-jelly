@@ -5,6 +5,10 @@
   <!-- this example attempts to invoke some Ant tasks -->
   <echo message="Invoking the echo task from inside Jelly; the Maven repository is ${lib.repo}"/>          
 
+  <echo>
+  	Maven home is ${maven.home}
+  </echo>
+
   <!-- lets try invoke a program -->
   <java classname="org.apache.commons.jelly.Jelly" fork="yes">
     <classpath refid="test.classpath"/>
