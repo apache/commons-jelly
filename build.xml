@@ -199,6 +199,8 @@
       </taskdef>    
     </target>	
 
+	<target name="dist" depends="maven:dist"/>
+	
 <!-- ========== Sample Program Targets ==================================== -->
 
    <target name="demo.hw" depends="compile" 
