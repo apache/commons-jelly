@@ -15,12 +15,14 @@
  */
 package org.apache.commons.jelly.tags.swt;
 
+import java.io.InputStream;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Decorations;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Widget;
@@ -29,16 +31,50 @@ import org.eclipse.swt.widgets.Widget;
  * This creates an image on the parent Widget.
  *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
- * @version 
+ * @version CVS ImageTag.java,v 1.5 2004/09/07 02:41:40 dion Exp
  */
 public class ImageTag extends TagSupport {
 
     /** path to file */
     private String src;
 
-    public ImageTag() {
+    /** variable name, if specified */
+    private String var;
+
+    /** resource name, if specified */
+    private String resource;
+
+    /**
+     * Sets the resource
+     * @param resource image resource location
+     */
+    public void setResource(String resource) {
+       this.resource = resource;
     }
 
+    /**
+     * Obtains the resource
+     * @return the image resource
+     */
+    public String getResource() {
+        return resource;
+    }
+	
+    /**
+     * Sets the variable name
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    /**
+     * Obtain the variable name.
+     * @return String the variable name
+     */
+    public String getVar() {
+      return this.var;
+    }
+	
     /**
      * Sets the src.
      * @param src The src to set
@@ -82,10 +118,40 @@ public class ImageTag extends TagSupport {
             throw new JellyTagException("This tag must be nested within a Widget or a Window");
         }
 
-        Image image = new Image(parent.getDisplay(), getSrc());
+        Image image = null;
+
+        if (getSrc() != null) {
+           image = loadLocalImage(parent.getDisplay());
+        } else if (getResource() != null) {
+           image = loadResourceImage(parent.getDisplay());
+        } else {
+            throw new JellyTagException("Either an image location or a resource must be specified");
+        }
+									     
         setWidgetImage(parent, image);
+	    
+        // store the image as a context variable if specified
+        if (var != null) {
+            context.setVariable(var, image);
+        }
     }
 
+    /**
+     * Creates an Image, loaded from the local disk
+     */
+    private Image loadLocalImage(Display display) {
+        return new Image(display, getSrc());
+    }
+
+    /**
+     * Creates an Image, loaded from a specified resource.
+     */
+    private Image loadResourceImage(Display display) {
+        InputStream stream =
+            getClass().getClassLoader().getResourceAsStream(getResource());
+        return new Image(display, stream);
+    }
+	
     /**
      * Add image to a widget
      * @param parent
@@ -110,7 +176,7 @@ public class ImageTag extends TagSupport {
             item.setImage(image);
 
         } else {
-            throw new JellyTagException("This tag must be nested inside a <label>, <button> or <item> tag");
+            throw new JellyTagException("This tag must be nested inside a <label>, <button>, <shell> or <item> tag");
         }
     }
 }
