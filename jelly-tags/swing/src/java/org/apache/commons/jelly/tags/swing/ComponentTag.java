@@ -71,6 +71,8 @@ import java.awt.Point;
 import java.awt.Color;
 import java.awt.Window;
 import java.awt.event.WindowListener;
+import java.awt.event.KeyListener;
+import java.awt.event.FocusListener;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.Map;
@@ -206,6 +208,22 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             Window window = (Window) component;
             window.addWindowListener(listener);
         }
+    }
+    
+    /**
+     * Adds a FocusListener to this component
+     */
+    public void addFocusListener(FocusListener listener) {
+        Component component = getComponent();
+        component.addFocusListener(listener);    
+    }
+    
+    /**
+     * Adds a KeyListener to this component
+     */
+    public void addKeyListener(KeyListener listener) {
+        Component component = getComponent();
+        component.addKeyListener(listener);
     }
 
     // Properties

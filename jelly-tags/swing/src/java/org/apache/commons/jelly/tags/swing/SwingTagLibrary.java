@@ -114,8 +114,9 @@ public class SwingTagLibrary extends TagLibrary {
         registerTag( "action", ActionTag.class );
         registerTag( "font", FontTag.class );
         registerTag( "windowListener", WindowListenerTag.class );
-
-        
+        registerTag( "focusListener", FocusListenerTag.class );
+        registerTag( "keyListener", KeyListenerTag.class );
+                
         // the model tags
         registerTag( "tableModel", TableModelTag.class );
         registerTag( "tableModelColumn", TableModelColumnTag.class );

@@ -1,4 +1,4 @@
-<project default="java:jar" xmlns:j="jelly:core">
+<project default="jar:jar" xmlns:j="jelly:core">
 
   <!-- define the classpath used to run examples -->
   <goal name="create-classpath" prereqs="java:compile, test:compile">
