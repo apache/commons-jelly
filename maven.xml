@@ -195,11 +195,11 @@
       banner="Generating site for"
       ignoreFailures="false"
     />-->
-		<!-- PL: instead... invoke maven from the command-line directly for
-			each directory in jelly-tags. -->
-		<attainGoal name="tags:build-site-individually"/>
-		
-		<!-- then copy all the results to docs/libs -->
+    <!-- PL: instead... invoke maven from the command-line directly for
+     each directory in jelly-tags. -->
+    <attainGoal name="tags:build-site-individually"/>
+        
+    <!-- then copy all the results to docs/libs -->
     <j:if test="${context.getVariable('maven.docs.dest') == null}">
       <j:set var="maven.docs.dest" value="target/docs"/>
     </j:if>
@@ -224,49 +224,49 @@
     
   </preGoal>
 
-	<goal name="tags:build-site-individually">
+  <goal name="tags:build-site-individually">
 
     <fileScanner var="taglibProjects">
       <fileset dir="${basedir}">
         <include name="jelly-tags/*/project.xml" />
       </fileset>
     </fileScanner>
-			
-		<property name="mavenCmd" value="maven"/>
-		
+            
+   <property name="mavenCmd" value="maven"/>
+        
     <j:forEach items="${taglibProjects.iterator()}" var="taglib">
       <j:set var="tlName" value="${taglib.parentFile.name}" />
-			<echo>Processing tablib ${tlName}.</echo>
-			<j:set var="dir" value="${basedir}/jelly-tags/${tlName}"/>
-			<uptodate property="siteIsBuilt">
-				<srcfiles dir="${dir}" excludes="target/**/*"/>
-				<mapper type="merge" to="${dir}/target/docs/index.html"/>
-				</uptodate>
-		  <echo>Tag-library ${tlname}'s site is up-to-date ? "${siteIsBuilt}"</echo>
-			<j:if test="${!siteIsBuilt}">
-				<echo>Building tag-library ${tlname}'s site.</echo>
-				<echo>Outputting navigation to ${dir}/target/generated-xdocs/navigation.xml.</echo>
-				<mkdir dir="${dir}/target/generated-xdocs"/>
-					<copy file="${basedir}/jelly-tags/tag-navigation.xml" tofile="${dir}/target/generated-xdocs/navigation.xml"
-							overwrite="true">
-						<filterchain> 
-							<replacetokens><token key="pom.name" value="jelly-${tlName}"/></replacetokens>
-							</filterchain>
-					  </copy>
+            <echo>Processing tablib ${tlName}.</echo>
+            <j:set var="dir" value="${basedir}/jelly-tags/${tlName}"/>
+            <uptodate property="siteIsBuilt">
+                <srcfiles dir="${dir}" excludes="target/**/*"/>
+                <mapper type="merge" to="${dir}/target/docs/index.html"/>
+                </uptodate>
+          <echo>Tag-library ${tlname}'s site is up-to-date ? "${siteIsBuilt}"</echo>
+            <j:if test="${!siteIsBuilt}">
+                <echo>Building tag-library ${tlname}'s site.</echo>
+                <echo>Outputting navigation to ${dir}/target/generated-xdocs/navigation.xml.</echo>
+                <mkdir dir="${dir}/target/generated-xdocs"/>
+                    <copy file="${basedir}/jelly-tags/tag-navigation.xml" tofile="${dir}/target/generated-xdocs/navigation.xml"
+                            overwrite="true">
+                        <filterchain> 
+                            <replacetokens><token key="pom.name" value="jelly-${tlName}"/></replacetokens>
+                            </filterchain>
+                      </copy>
 
-					<exec executable="${mavenCmd}"
-						failonerror="true" dir="${dir}">
-					<arg value="jellydoc"/>
-					<arg value="site"/>
-					<arg value="-Dmaven.xdoc.developmentProcessUrl=http://jakarta.apache.org/commons/charter.html"/>
-					<arg value="-Dmaven.xdoc.poweredby.image=maven-feather.png"/>
-					<arg value="-Dmaven.xdoc.date=left"/>
-					<arg value="-Dmaven.license.licenseFile=${basedir}/LICENSE.txt"/>
-					</exec>
-				</j:if>
-			</j:forEach>
-		
-			</goal>
+                    <exec executable="${mavenCmd}"
+                        failonerror="true" dir="${dir}">
+                    <arg value="jellydoc"/>
+                    <arg value="site"/>
+                    <arg value="-Dmaven.xdoc.developmentProcessUrl=http://jakarta.apache.org/commons/charter.html"/>
+                    <arg value="-Dmaven.xdoc.poweredby.image=maven-feather.png"/>
+                    <arg value="-Dmaven.xdoc.date=left"/>
+                    <arg value="-Dmaven.license.licenseFile=${basedir}/LICENSE.txt"/>
+                    </exec>
+                </j:if>
+            </j:forEach>
+        
+            </goal>
 
 
   <!-- demo programs -->
@@ -330,93 +330,96 @@
       <path refid="maven.dependency.classpath"/>
     </path>
   </goal>
-	
-	
-	
-	<goal name="pack-fat-jar" prereqs=""
-			description="Creates a jar with all the dependencies of jelly and the taglibs indicated in ${tagLibs}.">
-	<!-- variables: 
-		- tagLibs: a comma-separated list of taglib-names (without the "jelly:")
-		- doBuildAll: a boolean that says wether we invoke build (of jelly, and the taglibs)
-		   When true, invokes jar:install-snapshot on jelly and each taglib included
-		- fatJarName: the location of the fat-jar collected
-	  -->
-	<!-- this goal isn't really much tested yet but could be the key
-		to get a better packaging -->
-		
-		<property name="tagLibs" value="ant,bean,beanshell,betwixt,define,dynabean,fmt,html,http,interaction,junit,jsl,log,swing,threads,util,validate,velocity,xml,xmlunit"/>
-			<!-- arbitrary set of taglibs with dependencies that should have no problems -->
-		<property name="doBuildAll" value="false"/>
-		<property name="fatJarPath" value="${maven.build.dir}/fatjelly.jar"/>
-		<property name="classpathFile" value="${maven.build.dir}/classpath-with-deps.txt"/>
-		
-		<!-- if we need to build, we need to build first jelly -->
-		<j:if test="${doBuildAll}"><attainGoal name="jar:install-snapshot"/></j:if>
-    <j:new var="jellyTaglibNames" className="java.util.HashSet"/>
-    <j:set var="taglibs_projects" value=""/>
-		<util:tokenize delim="," var="tagLibnames">${tagLibs}</util:tokenize>
-    <j:forEach var="tlName" items="${tagLibnames}">
-      <echo>Considering taglib tlName "${tlName}".</echo>
-      <j:if test="${'core' ne tlName}">
-        <j:if test="${taglibs_projects.length() > 0}"><j:set var="taglibs_projects" trim="false">${taglibs_projects},</j:set></j:if>
-        <j:set var="taglibs_projects">${taglibs_projects}jelly-tags/${tlName}/project.xml</j:set>
+    
+    
+    
+    <goal name="pack-fat-jar" prereqs=""
+            description="Creates a jar with all the dependencies of jelly and the taglibs indicated in ${tagLibs}.">
+      <!-- variables: 
+        - tagLibs: a comma-separated list of taglib-names (without the "jelly:")
+        - doBuildAll: a boolean that says wether we invoke build (of jelly, and the taglibs)
+           When true, invokes jar:install-snapshot on jelly and each taglib included
+        - fatJarName: the location of the fat-jar collected
+        -->
+      <!-- this goal isn't really much tested yet but could be the key
+        to get a better packaging -->
+        
+      <property name="tagLibs" value="ant,bean,beanshell,betwixt,define,dynabean,fmt,html,http,interaction,junit,jsl,log,swing,threads,util,validate,velocity,xml,xmlunit"/>
+      <!-- arbitrary set of taglibs with dependencies that should have no problems -->
+      <property name="doBuildAll" value="false"/>
+      <property name="fatJarPath" value="${maven.build.dir}/fatjelly.jar"/>
+      <property name="classpathFile" value="${maven.build.dir}/classpath-with-deps.txt"/>
+        
+      <!-- if we need to build, we need to build first jelly -->
+      <j:if test="${doBuildAll}"><attainGoal name="jar:install-snapshot"/></j:if>
+      <j:new var="jellyTaglibNames" className="java.util.HashSet"/>
+      <j:set var="taglibs_projects" value=""/>
+      <util:tokenize delim="," var="tagLibnames">${tagLibs}</util:tokenize>
+      <j:forEach var="tlName" items="${tagLibnames}">
+        <echo>Considering taglib tlName "${tlName}".</echo>
+        <j:if test="${'core' ne tlName}">
+          <j:if test="${taglibs_projects.length() > 0}"><j:set var="taglibs_projects" trim="false">${taglibs_projects},</j:set></j:if>
+          <j:set var="taglibs_projects">${taglibs_projects}jelly-tags/${tlName}/project.xml</j:set>
           ${jellyTaglibNames.add(tlName)}
         </j:if>
       </j:forEach> 
     
       <!-- collect all dependencies in a set -->
-     <j:new var="deps" className="java.util.HashSet"/>
+      <j:new var="deps" className="java.util.HashSet"/>
 
-		<j:choose>
-			<j:when test="${doBuildAll}">
-				<maven:reactor basedir="." postProcessing="true" goals="jar:install-snapshot"
-					includes="${taglibs_projects}" ignoreFailures="false"/>
-				</j:when>
-			<j:otherwise>
-				<maven:reactor basedir="." postProcessing="true"
-					includes="${taglibs_projects}" ignoreFailures="false"/>
-				</j:otherwise>
-			</j:choose>
-		
-		<j:forEach var="reactorProject" items="${reactorProjects}">
-      <j:forEach var="dep" items="${reactorProject.dependencies}">${deps.add(dep)}</j:forEach>
-    </j:forEach>
-    <j:forEach var="tl" items="${jellyTaglibNames}">
-      <j:new var="tlD" className="org.apache.maven.project.Dependency"/>
+      <j:choose>
+        <j:when test="${doBuildAll}">
+          <maven:reactor basedir="." 
+                         banner
+                         postProcessing="true"
+                         goals="jar:install-snapshot"
+                         includes="${taglibs_projects}" 
+                         ignoreFailures="false"/>
+        </j:when>
+        <j:otherwise>
+              <maven:reactor basedir="." postProcessing="true"
+                  includes="${taglibs_projects}" ignoreFailures="false"/>
+        </j:otherwise>
+      </j:choose>
+        
+      <j:forEach var="reactorProject" items="${reactorProjects}">
+        <j:forEach var="dep" items="${reactorProject.dependencies}">${deps.add(dep)}</j:forEach>
+      </j:forEach>
+      <j:forEach var="tl" items="${jellyTaglibNames}">
+        <j:new var="tlD" className="org.apache.maven.project.Dependency"/>
         ${tlD.setGroupId("commons-jelly")}
         <j:set var="artId" value="commons-jelly-tags-${tl}"/>
         ${tlD.setArtifactId(artId)}
         ${tlD.setType("jar")}
         ${tlD.setVersion("SNAPSHOT")}
-      ${deps.add(tlD)}
+        ${deps.add(tlD)}
       </j:forEach>
   
-    <!-- <maven:reactor
-        basedir="."
-        postProcessing="true"
-        includes="project.xml"
-        ignoreFailures="false">
-        </maven:reactor>
-    <j:forEach var="reactorProject" items="${reactorProjects}">
-      <j:forEach var="dep" items="${reactorProject.dependencies}">${deps.add(dep)}</j:forEach>
-    </j:forEach> -->
+      <!-- <maven:reactor
+           basedir="."
+           postProcessing="true"
+           includes="project.xml"
+           ignoreFailures="false">
+           </maven:reactor>
+        <j:forEach var="reactorProject" items="${reactorProjects}">
+          <j:forEach var="dep" items="${reactorProject.dependencies}">${deps.add(dep)}</j:forEach>
+        </j:forEach> -->
 
 
-		<j:if test="${'' ne classpathFile}">    
-    <j:file name="${classpathFile}" omitXmlDeclaration="true"><j:forEach items="${deps}" trim="true" var="dep">${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifactId}-${dep.version}.${dep.type}${path.separator}</j:forEach></j:file>
-		</j:if>
+      <j:if test="${'' ne classpathFile}">    
+        <j:file name="${classpathFile}" omitXmlDeclaration="true"><j:forEach items="${deps}" trim="true" var="dep">${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifactId}-${dep.version}.${dep.type}${path.separator}</j:forEach></j:file>
+      </j:if>
     
-    <!-- merging it all -->
-		<j:if test="${'' ne fatJarPath}">
-			<jar destfile="${fatJarPath}" update="yes">
-				<manifest>
-					<attribute name="Main-Class" value="org.apache.commons.jelly.Jelly"/></manifest>
-				<j:forEach var="dep" items="${deps}">
-					<zipfileset src="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}" />
-					<echo>Adding jar ${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}.</echo>
-					</j:forEach>
-				</jar>
-			</j:if>
-			
-		</goal>
+      <!-- merging it all -->
+      <j:if test="${'' ne fatJarPath}">
+        <jar destfile="${fatJarPath}" update="yes">
+          <manifest><attribute name="Main-Class" value="org.apache.commons.jelly.Jelly"/></manifest>
+          <j:forEach var="dep" items="${deps}">
+            <zipfileset src="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}" />
+            <echo>Adding jar ${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}.</echo>
+          </j:forEach>
+        </jar>
+      </j:if>
+            
+    </goal>
 </project>
