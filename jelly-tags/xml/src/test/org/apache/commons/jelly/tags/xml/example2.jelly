@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+ ! FIXME: Move this to xml taglib
+ !-->
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+
+  <x:parse var="doc">
+    <web-app>
+      <servlet>
+        <servlet-name>snoop</servlet-name>
+        <servlet-class>SnoopServlet</servlet-class>
+      </servlet>
+      <servlet>
+        <servlet-name>file</servlet-name>
+        <servlet-class>ViewFile</servlet-class>
+        <init-param>
+          <param-name>initial</param-name>
+          <param-value>1000</param-value>
+          <description>
+            The initial value for the counter  <!-- optional -->
+          </description>
+        </init-param>
+      </servlet>
+      <servlet-mapping>
+        <servlet-name>snoop</servlet-name>
+        <url-pattern>/foo/snoop</url-pattern>
+      </servlet-mapping>
+    </web-app>
+  </x:parse>
+
+  <x:set var="count" select="count($doc//servlet)"/>
+  <x:forEach var="s" select="$doc//servlet">
+    name: <x:expr select="$s/servlet-name"/>
+    class: <x:expr select="$s/servlet-class"/>
+  </x:forEach>
+
+  There are <x:expr select="$count"/> servlet(s)
+
+</j:jelly>
+
+
+
