@@ -82,6 +82,7 @@ public abstract class JSLTagSupport extends XPathTagSupport {
         StylesheetTag tag  = (StylesheetTag) findAncestorWithClass( 
             this, StylesheetTag.class 
         );
+
         if ( tag != null ) {
             return tag.getStylesheet();
         }

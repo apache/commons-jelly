@@ -21,7 +21,7 @@
 <h1>Output</h1>
 
 
-<jsl:stylesheet source="${doc}">
+<jsl:stylesheet select="$doc">
 
   <jsl:template match="/">
     <jsl:applyTemplates/>

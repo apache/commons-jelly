@@ -231,6 +231,7 @@
 	
    <target name="doc-tags" depends="compile" 
       description="Generates the tag documentation">
+    <mkdir dir="target/generated-xdocs"/>
 	<jelly file="src/script/makeTagDoc.jelly" output="target/generated-xdocs/tags.xml"/> 
    </target>
 <!-- ========== Specific Test cases ======================================= -->

@@ -1,13 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/SetTag.java,v 1.8 2002/06/18 12:30:10 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/18 12:30:10 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +26,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,72 +53,90 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: SetTag.java,v 1.8 2002/06/18 12:30:10 jstrachan Exp $
+ *
  */
-package org.apache.commons.jelly.tags.xml;
-
-import java.io.Writer;
+package org.apache.commons.jelly.tags.jsl;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.xml.XPathTagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.dom4j.rule.Stylesheet;
+
 import org.jaxen.XPath;
 
-/** A tag which defines a variable from an XPath expression 
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
-  */
-public class SetTag extends XPathTagSupport {
+/** 
+ * This tag performs a JSL stylesheet which was previously
+ * created via an &lt;stylesheet&gt; tag.
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.8 $
+ */
+public class StyleTag extends XPathTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(SetTag.class);
+    private Log log = LogFactory.getLog(StyleTag.class);
+
     
-    /** The variable name to export. */
-    private String var;
+    /** Holds the stylesheet which will be applied to the source context. */
+    private Stylesheet stylesheet;
     
     /** The XPath expression to evaluate. */    
     private XPath select;
     
-    public SetTag() {
+    public StyleTag() {
     }
+        
+	// Tag interface
+	//-------------------------------------------------------------------------                    
+	public void doTag(XMLOutput output) throws Exception {
+		Stylesheet stylesheet = getStylesheet();
+		if (stylesheet == null) {
+			throw new MissingAttributeException("stylesheet");
+		}
+        
+        Object source = getSource();            
+		if (log.isDebugEnabled()) {
+			log.debug("About to evaluate stylesheet on source: " + source);
+		}
+
+		stylesheet.run(source);
+	}
     
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        if (var == null) {
-            throw new MissingAttributeException( "var" );
-        }
-        if (select == null) {
-            throw new MissingAttributeException( "select" );
-        }
-        
-        Object xpathContext = getXPathContext();        
-        Object value = select.evaluate(xpathContext);
-        
-        //log.info( "Evaluated xpath: " + select + " as: " + value + " of type: " + value.getClass().getName() );
-        
-        context.setVariable(var, value);
-    }
     
     // Properties
     //-------------------------------------------------------------------------                
     
-    /** Sets the variable name to define for this expression
-     */
-    public void setVar(String var) {
-        this.var = var;
+    public Stylesheet getStylesheet() {
+        return stylesheet;
     }
+
+    /**
+     * Sets the stylesheet to use to style this tags body
+     */
+    public void setStylesheet(Stylesheet stylesheet) {
+        this.stylesheet = stylesheet;
+    }    
     
     /** Sets the XPath expression to evaluate. */
     public void setSelect(XPath select) {
         this.select = select;
     }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+
+    /** @return the source on which the stylesheet should run
+     */
+    protected Object getSource() throws Exception {
+        Object source = getXPathContext();
+        if ( select != null ) {
+            return select.evaluate(source);
+        }
+        return source;
+    }    
 }

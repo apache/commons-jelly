@@ -1,8 +1,27 @@
 <?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+<j:jelly 
+	xmlns:j="jelly:core" 
+	xmlns:x="jelly:xml" 
+	xmlns:jsl="jelly:jsl" 
+	xmlns:log="jelly:log">
 
 <x:parse var="doc" xml="target/javadoc.xml"/>
 <x:set var="packages" select="$doc/javadoc/package[class/implements/interfaceref/@name = 'org.apache.commons.jelly.Tag']"/>    	
+
+<!-- lets create a JSL stylesheet that we'll use later -->
+<jsl:stylesheet var="docStylesheet">
+
+  <!-- don't output <doc> element but output its contents -->
+  <jsl:template match="doc">
+  	<jsl:applyTemplates/>	
+  </jsl:template>
+
+  <!-- ignore javadoc tags-->
+  <jsl:template match="authortag"/>
+  <jsl:template match="versiontag"/>
+
+  <!-- let other text and elements pass through via default rules-->
+</jsl:stylesheet>
 
 <document>
 
@@ -39,10 +58,8 @@
     <x:set var="name" select="string(@name)"/>
     <tr>
       <td><a href="#${name}">${name}</a></td>
-      	
-	  <!-- #### should use <x:copyOf> -->      		
       <td>
-      	<x:copyOf select="doc/*|doc/text()"/>
+      	  <jsl:style stylesheet="${docStylesheet}" select="doc"/>
 	  </td>
     </tr>
     </x:forEach>
@@ -59,14 +76,12 @@
       <th>Description</th>
     </tr>
     
-    <x:forEach select="class[@extensiblity!='abstract' and implements/interfaceref/@name = 'org.apache.commons.jelly.Tag']">
+    <x:forEach select="class[@extensibility!='abstract' and implements/interfaceref/@name = 'org.apache.commons.jelly.Tag']">
     <x:set var="tagName" select="string(@name)"/>
 	<tr>
     	<td><a href="#${tagName}">${tagName}</a></td>
-        <td>
-        
-	  	  <!-- #### should use <x:copyOf> -->      		
-      	  <x:copyOf select="doc/*|doc/text()"/>
+        <td>        
+      	  <jsl:style stylesheet="${docStylesheet}" select="doc"/>
 		</td>
 	</tr>
     </x:forEach>

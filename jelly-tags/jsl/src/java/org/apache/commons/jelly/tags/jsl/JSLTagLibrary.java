@@ -97,6 +97,7 @@ public class JSLTagLibrary extends XMLTagLibrary {
     
     public JSLTagLibrary() {
         registerTag("stylesheet", StylesheetTag.class);
+        registerTag("style", StyleTag.class);
         registerTag("template", TemplateTag.class);
         registerTag("applyTemplates", ApplyTemplatesTag.class);
         registerTag("valueOf", ExprTag.class);

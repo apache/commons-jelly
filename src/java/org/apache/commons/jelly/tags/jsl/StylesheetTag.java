@@ -60,6 +60,7 @@ package org.apache.commons.jelly.tags.jsl;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.xml.XPathTagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -69,21 +70,24 @@ import org.dom4j.rule.Action;
 import org.dom4j.rule.Rule;
 import org.dom4j.rule.Stylesheet;
 
+import org.jaxen.XPath;
+
+
 /** 
  * This tag implements a JSL stylesheet which is similar to an 
- * XSLT stylesheet but can use Jelly tags inside it. a JSP include.
+ * XSLT stylesheet but can use Jelly tags inside it
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class StylesheetTag extends JSLTagSupport {
+public class StylesheetTag extends XPathTagSupport {
 
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(StylesheetTag.class);
 
     
     /** Holds the stylesheet which will be applied to the source context. */
-    private Stylesheet stylesheet = new Stylesheet();
+    private Stylesheet stylesheet;
     
     /** Holds value of property mode. */
     private String mode;    
@@ -91,61 +95,50 @@ public class StylesheetTag extends JSLTagSupport {
     /** store the current output instance for use by inner classes */
     private XMLOutput output;
 
-    /** the source on which the stylesheet will operate */
-    private Object source;
-    
     /** The variable which the stylesheet will be output as */
     private String var;
         
+    /** The XPath expression to evaluate. */    
+    private XPath select;
+    
     public StylesheetTag() {
-        // add default actions
-        stylesheet.setValueOfAction( 
-            new Action() {
-                public void run(Node node) throws Exception {
-                    String text = node.getStringValue();
-                    if ( text != null && text.length() > 0 ) {
-                        output.write( text );
-                    }
-                }
-            }
-        );                    
-        
     }
         
-
 
     /** 
      * Adds a new template rule to this stylesheet
      */    
     public void addTemplate( Rule rule ) {
-        stylesheet.addRule( rule );
+        getStylesheet().addRule( rule );
     }
     
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
-        // for use by inner classes
-        this.output = output;
-        
-        try {        
-            // run the body to add the rules
-            getBody().run(context, output);
-            
-            if ( log.isDebugEnabled() ) {
-                log.debug( "About to evaluate stylesheet on source: " + source );
-            }
-            
-            stylesheet.setModeName( getMode() );
-            stylesheet.run( source );
-        }
-        finally {
-            
-            // help the GC
-            this.output = null;
-            stylesheet.clear();        
-        }
-    }
+	public void doTag(XMLOutput output) throws Exception {
+		// for use by inner classes
+		this.output = output;
+
+		Stylesheet stylesheet = getStylesheet();
+		stylesheet.clear();
+
+		// run the body to add the rules
+		getBody().run(context, output);
+		stylesheet.setModeName(getMode());
+
+		if (var != null) {
+			context.setVariable(var, stylesheet);
+		} 
+        else {
+			Object source = getSource();
+
+			if (log.isDebugEnabled()) {
+				log.debug("About to evaluate stylesheet on source: " + source);
+			}
+
+			stylesheet.run(source);
+		}
+	}
     
     
     // Properties
@@ -167,13 +160,57 @@ public class StylesheetTag extends JSLTagSupport {
         this.mode = mode;
     }   
 
-    /** Sets the source on which the stylesheet will run
-     */
-    public void setSource(Object source) {
-        this.source = source;
-    }    
-    
     public Stylesheet getStylesheet() {
+        if ( stylesheet == null ) {
+            stylesheet = createStylesheet();
+        }
         return stylesheet;
     }
+    
+    /** Sets the variable name to define for this expression
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+    
+    /** Sets the XPath expression to evaluate. */
+    public void setSelect(XPath select) {
+        this.select = select;
+    }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+
+    /** @return the source on which the stylesheet should run
+     */
+    protected Object getSource() throws Exception {
+        Object source = getXPathContext();
+        if ( select != null ) {
+            return select.evaluate(source);
+        }
+        return source;
+    }    
+    
+    
+    /**
+     * Factory method to create a new stylesheet 
+     */
+    protected Stylesheet createStylesheet() {
+        // add default actions
+        Stylesheet answer = new Stylesheet();
+        answer.setValueOfAction( 
+            new Action() {
+                public void run(Node node) throws Exception {                    
+                    String text = node.getStringValue();
+                    if ( text != null && text.length() > 0 ) {
+                        // #### should use an 'output' property
+                        // when this variable gets reused
+                        output.write( text );
+                    }
+                }
+            }
+        );                    
+        return answer;
+    }
+        
 }
