@@ -69,7 +69,7 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
 /**
- * A tag that replaces occurrences of strings in its body (or value)
+ * A tag that replaces occurrences of a character in its body (or value)
  * and places the result into the context
  * 
  * @author dion
