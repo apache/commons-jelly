@@ -118,7 +118,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
         for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
             String name = (String) i.next();
             Object value = this.context.getVariable(name);
-            if (value != null) {
+            if (name != null && value != null) {
                 h.put(name, value.toString());
             }
         }
