@@ -110,7 +110,7 @@ public class TdTag extends TagSupport implements ContainerTag {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
     }
     

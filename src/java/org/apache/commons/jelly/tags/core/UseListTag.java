@@ -61,7 +61,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.impl.CollectionTag;
@@ -96,7 +95,7 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     
     // DynaTag interface
     //-------------------------------------------------------------------------                    
-    public Class getAttributeType(String name) throws JellyException {
+    public Class getAttributeType(String name) throws JellyTagException {
         if (name.equals("items")) {
             return Expression.class;
         }

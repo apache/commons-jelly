@@ -64,6 +64,7 @@ package org.apache.commons.jelly.tags.swing;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -97,7 +98,7 @@ public class WindowListenerTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         // now lets add this action to its parent if we have one
         ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );

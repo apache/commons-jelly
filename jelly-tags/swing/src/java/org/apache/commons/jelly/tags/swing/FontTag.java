@@ -64,7 +64,7 @@ package org.apache.commons.jelly.tags.swing;
 import java.awt.Font;
 import java.util.Map;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -104,7 +104,7 @@ public class FontTag extends MapTagSupport {
     }
 */    
     
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
         String var = (String) attributes.remove("var");
         
@@ -120,7 +120,7 @@ public class FontTag extends MapTagSupport {
                 tag.setFont(font);
             }
             else {
-                throw new JellyException( "this tag must be nested within a JellySwing widget tag or the 'var' attribute must be specified" );
+                throw new JellyTagException( "this tag must be nested within a JellySwing widget tag or the 'var' attribute must be specified" );
             }
         }
     }

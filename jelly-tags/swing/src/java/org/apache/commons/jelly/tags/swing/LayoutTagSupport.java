@@ -97,7 +97,7 @@ public abstract class LayoutTagSupport extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         LayoutManager layout = createLayoutManager();
 
@@ -141,5 +141,5 @@ public abstract class LayoutTagSupport extends TagSupport {
     /**
      * Factory method to create a new LayoutManager instance.
      */
-    protected abstract LayoutManager createLayoutManager() throws Exception;   
+    protected abstract LayoutManager createLayoutManager();   
 }

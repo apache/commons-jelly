@@ -123,7 +123,7 @@ public class BorderLayoutTag extends LayoutTagSupport {
     /**
      * Creates a BorderLayout
      */
-    protected LayoutManager createLayoutManager() throws Exception {
+    protected LayoutManager createLayoutManager() {
         return new BorderLayout(hgap, vgap);        
     }
 }

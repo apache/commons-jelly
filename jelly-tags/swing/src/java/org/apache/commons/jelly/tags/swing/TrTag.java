@@ -104,7 +104,7 @@ public class TrTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         tableLayoutTag = (TableLayoutTag) findAncestorWithClass( TableLayoutTag.class );
         if (tableLayoutTag == null) {
             throw new JellyTagException( "this tag must be nested within a <tableLayout> tag" );

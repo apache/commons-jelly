@@ -68,6 +68,7 @@ import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -96,7 +97,7 @@ public class TitledBorderTag extends BorderTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( title == null) {
             throw new MissingAttributeException("title");
         }
@@ -151,7 +152,7 @@ public class TitledBorderTag extends BorderTagSupport {
     /**
      * Factory method to create a new Border instance.
      */
-    protected Border createBorder() throws Exception {
+    protected Border createBorder() {
         if (border != null) {
             if (titleJustification != null && titlePosition != null) {
                 int justification = asTitleJustification(titleJustification);

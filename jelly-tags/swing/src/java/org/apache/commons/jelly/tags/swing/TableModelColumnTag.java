@@ -61,7 +61,6 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
@@ -79,7 +78,7 @@ public class TableModelColumnTag extends UseBeanTag {
         return (ExpressionTableColumn) getBean();
     }    
         
-    public Class getAttributeType(String name) throws JellyException {
+    public Class getAttributeType(String name) throws JellyTagException {
         if (name.equals("value")) {
             return Expression.class;
         }

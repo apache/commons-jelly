@@ -103,7 +103,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
      * @return the type of the given attribute. By default just return
      * Object.class if this is not known.
      */
-    public Class getAttributeType(String name) throws JellyException {
+    public Class getAttributeType(String name) throws JellyTagException {
         DynaProperty property = getDynaBean().getDynaClass().getDynaProperty(name);
         if (property != null) {
             return property.getType();

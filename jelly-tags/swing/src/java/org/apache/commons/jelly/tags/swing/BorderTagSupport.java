@@ -63,7 +63,7 @@ package org.apache.commons.jelly.tags.swing;
 
 import javax.swing.border.Border;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -88,7 +88,7 @@ public abstract class BorderTagSupport extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         Border border = createBorder();
 
@@ -104,7 +104,7 @@ public abstract class BorderTagSupport extends TagSupport {
         }
         else {
             if (var == null) {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
+                throw new JellyTagException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
             }
         }
     }
@@ -128,5 +128,5 @@ public abstract class BorderTagSupport extends TagSupport {
     /**
      * Factory method to create a new Border instance.
      */
-    protected abstract Border createBorder() throws Exception;   
+    protected abstract Border createBorder();   
 }

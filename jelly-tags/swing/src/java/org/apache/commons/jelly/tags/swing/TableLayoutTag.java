@@ -64,6 +64,7 @@ package org.apache.commons.jelly.tags.swing;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.swing.impl.Cell;
 import org.apache.commons.logging.Log;
@@ -88,7 +89,7 @@ public class TableLayoutTag extends LayoutTagSupport {
     /**
      * Adds a new cell to the current grid
      */
-    public void addCell(Cell cell) throws Exception {
+    public void addCell(Cell cell) throws JellyTagException {
         // find the parent container and add the component with the grid bag constraints
         addLayoutComponent(cell.getComponent(), cell.getConstraints());
     }        
@@ -102,7 +103,7 @@ public class TableLayoutTag extends LayoutTagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         rowCount = 0;
         super.doTag(output);
     }
@@ -114,7 +115,7 @@ public class TableLayoutTag extends LayoutTagSupport {
     /**
      * Creates a GridBagLayout
      */
-    protected LayoutManager createLayoutManager() throws Exception {
+    protected LayoutManager createLayoutManager() {
         return new GridBagLayout();        
     }
 }

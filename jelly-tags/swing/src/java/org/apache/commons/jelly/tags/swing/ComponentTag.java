@@ -81,7 +81,6 @@ import javax.swing.border.Border;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
@@ -139,29 +138,45 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Sets the Font of this component
      */
-    public void setFont(Font font) throws Exception {
+    public void setFont(Font font) throws JellyTagException {
         Component component = getComponent();
         if ( component != null ) {
             // lets just try set the 'font' property
-            BeanUtils.setProperty( component, "font", font );
+            try {
+                BeanUtils.setProperty( component, "font", font );
+            } 
+            catch (IllegalAccessException e) {
+                throw new JellyTagException(e);
+            }
+            catch (InvocationTargetException e) {
+                throw new JellyTagException(e);
+            }
         }
     }
 
     /**
      * Sets the Border of this component
      */
-    public void setBorder(Border border) throws Exception {
+    public void setBorder(Border border) throws JellyTagException {
         Component component = getComponent();
         if ( component != null ) {
-            // lets just try set the 'border' property
-            BeanUtils.setProperty( component, "border", border );
+            try {
+                // lets just try set the 'border' property
+                BeanUtils.setProperty( component, "border", border );
+            }
+            catch (IllegalAccessException e) {
+                throw new JellyTagException(e);
+            }
+            catch (InvocationTargetException e) {
+                throw new JellyTagException(e);
+            }
         }
     }
 
     /**
      * Sets the LayoutManager of this component
      */
-    public void setLayout(LayoutManager layout) throws Exception {
+    public void setLayout(LayoutManager layout) throws JellyTagException {
         Component component = getComponent();
         if ( component != null ) {
             if ( component instanceof RootPaneContainer ) {
@@ -169,15 +184,23 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                 component = rpc.getContentPane();
             }
             
-            // lets just try set the 'layout' property
-            BeanUtils.setProperty( component, "layout", layout );
+            try {
+                // lets just try set the 'layout' property
+                BeanUtils.setProperty( component, "layout", layout );
+            }
+            catch (IllegalAccessException e) {
+                throw new JellyTagException(e);
+            }
+            catch (InvocationTargetException e) {
+                throw new JellyTagException(e);
+            }
         }
     }
 
     /**
      * Adds a WindowListener to this component
      */
-    public void addWindowListener(WindowListener listener) throws Exception {
+    public void addWindowListener(WindowListener listener) {
         Component component = getComponent();
         if ( component instanceof Window ) {
             Window window = (Window) component;

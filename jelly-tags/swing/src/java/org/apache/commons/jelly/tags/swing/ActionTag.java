@@ -68,7 +68,6 @@ import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
