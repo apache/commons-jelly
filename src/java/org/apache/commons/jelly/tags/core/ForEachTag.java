@@ -29,10 +29,11 @@ import org.apache.commons.logging.LogFactory;
 
 /** 
   * Iterates over a collection, iterator or an array of objects.
+  * Uses the same syntax as the <a href="http://java.sun.com/products/jsp/jstl/">JSTL</a>
+  * <code>forEach</code> tag does.
   * 
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.24 $
+  * @version $Revision: 1.25 $
   */
 public class ForEachTag extends TagSupport {
 

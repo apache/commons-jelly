@@ -25,10 +25,12 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-/**  A tag which calls a function in an object instantied by core:new.
+/** 
+  * A tag which calls a method in an object instantied by core:new 
+  * 
   *
   * @author Rodney Waldhoff
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class InvokeTag extends TagSupport implements ArgTagParent {
 
