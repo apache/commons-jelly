@@ -1,7 +1,42 @@
-<?xml version="1.0"?><j:jelly xmlns:j="jelly:core">
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core">
+
 <html>
   <body>
-    <h1>Ant properties</h1>	<p>The project name is <b><j:expr value="${project.name}"/></b>	</p>	
-    <table>      <tr>        <th>Targets</th>      </tr>      <j:forEach var="iter" items="${project.targets}">        <tr>          <td><j:expr value="${iter.key}"/></td>        </tr>      </j:forEach>    </table>    <table>      <tr>        <th>Property Name</th>        <th>Property Value</th>      </tr>      <j:forEach var="iter" items="${project.getProperties()}">        <tr>          <td><j:expr value="${iter.key}"/></td>          <td><j:expr value="${iter.value}"/></td>        </tr>      </j:forEach>    </table>  </body>
-</html>
+
+    <h1>Ant properties</h1>
+
+    <p>The project name is <b><j:expr value="${project.name}"/></b>
+    </p>
+
+    <table>
+      <tr>
+        <th>Targets</th>
+      </tr>
+
+      <j:forEach var="iter" items="${project.targets}">
+        <tr>
+          <td><j:expr value="${iter.key}"/></td>
+        </tr>
+      </j:forEach>
+    </table>
+
+    <table>
+      <tr>
+        <th>Property Name</th>
+        <th>Property Value</th>
+      </tr>
+
+      <j:forEach var="iter" items="${project.getProperties()}">
+        <tr>
+          <td><j:expr value="${iter.key}"/></td>
+          <td><j:expr value="${iter.value}"/></td>
+        </tr>
+      </j:forEach>
+    </table>
+
+  </body>
+
+</html>
+
 </j:jelly>
