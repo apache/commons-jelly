@@ -1,6 +1,12 @@
 TO DO LIST
 ==========
 
+* turn this TO DO list into an XML document in xdocs, then its on the website too.
+
+* patch TagLibrary to alias all <mixedCase> tags to <mixed-case> tags
+
+* add <copy> and <copyOf> to JSL
+
 * consider using <jsl:stylesheet var="foo"> then reusing the stylesheet later via 
 
 	<style stylesheet="${foo}">
@@ -8,8 +14,6 @@ TO DO LIST
 	</style>
 	
 * add JSL test cases to test for ordering of patterns and that the correct output comes out.
-
-* seems to be a bug in JSL stylesheet 3 - <jsl:applyAttributes select="@author">
 
 * rename the DynaTag interface to be DynamicAttributes along with JSP1.3, also add a namespace URI parameter
 
