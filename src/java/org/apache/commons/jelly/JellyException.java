@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.5 2002/06/25 16:49:45 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/25 16:49:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.6 2002/06/27 14:08:27 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/27 14:08:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.5 2002/06/25 16:49:45 jstrachan Exp $
+ * $Id: JellyException.java,v 1.6 2002/06/27 14:08:27 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -69,7 +69,7 @@ import java.io.PrintWriter;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
 public class JellyException extends Exception {
@@ -102,8 +102,18 @@ public class JellyException extends Exception {
     }
     
     public JellyException(Throwable cause, int columnNumber, int lineNumber) {
-        super(cause.getLocalizedMessage());
+        this(cause.getLocalizedMessage(), cause, columnNumber, lineNumber);
+    }
+    
+    public JellyException(String reason, Throwable cause, int columnNumber, int lineNumber) {
+        super(reason);
         this.cause = cause;
+        this.columnNumber = columnNumber;
+        this.lineNumber = lineNumber;
+    }
+    
+    public JellyException(String reason, int columnNumber, int lineNumber) {
+        super(reason);
         this.columnNumber = columnNumber;
         this.lineNumber = lineNumber;
     }
