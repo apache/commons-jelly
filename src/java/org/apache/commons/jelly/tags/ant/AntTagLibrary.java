@@ -61,8 +61,6 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
-import java.io.File;
-
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
 import org.apache.commons.grant.GrantProject;
@@ -101,21 +99,6 @@ public class AntTagLibrary extends TagLibrary {
 
         // register standard converters for Ant types
                
-        ConvertUtils.register(
-            new Converter() {
-                public Object convert(Class type, Object value) {
-                    if ( value instanceof File ) {
-                        return (File) value;
-                    }
-                    else if ( value != null ) {
-                        String text = value.toString();
-                        return new File( text );
-                    }
-                    return null;
-                }
-            },
-            File.class
-            );
         
         ConvertUtils.register(
             new Converter() {
