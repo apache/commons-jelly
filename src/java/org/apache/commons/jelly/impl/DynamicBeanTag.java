@@ -240,7 +240,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
 
                 Throwable inner = e.getTargetException();
 
-                throw new JellyTagException(e);
+                throw new JellyTagException(inner);
                 
             }
         }
