@@ -218,6 +218,9 @@ public class QueryTag extends SqlTagSupport {
             result = new ResultImpl(rs, startRow, maxRows);
             context.setVariable(var, result);
             
+            // always close the result set first since it may be closed by 
+            // JDBC 3 when closing statements 
+            
             // lets nullify before we close in case we get exceptions
             // while closing, we don't want to try to close again
             ResultSet tempRs = rs;
