@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<jelly xmlns="jelly:core" xmlns:jms="jelly:jms">
+
+Waiting until I receive a JMS message
+
+<jms:connection name="queue" var="conn">
+  <jms:receive var="message">
+    <jms:destination name="myQueue"/>
+  </jms:receive>
+</jms:connection>
+
+Found message: ${message}
+The object body is: ${message.getObject()}
+	
+</jelly>
