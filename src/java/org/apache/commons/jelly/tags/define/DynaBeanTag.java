@@ -66,12 +66,14 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.beanutils.DynaClass;
+
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.Attribute;
-import org.apache.commons.jelly.impl.DynamicBeanTag;
+import org.apache.commons.jelly.impl.DynamicDynaBeanTag;
 import org.apache.commons.jelly.impl.TagFactory;
 
 import org.apache.commons.logging.Log;
@@ -85,10 +87,10 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.1 $
  */
-public class BeanTag extends DefineTagSupport {
+public class DynaBeanTag extends DefineTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BeanTag.class);
+    private static final Log log = LogFactory.getLog(DynaBeanTag.class);
 
     /** An empty Map as I think Collections.EMPTY_MAP is only JDK 1.3 onwards */
     private static final Map EMPTY_MAP = new HashMap();
@@ -96,12 +98,9 @@ public class BeanTag extends DefineTagSupport {
     /** the name of the tag to create */
     private String name;
     
-    /** the Java class name to use for the tag */
-    private String className;
+    /** the DyanClass to bind to the tag */
+    private DynaClass dynaClass;
 
-    /** the ClassLoader used to load beans */
-    private ClassLoader classLoader;
-    
     /** the name of the attribute used for the variable name */
     private String varAttribute = "var";
 
@@ -126,41 +125,16 @@ public class BeanTag extends DefineTagSupport {
 		if (name == null) {
 			throw new MissingAttributeException("name");
 		}
-		if (className == null) {
-			throw new MissingAttributeException("className");
+		if (dynaClass == null) {
+			throw new MissingAttributeException("dynaClass");
 		}
         
-		Class theClass = null;
-		try {
-			ClassLoader classLoader = getClassLoader();
-			theClass = classLoader.loadClass(className);
-		} 
-		catch (ClassNotFoundException e) {
-			try {
-				theClass = getClass().getClassLoader().loadClass(className);
-			} 
-            catch (ClassNotFoundException e2) {
-				try {
-					theClass = Class.forName(className);
-				} 
-                catch (ClassNotFoundException e3) {
-                    log.error( "Could not load class: " + className + " exception: " + e, e );
-					throw new JellyException(
-						"Could not find class: "
-							+ className
-							+ " using ClassLoader: "
-							+ classLoader);
-				}
-			}
-		}
-        
-        final Class beanClass = theClass;
-        final Method invokeMethod = getInvokeMethod( theClass );
+        final DynaClass theDynaClass = dynaClass;
         final Map beanAttributes = (attributes != null) ? attributes : EMPTY_MAP;
         
         TagFactory factory = new TagFactory() {
             public Tag createTag() {
-                return  new DynamicBeanTag(beanClass, beanAttributes, varAttribute, invokeMethod);
+                return  new DynamicDynaBeanTag(theDynaClass, beanAttributes, varAttribute);
             }
         };
         getTagLibrary().registerBeanTag(name, factory);
@@ -180,37 +154,6 @@ public class BeanTag extends DefineTagSupport {
         this.name = name;
     }
     
-    /** 
-     * Sets the Java class name to use for the tag
-     */
-    public void setClassName(String className) {
-        this.className = className;
-    }
-    
-    /**
-     * Sets the ClassLoader to use to load the class. 
-     * If no value is set then the current threads context class
-     * loader is used.
-     */
-    public void setClassLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
-
-    /**
-     * @return the ClassLoader to use to load classes
-     *  or will use the thread context loader if none is specified.
-     */    
-    public ClassLoader getClassLoader() {
-        if ( classLoader == null ) {
-            ClassLoader answer = Thread.currentThread().getContextClassLoader();
-            if ( answer == null ) {
-                answer = getClass().getClassLoader();
-            }
-            return answer;
-        }
-        return classLoader;
-    }
-
     /**
      * Sets the name of the attribute used to define the bean variable that this dynamic
      * tag will output its results as. This defaults to 'var' though this property
@@ -220,14 +163,19 @@ public class BeanTag extends DefineTagSupport {
         this.varAttribute = varAttribute;
     }
         
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
     /**
-     * Extracts the invoke method for the class if one is used.
+     * Returns the dynaClass.
+     * @return DynaClass
      */
-    protected Method getInvokeMethod( Class theClass ) throws Exception {
-        return null;
+    public DynaClass getDynaClass() {
+        return dynaClass;
     }
+
+    /**
+     * Sets the {@link DynaClass} which will be bound to this dynamic tag.
+     */
+    public void setDynaClass(DynaClass dynaClass) {
+        this.dynaClass = dynaClass;
+    }
+
 }
