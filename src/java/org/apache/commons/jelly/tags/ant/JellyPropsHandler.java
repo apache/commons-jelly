@@ -100,7 +100,13 @@ public class JellyPropsHandler extends DefaultPropsHandler {
         if (name == null) {
             return null;
         }
-        return (String) this.context.getVariable(name);
+        Object value = this.context.getVariable(name);
+        if (value == null) {
+            return null;
+        }
+        else {
+            return value.toString();
+        }
     }
 
     /** Retrieve all ant properties.
