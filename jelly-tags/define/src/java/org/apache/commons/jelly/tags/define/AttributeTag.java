@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/AttributeTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/AttributeTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AttributeTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: AttributeTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author <a href="mailto:jason@zenplex.com">Jason van Zyl</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class AttributeTag extends TagSupport {
 
@@ -98,10 +98,10 @@ public class AttributeTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         BeanTag tag = (BeanTag) findAncestorWithClass( BeanTag.class );
         if ( tag == null ) {
-            throw new JellyException( "This tag should be nested inside a <define:bean> or <define:jellybean> tag" );
+            throw new JellyTagException( "This tag should be nested inside a <define:bean> or <define:jellybean> tag" );
         }
 
         tag.addAttribute( attribute );        

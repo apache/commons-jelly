@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/JellyBeanTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/JellyBeanTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyBeanTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: JellyBeanTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.define;
@@ -65,6 +65,7 @@ package org.apache.commons.jelly.tags.define;
 import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.MethodUtils;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -75,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  * then the beans invoke() method will be called, if the bean has one.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class JellyBeanTag extends BeanTag {
 
@@ -116,7 +117,7 @@ public class JellyBeanTag extends BeanTag {
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
-    protected Method getInvokeMethod( Class theClass ) throws Exception {
+    protected Method getInvokeMethod( Class theClass ) {
         Method invokeMethod =
             MethodUtils.getAccessibleMethod(
                 theClass,

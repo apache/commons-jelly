@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/InvokeTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/InvokeTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: InvokeTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
@@ -74,7 +75,7 @@ import org.apache.commons.logging.LogFactory;
  * as variables that can later be invoked by this &lt;invoke&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class InvokeTag extends TagSupport {
 
@@ -97,7 +98,7 @@ public class InvokeTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( script == null ) {
             throw new MissingAttributeException("script");
         }

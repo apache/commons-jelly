@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/ExtendTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/ExtendTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExtendTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: ExtendTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.DynamicTagLibrary;
@@ -72,7 +72,7 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
  * <p/>
  *
  * @author <a href="mailto:tima@intalio.com">Tim Anderson</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @see SuperTag
  */
 public class ExtendTag extends DefineTagSupport {
@@ -86,23 +86,23 @@ public class ExtendTag extends DefineTagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         DynamicTagLibrary library = getTagLibrary();
         DynamicTagLibrary owner = library.find(getName());
         if (owner == null) {
-            throw new JellyException(
+            throw new JellyTagException(
                 "Cannot extend " + getName() + ": dynamic tag not defined");
         }
         if (owner == library) {
             // disallow extension of tags defined within the same tag
             // library
-            throw new JellyException("Cannot extend " + getName() + 
+            throw new JellyTagException("Cannot extend " + getName() + 
                                      ": dynamic tag defined locally");
         }
         superScript = owner.getDynamicTag(name);
         if (superScript == null) {
             // tag doesn't define a script - disallow this for the moment.
-            throw new JellyException("Cannot extend " + getName() + 
+            throw new JellyTagException("Cannot extend " + getName() + 
                                      ": tag is not a dynamic tag");
         }
 

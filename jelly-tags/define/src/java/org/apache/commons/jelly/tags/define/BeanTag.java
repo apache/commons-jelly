@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/BeanTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/BeanTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: BeanTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.define;
@@ -66,7 +66,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
@@ -84,7 +84,7 @@ import org.xml.sax.Attributes;
  * the tag set the bean properties..
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class BeanTag extends DefineTagSupport {
 
@@ -121,7 +121,7 @@ public class BeanTag extends DefineTagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         invokeBody(output);
         
 		if (name == null) {
@@ -146,7 +146,7 @@ public class BeanTag extends DefineTagSupport {
 				} 
                 catch (ClassNotFoundException e3) {
                     log.error( "Could not load class: " + className + " exception: " + e, e );
-					throw new JellyException(
+					throw new JellyTagException(
 						"Could not find class: "
 							+ className
 							+ " using ClassLoader: "
@@ -164,6 +164,7 @@ public class BeanTag extends DefineTagSupport {
                 return  new DynamicBeanTag(beanClass, beanAttributes, varAttribute, invokeMethod);
             }
         };
+        
         getTagLibrary().registerBeanTag(name, factory);
         
         // now lets clear the attributes for next invocation and help the GC
@@ -228,7 +229,7 @@ public class BeanTag extends DefineTagSupport {
     /**
      * Extracts the invoke method for the class if one is used.
      */
-    protected Method getInvokeMethod( Class theClass ) throws Exception {
+    protected Method getInvokeMethod( Class theClass ) {
         return null;
     }
 }

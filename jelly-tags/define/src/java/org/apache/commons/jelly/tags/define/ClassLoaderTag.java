@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/ClassLoaderTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/ClassLoaderTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,14 +57,16 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ClassLoaderTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: ClassLoaderTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.define;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -76,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * load tags froms.
  * 
  * @author <a href="mailto:stephenh@chase3000.com">Stephen Haberman</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ClassLoaderTag extends BeanTag {
 
@@ -123,7 +125,7 @@ public class ClassLoaderTag extends BeanTag {
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( getVar() == null ) {
             throw new MissingAttributeException( "var" );
         }
@@ -136,9 +138,14 @@ public class ClassLoaderTag extends BeanTag {
             parent = getClass().getClassLoader();
         }
         
-        URLClassLoader newClassLoader = new URLClassLoader(
-            new URL[] { new URL(getUrl()) },
-            parent );
+        URLClassLoader newClassLoader = null;
+        
+        try {
+            newClassLoader = 
+              new URLClassLoader( new URL[] { new URL(getUrl()) }, parent );
+        } catch (MalformedURLException e) {
+            throw new JellyTagException(e);
+        }
         
         log.debug("Storing the new classloader in " + getVar());
         

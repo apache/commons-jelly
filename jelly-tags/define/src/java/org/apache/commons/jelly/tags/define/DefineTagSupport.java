@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/DefineTagSupport.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/DefineTagSupport.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,12 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagSupport.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: DefineTagSupport.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.impl.DynamicTagLibrary;
 
@@ -70,7 +70,7 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
  * An abstract base class useful for implementation inheritence.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public abstract class DefineTagSupport extends TagSupport {
 
@@ -81,11 +81,11 @@ public abstract class DefineTagSupport extends TagSupport {
      * @return the current dynamic tag library instance or throws a JellyException
      * if one is not available
      */
-    protected DynamicTagLibrary getTagLibrary() throws JellyException {
+    protected DynamicTagLibrary getTagLibrary() throws JellyTagException {
         TaglibTag tag 
             = (TaglibTag) findAncestorWithClass(TaglibTag.class);
         if ( tag == null ) {
-            throw new JellyException( "<define:tag> must be inside <define:taglib>" );
+            throw new JellyTagException( "<define:tag> must be inside <define:taglib>" );
         }
         return tag.getTagLibrary();
     }

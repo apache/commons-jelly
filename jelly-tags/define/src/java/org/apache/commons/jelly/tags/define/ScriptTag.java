@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/ScriptTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/ScriptTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: ScriptTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -71,7 +71,7 @@ import org.apache.commons.jelly.XMLOutput;
  * maybe from inside an expression or more typically via the &lt;invoke&gt; tag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ScriptTag extends TagSupport {
     
@@ -82,9 +82,9 @@ public class ScriptTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if ( var == null ) {
-            throw new JellyException( "<define:script> must have a var attribute" );
+            throw new JellyTagException( "<define:script> must have a var attribute" );
         }
         context.setVariable( var, getBody() );
     }    

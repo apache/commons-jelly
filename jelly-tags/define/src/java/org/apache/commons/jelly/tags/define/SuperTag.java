@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/SuperTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/java/org/apache/commons/jelly/tags/define/SuperTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:07:23 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SuperTag.java,v 1.1 2003/01/15 14:58:01 dion Exp $
+ * $Id: SuperTag.java,v 1.2 2003/01/26 00:07:23 morgand Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -70,7 +70,7 @@ import org.apache.commons.jelly.XMLOutput;
  * a tag extends an existing tag
  *
  * @author <a href="mailto:tima@intalio.com">Tim Anderson</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @see ExtendTag
  */
 public class SuperTag extends TagSupport {
@@ -80,10 +80,10 @@ public class SuperTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         ExtendTag tag = (ExtendTag) findAncestorWithClass(ExtendTag.class);
         if (tag == null) {
-            throw new JellyException( 
+            throw new JellyTagException( 
                 "<define:super> must be inside a <define:extend>");
         }
 
