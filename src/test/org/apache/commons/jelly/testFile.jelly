@@ -38,5 +38,15 @@
 <file name="target/test_iso.xml" encoding="ISO-8859-1">
   <include uri="dummy.xml"/>
 </file>
- 
+<set var="size" value="${f.length()}"/>
+<file name="target/test_iso.xml" encoding="ISO-8859-1" append="true">
+  <include uri="dummy.xml"/>
+</file>
+<set var="sizeNow" value="${f.length()}"/>
+
+<if test="${!(size*2 = sizeNow)}">
+  <set var="testFailure" value="A string and not a number size=${size}, sizeNow=${sizeNow}."/>
+  ${testFailure-0}<!-- tricky way to make a test fail! -->
+  </if>
+
 </jelly>

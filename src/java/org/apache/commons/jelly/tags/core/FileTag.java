@@ -39,6 +39,7 @@ import org.xml.sax.SAXException;
  * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
  */
 public class FileTag extends TagSupport {
+    private boolean doAppend = false;
     private String var;
     private String name;
     private boolean omitXmlDeclaration = false;
@@ -55,7 +56,7 @@ public class FileTag extends TagSupport {
         try {
             if ( name != null ) {
                 String encoding = (this.encoding != null) ? this.encoding : "UTF-8";
-                Writer writer = new OutputStreamWriter( new FileOutputStream( name ), encoding );
+                Writer writer = new OutputStreamWriter( new FileOutputStream( name, doAppend ), encoding );
                 writeBody(writer);
             }
             else if (var != null) {
@@ -113,6 +114,15 @@ public class FileTag extends TagSupport {
     public void setEncoding(String encoding) {
         this.encoding = encoding;
     }
+    
+    /**
+     * Sets wether to append at the end of the file
+     * (not really something you normally do with an XML file).
+     */
+    public void setAppends(boolean doAppend) {
+        this.doAppend = doAppend;
+    }
+    
 
     /**
      * Returns the var.
