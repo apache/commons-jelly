@@ -96,4 +96,22 @@
 
 </test:case-->
 
+
+
+<test:case name="startUpReadWrite">
+
+  <j:set var="foo" value="setting the message worked!"/>
+
+	<ant:echo>
+		<ant:setProperty name="message" value="${foo}"/>
+  </ant:echo>
+  
+	<ant:echo>
+		<ant:setProperty name="message" value="${bar}" default="the default also worked"/>
+  </ant:echo>
+
+	<!-- haven't thought of a neat way to test this yet... -->  
+</test:case>
+
+
 </test:suite>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/ant/SetPropertyTagSupport.java,v 1.4 2002/06/25 20:43:30 werken Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/06/25 20:43:30 $
  *
  * ====================================================================
  *
@@ -56,83 +56,107 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
+ *
+ * $Id: SetPropertyTagSupport.java,v 1.4 2002/06/25 20:43:30 werken Exp $
  */
+
 package org.apache.commons.jelly.tags.ant;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertingWrapDynaBean;
-import org.apache.commons.beanutils.DynaBean;
-
-import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-/** 
- * A tag which creates a new FileScanner bean instance that can be used to 
- * iterate over fileSets
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * Tag which sets an attribute on the parent Ant Task if the given value is not null.
+ * This can be useful when setting parameters on Ant tasks, only if they have been specified
+ * via some well defined property, otherwise allowing the inbuilt default to be used.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
  */
-public class FileScannerTag extends TagSupport implements TaskSource {
+public class SetPropertyTag extends TagSupport {
 
-    /** The file walker that gets created */
-    private FileScanner fileScanner;
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(SetPropertyTag.class);
 
-    /** the variable exported */
-    private String var;
+    private String name;
+    private Object value;
+    private Object defaultValue;
     
-    public FileScannerTag(FileScanner fileScanner) {
-        this.fileScanner = fileScanner;
+    public SetPropertyTag() {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws Exception {
-        fileScanner.setProject(AntTagLibrary.getProject(context));
-        
-        fileScanner.clear();
-        
-        // run the body first to configure the task via nested
-        invokeBody(output);
-
-        // output the fileScanner
-        if ( var == null ) {
-            throw new MissingAttributeException( "var" );
+        if (name == null) {
+            throw new MissingAttributeException("name");
         }
-        context.setVariable( var, fileScanner );        
-        
+        TaskSource tag = (TaskSource) findAncestorWithClass( TaskSource.class );
+        if ( tag == null ) {
+            throw new JellyException( "This tag must be nested within an Ant task tag" );
+        }
+        Object value = getValue();
+        if (value == null) {
+            value = getDefault();
+        }
+        if (value != null) {
+            tag.setTaskProperty(name, value);
+        }
     }
-    
-    // TaskSource interface
-    //------------------------------------------------------------------------- 
-    public Object getTaskObject() {
-        return fileScanner;
-    }
-    
-    /**
-     * Allows nested tags to set a property on the task object of this tag
-     */
-    public void setTaskProperty(String name, Object value) throws Exception {
-        BeanUtils.setProperty( fileScanner, name, value );
-    }
-    
+
+
     // Properties
-    //-------------------------------------------------------------------------                
-    
-    /** 
-     * @return the Ant task
+    //-------------------------------------------------------------------------
+
+    /**
+     * Returns the name.
+     * @return String
      */
-    public FileScanner getFileScanner() {
-        return fileScanner;
+    public String getName() {
+        return name;
     }
-    
-    /** Sets the name of the variable exported by this tag */
-    public void setVar(String var) {
-        this.var = var;
+
+    /**
+     * Returns the value.
+     * @return Object
+     */
+    public Object getValue() {
+        return value;
     }
-    
+
+    /**
+     * Sets the name of the Ant task property to set.
+     * @param name The name of the Ant task property to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets the value of the Ant task property to set.
+     * @param value The value of the Ant task property to set
+     */
+    public void setValue(Object value) {
+        this.value = value;
+    }
+
+    /**
+     * Returns the defaultValue.
+     * @return Object
+     */
+    public Object getDefault() {
+        return defaultValue;
+    }
+
+    /**
+     * Sets the default value to be used if the specified value is empty.
+     */
+    public void setDefault(Object defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
 }

@@ -231,6 +231,15 @@ public class AntTagLibrary extends TagLibrary {
                 }
             );      
         }
+        if ( name.equals("setProperty") ) {      
+            return new BeanTagScript(
+                new TagFactory() {
+                    public Tag createTag() throws Exception {
+                        return new SetPropertyTag();
+                    }
+                }
+            );      
+        }
         return null;
     }
 
