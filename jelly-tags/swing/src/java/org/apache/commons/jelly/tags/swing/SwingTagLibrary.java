@@ -137,6 +137,9 @@ public class SwingTagLibrary extends TagLibrary {
         // BorderLayout
         registerTag( "borderLayout", BorderLayoutTag.class );
         registerTag( "borderAlign", BorderAlignTag.class );
+        
+        // Dialog
+        registerTag( "dialog", DialogTag.class );
     }
 
     /** Creates a new script to execute the given tag name and attributes */
@@ -186,7 +189,6 @@ public class SwingTagLibrary extends TagLibrary {
 					// can the element control it's children ?
 					// but children should also be able to be any component (as Swing comps. are all container)
         registerBeanFactory( "desktopPane", JDesktopPane.class );
-        registerBeanFactory( "dialog", JDialog.class );
         registerBeanFactory( "editorPane", JEditorPane.class );
         registerBeanFactory( "fileChooser", JFileChooser.class );
         registerBeanFactory( "frame", JFrame.class );
