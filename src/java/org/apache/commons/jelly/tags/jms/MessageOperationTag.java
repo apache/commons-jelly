@@ -82,6 +82,9 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     
     /** The Destination */
     private Destination destination;
+
+    /** The String subject used to find a destination */
+    private String subject;
     
     public MessageOperationTag() {
     }
@@ -102,24 +105,49 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
         this.connection = connection;
     }
     
-    public Destination getDestination() {
+    public Destination getDestination() throws JellyException, JMSException {
+        if (destination == null) {
+            // if we have a subject defined, lets use it to find the destination
+            if (subject != null) {
+                destination = findDestination(subject);
+            }
+        }
         return destination;
     }
     
     /**
-     * Sets the JMS destination to be used by this tag
+     * Sets the JMS Destination to be used by this tag
      */
     public void setDestination(Destination destination) {
         this.destination = destination;
     }
 
+    /**
+     * Sets the subject as a String which is used to create the 
+     * JMS Destination to be used by this tag
+     */
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
     // Implementation methods
     //-------------------------------------------------------------------------                            
+    
+    /**
+     * Strategy Method allowing derived classes to change this behaviour
+     */
     protected Messenger findConnection() throws JellyException, JMSException {
         ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
         if ( messengerTag == null ) {
             throw new JellyException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
         }
         return messengerTag.getConnection();
+    }
+
+    /**
+     * Strategy Method allowing derived classes to change this behaviour
+     */
+    protected Destination findDestination(String subject) throws JellyException, JMSException {
+        return getConnection().getDestination(subject);
     }
 }    

@@ -61,65 +61,98 @@
  */
 package org.apache.commons.jelly.tags.jms;
 
-import javax.jms.JMSException;
+import javax.jms.Destination;
+import javax.jms.Message;
+import javax.jms.MessageListener;
 
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.messenger.Messenger;
-import org.apache.commons.messenger.MessengerManager;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-/** Defines a JMS connection for use by other JMS tags.
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
-  */
-public class ConnectionTag extends TagSupport implements ConnectionContext {
+/** 
+ * Performs a subscription to some JMS connection to a destination maybe with a selector.
+ * A JMS MessageListener can be specified, or a special child tag can explicitly set it on 
+ * its parent (so a special tag could construct a MessageListener object and register it with this tag).
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
+ */
+public class SubscribeTag extends MessageOperationTag {
 
-    /** The variable name to create */
-    private String var;
-        
-    /** Stores the name of the map entry */
-    private String name;
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(SubscribeTag.class);
 
-    /** The Messenger */
-    private Messenger connection;
-
-    // ConnectionContext interface
-    //-------------------------------------------------------------------------                    
-    public Messenger getConnection() {
-        return connection;        
+    /** the JMS Selector for the subscription */
+    private String selector;
+    
+    /** The JMS MessageListener used to create the subscription */
+    private MessageListener messageListener;
+    
+    public SubscribeTag() {
     }
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {        
-        connection = MessengerManager.get( name );
+    public void doTag(XMLOutput output) throws Exception {
 
-        if (connection == null) {        
-            throw new JellyException( "Could not find a JMS connection called: " + name );
+        // evaluate body as it may contain child tags to register a MessageListener
+        invokeBody(output);
+        
+        MessageListener listener = getMessageListener();
+        if (listener == null) {
+            throw new JellyException( "No messageListener attribute is specified so could not subscribe" );
         }
 
-        if ( var != null ) {
-            context.setVariable( var, connection );
+        // clear the listener for the next tag invocation, if caching is employed
+        setMessageListener(null);
+
+        
+        Destination destination = getDestination();
+        if ( destination == null ) {
+            throw new JellyException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
         }
         
-        invokeBody(output);
+        if ( log.isDebugEnabled() ) {
+            log.debug( "About to consume to: " + destination + " with listener: " + listener );
+        }
+            
+        log.info( "About to consume to: " + destination + " with listener: " + listener );
+            
+        if (selector == null ) {            
+            getConnection().addListener( destination, listener );
+        }
+        else {
+            getConnection().addListener( destination, selector, listener );
+        }
     }
     
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------   
     
-    /** Sets the name of the Messenger (JMS connection pool) to use
-      */
-    public void setName(String name) {
-        this.name = name;
-    }
+    /**
+     * Sets the optional JMS Message selector for the subscription
+     */
+    public void setSelector(String selector) {
+        this.selector = selector;
+    }                             
     
-    /** Sets the variable name to use for the exported Messenger (JMS connection pool)
-      */
-    public void setVar(String var) {
-        this.var = var;
+
+    /**
+     * Returns the messageListener.
+     * @return MessageListener
+     */
+    public MessageListener getMessageListener() {
+        return messageListener;
     }
-}
+
+    
+    /**
+     * Sets the JMS messageListener used ot consume JMS messages on the given destination
+     */
+    public void setMessageListener(MessageListener messageListener) {
+        this.messageListener = messageListener;
+    }
+
+}    

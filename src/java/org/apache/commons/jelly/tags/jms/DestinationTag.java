@@ -91,6 +91,9 @@ public class DestinationTag extends TagSupport {
             throw new JellyException("<jms:destination> tag must be within a <jms:connection> or <jms:send> or <jms:receive> tag");
         }
         Messenger messenger = messengerTag.getConnection();
+        if (messenger == null) {
+            throw new JellyException("No JMS Connection could be found!" );            
+        }
         String subject = (name != null) ? name : getBodyText();
         Destination destination = messenger.getDestination( subject );
         if ( var != null ) {

@@ -80,6 +80,7 @@ public class JMSTagLibrary extends TagLibrary {
         registerTag("property", PropertyTag.class);
         registerTag("receive", ReceiveTag.class);
         registerTag("send", SendTag.class);
+        registerTag("subscribe", SubscribeTag.class);
         registerTag("textMessage", TextMessageTag.class);
     }
 }
