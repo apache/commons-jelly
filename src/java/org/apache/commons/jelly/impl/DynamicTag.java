@@ -117,6 +117,7 @@ public class DynamicTag extends DynaTagSupport {
     //-------------------------------------------------------------------------                    
     public void setAttribute(String name, Object value) {
         attributes.put(name, value);
+        attributes.put(name + "Attr", value);
     }
 
     // Properties
