@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.38 2003/10/09 21:21:28 rdonkin Exp $
- * $Revision: 1.38 $
- * $Date: 2003/10/09 21:21:28 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.39 2003/12/18 17:05:23 morgand Exp $
+ * $Revision: 1.39 $
+ * $Date: 2003/12/18 17:05:23 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.38 2003/10/09 21:21:28 rdonkin Exp $
+ * $Id: TagScript.java,v 1.39 2003/12/18 17:05:23 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -97,7 +97,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.38 $
+ * @version $Revision: 1.39 $
  */
 public class TagScript implements Script {
 
@@ -294,6 +294,11 @@ public class TagScript implements Script {
             * Errors in the normal course of operation.  Hmm...
             */
             handleException(e);
+        }
+        finally {
+            if ( ! context.isCacheTags() ) {
+                clearTag();
+            }
         }
         
     }
