@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/20 10:09:28 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.9 2002/05/20 16:39:11 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/05/20 16:39:11 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.9 2002/05/20 16:39:11 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -68,6 +68,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -79,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -140,6 +141,11 @@ public class ForEachTag extends TagSupport {
                     context.setVariable(indexVar, new Integer(index));
                 }
                 getBody().run(context, output);
+            }
+        }
+        else {
+            if ( end == Integer.MAX_VALUE && begin == 0 ) {
+                throw new MissingAttributeException( "items" );
             }
         }
     }

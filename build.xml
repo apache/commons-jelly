@@ -2,7 +2,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.19 2002/05/20 12:43:15 jstrachan Exp $
+        $Id: build.xml,v 1.20 2002/05/20 16:39:11 jstrachan Exp $
 -->
 
 <!-- ========== Initialize Properties ===================================== -->
@@ -489,5 +489,6 @@
 
 	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${build.home}/sqloutput.xml"/>
 	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${build.home}/sqloutput2.xml"/>	
+	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="${build.home}/sqloutput3.xml"/>	
    </target>
 </project>

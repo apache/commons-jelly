@@ -8,6 +8,7 @@
 
   <dataSet>
 
+
   <j:forEach var="columnName" items="${results.columnNames}" indexVar="i">
     <column><j:expr value="${columnName}"/></column>								
   </j:forEach>
@@ -18,6 +19,7 @@
 	  </j:forEach>
 	</row>
   </j:forEach>		  	    
+
 
   </dataSet>
   

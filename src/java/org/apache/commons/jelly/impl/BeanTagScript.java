@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.4 2002/05/17 15:18:11 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.5 2002/05/20 16:39:11 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/20 16:39:11 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.4 2002/05/17 15:18:11 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.5 2002/05/20 16:39:11 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -69,23 +69,29 @@ import java.lang.reflect.Method;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.beanutils.ConvertUtils;
+
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -127,12 +133,14 @@ public class BeanTagScript extends TagScript {
         List expressionList = new ArrayList();
         BeanInfo info = Introspector.getBeanInfo(tag.getClass());
         PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
+        Set attributeSet = new HashSet();
         if (descriptors != null) {
             for (int i = 0, size = descriptors.length; i < size; i++) {
                 PropertyDescriptor descriptor = descriptors[i];
                 String name = descriptor.getName();
                 Expression expression = (Expression) attributes.get(name);
                 if (expression != null) {
+                    attributeSet.add( name );
                     Method writeMethod = descriptor.getWriteMethod();
                     if (writeMethod != null) {
                         Class type = descriptor.getPropertyType();
@@ -165,6 +173,14 @@ public class BeanTagScript extends TagScript {
         
         // compile body
         tag.setBody(tag.getBody().compile());
+        
+        // now lets check for any attributes that are not used
+        for ( Iterator iter = attributes.keySet().iterator(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            if ( ! attributeSet.contains( name ) ) {
+                throw new JellyException( "This tag does not understand the attribute '" + name + "'" );
+            }
+        }
         return this;
     }
     
