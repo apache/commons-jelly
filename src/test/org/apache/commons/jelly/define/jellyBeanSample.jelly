@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<!-- uses the babelfish taglib -->
+<j:jelly 
+	xmlns:j="jelly:core" 
+	xmlns:define="jelly:define" 
+	xmlns:log="jelly:log" 
+	xmlns:my="myDummyTagLib">
+	
+<testcase>
+
+  <log:info>Lets define a new tag library</log:info>
+  
+  <define:taglib uri="myDummyTagLib">  
+    <define:jellybean name="foo" className="org.apache.commons.jelly.define.MyRunnable"/>
+  </define:taglib>
+
+  <log:info>Now lets invoke the new Jelly bean tag</log:info>
+  
+  <my:foo x="2" y="cheese"/>
+
+  <log:info>Did that work?</log:info>
+  
+</testcase>
+  		
+</j:jelly>
+

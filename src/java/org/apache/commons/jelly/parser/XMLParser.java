@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.23 2002/06/21 02:57:17 jstrachan Exp $
- * $Revision: 1.23 $
- * $Date: 2002/06/21 02:57:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.24 2002/06/25 19:12:29 jstrachan Exp $
+ * $Revision: 1.24 $
+ * $Date: 2002/06/25 19:12:29 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.23 2002/06/21 02:57:17 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.24 2002/06/25 19:12:29 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -91,6 +91,7 @@ import org.apache.commons.jelly.impl.ExpressionScript;
 import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.ScriptBlock;
+import org.apache.commons.jelly.impl.StaticTagScript;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.expression.CompositeExpression;
@@ -120,7 +121,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.23 $
+ * @version $Revision: 1.24 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -1008,7 +1009,7 @@ public class XMLParser extends DefaultHandler {
         throws SAXException {
         try {
             StaticTag tag = new StaticTag( namespaceURI, localName, qName);
-            DynaTagScript script = new DynaTagScript(tag);
+            StaticTagScript script = new StaticTagScript(tag);
 
             // now iterate through through the expressions
             int size = list.getLength();

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagTag.java,v 1.4 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagTag.java,v 1.5 2002/06/25 19:12:28 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/25 19:12:28 $
  *
  * ====================================================================
  *
@@ -57,13 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagTag.java,v 1.4 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: DefineTagTag.java,v 1.5 2002/06/25 19:12:28 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
@@ -71,9 +69,9 @@ import org.apache.commons.jelly.XMLOutput;
  * using a Jelly script..</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
-public class DefineTagTag extends TagSupport {
+public class DefineTagTag extends DefineTagSupport {
     
     private String name;
     
@@ -83,12 +81,7 @@ public class DefineTagTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
-        DefineTagLibTag tag 
-            = (DefineTagLibTag) findAncestorWithClass(this, DefineTagLibTag.class);
-        if ( tag == null ) {
-            throw new JellyException( "<define:tag> must be inside <define:taglib>" );
-        }
-        tag.getTagLibrary().registerDynamicTag( getName(), getBody() );
+        getTagLibrary().registerDynamicTag( getName(), getBody() );
     }    
     
     // Properties

@@ -247,6 +247,8 @@
     <mkdir dir="target/generated-xdocs"/>
 	<jelly file="src/script/makeTagDoc.jelly" output="target/generated-xdocs/tags.xml"/> 
    </target>
+
+
 <!-- ========== Specific Test cases ======================================= -->
 
    <target name="test.expr"
@@ -264,6 +266,12 @@
    <target name="test.xml"
       description="Runs the XML unit test">
     <property name="maven.testcase" value="org.apache.commons.jelly.xml.TestXMLTags"/>   
+    <maven-ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
+   </target>
+
+   <target name="test.define"
+      description="Runs the Define unit test">
+    <property name="maven.testcase" value="org.apache.commons.jelly.define.TestDynamicTags"/>   
     <maven-ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
    </target>
 
@@ -325,6 +333,20 @@
       
 	<property name="inputFile" value="src/test/org/apache/commons/jelly/xml/betwixt/input.xml"/>	
 	<jelly file="src/test/org/apache/commons/jelly/xml/betwixt/makeBetwixt.jelly" output="target/PO.betwixt"/> 
+	
+   </target>
+
+   <target name="demo.jellybean" depends="compile" 
+      description="Runs a demo showing the use of jellybean tags, beans with a run() method">
+<!--      
+	<jelly file="src/test/org/apache/commons/jelly/define/jellyBeanSample.jelly"/> 
+	
+-->
+	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/define/jellyBeanSample.jelly"/> 
+    </java>
 	
    </target>
 

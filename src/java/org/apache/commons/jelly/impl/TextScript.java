@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.7 2002/06/18 18:36:42 werken Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/18 18:36:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.8 2002/06/25 19:12:29 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/06/25 19:12:29 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TextScript.java,v 1.7 2002/06/18 18:36:42 werken Exp $
+ * $Id: TextScript.java,v 1.8 2002/06/25 19:12:29 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -70,7 +70,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>TextScript</code> outputs some static text.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class TextScript implements Script {
  
@@ -146,6 +146,8 @@ public class TextScript implements Script {
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
-        output.write(text);
+        if ( text != null ) {
+            output.write(text);
+        }
     }
 }

@@ -81,7 +81,7 @@ import org.apache.commons.httpclient.HttpState;
  */
 public abstract class MethodSupportTag extends TagSupport {
 
-    /** The variable name to create */
+    /** The variable name to create the HttpMethod object */
     private String var;
         
     /** Sets the URL of this request */
@@ -103,6 +103,21 @@ public abstract class MethodSupportTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {        
+        // ### should probably use HttpClient instead
+/*
+        HttpClient client = getHttpClient();
+        client.startSession( getUrl() );
+        
+        try {
+            // must use inner tags to extract the output....
+            getBody().run(context, output)
+        }
+        finally {
+            client.endSession();
+        }
+        
+*/        
+         
         HttpConnection connection = getConnection();
         if ( connection == null ) {
             throw new JellyException( 
@@ -119,7 +134,7 @@ public abstract class MethodSupportTag extends TagSupport {
         int result = method.execute(getState(), connection);
 
         if ( var != null ) {
-            context.setVariable(var, new Integer(result));
+            context.setVariable(var, method);
         }
     }
     
@@ -181,7 +196,7 @@ public abstract class MethodSupportTag extends TagSupport {
         this.connectionManager = connectionManager;
     }    
     
-    /** Sets the variable name for the http status output
+    /** Sets the variable name for the HttpMethod object 
      * 
      * @jelly:optional
       */

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.5 2002/05/21 07:59:32 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/21 07:59:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.6 2002/06/25 19:12:29 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/25 19:12:29 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestDynamicTags.java,v 1.5 2002/05/21 07:59:32 jstrachan Exp $
+ * $Id: TestDynamicTags.java,v 1.6 2002/06/25 19:12:29 jstrachan Exp $
  */
 package org.apache.commons.jelly.define;
 
@@ -84,13 +84,12 @@ import org.apache.commons.logging.LogFactory;
 /** Tests dynamic tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class TestDynamicTags extends TestCase {
 
     XMLParser parser = new XMLParser();
     XMLOutput output;
-    StringWriter buffer = new StringWriter();
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestDynamicTags.class);
@@ -108,9 +107,21 @@ public class TestDynamicTags extends TestCase {
     }
 
     public void testParse() throws Exception {
+        StringWriter buffer = new StringWriter();        
         output = XMLOutput.createXMLOutput(buffer);
+        
         runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
         runScript("src/test/org/apache/commons/jelly/define/example.jelly");
+        
+        log.info("The output was as follows");
+        log.info(buffer.toString());
+    }
+    
+    public void testJellyBean() throws Exception {
+        StringWriter buffer = new StringWriter();        
+        output = XMLOutput.createXMLOutput(buffer);
+        
+        runScript("src/test/org/apache/commons/jelly/define/jellyBeanSample.jelly");
         
         log.info("The output was as follows");
         log.info(buffer.toString());

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTagLibrary.java,v 1.4 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTagLibrary.java,v 1.5 2002/06/25 19:12:28 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/25 19:12:28 $
  *
  * ====================================================================
  *
@@ -57,14 +57,16 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynamicTagLibrary.java,v 1.4 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: DynamicTagLibrary.java,v 1.5 2002/06/25 19:12:28 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagScript;
@@ -76,7 +78,7 @@ import org.xml.sax.Attributes;
  * gets created by running a Jelly script.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class DynamicTagLibrary extends TagLibrary {
 
@@ -93,13 +95,34 @@ public class DynamicTagLibrary extends TagLibrary {
     /** Creates a new script to execute the given tag name and attributes */
     public TagScript createTagScript(String name, Attributes attributes)
         throws Exception {
-        Script template = (Script) templates.get(name);
-        if (template != null) {
+
+        Object value = templates.get(name);
+        if ( value instanceof Script ) {            
+            Script template = (Script) value;
             DynamicTag tag = new DynamicTag(template);
 
             // XXXX: somehow we should find the template's 
             // <invokeBody> tag and associate it with this instance
             return new DynaTagScript(tag);
+        }
+        else if ( value instanceof DynaTag ) {
+            DynaTag tag = (DynaTag) value;
+            return new DynaTagScript(tag);
+        }
+        return null;
+    }
+
+    /** Creates a new Tag for the given tag name if it exists */
+    public Tag createTag(String name)
+        throws Exception {
+
+        Object value = templates.get(name);
+        if ( value instanceof Script ) {            
+            Script template = (Script) value;
+            return new DynamicTag(template);
+        }
+        else if ( value instanceof DynaTag ) {
+            return (DynaTag) value;
         }
         return null;
     }
@@ -109,6 +132,13 @@ public class DynamicTagLibrary extends TagLibrary {
      */
     public void registerDynamicTag(String name, Script template) {
         templates.put(name, template);
+    }
+
+    /**
+     * Creates a new Jelly Bean Tag with the given name 
+     */
+    public void registerBeanTag(String name, BeanTag tag) {
+        templates.put(name, tag);
     }
 
     // Properties

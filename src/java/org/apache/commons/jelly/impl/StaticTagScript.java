@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTag.java,v 1.8 2002/06/25 19:12:28 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/impl/DynaTagScript.java,v 1.8 2002/06/25 17:10:07 jstrachan Exp $
  * $Revision: 1.8 $
- * $Date: 2002/06/25 19:12:28 $
+ * $Date: 2002/06/25 17:10:07 $
  *
  * ====================================================================
  *
@@ -56,80 +56,95 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: DynamicTag.java,v 1.8 2002/06/25 19:12:28 jstrachan Exp $
+ *
+ * $Id: DynaTagScript.java,v 1.8 2002/06/25 17:10:07 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.define;
+package org.apache.commons.jelly.impl;
 
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.DynaTag;
+import org.apache.commons.jelly.DynaBeanTagSupport;
+import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.tags.define.DynamicTagLibrary;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * <p><code>DynamicTag</code> is a tag that is created from
- * inside a Jelly script as a Jelly template and will invoke a 
- * given script, passing in its instantiation attributes 
- * as variables and will allow the template to invoke its instance body.</p>
+ * <p><code>StaticTagScript</code> is a script that evaluates a StaticTag, a piece of static XML
+ * though its attributes or element content may contain dynamic expressions.
+ * The first time this tag evaluates, it may have become a dynamic tag, so it will check that
+ * a new dynamic tag has not been generated.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class DynamicTag extends TagSupport implements DynaTag {
+public class StaticTagScript extends DynaTagScript {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(DynamicTag.class);
+    private static final Log log = LogFactory.getLog(StaticTagScript.class);
 
-    /** The template script */
-    private Script template;
-
-    /** The instance attributes */
-    private Map attributes = new HashMap();
-
-    public DynamicTag() {
+    private boolean firstRun = true;
+    
+    public StaticTagScript() {
     }
 
-    public DynamicTag(Script template) {
-        this.template = template;
+    public StaticTagScript(StaticTag tag) {
+        super(tag);
     }
 
+    // Script interface
+    //-------------------------------------------------------------------------                
+    /** Evaluates the body of a tag */
+    public void run(JellyContext context, XMLOutput output) throws Exception {
 
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
-        if ( log.isDebugEnabled() ) {
-            log.debug("Invoking dynamic tag with attributes: " + attributes);
+        if ( firstRun ) {
+            firstRun = false;
+            
+            // lets see if we have a dynamic tag
+            tag = findDynamicTag(context, (StaticTag) tag);
         }
-        attributes.put("org.apache.commons.jelly.body", getBody());
+        tag.setContext(context);
         
-        // create new context based on current attributes
-        JellyContext newJellyContext = context.newJellyContext(attributes);
-        getTemplate().run(newJellyContext, output);
+        DynaTag dynaTag = (DynaTag) tag;
+
+        // ### probably compiling this to 2 arrays might be quicker and smaller
+        for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String name = (String) entry.getKey();
+            Expression expression = (Expression) entry.getValue();
+
+            Object value = expression.evaluate(context);
+            dynaTag.setAttribute(name, value);
+        }
+        
+        runTag(output);
     }
 
-    // DynaTag interface
-    //-------------------------------------------------------------------------                    
-    public void setAttribute(String name, Object value) {
-        attributes.put(name, value);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------                    
-    /** The template to be executed by this tag which may well 
-     * invoke this instances body from inside the template
-     */
-    public Script getTemplate() {
-        return template;
-    }
-
-    public void setTemplate(Script template) {
-        this.template = template;
+    /**
+     * Attempts to find a dynamically created tag that has been created since this
+     * script was compiled
+     */    
+    protected Tag findDynamicTag(JellyContext context, StaticTag tag) throws Exception {
+        // lets see if there's a tag library for this URI...
+        TagLibrary taglib = context.getTagLibrary( tag.getUri() );
+        if ( taglib instanceof DynamicTagLibrary ) {
+            DynamicTagLibrary dynaLib = (DynamicTagLibrary) taglib;
+            Tag newTag = dynaLib.createTag( tag.getLocalName() );
+            if ( newTag != null ) {
+                newTag.setParent( tag.getParent() );
+                newTag.setBody( tag.getBody() );
+                return newTag;
+            }
+        }
+        return tag;
     }
 }
