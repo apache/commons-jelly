@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/email/src/java/org/apache/commons/jelly/tags/email/EmailTag.java,v 1.1 2003/01/08 04:47:48 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/08 04:47:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/email/src/java/org/apache/commons/jelly/tags/email/EmailTag.java,v 1.2 2003/01/26 01:13:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 01:13:47 $
  *
  * ====================================================================
  *
@@ -57,20 +57,22 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: EmailTag.java,v 1.1 2003/01/08 04:47:48 dion Exp $
+ * $Id: EmailTag.java,v 1.2 2003/01/26 01:13:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.email;
 
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
 import javax.mail.Session;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
@@ -89,7 +91,7 @@ import java.io.FileNotFoundException;
  * multiple cc addresses, etc.
  *
  * @author  Jason Horman
- * @version  $Id: EmailTag.java,v 1.1 2003/01/08 04:47:48 dion Exp $
+ * @version  $Id: EmailTag.java,v 1.2 2003/01/26 01:13:47 morgand Exp $
  */
 
 public class EmailTag extends TagSupport {
@@ -184,7 +186,7 @@ public class EmailTag extends TagSupport {
     /**
      * Execute the tag
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         Properties props = new Properties();
         props.putAll(context.getVariables());
 
@@ -194,18 +196,18 @@ public class EmailTag extends TagSupport {
         } 
         else {
             if (props.get("mail.smtp.host") == null) {
-                throw new JellyException("no smtp server configured");
+                throw new JellyTagException("no smtp server configured");
             }
         }
 
         // check if there was no to address
         if (to == null) {
-            throw new JellyException("no to address specified");
+            throw new JellyTagException("no to address specified");
         }
 
         // check if there was no from
         if (from == null) {
-            throw new JellyException("no from address specified");
+            throw new JellyTagException("no from address specified");
         }
 
         // get the messageBody from the message attribute or from the tag body
@@ -224,74 +226,87 @@ public class EmailTag extends TagSupport {
 
         // construct the mime message
         MimeMessage msg = new MimeMessage(session);
+ 
+        try {
+            // set the from address
+            msg.setFrom(new InternetAddress(from));
 
-        // set the from address
-        msg.setFrom(new InternetAddress(from));
-
-        // parse out the to addresses
-        StringTokenizer st = new StringTokenizer(to, ";");
-        InternetAddress[] addresses = new InternetAddress[st.countTokens()];
-        int addressCount = 0;
-        while (st.hasMoreTokens()) {
-            addresses[addressCount++] = new InternetAddress(st.nextToken().trim());
-        }
-
-        // set the recipients
-        msg.setRecipients(Message.RecipientType.TO, addresses);
-
-        // parse out the cc addresses
-        if (cc != null) {
-            st = new StringTokenizer(cc, ";");
-            InternetAddress[] ccAddresses = new InternetAddress[st.countTokens()];
-            int ccAddressCount = 0;
+            // parse out the to addresses
+            StringTokenizer st = new StringTokenizer(to, ";");
+            InternetAddress[] addresses = new InternetAddress[st.countTokens()];
+            int addressCount = 0;
             while (st.hasMoreTokens()) {
-                ccAddresses[ccAddressCount++] = new InternetAddress(st.nextToken().trim());
+                addresses[addressCount++] = new InternetAddress(st.nextToken().trim());
             }
 
-            // set the cc recipients
-            msg.setRecipients(Message.RecipientType.CC, ccAddresses);
-        }
+            // set the recipients
+            msg.setRecipients(Message.RecipientType.TO, addresses);
 
-        // set the subject
-        if (subject != null) {
-            msg.setSubject(subject);
-        }
+            // parse out the cc addresses
+            if (cc != null) {
+                st = new StringTokenizer(cc, ";");
+                InternetAddress[] ccAddresses = new InternetAddress[st.countTokens()];
+                int ccAddressCount = 0;
+                while (st.hasMoreTokens()) {
+                    ccAddresses[ccAddressCount++] = new InternetAddress(st.nextToken().trim());
+                }
 
-        // set a timestamp
-        msg.setSentDate(new Date());
-
-        // if there was no attachment just set the text/body of the message
-        if (attachment == null) {
-
-            msg.setText(messageBody);
-
+                // set the cc recipients
+                msg.setRecipients(Message.RecipientType.CC, ccAddresses);
+            }
         } 
-        else {
-
-            // attach the multipart mime message
-            // setup the body
-            MimeBodyPart mbp1 = new MimeBodyPart();
-            mbp1.setText(messageBody);
-
-            // setup the attachment
-            MimeBodyPart mbp2 = new MimeBodyPart();
-            FileDataSource fds = new FileDataSource(attachment);
-            mbp2.setDataHandler(new DataHandler(fds));
-            mbp2.setFileName(fds.getName());
-
-            // create the multipart and add its parts
-            Multipart mp = new MimeMultipart();
-            mp.addBodyPart(mbp1);
-            mp.addBodyPart(mbp2);
-
-            msg.setContent(mp);
-
+        catch (AddressException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (MessagingException e) {
+            throw new JellyTagException(e);
         }
 
-        logger.info("sending email to " + to + " using " + server);
+        try {
+            // set the subject
+            if (subject != null) {
+                msg.setSubject(subject);
+            }
 
-        // send the email
-        Transport.send(msg);
+            // set a timestamp
+            msg.setSentDate(new Date());
+
+            // if there was no attachment just set the text/body of the message
+            if (attachment == null) {
+
+                msg.setText(messageBody);
+
+            } 
+            else {
+
+                // attach the multipart mime message
+                // setup the body
+                MimeBodyPart mbp1 = new MimeBodyPart();
+                mbp1.setText(messageBody);
+
+                // setup the attachment
+                MimeBodyPart mbp2 = new MimeBodyPart();
+                FileDataSource fds = new FileDataSource(attachment);
+                mbp2.setDataHandler(new DataHandler(fds));
+                mbp2.setFileName(fds.getName());
+
+                // create the multipart and add its parts
+                Multipart mp = new MimeMultipart();
+                mp.addBodyPart(mbp1);
+                mp.addBodyPart(mbp2);
+
+                msg.setContent(mp);
+
+            }
+
+            logger.info("sending email to " + to + " using " + server);
+
+            // send the email
+            Transport.send(msg);
+        } 
+        catch (MessagingException e) {
+            throw new JellyTagException(e);
+        }
 
     }
 }
