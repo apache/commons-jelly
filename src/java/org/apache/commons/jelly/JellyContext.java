@@ -562,9 +562,11 @@ public class JellyContext {
     /**
      * Returns a URL for the given resource from the specified path.
      * If the uri starts with "/" then the path is taken as relative to 
-     * the current context root. If the uri is a well formed URL then it
-     * is used. Otherwise the uri is interpreted as relative to the current
-     * context (the location of the current script).
+     * the current context root.
+     * If the uri is a well formed URL then it is used.
+     * If the uri is a file that exists and can be read then it is used.
+     * Otherwise the uri is interpreted as relative to the current context (the
+     * location of the current script).
      */
     public URL getResource(String uri) throws MalformedURLException {
         if (uri.startsWith("/")) {
@@ -576,13 +578,20 @@ public class JellyContext {
                 return new URL(uri);
             }
             catch (MalformedURLException e) {
-                // lets try find a relative resource
-                try {
-                    return createRelativeURL(currentURL, uri);
+            	// try for a fully qualified file first
+            	File nonRelativeFile = new File(uri);
+            	if (nonRelativeFile.exists() && nonRelativeFile.canRead()) {
+                    return nonRelativeFile.toURL();
                 }
-                catch (MalformedURLException e2) {
-                    throw e;
-                }
+            	else {
+                    // lets try find a relative resource
+                    try {
+                        return createRelativeURL(currentURL, uri);
+                    } 
+                    catch (MalformedURLException e2) {
+                        throw e;
+                    }
+				}
             }
         }
     }
