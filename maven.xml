@@ -236,7 +236,7 @@
         
     <j:forEach items="${taglibProjects.iterator()}" var="taglib">
       <j:set var="tlName" value="${taglib.parentFile.name}" />
-      <echo>Processing tablib ${tlName}.</echo>
+      <echo>Processing tag-library ${tlName}.</echo>
       <j:set var="dir" value="${basedir}/jelly-tags/${tlName}"/>
       <uptodate property="siteIsBuilt">
         <srcfiles dir="${dir}" excludes="target/**/*"/>
