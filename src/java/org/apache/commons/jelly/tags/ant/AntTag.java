@@ -70,9 +70,6 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.grant.DefaultPropsHandler;
-import org.apache.commons.grant.GrantProject;
-import org.apache.commons.grant.PropsHandler;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
@@ -115,7 +112,6 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     /** Construct with a project and tag name.
      *
-     *  @param project The Ant project.
      *  @param tagName The name on the tag.
      */
     public AntTag(String tagName) {
@@ -421,10 +417,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 }
 
                 if (noArg) {
-                    dataType = (DataType) ctor.newInstance(new Object[0]);
+                    dataType = ctor.newInstance(new Object[0]);
                 }
                 else {
-                    dataType = (DataType) ctor.newInstance(new Object[] { getAntProject() });
+                    dataType = ctor.newInstance(new Object[] { getAntProject() });
                 }
                 ((DataType)dataType).setProject( getAntProject() );
 
