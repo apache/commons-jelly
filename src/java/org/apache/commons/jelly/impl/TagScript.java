@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.36 2003/01/31 23:52:46 morgand Exp $
- * $Revision: 1.36 $
- * $Date: 2003/01/31 23:52:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.37 2003/07/10 07:55:06 dion Exp $
+ * $Revision: 1.37 $
+ * $Date: 2003/07/10 07:55:06 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.36 2003/01/31 23:52:46 morgand Exp $
+ * $Id: TagScript.java,v 1.37 2003/07/10 07:55:06 dion Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -97,7 +97,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.36 $
+ * @version $Revision: 1.37 $
  */
 public class TagScript implements Script {
 
@@ -286,7 +286,8 @@ public class TagScript implements Script {
         }
         catch (RuntimeException e) {
             handleException(e);
-        } catch (Error e) {
+        } 
+        catch (Error e) {
            /*
             * Not sure if we should be converting errors to exceptions,
             * but not trivial to remove because JUnit tags throw 
