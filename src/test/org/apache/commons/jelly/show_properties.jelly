@@ -12,10 +12,10 @@
         <th>Value</th>
       </tr>
 
-      <j:forEach var="iter" items="${System.getProperties()}">
+      <j:forEach var="iter" items="${systemScope}">
         <tr>
-          <td><j:expr value="${iter.key}"/></td>
-          <td><j:expr value="${iter.value}"/></td>
+          <td>${iter.key}</td>
+          <td>${iter.value}</td>
         </tr>
       </j:forEach>
     </table>

@@ -121,6 +121,7 @@ public class JellyContext {
 
     public JellyContext() {
         this.currentURL = rootURL;
+        init();
     }
 
     public JellyContext(URL rootURL) {
@@ -130,7 +131,7 @@ public class JellyContext {
     public JellyContext(URL rootURL, URL currentURL) {
         this.rootURL = rootURL;
         this.currentURL = currentURL;
-        this.variables.put("context", this);
+        init();
     }
 
     public JellyContext(JellyContext parent) {
@@ -139,13 +140,18 @@ public class JellyContext {
         this.currentURL = parent.currentURL;
         this.taglibs = parent.taglibs;
         this.variables.put("parentScope", parent.variables);
-        this.variables.put("context", this);
+        init();
     }
 
     public JellyContext(JellyContext parentJellyContext, URL currentURL) {
         this(parentJellyContext);
         this.currentURL = currentURL;
     }
+
+    private void init() {
+        variables.put("context", this);
+        variables.put("systemScope", System.getProperties());
+    }    
     
     /**
      * @return the parent context for this context

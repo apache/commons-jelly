@@ -259,6 +259,13 @@
 	
    </target>
 
+   <target name="demo.sysprop" depends="compile" 
+      description="Runs the system properties demo">
+      
+	<jelly file="src/test/org/apache/commons/jelly/show_properties.jelly" output="target/sysprop.html"/>
+	
+   </target>
+
    <target name="demo.ant" depends="compile" 
       description="Runs demo which displays Ant properties">
       
