@@ -76,6 +76,7 @@ import org.apache.commons.grant.PropsHandler;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.logging.Log;
@@ -132,7 +133,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         Project project = getAntProject();
         String tagName = getTagName();
         Object parentObject = null;
-        
+
         // must be a datatype.
         TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
         if ( ancestor != null ) {
@@ -140,14 +141,14 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
 
         // lets assume that Task instances are not nested inside other Task instances
-        // for example <manifest> inside a <jar> should be a nested object, where as 
+        // for example <manifest> inside a <jar> should be a nested object, where as
         // if the parent is not a Task the <manifest> should create a ManifestTask
 
-        if ( ! ( parentObject instanceof Task ) && 
-            project.getTaskDefinitions().containsKey( tagName ) ) {                            
-            
+        if ( ! ( parentObject instanceof Task ) &&
+            project.getTaskDefinitions().containsKey( tagName ) ) {
+
             if ( log.isDebugEnabled() ) {
-                log.debug( "Creating an ant Task for name: " + tagName );            
+                log.debug( "Creating an ant Task for name: " + tagName );
             }
             // the following algorithm follows the lifetime of a tag
             // http://jakarta.apache.org/ant/manual/develop.html#writingowntask
@@ -199,8 +200,8 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
         else {
 
-            if ( log.isDebugEnabled() ) {                            
-                log.debug( "Creating a nested object name: " + tagName );            
+            if ( log.isDebugEnabled() ) {
+                log.debug( "Creating a nested object name: " + tagName );
             }
 
             if ( parentObject == null ) {
@@ -230,10 +231,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
                 // now lets invoke the body
                 String body = getBodyText();
-    
+
                 // now lets set any attributes of this tag...
                 setBeanProperties();
-    
+
                 // now lets add it to its parent
                 if ( parentObject != null ) {
                     IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );
@@ -246,24 +247,24 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 }
             }
             else {
-                // lets treat this tag as static XML...                
+                // lets treat this tag as static XML...
                 StaticTag tag = new StaticTag("", tagName, tagName);
                 tag.setParent( getParent() );
                 tag.setBody( getBody() );
-    
+
                 tag.setContext(context);
-        
+
                 for (Iterator iter = getAttributes().entrySet().iterator(); iter.hasNext();) {
                     Map.Entry entry = (Map.Entry) iter.next();
                     String name = (String) entry.getKey();
                     Object value = entry.getValue();
-        
+
                     tag.setAttribute(name, value);
                 }
-            
+
                 tag.doTag(output);
             }
-        }        
+        }
     }
 
 
@@ -318,9 +319,15 @@ public class AntTag extends MapTagSupport implements TaskSource {
             super.setAttribute( name, "" );
         }
         else {
-            super.setAttribute( name, value.toString() );
+            if ( value instanceof Expression )
+            {
+                super.setAttribute( name, ((Expression) value).evaluateAsValue(context) );
+            }
+            else
+            {
+                super.setAttribute( name, value.toString() );
+            }
         }
-                            
     }
 
     public void setBeanProperty(Object object, String name, Object value) throws Exception {
@@ -425,7 +432,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     public Task createTask(String taskName,
                            Class taskType) throws Exception {
-                            
+
         if (taskType == null) {
             return null;
         }
@@ -446,7 +453,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
         return task;
     }
-    
+
     /**
      * Attempts to look up in the parent hierarchy for a tag that implements the BeanSource interface
      * which creates a dynamic bean, or will return the parent tag, which is also a bean.
