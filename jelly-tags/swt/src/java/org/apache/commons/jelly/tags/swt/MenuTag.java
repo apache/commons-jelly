@@ -100,7 +100,7 @@ public class MenuTag extends WidgetTag {
      * @param parent is the parent widget which is never null
      * @param widget is the new child widget to be attached to the parent
      */
-    protected void attachWidgets(Widget parent, Widget widget) {
+    protected void attachWidgets(Object parent, Widget widget) {
         Menu menu = (Menu) widget;
         if (parent instanceof Decorations) {
             Decorations shell = (Decorations) parent;
