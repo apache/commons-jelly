@@ -191,7 +191,7 @@
     <get dest="lib/ant-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.jar"></get>
     <get dest="lib/ant-optional-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-optional-1.5.jar"></get>
     <get dest="lib/commons-beanutils-1.4-dev.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.4-dev.jar"></get>
-    <get dest="lib/commons-collections-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-2.0.jar"></get>
+    <get dest="lib/commons-collections-2.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-2.1.jar"></get>
     <get dest="lib/commons-digester-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-SNAPSHOT.jar"></get>
     <get dest="lib/commons-cli-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-cli/jars/commons-cli-SNAPSHOT.jar"></get>
     <get dest="lib/commons-lang-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-SNAPSHOT.jar"></get>
@@ -199,7 +199,7 @@
     <get dest="lib/commons-grant-1.0-beta-4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-grant/jars/commons-grant-1.0-beta-4.jar"></get>
     <get dest="lib/commons-jexl-1.0-beta-1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jexl/jars/commons-jexl-1.0-beta-1.jar"></get>
     <get dest="lib/commons-logging-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.jar"></get>
-    <get dest="lib/dom4j-1.4-dev-7.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4-dev-7.jar"></get>
+    <get dest="lib/dom4j-1.4-dev-8.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4-dev-8.jar"></get>
     <get dest="lib/forehead-1.0-beta-2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/forehead/jars/forehead-1.0-beta-2.jar"></get>
     <get dest="lib/javadoc-1.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/javadoc/jars/javadoc-1.3.jar"></get>
     <get dest="lib/jaxp-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jaxp/jars/jaxp-1.2.jar"></get>
@@ -209,7 +209,7 @@
     <get dest="lib/werkz-1.0-beta-4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/werkz/jars/werkz-1.0-beta-4.jar"></get>
     <get dest="lib/xalan-2.3.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xalan/jars/xalan-2.3.1.jar"></get>
     <get dest="lib/xerces-2.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xerces/jars/xerces-2.0.2.jar"></get>
-    <get dest="lib/xml-apis-2.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xml-apis/jars/xml-apis-2.0.2.jar"></get>
+    <get dest="lib/xml-apis-1.0.b2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xml-apis/jars/xml-apis-1.0.b2.jar"></get>
     <get dest="lib/antlrall-2.7.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/antlr/jars/antlrall-2.7.1.jar"></get>
     <get dest="lib/bsh-1.2-b3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/bsh/jars/bsh-1.2-b3.jar"></get>
     <get dest="lib/bsf-2.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/bsf/jars/bsf-2.2.jar"></get>
@@ -223,7 +223,7 @@
     <get dest="lib/xsdlib-20020414.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xsdlib/jars/xsdlib-20020414.jar"></get>
     <get dest="lib/relaxngDatatype-20020414.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/relaxngDatatype/jars/relaxngDatatype-20020414.jar"></get>
     <get dest="lib/nekohtml-0.6.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/nekohtml/jars/nekohtml-0.6.5.jar"></get>
-    <get dest="lib/ojb-0.8.375.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ojb/jars/ojb-0.8.375.jar"></get>
+    <get dest="lib/ojb-0.9.6.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ojb/jars/ojb-0.9.6.jar"></get>
     <get dest="lib/quartz-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/quartz/jars/quartz-SNAPSHOT.jar"></get>
     <get dest="lib/hsqldb-1.7.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/hsqldb/jars/hsqldb-1.7.0.jar"></get>
     <get dest="lib/activation-1.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jaf/jars/activation-1.0.2.jar"></get>
