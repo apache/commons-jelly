@@ -63,6 +63,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.BeanSource;
 
 /** 
  * A tag which sets the bean properties on the given bean.
@@ -73,6 +74,10 @@ import org.apache.commons.jelly.XMLOutput;
  * </pre>
  * Then it would set the name and location properties on the bean denoted by
  * the expression ${person}.
+ * <p>
+ * This tag can also be nested inside a bean tag such as the &lt;useBean&gt; tag
+ * or a JellySwing tag to set one or more properties, maybe inside some conditional
+ * logic.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.3 $
@@ -88,7 +93,14 @@ public class SetPropertiesTag extends MapTagSupport  {
         Map attributes = getAttributes();
         Object bean = attributes.remove( "object" );
         if ( bean == null ) {
-            throw new MissingAttributeException("bean");
+            // lets try find a parent bean
+            BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
+            if (tag != null) {
+                bean = tag.getBean();
+            }
+            if (bean == null) {
+                throw new MissingAttributeException("bean");
+            }
         }
         setBeanProperties(bean, attributes);
     }

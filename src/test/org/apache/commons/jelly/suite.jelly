@@ -133,6 +133,30 @@
 			actual="${customer.class.name}"/>
   </test:case>
 
+	<test:case name="testUseBeanWithSetProperties">
+		<j:useBean var="customer" class="org.apache.commons.jelly.bean.Customer" name="James">
+
+			<!-- typically the following tag might be nested inside some conditional logic -->
+			<j:setProperties name="Bob" city="Atlanta"/>
+		</j:useBean>			
+										
+		<log:info>Created a new bean: ${customer}</log:info>
+			
+		<test:assert test="${customer != null}">Created a customer bean</test:assert>
+		
+		<test:assertEquals 
+			expected="Bob" 
+			actual="${customer.name}"/>
+			
+		<test:assertEquals 
+			expected="Atlanta" 
+			actual="${customer.city}"/>
+			
+		<test:assertEquals 
+			expected="org.apache.commons.jelly.bean.Customer" 
+			actual="${customer.class.name}"/>
+  </test:case>
+
 	<test:case name="testSetWithNoEncoding">
 		<j:set var="foo" encode="false">
 			<foo x="1">hello</foo>
