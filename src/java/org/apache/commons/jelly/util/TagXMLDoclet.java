@@ -62,10 +62,13 @@
 
 package org.apache.commons.jelly.util;
 
+import com.sun.javadoc.*;
+
 import java.beans.Introspector;
 import java.io.*;
 import java.util.*;
-import com.sun.javadoc.*;
+
+import org.cyberneko.html.parsers.SAXParser;
 
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
@@ -275,7 +278,8 @@ public class TagXMLDoclet extends Doclet {
         cm.startElement(xmlns, localName, "doc", emptyAtts);
         String commentText = doc.commentText();
         if (! commentText.equals("")) {
-            cm.characters(commentText.toCharArray(), 0, commentText.length());
+            parseHTML(commentText);
+            // cm.characters(commentText.toCharArray(), 0, commentText.length());
         }
         Tag[] tags = doc.tags();
         for (int i = 0; i < tags.length; ++i) {
@@ -306,6 +310,48 @@ public class TagXMLDoclet extends Doclet {
 */        
     }
 
+    protected void parseHTML(String text) throws SAXException {
+        SAXParser parser = new SAXParser();
+        parser.setProperty(
+            "http://cyberneko.org/html/properties/names/elems",
+            "lower"
+        );
+        parser.setProperty(
+            "http://cyberneko.org/html/properties/names/attrs",
+            "lower"
+        );
+        parser.setContentHandler(
+            new DefaultHandler() {
+                public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
+                    if ( validDocElementName( localName ) ) {
+                        cm.startElement(namespaceURI, localName, qName, atts);
+                    }
+                }
+                public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+                    if ( validDocElementName( localName ) ) {
+                        cm.endElement(namespaceURI, localName, qName);
+                    }
+                }
+                public void characters(char[] ch, int start, int length) throws SAXException {
+                    cm.characters(ch, start, length);
+                }
+            }
+        );
+        try {
+            parser.parse( new InputSource(new StringReader( text )) );
+        }
+        catch (IOException e) {
+            System.err.println( "This should never happen!" + e );
+        }
+    }
+
+    /**
+     * @return true if the given name is a valid HTML markup element.
+     */
+    protected boolean validDocElementName(String name) {
+        return ! name.equalsIgnoreCase( "html" ) && ! name.equalsIgnoreCase( "body" );
+    }
+    
     /**
      * Generates doc for all tag elements.
      */
