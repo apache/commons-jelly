@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/OnMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/26 06:24:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/OnMessageTag.java,v 1.3 2003/02/03 17:58:00 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/02/03 17:58:00 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: OnMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Id: OnMessageTag.java,v 1.3 2003/02/03 17:58:00 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
@@ -80,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
  * variable name, but can be overloaded by the var attribute.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class OnMessageTag extends TagSupport {
 
@@ -100,14 +100,13 @@ public class OnMessageTag extends TagSupport {
 			throw new JellyTagException("This tag must be nested within a ConsumerTag like the subscribe tag");
 		}			
 
-
 		final JellyContext childContext = context.newJellyContext();
 		final Script script = getBody();
 		final XMLOutput childOutput = output; 
 		
 		MessageListener listener = new MessageListener() {
 			public void onMessage(Message message) {
-				childContext.setVariable(var, childContext);
+				childContext.setVariable(var, message);
 				try {
 					script.run(childContext, childOutput);
 				}
