@@ -146,10 +146,7 @@ public class StaticTagScript extends TagScript {
         catch (JellyTagException e) {
             handleException(e);
         }
-        catch (JellyException e) {
-            handleException(e);
-        }
-        catch (Exception e) {
+        catch (RuntimeException e) {
             handleException(e);
         }
         
