@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.13 2003/01/29 15:45:36 dion Exp $
- * $Revision: 1.13 $
- * $Date: 2003/01/29 15:45:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.14 2003/01/31 14:16:25 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/01/31 14:16:25 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.13 2003/01/29 15:45:36 dion Exp $
+ * $Id: SetTag.java,v 1.14 2003/01/31 14:16:25 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which sets a variable from the result of an expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 public class SetTag extends TagSupport {
 
@@ -107,6 +107,21 @@ public class SetTag extends TagSupport {
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws JellyTagException {
+        // perform validation up front to fail fast
+        if ( var != null ) {
+            if ( target != null || property != null ) {
+                throw new JellyTagException( "The 'target' and 'property' attributes cannot be used in combination with the 'var' attribute" );
+            }
+        }
+        else {
+            if ( target == null ) {
+                throw new JellyTagException( "Either a 'var' or a 'target' attribute must be defined for this tag" );
+            }
+            if ( property == null ) {
+                throw new JellyTagException( "The 'target' attribute requires the 'property' attribute" );
+            }
+        }
+
         Object answer = null;
         if ( value != null ) {
             answer = value.evaluate(context);
@@ -124,12 +139,6 @@ public class SetTag extends TagSupport {
             }
         }
         else {
-            if ( target == null ) {
-                throw new JellyTagException( "Either a 'var' or a 'target' attribute must be defined for this tag" );
-            }
-            if ( property == null ) {
-                throw new JellyTagException( "You must define a 'property' attribute if you specify a 'target'" );
-            }
             setPropertyValue( target, property, answer );
         }
     }
