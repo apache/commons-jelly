@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:mock="jelly:define" xmlns:sql="jelly:sql">
+<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:mock="jelly:define" xmlns:sql="jelly:sql" xmlns:log="jelly:log">
 
 	<!-- lets create some mock tags and test a sample script that it evaluates the 
 		|| mock tags as we'd expect
@@ -34,7 +34,8 @@
 
 		<mock:taglib uri="myFoodWebService">
 		  <mock:tag name="eat">
-		  	Invoking the eat web service with ${cheese}
+		  	<log:info>Invoking the eat web service with ${cheese}</log:info>
+		  	
 		  	
 		  	<!-- increment the counter, in the parent scope so not to use a local variable -->
 		  	<j:set var="eatServiceCount" scope="parent" value="${1+eatServiceCount}"/>

@@ -2,9 +2,9 @@
 
 <!-- common tests that the channel has been created properly -->
 
-<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:b="jelly:betwixt">
+<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:b="jelly:betwixt" xmlns:log="jelly:log">
 
-  Parsed channel with title: ${channel.title}
+	<log:info>Parsed channel with title: ${channel.title}</log:info>
   	
   <test:assert test="${channel != null}"/>
   	

@@ -8,49 +8,51 @@
             xmlns:log="jelly:log">
 
 	<test:case name="testDionsBug" xmlns="dummy">
-		
-    <!-- see if we can break template -->
-    <m:fileScanner var="files">
-      <m:fileset dir="src/test/org/apache/commons/jelly/jsl">
-        <m:patternset>
-          <m:include name="**/*.xml"/>
-        </m:patternset>
-      </m:fileset>
-    </m:fileScanner>
 
-    <j:forEach var="file" items="${files.iterator()}">
-      <x:parse var="doc" xml="${file.toURL()}" />
-      <jsl:stylesheet select="$doc">
-        <jsl:template match="document" trim="no">
-
-          <h>
-            <j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
-            <j:set var="short"><x:expr select="./properties/title" /></j:set>
-            <m:echo>full=${full},short=${short}</m:echo>
-            <test:assert test="${full == short}">All iterations should succeed</test:assert>
-          </h>
-        </jsl:template>
-      </jsl:stylesheet>
-
-    </j:forEach>
-
-    <!-- test stylesheet external to loop -->
-    <jsl:stylesheet var="ss1">
-      <jsl:template match="document" trim="no">
-        <h>
-
-          <j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
-          <j:set var="short"><x:expr select="./properties/title" /></j:set>
-          <m:echo>full=${full},short=${short}</m:echo>
-          <test:assert test="${full == short}">All iterations should succeed</test:assert>
-        </h>
-      </jsl:template>
-    </jsl:stylesheet>
-
-    <j:forEach var="file" items="${files.iterator()}">
-      <x:parse var="doc" xml="${file.toURL()}" />
-      <jsl:style stylesheet="${ss1}" select="$doc" />
-    </j:forEach>
+		<log:info>
+			<!-- see if we can break template -->
+			<m:fileScanner var="files">
+				<m:fileset dir="src/test/org/apache/commons/jelly/jsl">
+					<m:patternset>
+						<m:include name="**/*.xml"/>
+					</m:patternset>
+				</m:fileset>
+			</m:fileScanner>
+	
+			<j:forEach var="file" items="${files.iterator()}">
+				<x:parse var="doc" xml="${file.toURL()}" />
+				<jsl:stylesheet select="$doc">
+					<jsl:template match="document" trim="no">
+	
+						<h>
+							<j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
+							<j:set var="short"><x:expr select="./properties/title" /></j:set>
+							<m:echo>full=${full},short=${short}</m:echo>
+							<test:assert test="${full == short}">All iterations should succeed</test:assert>
+						</h>
+					</jsl:template>
+				</jsl:stylesheet>
+	
+			</j:forEach>
+	
+			<!-- test stylesheet external to loop -->
+			<jsl:stylesheet var="ss1">
+				<jsl:template match="document" trim="no">
+					<h>
+	
+						<j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
+						<j:set var="short"><x:expr select="./properties/title" /></j:set>
+						<m:echo>full=${full},short=${short}</m:echo>
+						<test:assert test="${full == short}">All iterations should succeed</test:assert>
+					</h>
+				</jsl:template>
+			</jsl:stylesheet>
+	
+			<j:forEach var="file" items="${files.iterator()}">
+				<x:parse var="doc" xml="${file.toURL()}" />
+				<jsl:style stylesheet="${ss1}" select="$doc" />
+			</j:forEach>
+		</log:info>			
   </test:case>  
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:x="jelly:xml">
+<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:x="jelly:xml" xmlns:log="jelly:log">
 
   <test:case name="assertTests">
   
@@ -10,8 +10,9 @@
 	</j:catch>    	
 	
 	<test:assert test="${ex != null}">We should have created an exception</test:assert>
+
+	<log:info>The exception was: ${ex.message}</log:info>	
 	
-	The exception was: ${ex.message}
   </test:case>
 
 
@@ -23,7 +24,7 @@
 	
 	<test:assert test="${ex != null}">We should have created an exception</test:assert>
 	
-	The exception was: ${ex.message}
+	<log:info>The exception was: ${ex.message}</log:info>	
 	
     <j:catch var="ex">
 	  <test:fail message="This should always fail"/>
@@ -31,7 +32,7 @@
 	
 	<test:assert test="${ex != null}">We should have created an exception</test:assert>
 	
-	The exception was: ${ex.message}
+	<log:info>The exception was: ${ex.message}</log:info>	
   </test:case>
 
 	
@@ -47,7 +48,7 @@
 	
 	<test:assert test="${ex != null}">We should have created an exception</test:assert>
 	
-	The exception was: ${ex.message}
+	<log:info>The exception was: ${ex.message}</log:info>	
   </test:case>
 
 <!--

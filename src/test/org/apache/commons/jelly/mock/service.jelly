@@ -4,7 +4,7 @@
 	|| via Mock Tags
 	-->
 	
-<j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql" xmlns:my="myFoodWebService">
+<j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql" xmlns:my="myFoodWebService" xmlns:log="jelly:log">
 
 	<sql:query var="results"> 
 	  select * from food where kind = ?
@@ -16,7 +16,7 @@
 	<!-- invoke some service -->
 	<j:forEach items="${results.rows}" var="row">
 	
-		Found row with ID ${row.id}
+		<log:info>Found row with ID ${row.id}</log:info>
 		
 	  <!-- this tag could invoke a web service etc -->
 	  <my:eat cheese="${row.id}"/>
