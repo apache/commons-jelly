@@ -77,8 +77,9 @@ public class SwingTagLibrary extends TagLibrary {
         registerTag( "tableModelColumn", TableModelColumnTag.class );
         
         // the border tags...
-        registerTag( "titledBorder", TitledBorderTag.class );
         registerTag( "etchedBorder", EtchedBorderTag.class );
+        registerTag( "emptyBorder", EmptyBorderTag.class );
+        registerTag( "titledBorder", TitledBorderTag.class );
         // @todo the other kinds of borders, empty, bevelled, compound etc
             
         // the layout tags...
