@@ -41,7 +41,7 @@
       <id>antlr</id>
       <version>2.7.1</version>
       <jar>antlrall-2.7.1.jar</jar>
-    </dependency> -->
+    </dependency>
     
     <!-- END for compilation -->
     
