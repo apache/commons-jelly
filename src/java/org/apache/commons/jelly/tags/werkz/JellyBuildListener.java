@@ -22,11 +22,9 @@ public class JellyBuildListener implements BuildListener
     }
 
     public void buildFinished(BuildEvent event) {
-
     }
 
     public void buildStarted(BuildEvent event) {
-
     }
 
     public void messageLogged(BuildEvent event) {

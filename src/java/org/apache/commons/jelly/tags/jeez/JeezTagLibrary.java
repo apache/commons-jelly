@@ -1,10 +1,13 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.1 2002/06/14 04:04:12 werken Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/06/14 04:04:12 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2001 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,7 +29,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
+ * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,71 +59,69 @@
  *
  */
 
-package org.apache.commons.jelly.tags.werkz;
-
-import com.werken.werkz.Project;
+package org.apache.commons.jelly.tags.jeez;
 
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.TagScript;
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.tags.werkz.WerkzTagLibrary;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
+import org.apache.commons.jelly.tags.core.CoreTagLibrary;
 
-/** 
- * The root tag of a Project definition.
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.xml.sax.Attributes;
+
+/** Convenience taglib that puts jelly:core, jelly:werkz and jelly:ant
+ *  into a single namespace.
  *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
+ * @version $Revision: 1.1 $
  */
-public class ProjectTag extends WerkzTagSupport {
+public class JeezTagLibrary extends TagLibrary {
 
-    /** the project */
-    private Project project;
-        
-    public ProjectTag() {
-        super( true );
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog(JeezTagLibrary.class);
+
+    /** jelly:core taglib. */
+    private TagLibrary coreTagLib;
+
+    /** jelly:werkz taglib. */
+    private TagLibrary werkzTagLib;
+
+    /** jelly:ant taglib. */
+    private TagLibrary antTagLib;
+    
+    /** Construct.
+     *
+     *  @param antProject The ant Project.
+     */
+    public JeezTagLibrary(org.apache.tools.ant.Project antProject) {
+        this.coreTagLib  = new CoreTagLibrary();
+        this.antTagLib   = new AntTagLibrary( antProject );
+        this.werkzTagLib = new WerkzTagLibrary();
     }
 
+    public TagScript createTagScript(String name,
+                                     Attributes attrs) throws Exception
+    {
+        TagScript script = this.coreTagLib.createTagScript( name, attrs );
 
-    /**
-     * @return the project instance 
-     */
-    public Project getProject() {
-        if ( project == null ) {
-	        // we may be invoked inside a child script, so lets try find the parent project
-	        project = (Project) context.findVariable( "org.apache.commons.jelly.werkz.Project" );
-	        if ( project == null ) {
-	            project = new Project();
-	            context.setVariable( "org.apache.commons.jelly.werkz.Project", project );
-	        }
+        if ( script == null ) {
+
+            script = this.werkzTagLib.createTagScript( name, attrs );
+
+            if ( script == null ) {
+                script = this.antTagLib.createTagScript( name, attrs );
+            }
         }
-        return project;
-    }
-    
-    
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    
-    /** 
-     * Evaluate the body to register all the various goals and pre/post conditions
-     * then run all the current targets
-     */
-    public void doTag(XMLOutput output) throws Exception {       
-        // force project to be lazily constructed        
-        getProject(); 
 
-        // AntTagLibrary ant = (AntTagLibrary) context.getTagLibrary( "jelly:ant" );
-
-        org.apache.tools.ant.Project antProject =
-            (org.apache.tools.ant.Project) context.findVariable( "org.apache.commons.jelly.ant.Project" );
-
-        antProject.getBuildListeners().clear();
-
-        antProject.addBuildListener( new JellyBuildListener( output ) );
-        
-        getBody().run(context, output);
+        return script;
     }
 }
