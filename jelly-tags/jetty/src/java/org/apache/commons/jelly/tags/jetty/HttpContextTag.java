@@ -61,7 +61,7 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -71,7 +71,9 @@ import org.mortbay.http.SecurityConstraint;
 import org.mortbay.http.SecurityConstraint.Authenticator;
 import org.mortbay.util.Resource;
 
+import java.io.IOException;
 import java.net.URL;
+import java.net.MalformedURLException;
 
 /**
  * Declare a context for a Jetty http server
@@ -106,12 +108,12 @@ public class HttpContextTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
         JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
             JettyHttpServerTag.class);
         if ( httpserver == null ) {
-            throw new JellyException( "<httpContext> tag must be enclosed inside a <server> tag" );
+            throw new JellyTagException( "<httpContext> tag must be enclosed inside a <server> tag" );
         }
 
         // allow nested tags first, e.g body
@@ -121,8 +123,17 @@ public class HttpContextTag extends TagSupport {
 
         // convert the resource string to a URL
         // (this makes URL's relative to the location of the script
-        URL baseResourceURL = getContext().getResource(getResourceBase());
-        _context.setBaseResource(Resource.newResource(baseResourceURL));
+        try {
+            URL baseResourceURL = getContext().getResource(getResourceBase());
+            _context.setBaseResource(Resource.newResource(baseResourceURL));
+        } 
+        catch (MalformedURLException e) {
+            throw new JellyTagException(e);
+        }
+        catch (IOException e) {
+            throw new JellyTagException(e);
+        }
+        
         if (null != getRealmName()) {
             _context.setRealmName(getRealmName());
         }

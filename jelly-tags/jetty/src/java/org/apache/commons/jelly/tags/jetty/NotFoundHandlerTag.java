@@ -61,7 +61,7 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.mortbay.http.handler.NotFoundHandler;
@@ -89,7 +89,7 @@ public class NotFoundHandlerTag extends TagSupport {
         HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
             HttpContextTag.class);
         if ( httpContext == null ) {
-            throw new JellyException( "<notFoundHandler> tag must be enclosed inside a <httpContext> tag" );
+            throw new JellyTagException( "<notFoundHandler> tag must be enclosed inside a <httpContext> tag" );
         }
         NotFoundHandler notFoundHandler = new NotFoundHandler();
         httpContext.addHandler(notFoundHandler);

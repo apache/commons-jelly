@@ -61,7 +61,7 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -85,13 +85,13 @@ abstract public class AbstractMethodHandlerTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         JellyResourceHandlerTag parentTag =
             (JellyResourceHandlerTag) findAncestorWithClass(
                 JellyResourceHandlerTag.class);
 
         if ( parentTag == null ) {
-            throw new JellyException( "<" + getMethodHandled().toLowerCase() +
+            throw new JellyTagException( "<" + getMethodHandled().toLowerCase() +
                                       "Request> tag must be enclosed inside a <jellyResourceHandler> tag" );
         }
 

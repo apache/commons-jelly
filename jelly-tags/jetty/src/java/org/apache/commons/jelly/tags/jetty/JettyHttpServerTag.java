@@ -61,8 +61,11 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
 import java.net.URL;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.LogFactory;
@@ -74,6 +77,7 @@ import org.mortbay.http.UserRealm;
 import org.mortbay.http.handler.NotFoundHandler;
 import org.mortbay.http.handler.ResourceHandler;
 import org.mortbay.util.Log;
+import org.mortbay.util.MultiException;
 import org.mortbay.util.OutputStreamLogSink;
 import org.mortbay.util.Resource;
 
@@ -148,7 +152,7 @@ public class JettyHttpServerTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
         try {
             URL logFileURL = getContext().getResource(getLogFileName());
@@ -161,26 +165,34 @@ public class JettyHttpServerTag extends TagSupport {
         // allow nested tags first, e.g body
         invokeBody(xmlOutput);
 
-        // if no listeners create a default port listener
-        if (_server.getListeners().length == 0) {
-            SocketListener listener=new SocketListener();
-            listener.setPort(DEFAULT_PORT);
-            listener.setHost(DEFAULT_HOST);
-            _server.addListener(listener);
+        try {
+            // if no listeners create a default port listener
+            if (_server.getListeners().length == 0) {
+                SocketListener listener=new SocketListener();
+                listener.setPort(DEFAULT_PORT);
+                listener.setHost(DEFAULT_HOST);
+                _server.addListener(listener);
+            }
+
+            // if no context/s create a default context
+            if (_server.getContexts().length == 0) {
+                log.info("Creating a default context");
+                // Create a context
+                HttpContext context = _server.getContext(DEFAULT_HOST,
+                                                        DEFAULT_CONTEXT_PATH);
+
+                // Serve static content from the context
+                URL baseResourceURL = getContext().getResource(DEFAULT_RESOURCE_BASE);
+                Resource resource = Resource.newResource(baseResourceURL);
+                context.setBaseResource(resource);
+                _server.addContext(context);
+            }
         }
-
-        // if no context/s create a default context
-        if (_server.getContexts().length == 0) {
-            log.info("Creating a default context");
-            // Create a context
-            HttpContext context = _server.getContext(DEFAULT_HOST,
-                                                    DEFAULT_CONTEXT_PATH);
-
-            // Serve static content from the context
-            URL baseResourceURL = getContext().getResource(DEFAULT_RESOURCE_BASE);
-            Resource resource = Resource.newResource(baseResourceURL);
-            context.setBaseResource(resource);
-            _server.addContext(context);
+        catch (UnknownHostException e) {
+            throw new JellyTagException(e);
+        }
+        catch (IOException e) {
+            throw new JellyTagException(e);
         }
 
         // check that all the contexts have at least one handler
@@ -197,7 +209,12 @@ public class JettyHttpServerTag extends TagSupport {
         }
 
         // Start the http server
-        _server.start();
+        try {
+            _server.start();
+        }
+        catch (MultiException e) {
+            throw new JellyTagException(e);
+        }
 
         // set variable to value if required
         if (getVar() != null) {

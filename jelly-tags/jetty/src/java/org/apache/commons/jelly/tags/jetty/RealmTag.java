@@ -61,12 +61,13 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.mortbay.http.HashUserRealm;
 
+import java.io.IOException;
 import java.net.URL;
 
 /**
@@ -95,20 +96,25 @@ public class RealmTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
             JettyHttpServerTag.class);
         if ( httpserver == null ) {
-            throw new JellyException( "<realm> tag must be enclosed inside a <server> tag" );
+            throw new JellyTagException( "<realm> tag must be enclosed inside a <server> tag" );
         }
         if (null == getName() || null == getConfig()) {
-            throw new JellyException( "<realm> tag must have a name and a config" );
+            throw new JellyTagException( "<realm> tag must have a name and a config" );
         }
 
         // convert the config string to a URL
         // (this makes URL's relative to the location of the script
-        URL configURL = getContext().getResource(getConfig());
-        httpserver.addRealm( new HashUserRealm(getName(), configURL.toString() ) );
+        try {
+            URL configURL = getContext().getResource(getConfig());
+            httpserver.addRealm( new HashUserRealm(getName(), configURL.toString() ) );
+        } catch (IOException e) {
+            throw new JellyTagException(e);
+        }
+        
         invokeBody(xmlOutput);
     }
 

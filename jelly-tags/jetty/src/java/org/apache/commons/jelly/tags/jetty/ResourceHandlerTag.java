@@ -61,7 +61,7 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -91,11 +91,11 @@ public class ResourceHandlerTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
             HttpContextTag.class);
         if ( httpContext == null ) {
-            throw new JellyException( "<resourceHandler> tag must be enclosed inside a <httpContext> tag" );
+            throw new JellyTagException( "<resourceHandler> tag must be enclosed inside a <httpContext> tag" );
         }
         ResourceHandler resourceHandler = new ResourceHandler();
         if (getAllowedMethods() != null) {

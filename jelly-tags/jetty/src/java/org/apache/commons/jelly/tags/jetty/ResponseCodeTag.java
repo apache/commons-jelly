@@ -61,7 +61,7 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -84,16 +84,16 @@ public class ResponseCodeTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
         if (getValue() <= 100) {
-            throw new JellyException("<responseCode> tag must have a value of at least 100");
+            throw new JellyTagException("<responseCode> tag must have a value of at least 100");
         }
 
         // get the response from the context
         HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
         if (null == httpResponse) {
-            throw new JellyException("HttpResponse variable not available in Jelly context");
+            throw new JellyTagException("HttpResponse variable not available in Jelly context");
         }
 
         // set response code

@@ -61,7 +61,9 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import java.io.IOException;
+
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -93,14 +95,21 @@ public class SocketListenerTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
             JettyHttpServerTag.class);
         if ( httpserver == null ) {
-            throw new JellyException( "<socketListener> tag must be enclosed inside a <server> tag" );
+            throw new JellyTagException( "<socketListener> tag must be enclosed inside a <server> tag" );
         }
-        httpserver.addListener(
-            new SocketListener(new InetAddrPort(getHost(), getPort())));
+        
+        try {
+            httpserver.addListener(
+                new SocketListener(new InetAddrPort(getHost(), getPort())));
+        } 
+        catch (IOException e) {
+            throw new JellyTagException(e);
+        }
+        
         invokeBody(xmlOutput);
     }
 

@@ -61,7 +61,7 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -76,7 +76,9 @@ import org.mortbay.util.Code;
 import org.mortbay.xml.XmlParser;
 
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.Iterator;
 
@@ -135,11 +137,11 @@ public class SecurityHandlerTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
             HttpContextTag.class);
         if ( httpContext == null ) {
-            throw new JellyException( "<securityHandler> tag must be enclosed inside a <httpContext> tag" );
+            throw new JellyTagException( "<securityHandler> tag must be enclosed inside a <httpContext> tag" );
         }
         SecurityHandler securityHandler = new SecurityHandler();
         if (getauthenticationMethod() != null) {
@@ -156,7 +158,16 @@ public class SecurityHandlerTag extends TagSupport {
         // crate a non-validating parser
         XmlParser xmlParser = new XmlParser(false);
 
-        XmlParser.Node node = xmlParser.parse(inputSource);
+        XmlParser.Node node = null;
+        try {
+            node = xmlParser.parse(inputSource);
+        } 
+        catch (IOException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
 
         Iterator iter=node.iterator();
         XmlParser.Node currNode = null;
@@ -174,7 +185,7 @@ public class SecurityHandlerTag extends TagSupport {
                 } else if ("login-config".equals(name)) {
                     initLoginConfig(currNode, httpContext);
                 } else {
-                    throw new JellyException("Invalid element in <securityHandler> tag. Are you using the <constraints> tag?: " + currNode);
+                    throw new JellyTagException("Invalid element in <securityHandler> tag. Are you using the <constraints> tag?: " + currNode);
                 }
         }
 

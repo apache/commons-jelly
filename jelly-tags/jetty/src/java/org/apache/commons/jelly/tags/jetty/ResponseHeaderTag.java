@@ -61,7 +61,7 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -87,16 +87,16 @@ public class ResponseHeaderTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
         if (null == getName()) {
-            throw new JellyException("<responseHeader> tag must have a name");
+            throw new JellyTagException("<responseHeader> tag must have a name");
         }
 
         // get the response from the context
         HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
         if (null == httpResponse) {
-            throw new JellyException("HttpResponse variable not available in Jelly context");
+            throw new JellyTagException("HttpResponse variable not available in Jelly context");
         }
 
         // if value is valid then set it
