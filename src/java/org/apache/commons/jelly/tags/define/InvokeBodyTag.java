@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.8 2002/06/26 09:24:36 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/26 09:24:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.9 2002/08/09 15:48:48 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/08/09 15:48:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.8 2002/06/26 09:24:36 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.9 2002/08/09 15:48:48 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -77,12 +77,12 @@ import org.apache.commons.logging.LogFactory;
  * body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class InvokeBodyTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(JellyContext.class);
+    private static final Log log = LogFactory.getLog(InvokeBodyTag.class);
 
     public InvokeBodyTag() {
     }
