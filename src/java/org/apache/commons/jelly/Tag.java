@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.7 2002/06/14 10:24:14 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/14 10:24:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.8 2002/06/26 09:43:31 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/06/26 09:43:31 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Tag.java,v 1.7 2002/06/14 10:24:14 jstrachan Exp $
+ * $Id: Tag.java,v 1.8 2002/06/26 09:43:31 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -65,32 +65,49 @@ package org.apache.commons.jelly;
 /** <p><code>Tag</code> represents a Jelly custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 
 public interface Tag {
 
-    /** @return the parent of this tag */
+    /** 
+     * @return the parent of this tag
+     */
     public Tag getParent();
 
-    /** Sets the parent of this tag */
+    /** 
+     * Sets the parent of this tag
+     */
     public void setParent(Tag parent);
 
-    /** @return the body of the tag */
-
+    /** 
+     * @return the body of the tag 
+     */
     public Script getBody();
 
-    /** Sets the body of the tag */
+    /** 
+     * Sets the body of the tag
+     */
     public void setBody(Script body);
     
-    /** Gets the context in which the tag will be run */
+    /** 
+     * Gets the context in which the tag will be run
+     */
     public JellyContext getContext();
 
-    /** Sets the context in which the tag will be run */
+    /** 
+     * Sets the context in which the tag will be run 
+     */
     public void setContext(JellyContext context) throws Exception;
 
-    /** Evaluates this tag after all the tags properties have been initialized.
+    /** 
+     * Evaluates this tag after all the tags properties have been initialized.
      */
     public void doTag(XMLOutput output) throws Exception;
 
+    /**
+     * A helper method to invoke this tags body
+     */
+    public void invokeBody(XMLOutput output) throws Exception;
+    
 }
