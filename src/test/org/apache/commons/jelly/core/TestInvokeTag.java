@@ -22,7 +22,7 @@ import org.apache.commons.jelly.core.Customer;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.4 $ $Date: 2004/02/24 14:19:58 $
+ * @version $Revision: 1.5 $ $Date: 2004/08/12 04:25:42 $
  */
 public class TestInvokeTag extends BaseJellyTest {
 
@@ -93,5 +93,36 @@ public class TestInvokeTag extends BaseJellyTest {
         assertNotNull(getJellyContext().getVariable("argtwo"));
         assertEquals("Chicago",getJellyContext().getVariable("argtwo"));
     }
+    
+    public void testInvokeThatThrowsException() throws Exception {
+        setUpScript("testInvokeTag.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("test.invokeThatThrowsException",Boolean.TRUE);
+        script.run(getJellyContext(),getXMLOutput());
+        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        assertNotNull( exceptionMessage );
+        assertNotNull( getJellyContext().getVariable("exceptionBean"));
+        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
+        assertNull( jellyException );
+        Exception exception = (Exception) getJellyContext().getVariable("exceptionThrown");
+        assertNotNull( exception );
+        assertEquals( exceptionMessage, exception.getMessage() );
+    }
+    
+    public void testInvokeThatDoesNotHandleException() throws Exception {
+        setUpScript("testInvokeTag.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("test.invokeThatDoesNotHandleException",Boolean.TRUE);
+        script.run(getJellyContext(),getXMLOutput());
+        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        assertNotNull( exceptionMessage );
+        assertNotNull( getJellyContext().getVariable("exceptionBean"));
+        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
+        assertNotNull( jellyException );
+        assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
+        assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
+        		exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
+    }
+    
 
 }

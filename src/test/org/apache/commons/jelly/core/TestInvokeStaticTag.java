@@ -21,7 +21,7 @@ import org.apache.commons.jelly.Script;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class TestInvokeStaticTag extends BaseJellyTest {
 
@@ -99,4 +99,33 @@ public class TestInvokeStaticTag extends BaseJellyTest {
         assertTrue( getJellyContext().getVariable("message").equals("Is not Jelly the coolest thing you have ever used?") );
         
     }
+    
+    public void testInvokeThatThrowsException() throws Exception {
+        setUpScript( "testInvokeStaticTag.jelly" );
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("test.invokeThatThrowsException",Boolean.TRUE);
+        script.run(getJellyContext(),getXMLOutput());
+        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        assertNotNull( exceptionMessage );
+        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
+        assertNull( jellyException );
+        Exception exception = (Exception) getJellyContext().getVariable("exceptionThrown");
+        assertNotNull( exception );
+        assertEquals( exceptionMessage, exception.getMessage() );
+    }
+    
+    public void testInvokeThatDoesNotHandleException() throws Exception {
+        setUpScript( "testInvokeStaticTag.jelly" );
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("test.invokeThatDoesNotHandleException",Boolean.TRUE);
+        script.run(getJellyContext(),getXMLOutput());
+        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        assertNotNull( exceptionMessage );
+        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
+        assertNotNull( jellyException );
+        assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
+        assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
+        		exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
+    }
+    
 }

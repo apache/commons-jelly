@@ -42,12 +42,15 @@ import org.apache.commons.jelly.XMLOutput;
   * </p>
   *
   * @author <a href="mailto:robert@bull-enterprises.com>Robert McIntosh</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 
     /** the variable exported */
     private String var;
+    
+    /** the variable where the method's exception is exported */
+    private String exceptionVar;
     
     /** the method to invoke */
     private String methodName;
@@ -68,6 +71,13 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      */
     public void setVar(String var) {
         this.var = var;
+    }
+    
+    /** Sets the name of a variable that exports the exception thrown by
+     * the method's invocation (if any)
+     */
+    public void setExceptionVar(String var) {
+        this.exceptionVar = var;
     }
     
     /**
@@ -131,7 +141,12 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
             throw createLoadClassFailedException(e);
         } 
         catch (InvocationTargetException e) {
-            throw createLoadClassFailedException(e);
+        	if(null != exceptionVar) {
+        		context.setVariable(exceptionVar,e.getTargetException());
+        	} else {
+        		throw new JellyTagException("method " + methodName + 
+            		" threw exception: "+ e.getTargetException().getMessage(), e );
+        	}
         }
         finally {
             paramTypes.clear();

@@ -28,12 +28,15 @@ import org.apache.commons.jelly.XMLOutput;
 /**  A tag which calls a function in an object instantied by core:new.
   *
   * @author Rodney Waldhoff
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class InvokeTag extends TagSupport implements ArgTagParent {
 
     /** the variable exported */
     private String var;
+    
+    /** the variable where the method's exception is exported */
+    private String exceptionVar;
     
     /** the method to invoke */
     private String methodName;
@@ -50,6 +53,13 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
     /** Sets the name of the variable exported by this tag */
     public void setVar(String var) {
         this.var = var;
+    }
+    
+    /** Sets the name of a variable that exports the exception thrown by
+     * the method's invocation (if any)
+     */
+    public void setExceptionVar(String var) {
+        this.exceptionVar = var;
     }
     
     public void setMethod(String method) {
@@ -91,11 +101,17 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
             throw new JellyTagException(e);
         } 
         catch (InvocationTargetException e) {
-            throw new JellyTagException(e);
+        	if(null != exceptionVar) {
+        		context.setVariable(exceptionVar,e.getTargetException());
+        	} else {
+        		throw new JellyTagException("method " + methodName + 
+            		" threw exception: "+ e.getTargetException().getMessage(), e );
+        	}
         }
-        
-        paramTypes.clear();
-        paramValues.clear();
+        finally {
+        	paramTypes.clear();
+        	paramValues.clear();
+        }
         
         ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
         if(null != parentArg) {

@@ -59,5 +59,24 @@
             <j:arg><j:invoke on="${list}" method="get" var="argtwo"><j:arg type="int" value="1"/></j:invoke></j:arg>
         </j:new>
     </j:if>
+    
+    <j:if test="${test.invokeThatThrowsException}">
+        <j:set var="exceptionMessage" value="method threw an exception"/>
+        <j:new var="exceptionBean" className="org.apache.commons.jelly.core.ExceptionBean"/>
+        <j:catch var="jellyException">
+	        <j:invoke on="${exceptionBean}" method="instanceMethod" exceptionVar="exceptionThrown">
+	        	<j:arg value="${exceptionMessage}"/>
+	        </j:invoke>
+        </j:catch>
+    </j:if>
+    <j:if test="${test.invokeThatDoesNotHandleException}">
+        <j:set var="exceptionMessage" value="method threw an exception"/>
+        <j:new var="exceptionBean" className="org.apache.commons.jelly.core.ExceptionBean"/>
+        <j:catch var="jellyException">
+	        <j:invoke on="${exceptionBean}" method="instanceMethod">
+	        	<j:arg value="${exceptionMessage}"/>
+	        </j:invoke>
+        </j:catch>
+    </j:if>
 
 </j:jelly>
