@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/VerifierTag.java,v 1.3 2003/04/20 03:16:24 dion Exp $
- * $Revision: 1.3 $
- * $Date: 2003/04/20 03:16:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/VerifierTag.java,v 1.4 2003/04/20 04:06:40 dion Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/04/20 04:06:40 $
  *
  * ====================================================================
  *
@@ -57,11 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: VerifierTag.java,v 1.3 2003/04/20 03:16:24 dion Exp $
+ * $Id: VerifierTag.java,v 1.4 2003/04/20 04:06:40 dion Exp $
  */
 package org.apache.commons.jelly.tags.validate;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 
@@ -80,7 +82,7 @@ import org.xml.sax.SAXException;
  * so that it can be used by a &lt;validate&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class VerifierTag extends TagSupport {
 
@@ -89,6 +91,9 @@ public class VerifierTag extends TagSupport {
     
     /** The URI to load the schema from */
     private String uri;
+    
+    /** The file to load the schema from */
+    private File file;
     
     /** The system ID to use when parsing the schema */
     private String systemId;
@@ -109,8 +114,9 @@ public class VerifierTag extends TagSupport {
             if ( in == null ) {
                 throw new JellyTagException( "Could not find resource for uri: " + uri );
             }
-        }
-        else {
+        } else if (file != null) {
+        	in = new FileInputStream(file)
+        } else {
             String text = getBodyText();
             in = new ByteArrayInputStream( text.getBytes() );
         }
@@ -160,14 +166,24 @@ public class VerifierTag extends TagSupport {
     }
 
     /**
-     * Sets the URI of the schema file to parse. If no URI is specified then the
-     * body of this tag is used as the source of the schema
+     * Sets the URI of the schema file to parse. If no URI and no file is
+     * specified then the body of this tag is used as the source of the schema
      * 
      * @jelly:optional
      */    
     public void setUri(String uri) {
         this.uri = uri;
     }
+
+	/**
+	 * Sets the {@link File} of the schema to parse. If no URI and no file is
+	 * specified then the body of this tag is used as the source of the schema
+	 * 
+	 * @jelly:optional
+	 */    
+	public void setFile(File aFile) {
+		file = aFile;
+	}
 
     /**
      * Sets the system ID used when parsing the schema
