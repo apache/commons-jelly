@@ -104,16 +104,20 @@ public class SwingTagLibrary extends TagLibrary {
     }
         
     public SwingTagLibrary() {
+        registerTag( "action", ActionTag.class );
     }
 
     /** Creates a new script to execute the given tag name and attributes */
     public TagScript createTagScript(String name, Attributes attributes) throws Exception {
-        Factory factory = getFactory( name );
-        if ( factory != null ) {
-            ComponentTag tag = new ComponentTag(factory);
-            return TagScript.newInstance(tag);
+        TagScript answer = super.createTagScript(name, attributes);
+        if ( answer == null ) {
+            Factory factory = getFactory( name );
+            if ( factory != null ) {
+                ComponentTag tag = new ComponentTag(factory);
+                answer = TagScript.newInstance(tag);
+            }
         }
-        return null;
+        return answer;
     }
     
     /**

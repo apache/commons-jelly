@@ -69,6 +69,7 @@ import java.awt.Point;
 
 import javax.swing.*;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.ConvertUtils;
 
@@ -152,6 +153,16 @@ public class ComponentTag extends DynaBeanTagSupport {
     }
 
 
+    /**
+     * Sets the Action of this component
+     */
+    public void setAction(Action action) throws Exception {
+        Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'action' property
+            BeanUtils.setProperty( component, "action", action );
+        }
+    }
 
     // DynaTag interface
     //-------------------------------------------------------------------------                    

@@ -1,11 +1,19 @@
 <?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:core" xmlns="jelly:swing">
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:swing" xmlns:log="jelly:log">
 
-  <frame title="This is a frame" var="frame" location="100,100" size="800,400" visible="true">
+  <frame title="This is a frame" var="frame" location="100,100" size="800,400">
     <menuBar>
       <menu text="File">
-        <menuItem text="File"/>
-        <menuItem text="Open"/>
+        <menuItem>
+          <action name="New">
+          	<log:info>clicked on the New menu item!</log:info>
+          </action>
+        </menuItem>
+        <menuItem>
+          <action name="Open">
+          	<log:info>Popup a file dialog!</log:info>
+          </action>
+        </menuItem>
         <menuItem text="Save" enabled="false" />
         <separator/>
         <menuItem text="Properties"/>
@@ -19,7 +27,11 @@
       <panel>
         <label text="Enter your name"/>
         <textField text="James"/>
-        <button text="OK"/>
+        <button>
+          <action name="OK">
+          	<log:info>Clicked on the OK button</log:info>
+          </action>
+        </button>
       </panel>
       <scrollPane>
         <j:new className="org.apache.commons.jelly.swing.MyTableModel" var="tableModel"/>
@@ -27,6 +39,8 @@
       </scrollPane>
     </splitPane>
   </frame>
+  
+  ${frame.show()}
   
 </j:jelly>
 
