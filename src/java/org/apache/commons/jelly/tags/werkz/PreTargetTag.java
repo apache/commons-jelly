@@ -92,13 +92,9 @@ public class PreTargetTag extends CallbackTagSupport {
         getGoal(getName()).addPreGoalCallback(
             new PreGoalCallback() {
                 public void firePreGoal(Goal goal) throws Exception {
-                    System.out.println( "Calling pre target: " + getName() );
-                    
                     // lets run the body
                     log.info( "Running pre target: " + getName() );
                     getBody().run( context, output);               
-                                             
-                    System.out.println( "Called pre target: " + getName() );
                 }                
             }
         );            

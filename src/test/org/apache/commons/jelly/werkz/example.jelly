@@ -4,24 +4,21 @@
 
   <!-- the following could be in the mediator of Maven -->
   <werkz:target name="init">
-    target: init
   	<echo message="Initializing the project!"/>
   </werkz:target>
   		
   <werkz:target name="compile">
-    target: compile
   	<echo message="About to compile the project!"/>
   </werkz:target>
 
   <werkz:target name="test">
-  	target: test
   	<echo message="About to run the tests!"/>
   </werkz:target>
 
 
  <!-- define some callbacks in the projects build.jelly -->
  <werkz:preTarget name="compile">
- 	<echo message="I'm a callback: doing something before I compile"/> 	  		
+ 	<echo message="I am a callback: doing something before I compile"/> 	  		
  </werkz:preTarget>
 
 

@@ -137,6 +137,8 @@ public class AntTagLibrary extends TagLibrary {
     }        
         
     public AntTagLibrary() {
+        // need to spoof an Ant project
+        this.project = new Project();
     }
 
     public AntTagLibrary(Project project) {

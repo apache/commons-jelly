@@ -98,18 +98,18 @@ public class TargetTag extends WerkzTagSupport {
      */
     public void doTag(final XMLOutput output) throws Exception {
         
-        // lets register a new goal...
-        
-        getProject().addGoal(
-            new DefaultGoal(name) {
-                public void performAction() throws Exception {
-                    System.out.println( "Running target: " + name );
-                    // lets run the body
-                    log.info( "Running target: " + name );
-                    getBody().run( context, output);                                        
-                }                
+        // lets register a new goal...        
+		DefaultGoal goal = new DefaultGoal(name) {
+			public void performAction() throws Exception {
+				// lets run the body
+				log.info("Running target: " + name);
+				getBody().run(context, output);
+			}
+            public boolean requiresAction() {
+                return true;
             }
-        );            
+		};
+        getProject().addGoal(goal);
     }
 
 
