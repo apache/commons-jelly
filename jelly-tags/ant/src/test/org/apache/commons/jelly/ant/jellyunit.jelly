@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+ ! FIXME: Move to ant taglib?
+ !-->
+<j:jelly xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:ant="jelly:ant">
+
+  <ant:fileScanner var="scanner">
+    <ant:fileset dir="src/test" includes="**/suite.jelly"/>
+  </ant:fileScanner>
+
+	<j:if test="${empty outputfile}">
+			<j:set var="outputfile" value="target/jellyunit.xml"/>
+  </j:if>
+  
+  <ant:echo>Running all JellyUnit tests and generating file ${outputfile}</ant:echo>
+  	
+	<j:file name="${outputfile}">
+		<tests>
+		  <j:forEach var="file" items="${scanner.iterator()}">
+	
+		  	<j:set var="uri" value="${file.toURL().toString()}"/>
+		  	
+		  	<suite uri="${uri}">
+		  		<j:include uri="${uri}"/>
+					<test:run/>  	
+				</suite>	
+						
+		  </j:forEach>
+		</tests>
+	</j:file>		
+</j:jelly>
