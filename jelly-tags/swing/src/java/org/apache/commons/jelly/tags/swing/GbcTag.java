@@ -108,6 +108,9 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     
     /**
      * Adds a child component to this parent
+     * @param component the child to add
+     * @param constraints the constraints to use 
+     * @TODO constraints looks like it's ignored
      */
     public void addChild(Component component, Object constraints) throws JellyTagException {
         GridBagLayoutTag tag = (GridBagLayoutTag) findAncestorWithClass( GridBagLayoutTag.class );
@@ -122,6 +125,7 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     
     /**
      * A class may be specified otherwise the Factory will be used.
+     * @param classObject the object to be converted
      */
     protected Class convertToClass(Object classObject) 
     throws MissingAttributeException, ClassNotFoundException {
