@@ -30,6 +30,9 @@
     </section>
 
     <section name="Description">
+      <p>
+        This tag ...
+      </p>
     </section>
     
     <section name="Attributes">
@@ -48,6 +51,18 @@
     </section>
     
     <section name="Nested Elements">
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Required</th>
+        </tr>
+        <tr>
+          <td>...</td>
+          <td>...</td>
+          <td>...</td>
+        </tr>
+      </table>
     </section>
 
     <section name="Examples">
