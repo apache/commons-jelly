@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="jar" name="commons-jelly" basedir=".">
+
+  <target name="jar" depends="get-deps">
+
+    <mkdir dir="target/classes"></mkdir>
+
+    <javac destdir="target/classes" deprecation="false" debug="false" optimize="false" excludes="**/package.html">
+      <src>
+        <pathelement location="src/java"></pathelement>
+      </src>
+      <classpath>
+        <fileset dir="lib">
+          <include name="*.jar"></include>
+        </fileset>
+      </classpath>
+    </javac>
+
+    <jar jarfile="target/commons-jelly-1.0-dev.jar" excludes="**/package.html" basedir="target/classes"></jar>
+
+  </target>
+
+  <target name="get-deps">
+  
+    <mkdir dir="lib"></mkdir>
+    
+    <get dest="lib/junit-3.7.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/junit-3.7.jar"></get>
+    <get dest="lib/javadoc-1.3.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/javadoc-1.3.jar"></get>
+    <get dest="lib/xmlParserAPIs-2.0.0.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/xmlParserAPIs-2.0.0.jar"></get>
+    <get dest="lib/xercesImpl-2.0.0.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/xercesImpl-2.0.0.jar"></get>
+    <get dest="lib/ant-1.4.1.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/ant-1.4.1.jar"></get>
+    <get dest="lib/ant-optional-1.4.1.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/ant-optional-1.4.1.jar"></get>
+    <get dest="lib/commons-logging-1.0.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/commons-logging-1.0.jar"></get>
+    <get dest="lib/commons-beanutils-1.4-dev.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/commons-beanutils-1.4-dev.jar"></get>
+    <get dest="lib/commons-collections-2.0.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/commons-collections-2.0.jar"></get>
+    <get dest="lib/commons-digester-1.2.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/commons-digester-1.2.jar"></get>
+    <get dest="lib/dom4j-1.4-dev-3.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/dom4j-1.4-dev-3.jar"></get>
+    <get dest="lib/commons-jexl-1.0-dev.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/commons-jexl-1.0-dev.jar"></get>
+    <get dest="lib/velocity-1.4-dev.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/velocity-1.4-dev.jar"></get>
+    <get dest="lib/jdbc2_0-stdext.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/jdbc2_0-stdext.jar"></get>
+    <get dest="lib/werkz-1.0-beta-2.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/werkz-1.0-beta-2.jar"></get>
+    <get dest="lib/bsh-1.2-b3.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/bsh-1.2-b3.jar"></get>
+    <get dest="lib/bsf-2.2.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/bsf-2.2.jar"></get>
+    <get dest="lib/ojb-0.8.375.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/ojb-0.8.375.jar"></get>
+    <get dest="lib/jms-1.0.2b.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/jms-1.0.2b.jar"></get>
+    <get dest="lib/commons-messenger-1.0-dev-3.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/commons-messenger-1.0-dev-3.jar"></get>
+    <get dest="lib/commons-httpclient-2.0-dev.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/commons-httpclient-2.0-dev.jar"></get>
+    <get dest="lib/isorelax-20020414.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/isorelax-20020414.jar"></get>
+    <get dest="lib/msv-20020414.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/msv-20020414.jar"></get>
+    <get dest="lib/xsdlib-20020414.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/xsdlib-20020414.jar"></get>
+    <get dest="lib/relaxngDatatype-20020414.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/relaxngDatatype-20020414.jar"></get>
+    <get dest="lib/hsqldb-1.7.0.jar" usetimestamp="true" src="http://jakarta.apache.org/turbine/jars/hsqldb-1.7.0.jar"></get>
+  
+  </target>
+
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <target name="install-maven">
+
+    
+
+    <get dest="${user.home}/maven-latest-install.jar" usetimestamp="true" src="${maven.repo.remote}maven/maven-latest-install.jar"></get>
+    
+    <unjar dest="${maven.home}" src="${user.home}/maven-latest-install.jar"></unjar>
+    
+  </target>
+
+</project>
+    
