@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/util/Attic/UtilTagLibrary.java,v 1.6 2002/11/13 12:59:35 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/11/13 12:59:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/util/Attic/UtilTagLibrary.java,v 1.7 2002/11/16 11:41:50 dion Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/11/16 11:41:50 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: UtilTagLibrary.java,v 1.6 2002/11/13 12:59:35 jstrachan Exp $
+ * $Id: UtilTagLibrary.java,v 1.7 2002/11/16 11:41:50 dion Exp $
  */
 package org.apache.commons.jelly.tags.util;
 
@@ -66,7 +66,7 @@ import org.apache.commons.jelly.TagLibrary;
 /** Implements general utility tags.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- *  @version $Revision: 1.6 $
+ *  @version $Revision: 1.7 $
  */
 public class UtilTagLibrary extends TagLibrary {
     
@@ -74,6 +74,7 @@ public class UtilTagLibrary extends TagLibrary {
         registerTag("available", AvailableTag.class);
         registerTag("loadText", LoadTextTag.class);
         registerTag("properties", PropertiesTag.class);
+        registerTag("replace", ReplaceTag.class);
         registerTag("tokenize", TokenizeTag.class);
         registerTag("sleep", SleepTag.class);
     }
