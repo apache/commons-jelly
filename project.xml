@@ -410,11 +410,11 @@
     </dependency>
 -->
 
-	<!-- runtime dependencies for test programs -->
+	<!-- runtime dependencies for test programs 
     <dependency>
       <id>hsqldb</id>
       <version>1.7.0</version>
-    </dependency>
+    </dependency> -->
 
 	<!-- email taglib -->
     <dependency>
