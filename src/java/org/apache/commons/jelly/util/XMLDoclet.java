@@ -211,7 +211,7 @@ public class XMLDoclet extends Doclet {
         } else if (classDoc.isFinal()) {
             extensibility = "final";
         }
-        atts.addAttribute(xmlns, localName, "extensiblity", "String", extensibility);
+        atts.addAttribute(xmlns, localName, "extensibility", "String", extensibility);
         String access = "package";
         if (classDoc.isPublic()) {
             access = "public";

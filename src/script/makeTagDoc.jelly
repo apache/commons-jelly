@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+
+<x:parse var="doc" xml="target/javadoc.xml"/>
+<x:set var="packages" select="$doc/javadoc/package[class/implements/interfaceref/@name = 'org.apache.commons.jelly.Tag']"/>    	
+
+<document>
+
+    <properties>
+      <title>Tag Documentation</title>
+    </properties>
+
+  <body>
+    <section name="Tag Documentation">
+
+	  <p>
+        [<a href="#Tag Libraries">tag libraries</a>]
+        [<a href="#Tags">tags</a>]
+      </p>
+      <p>
+        The following document contains a summary of all the core 
+        <a href="http://jakarta.apache.org/commons/sandbox/jelly/">Jelly</a> tag libraries.  
+      </p>
+      
+    </section>
+
+    <section name="Tag Libraries">
+	  <p>
+        [<a href="#Tag Libraries">tag libraries</a>]
+        [<a href="#Tags">tags</a>]
+      </p>
+      
+      <table>
+	<tr>
+      <th>Library</th>
+      <th>Description</th>
+    </tr>
+    <x:forEach select="$packages">
+    <x:set var="name" select="string(@name)"/>
+    <tr>
+      <td><a href="#${name}">${name}</a></td>
+      	
+	  <!-- #### should use <x:copyOf> -->      		
+      <td>
+      	<x:copyOf select="doc/*|doc/text()"/>
+	  </td>
+    </tr>
+    </x:forEach>
+    </table>
+
+    
+    <x:forEach select="$packages">
+    <x:set var="name" select="string(@name)"/>
+  
+    <subsection name="${name}">
+    <table>
+    <tr>
+      <th>Tag Name</th>
+      <th>Description</th>
+    </tr>
+    
+    <x:forEach select="class[@extensiblity!='abstract' and implements/interfaceref/@name = 'org.apache.commons.jelly.Tag']">
+    <x:set var="tagName" select="string(@name)"/>
+	<tr>
+    	<td><a href="#${tagName}">${tagName}</a></td>
+        <td>
+        
+	  	  <!-- #### should use <x:copyOf> -->      		
+      	  <x:copyOf select="doc/*|doc/text()"/>
+		</td>
+	</tr>
+    </x:forEach>
+    </table>
+    </subsection>
+    
+    </x:forEach>
+    
+    </section>
+      
+      
+
+	<section name="Tags">	
+   	  <p>
+        [<a href="#Tag Libraries">tag libraries</a>]
+        [<a href="#Tags">tags</a>]
+      </p>
+    </section>
+    
+  </body>
+</document>
+
+</j:jelly>
+
+

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.5 2002/05/17 15:18:11 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/17 15:18:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.6 2002/06/18 08:37:02 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/18 08:37:02 $
  *
  * ====================================================================
  *
@@ -57,22 +57,26 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StaticTag.java,v 1.5 2002/05/17 15:18:11 jstrachan Exp $
+ * $Id: StaticTag.java,v 1.6 2002/06/18 08:37:02 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.AttributesImpl;
+
 /** 
  * <p><code>StaticTag</code> represents a static XML element
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
+
 public class StaticTag extends TagSupport implements DynaTag {
     
     /** The namespace URI */

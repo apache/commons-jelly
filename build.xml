@@ -219,6 +219,7 @@
 	  <mkdir dir="target/xmldoclet"/>	   
 	  <path id="doclet.classpath">
 	    <pathelement path="${maven.build.dest}"/>
+	    <path refid="maven.dependency.classpath"/>
 	  </path>
 	  <javadoc 
 	  	sourcepath="src/java" 
@@ -228,6 +229,10 @@
 	  </javadoc>
 	</target>
 	
+   <target name="doc-tags" depends="compile" 
+      description="Generates the tag documentation">
+	<jelly file="src/script/makeTagDoc.jelly" output="target/generated-xdocs/tags.xml"/> 
+   </target>
 <!-- ========== Specific Test cases ======================================= -->
 
    <target name="test.expr"
