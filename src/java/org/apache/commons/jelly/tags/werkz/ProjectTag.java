@@ -77,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
 public class ProjectTag extends TagSupport {
 
     /** the project */
-    private Project project = new Project();
+    private Project project;
         
     public ProjectTag() {
     }
@@ -87,6 +87,14 @@ public class ProjectTag extends TagSupport {
      * @return the project instance 
      */
     public Project getProject() {
+        if ( project == null ) {
+	        // we may be invoked inside a child script, so lets try find the parent project
+	        project = (Project) context.getVariable( "org.apache.commons.jelly.werkz.Project" );
+	        if ( project == null ) {
+	            project = new Project();
+	            context.setVariable( "org.apache.commons.jelly.werkz.Project", project );
+	        }
+        }
         return project;
     }
     
@@ -98,16 +106,7 @@ public class ProjectTag extends TagSupport {
      * Evaluate the body to register all the various goals and pre/post conditions
      * then run all the current targets
      */
-    public void doTag(XMLOutput output) throws Exception {
-        // project.clear();
-
-        context.setVariable( "org.apache.commons.jelly.werkz.Project", project );
-        
+    public void doTag(XMLOutput output) throws Exception {        
         getBody().run(context, output);
     }
-
-
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                
 }
