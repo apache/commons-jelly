@@ -526,5 +526,27 @@
     </java>
   </goal>
 
+  <goal name="test:discovery" prereqs="jelly-task">
+    <java classname="org.apache.commons.jelly.impl.TestTagLibraryResolver" fork="yes">
+      <classpath refid="test.classpath"/>
+      <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
+    </java>
+  </goal>
+
+  <goal name="demo:compactxml" prereqs="jelly-task">
+  	<mkdir dir="build/compactxml"/>
+  	
+		<xslt basedir="." destdir="build/compactxml" 
+			includes="*.xml" extension=".cml" style="src/script/asCompact.xsl"/>
+  </goal>
+
+
+  <goal name="demo:radio2pda" prereqs="jelly-task" 
+		description="Converts the HTML news output of Radio Userland to simple HTML viewable on a PDA">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/html/radioToPDA.jelly"/> 
+    </java>
+  </goal>
 
 </project>
