@@ -61,7 +61,6 @@ public class SwingTagLibrary extends TagLibrary {
         ConvertUtils.register( new DimensionConverter(), Dimension.class );
         ConvertUtils.register( new PointConverter(), Point.class );
         ConvertUtils.register( new ColorConverter(), java.awt.Color.class );
-        DebugGraphicsConverter.register();
     }
 
     public SwingTagLibrary() {

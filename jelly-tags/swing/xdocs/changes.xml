@@ -24,7 +24,11 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.0-SNAPSHOT" date="in CVS">
+    <release version="1.1-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-10" due-to="Hans Gilde">JellySwing should be strict on the attribute names it uses.</action>
+    </release>
+    
+    <release version="1.0" date="2004-09-12">
       <action dev="dion" type="add" issue="JELLY-133" due-to="Hans Gilde">ComponentTag methods should throw JellyTagException.</action>
       <action dev="dion" type="add" issue="JELLY-132" due-to="Hans Gilde">ButtonGroup tag is broken.</action>
       <action dev="dion" type="add" issue="JELLY-114">Action tag ignores enabled property.</action>

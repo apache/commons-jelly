@@ -39,7 +39,19 @@ public class DebugGraphicsConverter implements Converter {
             java.lang.Integer.class);
     }
 
+    /** Part of the Converter interface.
+     * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
+     */
     public Object convert(Class type, Object value) {
+        return convert(value);
+    }
+    
+    /** This is not part of the converter interface, it's for use by
+     * classes that don't use DebugGraphicsConverter through BeanUtils.
+     * @param from
+     * @return
+     */
+    public Object convert(Object value) {
         if (value != null) {
             int result = 0;
             StringTokenizer stok =

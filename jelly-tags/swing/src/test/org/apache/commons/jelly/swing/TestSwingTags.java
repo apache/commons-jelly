@@ -23,8 +23,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Point;
+import java.io.UnsupportedEncodingException;
 
 import javax.swing.ButtonGroup;
+import javax.swing.DebugGraphics;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,6 +35,7 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.core.BaseJellyTest;
 
 /** Tests many swing tags for basic functionality.
@@ -68,6 +71,8 @@ public class TestSwingTags extends BaseJellyTest {
         assertNotNull(button);
         assertEquals(new Color(0x11,0x22,0x33), button.getBackground());
         assertEquals(new Color(0x44,0x55,0x66), button.getForeground());
+        assertEquals(DebugGraphics.FLASH_OPTION|DebugGraphics.LOG_OPTION, panel.getDebugGraphicsOptions());
+        assertEquals(DebugGraphics.BUFFERED_OPTION, button.getDebugGraphicsOptions());
     }
 
     /** Tests the GridbagLayout tags, making sure that the constraints are
@@ -139,6 +144,16 @@ public class TestSwingTags extends BaseJellyTest {
         assertNotNull(bg.getSelection());
     }
 
+    public void testInvalidBeanProperty() throws Exception {
+        if (!isAWTAvailable()) return;
+        try {
+            runSwingScript("test.invalidProperty");
+        } catch (Exception e) {
+            //success
+            return;
+        }
+        fail("Should have thrown an exception due to an invalid bean property.");
+    }
 
     protected void runSwingScript(String testName) throws Exception {
         setUpScript("swingTags.jelly");
@@ -173,5 +188,15 @@ public class TestSwingTags extends BaseJellyTest {
      */
     private boolean isAWTAvailable() {
         return !Boolean.getBoolean("java.awt.headless");
+    }
+    /* (non-Javadoc)
+     * @see org.apache.commons.jelly.core.BaseJellyTest#getXMLOutput()
+     */
+    protected XMLOutput getXMLOutput() {
+        try {
+            return XMLOutput.createXMLOutput(System.out);
+        } catch (UnsupportedEncodingException e) {
+            return null;
+        }
     }
 }

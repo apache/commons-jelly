@@ -22,26 +22,29 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.awt.Point;
-import java.awt.Color;
 import java.awt.Window;
-import java.awt.event.WindowListener;
-import java.awt.event.KeyListener;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowListener;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.Action;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.RootPaneContainer;
 import javax.swing.border.Border;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
-
+import org.apache.commons.jelly.tags.swing.converters.DebugGraphicsConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -62,7 +65,13 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ComponentTag.class);
-
+    
+    /** This is a converter that might normally be used through the 
+     * BeanUtils product. However, it only applies to one Component
+     * property and not to all ints, so it's not registered with BeanUtils.
+     */
+    private static final DebugGraphicsConverter debugGraphicsConverter = new DebugGraphicsConverter();
+    
     /** the factory of widgets */
     private Factory factory;
 
@@ -316,18 +325,14 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     }
 
     /**
-     * Patch to handle wierd properties that don't quite match the Java Beans contract
+     * Handles wierd properties that don't quite match the Java Beans contract
      */
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
-        for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String name = (String) entry.getKey();
-            Object value = entry.getValue();
-
-            // ### special hacks for properties that don't introspect properly
+            
             Component component = getComponent();
             if (component != null) {
-                if (name.equals("location")) {
+                if (attributes.containsKey("location")) {
+                    Object value = attributes.get("location");
                     Point p = null;
                     if (value instanceof Point) {
                         p = (Point) value;
@@ -339,8 +344,11 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                                 Point.class);
                     }
                     component.setLocation(p);
+                    addIgnoreProperty("location");
                 }
-                else if (name.equals("size")) {
+
+                if (attributes.containsKey("size")) {
+                    Object value = attributes.get("size");
                     Dimension d = null;
                     if (value instanceof Dimension) {
                         d = (Dimension) value;
@@ -352,65 +360,30 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                                 Dimension.class);
                     }
                     component.setSize(d);
+                    addIgnoreProperty("size");
                 }
-                else if (
-                    name.equalsIgnoreCase("background")
-                        || name.equalsIgnoreCase("foreground")) {
-                    Color c = null;
-                    if (value instanceof Color) {
-                        c = (Color) value;
-                    }
-                    else if (value != null) {
-                        c =
-                            (Color) ConvertUtils.convert(
-                                value.toString(),
-                                Color.class);
-                    }
-
-                    if (name.equalsIgnoreCase("background")) {
-                        component.setBackground(c);
-                    }
-                    else {
-                        component.setForeground(c);
-                    }
-                }
-                else if (
-                    name.equalsIgnoreCase("debugGraphicsOption")
-                        || name.equalsIgnoreCase("debugGraphics")
-                        || name.equalsIgnoreCase("debug")) {
-
-                    Integer v = null;
-                    if (!(value instanceof Integer))
-                        v =
-                            (Integer) ConvertUtils.convert(
-                                value.toString(),
-                                Integer.class);
-                    else
-                        v = (Integer) value;
-                    if (!(component instanceof JComponent))
-                        throw new IllegalArgumentException("DebugGraphics can only be set on a JComponent subclass.");
-                    ((JComponent) component).setDebugGraphicsOptions(
-                        v.intValue());
-                }
-                else {
+                
+                if (attributes.containsKey("debugGraphicsOptions")) {
                     try {
-                        BeanUtils.setProperty(component, name, value);
-                    } catch (IllegalAccessException e) {
-                        throw new JellyTagException(e);
-                    } catch (InvocationTargetException e) {
+                        Object o = debugGraphicsConverter.convert(attributes.get("debugGraphicsOptions"));
+                        attributes.put("debugGraphicsOptions", o);
+                    } catch (IllegalArgumentException e) {
                         throw new JellyTagException(e);
                     }
                 }
-            }
-            else {
-                try {
-                    BeanUtils.setProperty(bean, name, value);
-                } catch (IllegalAccessException e) {
-                    throw new JellyTagException(e);
-                } catch (InvocationTargetException e) {
-                    throw new JellyTagException(e);
+                
+                if (attributes.containsKey("debugGraphics")) {
+                    try {
+                        Object o = debugGraphicsConverter.convert(attributes.get("debugGraphics"));
+                        attributes.put("debugGraphicsOptions", o);
+                    } catch (IllegalArgumentException e) {
+                        throw new JellyTagException(e);
+                    }
+                    
+                    addIgnoreProperty("debugGraphics");
                 }
-            }
+                
+             super.setBeanProperties(bean, attributes);
         }
     }
 

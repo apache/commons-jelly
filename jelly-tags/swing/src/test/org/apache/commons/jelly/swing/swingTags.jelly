@@ -2,12 +2,12 @@
 <j:jelly 
     xmlns:j="jelly:core" 
     xmlns="jelly:swing">
-    
-    <!--for the basic component addembly-->
+	
+    <!--for the basic component assembly-->
     <j:if test="${test.simple}">
         <frame name="frame" var="frame" size="100,100" location="200,200">
-            <panel name="panel">
-                <button name="button" background="#112233" foreground="#445566"/>
+            <panel name="panel" debugGraphics="log|flash">
+                <button name="button" background="#112233" foreground="#445566" debugGraphicsOptions="buffered"/>
             </panel>
         </frame>
     </j:if>
@@ -68,4 +68,12 @@
         </frame>
     </j:if>
     
+	<!--tries to set a bean property that doesn't exist-->
+    <j:if test="${test.invalidProperty}">
+        <frame name="frame" var="frame" size="100,100" location="200,200" foo="bar">
+            <panel name="panel">
+            </panel>
+        </frame>
+    </j:if>
+	
 </j:jelly>
