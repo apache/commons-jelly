@@ -124,11 +124,8 @@ public class CompositeExpression extends ExpressionSupport {
                                                 while(cur<len) {
                                                     c = text.charAt(cur);
 
-                                                    boolean escape = false;
-
                                                     switch ( c ) {
                                                         case('\\'):
-                                                            escape = true;
                                                             ++cur;
                                                             expr.append(c);
                                                             break;
@@ -137,7 +134,6 @@ public class CompositeExpression extends ExpressionSupport {
                                                             expr.append(c);
                                                             break DOUBLE_QUOTE;
                                                         default:
-                                                            escape=false;
                                                             ++cur;
                                                             expr.append(c);
                                                     } // switch
@@ -151,11 +147,8 @@ public class CompositeExpression extends ExpressionSupport {
                                                 while(cur<len) {
                                                     c = text.charAt(cur);
 
-                                                    boolean escape = false;
-
                                                     switch ( c ) {
                                                         case('\\'):
-                                                            escape = true;
                                                             ++cur;
                                                             expr.append(c);
                                                             break;
@@ -164,7 +157,6 @@ public class CompositeExpression extends ExpressionSupport {
                                                             expr.append(c);
                                                             break SINGLE_QUOTE;
                                                         default:
-                                                            escape=false;
                                                             ++cur;
                                                             expr.append(c);
                                                     } // switch
