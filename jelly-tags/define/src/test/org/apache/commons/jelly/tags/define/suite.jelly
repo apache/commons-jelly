@@ -197,5 +197,18 @@
 </test:case>
 
 
+<test:case name="testOverrideVariablesWithAttributes">
+	<define:taglib uri="testOverrideVariablesWithAttributes">
+		<define:tag name="getValueOfVarA">${varA}</define:tag>
+		</define:taglib>
+	<j:set var="varA" value="varA valueFromSet"/>
+	<j:set var="obtained"><getValueOfVarA varA="varA value from attribute" 
+		xmlns="testOverrideVariablesWithAttributes"/></j:set>
+	<log:info>obtained is ${obtained}</log:info>
+	<test:assertEquals 
+		expected="varA value from attribute"
+		actual  ="${obtained}"/>
+	</test:case>
+
    
 </test:suite>
