@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.45 2003/01/24 10:04:33 morgand Exp $
- * $Revision: 1.45 $
- * $Date: 2003/01/24 10:04:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.46 2003/06/09 13:25:39 jstrachan Exp $
+ * $Revision: 1.46 $
+ * $Date: 2003/06/09 13:25:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.45 2003/01/24 10:04:33 morgand Exp $
+ * $Id: XMLParser.java,v 1.46 2003/06/09 13:25:39 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -114,7 +114,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.45 $
+ * @version $Revision: 1.46 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -316,7 +316,7 @@ public class XMLParser extends DefaultHandler {
      */
     public Script parse(InputStream input) throws IOException, SAXException {
         ensureConfigured();
-        this.fileName = null;
+        this.fileName = getCurrentURI();
         getXMLReader().parse(new InputSource(input));
         return script;
     }
@@ -337,7 +337,7 @@ public class XMLParser extends DefaultHandler {
      */
     public Script parse(Reader reader) throws IOException, SAXException {
         ensureConfigured();
-        this.fileName = null;
+        this.fileName = getCurrentURI();
         getXMLReader().parse(new InputSource(reader));
         return script;
     }
@@ -1202,6 +1202,15 @@ public class XMLParser extends DefaultHandler {
 
     protected ExpressionFactory createExpressionFactory() {
         return new JexlExpressionFactory();
+    }
+
+    /**
+     * @return the current context URI as a String or null if there is no 
+     * current context defined on the JellyContext
+     */
+    protected String getCurrentURI() {
+        URL url = this.getContext().getCurrentURL();
+        return (url != null) ? url.toString() : null;
     }
 
     /**
