@@ -42,7 +42,7 @@ import org.apache.commons.jelly.XMLOutput;
   * </p>
   *
   * @author <a href="mailto:robert@bull-enterprises.com>Robert McIntosh</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 
@@ -145,7 +145,8 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
         		context.setVariable(exceptionVar,e.getTargetException());
         	} else {
         		throw new JellyTagException("method " + methodName + 
-            		" threw exception: "+ e.getTargetException().getMessage(), e );
+            		" threw exception: "+ e.getTargetException().getMessage(), 
+					e.getTargetException() );
         	}
         }
         finally {
