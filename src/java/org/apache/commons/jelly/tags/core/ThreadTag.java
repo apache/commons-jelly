@@ -60,6 +60,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -85,12 +86,15 @@ public class ThreadTag extends TagSupport  {
             // lets default to system.out
             xmlOutput = XMLOutput.createXMLOutput( System.out );
         }
-        
+
+        // lets create a child context
+        final JellyContext newContext = new JellyContext(context);
+                
         Thread thread = new Thread(
             new Runnable() {
                 public void run() {
                     try {
-                        invokeBody(xmlOutput);
+                        getBody().run(newContext, xmlOutput);
                         xmlOutput.close();
                     }
                     catch (Exception e) {
