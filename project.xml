@@ -112,6 +112,12 @@
     <contributor>
       <name>Theo Niemeijer</name>
     </contributor>
+    <contributor>
+      <name>Joe Walnes</name>
+      <roles>
+      	<role>Inventor of Mock Tags</role>
+      </roles>
+    </contributor>
   </contributors>
 
   <dependencies>
