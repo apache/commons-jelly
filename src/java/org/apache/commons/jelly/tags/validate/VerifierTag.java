@@ -126,7 +126,10 @@ public class VerifierTag extends TagSupport {
         if (systemId != null) {
             schema = factory.compileSchema(in, systemId);
         }
-        else {
+        else if ( uri != null ) {
+            schema = factory.compileSchema(in, uri);
+        }
+        else{
             schema = factory.compileSchema(in);
         }
         if ( schema == null ) {
