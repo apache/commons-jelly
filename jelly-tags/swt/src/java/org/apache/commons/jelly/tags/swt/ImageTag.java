@@ -59,9 +59,9 @@ package org.apache.commons.jelly.tags.swt;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Decorations;
 import org.eclipse.swt.widgets.Item;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Widget;
@@ -134,6 +134,10 @@ public class ImageTag extends TagSupport {
 			
 		} else if (parent instanceof Item) {
 			Item item = (Item) parent;
+			item.setImage(image);
+			
+		} else if (parent instanceof Decorations) {
+			Decorations item = (Decorations) parent;
 			item.setImage(image);
 			
 		} else {
