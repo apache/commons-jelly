@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<j:file xmlns:j="jelly:core" var="foo" escapeText="false">
+    
+<![CDATA[
+<!DOCTYPE foo [
+  <!ELEMENT foo (#PCDATA)>
+]>
+]]>
+
+<foo/>
+    
+</j:file>
