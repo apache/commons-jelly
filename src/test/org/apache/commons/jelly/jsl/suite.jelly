@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<test:suite xmlns:j="jelly:core" 
+            xmlns:jsl="jelly:jsl"
+            xmlns:m="jelly:jeez"
+            xmlns:test="jelly:junit" 
+            xmlns:u="jelly:util" 
+            xmlns:x="jelly:xml">
+
+    <!-- see if we can break template -->
+    <m:fileScanner var="files">
+      <m:fileset dir="src/test/org/apache/commons/jelly/jsl">
+        <m:patternset>
+          <m:include name="**/*.xml"/>
+        </m:patternset>
+      </m:fileset>
+    </m:fileScanner>
+
+    <j:forEach var="file" items="${files.iterator()}">
+      <x:parse var="doc" xml="${file.toURL()}" />
+      <jsl:stylesheet select="$doc">
+        <jsl:template match="document" trim="no">
+
+          <h>
+            <!-- uncomment this to fix the bug </h> -->
+
+            <j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
+            <j:set var="short"><x:expr select="./properties/title" /></j:set>
+            <m:echo>full=${full},short=${short}</m:echo>
+            <test:assert test="${full == short}">All iterations should succeed</test:assert>
+            <!-- comment this out to fix the bug -->
+          </h>
+        </jsl:template>
+      </jsl:stylesheet>
+
+    </j:forEach>
+
+</test:suite>
