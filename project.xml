@@ -187,6 +187,17 @@
     </dependency>
 
     <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+		<!-- this is brought in by the commons-cli dependency -->
+    <dependency>
+      <id>commons-lang</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <id>commons-discovery</id>
       <version>SNAPSHOT</version>
     </dependency>

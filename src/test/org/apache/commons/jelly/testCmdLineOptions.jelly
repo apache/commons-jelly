@@ -1,0 +1,9 @@
+<jelly xmlns="jelly:core" xmlns:bsh="jelly:beanshell">
+-a option = ${commandLine.getOptionValue("a")}
+-b option = ${commandLine.getOptionValue("b")}
+-c option = ${commandLine.getOptionValue("c")}
+<bsh:script>
+Properties sysprops = System.getProperties();
+System.out.println("-testsysprop = " + sysprops.get("testsysprop"));
+</bsh:script>
+</jelly>

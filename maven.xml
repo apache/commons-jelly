@@ -65,17 +65,18 @@
 	
   <!-- creates the XML webpage from the tag XML information -->		
   <goal name="doc:tags" prereqs="doclet:tag, jelly-task" 
-	description="Generates the tag documentation">
+		description="Generates the tag documentation">
 	
-	<mkdir dir="target/generated-xdocs"/>
+		<mkdir dir="target/generated-xdocs"/>
 
 <!--      
-	<jelly file="src/script/makeTagDoc.jelly" 
-		   output="target/generated-xdocs/tags.xml"/> 
+		<jelly file="src/script/makeTagDoc.jelly" 
+			   output="target/generated-xdocs/tags.xml"/> 
 -->	
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/script/makeTagDoc.jelly"/> 
+      <arg value="-o"/>
       <arg value="target/generated-xdocs/tags.xml"/> 
     </java>
   </goal>
@@ -206,7 +207,7 @@
   </goal>
 
   <goal name="demo:jellybean" prereqs="jelly-task" 
-	description="Runs the example of binding jelly beans to tags">
+		description="Runs the example of binding jelly beans to tags">
 	
 <!--	
 	<jelly file="src/test/org/apache/commons/jelly/define/jellyBeanSample.jelly"/> 
@@ -218,13 +219,13 @@
   </goal>
 
   <goal name="demo:static" prereqs="jelly-task" 
-	description="Outputs some static XML">
+		description="Outputs some static XML">
 	
 	<jelly file="src/test/org/apache/commons/jelly/testStatic.jelly"/> 
   </goal>
 
   <goal name="demo:html" prereqs="jelly-task" 
-	description="Runs the example of parsing HTML with jelly">
+		description="Runs the example of parsing HTML with jelly">
 	
 <!--	
 	<jelly file="src/test/org/apache/commons/jelly/html/example.jelly"/> 
@@ -236,7 +237,7 @@
   </goal>
 
   <goal name="demo:text" prereqs="jelly-task" 
-	description="Runs the example of parsing text with tags via jelly">
+		description="Runs the example of parsing text with tags via jelly">
 	
 <!--	
 	<jelly file="src/test/org/apache/commons/jelly/html/example2.jelly"/> 
@@ -479,6 +480,22 @@
       <sysproperty key="http.proxyHost" value="${maven.proxy.host}"/>
       <sysproperty key="http.proxyPort" value="${maven.proxy.port}"/>
       <arg value="src/test/org/apache/commons/jelly/swing/showVariables.jelly"/> 
+    </java>
+  </goal>
+  
+	<!-- a sample of using the command line interface to invoke Jelly -->	
+  <goal name="demo:cmdline" prereqs="jelly-task"
+    description="Demonstrates how to use the command line interface to Jelly">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/testCmdLineOptions.jelly"/> 
+      <arg value="-a"/> 
+      <arg value="valueOfA"/> 
+      <arg value="-b"/> 
+      <arg value="valueOfB"/> 
+      <arg value="-c"/> 
+      <arg value="valueOfC"/> 
+      <arg value="-Dtestsysprop=valueOfTestSystemProp"/> 
     </java>
   </goal>
 </project>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.16 2002/10/02 13:56:23 jstrachan Exp $
- * $Revision: 1.16 $
- * $Date: 2002/10/02 13:56:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.17 2002/10/04 11:28:20 jstrachan Exp $
+ * $Revision: 1.17 $
+ * $Date: 2002/10/04 11:28:20 $
  *
  * ====================================================================
  *
@@ -57,33 +57,37 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.16 2002/10/02 13:56:23 jstrachan Exp $
+ * $Id: Jelly.java,v 1.17 2002/10/04 11:28:20 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.FileInputStream;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
+import java.util.StringTokenizer;
+import java.util.ArrayList;
 
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.cli.*;
 
 /** 
  * <p><code>Jelly</code> is a helper class which is capable of
  * running a Jelly script. This class can be used from the command line
- * or can be used as the basis of an Ant task.</p>
+ * or can be used as the basis of an Ant task.</p> Command line usage is as follows:
+ *
+ * <pre>
+ * jelly [scriptFile] [-script scriptFile -o outputFile -Dsysprop=syspropval]
+ * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 public class Jelly {
     
@@ -104,31 +108,49 @@ public class Jelly {
         
     public Jelly() {
     }
-    
+
+    /**
+     * Usage: jelly [scriptFile] [-script scriptFile -o outputFile -Dsysprop=syspropval]
+     */
     public static void main(String[] args) throws Exception {
 
         try {
             if (args.length <= 0) {
-                System.out.println("Usage: Jelly scriptFile [outputFile]");
+                System.out.println("Usage: jelly [scriptFile] [-script scriptFile -o outputFile -Dsysprop=syspropval]");
                 return;
             }
 
-            Jelly jelly = new Jelly();
-            jelly.setScript(args[0]);
+            // parse the command line options using CLI
+            CommandLine cmdLine = parseCommandLineOptions(args);
 
-            // later we might wanna add some command line arguments 
-            // checking stuff using commons-cli to specify the output file
-            // and input file via command line arguments
-            final XMLOutput output =
-                (args.length > 1)
-                    ? XMLOutput.createXMLOutput(new FileWriter(args[1]))
-                    : XMLOutput.createXMLOutput(System.out);
+            // get the -script option. If there isn't one then use args[0]
+            String scriptFile = null;
+            if (cmdLine.hasOption("script")) {
+                scriptFile = cmdLine.getOptionValue("script");
+            } else {
+                scriptFile = args[0];
+            }
+
+            // check if the script file exists
+            if (!(new File(scriptFile)).exists()) {
+                System.out.println("Script file " + scriptFile + " not found");
+                return;
+            }
+
+            // extract the -o option for the output file to use
+            final XMLOutput output = cmdLine.hasOption("o") ?
+                    XMLOutput.createXMLOutput(new FileWriter(cmdLine.getOptionValue("o"))) :
+                    XMLOutput.createXMLOutput(System.out);
+
+            Jelly jelly = new Jelly();
+            jelly.setScript(scriptFile);
 
             Script script = jelly.compileScript();
 
             // add the system properties and the command line arguments
             JellyContext context = jelly.getJellyContext();
             context.setVariable("args", args);
+            context.setVariable("commandLine", cmdLine);
             script.run(context, output);
 
             // now lets wait for all threads to close
@@ -154,8 +176,64 @@ public class Jelly {
                 e.printStackTrace();
             }
         }
-    }   
-    
+    }
+
+    /**
+     * Parse the command line using CLI. -o and -script are reserved for Jelly.
+     * -Dsysprop=sysval is support on the command line as well.
+     */
+    private static CommandLine parseCommandLineOptions(String[] args) throws ParseException {
+        // create the expected options
+        Options cmdLineOptions = new Options();
+        cmdLineOptions.addOption("o", true, "Output file");
+        cmdLineOptions.addOption("script", true, "Jelly script to run");
+
+        // -D options will be added to the system properties
+        Properties sysProps = System.getProperties();
+
+        // filter the system property setting from the arg list
+        // before passing it to the CLI parser
+        ArrayList filteredArgList = new ArrayList();
+
+        for (int i=0;i<args.length;i++) {
+            String arg = args[i];
+
+            // if this is a -D property parse it and add it to the system properties.
+            // -D args will not be copied into the filteredArgList.
+            if (arg.startsWith("-D") && (arg.length() > 2)) {
+                arg = arg.substring(2);
+                StringTokenizer toks = new StringTokenizer(arg, "=");
+
+                if (toks.countTokens() == 2) {
+                    // add the tokens to the system properties
+                    sysProps.setProperty(toks.nextToken(), toks.nextToken());
+                } else {
+                    System.err.println("Invalid system property: " + arg);
+                }
+
+            } else {
+                // add this to the filtered list of arguments
+                filteredArgList.add(arg);
+
+                // add additional "-?" options to the options object. if this is not done
+                // the only options allowed would be "-o" and "-script".
+                if (arg.startsWith("-") && arg.length() > 1) {
+                    if (!(arg.equals("-o") && arg.equals("-script"))) {
+                        cmdLineOptions.addOption(arg.substring(1, arg.length()), true, "dynamic option");
+                    }
+                }
+            }
+        }
+
+        // make the filteredArgList into an array
+        String[] filterArgs = new String[filteredArgList.size()];
+        filteredArgList.toArray(filterArgs);
+
+        // parse the command line
+        Parser parser = new GnuParser();
+        return parser.parse(cmdLineOptions, filterArgs);
+    }
+
     /**
      * Compiles the script
      */
