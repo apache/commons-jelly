@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParseTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParseTag.java,v 1.2 2003/01/22 10:56:27 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/22 10:56:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: ParseTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: ParseTag.java,v 1.2 2003/01/22 10:56:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -74,7 +74,7 @@ import org.dom4j.io.SAXReader;
   * xml property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ParseTag extends ParseTagSupport {
 
@@ -138,7 +138,13 @@ public class ParseTag extends ParseTagSupport {
         Document document = null;
         Object xmlObj = this.getXml();
         if (xmlObj == null) {
-            document = parseBody(output);
+            String text = getText();
+            if (text != null) {
+                document = parseText(text);
+            }
+            else {            
+                document = parseBody(output);
+            }
         }
         else {
             document = parse(xmlObj);
