@@ -15,6 +15,7 @@
  */
 package org.apache.commons.jelly.impl;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -53,7 +54,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.44 $
+ * @version $Revision: 1.45 $
  */
 public class TagScript implements Script {
 
@@ -250,14 +251,15 @@ public class TagScript implements Script {
             }
 
             tag.doTag(output);
+            output.flush();
         }
         catch (JellyTagException e) {
             handleException(e);
-        }
-        catch (JellyException e) {
+        } catch (JellyException e) {
             handleException(e);
-        }
-        catch (RuntimeException e) {
+        } catch (IOException e) {
+            handleException(e);
+        } catch (RuntimeException e) {
             handleException(e);
         }
         catch (Error e) {
