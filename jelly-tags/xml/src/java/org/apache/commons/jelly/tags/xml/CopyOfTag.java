@@ -36,7 +36,12 @@ public class CopyOfTag extends XPathTagSupport {
 
     /** The XPath expression to evaluate. */
     private XPath select;
-
+    
+    /** Should we output lexical XML data like comments
+     * or entity names?
+     */
+    private boolean lexical;
+    
     public CopyOfTag() {
     }
 
@@ -49,23 +54,40 @@ public class CopyOfTag extends XPathTagSupport {
             throw new MissingAttributeException( "select" );
         }
 
-        SAXWriter saxWriter = new SAXWriter(output, output);
-        try {
-            List nodes = select.selectNodes(xpathContext);
-            for (Iterator iter = nodes.iterator(); iter.hasNext(); ) {
-                Object object = iter.next();
-                if ( object instanceof Node ) {
-                    saxWriter.write( (Node) object );
-                }
-                else if (object != null ) {
-                    output.write( object.toString() );
-                }
-            } 
+        SAXWriter saxWriter;
+        
+        if (lexical) {
+            saxWriter = new SAXWriter(output, output);
+        } else {
+            saxWriter = new SAXWriter(output);
         }
-        catch (SAXException e) {
-            throw new JellyTagException(e);
+        
+        Object obj;
+        try {
+            obj = select.evaluate(xpathContext);
         } catch (JaxenException e) {
-            throw new JellyTagException(e);
+            throw new JellyTagException("Failed to evaluate XPath expression", e);
+        }
+        
+        try {
+            if (obj instanceof List) {
+                List nodes = (List) obj;
+                for (Iterator iter = nodes.iterator(); iter.hasNext(); ) {
+                    Object object = iter.next();
+                    if ( object instanceof Node ) {
+                        saxWriter.write( (Node) object );
+                    }
+                    else if (object != null ) {
+                        saxWriter.write( object.toString() );
+                    }
+                }
+            } else if (obj instanceof Node) {
+                saxWriter.write( (Node) obj );
+            } else {
+                saxWriter.write( obj.toString() );
+            }
+        } catch (SAXException e) {
+            throw new JellyTagException("Failed to write XML output.", e);
         }
     }
 
@@ -74,5 +96,9 @@ public class CopyOfTag extends XPathTagSupport {
     /** Sets the XPath expression to evaluate. */
     public void setSelect(XPath select) {
         this.select = select;
+    }
+    
+    public void setLexical(boolean lexical) {
+        this.lexical = lexical;
     }
 }
