@@ -61,12 +61,24 @@
  */
 package org.apache.commons.jelly.tags.junit;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+
+import junit.framework.AssertionFailedError;
 import junit.framework.Test;
+import junit.framework.TestListener;
 import junit.framework.TestResult;
 
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.AttributesImpl;
 
 /** 
  * This tag will run the given Test which could be an individual TestCase or a TestSuite.
@@ -78,13 +90,20 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class RunTag extends TagSupport {
 
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(RunTag.class);
+    
     private Test test;
     private TestResult result;
-    
+    private TestListener listener;
     
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
+        Test test = getTest();
+        if ( test == null ) {
+            test = (Test) context.getVariable("org.apache.commons.jelly.junit.suite");        
+        }
         if ( test == null ) {
             throw new MissingAttributeException( "test" );
         }
@@ -92,6 +111,11 @@ public class RunTag extends TagSupport {
         if ( result == null ) {
             result = createResult(output);                    
         }
+        TestListener listener = getListener();
+        if ( listener == null ) {
+            listener = createTestListener(output);
+        }
+        result.addListener(listener);
         test.run(result);
     }
     
@@ -130,6 +154,24 @@ public class RunTag extends TagSupport {
         this.test = test;
     }
 
+    /**
+     * Returns the listener.
+     * @return TestListener
+     */
+    public TestListener getListener() {
+        return listener;
+    }
+
+    /**
+     * Sets the TestListener.to be used to format the output of running the unit test cases
+     * @param listener The listener to set
+     */
+    public void setListener(TestListener listener) {
+        this.listener = listener;
+    }
+
+
+
     // Implementation methods
     //-------------------------------------------------------------------------                
 
@@ -139,5 +181,89 @@ public class RunTag extends TagSupport {
      */
     protected TestResult createResult(XMLOutput output) {
         return new TestResult();
+    }
+    
+    /**
+     * Factory method to create a new TestListener to capture the output of
+     * the test cases
+     */    
+    protected TestListener createTestListener(final XMLOutput output) {
+        return new TestListener() {
+            public void addError(Test test, Throwable t) {
+                try {
+                    output.startElement("error");
+    
+                    output.startElement("message");
+                    output.write(t.getMessage());
+                    output.endElement("message");
+    
+                    output.startElement("stack");
+                    output.write( stackTraceToString(t) );
+                    output.endElement("stack");
+    
+                    output.endElement("error");
+                }
+                catch (SAXException e) {
+                    handleSAXException(e);
+                }
+            }
+            
+            public void addFailure(Test test, AssertionFailedError t) {
+                try {
+                    output.startElement("failure");
+    
+                    output.startElement("message");
+                    output.write(t.getMessage());
+                    output.endElement("message");
+    
+                    output.startElement("stack");
+                    output.write( stackTraceToString(t) );
+                    output.endElement("stack");
+    
+                    output.endElement("failure");
+                }
+                catch (SAXException e) {
+                    handleSAXException(e);
+                }
+            }
+            
+            public void endTest(Test test) {
+                try {
+                    output.endElement("test");
+                }
+                catch (SAXException e) {
+                    handleSAXException(e);
+                }
+            }
+            
+            public void startTest(Test test) {
+                try {
+                    String name = test.toString();
+                    AttributesImpl attributes = new AttributesImpl();
+                    attributes.addAttribute("", "name", "name", "CDATA", name);
+                    
+                    output.startElement("test", attributes);
+                }
+                catch (SAXException e) {
+                    handleSAXException(e);
+                }
+            }
+        };
+    }
+
+    /**
+     * @return the stack trace as a String
+     */
+    protected String stackTraceToString(Throwable t) {
+        StringWriter writer = new StringWriter();
+        t.printStackTrace(new PrintWriter(writer));
+        return writer.toString();
+    }
+    
+    /**
+     * Handles SAX Exceptions
+     */
+    protected void handleSAXException(SAXException e) {
+        log.error( "Caught: " + e, e );
     }
 }
