@@ -98,13 +98,7 @@ public class DynamicTagLibrary extends TagLibrary {
         return new TagScript(
             new TagFactory() {
                 public Tag createTag(String name, Attributes attributes) throws Exception {
-                    Tag answer = DynamicTagLibrary.this.createTag(name, attributes);
-                    
-                    // delegate to my parent instead
-                    if ( answer == null && parent != null ) {
-                        return parent.createTag(name, attributes);
-                    }
-                    return answer;
+                    return DynamicTagLibrary.this.createTag(name, attributes);
                 }
             }
         );
@@ -122,7 +116,12 @@ public class DynamicTagLibrary extends TagLibrary {
         else if ( value instanceof TagFactory ) {
             TagFactory factory = (TagFactory) value;
             return factory.createTag(name, attributes);
+        } 
+        else if ( parent != null ) {
+            // delegate to the parent
+            return parent.createTag(name, attributes);
         }
+
         return null;
     }
 

@@ -97,5 +97,27 @@
 		actual="${customer.dynaClass.name}"/>
 
 </test:case>
+
+<test:case name="testTaglibInheritTest" xmlns="taglibInherit">
+
+  <define:taglib uri="taglibInherit" inherit="false">
+     <define:tag name="foo">
+        bar
+     </define:tag>
+  </define:taglib>
+
+  <define:taglib uri="taglibInherit" inherit="true">
+     <define:tag name="foo2">
+        bar2
+     </define:tag>
+  </define:taglib>
+
+  <j:set var="output">
+    <foo/>
+  </j:set>
+
+  <test:assertEquals expected="bar" actual="${output}"/>
+
+</test:case>
    
 </test:suite>
