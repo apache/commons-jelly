@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<!-- common tests that the channel has been created properly -->
+
+<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:b="jelly:betwixt">
+
+  Parsed channel with title: ${channel.title}
+  	
+  <test:assert test="${channel != null}"/>
+  	
+  <test:assertEquals actual="${channel.title}" expected="MozillaZine"/>
+  	
+</test:suite>

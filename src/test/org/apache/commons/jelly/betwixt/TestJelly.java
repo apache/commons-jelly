@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/define/DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/07/06 13:53:39 $
  *
  * ====================================================================
  *
@@ -57,22 +57,28 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
-package org.apache.commons.jelly.tags.betwixt;
+package org.apache.commons.jelly.betwixt;
 
-import org.apache.commons.betwixt.XMLIntrospector;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
+
+import org.apache.commons.jelly.tags.junit.JellyTestSuite;
 
 /** 
- * An object which uses an XMLIntrospector such as the parse or output tags.
+ * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
-public interface IntrospectorUser {
+public class TestJelly extends JellyTestSuite {
 
-    /**
-     * Sets the introspector to be used by this object 
-     */
-    public void setIntrospector(XMLIntrospector introspector);
+    public static void main( String[] args ) throws Exception {
+        TestRunner.run( suite() );
+    }
+    
+    public static TestSuite suite() throws Exception {
+        return createTestSuite(TestJelly.class, "suite.jelly");        
+    }
 }

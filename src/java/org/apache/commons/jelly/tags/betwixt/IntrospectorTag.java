@@ -71,8 +71,8 @@ import org.apache.commons.betwixt.strategy.DecapitalizeNameMapper;
 import org.apache.commons.betwixt.strategy.HyphenatedNameMapper;
 import org.apache.commons.betwixt.strategy.NameMapper;
         
-
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -80,7 +80,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Creates a Betwixt XMLIntrospector instance that can be used with other Betwixt tags.</p>
+ * Creates a Betwixt XMLIntrospector instance that can be used by the other Betwixt tags.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
@@ -127,24 +127,14 @@ public class IntrospectorTag extends TagSupport {
     //-------------------------------------------------------------------------                    
     public void doTag(final XMLOutput output) throws Exception {
 
+        if ( var == null ) {
+            throw new MissingAttributeException( "var" );
+        }
         invokeBody(output);        
         
         XMLIntrospector introspector = getIntrospector();
         
-        if ( var == null ) {
-            // the parent tag should be a <parse> or <output> tag
-            IntrospectorUser tag = (IntrospectorUser) findAncestorWithClass( IntrospectorUser.class );
-            if ( tag == null ) {
-                throw new JellyException( 
-                    "This tag must be nested inside a <parse> or <output> tag,"
-                    + " or the 'var' attribute should be specified" 
-                );
-            }
-            tag.setIntrospector( introspector );
-        }
-        else {
-            context.setVariable( var, introspector );
-        }
+        context.setVariable( var, introspector );
         
         // now lets clear this introspector so that its recreated again next time
         this.introspector = null;

@@ -261,6 +261,14 @@
     </java>
   </goal>
 
+  <goal name="demo:betwixt" prereqs="jelly-task" 
+	description="Runs the betwixt test suite">
+	
+    <java classname="org.apache.commons.jelly.betwixt.TestJelly" fork="yes">
+      <classpath refid="test.classpath"/>
+    </java>
+  </goal>
+
   <goal name="demo:junitui" prereqs="jelly-task" 
 	description="Runs the Swing JUnit runner on the Jelly JUnit test suite">
 	

@@ -132,7 +132,7 @@
 
     <dependency>
       <id>commons-digester</id>
-      <version>1.2</version>
+      <version>SNAPSHOT</version>
     </dependency>
 
     <dependency>
