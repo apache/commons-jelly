@@ -253,6 +253,7 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
             setParameters(ps, parameters);
             ResultSet rs = ps.executeQuery();
             result = new ResultImpl(rs, startRow, maxRows);
+            context.setVariable(var, result);
         }
         catch (SQLException e) {
             throw new JellyException(sqlStatement + ": " + e.getMessage(), e);
@@ -266,8 +267,8 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
                 } // Not much we can do
                 conn = null;
             }
+            parameters = null;
         }
-        context.setVariable(var, result);
     }
 
     //*********************************************************************

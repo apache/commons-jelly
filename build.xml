@@ -2,7 +2,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.18 2002/05/17 15:18:14 jstrachan Exp $
+        $Id: build.xml,v 1.19 2002/05/20 12:43:15 jstrachan Exp $
 -->
 
 <!-- ========== Initialize Properties ===================================== -->
@@ -329,7 +329,7 @@
     <mkdir      dir="${dist.home}/docs/api"/>
     <javadoc sourcepath="${source.home}"
                 destdir="${dist.home}/docs/api"
-           packagenames="org.apache.commons.*"
+           packagenames="org.*, javax.*"
                  author="true"
                 private="true"
                 version="true"
