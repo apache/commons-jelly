@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.20 2002/10/14 19:46:22 morgand Exp $
- * $Revision: 1.20 $
- * $Date: 2002/10/14 19:46:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.21 2002/10/16 18:45:27 morgand Exp $
+ * $Revision: 1.21 $
+ * $Date: 2002/10/16 18:45:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.20 2002/10/14 19:46:22 morgand Exp $
+ * $Id: Jelly.java,v 1.21 2002/10/16 18:45:27 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -72,10 +72,14 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.GnuParser;
+import org.apache.commons.cli.Options;
+import org.apache.commons.cli.Parser;
+import org.apache.commons.cli.ParseException;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.cli.*;
 
 /** 
  * <p><code>Jelly</code> is a helper class which is capable of
@@ -87,7 +91,7 @@ import org.apache.commons.cli.*;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 public class Jelly {
     
