@@ -26,19 +26,8 @@
   </description>
   <shortDescription>Commons Jelly XMLUnit Tag Library</shortDescription>
   
-  <!-- <url>http://jakarta.apache.org/commons/jelly/tags/xmlunit/</url>
-
-  <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/xmlunit/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/xmlunit</distributionDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/xmlunit/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/xmlunit/</url>
-  </repository>-->
-  
   <dependencies>
-  
-    
-    
+
      <!-- START for compilation -->
   
     <dependency>
@@ -70,7 +59,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-xml</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     
     <dependency>
