@@ -92,6 +92,7 @@
     <dependency>
       <name>ant</name>
       <version>1.4.1</version>
+      <jar>ant-1.4.1.jar</jar>
     </dependency>
 
     <dependency>
@@ -146,6 +147,7 @@
       <name>werkz</name>
       <type>required</type>
       <version>1.0-beta-2</version>
+      <jar>werkz-1.0-beta-2.jar</jar>
     </dependency>
     
     <!-- 
