@@ -67,6 +67,8 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.xml.sax.Attributes;
+import org.xml.sax.ContentHandler;
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 /** A tag to produce an XML element which can contain other attributes 
@@ -86,11 +88,25 @@ public class ElementTag extends TagSupport {
     /** The XML Attributes */
     private AttributesImpl attributes = new AttributesImpl();
 
+	/** flag set if attributes are output */
+	private boolean outputAttributes;
     
     public ElementTag() {
     }
 
-    public void setAttributeValue( String name, String value ) {
+	/**
+	 * Sets the attribute of the given name to the specified value.
+	 * 	 * @param name of the attribute	 * @param value of the attribute	 * @throws JellyException if the start element has already been output. 
+	 *   Attributes must be set on the outer element before any content 
+	 *   (child elements or text) is output	 */
+    public void setAttributeValue( String name, String value ) throws JellyException {
+    	if (outputAttributes) {
+    		throw new JellyException(
+				"Cannot set the value of attribute: " 
+    			+ name + " as we have already output the startElement() SAX event"
+			);
+    	}
+    	
         // ### we'll assume that all attributes are in no namespace!
         // ### this is severely limiting!
         // ### we should be namespace aware
@@ -107,22 +123,66 @@ public class ElementTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
-        String localName = null;
         int idx = name.indexOf(':');
-        if (idx >= 0) {
-            localName = name.substring(idx + 1);
-        }
-        else {
-            localName = name;
-        }
+        final String localName = (idx >= 0) 
+        	? name.substring(idx + 1)
+        	: name;
         
-        /** 
-         * @todo we should buffer up any SAX events and replay then
-         * inside the startElement/endElement block         */
-        invokeBody(output);
-        output.startElement(namespace, localName, name, attributes);
+        outputAttributes = false;
         
-        /** @todo we should replay the cached SAX events (if any) here */
+        XMLOutput newOutput = new XMLOutput(output) {
+
+			// add an initialize hook to the core content-generating methods
+			        	
+		    public void startElement(
+		        String uri,
+		        String localName,
+		        String qName,
+		        Attributes atts)
+		        throws SAXException {
+				initialize();        	
+		        super.startElement(uri, localName, qName, atts);
+		    }
+		
+		    public void endElement(String uri, String localName, String qName)
+		        throws SAXException {
+				initialize();        	
+		        super.endElement(uri, localName, qName);
+		    }
+		
+		    public void characters(char ch[], int start, int length) throws SAXException {
+				initialize();        	
+		        super.characters(ch, start, length);
+		    }
+		
+		    public void ignorableWhitespace(char ch[], int start, int length)
+		        throws SAXException {
+				initialize();        	
+		        super.ignorableWhitespace(ch, start, length);
+		    }
+		    public void processingInstruction(String target, String data)
+		        throws SAXException {
+				initialize();        	
+		        super.processingInstruction(target, data);
+		    }
+		
+        	/** 
+        	 * Ensure that the outer start element is generated 
+        	 * before any content is output        	 */ 
+        	protected void initialize() throws SAXException {
+        		if (!outputAttributes) {
+			        super.startElement(namespace, localName, name, attributes);
+			        outputAttributes = true;
+        		}
+        	}
+        };
+        
+        invokeBody(newOutput);
+        
+        if (!outputAttributes) {
+	        output.startElement(namespace, localName, name, attributes);
+	        outputAttributes = true;
+        }
         
         output.endElement(namespace, localName, name);
         attributes.clear();

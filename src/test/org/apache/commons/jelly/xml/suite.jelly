@@ -10,13 +10,35 @@
   	<x:parse var="doc">
   		<x:element name="foo">
   			<x:attribute name="x">1234</x:attribute>
+  			
+  			<x:element name="bar">
+					<x:attribute name="y">ABC</x:attribute>
+					hello
+				</x:element>
   		</x:element>
   	</x:parse>
 	
 		<test:assert xpath="$doc/foo"/>
 		<test:assert xpath="$doc/foo[@x='1234']"/>
 		<test:assert xpath="count($doc/bar) = 0"/>
+
+		<!-- test nested element and attributes -->		
+		<test:assert xpath="$doc/foo[@x='1234']/bar[@y='ABC']"/>
+		<test:assert xpath="$doc/foo[@x='1234']/bar[@y='ABC']='hello'"/>
+  </test:case>
+  
+  <test:case name="testBadElementAndAttribute">
+  	
+    <j:catch var="ex">
+  		<x:element name="foo">
+  			some text
+  			<x:attribute name="x">1234</x:attribute>
+  		</x:element>
+		</j:catch>    	
 		
+		<test:assert test="${ex != null}">
+			We should have created an exception as some text is output before the attributes
+		</test:assert>
   </test:case>
   
   <test:case name="assertXPathTests">
