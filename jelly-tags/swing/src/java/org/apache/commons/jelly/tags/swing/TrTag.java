@@ -69,6 +69,7 @@ public class TrTag extends TagSupport {
         invokeBody(output);
 
         // now iterate through the rows and add each one to the layout...
+        int colIndex = 0;
         for (Iterator iter = cells.iterator(); iter.hasNext(); ) {
             Cell cell = (Cell) iter.next();
             GridBagConstraints c = cell.getConstraints();
@@ -76,7 +77,8 @@ public class TrTag extends TagSupport {
             // are we the last cell in the row
             if ( iter.hasNext() ) {
                 // not last in row
-                c.gridwidth = GridBagConstraints.RELATIVE;
+                c.gridwidth = 1;
+                c.gridx = colIndex++;
             }
             else {
                 // end of row
