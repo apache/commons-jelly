@@ -1,10 +1,6 @@
 TO DO LIST
 ==========
 
-* introduce a config file on the classpath that describes the default URIs -> class names.
-
-* make 'body' a property of a Tag; then at the compile() stage a Tag can change its body if it wishes - or expand it etc.
-
 * the org.apache.commons.jelly.impl package doesn't have a great name - can we think of a better one? 
   also some of the classes in this package could maybe do with a rename? ScriptBlock for example - should we 
   just call it a Block or maybe a CompositeScript?

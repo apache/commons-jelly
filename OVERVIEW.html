@@ -12,9 +12,35 @@
 
 <h1>Jakarta Commons <i>Jelly</i> Overview</h1>
 
-<p>Jelly is a simple yet powerful scripting engine. Jelly is totally extendable 
-via custom tags (like JSP) as well as cleanly integrating with other scripting 
-languages via BSF (Bean Scripting Framework).</p>
+<p>Jelly is an XML based <i>processing engine</i>. The basic idea is that XML 
+elements can be bound to a Java <i>action</i> which is a Java bean that performs 
+some function. So Jelly is totally extendable 
+via custom actions (like JSP custom tags) as well as cleanly integrating with  scripting 
+languages such as Velocity, pnuts, beanshell and via BSF (Bean Scripting Framework) 
+languages like JavaScript &amp; JPython</p>
+
+<h2>Background</h2>
+
+<p>It seems quite common these days to define custom XML languages to perform 
+some kind of processing. Here are a few examples</p>
+
+<ul>
+  <li>Ant</li>
+  <li>XSLT</li>
+  <li>XML Pipeline language</li>
+  <li>JSTL and JSP custom tags</li>
+  <li>Latka,&nbsp; AntEater &amp; other similar XML based unit testing frameworks</li>
+  <li>commons-workflow</li>
+</ul>
+
+<p>So the motivation behind Jelly was to create a simple XML based processing 
+engine that could be extended to support various custom actions. A fully 
+qualified XML element name can be mapped to a Java Bean (or DynaBean), the 
+attributes map to bean properties, once the bean is constructed and the 
+properties set it is executed via the Tag interfaces run() method. So custom 
+actions can perform all kinds of processing from lower level looping, 
+conditional logic and expression evaluations to higher level actions like making 
+a HTTP, SOAP or JMS call, querying SQL databases etc.</p>
 
 <h2>Comparisons</h2>
 
@@ -73,13 +99,13 @@ Jelly with other scripting engines and templating technologies.</p>
 
 <p>Jelly has various possible uses. Here's a few to think about</p>
 <ul>
-  <li>Alternative to Velocity &amp; JSP</li>
-  <li>Page templating system</li>
-  <li>Code generation system</li>
   <li>SOAP, HTTP and/or JMS based scripting framework</li>
+  <li>A unit testing framework similar to Latka and AntEater</li>
+  <li>A workflow, EAI or integration, maybe integrated into commons-workflow</li>
+  <li>Page templating system</li>
+  <li>Code generation system, maybe an enhanced scripting engine for XDoclet</li>
   <li>Ant scripting</li>
   <li>Alternative implementation of JSTL</li>
-  <li>Enhanced scripting engine for XDoclet</li>
 </ul>
 
 </body>
