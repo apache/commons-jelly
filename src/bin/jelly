@@ -1,7 +1,11 @@
 #!/bin/sh
 
+if [ -z "$FOREHEAD_CONF" ] ; then
+  FOREHEAD_CONF=${JELLY_HOME}/bin/forehead.conf 
+fi
+
 $JAVA_HOME/bin/java -classpath ${CLASSPATH}:${JELLY_HOME}/lib/forehead.jar \
-  -Dforehead.conf.file=${JELLY_HOME}/bin/forehead.conf \
+  -Dforehead.conf.file=${FOREHEAD_CONF} \
   -Dant.home=${ANT_HOME} -Djelly.home=${JELLY_HOME} \
   -Dtools.jar=${JAVA_HOME}/lib/tools.jar \
   ${JELLY_OPTS} \
