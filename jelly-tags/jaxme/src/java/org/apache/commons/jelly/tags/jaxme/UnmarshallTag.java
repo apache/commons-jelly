@@ -37,15 +37,18 @@ import org.apache.ws.jaxme.generator.impl.GeneratorImpl;
 import org.xml.sax.SAXException;
 
 /** 
- * Tag that generates source from schema.
- * Based on JaxMe XJCTask.
+ * <p>Unmarshalls xml documents into java objects.</p>
+ * <p>
+ * This tag unmarshalls the xml content contained 
+ * into the JaxMe generated java objects in the packages specified.
+ * </p>
  *
  * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
  * @author <a href="mailto:commons-dev at jakarta.apache.org">Jakarta Commons Development Team</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class UnmarshallTag extends TagSupport {
-        
+       
     private String packages;
     private String var;
     
@@ -53,6 +56,9 @@ public class UnmarshallTag extends TagSupport {
         return packages;
     }
     
+    /**
+     * Defines the generated objects to which the xml should be unmarshalled. 
+     */
     public void setPackages(String packages) {
         this.packages = packages;
     }
@@ -61,6 +67,10 @@ public class UnmarshallTag extends TagSupport {
         return var;
     }
     
+    /**
+     * Sets the name of the jelly variable to which 
+     * the unmarshalled java object should be bound.
+     */
     public void setVar(String var) {
         this.var = var;
     }

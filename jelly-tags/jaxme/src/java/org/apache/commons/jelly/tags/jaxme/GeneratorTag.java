@@ -31,12 +31,13 @@ import org.apache.ws.jaxme.generator.impl.GeneratorImpl;
 import org.apache.ws.jaxme.js.JavaSourceFactory;
 
 /** 
- * Tag that generates source from schema.
- * Based on JaxMe XJCTask.
+ * Generates java objects using JaxMe.
+ * This object can be marshalled into xml and the results unmarshalled 
+ * using JaxMe.
  *
  * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
  * @author <a href="mailto:commons-dev at jakarta.apache.org">Jakarta Commons Development Team</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class GeneratorTag extends TagSupport {
         
@@ -47,6 +48,10 @@ public class GeneratorTag extends TagSupport {
         return schemaUrl;
     }
         
+    /**
+     * Defines the schema against which the java object representations
+     * should be generated.
+     */
     public void setSchemaUrl(String schemaUrl) {
         this.schemaUrl = schemaUrl;
     }
@@ -55,6 +60,10 @@ public class GeneratorTag extends TagSupport {
         return target;
     }
     
+    /**
+     * Defines the target directory into which 
+     * the generated objects will be placed.
+     */
     public void setTarget(String target) {
         this.target = target;
     }

@@ -18,11 +18,13 @@ package org.apache.commons.jelly.tags.jaxme;
 import org.apache.commons.jelly.TagLibrary;
 
 /** 
- * A Jelly custom tag library that uses the Betwixt project to parse XML and turn it into beans or 
- * turn beans into XML
+ * <a href='http://java.sun.com/xml/jaxb/'>JAXB</a> tag library 
+ * using the <a href='http://ws.apache.org/jaxme'>Apache JaxMe</a> implementation.
+ * The marshalling and unmarshalling tags should work with any JAXB implementation.
+ * The generation tag is JaxMe specific.
  *
  * @author <a href="mailto:commons-dev at jakarta.apache.org">Jakarta Commons Development Team</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class JaxMeTagLibrary extends TagLibrary {
         
