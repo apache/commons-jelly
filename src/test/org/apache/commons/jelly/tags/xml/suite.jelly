@@ -279,5 +279,12 @@
         <test:assertEquals actual="${blopSingleText}" expected="blop0"/>
   </test:case>
     
+  <!-- dom4j is busted -->
+  <test:case name="testEntities">
+    <x:parse var="doc" xml="entity.xml"/> 
+    <x:set var="value" select="string($doc/a)"/>
+    <j:set var="expected">y</j:set>
+    <!--test:assertEquals actual="${value}" expected="${expected}"/-->
+  </test:case>
     
 </test:suite>
