@@ -39,7 +39,7 @@ import org.xml.sax.XMLReader;
  * then either outputting the Script as a variable or executing the script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class ParseTag extends TagSupport {
 
@@ -171,7 +171,7 @@ public class ParseTag extends TagSupport {
      */
     protected void parseBody(XMLOutput output) throws JellyTagException {
         ContentHandler handler = getJellyParser();
-        XMLOutput newOutput = new XMLOutput();
+        XMLOutput newOutput = new XMLOutput(handler);
         
         try {
             handler.startDocument();
