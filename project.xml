@@ -149,8 +149,30 @@
       <jar>werkz-1.0-dev.jar</jar>
     </dependency>
     
-    <!-- runtime dependencies only required for testing and sample programs -->
+    <!-- 
+      || Optional tag library dependencies
+      || These will be sub-projects one day, when Maven handles them gracefully
+      -->
 
+	<!-- beanshell taglib -->
+    <dependency>
+      <name>bsh</name>
+      <type>required</type>
+      <version>1.2-b3</version>
+      <jar>bsh-1.2-b3.jar</jar>
+    </dependency>
+
+	<!-- bsf taglib -->
+    <dependency>
+      <name>bsf</name>
+      <type>required</type>
+      <version>2.2</version>
+      <jar>bsf-2.2.jar</jar>
+    </dependency>
+
+	
+	<!-- runtime dependencies for test programs -->
+	
     <dependency>
       <name>hsqldb</name>
       <type>required</type>

@@ -1,8 +1,0 @@
-Extension-Name: org.apache.commons.jelly.tags.ojb
-Specification-Vendor: Apache Software Foundation
-Specification-Version: 1.0
-Implementation-Vendor: Apache Software Foundation
-Implementation-Version: 1.0-dev
-
-
-
