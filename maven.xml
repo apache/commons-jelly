@@ -14,16 +14,18 @@
   limitations under the License.
 -->
 <project default="jar:jar">
-
   
-  <goal name="demo" prereqs=""
-			description="Non-functioning demo yet.">
-		<echo>Using classpath:</echo>
-    <echo>${pom.getDependencyClasspath()}:target/${pom.name}-${pom.currentVersion}.jar</echo>
-    <java classpath="${pom.getDependencyClasspath()}:target/${pom.name}-${pom.currentVersion}.jar"
-      classname="org.apache.commons.jelly.Jelly" fork="true">
-      <arg file="src/test/org/apache/commons/jelly/tags/interaction/sample.jelly"/>
-      </java>
-    </goal>
-
+  <goal name="demo" prereqs="jar:jar"
+      description="Non-functioning demo yet.">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <!-- This does not currently work due to a bug in jline - it extracts
+           a DLL into %TEMP% on Windows, but both the parent and forked process
+           use it -->
+      <classpath>
+        <path refid="maven.dependency.classpath"/>
+        <pathelement location="${maven.build.dest}" />
+      </classpath>
+      <arg value="src/test/org/apache/commons/jelly/tags/interaction/sample.jelly"/>
+    </java>
+  </goal>
 </project>

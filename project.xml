@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  Copyright 2002,2004 The Apache Software Foundation.
+  Copyright 2002-2005 The Apache Software Foundation.
   
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-interaction</id>
   <name>commons-jelly-tags-interaction</name>
-  <currentVersion>1.1</currentVersion>
+  <currentVersion>1.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.interaction</package>
   <description>This is a Jelly interface to the user.</description>
   <shortDescription>Commons Jelly Interaction Tag Library</shortDescription>
@@ -33,12 +33,11 @@
   </versions>
 
   <dependencies>
-		<dependency>
-		 <groupId>jline</groupId>
-		 <artifactId>jline</artifactId>
-		 <version>0.9.0</version>
-		 <type>jar</type>
-		</dependency> 
+    <dependency>
+      <groupId>jline</groupId>
+      <artifactId>jline</artifactId>
+      <version>0.9.0</version>
+    </dependency> 
     <dependency>
       <id>commons-cli</id>
       <version>1.0</version>
@@ -57,6 +56,6 @@
       <version>20030211.213356</version>
     </dependency>
 		
-	</dependencies>
+  </dependencies>
 
 </project>
