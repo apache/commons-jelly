@@ -4,27 +4,27 @@
        xmlns:j="jelly:core" 
        xmlns:werkz="jelly:werkz">
 
-  <werkz:goal name="compile" prereqs="init">
+  <werkz:goal name="foo:compile" prereqs="foo:init">
     <echo message="Running compile goal's action"/>
   </werkz:goal>
 
-  <werkz:goal name="test" prereqs="init,compile">
+  <werkz:goal name="bar:test" prereqs="foo:init,foo:compile">
     <echo message="Running test goal's action"/>
   </werkz:goal>
 
  <!-- define some callbacks in the projects build.jelly -->
- <werkz:preGoal name="compile">
+ <werkz:preGoal name="foo:compile">
     <echo message="I am a callback: doing something before I compile"/>
  </werkz:preGoal>
 
   <!-- the following could be in the mediator of Maven -->
-  <werkz:goal name="init">
+  <werkz:goal name="foo:init">
     <echo message="Running init goal's action"/>
   </werkz:goal>
 
 
   <!-- now lets attain a goal -->	
-  <werkz:attainGoal name="test"/> 
+  <werkz:attainGoal name="bar:test"/> 
   
   <!-- call all the targets made on the command line -->	
 <!--  
@@ -36,5 +36,17 @@
 
   </werkz:attain>
 -->
+
+
+	<werkz:useGoals var="goalMap"/>
+
+	<j:forEach var="groupEntry" items="${goalMap.entrySet()}">			
+		<group name="${groupEntry.key}" xmlns="">
+			<j:forEach var="goalEntry" items="${groupEntry.value.entrySet()}">			
+				<goal name="${goalEntry.key}"/>
+			</j:forEach>
+		</group>
+	</j:forEach>
+
 
 </werkz:project>

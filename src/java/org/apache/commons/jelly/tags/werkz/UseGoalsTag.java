@@ -1,13 +1,10 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/XMLTagLibrary.java,v 1.6 2002/05/17 18:04:00 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/17 18:04:00 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +26,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,41 +53,101 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: XMLTagLibrary.java,v 1.6 2002/05/17 18:04:00 jstrachan Exp $
+ *
  */
+
 package org.apache.commons.jelly.tags.werkz;
 
-import java.util.Iterator;
-import java.util.List;
+import com.werken.werkz.Goal;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagLibrary;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** Implements a bunch of tags that are useful for working with Werkz.
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
-  */
-public class WerkzTagLibrary extends TagLibrary {
+/** 
+ * This tag outputs a sorted Map of Maps all of the goals, indexed by their prefix and their
+ * goal name. This is output to a variable. This map of maps makes it easy to navigate the 
+ * available Goals.
+ * <p>
+ * So if the goals is output to a variable called 'g' then you can access a specific goal via
+ * a Jexl expression ${g.java.compile} or to find all the 'java' goals you can use ${g.java} which
+ * returns a sorted Map. 
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.7 $
+ */
+public class UseGoalsTag extends WerkzTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(WerkzTagLibrary.class);
+    private Log log = LogFactory.getLog(UseGoalsTag.class);
     
-    public WerkzTagLibrary() {
-        registerTag("project", ProjectTag.class);
-        registerTag("goal", GoalTag.class);
-        registerTag("preGoal", PreGoalTag.class);
-        registerTag("postGoal", PostGoalTag.class);
-        registerTag("preAction", PreActionTag.class);
-        registerTag("postAction", PostActionTag.class);
-        registerTag("attain", AttainTag.class);
-        registerTag("attainGoal", AttainGoalTag.class);
-        registerTag("useGoals", UseGoalsTag.class);
+    /** the name of the variable to export */
+    private String var;
+    
+    public UseGoalsTag() {
+    }
+
+
+    // Tag interface
+    //------------------------------------------------------------------------- 
+    
+    /** 
+     * Evaluate the body to register all the various goals and pre/post conditions
+     * then run all the current targets
+     */
+    public void doTag(final XMLOutput output) throws Exception {
+        if (var == null) {
+            throw new MissingAttributeException("var");
+        }
+        
+        Map answer = createMap();
+        
+        
+        Iterator iter = getProject().getGoals().iterator();
+        while (iter.hasNext()) {
+            Goal goal = (Goal) iter.next();
+            String name = goal.getName();
+            String prefix = name;
+            int idx = name.indexOf(":");
+            if (idx >= 0) {
+                prefix = name.substring(0, idx);
+                name = name.substring(idx+1);
+            }
+            else {
+                name = "[default]";
+            }
+            
+            Map map = (Map) answer.get(prefix);
+            if (map == null) {
+                map = createMap();
+                answer.put(prefix, map);
+            }
+            map.put(name, goal);
+        }
+        
+        context.setVariable(var, answer);
+    }
+
+    
+    // Properties
+    //------------------------------------------------------------------------- 
+    /**
+     * Sets the variable for which the Map of Map of goals will be exported
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+    
+    /**
+     * Factory method to create a new sorted map
+     */        
+    protected Map createMap() {
+        return new TreeMap();
     }
 }
