@@ -85,21 +85,22 @@ public class UseListTag extends UseBeanTag {
     }
     
 
+    // DynaTag interface
+    //-------------------------------------------------------------------------                    
+    public Class getAttributeType(String name) throws Exception {
+        if (name.equals("items")) {
+            return Expression.class;
+        }
+        return super.getAttributeType(name);
+    }
+
+
     // Implementation methods
     //-------------------------------------------------------------------------                    
+    
     protected void setBeanProperties(Object bean, Map attributes) throws Exception {
-        Object value = attributes.remove("items");
-        System.out.println( "value: " + value );
+        items = (Expression) attributes.remove("items");
         super.setBeanProperties(bean, attributes);
-        
-        // #### @todo use same algorithm as evaluateAsIterator()
-        List list = getList();
-        if (value instanceof Iterator) {
-            Iterator iter = (Iterator) value;
-            while (iter.hasNext()) {
-                list.add( iter.next() );
-            }
-        }
     }
     
     protected void processBean(String var, Object bean) throws Exception {
@@ -107,9 +108,6 @@ public class UseListTag extends UseBeanTag {
         
         List list = getList();
 
-        System.out.println( "Created list: " + list + " with items: " + items );
-        
-        
         // if the items variable is specified lets append all the items
         if (items != null) {
             Iterator iter = items.evaluateAsIterator(context);
