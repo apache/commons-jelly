@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java,v 1.1 2003/01/14 04:01:00 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/14 04:01:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/21 15:16:32 $
  *
  * ====================================================================
  *
@@ -57,12 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanPropertyTag.java,v 1.1 2003/01/14 04:01:00 dion Exp $
+ * $Id: BeanPropertyTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Map;
 
 import org.apache.commons.beanutils.MethodUtils;
@@ -70,17 +71,14 @@ import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-
-/** 
+/**
  * Creates a nested property via calling a beans createFoo() method then
  * either calling the setFoo(value) or addFoo(value) methods in a similar way
  * to how Ant tags construct themselves.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @author Christian Sell
+ * @version $Revision: 1.2 $
  */
 public class BeanPropertyTag extends BeanTag {
 
@@ -89,10 +87,6 @@ public class BeanPropertyTag extends BeanTag {
     
     /** empty argument types constant */
     private static final Class[] EMPTY_ARG_TYPES = {};
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BeanPropertyTag.class);
-
 
     /** the name of the create method */
     private String createMethodName;
@@ -125,13 +119,45 @@ public class BeanPropertyTag extends BeanTag {
                     throw new JellyException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
                 }
             }
+            else {
+                Class tagClass = theClass;
+                if(tagClass == Object.class)
+                    tagClass = findAddMethodClass(parentClass);
+                if(tagClass == null)
+                    throw new JellyException("unable to infer element class for tag "+getTagName());
+
+                return super.newInstance(tagClass, attributes, output) ;
+            }
         }
-        else {
-            throw new JellyException( "The " + getTagName() + " tag must be nested within a tag which maps to a bean property" );
+        throw new JellyException("The " + getTagName() + " tag must be nested within a tag which maps to a BeanSource implementor");
+    }
+
+    /**
+     * finds the parameter type of the first public method in the parent class whose name
+     * matches the add{tag name} pattern, whose return type is void and which takes
+     * one argument only.
+     * @param parentClass
+     * @return the class of the first and only parameter
+     */
+    protected Class findAddMethodClass(Class parentClass)
+    {
+        Method[] methods = parentClass.getMethods();
+        for (int i = 0; i < methods.length; i++) {
+            Method method = methods[i];
+            if(Modifier.isPublic(method.getModifiers())) {
+                Class[] args = method.getParameterTypes();
+                if (method.getName().equals(addMethodName)
+                      && java.lang.Void.TYPE.equals(method.getReturnType())
+                      && args.length == 1
+                      && !java.lang.String.class.equals(args[0])
+                      && !args[0].isArray()
+                      && !args[0].isPrimitive())
+                    return args[0];
+            }
         }
         return null;
     }
-    
+
     /**
      * Finds the Method to create a new property object
      */

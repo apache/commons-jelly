@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.1 2003/01/14 04:01:00 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/14 04:01:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/21 15:16:32 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanTag.java,v 1.1 2003/01/14 04:01:00 dion Exp $
+ * $Id: BeanTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -80,15 +80,10 @@ import org.apache.commons.logging.LogFactory;
  * or can be added to a parent tag.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @author Christian Sell
+ * @version   $Revision: 1.2 $
  */
 public class BeanTag extends UseBeanTag {
-
-    /** empty arguments constant */
-    private static final Object[] EMPTY_ARGS = {};
-    
-    /** empty argument types constant */
-    private static final Class[] EMPTY_ARG_TYPES = {};
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(BeanTag.class);
@@ -98,7 +93,7 @@ public class BeanTag extends UseBeanTag {
     private String tagName;
 
     /** the name of the adder method */
-    private String addMethodName;
+    protected String addMethodName;
 
     
     public BeanTag(Class defaultClass, String tagName) {
@@ -160,7 +155,7 @@ public class BeanTag extends UseBeanTag {
                 if (tag != null) {
                     tag.addItem(bean);
                 }
-                else {
+                else if(var == null) { //warn if the bean gets lost in space
                     log.warn( "Could not add bean to parent for bean: " + bean );
                 }
             }

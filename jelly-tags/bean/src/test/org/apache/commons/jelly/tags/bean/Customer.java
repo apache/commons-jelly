@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/Customer.java,v 1.1 2003/01/14 04:01:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/14 04:01:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/Customer.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/21 15:16:32 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Customer.java,v 1.1 2003/01/14 04:01:01 dion Exp $
+ * $Id: Customer.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bean;
 
@@ -65,22 +65,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /** 
  * A sample bean that we can construct via Jelly tags
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class Customer {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(Customer.class);
-
     private String name;
-    private String city;
     private String location;
     private List orders = new ArrayList();
     
@@ -92,20 +85,19 @@ public class Customer {
         setName(name);
     }
     
-    public Customer(String name, String city) {
+    public Customer(String name, String location) {
         setName(name);
-        setCity(city);
+        setLocation(location);
     }
     
-    public Customer(String name, String city, Order anOrder) {
+    public Customer(String name, String location, Order anOrder) {
         setName(name);
-        setCity(city);
+        setLocation(location);
         addOrder(anOrder);
     }
     
     public Customer(Customer cust) {
         setName(cust.getName());
-        setCity(cust.getCity());
         setLocation(cust.getLocation());
         List list = cust.getOrders();
         if(null != list) {
@@ -116,7 +108,7 @@ public class Customer {
     }
     
     public String toString() {
-        return super.toString() + "[name=" + name + ";city=" + city + "]";
+        return super.toString() + "[name=" + name + ";location=" + location + "]";
     }
 
     /**
@@ -139,14 +131,6 @@ public class Customer {
     }    
 
     /**
-     * Returns the city.
-     * @return String
-     */
-    public String getCity() {
-        return city;
-    }
-
-    /**
      * Returns the location.
      * @return String
      */
@@ -160,14 +144,6 @@ public class Customer {
      */
     public String getName() {
         return name;
-    }
-
-    /**
-     * Sets the city.
-     * @param city The city to set
-     */
-    public void setCity(String city) {
-        this.city = city;
     }
 
     /**
@@ -185,6 +161,4 @@ public class Customer {
     public void setName(String name) {
         this.name = name;
     }
-
-
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/MyTagLibrary.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/21 15:16:32 $
+ * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/MyBeanTagLibrary.java,v 1.1 2003/01/21 15:16:32 jstrachan Exp
+ * 1.1
+ * 2003/01/21 15:16:32
  *
  * ====================================================================
  *
@@ -57,74 +57,24 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: MyTagLibrary.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * MyBeanTagLibrary.java,v 1.1 2003/01/21 15:16:32 jstrachan Exp
  */
 package org.apache.commons.jelly.tags.bean;
 
-import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.TagFactory;
-import org.apache.commons.jelly.impl.TagScript;
-
-import org.xml.sax.Attributes;
+import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
 
 /** 
- * A normal tag library which will use a BeanTag to create beans but this tag
- * library does not derive from BeanTagLibrary and so does not have a &lt;
- * beandef&gt; tag
+ * Describes the Taglib. 
+ * This could be created via Jelly script, or could load the mapping of 
+ * tag names to bean classes from properties file etc  but is implemented in Java
+ * code for simplicity
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version 1.1
  */
-public class MyTagLibrary extends TagLibrary {
+public class MyBeanTagLibrary extends BeanTagLibrary {
 
-    public MyTagLibrary() {
-    }
-    
-    
-    // TagLibrary interface
-    //-------------------------------------------------------------------------
-    public TagScript createTagScript(String name, Attributes attributes) throws Exception {
-
-        TagFactory factory = new TagFactory() {
-            public Tag createTag(String name, Attributes attributes) throws Exception {
-                return createBeanTag(name, attributes);
-            }
-        };
-        return new TagScript( factory );
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a Tag for the given tag and attributes. If this
-     * tag matches a root bean, then a BeanTag will be created, otherwise a
-     * BeanPropertyTag is created to make a nested property.
-     */
-    protected Tag createBeanTag(String name, Attributes attributes) throws Exception {
-        // is the name bound to a specific class
-        Class beanType = getBeanType(name, attributes);
-        if (beanType != null) {
-            return new BeanTag(beanType, name);
-        }
-
-        // its a property tag
-        return new BeanPropertyTag(name);
-    }
-
-    /**
-     * Return the bean class that we should use for the given element name
-     * 
-     * @param name is the XML element name
-     * @param attributes the XML attributes
-     * @return Class the bean class to use for this element or null if the tag
-     * is a nested property
-     */
-    protected Class getBeanType(String name, Attributes attributes) {
-        if (name.equals( "customer")) {
-            return Customer.class;
-        }
-        return null;
+    public MyBeanTagLibrary() {
+        registerBean( "customer", Customer.class );
     }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeandefTag.java,v 1.1 2003/01/14 04:01:00 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/14 04:01:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeandefTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/21 15:16:32 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeandefTag.java,v 1.1 2003/01/14 04:01:00 dion Exp $
+ * $Id: BeandefTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * the tag set the bean properties..
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class BeandefTag extends TagSupport {
 
@@ -97,10 +97,7 @@ public class BeandefTag extends TagSupport {
     /** the ClassLoader used to load beans */
     private ClassLoader classLoader;
     
-    /** the name of the attribute used for the variable name */
-    private String varAttribute = "var";
-
-    /** the library in which to define this new bean tag */    
+    /** the library in which to define this new bean tag */
     private BeanTagLibrary library;
     
     public BeandefTag(BeanTagLibrary library) {
@@ -161,7 +158,7 @@ public class BeandefTag extends TagSupport {
     /** 
      * Sets the Java class name to use for the tag
      */
-    public void setClass(String className) {
+    public void setClassName(String className) {
         this.className = className;
     }
     
@@ -187,14 +184,5 @@ public class BeandefTag extends TagSupport {
             return answer;
         }
         return classLoader;
-    }
-
-    /**
-     * Sets the name of the attribute used to define the bean variable that this dynamic
-     * tag will output its results as. This defaults to 'var' though this property
-     * can be used to change this if it conflicts with a bean property called 'var'.
-     */
-    public void setVarAttribute(String varAttribute) {    
-        this.varAttribute = varAttribute;
     }
 }

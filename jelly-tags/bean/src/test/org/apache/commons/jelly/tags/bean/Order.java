@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/Order.java,v 1.1 2003/01/14 04:01:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/14 04:01:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/Order.java,v 1.2 2003/01/21 15:16:31 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/21 15:16:31 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Order.java,v 1.1 2003/01/14 04:01:01 dion Exp $
+ * $Id: Order.java,v 1.2 2003/01/21 15:16:31 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bean;
 
@@ -68,7 +68,7 @@ import org.apache.commons.logging.LogFactory;
  * A sample bean that we can construct via Jelly tags
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class Order {
 
@@ -88,11 +88,16 @@ public class Order {
     
     /** 
      * Factory method to create a new Product
-     */
     public Product createProduct() {
         return new Product();
     }
-        
+     */
+
+    public void addProduct(Product product)
+    {
+        this.product = product;
+    }
+
     /**
      * Returns the amount.
      * @return int
