@@ -28,17 +28,8 @@
   
   <url>http://jakarta.apache.org/commons/jelly/tags/bean/</url>
 
-  <!-- <siteDirectory>/www/jakarta.apache.org/commons/jelly/bean/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/bean</distributionDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/bean/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/bean/</url>
-  </repository>
-  -->
   <dependencies>
-  
-    
-  
+
     <!-- START for compilation -->
   
     <dependency>
@@ -54,7 +45,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-log</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/libs/log/</url>
     </dependency>
       
