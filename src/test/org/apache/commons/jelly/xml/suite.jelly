@@ -28,13 +28,15 @@
   </test:case>
   
   <test:case name="testBadElementAndAttribute">
-  	
-    <j:catch var="ex">
-  		<x:element name="foo">
-  			some text
-  			<x:attribute name="x">1234</x:attribute>
-  		</x:element>
-		</j:catch>    	
+
+		<log:info>
+			<j:catch var="ex">
+				<x:element name="foo">
+					some text
+					<x:attribute name="x">1234</x:attribute>
+				</x:element>
+			</j:catch>    	
+		</log:info>  	
 		
 		<test:assert test="${ex != null}">
 			We should have created an exception as some text is output before the attributes
@@ -59,7 +61,7 @@
 		
 		<test:assert test="${ex != null}">We should have created an exception</test:assert>
 		
-		The exception was: ${ex.message}
+		<log:info>The exception was: ${ex.message}</log:info>
   </test:case>
 
 	<!-- test the use of namespaces with XPath -->
@@ -118,7 +120,7 @@
 
         <!-- test ascending -->
         <j:set var="result" value=""/>
-        <x:forEach select="$nums/a/b" var="x" sort="@v">
+        <x:forEach select="$nums/a/b" var="x" sort="number(@v)">
             <x:set var="num" select="$x/@v"/>
             <j:set var="result" value="${result} ${num.get(0).getText()}"/>
         </x:forEach>
@@ -127,7 +129,7 @@
 
         <!-- test descending -->
         <j:set var="result" value=""/>
-        <x:forEach select="$nums/a/b" var="x" sort="@v" descending="true">
+        <x:forEach select="$nums/a/b" var="x" sort="number(@v)" descending="true">
             <x:set var="num" select="$x/@v"/>
             <j:set var="result" value="${result} ${num.get(0).getText()}"/>
         </x:forEach>
@@ -136,7 +138,7 @@
 
         <!-- test deeper nesting -->
         <j:set var="result" value=""/>
-        <x:forEach select="$deeper/a/b" var="x" sort="c/d">
+        <x:forEach select="$deeper/a/b" var="x" sort="number(c/d/text())">
             <j:set var="result" value="${result} ${x.getStringValue()}"/>
         </x:forEach>
 
@@ -144,7 +146,7 @@
 
         <!-- test sort as strings -->
         <j:set var="result" value=""/>
-        <x:forEach select="$nums/a/b" var="x" sort="@v" sortDataType="java.lang.String">
+        <x:forEach select="$nums/a/b" var="x" sort="@v">
             <x:set var="num" select="$x/@v"/>
             <j:set var="result" value="${result} ${num.get(0).getText()}"/>
         </x:forEach>
@@ -153,7 +155,7 @@
 
         <!-- test x:set with sort -->
         <j:set var="result" value=""/>
-        <x:set var="rset" select="$nums/a/b" sort="@v"/>
+        <x:set var="rset" select="$nums/a/b" sort="number(@v)"/>
         <j:forEach var="num" items="${rset.iterator()}">
             <j:set var="result" value="${result} ${num.attributeValue('v')}"/>
         </j:forEach>
@@ -163,7 +165,7 @@
         <!-- test x:set with sort -->
         <j:set var="result" value=""/>
         <x:set var="rset" select="$nums/a/b"/>
-        <x:sort list="${rset}" sort="@v"/>
+        <x:sort list="${rset}" sort="number(@v)"/>
         <j:forEach var="num" items="${rset.iterator()}">
             <j:set var="result" value="${result} ${num.attributeValue('v')}"/>
         </j:forEach>

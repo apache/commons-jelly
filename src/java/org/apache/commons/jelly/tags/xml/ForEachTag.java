@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.11 2002/11/27 17:21:16 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/11/27 17:21:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.12 2002/11/27 19:22:41 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/11/27 19:22:41 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.11 2002/11/27 17:21:16 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.12 2002/11/27 19:22:41 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -73,7 +73,7 @@ import org.jaxen.JaxenException;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 public class ForEachTag extends XPathTagSupport implements XPathSource {
 
@@ -154,15 +154,5 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     public void setDescending(boolean descending) {
         if (xpCmp == null) xpCmp = new XPathComparator();
         xpCmp.setDescending(descending);
-    }
-
-    /**
-     * Set the data type to convert nodes being sorted on into before sorting. This
-     * should be the name of a class that commons.beanutils knows how to convert strings
-     * into.
-     */
-    public void setSortDataType(String sortType) throws ClassNotFoundException {
-        if (xpCmp == null) xpCmp = new XPathComparator();
-        xpCmp.setType(Class.forName(sortType));
     }
 }

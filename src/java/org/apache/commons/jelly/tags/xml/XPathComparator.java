@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.tags.xml;
 
 import java.util.Comparator;
+import java.util.List;
 
 import org.dom4j.Node;
 
@@ -85,9 +86,6 @@ public class XPathComparator implements Comparator {
     /** The xpath to use to extract value from nodes to compare */
     private XPath xpath = null;
 
-    /** If set then the value extracted will be cast into this type and compared. */
-    private Class type = null;
-
     /** Sort descending or ascending */
     private boolean descending = false;
 
@@ -100,22 +98,12 @@ public class XPathComparator implements Comparator {
         this.descending = descending;
     }
 
-    public XPathComparator(XPath xpath, Class type, boolean descending) {
-        this.xpath = xpath;
-        this.type = type;
-        this.descending = descending;
-    }
-
     public void setXpath(XPath xpath) {
         this.xpath = xpath;
     }
 
     public XPath getXpath() {
         return xpath;
-    }
-
-    public void setType(Class type) {
-        this.type = type;
     }
 
     public void setDescending(boolean descending) {
@@ -131,43 +119,16 @@ public class XPathComparator implements Comparator {
 
             // apply the xpaths. not using stringValueOf since I don't
             // want all of the child nodes appended to the strings
-            Node val1 = (Node)xpath.selectSingleNode(n1);
-            Node val2 = (Node)xpath.selectSingleNode(n2);
+            Object val1 = xpath.evaluate(n1);
+            Object val2 = xpath.evaluate(n2);
 
             // return if null
             if (val1 == null || val2 == null) {
                 return val1 == null ? (val2 == null ? 1 : -1) : 1;
             }
 
-            // these are what will be compared
-            Comparable c1, c2;
-
-            // extract the string values
-            String s1 = val1.getText();
-            String s2 = val2.getText();
-
-            // if type is set convert to it and compare
-            // if it is not set try to infer types
-            if (type != null) {
-                c1 = (Comparable)ConvertUtils.convert(s1, type);
-                c2 = (Comparable)ConvertUtils.convert(s2, type);
-            } else {
-                // check if numeric type
-                if (isNumeric(s1) && isNumeric(s2)) {
-                    // if either is a double, cast to doubles
-                    if (isDouble(s1) || isDouble(s2)) {
-                        c1 = (Double)ConvertUtils.convert(s1, Double.class);
-                        c2 = (Double)ConvertUtils.convert(s2, Double.class);
-                    } else {
-                        c1 = (Integer)ConvertUtils.convert(s1, Integer.class);
-                        c2 = (Integer)ConvertUtils.convert(s2, Integer.class);
-                    }
-                } else {
-                    // nope, leave as strings
-                    c1 = s1;
-                    c2 = s2;
-                }
-            }
+            Comparable c1 = getComparableValue(val1);
+            Comparable c2 = getComparableValue(val2);
 
             // compare descending or ascending
             if (!descending) {
@@ -184,32 +145,27 @@ public class XPathComparator implements Comparator {
     }
 
     /**
-     * Check to see if a string is a number. Negative and decimals supported.
-     * @param str String to check
-     * @return True if the string is numeric. Empty strings are not numeric.
+     * Turns the XPath result value into a Comparable object.
      */
-    private static final boolean isNumeric(String str) {
-        final int strLen = str.length();
-        // empty strings are not numbers
-        if (strLen == 0) return false;
-        // start at pos 1 if the 1st char is '-' to support negatives
-        final int startPos = (str.charAt(0) == '-') ? 1 : 0;
-        if (startPos == strLen) return false;
-        for (int i=startPos;i<strLen;i++) {
-            char ch = str.charAt(i);
-            if ((ch < '0' || ch > '9') && (ch != '.')) {
-                return false;
+    protected Comparable getComparableValue(Object value) {
+        if (value instanceof List) {
+            List list = (List) value;
+            if (list.isEmpty()) {
+                value = "";
+            }
+            value = list.get(0);
+            if (value == null) {
+                value = "";
             }
         }
-
-        return true;
-    }
-
-    /**
-     * Check to see if the number has a period.
-     */
-    private static final boolean isDouble(String str) {
-        return str.indexOf(".") != -1;
+        if (value instanceof Comparable) {
+            return (Comparable) value;
+        }
+        else if (value instanceof Node) {
+            Node node = (Node) value;
+            return node.getStringValue();
+        }
+        return value.toString();
     }
 
     /**

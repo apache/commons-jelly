@@ -114,14 +114,4 @@ public class SortTag extends XPathTagSupport {
         if (xpCmp == null) xpCmp = new XPathComparator();
         xpCmp.setDescending(descending);
     }
-
-    /**
-     * Set the data type to convert nodes being sorted on into before sorting. This
-     * should be the name of a class that commons.beanutils knows how to convert strings
-     * into.
-     */
-    public void setSortDataType(String sortType) throws ClassNotFoundException {
-        if (xpCmp == null) xpCmp = new XPathComparator();
-        xpCmp.setType(Class.forName(sortType));
-    }
 }
