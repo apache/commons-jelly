@@ -15,21 +15,31 @@
  */
 package org.apache.commons.jelly.tags.interaction;
 
-import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
+import jline.ConsoleReader;
+import jline.History;
+import jline.SimpleCompletor;
 
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-/**
- * Jelly Tag that asks the user a question, and puts his answer into
- * a variable, with the attribute "answer".
- * This variable may be reused further as any other Jelly variable.
- * @author <a href="mailto:smor@hasgard.net">Stéphane Mor</a>
- */
+  /**
+  * Jelly Tag that asks the user a question, and puts his answer into a variable,
+  * with the attribute "answer". This variable may be reused further as any other
+  * Jelly variable.
+  * 
+  * @author <a href="mailto:smor@hasgard.net">StÃ©phane Mor </a>
+   */
 public class AskTag extends TagSupport
 {
+
+    private static Log logger = LogFactory.getLog(AskTag.class);
+
     /** The question to ask to the user */
     private String question;
 
@@ -48,60 +58,62 @@ public class AskTag extends TagSupport
     /** The prompt to display before the user input */
     private String prompt = ">";
 
+    private static History consoleHistory = new History();
+
     /**
-     * Sets the question to ask to the user. If a "default" attribute
-     * is present, it will appear inside [].
-     * @param question The question to ask to the user
+     * Sets the question to ask to the user. If a "default" attribute is
+     * present, it will appear inside [].
+     * 
+     * @param question
+     *            The question to ask to the user
      */
-    public void setQuestion(String question)
-    {
+    public void setQuestion(String question) {
         this.question = question;
     }
 
     /**
-     * Sets the name of the variable that will hold the answer
-     * This defaults to "interact.answer".
-     * @param answer the name of the variable that will hold the answer
+     * Sets the name of the variable that will hold the answer This defaults to
+     * "interact.answer".
+     * 
+     * @param answer
+     *            the name of the variable that will hold the answer
      */
-    public void setAnswer(String answer)
-    {
+    public void setAnswer(String answer) {
         this.answer = answer;
     }
 
     /**
-     * Sets the default answer to the question.
-     * If it is present, it will appear inside [].
-     * @param default the default answer to the question
+     * Sets the default answer to the question. If it is present, it will appear
+     * inside [].
+     * 
+     * @param default
+     *            the default answer to the question
      */
-    public void setDefault(String defaultInput)
-    {
+    public void setDefault(String defaultInput) {
         this.defaultInput = defaultInput;
     }
 
     /**
      * Sets the prompt that will be displayed before the user's input.
-     * @param promt the prompt that will be displayed before the user's input.
+     * 
+     * @param promt
+     *            the prompt that will be displayed before the user's input.
      */
-    public void setPrompt(String prompt)
-    {
+    public void setPrompt(String prompt) {
         this.prompt = prompt;
     }
 
-
     /**
      * Perform functionality provided by the tag
-     * @param output the place to write output
+     * 
+     * @param output
+     *            the place to write output
      */
-    public void doTag(XMLOutput output)
-    {
-        if (question != null)
-        {
-            if (defaultInput != null)
-            {
+    public void doTag(XMLOutput output) {
+        if (question != null) {
+            if (defaultInput != null) {
                 System.out.println(question + " [" + defaultInput + "]");
-            }
-            else
-            {
+            } else {
                 System.out.println(question);
             }
             // The prompt should be just before the user's input,
@@ -109,16 +121,54 @@ public class AskTag extends TagSupport
             //System.out.print(prompt + " ");
         }
 
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        ConsoleReader consoleReader;
 
         try {
-            input = br.readLine();
-            if (defaultInput != null && input.trim().equals(""))
-            {
-                input = defaultInput;
-            }
-        } catch (IOException ioe) {
+            consoleReader = new ConsoleReader();
+        } catch (IOException e) {
+            logger.warn("couldnt create console reader", e);
+            consoleReader = null;
         }
+
+        String disableJlineProp = System.getProperty("ask.jline.disable");
+        boolean disableJline = (disableJlineProp != null && disableJlineProp
+                .equals("true"));
+
+        try {
+            if (consoleReader != null
+                    && consoleReader.getTerminal().isSupported()) {
+
+                // resue the static history, so our commands are remeberered
+                consoleReader.setHistory(consoleHistory);
+
+                // hate the bell!
+                consoleReader.setBellEnabled(false);
+
+                // add old commands as tab completion history
+                String[] oldCommands = new String[consoleHistory
+                        .getHistoryList().size()];
+                consoleHistory.getHistoryList().toArray(oldCommands);
+                consoleReader.addCompletor(new SimpleCompletor(oldCommands));
+
+                // read the input!
+                input = consoleReader.readLine();
+                
+                // trim the input for tab completion
+                input = input.trim();
+
+                if (defaultInput != null && input.trim().equals("")) {
+                    input = defaultInput;
+                }
+            } else {
+                BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(System.in));
+                input = reader.readLine();
+            }
+
+        } catch (IOException ex) {
+            logger.warn("error setting up the console reader", ex);
+        }
+
         context.setVariable(answer, input);
     }
 }

@@ -19,4 +19,10 @@
 
     <!-- some sample scripts would be a good idea -->
 
-</jelly>
+    BLOP
+    
+    <interaction:ask question="Say something: " answer="answer"/>
+    
+    ${answer}
+    
+</j:jelly>

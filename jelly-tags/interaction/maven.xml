@@ -13,6 +13,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project default="java:jar">
+<project default="jar:jar">
+
+  
+  <goal name="demo" prereqs=""
+			description="Non-functioning demo yet.">
+		<echo>Using classpath:</echo>
+    <echo>${pom.getDependencyClasspath()}:target/${pom.name}-${pom.currentVersion}.jar</echo>
+    <java classpath="${pom.getDependencyClasspath()}:target/${pom.name}-${pom.currentVersion}.jar"
+      classname="org.apache.commons.jelly.Jelly" fork="true">
+      <arg file="src/test/org/apache/commons/jelly/tags/interaction/sample.jelly"/>
+      </java>
+    </goal>
 
 </project>
