@@ -69,8 +69,9 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MapTagSupport;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
@@ -80,6 +81,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.IntrospectionHelper;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.TaskAdapter;
 import org.apache.tools.ant.types.DataType;
@@ -135,44 +137,23 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
         Project project = getAntProject();
         String tagName = getTagName();
+        Object parentObject = null;
 
-        if ( project.getTaskDefinitions().containsKey( tagName ) )
-        {
-            // check if manifest is contained within a jar
-            // special handling for Ant 1.5 manifest which is a task
-            // but can also be contained within the jar task
-            // There has got to be a better way but I couldn't find it
-            if(tagName.equals(ANT_MANIFEST_TAG))
-            {
-                TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
-                if ( ancestor != null )
-                {
-                    Object nested = null;
-                    Object parentObject = null;
+        // must be a datatype.
+        TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
+        if ( ancestor != null ) {
+            parentObject = ancestor.getTaskObject();
+        }
 
-                    parentObject = ancestor.getTaskObject();
-                    nested = createNestedObject( parentObject, tagName );
-
-                    // now lets invoke the body
-                    String body = getBodyText();
-
-                    // now lets set any attributes of this tag...
-                    setBeanProperties();
-
-                    // now lets add it to its parent
-                    if ( parentObject != null)
-                    {
-                        IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );
-                        try
-                        {
-                            ih.storeElement( project, parentObject, nested, tagName );
-                        }
-                        catch (Exception e) {
-                          //log.warn( "Caught exception setting nested: " + tagName, e );
-                        }
-                    }
-                    return;
-                }
+        // lets assume that Task instances are not nested inside other Task instances
+        // for example <manifest> inside a <jar> should be a nested object, where as 
+        // if the parent is not a Task the <manifest> should create a ManifestTask
+                
+        if ( ! ( parentObject instanceof Task ) && 
+            project.getTaskDefinitions().containsKey( tagName ) ) {                            
+            
+            if ( log.isDebugEnabled() ) {
+                log.debug( "Creating an ant Task for name: " + tagName );            
             }
             // the following algorithm follows the lifetime of a tag
             // http://jakarta.apache.org/ant/manual/develop.html#writingowntask
@@ -218,23 +199,18 @@ public class AntTag extends MapTagSupport implements TaskSource {
             // now lets set all the attributes of the child elements
             // XXXX: to do!
 
-
             // now we're ready to invoke the task
             // XXX: should we call execute() or perform()?
             task.perform();
         }
-        else
-        {
-            Object nested = null;
-            Object parentObject = null;
+        else {
 
-            // must be a datatype.
-            TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
-            if ( ancestor != null ) {
-                parentObject = ancestor.getTaskObject();
-                nested = createNestedObject( parentObject, tagName );
+            if ( log.isDebugEnabled() ) {                            
+                log.debug( "Creating a nested object name: " + tagName );            
             }
-
+            
+            Object nested = createNestedObject( parentObject, tagName );
+            
             if ( nested == null ) {
                 nested = createDataType( tagName );
             }
@@ -426,6 +402,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     public Task createTask(String taskName,
                            Class taskType) throws Exception {
+                            
         if (taskType == null) {
             return null;
         }
