@@ -63,6 +63,7 @@ package org.apache.commons.jelly.ant.tag;
 
 import junit.framework.AssertionFailedError;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BeanSource;
@@ -99,7 +100,8 @@ public class DummyTag extends TagSupport implements BeanSource {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
+
     	calledCreatepath = false;    	
     	calledSetClasspath = false;    	
 
