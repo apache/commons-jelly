@@ -75,6 +75,15 @@
     </dependency>
 
     <!-- END for test -->
+
+    <!-- START for running demos -->
+
+    <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    	
+    <!-- END for running demos -->
   
   </dependencies>
   
