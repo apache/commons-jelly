@@ -1,7 +1,4 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/util/src/java/org/apache/commons/jelly/tags/util/UtilTagLibrary.java,v 1.2 2003/01/11 08:59:46 dion Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/11 08:59:46 $
  *
  * ====================================================================
  *
@@ -29,7 +26,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,27 +53,69 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: UtilTagLibrary.java,v 1.2 2003/01/11 08:59:46 dion Exp $
+ *
  */
+
 package org.apache.commons.jelly.tags.util;
 
-import org.apache.commons.jelly.TagLibrary;
+import java.io.File;
 
-/** Implements general utility tags.
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- *  @version $Revision: 1.2 $
+import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
+
+/**
+ * A tag which creates a {@link File} from a given name.
+ * 
+ * @author <a href="mailto:dion@apache.org">dIon Gillard</a>
+ * @version $Revision: 1.1 $
  */
-public class UtilTagLibrary extends TagLibrary {
+public class FileTag extends TagSupport {
     
-    public UtilTagLibrary() {
-        registerTag("available", AvailableTag.class);
-        registerTag("file", FileTag.class);
-        registerTag("loadText", LoadTextTag.class);
-        registerTag("properties", PropertiesTag.class);
-        registerTag("replace", ReplaceTag.class);
-        registerTag("tokenize", TokenizeTag.class);
-        registerTag("sleep", SleepTag.class);
+    /** The file to place into the context */  
+    private String name;
+    
+    /** The variable name to place the file into */
+    private String var;
+
+    // Tag interface
+    //------------------------------------------------------------------------- 
+    public void doTag(final XMLOutput output) throws Exception {
+        boolean available = false;
+
+        if (name == null) {
+            throw new MissingAttributeException("name must be specified");
+        }
+        
+        if (var == null) {
+            throw new MissingAttributeException("var must be specified");
+        }
+
+        File newFile = new File(name);
+        available = newFile.exists() && newFile.canRead();
+        if (available) {
+            getContext().setVariable(var, newFile);
+        } else {
+            throw new IllegalArgumentException("file '"+ name
+                + "' is not readable");
+        }
+
     }
+
+    /**
+     * Name of the file to be placed into the context 
+     * @param name The fileName to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Name of the variable to contain the file
+     * @param var The var to set
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
 }

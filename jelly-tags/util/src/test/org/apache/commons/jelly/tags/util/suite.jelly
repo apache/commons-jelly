@@ -118,5 +118,11 @@
       <log:info>Loaded properties value ${props}</log:info>
     
   </test:case>
+  
+  <test:case name="testFileTag">
+      <util:file name="${basedir}/src/test/org/apache/commons/jelly/tags/util/suite.jelly" 
+        var="suite" />
+      <test:assert test="${suite != null}" >The suite should exist</test:assert>
+  </test:case>
     
 </test:suite>
