@@ -106,11 +106,13 @@ public class TokenizeTag extends TagSupport
                                   tokens );
     }
 
+    /** The variable name to hold the list of tokens */
     public void setVar(String var)
     {
         this.var = var;
     }
 
+    /** the delimiter that separates the tokens */
     public void setDelim(String delim)
     {
         this.delim = delim;
