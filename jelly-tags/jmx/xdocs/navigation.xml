@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="JellyMBean">
+
+  <title>JellyMBean</title>
+
+  <body>
+		<links>
+      <item name="Jelly" 							href="http://jakarta.apache.org/commons/jelly/"/>
+      <item name="Commons Modeler"		href="http://jakarta.apache.org/commons/modeler.html"/>
+      <item name="JBoss" 							href="http://jboss.org/"/>
+      <item name="mx4j"  							href="http://mx4j.sourceforge.net/"/>
+		</links>
+		
+    <menu name="JellyMBean">
+      <item name="Home"                href="index.html"/>
+    </menu>
+  </body>
+</project>

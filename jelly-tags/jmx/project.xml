@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <extend>${basedir}/../tag-project.xml</extend>
+  <id>commons-jelly-tags-jmx</id>
+  <name>commons-jelly-tags-jmx</name>
+
+  <package>org.apache.commons.jelly.tags.jmx</package>
+
+  <description>
+  	 The Jelly JMX Tag Library is a Jelly library for instantiating and
+  	 configuring Java Beans and MBeans and registering them with a 
+  	 JMX Server in a similar way to the Ant tasks in Jakarta Commons Modeler.
+  </description>
+  
+  <shortDescription>Commons Jelly JMX Tag Library</shortDescription>
+  
+  <url>http://jakarta.apache.org/commons/jelly/tags/jmx/</url>
+
+  <siteDirectory>/www/jakarta.apache.org/commons/jelly/jmx/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/jmx</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/jmx/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/jmx/</url>
+  </repository>
+  
+  <dependencies>
+  
+    
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/jelly/</url>
+    </dependency>
+      
+    <dependency>
+      <id>commons-jelly+tags-bean</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/jelly/tags/bean/</url>
+    </dependency>
+      
+    <dependency>
+      <id>mx4j+jmx</id>
+      <version>1.1.1</version>
+    </dependency>
+      
+    <!-- END for compilation -->
+    
+    <!-- START for test-->
+  
+    <dependency>
+      <id>commons-jelly+tags-log</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
+    </dependency>
+      
+    <dependency>
+      <id>commons-jelly+tags-junit</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+    </dependency>
+
+    <dependency>
+      <id>mx4j+tools</id>
+      <version>1.1.1</version>
+    </dependency>
+    
+    <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+      
+    <!-- END for test -->
+
+  </dependencies>
+  
+</project>
