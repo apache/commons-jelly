@@ -37,7 +37,7 @@ import java.util.Collections;
   * used from the other xml library functions.
   * 
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class SetTag extends XPathTagSupport {
 
@@ -52,6 +52,8 @@ public class SetTag extends XPathTagSupport {
     
     /** Xpath comparator for sorting */
     private XPathComparator xpCmp = null;
+	
+	private boolean single=false;
 
     public SetTag() {
 
@@ -82,6 +84,16 @@ public class SetTag extends XPathTagSupport {
                 Collections.sort((List)value, xpCmp);
             }
         }
+		if (single==true) {
+			if(value instanceof List) {
+				List l = (List) value;
+				if (l.size()==0)
+					value=null;
+				else
+					value=l.get(0);
+			}
+		}
+		
 
         //log.info( "Evaluated xpath: " + select + " as: " + value + " of type: " + value.getClass().getName() );
         
@@ -101,6 +113,16 @@ public class SetTag extends XPathTagSupport {
     public void setSelect(XPath select) {
         this.select = select;
     }
+	
+	/** If set to true will only take the first element matching.
+		It then guarantees that the result is of type
+		{@link org.dom4j.Node} thereby making sure that, for example,
+		when an element is selected, one can directly call such methods
+		as setAttribute.
+		*/
+	public void setSingle(boolean single) {
+		this.single = single;
+	}
 
 
     /** Sets the xpath expression to use to sort selected nodes.
