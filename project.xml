@@ -314,6 +314,9 @@
     <dependency>
       <id>commons-lang</id>
       <version>2.0</version>
+      <properties>
+        <gump.runtime>true</gump.runtime>
+      </properties>
     </dependency>
     <dependency>
       <id>commons-discovery</id>

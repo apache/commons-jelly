@@ -39,16 +39,25 @@
     <dependency>
       <id>commons-beanutils</id>
       <version>1.6</version>
+      <properties>
+        <gump.runtime>true</gump.runtime>
+      </properties>
     </dependency>
     
     <dependency>
       <id>commons-collections</id>
       <version>2.1</version>
+      <properties>
+        <gump.runtime>true</gump.runtime>
+      </properties>
     </dependency>
     
     <dependency>
       <id>commons-logging</id>
       <version>1.0.3</version>
+      <properties>
+        <gump.runtime>true</gump.runtime>
+      </properties>
     </dependency>
     
     <dependency>
