@@ -89,7 +89,7 @@ public class ProjectTag extends TagSupport {
     public Project getProject() {
         if ( project == null ) {
 	        // we may be invoked inside a child script, so lets try find the parent project
-	        project = (Project) context.getVariable( "org.apache.commons.jelly.werkz.Project" );
+	        project = (Project) context.findVariable( "org.apache.commons.jelly.werkz.Project" );
 	        if ( project == null ) {
 	            project = new Project();
 	            context.setVariable( "org.apache.commons.jelly.werkz.Project", project );

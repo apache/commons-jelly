@@ -103,7 +103,7 @@ public abstract class WerkzTagSupport extends TagSupport {
         if ( tag != null) {
             return tag.getProject();
         }
-        return (Project) context.getVariable( "org.apache.commons.jelly.werkz.Project" );
+        return (Project) context.findVariable( "org.apache.commons.jelly.werkz.Project" );
     }
     
     
