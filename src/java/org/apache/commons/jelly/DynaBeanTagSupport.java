@@ -88,7 +88,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
     }
      
     /** Sets the context in which the tag will be run */
-    public void setContext(JellyContext context) throws JellyException {
+    public void setContext(JellyContext context) throws JellyTagException {
         this.context = context;
         beforeSetAttributes();
     }
@@ -130,7 +130,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
     /**
      * Callback to allow processing to occur before the attributes are about to be set
      */
-    public void beforeSetAttributes() throws JellyException {
+    public void beforeSetAttributes() throws JellyTagException {
     }
     
 }

@@ -74,6 +74,7 @@ import org.apache.commons.collections.BeanMap;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
@@ -132,15 +133,15 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         this.variableNameAttribute = variableNameAttribute;
     }
 
-    public void beforeSetAttributes() throws JellyException {
+    public void beforeSetAttributes() throws JellyTagException {
         // create a new dynabean before the attributes are set
         try {
             bean = beanClass.newInstance();
             setDynaBean( new ConvertingWrapDynaBean( bean ) );
         } catch (InstantiationException e) {
-            throw new JellyException("Could not instantiate dynabean",e);
+            throw new JellyTagException("Could not instantiate dynabean",e);
         } catch (IllegalAccessException e) {
-            throw new JellyException("Could not instantiate dynabean",e);
+            throw new JellyTagException("Could not instantiate dynabean",e);
         }
 
         setAttributesSet.clear();                    

@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.TagFactory;
@@ -66,16 +67,16 @@ public class ConstraintTag extends DynaBeanTagSupport {
 	
 	// --------------------------------------------- ATTRIBUTES
 	
-	public void beforeSetAttributes (  ) throws JellyException {
+	public void beforeSetAttributes (  ) throws JellyTagException {
 		try {
             createBean(factory);
         } catch (InstantiationException e) {
-            throw new JellyException(e.toString());
+            throw new JellyTagException(e.toString());
         }
 	}
 	
 	
-	public void setAttribute ( String name, Object value ) throws JellyException {
+	public void setAttribute ( String name, Object value ) throws JellyTagException {
 		// no real need for DynaBeans or ?
 		if ( "var".equals(name) ) {
 			var = value.toString();
@@ -84,9 +85,9 @@ public class ConstraintTag extends DynaBeanTagSupport {
             try {
               BeanUtils.setProperty( bean, name, value );
             } catch (IllegalAccessException e) {
-                throw new JellyException(e.toString());
+                throw new JellyTagException(e.toString());
             } catch (InvocationTargetException e) {
-                throw new JellyException(e.toString());
+                throw new JellyTagException(e.toString());
             }
             
         }
@@ -94,7 +95,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
 // --------------------------------------------------	
 	/** Children invocation... just nothing...
 		*/
-	public void doTag ( XMLOutput output ) throws Exception {
+	public void doTag ( XMLOutput output ) throws JellyTagException {
 		if ( var != null ) context.setVariable ( var, getBean() );
 		invokeBody ( output );
 		// nothing else to do... the getConstraintObject method should have been called.

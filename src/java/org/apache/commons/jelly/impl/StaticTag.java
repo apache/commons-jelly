@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.13 2002/12/11 12:40:55 jstrachan Exp $
- * $Revision: 1.13 $
- * $Date: 2002/12/11 12:40:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.14 2003/01/25 18:59:23 morgand Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/01/25 18:59:23 $
  *
  * ====================================================================
  *
@@ -57,12 +57,15 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StaticTag.java,v 1.13 2002/12/11 12:40:55 jstrachan Exp $
+ * $Id: StaticTag.java,v 1.14 2003/01/25 18:59:23 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.DynaTagSupport;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
+
+import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 /** 
@@ -70,7 +73,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 
 public class StaticTag extends DynaTagSupport {
@@ -102,10 +105,14 @@ public class StaticTag extends DynaTagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
-        output.startElement(uri, localName, qname, attributes);
-        invokeBody(output);
-        output.endElement(uri, localName, qname);
+    public void doTag(XMLOutput output) throws JellyTagException {
+        try {
+            output.startElement(uri, localName, qname, attributes);
+            invokeBody(output);
+            output.endElement(uri, localName, qname);
+        } catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     // DynaTag interface

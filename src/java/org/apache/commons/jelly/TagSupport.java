@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.24 2003/01/25 17:37:25 morgand Exp $
- * $Revision: 1.24 $
- * $Date: 2003/01/25 17:37:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.25 2003/01/25 18:59:23 morgand Exp $
+ * $Revision: 1.25 $
+ * $Date: 2003/01/25 18:59:23 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.24 2003/01/25 17:37:25 morgand Exp $
+ * $Id: TagSupport.java,v 1.25 2003/01/25 18:59:23 morgand Exp $
  */
 package org.apache.commons.jelly;
 
@@ -76,7 +76,7 @@ import org.apache.commons.jelly.impl.TextScript;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.24 $
+  * @version $Revision: 1.25 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -222,7 +222,7 @@ public abstract class TagSupport implements Tag {
     }
     
     /** Sets the context in which the tag will be run */
-    public void setContext(JellyContext context) throws JellyException {
+    public void setContext(JellyContext context) throws JellyTagException {
         this.context = context;
     }    
     
