@@ -67,12 +67,18 @@ import javax.jms.Message;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /** Receives a JMS message.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.1 $
   */
 public class ReceiveTag extends MessageOperationTag {
+
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(ReceiveTag.class);
 
     private String var;
     private long timeout = -1L;
@@ -92,12 +98,23 @@ public class ReceiveTag extends MessageOperationTag {
         }
         Message message = null;
         if ( timeout > 0 ) {
+            if ( log.isDebugEnabled() ) {
+                log.debug( "Receiving message on destination: " + destination + " with timeout: " + timeout );
+            }
+            
             message = getConnection().receive( destination, timeout );
         }
         else if ( timeout == 0 ) {
+            if ( log.isDebugEnabled() ) {
+                log.debug( "Receiving message on destination: " + destination + " with No Wait" );
+            }
+            
             message = getConnection().receiveNoWait( destination );
         }
         else {
+            if ( log.isDebugEnabled() ) {
+                log.debug( "Receiving message on destination: " + destination );
+            }
             message = getConnection().receive( destination );
         }
         onMessage( message );
