@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:jface" xmlns:log="jelly:log" xmlns:define="jelly:define">
+
+  <define:script var="onPerformFinish">
+		<log:error>onPerformFinish called ...</log:error>
+  </define:script>
+  
+  <define:script var="onPerformCancel">
+		<log:error>onPerformCancel called ...</log:error>
+  </define:script>  
+  
+  <applicationWindow var="mainapp">
+  	
+		<wizardDialog var="wizardDialog" performFinish="${onPerformFinish}" performCancel="${onPerformCancel}">
+
+			<wizardPage var="wpage1" title="Step 1" description="Step 1 in this wizard, showing page 1">
+				<composite>
+					<gridLayout numColumns="2" />
+					
+					<label text="Some input" />
+					<text />
+					
+					<label text="Label 1" />
+					<button text="Set Message">	
+						<onEvent type="Selection">
+							${wpage1.setMessage('Message: give me some more ...')}
+						</onEvent>
+					</button>
+					<label text="Label 2" />
+					<button text="Set Error Message">	
+						<onEvent type="Selection">
+							${wpage1.setErrorMessage('ErrorMessage: This step is not complete')}
+						</onEvent>						
+					</button>	
+					<label text="Label 3" />
+					<button text="Set Page Complete">	
+						<onEvent type="Selection">
+							${wpage1.setPageComplete(true)}
+						</onEvent>						
+					</button>
+					
+				</composite>
+			</wizardPage>	
+
+			
+			<wizardPage var="wpage2" title="Step 2" description="Step 2 in this wizard">
+				<composite>
+					<gridLayout numColumns="2" />
+					<label text="Label 3" />
+					<button text="Do nothing" />
+				</composite>
+			</wizardPage>	
+			
+		</wizardDialog>
+	
+  </applicationWindow>
+
+  ${wpage1.setPageComplete(false)}  
+  ${wizardDialog.open()}  
+
+
+</j:jelly>
+

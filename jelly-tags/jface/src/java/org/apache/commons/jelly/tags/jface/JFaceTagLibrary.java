@@ -67,6 +67,8 @@ import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.tags.jface.preference.FieldEditorTag;
 import org.apache.commons.jelly.tags.jface.preference.PreferenceDialogTag;
 import org.apache.commons.jelly.tags.jface.preference.PreferencePageTag;
+import org.apache.commons.jelly.tags.jface.wizard.WizardDialogTag;
+import org.apache.commons.jelly.tags.jface.wizard.WizardPageTag;
 import org.apache.commons.jelly.tags.swt.SwtTagLibrary;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.preference.BooleanFieldEditor;
@@ -117,14 +119,12 @@ public class JFaceTagLibrary extends SwtTagLibrary {
         registerContributionItemTag("separator", Separator.class);
 
         // Wizard tags
-        //registerWizardDialogTag("wizardDialog", WizardDialog.class);
-        //registerWizardTag("wizard", Wizard.class);
-        //registerWizardPageTag("wizardPage", WizardPage.class);
+        registerWizardDialogTag("wizardDialog", WizardDialogTag.class);
+        registerWizardPageTag("wizardPage", WizardPageTag.class);
 
-        // preference tags
+        // Preference tags
         registerPreferenceDialogTag("preferenceDialog", PreferenceDialogTag.class);
         registerTag("preferencePage", PreferencePageTag.class);
-
         registerFieldEditorTag("booleanFieldEditor", BooleanFieldEditor.class);
         registerFieldEditorTag("colorFieldEditor", ColorFieldEditor.class);
         registerFieldEditorTag("directoryFieldEditor", DirectoryFieldEditor.class);
@@ -257,6 +257,32 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             }
         });
     }
+    
+    /**
+     * @param name
+     * @param theClass
+     */
+    protected void registerWizardDialogTag(String name, final Class theClass) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new WizardDialogTag(theClass);
+            }
+        });
+    }
+    
+    protected void registerWizardPageTag(String name, final Class theClass) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new WizardPageTag(theClass);
+            }
+        });
+    }
+    
 
 }
-

@@ -19,9 +19,16 @@
     </java>
   </goal>
 
-  <goal name="preferences" prereqs="create-classpath"
+  <goal name="demo:preferences" prereqs="create-classpath"
 		description="Runs a Preferences demo">
     <java classname="org.apache.commons.jelly.tags.jface.preference.PreferenceDemo" fork="yes">
+      <classpath refid="test.classpath"/>
+    </java>
+  </goal>
+
+  <goal name="demo:wizard" prereqs="create-classpath"
+		description="Runs a Wizard demo">
+    <java classname="org.apache.commons.jelly.tags.jface.wizard.WizardDemo" fork="yes">
       <classpath refid="test.classpath"/>
     </java>
   </goal>

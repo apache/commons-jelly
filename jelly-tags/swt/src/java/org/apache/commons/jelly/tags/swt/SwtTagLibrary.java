@@ -61,27 +61,55 @@
  */
 package org.apache.commons.jelly.tags.swt;
 
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.impl.TagFactory;
+import org.apache.commons.jelly.tags.swt.converters.ColorConverter;
+import org.apache.commons.jelly.tags.swt.converters.PointConverter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.*;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.TableTree;
+import org.eclipse.swt.custom.TableTreeItem;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.*;
-
-import org.apache.commons.beanutils.ConvertUtils;
-
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.TagFactory;
-import org.apache.commons.jelly.tags.swt.converters.PointConverter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Canvas;
+import org.eclipse.swt.widgets.Caret;
+import org.eclipse.swt.widgets.Combo;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.CoolBar;
+import org.eclipse.swt.widgets.CoolItem;
+import org.eclipse.swt.widgets.Decorations;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.ProgressBar;
+import org.eclipse.swt.widgets.Sash;
+import org.eclipse.swt.widgets.Scale;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Slider;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.ToolBar;
+import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.Tracker;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.xml.sax.Attributes;
 
 /** 
@@ -98,6 +126,7 @@ public class SwtTagLibrary extends TagLibrary {
     static {
         // register the various beanutils Converters from Strings to various SWT types 
         ConvertUtils.register( new PointConverter(), Point.class );
+        ConvertUtils.register( new ColorConverter(), Color.class );
     }
         
     public SwtTagLibrary() {
@@ -160,6 +189,7 @@ public class SwtTagLibrary extends TagLibrary {
 
         // other tags                    
         registerTag("image", ImageTag.class);
+
     }
 
     /**
@@ -240,4 +270,7 @@ public class SwtTagLibrary extends TagLibrary {
             }
         );
     }
+    
+
+ 
 }
