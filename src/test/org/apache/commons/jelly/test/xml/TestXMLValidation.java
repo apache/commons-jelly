@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestXMLValidation.java,v 1.1 2002/10/14 19:17:01 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/14 19:17:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestXMLValidation.java,v 1.2 2002/10/16 16:18:42 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/16 16:18:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLValidation.java,v 1.1 2002/10/14 19:17:01 morgand Exp $
+ * $Id: TestXMLValidation.java,v 1.2 2002/10/16 16:18:42 morgand Exp $
  */
 package org.apache.commons.jelly.test.xml;
 
@@ -73,12 +73,14 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.xml.sax.SAXParseException;
+
 /**
  * A test to confirm that invalid documents are
  * reject iff jelly.setValidateXML(true)
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TestXMLValidation extends TestCase {
 
@@ -132,10 +134,11 @@ public class TestXMLValidation extends TestCase {
         // with validation
         setUp("invalidScript1.jelly");
         jelly.setValidateXML(true);
-        Script script = jelly.compileScript();
-        script.run(context,xmlOutput);
-        assertTrue("should have set 'foo' variable to 'bar'",
-                   context.getVariable("foo").equals("bar"));
+        try {
+            Script script = jelly.compileScript();
+            fail("Invalid scripts should throw SAXParseException on parse");
+        } catch (SAXParseException e) {
+        }
     }
 
     public void testValidXML1Validation()throws Exception {

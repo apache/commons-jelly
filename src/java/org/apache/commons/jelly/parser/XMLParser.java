@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.33 2002/10/16 12:45:52 jstrachan Exp $
- * $Revision: 1.33 $
- * $Date: 2002/10/16 12:45:52 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.34 2002/10/16 16:18:42 morgand Exp $
+ * $Revision: 1.34 $
+ * $Date: 2002/10/16 16:18:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.33 2002/10/16 12:45:52 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.34 2002/10/16 16:18:42 morgand Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -122,7 +122,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.33 $
+ * @version $Revision: 1.34 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -858,7 +858,7 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Forward notification of a parsing error to the application supplied
-     * error handler (if any).
+     * error handler, if any, otherwise throw a SAXException with the error.
      *
      * @param exception The error information
      *
@@ -875,12 +875,14 @@ public class XMLParser extends DefaultHandler {
             exception);
         if (errorHandler != null) {
             errorHandler.error(exception);
+        } else {
+            throw exception;
         }
     }
 
     /**
      * Forward notification of a fatal parsing error to the application
-     * supplied error handler (if any).
+     * supplied error handler, if any, otherwise throw a SAXException with the error.
      *
      * @param exception The fatal error information
      *
@@ -897,12 +899,16 @@ public class XMLParser extends DefaultHandler {
             exception);
         if (errorHandler != null) {
             errorHandler.fatalError(exception);
+        } else {
+            throw exception;        
         }
     }
 
     /**
      * Forward notification of a parse warning to the application supplied
-     * error handler (if any).
+     * error handler (if any).  Unlike XMLParser.error(SAXParseException) and
+     * XMLParser.fatalError(SAXParseException), this implementation will
+     * NOT throw a SAXException by default if no error handler is supplied.
      *
      * @param exception The warning information
      *
