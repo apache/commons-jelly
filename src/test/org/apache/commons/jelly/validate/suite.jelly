@@ -58,7 +58,6 @@
 
 
 <!-- test DTDs --> 
-<!--
 <test:case name="validateDTD">
 
 <v:verifier uri="address.dtd" var="addressSchema"/>
@@ -106,6 +105,5 @@
 <log:info>The exception was ${exception.message}</log:info>
   
 </test:case>
--->   
    
 </test:suite>
