@@ -61,7 +61,6 @@ import javax.sql.DataSource;
 import javax.naming.InitialContext;
 import javax.naming.Context;
 import javax.naming.NamingException;
-import javax.servlet.jsp.jstl.sql.SQLExecutionTag;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -76,26 +75,12 @@ import org.apache.commons.jelly.tags.Resources;
  * @author Justyna Horwat
  */
 
-public class UpdateTag extends TagSupport implements SQLExecutionTag {
-
-    private String var;
-    private String scope = "page";
-
-    /*
-     * The following properties take expression values, so the
-     * setter methods are implemented by the expression type
-     * specific subclasses.
-     */
-    protected Object rawDataSource;
-    protected boolean dataSourceSpecified;
-    protected String sql;
+public class UpdateTag extends SqlTagSupport {
 
     /*
      * Instance variables that are not for attributes
      */
     private Connection conn;
-    private List parameters;
-    private boolean isPartOfTransaction;
 
     //*********************************************************************
     // Constructor and initialization
@@ -103,44 +88,6 @@ public class UpdateTag extends TagSupport implements SQLExecutionTag {
     public UpdateTag() {
     }
 
-    //*********************************************************************
-    // Accessor methods
-
-    /**
-     * Setter method for the name of the variable to hold the
-     * result.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Setter method for the scope of the variable to hold the
-     * result.
-     */
-    public void setScope(String scopeName) {
-        this.scope = scopeName;
-    }
-
-    /**
-     * Setter method for the SQL DataSource. DataSource can be
-     * a String or a DataSource object.
-     */
-    public void setDataSource(Object dataSource) {
-        this.rawDataSource = dataSource;
-        this.dataSourceSpecified = true;
-    }
-
-    /**
-     * Setter method for the SQL statement to use for the
-     * query. The statement may contain parameter markers
-     * (question marks, ?). If so, the parameter values must
-     * be set using nested value elements.
-     */
-    public void setSql(String sql) {
-        this.sql = sql;
-    }    
-    
     //*********************************************************************
     // Tag logic
 
@@ -182,14 +129,14 @@ public class UpdateTag extends TagSupport implements SQLExecutionTag {
 
         int result = 0;
         try {
-            if ( parameters == null || parameters.size() == 0 ) {
-                Statement statement = conn.createStatement();
-                result = statement.executeUpdate(sqlStatement);
+            if ( hasParameters() ) {
+                PreparedStatement ps = conn.prepareStatement(sqlStatement);
+                setParameters(ps);
+                result = ps.executeUpdate();
             }
             else {
-                PreparedStatement ps = conn.prepareStatement(sqlStatement);
-                setParameters(ps, parameters);
-                result = ps.executeUpdate();
+                Statement statement = conn.createStatement();
+                result = statement.executeUpdate(sqlStatement);
             }
             if (var != null) {
                 context.setVariable(var, new Integer(result));
@@ -207,66 +154,7 @@ public class UpdateTag extends TagSupport implements SQLExecutionTag {
                     // Not much we can do
                 }
             }
-            parameters = null;
-            conn = null;
-        }
-    }
-
-    //*********************************************************************
-    // Public utility methods
-
-    /**
-     * Called by nested parameter elements to add PreparedStatement
-     * parameter values.
-     */
-    public void addSQLParameter(Object o) {
-        if (parameters == null) {
-            parameters = new ArrayList();
-        }
-        parameters.add(o);
-    }
-
-    //*********************************************************************
-    // Private utility methods
-
-    private Connection getConnection() throws JellyException, SQLException {
-        // Fix: Add all other mechanisms
-        Connection conn = null;
-        isPartOfTransaction = false;
-
-        TransactionTag parent =
-            (TransactionTag) findAncestorWithClass(TransactionTag.class);
-        if (parent != null) {
-            if (dataSourceSpecified) {
-                throw new JellyException(Resources.getMessage("ERROR_NESTED_DATASOURCE"));
-            }
-            conn = parent.getSharedConnection();
-            isPartOfTransaction = true;
-        }
-        else {
-            if ((rawDataSource == null) && dataSourceSpecified) {
-                throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
-            }
-            DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
-            try {
-                conn = dataSource.getConnection();
-            }
-            catch (Exception ex) {
-                throw new JellyException(
-                    Resources.getMessage("DATASOURCE_INVALID", ex.getMessage()));
-            }
-        }
-
-        return conn;
-    }
-
-    private void setParameters(PreparedStatement ps, List parameters)
-        throws SQLException {
-        if (parameters != null) {
-            for (int i = 0; i < parameters.size(); i++) {
-                // The first parameter has index 1
-                ps.setObject(i + 1, parameters.get(i));
-            }
+            clearParameters();
         }
     }
 }

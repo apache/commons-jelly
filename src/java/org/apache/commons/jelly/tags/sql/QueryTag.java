@@ -78,22 +78,16 @@ import org.apache.commons.logging.LogFactory;
  * @author Justyna Horwat
  */
 
-public class QueryTag extends TagSupport implements SQLExecutionTag {
+public class QueryTag extends SqlTagSupport {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(QueryTag.class);
-
-    private String var;
-    private String scope = "page";
 
     /*
      * The following properties take expression values, so the
      * setter methods are implemented by the expression type
      * specific subclasses.
      */
-    protected Object rawDataSource;
-    protected boolean dataSourceSpecified;
-    protected String sql;
     protected int maxRows = -1;
     protected boolean maxRowsSpecified;
     protected int startRow;
@@ -102,8 +96,6 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
      * Instance variables that are not for attributes
      */
     private Connection conn;
-    private List parameters;
-    private boolean isPartOfTransaction;
 
     //*********************************************************************
     // Constructor and initialization
@@ -113,27 +105,6 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
 
     //*********************************************************************
     // Accessor methods
-
-    /**
-     * Setter method for the name of the variable to hold the
-     * result.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Setter method for the scope of the variable to hold the
-     * result.
-     */
-    public void setScope(String scopeName) {
-        this.scope = scopeName;
-    }
-
-    public void setDataSource(Object dataSource) {
-        this.rawDataSource = dataSource;
-        this.dataSourceSpecified = true;
-    }
 
     /**
      * The index of the first row returned can be
@@ -150,30 +121,6 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
     public void setMaxRows(int maxRows) {
         this.maxRows = maxRows;
         this.maxRowsSpecified = true;
-    }
-
-    /**
-     * Setter method for the SQL statement to use for the
-     * query. The statement may contain parameter markers
-     * (question marks, ?). If so, the parameter values must
-     * be set using nested value elements.
-     */
-    public void setSql(String sql) {
-        this.sql = sql;
-    }
-
-    //*********************************************************************
-    // Public utility methods
-
-    /**
-     * Called by nested parameter elements to add PreparedStatement
-     * parameter values.
-     */
-    public void addSQLParameter(Object o) {
-        if (parameters == null) {
-            parameters = new ArrayList();
-        }
-        parameters.add(o);
     }
 
     //*********************************************************************
@@ -256,14 +203,14 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
             }
             
             ResultSet rs = null;
-            if ( parameters == null || parameters.size() == 0 ) {
-                Statement statement = conn.createStatement();
-                rs = statement.executeQuery(sqlStatement);
+            if ( hasParameters() ) {
+                PreparedStatement ps = conn.prepareStatement(sqlStatement);
+                setParameters(ps);            
+                rs = ps.executeQuery();
             }
             else {
-                PreparedStatement ps = conn.prepareStatement(sqlStatement);
-                setParameters(ps, parameters);            
-                rs = ps.executeQuery();
+                Statement statement = conn.createStatement();
+                rs = statement.executeQuery(sqlStatement);
             }
             
             result = new ResultImpl(rs, startRow, maxRows);
@@ -281,52 +228,7 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
                 } // Not much we can do
                 conn = null;
             }
-            parameters = null;
-        }
-    }
-
-    //*********************************************************************
-    // Private utility methods
-
-    private Connection getConnection() throws JellyException, SQLException {
-        // Fix: Add all other mechanisms
-        Connection conn = null;
-        isPartOfTransaction = false;
-
-        TransactionTag parent =
-            (TransactionTag) findAncestorWithClass(TransactionTag.class);
-        if (parent != null) {
-            if (dataSourceSpecified) {
-                throw new JellyException(Resources.getMessage("ERROR_NESTED_DATASOURCE"));
-            }
-            conn = parent.getSharedConnection();
-            isPartOfTransaction = true;
-        }
-        else {
-            if ((rawDataSource == null) && dataSourceSpecified) {
-                throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
-            }
-            DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
-            try {
-                conn = dataSource.getConnection();
-            }
-            catch (Exception ex) {
-                log.error( "Caught: " + ex, ex );
-                throw new JellyException(
-                    Resources.getMessage("DATASOURCE_INVALID", ex.getMessage()));
-            }
-        }
-
-        return conn;
-    }
-
-    private void setParameters(PreparedStatement ps, List parameters)
-        throws SQLException {
-        if (parameters != null) {
-            for (int i = 0; i < parameters.size(); i++) {
-                // The first parameter has index 1
-                ps.setObject(i + 1, parameters.get(i));
-            }
+            clearParameters();
         }
     }
 }
