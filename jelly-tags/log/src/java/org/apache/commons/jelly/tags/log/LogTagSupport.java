@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/log/src/java/org/apache/commons/jelly/tags/log/LogTagSupport.java,v 1.1 2003/01/16 22:41:32 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/16 22:41:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/log/src/java/org/apache/commons/jelly/tags/log/LogTagSupport.java,v 1.2 2003/01/25 18:02:25 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/25 18:02:25 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: LogTagSupport.java,v 1.1 2003/01/16 22:41:32 dion Exp $
+ * $Id: LogTagSupport.java,v 1.2 2003/01/25 18:02:25 morgand Exp $
  */
 package org.apache.commons.jelly.tags.log;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -69,7 +70,7 @@ import org.apache.commons.logging.LogFactory;
  * An abstract base class for any logging tag..
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public abstract class LogTagSupport extends TagSupport {
 

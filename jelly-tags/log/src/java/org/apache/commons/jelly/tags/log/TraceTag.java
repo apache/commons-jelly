@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/log/src/java/org/apache/commons/jelly/tags/log/TraceTag.java,v 1.1 2003/01/16 22:41:32 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/16 22:41:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/log/src/java/org/apache/commons/jelly/tags/log/TraceTag.java,v 1.2 2003/01/25 18:02:25 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/25 18:02:25 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TraceTag.java,v 1.1 2003/01/16 22:41:32 dion Exp $
+ * $Id: TraceTag.java,v 1.2 2003/01/25 18:02:25 morgand Exp $
  */
 package org.apache.commons.jelly.tags.log;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 
@@ -69,7 +70,7 @@ import org.apache.commons.logging.Log;
  * the given category name.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TraceTag extends LogTagSupport {
 
@@ -78,7 +79,7 @@ public class TraceTag extends LogTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         Log log = getLog();
         if ( log.isTraceEnabled() ) {
             log.trace( getBodyText(isEncode()) );
