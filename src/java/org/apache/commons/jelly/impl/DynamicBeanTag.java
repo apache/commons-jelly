@@ -125,6 +125,13 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
     /** the attribute definitions */
     private Map attributes;    
         
+    /**
+     * 
+     * @param beanClass Class of the bean that will receive the setter events
+     * @param attributes 
+     * @param variableNameAttribute
+     * @param method method of the Bean to invoke after the attributes have been set.  Can be null.
+     */
     public DynamicBeanTag(Class beanClass, Map attributes, String variableNameAttribute, Method method) {
         this.beanClass = beanClass;
         this.method = method;
