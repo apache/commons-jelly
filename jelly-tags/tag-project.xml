@@ -48,6 +48,7 @@
   
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}</connection>
+    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}</developerConnection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}/</url>
   </repository>
   
