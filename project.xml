@@ -22,7 +22,7 @@
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <id>commons-jelly</id>
-  <currentVersion>1.0-beta-4-SNAPSHOT</currentVersion>
+  <currentVersion>1.0-beta-4</currentVersion>
 
   <organization>
     <name>Apache Software Foundation</name>
@@ -98,6 +98,11 @@
       <id>1.0-beta-1</id>
       <name>1.0-beta-1</name>
       <tag>1.0-beta-1</tag>
+    </version>
+    <version>
+      <id>1.0-beta-4</id>
+      <name>1.0-beta-4</name>
+      <tag>COMMONS-JELLY-1_0-beta-4</tag>
     </version>
   </versions>
   <branches></branches>
