@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.21 2002/10/08 11:26:00 jstrachan Exp $
- * $Revision: 1.21 $
- * $Date: 2002/10/08 11:26:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.22 2002/10/08 20:22:13 werken Exp $
+ * $Revision: 1.22 $
+ * $Date: 2002/10/08 20:22:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.21 2002/10/08 11:26:00 jstrachan Exp $
+ * $Id: TagScript.java,v 1.22 2002/10/08 20:22:13 werken Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -100,7 +100,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 public class TagScript implements Script {
 
@@ -524,7 +524,7 @@ public class TagScript implements Script {
      */
     protected void handleException(JellyException e) throws Exception {
         //e.printStackTrace();
-        log.error( "Caught exception: " + e, e );
+        // log.error( "Caught exception: " + e, e );
 
         if (e.getLineNumber() == -1) {
             e.setColumnNumber(columnNumber);
@@ -546,7 +546,7 @@ public class TagScript implements Script {
      */
     protected void handleException(Exception e) throws Exception {
         //e.printStackTrace();
-        log.error( "Caught exception: " + e, e );
+        // log.error( "Caught exception: " + e, e );
 
         if ( e instanceof JellyException ) {
             e.fillInStackTrace();
