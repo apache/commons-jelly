@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <test:suite 
 	xmlns:j="jelly:core" 
-	xmlns:test="jelly:junit" 
-	xmlns:log="jelly:log">
+	xmlns:test="jelly:junit">
 
   <test:case name="testSetAndRemove">
 	
@@ -101,7 +100,7 @@
 		<j:new className="org.apache.commons.jelly.core.Customer" var="customer"/>
 		<j:setProperties object="${customer}" name="James" city="London" />
 
-		<log:info>Created a new bean: ${customer}</log:info>
+		Created a new bean: ${customer}
 			
 		<test:assert test="${customer != null}">Created a customer bean</test:assert>
 		
@@ -121,7 +120,7 @@
 	<test:case name="testUseBean">
 		<j:useBean var="customer" class="org.apache.commons.jelly.core.Customer" name="James" city="London" />
 
-		<log:info>Created a new bean: ${customer}</log:info>
+		Created a new bean: ${customer}
 			
 		<test:assert test="${customer != null}">Created a customer bean</test:assert>
 		
@@ -145,7 +144,7 @@
 			<j:setProperties name="Bob" city="Atlanta"/>
 		</j:useBean>			
 										
-		<log:info>Created a new bean: ${customer}</log:info>
+		Created a new bean: ${customer}
 			
 		<test:assert test="${customer != null}">Created a customer bean</test:assert>
 		
