@@ -75,7 +75,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
   * xslt property which can be a Reader, InputStream, URL or String URI.
   *
   * @author Robert Leftwich
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class TransformTag extends ParseTag {
 
@@ -372,7 +372,7 @@ public class TransformTag extends ParseTag {
 
                     Tag tag = null;
                     try {
-                        tag = ((TagScript) script).getTag();
+                        tag = ((TagScript) script).getTag(getContext());
                     } catch (JellyException e) {
                         throw new JellyTagException(e);
                     }
@@ -414,7 +414,7 @@ public class TransformTag extends ParseTag {
     
                     Tag tag = null;
                     try {
-                        tag = ((TagScript) script).getTag();
+                        tag = ((TagScript) script).getTag(getContext());
                     } catch (JellyException e) {
                         throw new JellyTagException(e);
                     }
@@ -432,7 +432,7 @@ public class TransformTag extends ParseTag {
       * to hide the details of where the input for the transform is obtained
       *
       * @author <a href="mailto:robert@leftwich.info">Robert Leftwich</a>
-      * @version $Revision: 1.6 $
+      * @version $Revision: 1.7 $
       */
     private class TagBodyXMLReader implements XMLReader {
 
