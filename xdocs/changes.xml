@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-beta-4-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-120">Allow useBean subclasses to ignore certain properties and ignore bad properties</action>
       <action dev="dion" type="fix" issue="JELLY-58">Documentation fixes for Invoke and ForEach</action>
       <action dev="dion" type="fix" issue="JELLY-28" due-to="Hans Gilde">Bad entity processing</action>
       <action dev="dion" type="fix" issue="JELLY-73" due-to="Scott Howlett">Can't set inherit or export to false for Include tag</action>
