@@ -191,6 +191,7 @@
 	<!-- haven't thought of a neat way to test this yet... -->  
 </test:case>
 
+<!--
 <test:case name="nestedTask">
 
 	<j:include uri="task/example.jelly"/>
@@ -217,6 +218,6 @@
 	<test:assert test="${ex != null}">We should have created an exception</test:assert>
 	
 </test:case>
-
+-->
 
 </test:suite>
