@@ -17,23 +17,18 @@ package org.apache.commons.jelly.tags.ant;
 
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.Converter;
-import org.apache.commons.grant.GrantProject;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import org.apache.tools.ant.BuildLogger;
 import org.apache.tools.ant.NoBannerLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.optional.junit.FormatterElement;
 import org.apache.tools.ant.types.EnumeratedAttribute;
 import org.apache.tools.ant.types.Reference;
-
 import org.xml.sax.Attributes;
 
 /**
@@ -44,9 +39,6 @@ import org.xml.sax.Attributes;
  * @version $Revision$
  */
 public class AntTagLibrary extends TagLibrary {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(AntTagLibrary.class);
 
     public static final String PROJECT_CONTEXT_HANDLE = "org.apache.commons.jelly.ant.Project";
 
@@ -161,12 +153,12 @@ public class AntTagLibrary extends TagLibrary {
     /**
      * @return a new TagScript for any custom, statically defined tags, like 'fileScanner'
      */
-    public TagScript createCustomTagScript(String name, Attributes attributes) throws JellyException {
+    public TagScript createCustomTagScript(String name, Attributes attributes) {
         // custom Ant tags
         if ( name.equals("fileScanner") ) {
             return new TagScript(
                 new TagFactory() {
-                    public Tag createTag(String name, Attributes attributes) throws JellyException {
+                    public Tag createTag(String name, Attributes attributes) {
                         return new FileScannerTag(new FileScanner());
                     }
                 }
@@ -175,7 +167,7 @@ public class AntTagLibrary extends TagLibrary {
         if ( name.equals("setProperty") ) {
             return new TagScript(
                 new TagFactory() {
-                    public Tag createTag(String name, Attributes attributes) throws JellyException {
+                    public Tag createTag(String name, Attributes attributes) {
                         return new SetPropertyTag();
                     }
                 }
