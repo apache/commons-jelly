@@ -2,6 +2,7 @@
 <test:suite 
 	xmlns:j="jelly:core" 
 	xmlns:test="jelly:junit" 
+	xmlns:util="jelly:util" 
 	xmlns:ant="jelly:jeez">
 
   <j:set var="dir" value="target/test-classes/org/apache/commons/jelly/ant"/>
@@ -82,19 +83,45 @@
 
 </test:case>
 
-<!--test:case name="copy">
+<test:case name="copy">
 
-  this is broken, but i'm not sure how to test it.
-
+	<ant:mkdir dir="${base.dir}/target/tmp/ant-tests"/>
+	
   <ant:copy
-    file="TestCase.java"
-    tofile="TestCase.txt">
+  	overwrite="true"
+    file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
+    tofile="${basedir}/target/tmp/ant-tests/output.txt">
     <ant:filterset>
       <ant:filter token="foo" value="bar"/>
     </ant:filterset>
   </ant:copy>
+  
+  <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
+  
+  <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
 
-</test:case-->
+</test:case>
+
+<test:case name="copyWithReference">
+
+	<ant:mkdir dir="${base.dir}/target/tmp/ant-tests"/>
+
+	<ant:filterset id="myFilter">
+		<ant:filter token="foo" value="bar"/>
+	</ant:filterset>
+	
+  <ant:copy
+  	overwrite="true"
+    file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
+    tofile="${basedir}/target/tmp/ant-tests/output.txt">
+    <ant:filterset refid="myFilter"/>
+  </ant:copy>
+  
+  <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
+  
+  <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
+
+</test:case>
 
 
 
