@@ -86,7 +86,7 @@ public class WidgetTag extends UseBeanTag {
     private static final Log log = LogFactory.getLog(WidgetTag.class);
 
     private Widget parent;
-    private int style = SWT.DEFAULT; 
+    private int style = SWT.NULL; 
     
     public WidgetTag(Class widgetClass) {
         super(widgetClass);

@@ -193,7 +193,7 @@ public class SwtTagLibrary extends TagLibrary {
      * Register a widget tag for the given name
      */
     protected void registerWidgetTag(String name, Class widgetClass) {
-        registerWidgetTag(name, widgetClass, SWT.DEFAULT);
+        registerWidgetTag(name, widgetClass, SWT.NULL);
     }
     
     /**
