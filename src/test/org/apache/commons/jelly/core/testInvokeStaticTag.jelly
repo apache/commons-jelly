@@ -1,0 +1,23 @@
+<j:jelly xmlns:j="jelly:core">
+
+    <j:if test="${test.simpleSystemInvoke}">
+        <j:invokeStatic method="getProperty" className="java.lang.System" var="propertyName">
+            <j:arg value="${propertyName}" />
+        </j:invokeStatic>
+    </j:if>
+    
+    <j:if test="${test.systemInvoke}">
+        <j:invokeStatic method="setProperty" className="java.lang.System" var="result">
+            <j:arg value="${propertyName}" />
+            <j:arg value="${propertyValue}"/>
+        </j:invokeStatic>
+    </j:if>
+
+    <j:if test="${test.messageFormatInvoke}">
+        <j:invokeStatic method="format" className="java.text.MessageFormat" var="message">
+            <j:arg value="${message}" />
+            <j:arg value="${args}" />
+        </j:invokeStatic>
+    </j:if>
+</j:jelly>
+
