@@ -183,8 +183,16 @@
       	<role>Developer</role>
       </roles>
     </contributor>    
+    <contributor>
+      <name>Theo Niemeijer</name>
+      <email>theo.niemeijer@getthere.nl</email>
+      <organization></organization>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>    
   </contributors>
-
+	
   <dependencies>
     <dependency>
       <id>ant</id>

@@ -196,9 +196,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                                                              "addText",
                                                              addTaskParamTypes );
             if (method != null) {
-                String text = getBodyText();
-
-                Object[] args = { text };
+                Object[] args = { body };
                 method.invoke(this.task, args);
             }
 
