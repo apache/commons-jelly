@@ -18,6 +18,7 @@ import java.net.URL;
 
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.parser.XMLParser;
@@ -26,6 +27,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
+
+import org.xml.sax.SAXException;
 
 /** 
  * <p><code>JellyTask</code> is an Ant task which will 
@@ -170,11 +173,22 @@ public class JellyTask extends Task {
     /**
      * Compiles the script
      */
-    protected Script compileScript() throws Exception {
+    protected Script compileScript() throws JellyException {
         XMLParser parser = new XMLParser();
-        parser.setContext(getJellyContext());
-        Script script = parser.parse(getUrl().toString());
+        
+        Script script = null;
+        try {
+            parser.setContext(getJellyContext());
+            script = parser.parse(getUrl().toString());
+        } 
+        catch (IOException e) {
+            throw new JellyException(e);
+        }
+        catch (SAXException e) {
+            throw new JellyException(e);
+        }
         script = script.compile();
+        
         if (log.isDebugEnabled()) {
             log.debug("Compiled script: " + getUrl());
         }
