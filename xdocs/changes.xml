@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-beta-4-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-71" due-to="David Eric Pugh">Mention swing directory in docs</action>
       <action dev="dion" type="fix" issue="JELLY-98" due-to="Joerg Schaible">The "items" attribute of a "forEach" tag can contain a comma-separated String</action>
       <action dev="dion" type="fix" issue="JELLY-120">Allow useBean subclasses to ignore certain properties and ignore bad properties</action>
       <action dev="dion" type="fix" issue="JELLY-58">Documentation fixes for Invoke and ForEach</action>

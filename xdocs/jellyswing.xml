@@ -61,7 +61,8 @@
       </p>
       <p>
         If you invoke it via the following command you will get a small Swing UI that allows you to
-        choose Jelly scripts to invoke, within the current JVM.
+        choose Jelly scripts to invoke, within the current JVM. Again run this within the
+        <code>jelly-tags/swing</code> directory.
       </p>
       <source>
 	maven jelly:runner
