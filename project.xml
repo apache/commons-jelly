@@ -260,7 +260,7 @@
 
     <dependency>
       <id>dom4j</id>
-      <version>1.4-dev-7</version>
+      <version>1.4-dev-8</version>
     </dependency>
 
 	<!-- for the jelly startup scripts -->

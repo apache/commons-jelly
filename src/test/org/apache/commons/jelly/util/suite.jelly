@@ -37,4 +37,48 @@
 -->		
 		
   </test:case>
+
+  <test:case name="testFileExists">
+
+		<!-- ensure that ${base.dir} is defined -->
+		<j:if test="${empty base.dir}">
+			<j:set var="base.dir" value="."/>
+		</j:if>
+		
+  	<j:set var="flag" value="not found"/>
+
+  	<util:available file="${base.dir}/project.xml">
+  		<j:set var="flag" value="found"/>
+		</util:available>
+		
+		<test:assertEquals expected="found" actual="${flag}">
+			Should have found the file via the file $${base.dir}/project.xml with base.dir=${base.dir}
+		</test:assertEquals>
+		
+  	<util:available file="${base.dir}/doesNotExist.xml">
+  		<test:fail>The file ${base.dir}/doesNotExist.xml should not exist</test:fail>
+		</util:available>
+		
+  </test:case>
+	
+  <test:case name="testURIExists">
+
+  	<j:set var="flag" value="not found"/>
+
+		<!-- use relative URIs-->
+		
+  	<util:available uri="dummy.xml">
+  		<j:set var="flag" value="found"/>
+		</util:available>
+		
+		<test:assertEquals expected="found" actual="${flag}">
+			Should have found the file via the URI dummy.xml
+		</test:assertEquals>
+		
+  	<util:available uri="doesNotExist.xml">
+  		<test:fail>The URI doesNotExist.xml should not exist!</test:fail>
+		</util:available>
+		
+  </test:case>
+	
 </test:suite>
