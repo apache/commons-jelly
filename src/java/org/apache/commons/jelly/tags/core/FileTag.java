@@ -46,9 +46,6 @@ public class FileTag extends TagSupport {
     private boolean prettyPrint;
     private String encoding;
     
-    // should text be escaped - default to true for compatability
-    private boolean escapeText = true;
-
     public FileTag(){
     }
 
@@ -132,24 +129,6 @@ public class FileTag extends TagSupport {
     public void setVar(String var) {
         this.var = var;
     }
-
-    /**
-     * Returns whether the body of this tag will be escaped or not.
-     */
-    public boolean isEscapeText() {
-        return escapeText;
-    }
-
-    /**
-     * Sets whether the body of the tag should be escaped as text (so that &lt; and &gt; are
-     * escaped as &amp;lt; and &amp;gt;), which is the default or leave the text as XML.
-     */
-    public void setEscapeText(boolean escapeText) {
-        this.escapeText = escapeText;
-    }
-
-    // Implementation methods
-    //------------------------------------------------------------------------- 
 
     /**
      * Writes the body fo this tag to the given Writer

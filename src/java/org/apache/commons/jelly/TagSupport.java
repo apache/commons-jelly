@@ -29,7 +29,7 @@ import org.apache.commons.jelly.impl.TextScript;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.30 $
+  * @version $Revision: 1.31 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -45,6 +45,9 @@ public abstract class TagSupport implements Tag {
     protected boolean hasTrimmed;
 
     protected JellyContext context;
+
+    /** whether xml text should be escaped */
+    private boolean escapeText = true;
 
     /**
      * Searches up the parent hierarchy from the given tag
@@ -219,9 +222,7 @@ public abstract class TagSupport implements Tag {
      * @return the text evaluation of the body
      */
     protected String getBodyText() throws JellyTagException {
-        StringWriter writer = new StringWriter();
-        invokeBody(XMLOutput.createXMLOutput(writer));
-        return writer.toString();
+        return getBodyText(escapeText);
     }
 
     /**
@@ -233,7 +234,7 @@ public abstract class TagSupport implements Tag {
      */
     protected String getBodyText(boolean shouldEscape) throws JellyTagException {
         StringWriter writer = new StringWriter();
-        invokeBody(XMLOutput.createXMLOutput(writer,shouldEscape));
+        invokeBody(XMLOutput.createXMLOutput(writer, shouldEscape));
         return writer.toString();
     }
 
@@ -291,4 +292,19 @@ public abstract class TagSupport implements Tag {
 			}
 		}
 	}
+
+    /**
+     * Returns whether the body of this tag will be escaped or not.
+     */
+    public boolean isEscapeText() {
+        return escapeText;
+    }
+
+    /**
+     * Sets whether the body of the tag should be escaped as text (so that &lt; and &gt; are
+     * escaped as &amp;lt; and &amp;gt;), which is the default or leave the text as XML.
+     */
+    public void setEscapeText(boolean escapeText) {
+        this.escapeText = escapeText;
+    }
 }
