@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.6 2002/06/25 19:12:29 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/25 19:12:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.7 2002/06/26 14:50:43 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/26 14:50:43 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestDynamicTags.java,v 1.6 2002/06/25 19:12:29 jstrachan Exp $
+ * $Id: TestDynamicTags.java,v 1.7 2002/06/26 14:50:43 jstrachan Exp $
  */
 package org.apache.commons.jelly.define;
 
@@ -84,7 +84,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests dynamic tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class TestDynamicTags extends TestCase {
 
@@ -126,7 +126,7 @@ public class TestDynamicTags extends TestCase {
         log.info("The output was as follows");
         log.info(buffer.toString());
     }
-
+    
     protected void runScript(String name) throws Exception {
         InputStream in = new FileInputStream(name);
         Script script = parser.parse(in);

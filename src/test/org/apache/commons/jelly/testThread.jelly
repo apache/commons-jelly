@@ -3,7 +3,6 @@
 
 About to spawn another thread...
 
-<!--
 <j:thread name="thread1" file="target/thread.xml">
   <x:parse var="doc">
     <web-app>
@@ -39,7 +38,6 @@ About to spawn another thread...
   There are <x:expr select="$count"/> servlet(s)
   </j:whitespace>	
 </j:thread>
--->
 
 The thread should have started now!
 

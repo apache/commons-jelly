@@ -338,6 +338,12 @@
 	
    </target>
 
+   <target name="demo.file" depends="compile" 
+      description="Runs the file demo">
+      
+	<jelly file="src/test/org/apache/commons/jelly/testFile.jelly"/> 
+   </target>
+
    <target name="demo.betwixt" depends="compile" 
       description="Runs a demo using the XML tags to generate a Betwixt descriptor">
       

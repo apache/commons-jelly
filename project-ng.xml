@@ -189,8 +189,8 @@
     <dependency>
       <name>commons-messenger</name>
       <type>required</type>
-      <version>1.0-dev-3</version>
-      <jar>commons-messenger-1.0-dev-3.jar</jar>
+      <version>1.0-dev-2</version>
+      <jar>commons-messenger-1.0-dev-2.jar</jar>
     </dependency>
     
 	<!-- http taglib -->
