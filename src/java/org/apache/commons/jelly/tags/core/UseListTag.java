@@ -62,6 +62,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.impl.CollectionTag;
 
@@ -106,12 +107,12 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyException {
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         items = (Expression) attributes.remove("items");
         super.setBeanProperties(bean, attributes);
     }
     
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);
         
         List list = getList();

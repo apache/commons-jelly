@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.tags.core;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -84,7 +85,7 @@ public class WhitespaceTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         if ( log.isDebugEnabled() ) {
             log.debug( "Running body: " + getBody() );

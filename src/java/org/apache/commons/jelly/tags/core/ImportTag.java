@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ImportTag.java,v 1.5 2003/01/11 04:03:48 dion Exp $
- * $Revision: 1.5 $
- * $Date: 2003/01/11 04:03:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ImportTag.java,v 1.6 2003/01/24 22:53:34 morgand Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/01/24 22:53:34 $
  *
  * ====================================================================
  *
@@ -57,11 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ImportTag.java,v 1.5 2003/01/11 04:03:48 dion Exp $
+ * $Id: ImportTag.java,v 1.6 2003/01/24 22:53:34 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
 
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -75,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
  *  </p>
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
 public class ImportTag extends TagSupport {
@@ -112,18 +114,23 @@ public class ImportTag extends TagSupport {
      * @param output the destination for output
      * @throws Exception Any exception can be thrown
      */ 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (uri == null && file == null) {
             throw new MissingAttributeException( "uri" );
         }
 
-        if (uri != null) {
-            // we need to create a new JellyContext of the URI
-            // take off the script name from the URL
-            context.runScript(uri, output, true, isInherit() );
-        } else {
-            context.runScript(new java.io.File(file), output, true,
-                isInherit());
+        try {
+            if (uri != null) {
+                // we need to create a new JellyContext of the URI
+                // take off the script name from the URL
+                context.runScript(uri, output, true, isInherit() );
+            } else {
+                context.runScript(new java.io.File(file), output, true,
+                  isInherit());
+            }
+        }
+        catch (JellyException e) {
+            throw new JellyTagException("could not import script",e);
         }
     }
 

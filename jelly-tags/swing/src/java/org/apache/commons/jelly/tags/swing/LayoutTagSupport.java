@@ -64,7 +64,7 @@ package org.apache.commons.jelly.tags.swing;
 import java.awt.Component;
 import java.awt.LayoutManager;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -90,7 +90,7 @@ public abstract class LayoutTagSupport extends TagSupport {
     /**
      * Adds the given layout component to the container with the specified constraints
      */
-    public void addLayoutComponent(Component component, Object constraints) throws JellyException {
+    public void addLayoutComponent(Component component, Object constraints) throws JellyTagException {
         getComponentTag().addChild(component, constraints);
     }
     
@@ -130,10 +130,10 @@ public abstract class LayoutTagSupport extends TagSupport {
     /**
      * @return the parent component tag or throw an exception
      */
-    protected ComponentTag getComponentTag() throws JellyException {
+    protected ComponentTag getComponentTag() throws JellyTagException {
         ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
         if ( tag == null ) {
-            throw new JellyException( "This tag must be nested within a JellySwing widget tag" );
+            throw new JellyTagException( "This tag must be nested within a JellySwing widget tag" );
         }
         return tag;
     }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
- * $Revision: 1.2 $
- * $Date: 2002/11/30 07:41:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.3 2003/01/24 22:53:33 morgand Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/24 22:53:33 $
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
@@ -56,7 +56,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ArgTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
+ * $Id: ArgTag.java,v 1.3 2003/01/24 22:53:33 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -74,6 +74,7 @@ import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
@@ -82,7 +83,7 @@ import org.apache.commons.jelly.XMLOutput;
  * implementation.
  *
  * @author Rodney Waldhoff
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class ArgTag extends BaseClassLoaderTag {
 
@@ -113,7 +114,7 @@ public class ArgTag extends BaseClassLoaderTag {
     // tag methods
     //-------------------------------------------------------------------------
 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         invokeBody(output);
 
         Class klass = null;
@@ -142,7 +143,11 @@ public class ArgTag extends BaseClassLoaderTag {
             klass = Double.TYPE;
             assertNotNull(value);
         } else if(null != typeString) {
-            klass = getClassLoader().loadClass(typeString);
+            try {
+              klass = getClassLoader().loadClass(typeString);
+            } catch (ClassNotFoundException e) {
+                throw new JellyTagException(e);
+            }
         } else if(null == value) { // and (by construction) null == typeString
             klass = Object.class;
         } else {
@@ -155,7 +160,7 @@ public class ArgTag extends BaseClassLoaderTag {
         
         ArgTagParent parent = (ArgTagParent)findAncestorWithClass(ArgTagParent.class);
         if(null == parent) {
-            throw new JellyException("This tag must be enclosed inside an ArgTagParent implementation (for example, <new> or <invoke>)" );        
+            throw new JellyTagException("This tag must be enclosed inside an ArgTagParent implementation (for example, <new> or <invoke>)" );        
         } else {
             parent.addArgument(klass,value);
         }
@@ -164,9 +169,9 @@ public class ArgTag extends BaseClassLoaderTag {
     // private methods
     //-------------------------------------------------------------------------
 
-    private void assertNotNull(Object value) throws JellyException {
+    private void assertNotNull(Object value) throws JellyTagException {
         if(null == value) {
-            throw new JellyException("A " + typeString + " instance cannot be null.");
+            throw new JellyTagException("A " + typeString + " instance cannot be null.");
         }
     }
 
@@ -186,18 +191,18 @@ public class ArgTag extends BaseClassLoaderTag {
     // static stuff
     //-------------------------------------------------------------------------
 
-    private static Object convert(Class klass, Object value) throws JellyException {
+    private static Object convert(Class klass, Object value) throws JellyTagException {
         if(null == value) {
             return null;
         } else if(!klass.isInstance(value)) {
             Converter converter = (Converter)(converterMap.get(klass));
             if(null == converter) { 
-                throw new JellyException("Can't convert " + value + " to " + klass);
+                throw new JellyTagException("Can't convert " + value + " to " + klass);
             } else {
                 try {
                     return converter.convert(klass,value);
                 } catch(ConversionException e) {
-                    throw new JellyException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")",e);
+                    throw new JellyTagException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")",e);
                 }
             }
         } else {

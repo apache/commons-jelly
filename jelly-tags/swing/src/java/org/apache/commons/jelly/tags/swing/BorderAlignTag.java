@@ -64,7 +64,7 @@ package org.apache.commons.jelly.tags.swing;
 import java.awt.BorderLayout;
 import java.awt.Component;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -84,10 +84,10 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
-    public void addChild(Component component, Object constraints) throws JellyException {
+    public void addChild(Component component, Object constraints) throws JellyTagException {
         BorderLayoutTag tag = (BorderLayoutTag) findAncestorWithClass( BorderLayoutTag.class );
         if (tag == null) {
-            throw new JellyException( "this tag must be nested within a <tr> tag" );
+            throw new JellyTagException( "this tag must be nested within a <tr> tag" );
         }
         tag.addLayoutComponent(component, getConstraints());
     }

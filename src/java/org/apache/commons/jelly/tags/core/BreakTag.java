@@ -90,7 +90,7 @@ public class BreakTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws BreakException {
         if (test == null || test.evaluateAsBoolean(context)) {
             throw new BreakException();
         }

@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.tags.core;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -81,7 +82,7 @@ public class CatchTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if (var != null) {
             context.removeVariable(var);
         }

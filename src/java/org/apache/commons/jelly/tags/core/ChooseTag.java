@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ChooseTag.java,v 1.8 2002/12/11 12:40:54 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/12/11 12:40:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ChooseTag.java,v 1.9 2003/01/24 22:53:33 morgand Exp $
+ * $Revision: 1.9 $
+ * $Date: 2003/01/24 22:53:33 $
  *
  * ====================================================================
  *
@@ -57,17 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ChooseTag.java,v 1.8 2002/12/11 12:40:54 jstrachan Exp $
+ * $Id: ChooseTag.java,v 1.9 2003/01/24 22:53:33 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class ChooseTag extends TagSupport {
 
@@ -78,7 +79,7 @@ public class ChooseTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         setBlockEvaluated(false);
         invokeBody(output);
     }

@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.tags.swing;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.jelly.tags.swing.model.ExpressionTableColumn;
@@ -87,12 +88,12 @@ public class TableModelColumnTag extends UseBeanTag {
 
     // Implementation methods
     //-------------------------------------------------------------------------                    
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);
 
         TableModelTag tag = (TableModelTag) findAncestorWithClass( TableModelTag.class );
         if ( tag == null ) {
-            throw new JellyException( "This tag must be nested within a <tableModel> tag" );
+            throw new JellyTagException( "This tag must be nested within a <tableModel> tag" );
         }
         tag.getTableModel().addColumn( getColumn() );
     }

@@ -62,6 +62,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -91,14 +92,18 @@ public class SetPropertiesTag extends MapTagSupport  {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         Map attributes = getAttributes();
         Object bean = attributes.remove( "object" );
         if ( bean == null ) {
             // lets try find a parent bean
             BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
             if (tag != null) {
-                bean = tag.getBean();
+                try {
+                    bean = tag.getBean();
+                } catch (JellyException e) {
+                    throw new JellyTagException(e);
+                }
             }
             if (bean == null) {
                 throw new MissingAttributeException("bean");
@@ -114,13 +119,13 @@ public class SetPropertiesTag extends MapTagSupport  {
      * Sets the properties on the bean. Derived tags could implement some custom 
      * type conversion etc.
      */
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyException {
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         try {
             BeanUtils.populate(bean, attributes);
         } catch (IllegalAccessException e) {
-            throw new JellyException("could not set the properties on a bean",e);
+            throw new JellyTagException("could not set the properties on a bean",e);
         } catch (InvocationTargetException e) {
-            throw new JellyException("could not set the properties on a bean",e);
+            throw new JellyTagException("could not set the properties on a bean",e);
         }
     }
 }

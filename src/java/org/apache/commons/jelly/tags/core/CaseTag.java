@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/CaseTag.java,v 1.3 2002/10/30 19:16:21 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/10/30 19:16:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/CaseTag.java,v 1.4 2003/01/24 22:53:33 morgand Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/01/24 22:53:33 $
  *
  * ====================================================================
  *
@@ -57,11 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CaseTag.java,v 1.3 2002/10/30 19:16:21 jstrachan Exp $
+ * $Id: CaseTag.java,v 1.4 2003/01/24 22:53:33 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -79,7 +80,7 @@ import org.apache.commons.jelly.expression.Expression;
  * @see SwitchTag
  * 
  * @author Rodney Waldhoff
- * @version $Revision: 1.3 $ $Date: 2002/10/30 19:16:21 $
+ * @version $Revision: 1.4 $ $Date: 2003/01/24 22:53:33 $
  */
 public class CaseTag extends TagSupport {
 
@@ -96,16 +97,16 @@ public class CaseTag extends TagSupport {
         this.fallThru = fallThru;
     }
     
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if(null == this.valueExpression) {
             throw new MissingAttributeException("value");
         }        
         SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
         if(null == tag) {
-            throw new JellyException("This tag must be enclosed inside a <switch> tag" );
+            throw new JellyTagException("This tag must be enclosed inside a <switch> tag" );
         }
         if(tag.hasDefaultBeenEncountered()) {
-            throw new JellyException("<default> should be the last tag within a <switch>" );
+            throw new JellyTagException("<default> should be the last tag within a <switch>" );
         }
         Object value = valueExpression.evaluate(context);        
         if(tag.isFallingThru() || 

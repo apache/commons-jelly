@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.10 2002/12/11 12:40:54 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/12/11 12:40:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.11 2003/01/24 22:53:34 morgand Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/01/24 22:53:34 $
  *
  * ====================================================================
  *
@@ -57,11 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: WhenTag.java,v 1.10 2002/12/11 12:40:54 jstrachan Exp $
+ * $Id: WhenTag.java,v 1.11 2003/01/24 22:53:34 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
@@ -69,7 +70,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 public class WhenTag extends TagSupport {
 
@@ -81,10 +82,10 @@ public class WhenTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         ChooseTag tag = (ChooseTag) findAncestorWithClass( ChooseTag.class );
         if ( tag == null ) {
-            throw new JellyException( "This tag must be enclosed inside a <choose> tag" );
+            throw new JellyTagException( "This tag must be enclosed inside a <choose> tag" );
         }
         if ( ! tag.isBlockEvaluated() && test != null ) {
             if ( test.evaluateAsBoolean( context ) ) {

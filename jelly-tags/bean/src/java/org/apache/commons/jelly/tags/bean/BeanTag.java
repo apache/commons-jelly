@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.3 2003/01/24 10:04:30 morgand Exp $
- * $Revision: 1.3 $
- * $Date: 2003/01/24 10:04:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.4 2003/01/24 22:53:33 morgand Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/01/24 22:53:33 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanTag.java,v 1.3 2003/01/24 10:04:30 morgand Exp $
+ * $Id: BeanTag.java,v 1.4 2003/01/24 22:53:33 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -69,6 +69,7 @@ import java.util.Collection;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.impl.CollectionTag;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
@@ -82,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version   $Revision: 1.3 $
+ * @version   $Revision: 1.4 $
  */
 public class BeanTag extends UseBeanTag {
 
@@ -119,7 +120,7 @@ public class BeanTag extends UseBeanTag {
      * Output the tag as a named variable. If the parent bean has an adder or setter
      * method then invoke that to register this bean with its parent.
      */
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -141,16 +142,16 @@ public class BeanTag extends UseBeanTag {
                             method.invoke(parentObject, args);
                         }
                         catch (Exception e) {
-                            throw new JellyException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
+                            throw new JellyTagException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
                         }
                     }
                     else {
                         try {
                           BeanUtils.setProperty(parentObject, tagName, bean);
                         } catch (IllegalAccessException e) {
-                            throw new JellyException(e);
+                            throw new JellyTagException(e);
                         } catch (InvocationTargetException e) {
-                            throw new JellyException(e);
+                            throw new JellyTagException(e);
                         }
                     }
                 }
@@ -187,7 +188,7 @@ public class BeanTag extends UseBeanTag {
     /**
      * @return the parent bean object
      */
-    protected Object getParentObject() throws JellyException {
+    protected Object getParentObject() throws JellyTagException {
         BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
         if (tag != null) {
             return tag.getBean();

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.10 2002/12/11 12:40:54 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/12/11 12:40:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.11 2003/01/24 22:53:34 morgand Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/01/24 22:53:34 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyTag.java,v 1.10 2002/12/11 12:40:54 jstrachan Exp $
+ * $Id: JellyTag.java,v 1.11 2003/01/24 22:53:34 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -70,7 +71,7 @@ import org.apache.commons.logging.LogFactory;
 /** The root Jelly tag which should be evaluated first
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 public class JellyTag extends TagSupport {
 
@@ -82,7 +83,7 @@ public class JellyTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         if ( log.isDebugEnabled() ) {
             log.debug( "Running body: " + getBody() );

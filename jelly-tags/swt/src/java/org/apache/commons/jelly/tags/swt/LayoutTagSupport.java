@@ -68,7 +68,7 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -120,7 +120,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     /**
      * Either defines a variable or adds the current component to the parent
      */
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -130,7 +130,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
      */
     protected void setBeanProperties(Object bean, Map attributes)
-        throws JellyException {
+        throws JellyTagException {
             
         if (bean != null) {
             Class theClass = bean.getClass();
@@ -154,11 +154,11 @@ public abstract class LayoutTagSupport extends UseBeanTag {
                         BeanUtils.setProperty(bean, name, value);
                     }
                 } catch (NoSuchFieldException e) {
-                    throw new JellyException(e);
+                    throw new JellyTagException(e);
                 } catch (IllegalAccessException e) {
-                    throw new JellyException(e);
+                    throw new JellyTagException(e);
                 } catch (InvocationTargetException e) {
-                    throw new JellyException(e);
+                    throw new JellyTagException(e);
                 }
             }
         }
@@ -173,7 +173,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @param value the value of the property
      * @return the new value
      */
-    protected Object convertValue(Object bean, String name, Object value) throws JellyException {
+    protected Object convertValue(Object bean, String name, Object value) throws JellyTagException {
         return value;
     }
 

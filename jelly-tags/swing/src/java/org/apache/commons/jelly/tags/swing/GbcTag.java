@@ -65,7 +65,7 @@ import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.util.Map;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
@@ -107,10 +107,10 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
-    public void addChild(Component component, Object constraints) throws JellyException {
+    public void addChild(Component component, Object constraints) throws JellyTagException {
         GridBagLayoutTag tag = (GridBagLayoutTag) findAncestorWithClass( GridBagLayoutTag.class );
         if (tag == null) {
-            throw new JellyException( "this tag must be nested within a <tr> tag" );
+            throw new JellyTagException( "this tag must be nested within a <tr> tag" );
         }
         tag.addLayoutComponent(component, getConstraints());
     }
@@ -134,14 +134,14 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     /**
      * A class may be specified otherwise the Factory will be used.
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyException {
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
         if (theClass != null ) {
             try {
                 return theClass.newInstance();
             } catch (IllegalAccessException e) {
-                throw new JellyException(e);
+                throw new JellyTagException(e);
             } catch (InstantiationException e) {
-                throw new JellyException(e);
+                throw new JellyTagException(e);
             }
         }
         else {

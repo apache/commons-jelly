@@ -64,7 +64,7 @@ package org.apache.commons.jelly.tags.swing;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -98,11 +98,11 @@ public class TdTag extends TagSupport implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
-    public void addChild(Component component, Object constraints) throws JellyException {
+    public void addChild(Component component, Object constraints) throws JellyTagException {
         // add my child component to the layout manager
         TrTag tag = (TrTag) findAncestorWithClass( TrTag.class );
         if (tag == null) {
-            throw new JellyException( "this tag must be nested within a <tr> tag" );
+            throw new JellyTagException( "this tag must be nested within a <tr> tag" );
         }
         tag.addCell(component, createConstraints());
     }

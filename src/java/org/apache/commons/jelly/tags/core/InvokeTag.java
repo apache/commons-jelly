@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
- * $Revision: 1.2 $
- * $Date: 2002/11/30 07:41:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeTag.java,v 1.3 2003/01/24 22:53:34 morgand Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/24 22:53:34 $
  *
  * ====================================================================
  *
@@ -57,14 +57,16 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
+ * $Id: InvokeTag.java,v 1.3 2003/01/24 22:53:34 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.MethodUtils;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -72,7 +74,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which creates a new object of the given type
   *
   * @author Rodney Waldhoff
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class InvokeTag extends TagSupport implements ArgTagParent {
 
@@ -111,7 +113,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( null == methodName) {
             throw new MissingAttributeException( "method" );
         }
@@ -123,7 +125,21 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
         
         Object[] values = paramValues.toArray();
         Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
-        Object result = MethodUtils.invokeMethod(onInstance,methodName,values,types);
+        
+        Object result = null;
+        try {
+            result = MethodUtils.invokeMethod(onInstance,methodName,values,types);
+        }
+        catch (NoSuchMethodException e) {
+            throw new JellyTagException(e);
+        }
+        catch (IllegalAccessException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (InvocationTargetException e) {
+            throw new JellyTagException(e);
+        }
+        
         paramTypes.clear();
         paramValues.clear();
         

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.11 2002/12/11 12:40:54 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/12/11 12:40:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.12 2003/01/24 22:53:33 morgand Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/01/24 22:53:33 $
  *
  * ====================================================================
  *
@@ -57,21 +57,24 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.11 2002/12/11 12:40:54 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.12 2003/01/24 22:53:33 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.xml.sax.SAXException;
+
 /** A tag which evaluates an expression
   *
   * @tag out
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 public class ExprTag extends TagSupport {
 
@@ -86,11 +89,17 @@ public class ExprTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if (value != null) {
             String text = value.evaluateAsString(context);
             if (text != null) {
-                output.write(text);
+                
+                try {
+                    output.write(text);
+                } 
+                catch (SAXException e) {
+                    throw new JellyTagException("could not write the XMLOutput",e);
+                }
             }
         }
     }

@@ -56,13 +56,16 @@
  */
 package org.apache.commons.jelly.tags.core;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.dom4j.io.HTMLWriter;
@@ -93,19 +96,27 @@ public class FileTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
-        if ( name != null ) {
-            String encoding = (this.encoding != null) ? this.encoding : "UTF-8";
-            Writer writer = new OutputStreamWriter( new FileOutputStream( name ), encoding );
-            writeBody(writer);
-        }
-        else if (var != null) {
-            StringWriter writer = new StringWriter();
-            writeBody(writer);
-            context.setVariable(var, writer.toString());
-        }
-        else {
-            throw new JellyException( "This tag must have either the 'name' or the 'var' variables defined" );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        try {
+            if ( name != null ) {
+                String encoding = (this.encoding != null) ? this.encoding : "UTF-8";
+                Writer writer = new OutputStreamWriter( new FileOutputStream( name ), encoding );
+                writeBody(writer);
+            }
+            else if (var != null) {
+                StringWriter writer = new StringWriter();
+                writeBody(writer);
+                context.setVariable(var, writer.toString());
+            }
+            else {
+                throw new JellyTagException( "This tag must have either the 'name' or the 'var' variables defined" );
+            }
+        } catch (FileNotFoundException e) {
+            throw new JellyTagException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new JellyTagException(e);
+        } catch (SAXException e) {
+            throw new JellyTagException("could not write file",e);
         }
     }
         
@@ -185,16 +196,15 @@ public class FileTag extends TagSupport {
     /**
      * Writes the body fo this tag to the given Writer
      */
-    protected void writeBody(Writer writer) throws JellyException {
+    protected void writeBody(Writer writer) throws SAXException, JellyTagException {
 
         XMLOutput newOutput = createXMLOutput(writer);
         try {
             newOutput.startDocument();
             invokeBody(newOutput);
             newOutput.endDocument();
-        } catch (SAXException e) {
-            throw new JellyException(e);
-        } finally {
+        }  
+        finally {
             try { newOutput.close(); } catch (IOException e) {}
         }
     }
@@ -202,7 +212,7 @@ public class FileTag extends TagSupport {
     /**
      * A Factory method to create a new XMLOutput from the given Writer.
      */
-    protected XMLOutput createXMLOutput(Writer writer) throws JellyException {
+    protected XMLOutput createXMLOutput(Writer writer) {
         
         OutputFormat format = null;
         if (prettyPrint) {

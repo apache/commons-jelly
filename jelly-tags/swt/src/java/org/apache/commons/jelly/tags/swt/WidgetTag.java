@@ -65,7 +65,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
@@ -127,7 +127,7 @@ public class WidgetTag extends UseBeanTag {
     /**
      * Factory method to create a new widget
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyException {
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
         int style = getStyle(attributes);
         
         // now lets call the constructor with the parent
@@ -158,9 +158,9 @@ public class WidgetTag extends UseBeanTag {
      * @param style the SWT style code
      * @return the new Widget
      */
-    protected Object createWidget(Class theClass, Widget parent, int style) throws JellyException {
+    protected Object createWidget(Class theClass, Widget parent, int style) throws JellyTagException {
         if (theClass == null) {
-            throw new JellyException( "No Class available to create the new widget");
+            throw new JellyTagException( "No Class available to create the new widget");
         }
         
         try {
@@ -190,13 +190,13 @@ public class WidgetTag extends UseBeanTag {
             }
             return theClass.newInstance();
         } catch (NoSuchMethodException e) {
-            throw new JellyException(e);
+            throw new JellyTagException(e);
         } catch (InstantiationException e) {
-            throw new JellyException(e);
+            throw new JellyTagException(e);
         } catch (IllegalAccessException e) {
-            throw new JellyException(e);
+            throw new JellyTagException(e);
         } catch (InvocationTargetException e) {
-            throw new JellyException(e);
+            throw new JellyTagException(e);
         }
     }
     
@@ -204,7 +204,7 @@ public class WidgetTag extends UseBeanTag {
      * Creates the SWT style code for the current attributes
      * @return the SWT style code
      */
-    protected int getStyle(Map attributes) throws JellyException {
+    protected int getStyle(Map attributes) throws JellyTagException {
         String text = (String) attributes.remove("style");
         if (text != null) {
             return SwtHelper.parseStyle(SWT.class, text);

@@ -82,6 +82,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
@@ -121,16 +122,16 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Sets the Action of this component
      */
-    public void setAction(Action action) throws JellyException {
+    public void setAction(Action action) throws JellyTagException {
         Component component = getComponent();
         if ( component != null ) {
             // lets just try set the 'action' property
             try {
                 BeanUtils.setProperty( component, "action", action );
             } catch (IllegalAccessException e) {
-                throw new JellyException(e);
+                throw new JellyTagException(e);
             } catch (InvocationTargetException e) {
-                throw new JellyException(e);
+                throw new JellyTagException(e);
             }
         }
     }
@@ -272,7 +273,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * A class may be specified otherwise the Factory will be used.
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyException {
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
         try {
             if (theClass != null ) {
                 return theClass.newInstance();
@@ -280,9 +281,9 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                 return factory.newInstance();
             }
         } catch (IllegalAccessException e) {
-            throw new JellyException(e);
+            throw new JellyTagException(e);
         } catch (InstantiationException e) {
-            throw new JellyException(e);
+            throw new JellyTagException(e);
         }
     }
     
@@ -290,7 +291,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Either defines a variable or adds the current component to the parent
      */    
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -302,7 +303,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             }
             else {
                 if (var == null) {
-                    throw new JellyException( "The 'var' attribute must be specified or this tag must be nested inside a JellySwing container tag like a widget or a layout" );
+                    throw new JellyTagException( "The 'var' attribute must be specified or this tag must be nested inside a JellySwing container tag like a widget or a layout" );
                 }
             }
         }
@@ -311,7 +312,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Patch to handle wierd properties that don't quite match the Java Beans contract
      */
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyException {
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iter.next();
             String name = (String) entry.getKey();
@@ -389,9 +390,9 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                     try {
                         BeanUtils.setProperty(component, name, value);
                     } catch (IllegalAccessException e) {
-                        throw new JellyException(e);
+                        throw new JellyTagException(e);
                     } catch (InvocationTargetException e) {
-                        throw new JellyException(e);
+                        throw new JellyTagException(e);
                     }
                 }
             }
@@ -399,9 +400,9 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                 try {
                     BeanUtils.setProperty(bean, name, value);
                 } catch (IllegalAccessException e) {
-                    throw new JellyException(e);
+                    throw new JellyTagException(e);
                 } catch (InvocationTargetException e) {
-                    throw new JellyException(e);
+                    throw new JellyTagException(e);
                 }
             }
         }

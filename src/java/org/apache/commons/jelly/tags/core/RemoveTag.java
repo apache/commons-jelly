@@ -80,7 +80,7 @@ public class RemoveTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException {
         if (var != null) {
             context.removeVariable(var);
         }

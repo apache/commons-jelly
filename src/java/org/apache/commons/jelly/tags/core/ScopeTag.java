@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.tags.core;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -77,7 +78,7 @@ public class ScopeTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         JellyContext newContext = context.newJellyContext();
         getBody().run(newContext, output);
     }

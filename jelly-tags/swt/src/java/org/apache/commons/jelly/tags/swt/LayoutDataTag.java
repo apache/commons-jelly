@@ -65,7 +65,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -94,7 +94,7 @@ public class LayoutDataTag extends LayoutTagSupport {
     /**
      * Either defines a variable or adds the current component to the parent
      */
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);
 
         Widget parent = getParentWidget();
@@ -104,7 +104,7 @@ public class LayoutDataTag extends LayoutTagSupport {
             control.setLayoutData(getBean());
         }
         else {
-            throw new JellyException("This tag must be nested within a control widget tag");
+            throw new JellyTagException("This tag must be nested within a control widget tag");
         }
     }
     
@@ -116,7 +116,7 @@ public class LayoutDataTag extends LayoutTagSupport {
         Class theClass,
         Map attributes,
         XMLOutput output)
-        throws JellyException {
+        throws JellyTagException {
             
         String text = (String) attributes.remove("style");
         if (text != null) {
@@ -132,13 +132,13 @@ public class LayoutDataTag extends LayoutTagSupport {
                     return constructor.newInstance(values);
                 }
             } catch (NoSuchMethodException e) {
-                throw new JellyException(e);
+                throw new JellyTagException(e);
             } catch (InstantiationException e) {
-                throw new JellyException(e);
+                throw new JellyTagException(e);
             } catch (IllegalAccessException e) {
-                throw new JellyException(e);
+                throw new JellyTagException(e);
             } catch (InvocationTargetException e) {
-                throw new JellyException(e);
+                throw new JellyTagException(e);
             }
         }
         return super.newInstance(theClass, attributes, output);
@@ -148,7 +148,7 @@ public class LayoutDataTag extends LayoutTagSupport {
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     protected Object convertValue(Object bean, String name, Object value)
-        throws JellyException {
+        throws JellyTagException {
 
         if (bean instanceof GridData) {
             if (name.endsWith("Alignment") && value instanceof String) {

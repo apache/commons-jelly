@@ -64,7 +64,7 @@ package org.apache.commons.jelly.tags.swt;
 import java.lang.reflect.Field;
 import java.util.StringTokenizer;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,7 +90,7 @@ public class SwtHelper extends UseBeanTag {
      * @param text is a comma delimited text value such as "border, resize"
      * @return the int code
      */
-    public static int parseStyle(Class constantClass, String text) throws JellyException {
+    public static int parseStyle(Class constantClass, String text) throws JellyTagException {
         return parseStyle(constantClass, text, true);
     }
 
@@ -105,7 +105,7 @@ public class SwtHelper extends UseBeanTag {
      * 
      * @return the int code
      */
-    public static int parseStyle(Class constantClass, String text, boolean toUpperCase) throws JellyException{
+    public static int parseStyle(Class constantClass, String text, boolean toUpperCase) throws JellyTagException{
         int answer = 0;
         if (text != null) {
             if (toUpperCase) {
@@ -124,7 +124,7 @@ public class SwtHelper extends UseBeanTag {
      * @return the code for the given word or zero if the word doesn't match a
      * valid style
      */
-    public static int getStyleCode(Class constantClass,String text) throws JellyException {
+    public static int getStyleCode(Class constantClass,String text) throws JellyTagException {
         try {
             Field field = constantClass.getField(text);
             if (field == null) {
@@ -133,9 +133,9 @@ public class SwtHelper extends UseBeanTag {
             }
             return field.getInt(null);
         } catch (NoSuchFieldException e) {
-            throw new JellyException("The value: " + text + " is not understood", e);
+            throw new JellyTagException("The value: " + text + " is not understood", e);
         } catch (IllegalAccessException e) {
-            throw new JellyException("The value: " + text + " is not understood", e);
+            throw new JellyTagException("The value: " + text + " is not understood", e);
         }
     }
 }

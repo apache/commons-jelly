@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SwitchTag.java,v 1.3 2002/12/11 12:40:54 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/12/11 12:40:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SwitchTag.java,v 1.4 2003/01/24 22:53:34 morgand Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/01/24 22:53:34 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SwitchTag.java,v 1.3 2002/12/11 12:40:54 jstrachan Exp $
+ * $Id: SwitchTag.java,v 1.4 2003/01/24 22:53:34 morgand Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -76,7 +77,7 @@ import org.apache.commons.jelly.expression.Expression;
  * @see DefaultTag
  * 
  * @author Rodney Waldhoff
- * @version $Revision: 1.3 $ $Date: 2002/12/11 12:40:54 $
+ * @version $Revision: 1.4 $ $Date: 2003/01/24 22:53:34 $
  */
 public class SwitchTag extends TagSupport {
 
@@ -96,7 +97,7 @@ public class SwitchTag extends TagSupport {
         this.on = on;
     }
     
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if(null == on) {
             throw new MissingAttributeException("on");
         } else {

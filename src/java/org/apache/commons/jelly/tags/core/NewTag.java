@@ -61,10 +61,12 @@
  */
 package org.apache.commons.jelly.tags.core;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.ConstructorUtils;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -104,7 +106,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         ArgTag parentArg = null;
         if ( var == null ) {
             parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
@@ -117,21 +119,38 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         }
         invokeBody(output);
 
-        Class theClass = getClassLoader().loadClass( className );
-        Object object = null;
-        if(paramTypes.size() == 0) {
-            object = theClass.newInstance();
-        } else {
-            Object[] values = paramValues.toArray();
-            Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
-            object = ConstructorUtils.invokeConstructor(theClass,values,types);
-            paramTypes.clear();
-            paramValues.clear();
+        try {
+            Class theClass = getClassLoader().loadClass( className );
+            Object object = null;
+            if(paramTypes.size() == 0) {
+                object = theClass.newInstance();
+            } else {
+                Object[] values = paramValues.toArray();
+                Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
+                object = ConstructorUtils.invokeConstructor(theClass,values,types);
+                paramTypes.clear();
+                paramValues.clear();
+            }
+            if(null != var) {
+                context.setVariable(var, object);
+            } else {
+                parentArg.setValue(object);
+            }
         }
-        if(null != var) {
-            context.setVariable(var, object);
-        } else {
-            parentArg.setValue(object);
+        catch (ClassNotFoundException e) {
+            throw new JellyTagException(e);
+        }
+        catch (InstantiationException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (NoSuchMethodException e) {
+            throw new JellyTagException(e);
+        }
+        catch (IllegalAccessException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (InvocationTargetException e) {
+            throw new JellyTagException(e);
         }
     }
 }

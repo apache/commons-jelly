@@ -69,6 +69,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
@@ -93,13 +94,18 @@ public class ActionTag extends UseBeanTag {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
         String var = (String) attributes.get( "var" );
         Object classObject = attributes.remove( "class" );
         
         // this method could return null in derived classes
-        Class theClass = convertToClass(classObject);
+        Class theClass = null;
+        try {
+           theClass = convertToClass(classObject);
+        } catch (ClassNotFoundException e) {
+            throw new JellyTagException(e);
+        }
         
         Object bean = newInstance(theClass, attributes, output);
         setBean(bean);
@@ -142,7 +148,7 @@ public class ActionTag extends UseBeanTag {
      * An existing Action could be specified via the 'action' attribute or an action class 
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
-    protected Object newInstance(Class theClass, Map attributes, final XMLOutput output) throws JellyException {
+    protected Object newInstance(Class theClass, Map attributes, final XMLOutput output) throws JellyTagException {
         Action action = (Action) attributes.remove( "action" );
         if ( action == null ) {
             if (theClass != null ) {
@@ -150,9 +156,9 @@ public class ActionTag extends UseBeanTag {
                 try {
                     return theClass.newInstance();
                 } catch (InstantiationException e) {
-                    throw new JellyException(e);
+                    throw new JellyTagException(e);
                 } catch (IllegalAccessException e) {
-                    throw new JellyException(e);
+                    throw new JellyTagException(e);
                 }
                 
             }
@@ -177,7 +183,7 @@ public class ActionTag extends UseBeanTag {
     /**
      * Either defines a variable or adds the current component to the parent
      */    
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -187,7 +193,7 @@ public class ActionTag extends UseBeanTag {
                 tag.setAction((Action) bean);
             }
             else {
-                throw new JellyException( "Either the 'var' attribute must be specified to export this Action or this tag must be nested within a JellySwing widget tag" );
+                throw new JellyTagException( "Either the 'var' attribute must be specified to export this Action or this tag must be nested within a JellySwing widget tag" );
             }
         }
     }
@@ -196,7 +202,7 @@ public class ActionTag extends UseBeanTag {
     /**
      * Perform the strange setting of Action properties using its custom API
      */
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyException {
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         Action action = getAction();
         for ( Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iter.next();

@@ -61,7 +61,7 @@
  */
 package org.apache.commons.jelly.tags.swt;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.widgets.Control;
@@ -130,7 +130,7 @@ public class MenuTag extends WidgetTag {
      * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
      */
     protected Object createWidget(Class theClass, Widget parent, int style)
-        throws JellyException {
+        throws JellyTagException {
 
         if (parent instanceof Decorations) {            
             return super.createWidget(theClass, parent, style);
@@ -146,7 +146,7 @@ public class MenuTag extends WidgetTag {
                 return new Menu((Control) parent);
             }
             else {
-                throw new JellyException("This tag must be nested inside a <shell>, <menu>, <menuItem> or control tag");
+                throw new JellyTagException("This tag must be nested inside a <shell>, <menu>, <menuItem> or control tag");
             }
         }
     }

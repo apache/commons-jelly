@@ -67,7 +67,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.swing.impl.Cell;
@@ -96,7 +96,7 @@ public class TrTag extends TagSupport {
     /**
      * Adds a new cell to this row
      */
-    public void addCell(Component component, GridBagConstraints constraints) throws JellyException {
+    public void addCell(Component component, GridBagConstraints constraints) throws JellyTagException {
         constraints.gridx = cells.size();
         cells.add(new Cell(constraints, component));
     }        
@@ -107,7 +107,7 @@ public class TrTag extends TagSupport {
     public void doTag(final XMLOutput output) throws Exception {
         tableLayoutTag = (TableLayoutTag) findAncestorWithClass( TableLayoutTag.class );
         if (tableLayoutTag == null) {
-            throw new JellyException( "this tag must be nested within a <tableLayout> tag" );
+            throw new JellyTagException( "this tag must be nested within a <tableLayout> tag" );
         }
         rowIndex = tableLayoutTag.nextRowIndex();
         cells.clear();

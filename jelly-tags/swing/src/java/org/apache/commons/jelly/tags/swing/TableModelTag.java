@@ -63,7 +63,7 @@ package org.apache.commons.jelly.tags.swing;
 
 import javax.swing.JTable;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.jelly.tags.swing.model.ExpressionTableModel;
 
@@ -82,12 +82,12 @@ public class TableModelTag extends UseBeanTag {
 
     // Implementation methods
     //-------------------------------------------------------------------------                    
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);
 
         ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
         if ( tag == null ) {
-            throw new JellyException( "This tag must be nested within a JellySwing <table> tag" );
+            throw new JellyTagException( "This tag must be nested within a JellySwing <table> tag" );
         }
         ExpressionTableModel model = getTableModel();
         model.setContext(context);
@@ -98,7 +98,7 @@ public class TableModelTag extends UseBeanTag {
             table.setModel(model);
         }
         else {
-            throw new JellyException( "This tag must be nested within a JellySwing <table> tag" );
+            throw new JellyTagException( "This tag must be nested within a JellySwing <table> tag" );
         }
     }
     

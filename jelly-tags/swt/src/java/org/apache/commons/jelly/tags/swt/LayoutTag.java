@@ -61,7 +61,7 @@
  */
 package org.apache.commons.jelly.tags.swt;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.SWT;
@@ -105,7 +105,7 @@ public class LayoutTag extends LayoutTagSupport {
     /**
      * Either defines a variable or adds the current component to the parent
      */
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);
         
         Widget parent = getParentWidget();
@@ -114,7 +114,7 @@ public class LayoutTag extends LayoutTagSupport {
             composite.setLayout(getLayout());
         }
         else {
-            throw new JellyException("This tag must be nested within a composite widget tag");
+            throw new JellyTagException("This tag must be nested within a composite widget tag");
         }
     }
     
@@ -122,7 +122,7 @@ public class LayoutTag extends LayoutTagSupport {
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     protected Object convertValue(Object bean, String name, Object value)
-        throws JellyException {
+        throws JellyTagException {
             
         if (bean instanceof FillLayout && name.equals("type") && value instanceof String) {
             int style = SwtHelper.parseStyle(SWT.class, (String) value);

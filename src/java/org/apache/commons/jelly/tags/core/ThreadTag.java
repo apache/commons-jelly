@@ -58,8 +58,10 @@ package org.apache.commons.jelly.tags.core;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -80,10 +82,14 @@ public class ThreadTag extends TagSupport  {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if ( xmlOutput == null ) {
             // lets default to system.out
-            xmlOutput = XMLOutput.createXMLOutput( System.out );
+            try {
+                xmlOutput = XMLOutput.createXMLOutput( System.out );
+            } catch (UnsupportedEncodingException e) {
+                throw new JellyTagException(e);
+            }
         }
 
         // lets create a child context

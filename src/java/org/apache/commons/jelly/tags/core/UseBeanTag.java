@@ -62,6 +62,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -112,21 +113,26 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
         String var = (String) attributes.get( "var" );
         Object classObject = attributes.remove( "class" );
         
-        // this method could return null in derived classes
-        Class theClass = convertToClass(classObject);
+        try {
+            // this method could return null in derived classes
+            Class theClass = convertToClass(classObject);
+            
+            this.bean = newInstance(theClass, attributes, output);
+            setBeanProperties(bean, attributes);
         
-        this.bean = newInstance(theClass, attributes, output);
-        setBeanProperties(bean, attributes);
-        
-        // invoke body which could result in other properties being set
-        invokeBody(output);
-        
-        processBean(var, bean);
+            // invoke body which could result in other properties being set
+            invokeBody(output);
+            
+            processBean(var, bean);
+        } 
+        catch (ClassNotFoundException e) {
+            throw new JellyTagException(e);
+        }
     }
 
     // Implementation methods
@@ -182,13 +188,13 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * Derived tags could do something different here.
      */
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output) 
-    throws JellyException {
+    throws JellyTagException {
         try {
             return theClass.newInstance();
         } catch (IllegalAccessException e) {
-            throw new JellyException(e.toString());
+            throw new JellyTagException(e.toString());
         } catch (InstantiationException e) {
-            throw new JellyException(e.toString());
+            throw new JellyTagException(e.toString());
         }
     }
     
@@ -196,13 +202,13 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * Sets the properties on the bean. Derived tags could implement some custom 
      * type conversion etc.
      */
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyException {
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         try {
             BeanUtils.populate(bean, attributes);
         } catch (IllegalAccessException e) {
-            throw new JellyException("could not set the properties of the bean",e);
+            throw new JellyTagException("could not set the properties of the bean",e);
         } catch (InvocationTargetException e) {
-            throw new JellyException("could not set the properties of the bean",e);
+            throw new JellyTagException("could not set the properties of the bean",e);
         }
     }
 
@@ -211,7 +217,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * This Strategy method allows derived tags to process the beans in different ways
      * such as to register this bean with its parent tag etc.
      */
-    protected void processBean(String var, Object bean) throws JellyException {
+    protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         } else {
