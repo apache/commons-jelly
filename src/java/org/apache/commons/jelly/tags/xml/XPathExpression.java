@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.4 2002/05/17 15:18:13 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.5 2002/06/18 08:31:02 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/18 08:31:02 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.4 2002/05/17 15:18:13 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.5 2002/06/18 08:31:02 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -75,7 +75,7 @@ import org.jaxen.VariableContext;
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
     
@@ -105,7 +105,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
             
         Object value = context.getVariable(localName);
         
-        //log.info( "Looking up XPath variable of name: " + localName + " value is: " + value );            
+        //log.debug( "Looking up XPath variable of name: " + localName + " value is: " + value );            
         
         return value;
     }
