@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.13 2002/06/21 16:57:17 jstrachan Exp $
- * $Revision: 1.13 $
- * $Date: 2002/06/21 16:57:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.14 2002/06/25 17:12:57 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/06/25 17:12:57 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.13 2002/06/21 16:57:17 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.14 2002/06/25 17:12:57 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -73,7 +73,7 @@ import java.util.List;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -207,6 +207,13 @@ public abstract class TagSupport implements Tag {
         StringWriter writer = new StringWriter();
         getBody().run(context, XMLOutput.createXMLOutput(writer));
         return writer.toString();
+    }
+    
+    /**
+     * Invokes the body of this tag using the given output
+     */
+    protected void invokeBody(XMLOutput output) throws Exception {
+        getBody().run(context, output);
     }
 
     /** 
