@@ -141,18 +141,22 @@ public class WidgetTag extends UseBeanTag {
             Control control = (Control) bean;
 
             // Special handling of size property as the Control object breaks the
-            // JavaBean naming conventions by overloading the setSize() method 	
+            // JavaBean naming conventions by overloading the setSize() method
             Object size = attributes.remove("size");
             setSize(control, size);
 
             // Special handling of color property as the Control object breaks the
             // JavaBean naming conventions by overloading the setBackground() or setForeground() method 	
             Object colorValue = attributes.remove("background");
-            Color background = getColor(control, colorValue);
+            Color background = 
+                (colorValue instanceof Color) 
+                    ? (Color) colorValue : getColor(control, colorValue);
             control.setBackground(background);
 
             colorValue = attributes.remove("foreground");
-            Color foreground = getColor(control, colorValue);
+            Color foreground = 
+                (colorValue instanceof Color)
+                    ? (Color) colorValue : getColor(control, colorValue);
             control.setForeground(foreground);
         }
 
