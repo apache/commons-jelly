@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.9 2002/04/24 13:03:03 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/04/24 13:03:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.10 2002/04/25 16:47:07 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/04/25 16:47:07 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.9 2002/04/24 13:03:03 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.10 2002/04/25 16:47:07 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -117,7 +117,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class XMLParser extends DefaultHandler {
     
@@ -993,7 +993,7 @@ public class XMLParser extends DefaultHandler {
                     String attributeValue = list.getValue(i);
                     Expression expression = taglib.createExpression( getExpressionFactory(), localName, attributeName, attributeValue );
                     if ( expression == null ) {
-                        expression = createExpression( localName, attributeName, attributeValue );
+                        expression = createConstantExpression( localName, attributeName, attributeValue );
                     }
                     script.addAttribute( attributeName, expression );
                 }
@@ -1028,7 +1028,7 @@ public class XMLParser extends DefaultHandler {
                 String attributeValue = list.getValue(i);
                 Expression expression = getExpressionFactory().createExpression( attributeValue );
                 if ( expression == null ) {
-                    expression = createExpression( localName, attributeName, attributeValue );
+                    expression = createConstantExpression( localName, attributeName, attributeValue );
                 }
                 script.addAttribute( attributeName, expression );
             }
@@ -1040,16 +1040,7 @@ public class XMLParser extends DefaultHandler {
         }
     }
     
-    protected Expression createExpression( String tagName, String attributeName, String attributeValue ) throws Exception {
-        String text = attributeValue;
-        int length = text.length();
-        if ( length > 2 && text.charAt(0) == '{'  && text.charAt( length - 1 ) == '}' ) {
-            text = text.substring( 1, length - 1 );
-            Expression answer = getExpressionFactory().createExpression( text );
-            if ( answer != null ) {
-                return answer;
-            }
-        }
+    protected Expression createConstantExpression( String tagName, String attributeName, String attributeValue ) throws Exception {
         return new ConstantExpression( attributeValue );
     }
         

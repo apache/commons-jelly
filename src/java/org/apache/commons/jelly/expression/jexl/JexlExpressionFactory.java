@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.1 2002/04/24 13:03:03 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/04/24 13:03:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.2 2002/04/25 16:47:07 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/25 16:47:07 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.1 2002/04/24 13:03:03 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.2 2002/04/25 16:47:07 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression.jexl;
 
@@ -69,15 +69,20 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * expression which fully supports the Expression Language in JSTL and JSP.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class JexlExpressionFactory implements ExpressionFactory {
 
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
     public Expression createExpression(String text) throws Exception {
-        return new JexlExpression(
-            org.apache.commons.jexl.ExpressionFactory.createExpression( text )
-        );
+        int length = text.length();
+        if ( length > 3 && text.startsWith( "${" ) && text.charAt( length - 1 ) == '}' ) {
+            text = text.substring( 2, length - 1 );
+            return new JexlExpression(
+                org.apache.commons.jexl.ExpressionFactory.createExpression( text )
+            );
+        }
+        return null;
     }
 }

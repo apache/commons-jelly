@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <j:jelly xmlns:j="jelly:core">
-  <j:forEach var="arg" items="args"><j:expr value="arg"/> </j:forEach>
+  <j:forEach var="arg" items="${args}"><j:expr value="${arg}"/> </j:forEach>
 </j:jelly>
