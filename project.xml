@@ -112,7 +112,7 @@
     <dependency>
       <id>ant</id>
       <version>1.4.1</version>
-      <jar>ant-optional-1.4.1</jar>
+      <jar>ant-optional-1.4.1.jar</jar>
     </dependency>
 
     <dependency>
