@@ -38,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  * A tag which loads text from a file or URI into a Jelly variable.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class LoadTextTag extends TagSupport {
 
@@ -62,30 +62,31 @@ public class LoadTextTag extends TagSupport {
         if (file == null && uri == null) {
             throw new JellyTagException( "This tag must have a 'file' or 'uri' specified" );
         }
-        Reader reader = null;
+        
+        InputStream in = null;
         if (file != null) {
             if (! file.exists()) {
                 throw new JellyTagException( "The file: " + file + " does not exist" );
             }
 
             try {
-                if ( encoding == null )
-                    reader = new FileReader(file);
-                else
-                    reader = new InputStreamReader(new FileInputStream(file),encoding);
+                in = new FileInputStream(file);
             } catch (FileNotFoundException e) {
                 throw new JellyTagException("could not find the file",e);
-            } catch (UnsupportedEncodingException e) {
-                throw new JellyTagException("Could not use the encoding \"" + encoding + "\".",e);
             }
         }
         else {
-            InputStream in = context.getResourceAsStream(uri);
+            in = context.getResourceAsStream(uri);
             if (in == null) {
                 throw new JellyTagException( "Could not find uri: " + uri );
             }
-            // @todo should we allow an encoding to be specified?
-            reader = new InputStreamReader(in);
+        }
+
+        Reader reader = null;
+        try {
+            reader = new InputStreamReader(in, encoding);
+        } catch (UnsupportedEncodingException e) {
+            throw new JellyTagException("unsupported encoding",e);
         }
 
         String text = null;
@@ -142,18 +143,19 @@ public class LoadTextTag extends TagSupport {
     }
 
     /**
+     * Sets the encoding to use to read the file
+     */
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    /**
      * Sets the uri to be parsed as text.
      * This can be an absolute URL or a relative or absolute URI
      * from this Jelly script or the root context.
      */
     public void setUri(String uri) {
         this.uri = uri;
-    }
-
-    /** Sets the encoding to be used to read the file, defaults to the platform-encoding.
-      */
-    public void setEncoding(String encName) {
-        this.encoding = encName;
     }
 
     /** Returns the encoding set.
