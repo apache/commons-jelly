@@ -14,4 +14,18 @@
       
     Found ${file.absolutePath}
   </j:forEach>
+
+  <fileScanner var="dirscanner">
+    <fileset dir="src/test" includes="org/apache/commons/jelly/**"/>
+  </fileScanner>
+
+  Iterating through test directories
+
+  <j:forEach var="dir" items="${dirscanner.directories()}">
+    <!-- here we could process the directory in some way -->
+    <!-- such as creating a similar directory in a different base path -->
+      
+    Found ${dir.absolutePath}
+  </j:forEach>
+
 </j:jelly>

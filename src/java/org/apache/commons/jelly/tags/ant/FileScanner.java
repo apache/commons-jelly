@@ -91,6 +91,10 @@ public class FileScanner {
         return new FileIterator(project, filesets.iterator());
     }
 
+    public Iterator directories() {
+        return new FileIterator(project, filesets.iterator(), true);
+    }
+
     public boolean hasFiles() {
         return filesets.size() > 0;
     }        

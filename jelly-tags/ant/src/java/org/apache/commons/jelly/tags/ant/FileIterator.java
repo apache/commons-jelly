@@ -100,9 +100,20 @@ public class FileIterator implements Iterator {
     /** Have we set a next object? */
     private boolean nextObjectSet = false;
 
-    public FileIterator(Project project, Iterator fileSetIterator) {
+    /** Return only directories? */
+    private boolean iterateDirectories = false;
+
+    public FileIterator(Project project,
+                        Iterator fileSetIterator) {
+        this( project, fileSetIterator, false);
+    }
+
+    public FileIterator(Project project,
+                        Iterator fileSetIterator,
+                        boolean iterateDirectories) {
         this.project = project;
         this.fileSetIterator = fileSetIterator;
+        this.iterateDirectories = iterateDirectories;
     }
     
     // Iterator interface
@@ -152,7 +163,12 @@ public class FileIterator implements Iterator {
                 FileSet fs = (FileSet) fileSetIterator.next();
                 ds = fs.getDirectoryScanner(project);
                 ds.scan();
-                files = ds.getIncludedFiles();
+                if (iterateDirectories) {
+                    files = ds.getIncludedDirectories();
+                } 
+                else {
+                    files = ds.getIncludedFiles();
+                }
                 if ( files.length > 0 ) {
                     fileIndex = -1;
                     break;
