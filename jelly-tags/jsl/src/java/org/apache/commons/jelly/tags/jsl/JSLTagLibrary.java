@@ -107,13 +107,9 @@ public class JSLTagLibrary extends XMLTagLibrary {
                 log.debug( "Parsing XPath expression: " + attributeValue );
             }
             
-            try {
-                XPath xpath = new Dom4jXPath(attributeValue);
-                return new XPathExpression(attributeValue, xpath, tagScript);
-            }
-            catch (JaxenException e) {
-                throw new JellyException( "Could not parse XPath expression: \"" + attributeValue + "\" reason: " + e, e );            
-            }            
+            Expression xpathExpr = createXPathTextExpression( attributeValue );
+            
+            return new XPathExpression(attributeValue, xpathExpr, tagScript);
         }
         
         if (attributeName.equals("match")) {

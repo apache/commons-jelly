@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.11 2002/12/11 12:40:56 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/12/11 12:40:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.12 2002/12/24 04:50:19 werken Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/12/24 04:50:19 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.11 2002/12/11 12:40:56 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.12 2002/12/24 04:50:19 werken Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -66,6 +66,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.logging.Log;
@@ -73,11 +74,13 @@ import org.apache.commons.logging.LogFactory;
 import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.VariableContext;
 import org.jaxen.XPath;
+import org.jaxen.JaxenException;
+import org.jaxen.dom4j.Dom4jXPath;
 
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
     
@@ -85,41 +88,58 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     private Log log = LogFactory.getLog(XPathExpression.class);
 
     private String text;
-    private XPath xpath;
+    private Expression xpathExpr;
     private JellyContext context;
+    private Map uris;
     
     public XPathExpression() {
     }
 
-    public XPathExpression(String text, XPath xpath, TagScript tagScript) {
+    public XPathExpression(String text,
+                           Expression xpathExpr,
+                           TagScript tagScript) {
         this.text = text;
-        this.xpath = xpath;
+        this.xpathExpr = xpathExpr;
         
         Map namespaceContext = tagScript.getNamespaceContext();
         
-        Map uris = createUriMap(namespaceContext);
-        
-        if (log.isDebugEnabled()) {
-        	log.debug( "Setting the namespace context to be: " + uris );
-        }
-        
-        xpath.setNamespaceContext( new SimpleNamespaceContext( uris ) );
+        this.uris = createUriMap(namespaceContext);
     }
-    
+
     public String toString() {
-        return xpath.toString();
+        return getExpressionText();
     }
             
     // Expression interface
     //------------------------------------------------------------------------- 
     public String getExpressionText() {
-        return text;
+        return this.text;
     }
     
     public Object evaluate(JellyContext context) {
         this.context = context;
-        xpath.setVariableContext(this);
-        return xpath;
+
+        try
+        {
+            XPath xpath = new Dom4jXPath( this.xpathExpr.evaluateAsString( context ) );
+            
+            xpath.setVariableContext(this);
+            
+            if (log.isDebugEnabled()) {
+                log.debug( "Setting the namespace context to be: " + uris );
+            }
+            
+            xpath.setNamespaceContext( new SimpleNamespaceContext( this.uris ) );
+            
+            return xpath;
+        }
+        catch (JaxenException e)
+        {
+            log.error( "Error constructing xpath",
+                       e );
+        }
+
+        return null;
     }
     
     // VariableContext interface

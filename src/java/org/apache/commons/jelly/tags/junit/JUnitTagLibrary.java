@@ -111,8 +111,13 @@ public class JUnitTagLibrary extends TagLibrary {
             }
             
             try {
-                XPath xpath = new Dom4jXPath(attributeValue);
-                return new XPathExpression(attributeValue, xpath, tagScript);
+                // XPath xpath = new Dom4jXPath(attributeValue);
+                Expression xpathExpr = super.createExpression( factory,
+                                                               tagScript,
+                                                               attributeName,
+                                                               attributeValue );
+
+                return new XPathExpression(attributeValue, xpathExpr, tagScript);
             }
             catch (JaxenException e) {
                 throw new JellyException( "Could not parse XPath expression: \"" + attributeValue + "\" reason: " + e, e );            
