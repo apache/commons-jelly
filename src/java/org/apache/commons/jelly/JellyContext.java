@@ -500,17 +500,18 @@ public class JellyContext {
         Script script = compileScript(url);
         
         URL newJellyContextURL = getJellyContextURL(url);
-        JellyContext newJellyContext = null;
-
+        
+        JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
+        newJellyContext.setExport( export );
+        newJellyContext.setInherit( inherit );
+            
         if ( inherit ) {
-            newJellyContext = this;
-        } else {
-            newJellyContext = new JellyContext(this, newJellyContextURL);
-            newJellyContext.setExport( export );
-            newJellyContext.setInherit( inherit );
-        }
+            // use the same variable scopes
+            newJellyContext.variables = this.variables;
+        } 
 
         script.run(newJellyContext, output);
+        
         return newJellyContext;
     }
 
