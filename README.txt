@@ -14,6 +14,12 @@ Some common maven goals for building and testing this project are
 	javadoc  : creates the javadoc
 	site     : build the complete documentation with reports, javadoc etc
 	dist     : creates a distribution
+
+
+Jelly contains a number of individual tag libraries which can be built 
+by themselves by changing to the directory jelly-tags/foo and performing the
+above commands to build the library you're interested in.
+
 			
 For more help using Maven please go to
 
