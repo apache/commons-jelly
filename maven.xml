@@ -232,7 +232,14 @@
       </fileset>
     </fileScanner>
             
-    <property name="mavenCmd" value="maven"/>
+    <j:choose>
+      <j:when test="${systemScope['os.name'].startsWith('Windows')}">
+        <j:set var="mavenCmd" value="${maven.home}/bin/maven.bat"/>
+      </j:when>
+      <j:otherwise>
+        <j:set var="mavenCmd" value="${maven.home}/bin/maven"/>
+      </j:otherwise>
+    </j:choose>
         
     <j:forEach items="${taglibProjects.iterator()}" var="taglib">
       <j:set var="tlName" value="${taglib.parentFile.name}" />
@@ -254,7 +261,6 @@
           </filterchain>
         </copy>
 
-        <echo>If you are on windows, please use -DmavenCmd=maven.bat</echo>      
         <exec executable="${mavenCmd}" failonerror="true" dir="${dir}">
           <arg value="jellydoc"/>
           <arg value="site"/>
