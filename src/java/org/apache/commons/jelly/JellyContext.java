@@ -597,20 +597,12 @@ public class JellyContext {
                 return new URL(uri);
             }
             catch (MalformedURLException e) {
-            	// try for a fully qualified file first
-            	File nonRelativeFile = new File(uri);
-            	if (nonRelativeFile.exists() && nonRelativeFile.canRead()) {
-                    return nonRelativeFile.toURL();
+                // lets try find a relative resource
+                try {
+                    return createRelativeURL(currentURL, uri);
+                } catch (MalformedURLException e2) {
+                    throw e;
                 }
-            	else {
-                    // lets try find a relative resource
-                    try {
-                        return createRelativeURL(currentURL, uri);
-                    } 
-                    catch (MalformedURLException e2) {
-                        throw e;
-                    }
-				}
             }
         }
     }
