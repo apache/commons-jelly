@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.11 2003/01/24 22:53:34 morgand Exp $
- * $Revision: 1.11 $
- * $Date: 2003/01/24 22:53:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.12 2003/04/04 15:58:54 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/04/04 15:58:54 $
  *
  * ====================================================================
  *
@@ -57,10 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IncludeTag.java,v 1.11 2003/01/24 22:53:34 morgand Exp $
+ * $Id: IncludeTag.java,v 1.12 2003/04/04 15:58:54 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
+
+import java.io.File;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
@@ -71,12 +73,13 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 
 public class IncludeTag extends TagSupport {
 
     private String uri;
+    private File file;
 
     private boolean shouldExport;
     private boolean shouldInherit;
@@ -87,13 +90,13 @@ public class IncludeTag extends TagSupport {
     }
 
     public void setInherit(String inherit) {
-        if ( "true".equals( inherit ) ) {
+        if ("true".equals(inherit)) {
             this.shouldInherit = true;
         }
     }
 
     public void setExport(String export) {
-        if ( "true".equals( export ) ) {
+        if ("true".equals(export)) {
             this.shouldExport = true;
         }
     }
@@ -106,40 +109,53 @@ public class IncludeTag extends TagSupport {
         return this.shouldExport;
     }
 
+    /**
+     * @return
+     */
+    public File getFile() {
+        return file;
+    }
+
+    /**
+     * Sets the file to be included which is either an absolute file or a file
+     * relative to the current directory
+     */
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+
     // Tag interface
-
     //------------------------------------------------------------------------- 
+    public void doTag(XMLOutput output)
+        throws MissingAttributeException, JellyTagException {
 
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-
-        if (uri == null) {
-
-            throw new MissingAttributeException( "uri" );
-
+        if (uri == null && file == null) {
+            throw new MissingAttributeException("uri");
         }
 
         // we need to create a new JellyContext of the URI
-
         // take off the script name from the URL
-
+        String text = null;
         try {
-            context.runScript(uri, output, isExport(), isInherit() );
-        } 
+            if (uri != null) {
+                text = uri;
+                context.runScript(uri, output, isExport(), isInherit());
+            }
+            else {
+                text = file.toString();
+                context.runScript(file, output, isExport(), isInherit());
+            }
+        }
         catch (JellyException e) {
-            throw new JellyTagException("could not include jelly script",e);
+            throw new JellyTagException("could not include jelly script: " + text + ". Reason: " + e, e);
         }
     }
 
     // Properties
-
     //-------------------------------------------------------------------------                
-
     /** Sets the URI (relative URI or absolute URL) for the script to evaluate. */
-
     public void setUri(String uri) {
-
         this.uri = uri;
-
     }
-
 }
