@@ -4,7 +4,7 @@
 This test shows the waitFor tag waiting for multiple threads. 
 -->
 
-<jelly xmlns="jelly:core" xmlns:threads="jelly:threads" xmlns:bsh="jelly:beanshell">
+<jelly xmlns="jelly:core" xmlns:threads="jelly:threads">
     <threads:thread var="thread1">
         <whitespace>
         thread1: going to sleep for 1 second
@@ -21,9 +21,7 @@ This test shows the waitFor tag waiting for multiple threads.
 
     <!-- results in a FAILURE -->
     <threads:thread var="thread3">
-        <bsh:script>
-            throw new Exception("thread 3 exception");
-        </bsh:script>
+			<new var="bogus" className="java.lang.System"/>
     </threads:thread>
 
     <!-- waits for thread 1 and 2 -->

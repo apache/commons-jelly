@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<test:suite xmlns="jelly:core" xmlns:test="jelly:junit" xmlns:threads="jelly:threads" xmlns:bsh="jelly:beanshell">
+<test:suite xmlns="jelly:core" xmlns:test="jelly:junit" xmlns:threads="jelly:threads">
     <test:case name="testBasic">
         <set var="result" value=""/>
 
@@ -170,9 +170,7 @@
 
         <threads:thread var="thread1">
             THROW AN EXCEPTION
-            <bsh:script>
-                throw new Exception("This exception SHOULD happen");
-            </bsh:script>
+			<new var="bogus" className="java.lang.System"/>
         </threads:thread>
 
         <threads:thread var="thread2">

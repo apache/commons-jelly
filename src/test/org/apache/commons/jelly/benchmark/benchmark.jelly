@@ -2,17 +2,15 @@
 
 <!-- revaluates the same script many times to test performance -->
 
-<j:jelly xmlns:j="jelly:core" xmlns:bsh="jelly:beanshell">
+<j:jelly xmlns:j="jelly:core" xmlns:log="jelly:log">
 
-	<bsh:script>
-		System.out.println( "Started at: " + new java.util.Date() );
-	</bsh:script>
+  <j:useBean var="start" class="java.util.Date" />
+  <log:info>Started at: ${start}</log:info>
 	
   <j:forEach begin="1" end="1000">
   	<j:include uri="sample.jelly"/>
   </j:forEach>
   
-	<bsh:script>
-		System.out.println( "Finished at: " + new java.util.Date() );
-	</bsh:script>
+  <j:useBean var="end" class="java.util.Date" />
+  <log:info>Finished at: ${end}</log:info>
 </j:jelly>
