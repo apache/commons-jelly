@@ -240,5 +240,13 @@
 		<test:assertEquals expected="&lt;!--this is a comment--&gt;" actual="${t.trim()}"/>
   </test:case>
   
+  <test:case name="testFileParse">
+    <j:new var="theSuite" className="java.io.File">
+      <j:arg value="${basedir}/src/test/org/apache/commons/jelly/tags/xml/suite.jelly"/>
+    </j:new>
+    exists = ${theSuite.exists()}, readable = ${theSuite.canRead()}, class=${theSuite.class.name}
+    <!-- this test fails with beanutils 1.6 
+    <x:parse var="suite" xml="${theSuite}"/> -->
+  </test:case>
 
 </test:suite>
