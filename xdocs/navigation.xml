@@ -25,14 +25,14 @@
       <item name="Overview"                href="/index.html"/>
       <item name="FAQ"                     href="/faq.html"/>
       <item name="Getting Started"         href="/gettingstarted.html"/>
-      <item name="Tutorial"         	     href="/tutorial.html"/>
+      <item name="Tutorial"                href="/tutorial.html"/>
       <item name="Detail"                  href="/overview.html"/>
       <item name="JellyDoc"                  href="/jellydoc.html"/>
       <item name="Download"                href="http://www.ibiblio.org/maven/commons-jelly/distributions/"/>
     </menu>
     <menu name="Community">
-      <!-- <item name="News Blog"			         href="http://blogs.werken.com/projects/jelly/"/>-->
-      <item name="IRC"					   				 href="/irc.html"/>
+      <!-- <item name="News Blog"               href="http://blogs.werken.com/projects/jelly/"/>-->
+      <item name="IRC"                      href="/irc.html"/>
       <item name="Powered By"              href="/powered.html"/>
       <item name="To Do List"              href="/todo.html"/>
     </menu>
@@ -46,11 +46,11 @@
     </menu>
     
     <menu name="Jakarta Community">
-			<item name="Get Involved"            href="http://jakarta.apache.org/site/getinvolved.html"/>
-			<item name="License"                 href="http://jakarta.apache.org/commons/license.html"/>
-			<item name="Mailing Lists"           href="http://jakarta.apache.org/site/mail.html"/>
-			<item name="CVS Repositories"        href="http://jakarta.apache.org/site/cvsindex.html"/>
-			<item name="Who We Are"              href="http://jakarta.apache.org/site/whoweare.html"/>
+      <item name="Get Involved"            href="http://jakarta.apache.org/site/getinvolved.html"/>
+      <item name="License"                 href="http://jakarta.apache.org/commons/license.html"/>
+      <item name="Mailing Lists"           href="http://jakarta.apache.org/site/mail.html"/>
+      <item name="CVS Repositories"        href="http://jakarta.apache.org/site/cvsindex.html"/>
+      <item name="Who We Are"              href="http://jakarta.apache.org/site/whoweare.html"/>
     </menu>
     
     &common-menus;
