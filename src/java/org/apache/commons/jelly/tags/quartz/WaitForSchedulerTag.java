@@ -1,15 +1,15 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/WaitForSchedulerTag.java,v 1.1 2002/07/25 01:51:20 werken Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/25 01:51:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/WaitForSchedulerTag.java,v 1.2 2002/10/23 16:35:36 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/23 16:35:36 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2001 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
