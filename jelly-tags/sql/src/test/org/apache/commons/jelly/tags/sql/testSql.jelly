@@ -17,7 +17,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql">
 
   <sql:setDataSource 
-  	var="db"
+      var="db"
     url="${databaseUrl}" 
     driver="${databaseDriver}" 
     user="${databaseUser}"

@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.jetty</package>
 
   <description>
-  	These are Jelly tags that can set up an in-process web server.
+      These are Jelly tags that can set up an in-process web server.
   </description>
   <shortDescription>Commons Jelly Jetty Tag Library</shortDescription>
   
@@ -45,7 +45,7 @@
       <version>SNAPSHOT</version>
     </dependency>
   
-	<!-- http taglib -->
+    <!-- http taglib -->
     <dependency>
       <id>commons-httpclient</id>
       <version>2.0</version>
@@ -76,7 +76,7 @@
       <version>1.0.3</version>
     </dependency> -->
 
-	
+    
     <!-- END for testing -->
     
     <!-- for runtime -->

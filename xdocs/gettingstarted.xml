@@ -28,7 +28,7 @@
 
 
 <p>
-The easiest way to get started with Jelly is to try out the <a href="tutorial.html">tutorials</a>.	
+The easiest way to get started with Jelly is to try out the <a href="tutorial.html">tutorials</a>.    
 Before you try out any of the tutorials, you'll need to install Maven first.
 For more details on how to install Maven please refer to the 
 <a href="http://maven.apache.org/">Maven documentation</a>
@@ -93,7 +93,7 @@ compile all the code and build and run the unit test cases.
     changing the environment variable MAVEN_OPTS (e.g. to -Xmx768m...) might help.
     </p>
 <p>
-Once you've got this far, it might be time to try out one of the <a href="tutorial.html">tutorials</a>	
+Once you've got this far, it might be time to try out one of the <a href="tutorial.html">tutorials</a>    
 </p>
 </section>
 

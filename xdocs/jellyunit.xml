@@ -58,9 +58,9 @@
         <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/betwixt/src/test/org/apache/commons/jelly/betwixt/common.jelly?rev=HEAD">here</a>
       </p>
       <p>
-      	The <a href="libs/validate/tags.html">validate</a> library can be used to perform XML validation inside JellyUnit.
-      	For example there's an example JellyUnit script validating XML 
-      	<a href="http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/validate/src/test/org/apache/commons/jelly/tags/validate/suite.jelly?rev=HEAD">here</a>
+          The <a href="libs/validate/tags.html">validate</a> library can be used to perform XML validation inside JellyUnit.
+          For example there's an example JellyUnit script validating XML 
+          <a href="http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/validate/src/test/org/apache/commons/jelly/tags/validate/suite.jelly?rev=HEAD">here</a>
       </p>
     </section>
 
@@ -99,12 +99,12 @@
         which you can derive from
         to produce a single Java class which has a static <i>suite()</i> method to create a TestSuite object 
         containing all the test cases created by the JellyUnit files.
-		There is an 
+        There is an 
         <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/junit/src/test/org/apache/commons/jelly/junit/TestJUnit.java?rev=HEAD">example</a>
         of this in action.
       </p>
       <p>So if you had a test suite defined in a jelly script <a>suite.jelly</a> in a package com.acme.foo
-      	then you could create a class, capable of being ran inside any JUnit test runner framework as follows
+          then you could create a class, capable of being ran inside any JUnit test runner framework as follows
       </p>
 <source>
 package com.acme.foo;

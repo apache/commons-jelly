@@ -39,17 +39,17 @@
     <j:if test="${test.invokeThatThrowsException}">
         <j:set var="exceptionMessage" value="method threw an exception"/>
         <j:catch var="jellyException">
-	        <j:invokeStatic className="org.apache.commons.jelly.core.ExceptionBean" method="staticMethod" exceptionVar="exceptionThrown">
-	        	<j:arg value="${exceptionMessage}"/>
-	        </j:invokeStatic>
+            <j:invokeStatic className="org.apache.commons.jelly.core.ExceptionBean" method="staticMethod" exceptionVar="exceptionThrown">
+                <j:arg value="${exceptionMessage}"/>
+            </j:invokeStatic>
         </j:catch>
     </j:if>
     <j:if test="${test.invokeThatDoesNotHandleException}">
         <j:set var="exceptionMessage" value="method threw an exception"/>
         <j:catch var="jellyException">
-	        <j:invokeStatic className="org.apache.commons.jelly.core.ExceptionBean" method="staticMethod">
-	        	<j:arg value="${exceptionMessage}"/>
-	        </j:invokeStatic>
+            <j:invokeStatic className="org.apache.commons.jelly.core.ExceptionBean" method="staticMethod">
+                <j:arg value="${exceptionMessage}"/>
+            </j:invokeStatic>
         </j:catch>
     </j:if>
     

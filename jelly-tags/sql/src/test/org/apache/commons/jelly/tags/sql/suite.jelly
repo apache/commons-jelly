@@ -16,23 +16,23 @@
 -->
 <test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:sql="jelly:sql">
 
-	<test:case name="testResultSet">
-	
-	  <sql:resultSet var="results">
-	    <sql:row id="abc" name="James"/>
-	    <sql:row id="def" name="Joe"/>
-	  </sql:resultSet>
-	
-		<test:assert test="${results != null}">created a results object</test:assert>		
-		
-		<test:assert test="${results.rowCount == 2}">contains 2 rows</test:assert>
+    <test:case name="testResultSet">
+    
+      <sql:resultSet var="results">
+        <sql:row id="abc" name="James"/>
+        <sql:row id="def" name="Joe"/>
+      </sql:resultSet>
+    
+        <test:assert test="${results != null}">created a results object</test:assert>        
+        
+        <test:assert test="${results.rowCount == 2}">contains 2 rows</test:assert>
 
-		<test:assertEquals expected="abc" actual="${results.rows[0].id}"/>
-		<test:assertEquals expected="def" actual="${results.rows[1].id}"/>
-		
-		<test:assertEquals expected="James" actual="${results.rows[0].name}"/>
-		<test:assertEquals expected="Joe" actual="${results.rows[1].name}"/>
-		
-	</test:case>
+        <test:assertEquals expected="abc" actual="${results.rows[0].id}"/>
+        <test:assertEquals expected="def" actual="${results.rows[1].id}"/>
+        
+        <test:assertEquals expected="James" actual="${results.rows[0].name}"/>
+        <test:assertEquals expected="Joe" actual="${results.rows[1].name}"/>
+        
+    </test:case>
 
 </test:suite>

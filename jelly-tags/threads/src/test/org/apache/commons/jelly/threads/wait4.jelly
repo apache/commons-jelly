@@ -36,7 +36,7 @@ This test shows the waitFor tag waiting for multiple threads.
 
     <!-- results in a FAILURE -->
     <threads:thread var="thread3">
-			<new var="bogus" className="java.lang.System"/>
+            <new var="bogus" className="java.lang.System"/>
     </threads:thread>
 
     <!-- waits for thread 1 and 2 -->

@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.dynabean</package>
 
   <description>
-  	 The Jelly DynaBean Tag Library
+       The Jelly DynaBean Tag Library
   </description>
   <shortDescription>Commons Jelly Dyna Bean Tag Library</shortDescription>
   

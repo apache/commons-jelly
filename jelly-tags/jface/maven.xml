@@ -17,31 +17,31 @@
 
   <!-- define the classpath used to run examples -->
   <goal name="create-classpath" prereqs="java:compile,test:compile">
-		<path id="test.classpath">
-			<pathelement path="${maven.build.dest}"/>
-			<pathelement path="target/classes"/>
-			<pathelement path="target/test-classes"/>
-			<path refid="maven.dependency.classpath"/>
-		</path>
+        <path id="test.classpath">
+            <pathelement path="${maven.build.dest}"/>
+            <pathelement path="target/classes"/>
+            <pathelement path="target/test-classes"/>
+            <path refid="maven.dependency.classpath"/>
+        </path>
   </goal>
 
-	<!-- demos -->
+    <!-- demos -->
   <goal name="demo" prereqs="create-classpath"
-		description="Runs a JellyJFace demo">
+        description="Runs a JellyJFace demo">
     <java classname="org.apache.commons.jelly.tags.jface.JFaceDemo" fork="yes">
       <classpath refid="test.classpath"/>
     </java>
   </goal>
 
   <goal name="demo:preferences" prereqs="create-classpath"
-		description="Runs a Preferences demo">
+        description="Runs a Preferences demo">
     <java classname="org.apache.commons.jelly.tags.jface.preference.PreferenceDemo" fork="yes">
       <classpath refid="test.classpath"/>
     </java>
   </goal>
 
   <goal name="demo:wizard" prereqs="create-classpath"
-		description="Runs a Wizard demo">
+        description="Runs a Wizard demo">
     <java classname="org.apache.commons.jelly.tags.jface.wizard.WizardDemo" fork="yes">
       <classpath refid="test.classpath"/>
     </java>

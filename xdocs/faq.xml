@@ -131,12 +131,12 @@
     <section name="Using Jelly">
       <dl>
         <dt>
-					<a name="calling-jelly">
-						How do I call Jelly from Java code?
-					</a>
+                    <a name="calling-jelly">
+                        How do I call Jelly from Java code?
+                    </a>
         </dt>
         <dd>
-        	Try the following code. Note that the runScript() method below is overloaded and can take a File, URL etc.
+            Try the following code. Note that the runScript() method below is overloaded and can take a File, URL etc.
 <code>
 <source>
 // pass the output of the script somewhere
@@ -152,46 +152,46 @@ context.runScript( "foo.jelly", output );</source>
 
       <dl>
         <dt>
-					<a name="command-line">
-						How do I invoke Jelly from the command line?
-					</a>
+                    <a name="command-line">
+                        How do I invoke Jelly from the command line?
+                    </a>
         </dt>
         <dd>
-        	When you build a binary disitribution of Jelly, 
-        	there is a jelly script which works on Windows and Unixes to run Jelly.
-        	You can create a binary distribution of Jelly via
-        	<code>
-        		maven dist
-        	</code>
+            When you build a binary disitribution of Jelly, 
+            there is a jelly script which works on Windows and Unixes to run Jelly.
+            You can create a binary distribution of Jelly via
+            <code>
+                maven dist
+            </code>
         </dd>
         <dd>
-        	All you really need to do is to invoke the 
-        	<i>org.apache.commons.jelly.Jelly</i> class from the command line
-        	with a correct classpath.
+            All you really need to do is to invoke the 
+            <i>org.apache.commons.jelly.Jelly</i> class from the command line
+            with a correct classpath.
         </dd>
       </dl>
       <dl>
         <dt>
-					<a name="invoke-ant">
-						How do I invoke Jelly from inside Ant?
-					</a>
+                    <a name="invoke-ant">
+                        How do I invoke Jelly from inside Ant?
+                    </a>
         </dt>
         <dd>
-        	There is an Ant task that comes with the Ant library called
-        	<i>org.apache.commons.task.JellyTask</i> which can be taskdef'd in any Ant script.
+            There is an Ant task that comes with the Ant library called
+            <i>org.apache.commons.task.JellyTask</i> which can be taskdef'd in any Ant script.
         </dd>
       </dl>
 
       <dl>
         <dt>
-					<a name="invoke-maven">
-						How do I invoke Jelly from inside Maven?
-					</a>
+                    <a name="invoke-maven">
+                        How do I invoke Jelly from inside Maven?
+                    </a>
         </dt>
         <dd>
-        	Maven's maven.xml file is actually a Jelly script; so you can include any Jelly script
-        	inside any of the Maven goals. So if you want to execute a specific Jelly script you can
-        	just &lt;j:include uri="foo.jelly" &gt; it inside the maven.xml.
+            Maven's maven.xml file is actually a Jelly script; so you can include any Jelly script
+            inside any of the Maven goals. So if you want to execute a specific Jelly script you can
+            just &lt;j:include uri="foo.jelly" &gt; it inside the maven.xml.
         </dd>
       </dl>
 

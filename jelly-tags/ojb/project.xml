@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.ojb</package>
 
   <description>
-  	 A variety of tags for working with the  ObjectBridge persistence engine 
+       A variety of tags for working with the  ObjectBridge persistence engine 
   </description>
   <shortDescription>Commons Jelly OjB Tag Library</shortDescription>
   

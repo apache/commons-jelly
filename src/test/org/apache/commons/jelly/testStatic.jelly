@@ -16,11 +16,11 @@
 -->
 <j:jelly trim="false" xmlns:j="jelly:core">
   <x:foo xmlns:x="http://www.acme.com/foo">
-  	<a cheese="cheddar"/>
-	<y:bar xmlns:y="something">
-	  <x:topping y:type="ham"/>
-	</y:bar>
-  </x:foo>				  		
+      <a cheese="cheddar"/>
+    <y:bar xmlns:y="something">
+      <x:topping y:type="ham"/>
+    </y:bar>
+  </x:foo>                          
 </j:jelly>
 
 

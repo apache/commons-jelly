@@ -21,7 +21,7 @@
   <package>org.apache.commons.jelly.tags.html</package>
 
   <description>
-  	These Jelly tags can scrub commons errors in HTML syntax.
+      These Jelly tags can scrub commons errors in HTML syntax.
   </description>
   <shortDescription>Commons Jelly HTML Tag Library</shortDescription>
 

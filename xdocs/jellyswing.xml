@@ -44,7 +44,7 @@
         appear with pull down menus, a splitter pane, a form, entry fields, buttons and a table.
       </p>
       <source>
-	maven demo:swing
+    maven demo:swing
       </source>
       <p>
         This example even shows that simple actions can be coded in Jelly script too! Though typically most
@@ -65,7 +65,7 @@
         <code>jelly-tags/swing</code> directory.
       </p>
       <source>
-	maven jelly:runner
+    maven jelly:runner
       </source>
       <p>
         This makes developing Jelly scripts and JellySwing scripts in particular, much more RAD-like.

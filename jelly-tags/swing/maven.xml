@@ -18,12 +18,12 @@
 
   <!-- define the classpath used to run examples -->
   <goal name="create-classpath" prereqs="java:compile, test:compile">
-		<path id="test.classpath">
-			<pathelement path="${maven.build.dest}"/>
-			<pathelement path="target/classes"/>
-			<pathelement path="target/test-classes"/>
-			<path refid="maven.dependency.classpath"/>
-		</path>
+        <path id="test.classpath">
+            <pathelement path="${maven.build.dest}"/>
+            <pathelement path="target/classes"/>
+            <pathelement path="target/test-classes"/>
+            <path refid="maven.dependency.classpath"/>
+        </path>
   </goal>
 
 
@@ -36,7 +36,7 @@
   </goal>
 
 
-	<!-- move this into a Maven plugin -->
+    <!-- move this into a Maven plugin -->
   <goal name="jelly:runner" prereqs="create-classpath"
     description="Runs the Jelly Runner which is a JellySwing script to run other Jelly scripts)">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
@@ -60,7 +60,7 @@
   </goal>
 
 
-	<!-- a simple example program to demonstrate the use of <tableModel> -->
+    <!-- a simple example program to demonstrate the use of <tableModel> -->
   <goal name="jelly:showvars" prereqs="create-classpath"
     description="Displays the current variables in the Maven project">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">

@@ -46,7 +46,7 @@ About to spawn another thread...
     </web-app>
   </x:parse>
 
-  <j:whitespace>	
+  <j:whitespace>    
   <x:set var="count" select="count($doc//servlet)"/>
   <x:forEach var="s" select="$doc//servlet">
     name: <x:expr select="$s/servlet-name"/>
@@ -54,7 +54,7 @@ About to spawn another thread...
   </x:forEach>
 
   There are <x:expr select="$count"/> servlet(s)
-  </j:whitespace>	
+  </j:whitespace>    
 </j:thread>
 
 The thread should have started now!

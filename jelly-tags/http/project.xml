@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.http</package>
 
   <description>
-  	These are simple Jelly tags that can perform HTTP requests.
+      These are simple Jelly tags that can perform HTTP requests.
   </description>
   <shortDescription>Commons Jelly HTTP Tag Library</shortDescription>
   

@@ -21,7 +21,7 @@
   xmlns:j="jelly:core">
 
   <soap:invoke
-  	var="answer"
+      var="answer"
     endpoint="http://nagoya.apache.org:5049/axis/services/echo"
     namespace="http://soapinterop.org/"
     method="echoString">Hi Jim!</soap:invoke>
@@ -29,17 +29,17 @@
   <log:info>Sent: Hi Jim! and received: ${answer} of type: ${answer.class.name}</log:info>
 
   <soap:invoke
-  	var="answer"
+      var="answer"
       endpoint="http://services.xmethods.net:80/soap/servlet/rpcrouter"
       namespace="urn:xmethods-Temperature"
       method="getTemp">40031</soap:invoke>
       
   <log:info>Sent: 40031 and received: ${answer} of type: ${answer.class.name}</log:info>
 
-	<j:set var="x" value="${300}"/>
-	
+    <j:set var="x" value="${300}"/>
+    
   <soap:invoke
-  	var="answer"
+      var="answer"
       endpoint="http://www.xmlbus.com:9010/xmlbus/container/Converter/ConverterService/ConverterPort/"
       namespace="urn:target-converter-service"
       method="mmToInch"

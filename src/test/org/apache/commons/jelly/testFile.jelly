@@ -19,9 +19,9 @@
 
 <forEach var="i" begin="1" end="10">
   <file name="target/test_${i}.xml">
-  	<test id="${id}">
-  	  a test
-  	</test>
+      <test id="${id}">
+        a test
+      </test>
   </file>
 </forEach>
 

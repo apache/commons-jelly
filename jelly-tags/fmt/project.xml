@@ -23,7 +23,7 @@
   <package>org.apache.commons.jelly.tags.fmt</package>
 
   <description>
-	  The Jelly JSP Standard Tag Library (JSTL) for I18N and Formatting
+      The Jelly JSP Standard Tag Library (JSTL) for I18N and Formatting
   </description>
   <shortDescription>Commons Jelly FMT Tag Library</shortDescription>
   
@@ -80,7 +80,7 @@
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
     </dependency>
 
-	<dependency>
+    <dependency>
       <id>bsh</id>
       <version>1.2-b3</version>
     </dependency>

@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.xmlunit</package>
 
   <description>
-  	This is a Jelly interface for unit testing XML applications.
+      This is a Jelly interface for unit testing XML applications.
   </description>
   <shortDescription>Commons Jelly XMLUnit Tag Library</shortDescription>
   

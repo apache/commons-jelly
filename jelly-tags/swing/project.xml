@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.swing</package>
 
   <description>
-  	This is a Jelly interface for configuring Swing applications.
+      This is a Jelly interface for configuring Swing applications.
   </description>
   <shortDescription>Commons Jelly Swing Tag Library</shortDescription>
   

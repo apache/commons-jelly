@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.define</package>
 
   <description>
-  	 The Jelly Define Tag Library
+       The Jelly Define Tag Library
   </description>
   <shortDescription>Commons Jelly Define Tag Library</shortDescription>
   

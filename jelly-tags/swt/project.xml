@@ -45,7 +45,7 @@
       <version>SNAPSHOT</version>
     </dependency>
   
-		<!-- swt taglib -->
+        <!-- swt taglib -->
     <dependency>
       <id>swt</id>
       
@@ -66,7 +66,7 @@
       <artifactId>commons-jelly-tags-log</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
-    	
+        
     <!-- END for running demos -->
   </dependencies>
   

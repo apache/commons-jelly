@@ -15,9 +15,9 @@
   limitations under the License.
 -->
 <test:suite 
-	xmlns:j="jelly:core" 
-	xmlns:test="jelly:junit"
-	xmlns:v="jelly:validate">
+    xmlns:j="jelly:core" 
+    xmlns:test="jelly:junit"
+    xmlns:v="jelly:validate">
 
 <!-- test RelaxNG --> 
 

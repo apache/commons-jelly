@@ -20,8 +20,8 @@
 <j:jelly xmlns:j="jelly:core">
 
   <j:forEach var="arg" items="${args}">
-  	<!-- use the <whitespace> tag to have careful control over whitespace -->
-  	<j:whitespace><j:expr value="${arg}"/> </j:whitespace>
+      <!-- use the <whitespace> tag to have careful control over whitespace -->
+      <j:whitespace><j:expr value="${arg}"/> </j:whitespace>
   </j:forEach>
   
 </j:jelly>

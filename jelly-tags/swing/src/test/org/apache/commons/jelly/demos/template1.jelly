@@ -18,27 +18,27 @@
 
   <html>
   
-  	<head>
-	<title>${name}'s Page</title>
-	</head>
-	
-	<body bgcolor="${background}" text="#FFFFFF">
+      <head>
+    <title>${name}'s Page</title>
+    </head>
+    
+    <body bgcolor="${background}" text="#FFFFFF">
 
-	<h1>${name}'s Homepage</h1>
-	
-	<img src="${url}"/>
-	
-	<h2>My Hobbies</h2>
-	
-	<ul>
-	
-	<j:forEach items="${hobbies}" var="i">
-		<li>${i}</li>
-	</j:forEach>
-	
-	</ul>
-	
-	</body>
+    <h1>${name}'s Homepage</h1>
+    
+    <img src="${url}"/>
+    
+    <h2>My Hobbies</h2>
+    
+    <ul>
+    
+    <j:forEach items="${hobbies}" var="i">
+        <li>${i}</li>
+    </j:forEach>
+    
+    </ul>
+    
+    </body>
 
   </html>
   

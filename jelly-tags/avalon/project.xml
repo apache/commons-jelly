@@ -21,7 +21,7 @@
   <package>org.apache.commons.jelly.avalon</package>
 
   <description>
-		This is a Jelly library for Avalon
+        This is a Jelly library for Avalon
   </description>
   <shortDescription>This is a Jelly library for Avalon</shortDescription>
   
@@ -55,7 +55,7 @@
       <id>commons-cli</id>
       <version>1.0</version>
     </dependency>
-    	
+        
     <!-- END for running demos -->
   </dependencies>
   

@@ -322,7 +322,7 @@
       <version>20030211.213356</version>
     </dependency>
 
-  	<!-- for the jelly startup scripts -->
+      <!-- for the jelly startup scripts -->
     <dependency>
       <id>forehead</id>
       <version>1.0-beta-5</version>
@@ -369,8 +369,8 @@
   </build>
   
   <reports>
-  	<report>maven-changelog-plugin</report>
-   	<report>maven-changes-plugin</report>
+    <report>maven-changelog-plugin</report>
+    <report>maven-changes-plugin</report>
     <report>maven-developer-activity-plugin</report>
     <report>maven-file-activity-plugin</report>
     <report>maven-javadoc-plugin</report>

@@ -26,7 +26,7 @@
       <p>
         A tag library for working with JMS using the 
         <a href="http://jakarta.apache.org/commons/sandbox/messenger/">Messenger</a> project.
-  	    See the <a href="tags.html">tags</a> for more information.
+          See the <a href="tags.html">tags</a> for more information.
       </p>
     </section>
   </body>

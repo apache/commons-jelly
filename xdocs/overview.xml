@@ -179,28 +179,28 @@ access Ant properties and use all other Jelly tags such as for logic, looping, w
 <p>Differences</p>
 <ul>
   <li>Jelly has full support for pluggable expression languages. The default expression language is a superset of the one
-  	used in JSP, JSTL and JSF which supports conditional expressions, navigating bean properties, 
-  	and working with Maps, Collections, Lists, arrays etc. 
-  	Jexl is the current implementation which adds some Velocity-like enhancements like method calls on beans etc.
-  	Jelly supports other expression and scripting languages like Velocity, beanshell, JavaScript, Jython, pnuts, BSF etc in separate tag libraries
+      used in JSP, JSTL and JSF which supports conditional expressions, navigating bean properties, 
+      and working with Maps, Collections, Lists, arrays etc. 
+      Jexl is the current implementation which adds some Velocity-like enhancements like method calls on beans etc.
+      Jelly supports other expression and scripting languages like Velocity, beanshell, JavaScript, Jython, pnuts, BSF etc in separate tag libraries
   </li>
   <li>Jelly has native XML support. Jelly can parse XML and process it using XPath expressions (via the JSTL tags). 
-  	Also Jelly supports a declarative model of processing XML (via the JSL tags) which is similar to XSLT 
-  	but can use Jelly tags, beans and Ant tasks inside the XML template in a similar way to DVSL.</li>
+      Also Jelly supports a declarative model of processing XML (via the JSL tags) which is similar to XSLT 
+      but can use Jelly tags, beans and Ant tasks inside the XML template in a similar way to DVSL.</li>
   <li>
-  	Jelly has a much more powerful collaboration mechanism for passing information between tags/tasks. 
-  	In Jelly variables can be any object plus variable scopes can be nested to allow nested scripts to work together neatly.
-  	A tag/task can be customized with beans as well as being able to consume, emit, filter and transform XML.
-  	So Jelly tags can be configured from and can collaborate with beans and XML.
+      Jelly has a much more powerful collaboration mechanism for passing information between tags/tasks. 
+      In Jelly variables can be any object plus variable scopes can be nested to allow nested scripts to work together neatly.
+      A tag/task can be customized with beans as well as being able to consume, emit, filter and transform XML.
+      So Jelly tags can be configured from and can collaborate with beans and XML.
   </li>
   <li>Jelly supports dynamic tags. Tags can be defined in Jelly script to avoid repetitive typing 
-	such as to wrap up most of the complexity of making a SOAP call. So Jelly has an integrated tag based macro facility.
+    such as to wrap up most of the complexity of making a SOAP call. So Jelly has an integrated tag based macro facility.
   </li>
   <li>
-  	Jelly uses XML namespaces to allow lots of different tag libraries to work together seamlessly in the same 
-  	XML document. This means you can mix and match Ant tasks with JSTL and Jelly tag libraries. 
-  	All can use their own expression languages, so one script could mix and match the expression languages 
-  	from Ant and JSTL as well as XPath and Jython.
+      Jelly uses XML namespaces to allow lots of different tag libraries to work together seamlessly in the same 
+      XML document. This means you can mix and match Ant tasks with JSTL and Jelly tag libraries. 
+      All can use their own expression languages, so one script could mix and match the expression languages 
+      from Ant and JSTL as well as XPath and Jython.
   </li>
   <li>There is a clear difference of emphasis. Ant is a build system, Jelly is a scripting engine.
   </li>
@@ -214,14 +214,14 @@ access Ant properties and use all other Jelly tags such as for logic, looping, w
 <p>Jelly has various possible uses. Here's a few to think about</p>
 <ul>
   <li>An additional tool for Ant users to provide more flexible Ant scripting. 
-  	Indeed Jelly is already used in Maven to provide a more flexible build system 
-  	while still preserving existing investment in Ant tasks.
+      Indeed Jelly is already used in Maven to provide a more flexible build system 
+      while still preserving existing investment in Ant tasks.
   </li>
   <li>HTTP, JMS, SOAP, XML and SQL based unit testing framework similar to Latka and AntEater</li>
   <li>SOAP scripting or XML processing engine</li>
   <li>XML or page templating system, possibly a Generator for Cocoon</li>
   <li>Alternative (very lightweight) implementation of JSTL that can be run from 
-  	Ant to generate static content</li>
+      Ant to generate static content</li>
   <li>A workflow, EAI or integration, maybe integrated into commons-workflow</li>
   <li>Code generation system, maybe an enhanced scripting engine for XDoclet</li>
 </ul>

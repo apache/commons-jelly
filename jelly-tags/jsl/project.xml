@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.jsl</package>
 
   <description>
-  	 The Jelly Stylesheet Library (JSL) 
+       The Jelly Stylesheet Library (JSL) 
   </description>
   <shortDescription>Commons Jelly JSL Tag Library</shortDescription>
   
@@ -99,7 +99,7 @@
       <id>commons-cli</id>
       <version>SNAPSHOT</version>
     </dependency>
-    	
+        
     <!-- END for running demos -->
   </dependencies>
   

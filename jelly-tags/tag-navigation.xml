@@ -20,7 +20,7 @@
   <organizationLogo href="http://jakarta.apache.org/images/jakarta-logo.gif">Jakarta</organizationLogo>
   
   <body><!-- note, all links will be relativized at HTML production... -->
-		<links><item name="Jelly" href="http://jakarta.apache.org/commons/jelly"/></links>
+        <links><item name="Jelly" href="http://jakarta.apache.org/commons/jelly"/></links>
     <menu name="@pom.name@">
       <item name="Overview"                href="/index.html"/>
       <item name="Tags"                    href="/tags.html"/>

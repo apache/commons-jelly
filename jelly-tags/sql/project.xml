@@ -75,7 +75,7 @@
       <id>hsqldb</id>
       <version>1.7.1</version>
     </dependency>
-    	
+        
     <!-- END for running demos -->
   </dependencies>
   

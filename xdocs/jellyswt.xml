@@ -57,7 +57,7 @@
     </section>
     
     <section name="Useful SWT Links"> 
-    	<ul>
+        <ul>
       <li>
         <a href="http://www.eclipse.org/documentation/html/plugins/org.eclipse.platform.doc.isv/doc/reference/api/index.html">SWT Javadoc</a> 
         is very handy. Its mostly the widgets package thats of most interest.
@@ -66,9 +66,9 @@
         This <a href="http://eclipsewiki.swiki.net/2">SWT Wiki</a> has lots of good examples and documentation.
       </li>
       <li>
-      	This <a href="http://dev.eclipse.org/viewcvs/index.cgi/%7Echeckout%7E/platform-swt-home/dev.html">page</a> also has a list of lots of little example SWT applications.
+          This <a href="http://dev.eclipse.org/viewcvs/index.cgi/%7Echeckout%7E/platform-swt-home/dev.html">page</a> also has a list of lots of little example SWT applications.
       </li>
-    	</ul>
+        </ul>
     </section>
     
   </body>

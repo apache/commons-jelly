@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.threads</package>
 
   <description>
-  	  A library for processing Jelly scripts using multiple threads.
+        A library for processing Jelly scripts using multiple threads.
   </description>
   <shortDescription>Commons Jelly Threads Tag Library</shortDescription>
   

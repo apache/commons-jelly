@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.bean</package>
 
   <description>
-  	 The Jelly Bean Tag Library
+       The Jelly Bean Tag Library
   </description>
   <shortDescription>Commons Jelly Bean Tag Library</shortDescription>
   

@@ -185,7 +185,7 @@
 
         <threads:thread var="thread1">
             THROW AN EXCEPTION
-			<new var="bogus" className="java.lang.System"/>
+            <new var="bogus" className="java.lang.System"/>
         </threads:thread>
 
         <threads:thread var="thread2">

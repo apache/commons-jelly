@@ -25,8 +25,8 @@
     <section name="Overview">
       <p>
         Tags for parsing HTML so that it can be processed by Jelly using Andy Clark's 
-  	    <a href="http://www.apache.org/~andyc/neko/doc/index.html">NekoHTML</a>.
-  	    See the <a href="tags.html">tags</a> for more information.
+          <a href="http://www.apache.org/~andyc/neko/doc/index.html">NekoHTML</a>.
+          See the <a href="tags.html">tags</a> for more information.
       </p>
     </section>
   </body>

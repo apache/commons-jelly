@@ -62,7 +62,7 @@
     </dependency>
     <!-- END for compilation -->
 
-	<!-- runtime dependencies -->
+    <!-- runtime dependencies -->
     <dependency>
       <groupId>msv</groupId>
       <artifactId>xsdlib</artifactId>
@@ -93,7 +93,7 @@
       <id>commons-cli</id>
       <version>1.0</version>
     </dependency>
-    	
+        
     <!-- END for running demos -->
   
   </dependencies>

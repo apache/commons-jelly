@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.log</package>
 
   <description>
-  	 The Jelly Log Tag Library
+       The Jelly Log Tag Library
   </description>
   <shortDescription>Commons Jelly Log Tag Library</shortDescription>
   

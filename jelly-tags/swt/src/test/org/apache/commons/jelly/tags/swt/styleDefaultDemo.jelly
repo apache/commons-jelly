@@ -15,76 +15,76 @@
   limitations under the License.
 -->
 <j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
-	
-	<!--
-		|| A demo which shows some default styles being used rather than explicitly 
-		|| specifying them for each widget
-		-->
+    
+    <!--
+        || A demo which shows some default styles being used rather than explicitly 
+        || specifying them for each widget
+        -->
 
   <shell text="This is a shell" var="subShell">
-		<menuBar>
-			<menuItem text="File" style="cascade">
-				<menu>
-					<menuItem text="New">
-						<onEvent type="Selection">
-							<log:info>Selected New option with event ${event}</log:info>
-						</onEvent>
-					</menuItem>
-						
-					<menuItem text="Open"/>
-					<menuSeparator/>
-					<menuItem text="Save"/>
-				</menu>
-			</menuItem>
-			<menuItem text="Help" style="cascade">
-				<menu>
-					<menuItem text="About"/>
-				</menu>
-			</menuItem>
-		</menuBar>  	
+        <menuBar>
+            <menuItem text="File" style="cascade">
+                <menu>
+                    <menuItem text="New">
+                        <onEvent type="Selection">
+                            <log:info>Selected New option with event ${event}</log:info>
+                        </onEvent>
+                    </menuItem>
+                        
+                    <menuItem text="Open"/>
+                    <menuSeparator/>
+                    <menuItem text="Save"/>
+                </menu>
+            </menuItem>
+            <menuItem text="Help" style="cascade">
+                <menu>
+                    <menuItem text="About"/>
+                </menu>
+            </menuItem>
+        </menuBar>      
 
-  	<gridLayout/>
+      <gridLayout/>
 
-		<group text="Some form">
-			<gridData style="fill_horizontal"/>
+        <group text="Some form">
+            <gridData style="fill_horizontal"/>
 
-			<gridLayout numColumns="2"/>
-			<label text="Hello"/>
-			<text var="textField" text="1234" editable="true">
-				<gridData style="fill_horizontal"/>
-			</text>
-		</group>
+            <gridLayout numColumns="2"/>
+            <label text="Hello"/>
+            <text var="textField" text="1234" editable="true">
+                <gridData style="fill_horizontal"/>
+            </text>
+        </group>
 
-		<table 
-			headerVisible="true"
-			linesVisible="true"
-			toolTipText="This is a table!">
-			
-			<gridData style="fill_both"/>
-			
-			<tableColumn text="Name" width="100" toolTipText="This is the name column"/>
-			<tableColumn text="Age" width="40" toolTipText="This is the age column"/>
-			
-			<!-- we'd normally use some Java bean model to implement the next bit -->
-			<tableItem var="row"/>
-			${row.setText(0, 'James')}
-			${row.setText(1, '33')}
-			<tableItem var="row"/>
-			${row.setText(0, 'Bob')}
-			${row.setText(1, '30')}
-		</table>
+        <table 
+            headerVisible="true"
+            linesVisible="true"
+            toolTipText="This is a table!">
+            
+            <gridData style="fill_both"/>
+            
+            <tableColumn text="Name" width="100" toolTipText="This is the name column"/>
+            <tableColumn text="Age" width="40" toolTipText="This is the age column"/>
+            
+            <!-- we'd normally use some Java bean model to implement the next bit -->
+            <tableItem var="row"/>
+            ${row.setText(0, 'James')}
+            ${row.setText(1, '33')}
+            <tableItem var="row"/>
+            ${row.setText(0, 'Bob')}
+            ${row.setText(1, '30')}
+        </table>
 
-  	<toolBar>
-  		<toolItem text="Click Me" toolTipText="I am a ToolBar Item that you can click">
-  			<onEvent type="Selection">
-  				<log:info>Clicked button with event ${event} and text field contains ${textField.text}</log:info>
-  			</onEvent>
-			</toolItem>
-  	</toolBar>
+      <toolBar>
+          <toolItem text="Click Me" toolTipText="I am a ToolBar Item that you can click">
+              <onEvent type="Selection">
+                  <log:info>Clicked button with event ${event} and text field contains ${textField.text}</log:info>
+              </onEvent>
+            </toolItem>
+      </toolBar>
   </shell>
 
-	<!-- we could abstract the following away as a tag -->
-	
-	${subShell.pack()}
-	${subShell.open()}
+    <!-- we could abstract the following away as a tag -->
+    
+    ${subShell.pack()}
+    ${subShell.open()}
 </j:jelly>

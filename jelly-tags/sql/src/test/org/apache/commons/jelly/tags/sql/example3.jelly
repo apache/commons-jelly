@@ -34,12 +34,12 @@
       drop table ${databaseTable}
     </sql:update>
   </j:catch>
-  	
+      
   <sql:update>
-  	create table ${databaseTable} (
-  	  id integer,
-  	  name varchar(255)
-  	)
+      create table ${databaseTable} (
+        id integer,
+        name varchar(255)
+      )
   </sql:update>
 
 
@@ -53,7 +53,7 @@
     </sql:update>
   
   </j:forEach>
-  	
+      
   <log:info>Now performing a query...</log:info>
   
   <sql:query var="results">

@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.junit</package>
 
   <description>
-  	 The Jelly JUnit Tag Library
+       The Jelly JUnit Tag Library
   </description>
   <shortDescription>Commons Jelly JUnit Tag Library</shortDescription>
   
@@ -61,7 +61,7 @@
       <id>commons-cli</id>
       <version>1.0</version>
     </dependency>
-    	
+        
     <!-- END for running demos -->
   </dependencies>
   

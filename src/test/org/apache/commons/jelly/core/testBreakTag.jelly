@@ -16,31 +16,31 @@
 
 <j:jelly xmlns:j="jelly:core">
 
-	<j:set var="simpleResult" value=""/>
-	<j:forEach var="counter" begin="1" end="10">
-	   <j:set var="simpleResult" value="${simpleResult}${counter}"/>
-	   <j:if test="${counter==5}">
-	      <j:break/>
-	   </j:if>
-	</j:forEach>
-	  
-	<j:set var="conditionalResult" value=""/>
-	<j:forEach var="counter" begin="1" end="10">
-	   <j:set var="conditionalResult" value="${conditionalResult}${counter}"/>
-	   <j:break test="${counter==5}"/>
-	</j:forEach>  
-	
-	<j:set var="varBreaksResult" value=""/>
-	<j:forEach var="counter" begin="1" end="10">
-	   <j:set var="varBreaksResult" value="${varBreaksResult}${counter}"/>
-	   <j:break var="varBroken" test="${counter==5}"/>
-	</j:forEach>  
+    <j:set var="simpleResult" value=""/>
+    <j:forEach var="counter" begin="1" end="10">
+       <j:set var="simpleResult" value="${simpleResult}${counter}"/>
+       <j:if test="${counter==5}">
+          <j:break/>
+       </j:if>
+    </j:forEach>
+      
+    <j:set var="conditionalResult" value=""/>
+    <j:forEach var="counter" begin="1" end="10">
+       <j:set var="conditionalResult" value="${conditionalResult}${counter}"/>
+       <j:break test="${counter==5}"/>
+    </j:forEach>  
+    
+    <j:set var="varBreaksResult" value=""/>
+    <j:forEach var="counter" begin="1" end="10">
+       <j:set var="varBreaksResult" value="${varBreaksResult}${counter}"/>
+       <j:break var="varBroken" test="${counter==5}"/>
+    </j:forEach>  
 
-	<j:set var="varNoBreaksResult" value=""/>
-	<j:forEach var="counter" begin="1" end="10">
-	   <j:set var="varNoBreaksResult" value="${varNoBreaksResult}${counter}"/>
-	   <j:break var="varNotBroken" test="${counter==11}"/>
-	</j:forEach>  
-	
-	
+    <j:set var="varNoBreaksResult" value=""/>
+    <j:forEach var="counter" begin="1" end="10">
+       <j:set var="varNoBreaksResult" value="${varNoBreaksResult}${counter}"/>
+       <j:break var="varNotBroken" test="${counter==11}"/>
+    </j:forEach>  
+    
+    
 </j:jelly>

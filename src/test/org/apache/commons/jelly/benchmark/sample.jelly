@@ -19,20 +19,20 @@
 
 <j:jelly xmlns:j="jelly:core">
 
-	<j:if test="${1==2}">	
-		<static>
-			<some id="12">
-				<dummy x="${dummy.whatever}">
-					this is some static XML
-				</dummy>
-				<dummy x="${dummy.whatever}">
-					some ${e}
-				</dummy>
-			</some>
-		</static>
-	</j:if>		
+    <j:if test="${1==2}">    
+        <static>
+            <some id="12">
+                <dummy x="${dummy.whatever}">
+                    this is some static XML
+                </dummy>
+                <dummy x="${dummy.whatever}">
+                    some ${e}
+                </dummy>
+            </some>
+        </static>
+    </j:if>        
 
   <j:forEach var="i" begin="1" end="100">
-  	<j:set var="dummy" value="${i}"/>
+      <j:set var="dummy" value="${i}"/>
   </j:forEach>
 </j:jelly>

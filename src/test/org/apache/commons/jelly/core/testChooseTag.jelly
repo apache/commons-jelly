@@ -15,27 +15,27 @@
 -->
 
 <j:jelly xmlns:j="jelly:core">
-	<j:set var="result.true">
-	  <j:choose>
+    <j:set var="result.true">
+      <j:choose>
         <j:when test="${1 == 1}">
           A
         </j:when>
         <j:otherwise>
           B
         </j:otherwise>
-		C        
+        C        
       </j:choose>
     </j:set>
     
     <j:set var="result.false">
-	  <j:choose>
+      <j:choose>
         <j:when test="${0 == 1}">
           A
         </j:when>
         <j:otherwise>
           B
         </j:otherwise>
-		C        
+        C        
       </j:choose>
     </j:set>
     

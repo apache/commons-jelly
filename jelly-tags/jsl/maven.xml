@@ -17,33 +17,33 @@
 
   <!-- define the classpath used to run examples -->
   <goal name="create-classpath" prereqs="java:compile,test:compile">
-		<path id="test.classpath">
-			<pathelement path="${maven.build.dest}"/>
-			<pathelement path="target/classes"/>
-			<pathelement path="target/test-classes"/>
-			<path refid="maven.dependency.classpath"/>
-		</path>
+        <path id="test.classpath">
+            <pathelement path="${maven.build.dest}"/>
+            <pathelement path="target/classes"/>
+            <pathelement path="target/test-classes"/>
+            <path refid="maven.dependency.classpath"/>
+        </path>
   </goal>
 
-	<!-- demos -->
-	<goal name="demo:jsl" prereqs="create-classpath"
+    <!-- demos -->
+    <goal name="demo:jsl" prereqs="create-classpath"
       description="Runs a simple demo of the JSL tags">
 
-		<java classname="org.apache.commons.jelly.Jelly" fork="yes">
+        <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/jsl/example.jelly"/>
     </java>
 
-	</goal>
+    </goal>
 
-	<goal name="demo:jsl2" prereqs="create-classpath"
-		description="Runs demo #2 of the JSL tags">
+    <goal name="demo:jsl2" prereqs="create-classpath"
+        description="Runs demo #2 of the JSL tags">
 
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/jsl/example2.jelly"/>
     </java>
-	</goal>
+    </goal>
 
 
 </project>

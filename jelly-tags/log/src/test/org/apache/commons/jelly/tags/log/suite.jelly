@@ -16,64 +16,64 @@
 -->
 <test:suite xmlns:test="jelly:junit" xmlns:j="jelly:core" xmlns:log="jelly:log">
 
-	<test:case name="debugTest">
-		
-		<j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
-		
-		<log:debug log="${logger}">abcde</log:debug>
-		
-		<test:assertEquals expected="abcde" actual="${logger.debug}" />
-		
-	</test:case>
+    <test:case name="debugTest">
+        
+        <j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
+        
+        <log:debug log="${logger}">abcde</log:debug>
+        
+        <test:assertEquals expected="abcde" actual="${logger.debug}" />
+        
+    </test:case>
 
-	<test:case name="traceTest">
-		
-		<j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
-		
-		<log:trace log="${logger}">abcde</log:trace>
-		
-		<test:assertEquals expected="abcde" actual="${logger.trace}" />
-		
-	</test:case>
+    <test:case name="traceTest">
+        
+        <j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
+        
+        <log:trace log="${logger}">abcde</log:trace>
+        
+        <test:assertEquals expected="abcde" actual="${logger.trace}" />
+        
+    </test:case>
 
-	<test:case name="infoTest">
-		
-		<j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
-		
-		<log:info log="${logger}">abcde</log:info>
-		
-		<test:assertEquals expected="abcde" actual="${logger.info}" />
-		
-	</test:case>
+    <test:case name="infoTest">
+        
+        <j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
+        
+        <log:info log="${logger}">abcde</log:info>
+        
+        <test:assertEquals expected="abcde" actual="${logger.info}" />
+        
+    </test:case>
 
-	<test:case name="warnTest">
-		
-		<j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
-		
-		<log:warn log="${logger}">abcde</log:warn>
-		
-		<test:assertEquals expected="abcde" actual="${logger.warn}" />
-		
-	</test:case>
+    <test:case name="warnTest">
+        
+        <j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
+        
+        <log:warn log="${logger}">abcde</log:warn>
+        
+        <test:assertEquals expected="abcde" actual="${logger.warn}" />
+        
+    </test:case>
 
-	<test:case name="errorTest">
-		
-		<j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
-		
-		<log:error log="${logger}">abcde</log:error>
-		
-		<test:assertEquals expected="abcde" actual="${logger.error}" />
-		
-	</test:case>
+    <test:case name="errorTest">
+        
+        <j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
+        
+        <log:error log="${logger}">abcde</log:error>
+        
+        <test:assertEquals expected="abcde" actual="${logger.error}" />
+        
+    </test:case>
 
-	<test:case name="fatalTest">
-		
-		<j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
-		
-		<log:fatal log="${logger}">abcde</log:fatal>
-		
-		<test:assertEquals expected="abcde" actual="${logger.fatal}" />
-		
-	</test:case>
-	
+    <test:case name="fatalTest">
+        
+        <j:useBean var="logger" class="org.apache.commons.jelly.tags.log.MockLog"/>
+        
+        <log:fatal log="${logger}">abcde</log:fatal>
+        
+        <test:assertEquals expected="abcde" actual="${logger.fatal}" />
+        
+    </test:case>
+    
 </test:suite>

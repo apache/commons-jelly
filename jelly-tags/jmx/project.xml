@@ -22,9 +22,9 @@
   <package>org.apache.commons.jelly.tags.jmx</package>
 
   <description>
-  	 The Jelly JMX Tag Library is a Jelly library for instantiating and
-  	 configuring Java Beans and MBeans and registering them with a 
-  	 JMX Server in a similar way to the Ant tasks in Jakarta Commons Modeler.
+       The Jelly JMX Tag Library is a Jelly library for instantiating and
+       configuring Java Beans and MBeans and registering them with a 
+       JMX Server in a similar way to the Ant tasks in Jakarta Commons Modeler.
   </description>
   
   <shortDescription>Commons Jelly JMX Tag Library</shortDescription>

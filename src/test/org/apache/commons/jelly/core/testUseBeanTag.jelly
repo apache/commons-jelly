@@ -15,15 +15,15 @@
 -->
 
 <j:jelly xmlns:j="jelly:core"
-	xmlns:jx="jelly:org.apache.commons.jelly.core.extension.CoreExtensionTagLibrary">
-	
+    xmlns:jx="jelly:org.apache.commons.jelly.core.extension.CoreExtensionTagLibrary">
+    
     <j:if test="${test.simple}">
         <j:useBean var="foo" 
           class="org.apache.commons.jelly.core.Customer"
           name="testing"
           city="sydney"/>
     </j:if>
-	
+    
     <j:if test="${test.extension}">
         <jx:useBeanX var="foo" 
           class="org.apache.commons.jelly.core.Customer"
@@ -32,21 +32,21 @@
     </j:if>
     
     <j:if test="${test.badProperty}">
-		<j:catch var="ex">
-        	<jx:useBean var="foo" 
-			  class="org.apache.commons.jelly.core.Customer"
-			  name="testing"
-			  city="sydney"
-			  foo="bar"/>
-		</j:catch>
+        <j:catch var="ex">
+            <jx:useBean var="foo" 
+              class="org.apache.commons.jelly.core.Customer"
+              name="testing"
+              city="sydney"
+              foo="bar"/>
+        </j:catch>
     </j:if>
-	
-	<j:if test="${test.badPropertyIgnored}">
-		<jx:useBeanXP var="foo" 
-			class="org.apache.commons.jelly.core.Customer"
-			name="testing"
-			city="sydney"
-			foo="bar"/> 
+    
+    <j:if test="${test.badPropertyIgnored}">
+        <jx:useBeanXP var="foo" 
+            class="org.apache.commons.jelly.core.Customer"
+            name="testing"
+            city="sydney"
+            foo="bar"/> 
     </j:if>
     
 </j:jelly>
