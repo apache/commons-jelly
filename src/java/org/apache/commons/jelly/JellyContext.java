@@ -20,10 +20,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
@@ -90,11 +92,15 @@ public class JellyContext {
     /** Should we export tag libraries to our parents context */
     private boolean exportLibraries = true;
 
-    /** Holds a Map containing thread-specific data for Scripts.
-     * Scripts may hold a single object in this map using the
+    /** Maps a Thread to its local Script data cache. It's 
+     * like a ThreadLocal, but it reclaims memory better
+     * when the JellyCointext goes out of scope.
+     * This isn't a ThreadLocal because of the typical usage scenario of
+     * JellyContext. ThreadLocal is meant to be sued as a static variable,
+     * we were using it as a local variable.
      * {@link #setThreadLocalScriptData(Script,Object)}
       */
-    private ThreadLocal threadLocalScriptData = new ThreadLocal();
+    private Map threadLocalScriptData = Collections.synchronizedMap(new WeakHashMap());
     // THINKME: Script objects are like Object (for equals and hashCode) I think.
     //          It should be asy to optimize hash-map distribution, e.g. by
     //          shifting the hashcode return value (presuming Object.hashcode()
@@ -406,10 +412,11 @@ public class JellyContext {
      * @return the thread local Map of Script data */
 	public Map getThreadScriptDataMap() {
         Map rv;
-        Map data = (Map) threadLocalScriptData.get();
+        Thread t = Thread.currentThread();
+        Map data = (Map) threadLocalScriptData.get(t);
         if (data == null) {
             rv = new HashMap();
-            threadLocalScriptData.set(rv);
+            threadLocalScriptData.put(t, rv);
         } else {
             rv = data;
         }
@@ -433,8 +440,8 @@ public class JellyContext {
      * @see #clearScriptData()
       */
     public void clear() {
-        getThreadScriptDataMap().clear();
-        variables.clear();
+        clearScriptData();
+        clearVariables();
     }
     
     /** Clears variables set by Tags (variables set while running a Jelly script)
@@ -467,7 +474,7 @@ public class JellyContext {
      * @see #clearVariables()
      */
     public void clearScriptData() {
-        threadLocalScriptData = new ThreadLocal();
+        threadLocalScriptData.clear();
     }
     
     /** Registers the given tag library against the given namespace URI.
