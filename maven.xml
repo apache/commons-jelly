@@ -344,7 +344,8 @@
 	<!-- this goal isn't really much tested yet but could be the key
 		to get a better packaging -->
 		
-		<property name="tagLibs" value=""/>
+		<property name="tagLibs" value="ant,bean,beanshell,betwixt,define,dynabean,fmt,html,http,interaction,junit,jsl,log,swing,threads,util,validate,velocity,xml,xmlunit"/>
+			<!-- arbitrary set of taglibs with dependencies that should have no problems -->
 		<property name="doBuildAll" value="false"/>
 		<property name="fatJarPath" value="${maven.build.dir}/fatjelly.jar"/>
 		<property name="classpathFile" value="${maven.build.dir}/classpath-with-deps.txt"/>
@@ -407,7 +408,7 @@
     
     <!-- merging it all -->
 		<j:if test="${'' ne fatJarPath}">
-			<jar destfile="${fatJarPath}">
+			<jar destfile="${fatJarPath}" update="yes">
 				<manifest>
 					<attribute name="Main-Class" value="org.apache.commons.jelly.Jelly"/></manifest>
 				<j:forEach var="dep" items="${deps}">
