@@ -138,7 +138,7 @@
     test case to test that the xml output for a stylesheet template is
     'remembered' when using applyTemplates
    -->
-  <test:case name="testXMLContextKept" xmlns:foo="dummy">
+  <test:case name="testXMLContextKept" xmlns="dummy">
     <x:parse var="testDoc">
       <element1>
          <element2>SomeText</element2>
@@ -164,7 +164,7 @@
     <test:assertEquals expected="El1SomeText" actual="${contextText}" />
   </test:case>
   
-  <test:case name="testXMLContextKept2" xmlns:foo="dummy">
+  <test:case name="testXMLContextKept2" xmlns="dummy">
     <x:parse var="testDoc">
       <element1>
          <element2>SomeText</element2>
@@ -191,14 +191,13 @@
     <test:assertEquals expected="El1SomeText" actual="${contextText}" />
   </test:case>
   
-  <test:case name="testXMLContextKept3" xmlns:foo="dummy">
+  <test:case name="testXMLContextKept3" xmlns="dummy">
     <x:parse var="testDoc">
       <element1>
          <element2>SomeText</element2>
       </element1>
     </x:parse>
 
-		<!-- stylesheet with no embedded set -->
     <jsl:stylesheet var="contextStyleSheet">
       <jsl:template match="element1">El1<jsl:applyTemplates /></jsl:template>
       <jsl:template match="element2"><x:expr select="."/></jsl:template>
