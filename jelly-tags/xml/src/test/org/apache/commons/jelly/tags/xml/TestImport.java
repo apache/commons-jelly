@@ -23,6 +23,8 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.parser.XMLParser;
+import org.xml.sax.SAXException;
 
 import junit.framework.TestCase;
 
@@ -49,12 +51,18 @@ public class TestImport extends TestCase {
         JellyContext context = new JellyContext();
         URL url = TestImport.class.getResource("/resources/import.jelly");
         XMLOutput out = XMLOutput.createXMLOutput(System.out);
-//      This does not work because context has no currentURL set
-//      This results in a NullPointerException when resolving the
-//      stylesheet
-//        Script script = context.compileScript(url);
-//        script.run(context, out);
-//        out.close();
+        Script script = context.compileScript(url);
+        script.run(context, out);
+        out.close();
+    }
+
+    public void testImportResourcesFromUncompiledScript() throws JellyException, UnsupportedEncodingException, IOException, SAXException {
+        JellyContext context = new JellyContext();
+        URL url = TestImport.class.getResource("/resources/import.jelly");
+        XMLOutput out = XMLOutput.createXMLOutput(System.out);
+        Script script = new XMLParser().parse(url);
+        script.run(context, out);
+        out.close();
     }
 
 }
