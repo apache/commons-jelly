@@ -1,9 +1,9 @@
-<project name="Digester" default="compile" basedir=".">
+<project name="Jelly" default="compile" basedir=".">
 
 
 <!--
         "Digester" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.5 2002/02/15 18:25:06 jstrachan Exp $
+        $Id: build.xml,v 1.6 2002/02/20 00:20:25 geirm Exp $
 -->
 
 
