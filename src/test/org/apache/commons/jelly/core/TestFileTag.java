@@ -18,14 +18,20 @@ package org.apache.commons.jelly.core;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringWriter;
 
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.XMLOutput;
+import org.dom4j.io.HTMLWriter;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class TestFileTag extends BaseJellyTest
 {
@@ -53,9 +59,7 @@ public class TestFileTag extends BaseJellyTest
 
 
         //FIXME This doesn't take into account attribute ordering
-        //assertEquals("target/testFileTag.tmp", "<html xmlns=\"http://www.w3.org/1999/xhtml\"  xml:lang=\"en\"  lang=\"en\"></html>", data);
-
-        //assertTrue( System.getProperty( "java.runtime.version" ).equals( getJellyContext().getVariable("propertyName" ) ) );
+        assertEquals("target/testFileTag.tmp", "<html xmlns=\"http://www.w3.org/1999/xhtml\"  xml:lang=\"en\"  lang=\"en\"></html>", data);
     }
 
     /**
@@ -78,6 +82,25 @@ public class TestFileTag extends BaseJellyTest
             buffer.append(s);
         }
         return buffer.toString();
+    }
+
+    public void testDom4Xmlns() throws SAXException {
+        StringWriter writer = new StringWriter();
+        OutputFormat format = new OutputFormat();
+        final XMLWriter xmlWriter = new HTMLWriter(writer, format);
+        xmlWriter.setEscapeText(false);
+
+        XMLOutput output = new XMLOutput(xmlWriter, xmlWriter);
+
+        String golden = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n";
+        golden += "<html>";
+
+        output.startDocument();
+        output.write(golden);
+        output.endDocument();
+        System.err.println("output was: '" + writer.toString() +"'");
+        System.err.println("golden is : '" + golden +"'");
+        assertEquals("output should contain the namespaces", golden, writer.toString());
     }
 
 }
