@@ -101,7 +101,13 @@ public class ParseTag extends ParseTagSupport {
         }
         Document document = null;
         if (html == null) {
-            document = parseBody(output);
+            String text = getText();
+            if (text != null) {
+                document = parseText(text);
+            }
+            else {
+                document = parseBody(output);
+            }
         }
         else {
             document = parse(html);
