@@ -18,6 +18,8 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-velocity</id>
   <name>commons-jelly-tags-velocity</name>
+  <currentVersion>1.0</currentVersion>
+  
   <package>org.apache.commons.jelly.tags.velocity</package>
 
   <description>
@@ -25,18 +27,16 @@
   </description>
   <shortDescription>Commons Jelly Velocity Tag Library</shortDescription>
   
-  <!-- <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/velocity</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/velocity</distributionDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/velocity/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/velocity/</url>
-  </repository>-->
-  
-    
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS_JELLY_VELOCITY-1_0</tag>
+    </version>
+  </versions>
+
   <dependencies>
-  
-    
-  
+
     <!-- START for compilation -->
   
     <dependency>
