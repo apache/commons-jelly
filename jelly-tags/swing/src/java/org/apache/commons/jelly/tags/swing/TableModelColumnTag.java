@@ -78,7 +78,7 @@ public class TableModelColumnTag extends UseBeanTag {
         return (ExpressionTableColumn) getBean();
     }    
         
-    public Class getAttributeType(String name) throws Exception {
+    public Class getAttributeType(String name) throws JellyException {
         if (name.equals("value")) {
             return Expression.class;
         }

@@ -63,6 +63,7 @@ package org.apache.commons.jelly;
 
 import java.io.File;
 import java.io.InputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Hashtable;
@@ -72,6 +73,8 @@ import java.util.Map;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import org.xml.sax.SAXException;
 
 /** <p><code>JellyContext</code> represents the Jelly context.</p>
   *
@@ -210,7 +213,7 @@ public class JellyContext {
             try {
                 answer = System.getProperty(name);
             }
-            catch (Throwable t) {
+            catch (SecurityException e) {
                 // ignore security exceptions
             }
         }
@@ -451,14 +454,22 @@ public class JellyContext {
      * Attempts to parse the script from the given uri using the 
      * {@link #getResource} method then returns the compiled script.
      */
-    public Script compileScript(String uri) throws Exception {
+    public Script compileScript(String uri) throws JellyException {
         XMLParser parser = new XMLParser();
         parser.setContext(this);
         InputStream in = getResourceAsStream(uri);
         if (in == null) {
             throw new JellyException("Could not find Jelly script: " + uri);
         }
-        Script script = parser.parse(in);
+        Script script = null;
+        try {
+            script = parser.parse(in);
+        } catch (IOException e) {
+            throw new JellyException("Could not parse Jelly script",e);
+        } catch (SAXException e) {
+            throw new JellyException("Could not parse Jelly script",e);
+        }
+        
         return script.compile();
     }
 
@@ -466,10 +477,19 @@ public class JellyContext {
      * Attempts to parse the script from the given URL using the 
      * {@link #getResource} method then returns the compiled script.
      */
-    public Script compileScript(URL url) throws Exception {
+    public Script compileScript(URL url) throws JellyException {
         XMLParser parser = getXMLParser();
         parser.setContext(this);
-        Script script = parser.parse(url.toString());
+        
+        Script script = null;
+        try {
+            script = parser.parse(url.toString());
+        } catch (IOException e) {
+            throw new JellyException("Could not parse Jelly script",e);
+        } catch (SAXException e) {
+            throw new JellyException("Could not parse Jelly script",e);
+        }
+        
         return script.compile();
     }
 
@@ -491,9 +511,13 @@ public class JellyContext {
      * 
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(File file, XMLOutput output) throws Exception {
-        return runScript(file.toURL(), output, JellyContext.DEFAULT_EXPORT,
-            JellyContext.DEFAULT_INHERIT);
+    public JellyContext runScript(File file, XMLOutput output) throws JellyException {
+        try {
+            return runScript(file.toURL(), output, JellyContext.DEFAULT_EXPORT,
+                JellyContext.DEFAULT_INHERIT);
+        } catch (MalformedURLException e) {
+            throw new JellyException(e.toString());
+        }
     }
 
     /** 
@@ -501,7 +525,7 @@ public class JellyContext {
      * 
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(URL url, XMLOutput output) throws Exception {
+    public JellyContext runScript(URL url, XMLOutput output) throws JellyException {
         return runScript(url, output, JellyContext.DEFAULT_EXPORT,
             JellyContext.DEFAULT_INHERIT);
     }
@@ -512,8 +536,14 @@ public class JellyContext {
      * 
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(String uri, XMLOutput output) throws Exception {
-        URL url = getResource(uri);
+    public JellyContext runScript(String uri, XMLOutput output) throws JellyException {
+        URL url = null;
+        try {
+            url = getResource(uri);
+        } catch (MalformedURLException e) {
+            throw new JellyException(e.toString());
+        }
+        
         if (url == null) {
             throw new JellyException("Could not find Jelly script: " + url);
         }
@@ -528,8 +558,14 @@ public class JellyContext {
      * @return the new child context that was used to run the script
      */
     public JellyContext runScript(String uri, XMLOutput output,
-                          boolean export, boolean inherit) throws Exception {
-        URL url = getResource(uri);
+                          boolean export, boolean inherit) throws JellyException {
+        URL url = null;
+        try {
+            url = getResource(uri);
+        } catch (MalformedURLException e) {
+            throw new JellyException(e.toString());
+        }
+        
         if (url == null) {
             throw new JellyException("Could not find Jelly script: " + url);
         }
@@ -543,8 +579,12 @@ public class JellyContext {
      * @return the new child context that was used to run the script
      */
     public JellyContext runScript(File file, XMLOutput output,
-                          boolean export, boolean inherit) throws Exception {
-        return runScript(file.toURL(), output, export, inherit);
+                          boolean export, boolean inherit) throws JellyException {
+        try {
+            return runScript(file.toURL(), output, export, inherit);
+        } catch (MalformedURLException e) {
+            throw new JellyException(e.toString());
+        }
     }
 
     /** 
@@ -553,10 +593,15 @@ public class JellyContext {
      * @return the new child context that was used to run the script
      */
     public JellyContext runScript(URL url, XMLOutput output,
-                          boolean export, boolean inherit) throws Exception {
+                          boolean export, boolean inherit) throws JellyException {
         Script script = compileScript(url);
         
-        URL newJellyContextURL = getJellyContextURL(url);
+        URL newJellyContextURL = null;
+        try {
+            newJellyContextURL = getJellyContextURL(url);
+        } catch (MalformedURLException e) {
+            throw new JellyException(e.toString());
+        }
         
         JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
         newJellyContext.setExport( export );
