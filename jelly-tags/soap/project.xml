@@ -75,7 +75,14 @@
         <gump.id>axis-saaj</gump.id>
       </properties>
     </dependency>
-  
+
+		
+    <dependency><!-- just for javax.xml.namespace.QName... was taken out of jaxrpc in some version jwsdp -->
+      <groupId>jaxme</groupId>
+      <artifactId>jaxme-api</artifactId>
+      <version>0.3</version>
+    </dependency>
+
     <!-- START for running demos -->
 
     <dependency>
