@@ -3,339 +3,45 @@
 <document>
 
  <properties>
-  <title>Messenger</title>
+  <title>Jelly : Java and XML based scripting engine</title>
   <author email="jstrachan@apache.org">James Strachan</author>
  </properties>
 
 <body>
 
-<section name="Messenger : a web based JMS framework">
+<section name="Jelly : Java and XML based scripting engine">
 
 <p>
-  <ol>
+  <b>Jelly</b> 
+</p>
 
-    <li>
-      <a href="messenger.html#Introduction">Introduction</a>
-    </li>
+<p><em>Jelly</em> is an XML based scripting and processing engine. Jelly borrows many 
+good ideas from both JSP custom tags, Velocity, Cocoon and the 
+scripting engine inside XDoclet. Jelly can be used from the command line, inside 
+Ant or inside a Servlet. 
+</p>
 
-    <li>
-      <a href="messenger.html#Documentation">Documentation</a>
-    </li>
+<p>
+Jelly is completely extendable via custom tags in a similar way to JSP. 
+Though Jelly is really simple and has no dependencies either Servlets or JSP.
+</p>
 
-    <li>
-      <a href="messenger.html#Example Config">Example Configuration</a>
-    </li>    
+<p>
+Jelly is based on an XML event pipeline architecture (SAX), like Cocoon, rather than being purely text
+based like JSP and Velocity. This means that Jelly tags can consume XML events and emit them. Each
+Jelly custom tag can then act as an XML source, result or transformation.
+</p>
 
-    <li>
-      <a href="messenger.html#Example Code">Example Code</a>
-    </li>    
-
-    <li>
-      <a href="messenger.html#Configuration">Configuration</a>
-    </li>    
-
-    <li>
-      <a href="messenger.html#Messagelets">Messagelets</a>
-    </li>    
-  </ol>
+<p>We hope Jelly can be both an XML processing and transformation engine, 
+a web and XML based scripting engine as well as a unit testing framework for 
+testing web applications and web services.
+In addition Jelly can act as a stand alone lightweight engine for running JSTL 
+scripts which can be run from the command line, inside SOAP services or from Ant.
 </p>
 
 </section>
 
-<section name="Introduction">
-
-<p>
-<b>Proposed by :</b> James Strachan
-</p>
-
-<p>
-  <b>Messenger</b> is a JMS (Java Message Service) framework
-  which makes it very easy to use JMS in Web Service and Web Application environments.
-</p>
-
-<p>
-  Messenger allows much of the complexity of the JMS API to be hidden behind 
-  a simple facade API. 
-</p>
-
-<p>
-  In addition Messenger provides an XML deployment 
-  configuration file to avoid having to litter your code with complex deployment 
-  configuration details in your application code. 
-</p>
-
-<p>
-  Messenger also provides a Messagelet Engine which is a JMS based container 
-  that can be deployed in any Servlet Engine to process JMS messages
-  via MessageListeners, Servlets or JSP.
-</p>
-
-</section>
-
-<section name="Documentation">
-
-<p>
-The <a href="http://nagoya.apache.org/gump/javadoc/jakarta-commons-sandbox/messenger/dist/doc/api/index.html">JavaDoc</a> 
-from the last nightly build is available online
-or you can download a <a href="http://jakarta.apache.org/builds/jakarta-commons/nightly/commons-messenger/">nightly build</a>.
-</p>
-
-<p>
-There is also the 
-<a href="http://cvs.apache.org/viewcvs/~checkout~/jakarta-commons-sandbox/messenger/STATUS.html">status document</a>.
-or the initial <a href="http://cvs.apache.org/viewcvs/~checkout~/jakarta-commons-sandbox/messenger/PROPOSAL.html">proposal</a>.
-</p>
-
-</section>
-
-<section name="Example Config">
-
-<p> 
-  Here is an example <i>Messenger.xml</i> deployment configuration file.
-</p>
-
-<source><![CDATA[
-<?xml version="1.0" encoding="UTF-8"?>
-<manager>
-
-  <!-- this example Messenger XML config file should work with J2EE SDK -->
-
-  <messenger name="topic">
-    <jndi lookupName="TopicConnectionFactory">
-      <property>
-        <name>com.sun.jms.internal.java.naming.factory.initial</name>
-        <value>com.sun.enterprise.naming.SerialInitContextFactory</value>
-      </property>          
-    </jndi>
-  </messenger>
-
-  <messenger name="queue">
-    <jndi lookupName="QueueConnectionFactory">
-      <property>
-        <name>com.sun.jms.internal.java.naming.factory.initial</name>
-        <value>com.sun.enterprise.naming.SerialInitContextFactory</value>
-      </property>          
-    </jndi>
-  </messenger>
-
-</manager>
-]]></source>
-
-<p>
-It should work with the J2EE SDK to make 2 standard Messengers called 
-<i>topic</i> and <i>queue</i> respectively.
-</p>
-
-<p>
-  So how would we use these 2 Messengers from Java code?
-</p>
-
-</section>
-
-<section name="Example Code">
-
-<p>
-Here's some example code to send a message on a topic.
-</p>
-
-<source><![CDATA[
-
-// get a Messenger and Destination
-Messenger messenger = MessengerManager.get( "topic" );
-Destination destination = messenger.getDestination( "CHAT.NEWBIES" );
-
-// now lets send a message
-TextMessage message = messenger.createTextMessage( "this is some text" );
-messenger.send( destination, message );
-]]></source>
-
-<p>
-Here's some code to receive a message on a queue, blocking until the message arrives.
-</p>
-
-<source><![CDATA[
-
-// get a Messenger and Destination
-Messenger messenger = MessengerManager.get( "queue" );
-Destination destination = messenger.getDestination( "REQUEST.BUILD" );
-
-// now lets receive a message
-Message message = messenger.receive( destination );
-]]></source>
-
-
-<p>
-Notice how the construction of individual Messenger objects can be hidden behind 
-the MessengerManager in a similar way to tools like <a href="http://jakarta.apache.org/log4j/docs/index.html">log4j</a>.
-</p>
-
-<p>
-Also notice that the Messenger API is a simple facade, no need for Topic and Queue specific
-coding as well as the use of MessageConsumer, MessageProducer, TopicPublisher, 
-TopicSubscriber, QueueSender, QueueReceiver and the plethora of Connection and Session objects.
-</p>
-
-
-</section>
-
-
-<section name="Configuration">
-
-<p>
-  By default, Messenger will look for an XML document called <i>Messenger.xml</i> 
-  on the CLASSPATH as soon as a Messenger instance is looked up via the following code.
-</p>
-
-<source><![CDATA[
-
-Messenger messenger = MessengerManager.get( "customer.orders" );
-]]></source>
-
-
-<p>
-  An alternative approach is to define the system property <i>org.apache.commons.messenger</i>
-  to point to a URL of a Messenger deployment configuration document. For example
-</p>
-
-<source><![CDATA[
-
-  $ java -Dorg.apache.commons.messenger=http://localhost/config/Messenger.xml MyApplication
-]]></source>
-
-<p>
-  In servlet environments its often a good idea to explicitly configure the 
-  singleton <i>MessengerManager</i>
-  in a Servlet initialisation method using servlet initialisation parameters. 
-  Here's an example
-</p>
-
-<source><![CDATA[
-
-public class MyServlet extends HttpServlet {
-    
-    public void init() throws ServletException {
-        // initialise the Messenger connections
-        String url = getInitParameter( "messenger" );
-        if ( url != null ) {
-            MessengerManager.configure( url );
-        }
-    }
-}  
-]]></source>
-
-</section>
-
-
-<section name="Messagelets">
-
-<p>
-  The Messenger project provides a Messagelet Engine which is  a JMS based Container which runs in any Servlet Engine
-  such as Tomcat 4.0.
-  The Messagelet Engine provides a simple framework for processing JMS messages in
-  a variety of ways using either regular JMS MessageListeners, Message Driven Objects, Servlets or even JSP.</p>
-<p>  In addition the Messagelet engine provides a Bridge mechanism which allows messages  to be consumed from one destination and connection and sent to another destination,   possibly using a different JMS connection and provider.  This allows, for example, messages to be consumed on SpiritWave and sent to MQSeries,  possibly applying some custom transformation along the way.  </p><p>  The Bridge mechanism is provided via the   <a href="messenger/api/org/apache/commons/messagelet/BridgeMDO.html">BridgeMDO</a>   and using the &lt;bridge&gt; element inside a subscription deployment descriptor.</p>
-<p>
-  To deploy a Messagelet Container you need to add the ManagerServlet in a web 
-  application giving it an XML configuration file describing all the various JMS connections
-  and an XML configuration file describing all the subscriptions.
-</p>
-<p>
-  Here are example 
-  <a href="http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/messenger/src/conf/Messenger.xml?rev=1.3&amp;content-type=text/vnd.viewcvs-markup">connections</a>
-  and 
-  <a href="http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/messenger/src/webapp/conf/subscriptions.xml?rev=1.6&amp;content-type=text/vnd.viewcvs-markup">subscriptions</a> 
-  XML configuration files.
-  There now follows the section you need to add to your web.xml configuration file to deploy the
-  Messagelet Manager Servlet.
-</p>
-
-<source><![CDATA[
-
-  <servlet>
-    <servlet-name>managerServlet</servlet-name>
-    <servlet-class>org.apache.commons.messagelet.ManagerServlet</servlet-class>
-    <init-param>
-      <param-name>connections</param-name>
-      <param-value>/WEB-INF/Messenger.xml</param-value>
-    </init-param> 
-    <init-param>
-      <param-name>subscriptions</param-name>
-      <param-value>/WEB-INF/subscriptions.xml</param-value>
-    </init-param> 
-    <load-on-startup>1</load-on-startup> 
-  </servlet>
-]]></source>
-
-<p>
-  Once you've done the above and the web application is started the Messagelet engine will
-  subscribe to the various JMS subscriptions and then dispatch JMS messages to the various
-  MessageListener objects, Servlets or JSP pages.
-</p>
-
-<p>
-  There are a variety of ways in which you can process JMS messages depending on your requirements.
-</p>
-
-<ul>
-
-<li>
-  A MessageListener is a standard JMS listener of messages.
-</li>
-
-<li>
-  A <a href="messenger/api/org/apache/commons/messagelet/MessageDrivenObject.html">MessageDrivenObject</a> is-a JMS MessageListener which has
-  extra servlet-based lifecycle methods just like a Servlet.
-  This allows
-  an MDO to know when its being initialised and when its being destroryed 
-  and so do some resource management (such as creating or closing database
-  connections etc). Also on initialisation the MDO gets access to the
-  ServletContext so that it can read some initialization parameters from
-  the web application or perform web-app level logging and so on.
-</li>
-
-<li>
-  A <a href="messenger/api/org/apache/commons/messagelet/MessengerMDO.html">MessengerMDO</a> is-a MessageDrivenObject
-  but also provides a number of helper methods such as access to the Messenger to
-  which its listening, so that responses can be sent back to the originator of the message,
-  as well as access to the ServletContext and some logging helper methods.
-</li>
-
-<li>
-  A Servlet can be any GenericServlet or HttpServlet.
-  If the JMS message that is being dispatched is a TextMessage then the body of the message is
-  available via the ServletRequest.getReader() method, in the normal Servlet way.
-  Any output written to the ServletResponse.getWriter() will be converted into a TextMessage
-  and sent back to the originator.
-  All servlets and JSP pages have access to the originating JMS message and Messenger objects via
-  the "message" and "messenger" request attributes respectively.
-</li>
-
-<li>
-  A <a href="messenger/api/org/apache/commons/messagelet/Messagelet.html">Messagelet</a>
-  is a JMS specific Servlet, just like a HttpServlet is a HTTP specific Servlet. It
-  provides access to a Messagelet specific 
-  <a href="messenger/api/org/apache/commons/messagelet/MessageletRequest.html">MessageletRequest</a>
-  and
-  <a href="messenger/api/org/apache/commons/messagelet/MessageletResponse.html">MessageletResponse</a>
-  to allow access to the JMS Message and the Messenger for sending replies.
-</li>
-
-<li>
-  A JSP page can be any piece of JSP, for example the standard JSP tag library can be used
-  to perform JavaScript, XPath, XSLT or SQL operations on the incoming message.
-  The request scope "message" and "messenger" attributes can be used to access the originating
-  JMS Message and Messenger objects.
-</li>
-
-</ul>
-
-<p>There are some examples of an MDO, Servlet and Messagelet 
-  <a href="http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/messenger/src/webapp/src/">here</a> or
-  you can see example JSP 
-  <a href="http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/messenger/src/webapp/web/jms/">here</a>
-</p>
-
-</section>
 
 </body>
 </document>
+
