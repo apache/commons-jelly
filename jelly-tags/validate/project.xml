@@ -31,8 +31,9 @@
     </dependency>
   
     <dependency>
-      <id>isorelax</id>
-      <version>20020414</version>
+      <groupId>msv</groupId>
+      <artifactId>isorelax</artifactId>
+      <version>20030807</version>
     </dependency>
 
     <dependency>
@@ -42,19 +43,21 @@
 
     <dependency>
       <id>msv</id>
-      <version>20020414</version>
+      <version>20030807</version>
     </dependency>
     <!-- END for compilation -->
 
 	<!-- runtime dependencies -->
     <dependency>
-      <id>xsdlib</id>
-      <version>20020414</version>
+      <groupId>msv</groupId>
+      <artifactId>xsdlib</artifactId>
+      <version>20030807</version>
     </dependency>
 
     <dependency>
-      <id>relaxngDatatype</id>
-      <version>20020414</version>
+      <groupId>msv</groupId>
+      <artifactId>relaxngDatatype</artifactId>
+      <version>20030807</version>
     </dependency>
     <!-- END runtime -->
   
