@@ -1,3 +1,26 @@
 <project default="java:jar">
 
+  <goal name="create-classpath" prereqs="java:compile,test:compile">
+		<path id="test.classpath">
+			<!-- add log4j config files to classpath -->
+			<pathelement location="src/conf"/>
+			
+			<pathelement path="${maven.build.dest}"/>
+			<pathelement path="target/classes"/>
+			<pathelement path="target/test-classes"/>
+			<path refid="maven.dependency.classpath"/>
+			
+		</path>
+  </goal>
+
+  <goal name="demo" prereqs="create-classpath"
+		description="Runs the example quartz demo">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/tags/quartz/example.jelly"/>
+      <sysproperty key="log4j.configuration" value="src/conf/log4j.configuration"/>
+		</java>
+  </goal>
+
+
 </project>
