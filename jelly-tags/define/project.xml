@@ -40,11 +40,17 @@
     <!-- START for test -->
   
     <dependency>
-      <id>commons-jelly+tags-xml</id>
+      <id>commons-jelly+tags-dynabean</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/xml/</url>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/dynabean/</url>
     </dependency>
-      
+
+    <dependency>
+      <id>commons-jelly+tags-junit</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
+    </dependency>
+
     <dependency>
       <id>commons-jelly+tags-log</id>
       <version>SNAPSHOT</version>
@@ -52,10 +58,11 @@
     </dependency>
       
     <dependency>
-      <id>commons-jelly+tags-dynabean</id>
+      <id>commons-jelly+tags-xml</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/dynabean/</url>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/xml/</url>
     </dependency>
+      
       
     <!-- END for test -->
     

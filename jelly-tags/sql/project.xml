@@ -37,6 +37,18 @@
       <id>jdbc</id>
       <version>2.0</version>
     </dependency>
+    
+    <!-- END for compilation -->
+    
+    <!-- START for testing -->
+    
+    <dependency>
+      <id>commons-jelly+tags-junit</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+    </dependency>
+    
+    <!-- END for testing -->
 
   </dependencies>
   

@@ -57,7 +57,13 @@
       </properties>
       <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/ant/</url>
     </dependency>
-    
+
+    <dependency>
+      <id>commons-jelly+tags-junit</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+    </dependency>
+
     <dependency>
       <id>commons-jelly+tags-log</id>
       <version>SNAPSHOT</version>

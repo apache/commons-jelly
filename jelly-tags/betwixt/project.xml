@@ -30,16 +30,19 @@
     <dependency>
       <id>commons-jelly</id>
       <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/</url>
     </dependency>
   
     <dependency>
       <id>commons-betwixt</id>
       <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/betwixt/</url>
     </dependency>
     
     <dependency>
       <id>commons-digester</id>
       <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/digester/</url>
     </dependency>
     
     <!-- END for compilation -->
@@ -52,6 +55,12 @@
       <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
     </dependency>
       
+    <dependency>
+      <id>commons-jelly+tags-junit</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+    </dependency>
+
     <!-- END for test -->
     
   </dependencies>

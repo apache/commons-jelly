@@ -59,6 +59,15 @@
     
     <!-- END for running demos -->
   
+    <!-- START for testing -->
+    
+    <dependency>
+      <id>commons-jelly+tags-junit</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
+    </dependency>
+
+    <!-- END for testing -->
     
   </dependencies>
   

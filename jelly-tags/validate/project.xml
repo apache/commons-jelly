@@ -61,7 +61,17 @@
       <version>20020414</version>
     </dependency>
     <!-- END runtime -->
-    
+  
+    <!-- START for test -->
+
+    <dependency>
+      <id>commons-jelly+tags-junit</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+    </dependency>
+
+    <!-- END for test -->
+  
   </dependencies>
   
 </project>
