@@ -207,6 +207,14 @@
       	<role>Developer</role>
       </roles>
     </contributor>        
+    <contributor>
+      <name>Kelvin Tan</name>
+      <email></email>
+      <organization></organization>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>        
   </contributors>
 	
   <dependencies>
