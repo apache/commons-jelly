@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:jeez">
+
+  <fileScanner var="scanner">
+    <fileset dir="src/test" includes="**/*.jelly"/>
+  </fileScanner>
+    
+  Iterating through build files
+  
+  <j:forEach var="file" items="${scanner.iterator()}">
+  
+    <!-- here we could parse the file or process it in some way -->
+    <!-- such as by calling <ant> with the given build.xml file -->
+      
+    Found ${file.absolutePath}
+  </j:forEach>
+</j:jelly>

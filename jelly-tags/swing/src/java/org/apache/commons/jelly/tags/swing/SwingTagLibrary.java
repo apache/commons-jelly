@@ -70,8 +70,11 @@ import javax.swing.*;
 
 import org.apache.commons.beanutils.ConvertUtils;
 
+import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagScript;
+import org.apache.commons.jelly.impl.DynaTagScript;
+import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.tags.swing.converters.DimensionConverter;
 import org.apache.commons.jelly.tags.swing.converters.PointConverter;
 
@@ -111,10 +114,15 @@ public class SwingTagLibrary extends TagLibrary {
     public TagScript createTagScript(String name, Attributes attributes) throws Exception {
         TagScript answer = super.createTagScript(name, attributes);
         if ( answer == null ) {
-            Factory factory = getFactory( name );
+            final Factory factory = getFactory( name );
             if ( factory != null ) {
-                ComponentTag tag = new ComponentTag(factory);
-                answer = TagScript.newInstance(tag);
+                return new DynaTagScript(
+                    new TagFactory() {
+                        public Tag createTag() throws Exception {
+                            return new ComponentTag(factory);
+                        }
+                    }
+                );
             }
         }
         return answer;

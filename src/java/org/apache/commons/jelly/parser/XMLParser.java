@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.26 2002/07/15 11:22:27 jstrachan Exp $
- * $Revision: 1.26 $
- * $Date: 2002/07/15 11:22:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.27 2002/08/01 09:53:18 jstrachan Exp $
+ * $Revision: 1.27 $
+ * $Date: 2002/08/01 09:53:18 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.26 2002/07/15 11:22:27 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.27 2002/08/01 09:53:18 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -92,6 +92,7 @@ import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.StaticTagScript;
+import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.expression.CompositeExpression;
@@ -121,7 +122,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.26 $
+ * @version $Revision: 1.27 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -134,12 +135,9 @@ public class XMLParser extends DefaultHandler {
     /** The current script block */
     private ScriptBlock script;
 
-    /** The current tagScript */
+    /** The current, parent tagScript */
     private TagScript tagScript;
 
-    /** The current parent tag */
-    private Tag parentTag;
-    
     /** The stack of body scripts. */
     private ArrayStack scriptStack = new ArrayStack();
 
@@ -222,10 +220,6 @@ public class XMLParser extends DefaultHandler {
     private Log log = LogFactory.getLog(XMLParser.class);
 
 
-    /** 
-     * A stack of tags used to assign the parent tag
-     */
-    private List tagStack = new ArrayList();
     
     /**
      * Construct a new XMLParser with default properties.
@@ -551,7 +545,6 @@ public class XMLParser extends DefaultHandler {
         script = new ScriptBlock();
         textBuffer = new StringBuffer();
         tagScript = null;
-        parentTag = null;
         scriptStack.clear();
         tagScriptStack.clear();
     }
@@ -593,6 +586,7 @@ public class XMLParser extends DefaultHandler {
             
             // if this is a tag then create a script to run it
             // otherwise pass the text to the current body
+            TagScript parentTagScript = tagScript;
             tagScript = createTag(namespaceURI, localName, list);
             if (tagScript == null) {
                 tagScript = createStaticTag(namespaceURI, localName, qName, list);
@@ -600,8 +594,7 @@ public class XMLParser extends DefaultHandler {
             tagScriptStack.add(tagScript);
             if (tagScript != null) {
                 // set parent relationship...
-                Tag tag = tagScript.getTag();
-                tag.setParent(parentTag);
+                tagScript.setParent(parentTagScript);
 
                 // set the namespace Map
                 if ( elementNamespaces != null ) {
@@ -617,12 +610,6 @@ public class XMLParser extends DefaultHandler {
                 tagScript.setFileName(fileName);
                 tagScript.setElementName(qName);
                 
-                // pop another tag onto the stack
-                if ( parentTag != null ) {
-                    tagStack.add( parentTag );                
-                }
-                parentTag = tag;                
-                
                 if (textBuffer.length() > 0) {
                     addTextScript(textBuffer.toString());
                     textBuffer.setLength(0);
@@ -631,7 +618,7 @@ public class XMLParser extends DefaultHandler {
                 // start a new body
                 scriptStack.push(script);
                 script = new ScriptBlock();
-                tag.setBody(script);
+                tagScript.setTagBody(script);
             }
             else {
                 // XXXX: might wanna handle empty elements later...
@@ -701,13 +688,14 @@ public class XMLParser extends DefaultHandler {
 	            textBuffer.append(qName);
 	            textBuffer.append(">");
 	        }
-	        int size = tagStack.size();
-	        if ( size <= 0 ) {
-	            parentTag = null;
-	        }
-	        else {
-	            parentTag = (Tag) tagStack.remove( size - 1 );
-	        }
+            
+            // now lets set the parent tag variable
+            if ( tagScriptStack.isEmpty() ) {
+                tagScript = null;
+            }
+            else {
+                tagScript = (TagScript) tagScriptStack.get(tagScriptStack.size() - 1);
+            }
         }
         catch (SAXException e) {
             throw e;
@@ -1030,14 +1018,20 @@ public class XMLParser extends DefaultHandler {
      * Factory method to create a static Tag that represents some static content.
      */
     protected TagScript createStaticTag(
-        String namespaceURI,
-        String localName,
-        String qName,
+        final String namespaceURI,
+        final String localName,
+        final String qName,
         Attributes list)
         throws SAXException {
         try {
-            StaticTag tag = new StaticTag( namespaceURI, localName, qName);
-            StaticTagScript script = new StaticTagScript(tag);
+            StaticTag tag = new StaticTag( namespaceURI, localName, qName );
+            StaticTagScript script = new StaticTagScript(
+                new TagFactory() {
+                    public Tag createTag() {
+                        return new StaticTag( namespaceURI, localName, qName );   
+                    }
+                }
+            );
 
             // now iterate through through the expressions
             int size = list.getLength();

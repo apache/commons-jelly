@@ -79,9 +79,10 @@ import org.apache.commons.jelly.tags.define.DynamicTagLibrary;
  */
 public class TagDefTag extends DefineTagTag {
 
-    protected static DynamicTagLibrary tagLibrary;
+    private DynamicTagLibrary tagLibrary;
     
-    public TagDefTag() {
+    public TagDefTag(DynamicTagLibrary tagLibrary) {
+        this.tagLibrary = tagLibrary;
     }
 
     /**

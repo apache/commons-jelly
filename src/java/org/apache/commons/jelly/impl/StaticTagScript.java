@@ -98,8 +98,8 @@ public class StaticTagScript extends DynaTagScript {
     public StaticTagScript() {
     }
 
-    public StaticTagScript(StaticTag tag) {
-        super(tag);
+    public StaticTagScript(TagFactory tagFactory) {
+        super(tagFactory);
     }
     
 
@@ -109,7 +109,8 @@ public class StaticTagScript extends DynaTagScript {
     public void run(JellyContext context, XMLOutput output) throws Exception {
 
         startNamespacePrefixes(output);
-                
+            
+        Tag tag = getTag();                
         if ( firstRun ) {
             firstRun = false;
             
@@ -117,6 +118,9 @@ public class StaticTagScript extends DynaTagScript {
             tag = findDynamicTag(context, (StaticTag) tag);
         }
         try {        
+            if ( tag == null ) {
+                return;
+            }
             tag.setContext(context);
             
             DynaTag dynaTag = (DynaTag) tag;

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.9 2002/06/27 14:09:15 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/27 14:09:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.10 2002/08/01 09:53:17 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/08/01 09:53:17 $
  *
  * ====================================================================
  *
@@ -57,12 +57,15 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DynaTagScript.java,v 1.9 2002/06/27 14:09:15 jstrachan Exp $
+ * $Id: DynaTagScript.java,v 1.10 2002/08/01 09:53:17 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
 import java.util.Iterator;
 import java.util.Map;
+
+import org.apache.commons.beanutils.ConvertingWrapDynaBean;
+import org.apache.commons.beanutils.DynaBean;
 
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
@@ -80,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * <p><code>DynaTagScript</code> is a script evaluates a custom DynaTag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class DynaTagScript extends TagScript {
 
@@ -90,39 +93,46 @@ public class DynaTagScript extends TagScript {
     public DynaTagScript() {
     }
 
-    public DynaTagScript(DynaTag tag) {
-        super(tag);
+    public DynaTagScript(TagFactory tagFactory) {
+        super(tagFactory);
     }
 
     // Script interface
     //-------------------------------------------------------------------------                
-    /** Compiles the script to a more efficient form. 
-      * Will only be called once by the parser 
-      */
-    public Script compile() throws Exception {
-        if (tag instanceof CompilableTag) {
-            ((CompilableTag) tag).compile();
-        }
-        // compile body
-        tag.setBody(tag.getBody().compile());
-        return this;
-    }
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
         try {
+            Tag tag = getTag();
+            if ( tag == null ) {
+                return;
+            }
             tag.setContext(context);
-            
-            DynaTag dynaTag = (DynaTag) tag;
     
-            // ### probably compiling this to 2 arrays might be quicker and smaller
-            for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                String name = (String) entry.getKey();
-                Expression expression = (Expression) entry.getValue();
-    
-                Object value = expression.evaluate(context);
-                dynaTag.setAttribute(name, value);
+            if ( tag instanceof DynaTag ) {        
+                DynaTag dynaTag = (DynaTag) tag;
+        
+                // ### probably compiling this to 2 arrays might be quicker and smaller
+                for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String name = (String) entry.getKey();
+                    Expression expression = (Expression) entry.getValue();
+        
+                    Object value = expression.evaluate(context);
+                    dynaTag.setAttribute(name, value);
+                }
+            }
+            else {
+                // treat the tag as a bean
+                DynaBean dynaBean = new ConvertingWrapDynaBean( tag );
+                for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String name = (String) entry.getKey();
+                    Expression expression = (Expression) entry.getValue();
+        
+                    Object value = expression.evaluate(context);
+                    dynaBean.set(name, value);
+                }
             }
         
             tag.doTag(output);

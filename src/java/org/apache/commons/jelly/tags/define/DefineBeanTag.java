@@ -68,7 +68,9 @@ import java.util.Map;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.TagFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -150,14 +152,20 @@ public class DefineBeanTag extends DefineTagSupport {
 			}
 		}
         
-        Method invokeMethod = getInvokeMethod( theClass );
-
         if ( attributes == null ) {
             attributes = EMPTY_MAP;        
         }
         
-        BeanTag tag = new BeanTag(theClass, attributes, varAttribute, invokeMethod);
-        getTagLibrary().registerBeanTag(name, tag);
+        final Class beanClass = theClass;
+        final Method invokeMethod = getInvokeMethod( theClass );
+        final Map beanAttributes = attributes;
+        
+        TagFactory factory = new TagFactory() {
+            public Tag createTag() {
+                return  new BeanTag(beanClass, beanAttributes, varAttribute, invokeMethod);
+            }
+        };
+        getTagLibrary().registerBeanTag(name, factory);
         
         // now lets clear the attributes for next invocation and help the GC
         attributes = null;

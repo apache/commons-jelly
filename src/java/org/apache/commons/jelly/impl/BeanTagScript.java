@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.12 2002/06/28 12:13:27 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/06/28 12:13:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.13 2002/08/01 09:53:17 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/08/01 09:53:17 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.12 2002/06/28 12:13:27 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.13 2002/08/01 09:53:17 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.12 $
+  * @version $Revision: 1.13 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -99,6 +99,12 @@ public class BeanTagScript extends TagScript {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(BeanTagScript.class);
 
+
+// this state must be shared & thread safe...
+
+    /** The cached Tag Class information */
+    private Class tagClass;
+    
     /** Expressions for each attribute */
     private Expression[] expressions = {
     };
@@ -114,82 +120,19 @@ public class BeanTagScript extends TagScript {
     public BeanTagScript() {
     }
 
-    public BeanTagScript(Tag tag) {
-        super(tag);
+    public BeanTagScript(TagFactory tagFactory) {
+        super(tagFactory);
     }
 
     // Script interface
     //-------------------------------------------------------------------------                
 
-    /** Compiles the script to a more efficient form. 
-      * Will only be called once by the parser 
-      */
-    public Script compile() throws Exception {
-        if (tag instanceof CompilableTag) {
-            ((CompilableTag) tag).compile();
-        }
-        List typeList = new ArrayList();
-        List methodList = new ArrayList();
-        List expressionList = new ArrayList();
-        BeanInfo info = Introspector.getBeanInfo(tag.getClass());
-        PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
-        Set attributeSet = new HashSet();
-        if (descriptors != null) {
-            for (int i = 0, size = descriptors.length; i < size; i++) {
-                PropertyDescriptor descriptor = descriptors[i];
-                String name = descriptor.getName();
-                Expression expression = (Expression) attributes.get(name);
-                if (expression != null) {
-                    attributeSet.add( name );
-                    Method writeMethod = descriptor.getWriteMethod();
-                    if (writeMethod != null) {
-                        Class type = descriptor.getPropertyType();
-                        expressionList.add(expression);
-                        methodList.add(writeMethod);
-                        typeList.add(type);
-                        if (log.isDebugEnabled()) {
-                            log.debug(
-                                "Adding tag property name: "
-                                    + name
-                                    + " type: "
-                                    + type.getName()
-                                    + " expression: "
-                                    + expression);
-                        }
-                    }
-                }
-            }
-        }
-
-        // System.err.println( "BeanTagScript::compile() " + this );
-        
-        // now create the arrays to avoid object allocation & casting when
-        // running the script
-        int size = expressionList.size();
-        expressions = new Expression[size];
-        methods = new Method[size];
-        types = new Class[size];
-        expressionList.toArray(expressions);
-        methodList.toArray(methods);
-        typeList.toArray(types);
-        
-        // compile body
-        tag.setBody(tag.getBody().compile());
-        
-        // now lets check for any attributes that are not used
-        for ( Iterator iter = attributes.keySet().iterator(); iter.hasNext(); ) {
-            String name = (String) iter.next();
-            if ( ! attributeSet.contains( name ) ) {
-                throw createJellyException( 
-                    "This tag does not understand the attribute '" + name + "'"
-                );
-            }
-        }
-        return this;
-    }
-    
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
+        Tag tag = getTag();
+        if ( tag == null ) {
+            return;
+        }
         tag.setContext(context);
         
         // initialize all the properties of the tag before its used
@@ -240,4 +183,81 @@ public class BeanTagScript extends TagScript {
             handleException(e);
         }
     }
+    
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+
+    /**
+     * Compiles a newly created tag if required, sets its parent and body.
+     */
+    protected void configureTag(Tag tag) throws Exception {
+        super.configureTag(tag);
+        Class aClass = tag.getClass();
+        if ( tagClass == null || ! tagClass.equals( aClass ) ) {
+            tagClass = aClass;
+            compileClass();
+        }
+    }
+    
+    
+    /** Compiles the given tag class caching the property descriptors etc.
+      */
+    protected void compileClass() throws Exception {
+        List typeList = new ArrayList();
+        List methodList = new ArrayList();
+        List expressionList = new ArrayList();
+        BeanInfo info = Introspector.getBeanInfo(tagClass);
+        PropertyDescriptor[] descriptors = info.getPropertyDescriptors();
+        Set attributeSet = new HashSet();
+        if (descriptors != null) {
+            for (int i = 0, size = descriptors.length; i < size; i++) {
+                PropertyDescriptor descriptor = descriptors[i];
+                String name = descriptor.getName();
+                Expression expression = (Expression) attributes.get(name);
+                if (expression != null) {
+                    attributeSet.add( name );
+                    Method writeMethod = descriptor.getWriteMethod();
+                    if (writeMethod != null) {
+                        Class type = descriptor.getPropertyType();
+                        expressionList.add(expression);
+                        methodList.add(writeMethod);
+                        typeList.add(type);
+                        if (log.isDebugEnabled()) {
+                            log.debug(
+                                "Adding tag property name: "
+                                    + name
+                                    + " type: "
+                                    + type.getName()
+                                    + " expression: "
+                                    + expression);
+                        }
+                    }
+                }
+            }
+        }
+
+        // System.err.println( "BeanTagScript::compile() " + this );
+        
+        // now create the arrays to avoid object allocation & casting when
+        // running the script
+        int size = expressionList.size();
+        expressions = new Expression[size];
+        methods = new Method[size];
+        types = new Class[size];
+        expressionList.toArray(expressions);
+        methodList.toArray(methods);
+        typeList.toArray(types);
+        
+        // now lets check for any attributes that are not used
+        for ( Iterator iter = attributes.keySet().iterator(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            if ( ! attributeSet.contains( name ) ) {
+                throw createJellyException( 
+                    "This tag does not understand the attribute '" + name + "'"
+                );
+            }
+        }
+    }
+    
 }

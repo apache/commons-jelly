@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.4 2002/07/19 23:05:21 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/07/19 23:05:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.5 2002/08/01 09:53:18 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/08/01 09:53:18 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JeezTagLibrary.java,v 1.4 2002/07/19 23:05:21 jstrachan Exp $
+ * $Id: JeezTagLibrary.java,v 1.5 2002/08/01 09:53:18 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
@@ -71,7 +71,11 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.impl.BeanTagScript;
+import org.apache.commons.jelly.impl.DynaTagScript;
+import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
 import org.apache.commons.jelly.tags.define.DynamicTagLibrary;
 import org.apache.commons.jelly.tags.werkz.WerkzTagLibrary;
@@ -88,7 +92,7 @@ import org.xml.sax.Attributes;
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class JeezTagLibrary extends DynamicTagLibrary {
 
@@ -96,23 +100,19 @@ public class JeezTagLibrary extends DynamicTagLibrary {
     private Log log = LogFactory.getLog(JeezTagLibrary.class);
 
     /** jelly:core taglib. */
-    // private TagLibrary coreTagLib;
+    // private TagLibrary coreTagLib = new CoreTagLibrary();
 
     /** jelly:werkz taglib. */
-    private TagLibrary werkzTagLib;
+    private TagLibrary werkzTagLib = new WerkzTagLibrary();
 
     /** jelly:ant taglib. */
     private AntTagLibrary antTagLib;
-
-    private Set runtimeTasks;
-
-    private Project project;
 
     /**
      * Use a default ant Project
      */
     public JeezTagLibrary() {
-        this( AntTagLibrary.createProject() );
+        this.antTagLib    = new AntTagLibrary();
     }
 
     
@@ -121,67 +121,52 @@ public class JeezTagLibrary extends DynamicTagLibrary {
      *  @param antProject The ant Project.
      */
     public JeezTagLibrary(Project antProject) {
-
-        this.project      = antProject;
-        this.runtimeTasks = new HashSet();
-
-        // this.coreTagLib   = new CoreTagLibrary();
         this.antTagLib    = new AntTagLibrary( antProject );
-        this.werkzTagLib  = new WerkzTagLibrary();
-
-        // #### this is a bit of a hack. 
-        // when we introduce the concept of TagFactory objects
-        // we could do a cleaner mechanism for this...
-        TagDefTag.tagLibrary = this;
-        
-        registerTag( "target",
-                     TargetTag.class );
-        registerTag( "tagdef",
-                     TagDefTag.class );
     }
 
-    public TagScript createTagScript(String name,
-                                     Attributes attrs) throws Exception
-    {
-        TagScript script = super.createTagScript( name, attrs );
+    public TagScript createTagScript(
+        final String name,
+        Attributes attrs
+    ) throws Exception {
 
+        if ( name.equals( "tagdef" ) ) {
+            return new BeanTagScript(
+                new TagFactory() {
+                    public Tag createTag() {
+                        return new TagDefTag( JeezTagLibrary.this );
+                    }
+                }
+            );
+        }
+        if ( name.equals( "target" ) ) {
+            return new BeanTagScript(
+                new TagFactory() {
+                    public Tag createTag() {
+                        return new TargetTag();
+                    }
+                }
+            );
+        }
+        TagScript script = this.werkzTagLib.createTagScript( name, attrs );
         if ( script == null ) {
-
-            // script = this.coreTagLib.createTagScript( name, attrs );
-
+            script = antTagLib.createCustomTagScript( name, attrs );
             if ( script == null ) {
-                
-                script = this.werkzTagLib.createTagScript( name, attrs );
-                
-                if ( script == null ) {
-
-                    if ( isRuntimeTask( name ) ) {
-                        if ( ! project.getTaskDefinitions().containsKey( name ) ) {
-                            script = this.antTagLib.createRuntimeTaskTagScript( name, attrs );
-                        } else {
-                            this.runtimeTasks.remove( name );
+                return new DynaTagScript(
+                    new TagFactory() {
+                        public Tag createTag() throws Exception {
+                            // lets try create a dynamic tag first
+                            Tag tag = JeezTagLibrary.this.createTag(name);
+                            if ( tag != null ) {
+                                return tag;
+                            }
+                            else {
+                                return antTagLib.createTag( name );
+                            }
                         }
                     }
-
-                    if ( script == null ) {
-                        script = this.antTagLib.createTagScript( name, attrs );
-                    }
-
-                    if ( name.equals( "taskdef" ) ) {
-                        addRuntimeTask( attrs.getValue( "name" ) );
-                    } 
-                }
+                );                        
             }
         }
-
         return script;
-    }
-
-    protected void addRuntimeTask(String name) {
-        this.runtimeTasks.add( name );
-    }
-
-    protected boolean isRuntimeTask(String name) {
-        return this.runtimeTasks.contains( name );
     }
 }

@@ -73,6 +73,9 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.impl.BeanTagScript;
+import org.apache.commons.jelly.impl.DynaTagScript;
+import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
 
 import org.apache.commons.logging.Log;
@@ -210,29 +213,49 @@ public class AntTagLibrary extends TagLibrary {
 
 
     /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes) throws Exception {
+    public TagScript createTagScript(final String name, Attributes attributes) throws Exception {
 
-        Project project = getProject();
-        
-        // custom Ant tags
-        if ( name.equals("fileScanner") ) {            
-            Tag tag = new FileScannerTag(new FileScanner(project));
-            return TagScript.newInstance(tag);
+        TagScript answer = createCustomTagScript(name, attributes);
+        if ( answer == null ) {
+            answer = new DynaTagScript(
+                new TagFactory() {
+                    public Tag createTag() throws Exception {
+                        return AntTagLibrary.this.createTag(name);
+                    }
+                }
+            );
         }
+        return answer;
+    }
 
+    /** 
+     * @return a new TagScript for any custom, statically defined tags, like 'fileScanner'
+     */
+    public TagScript createCustomTagScript(final String name, Attributes attributes) throws Exception {
+        // custom Ant tags
+        if ( name.equals("fileScanner") ) {      
+            return new BeanTagScript(
+                new TagFactory() {
+                    public Tag createTag() throws Exception {
+                        return new FileScannerTag(new FileScanner(getProject()));
+                    }
+                }
+            );      
+        }
+        return null;
+    }
+
+    /**
+     * A helper method which creates an AntTag instance for the given element name
+     */
+    public Tag createTag(String name) throws Exception {
         AntTag tag = new AntTag( getProject(), name );
         if ( name.equals( "echo" ) ) {
             tag.setTrim(false);
         }
-        return TagScript.newInstance(tag);
+        return tag;
     }
-
-    public TagScript createRuntimeTaskTagScript(String taskName, Attributes attributes) throws Exception {
-        //TaskTag tag = new TaskTag( project, taskName );
-        AntTag tag = new AntTag( project, taskName );
-        return TagScript.newInstance( tag );
-    }
-                                                
+    
 
     
     // Properties

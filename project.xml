@@ -141,12 +141,12 @@
 
     <dependency>
       <id>dom4j</id>
-      <version>1.4-dev-5</version>
+      <version>1.4-dev-6</version>
     </dependency>
 
     <dependency>
       <id>commons-jexl</id>
-      <version>1.0-dev</version>
+      <version>SNAPSHOT</version>
     </dependency>
 
     <dependency>
@@ -247,10 +247,12 @@
       <version>SNAPSHOT</version>
     </dependency>
 
+<!--
     <dependency>
       <id>log4j</id>
       <version>1.1.3</version>
     </dependency>
+-->
 
 	<!-- runtime dependency for validate taglib -->
     <dependency>
@@ -269,9 +271,7 @@
 	
     <dependency>
       <id>hsqldb</id>
-      <type>required</type>
       <version>1.7.0</version>
-      <jar>hsqldb-1.7.0.jar</jar>
     </dependency>
   </dependencies>
   <build>

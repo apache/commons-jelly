@@ -91,6 +91,8 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
+        fileScanner.clear();
+        
         // run the body first to configure the task via nested
         invokeBody(output);
 
@@ -99,6 +101,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
             throw new MissingAttributeException( "var" );
         }
         context.setVariable( var, fileScanner );        
+        
     }
     
     // TaskSource interface

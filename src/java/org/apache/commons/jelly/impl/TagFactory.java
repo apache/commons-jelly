@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/JellyContext.java,v 1.10 2002/04/26 12:20:12 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/04/26 12:20:12 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.16 2002/07/15 16:18:15 werken Exp $
+ * $Revision: 1.16 $
+ * $Date: 2002/07/15 16:18:15 $
  *
  * ====================================================================
  *
@@ -56,39 +56,24 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: JellyContext.java,v 1.10 2002/04/26 12:20:12 jstrachan Exp $
+ *
+ * $Id: TagScript.java,v 1.16 2002/07/15 16:18:15 werken Exp $
  */
+package org.apache.commons.jelly.impl;
 
-package org.apache.commons.jelly.tags.jeez;
 
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.tags.define.DefineTagTag;
-import org.apache.commons.jelly.tags.define.DynamicTagLibrary;
+import org.apache.commons.jelly.Tag;
 
 /** 
- * This tag defines a dynamic tag in Jelly script. When the tag is invoked
- * any attributes will be passed in as variables and the definition of the
- * tag can use &lt;define:invokeBody&gt to invoke its body.
- * <p>
- * This tag is similar to the &lt;define:tag&gt; tag in the define
- * tag library. 
+ * <p><code>TagFactory</code> represents a Factory of {@link Tag} instances.</p>
+ * 
+ * <b>Note</b> that this class should be re-entrant and used
+ * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.16 $
  */
-public class TagDefTag extends DefineTagTag {
+public interface TagFactory {
 
-    private DynamicTagLibrary tagLibrary;
-    
-    public TagDefTag(DynamicTagLibrary tagLibrary) {
-        this.tagLibrary = tagLibrary;
-    }
-
-    /**
-     * @return the current JeezTagLibrary instance
-     */
-    protected DynamicTagLibrary getTagLibrary() throws JellyException {
-        return tagLibrary;
-    }
+    public Tag createTag() throws Exception;
 }

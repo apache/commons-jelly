@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.16 2002/07/15 16:18:15 werken Exp $
- * $Revision: 1.16 $
- * $Date: 2002/07/15 16:18:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.17 2002/08/01 09:53:17 jstrachan Exp $
+ * $Revision: 1.17 $
+ * $Date: 2002/08/01 09:53:17 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.16 2002/07/15 16:18:15 werken Exp $
+ * $Id: TagScript.java,v 1.17 2002/08/01 09:53:17 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -68,7 +68,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -93,20 +93,23 @@ import org.xml.sax.SAXException;
 /** 
  * <p><code>TagScript</code> abstract base class for a 
  * script that evaluates a custom tag.</p>
+ * 
+ * <b>Note</b> that this class should be re-entrant and used
+ * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.16 $
+ * @version $Revision: 1.17 $
  */
 public abstract class TagScript implements Script {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TagScript.class);
 
-    /** the tag to be evaluated */
-    protected Tag tag;
+    /** thread local storage for the tag used by the current thread */
+    private ThreadLocal tagHolder = new ThreadLocal();
 
     /** The attribute expressions that are created */
-    protected Map attributes = new HashMap();
+    protected Map attributes = new Hashtable();
     
     /** the optional namespaces Map of prefix -> URI */
     private Map namespacesMap;
@@ -123,21 +126,57 @@ public abstract class TagScript implements Script {
     /** the column number of the tag */
     private int columnNumber = -1;
 
+    /** the factory of Tag instances */
+    private TagFactory tagFactory;
+    
+    /** the body script used for this tag */
+    private Script tagBody;
+    
+    /** the parent TagScript */
+    private TagScript parent;
+    
+    /** 
+     * @return a new TagScript based on whether 
+     * the given Tag class is a bean tag or DynaTag 
+     */
+    public static TagScript newInstance(Class tagClass) {
+        TagFactory factory = new DefaultTagFactory(tagClass);
+        
+        if ( DynaTag.class.isAssignableFrom(tagClass) ) {
+            return new DynaTagScript(factory);
+        }
+        return new BeanTagScript(factory);
+    }
+    
     public TagScript() {
     }
 
-    public TagScript(Tag tag) {
-        this.tag = tag;
+    public TagScript(TagFactory tagFactory) {
+        this.tagFactory = tagFactory;
     }
     
     public String toString() {
-        return super.toString() + "[tag=" + tag + "]";
+        return super.toString() + "[tag=" + elementName + ";at=" + lineNumber + ":" + columnNumber + "]";
     }
 
+    /**
+     * Compiles the tags body
+     */
+    public Script compile() throws Exception {
+        if (tagBody != null) {
+            tagBody = tagBody.compile();
+        }
+        return this;
+    }
+    
     /**
      * Sets the optional namespaces prefix -> URI map
      */
     public void setNamespacesMap(Map namespacesMap) {
+        // lets check that this is a thread-safe map
+        if ( ! (namespacesMap instanceof Hashtable) ) {
+            namespacesMap = new Hashtable( namespacesMap );
+        }
         this.namespacesMap = namespacesMap;
     }
         
@@ -151,17 +190,6 @@ public abstract class TagScript implements Script {
     }
 
     
-    /** 
-     * @return a new TagScript based on whether 
-     * the tag is a bean tag or DynaTag 
-     */
-    public static TagScript newInstance(Tag tag) {
-        if (tag instanceof DynaTag) {
-            return new DynaTagScript((DynaTag) tag);
-        }
-        return new BeanTagScript(tag);
-    }
-    
     /** Add an initialization attribute for the tag.
      * This method must be called after the setTag() method 
      */
@@ -174,16 +202,70 @@ public abstract class TagScript implements Script {
     
     // Properties
     //-------------------------------------------------------------------------                
-    /** @return the tag to be evaluated */
-    public Tag getTag() {
+
+    /** 
+     * @return the tag to be evaluated, creating it lazily if required.
+     */
+    public Tag getTag() throws Exception {
+        Tag tag = (Tag) tagHolder.get();
+        if ( tag == null ) {
+            tag = createTag();
+            if ( tag != null ) {
+                configureTag(tag);
+                tagHolder.set(tag);
+            }
+        }
         return tag;
     }
-    
-    /** Sets the tag to be evaluated */
-    public void setTag(Tag tag) {
-        this.tag = tag;
+
+    /**
+     * Returns the Factory of Tag instances.
+     * @return the factory
+     */
+    public TagFactory getTagFactory() {
+        return tagFactory;
     }
-    
+
+    /**
+     * Sets the Factory of Tag instances.
+     * @param tagFactory The factory to set
+     */
+    public void setTagFactory(TagFactory tagFactory) {
+        this.tagFactory = tagFactory;
+    }
+
+    /**
+     * Returns the parent.
+     * @return TagScript
+     */
+    public TagScript getParent() {
+        return parent;
+    }
+
+    /**
+     * Returns the tagBody.
+     * @return Script
+     */
+    public Script getTagBody() {
+        return tagBody;
+    }
+
+    /**
+     * Sets the parent.
+     * @param parent The parent to set
+     */
+    public void setParent(TagScript parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * Sets the tagBody.
+     * @param tagBody The tagBody to set
+     */
+    public void setTagBody(Script tagBody) {
+        this.tagBody = tagBody;
+    }
+
     /** 
      * @return the Jelly file which caused the problem 
      */
@@ -243,6 +325,33 @@ public abstract class TagScript implements Script {
     // Implementation methods
     //-------------------------------------------------------------------------      
 
+    /**
+     * Factory method to create a new Tag instance. 
+     * The default implementation is to delegate to the TagFactory
+     */
+    protected Tag createTag() throws Exception {    
+        if ( tagFactory != null) {
+            return tagFactory.createTag();
+        }
+        return null;
+    }
+
+
+    /**
+     * Compiles a newly created tag if required, sets its parent and body.
+     */
+    protected void configureTag(Tag tag) throws Exception {
+        if (tag instanceof CompilableTag) {
+            ((CompilableTag) tag).compile();
+        }
+        Tag parentTag = null;
+        if ( parent != null ) {
+            parentTag = parent.getTag();
+        }
+        tag.setParent( parentTag );
+        tag.setBody( tagBody );
+    }
+                
     /**
      * Output the new namespace prefixes used for this element
      */    
@@ -364,4 +473,5 @@ public abstract class TagScript implements Script {
         }
         throw e;
     }
+    
 }

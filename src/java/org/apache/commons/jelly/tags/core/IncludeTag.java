@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.6 2002/06/13 21:31:14 werken Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/13 21:31:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.7 2002/08/01 09:53:18 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/08/01 09:53:18 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IncludeTag.java,v 1.6 2002/06/13 21:31:14 werken Exp $
+ * $Id: IncludeTag.java,v 1.7 2002/08/01 09:53:18 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -65,19 +65,15 @@ package org.apache.commons.jelly.tags.core;
 import java.net.URL;
 
 import org.apache.commons.jelly.JellyContext;
-
 import org.apache.commons.jelly.MissingAttributeException;
-
 import org.apache.commons.jelly.Script;
-
 import org.apache.commons.jelly.TagSupport;
-
 import org.apache.commons.jelly.XMLOutput;
 
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 
 public class IncludeTag extends TagSupport {

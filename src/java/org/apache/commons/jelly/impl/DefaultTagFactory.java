@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/JellyContext.java,v 1.10 2002/04/26 12:20:12 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/04/26 12:20:12 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.16 2002/07/15 16:18:15 werken Exp $
+ * $Revision: 1.16 $
+ * $Date: 2002/07/15 16:18:15 $
  *
  * ====================================================================
  *
@@ -56,39 +56,56 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: JellyContext.java,v 1.10 2002/04/26 12:20:12 jstrachan Exp $
+ *
+ * $Id: TagScript.java,v 1.16 2002/07/15 16:18:15 werken Exp $
  */
+package org.apache.commons.jelly.impl;
 
-package org.apache.commons.jelly.tags.jeez;
-
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.tags.define.DefineTagTag;
-import org.apache.commons.jelly.tags.define.DynamicTagLibrary;
+import org.apache.commons.jelly.Tag;
 
 /** 
- * This tag defines a dynamic tag in Jelly script. When the tag is invoked
- * any attributes will be passed in as variables and the definition of the
- * tag can use &lt;define:invokeBody&gt to invoke its body.
- * <p>
- * This tag is similar to the &lt;define:tag&gt; tag in the define
- * tag library. 
- *
+ * <p><code>DefaultTagFactory</code> a default implementation of TagFactory
+ * which creates new instances of a given class.
+ * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.16 $
  */
-public class TagDefTag extends DefineTagTag {
+public class DefaultTagFactory implements TagFactory {
 
-    private DynamicTagLibrary tagLibrary;
+    private Class tagClass;
+        
+    public DefaultTagFactory() {
+    }
+
+    public DefaultTagFactory(Class tagClass) {
+        this.tagClass = tagClass;
+    }
+
+    // TagFactory interface
+    //-------------------------------------------------------------------------      
     
-    public TagDefTag(DynamicTagLibrary tagLibrary) {
-        this.tagLibrary = tagLibrary;
+    public Tag createTag() throws Exception {
+        return (Tag) tagClass.newInstance();
+    }
+
+    
+    // Properties
+    //-------------------------------------------------------------------------      
+    
+    /**
+     * Returns the tagClass.
+     * @return Class
+     */
+    public Class getTagClass() {
+        return tagClass;
     }
 
     /**
-     * @return the current JeezTagLibrary instance
+     * Sets the tagClass.
+     * @param tagClass The tagClass to set
      */
-    protected DynamicTagLibrary getTagLibrary() throws JellyException {
-        return tagLibrary;
+    public void setTagClass(Class tagClass) {
+        this.tagClass = tagClass;
     }
+
 }
