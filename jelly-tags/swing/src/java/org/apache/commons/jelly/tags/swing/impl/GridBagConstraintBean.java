@@ -17,6 +17,10 @@ package org.apache.commons.jelly.tags.swing.impl;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.lang.reflect.Field;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** 
  * This class is a simple "bean-wrapper" for the {@link GridBagConstraints} class
@@ -28,16 +32,19 @@ import java.awt.Insets;
  */
 public class GridBagConstraintBean extends GridBagConstraints {
 
-    private boolean gridxSet = false,
-        gridySet = false,
-        gridwidthSet = false,
-        gridheightSet = false,
-        weightxSet = false,
-        weightySet = false,
-        ipadxSet = false,
-        ipadySet = false,
-        anchorSet = false,
-        fillSet = false;
+    private boolean gridxSet = false;
+    private boolean gridySet = false;
+    private boolean gridwidthSet = false;
+    private boolean gridheightSet = false;
+    private boolean weightxSet = false;
+    private boolean weightySet = false;
+    private boolean ipadxSet = false;
+    private boolean ipadySet = false;
+    private boolean anchorSet = false;
+    private boolean fillSet = false;
+    
+    /** Logging output */
+    private static final Log LOG = LogFactory.getLog(GridBagConstraintBean.class);
 
     public GridBagConstraintBean() {
     }
@@ -139,9 +146,26 @@ public class GridBagConstraintBean extends GridBagConstraints {
                 return "west";
             case NORTHWEST :
                 return "northwest";
-            default :
-                throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants: CENTER, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, or NORTHWEST.");
         }
+        
+        if (this.anchor == getByReflection("LINE_START"))
+            return "line_start";
+        else if (this.anchor == getByReflection("LINE_END"))
+            return "line_end";
+        else if (this.anchor == getByReflection("PAGE_START"))
+            return "page_start";
+        else if (this.anchor == getByReflection("PAGE_END"))
+            return "page_end";
+        else if (this.anchor == getByReflection("FIRST_LINE_START"))
+            return "first_line_start";
+        else if (this.anchor == getByReflection("FIRST_LINE_END"))
+            return "first_line_end";
+        else if (this.anchor == getByReflection("LAST_LINE_START"))
+            return "last_line_start";
+        else if (this.anchor ==  getByReflection("LAST_LINE_END"))
+            return "last_line_end";
+        
+        throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants: CENTER, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, or NORTHWEST.");
     }
 
     /** Accepts one of the strings with the same name as the constants 
@@ -170,6 +194,22 @@ public class GridBagConstraintBean extends GridBagConstraints {
             this.anchor = WEST;
         else if (lcAnchorString.equals("northwest"))
             this.anchor = NORTHWEST;
+        else if (lcAnchorString.equals("page_start"))
+            this.anchor = getByReflection("PAGE_START");
+        else if (lcAnchorString.equals("page_end"))
+            this.anchor = getByReflection("PAGE_END");
+        else if (lcAnchorString.equals("line_start"))
+            this.anchor = getByReflection("LINE_START");
+        else if (lcAnchorString.equals("line_end"))
+            this.anchor = getByReflection("LINE_END");
+        else if (lcAnchorString.equals("first_line_start"))
+            this.anchor = getByReflection("FIRST_LINE_START");
+        else if (lcAnchorString.equals("first_line_end"))
+            this.anchor = getByReflection("FIRST_LINE_END");
+        else if (lcAnchorString.equals("last_line_end"))
+            this.anchor = getByReflection("LAST_LINE_END");
+        else if (lcAnchorString.equals("last_line_start"))
+            this.anchor = getByReflection("LAST_LINE_START");
         else
             throw new IllegalArgumentException("Anchor must be the name of one of  the GridBagLayoutConstants (case doesn't matter): center, north, northeast, east, southeast, south, southwest, west, or northwest.");
         this.anchorSet = true;
@@ -286,6 +326,26 @@ public class GridBagConstraintBean extends GridBagConstraints {
             + ", insets="
             + insets
             + "]";
+    }
+    
+    private int getByReflection(String field) {
+        try {
+            Field f = getClass().getField(field);
+            Integer rv = (Integer) f.get(this);
+            return rv.intValue();
+        } catch (SecurityException e) {
+            LOG.debug(e);
+            throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants for the current Java version.");
+        } catch (NoSuchFieldException e) {
+            LOG.debug(e);
+            throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants for the current Java version.");
+        } catch (IllegalArgumentException e) {
+            LOG.debug(e);
+            throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants for the current Java version.");
+        } catch (IllegalAccessException e) {
+            LOG.debug(e);
+            throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants for the current Java version.");
+        }
     }
 
 } // class GridBagConstraintsBean

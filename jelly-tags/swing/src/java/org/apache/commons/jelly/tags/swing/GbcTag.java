@@ -26,6 +26,7 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.jelly.tags.swing.impl.GridBagConstraintBean;
+import org.apache.commons.lang.StringUtils;
 
 /** 
  * This class represents a {@link GridBagConstraints} constraints as passed in
@@ -117,7 +118,8 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
         if (insetString instanceof String) {
             attributes.remove("insets");
 
-            String[] parts = ((String) insetString).split(",");
+            
+            String[] parts = StringUtils.split((String) insetString, ",");
 
             if (parts.length != 4) {
                 throw new JellyTagException(
