@@ -32,7 +32,8 @@
     </dependency>
 
     <dependency>
-      <id>commons-jelly+tags-xml</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-xml</artifactId>
       <version>SNAPSHOT</version>
       <properties>
         <classloader>root.maven</classloader>
@@ -46,7 +47,8 @@
     <!-- below for testing, pulled in by ant taglib -->
 
     <dependency>
-      <id>commons-jelly+tags-ant</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-ant</artifactId>
       <version>SNAPSHOT</version>
       <properties>
         <classloader>root.maven</classloader>
@@ -55,13 +57,15 @@
     </dependency>
 
     <dependency>
-      <id>commons-jelly+tags-junit</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-junit</artifactId>
       <version>SNAPSHOT</version>
       <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
     </dependency>
 
     <dependency>
-      <id>commons-jelly+tags-log</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-log</artifactId>
       <version>SNAPSHOT</version>
       <properties>
         <classloader>root.maven</classloader>
