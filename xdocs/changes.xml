@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-beta-5-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="update">Move to beanutils 1.7.0.</action>
       <action dev="dion" type="fix" issue="JELLY-45">Scripts set the context URL when executing so that resources are found relative to the current script.</action>
       <action dev="dion" type="add" issue="JELLY-49">Add Regexp taglib</action>
     </release>
