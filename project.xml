@@ -295,12 +295,6 @@
       <version>0.7.1</version>
     </dependency>
 
-    <!-- used by SQL library
-    <dependency>
-      <id>jdbc</id>
-      <version>2.0</version>
-    </dependency> -->
-
     <dependency>
       <id>junit</id>
       <version>3.8.1</version>
@@ -345,12 +339,6 @@
       <version>1.0.2b</version>
     </dependency>
     
-  <!-- scheduler taglib -->
-    <dependency>
-      <id>quartz</id>
-      <version>SNAPSHOT</version>
-    </dependency>
-
   <!-- email taglib -->
     <dependency>
       <id>jaf</id>
