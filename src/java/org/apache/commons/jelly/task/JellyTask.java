@@ -75,7 +75,9 @@ public class JellyTask extends Task {
             }
             
             Script script = compileScript();
-            script.run( getJellyContext(), getXMLOutput() );
+            JellyContext context = getJellyContext();
+            context.setVariable( "project", project );
+            script.run( context, getXMLOutput() );
             getXMLOutput().close();
         }
         catch (Exception e) {
