@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Copyright 2004 The Apache Software Foundation.
   
@@ -14,79 +15,75 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-
   <pomVersion>3</pomVersion>
   <id>commons-jelly-tags-jaxme</id>
   <name>commons-jelly-tags-jaxme</name>
-
-  <currentVersion>0.1</currentVersion>
+  <currentVersion>1.0</currentVersion>
   <inceptionYear>2004</inceptionYear>
   <package>org.apache.commons.jelly.tags.jaxme</package>
-  <logo></logo>
-  <description>
-  JaxMe Tag Library. Apache JaxMe is an open source generative xml-object binder.
-  Tags are provided that generate java objects from schema using JaxMe
-  and that will marshall and unmarshall any JAXB complient implementations.
-  </description>
+  <logo/>
+  <description>JaxMe Tag Library. Apache JaxMe is an open source generative xml-object binder. Tags are provided that generate java objects from schema using JaxMe and that will marshall and unmarshall any JAXB complient implementations.</description>
   <shortDescription>JaxMe Tag Library</shortDescription>
-    
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS-JELLY-JAXME-1_0</tag>
+    </version>
+  </versions>
   <dependencies>
-    <dependency> 
-        <id>commons-logging</id> 
-        <version>1.0.3</version> 
-    </dependency> 
-    <dependency> 
-        <artifactId>jaxme</artifactId> 
-        <groupId>jaxme</groupId>
-        <version>0.2</version> 
-    </dependency> 
-    <dependency> 
-        <artifactId>jaxme-js</artifactId> 
-        <groupId>jaxme</groupId>
-        <version>0.2</version> 
-    </dependency>  
-    <dependency> 
-        <artifactId>jaxme-xs</artifactId> 
-        <groupId>jaxme</groupId>
-        <version>0.2</version> 
-    </dependency>    
-    <dependency> 
-        <artifactId>jaxme-api</artifactId> 
-        <groupId>jaxme</groupId>
-        <version>0.2</version> 
-    </dependency>     
-    
-
+    <dependency>
+      <id>commons-logging</id>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxme</artifactId>
+      <groupId>jaxme</groupId>
+      <version>0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxme-js</artifactId>
+      <groupId>jaxme</groupId>
+      <version>0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxme-xs</artifactId>
+      <groupId>jaxme</groupId>
+      <version>0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxme-api</artifactId>
+      <groupId>jaxme</groupId>
+      <version>0.2</version>
+    </dependency>
     <dependency>
       <id>commons-jelly</id>
       <version>1.0-beta-4</version>
     </dependency>
-
     <dependency>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <groupId>commons-jelly</groupId>
       <version>1.0</version>
-    </dependency>    
+    </dependency>
     <dependency>
       <artifactId>commons-jelly-tags-xmlunit</artifactId>
       <groupId>commons-jelly</groupId>
       <version>1.0</version>
-    </dependency>    
+    </dependency>
     <dependency>
       <artifactId>commons-jelly-tags-xml</artifactId>
       <groupId>commons-jelly</groupId>
       <version>1.0</version>
-    </dependency>    
+    </dependency>
     <dependency>
       <artifactId>xmlunit</artifactId>
       <groupId>xmlunit</groupId>
       <version>0.8</version>
-    </dependency>    
-
+    </dependency>
   </dependencies>
-  
   <build>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
