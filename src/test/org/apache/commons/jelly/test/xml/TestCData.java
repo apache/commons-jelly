@@ -15,20 +15,17 @@
  */
 package org.apache.commons.jelly.test.xml;
 
-import java.io.IOException;
 import java.io.StringWriter;
+
+import junit.framework.TestCase;
 
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.util.SafeContentHandler;
-import org.dom4j.io.HTMLWriter;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.xml.sax.SAXException;
-
-import junit.framework.TestCase;
 
 /**
  * @author mdelagrange
