@@ -61,7 +61,7 @@ package org.apache.commons.jelly.tags.antlr;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 
 import antlr.Tool;
 
@@ -91,7 +91,7 @@ public class AntlrTag extends TagSupport
      * Evaluate the body to register all the various goals and pre/post conditions
      * then run all the current targets
      */
-    public void doTag(final XMLOutput output) throws Exception
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException
     {
         if ( this.outputDir == null )
         {
@@ -148,7 +148,7 @@ public class AntlrTag extends TagSupport
             {
                 if ( ! e.getMessage().equals( "exitVM-0" ) )
                 {
-                    throw new JellyException( e );
+                    throw new JellyTagException( e );
                 }
             }
             finally
@@ -158,7 +158,7 @@ public class AntlrTag extends TagSupport
         }
     }
 
-    protected File getGeneratedFile(String grammar) throws JellyException
+    protected File getGeneratedFile(String grammar) throws JellyTagException
     {
         File grammarFile = new File( grammar );
 
@@ -185,7 +185,7 @@ public class AntlrTag extends TagSupport
             }
             in.close();
         } catch (Exception e) {
-            throw new JellyException("Unable to determine generated class",
+            throw new JellyTagException("Unable to determine generated class",
                                      e);
         }
         if (generatedFileName == null) {

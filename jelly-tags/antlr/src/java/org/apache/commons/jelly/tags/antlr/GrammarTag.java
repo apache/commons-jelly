@@ -60,7 +60,7 @@ package org.apache.commons.jelly.tags.antlr;
 
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 
 public class GrammarTag extends TagSupport
 {
@@ -72,7 +72,7 @@ public class GrammarTag extends TagSupport
     // Tag interface
     //------------------------------------------------------------------------- 
     
-    public void doTag(final XMLOutput output) throws Exception
+    public void doTag(final XMLOutput output) throws JellyTagException
     {
         String grammar = getBodyText();
 
@@ -80,7 +80,7 @@ public class GrammarTag extends TagSupport
 
         if ( antlr == null )
         {
-            throw new JellyException( "<grammar> should only be used within an <antlr> block." );
+            throw new JellyTagException( "<grammar> should only be used within an <antlr> block." );
         }
 
         antlr.addGrammar( grammar );
