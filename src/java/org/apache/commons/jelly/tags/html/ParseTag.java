@@ -122,7 +122,7 @@ public class ParseTag extends ParseTagSupport {
      * Factory method to create a new SAXReader
      */    
     protected SAXReader createSAXReader() throws Exception {
-        // installs the NeckHTML parser
+        // installs the NekoHTML parser
         SAXParser parser = new SAXParser();
         parser.setProperty(
             "http://cyberneko.org/html/properties/names/elems",
