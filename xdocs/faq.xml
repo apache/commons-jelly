@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Maven FAQ</title>
+    <author email="jstrachan@apache.org">James Strachan</author>
+  </properties>
+
+  <body>
+
+  <section name="Frequently Asked Questions">
+    <p>
+      This document attempts to answer some of the more frequently asked
+      questions regarding various aspects of Jelly.  These questions are
+      typically asked over and over again on the mailing lists, as a
+      courtesy to the developers, we ask that you read this document
+      before posting to the mailing lists.  
+    </p>
+    <p><strong>General</strong></p>
+    <ol>
+      <li>
+        <a href="#what-is-jelly">
+          What is Jelly?
+        </a>
+      </li>
+    </ol>
+    <p><strong>Using Jelly</strong></p>
+    <ol>
+      <li>
+        <a href="#adding-taglibs">
+          How do I add my own tag libraries to Jelly?
+        </a>
+      </li>
+    </ol>
+    <p><strong>Building Jelly</strong></p>
+    <ol>
+      <li>
+        <a href="#how-to-build">
+          How do I build Jelly?
+        </a>
+      </li>
+    </ol>
+
+    <section name="General">
+      <dl>
+        <dt>
+          <a name="what-is-jelly">
+            What is Jelly?
+          </a>
+        </dt>
+        <dd>
+          Jelly is an open and customizable XML processing engine.
+          Please see the <a href="index.html">Home page</a> and <a
+          href="overview.html">Overview</a> documents for more detail.
+        </dd>
+      </dl>
+    </section>
+    <section name="Using Jelly">
+      <dl>
+        <dt>
+          <a name="adding-taglibs">
+            How do I add my own tag libraries to Jelly?
+          </a>
+        </dt>
+        <dd>
+          Firstly you need to create one or more tags, by deriving from TagSupport.
+          Then create a TagLibrary class for your tags; typically all this does
+          is register all the tags in your tag library and give them names.          
+          Then you can use your new tag library by specifying the classname in
+          a namespace URI. For example
+        </dd>
+        <dd>
+<code>
+<pre>
+&lt;j:jelly xmlns:j="jelly:core" xmlns:foo="jelly:com.acme.something.MyTagLibrary"&gt;
+
+  &lt;foo:bar x="12&gt;
+	something goes here
+  &lt;/foo:bar&gt;
+
+&lt;/j:jelly&gt;
+</pre>
+</code>
+        </dd>
+        <dd>                
+          Going forward we hope to provide an alias mechanism using the jar-extension
+          mechanism used by JAXP so that a file could be placed on the classpath 
+		  called <code>META-INF/services/org.apache.commons.jelly.foo</code> which
+		  would contain the class name of the tag library (com.acme.something.MyTagLibrary)
+		  then you could use it as follows, which would avoid using the class name in your scripts.
+        </dd>
+        <dd>                
+<code>
+<pre>
+&lt;j:jelly xmlns:j="jelly:core" xmlns:foo="jelly:foo"&gt;
+
+  &lt;foo:bar x="12&gt;
+	something goes here
+  &lt;/foo:bar&gt;
+
+&lt;/j:jelly&gt;
+</pre>
+</code>
+		</dd>
+      </dl>
+    </section>
+    <section name="Building Jelly">
+      <dl>
+        <dt>
+          <a name="how-to-build">
+            How do I build Jelly?
+          </a>
+        </dt>
+        <dd>
+          Jelly uses Maven for its build system. So you should be able to build Jelly just like
+          any other Maven enabled project. Please see the 
+          <a href="http://jakarta.apache.org/turbine/maven/start/index.html">Maven</a> 
+          documentation for details.
+        </dd>
+      </dl>
+    </section>
+  </section>
+</body>
+</document>
