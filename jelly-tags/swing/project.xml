@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project [
-  <!-- see file for description -->
-  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+  <!-- 
+    see file "../../commonDependencies.ent" for explanation of Jelly dependencies
+    BRITTLE! cannot explicitly include 'file:' protocol below or Maven will
+    not run this script outside of the base directory
+  -->
+  <!ENTITY commonDeps SYSTEM "../../commonDependencies.ent">
 ]>
 <project>
-  <extend>../tag-project.xml</extend>
+  <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-swing</id>
   <name>commons-jelly-tags-swing</name>
 
