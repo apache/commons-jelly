@@ -23,6 +23,8 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** A tag that spawns the contained script in a separate thread
   *
@@ -35,6 +37,8 @@ public class ThreadTag extends TagSupport  {
     private XMLOutput xmlOutput;
     /** Should we close the underlying output */
     private boolean closeOutput;
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog(ThreadTag.class);
 
     public ThreadTag() {
     }
@@ -67,7 +71,7 @@ public class ThreadTag extends TagSupport  {
                         }
                     }
                     catch (Exception e) {
-                        e.printStackTrace();
+                        if (log.isErrorEnabled()) log.error("error running thread tag", e);
                     }
                 }
             }

@@ -68,7 +68,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.50 $
+ * @version $Revision: 1.51 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -965,7 +965,7 @@ public class XMLParser extends DefaultHandler {
                         in.close();
                     }
                     catch (Exception e) {
-                        // ignore
+                        if (log.isDebugEnabled()) log.debug("error closing jelly.properties", e);
                     }
                 }
             }

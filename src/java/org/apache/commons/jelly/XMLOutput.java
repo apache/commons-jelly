@@ -21,6 +21,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
+import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dom4j.io.XMLWriter;
 
 import org.xml.sax.Attributes;
@@ -37,7 +40,7 @@ import org.xml.sax.helpers.DefaultHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -55,6 +58,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     
     /** The SAX LexicalHandler that output goes to */
     private LexicalHandler lexicalHandler;
+    
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(XMLOutput.class);
 
     public XMLOutput() {
     }
@@ -117,6 +123,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
             }
             catch (Exception e) {
                 // ignore any unsupported-operation exceptions
+                if (log.isDebugEnabled()) log.debug("error setting lexical handler properties", e);
             }
         }
         return output;
