@@ -3,6 +3,25 @@
 <project default="jar" name="commons-jelly-build-all" basedir=".">
 
   <!-- 
+    Documentation:
+    
+    call "clean jar" to build Jelly and each taglib from scratch.
+    If you don't call clean first, you can get a false positive;
+    if the "depends" of a jar-* task is incomplete, the build might
+    pull in an older jar.
+    
+    Also, will copy all built jars into each successive build, so
+    it's possible for a tag to build successfully without declaring
+    all its dependencies, if its dependencies happen to have been built
+    first.
+    
+    WRITTEN FOR SIMPLICITY, NOT ENFORCING STRICTNESS.
+    
+    when adding tags to the build, add them to the "subexec" target and
+    add a jar-<tagName> target.
+  -->
+
+  <!-- 
     target that can be used via antcall task
     to call a single target on all jelly build.xml scripts
   -->
@@ -19,11 +38,48 @@
     </antcall>
   </target>
   
-  <target name="jar">
-    <antcall target="jar-all"/>
+  <target name="jar" depends="jar-jelly,jar-ant,jar-junit,jar-util"/>
+    
+  <target name="jar-jelly">
+    <echo message="Building Jelly..."/>
+    <ant dir="." target="jar"/>
   </target>
   
-  <target name="jar-all" depends="jar-jelly,jar-ant,jar-junit,jar-util"/>
+  <target name="jar-ant" depends="jar-jelly,jar-util,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="ant"/>
+    </antcall>
+  </target>
+  
+  <target name="jar-junit" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="junit"/>
+    </antcall>
+  </target>
+  
+  <target name="jar-util" depends="jar-jelly,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="util"/>
+    </antcall>
+  </target>
+  
+  <!-- don't call directly, called inside jar-* tasks -->
+  <target name="taglib-template">
+    <echo message="Building &quot;${sub.taglib}&quot; taglib..."/>
+    
+    <antcall target="prepare-taglib-deps">
+      <param name="sub.taglib" value="${sub.taglib}"/>
+    </antcall>
+    
+    <!-- copy in other Jelly taglib dependencies -->
+    <antcall target="get-ext-taglibs">
+      <param name="sub.taglib" value="${sub.taglib}"/>
+    </antcall>
+    
+    <antcall target="build-taglib">
+      <param name="sub.taglib" value="${sub.taglib}"/>
+    </antcall>
+  </target>
   
   <!-- don't call directly, called inside jar-* tasks -->
   <target name="prepare-taglib-deps">
@@ -38,9 +94,9 @@
   </target>
   
   <!-- don't call directly, called inside jar-* tasks -->
-  <target name="get-ext-taglib">
-    <copy todir="jelly-tags/${sub.taglib}/lib">
-      <fileset dir="jelly-tags/${sub.taglib.ext}/target" includes="commons-jelly-*.jar"/>
+  <target name="get-ext-taglibs">
+    <copy todir="jelly-tags/${sub.taglib}/lib" flatten="true">
+      <fileset dir="." includes="jelly-tags/*/target/commons-jelly-*.jar"/>
     </copy>
   </target>
   
@@ -51,63 +107,6 @@
     </ant>
   </target>
   
-  <target name="jar-jelly">
-    <echo message="Building Jelly..."/>
-    <ant dir="." target="jar"/>
-  </target>
-  
-  <target name="jar-ant" depends="jar-jelly,jar-util,jar-junit">
-    <echo message="Building Ant taglib..."/>
-    
-    <antcall target="prepare-taglib-deps">
-      <param name="sub.taglib" value="ant"/>
-    </antcall>
-    
-    <!-- copy in other Jelly taglib dependencies -->
-    <antcall target="get-ext-taglib">
-      <param name="sub.taglib" value="ant"/>
-      <param name="sub.taglib.ext" value="util"/>
-    </antcall>
-    <antcall target="get-ext-taglib">
-      <param name="sub.taglib" value="ant"/>
-      <param name="sub.taglib.ext" value="junit"/>
-    </antcall>
-    
-    <antcall target="build-taglib">
-      <param name="sub.taglib" value="ant"/>
-    </antcall>
-  </target>
-  
-  <target name="jar-util" depends="jar-jelly,jar-junit">
-    <echo message="Building Util taglib..."/>
-    
-    <antcall target="prepare-taglib-deps">
-      <param name="sub.taglib" value="util"/>
-    </antcall>
-    
-    <!-- copy in other Jelly taglib dependencies -->
-    <antcall target="get-ext-taglib">
-      <param name="sub.taglib" value="util"/>
-      <param name="sub.taglib.ext" value="junit"/>
-    </antcall>
-    
-    <antcall target="build-taglib">
-      <param name="sub.taglib" value="util"/>
-    </antcall>
-  </target>
-  
-  <target name="jar-junit" depends="jar-jelly">
-    <echo message="Building JUnit taglib..."/>
-    
-    <antcall target="prepare-taglib-deps">
-      <param name="sub.taglib" value="junit"/>
-    </antcall>
-    
-    <antcall target="build-taglib">
-      <param name="sub.taglib" value="junit"/>
-    </antcall>
-    
-  </target>
     
 </project>
     
