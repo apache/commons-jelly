@@ -5,20 +5,9 @@
   <j:include uri="/src/test/org/apache/commons/jelly/hello_world.jelly"/>
   
 
-  <!-- include other relative scripts... -->
-  <j:include uri="example2.jelly"/>  
-  <j:include uri="jsl/example.jelly"/> 
-  <j:include uri="ant/filescanner.jelly"/> 
-
    
   <!-- now lets try pass in a variable to a child script -->
   <j:set var="foo">bar</j:set>
   <j:include uri="testFindVariable.jelly"/>
   
-  <!-- loading all dynamic tags libraries -->
-  <j:include uri="define/babelfishTaglib.jelly"/>
-  
-  <!-- now run a script using the new taglib -->
-  <j:include uri="define/example.jelly"/>
-
 </j:jelly>
