@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
-
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
-  <x:parse var="doc">
-    <web-app>
+  <x:parse var="doc">    <web-app>
       <servlet>
         <servlet-name>snoop</servlet-name>
         <servlet-class>SnoopServlet</servlet-class>

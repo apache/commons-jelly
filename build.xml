@@ -11,6 +11,28 @@
   <property file="build.properties" />
   <!-- Set default values for the build -->
   <property file="project.properties" />
+  
+  <!-- the default build location -->
+  <property name="maven.build.dest" value="target/classes"/>
+
+  	  <path id="test.classpath">
+        <pathelement path="${maven.build.dest}"/>
+        <pathelement location="${lib.repo}/commons-logging-1.0.jar"/>
+        <pathelement location="${lib.repo}/commons-beanutils-20020520.jar"/>
+        <pathelement location="${lib.repo}/commons-collections-2.0.jar"/>
+        <pathelement location="${lib.repo}/commons-digester-1.2.jar"/>
+        <pathelement location="${lib.repo}/commons-jexl-1.0-dev.jar"/>
+        <pathelement location="${lib.repo}/dom4j-1.4-dev.jar"/>
+        <pathelement location="${lib.repo}/hsqldb.jar"/>
+        <pathelement location="${lib.repo}/velocity-1.4-dev.jar"/>
+        <pathelement location="/jpackages/jaxp-1.1/jaxp.jar"/>
+        <pathelement location="/jpackages/jaxp-1.1/crimson.jar"/>
+<!--        
+        <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
+        <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
+-->        
+        <pathelement location="${lib.repo}/jdbc2_0-stdext.jar"/>
+      </path>
 
   <!-- maven:start -->
   
@@ -44,6 +66,10 @@
 	
 	<target name="maven:compile">
 	  <ant antfile="${maven.home}/plugins/core/build.xml" target="compile"/>
+	</target>
+	
+	<target name="maven:jar-resources">
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="jar-resources"/>
 	</target>
 	
 	<target name="maven:fo">
@@ -166,23 +192,16 @@
 	<target name="site" depends="maven:site"/>
 	
 	<target name="test" depends="maven:test"/>
-	
+
+	<target name="compile" depends="maven:compile, maven:jar-resources">
+      <taskdef
+        name="jelly"
+        classname="org.apache.commons.jelly.task.JellyTask">
+        <classpath refid="test.classpath"/>
+      </taskdef>    
+    </target>	
+
 <!-- ========== Sample Program Targets ==================================== -->
-
-<!--
-
-	try port this to use the new Maven dependency classpath....
-	
-   <target name="demo.all" depends="compile" 
-      description="Runs all the demo scripts inside one single script">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/run_all.jelly"/> 
-      <arg value="one"/> 
-      <arg value="two"/> 
-      <arg value="three"/> 
-    </java>
-   </target>
 
    <target name="demo.hw" depends="compile" 
       description="Runs the Hello World demo">
@@ -192,11 +211,60 @@
     </java>
    </target>
 
+   <target name="demo.ant" depends="compile" 
+      description="Runs demo which displays Ant properties">
+      
+	<jelly file="src/test/org/apache/commons/jelly/show_ant_properties.jelly" output="target/ant.html"/>
+	
+   </target>
+
+
+   <target name="demo.sql" depends="compile" 
+      description="Runs an SQL demo">
+      
+      <!-- Values used for testing -->
+	  <property name="databaseUrl"             value="jdbc:hsqldb:hsql://localhost"/>
+	  <property name="databaseDriver"          value="org.hsqldb.jdbcDriver"/>
+	  <property name="databaseUser"            value="sa"/>
+	  <property name="databaseTable"           value="SYSTEM_TABLES"/>
+
+	<echo message="Running example 3"/>
+
+<!--	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/sql/example3.jelly"/> 
+      <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
+    </java>
+-->
+    
+    <taskdef
+      name="jelly"
+      classname="org.apache.commons.jelly.task.JellyTask">
+      <classpath refid="test.classpath"/>
+    </taskdef>
+    
+	<echo message="Running example"/>
+	
+	<jelly file="src/test/org/apache/commons/jelly/sql/example3.jelly" output="target/sqloutput.xml"/>
+	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="target/sqloutput.xml"/>
+<!--
+	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${maven.build.dest}/sqloutput.xml"/>
+	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${maven.build.dest}/sqloutput2.xml"/>	
+	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="${maven.build.dest}/sqloutput3.xml"/>	
+-->	
+   </target>
+   
+	
+<!--   
    <target name="demo.1" depends="compile" 
       description="Runs demo #1">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/example2.jelly"/> 
+      <arg value="src/test/org/apache/commons/jelly/testing123.jelly"/> 
+      <arg value="one"/> 
+      <arg value="two"/> 
+      <arg value="three"/> 
     </java>
    </target>
 
@@ -204,10 +272,7 @@
       description="Runs demo #2">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/testing123.jelly"/> 
-      <arg value="one"/> 
-      <arg value="two"/> 
-      <arg value="three"/> 
+      <arg value="src/test/org/apache/commons/jelly/example2.jelly"/> 
     </java>
    </target>
 
@@ -230,6 +295,17 @@
     </java>
    </target>
 
+   <target name="demo.all" depends="compile" 
+      description="Runs all the demo scripts inside one single script">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/run_all.jelly"/> 
+      <arg value="one"/> 
+      <arg value="two"/> 
+      <arg value="three"/> 
+    </java>
+   </target>
+
    <target name="demo.pnuts" depends="compile, checkPNuts" 
       description="Runs a pnuts demo which displays system properties">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
@@ -245,19 +321,6 @@
       <arg value="src/test/org/apache/commons/jelly/javascript/example.jelly"/> 
     </java>
    </target>
-
-
-   <target name="demo.sql" depends="compile" 
-      description="Runs an SQL demo">
-    <taskdef
-      name="jelly"
-      classname="org.apache.commons.jelly.task.JellyTask">
-      <classpath refid="test.classpath"/>
-    </taskdef>
-
-	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${build.home}/sqloutput.xml"/>
-	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${build.home}/sqloutput2.xml"/>	
-	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="${build.home}/sqloutput3.xml"/>	
-   </target>
 -->   
+
 </project>

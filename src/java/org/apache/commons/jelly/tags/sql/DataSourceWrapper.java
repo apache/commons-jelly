@@ -125,6 +125,10 @@ public class DataSourceWrapper implements DataSource {
 
             conn = DriverManager.getConnection(jdbcURL);
         }
+        if (log.isDebugEnabled()) {
+            log.debug(
+                "Created connection: " + conn );
+        }
         return conn;
     }
 

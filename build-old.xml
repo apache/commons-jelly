@@ -137,12 +137,10 @@
 
 <!-- ========== Test Execution Defaults =================================== -->
 
-
   <!-- Construct unit test classpath -->
   <path id="test.classpath">
     <pathelement location="${build.home}/classes"/>
     <pathelement location="${build.home}/tests"/>
-    <pathelement location="${build.home}/classes"/>
     <pathelement location="${jaxp.jaxp.jar}"/>
     <pathelement location="${jaxp.parser.jar}"/>
     <pathelement location="${dom4j.jar}"/>
@@ -487,6 +485,16 @@
       classname="org.apache.commons.jelly.task.JellyTask">
       <classpath refid="test.classpath"/>
     </taskdef>
+
+	<echo message="JAXP ${jaxp.jaxp.jar} and parser ${jaxp.parser.jar}"/>
+	<echo message="${commons-logging.jar}"/>
+	<echo message="${commons-beanutils.jar}"/>
+	<echo message="${commons-collections.jar}"/>
+	<echo message="${commons-digester.jar}"/>
+	<echo message="${dom4j.jar}"/>
+	<echo message="${jexl.jar}"/>
+	<echo message="${velocity-dep.jar}"/>
+	<echo message="${database.jar}"/>
 
 	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${build.home}/sqloutput.xml"/>
 	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${build.home}/sqloutput2.xml"/>	

@@ -104,6 +104,14 @@
       <jar>jdbc2_0-stdext.jar</jar>
     </dependency>
 
+<!-- runtime dependencies only required for testing and sample programs -->
+    <dependency>
+      <name>hsqldb</name>
+      <type>required</type>
+      <version>1.7.0</version>
+      <jar>hsqldb-1.7.0.jar</jar>
+    </dependency>
+
   </dependencies>
   
   <build>

@@ -115,8 +115,7 @@ public class JellyContext {
     }
 
     public JellyContext(URL rootContext) {
-        this.rootContext = rootContext;
-        this.currentJellyContext = rootContext;
+        this( rootContext, rootContext );
     }
 
     public JellyContext(URL rootContext, URL currentJellyContext) {
