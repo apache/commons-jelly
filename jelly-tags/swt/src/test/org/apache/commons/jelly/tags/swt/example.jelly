@@ -58,8 +58,8 @@
 			
 			<gridData style="fill_both"/>
 			
-			<tableColumn text="Name" width="100" toolTipText="This is the name column"/>
-			<tableColumn text="Age" width="40" toolTipText="This is the age column"/>
+			<tableColumn text="Name" width="100" />
+			<tableColumn text="Age" width="40" />
 			
 			<!-- we'd normally use some Java bean model to implement the next bit -->
 			<tableItem var="row"/>
