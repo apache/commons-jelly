@@ -1,0 +1,5 @@
+<j:jelly xmlns:j="jelly:core">
+
+    <j:set var="c" value="true"/>
+
+</j:jelly>

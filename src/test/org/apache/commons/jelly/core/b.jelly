@@ -1,0 +1,7 @@
+<j:jelly xmlns:j="jelly:core">
+
+    <j:set var="b" value="true"/>
+    
+    <j:include uri="c.jelly"/>
+
+</j:jelly>
