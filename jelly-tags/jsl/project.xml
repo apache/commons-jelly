@@ -38,6 +38,10 @@
     <dependency>
       <id>commons-jelly+tags-xml</id>
       <version>SNAPSHOT</version>
+      <properties>
+        <classloader>root.maven</classloader>
+      </properties>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/xml/</url>
     </dependency>
     
       
@@ -48,8 +52,21 @@
     <dependency>
       <id>commons-jelly+tags-ant</id>
       <version>SNAPSHOT</version>
+      <properties>
+        <classloader>root.maven</classloader>
+      </properties>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/ant/</url>
     </dependency>
     
+    <dependency>
+      <id>commons-jelly+tags-log</id>
+      <version>SNAPSHOT</version>
+      <properties>
+        <classloader>root.maven</classloader>
+      </properties>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+    </dependency>
+
     <dependency>
       <id>ant</id>
       <version>1.5.1</version>
