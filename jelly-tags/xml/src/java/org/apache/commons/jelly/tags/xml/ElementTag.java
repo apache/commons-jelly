@@ -22,6 +22,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
+import java.io.IOException;
+
 /** A tag to produce an XML element which can contain other attributes
   * or elements like the <code>&lt;xsl:element&gt;</code> tag.
   *
@@ -115,6 +117,14 @@ public class ElementTag extends TagSupport {
                 initialize();
                 super.ignorableWhitespace(ch, start, length);
             }
+
+            public void objectData(Object object)
+                throws SAXException
+            {
+                initialize();
+                super.objectData( object );
+            }
+
             public void processingInstruction(String target, String data)
                 throws SAXException {
                 initialize();
