@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.19 2002/10/30 19:16:26 jstrachan Exp $
- * $Revision: 1.19 $
- * $Date: 2002/10/30 19:16:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.20 2002/12/10 01:30:26 rwaldhoff Exp $
+ * $Revision: 1.20 $
+ * $Date: 2002/12/10 01:30:26 $
  *
  * ====================================================================
  *
@@ -57,23 +57,25 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.19 2002/10/30 19:16:26 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.20 2002/12/10 01:30:26 rwaldhoff Exp $
  */
 package org.apache.commons.jelly;
+
+import java.io.StringWriter;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TextScript;
 
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.List;
-
 /** <p><code>TagSupport</code> an abstract base class which is useful to 
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.19 $
+  * @version $Revision: 1.20 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -99,6 +101,9 @@ public abstract class TagSupport implements Tag {
      * @return the tag of the given type or null if it could not be found
      */
     public static Tag findAncestorWithClass(Tag from, Class tagClass) {
+        // we could implement this as 
+        //  return findAncestorWithClass(from,Collections.singleton(tagClass));
+        // but this is so simple let's save the object creation for now
         while (from != null) {
             if (tagClass.isInstance(from)) {
                 return from;
@@ -108,6 +113,40 @@ public abstract class TagSupport implements Tag {
         return null;
     }
 
+    /** 
+     * Searches up the parent hierarchy from the given tag 
+     * for a Tag matching one or more of given types.
+     *
+     * @param from the tag to start searching from
+     * @param tagClasses a Collection of Class types that might match
+     * @return the tag of the given type or null if it could not be found
+     */
+    public static Tag findAncestorWithClass(Tag from, Collection tagClasses) {
+        while (from != null) {
+            for(Iterator iter = tagClasses.iterator();iter.hasNext();) {
+                Class klass = (Class)(iter.next());
+                if (klass.isInstance(from)) {
+                    return from;
+                }
+            }
+            from = from.getParent();
+        }
+        return null;        
+    }
+
+    /** 
+     * Searches up the parent hierarchy from the given tag 
+     * for a Tag matching one or more of given types.
+     *
+     * @param from the tag to start searching from
+     * @param tagClasses an array of types that might match
+     * @return the tag of the given type or null if it could not be found
+     * @see #findAncestorWithClass(Tag,Collection)
+     */
+    public static Tag findAncestorWithClass(Tag from, Class[] tagClasses) {
+        return findAncestorWithClass(from,Arrays.asList(tagClasses));
+    }
+    
     public TagSupport() {
     }
 
@@ -196,11 +235,28 @@ public abstract class TagSupport implements Tag {
     // Implementation methods
     //-------------------------------------------------------------------------                
     /** 
-     * Searches up the parent hierarchy for a Tag of the given type 
+     * Searches up the parent hierarchy for a Tag of the given type.
      * @return the tag of the given type or null if it could not be found
      */
     protected Tag findAncestorWithClass(Class parentClass) {
         return findAncestorWithClass(getParent(), parentClass);
+    }
+    
+    /** 
+     * Searches up the parent hierarchy for a Tag of one of the given types. 
+     * @return the tag of the given type or null if it could not be found
+     * @see #findAncestorWithClass(Collection)
+     */
+    protected Tag findAncestorWithClass(Class[] parentClasses) {
+        return findAncestorWithClass(getParent(),parentClasses);
+    }
+
+    /** 
+     * Searches up the parent hierarchy for a Tag of one of the given types. 
+     * @return the tag of the given type or null if it could not be found
+     */
+    protected Tag findAncestorWithClass(Collection parentClasses) {
+        return findAncestorWithClass(getParent(),parentClasses);
     }
     
     /**
