@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/VerifierTag.java,v 1.2 2003/01/26 08:44:58 morgand Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/26 08:44:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/VerifierTag.java,v 1.3 2003/04/20 03:16:24 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/04/20 03:16:24 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: VerifierTag.java,v 1.2 2003/01/26 08:44:58 morgand Exp $
+ * $Id: VerifierTag.java,v 1.3 2003/04/20 03:16:24 dion Exp $
  */
 package org.apache.commons.jelly.tags.validate;
 
@@ -80,7 +80,7 @@ import org.xml.sax.SAXException;
  * so that it can be used by a &lt;validate&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class VerifierTag extends TagSupport {
 
@@ -103,9 +103,6 @@ public class VerifierTag extends TagSupport {
             throw new MissingAttributeException("var");
         }
 
-        if ( factory == null ) {
-            factory = new com.sun.msv.verifier.jarv.TheFactoryImpl();
-        }
         InputStream in = null;
         if ( uri != null ) {
             in = context.getResourceAsStream( uri );
@@ -115,7 +112,6 @@ public class VerifierTag extends TagSupport {
         }
         else {
             String text = getBodyText();
-            byte[] data = text.getBytes();
             in = new ByteArrayInputStream( text.getBytes() );
         }
 
@@ -123,13 +119,13 @@ public class VerifierTag extends TagSupport {
         try {
             Schema schema = null;
             if (systemId != null) {
-                schema = factory.compileSchema(in, systemId);
+                schema = getFactory().compileSchema(in, systemId);
             }
             else if ( uri != null ) {
-                schema = factory.compileSchema(in, uri);
+                schema = getFactory().compileSchema(in, uri);
             }
             else{
-                schema = factory.compileSchema(in);
+                schema = getFactory().compileSchema(in);
             }
             
             if ( schema == null ) {
@@ -192,6 +188,26 @@ public class VerifierTag extends TagSupport {
         this.factory = factory;
     }
         
+    public VerifierFactory getFactory() throws JellyTagException {
+		if ( factory == null ) {
+			try {
+				ClassLoader loader = Thread.currentThread().getContextClassLoader();
+				if (loader == null) {
+					loader = getClass().getClassLoader();
+				}
+				factory = (VerifierFactory)loader.loadClass(
+					"com.sun.msv.verifier.jarv.TheFactoryImpl").newInstance();
+			} catch (ClassNotFoundException e) {
+				throw new JellyTagException(e);
+			} catch (InstantiationException e) {
+				throw new JellyTagException(e);
+			} catch (IllegalAccessException e) {
+				throw new JellyTagException(e);
+			}
+		}
+		return factory;
+    }
+  
     // Implementation methods
     //-------------------------------------------------------------------------                    
     
