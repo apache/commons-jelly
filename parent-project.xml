@@ -14,6 +14,11 @@
   limitations under the License.
 -->
 
+<project>
+  <!-- TODO: should this inherit commons-build? -->
+  <artifactId>commons-jelly-parent</artifactId>
+
+  <dependencies>
     <!-- 
       the common Maven dependencies for Jelly shared by the core
       build and all individual taglib builds.  Use this
@@ -33,7 +38,7 @@
     
     <dependency>
       <id>commons-beanutils</id>
-      <version>1.7.0</version>
+      <version>1.6</version>
     </dependency>
     
     <dependency>
@@ -60,3 +65,5 @@
       <id>xerces</id>
       <version>2.2.1</version>
     </dependency>
+  </dependencies>
+</project>

@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE project [
-  <!-- see file for description -->
-  <!ENTITY commonDeps SYSTEM "file:../commonDependencies.ent">
-]>
 <!--
   Copyright 2002-2004 The Apache Software Foundation
 
@@ -19,6 +15,7 @@
   limitations under the License.
 -->
 <project>
+  <extend>../parent-project.xml</extend>
   <pomVersion>3</pomVersion>
   <groupId>commons-jelly</groupId>
   <currentVersion>1.0-SNAPSHOT</currentVersion>

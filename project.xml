@@ -14,12 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE project [
-  <!-- see file for description -->
-  <!ENTITY commonDeps SYSTEM "file:commonDependencies.ent">
-]>
 
 <project>
+  <extend>parent-project.xml</extend>
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <id>commons-jelly</id>
@@ -162,6 +159,11 @@
       <id>dfs</id>
       <email>dfs -&gt; apache.org</email>
     </developer>
+    <developer>
+      <name>Brett Porter</name>
+      <id>brett</id>
+      <email>brett@apache.org</email>
+    </developer>
   </developers>
   <contributors>
     <contributor>
@@ -293,15 +295,6 @@
     </contributor>
   </contributors>
   <dependencies>
-
-    <!-- 
-      the common Maven dependencies for Jelly shared by the core
-      build and all individual taglib builds.  Use this
-      file to keep all dependency versions in sync.
-      Does not include CLI (Command Line Interface).
-    -->
-	&commonDeps;
-
     <!-- for servlet support -->
     <dependency>
       <id>servletapi</id>
