@@ -60,4 +60,42 @@
 
 </test:case>
    
+
+<test:case name="dynaBeans" 
+	xmlns:dynabean="jelly:dynabean"
+	xmlns:my="dynamicDynaBeanTest">
+
+	<!-- create a DynaClass -->
+  <dynabean:dynaclass var="CustomerType" name="CustomerDynaClass"> 
+		<dynabean:property name="name" type="String" />
+		<dynabean:property name="address" type="String" />
+	</dynabean:dynaclass>
+
+  <!-- Create a new tag library binding the dynabeans. -->
+  <define:taglib uri="dynamicDynaBeanTest">
+    <define:dynaBean
+      name="customer"
+      dynaClass="${CustomerType}"
+    />
+  </define:taglib>
+
+	<!-- now lets create a customer -->
+	<my:customer var="customer" name="Customer 1" address="Address of Customer 1" />
+
+	<test:assert test="${customer != null}">Created a customer DynaBean</test:assert>
+	
+	<test:assertEquals 
+		expected="Customer 1" 
+		actual="${customer.name}"/>
+		
+	<test:assertEquals 
+		expected="Address of Customer 1" 
+		actual="${customer.address}"/>
+		
+	<test:assertEquals 
+		expected="CustomerDynaClass" 
+		actual="${customer.dynaClass.name}"/>
+
+</test:case>
+   
 </test:suite>
