@@ -287,14 +287,6 @@
 
    </goal>
 
-  <goal name="demo:swing" prereqs="create-classpath"
-    description="Runs a sample Swing demo, creating a Swing UI from Jelly script">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/swing/example.jelly"/>
-    </java>
-  </goal>
-
   <goal name="demo:validate-rng" prereqs="create-classpath"
     description="Runs a validation demo, with RelaxNG">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
@@ -384,41 +376,6 @@
     </java>
   </goal>
 
-
-	<!-- move this into a Maven plugin -->
-  <goal name="jelly:runner" prereqs="create-classpath"
-    description="Runs the Jelly Runner which is a JellySwing script to run other Jelly scripts)">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <sysproperty key="http.proxyHost" value="${maven.proxy.host}"/>
-      <sysproperty key="http.proxyPort" value="${maven.proxy.port}"/>
-     <arg value="src/test/org/apache/commons/jelly/swing/run.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="jelly:runner2" prereqs="create-classpath"
-    description="Runs the Jelly Runner which is a JellySwing script to run other Jelly scripts)">
-    <j:include uri="file:///${user.dir}/src/test/org/apache/commons/jelly/swing/run.jelly"/>
-    <i:ask question="Hit Enter to terminate" answer="dummy" xmlns:i="jelly:interaction"/>
-  </goal>
-
-  <goal name="jelly:wizard" prereqs="create-classpath"
-    description="Runs the Jelly Runner which is a JellySwing script to run other Jelly scripts)">
-    <j:include uri="file:///${user.dir}/src/test/org/apache/commons/jelly/swing/wizard.jelly"/>
-    <i:ask question="Hit Enter to terminate" answer="dummy" xmlns:i="jelly:interaction"/>
-  </goal>
-
-
-	<!-- a simple example program to demonstrate the use of <tableModel> -->
-  <goal name="jelly:showvars" prereqs="create-classpath"
-    description="Displays the current variables in the Maven project">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <sysproperty key="http.proxyHost" value="${maven.proxy.host}"/>
-      <sysproperty key="http.proxyPort" value="${maven.proxy.port}"/>
-      <arg value="src/test/org/apache/commons/jelly/swing/showVariables.jelly"/>
-    </java>
-  </goal>
 
 	<!-- a sample of using the command line interface to invoke Jelly -->
   <goal name="demo:cmdline" prereqs="create-classpath"
