@@ -26,13 +26,13 @@
   </description>
   <shortDescription>Commons Jelly Define Tag Library</shortDescription>
   
-  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/define/</url>
+  <!-- <url>http://jakarta.apache.org/commons/jelly/tags/define/</url>
 
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/define/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/define</distributionDirectory>
+  <siteDirectory>/www/jakarta.apache.org/commons/jelly/define/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/define</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/define/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/define/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/define/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/define/</url>
   </repository> -->
   
   <dependencies>
@@ -53,25 +53,25 @@
     <dependency>
       <id>commons-jelly+tags-dynabean</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/dynabean/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/dynabean/</url>
     </dependency>
 
     <dependency>
       <id>commons-jelly+tags-junit</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
     </dependency>
 
     <dependency>
       <id>commons-jelly+tags-log</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
     </dependency>
       
     <dependency>
       <id>commons-jelly+tags-xml</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/xml/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/xml/</url>
     </dependency>
       
       
@@ -81,7 +81,7 @@
 
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     
     <!-- END for running demos -->
