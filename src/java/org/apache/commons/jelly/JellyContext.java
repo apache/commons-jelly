@@ -756,14 +756,11 @@ public class JellyContext {
      */
     protected URL createRelativeURL(URL rootURL, String relativeURI)
         throws MalformedURLException {
-        String urlText = null;
         if (rootURL == null) {
-            String userDir = System.getProperty("user.dir");
-            urlText = "file://" + userDir + relativeURI;
+            File file = new File(System.getProperty("user.dir"));
+            rootURL = file.toURL();
         }
-        else {
-            urlText = rootURL.toString() + relativeURI;
-        }
+        String urlText = rootURL.toString() + relativeURI;
         if ( log.isDebugEnabled() ) {
             log.debug("Attempting to open url: " + urlText);
         }
