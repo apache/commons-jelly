@@ -186,7 +186,7 @@ public class AntTagLibrary extends TagLibrary {
 
 
     /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes) throws Exception {
+    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
         TagScript answer = createCustomTagScript(name, attributes);
         if ( answer == null ) {
             answer = new TagScript(
@@ -203,7 +203,7 @@ public class AntTagLibrary extends TagLibrary {
     /** 
      * @return a new TagScript for any custom, statically defined tags, like 'fileScanner'
      */
-    public TagScript createCustomTagScript(String name, Attributes attributes) throws Exception {
+    public TagScript createCustomTagScript(String name, Attributes attributes) throws JellyException {
         // custom Ant tags
         if ( name.equals("fileScanner") ) {      
             return new TagScript(
