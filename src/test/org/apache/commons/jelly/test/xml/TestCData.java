@@ -15,10 +15,18 @@
  */
 package org.apache.commons.jelly.test.xml;
 
+import java.io.IOException;
+import java.io.StringWriter;
+
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.SafeContentHandler;
+import org.dom4j.io.HTMLWriter;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+import org.xml.sax.SAXException;
 
 import junit.framework.TestCase;
 
@@ -53,6 +61,28 @@ public class TestCData extends TestCase {
         golden += "]><foo></foo>";
         
         assertEquals("output should contain the CDATA section", golden, output);
+    }
+    
+    public void testDom4JCData() throws SAXException {
+        StringWriter writer = new StringWriter();
+        OutputFormat format = new OutputFormat();
+        final XMLWriter xmlWriter = new XMLWriter(writer, format);
+        xmlWriter.setEscapeText(false);
+
+        XMLOutput output = new XMLOutput(xmlWriter, xmlWriter);
+
+        String decl = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+        String golden = "<!DOCTYPE foo [\n";
+        golden += "  <!ELEMENT foo (#PCDATA)>\n";
+        golden += "]><foo></foo>";
+
+        output.startDocument();
+        output.write(golden);
+        output.endDocument();
+        System.err.println("output was: '" + writer.toString() +"'");
+        System.err.println("golden is : '" + golden +"'");
+        assertEquals("output should contain the CDATA section", 
+                decl + golden, writer.toString());
     }
 
 }
