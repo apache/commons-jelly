@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-swt</id>
   <name>commons-jelly-tags-swt</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.swt</package>
   <description>This is a Jelly interface for SWT.</description>
   <shortDescription>Commons Jelly SWT Tag Library</shortDescription>

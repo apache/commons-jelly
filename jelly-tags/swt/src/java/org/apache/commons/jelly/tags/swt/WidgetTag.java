@@ -109,6 +109,7 @@ public class WidgetTag extends UseBeanTag {
             }
         }
         super.doTag(output);
+        clearBean();
     }
 
     // Implementation methods
@@ -277,5 +278,14 @@ public class WidgetTag extends UseBeanTag {
             return SwtHelper.parseStyle(SWT.class, text);
         }
         return style;
+    }
+    
+    /** Sets the bean to null, to prevent it from
+     * sticking around in the event that this tag instance is
+     * cached. This method is called at the end of doTag.
+     *
+     */
+    protected void clearBean() {
+        setBean(null);
     }
 }
