@@ -148,6 +148,11 @@ public class JellyContext {
         this.currentURL = currentURL;
     }
 
+    public JellyContext(JellyContext parentJellyContext, URL rootURL, URL currentURL) {
+        this(parentJellyContext, currentURL);
+        this.rootURL = rootURL;
+    }
+
     private void init() {
         variables.put("context", this);
         variables.put("systemScope", System.getProperties());
