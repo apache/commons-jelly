@@ -299,6 +299,9 @@
     <dependency>
       <id>servletapi</id>
       <version>2.3</version>
+      <properties>
+        <gump.project>jakarta-servletapi-5-servlet</gump.project>
+      </properties>
     </dependency>
 
     <!-- for command line interface support -->
@@ -322,6 +325,9 @@
       <id>forehead</id>
       <version>1.0-beta-5</version>
       <url>http://forehead.werken.com/</url>
+      <properties>
+        <gump.ignore>true</gump.ignore>
+      </properties>
     </dependency>
 
     <!-- for the jstl interfaces -->
@@ -330,6 +336,9 @@
       <artifactId>jstl</artifactId>
       <version>1.0.6</version>
       <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/intro.html</url>
+      <properties>
+        <gump.project>jakarta-taglibs-standard</gump.project>
+      </properties>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

@@ -78,6 +78,9 @@
       <id>servletapi</id>
       <version>2.2</version>
       <url>http://jakarta.apache.org/tomcat/</url>
+      <properties>
+        <gump.project>jakarta-servletapi-5-servlet</gump.project>
+      </properties>
     </dependency>
     <!-- END for runtime -->
 

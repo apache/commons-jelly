@@ -61,6 +61,9 @@
     <dependency>
       <id>log4j</id>
       <version>1.2.5</version>
+      <properties>
+        <gump.project>logging-log4j</gump.project>
+      </properties>
     </dependency>
     
     <!-- END for running demos -->
