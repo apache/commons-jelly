@@ -21,13 +21,27 @@
   <!-- ================================================================== -->
   <!-- Required: Look and Feel for documentation within distributions     -->
   <!-- ================================================================== -->
-  <postGoal name="xdoc:copy-resources">  
-    <copy todir="${basedir}/target/docs/style/" failonerror="false">
-      <fileset dir="${basedir}/../commons-build/xdocs/style">
-          <include name='**/*'/>
-          <exclude name='**/CVS/**'/>
-      </fileset>
-    </copy>
+  <postGoal name="xdoc:copy-resources">
+    <!-- check commons-build is available before using -->
+    <j:set var="commonsBuildStyle" value="${basedir}/../commons-build/xdocs/style" />
+    <util:available file="${commonsBuildStyle}">
+      <copy todir="${basedir}/target/docs/style/" failonerror="false">
+        <fileset dir="${commonsBuildStyle}">
+            <include name='**/*'/>
+            <exclude name='**/CVS/**'/>
+        </fileset>
+      </copy>
+    </util:available>
+    <!-- check commons-build is available for a taglib before using -->
+    <j:set var="commonsBuildStyle" value="${basedir}/../.././commons-build/xdocs/style" />
+    <util:available file="${commonsBuildStyle}">
+      <copy todir="${basedir}/target/docs/style/" failonerror="false">
+        <fileset dir="${commonsBuildStyle}">
+            <include name='**/*'/>
+            <exclude name='**/CVS/**'/>
+        </fileset>
+      </copy>
+    </util:available>
   </postGoal>
   <!-- ================================================================== -->
   <!-- END: C O M M O N S - B U I L D                                     -->
