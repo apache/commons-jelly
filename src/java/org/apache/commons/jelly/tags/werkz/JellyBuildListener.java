@@ -21,10 +21,23 @@ public class JellyBuildListener implements BuildListener
 
     private boolean debug;
 
+    /** Whether or not to use emacs-style output */
+    protected boolean emacsMode = false;
+
     public JellyBuildListener(XMLOutput out) {
         this.taskStack = new Stack();
         this.out       = out;
         this.debug     = false;
+    }
+
+    /**
+     * Sets this logger to produce emacs (and other editor) friendly output.
+     *
+     * @param emacsMode <code>true</code> if output is to be unadorned so that
+     *                  emacs and other editors can parse files names, etc.
+     */
+    public void setEmacsMode(boolean emacsMode) {
+        this.emacsMode = emacsMode;
     }
 
     public boolean isDebug() {
@@ -52,6 +65,12 @@ public class JellyBuildListener implements BuildListener
         }
 
         try {
+            if ( emacsMode ) {
+                out.write( event.getMessage() + "\n" );
+                out.flush();
+                return;
+            }
+            
             if ( ! this.taskStack.isEmpty() ) {
                 out.write( "    [" + this.taskStack.peek() + "] " );
             }
