@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/11 00:27:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.2 2002/02/11 18:14:17 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/11 18:14:17 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.2 2002/02/11 18:14:17 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -111,7 +111,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class XMLParser extends DefaultHandler {
     
@@ -233,7 +233,13 @@ public class XMLParser extends DefaultHandler {
     public XMLParser(XMLReader reader) {
         this.reader = reader;
     }
-    
+
+    /** Registers the given tag library against the given namespace URI.
+     * This should be called before the parser is used.
+     */
+    public void registerTaglib(String namespaceURI, TagLibrary taglib) {
+        taglibs.put( namespaceURI, taglib );
+    }
     
     /**
      * Parse the content of the specified file using this XMLParser.  Returns

@@ -1,11 +1,21 @@
 TO DO LIST
 ==========
 
-* add core tags with pluggable expression engines like Velocity, beanshell, Rhino etc.
+* add core tags from JSTL with pluggable expression engines like Velocity, beanshell, Rhino etc.
+
+* add EmptyScript to allow tags optimise if their body is empty.
+
+* add whitespace trimming support. Allow a taglib to decide which tags 'trim' and which don't so that
+  unnecessary whitespace can be removed at compile time.
+
+* add parent Context and support for other scopes such as session, request, cookie, initParam, param etc.
+  maybe add a Scope class for variable names which can contain a scope name and variable name
 
 * make Ant task to run Jelly
 
 * document much more!
+
+* add demo of tag which parses its body at compile time and modifies it. 
 
 * provide an alternative non-XML parser such that Jelly scripts do not
   need to be XML. This could allow Velocity-style concise notation 
