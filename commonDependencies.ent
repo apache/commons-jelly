@@ -22,13 +22,8 @@
         (e.g., nightly builds from 
               http://jakarta.apache.org/builds/jakarta-commons/nightly/commons-beanutils/
         dated 2002-11-27 or later)
-
-        I've been doing this "manually" as:
-          <version>nightly</version> 
-        and "manually" adding this file to my local repository, 
-        but someone should update the maven repo SNAPSHOT
       -->
-      <version>SNAPSHOT</version>
+      <version>1.0-beta-1.20030111.103454</version>
     </dependency>
     
     <dependency>
@@ -45,12 +40,7 @@
       <id>dom4j</id>
       <version>1.4-dev-8</version>
     </dependency>
-    
-    <dependency>
-      <id>jaxp</id>
-      <version>1.2</version>
-    </dependency>
-    
+
     <dependency>
       <id>xerces</id>
       <version>2.2.1</version>
