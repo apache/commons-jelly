@@ -254,6 +254,7 @@
           </filterchain>
         </copy>
 
+        <echo>If you are on windows, please use -DmavenCmd=maven.bat</echo>      
         <exec executable="${mavenCmd}" failonerror="true" dir="${dir}">
           <arg value="jellydoc"/>
           <arg value="site"/>
