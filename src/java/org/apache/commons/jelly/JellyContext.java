@@ -455,7 +455,7 @@ public class JellyContext {
      * {@link #getResource} method then returns the compiled script.
      */
     public Script compileScript(String uri) throws JellyException {
-        XMLParser parser = new XMLParser();
+        XMLParser parser = getXMLParser();
         parser.setContext(this);
         InputStream in = getResourceAsStream(uri);
         if (in == null) {
@@ -500,10 +500,18 @@ public class JellyContext {
     protected XMLParser getXMLParser() {
         XMLParser parser = (XMLParser) parserPool.get();
         if (parser == null) {
-            parser = new XMLParser();
+            parser = createXMLParser();
             parserPool.set(parser);
         }
         return parser;
+    }
+
+	/**
+	 * Factory method to allow JellyContext implementations to overload how an XMLParser
+	 * is created - such as to overload what the default ExpressionFactory should be.
+	 */
+    protected XMLParser createXMLParser() {
+        return new XMLParser();
     }
 
     /** 
