@@ -7,7 +7,7 @@
   <pomVersion>3</pomVersion>
   <name>commons-jelly-tags-jetty</name>
   <id>commons-jelly-tags-jetty</id>
-  <currentVersion>1.0-beta-1</currentVersion>
+  <currentVersion>SNAPSHOT</currentVersion>
   
   <organization>
     <name>Apache Software Foundation</name>
