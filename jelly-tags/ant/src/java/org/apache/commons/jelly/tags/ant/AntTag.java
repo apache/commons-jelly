@@ -234,7 +234,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 			);
                     	}
                     	
-                        ih.storeElement( project, parentObject, nested, tagName );
+                        ih.storeElement( project, parentObject, nested, tagName.toLowerCase() );
                     }
                     catch (Exception e) {
                         log.warn( "Caught exception setting nested: " + tagName, e );
