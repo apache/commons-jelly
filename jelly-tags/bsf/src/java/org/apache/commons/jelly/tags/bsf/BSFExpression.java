@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/bsf/src/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java,v 1.1 2003/01/08 05:02:48 dion Exp $
  * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Date: 2003/01/08 05:02:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BSFExpression.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Id: BSFExpression.java,v 1.1 2003/01/08 05:02:48 dion Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
 
