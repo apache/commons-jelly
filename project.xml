@@ -12,7 +12,7 @@
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://www.apache.org</url>
-    <logo>http://jakarta.apache.org/commons/images/jakarta-logo-blue.gif</logo>
+    <logo>http://jakarta.apache.org/commons/images/jakarta-logo.gif</logo>
   </organization>
   <logo>/images/logo.jpg</logo>
   <package>org.apache.commons.*</package>
@@ -134,6 +134,10 @@
       <id>mvdb</id>
       <email>martin@mvdb.net</email>
     </developer>
+    <developer>
+      <name>Paul Libbrecht</name>
+      <email>paul@activemath.org</email>
+    </developer>    
   </developers>
 
   <contributors>
@@ -185,13 +189,6 @@
         <role>Developer</role>
       </roles>
     </contributor>
-    <contributor>
-      <name>Paul Libbrecht</name>
-      <email>paul@activemath.org</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-    </contributor>    
     <contributor>
       <name>Jim Birchfield</name>
       <email>jim.birchfield@genscape.com</email>
