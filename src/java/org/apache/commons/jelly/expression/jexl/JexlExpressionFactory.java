@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.14 2003/01/24 07:40:59 morgand Exp $
- * $Revision: 1.14 $
- * $Date: 2003/01/24 07:40:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.15 2003/06/22 20:25:53 proyal Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/06/22 20:25:53 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.14 2003/01/24 07:40:59 morgand Exp $
+ * $Id: JexlExpressionFactory.java,v 1.15 2003/06/22 20:25:53 proyal Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -77,7 +77,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
@@ -107,7 +107,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
             org.apache.commons.jexl.ExpressionFactory.createExpression(text)
             );
         } catch (Exception e) {
-            throw new JellyException(e);
+            throw new JellyException("Unable to create expression: " + text, e);
         }
 
         if ( isSupportAntVariables() && isValidAntVariableName(text) ) {
