@@ -23,7 +23,7 @@
               http://jakarta.apache.org/builds/jakarta-commons/nightly/commons-beanutils/
         dated 2002-11-27 or later)
       -->
-      <version>1.6-dev.20021128.082114</version>
+      <version>SNAPSHOT</version>
     </dependency>
     
     <dependency>
