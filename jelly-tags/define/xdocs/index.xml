@@ -22,10 +22,12 @@
   </properties>
 
   <body>
-    <p>
-      Tag library which allows the creation of new tags using Jelly script itself.
-      See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        Tag library which allows the creation of new tags using Jelly script itself.
+        See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

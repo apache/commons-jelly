@@ -22,10 +22,12 @@
   </properties>
 
   <body>
-    <p>
-      Tags for invoking Web Services via <a href="http://ws.apache.org/axis/">Apache Axis</a>.
-  	  See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        Tags for invoking Web Services via <a href="http://ws.apache.org/axis/">Apache Axis</a>.
+  	    See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

@@ -22,10 +22,12 @@
   </properties>
 
   <body>
-    <p>
-      A tag library so that Jelly scripts can request input form the console.
-  	  See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        A tag library so that Jelly scripts can request input form the console.
+  	    See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

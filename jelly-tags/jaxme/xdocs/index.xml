@@ -22,18 +22,20 @@
   </properties>
 
   <body>
-    <p>
-      A <a href='http://java.sun.com/xml/jaxb/'>JAXB</a> tag library using the 
-      <a href='http://ws.apache.org/jaxme'>Apache JaxMe</a> implementation.
-      Tags are provided for marshalling java objects into xml 
-      and unmarshalling xml into java objects which will work with any JAXB implementation.
-      The generation tag generates java objects which can be marshalled and unmarshalled by
-      JaxMe and are specific to that implementation.
-    </p>
+    <section name="Overview">
+      <p>
+        A <a href='http://java.sun.com/xml/jaxb/'>JAXB</a> tag library using the 
+        <a href='http://ws.apache.org/jaxme'>Apache JaxMe</a> implementation.
+        Tags are provided for marshalling java objects into xml 
+        and unmarshalling xml into java objects which will work with any JAXB implementation.
+        The generation tag generates java objects which can be marshalled and unmarshalled by
+        JaxMe and are specific to that implementation.
+      </p>
 
-    <p>
-  	  See the <a href="tags.html">tags</a> for more information.
-    </p>
+      <p>
+  	    See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

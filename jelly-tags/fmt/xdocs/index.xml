@@ -22,10 +22,12 @@
   </properties>
 
   <body>
-    <p>
-      Tags that support Internationalization and localized formatting and parsing.
-      See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        Tags that support Internationalization and localized formatting and parsing.
+        See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

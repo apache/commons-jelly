@@ -22,9 +22,11 @@
   </properties>
 
   <body>
-    <p>
-      This provides an Avalon Service for executing Jelly scripts.
-    </p>
+    <section name="Overview">
+      <p>
+        This provides an Avalon Service for executing Jelly scripts.
+      </p>
+    </section>
   </body>
 </document>
 

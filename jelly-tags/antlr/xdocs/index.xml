@@ -22,9 +22,11 @@
   </properties>
 
   <body>
-    <p>
-      This is a Jelly interface for Antlr. See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        This is a Jelly interface for Antlr. See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

@@ -22,14 +22,16 @@
   </properties>
 
   <body>
-    <p>
-      The JellyJFace Library is a Jelly Library for creating Rich User Interfaces 
-  	  using SWT and JFace via XML markup (a Jelly script).
-  	  JellyJFace is an eextension of JellySWT to add support for the JFace framework.
-    </p>
-    <p>
-  	  See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        The JellyJFace Library is a Jelly Library for creating Rich User Interfaces 
+    	using SWT and JFace via XML markup (a Jelly script).
+  	    JellyJFace is an eextension of JellySWT to add support for the JFace framework.
+      </p>
+      <p>
+  	    See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

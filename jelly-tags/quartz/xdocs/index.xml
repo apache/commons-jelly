@@ -22,11 +22,13 @@
   </properties>
 
   <body>
-    <p>
-      A tag library for scheduling tasks to be run using the 
-      <a href="http://www.part.net/quartz.html">Quartz</a> library.
-  	  See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        A tag library for scheduling tasks to be run using the 
+        <a href="http://www.part.net/quartz.html">Quartz</a> library.
+        See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

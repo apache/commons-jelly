@@ -22,10 +22,12 @@
   </properties>
 
   <body>
-    <p>
-      Tags for starting Jetty HTTP servers and procesing HTTP requests using Jelly scripts.
-  	  See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        Tags for starting Jetty HTTP servers and procesing HTTP requests using Jelly scripts.
+  	    See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

@@ -22,11 +22,13 @@
   </properties>
 
   <body>
-    <p>
-      A collection of tag libraries for working with BSF based scripting languages like 
-      JavaScript, Jython and PNuts.
-      See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        A collection of tag libraries for working with BSF based scripting languages like 
+        JavaScript, Jython and PNuts.
+        See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

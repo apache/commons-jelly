@@ -22,10 +22,12 @@
   </properties>
 
   <body>
-    <p>
-      A library for processing Velocity templates from within Jelly.
-  	  See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        A library for processing Velocity templates from within Jelly.
+  	    See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 

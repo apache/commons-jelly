@@ -22,10 +22,12 @@
   </properties>
 
   <body>
-    <p>
-      Compares two XML documents using <a href="http://xmlunit.sourceforge.net/">XMLUnit</a>.
-  	  See the <a href="tags.html">tags</a> for more information.
-    </p>
+    <section name="Overview">
+      <p>
+        Compares two XML documents using <a href="http://xmlunit.sourceforge.net/">XMLUnit</a>.
+  	    See the <a href="tags.html">tags</a> for more information.
+      </p>
+    </section>
   </body>
 </document>
 
