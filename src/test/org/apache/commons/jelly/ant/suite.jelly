@@ -85,7 +85,7 @@
 
 <test:case name="copy">
 
-	<mkdir dir="${base.dir}/target/tmp/ant-tests"/>
+	<mkdir dir="${basedir}/target/tmp/ant-tests"/>
 	
   <copy
   	overwrite="true"
@@ -105,7 +105,7 @@
 
 <test:case name="copyWithReference">
 
-	<mkdir dir="${base.dir}/target/tmp/ant-tests"/>
+	<mkdir dir="${basedir}/target/tmp/ant-tests"/>
 
 	<filterset id="myFilter">
 		<filter token="foo" value="bar"/>
@@ -128,7 +128,7 @@
 
 <test:case name="parallelCopy">
 
-	<mkdir dir="${base.dir}/target/tmp/ant-tests"/>
+	<mkdir dir="${basedir}/target/tmp/ant-tests"/>
 	
 	<parallel>
 		<copy
@@ -151,7 +151,7 @@
 
 <test:case name="parallelCopyWithReference">
 
-	<mkdir dir="${base.dir}/target/tmp/ant-tests"/>
+	<mkdir dir="${basedir}/target/tmp/ant-tests"/>
 
 	<filterset id="myFilter">
 		<filter token="foo" value="bar"/>
