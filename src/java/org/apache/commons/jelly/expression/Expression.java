@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/Expression.java,v 1.5 2002/09/20 13:15:16 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/09/20 13:15:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/Expression.java,v 1.6 2002/09/30 08:06:59 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/09/30 08:06:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Expression.java,v 1.5 2002/09/20 13:15:16 jstrachan Exp $
+ * $Id: Expression.java,v 1.6 2002/09/30 08:06:59 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression;
 
@@ -69,7 +69,7 @@ import org.apache.commons.jelly.JellyContext;
   * expression language.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public interface Expression {
 
@@ -113,5 +113,5 @@ public interface Expression {
      * So using this method, nested expressions can be evaluated to the
      * actual underlying value object.
      */
-    public Object evaluateAsValue(JellyContext context);
+    public Object evaluateRecurse(JellyContext context);
 }

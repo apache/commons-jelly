@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.7 2002/09/20 13:15:16 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/09/20 13:15:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.8 2002/09/30 08:06:59 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/09/30 08:06:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: ExpressionSupport.java,v 1.7 2002/09/20 13:15:16 jstrachan Exp $
+ * $Id: ExpressionSupport.java,v 1.8 2002/09/30 08:06:59 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression;
 
@@ -80,7 +80,7 @@ import org.apache.commons.jelly.JellyContext;
   * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public abstract class ExpressionSupport implements Expression {
 
@@ -88,7 +88,7 @@ public abstract class ExpressionSupport implements Expression {
 
     // inherit javadoc from interface
     public String evaluateAsString(JellyContext context) {
-        Object value = evaluateAsValue(context);
+        Object value = evaluateRecurse(context);
         // sometimes when Jelly is used inside Maven the value
         // of an expression can actually be an expression.
         // e.g. ${foo.bar} can lookup "foo.bar" in a Maven context
@@ -102,18 +102,18 @@ public abstract class ExpressionSupport implements Expression {
 
 
     // inherit javadoc from interface
-    public Object evaluateAsValue(JellyContext context) {
+    public Object evaluateRecurse(JellyContext context) {
         Object value = evaluate(context);
         if (value instanceof Expression) {
             Expression expression = (Expression) value;
-            return expression.evaluateAsValue(context);
+            return expression.evaluateRecurse(context);
         }
         return value;
     }
     
     // inherit javadoc from interface
     public boolean evaluateAsBoolean(JellyContext context) {
-        Object value = evaluateAsValue(context);
+        Object value = evaluateRecurse(context);
         if ( value instanceof Boolean ) {
             Boolean b = (Boolean) value;
             return b.booleanValue();
@@ -143,7 +143,7 @@ public abstract class ExpressionSupport implements Expression {
 
     // inherit javadoc from interface
     public Iterator evaluateAsIterator(JellyContext context) {
-        Object value = evaluateAsValue(context);
+        Object value = evaluateRecurse(context);
         if ( value == null ) {
             return EMPTY_ITERATOR;
         }

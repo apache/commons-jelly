@@ -334,7 +334,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         else {
             if ( value instanceof Expression )
             {
-                super.setAttribute( name, ((Expression) value).evaluateAsValue(context) );
+                super.setAttribute( name, ((Expression) value).evaluateRecurse(context) );
             }
             else
             {
