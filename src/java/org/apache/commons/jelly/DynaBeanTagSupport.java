@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.9 2002/05/30 08:11:55 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/05/30 08:11:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/MapTagSupport.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/05/17 15:18:12 $
  *
  * ====================================================================
  *
@@ -57,82 +57,55 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.9 2002/05/30 08:11:55 jstrachan Exp $
+ * $Id: MapTagSupport.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.beanutils.DynaBean;
 
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.impl.TagScript;
+/** 
+ * <p><code>DynaBeanTag</code> is a DynaTag implementation which uses a DynaBean
+ * to store its attribute values in. Derived tags can then process this
+ * DynaBean in any way it wishes.
+ * </p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.3 $
+ */
 
-import org.xml.sax.Attributes;
+public abstract class DynaBeanTagSupport extends TagSupport implements DynaTag {
 
-/** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
-  */
+    /** the DynaBean which is used to store the attributes of this tag */
+    private DynaBean dynaBean;
 
-public abstract class TagLibrary {
-
-    private Map tags = new HashMap();
-
-    public TagLibrary() {
-
-    }
-
-    /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes)
-        throws Exception {
-
-        Class type = (Class) tags.get(name);
-        if ( type != null ) {
-            Tag tag = (Tag) type.newInstance();
-            return TagScript.newInstance(tag);
-        }
-        return null;
-
-    }
-
-    /** Allows taglibs to use their own expression evaluation mechanism */
-    public Expression createExpression(
-        ExpressionFactory factory,
-        String tagName,
-        String attributeName,
-        String attributeValue)
-        throws Exception {
-
-        ExpressionFactory myFactory = getExpressionFactory();
-        if (myFactory == null) {
-            myFactory = factory;
-        }
-        if (myFactory != null) {
-            return myFactory.createExpression(attributeValue);
-        }
-        // will use the default expression instead
-        return null;
+    public DynaBeanTagSupport() {
     }
     
+    public DynaBeanTagSupport(DynaBean dynaBean) {
+        this.dynaBean = dynaBean;
+    }
+     
+    /** Sets an attribute value of this tag before the tag is invoked
+     */
+    public void setAttribute(String name, Object value) {
+        getDynaBean().set(name, value);
+    }
+
+    /** 
+     * @return the DynaBean which is used to store the
+     *  attributes of this tag
+     */
+    public DynaBean getDynaBean() {
+        return dynaBean;
+    }
     
-    // Implementation methods
-    //-------------------------------------------------------------------------     
-
-    /** Registers a tag class for a given tag name */
-    protected void registerTag(String name, Class type) {
-        tags.put(name, type);
-    }
-
-    /** Allows derived tag libraries to use their own factory */
-    protected ExpressionFactory getExpressionFactory() {
-        return null;
+    /**
+     * Sets the DynaBean which is used to store the
+     *  attributes of this tag
+     */
+    public void setDynaBean(DynaBean dynaBean) {
+        this.dynaBean = dynaBean;
     }
     
-    protected Map getTagClasses() {
-        return tags;
-    }
-
 }

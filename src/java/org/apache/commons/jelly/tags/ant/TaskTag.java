@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.9 2002/05/30 08:11:55 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/05/30 08:11:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/05/17 15:18:08 $
  *
  * ====================================================================
  *
@@ -57,82 +57,66 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.9 2002/05/30 08:11:55 jstrachan Exp $
+ * $Id: IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
  */
+package org.apache.commons.jelly.tags.ant;
 
-package org.apache.commons.jelly;
+import org.apache.commons.beanutils.DynaBean;
+import org.apache.commons.beanutils.WrapDynaBean;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.jelly.DynaBeanTagSupport;
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.impl.TagScript;
+import org.apache.tools.ant.Task;
 
-import org.xml.sax.Attributes;
+/** 
+ * A tag which invokes an Ant Task
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.6 $
+ */
+public class TaskTag extends DynaBeanTagSupport {
 
-/** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
-  */
+    /** the Ant task */
+    private Task task;
 
-public abstract class TagLibrary {
-
-    private Map tags = new HashMap();
-
-    public TagLibrary() {
-
+    public TaskTag() {
     }
 
-    /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes)
-        throws Exception {
-
-        Class type = (Class) tags.get(name);
-        if ( type != null ) {
-            Tag tag = (Tag) type.newInstance();
-            return TagScript.newInstance(tag);
-        }
-        return null;
-
+    public TaskTag(Task task) {
+        this.task = task;
+        setDynaBean( new WrapDynaBean(task) );
     }
 
-    /** Allows taglibs to use their own expression evaluation mechanism */
-    public Expression createExpression(
-        ExpressionFactory factory,
-        String tagName,
-        String attributeName,
-        String attributeValue)
-        throws Exception {
-
-        ExpressionFactory myFactory = getExpressionFactory();
-        if (myFactory == null) {
-            myFactory = factory;
-        }
-        if (myFactory != null) {
-            return myFactory.createExpression(attributeValue);
-        }
-        // will use the default expression instead
-        return null;
+    // Tag interface
+    //------------------------------------------------------------------------- 
+    public void doTag(XMLOutput output) throws Exception {
+        Task task = getTask();
+        task.init();
+        
+        // run the body first to configure the task via nested
+        getBody().run(context, output);
+        
+        task.execute();        
     }
     
+    // Properties
+    //-------------------------------------------------------------------------                
     
-    // Implementation methods
-    //-------------------------------------------------------------------------     
-
-    /** Registers a tag class for a given tag name */
-    protected void registerTag(String name, Class type) {
-        tags.put(name, type);
-    }
-
-    /** Allows derived tag libraries to use their own factory */
-    protected ExpressionFactory getExpressionFactory() {
-        return null;
+    /** 
+     * @return the Ant task
+     */
+    public Task getTask() {
+        return task;
     }
     
-    protected Map getTagClasses() {
-        return tags;
+    /** 
+     * Sets the Ant task
+     */
+    public void setTask(Task task) {
+        this.task = task;
+        setDynaBean( new WrapDynaBean(task) );
     }
-
+    
 }

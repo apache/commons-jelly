@@ -217,6 +217,13 @@
 	
    </target>
 
+   <target name="demo.ant.task" depends="compile" 
+      description="Runs demo which invokes Ant tasks">
+      
+	<jelly file="src/test/org/apache/commons/jelly/example_ant_tasks.jelly"/>
+	
+   </target>
+
    <target name="demo.xml" depends="compile" 
       description="Runs a simple demo of the XML tags">
       

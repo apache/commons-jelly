@@ -21,6 +21,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.tags.ant.AntTagLibrary;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -163,6 +164,9 @@ public class JellyTask extends Task {
             text = text.substring(0, idx + 1);
             JellyContext parentContext =  new JellyContext(getRootContext(), new URL(text));
             context = new AntJellyContext(project, parentContext);
+            
+            // register the Ant tag library
+            context.registerTagLibrary( "jelly:ant", new AntTagLibrary(project) );
         }
         return context;
     }

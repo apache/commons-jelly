@@ -59,8 +59,8 @@
     <dependency>
       <name>commons-beanutils</name>
       <type>required</type>
-      <version>20020520</version>
-      <jar>commons-beanutils-20020520.jar</jar>
+      <version>1.4-dev</version>
+      <jar>commons-beanutils-1.4-dev.jar</jar>
     </dependency>
 
     <dependency>

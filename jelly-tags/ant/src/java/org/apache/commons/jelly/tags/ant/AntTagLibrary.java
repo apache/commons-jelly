@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.9 2002/05/30 08:11:55 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/05/30 08:11:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/XMLTagLibrary.java,v 1.6 2002/05/17 18:04:00 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/05/17 18:04:00 $
  *
  * ====================================================================
  *
@@ -57,82 +57,88 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.9 2002/05/30 08:11:55 jstrachan Exp $
+ * $Id: XMLTagLibrary.java,v 1.6 2002/05/17 18:04:00 jstrachan Exp $
  */
+package org.apache.commons.jelly.tags.ant;
 
-package org.apache.commons.jelly;
+import java.util.Iterator;
+import java.util.List;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagScript;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.Task;
+import org.apache.tools.ant.types.DataType;
 
 import org.xml.sax.Attributes;
 
-/** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
-  */
+/** 
+ * A Jelly custom tag library that allows Ant tasks to be called from inside Jelly.
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.6 $
+ */
+public class AntTagLibrary extends TagLibrary {
 
-public abstract class TagLibrary {
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(AntTagLibrary.class);
+    
+    /** the Ant Project for this tag library */
+    private Project project;
+        
+        
+    public AntTagLibrary() {
+    }
 
-    private Map tags = new HashMap();
-
-    public TagLibrary() {
-
+    public AntTagLibrary(Project project) {
+        this.project = project;
     }
 
     /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes)
-        throws Exception {
-
-        Class type = (Class) tags.get(name);
+    public TagScript createTagScript(String name, Attributes attributes) throws Exception {
+        Project project = getProject();
+        Class type = (Class) project.getTaskDefinitions().get(name);
+        if ( type != null ) {            
+            Task task = (Task) type.newInstance();
+            task.setProject(project);
+            task.setTaskName(name);
+            Tag tag = new TaskTag( task );
+            return TagScript.newInstance(tag);
+        }
+        type = (Class) project.getDataTypeDefinitions().get(name);
         if ( type != null ) {
-            Tag tag = (Tag) type.newInstance();
+            DataType dataType = (DataType) type.newInstance();
+            dataType.setProject(project);
+            Tag tag = new DataTypeTag( name, dataType );
             return TagScript.newInstance(tag);
         }
         return null;
-
     }
 
-    /** Allows taglibs to use their own expression evaluation mechanism */
-    public Expression createExpression(
-        ExpressionFactory factory,
-        String tagName,
-        String attributeName,
-        String attributeValue)
-        throws Exception {
-
-        ExpressionFactory myFactory = getExpressionFactory();
-        if (myFactory == null) {
-            myFactory = factory;
-        }
-        if (myFactory != null) {
-            return myFactory.createExpression(attributeValue);
-        }
-        // will use the default expression instead
-        return null;
+    
+    // Properties
+    //-------------------------------------------------------------------------                
+    
+    /**
+     * @return the Ant Project for this tag library.
+     */
+    public Project getProject() {
+        return project;
     }
     
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------     
-
-    /** Registers a tag class for a given tag name */
-    protected void registerTag(String name, Class type) {
-        tags.put(name, type);
-    }
-
-    /** Allows derived tag libraries to use their own factory */
-    protected ExpressionFactory getExpressionFactory() {
-        return null;
-    }
-    
-    protected Map getTagClasses() {
-        return tags;
+    /**
+     * Sets the Ant Project for this tag library.
+     */
+    public void setProject(Project project) {
+        this.project = project;
     }
 
 }
