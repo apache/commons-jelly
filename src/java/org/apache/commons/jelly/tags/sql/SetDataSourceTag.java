@@ -120,7 +120,6 @@ public class SetDataSourceTag extends TagSupport {
 	}
 
 	public void setUrl(String jdbcURL) {
-		log.info( "Setting url to: "+ jdbcURL );
 		this.jdbcURL = jdbcURL;
 	}
 

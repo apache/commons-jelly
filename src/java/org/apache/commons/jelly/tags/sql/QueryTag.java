@@ -131,13 +131,6 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
 	}
 
 	public void setDataSource(Object dataSource) {
-		if ( dataSource != null ) {
-			log.info( "Setting data source to: " + dataSource + " of type: " + dataSource.getClass() );
-		}
-		else {
-			log.info( "Setting data source to: " + dataSource );
-		}
-		
 		this.rawDataSource = dataSource;
 		this.dataSourceSpecified = true;
 	}

@@ -93,10 +93,6 @@ public class DataSourceUtil {
 		throws JellyException {
 		DataSource dataSource = null;
 
-		if (log.isInfoEnabled() ) {
-			log.info( "Attempting to deduce DataSource from: " + rawDataSource );
-		}
-		
 		if (rawDataSource == null) {
 			rawDataSource = pc.getVariable("org.apache.commons.jelly.sql.DataSource");
 		}
@@ -111,7 +107,6 @@ public class DataSourceUtil {
 		* a DataSource
 		*/
 		if (rawDataSource instanceof String) {
-			log.info( "rawDataSource is a String" );
 			try {
 				Context ctx = new InitialContext();
 				// relative to standard JNDI root for J2EE app

@@ -73,87 +73,96 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DataSourceWrapper implements DataSource {
 
-	/** The Log to which logging calls will be made. */
-	private static final Log log = LogFactory.getLog(DataSourceWrapper.class);
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(DataSourceWrapper.class);
 
-	private String driverClassName;
-	private String jdbcURL;
-	private String userName;
-	private String password;
+    private String driverClassName;
+    private String jdbcURL;
+    private String userName;
+    private String password;
 
-	public void setDriverClassName(String driverClassName)
-		throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-		log.info("Loading JDBC driver: [" + driverClassName + "]");
+    public void setDriverClassName(String driverClassName)
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-		this.driverClassName = driverClassName;
-		getClass().getClassLoader().loadClass(driverClassName).newInstance();
-	}
+        if (log.isDebugEnabled()) {
+            log.debug("Loading JDBC driver: [" + driverClassName + "]");
+        }
 
-	public void setJdbcURL(String jdbcURL) {
-		log.info("Setting url to: " + jdbcURL);
-		this.jdbcURL = jdbcURL;
-	}
+        this.driverClassName = driverClassName;
+        getClass().getClassLoader().loadClass(driverClassName).newInstance();
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setJdbcURL(String jdbcURL) {
+        this.jdbcURL = jdbcURL;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	/**
-	 * Returns a Connection using the DriverManager and all
-	 * set properties.
-	 */
-	public Connection getConnection() throws SQLException {
-		Connection conn = null;
-		if (userName != null) {
-			log.info("Creating connection from url: " + jdbcURL + " userName: " + userName);
-			conn = DriverManager.getConnection(jdbcURL, userName, password);
-		}
-		else {
-			log.info("Creating connection from url: " + jdbcURL);
-			conn = DriverManager.getConnection(jdbcURL);
-		}
-		return conn;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	/**
-	 * Always throws a SQLException. Username and password are set
-	 * in the constructor and can not be changed.
-	 */
-	public Connection getConnection(String username, String password)
-		throws SQLException {
-		throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-	}
+    /**
+     * Returns a Connection using the DriverManager and all
+     * set properties.
+     */
+    public Connection getConnection() throws SQLException {
+        Connection conn = null;
+        if (userName != null) {
+            if (log.isDebugEnabled()) {
+                log.debug(
+                    "Creating connection from url: " + jdbcURL + " userName: " + userName);
+            }
 
-	/**
-	 * Always throws a SQLException. Not supported.
-	 */
-	public int getLoginTimeout() throws SQLException {
-		throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-	}
+            conn = DriverManager.getConnection(jdbcURL, userName, password);
+        }
+        else {
+            if (log.isDebugEnabled()) {
+                log.debug("Creating connection from url: " + jdbcURL);
+            }
 
-	/**
-	 * Always throws a SQLException. Not supported.
-	 */
-	public PrintWriter getLogWriter() throws SQLException {
-		throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-	}
+            conn = DriverManager.getConnection(jdbcURL);
+        }
+        return conn;
+    }
 
-	/**
-	 * Always throws a SQLException. Not supported.
-	 */
-	public void setLoginTimeout(int seconds) throws SQLException {
-		throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-	}
+    /**
+     * Always throws a SQLException. Username and password are set
+     * in the constructor and can not be changed.
+     */
+    public Connection getConnection(String username, String password)
+        throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
 
-	/**
-	 * Always throws a SQLException. Not supported.
-	 */
-	public synchronized void setLogWriter(PrintWriter out) throws SQLException {
-		throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-	}
+    /**
+     * Always throws a SQLException. Not supported.
+     */
+    public int getLoginTimeout() throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
+
+    /**
+     * Always throws a SQLException. Not supported.
+     */
+    public PrintWriter getLogWriter() throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
+
+    /**
+     * Always throws a SQLException. Not supported.
+     */
+    public void setLoginTimeout(int seconds) throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
+
+    /**
+     * Always throws a SQLException. Not supported.
+     */
+    public synchronized void setLogWriter(PrintWriter out) throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
 
 }
