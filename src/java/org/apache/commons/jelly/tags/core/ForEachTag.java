@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
   * <code>forEach</code> tag does.
   * 
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.25 $
+  * @version $Revision: 1.26 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -142,8 +142,11 @@ public class ForEachTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------                    
 
-    /** Sets the expression used to iterate over
-      */
+    /**
+     * Sets the expression used to iterate over.
+     * This expression could resolve to an Iterator, Collection, Map, Array,
+     * Enumeration or comma separated String. 
+     */
     public void setItems(Expression items) {
         this.items = items;
     }
