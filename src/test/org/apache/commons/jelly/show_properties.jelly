@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:beanshell">
+<j:jelly xmlns:j="jelly:core">
 <html>
   <body>
     <h1>System properties</h1>

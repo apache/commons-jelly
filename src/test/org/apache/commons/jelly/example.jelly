@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<j:jelly xmlns:j="jelly:beanshell" xmlns:x="jelly:xml">
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
   <x:parse var="doc">
     <html>
       <title>It works!</title>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<jelly xmlns="jelly:beanshell">
+<jelly xmlns="jelly:core">
   <!-- a really silly way to do this but -->
   <!-- this should test the choose/when/otherwise tags -->
   <forEach var="iter" items="System.getProperties()">
