@@ -31,14 +31,14 @@ public class DimensionConverter implements Converter {
     public Object convert(Class type, Object value) {
         if ( value != null ) {
             String text = value.toString();
-            StringTokenizer enum = new StringTokenizer( text, "," );
+            StringTokenizer dimensionEnum = new StringTokenizer( text, "," );
             int width = 0;
             int height = 0;
-            if ( enum.hasMoreTokens() ) {
-                width = parseNumber( enum.nextToken() );
+            if ( dimensionEnum.hasMoreTokens() ) {
+                width = parseNumber( dimensionEnum.nextToken() );
             }
-            if ( enum.hasMoreTokens() ) {
-                height = parseNumber( enum.nextToken() );
+            if ( dimensionEnum.hasMoreTokens() ) {
+                height = parseNumber( dimensionEnum.nextToken() );
             }
             
             // now lets parse the dimension...

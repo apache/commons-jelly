@@ -65,9 +65,9 @@ public class SwtHelper extends UseBeanTag {
             if (toUpperCase) {
                 text = text.toUpperCase();
             }
-            StringTokenizer enum = new StringTokenizer(text, ",");
-            while (enum.hasMoreTokens()) {
-                String token = enum.nextToken().trim();
+            StringTokenizer items = new StringTokenizer(text, ",");
+            while (items.hasMoreTokens()) {
+                String token = items.nextToken().trim();
                 answer |= getStyleCode(constantClass, token);
             }
         }

@@ -24,7 +24,7 @@ import org.eclipse.swt.graphics.RGB;
  * A Converter that converts Strings in the form "#uuuuuu" or "x,y,z" into a RGB object 
  *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class ColorConverter implements Converter {
 
@@ -43,18 +43,18 @@ public class ColorConverter implements Converter {
 	 * @return RGB
 	 */
 	protected RGB parseRGB(String value) {
-		StringTokenizer enum = new StringTokenizer(value, ",");
+		StringTokenizer items = new StringTokenizer(value, ",");
 		int red = 0;
 		int green = 0;
 		int blue = 0;
-		if (enum.hasMoreTokens()) {
-			red = parseNumber(enum.nextToken());
+		if (items.hasMoreTokens()) {
+			red = parseNumber(items.nextToken());
 		}
-		if (enum.hasMoreTokens()) {
-			green = parseNumber(enum.nextToken());
+		if (items.hasMoreTokens()) {
+			green = parseNumber(items.nextToken());
 		}
-		if (enum.hasMoreTokens()) {
-			blue = parseNumber(enum.nextToken());
+		if (items.hasMoreTokens()) {
+			blue = parseNumber(items.nextToken());
 		}
 		return new RGB(red, green, blue);
 	}

@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.31 $
+ * @version $Revision: 1.32 $
  */
 public class Jelly {
     
@@ -287,9 +287,9 @@ public class Jelly {
         JellyContext context = getJellyContext();
         Properties props = new Properties();
         props.load(is);
-        Enumeration enum = props.propertyNames();
-        while (enum.hasMoreElements()) {
-            String key = (String) enum.nextElement();
+        Enumeration propsEnum = props.propertyNames();
+        while (propsEnum.hasMoreElements()) {
+            String key = (String) propsEnum.nextElement();
             String value = props.getProperty(key);
             
             // @todo we should parse the value in case its an Expression

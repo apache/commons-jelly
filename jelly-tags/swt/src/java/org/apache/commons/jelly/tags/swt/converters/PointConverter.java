@@ -25,7 +25,7 @@ import org.eclipse.swt.graphics.Point;
  * A Converter that turns Strings in the form "x, y" into Point objects
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class PointConverter implements Converter {
 
@@ -41,14 +41,14 @@ public class PointConverter implements Converter {
 	 * @return Point
 	 */
 	public Point parse(String text) {
-        StringTokenizer enum = new StringTokenizer( text, "," );
+        StringTokenizer items = new StringTokenizer( text, "," );
         int x = 0;
         int y = 0;
-        if ( enum.hasMoreTokens() ) {
-            x = parseNumber( enum.nextToken() );
+        if ( items.hasMoreTokens() ) {
+            x = parseNumber( items.nextToken() );
         }
         if ( enum.hasMoreTokens() ) {
-            y = parseNumber( enum.nextToken() );
+            y = parseNumber( items.nextToken() );
         }           
         return new Point( x, y );
 	}

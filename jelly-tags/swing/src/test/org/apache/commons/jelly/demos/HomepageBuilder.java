@@ -159,9 +159,9 @@ public class HomepageBuilder extends JPanel {
             context.setVariable("url",urlField.getText());
             
             Vector v = new Vector();
-            Enumeration enum= listModel.elements();
-            while (enum.hasMoreElements()) {
-            	v.add(enum.nextElement());
+            Enumeration items = listModel.elements();
+            while (items.hasMoreElements()) {
+            	v.add(items.nextElement());
             }
             context.setVariable("hobbies", v);
     

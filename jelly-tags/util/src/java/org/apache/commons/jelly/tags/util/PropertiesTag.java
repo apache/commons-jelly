@@ -33,7 +33,7 @@ import org.apache.commons.jelly.XMLOutput;
  * which are loaded into the current context.
  * 
  * @author Jim Birchfield
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class PropertiesTag extends TagSupport {
     private String file;
@@ -80,9 +80,9 @@ public class PropertiesTag extends TagSupport {
             context.setVariable(var, props);
         }
         else {
-            Enumeration enum = props.propertyNames();
-            while (enum.hasMoreElements()) {
-                String key = (String) enum.nextElement();
+            Enumeration propsEnum = props.propertyNames();
+            while (propsEnum.hasMoreElements()) {
+                String key = (String) propsEnum.nextElement();
                 String value = props.getProperty(key);
                 
                 // @todo we should parse the value in case its an Expression

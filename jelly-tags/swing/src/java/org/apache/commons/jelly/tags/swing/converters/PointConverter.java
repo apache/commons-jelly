@@ -31,14 +31,14 @@ public class PointConverter implements Converter {
     public Object convert(Class type, Object value) {
         if ( value != null ) {
             String text = value.toString();
-            StringTokenizer enum = new StringTokenizer( text, "," );
+            StringTokenizer pointEnum = new StringTokenizer( text, "," );
             int x = 0;
             int y = 0;
-            if ( enum.hasMoreTokens() ) {
-                x = parseNumber( enum.nextToken() );
+            if ( pointEnum.hasMoreTokens() ) {
+                x = parseNumber( pointEnum.nextToken() );
             }
-            if ( enum.hasMoreTokens() ) {
-                y = parseNumber( enum.nextToken() );
+            if ( pointEnum.hasMoreTokens() ) {
+                y = parseNumber( pointEnum.nextToken() );
             }
             
             // now lets parse the Point...
