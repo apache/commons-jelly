@@ -10,7 +10,7 @@
       <item name="FAQ"                     href="/faq.html"/>
       <item name="Detail"                  href="/overview.html"/>
       <item name="Tag Reference"           href="/tags.html"/>
-      <item name="Download"                href="http://jakarta.apache.org/turbine/jars2/commons-jelly/distributions/"/>
+      <item name="Download"                href="http://www.ibiblio.org/maven/commons-jelly/distributions/"/>
       <item name="To Do List"              href="/todo.html"/>
     </menu>
     <menu name="Community">
