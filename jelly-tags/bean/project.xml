@@ -18,7 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-bean</id>
   <name>commons-jelly-tags-bean</name>
-
+  <currentVersion>1.0</currentVersion>
   <package>org.apache.commons.jelly.tags.bean</package>
 
   <description>
@@ -26,7 +26,13 @@
   </description>
   <shortDescription>Commons Jelly Bean Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/jelly/tags/bean/</url>
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS_JELLY_BEAN-1_0</tag>
+    </version>
+  </versions>
 
   <dependencies>
 
