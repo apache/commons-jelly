@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-beta-4-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-66" due-to="Knut Wannheden">Default XMLOutput to not escape XML</action>
       <action dev="dion" type="fix" issue="JELLY-87">jelly can't resolve vars with dots (.) in the name, in function calls</action>
       <action dev="dion" type="fix">Source compiles with JDK 1.5</action>
       <action dev="dion" type="fix" issue="JELLY-25">No exceptions silently swallowed</action>
