@@ -27,7 +27,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.14 $
+  * @version $Revision: 1.15 $
   */
 
 public class IncludeTag extends TagSupport {
@@ -46,12 +46,16 @@ public class IncludeTag extends TagSupport {
     public void setInherit(String inherit) {
         if ("true".equals(inherit)) {
             this.shouldInherit = true;
+        } else {
+            this.shouldInherit = false;
         }
     }
 
     public void setExport(String export) {
         if ("true".equals(export)) {
             this.shouldExport = true;
+        } else {
+            this.shouldExport = false;
         }
     }
 
