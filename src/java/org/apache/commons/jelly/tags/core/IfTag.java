@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.3 2002/05/15 06:25:46 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/05/15 06:25:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.4 2002/05/16 16:29:52 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/16 16:29:52 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IfTag.java,v 1.3 2002/05/15 06:25:46 jstrachan Exp $
+ * $Id: IfTag.java,v 1.4 2002/05/16 16:29:52 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -73,7 +73,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class IfTag extends TagSupport {
 
@@ -85,10 +85,10 @@ public class IfTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws Exception {
         if ( test != null ) {
             if ( test.evaluateAsBoolean( context ) ) {
-                getBody().run( context, output );
+                getBody().run(context, output);
             }
         }
     }

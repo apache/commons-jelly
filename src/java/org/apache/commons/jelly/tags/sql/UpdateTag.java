@@ -157,7 +157,7 @@ public class UpdateTag extends TagSupport implements SQLExecutionTag {
 	 * element, or is retrieved from a JSP scope  attribute
 	 * named <code>javax.servlet.jsp.jstl.sql.dataSource</code>.
 	 */
-	public void run(JellyContext context, XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws Exception {
 		try {
 			conn = getConnection();
 		}

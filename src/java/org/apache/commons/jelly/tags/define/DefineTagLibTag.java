@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.3 2002/05/15 06:25:48 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/05/15 06:25:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.4 2002/05/16 16:29:54 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/16 16:29:54 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagLibTag.java,v 1.3 2002/05/15 06:25:48 jstrachan Exp $
+ * $Id: DefineTagLibTag.java,v 1.4 2002/05/16 16:29:54 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -75,7 +75,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * using a Jelly script..</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class DefineTagLibTag extends TagSupport {
     
@@ -93,7 +93,7 @@ public class DefineTagLibTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws Exception {
         tagLibrary = new DynamicTagLibrary( getUri() );
 
         context.registerTagLibrary( getUri(), tagLibrary );

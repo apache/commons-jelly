@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.4 2002/05/15 06:25:49 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/15 06:25:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/16 16:29:55 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.4 2002/05/15 06:25:49 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -72,7 +72,7 @@ import org.dom4j.XPath;
   * in XSLT
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class ExprTag extends TagSupport {
 
@@ -84,7 +84,7 @@ public class ExprTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws Exception {
         if ( select != null ) {
             String text = select.valueOf( null );
             output.write( text );

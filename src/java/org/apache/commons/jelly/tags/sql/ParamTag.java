@@ -81,7 +81,7 @@ public class ParamTag extends TagSupport {
 	//*********************************************************************
 	// Tag logic
 
-	public void run(JellyContext context, XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws Exception {
 		SQLExecutionTag parent =
 			(SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
 		if (parent == null) {

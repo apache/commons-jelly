@@ -2,7 +2,7 @@
 <j:jelly xmlns:j="jelly:core">
 <html>
   <body>
-    <h1>System properties</h1>
+    <h1>System properties</h1>    
     <table>
       <tr>
         <th>Name</th>

@@ -121,7 +121,7 @@ public class TransactionTag extends TagSupport {
 	 * getting the <code>Connection</code> and preparing it for
 	 * the transaction.
 	 */
-	public void run(JellyContext context, XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws Exception {
 
 		if ((rawDataSource == null) && dataSourceSpecified) {
 			throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
@@ -148,7 +148,7 @@ public class TransactionTag extends TagSupport {
 
 		boolean finished = false;
 		try {
-			getBody().run( context, output );
+			getBody().run(context, output);
 			finished = true;
 		}
 		catch (Exception e) {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.4 2002/05/15 06:25:49 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/15 06:25:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.5 2002/05/16 16:29:54 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/16 16:29:54 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.4 2002/05/15 06:25:49 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.5 2002/05/16 16:29:54 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -75,7 +75,7 @@ import org.dom4j.XPath;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -90,7 +90,7 @@ public class ForEachTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(JellyContext context, XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws Exception {
         if ( select != null ) { 
             Iterator iter = select.selectNodes(null).iterator();
             while ( iter.hasNext() ) {
@@ -98,7 +98,7 @@ public class ForEachTag extends TagSupport {
                 if (var != null) {
                     context.setVariable( var, value );
                 }
-                getBody().run( context, output );
+                getBody().run(context, output);
             }
         }
     }

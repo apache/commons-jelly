@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/SetTag.java,v 1.4 2002/05/15 06:25:49 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/15 06:25:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/SetTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/16 16:29:55 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.4 2002/05/15 06:25:49 jstrachan Exp $
+ * $Id: SetTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -73,7 +73,7 @@ import org.dom4j.XPath;
 /** A tag which defines a variable from an XPath expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class SetTag extends TagSupport {
 
@@ -87,7 +87,7 @@ public class SetTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(JellyContext context, XMLOutput output) {
+    public void doTag(XMLOutput output) {
         if ( var == null ) {
             throw new IllegalArgumentException( "The var attribute cannot be null" );
         }

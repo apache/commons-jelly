@@ -192,7 +192,7 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
 	 * element, or is retrieved from a JSP scope  attribute
 	 * named <code>javax.servlet.jstl.sql.dataSource</code>.
 	 */
-	public void run(JellyContext context, XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws Exception {
 
 		if (!maxRowsSpecified) {
 			Object obj = context.getVariable("org.apache.commons.jelly.sql.maxRows");

@@ -112,7 +112,7 @@ public class DriverTag extends TagSupport {
 	//*********************************************************************
 	// Tag logic
 
-	public void run(JellyContext context, XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws Exception {
 		DataSourceWrapper ds = new DataSourceWrapper();
 		try {
 			ds.setDriverClassName(getDriverClassName());
