@@ -17,18 +17,17 @@ package org.apache.commons.jelly.test.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.io.StringReader;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.Embedded;
-import org.xml.sax.InputSource;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
+
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.Embedded;
+import org.xml.sax.InputSource;
 
 /**
  *  Unit case  of Embedded
