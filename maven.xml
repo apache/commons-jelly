@@ -318,9 +318,22 @@
 	
 	<goal name="pack-fat-jar" prereqs=""
 			description="Creates a jar with all the dependencies of jelly and the taglibs indicated in ${tagLibs}.">
+	<!-- variables: 
+		- tagLibs: a comma-separated list of taglib-names (without the "jelly:")
+		- doBuildAll: a boolean that says wether we invoke build (of jelly, and the taglibs)
+		   When true, invokes jar:install-snapshot on jelly and each taglib included
+		- fatJarName: the location of the fat-jar collected
+	  -->
 	<!-- this goal isn't really much tested yet but could be the key
 		to get a better packaging -->
-			
+		
+		<property name="tagLibs" value=""/>
+		<property name="doBuildAll" value="false"/>
+		<property name="fatJarPath" value="${maven.build.dir}/fatjelly.jar"/>
+		<property name="classpathFile" value="${maven.build.dir}/classpath-with-deps.txt"/>
+		
+		<!-- if we need to build, we need to build first jelly -->
+		<j:if test="${doBuildAll}"><attainGoal name="jar:install-snapshot"/></j:if>
     <j:new var="jellyTaglibNames" className="java.util.HashSet"/>
     <j:set var="taglibs_projects" value=""/>
 		<util:tokenize delim="," var="tagLibnames">${tagLibs}</util:tokenize>
@@ -336,13 +349,18 @@
       <!-- collect all dependencies in a set -->
      <j:new var="deps" className="java.util.HashSet"/>
 
-    <maven:reactor
-      basedir="."
-      postProcessing="true"
-      includes="${taglibs_projects}"
-      ignoreFailures="false">
-        </maven:reactor>
-    <j:forEach var="reactorProject" items="${reactorProjects}">
+		<j:choose>
+			<j:when test="${doBuildAll}">
+				<maven:reactor basedir="." postProcessing="true" goals="jar:install-snapshot"
+					includes="${taglibs_projects}" ignoreFailures="false"/>
+				</j:when>
+			<j:otherwise>
+				<maven:reactor basedir="." postProcessing="true"
+					includes="${taglibs_projects}" ignoreFailures="false"/>
+				</j:otherwise>
+			</j:choose>
+		
+		<j:forEach var="reactorProject" items="${reactorProjects}">
       <j:forEach var="dep" items="${reactorProject.dependencies}">${deps.add(dep)}</j:forEach>
     </j:forEach>
     <j:forEach var="tl" items="${jellyTaglibNames}">
@@ -355,7 +373,7 @@
       ${deps.add(tlD)}
       </j:forEach>
   
-    <maven:reactor
+    <!-- <maven:reactor
         basedir="."
         postProcessing="true"
         includes="project.xml"
@@ -363,22 +381,24 @@
         </maven:reactor>
     <j:forEach var="reactorProject" items="${reactorProjects}">
       <j:forEach var="dep" items="${reactorProject.dependencies}">${deps.add(dep)}</j:forEach>
-    </j:forEach>
+    </j:forEach> -->
 
-    
-    <j:file name="${maven.build.dir}/deps.txt">${deps}</j:file>
-    
-    <!-- we could process project's dependencies if we were a plugin -->
+
+		<j:if test="${'' ne classpathFile}">    
+    <j:file name="${classpathFile}" omitXmlDeclaration="true"><j:forEach items="${deps}" trim="true" var="dep">${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifactId}-${dep.version}.${dep.type}${path.separator}</j:forEach></j:file>
+		</j:if>
     
     <!-- merging it all -->
-    <jar destfile="${maven.build.dir}/jellypack.jar">
-      <manifest>
-        <attribute name="Main-Class" value="org.apache.commons.jelly.Jelly"/></manifest>
-      <j:forEach var="dep" items="${deps}">
-        <zipfileset src="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}" />
-        <echo>Adding jar ${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}.</echo>
-        </j:forEach>
-      </jar>
+		<j:if test="${'' ne fatJarPath}">
+			<jar destfile="${fatJarPath}">
+				<manifest>
+					<attribute name="Main-Class" value="org.apache.commons.jelly.Jelly"/></manifest>
+				<j:forEach var="dep" items="${deps}">
+					<zipfileset src="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}" />
+					<echo>Adding jar ${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}.</echo>
+					</j:forEach>
+				</jar>
+			</j:if>
 			
 		</goal>
 </project>
