@@ -52,44 +52,44 @@
   </test:case>
 
 
-  <test:case name="assertThrownTests">
+  <test:case name="assertThrowsTests">
 
     <!-- test using var attribute -->
-    <test:assertThrown var="ex">
+    <test:assertThrows var="ex">
       <test:fail message="This exeption should be exported"/>
-    </test:assertThrown>
+    </test:assertThrows>
     <test:assert test="${ex != null}">No exception exported</test:assert>
 
     <!-- test using superclass of expected throwable -->
-    <test:assertThrown expected="java.lang.Exception">
+    <test:assertThrows expected="java.lang.Exception">
       <test:fail message="This should always fail"/>
-    </test:assertThrown>
+    </test:assertThrows>
 
     <!-- test using non exception class -->
-    <test:assertThrown expected="java.lang.Class">
+    <test:assertThrows expected="java.lang.Class">
       <test:fail message="This should always fail"/>
-    </test:assertThrown>
+    </test:assertThrows>
 
     <!-- test using undefined class -->
-    <test:assertThrown expected="java.lang.ClassNotFoundException">
-			<test:assertThrown expected="foo.bar.Baz">
+    <test:assertThrows expected="java.lang.ClassNotFoundException">
+			<test:assertThrows expected="foo.bar.Baz">
 				<test:fail message="This should always fail"/>
-			</test:assertThrown>
-		</test:assertThrown>
+			</test:assertThrows>
+		</test:assertThrows>
 
     <!-- test using other exception class -->
     <j:catch var="ex">
-      <test:assertThrown expected="java.io.IOException">
+      <test:assertThrows expected="java.io.IOException">
         <test:fail message="This should always fail"/>
-      </test:assertThrown>
+      </test:assertThrows>
     </j:catch>
     
 		<test:assert test="${ex != null}">We should have created an exception</test:assert>
 
     <!-- test with no exception from body -->
     <j:catch var="ex">
-      <test:assertThrown>
-      </test:assertThrown>
+      <test:assertThrows>
+      </test:assertThrows>
     </j:catch>
     
 		<test:assert test="${ex != null}">We should have created an exception</test:assert>

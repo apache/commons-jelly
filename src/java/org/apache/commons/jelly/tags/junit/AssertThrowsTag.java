@@ -69,10 +69,10 @@ import org.apache.commons.logging.LogFactory;
  * exception class.  The optional <code>var</code> attribute can be specified if
  * the caught exception is to be exported to a variable.
  */
-public class AssertThrownTag extends AssertTagSupport {
+public class AssertThrowsTag extends AssertTagSupport {
 
 	/** The Log to which logging calls will be made. */
-	private static final Log log = LogFactory.getLog(AssertThrownTag.class);
+	private static final Log log = LogFactory.getLog(AssertThrowsTag.class);
 
 	/**
 	 * The variable name to export the caught exception to.
