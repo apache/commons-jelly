@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.12 2002/06/14 10:24:14 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/06/14 10:24:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.13 2002/06/21 16:57:17 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/06/21 16:57:17 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.12 2002/06/14 10:24:14 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.13 2002/06/21 16:57:17 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -73,7 +73,7 @@ import java.util.List;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.12 $
+  * @version $Revision: 1.13 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -115,6 +115,10 @@ public abstract class TagSupport implements Tag {
         setTrim( shouldTrim );
     }
 
+    /**
+     * Sets whether whitespace inside this tag should be trimmed or not. 
+     * Defaults to true so whitespace is trimmed
+     */
     public void setTrim(boolean shouldTrim) {
         if ( shouldTrim ) {
             this.shouldTrim = Boolean.TRUE;

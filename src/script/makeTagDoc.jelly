@@ -5,8 +5,8 @@
 	xmlns:jsl="jelly:jsl" 
 	xmlns:log="jelly:log">
 
-<x:parse var="doc" xml="target/javadoc.xml"/>
-<x:set var="packages" select="$doc/javadoc/package[class/implements/interfaceref/@name = 'org.apache.commons.jelly.Tag']"/>    	
+<x:parse var="doc" xml="target/taglib.xml"/>
+<x:set var="libraries" select="$doc/tags/library"/>    	
 
 <!-- lets create a JSL stylesheet that we'll use later -->
 <jsl:stylesheet var="docStylesheet">
@@ -54,10 +54,10 @@
       <th>Library</th>
       <th>Description</th>
     </tr>
-    <x:forEach select="$packages">
-    <x:set var="name" select="string(@name)"/>
+    <x:forEach select="$libraries">
+    <x:set var="uri" select="string(@uri)"/>
     <tr>
-      <td><a href="#${name}">${name}</a></td>
+      <td><a href="#${uri}">${uri}</a></td>
       <td>
       	  <jsl:style stylesheet="${docStylesheet}" select="doc"/>
 	  </td>
@@ -66,8 +66,9 @@
     </table>
 
     
-    <x:forEach select="$packages">
-    <x:set var="name" select="string(@name)"/>
+    <x:forEach select="$libraries">
+    <x:set var="name" select="string(@uri)"/>
+    <x:set var="prefix" select="string(@prefix)"/>
   
     <subsection name="${name}">
     <table>
@@ -76,10 +77,10 @@
       <th>Description</th>
     </tr>
     
-    <x:forEach select="class[@extensibility!='abstract' and implements/interfaceref/@name = 'org.apache.commons.jelly.Tag']">
+    <x:forEach select="tag">
     <x:set var="tagName" select="string(@name)"/>
 	<tr>
-    	<td><a href="#${tagName}">${tagName}</a></td>
+    	<td><a href="#${prefix}:${tagName}">${tagName}</a></td>
         <td>        
       	  <jsl:style stylesheet="${docStylesheet}" select="doc"/>
 		</td>
@@ -92,15 +93,46 @@
     
     </section>
       
-      
+            
 
 	<section name="Tags">	
    	  <p>
         [<a href="#Tag Libraries">tag libraries</a>]
         [<a href="#Tags">tags</a>]
       </p>
-    </section>
     
+    <x:forEach select="$libraries">
+    <x:set var="prefix" select="string(@prefix)"/>
+      <x:forEach select="tag">
+      <x:set var="tagName" select="string(@name)"/>
+
+
+	    <subsection name="${prefix}:${tagName}">
+	    <table>
+	    <tr>
+	      <th>Attribute Name</th>
+	      <th>Type</th>
+	      <th>Description</th>
+	    </tr>
+	    
+	    <x:forEach select="attribute">
+		<tr>
+	    	<td><x:expr select="@name"/></td>
+	    	<td><x:expr select="@type"/></td>
+	        <td>        
+	      	  <jsl:style stylesheet="${docStylesheet}" select="doc"/>
+			</td>
+		</tr>
+	    </x:forEach>
+	    </table>
+	    </subsection>
+    
+    
+    
+      </x:forEach>
+    </x:forEach>
+    </section>
+  
   </body>
 </document>
 

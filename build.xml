@@ -215,8 +215,7 @@
 
 
 	<!-- runs the XML doclet -->	
-	<target name="xml.doclet" depends="compile">
-	  <mkdir dir="target/xmldoclet"/>	   
+	<target name="xml-doclet" depends="compile">
 	  <path id="doclet.classpath">
 	    <pathelement path="${maven.build.dest}"/>
 	    <path refid="maven.dependency.classpath"/>
@@ -229,7 +228,21 @@
 	  </javadoc>
 	</target>
 	
-   <target name="doc-tags" depends="compile" 
+	<!-- runs the Tag doclet -->	
+	<target name="tag-doclet" depends="compile">
+	  <path id="doclet.classpath">
+	    <pathelement path="${maven.build.dest}"/>
+	    <path refid="maven.dependency.classpath"/>
+	  </path>
+	  <javadoc 
+	  	sourcepath="src/java" 
+	  	packagenames="org.apache.commons.jelly.tags.*"
+	  	doclet="org.apache.commons.jelly.util.TagXMLDoclet"
+	  	docletpathref="doclet.classpath">
+	  </javadoc>
+	</target>
+	
+   <target name="doc-tags" depends="tag-doclet" 
       description="Generates the tag documentation">
     <mkdir dir="target/generated-xdocs"/>
 	<jelly file="src/script/makeTagDoc.jelly" output="target/generated-xdocs/tags.xml"/> 
