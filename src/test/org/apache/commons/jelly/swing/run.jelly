@@ -49,7 +49,7 @@
 			        <button>
 			          <action name="Run Script">
 									<log:info>about to run ${file}</log:info>	
-									<j:include uri="${file.toURL().toString()}"/>
+									<j:include uri="${scriptField.text}"/>
 								</action>
 			        </button>
 						</panel>				        
