@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<!-- this script represents some sample service that we will test
+	|| via Mock Tags
+	-->
+	
+<j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql" xmlns:my="myFoodWebService">
+
+	<sql:query var="results"> 
+	  select * from food where kind = ?
+	  
+	  <!-- lets pass in some parametrized value -->
+	  <sql:param value="${foodKind}"/>
+	</sql:query>
+	
+	<!-- invoke some service -->
+	<j:forEach items="${results.rows}" var="row">
+	
+		Found row with ID ${row.id}
+		
+	  <!-- this tag could invoke a web service etc -->
+	  <my:eat cheese="${row.id}"/>
+	</j:forEach>
+	
+</j:jelly>
