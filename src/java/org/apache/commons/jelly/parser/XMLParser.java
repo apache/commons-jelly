@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.28 2002/09/05 16:42:47 jstrachan Exp $
- * $Revision: 1.28 $
- * $Date: 2002/09/05 16:42:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.29 2002/09/10 18:20:51 jstrachan Exp $
+ * $Revision: 1.29 $
+ * $Date: 2002/09/10 18:20:51 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.28 2002/09/05 16:42:47 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.29 2002/09/10 18:20:51 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -122,7 +122,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.28 $
+ * @version $Revision: 1.29 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -936,7 +936,7 @@ public class XMLParser extends DefaultHandler {
                     String libraryURI = "jelly:" + uri;
                     
                     // don't overload any Mock Tags already
-                    if ( context.getTagLibrary(libraryURI) == null ) {
+                    if ( ! context.isTagLibraryRegistered(libraryURI) ) {
                         context.registerTagLibrary(libraryURI, className);
                     }
                 }
