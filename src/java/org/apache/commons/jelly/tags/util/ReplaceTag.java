@@ -102,7 +102,7 @@ public class ReplaceTag extends TagSupport {
         // get either the value or the body of the tag
         Object answer = null;
         if ( value != null ) {
-            answer = value.evaluate(context);
+            answer = value.evaluateAsString(context);
         } else {
             answer = getBodyText(false);
         }
