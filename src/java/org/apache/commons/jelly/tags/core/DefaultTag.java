@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/DefaultTag.java,v 1.1 2002/10/22 15:13:43 rwaldhoff Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/22 15:13:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/DefaultTag.java,v 1.2 2002/10/22 16:03:05 rwaldhoff Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/22 16:03:05 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefaultTag.java,v 1.1 2002/10/22 15:13:43 rwaldhoff Exp $
+ * $Id: DefaultTag.java,v 1.2 2002/10/22 16:03:05 rwaldhoff Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -77,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
  * @see SwitchTag
  * 
  * @author Rodney Waldhoff
- * @version $Revision: 1.1 $ $Date: 2002/10/22 15:13:43 $
+ * @version $Revision: 1.2 $ $Date: 2002/10/22 16:03:05 $
  */
 public class DefaultTag extends TagSupport {
 
@@ -95,10 +95,11 @@ public class DefaultTag extends TagSupport {
         SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
         if(null == tag) {
             throw new JellyException("This tag must be enclosed inside a <switch> tag" );
-        }
+        }        
         if(tag.hasDefaultBeenEncountered()) {
             throw new JellyException("Only one <default> tag is allowed per <switch>.");
         }
+        tag.defaultEncountered();
         if(tag.isFallingThru() || (!tag.hasSomeCaseMatched())) {
             tag.caseMatched();
             tag.setFallingThru(fallThru);

@@ -16,4 +16,34 @@
             <j:set var="a.default" value="true"/>
         </j:default>
     </j:switch>
+    
+    <j:if test="${case.without.switch}">
+        <j:case value="this tag should cause an exception"/>
+    </j:if>
+    
+    <j:if test="${default.without.switch}">
+        <j:default/>
+    </j:if>
+
+    <j:if test="${case.without.value}">
+        <j:switch on="foo">
+            <j:case>
+                <!-- this should cause an exception (or even better, fail on validation) -->
+            </j:case>
+        </j:switch>
+    </j:if>
+    
+    <j:if test="${multiple.defaults}">
+        <j:switch on="foo">
+            <j:case value="bar">
+            </j:case>
+            <j:default>
+            </j:default>
+            <j:default>
+                <!-- this one should cause an exception (or even better, fail on validation) -->
+            </j:default>
+        </j:switch>
+    </j:if>
+    
+
 </j:jelly>

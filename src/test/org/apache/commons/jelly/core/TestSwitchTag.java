@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestSwitchTag.java,v 1.1 2002/10/22 15:13:43 rwaldhoff Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/22 15:13:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestSwitchTag.java,v 1.2 2002/10/22 16:03:05 rwaldhoff Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/22 16:03:05 $
  *
  * ====================================================================
  *
@@ -57,26 +57,25 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestSwitchTag.java,v 1.1 2002/10/22 15:13:43 rwaldhoff Exp $
+ * $Id: TestSwitchTag.java,v 1.2 2002/10/22 16:03:05 rwaldhoff Exp $
  */
 package org.apache.commons.jelly.core;
 
-import java.io.File;
 import java.net.URL;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.1 $ $Date: 2002/10/22 15:13:43 $
+ * @version $Revision: 1.2 $ $Date: 2002/10/22 16:03:05 $
  */
 public class TestSwitchTag extends TestCase {
 
@@ -180,6 +179,54 @@ public class TestSwitchTag extends TestCase {
                    context.getVariable("a.default"));
     }
 
+    public void testCaseWithoutSwitch() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = jelly.compileScript();
+        context.setVariable("case.without.switch",new Boolean(true));
+        try {
+            script.run(context,xmlOutput);
+            fail("Expected JellyException");
+        } catch(JellyException e) {
+            // expected
+        }
+    }
+
+    public void testDefaultWithoutSwitch() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = jelly.compileScript();
+        context.setVariable("default.without.switch",new Boolean(true));
+        try {
+            script.run(context,xmlOutput);
+            fail("Expected JellyException");
+        } catch(JellyException e) {
+            // expected
+        }
+    }
+    
+    public void testCaseWithoutValue() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = jelly.compileScript();
+        context.setVariable("case.without.value",new Boolean(true));
+        try {
+            script.run(context,xmlOutput);
+            fail("Expected MissingAttributeException");
+        } catch(MissingAttributeException e) {
+            // expected
+        }
+    }
+    
+    public void testMultipleDefaults() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = jelly.compileScript();
+        context.setVariable("multiple.defaults",new Boolean(true));
+        try {
+            script.run(context,xmlOutput);
+            fail("Expected JellyException");
+        } catch(JellyException e) {
+            // expected
+        }
+    }
+    
     private Jelly jelly = null;
     private JellyContext context = null;
     private XMLOutput xmlOutput = null;
