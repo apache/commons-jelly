@@ -14,9 +14,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!--
- ! FIXME: Need to move this to the swing taglib
--->
 <j:jelly 
 	xmlns:j="jelly:core" 
 	xmlns="jelly:swing" >
