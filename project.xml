@@ -169,6 +169,14 @@
       <jar>bsf-2.2.jar</jar>
     </dependency>
 
+	<!-- ojb taglib -->
+    <dependency>
+      <name>ojb</name>
+      <type>required</type>
+      <version>ojb-0.8.375</version>
+      <jar>ojb-0.8.375.jar</jar>
+    </dependency>
+
 	
 	<!-- runtime dependencies for test programs -->
 	
