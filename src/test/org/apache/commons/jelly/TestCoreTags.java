@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.9 2002/06/07 09:36:11 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/07 09:36:11 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.10 2002/10/12 12:27:52 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/10/12 12:27:52 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.9 2002/06/07 09:36:11 jstrachan Exp $
+ * $Id: TestCoreTags.java,v 1.10 2002/10/12 12:27:52 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -74,6 +74,7 @@ import junit.textui.TestRunner;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.parser.XMLParser;
 
 import org.apache.commons.logging.Log;
@@ -82,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 public class TestCoreTags extends TestCase {
 
@@ -119,5 +120,41 @@ public class TestCoreTags extends TestCase {
             log.debug(text);
         }
         assertEquals("Produces the correct output", "one two three", text);
+    }
+    
+    public void testTrimEndWhitespace() throws Exception {
+        TextScript textScript = new TextScript(" ");
+        textScript.trimEndWhitespace();
+        assertEquals("", textScript.getText());
+
+        textScript = new TextScript("");
+        textScript.trimEndWhitespace();
+        assertEquals("", textScript.getText());
+
+        textScript = new TextScript(" foo ");
+        textScript.trimEndWhitespace();
+        assertEquals(" foo", textScript.getText());
+
+        textScript = new TextScript("foo");
+        textScript.trimEndWhitespace();
+        assertEquals("foo", textScript.getText());
+    }
+    
+    public void testTrimStartWhitespace() throws Exception {
+        TextScript textScript = new TextScript(" ");
+        textScript.trimStartWhitespace();
+        assertEquals("", textScript.getText());
+
+        textScript = new TextScript("");
+        textScript.trimStartWhitespace();
+        assertEquals("", textScript.getText());
+
+        textScript = new TextScript(" foo ");
+        textScript.trimStartWhitespace();
+        assertEquals("foo ", textScript.getText());
+
+        textScript = new TextScript("foo");
+        textScript.trimStartWhitespace();
+        assertEquals("foo", textScript.getText());
     }
 }

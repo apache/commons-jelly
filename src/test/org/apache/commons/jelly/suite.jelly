@@ -152,4 +152,41 @@
 			expected='&lt;foo x="1"&gt;hello&lt;/foo&gt;' 
 			actual="${foo}"/>
   </test:case>
+
+
+	<!-- whitespace trimming tests -->
+	<test:case name="testTrim">
+		
+		<j:set var="foo">
+			<j:forEach var="i" begin="1" end="3" trim="false">  ${i} </j:forEach>
+		</j:set>
+
+		<test:assertEquals 
+			expected="  1   2   3 "
+			actual="${foo}"/>
+		
+		<j:set var="foo">
+			<j:forEach var="i" begin="1" end="3" trim="true">  ${i} </j:forEach>
+		</j:set>
+
+		<test:assertEquals 
+			expected="123"
+			actual="${foo}"/>
+		
+		<j:set var="foo">
+			<j:forEach var="i" begin="1" end="3" trim="true">  foo ${i} </j:forEach>
+		</j:set>
+
+		<test:assertEquals 
+			expected="foo 1foo 2foo 3"
+			actual="${foo}"/>
+
+		<j:set var="foo">
+			<j:forEach var="i" begin="1" end="3" trim="true">  foo ${i} bar </j:forEach>
+		</j:set>
+
+		<test:assertEquals 
+			expected="foo 1 barfoo 2 barfoo 3 bar"
+			actual="${foo}"/>
+  </test:case>
 </test:suite>
