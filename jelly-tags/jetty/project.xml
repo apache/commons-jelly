@@ -237,6 +237,12 @@
       <version>SNAPSHOT</version>
     </dependency>
   
+    <dependency>
+      <id>servletapi</id>
+      <version>2.2</version>
+      <url>http://jakarta.apache.org/tomcat/</url>
+    </dependency>
+
 	<!-- http taglib -->
     <dependency>
       <id>commons-httpclient</id>
