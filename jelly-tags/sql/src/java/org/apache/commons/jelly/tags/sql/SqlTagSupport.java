@@ -61,6 +61,7 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
     // Constructor and initialization
 
     public SqlTagSupport() {
+		super.setEscapeText(false);
     }
 
     //*********************************************************************
