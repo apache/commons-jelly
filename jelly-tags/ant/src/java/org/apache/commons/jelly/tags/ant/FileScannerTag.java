@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.DynaBean;
 
@@ -110,6 +111,13 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     //------------------------------------------------------------------------- 
     public Object getTaskObject() {
         return fileScanner;
+    }
+    
+    /**
+     * Allows nested tags to set a property on the task object of this tag
+     */
+    public void setTaskProperty(String name, Object value) throws Exception {
+        BeanUtils.setProperty( fileScanner, name, value );
     }
     
     // Properties
