@@ -80,6 +80,9 @@ import org.apache.commons.logging.LogFactory;
   */
 public class JellyContext {
 
+    /** The Log to which logging calls will be made. */
+    private static Log log = LogFactory.getLog(JellyContext.class);
+
     /** The root URL context (where scripts are located from) */
     private URL rootURL;
 
@@ -91,9 +94,6 @@ public class JellyContext {
 
     /** synchronized access to the variables in scope */
     private Map variables = new Hashtable();
-
-    /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(JellyContext.class);
 
     /** The parent context */
     private JellyContext parent;
