@@ -18,6 +18,8 @@ package org.apache.commons.jelly.tags.core;
 
 import java.util.Iterator;
 
+import javax.servlet.jsp.jstl.core.LoopTagStatus;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
@@ -33,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
   * <code>forEach</code> tag does.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.28 $
+  * @version $Revision: 1.29 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -54,6 +56,9 @@ public class ForEachTag extends TagSupport {
      * as the given variable name.
      */
     private String indexVar;
+    
+    /** variable to hold loop status */
+    private String statusVar;
 
     /** The starting index value */
     private int begin;
@@ -82,6 +87,7 @@ public class ForEachTag extends TagSupport {
         try {
             if (items != null) {
                 Iterator iter = items.evaluateAsIterator(context);
+             
                 if (log.isDebugEnabled()) {
                     log.debug("Iterating through: " + iter);
                 }
@@ -90,8 +96,22 @@ public class ForEachTag extends TagSupport {
                 for (index = 0; index < begin && iter.hasNext(); index++ ) {
                     iter.next();
                 }
+                
+                // set up the status
+                LoopStatus status = null;
+                if (statusVar != null)
+                {
+                    // set up statii as required by JSTL
+                    Integer statusBegin = (begin == 0) ? null : new Integer(begin);
+                    Integer statusEnd = (end == Integer.MAX_VALUE) ? null : new Integer(end);
+                    Integer statusStep = (step == 1) ? null : new Integer(step);
+                    status = new LoopStatus(statusBegin, statusEnd, statusStep);
+                    context.setVariable(statusVar, status);
+                }
 
-                while (iter.hasNext() && index < end) {
+                boolean firstTime = true;
+                int count = 0;
+                while (iter.hasNext() && index <= end) {
                     Object value = iter.next();
                     if (var != null) {
                         context.setVariable(var, value);
@@ -99,16 +119,36 @@ public class ForEachTag extends TagSupport {
                     if (indexVar != null) {
                         context.setVariable(indexVar, new Integer(index));
                     }
+                    // set the status var up
+                    if (statusVar != null) {
+                        count++;
+                        status.setCount(count);
+                        status.setCurrent(value);
+                        status.setFirst(firstTime);
+                        status.setIndex(index);
+                        // set first time up for the next iteration.
+                        if (firstTime) {
+                            firstTime = !firstTime;
+                        }
+                    }
+                    // now we need to work out the next index for status isLast
+                    // and also advance the iterator and index for the loop.
+                    boolean finished = false;
+                    index++;
+                    for ( int i = 1; i < step && !finished; i++, index++ ) {
+                        if ( ! iter.hasNext() ) {
+                           finished = true;
+                        }
+                        else {
+                            iter.next();
+                        }
+                    }
+
+                    if (statusVar != null) {
+                        status.setLast(finished || !iter.hasNext() || index > end);
+                    }
                     invokeBody(output);
 
-                    // now we need to move to next index
-                    index++;
-                    for ( int i = 1; i < step; i++, index++ ) {
-                        if ( ! iter.hasNext() ) {
-                           return;
-                        }
-                        iter.next();
-                    }
                 }
             }
             else {
@@ -120,12 +160,33 @@ public class ForEachTag extends TagSupport {
                     if ( varName == null ) {
                         varName = indexVar;
                     }
+                    // set up the status
+                    LoopStatus status = null;
+                    if (statusVar != null)
+                    {
+                        // set up statii as required by JSTL
+                        Integer statusBegin = new Integer(begin);
+                        Integer statusEnd = new Integer(end);
+                        Integer statusStep = new Integer(step);
+                        status = new LoopStatus(statusBegin, statusEnd, statusStep);
+                        context.setVariable(statusVar, status);
+                    }
 
+                    int count = 0;
                     for (index = begin; index <= end; index += step ) {
 
+                        Object value = new Integer(index);
                         if (varName != null) {
-                            Object value = new Integer(index);
                             context.setVariable(varName, value);
+                        }
+                        // set the status var up
+                        if (status != null) {
+                            count++;
+                            status.setIndex(index);
+                            status.setCount(count);
+                            status.setCurrent(value);
+                            status.setFirst(index == begin);
+                            status.setLast(index > end - step);
                         }
                         invokeBody(output);
                     }
@@ -182,12 +243,119 @@ public class ForEachTag extends TagSupport {
     }
 
     /**
-     * Sets the variable name to export the current index to.
-     * This does the same thing as #setIndexVar(), but is consistent
-     * with the <a href="http://java.sun.com/products/jsp/jstl/">JSTL</a>
-     * syntax.
+     * Sets the variable name to export the current status to.
+     * The status is an implementation of the JSTL LoopTagStatus interface that provides
+     * the following bean properties:
+     * <ul>
+     *   <li>current - the current value of the loop items being iterated</li>
+     *   <li>index   - the current index of the items being iterated</li>
+     *   <li>first   - true if this is the first iteration, false otherwise</li>
+     *   <li>last    - true if this is the last iteration, false otherwise</li>
+     *   <li>begin   - the starting index of the loop</li>
+     *   <li>step    - the stepping value of the loop</li>
+     *   <li>end     - the end index of the loop</li>
+     * </ul>
      */
     public void setVarStatus(String var) {
-        setIndexVar( var );
+        this.statusVar = var;
+    }
+    
+    /**
+     * Holds the status of the loop. 
+     */
+    public static final class LoopStatus implements LoopTagStatus
+    {
+        private Integer begin;
+        private int count;
+        private Object current;
+        private Integer end;
+        private int index;
+        private Integer step;
+        private boolean first;
+        private boolean last;
+        
+        public LoopStatus(Integer begin, Integer end, Integer step) {
+            this.begin = begin;
+            this.end = end;
+            this.step = step;
+        }
+        /**
+         * @return Returns the begin.
+         */
+        public Integer getBegin() {
+            return begin;
+        }
+        /**
+         * @return Returns the count.
+         */
+        public int getCount() {
+            return count;
+        }
+        /**
+         * @return Returns the current.
+         */
+        public Object getCurrent() {
+            return current;
+        }
+        /**
+         * @return Returns the end.
+         */
+        public Integer getEnd() {
+            return end;
+        }
+        /**
+         * @return Returns the first.
+         */
+        public boolean isFirst() {
+            return first;
+        }
+        /**
+         * @return Returns the index.
+         */
+        public int getIndex() {
+            return index;
+        }
+        /**
+         * @return Returns the last.
+         */
+        public boolean isLast() {
+            return last;
+        }
+        /**
+         * @return Returns the step.
+         */
+        public Integer getStep() {
+            return step;
+        }
+        /**
+         * @param count The count to set.
+         */
+        public void setCount(int count) {
+            this.count = count;
+        }
+        /**
+         * @param current The current to set.
+         */
+        public void setCurrent(Object current) {
+            this.current = current;
+        }
+        /**
+         * @param first The first to set.
+         */
+        public void setFirst(boolean first) {
+            this.first = first;
+        }
+        /**
+         * @param last The last to set.
+         */
+        public void setLast(boolean last) {
+            this.last = last;
+        }
+        /**
+         * @param index The index to set.
+         */
+        public void setIndex(int index) {
+            this.index = index;
+        }
     }
 }
