@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.9 2002/06/26 09:24:35 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/26 09:24:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.10 2002/07/19 22:18:10 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/07/19 22:18:10 $
  *
  * ====================================================================
  *
@@ -57,48 +57,29 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ParseTag.java,v 1.9 2002/06/26 09:24:35 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.10 2002/07/19 22:18:10 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URL;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.io.SAXContentHandler;
 import org.dom4j.io.SAXReader;
-
-import org.xml.sax.SAXException;
 
 /** A tag which parses some XML and defines a variable with the parsed Document.
   * The XML can either be specified as its body or can be passed in via the
   * xml property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
-public class ParseTag extends TagSupport {
+public class ParseTag extends ParseTagSupport {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ParseTag.class);
-
-    /** The variable that will be generated for the document */
-    private String var;
 
     /** The xml to parse, either a String URI, a Reader or InputStream */
     private Object xml;
@@ -107,77 +88,27 @@ public class ParseTag extends TagSupport {
     /** whether XML validation is enabled or disabled */
     private boolean validate;
 
-    /** The SAXReader used to parser the document */
-    private SAXReader saxReader;
-
     public ParseTag() {
     }
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        if (var == null) {
+        if (getVar() == null) {
             throw new IllegalArgumentException("The var attribute cannot be null");
         }
         Document document = null;
         if (xml == null) {
-            SAXContentHandler handler = new SAXContentHandler();
-            XMLOutput newOutput = new XMLOutput(handler);
-            handler.startDocument();
-            invokeBody( newOutput);
-            handler.endDocument();
-            document = handler.getDocument();
-            /*
-                        // the following is inefficient as it requires a parse of the text
-                        // but is left here in the code to see how it could be done.
-            
-                        String text = getBodyText();
-                        
-                        if ( log.isDebugEnabled() ) {
-                            log.debug( "About to parse: " + text );
-                        }
-                        document = getSAXReader().read( new StringReader( text ) );
-            */
+            document = parseBody(output);
         }
         else {
-            if (xml instanceof String) {
-                document = getSAXReader().read((String) xml);
-            }
-            else if (xml instanceof Reader) {
-                document = getSAXReader().read((Reader) xml);
-            }
-            else if (xml instanceof InputStream) {
-                document = getSAXReader().read((InputStream) xml);
-            }
-            else if (xml instanceof URL) {
-                document = getSAXReader().read((URL) xml);
-            }
-            else {
-                throw new IllegalArgumentException(
-                    "Invalid xml argument. Must be a String, Reader, InputStream or URL."
-                        + " Was type; "
-                        + xml.getClass().getName()
-                        + " with value: "
-                        + xml);
-            }
+            document = parse(xml);            
         }
-        context.setVariable(var, document);
+        context.setVariable(getVar(), document);
     }
 
     // Properties
     //-------------------------------------------------------------------------                
-    /** The variable name that will be used for the Document variable created
-     */
-    public String getVar() {
-        return var;
-    }
-
-    /** Sets the variable name that will be used for the Document variable created
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-    
     /** Sets the source of the XML which is either a String URI, Reader or InputStream */
     public void setXml(Object xml) {
         this.xml = xml;
@@ -193,16 +124,14 @@ public class ParseTag extends TagSupport {
         this.validate = validate;
     }
 
-    /** @return the SAXReader used for parsing, creating one lazily if need be  */
-    public SAXReader getSAXReader() throws SAXException {
-        if (saxReader == null) {
-            saxReader = new SAXReader(validate);
-        }
-        return saxReader;
-    }
 
-    /** Sets the SAXReader used for parsing */
-    public void setSAXReader(SAXReader saxReader) {
-        this.saxReader = saxReader;
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+
+    /**
+     * Factory method to create a new SAXReader
+     */    
+    protected SAXReader createSAXReader() throws Exception {
+        return new SAXReader(validate);
     }
 }
