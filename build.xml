@@ -429,7 +429,85 @@
     </java>
    </target>   
 	
+	
+	<!-- 
+	  || JMS examples 
+	  || These examples require the 'jms.conf' which contains
+	  || the Messenger.xml directory as well as the 'jms.lib' which
+	  || contains all the jar and zip files that make up the JMS provider
+	  -->
+	  
+	<target name="jms.init" depends="compile">
+
+	  <property name="jms.conf" value="jms/conf"/>
+	  <property name="jms.lib" value="jms/lib"/>
+	  				
+	  <echo>using JMS config dir ${jms.conf} and JMS library ${jms.lib}</echo>
+	  	  				
+	  <path id="jms.classpath">
+	    <pathelement path="${maven.build.dest}"/>
+	    <pathelement path="${maven.src.dir}/java"/>
+	    <pathelement path="${basedir}"/>
+	    <path refid="maven.dependency.classpath"/>
+	    <fileset dir="${jms.lib}">
+	      <include name="*.jar"/>
+	    </fileset>
+	    <pathelement path="${jms.conf}"/>
+	    <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
+	    <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
+	  </path>
+	  
+      <taskdef
+        name="jmsJelly"
+        classname="org.apache.commons.jelly.task.JellyTask">
+        <classpath refid="jms.classpath"/>
+      </taskdef>    
+    </target>	
+
+   <target name="demo.jms.receive" depends="jms.init" 
+      description="Runs JMS receive demo">      
+	<jmsJelly file="src/test/org/apache/commons/jelly/jms/receive.jelly"/>	
+   </target>
+
+   <target name="demo.jms.receiveMap" depends="jms.init" 
+      description="Runs JMS receive map message demo">      
+	<jmsJelly file="src/test/org/apache/commons/jelly/jms/receiveMap.jelly"/>	
+   </target>
+
+   <target name="demo.jms.receiveObject" depends="jms.init" 
+      description="Runs JMS receive object message demo">      
+	<jmsJelly file="src/test/org/apache/commons/jelly/jms/receiveObject.jelly"/>	
+   </target>
+
+   <target name="demo.jms.send" depends="jms.init" 
+      description="Runs JMS send message demo">      
+	<jmsJelly file="src/test/org/apache/commons/jelly/jms/sendMessage.jelly"/>	
+   </target>
+
+   <target name="demo.jms.sendMap" depends="jms.init" 
+      description="Runs JMS send Map demo">      
+	<jmsJelly file="src/test/org/apache/commons/jelly/jms/sendMap.jelly"/>	
+   </target>
+
+   <target name="demo.jms.sendObject" depends="jms.init" 
+      description="Runs JMS send Object demo">      
+	<jmsJelly file="src/test/org/apache/commons/jelly/jms/sendObject.jelly"/>	
+   </target>
+
+   <target name="demo.jms.sendText" depends="jms.init" 
+      description="Runs JMS send text demo">      
+	<jmsJelly file="src/test/org/apache/commons/jelly/jms/sendText.jelly"/>	
+   </target>
+
+   <target name="demo.jms.flushQueue" depends="jms.init" 
+      description="Runs JMS flush queue demo">      
+	<jmsJelly file="src/test/org/apache/commons/jelly/jms/flushQueue.jelly"/>	
+   </target>
+
+	
 <!--
+	old demos...
+	
    <target name="demo.pnuts" depends="compile, checkPNuts" 
       description="Runs a pnuts demo which displays system properties">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
