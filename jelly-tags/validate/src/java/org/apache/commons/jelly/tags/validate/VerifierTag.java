@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/VerifierTag.java,v 1.4 2003/04/20 04:06:40 dion Exp $
- * $Revision: 1.4 $
- * $Date: 2003/04/20 04:06:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/VerifierTag.java,v 1.5 2003/04/20 04:07:26 dion Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/04/20 04:07:26 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: VerifierTag.java,v 1.4 2003/04/20 04:06:40 dion Exp $
+ * $Id: VerifierTag.java,v 1.5 2003/04/20 04:07:26 dion Exp $
  */
 package org.apache.commons.jelly.tags.validate;
 
@@ -82,7 +82,7 @@ import org.xml.sax.SAXException;
  * so that it can be used by a &lt;validate&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class VerifierTag extends TagSupport {
 
@@ -115,7 +115,7 @@ public class VerifierTag extends TagSupport {
                 throw new JellyTagException( "Could not find resource for uri: " + uri );
             }
         } else if (file != null) {
-        	in = new FileInputStream(file)
+        	in = new FileInputStream(file);
         } else {
             String text = getBodyText();
             in = new ByteArrayInputStream( text.getBytes() );
