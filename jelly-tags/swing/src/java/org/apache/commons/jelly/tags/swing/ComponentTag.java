@@ -83,8 +83,9 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     }
 
     public String toString() {
-        String componentName = getComponent().getName();
-        if (componentName == null || componentName.length() == 0)
+		Component comp = getComponent();
+        String componentName = (comp!=null) ? comp.getName() : null;
+        if (comp!=null && (componentName == null || componentName.length() == 0))
             componentName = getComponent().toString();
         return "ComponentTag with bean " + componentName;
     }
