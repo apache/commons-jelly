@@ -13,7 +13,10 @@
       <item name="Tag Reference"           href="/tags.html"/>
       <item name="Download"                href="http://jakarta.apache.org/turbine/jars2/commons-jelly/distributions/"/>
       <item name="To Do List"              href="/todo.html"/>
-      <item name="Blog"			   		   href="http://blogs.werken.com/projects/jelly/"/>
+    </menu>
+    <menu name="Community">
+      <item name="News Blog"			   href="http://blogs.werken.com/projects/jelly/"/>
+      <item name="IRC"					   href="/irc.html"/>
     </menu>
   </body>
 </project>

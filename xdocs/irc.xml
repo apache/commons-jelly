@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>IRC</title>
+    <author email="jstrachan@apache.org">James Strachan</author>
+  </properties>
+
+  <body>
+
+    <section name="IRC">
+
+      <p>
+      The Werken Company runs an IRC server to support the interactive
+      efforts of project members.
+      </p>
+
+      <p>
+      To access the IRC server, point an appropriate IRC client at:
+      </p>
+
+      <blockquote>
+        <pre>
+            server: <b>irc.werken.com</b>
+              port: <b>6667</b>
+        </pre>
+      </blockquote>
+
+      <p>
+      If you have <a href="http://www.mozilla.org/">Mozilla</a> installed you can point your browser at
+      <a href="irc://irc.werken.com:6667/#jelly">#jelly</a>.
+      </p>
+
+      <p>
+      You may find folks hanging out in either <code><b>#jelly</b></code>
+      or <code><b>#maven</b></code>.
+      </p>
+
+      <subsection name="Logs">
+        <p>
+        Many of the channels hosted by The Werken Company are archived
+        and available through the 
+        <a href="http://irc.werken.com/channels/">Werken IRC Archives</a>.
+        </p>
+
+        <p>
+        <a href="http://irc.werken.com/channels/jelly/">#jelly archive</a>
+        </p>
+      </subsection>
+      
+
+    </section>
+    
+  </body>
+</document>
