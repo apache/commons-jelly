@@ -18,7 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-util</id>
   <name>commons-jelly-tags-util</name>
-  <!--currentVersion>1.0-SNAPSHOT</currentVersion-->
+  <currentVersion>1.0-SNAPSHOT</currentVersion>
 
   <package>org.apache.commons.jelly.tags.util</package>
 
@@ -48,7 +48,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
     </dependency>
 
