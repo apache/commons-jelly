@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<document>
+
+ <properties>
+  <title>Jelly : Java and XML based scripting engine</title>
+  <author email="jstrachan@apache.org">James Strachan</author>
+ </properties>
+
+<body>
+
+<section name="Jelly : Java and XML based scripting engine">
+
+<p>
+  <b>Jelly</b> 
+</p>
+
+<p><em>Jelly</em> is an XML based scripting and processing engine. Jelly borrows many 
+good ideas from both JSP custom tags, Velocity, Cocoon and the 
+scripting engine inside XDoclet. Jelly can be used from the command line, inside 
+Ant or inside a Servlet. 
+</p>
+
+<p>
+Jelly is completely extendable via custom tags in a similar way to JSP. 
+Though Jelly is really simple and has no dependencies either Servlets or JSP.
+</p>
+
+<p>We hope Jelly can be both an XML processing and transformation engine, a HTTP 
+/ JMS / SOAP scripting engine as well as an XML based unit testing framework for 
+testing XML based applications and web services.</p>
+
+</section>
+
+
+</body>
+</document>

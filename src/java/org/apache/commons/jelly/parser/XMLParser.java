@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.17 2002/05/17 15:18:13 jstrachan Exp $
- * $Revision: 1.17 $
- * $Date: 2002/05/17 15:18:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.18 2002/05/21 07:59:32 jstrachan Exp $
+ * $Revision: 1.18 $
+ * $Date: 2002/05/21 07:59:32 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.17 2002/05/17 15:18:13 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.18 2002/05/21 07:59:32 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 import java.io.File;
@@ -109,7 +109,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -552,42 +552,52 @@ public class XMLParser extends DefaultHandler {
         String qName,
         Attributes list)
         throws SAXException {
-        // if this is a tag then create a script to run it
-        // otherwise pass the text to the current body
-        tagScript = createTag(namespaceURI, localName, list);
-        if (tagScript == null) {
-            tagScript = createStaticTag(namespaceURI, localName, qName, list);
-        }
-        tagScriptStack.add(tagScript);
-        if (tagScript != null) {
-            // set parent relationship...
-            Tag tag = tagScript.getTag();
-            tag.setParent(parentTag);
-            parentTag = tag;
-            if (textBuffer.length() > 0) {
-                script.addScript(new TextScript(textBuffer.toString()));
-                textBuffer.setLength(0);
+            
+        try {            
+            // if this is a tag then create a script to run it
+            // otherwise pass the text to the current body
+            tagScript = createTag(namespaceURI, localName, list);
+            if (tagScript == null) {
+                tagScript = createStaticTag(namespaceURI, localName, qName, list);
             }
-            script.addScript(tagScript);
-            // start a new body
-            scriptStack.push(script);
-            script = new ScriptBlock();
-            tag.setBody(script);
-        }
-        else {
-            // XXXX: might wanna handle empty elements later...
-            textBuffer.append("<");
-            textBuffer.append(qName);
-            int size = list.getLength();
-            for (int i = 0; i < size; i++) {
-                textBuffer.append(" ");
-                textBuffer.append(list.getQName(i));
-                textBuffer.append("=");
-                textBuffer.append("\"");
-                textBuffer.append(list.getValue(i));
-                textBuffer.append("\"");
+            tagScriptStack.add(tagScript);
+            if (tagScript != null) {
+                // set parent relationship...
+                Tag tag = tagScript.getTag();
+                tag.setParent(parentTag);
+                parentTag = tag;
+                if (textBuffer.length() > 0) {
+                    script.addScript(new TextScript(textBuffer.toString()));
+                    textBuffer.setLength(0);
+                }
+                script.addScript(tagScript);
+                // start a new body
+                scriptStack.push(script);
+                script = new ScriptBlock();
+                tag.setBody(script);
             }
-            textBuffer.append(">");
+            else {
+                // XXXX: might wanna handle empty elements later...
+                textBuffer.append("<");
+                textBuffer.append(qName);
+                int size = list.getLength();
+                for (int i = 0; i < size; i++) {
+                    textBuffer.append(" ");
+                    textBuffer.append(list.getQName(i));
+                    textBuffer.append("=");
+                    textBuffer.append("\"");
+                    textBuffer.append(list.getValue(i));
+                    textBuffer.append("\"");
+                }
+                textBuffer.append(">");
+            }
+        }
+        catch (SAXException e) {
+            throw e;
+        }
+        catch (Exception e) {
+            log.error( "Caught exception: " + e, e );
+            throw new SAXException( "Runtime Exception: " + e, e );            
         }
     }
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.7 2002/05/21 07:59:33 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/21 07:59:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/taglibs/bsf/src/java/org/apache/commons/jelly/tags/bsf/Attic/BSFExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/05/21 07:58:55 $
  *
  * ====================================================================
  *
@@ -57,68 +57,94 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.7 2002/05/21 07:59:33 jstrachan Exp $
+ * $Id: BSFExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.tags.bsf;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.StringWriter;
+import com.ibm.bsf.BSFEngine;
+import com.ibm.bsf.BSFException;
+import com.ibm.bsf.BSFManager;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import java.io.File;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** Tests the core tags
+/** Represents a factory of BSF expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.1 $
   */
-public class TestCoreTags extends TestCase {
+public class BSFExpressionFactory implements ExpressionFactory {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(TestCoreTags.class);
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
+    /** The logger of messages */
+    private Log log = LogFactory.getLog( getClass() );
+    
+    private String language = "javascript";
+    private BSFManager manager;
+    private BSFEngine engine;
+    private JellyContextRegistry registry = new JellyContextRegistry();
+    
+    public BSFExpressionFactory() {
     }
+    
+    // Properties
+    //------------------------------------------------------------------------- 
 
-    public static Test suite() {
-        return new TestSuite(TestCoreTags.class);
+    /** @return the BSF language to be used */
+    public String getLanguage() {
+        return language;
     }
-
-    public TestCoreTags(String testName) {
-        super(testName);
+    
+    public void setLanguage(String language) {
+        this.language = language;
     }
-
-    public void testArgs() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/testing123.jelly");
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-        log.debug("Found: " + script);
-        assertTrue("Script is a TagScript", script instanceof TagScript);
-        String[] args = { "one", "two", "three" };
-        JellyContext context = new JellyContext();
-        context.setVariable("args", args);
-        StringWriter buffer = new StringWriter();
-        script.run(context, XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluated script as...");
-            log.debug(text);
+    
+    /** @return the BSF Engine to be used by this expression factory */
+    public BSFEngine getBSFEngine() throws BSFException {
+        if ( engine == null ) {
+            engine = createBSFEngine();
         }
-        assertEquals("Produces the correct output", "one two three", text);
+        return engine;
+    }
+    
+    public void setBSFEngine(BSFEngine engine) {
+        this.engine = engine;
+    }
+    
+    public BSFManager getBSFManager() {
+        if ( manager == null ) {
+            manager = createBSFManager();
+            manager.setObjectRegistry( registry );
+        }
+        return manager;
+    }
+    
+    public void setBSFManager(BSFManager manager) {
+        this.manager = manager;
+        manager.setObjectRegistry( registry );
+    }
+    
+    // ExpressionFactory interface
+    //------------------------------------------------------------------------- 
+    public Expression createExpression(String text) throws Exception {
+        return new BSFExpression( text, getBSFEngine(), getBSFManager(), registry );
+    }
+    
+    // Implementation methods
+    //------------------------------------------------------------------------- 
+    
+    /** Factory method */
+    protected BSFEngine createBSFEngine() throws BSFException {        
+        return getBSFManager().loadScriptingEngine( getLanguage() );
+    }
+    
+    /** Factory method */
+    protected BSFManager createBSFManager() {
+        BSFManager answer = new BSFManager();
+        return answer;
     }
 }

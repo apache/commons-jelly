@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.4 2002/05/17 15:18:14 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.5 2002/05/21 07:59:32 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/21 07:59:32 $
  *
  * ====================================================================
  *
@@ -57,11 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestDynamicTags.java,v 1.4 2002/05/17 15:18:14 jstrachan Exp $
+ * $Id: TestDynamicTags.java,v 1.5 2002/05/21 07:59:32 jstrachan Exp $
  */
 package org.apache.commons.jelly.define;
 
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -83,7 +84,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests dynamic tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class TestDynamicTags extends TestCase {
 
@@ -108,14 +109,15 @@ public class TestDynamicTags extends TestCase {
 
     public void testParse() throws Exception {
         output = XMLOutput.createXMLOutput(buffer);
-        runScript("babelfishTaglib.jelly");
-        runScript("example.jelly");
+        runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
+        runScript("src/test/org/apache/commons/jelly/define/example.jelly");
+        
         log.info("The output was as follows");
         log.info(buffer.toString());
     }
 
     protected void runScript(String name) throws Exception {
-        InputStream in = getClass().getResourceAsStream(name);
+        InputStream in = new FileInputStream(name);
         Script script = parser.parse(in);
         script = script.compile();
         log.info("Evaluating: " + script);

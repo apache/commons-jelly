@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.7 2002/05/21 07:59:33 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.7 2002/05/17 15:18:14 jstrachan Exp $
  * $Revision: 1.7 $
- * $Date: 2002/05/21 07:59:33 $
+ * $Date: 2002/05/17 15:18:14 $
  *
  * ====================================================================
  *
@@ -57,14 +57,9 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.7 2002/05/21 07:59:33 jstrachan Exp $
+ * $Id: TestBeanShellEL.java,v 1.7 2002/05/17 15:18:14 jstrachan Exp $
  */
-package org.apache.commons.jelly;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.StringWriter;
+package org.apache.commons.jelly.beanshell;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -72,53 +67,64 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** Tests the core tags
+
+/** Tests the BeanShell EL
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.7 $
   */
-public class TestCoreTags extends TestCase {
-
+public class TestBeanShellEL extends TestCase {
+    
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(TestCoreTags.class);
+    private static final Log log = LogFactory.getLog( TestBeanShellEL.class );
 
-    public static void main(String[] args) {
-        TestRunner.run(suite());
+    /** Jelly context */
+    protected JellyContext context;
+    
+    /** The factory of Expression objects */
+    protected ExpressionFactory factory;
+    
+    
+    public static void main( String[] args ) {
+        TestRunner.run( suite() );
     }
-
+    
     public static Test suite() {
-        return new TestSuite(TestCoreTags.class);
+        return new TestSuite(TestBeanShellEL.class);
     }
-
-    public TestCoreTags(String testName) {
+    
+    public TestBeanShellEL(String testName) {
         super(testName);
     }
-
-    public void testArgs() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/testing123.jelly");
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-        log.debug("Found: " + script);
-        assertTrue("Script is a TagScript", script instanceof TagScript);
-        String[] args = { "one", "two", "three" };
-        JellyContext context = new JellyContext();
-        context.setVariable("args", args);
-        StringWriter buffer = new StringWriter();
-        script.run(context, XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluated script as...");
-            log.debug(text);
-        }
-        assertEquals("Produces the correct output", "one two three", text);
+    
+    public void setUp() {
+        context = new JellyContext();
+        context.setVariable( "foo", "abc" );
+        context.setVariable( "bar", new Integer( 123 ) );
+        factory = new BeanShellExpressionFactory();
     }
+    
+    public void testEL() throws Exception {
+        assertExpression( "foo", "abc" );
+        assertExpression( "bar * 2", new Integer( 246 ) );
+        assertExpression( "bar == 123", Boolean.TRUE );
+        assertExpression( "bar == 124", Boolean.FALSE );
+        assertExpression( "foo.equals( \"abc\" )", Boolean.TRUE );
+        assertExpression( "foo.equals( \"xyz\" )", Boolean.FALSE );
+    }    
+    
+    /** Evaluates the given expression text and tests it against the expected value */
+    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
+        Expression expr = factory.createExpression( expressionText );
+        Object value = expr.evaluate( context );
+        assertEquals( "Value of expression: " + expressionText, expectedValue, value );
+    }        
 }
+

@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.xml;
 
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -108,11 +109,11 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testUnitTests() throws Exception {
-        runUnitTest( "testForEach.jelly" );
+        runUnitTest( "src/test/org/apache/commons/jelly/xml/testForEach.jelly" );
     }
     
     public void testParse() throws Exception {
-        InputStream in = getClass().getResourceAsStream("example.jelly");
+        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/xml/example.jelly");
         XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
@@ -130,7 +131,7 @@ public class TestXMLTags extends TestCase {
     
     public void runUnitTest(String name) throws Exception {
         // parse script
-        InputStream in = getClass().getResourceAsStream(name);
+        InputStream in = new FileInputStream(name);
         XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();

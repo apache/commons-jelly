@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.7 2002/05/21 07:59:33 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/21 07:59:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/Attic/BeanShellExpression.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/05/21 07:58:55 $
  *
  * ====================================================================
  *
@@ -57,68 +57,52 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.7 2002/05/21 07:59:33 jstrachan Exp $
+ * $Id: BeanShellExpression.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
  */
-package org.apache.commons.jelly;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.StringWriter;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+package org.apache.commons.jelly.tags.beanshell;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.expression.ExpressionSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** Tests the core tags
+
+/** Represents a <a href="http://www.beanshell.org">beanshell</a> expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.1 $
   */
-public class TestCoreTags extends TestCase {
+public class BeanShellExpression extends ExpressionSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(TestCoreTags.class);
+    private static final Log log = LogFactory.getLog( BeanShellExpression.class );
 
-    public static void main(String[] args) {
-        TestRunner.run(suite());
+    /** The expression */
+    private String text;
+    
+    /** The interpreter */
+    private JellyInterpreter interpreter = new JellyInterpreter();
+    
+    public BeanShellExpression(String text, JellyInterpreter interpreter) {
+        this.text = text;
+        this.interpreter = interpreter;
     }
 
-    public static Test suite() {
-        return new TestSuite(TestCoreTags.class);
-    }
-
-    public TestCoreTags(String testName) {
-        super(testName);
-    }
-
-    public void testArgs() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/testing123.jelly");
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-        log.debug("Found: " + script);
-        assertTrue("Script is a TagScript", script instanceof TagScript);
-        String[] args = { "one", "two", "three" };
-        JellyContext context = new JellyContext();
-        context.setVariable("args", args);
-        StringWriter buffer = new StringWriter();
-        script.run(context, XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluated script as...");
-            log.debug(text);
+    // Expression interface
+    //------------------------------------------------------------------------- 
+    public Object evaluate(JellyContext context) {
+        try {
+            interpreter.setJellyContext(context);
+            if ( log.isDebugEnabled() ) {            
+                log.debug( "Evaluating EL: " + text );
+            }
+            
+            return interpreter.eval( text );
         }
-        assertEquals("Produces the correct output", "one two three", text);
+        catch (Exception e) {
+            log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
+            return null;
+        }
     }
 }
