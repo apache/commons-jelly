@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/BeanShellExpression.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/expression/beanshell/BeanShellExpressionFactory.java,v 1.3 2002/02/13 17:03:09 jstrachan Exp $
  * $Revision: 1.3 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Date: 2002/02/13 17:03:09 $
  *
  * ====================================================================
  *
@@ -57,52 +57,26 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpression.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: BeanShellExpressionFactory.java,v 1.3 2002/02/13 17:03:09 jstrachan Exp $
  */
-package org.apache.commons.jelly.expression.beanshell;
+package org.apache.commons.jelly.tags.beanshell;
 
-import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.expression.ExpressionSupport;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-
-/** Represents a <a href="http://www.beanshell.org">beanshell</a> expression
+/** Represents a factory of <a href="http://www.beanshell.org">beanshell</a> expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.3 $
   */
-public class BeanShellExpression extends ExpressionSupport {
+public class BeanShellExpressionFactory implements ExpressionFactory {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog( BeanShellExpression.class );
-
-    /** The expression */
-    private String text;
-    
     /** The interpreter */
     private JellyInterpreter interpreter = new JellyInterpreter();
     
-    public BeanShellExpression(String text, JellyInterpreter interpreter) {
-        this.text = text;
-        this.interpreter = interpreter;
-    }
-
-    // Expression interface
+    // ExpressionFactory interface
     //------------------------------------------------------------------------- 
-    public Object evaluate(Context context) {
-        try {
-            interpreter.setContext(context);
-            if ( log.isDebugEnabled() ) {            
-                log.debug( "Evaluating EL: " + text );
-            }
-            
-            return interpreter.eval( text );
-        }
-        catch (Exception e) {
-            log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
-            return null;
-        }
+    public Expression createExpression(String text) throws Exception {
+        return new BeanShellExpression(text, interpreter);
     }
 }

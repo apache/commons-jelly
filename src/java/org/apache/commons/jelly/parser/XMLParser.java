@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.6 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.7 2002/03/07 02:46:04 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/03/07 02:46:04 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.6 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.7 2002/03/07 02:46:04 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -75,6 +75,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
@@ -92,7 +93,7 @@ import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.expression.beanshell.BeanShellExpressionFactory;
+import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
 import org.apache.commons.jelly.tags.core.CoreTagLibrary;
 import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
 
@@ -115,7 +116,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class XMLParser extends DefaultHandler {
     
@@ -248,6 +249,33 @@ public class XMLParser extends DefaultHandler {
      */
     public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
         taglibs.put( namespaceURI, taglib );
+    }
+    
+
+    /** Registers the given tag library class name against the given namespace URI.
+     * The class will be loaded via the getClassLoader().
+     * This should be called before the parser is used.
+     */
+    public void registerTagLibrary(String namespaceURI, String className) {
+        try {
+            Class theClass = getClassLoader().loadClass( className );
+            Object object = theClass.newInstance();
+            if ( object instanceof TagLibrary ) {
+                registerTagLibrary( namespaceURI, (TagLibrary) object );
+            }
+            else {
+                log.error( 
+                    "The tag library object mapped to: " 
+                    + namespaceURI + " is not a TagLibrary. Object = " + object 
+                );
+            }
+        }
+        catch (ClassNotFoundException e) {
+            log.error( "Could not find the class: " + className, e );
+        }
+        catch (Exception e) {
+            log.error( "Could not instantiate instance of class: " + className + ". Reason: " + e, e );
+        }
     }
     
     /**
@@ -898,8 +926,35 @@ public class XMLParser extends DefaultHandler {
      * which allows tag libraries to be registered and so forth
      */
     protected void configure() {
-        registerTagLibrary( "jelly:core", new CoreTagLibrary() );
-        registerTagLibrary( "jelly:xml", new XMLTagLibrary() );
+        // load the properties file of libraries available
+        InputStream in = null;
+        URL url = getClassLoader().getResource( "org/apache/commons/jelly/jelly.properties" );
+        if ( url != null ) {
+            log.debug( "Loading Jelly default tag libraries from: " + url );
+            
+            Properties properties = new Properties();
+            try {
+                in = url.openStream();
+                properties.load( in );
+                for ( Iterator iter = properties.entrySet().iterator(); iter.hasNext(); ) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String uri = (String) entry.getKey();
+                    String className = (String) entry.getValue();
+                    registerTagLibrary( "jelly:" + uri, className );
+                }
+            }
+            catch (IOException e) {
+                log.error( "Could not load jelly properties from: " + url + ". Reason: " + e, e );
+            }
+            finally {
+                try {
+                    in.close();
+                }
+                catch (Exception e) {
+                    // ignore
+                }
+            }
+        }
     }
         
     

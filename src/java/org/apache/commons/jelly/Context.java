@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.4 2002/03/07 02:46:03 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/03/07 02:46:03 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: Context.java,v 1.4 2002/03/07 02:46:03 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -69,7 +69,7 @@ import java.util.Map;
 /** <p><code>Context</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class Context {
 
@@ -97,6 +97,11 @@ public class Context {
             variables.put( name, value );
         }
     }    
+
+    /** Removes the given variable */
+    public void removeVariable( String name ) {
+        variables.remove( name );
+    }
     
     /** 
      * @return an Iterator over the current variable names in this

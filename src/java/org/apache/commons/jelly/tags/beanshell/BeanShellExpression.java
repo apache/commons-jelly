@@ -1,6 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.4 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.4 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/expression/beanshell/BeanShellExpression.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.3 $
  * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
@@ -57,74 +57,52 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestBeanShellEL.java,v 1.4 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: BeanShellExpression.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
  */
-package org.apache.commons.jelly.beanshell;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+package org.apache.commons.jelly.tags.beanshell;
 
 import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
+import org.apache.commons.jelly.expression.ExpressionSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-/** Tests the BeanShell EL
+/** Represents a <a href="http://www.beanshell.org">beanshell</a> expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.3 $
   */
-public class TestBeanShellEL extends TestCase {
-    
+public class BeanShellExpression extends ExpressionSupport {
+
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog( TestBeanShellEL.class );
+    private static final Log log = LogFactory.getLog( BeanShellExpression.class );
 
-    /** Jelly context */
-    protected Context context;
+    /** The expression */
+    private String text;
     
-    /** The factory of Expression objects */
-    protected ExpressionFactory factory;
+    /** The interpreter */
+    private JellyInterpreter interpreter = new JellyInterpreter();
     
-    
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
+    public BeanShellExpression(String text, JellyInterpreter interpreter) {
+        this.text = text;
+        this.interpreter = interpreter;
     }
-    
-    public static Test suite() {
-        return new TestSuite(TestBeanShellEL.class);
+
+    // Expression interface
+    //------------------------------------------------------------------------- 
+    public Object evaluate(Context context) {
+        try {
+            interpreter.setContext(context);
+            if ( log.isDebugEnabled() ) {            
+                log.debug( "Evaluating EL: " + text );
+            }
+            
+            return interpreter.eval( text );
+        }
+        catch (Exception e) {
+            log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
+            return null;
+        }
     }
-    
-    public TestBeanShellEL(String testName) {
-        super(testName);
-    }
-    
-    public void setUp() {
-        context = new Context();
-        context.setVariable( "foo", "abc" );
-        context.setVariable( "bar", new Integer( 123 ) );
-        factory = new BeanShellExpressionFactory();
-    }
-    
-    public void testEL() throws Exception {
-        assertExpression( "foo", "abc" );
-        assertExpression( "bar * 2", new Integer( 246 ) );
-        assertExpression( "bar == 123", Boolean.TRUE );
-        assertExpression( "bar == 124", Boolean.FALSE );
-        assertExpression( "foo.equals( \"abc\" )", Boolean.TRUE );
-        assertExpression( "foo.equals( \"xyz\" )", Boolean.FALSE );
-    }    
-    
-    /** Evaluates the given expression text and tests it against the expected value */
-    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
-        Expression expr = factory.createExpression( expressionText );
-        Object value = expr.evaluate( context );
-        assertEquals( "Value of expression: " + expressionText, expectedValue, value );
-    }        
 }
-

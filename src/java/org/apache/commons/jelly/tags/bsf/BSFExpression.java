@@ -1,6 +1,6 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.4 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.4 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/expression/beanshell/BeanShellExpression.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.3 $
  * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
@@ -57,74 +57,60 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestBeanShellEL.java,v 1.4 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: BeanShellExpression.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
  */
-package org.apache.commons.jelly.beanshell;
+package org.apache.commons.jelly.tags.bsf;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import com.ibm.bsf.BSFEngine;
 
 import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
+import org.apache.commons.jelly.expression.ExpressionSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-/** Tests the BeanShell EL
+/** Represents a BSF expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.3 $
   */
-public class TestBeanShellEL extends TestCase {
-    
+public class BSFExpression extends ExpressionSupport {
+
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog( TestBeanShellEL.class );
+    private static final Log log = LogFactory.getLog( BSFExpression.class );
 
-    /** Jelly context */
-    protected Context context;
+    /** The expression */
+    private String text;
     
-    /** The factory of Expression objects */
-    protected ExpressionFactory factory;
+    /** The BSF Engine to evaluate expressions */
+    private BSFEngine engine;
     
+    /** The adapter to BSF's ObjectRegistry that uses the Context */
+    private ContextRegistry registry;
     
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
+    public BSFExpression(String text, BSFEngine engine, ContextRegistry registry) {
+        this.text = text;
+        this.engine = engine;
+        this.registry = registry;
     }
-    
-    public static Test suite() {
-        return new TestSuite(TestBeanShellEL.class);
+
+    // Expression interface
+    //------------------------------------------------------------------------- 
+    public Object evaluate(Context context) {
+        // XXXX: unfortunately we must sychronize evaluations
+        // so that we can swizzle in the context.
+        // maybe we could create an expression from a context
+        // (and so create a BSFManager for a context)
+        synchronized (registry) {
+            registry.setContext(context);
+            try {
+                return engine.eval( text, -1, -1, text );
+            }
+            catch (Exception e) {
+                log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
+                return null;
+            }
+        }
     }
-    
-    public TestBeanShellEL(String testName) {
-        super(testName);
-    }
-    
-    public void setUp() {
-        context = new Context();
-        context.setVariable( "foo", "abc" );
-        context.setVariable( "bar", new Integer( 123 ) );
-        factory = new BeanShellExpressionFactory();
-    }
-    
-    public void testEL() throws Exception {
-        assertExpression( "foo", "abc" );
-        assertExpression( "bar * 2", new Integer( 246 ) );
-        assertExpression( "bar == 123", Boolean.TRUE );
-        assertExpression( "bar == 124", Boolean.FALSE );
-        assertExpression( "foo.equals( \"abc\" )", Boolean.TRUE );
-        assertExpression( "foo.equals( \"xyz\" )", Boolean.FALSE );
-    }    
-    
-    /** Evaluates the given expression text and tests it against the expected value */
-    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
-        Expression expr = factory.createExpression( expressionText );
-        Object value = expr.evaluate( context );
-        assertEquals( "Value of expression: " + expressionText, expectedValue, value );
-    }        
 }
-

@@ -18,8 +18,15 @@ jdk-doc-url=http://java.sun.com/products/jdk/1.3/docs/api
 # dom4j.jar - go to http://dom4j.org to download
 dom4j.jar=/java/dom4j/dom4j.jar
 
+# BSF: the Bean Scripting Framework from
+# http://oss.software.ibm.com/developerworks/projects/bsf
+bsf.jar=/java/bsf/bsf.jar
+
+# Rhino is the default language for BSF
+# http://www.mozilla.org/rhino
+rhino.jar=/java/rhino/js.jar
+
 # for the beanshell expression language the following is required
 #
 # beanshell.jar - go to http://www.beanshell.org
 beanshell.jar=/java/beanshell/beanshell.jar
-

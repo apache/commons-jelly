@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.4 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/bsf/Attic/ContextRegistry.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/03/07 02:46:04 $
  *
  * ====================================================================
  *
@@ -57,74 +57,54 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestBeanShellEL.java,v 1.4 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: ContextRegistry.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
  */
-package org.apache.commons.jelly.beanshell;
+package org.apache.commons.jelly.tags.bsf;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import com.ibm.bsf.util.ObjectRegistry;
 
 import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-/** Tests the BeanShell EL
+/** A BSF ObjectRegistry which uses the Context to find and
+  * register objects
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.1 $
   */
-public class TestBeanShellEL extends TestCase {
-    
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog( TestBeanShellEL.class );
+public class ContextRegistry extends ObjectRegistry {
 
-    /** Jelly context */
-    protected Context context;
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog( ContextRegistry.class );
+
+    /** The context */
+    private Context context;
     
-    /** The factory of Expression objects */
-    protected ExpressionFactory factory;
-    
-    
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
+    public ContextRegistry() {
+    }
+
+    public Context getContext() {
+        return context;
     }
     
-    public static Test suite() {
-        return new TestSuite(TestBeanShellEL.class);
+    public void setContext(Context context) {
+        this.context = context;
     }
     
-    public TestBeanShellEL(String testName) {
-        super(testName);
+    // ObjectRegistry interface
+    //------------------------------------------------------------------------- 
+    public Object lookup(String name) {
+        return context.getVariable( name );
     }
     
-    public void setUp() {
-        context = new Context();
-        context.setVariable( "foo", "abc" );
-        context.setVariable( "bar", new Integer( 123 ) );
-        factory = new BeanShellExpressionFactory();
+    public void register(String name, Object value) {
+        context.setVariable( name, value );
     }
     
-    public void testEL() throws Exception {
-        assertExpression( "foo", "abc" );
-        assertExpression( "bar * 2", new Integer( 246 ) );
-        assertExpression( "bar == 123", Boolean.TRUE );
-        assertExpression( "bar == 124", Boolean.FALSE );
-        assertExpression( "foo.equals( \"abc\" )", Boolean.TRUE );
-        assertExpression( "foo.equals( \"xyz\" )", Boolean.FALSE );
-    }    
-    
-    /** Evaluates the given expression text and tests it against the expected value */
-    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
-        Expression expr = factory.createExpression( expressionText );
-        Object value = expr.evaluate( context );
-        assertEquals( "Value of expression: " + expressionText, expectedValue, value );
+    public void unregister(String name) {
+        context.removeVariable( name );
     }        
 }
-
