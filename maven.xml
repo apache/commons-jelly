@@ -128,6 +128,7 @@
       | to ${maven.dist.install.dir}                          |
       +-------------------------------------------------------+
     </echo>
+    <delete dir="${maven.dist.install.dir}"/>
     <mkdir dir="${maven.dist.install.dir}"/>
 
     <copy todir="${maven.dist.install.dir}">
