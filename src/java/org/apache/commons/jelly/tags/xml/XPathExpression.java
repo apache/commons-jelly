@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.5 2002/06/18 08:31:02 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/18 08:31:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.6 2002/08/09 14:40:13 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/08/09 14:40:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.5 2002/06/18 08:31:02 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.6 2002/08/09 14:40:13 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -75,7 +75,7 @@ import org.jaxen.VariableContext;
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
     
@@ -84,10 +84,15 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     
     public XPathExpression() {
     }
+
     public XPathExpression(XPath xpath) {
         this.xpath = xpath;
     }
     
+    public String toString() {
+        return xpath.toString();
+    }
+            
     // Expression interface
     //------------------------------------------------------------------------- 
     public Object evaluate(JellyContext context) {
