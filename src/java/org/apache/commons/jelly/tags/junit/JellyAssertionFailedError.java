@@ -78,7 +78,7 @@ import org.apache.commons.jelly.LocationAware;
  * @version $Revision: 1.11 $
  */
 
-public class JellyAssertionFailedError extends Exception implements LocationAware {
+public class JellyAssertionFailedError extends AssertionFailedError implements LocationAware {
     
     /** the underlying cause of the exception */
     private Throwable cause;

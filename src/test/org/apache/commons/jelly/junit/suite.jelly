@@ -61,7 +61,7 @@
     <test:assert test="${ex != null}">No exception exported</test:assert>
 
     <!-- test using superclass of expected throwable -->
-    <test:assertThrows expected="java.lang.Exception">
+    <test:assertThrows expected="java.lang.Error">
       <test:fail message="This should always fail"/>
     </test:assertThrows>
 
