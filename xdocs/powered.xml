@@ -24,6 +24,24 @@
             A java project management and project comprehension tool.
           </td>
         </tr>
+        <tr>
+          <td><a href="http://drools.org/">drools</a></td>
+          <td>
+            A Java rules engine.
+          </td>
+        </tr>
+        <tr>
+          <td><a href="http://blissed.werken.com/">blissed</a></td>
+          <td>
+            A Java process and state framework.
+          </td>
+        </tr>
+        <tr>
+          <td><a href="http://werkflow.werken.com/">werkflow</a></td>
+          <td>
+            A Java workflow system.
+          </td>
+        </tr>
       </table>
     </subsection>
     </section>
