@@ -310,18 +310,6 @@
       <version>2.3.1</version>
     </dependency>
         
-    
-    <!-- 
-      || Optional tag library dependencies
-      || These will be sub-projects one day, when Maven handles them gracefully
-      -->
-
-  <!-- beanshell taglib -->
-    <dependency>
-      <id>bsh</id>
-      <version>1.2-b3</version>
-    </dependency>
-
   </dependencies>
   
   <build>
