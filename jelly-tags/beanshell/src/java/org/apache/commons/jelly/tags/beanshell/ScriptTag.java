@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/ScriptTag.java,v 1.1 2003/01/11 13:27:27 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/11 13:27:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/ScriptTag.java,v 1.2 2003/01/25 23:13:14 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/25 23:13:14 $
  *
  * ====================================================================
  *
@@ -57,10 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptTag.java,v 1.1 2003/01/11 13:27:27 dion Exp $
+ * $Id: ScriptTag.java,v 1.2 2003/01/25 23:13:14 morgand Exp $
  */
 package org.apache.commons.jelly.tags.beanshell;
 
+import bsh.EvalError;
+
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -69,7 +72,7 @@ import org.apache.commons.jelly.XMLOutput;
  *
  * @author Jason Horman
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ScriptTag extends TagSupport {
 
@@ -78,13 +81,17 @@ public class ScriptTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        JellyInterpreter interpreter = BeanShellExpressionFactory.getInterpreter(context);
+    public void doTag(XMLOutput output) throws JellyTagException {
+        try {
+            JellyInterpreter interpreter = BeanShellExpressionFactory.getInterpreter(context);
         
-        // @todo it'd be really nice to create a JellyNameSpace to pass into
-        // this method so that any variables declared by beanshell could be exported
-        // into the JellyContext
-        String text = getBodyText();
-        interpreter.eval(text);   
+            // @todo it'd be really nice to create a JellyNameSpace to pass into
+            // this method so that any variables declared by beanshell could be exported
+            // into the JellyContext
+            String text = getBodyText();
+            interpreter.eval(text);
+        } catch (EvalError e) {
+            throw new JellyTagException(e);
+        }
     }
 }
