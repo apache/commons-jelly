@@ -38,7 +38,7 @@ import java.util.Collections;
   * used from the other xml library functions.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 public class SetTag extends XPathTagSupport {
 
@@ -100,10 +100,11 @@ public class SetTag extends XPathTagSupport {
 				}
 			} else { // single == false
 				if(! (value instanceof List) ) {
+                    List l = null;
 					if (value==null) {
 						l = new ArrayList(0);
 					} else {
-						List l = new ArrayList(1);
+						l = new ArrayList(1);
 						l.add(value);
 					}
 					value = l;
