@@ -200,8 +200,11 @@ public class AntTagLibrary extends TagLibrary {
         logger.setErrorPrintStream( System.err);
 
         project.addBuildListener( logger );
-        
         project.init();
+        
+        // force lazy construction which avoids null pointer exceptions when using 
+        // file sets
+        project.getBaseDir();        
         return project;
     }
 
@@ -222,71 +225,11 @@ public class AntTagLibrary extends TagLibrary {
             tag.setTrim(false);
         }
         return TagScript.newInstance(tag);
-
-        /*
-        
-        // is it an Ant task?
-        Class type = (Class) project.getTaskDefinitions().get(name);
-        if ( type != null ) {            
-            TaskTag tag = new TaskTag( project, type, name );
-            tag.setTrim( true );
-
-            if ( name.equals( "echo" ) ) {
-                tag.setTrim(false);
-            }
-            return new AntTagScript(tag);
-        }
-        
-        // an Ant DataType?
-        DataType dataType = null;
-        type = (Class) project.getDataTypeDefinitions().get(name);
-        
-        if ( type != null ) {            
-
-            try {
-                java.lang.reflect.Constructor ctor = null;
-                boolean noArg = false;
-                // DataType can have a "no arg" constructor or take a single 
-                // Project argument.
-                try {
-                    ctor = type.getConstructor(new Class[0]);
-                    noArg = true;
-                } catch (NoSuchMethodException nse) {
-                    ctor = type.getConstructor(new Class[] { Project.class });
-                    noArg = false;
-                }
-                
-                if (noArg) {
-                    dataType = (DataType) ctor.newInstance(new Object[0]);
-                } else {
-                    dataType = (DataType) ctor.newInstance(new Object[] {project});
-                }
-                dataType.setProject( project );
-
-            } catch (Throwable t) {
-                t.printStackTrace();
-                // ignore 
-            }
-        }
-        if ( dataType != null ) {
-            DataTypeTag tag = new DataTypeTag( name, dataType );
-            tag.setAntProject( getProject() );
-            tag.getDynaBean().set( "project", project );
-            return TagScript.newInstance(tag);
-        }
-        
-        // Since ant resolves so many dynamically loaded/created
-        // things at run-time, we can make virtually no assumptions
-        // as to what this tag might be.  
-        OtherAntTag tag = new OtherAntTag( project,
-                                   name );
-
-        return new AntTagScript( tag );
-        */
     }
 
     public TagScript createRuntimeTaskTagScript(String taskName, Attributes attributes) throws Exception {
-        TaskTag tag = new TaskTag( project, taskName );
+        //TaskTag tag = new TaskTag( project, taskName );
+        AntTag tag = new AntTag( project, taskName );
         return TagScript.newInstance( tag );
     }
                                                 
