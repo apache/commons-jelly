@@ -48,6 +48,9 @@
       <id>velocity</id>
       <version>1.3</version>
       <url>http://jakarta.apache.org/velocity/</url>
+      <properties>
+        <gump.project>jakarta-velocity</gump.project>
+      </properties>
     </dependency>
 
     <!-- END for compilation -->

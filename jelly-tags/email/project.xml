@@ -49,6 +49,9 @@
       <version>1.0.2</version>
       <artifactId>activation</artifactId>
       <url>http://java.sun.com/beans/glasgow/jaf.html</url>
+      <properties>
+        <gump.project>jaf</gump.project>
+      </properties>
     </dependency>
     
     <dependency>
@@ -56,6 +59,9 @@
       <artifactId>mail</artifactId>
       <version>1.2</version>
       <url>http://java.sun.com/products/javamail/javamail-1_2.html</url>
+      <properties>
+        <gump.project>javamail</gump.project>
+      </properties>
     </dependency>
     <!-- END for run time -->
 

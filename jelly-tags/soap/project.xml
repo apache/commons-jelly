@@ -47,6 +47,9 @@
     <dependency>
       <id>axis</id>
       <version>1.0</version>
+      <properties>
+        <gump.project>ws-axis</gump.project>
+      </properties>
     </dependency>
 
     <dependency>

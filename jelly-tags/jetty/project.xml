@@ -49,6 +49,9 @@
     <dependency>
       <id>jetty</id>
       <version>4.2.3</version>
+      <properties>
+        <gump.project>jetty4</gump.project>
+      </properties>
     </dependency>
     <!-- END for compilation -->
     <!-- for testing -->

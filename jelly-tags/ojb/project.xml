@@ -48,6 +48,9 @@
     <dependency>
       <id>ojb</id>
       <version>0.9.6</version>
+      <properties>
+        <gump.project>db-ojb</gump.project>
+      </properties>
     </dependency>
     
     <dependency>

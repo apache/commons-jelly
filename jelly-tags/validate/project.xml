@@ -43,6 +43,9 @@
       <groupId>msv</groupId>
       <artifactId>isorelax</artifactId>
       <version>20030807</version>
+      <properties>
+        <gump.project>iso-relax</gump.project>
+      </properties>
     </dependency>
     <dependency>
       <id>junit</id>
@@ -64,6 +67,9 @@
       <groupId>msv</groupId>
       <artifactId>relaxngDatatype</artifactId>
       <version>20030807</version>
+      <properties>
+        <gump.project>relaxng</gump.project>
+      </properties>
     </dependency>
     <!-- END runtime -->
     <!-- START for test -->

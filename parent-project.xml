@@ -64,6 +64,9 @@
     <dependency>
       <id>xerces</id>
       <version>2.2.1</version>
+      <properties>
+        <gump.project>xml-xerces</gump.project>
+      </properties>
     </dependency>
   </dependencies>
 </project>
