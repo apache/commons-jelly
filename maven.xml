@@ -1,76 +1,76 @@
 <project default="java:jar" xmlns:j="jelly:core">
 
 
-  <!-- runs the XML doclet -->	
+  <!-- runs the XML doclet -->  
   <goal name="xml-doclet" prereqs="java:compile">
     <path id="doclet.classpath">
       <pathelement path="${maven.build.dest}"/>
       <path refid="maven.dependency.classpath"/>
-  	</path>
-  	
+    </path>
+    
     <javadoc 
-  	  sourcepath="src/java" 
-  	  packagenames="org.apache.commons.jelly.tags.*"
-  	  doclet="org.apache.commons.jelly.util.XMLDoclet"
-  	  docletpathref="doclet.classpath">
+      sourcepath="src/java" 
+      packagenames="org.apache.commons.jelly.tags.*"
+      doclet="org.apache.commons.jelly.util.XMLDoclet"
+      docletpathref="doclet.classpath">
     </javadoc>
   </goal>
 
-  <!-- runs the Tag doclet -->	
+  <!-- runs the Tag doclet -->  
   <goal name="tag-doclet" prereqs="java:compile">
     <path id="doclet.classpath">
       <pathelement path="target/classes"/>
       <pathelement path="${maven.build.dest}"/>
       <path refid="maven.dependency.classpath"/>
     </path>
-	
+  
     <javadoc 
-  	  sourcepath="src/java" 
-  	  packagenames="org.apache.commons.jelly.tags.*"
-  	  doclet="org.apache.commons.jelly.util.TagXMLDoclet"
-  	  docletpathref="doclet.classpath">
+      sourcepath="src/java" 
+      packagenames="org.apache.commons.jelly.tags.*"
+      doclet="org.apache.commons.jelly.util.TagXMLDoclet"
+      docletpathref="doclet.classpath">
     </javadoc>
   </goal>
-	
-  <!-- creates the XML webpage from the tag XML information -->		
+  
+  <!-- creates the XML webpage from the tag XML information -->    
   <goal name="doc-tags" prereqs="tag-doclet" 
-	description="Generates the tag documentation">
-	
+  description="Generates the tag documentation">
+  
     <mkdir dir="target/generated-xdocs"/>
 
     <path id="test.classpath">
-	    <pathelement path="${maven.build.dest}"/>
-	    <pathelement path="target/classes"/>
-	    <path refid="maven.dependency.classpath"/>
+      <pathelement path="${maven.build.dest}"/>
+      <pathelement path="target/classes"/>
+      <path refid="maven.dependency.classpath"/>
     </path>
-	  
+    
     <taskdef
       name="jelly"
       classname="org.apache.commons.jelly.task.JellyTask">
       <classpath refid="test.classpath"/>
     </taskdef>    
       
-<!--	
-	<j:file name="target/generated-xdocs/tags.xml">
-	  <j:include uri="src/script/makeTagDoc.jelly"/>
-	</j:file>
+<!--  
+  <j:file name="target/generated-xdocs/tags.xml">
+    <j:include uri="src/script/makeTagDoc.jelly"/>
+  </j:file>
 -->
 
     <jelly file="src/script/makeTagDoc.jelly" 
       output="target/generated-xdocs/tags.xml"/> 
-	
+  
   </goal>
 
 
-  <!-- ensure that the tag documentation is generated as part of the site -->	
+  <!-- ensure that the tag documentation is generated as part of the site -->  
   <preGoal
     name="site:generate">
 
     <attainGoal name="doc-tags"/>
-	
+  
   </preGoal>
 
-  <!-- create the lib and bin directories in the binary distro -->	
+  <!-- create the lib and bin directories in the binary distro -->  
   <preGoal
     name="dist:build">
 
@@ -80,7 +80,7 @@
     <mkdir dir="${maven.dist.assembly.dir}/bin"/>
     <mkdir dir="${maven.dist.assembly.dir}/lib"/>
     <mkdir dir="${maven.dist.assembly.dir}/custom"/>
-	
+  
     <copy todir="${maven.dist.assembly.dir}/bin">
       <fileset dir="src/bin"/>
     </copy>
@@ -88,17 +88,17 @@
     <j:forEach var="dep" items="${pom.dependencies}">
       <j:choose>
         <j:when test="${dep.id == 'forehead'}">
-      	  <copy tofile="${maven.dist.assembly.dir}/lib/forehead.jar" 
-      	    	file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
+          <copy tofile="${maven.dist.assembly.dir}/lib/forehead.jar" 
+              file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
         </j:when>
         <j:otherwise>
-      	  <copy todir="${maven.dist.assembly.dir}/lib" 
-      	    	file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
-      	</j:otherwise>
+          <copy todir="${maven.dist.assembly.dir}/lib" 
+              file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
+        </j:otherwise>
       </j:choose>
     </j:forEach>
-	
-    <!-- put a copy of Jelly's jar there too -->	       	    
+  
+    <!-- put a copy of Jelly's jar there too -->               
     <copy todir="${maven.dist.assembly.dir}/lib" 
             file="${maven.build.dir}/${maven.final.name}.jar"/>
   </preGoal>
