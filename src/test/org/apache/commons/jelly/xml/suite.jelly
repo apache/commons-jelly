@@ -174,4 +174,41 @@
 
     </test:case>
 
+
+  <test:case name="testComment">
+  	
+  	<x:parse var="doc">
+  		<foo>
+				<!-- this will not be output -->
+				
+				<x:comment text="this is a comment"/>
+  		</foo>
+  	</x:parse>
+	
+		<test:assert xpath="$doc/foo"/>
+
+		<j:set var="t"><x:copyOf select="$doc/foo/comment()"/></j:set>
+		
+		<test:assertEquals expected="&lt;!--this is a comment--&gt;" actual="${t.trim()}"/>
+
+	</test:case>
+
+  <test:case name="testCommentWithTextAttribute">
+  	
+  	<x:parse var="doc">
+  		<foo>
+				<!-- this will not be output -->
+				
+				<x:comment text="this is a comment"/>
+  		</foo>
+  	</x:parse>
+	
+		<test:assert xpath="$doc/foo"/>
+
+		<j:set var="t"><x:copyOf select="$doc/foo/comment()"/></j:set>
+		
+		<test:assertEquals expected="&lt;!--this is a comment--&gt;" actual="${t.trim()}"/>
+  </test:case>
+  
+
 </test:suite>
