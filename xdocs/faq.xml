@@ -112,7 +112,7 @@
     <section name="Using Jelly">
       <dl>
         <dt>
-					<a href="#calling-jelly">
+					<a name="calling-jelly">
 						How do I call Jelly from Java code?
 					</a>
         </dt>
@@ -133,7 +133,7 @@ context.runScript( "foo.jelly", output );</pre>
 
       <dl>
         <dt>
-					<a href="#command-line">
+					<a name="command-line">
 						How do I invoke Jelly from the command line?
 					</a>
         </dt>
@@ -153,7 +153,7 @@ context.runScript( "foo.jelly", output );</pre>
       </dl>
       <dl>
         <dt>
-					<a href="#invoke-ant">
+					<a name="invoke-ant">
 						How do I invoke Jelly from inside Ant?
 					</a>
         </dt>
@@ -165,7 +165,7 @@ context.runScript( "foo.jelly", output );</pre>
 
       <dl>
         <dt>
-					<a href="#invoke-maven">
+					<a name="invoke-maven">
 						How do I invoke Jelly from inside Maven?
 					</a>
         </dt>
