@@ -72,7 +72,27 @@
 
 		<log:info>Created a new bean: ${customer}</log:info>
 			
-		<test:assert test="${customer != null}">Created a customer DynaBean</test:assert>
+		<test:assert test="${customer != null}">Created a customer bean</test:assert>
+		
+		<test:assertEquals 
+			expected="James" 
+			actual="${customer.name}"/>
+			
+		<test:assertEquals 
+			expected="London" 
+			actual="${customer.city}"/>
+			
+		<test:assertEquals 
+			expected="org.apache.commons.jelly.define.Customer" 
+			actual="${customer.class.name}"/>
+  </test:case>
+
+	<test:case name="testUseBean">
+		<j:useBean var="customer" class="org.apache.commons.jelly.define.Customer" name="James" city="London" />
+
+		<log:info>Created a new bean: ${customer}</log:info>
+			
+		<test:assert test="${customer != null}">Created a customer bean</test:assert>
 		
 		<test:assertEquals 
 			expected="James" 
