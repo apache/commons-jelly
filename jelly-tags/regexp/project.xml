@@ -18,7 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-regexp</id>
   <name>commons-jelly-tags-regexp</name>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
+  <currentVersion>1.0</currentVersion>
   <package>org.apache.commons.jelly.tags.regexp</package>
 
   <description>
@@ -26,13 +26,13 @@
   </description>
   <shortDescription>Commons Jelly Regular Expression Tag Library</shortDescription>
   
-  <!--versions>
+  <versions>
     <version>
       <id>1.0</id>
       <name>1.0</name>
       <tag>COMMONS-JELLY-REGEXP-1_0</tag>
     </version>
-  </versions-->
+  </versions>
 
   <dependencies>
 
