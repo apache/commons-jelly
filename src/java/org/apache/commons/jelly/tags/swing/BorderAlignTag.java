@@ -61,11 +61,10 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.GridBagConstraints;
 
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -73,27 +72,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Represents a tabular cell inside a &lt;tl&gt; tag inside a &lt;tableLayout&gt; 
- * tag which mimicks the &lt;td&gt; HTML tag.
+ * Represents a layout of a child component within its parent &lt;borderLayout&gt; layout.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public class TdTag extends TagSupport implements ContainerTag {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(TdTag.class);
+public class BorderAlignTag extends TagSupport implements ContainerTag {
 
     private String align;
-    private String valign;
-    private int colspan = 1;
-    private int rowspan = 1;
-    private boolean colfill = false;
-    private boolean rowfill = false;
     
-    public TdTag() {
-    }
-
     // ContainerTag interface
     //-------------------------------------------------------------------------                    
     
@@ -101,14 +88,12 @@ public class TdTag extends TagSupport implements ContainerTag {
      * Adds a child component to this parent
      */
     public void addChild(Component component, Object constraints) throws Exception {
-        // add my child component to the layout manager
-        TrTag tag = (TrTag) findAncestorWithClass( TrTag.class );
+        BorderLayoutTag tag = (BorderLayoutTag) findAncestorWithClass( BorderLayoutTag.class );
         if (tag == null) {
             throw new JellyException( "this tag must be nested within a <tr> tag" );
         }
-        tag.addCell(component, createConstraints());
+        tag.addLayoutComponent(component, getConstraints());
     }
-    
     
     // Tag interface
     //-------------------------------------------------------------------------                    
@@ -116,142 +101,45 @@ public class TdTag extends TagSupport implements ContainerTag {
         invokeBody(output);
     }
     
-    
     // Properties
     //-------------------------------------------------------------------------                    
     
     /**
-     * Sets the horizontal alignment to a case insensitive value of {LEFT, CENTER, RIGHT}
+     * Returns the align.
+     * @return String
+     */
+    public String getAlign() {
+        return align;
+    }
+
+    /**
+     * Sets the alignment of the child component which is a case insensitive value 
+     * of {NORTH, SOUTH, EAST, WEST, CENTER} which defaults to CENTER
      */
     public void setAlign(String align) {
         this.align = align;
     }
 
-    /**
-     * Sets the vertical alignment to a case insensitive value of {TOP, MIDDLE, BOTTOM}
-     */
-    public void setValign(String valign) {
-        this.valign = valign;
-    }
-
-    
-    /**
-     * Sets the number of columns that this cell should span. The default value is 1
-     */
-    public void setColspan(int colspan) {
-        this.colspan = colspan;
-    }
-
-    /**
-     * Sets the number of rows that this cell should span. The default value is 1
-     */
-    public void setRowspan(int rowspan) {
-        this.rowspan = rowspan;
-    }
-
-    /**
-     * Returns the colfill.
-     * @return boolean
-     */
-    public boolean isColfill() {
-        return colfill;
-    }
-
-    /**
-     * Returns the rowfill.
-     * @return boolean
-     */
-    public boolean isRowfill() {
-        return rowfill;
-    }
-
-    /**
-     * Sets whether or not this column should allow its component to stretch to fill the space available
-     */
-    public void setColfill(boolean colfill) {
-        this.colfill = colfill;
-    }
-
-    /**
-     * Sets whether or not this row should allow its component to stretch to fill the space available
-     */
-    public void setRowfill(boolean rowfill) {
-        this.rowfill = rowfill;
-    }
-
-
     // Implementation methods
     //-------------------------------------------------------------------------                    
-    
-    /**
-     * Factory method to create a new constraints object
-     */
-    protected GridBagConstraints createConstraints() {
-        GridBagConstraints answer = new GridBagConstraints();
-        answer.anchor = getAnchor();
-        if (colspan < 1) {
-            colspan = 1;
+
+    protected Object getConstraints() {
+        if ("north".equalsIgnoreCase(align)) {
+            return BorderLayout.NORTH;
         }
-        if (rowspan < 1) {
-            rowspan = 1;
+        else if ("south".equalsIgnoreCase(align)) {
+            return BorderLayout.SOUTH;
         }
-        if (isColfill())  {
-            answer.fill = isRowfill()
-                ? GridBagConstraints.BOTH 
-                : GridBagConstraints.HORIZONTAL;
+        else if ("east".equalsIgnoreCase(align)) {
+            return BorderLayout.EAST;
+        }
+        else if ("west".equalsIgnoreCase(align)) {
+            return BorderLayout.WEST;
         }
         else {
-            answer.fill = isRowfill()
-                ? GridBagConstraints.VERTICAL 
-                : GridBagConstraints.NONE;
-        }
-        answer.weightx = 0.2;
-        answer.weighty = 0;
-        answer.gridwidth = colspan;
-        answer.gridheight = rowspan;
-        return answer;
-    }
-    
-    /**
-     * @return the GridBagConstraints enumeration for achor
-     */
-    protected int getAnchor() {
-        boolean isTop = "top".equalsIgnoreCase(valign);
-        boolean isBottom = "bottom".equalsIgnoreCase(valign);
-        
-        if ("center".equalsIgnoreCase(align)) {
-            if (isTop) {
-                return GridBagConstraints.NORTH;
-            }
-            else if (isBottom) {
-                return GridBagConstraints.SOUTH;
-            }
-            else {
-                return GridBagConstraints.CENTER;
-            }
-        }
-        else if ("right".equalsIgnoreCase(align)) {
-            if (isTop) {
-                return GridBagConstraints.NORTHEAST;
-            }
-            else if (isBottom) {
-                return GridBagConstraints.SOUTHEAST;
-            }
-            else {
-                return GridBagConstraints.EAST;
-            }
-        }
-        else {
-            // defaults to left
-            if (isTop) {
-                return GridBagConstraints.NORTHWEST;
-            }
-            else if (isBottom) {
-                return GridBagConstraints.SOUTHWEST;
-            }
-            else {
-                return GridBagConstraints.WEST;
-            }
+            // default to CENTER
+            return BorderLayout.CENTER;
         }
     }
 }
+

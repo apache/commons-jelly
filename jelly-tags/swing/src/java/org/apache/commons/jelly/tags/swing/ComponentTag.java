@@ -155,6 +155,11 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     public void setLayout(LayoutManager layout) throws Exception {
         Component component = getComponent();
         if ( component != null ) {
+            if ( component instanceof RootPaneContainer ) {
+                RootPaneContainer rpc = (RootPaneContainer) component;
+                component = rpc.getContentPane();
+            }
+            
             // lets just try set the 'layout' property
             BeanUtils.setProperty( component, "layout", layout );
         }

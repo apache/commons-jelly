@@ -88,6 +88,8 @@ public class TdTag extends TagSupport implements ContainerTag {
     private String valign;
     private int colspan = 1;
     private int rowspan = 1;
+    private boolean colfill = false;
+    private boolean rowfill = false;
     
     public TdTag() {
     }
@@ -147,6 +149,36 @@ public class TdTag extends TagSupport implements ContainerTag {
         this.rowspan = rowspan;
     }
 
+    /**
+     * Returns the colfill.
+     * @return boolean
+     */
+    public boolean isColfill() {
+        return colfill;
+    }
+
+    /**
+     * Returns the rowfill.
+     * @return boolean
+     */
+    public boolean isRowfill() {
+        return rowfill;
+    }
+
+    /**
+     * Sets whether or not this column should allow its component to stretch to fill the space available
+     */
+    public void setColfill(boolean colfill) {
+        this.colfill = colfill;
+    }
+
+    /**
+     * Sets whether or not this row should allow its component to stretch to fill the space available
+     */
+    public void setRowfill(boolean rowfill) {
+        this.rowfill = rowfill;
+    }
+
 
     // Implementation methods
     //-------------------------------------------------------------------------                    
@@ -163,7 +195,16 @@ public class TdTag extends TagSupport implements ContainerTag {
         if (rowspan < 1) {
             rowspan = 1;
         }
-        answer.fill = GridBagConstraints.BOTH;
+        if (isColfill())  {
+            answer.fill = isRowfill()
+                ? GridBagConstraints.BOTH 
+                : GridBagConstraints.HORIZONTAL;
+        }
+        else {
+            answer.fill = isRowfill()
+                ? GridBagConstraints.VERTICAL 
+                : GridBagConstraints.NONE;
+        }
         answer.weightx = 0.2;
         answer.weighty = 0;
         answer.gridwidth = colspan;

@@ -129,6 +129,10 @@ public class SwingTagLibrary extends TagLibrary {
         // GridBagLayout
         registerTag( "gridBagLayout", GridBagLayoutTag.class );
         registerTag( "gbc", GbcTag.class );
+        
+        // BorderLayout
+        registerTag( "borderLayout", BorderLayoutTag.class );
+        registerTag( "borderAlign", BorderAlignTag.class );
     }
 
     /** Creates a new script to execute the given tag name and attributes */
@@ -178,6 +182,7 @@ public class SwingTagLibrary extends TagLibrary {
 					// but children should also be able to be any component (as Swing comps. are all container)
         registerBeanFactory( "desktopPane", JDesktopPane.class );
         registerBeanFactory( "dialog", JDialog.class );
+        registerBeanFactory( "editorPane", JEditorPane.class );
         registerBeanFactory( "fileChooser", JFileChooser.class );
         registerBeanFactory( "frame", JFrame.class );
         registerBeanFactory( "internalFrame", JInternalFrame.class );
@@ -208,6 +213,25 @@ public class SwingTagLibrary extends TagLibrary {
                 }
             }
         );
+        
+        // Box related layout components
+        registerFactory(
+            "hbox", 
+            new Factory() {
+                public Object newInstance() {
+                    return Box.createHorizontalBox();
+                }
+            }
+        );
+        registerFactory(
+            "vbox", 
+            new Factory() {
+                public Object newInstance() {
+                    return Box.createVerticalBox();
+                }
+            }
+        );
+        
         registerBeanFactory( "tabbedPane", JTabbedPane.class );
         registerBeanFactory( "table", JTable.class );
         registerBeanFactory( "textArea", JTextArea.class );

@@ -455,4 +455,16 @@
     </java>
   </goal>
 	
+	
+	<!-- move this into a Maven plugin -->
+  <goal name="jelly:runner" prereqs="jelly-task"
+    description="Runs the Jelly Runner which is a JellySwing script to run other Jelly scripts)">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <sysproperty key="http.proxyHost" value="${maven.proxy.host}"/>
+      <sysproperty key="http.proxyPort" value="${maven.proxy.port}"/>
+     <arg value="src/test/org/apache/commons/jelly/swing/run.jelly"/> 
+    </java>
+  </goal>
+	
 </project>

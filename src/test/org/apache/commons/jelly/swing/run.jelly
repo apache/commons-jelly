@@ -8,18 +8,59 @@
 	<j:if test="${empty working.dir}">
 		<j:set var="working.dir" value="src/test/org/apache/commons/jelly/swing"/>
 	</j:if>
-		
-	<fileChooser var="chooser" description="Jelly files" currentDirectory="${working.dir}"/>
-	
-	${chooser.showDialog(frame, 'Choose Jelly file')}
 
-	<j:set var="file" value="${chooser.selectedFile}"/>
+	<!-- action to choose a file -->
+	<action var="chooseFileAction" name="...">			
+		<fileChooser var="chooser" description="Jelly files" currentDirectory="${working.dir}"/>
+		
+		${chooser.showDialog(frame, 'Choose Jelly file')}
 	
-	<j:if test="${file != null}">
-		<log:info>about to run ${file}</log:info>	
-		<j:include uri="${file.toURL().toString()}"/>
-	</j:if>
-	
+		<j:set var="file" value="${chooser.selectedFile}"/>
+		<j:if test="${file != null}">
+			<j:set target="${scriptField}" property="text" value="${file.toURL().toString()}"/>
+		</j:if>
+	</action>
+
+
+	<!-- create the dialog -->
+	<dialog var="dialog" size="400,150" location="200,200" title="Jelly Runner">
+		<panel>
+  		<tableLayout>
+    		<tr>
+    			<td colfill="true">
+						<panel>
+							<borderLayout hgap="2" vgap="2">
+								<borderAlign align="west">
+					  			<label text="Script to run:"/>
+								</borderAlign>			        		
+								<borderAlign align="center">
+					    		<textField var="scriptField"/>
+								</borderAlign>			        		
+								<borderAlign align="east">
+					    		<button action="${chooseFileAction}"/>
+								</borderAlign>			        		
+							</borderLayout>
+				  	</panel>
+					</td>			        
+    		</tr>
+    		<tr>
+    			<td align="center">
+    				<panel>
+			        <button>
+			          <action name="Run Script">
+									<log:info>about to run ${file}</log:info>	
+									<j:include uri="${file.toURL().toString()}"/>
+								</action>
+			        </button>
+						</panel>				        
+					</td>			        
+  			</tr>
+    	</tableLayout>
+    </panel>
+	</dialog>
+
+	${dialog.setVisible(true)}
+
 </j:jelly>
 
 
