@@ -36,6 +36,28 @@
     </dependency>
       
     <!-- END for compilation -->
+
+    <!-- START for test -->
+  
+    <dependency>
+      <id>commons-jelly+tags-xml</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/xml/</url>
+    </dependency>
+      
+    <dependency>
+      <id>commons-jelly+tags-log</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+    </dependency>
+      
+    <dependency>
+      <id>commons-jelly+tags-dynabean</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/dynabean/</url>
+    </dependency>
+      
+    <!-- END for test -->
     
   </dependencies>
   
