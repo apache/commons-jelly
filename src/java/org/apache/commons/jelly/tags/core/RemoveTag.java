@@ -64,6 +64,7 @@ package org.apache.commons.jelly.tags.core;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
 
 /** 
  * A tag which removes the variable of the given name from the current variable scope.
@@ -73,7 +74,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class RemoveTag extends TagSupport {
 
-    private String var;
+    private Expression var;
 
     public RemoveTag() {
     }
@@ -82,7 +83,7 @@ public class RemoveTag extends TagSupport {
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws MissingAttributeException {
         if (var != null) {
-            context.removeVariable(var);
+            context.removeVariable( var.evaluateAsString(context) );
         }
         else {
             throw new MissingAttributeException("var");
@@ -95,7 +96,7 @@ public class RemoveTag extends TagSupport {
     /**
      * Sets the name of the variable which will be removed by this tag..
      */
-    public void setVar(String var) {
+    public void setVar(Expression var) {
         this.var = var;
     }
 }

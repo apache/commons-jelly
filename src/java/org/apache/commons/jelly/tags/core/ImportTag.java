@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ImportTag.java,v 1.6 2003/01/24 22:53:34 morgand Exp $
- * $Revision: 1.6 $
- * $Date: 2003/01/24 22:53:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ImportTag.java,v 1.7 2003/09/04 01:54:27 proyal Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/09/04 01:54:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ImportTag.java,v 1.6 2003/01/24 22:53:34 morgand Exp $
+ * $Id: ImportTag.java,v 1.7 2003/09/04 01:54:27 proyal Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -77,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
  *  </p>
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public class ImportTag extends TagSupport {
@@ -101,7 +101,6 @@ public class ImportTag extends TagSupport {
 
     /**
      * Create a new Import tag.
-     * @see java.lang.Object#Object()
      */
     public ImportTag() {
     }
@@ -112,7 +111,8 @@ public class ImportTag extends TagSupport {
     /**
      * Perform tag processing
      * @param output the destination for output
-     * @throws Exception Any exception can be thrown
+     * @throws MissingAttributeException if a required attribute is missing
+     * @throws JellyTagException on any other errors
      */ 
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (uri == null && file == null) {
