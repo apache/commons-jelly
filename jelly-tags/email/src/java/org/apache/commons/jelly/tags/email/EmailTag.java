@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/email/src/java/org/apache/commons/jelly/tags/email/EmailTag.java,v 1.2 2003/01/26 01:13:47 morgand Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/26 01:13:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/email/src/java/org/apache/commons/jelly/tags/email/EmailTag.java,v 1.3 2003/07/28 00:43:23 proyal Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/07/28 00:43:23 $
  *
  * ====================================================================
  *
@@ -57,13 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: EmailTag.java,v 1.2 2003/01/26 01:13:47 morgand Exp $
+ * $Id: EmailTag.java,v 1.3 2003/07/28 00:43:23 proyal Exp $
  */
 package org.apache.commons.jelly.tags.email;
 
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 
@@ -91,29 +92,30 @@ import java.io.FileNotFoundException;
  * multiple cc addresses, etc.
  *
  * @author  Jason Horman
- * @version  $Id: EmailTag.java,v 1.2 2003/01/26 01:13:47 morgand Exp $
+ * @author  <a href="mailto:willievu@yahoo.com">Willie Vu</a>
+ * @version  $Id: EmailTag.java,v 1.3 2003/07/28 00:43:23 proyal Exp $
  */
 
 public class EmailTag extends TagSupport {
     private Log logger = LogFactory.getLog(EmailTag.class);
 
     /** smtp server */
-    private String server       = null;
+    private Expression server       = null;
 
     /** who to send the message as */
-    private String from         = null;
+    private Expression from         = null;
 
     /** who to send to */
-    private String to           = null;
+    private Expression to           = null;
 
     /** who to cc */
-    private String cc           = null;
+    private Expression cc           = null;
 
     /** mail subject */
-    private String subject      = null;
+    private Expression subject      = null;
 
     /** mail message */
-    private String message      = null;
+    private Expression message      = null;
 
     /** file attachment */
     private File attachment     = null;
@@ -125,42 +127,42 @@ public class EmailTag extends TagSupport {
      * Set the smtp server for the message. If not set the system
      * property "mail.smtp.host" will be used.
      */
-    public void setServer(String server) {
+    public void setServer(Expression server) {
         this.server = server;
     }
 
     /**
      * Set the from address for the message
      */
-    public void setFrom(String from) {
+    public void setFrom(Expression from) {
         this.from = from;
     }
 
     /**
      * ";" seperated list of people to send to
      */
-    public void setTo(String to) {
+    public void setTo(Expression to) {
         this.to = to;
     }
 
     /**
      * ";" seperated list of people to cc
      */
-    public void setCC(String cc) {
+    public void setCC(Expression cc) {
         this.cc = cc;
     }
 
     /**
      * Set the email subject
      */
-    public void setSubject(String subject) {
+    public void setSubject(Expression subject) {
         this.subject = subject;
     }
 
     /**
      * Set the message body. This will override the Jelly tag body
      */
-    public void setMessage(String message) {
+    public void setMessage(Expression message) {
         this.message = message;
     }
 
@@ -192,7 +194,8 @@ public class EmailTag extends TagSupport {
 
         // if a server was set then configure the system property
         if (server != null) {
-            props.put("mail.smtp.host", server);
+			Object serverInput = this.server.evaluate(context);
+            props.put("mail.smtp.host", serverInput.toString());
         } 
         else {
             if (props.get("mail.smtp.host") == null) {
@@ -210,16 +213,17 @@ public class EmailTag extends TagSupport {
             throw new JellyTagException("no from address specified");
         }
 
-        // get the messageBody from the message attribute or from the tag body
-        // lets insure that our body is evaluated whichever as child tags may
-        // communicate with us to set properties etc.
-        String messageBody = message;
-        if (message != null) {
-            invokeBody(xmlOutput);
-        }
-        else {
-            message = getBodyText(encodeXML);
-        }
+		String messageBody = null;
+		if (this.message != null) {
+			messageBody = this.message.evaluate(context).toString();
+		}
+		else {
+			// get message from body
+			messageBody = getBodyText(encodeXML);
+		}
+
+		Object fromInput = this.from.evaluate(context);
+		Object toInput = this.to.evaluate(context);
 
         // configure the mail session
         Session session = Session.getDefaultInstance(props, null);
@@ -229,10 +233,10 @@ public class EmailTag extends TagSupport {
  
         try {
             // set the from address
-            msg.setFrom(new InternetAddress(from));
+            msg.setFrom(new InternetAddress(fromInput.toString()));
 
             // parse out the to addresses
-            StringTokenizer st = new StringTokenizer(to, ";");
+            StringTokenizer st = new StringTokenizer(toInput.toString(), ";");
             InternetAddress[] addresses = new InternetAddress[st.countTokens()];
             int addressCount = 0;
             while (st.hasMoreTokens()) {
@@ -244,7 +248,8 @@ public class EmailTag extends TagSupport {
 
             // parse out the cc addresses
             if (cc != null) {
-                st = new StringTokenizer(cc, ";");
+				Object ccInput = this.cc.evaluate(context);
+                st = new StringTokenizer(ccInput.toString(), ";");
                 InternetAddress[] ccAddresses = new InternetAddress[st.countTokens()];
                 int ccAddressCount = 0;
                 while (st.hasMoreTokens()) {
@@ -265,7 +270,8 @@ public class EmailTag extends TagSupport {
         try {
             // set the subject
             if (subject != null) {
-                msg.setSubject(subject);
+				Object subjectInput = this.subject.evaluate(context);
+                msg.setSubject(subjectInput.toString());
             }
 
             // set a timestamp
