@@ -43,6 +43,7 @@ public class TestUseBeanTag extends BaseJellyTest {
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
         Customer customer = (Customer)(getJellyContext().getVariable("foo"));
-        assertNull(customer.getName());
+        assertEquals("name not set", "testing", customer.getName());
+        assertEquals("city not set", "sydney", customer.getCity());
     }
 }

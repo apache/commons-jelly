@@ -16,6 +16,9 @@
 
 <j:jelly xmlns:j="jelly:core">
     <j:if test="${test.simple}">
-        <j:useBean var="foo" class="org.apache.commons.jelly.core.Customer"/>
+        <j:useBean var="foo" 
+          class="org.apache.commons.jelly.core.Customer"
+          name="testing"
+          city="sydney"/>
     </j:if>
 </j:jelly>
