@@ -66,9 +66,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -76,11 +73,6 @@ import org.apache.commons.logging.LogFactory;
   */
 public class TestTagLibraryResolver extends TestCase {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(TestTagLibraryResolver.class);
-
-    private TagLibraryResolver resolver = new DefaultTagLibraryResolver();
-    
     public static void main(String[] args) {
         TestRunner.run(suite());
     }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Order.java,v 1.1 2003/01/15 12:23:19 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 12:23:19 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Order.java,v 1.2 2003/06/11 15:55:58 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/06/11 15:55:58 $
  *
  * ====================================================================
  *
@@ -57,23 +57,17 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Order.java,v 1.1 2003/01/15 12:23:19 dion Exp $
+ * $Id: Order.java,v 1.2 2003/06/11 15:55:58 morgand Exp $
  */
 package org.apache.commons.jelly.core;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** 
  * A sample bean that we can construct via Jelly tags
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class Order {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(Order.class);
 
     private Product product;
     private int amount;

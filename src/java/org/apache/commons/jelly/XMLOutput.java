@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.9 2002/10/30 19:16:26 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/10/30 19:16:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.10 2003/06/11 15:55:58 morgand Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/06/11 15:55:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XMLOutput.java,v 1.9 2002/10/30 19:16:26 jstrachan Exp $
+ * $Id: XMLOutput.java,v 1.10 2003/06/11 15:55:58 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -66,9 +66,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import org.dom4j.io.XMLWriter;
 
@@ -86,7 +83,7 @@ import org.xml.sax.helpers.DefaultHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -96,9 +93,6 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
             "http://xml.org/sax/properties/lexical-handler",
             "http://xml.org/sax/handlers/LexicalHandler" };
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(XMLOutput.class);
-    
     /** empty attributes */
     private static final Attributes EMPTY_ATTRIBUTES = new AttributesImpl();
     

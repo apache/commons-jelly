@@ -72,8 +72,6 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** 
  * This tag is bound onto a {@link DynaClass} instance. 
@@ -84,9 +82,6 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: 1.7 $
  */
 public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(DynamicDynaBeanTag.class);
 
     /** the bean class */
     private DynaClass beanClass;

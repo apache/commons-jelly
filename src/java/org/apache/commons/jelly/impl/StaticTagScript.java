@@ -72,9 +72,6 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.SAXException;
 
 /** 
@@ -87,9 +84,6 @@ import org.xml.sax.SAXException;
  * @version $Revision: 1.8 $
  */
 public class StaticTagScript extends TagScript {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(StaticTagScript.class);
 
     public StaticTagScript() {
     }

@@ -69,9 +69,6 @@ import junit.textui.TestRunner;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /** 
  * Tests the use of Expression parsing
  *
@@ -79,9 +76,6 @@ import org.apache.commons.logging.LogFactory;
  * @version $Revision: 1.8 $
  */
 public class TestExpressions extends TestCase {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(TestExpressions.class);
 
     protected JellyContext context = new JellyContext();
     protected ExpressionFactory factory = new JexlExpressionFactory();

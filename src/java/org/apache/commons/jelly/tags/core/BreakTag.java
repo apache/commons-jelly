@@ -66,9 +66,6 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BreakException;
 import org.apache.commons.jelly.expression.Expression;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /** 
  * A tag which terminates the execution of the current &lt;forEach&gt; or &lg;while&gt;
  * loop. This tag can take an optional boolean test attribute which if its true
@@ -81,9 +78,6 @@ public class BreakTag extends TagSupport {
 
     /** The expression to evaluate. */
     private Expression test;
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BreakTag.class);
 
     public BreakTag() {
     }
