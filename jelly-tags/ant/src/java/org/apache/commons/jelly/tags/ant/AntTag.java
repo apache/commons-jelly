@@ -428,8 +428,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 try {
                     dataType = ih.createElement( getAntProject(), object, name.toLowerCase() );
                 } catch (BuildException be) {
-                    if (be.getMessage().indexOf("doesn't support the nested") != -1
-                        && be.getMessage().indexOf("org.apache.commons.jelly.") != -1)
+                    if (object instanceof Tag)
                     {
                         if (log.isDebugEnabled()) {
                             log.debug("Failed attempt to create an ant datatype for a jelly tag", be);
@@ -456,62 +455,65 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
         if ( type != null ) {
 
-//            try {
-                Constructor ctor = null;
-                boolean noArg = false;
+            Constructor ctor = null;
+            boolean noArg = false;
 
-                // DataType can have a "no arg" constructor or take a single
-                // Project argument.
+            // DataType can have a "no arg" constructor or take a single
+            // Project argument.
+            try {
+                ctor = type.getConstructor(new Class[0]);
+                noArg = true;
+            }
+            catch (NoSuchMethodException nse) {
                 try {
-                    ctor = type.getConstructor(new Class[0]);
-                    noArg = true;
+                    ctor = type.getConstructor(new Class[] { Project.class });
+                    noArg = false;
+                } catch (NoSuchMethodException nsme) {
+                    log.info("datatype '" + name 
+                        + "' didn't have a constructor with an Ant Project", nsme);
                 }
-                catch (NoSuchMethodException nse) {
-                    try {
-                        ctor = type.getConstructor(new Class[] { Project.class });
-                        noArg = false;
-                    } catch (NoSuchMethodException nsme) {
-                        log.error("datatype '" + name 
-                            + "' couldn't be created by passing an Ant project", nsme);
-                    }
-                }
+            }
 
-                if (noArg) {
-                    try {
-                        dataType = ctor.newInstance(new Object[0]);
-                    } catch (InstantiationException ie) {
-                        log.error("datatype '" + name + "' couldn't be created with no-arg constructor", ie);
-                    } catch (IllegalAccessException iae) {
-                        log.error("datatype '" + name + "' couldn't be created with no-arg constructor", iae);
-                    } catch (InvocationTargetException ite) {
-                        log.error("datatype '" + name + "' couldn't be created with no-arg constructor", ite);
-                    }
-                }
-                else {
-                    try {
-                        dataType = ctor.newInstance(new Object[] { getAntProject() });
-                    } catch (InstantiationException ie) {
-                        log.error("datatype '" + name + "' couldn't be created with an Ant project", ie);
-                    } catch (IllegalAccessException iae) {
-                        log.error("datatype '" + name + "' couldn't be created with an Ant project", iae);
-                    } catch (InvocationTargetException ite) {
-                        log.error("datatype '" + name + "' couldn't be created with an Ant project", ite);
-                    }
-                }
-                if (dataType != null) {
-                    ((DataType)dataType).setProject( getAntProject() );
-                } 
-
-//            }
-//            catch (Throwable t) {
-                // ignore
-//                log.error(t);
-//            }
+            if (noArg) {
+                dataType = createDataType(ctor, new Object[0], name, "no-arg constructor");
+            }
+            else {
+                dataType = createDataType(ctor, new Object[] { getAntProject() }, name, "an Ant project");
+            }
+            if (dataType != null) {
+                ((DataType)dataType).setProject( getAntProject() );
+            } 
         }
 
         return dataType;
     }
 
+    /**
+     * @return an object create with the given constructor and args.
+     * @param ctor a constructor to use creating the object
+     * @param args the arguments to pass to the constructor
+     * @param name the name of the data type being created
+     * @param argDescription a human readable description of the args passed
+     */
+    private Object createDataType(Constructor ctor, Object[] args, String name, String argDescription) {
+        try {
+            Object datatype = ctor.newInstance(args);
+            return datatype;
+        } catch (InstantiationException ie) {
+            log.error("datatype '" + name + "' couldn't be created with " + argDescription, ie);
+        } catch (IllegalAccessException iae) {
+            log.error("datatype '" + name + "' couldn't be created with " + argDescription, iae);
+        } catch (InvocationTargetException ite) {
+            log.error("datatype '" + name + "' couldn't be created with " + argDescription, ite);
+        }
+        return null;
+    }
+
+    /**
+     * @param taskName
+     * @return
+     * @throws JellyTagException
+     */
     public Task createTask(String taskName) throws JellyTagException {
         return createTask( taskName,
                            (Class) getAntProject().getTaskDefinitions().get( taskName ) );
