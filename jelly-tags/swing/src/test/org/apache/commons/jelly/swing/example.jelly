@@ -1,6 +1,14 @@
 <?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:core" xmlns="jelly:swing" xmlns:log="jelly:log">
+<j:jelly 
+	xmlns:j="jelly:core" 
+	xmlns="jelly:swing" 
+	xmlns:log="jelly:log"
+	xmlns:define="jelly:define">
 
+  <define:script var="onClosing">
+    <log:info>The frame is closing via event: ${event}</log:info>
+  </define:script>
+  
   <frame title="This is a frame" var="frame" location="100,100" size="800,400">
     <menuBar>
       <menu text="File">
@@ -38,6 +46,8 @@
         <table model="${tableModel}"/>
       </scrollPane>
     </splitPane>
+    
+    <windowListener var="event" closing="${onClosing}"/>
   </frame>
   
   ${frame.show()}
