@@ -84,6 +84,8 @@
     <copy todir="${maven.dist.assembly.dir}/bin">
       <fileset dir="src/bin"/>
     </copy>
+    
+    <chmod file="${maven.dist.assembly.dir}/bin/jelly" perm="ugo+rx" />
 
     <j:forEach var="dep" items="${pom.dependencies}">
       <j:choose>
