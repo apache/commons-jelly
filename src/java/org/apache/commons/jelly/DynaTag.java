@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/DynaTag.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/DynaTag.java,v 1.4 2002/06/25 17:59:32 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/06/25 17:59:32 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynaTag.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: DynaTag.java,v 1.4 2002/06/25 17:59:32 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -74,7 +74,7 @@ package org.apache.commons.jelly;
  * one or two special attributes are used, all others pass through.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
 public interface DynaTag extends Tag {
@@ -82,6 +82,6 @@ public interface DynaTag extends Tag {
     /** Sets an attribute value of this tag before the tag is invoked
      */
 
-    public void setAttribute(String name, Object value);
+    public void setAttribute(String name, Object value) throws Exception;
 
 }

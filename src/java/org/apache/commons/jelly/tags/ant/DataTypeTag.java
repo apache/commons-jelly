@@ -229,7 +229,7 @@ public class DataTypeTag extends AntTagSupport {
         setDynaBean( new ConvertingWrapDynaBean(dataType) );
     }
 
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(String name, Object value) throws Exception {
         if ( "id".equals( name ) ) {
             getAntProject().addReference( (String) value, dataType );
             return;

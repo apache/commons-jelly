@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/ant/Attic/AntTagSupport.java,v 1.2 2002/06/25 17:13:32 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/06/25 17:13:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/ant/Attic/AntTagSupport.java,v 1.3 2002/06/25 18:00:09 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/06/25 18:00:09 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AntTagSupport.java,v 1.2 2002/06/25 17:13:32 jstrachan Exp $
+ * $Id: AntTagSupport.java,v 1.3 2002/06/25 18:00:09 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.ant;
@@ -136,7 +136,7 @@ public abstract class AntTagSupport extends DynaBeanTagSupport {
         return task;
     }
 
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(String name, Object value) throws Exception {
 
         Object obj = null;
 
@@ -146,7 +146,7 @@ public abstract class AntTagSupport extends DynaBeanTagSupport {
             e.printStackTrace();
             return;
         }
-
+        
         if ( obj == null ) {
             return;
         }
@@ -167,13 +167,9 @@ public abstract class AntTagSupport extends DynaBeanTagSupport {
         } catch (Exception e) {
             // e.printStackTrace();
 
-            try
-            {
-                super.setAttribute( name, value );
-            }
-            catch (Exception f) {
-                // f.printStackTrace();
-            }
+            // let any exceptions bubble up from here
+            
+            super.setAttribute( name, value );
         }
     }
     

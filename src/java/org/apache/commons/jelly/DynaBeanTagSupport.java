@@ -94,7 +94,7 @@ public abstract class DynaBeanTagSupport extends TagSupport implements DynaTag {
     
     /** Sets an attribute value of this tag before the tag is invoked
      */
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(String name, Object value) throws Exception {
         getDynaBean().set(name, value);
     }
 
