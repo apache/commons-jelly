@@ -99,7 +99,7 @@ public class AttributeTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
-        DefineBeanTag tag = (DefineBeanTag) findAncestorWithClass( DefineBeanTag.class );
+        BeanTag tag = (BeanTag) findAncestorWithClass( BeanTag.class );
         if ( tag == null ) {
             throw new JellyException( "This tag should be nested inside a <define:bean> or <define:jellybean> tag" );
         }

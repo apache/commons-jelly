@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/define/TagTag.java,v 1.5 2002/06/25 19:12:28 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/25 19:12:28 $
  *
  * ====================================================================
  *
@@ -57,79 +57,46 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Id: TagTag.java,v 1.5 2002/06/25 19:12:28 jstrachan Exp $
  */
-
 package org.apache.commons.jelly.tags.define;
 
-import java.lang.reflect.Method;
-
-import org.apache.commons.beanutils.MethodUtils;
-
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-
 /** 
- * Binds a Java bean to the given named Jelly tag so that the attributes of
- * the tag set the bean properties. After the body of this tag is invoked
- * then the beans invoke() method will be called, if the bean has one.
- * 
+ * &lt;tag&gt; is used to define a new tag
+ * using a Jelly script to implement the behaviour of the tag.
+ * Parameters can be passed into the new tag using normal XML attribute
+ * notations. Inside the body of the tag definition, the attributes can
+ * be accessed as normal Jelly variables.</p>
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.5 $
  */
-public class DefineJellyBeanTag extends DefineBeanTag {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(DefineJellyBeanTag.class);
-
-    /** Empty parameter types for Method lookup */
-    private static final Class[] emptyParamTypes = {};
+public class TagTag extends DefineTagSupport {
     
-    /** the name of the method to invoke on the bean */
-    private String method;
+    private String name;
+    
+    public TagTag() {
+    }
+    
+    // Tag interface
+    //-------------------------------------------------------------------------                    
+    public void doTag(XMLOutput output) throws Exception {
+        getTagLibrary().registerDynamicTag( getName(), getBody() );
+    }    
     
     // Properties
     //-------------------------------------------------------------------------                    
     
-    /**
-     * @return the method name to use, which defaults to 'run' for Runnable
-     * objects
-     */
-    public String getMethod() {
-        if ( method == null ) {
-            return "run";
-        }
-        return method;
+    /** @return the name of the tag to create */
+    public String getName() {
+        return name;
     }
     
-    /** 
-     * Sets the name of the method to invoke on the bean. 
-     * This defaults to "run" so that Runnable objects can be
-     * invoked, but this property can be set to whatever is required,
-     * such as "execute" or "invoke"
-     */
-    public void setMethod(String method) {
-        this.method = method;
-    }
-    
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
-    protected Method getInvokeMethod( Class theClass ) throws Exception {
-        Method invokeMethod =
-            MethodUtils.getAccessibleMethod(
-                theClass,
-                getMethod(),
-                emptyParamTypes);
-                
-        if ( invokeMethod == null ) {
-        }
-        return invokeMethod;
-    }
+    /** Sets the name of the tag to create */
+    public void setName(String name) {
+        this.name = name;
+    }    
 }

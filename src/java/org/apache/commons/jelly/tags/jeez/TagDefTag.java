@@ -64,7 +64,7 @@ package org.apache.commons.jelly.tags.jeez;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.impl.DynamicTagLibrary;
-import org.apache.commons.jelly.tags.define.DefineTagTag;
+import org.apache.commons.jelly.tags.define.TagTag;
 
 /** 
  * This tag defines a dynamic tag in Jelly script. When the tag is invoked
@@ -77,7 +77,7 @@ import org.apache.commons.jelly.tags.define.DefineTagTag;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.1 $
  */
-public class TagDefTag extends DefineTagTag {
+public class TagDefTag extends TagTag {
 
     private DynamicTagLibrary tagLibrary;
     

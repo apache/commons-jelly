@@ -71,7 +71,7 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.Attribute;
-import org.apache.commons.jelly.impl.BeanTag;
+import org.apache.commons.jelly.impl.DynamicBeanTag;
 import org.apache.commons.jelly.impl.TagFactory;
 
 import org.apache.commons.logging.Log;
@@ -85,10 +85,10 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.1 $
  */
-public class DefineBeanTag extends DefineTagSupport {
+public class BeanTag extends DefineTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(DefineBeanTag.class);
+    private static final Log log = LogFactory.getLog(BeanTag.class);
 
     /** An empty Map as I think Collections.EMPTY_MAP is only JDK 1.3 onwards */
     private static final Map EMPTY_MAP = new HashMap();
@@ -164,7 +164,7 @@ public class DefineBeanTag extends DefineTagSupport {
         
         TagFactory factory = new TagFactory() {
             public Tag createTag() {
-                return  new BeanTag(beanClass, beanAttributes, varAttribute, invokeMethod);
+                return  new DynamicBeanTag(beanClass, beanAttributes, varAttribute, invokeMethod);
             }
         };
         getTagLibrary().registerBeanTag(name, factory);

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.8 2002/08/09 17:26:40 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/08/09 17:26:40 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/05/21 07:58:55 $
  *
  * ====================================================================
  *
@@ -57,64 +57,79 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagLibTag.java,v 1.8 2002/08/09 17:26:40 jstrachan Exp $
+ * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
  */
+
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.DynaTag;
-import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.DynamicTagLibrary;
+import java.lang.reflect.Method;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.helpers.AttributesImpl;
+import org.apache.commons.beanutils.MethodUtils;
+
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.XMLOutput;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 
 /** 
- * The &lt;taglib&gt; tag is used to define a new tag library
- * using a Jelly script..</p>
- *
+ * Binds a Java bean to the given named Jelly tag so that the attributes of
+ * the tag set the bean properties. After the body of this tag is invoked
+ * then the beans invoke() method will be called, if the bean has one.
+ * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
-public class DefineTagLibTag extends TagSupport {
-    
-    /** The namespace URI */
-    private String uri;
-    /** The new tags being added */
-    private DynamicTagLibrary tagLibrary;
-    
-    public DefineTagLibTag() {
-    }
-    
-    public DefineTagLibTag(String uri) {
-        this.uri = uri;
-    }
-    
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
-        tagLibrary = new DynamicTagLibrary( getUri() );
+public class JellyBeanTag extends BeanTag {
 
-        context.registerTagLibrary( getUri(), tagLibrary );
-        
-        invokeBody(output);
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(JellyBeanTag.class);
 
-        tagLibrary = null;
-    }    
+    /** Empty parameter types for Method lookup */
+    private static final Class[] emptyParamTypes = {};
+    
+    /** the name of the method to invoke on the bean */
+    private String method;
     
     // Properties
     //-------------------------------------------------------------------------                    
-    public String getUri() {
-        return uri;
+    
+    /**
+     * @return the method name to use, which defaults to 'run' for Runnable
+     * objects
+     */
+    public String getMethod() {
+        if ( method == null ) {
+            return "run";
+        }
+        return method;
     }
     
-    public void setUri(String uri) {
-        this.uri = uri;
+    /** 
+     * Sets the name of the method to invoke on the bean. 
+     * This defaults to "run" so that Runnable objects can be
+     * invoked, but this property can be set to whatever is required,
+     * such as "execute" or "invoke"
+     */
+    public void setMethod(String method) {
+        this.method = method;
     }
     
-    public DynamicTagLibrary getTagLibrary() {
-        return tagLibrary;
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                    
+    
+    protected Method getInvokeMethod( Class theClass ) throws Exception {
+        Method invokeMethod =
+            MethodUtils.getAccessibleMethod(
+                theClass,
+                getMethod(),
+                emptyParamTypes);
+                
+        if ( invokeMethod == null ) {
+        }
+        return invokeMethod;
     }
 }

@@ -95,10 +95,10 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jason@zenplex.com">Jason van Zyl</a>
  * @version $Revision: 1.7 $
  */
-public class BeanTag extends DynaBeanTagSupport {
+public class DynamicBeanTag extends DynaBeanTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BeanTag.class);
+    private static final Log log = LogFactory.getLog(DynamicBeanTag.class);
 
     /** Empty arguments for Method.invoke() */
     private static final Object[] emptyArgs = {};
@@ -127,7 +127,7 @@ public class BeanTag extends DynaBeanTagSupport {
     /** the attribute definitions */
     private Map attributes;    
         
-    public BeanTag(Class beanClass, Map attributes, String variableNameAttribute, Method method) {
+    public DynamicBeanTag(Class beanClass, Map attributes, String variableNameAttribute, Method method) {
         this.beanClass = beanClass;
         this.method = method;
         this.attributes = attributes;

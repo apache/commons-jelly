@@ -1,5 +1,5 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineScriptTag.java,v 1.5 2002/05/17 15:18:12 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/define/ScriptTag.java,v 1.5 2002/05/17 15:18:12 jstrachan Exp $
  * $Revision: 1.5 $
  * $Date: 2002/05/17 15:18:12 $
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineScriptTag.java,v 1.5 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: ScriptTag.java,v 1.5 2002/05/17 15:18:12 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -67,18 +67,18 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
- * <p><code>DefineScriptTag</code> is used to assign a Script object
+ * &lt;script&gt; tag is used to assign a Script object
  * to a variable. The script can then be called whenever the user wishes
- * maybe from inside Jexl.</p>
+ * maybe from inside an expression or more typically via the &lt;invoke&gt; tag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.5 $
  */
-public class DefineScriptTag extends TagSupport {
+public class ScriptTag extends TagSupport {
     
     private String var;
     
-    public DefineScriptTag() {
+    public ScriptTag() {
     }
     
     // Tag interface

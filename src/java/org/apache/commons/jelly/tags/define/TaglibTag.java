@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagTag.java,v 1.5 2002/06/25 19:12:28 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/25 19:12:28 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/define/TaglibTag.java,v 1.8 2002/08/09 17:26:40 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/08/09 17:26:40 $
  *
  * ====================================================================
  *
@@ -57,43 +57,64 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagTag.java,v 1.5 2002/06/25 19:12:28 jstrachan Exp $
+ * $Id: TaglibTag.java,v 1.8 2002/08/09 17:26:40 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.DynaTag;
+import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.DynamicTagLibrary;
+
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.AttributesImpl;
 
 /** 
- * <p><code>DefineTagTag</code> is used to define a new tag
+ * The &lt;taglib&gt; tag is used to define a new tag library
  * using a Jelly script..</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.8 $
  */
-public class DefineTagTag extends DefineTagSupport {
+public class TaglibTag extends TagSupport {
     
-    private String name;
+    /** The namespace URI */
+    private String uri;
+    /** The new tags being added */
+    private DynamicTagLibrary tagLibrary;
     
-    public DefineTagTag() {
+    public TaglibTag() {
+    }
+    
+    public TaglibTag(String uri) {
+        this.uri = uri;
     }
     
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
-        getTagLibrary().registerDynamicTag( getName(), getBody() );
+        tagLibrary = new DynamicTagLibrary( getUri() );
+
+        context.registerTagLibrary( getUri(), tagLibrary );
+        
+        invokeBody(output);
+
+        tagLibrary = null;
     }    
     
     // Properties
     //-------------------------------------------------------------------------                    
-    
-    /** @return the name of the tag to create */
-    public String getName() {
-        return name;
+    public String getUri() {
+        return uri;
     }
     
-    /** Sets the name of the tag to create */
-    public void setName(String name) {
-        this.name = name;
-    }    
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+    
+    public DynamicTagLibrary getTagLibrary() {
+        return tagLibrary;
+    }
 }

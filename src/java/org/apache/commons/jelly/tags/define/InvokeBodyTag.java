@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.10 2002/08/09 17:26:40 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/08/09 17:26:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.11 2002/08/09 18:01:01 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/08/09 18:01:01 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.10 2002/08/09 17:26:40 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.11 2002/08/09 18:01:01 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -73,12 +73,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * <p><code>InvokeBodyTag</code> this tag needs to find
- * the correct parent DynamicTag instance and call its
- * body.</p>
- *
+ * &lt;invokeBody&gt; tag is used inside a &lt;tag&gt; tag 
+ * (i.e. the definition of a dynamic tag) to invoke the tags body when 
+ * the tag is invoked.
+ * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public class InvokeBodyTag extends TagSupport {
 
