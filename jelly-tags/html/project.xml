@@ -52,6 +52,11 @@
       <version>SNAPSHOT</version>
     </dependency>
     
+    <dependency>
+      <id>commons-jelly+tags-xml</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    
     <!-- END for running demos -->
   
     
