@@ -72,4 +72,15 @@
 	The exception was: ${ex.message}
   </test:case>
 
+<!--
+	
+	#### uncomment when assertEquals supports type conversions
+	
+  <test:case name="assertEqualsConversion">
+  
+		<test:assertEquals expected="${4}" actual="${2+2}"/>
+
+  </test:case>
+-->
+
 </test:suite>

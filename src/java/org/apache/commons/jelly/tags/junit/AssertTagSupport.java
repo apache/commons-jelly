@@ -104,12 +104,12 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * Produces a failure if the actual value was not equal to the expected value
      */
-    protected void failNotEquals(String message, Object expected, Object actual) throws AssertionFailedError {
+    protected void failNotEquals(String message, Object expected, Object actual, String expressions) throws AssertionFailedError {
         String formatted= "";
         if (message != null) {
             formatted = message +" ";
         }
-        fail(formatted + "expected:[" + expected + "] but was:[" + actual + "]");
+        fail(formatted + "expected:[" + expected + "] but was:[" + actual + "]" + expressions);
     }
     
 }

@@ -74,23 +74,28 @@ import org.apache.commons.jelly.expression.Expression;
  */
 public class AssertEqualsTag extends AssertTagSupport {
 
-    private Object actual;
-    private Object expected;
+    private Expression actual;
+    private Expression expected;
     
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
         String message = getBodyText();
+
+        Object expectedValue = expected.evaluate(context);                    
+        Object actualValue = actual.evaluate(context);                    
         
-        if (expected == null && actual == null) {
+        if (expectedValue == null && expectedValue == null) {
             return;
         }
-        if (expected != null && expected.equals(actual)) {            
+        if (actualValue != null && expectedValue.equals(actualValue)) {            
             return;
         }
 
-        failNotEquals(message, expected, actual);
+        String expressions = "\nExpected expression: " + expected + "\nActual expression: " + actual;
+        
+        failNotEquals(message, expectedValue, actualValue, expressions);
     }
     
     // Properties
@@ -100,14 +105,14 @@ public class AssertEqualsTag extends AssertTagSupport {
      * Sets the actual value which will be compared against the 
      * expected value.
      */
-    public void setActual(Object actual) {
+    public void setActual(Expression actual) {
         this.actual = actual;
     }
     
     /**
      * Sets the expected value to be tested against
      */
-    public void setExpected(Object expected) {
+    public void setExpected(Expression expected) {
         this.expected = expected;
     }
 }
