@@ -142,10 +142,11 @@ public class SwtTagLibrary extends TagLibrary {
         registerTag("onEvent", OnEventTag.class);
 
         // other tags                    
-        registerTag("image", ImageTag.class);
-        registerTag("font", FontTag.class);
         registerTag("color", ColorTag.class);
         registerTag("colour", FontTag.class);
+        registerTag("font", FontTag.class);
+        registerTag("gc", GCTag.class);
+        registerTag("image", ImageTag.class);
 
     }
 
