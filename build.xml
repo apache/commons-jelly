@@ -328,6 +328,16 @@
 	
    </target>
 
+   <target name="demo.thread" depends="compile" 
+      description="Runs the threading demo">
+      
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/testThread.jelly"/> 
+    </java>
+	
+   </target>
+
    <target name="demo.betwixt" depends="compile" 
       description="Runs a demo using the XML tags to generate a Betwixt descriptor">
       

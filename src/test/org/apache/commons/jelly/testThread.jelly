@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<j:jelly trim="false" xmlns:j="jelly:core" xmlns:x="jelly:xml">
+
+About to spawn another thread...
+
+<!--
+<j:thread name="thread1" file="target/thread.xml">
+  <x:parse var="doc">
+    <web-app>
+      <servlet>
+        <servlet-name>snoop</servlet-name>
+        <servlet-class>SnoopServlet</servlet-class>
+      </servlet>
+      <servlet>
+        <servlet-name>file</servlet-name>
+        <servlet-class>ViewFile</servlet-class>
+        <init-param>
+          <param-name>initial</param-name>
+          <param-value>1000</param-value>
+          <description>
+            The initial value for the counter  
+          </description>
+        </init-param>
+      </servlet>
+      <servlet-mapping>
+        <servlet-name>snoop</servlet-name>
+        <url-pattern>/foo/snoop</url-pattern>
+      </servlet-mapping>
+    </web-app>
+  </x:parse>
+
+  <j:whitespace>	
+  <x:set var="count" select="count($doc//servlet)"/>
+  <x:forEach var="s" select="$doc//servlet">
+    name: <x:expr select="$s/servlet-name"/>
+    class: <x:expr select="$s/servlet-class"/>
+  </x:forEach>
+
+  There are <x:expr select="$count"/> servlet(s)
+  </j:whitespace>	
+</j:thread>
+-->
+
+The thread should have started now!
+
+</j:jelly>
+
+
+
+
