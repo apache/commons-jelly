@@ -73,6 +73,9 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /** 
  * A tag which loads text from a file or URI into a Jelly variable. 
  *
@@ -80,6 +83,9 @@ import org.apache.commons.jelly.XMLOutput;
  * @version $Revision: 1.5 $
  */
 public class LoadTextTag extends TagSupport {
+
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(LoadTextTag.class);
 
     private String var;
     private File file;
@@ -177,17 +183,27 @@ public class LoadTextTag extends TagSupport {
         StringBuffer buffer = new StringBuffer();
         
         // @todo its probably more efficient to use a fixed char[] buffer instead
-        BufferedReader bufferedReader = new BufferedReader(reader);
-        while (true) {
-            String line = bufferedReader.readLine();
-            if (line == null) {
-                break;
-            }
-            else {
-                buffer.append(line);
-                buffer.append('\n');
-            }
-        }
-        return buffer.toString();
+		try {        
+	        BufferedReader bufferedReader = new BufferedReader(reader);
+	        while (true) {
+	            String line = bufferedReader.readLine();
+	            if (line == null) {
+	                break;
+	            }
+	            else {
+	                buffer.append(line);
+	                buffer.append('\n');
+	            }
+	        }
+	        return buffer.toString();
+		}
+		finally {
+			try {
+				reader.close();
+			}
+			catch (Exception e) {
+				log.error( "Caught exception closing Reader: " + e, e);
+			}
+		}
     }
 }
