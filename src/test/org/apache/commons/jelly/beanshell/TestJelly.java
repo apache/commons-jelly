@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/JellyInterpreter.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/07/06 13:53:39 $
  *
  * ====================================================================
  *
@@ -57,79 +57,28 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyInterpreter.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Id: JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
-package org.apache.commons.jelly.tags.beanshell;
+package org.apache.commons.jelly.beanshell;
 
-import bsh.EvalError;
-import bsh.Interpreter;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
-import java.util.Iterator;
+import org.apache.commons.jelly.tags.junit.JellyTestSuite;
 
-import org.apache.commons.jelly.JellyContext;
+/** 
+ * A helper class to run jelly test cases as part of Ant's JUnit tests
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.8 $
+ */
+public class TestJelly extends JellyTestSuite {
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-/** Integrates BeanShell's interpreter with Jelly's JellyContext
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
-  */
-public class JellyInterpreter extends Interpreter {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog( JellyInterpreter.class );
-
-    private JellyContext context;
-    
-    public JellyInterpreter() {
-    }
-
-    public JellyContext getJellyContext() {
-        return context;
+    public static void main( String[] args ) throws Exception {
+        TestRunner.run( suite() );
     }
     
-    public void setJellyContext(JellyContext context) throws EvalError {
-        this.context = context;
-        
-        // now pass in all the variables
-        for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
-            String name = (String) iter.next();
-            Object value = context.getVariable(name);
-            name = convertVariableName(name);
-            if (name != null) {
-                set( name, value );
-            }
-        }
-        
-        // lets pass in the Jelly context 
-        set( "context", context );
-    }
-
-/*
-  
-    // the following code doesn't work - it seems that
-    // all variables must be passed into the Interpreter
-    // via set() method
- 
-    public Object get(String name) throws EvalError {
-        if ( context != null ) {
-            Object answer = context.getVariable( name );
-            if ( answer != null ) { 
-                return answer;
-            }
-        }
-        return super.get( name );
-    }
-*/
-
-    /**
-     * Converts variables to a beanshell allowable format or hides names that 
-     * can't be converted, by returning null.
-     * For now lets just turn '.' into '_'
-     */
-    protected String convertVariableName(String name) {
-        return name.replace('.', '_');
+    public static TestSuite suite() throws Exception {
+        return createTestSuite(TestJelly.class, "suite.jelly");        
     }
 }

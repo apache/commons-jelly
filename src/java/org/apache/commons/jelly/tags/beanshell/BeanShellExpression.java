@@ -89,9 +89,11 @@ public class BeanShellExpression extends ExpressionSupport {
     //------------------------------------------------------------------------- 
     public Object evaluate(JellyContext context) {
         try {
-            JellyInterpreter interpreter = BeanShellExpressionFactory.getInterpreter(context);
+            JellyInterpreter interpreter = new JellyInterpreter();
+            interpreter.setJellyContext(context);
+            
             if ( log.isDebugEnabled() ) {            
-                log.debug( "Evaluating EL: " + text );
+                log.debug( "Evaluating beanshell: " + text );
             }
             
             return interpreter.eval( text );
