@@ -69,6 +69,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.Project;
 
 /** 
  * A tag which invokes an Ant Task
@@ -92,18 +93,34 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
+        
         task.init();
-                
+
         // run the body first to configure the task via nested
         getBody().run(context, output);
-        
-        task.execute();   
+
+        // task.execute();   
+        task.perform();   
     }
     
     // TaskSource interface
     //------------------------------------------------------------------------- 
     public Object getTaskObject() {
         return task;
+    }
+
+
+    public void setAttribute(String name,
+                             Object value)
+    {
+        // Catch the normal setAttribute, and call throw Ant's
+        // normal property-deref routines.
+        Project project = task.getProject();
+
+        String newValue = project.replaceProperties( (String) value );
+
+        super.setAttribute( name,
+                            newValue );
     }
     
     // Properties
