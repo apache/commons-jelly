@@ -67,6 +67,7 @@ public class TestExpressions extends TestCase {
         assertExpression("${maven.some.madeup.name}", null);
         assertExpression("cheese ${maven.some.madeup.name}pizza", "cheese pizza");
         assertExpression("ham and ${maven.home.foo} pizza", "ham and cheese pizza");
+//        assertExpression("${maven.home.foo.length()}", "6");
     }
     
     public void testNotConditions() throws Exception {
