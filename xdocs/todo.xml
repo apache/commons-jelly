@@ -20,9 +20,10 @@
 			in a similar way to how the commons-discovery and JAXP libraries work.
 			This would allow Jelly libraries to be distributed in a self contained JAR then just put
 			on the classpath and they'd be usable.				
-			One day it might be interesting to add some funky classloader thing like JJAR/Maven
-			so that using a new jelly library via a URL would automatically download the jar from some 
-			local/remote repository.
+		</li>
+		<li>
+			Implement a JJAR/Maven mechanism so that using a new Jelly library via a namespace URI would
+			automatically download the jar and its dependencies from some local/remote repository.
 		</li>
 		<li>Maybe add a Scope class to make it easier to plugin custom scopes such as 
 			request, session, applicaiton, initParams, params, transation etc.
