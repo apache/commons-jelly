@@ -19,25 +19,54 @@
       <table>
         <tr><th>Project</th><th>Overview</th></tr>
         <tr>
+          <td><a href="http://aft.sourceforge.net/">Anteater</a></td>
+          <td>
+            A testing framework which provides an easy way to write tests for checking the functionality of a 
+            Web application or of an XML Web service.
+          </td>
+        </tr>
+        <tr>
+          <td><a href="http://drools.org/">Drools</a></td>
+          <td>
+            A Java rules engine.
+          </td>
+        </tr>
+        <tr>
+          <td><a href="http://blissed.werken.com/">Blissed</a></td>
+          <td>
+            A Java process and state framework.
+          </td>
+        </tr>
+        <tr>
+          <td><a href="http://jakarta.apache.org/commons/latka/">Latka</a></td>
+          <td>
+            A functional (end-to-end) testing tool implemented in Java, and using an XML syntax to 
+            define a series of HTTP (or HTTPS) requests and a set of validations used to verify that 
+            the request was processed correctly. 
+          </td>
+        </tr>
+        <tr>
           <td><a href="http://jakarta.apache.org/turbine/maven/">Maven</a></td>
           <td>
             A java project management and project comprehension tool.
           </td>
         </tr>
         <tr>
-          <td><a href="http://drools.org/">drools</a></td>
+          <td><a href="http://nanning.sourceforge.net/">Nanning</a></td>
           <td>
-            A Java rules engine.
+            A simple yet scaleable aspect-oriented framework for Java
           </td>
         </tr>
         <tr>
-          <td><a href="http://blissed.werken.com/">blissed</a></td>
+          <td><a href="http://seedling.sourceforge.net">Seedling</a></td>
           <td>
-            A Java process and state framework.
+            A generic application platform that enables streamlined development of Java applications from 
+            reusable components. In particular JellyUnit and JellySwing are used to implement Swing based
+            unit testing.
           </td>
         </tr>
         <tr>
-          <td><a href="http://werkflow.werken.com/">werkflow</a></td>
+          <td><a href="http://werkflow.werken.com/">Werkflow</a></td>
           <td>
             A Java workflow system.
           </td>
