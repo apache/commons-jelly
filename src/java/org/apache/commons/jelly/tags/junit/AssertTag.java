@@ -91,12 +91,12 @@ public class AssertTag extends AssertTagSupport {
         }
         if (test != null) {
             if (! test.evaluateAsBoolean(context)) {
-                fail( getBodyText() );
+                fail( getBodyText(), "evaluating test: "+ test );
             }
         }
         else {
             if (! xpath.evaluateAsBoolean(context)) {
-                fail( getBodyText() );
+                fail( getBodyText(), "evaluating xpath: "+ xpath );
             }
         }
 

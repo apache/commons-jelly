@@ -90,6 +90,18 @@ public abstract class AssertTagSupport extends TagSupport {
     }
     
     /**
+     * Produces a failure assertion with the given message and added detail.
+     */
+    protected void fail(String message, String detail) throws AssertionFailedError {
+        if (message == null || message.length() == 0) {
+            fail(detail);
+        }
+        else {
+            fail(message + ". Assertion failed while " + detail);
+        }
+    }
+    
+    /**
      * Produces a failure if the actual value was not equal to the expected value
      */
     protected void failNotEquals(String message, Object expected, Object actual) throws AssertionFailedError {
