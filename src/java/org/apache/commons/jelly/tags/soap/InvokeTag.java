@@ -61,6 +61,10 @@
  */
 package org.apache.commons.jelly.tags.soap;
 
+import java.util.Collection;
+
+import javax.xml.namespace.QName;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -70,8 +74,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.axis.client.Service;
 import org.apache.axis.client.Call;
-
-import javax.xml.namespace.QName;
 
 /**
  * Invokes a web service
@@ -86,6 +88,7 @@ public class InvokeTag extends TagSupport {
     private String namespace = null;
     private String method = null;
     private Service service;
+    private Object params;
     
     public InvokeTag() {
     }
@@ -102,6 +105,16 @@ public class InvokeTag extends TagSupport {
         if (method == null) {
             throw new MissingAttributeException("method");
         }
+        
+        Object[] params = getParamArray();
+        if (params == null) {
+            params = new Object[]{ getBodyText() };
+        }
+        else {
+            // invoke body just in case we have nested tags
+            invokeBody(output);
+        }
+
         Service service = getService();
         if (service == null) {
             service = createService();
@@ -113,14 +126,14 @@ public class InvokeTag extends TagSupport {
         call.setTargetEndpointAddress(new java.net.URL(endpoint));
         call.setOperationName(new QName(namespace, method));
 
-        Object ret = call.invoke(new Object[]{getBodyText()});
+        Object answer = call.invoke(params);
         
         if (var != null) {
-            context.setVariable(var, ret);
+            context.setVariable(var, answer);
         }
         else {
             // should turn the answer into XML events...
-            throw new JellyException( "Not implemented yet; should stream results as XML events. Results: " + ret );
+            throw new JellyException( "Not implemented yet; should stream results as XML events. Results: " + answer );
         }
     }
 
@@ -168,6 +181,13 @@ public class InvokeTag extends TagSupport {
         this.var = var;
     }
 
+    /**
+     * Sets the parameters for this SOAP call. This can be an array or collection of 
+     * SOAPBodyElements or types.
+     */
+    public void setParams(Object params) {
+        this.params = params;
+    }
 
     // Implementation methods
     //-------------------------------------------------------------------------
@@ -177,5 +197,24 @@ public class InvokeTag extends TagSupport {
      */
     protected Service createService() {
         return new Service();
+    }
+
+    /**
+     * Performs any type coercion on the given parameters to form an Object[]
+     * or returns null if no parameter has been specified
+     */
+    protected Object[] getParamArray() {
+        if (params == null) {
+            return null;
+        }
+        if (params instanceof Object[]) {
+            return (Object[]) params;
+        }
+        if (params instanceof Collection) {
+            Collection coll = (Collection) params;
+            return coll.toArray();
+        }
+        // lets just wrap the current object inside an array
+        return new Object[] { params };
     }
 }

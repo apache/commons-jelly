@@ -20,4 +20,15 @@
       method="getTemp">40031</soap:invoke>
       
   <log:info>Sent: 40031 and received: ${answer} of type: ${answer.class.name}</log:info>
+
+	<j:set var="x" value="${300}"/>
+	
+  <soap:invoke
+  	var="answer"
+      endpoint="http://www.xmlbus.com:9010/xmlbus/container/Converter/ConverterService/ConverterPort/"
+      namespace="urn:target-converter-service"
+      method="mmToInch"
+      params="${x.floatValue()}"/>
+      
+  <log:info>Sent: ${x} mm and received: ${answer} inches of type: ${answer.class.name}</log:info>
 </j:jelly>
