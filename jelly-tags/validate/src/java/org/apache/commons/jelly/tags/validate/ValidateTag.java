@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/ValidateTag.java,v 1.1 2003/01/06 15:46:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/06 15:46:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/ValidateTag.java,v 1.2 2003/01/26 08:44:58 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 08:44:58 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ValidateTag.java,v 1.1 2003/01/06 15:46:01 dion Exp $
+ * $Id: ValidateTag.java,v 1.2 2003/01/26 08:44:58 morgand Exp $
  */
 package org.apache.commons.jelly.tags.validate;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -80,7 +81,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The error messages are output as XML events so that they can be styled by the parent tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ValidateTag extends TagSupport {
 
@@ -95,7 +96,7 @@ public class ValidateTag extends TagSupport {
        
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {    
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {    
         if ( verifier == null ) {
             throw new MissingAttributeException("verifier");
         }
@@ -103,18 +104,24 @@ public class ValidateTag extends TagSupport {
         
         // evaluate the body using the current Verifier 
         if ( errorHandler != null ) {
-            // we are redirecting errors to another handler
-            // so just filter the body
-            VerifierFilter filter = verifier.getVerifierFilter();     
             
-            // now install the current output in the filter chain...
-            // ####
-            
-            ContentHandler handler = filter.getContentHandler();
-            handler.startDocument();
-            invokeBody( new XMLOutput( handler ) );
-            handler.endDocument();
-            valid = filter.isValid();            
+            try {
+                // we are redirecting errors to another handler
+                // so just filter the body
+                VerifierFilter filter = verifier.getVerifierFilter();     
+                
+                // now install the current output in the filter chain...
+                // ####
+                
+                ContentHandler handler = filter.getContentHandler();
+                handler.startDocument();
+                invokeBody( new XMLOutput( handler ) );
+                handler.endDocument();
+                valid = filter.isValid();
+            } 
+            catch (SAXException e) {
+                throw new JellyTagException(e);
+            }
         }
         else {
 	        // outputting the errors to the current output
@@ -134,11 +141,16 @@ public class ValidateTag extends TagSupport {
 	            }
 	        );
 	
-	        VerifierHandler handler = verifier.getVerifierHandler();     
-            handler.startDocument();
-	        invokeBody( new XMLOutput( handler ) );
-            handler.endDocument();
-            valid = handler.isValid();            
+            try {
+	            VerifierHandler handler = verifier.getVerifierHandler();     
+                handler.startDocument();
+	            invokeBody( new XMLOutput( handler ) );
+                handler.endDocument();
+                valid = handler.isValid();
+            } 
+            catch (SAXException e) {
+                throw new JellyTagException(e);
+            }
         }
         handleValid(valid);
     }
@@ -195,7 +207,7 @@ public class ValidateTag extends TagSupport {
      * Derived classes can overload this method to do different things, such 
      * as to throw assertion exceptions etc.
      */    
-    protected void handleValid(boolean valid) throws Exception {
+    protected void handleValid(boolean valid) {
         if (var != null ) {
             Boolean value = (valid) ? Boolean.TRUE : Boolean.FALSE;
             context.setVariable(var, value);

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/AssertValidTag.java,v 1.1 2003/01/06 15:46:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/06 15:46:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/AssertValidTag.java,v 1.2 2003/01/26 08:44:58 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 08:44:58 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AssertValidTag.java,v 1.1 2003/01/06 15:46:01 dion Exp $
+ * $Id: AssertValidTag.java,v 1.2 2003/01/26 08:44:58 morgand Exp $
  */
 package org.apache.commons.jelly.tags.validate;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.junit.JellyAssertionFailedError;
 
@@ -73,7 +74,7 @@ import org.xml.sax.SAXParseException;
  * JellyUnit to implement an assertion.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class AssertValidTag extends ValidateTag {
 
@@ -101,7 +102,7 @@ public class AssertValidTag extends ValidateTag {
 */    
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {    
+    public void doTag(final XMLOutput output) throws JellyTagException {    
         buffer.setLength(0);
         super.doTag(output);
     }
@@ -114,7 +115,7 @@ public class AssertValidTag extends ValidateTag {
      * Derived classes can overload this method to do different things, such 
      * as to throw assertion exceptions etc.
      */    
-    protected void handleValid(boolean valid) throws Exception {
+    protected void handleValid(boolean valid) {
         super.handleValid(valid);
         
         if ( ! valid ) {

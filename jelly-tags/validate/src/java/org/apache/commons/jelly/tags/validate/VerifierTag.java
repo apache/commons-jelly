@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/VerifierTag.java,v 1.1 2003/01/06 15:46:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/06 15:46:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/VerifierTag.java,v 1.2 2003/01/26 08:44:58 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 08:44:58 $
  *
  * ====================================================================
  *
@@ -57,27 +57,30 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: VerifierTag.java,v 1.1 2003/01/06 15:46:01 dion Exp $
+ * $Id: VerifierTag.java,v 1.2 2003/01/26 08:44:58 morgand Exp $
  */
 package org.apache.commons.jelly.tags.validate;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.IOException;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.iso_relax.verifier.Schema;
 import org.iso_relax.verifier.Verifier;
+import org.iso_relax.verifier.VerifierConfigurationException;
 import org.iso_relax.verifier.VerifierFactory;
+import org.xml.sax.SAXException;
 
 /** 
  * This tag creates a new Verifier of a schema as a variable
  * so that it can be used by a &lt;validate&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class VerifierTag extends TagSupport {
 
@@ -95,7 +98,7 @@ public class VerifierTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {    
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {    
         if ( var == null ) {
             throw new MissingAttributeException("var");
         }
@@ -107,7 +110,7 @@ public class VerifierTag extends TagSupport {
         if ( uri != null ) {
             in = context.getResourceAsStream( uri );
             if ( in == null ) {
-                throw new JellyException( "Could not find resource for uri: " + uri );
+                throw new JellyTagException( "Could not find resource for uri: " + uri );
             }
         }
         else {
@@ -116,20 +119,35 @@ public class VerifierTag extends TagSupport {
             in = new ByteArrayInputStream( text.getBytes() );
         }
 
-        Schema schema = null;
-        if (systemId != null) {
-            schema = factory.compileSchema(in, systemId);
+        Verifier verifier = null;
+        try {
+            Schema schema = null;
+            if (systemId != null) {
+                schema = factory.compileSchema(in, systemId);
+            }
+            else if ( uri != null ) {
+                schema = factory.compileSchema(in, uri);
+            }
+            else{
+                schema = factory.compileSchema(in);
+            }
+            
+            if ( schema == null ) {
+                throw new JellyTagException( "Could not create a valid schema" );
+            }
+
+            verifier = schema.newVerifier();
+        } 
+        catch (VerifierConfigurationException e) {
+            throw new JellyTagException(e);
         }
-        else if ( uri != null ) {
-            schema = factory.compileSchema(in, uri);
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (IOException e) {
+            throw new JellyTagException(e);
         }
-        else{
-            schema = factory.compileSchema(in);
-        }
-        if ( schema == null ) {
-            throw new JellyException( "Could not create a valid schema" );
-        }
-        Verifier verifier = schema.newVerifier();
+        
         context.setVariable(var, verifier);
     }
     
