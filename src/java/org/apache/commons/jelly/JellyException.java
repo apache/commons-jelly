@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.12 2002/11/28 08:35:48 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/11/28 08:35:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.13 2003/01/22 15:36:07 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2003/01/22 15:36:07 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.12 2002/11/28 08:35:48 jstrachan Exp $
+ * $Id: JellyException.java,v 1.13 2003/01/22 15:36:07 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -69,7 +69,7 @@ import java.io.PrintWriter;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 
 public class JellyException extends Exception implements LocationAware {
@@ -191,8 +191,7 @@ public class JellyException extends Exception implements LocationAware {
     
     
     public String getMessage() {
-        return super.getMessage() + " File: " + fileName + " At tag <" + elementName + ">: line: " 
-            + lineNumber + " column: " + columnNumber;
+        return fileName + ":" + lineNumber + ":" + columnNumber + ": <" + elementName + "> " + getReason();
     }
 
     public String getReason() {
