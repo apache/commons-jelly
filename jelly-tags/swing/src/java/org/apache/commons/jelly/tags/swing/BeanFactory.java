@@ -78,7 +78,11 @@ public class BeanFactory implements Factory {
     /**
      * Create a new component instance
      */    
-    public Object newInstance() throws Exception {
-        return beanClass.newInstance();
+    public Object newInstance() throws InstantiationException {
+        try {
+          return beanClass.newInstance();
+        } catch (IllegalAccessException e) {
+            throw new InstantiationException(e.toString());
+        }
     }
 }

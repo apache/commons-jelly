@@ -1,7 +1,10 @@
 package org.apache.commons.jelly.tags.swing;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.jelly.DynaBeanTagSupport;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.TagFactory;
@@ -57,22 +60,36 @@ public class ConstraintTag extends DynaBeanTagSupport {
 		this.factory = factory;
 	}
 	
-	public void createBean ( Factory factory ) throws Exception {
+	protected void createBean ( Factory factory ) throws InstantiationException {
 		bean = factory.newInstance();
 	}
 	
 	// --------------------------------------------- ATTRIBUTES
 	
-	public void beforeSetAttributes (  ) throws Exception {
-		createBean(factory);
+	public void beforeSetAttributes (  ) throws JellyException {
+		try {
+            createBean(factory);
+        } catch (InstantiationException e) {
+            throw new JellyException(e.toString());
+        }
 	}
 	
 	
-	public void setAttribute ( String name, Object value ) throws Exception {
+	public void setAttribute ( String name, Object value ) throws JellyException {
 		// no real need for DynaBeans or ?
-		if ( "var".equals(name) )
+		if ( "var".equals(name) ) {
 			var = value.toString();
-		else BeanUtils.setProperty( bean, name, value );
+		} else {
+            
+            try {
+              BeanUtils.setProperty( bean, name, value );
+            } catch (IllegalAccessException e) {
+                throw new JellyException(e.toString());
+            } catch (InvocationTargetException e) {
+                throw new JellyException(e.toString());
+            }
+            
+        }
 	}
 // --------------------------------------------------	
 	/** Children invocation... just nothing...

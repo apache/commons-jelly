@@ -73,5 +73,5 @@ public interface Factory {
     /**
      * Create a new component instance
      */    
-    Object newInstance() throws Exception;
+    Object newInstance() throws InstantiationException;
 }
