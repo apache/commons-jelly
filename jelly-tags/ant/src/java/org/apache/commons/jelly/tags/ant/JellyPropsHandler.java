@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 import org.apache.commons.grant.DefaultPropsHandler;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.expression.Expression;
 
 /** Implementation of a Commons Grant <code>propsHandler</code>
  *  to resolve through Jelly's context.
@@ -65,7 +66,14 @@ public class JellyPropsHandler extends DefaultPropsHandler {
             return null;
         }
         else {
-            return value.toString();
+            if ( value instanceof Expression )
+            {
+                return ( ( Expression ) value ).evaluateAsString( context );
+            }
+            else
+            {
+                return value.toString();
+            }
         }
     }
 
@@ -77,9 +85,9 @@ public class JellyPropsHandler extends DefaultPropsHandler {
         Hashtable h = new Hashtable();
         for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
             String name = (String) i.next();
-            Object value = this.context.getVariable(name);
-            if (name != null && value != null && value.toString() != null) {
-                h.put(name, value.toString());
+            String value = getProperty( name );
+            if (value != null) {
+                h.put(name, value);
             }
         }
         return h;
