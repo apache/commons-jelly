@@ -44,6 +44,11 @@
       <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
     </dependency>
       
-  </dependencies>
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+		</dependencies>
   
 </project>
