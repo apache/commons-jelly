@@ -20,7 +20,7 @@ some function. Here's an example action</p>
     public void setCount(int count) {
         this.count = count;
     }
-    public void run(Context context, XMLOutput output) throws Exception {
+    public void run(XMLOutput output) throws Exception {
         for ( int i = 0; i &lt; count; i++ ) {
             // evaluate body
             getBody().run( context, output );
@@ -38,6 +38,13 @@ some function. Here's an example action</p>
 via custom actions (in a similar way to JSP custom tags) as well as cleanly integrating with  scripting 
 languages such as Jexl, Velocity, pnuts, beanshell and via BSF (Bean Scripting Framework) 
 languages like JavaScript &amp; JPython</p>
+
+<p>Also notice that Jelly uses an <i>XMLOutput</i> class which extends SAX ContentHandler
+to output XML events.
+This makes Jelly ideal for XML content generation, SOAP scripting or dynamic web site generation.
+A single Jelly tag can produce, consume, filter or transform XML events. This leads to a powerful
+XML pipeline engine similar in some ways to Cocoon.
+</p>
 
 </section>
 

@@ -26,9 +26,18 @@ Jelly is completely extendable via custom tags in a similar way to JSP.
 Though Jelly is really simple and has no dependencies either Servlets or JSP.
 </p>
 
-<p>We hope Jelly can be both an XML processing and transformation engine, a HTTP 
-/ JMS / SOAP scripting engine as well as an XML based unit testing framework for 
-testing XML based applications and web services.</p>
+<p>
+Jelly is based on an XML event pipeline architecture (SAX), like Cocoon, rather than being purely text
+based like JSP and Velocity. This means that Jelly tags can consume XML events and emit them. Each
+Jelly custom tag can then act as an XML source, result or transformation.
+</p>
+
+<p>We hope Jelly can be both an XML processing and transformation engine, 
+a web and XML based scripting engine as well as a unit testing framework for 
+testing web applications and web services.
+In addition Jelly can act as a stand alone lightweight engine for running JSTL 
+scripts which can be run from the command line, inside SOAP services or from Ant.
+</p>
 
 </section>
 

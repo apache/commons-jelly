@@ -39,7 +39,7 @@
 	</target>
 	
 	<target name="maven:run-singletest">
-	  <ant antfile="${maven.home}/pluginx/test/build.xml" target="run-singletest"/>
+	  <ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
 	</target>
 	
 	<target name="maven:compile">
@@ -127,7 +127,7 @@
 	</target>
 	
 	<target name="maven:test">
-	  <ant antfile="${maven.home}/pluginx/test/build.xml" target="test"/>
+	  <ant antfile="${maven.home}/plugins/test/build.xml" target="test"/>
 	</target>
 	
 	<target name="maven:pdf">
@@ -157,4 +157,107 @@
 
   <!-- maven:end -->
 
+<!-- ========== Helper Targets ============================================ -->
+
+	<target name="clean" depends="maven:clean">
+	  <delete file="velocity.log"/>
+	</target>
+	
+	<target name="site" depends="maven:site"/>
+	
+	<target name="test" depends="maven:test"/>
+	
+<!-- ========== Sample Program Targets ==================================== -->
+
+<!--
+
+	try port this to use the new Maven dependency classpath....
+	
+   <target name="demo.all" depends="compile" 
+      description="Runs all the demo scripts inside one single script">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/run_all.jelly"/> 
+      <arg value="one"/> 
+      <arg value="two"/> 
+      <arg value="three"/> 
+    </java>
+   </target>
+
+   <target name="demo.hw" depends="compile" 
+      description="Runs the Hello World demo">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/hello_world.jelly"/> 
+    </java>
+   </target>
+
+   <target name="demo.1" depends="compile" 
+      description="Runs demo #1">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/example2.jelly"/> 
+    </java>
+   </target>
+
+   <target name="demo.2" depends="compile" 
+      description="Runs demo #2">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/testing123.jelly"/> 
+      <arg value="one"/> 
+      <arg value="two"/> 
+      <arg value="three"/> 
+    </java>
+   </target>
+
+   <target name="demo.3" depends="compile" 
+      description="Runs demo #3">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/example3.jelly"/> 
+      <arg value="one"/> 
+      <arg value="two"/> 
+      <arg value="three"/> 
+    </java>
+   </target>
+
+   <target name="demo.sysprop" depends="compile" 
+      description="Runs demo which displays system properties">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/show_properties.jelly"/> 
+    </java>
+   </target>
+
+   <target name="demo.pnuts" depends="compile, checkPNuts" 
+      description="Runs a pnuts demo which displays system properties">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/pnuts/example.jelly"/> 
+    </java>
+   </target>
+
+   <target name="demo.javascript" depends="compile, checkRhino" 
+      description="Runs a javascript demo which displays system properties">      
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/javascript/example.jelly"/> 
+    </java>
+   </target>
+
+
+   <target name="demo.sql" depends="compile" 
+      description="Runs an SQL demo">
+    <taskdef
+      name="jelly"
+      classname="org.apache.commons.jelly.task.JellyTask">
+      <classpath refid="test.classpath"/>
+    </taskdef>
+
+	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${build.home}/sqloutput.xml"/>
+	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${build.home}/sqloutput2.xml"/>	
+	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="${build.home}/sqloutput3.xml"/>	
+   </target>
+-->   
 </project>
