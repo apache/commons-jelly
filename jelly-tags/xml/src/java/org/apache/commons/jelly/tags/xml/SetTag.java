@@ -30,9 +30,10 @@ import org.jaxen.XPath;
 import org.jaxen.JaxenException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Collections;
+import java.util.ListIterator;
 
 /** A tag which defines a variable from an XPath expression.
   * This function creates a variable of type {@link List} or {@link org.dom4j.Node}
@@ -66,6 +67,8 @@ public class SetTag extends XPathTagSupport {
     private Boolean single = null;
     
     private Boolean asString = null;
+    
+    private String delimiter = null;
 
     private String delim = null;
 
@@ -86,7 +89,7 @@ public class SetTag extends XPathTagSupport {
         Object xpathContext = getXPathContext();
         Object value = null;
         try {
-            if(single!=null && single.booleanValue()==true) {
+            if( single != null && single.booleanValue() == true ) {
                 value = select.selectSingleNode(xpathContext);
             } else {
                 value = select.evaluate(xpathContext);
@@ -97,29 +100,74 @@ public class SetTag extends XPathTagSupport {
         }
         
         if (value instanceof List) {
+            List list = (List) value;
             // sort the list if xpCmp is set.
             if (xpCmp != null && (xpCmp.getXpath() != null)) {
-                Collections.sort((List)value, xpCmp);
+                Collections.sort(list, xpCmp);
+            }
+            if(list.isEmpty()) {
+                value = null;
             }
         }
+        
 
-        switch ( determineReturnType() ) {
-        case RETURN_NODE_LIST:
-            value = valueAsList(value);
-            break;
-        case RETURN_FIRST_NODE:
-            value = valueAsSingle(value);
-            break;
-        case RETURN_STRING_LIST:
-            value = nodeListToStringList(valueAsList(value));
-            break;
-        case RETURN_DELIMITED_STRING_LIST:
-            value = joinDelimitedElements(nodeListToStringList(valueAsList(value)));
-            break;
-        case RETURN_FIRST_AS_STRING:
-            value = singleValueAsString(valueAsSingle(value));
-            break;
+        // handle single
+        if (single!=null) {
+            if (single.booleanValue() == true) {
+                if(value instanceof List) {
+                    List l = (List) value;
+                    if (l.size() == 0)
+                        value=null;
+                    else
+                        value=l.get(0);
+                }
+            } else { // single == false
+                if(! (value instanceof List) ) {
+                    List l = null;
+                    if (value==null) {
+                        l = new ArrayList(0);
+                    } else {
+                        l = new ArrayList(1);
+                        l.add(value);
+                    }
+                    value = l;
+                }
+            }
         }
+        
+        // now convert the result(s) to string if need
+        if(asString != null && asString.booleanValue()) {
+            if(value instanceof Node) {
+                value = ((Node) value).getStringValue();
+            } else if(value instanceof List) {
+                for(ListIterator it = ((List) value).listIterator(); it.hasNext(); ) {
+                    Object v = it.next();
+                    if(v instanceof Node) {
+                        v = ((Node) v).getStringValue();
+                        it.set(v);
+                    }
+                }
+            }
+        }
+        
+        // finally convert the result to a concatenated string if delimiter is defined
+        if(delimiter != null && value instanceof List) {
+            StringBuffer buff = new StringBuffer();
+            for(Iterator it = ((List) value).iterator(); it.hasNext(); ) {
+                Object v = it.next();
+                if (v instanceof Node) {
+                    buff.append( ((Node) v).getStringValue());
+                } else {
+                    buff.append(v.toString());
+                }
+                if(it.hasNext()) {
+                    buff.append(delimiter);
+                }
+            }
+            buff.setLength(buff.length());
+            value = buff.toString();
+        }
+        
 
         //log.info( "Evaluated xpath: " + select + " as: " + value + " of type: " + value.getClass().getName() );
 
@@ -222,7 +270,8 @@ public class SetTag extends XPathTagSupport {
         It then guarantees that the result is of type
         {@link org.dom4j.Node} thereby making sure that, for example,
         when an element is selected, one can directly call such methods
-        as setAttribute.
+        as setAttribute.<br/>
+        If set to false, guarantees that a list is returned.
         If set to false, guarantees that a list is returned.
         */
     public void setSingle(boolean single) {
@@ -234,19 +283,21 @@ public class SetTag extends XPathTagSupport {
       * itself.
       * This ensures that, thereafter, string manipulations
       * can be performed on the result.
-      * Setting this attribute to true will also set the single
-      * attribute to true.
       */
     public void setAsString(boolean asString) {
         this.asString = new Boolean(asString);
     }
 
     /** If set, returns a string delimited by this delimiter.
-     */
+      * Implies <code>asString</code> to be true.
+      */
     public void setDelim(String delim) {
-        this.delim  = delim;
+        this.delimiter = delim;
+        if( delim!=null ) {
+            this.asString = Boolean.TRUE;
+        }
     }
-        
+
     /** Sets the xpath expression to use to sort selected nodes.
      *  Ignored if single is true.
      */
