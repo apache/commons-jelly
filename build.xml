@@ -300,6 +300,14 @@
 	
    </target>
 
+   <target name="demo.betwixt" depends="compile" 
+      description="Runs a demo using the XML tags to generate a Betwixt descriptor">
+      
+	<property name="inputFile" value="src/test/org/apache/commons/jelly/xml/betwixt/input.xml"/>	
+	<jelly file="src/test/org/apache/commons/jelly/xml/betwixt/makeBetwixt.jelly" output="target/PO.betwixt"/> 
+	
+   </target>
+
    <target name="demo.jsl" depends="compile" 
       description="Runs a simple demo of the JSL tags">
       
