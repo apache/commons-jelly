@@ -68,6 +68,9 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.Resources;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * <p>Tag handler for &lt;Update&gt; in JSTL.  
  * 
@@ -77,6 +80,9 @@ import org.apache.commons.jelly.tags.Resources;
 
 public class UpdateTag extends SqlTagSupport {
 
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(UpdateTag.class);
+    
     /*
      * Instance variables that are not for attributes
      */
@@ -143,6 +149,12 @@ public class UpdateTag extends SqlTagSupport {
             if (var != null) {
                 context.setVariable(var, new Integer(result));
             }
+
+            // lets nullify before we close in case we get exceptions
+            // while closing, we don't want to try to close again
+            Statement tempStatement = statement;
+            statement = null;
+            tempStatement.close();
         }
         catch (SQLException e) {
             throw new JellyException(sqlStatement + ": " + e.getMessage(), e);
@@ -153,14 +165,15 @@ public class UpdateTag extends SqlTagSupport {
                     statement.close();
                 }
                 catch (SQLException e) {
-                } // Not much we can do
+                    log.error("Caught exception while closing statement: " + e, e);
+                }
             }
             if (conn != null && !isPartOfTransaction) {
                 try {
                     conn.close();
                 }
                 catch (SQLException e) {
-                    // Not much we can do
+                    log.error("Caught exception while closing connection: " + e, e);
                 }
             }
             clearParameters();

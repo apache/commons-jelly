@@ -217,6 +217,15 @@ public class QueryTag extends SqlTagSupport {
             
             result = new ResultImpl(rs, startRow, maxRows);
             context.setVariable(var, result);
+            
+            // lets nullify before we close in case we get exceptions
+            // while closing, we don't want to try to close again
+            Statement tempStatement = statement;
+            statement = null;
+            tempStatement.close();
+            ResultSet tempRs = rs;
+            rs = null;
+            tempRs.close();
         }
         catch (SQLException e) {
             throw new JellyException(sqlStatement + ": " + e.getMessage(), e);
@@ -227,21 +236,24 @@ public class QueryTag extends SqlTagSupport {
                     statement.close();
                 }
                 catch (SQLException e) {
-                } // Not much we can do
+                    log.error("Caught exception while closing statement: " + e, e);
+                }
             }
             if (rs != null) {
                 try {
                     rs.close();
                 }
                 catch (SQLException e) {
-                } // Not much we can do
+                    log.error("Caught exception while closing result set: " + e, e);
+                } 
             }
             if (conn != null && !isPartOfTransaction) {
                 try {
                     conn.close();
                 }
                 catch (SQLException e) {
-                } // Not much we can do
+                    log.error("Caught exception while closing connection: " + e, e);
+                }
                 conn = null;
             }
             clearParameters();
