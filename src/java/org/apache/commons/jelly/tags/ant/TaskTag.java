@@ -65,6 +65,7 @@ import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.DynaBean;
+import org.apache.commons.beanutils.MethodUtils;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
@@ -126,18 +127,14 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
 
         String text = getBodyText();
 
-        // if the task has an addText()
-		try {
-			Method method = taskType.getMethod("addText", addTaskParamTypes);
-			if (method != null) {
-				Object[] args = { text };
-				method.invoke(task, args);
-			}
+		// if the task has an addText()
+		Method method = MethodUtils.getAccessibleMethod(
+            taskType, "addText", addTaskParamTypes
+        );            
+		if (method != null) {
+			Object[] args = { text };
+			method.invoke(task, args);
 		}
-        catch (NoSuchMethodException e) {
-            // this is hardly an exceptional case unfortunately
-            // the JDK should just return null!
-        }
         
         task.perform();   
     }
