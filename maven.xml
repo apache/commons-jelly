@@ -1,4 +1,4 @@
-<project default="java:jar" xmlns:j="jelly:core">
+<project default="java:jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven">
 
   <!-- define jelly task -->	
   <goal name="jelly-task" prereqs="java:compile, test:compile">
@@ -14,18 +14,20 @@
       classname="org.apache.commons.jelly.task.JellyTask">
       <classpath refid="test.classpath"/>
     </taskdef>    
+
   </goal>
+    
 
   <!-- copies unit testing stuff -->
   <preGoal name="test:test">
     <copy todir="target/test-classes">
       <fileset dir="src/test">
         <include name="**/*.properties"/>
+        <include name="META-INF/services/*"/>
       </fileset>
     </copy>
-    
-    
   </preGoal>
+  
   <!-- runs the XML doclet -->  
   <goal name="doclet:xml" prereqs="java:compile">
     <path id="doclet.classpath">
@@ -435,5 +437,6 @@
 	Done
   	
   </goal>
-  	          
+
+    	          
 </project>
