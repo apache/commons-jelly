@@ -386,6 +386,12 @@
     </java>
   </goal>
 	
+  <goal name="demo:embed" prereqs="jelly-task"
+    description="A sample Swing app which lets you build a personalized homepage, and uses Jelly as a templating engine">
+    <java classname="org.apache.commons.jelly.demos.HomepageBuilder" fork="yes">
+      <classpath refid="test.classpath"/>
+    </java>
+  </goal>
 
    <goal name="demo:sql" prereqs="jelly-task" 
       description="Runs an SQL demo">
