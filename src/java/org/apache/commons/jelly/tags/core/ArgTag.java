@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.4 2003/01/29 15:45:36 dion Exp $
- * $Revision: 1.4 $
- * $Date: 2003/01/29 15:45:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.5 2003/09/12 01:16:32 dion Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/09/12 01:16:32 $
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
@@ -56,7 +56,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ArgTag.java,v 1.4 2003/01/29 15:45:36 dion Exp $
+ * $Id: ArgTag.java,v 1.5 2003/09/12 01:16:32 dion Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -82,7 +82,7 @@ import org.apache.commons.jelly.XMLOutput;
  * implementation.
  *
  * @author Rodney Waldhoff
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class ArgTag extends BaseClassLoaderTag {
 
@@ -154,7 +154,18 @@ public class ArgTag extends BaseClassLoaderTag {
         }
 
         if(!isInstanceOf(klass,value)) {
-            value = convert(klass,value);
+            if (klass.equals(Class.class))
+            {
+                try {
+                    value = getClassLoader().loadClass((String) value);
+                } catch (ClassNotFoundException e) {
+                    throw new JellyTagException(e);
+                }
+            }
+            else
+            {
+                value = convert(klass,value);
+            }
         }
         
         ArgTagParent parent = (ArgTagParent)findAncestorWithClass(ArgTagParent.class);
