@@ -4,7 +4,7 @@
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <id>commons-jelly</id>
-  <currentVersion>1.0-beta-1</currentVersion>
+  <currentVersion>1.0-beta-2</currentVersion>
   
   <organization>
     <name>Apache Software Foundation</name>
@@ -130,7 +130,6 @@
     <dependency>
       <id>ant+optional</id>
       <version>1.4.1</version>
-      <jar>ant-optional-1.4.1.jar</jar>
     </dependency>
 
     <dependency>
