@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <j:jelly 
-    xmlns:j="jelly:core" xmlns:x="jelly:xml">
+    xmlns:j="jelly:core" xmlns:x="jelly:org.apache.commons.jelly.DOESNOTEXIST">
   
   <j:set var="foo" value="bar"/>
   
