@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:swt">
+
+  <shell text="This is a shell" var="shell" style="border, close, min, max, resize, title">
+		<menu style="bar">
+			<menuItem text="File" style="cascade">
+				<menu style="drop_down">
+					<menuItem text="New"/>
+					<menuItem text="Open"/>
+					<menuItem style="separator"/>
+					<menuItem text="Save"/>
+				</menu>
+			</menuItem>
+			<menuItem text="Help" style="cascade">
+				<menu style="drop_down">
+					<menuItem text="About"/>
+				</menu>
+			</menuItem>
+		</menu>  	
+
+  	<gridLayout/>
+
+		<group text="Some form">
+			<gridData style="fill_horizontal"/>
+
+			<gridLayout numColumns="2"/>
+			<label text="Hello" style="horizontal, shadow_in"/>
+			<text text="1234" editable="true">
+				<gridData style="fill_horizontal"/>
+			</text>
+		</group>
+
+		<table 
+			headerVisible="true"
+			linesVisible="true"
+			toolTipText="This is a table!" 
+			style="multi, border, full_selection">
+			
+			<gridData style="fill_both"/>
+			
+			<tableColumn text="Name" width="100" toolTipText="This is the name column"/>
+			<tableColumn text="Age" width="40" toolTipText="This is the age column"/>
+			
+			<!-- we'd normally use some Java bean model to implement the next bit -->
+			<tableItem var="row"/>
+			${row.setText(0, 'James')}
+			${row.setText(1, '33')}
+			<tableItem var="row"/>
+			${row.setText(0, 'Bob')}
+			${row.setText(1, '30')}
+		</table>
+
+  	<toolBar style="vertical">
+  		<toolItem text="ToolBar Item" toolTipText="I am a ToolBar Item that you can click"/>
+  	</toolBar>
+  </shell>
+
+	<!-- we could abstract the following away as a tag -->
+	
+	${shell.pack()}
+	${shell.open()}
+	
+	<j:set var="display" value="${shell.display}"/>
+	
+	<j:while test="${!shell.isDisposed()}">
+		<j:if test="${!display.readAndDispatch()}">
+			<j:set var="foo" value="${display.sleep()}"/>
+		</j:if>
+	</j:while>
+	${display.dispose()}
+</j:jelly>

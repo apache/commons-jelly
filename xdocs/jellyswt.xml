@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>JellySWT</title>
+    <author email="jstrachan@apache.org">James Strachan</author>
+  </properties>
+
+  <body>
+    <section name="JellySWT"> 
+      <p>
+        JellySWT is a simple Jelly library which can be used to create SWT user interfaces.
+        It allows XML documents (Jelly scripts) to be used to define the layout and rendering of SWT
+        front ends which avoids lots of mundane Java coding, using markup to define the view 
+        of your front end and allowing you to bind to Java code for the business objects and models. 
+      </p>
+      <p>
+        This mechanism uses seperation of concerns and MVC ideas from web applications, allowing the rendering
+        of your SWT front end to be easily transformed (since its XML) into different styles while leaving your
+        model and business objects untouched. It also allows different views to be constructed independently of your models.
+      </p>
+      <p>
+        There is an example JellySWT script
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swt/example.jelly?rev=HEAD">here</a>
+      </p>
+      <p>
+        To try running the example type the following command then you should see a full SWT user interface 
+        appear with pull down menus, a simple form, a table, toolbar buttons, tooltip etc.
+      </p>
+      <source>
+	maven demo:swt
+      </source>
+    </section>
+    
+    <section name="Running SWT"> 
+      <p>
+        Please be aware that SWT uses JNI and so requires a runtime library to be on your PATH for any SWT application to run.
+        You can refer to this <a href="http://eclipsewiki.swiki.net/26">FAQ</a> entry for more details.
+      </p>
+      <p>
+        For example on my windows laptop I copied the <i>swt-win32-2116.dll</i> from Eclipse into my PATH before running the examples.
+      </p>
+    </section>
+    
+    <section name="Useful SWT Links"> 
+    	<ul>
+      <li>
+        <a href="http://www.eclipse.org/documentation/html/plugins/org.eclipse.platform.doc.isv/doc/reference/api/index.html">SWT Javadoc</a> 
+        is very handy. Its mostly the widgets package thats of most interest.
+      </li>
+      <li>
+        This <a href="http://eclipsewiki.swiki.net/2">SWT Wiki</a> has lots of good examples and documentation.
+      </li>
+      <li>
+      	This <a href="http://dev.eclipse.org/viewcvs/index.cgi/%7Echeckout%7E/platform-swt-home/dev.html">page</a> also has a list of lots of little example SWT applications.
+      </li>
+    	</ul>
+    </section>
+    
+  </body>
+</document>
+
