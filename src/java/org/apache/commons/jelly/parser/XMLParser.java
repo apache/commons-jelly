@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.42 2003/01/08 19:17:27 jstrachan Exp $
- * $Revision: 1.42 $
- * $Date: 2003/01/08 19:17:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.43 2003/01/14 18:40:19 jstrachan Exp $
+ * $Revision: 1.43 $
+ * $Date: 2003/01/14 18:40:19 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.42 2003/01/08 19:17:27 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.43 2003/01/14 18:40:19 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -113,7 +113,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.42 $
+ * @version $Revision: 1.43 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -576,6 +576,19 @@ public class XMLParser extends DefaultHandler {
     public void setValidating(boolean validating) {
         this.validating = validating;
     }
+
+
+    /**
+     * Returns the script that has just been created if this class is used
+     * as a SAX ContentHandler and passed into some XML processor or parser.
+     * 
+     * @return the ScriptBlock created if SAX events are piped into this class,
+     * which must include a startDocument() and endDocument()
+     */
+    public ScriptBlock getScript() {
+        return script;
+    }
+
 
     // ContentHandler interface
     //-------------------------------------------------------------------------
@@ -1246,5 +1259,4 @@ public class XMLParser extends DefaultHandler {
     protected SAXException createSAXException(String message) {
         return createSAXException(message, null);
     }
-
 }
