@@ -77,9 +77,11 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** A tag which performs an iteration while the result of an XPath expression is true.
+/**
+ * A tag which performs an iteration while the result of an expression is true.
  *
  * @author <a href="mailto:eric@ericalexander.net">Eric Alexander</a>
+ * @author dIon Gillard
  * @version $Revision: 1.15 $
  */
 public class WhileTag extends TagSupport {
@@ -87,17 +89,23 @@ public class WhileTag extends TagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(WhileTag.class);
 
-    /**
-     * The expression to use to determine if the while should continue
-     */
+    /** The expression to use to determine if the while should continue */
     private Expression test;
 
+    /**
+     * Create a new while tag
+     */
     public WhileTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    /**
+     * Tag interface
+     * @param output destination for xml output
+     * @throws MissingAttributeException when the test attribute is missing
+     * @throws Exception for anything else
+     */
+    public void doTag(XMLOutput output) throws MissingAttributeException, 
+    Exception {
         if (test != null) {
             while (test.evaluateAsBoolean(getContext())) {
                 if (log.isDebugEnabled()) {
@@ -113,11 +121,12 @@ public class WhileTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** Setter for the expression
+    /**
+     * Setter for the expression
+     * @param e the expression to test
      */
     public void setTest(Expression e) {
         this.test = e;
     }
-
 }
 
