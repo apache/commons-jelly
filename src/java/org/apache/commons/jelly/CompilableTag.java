@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/CompilableTag.java,v 1.6 2002/10/30 19:16:26 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/10/30 19:16:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/CompilableTag.java,v 1.7 2003/01/24 01:35:05 morgand Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/01/24 01:35:05 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CompilableTag.java,v 1.6 2002/10/30 19:16:26 jstrachan Exp $
+ * $Id: CompilableTag.java,v 1.7 2003/01/24 01:35:05 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -65,7 +65,7 @@ package org.apache.commons.jelly;
 /** <p><code>Compilable</code> represents a Tag that is compilable.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 
 public interface CompilableTag {
@@ -77,6 +77,6 @@ public interface CompilableTag {
 
     // #### should this return Tag?
     
-    public void compile() throws Exception;
+    public void compile() throws JellyException;
 
 }
