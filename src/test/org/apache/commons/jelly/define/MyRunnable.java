@@ -67,7 +67,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.tools.ant.types.FileSet;
+//import org.apache.tools.ant.types.FileSet;
 
 /** 
  * An example Runnable bean that is framework neutral and just performs
@@ -91,9 +91,14 @@ public class MyRunnable implements Runnable {
     
     // Adder methods
     //-------------------------------------------------------------------------
+    /*
+    
+    Commented out method to remove test-only dependency on ant
+    
     public void addFileset(FileSet fileSet) {
         fileSets.add(fileSet);
     }
+    */
     
     // Runnable interface
     //-------------------------------------------------------------------------
