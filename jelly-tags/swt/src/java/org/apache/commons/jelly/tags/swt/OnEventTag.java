@@ -61,7 +61,7 @@
  */
 package org.apache.commons.jelly.tags.swt;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -97,7 +97,7 @@ public class OnEventTag extends TagSupport implements Listener {
     /**
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException("var");
         }
@@ -107,13 +107,13 @@ public class OnEventTag extends TagSupport implements Listener {
         
         Widget widget = getParentWidget();
         if (widget == null) {
-            throw new JellyException("This tag must be nested within a widget tag");
+            throw new JellyTagException("This tag must be nested within a widget tag");
         }
 
         
         int eventType = getEventType(type);
         if (eventType == 0) {
-            throw new JellyException("No event type specified, could not understand: " + type);
+            throw new JellyTagException("No event type specified, could not understand: " + type);
         }
         
         this.output = output;
@@ -183,7 +183,7 @@ public class OnEventTag extends TagSupport implements Listener {
      * @param type is the String event type
      * @return the SWT integer event type
      */
-    protected int getEventType(String type) throws Exception {
+    protected int getEventType(String type) throws JellyTagException {
         return SwtHelper.parseStyle(SWT.class, type, false);
     }
     
