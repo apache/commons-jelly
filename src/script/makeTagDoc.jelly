@@ -71,6 +71,10 @@
     <x:set var="prefix" select="string(@prefix)"/>
   
     <subsection name="${name}">
+    <p>
+    <jsl:style stylesheet="${docStylesheet}" select="doc"/>
+    </p>
+      
     <table>
     <tr>
       <th>Tag Name</th>
