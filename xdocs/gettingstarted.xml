@@ -11,11 +11,12 @@
 
 <section name="Getting Started">
 
+
 <p>
 The easiest way to get started with Jelly is to try out the <a href="tutorial.html">tutorials</a>.	
 Before you try out any of the tutorials, you'll need to install Maven first.
 For more details on how to install Maven please refer to the 
-<a href="http://maven.apache.org/start/index.html">Maven documentation</a>
+<a href="http://maven.apache.org/">Maven documentation</a>
 </p>
 
 <p>
@@ -34,7 +35,7 @@ Change your PATH environment variable so that it points to MAVEN_HOME/bin
 <li>
 Get a source distribution of Jelly. 
 The easiest way to do this is (until we have nightly builds working) is to grab a CVS checkout.
-Jelly currently resides in the jelly directory inside jakarta-commons-sandbox.
+Jelly currently resides in the jelly directory inside jakarta-commons.
 There are instructions on performing CVS checkouts 
 <a href="http://jakarta.apache.org/site/cvsindex.html">here</a>
 </li>
@@ -46,20 +47,41 @@ To verify that your Maven installation is working, change directory into your <i
 which should contain a <i>project.xml</i> file required by Maven. Then type
 </p>
 
-<pre>
-	maven test
-</pre>
+<source>maven jar</source>
 
 <p>
-This should download all the required jars required to build and run all the example Jelly scripts,
-compile all the code and build and run all the unit test cases. 
-</p>
-
-<p>
-Once you've got this far, it might be time to try out one of the <a href="tutorial.html">tutorials</a>	
+This should download all the required jars required to build and run the core jelly,
+compile all the code and build and run the unit test cases. 
 </p>
 
 </section>
+
+<section name="Tag-libraries">
+<p> 
+  Your next task is to choose the tag-libraries you are interested to and to
+  build them. For all of them, you can build using <code>maven jar</code>.
+  </p>
+<p>
+  Beware that some tag-libraries have dependencies that cannot be distributed
+  by the maven repository distribution for license reasons. The tag-libraries
+    <a href="libs/email/index.html">email</a>,
+    <a href="libs/soap/index.html"></a>, and
+    <a href="libs/jetty/index.html"></a>
+  are known to require such.
+  Please browse to their dependency-list in order to download the
+  named jars, rename-them, and put them at the appropriate place
+  in the maven repository. (you could also delete these directories)
+  </p>
+  <p>
+    Once all dependencies are honoured, you can also build it all using
+    <code>maven dist</code>, however, maven may become out of resources;
+    changing the environment variable MAVEN_OPTS (e.g. to -Xmx768m...) might help.
+    </p>
+<p>
+Once you've got this far, it might be time to try out one of the <a href="tutorial.html">tutorials</a>	
+</p>
+</section>
+
 
 </body>
 

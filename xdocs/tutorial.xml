@@ -70,7 +70,7 @@ The following tutorials are currently available:
 
 
 <p>
-The JellySwing demo shows how you can use Jelly (using the <a href="tags.html#jelly:jellyswing">JellySwing</a> library) to build the UI for a Swing java program.
+The JellySwing demo shows how you can use Jelly (using the <a href="libs/swing/tags.html">JellySwing</a> library) to build the UI for a Swing java program.
 </p>
 
 <p>
@@ -88,8 +88,8 @@ application using a rich set of functions and beans exposed via jelly tags.
 </p>
 
 <p>
-To run the swing demo type "maven demo:swing"
-(View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swing/example.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo script</a>). You should see a window open with
+To run the swing demo, go to directory jelly-tags/swing and  type "maven demo:swing"
+(View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/src/test/org/apache/commons/jelly/tags/swing/example.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo script</a>). You should see a window open with
 some swing components. You can test the actions by selecting a menu item or
 pressing the button. The actions in this demo simply output a message to the
 console. A more practical action could be to invoke a bean, call a script
@@ -97,11 +97,11 @@ that opens another window, etc.
 </p>
 
 <p>
-If you look at the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swing/example.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">jelly code for this demo</a>, you will see
+If you look at the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/src/test/org/apache/commons/jelly/tags/swing/example.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">jelly code for this demo</a>, you will see
 that building a UI is pretty simple. For example, a menu bar is simply:
 </p>
 
-<pre>
+<source>
     &lt;menuBar&gt;
       &lt;menu text="File"&gt;
         &lt;menuItem&gt;
@@ -112,7 +112,7 @@ that building a UI is pretty simple. For example, a menu bar is simply:
       &lt;/menu&gt;
       ... more menus/menu items
     &lt;/menuBar&gt;
-</pre>
+</source>
 
 <p>
 As you can see, nested elements are automatically added to parent components
@@ -124,12 +124,12 @@ For the table, you can see that it was added to the scrollPane using the
 "new" tag (from the jelly:core taglib):
 </p>
 
-<pre>
+<source>
     &lt;scrollPane&gt;
       &lt;j:new className="org.apache.commons.jelly.swing.MyTableModel" var="tableModel"/&gt;
       &lt;table model="${tableModel}"/&gt;
     &lt;/scrollPane&gt;
-</pre>
+</source>
 
 <p>
 The nice thing about this is that any component (or model in this case) that
@@ -145,7 +145,7 @@ The Jelly Runner is a JellySwing interface that lets you run other Jelly scripts
 </p>
 
 <p>
-To start the JellyRunner type "maven jelly:runner" (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swing/run.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>).
+To start the JellyRunner type "maven jelly:runner" (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/src/test/org/apache/commons/jelly/tags/swing/run.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>).
 </p>
 
 </subsection>
@@ -153,7 +153,7 @@ To start the JellyRunner type "maven jelly:runner" (View the <a href="http://cvs
 <subsection name="Homepage Builder (JellySwing Edition)">
 
 <p>
-This is a good chance to use the Jelly Runner. Find HomepageBuilder.jelly, which is located in /src/test/org/apache/commons/jelly/demos/ (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>).
+This is a good chance to use the Jelly Runner. Find HomepageBuilder.jelly, which is located in /src/test/org/apache/commons/jelly/demos/ (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>).
 </p>
 
 <p>
@@ -203,14 +203,14 @@ When you run the program, it will open a window where you can choose a template,
 </p>
 
 <p>
-To run the demo type "maven demo:embed" (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/demos/HomepageBuilder.java?rev=HEAD">demo source</a>).
+To run the demo type "maven demo:embed" (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/HomepageBuilder.java?rev=HEAD">demo source</a>).
 </p>
 
 <p>
 The code that actually runs Jelly is the following.
 </p>
 
-<pre>
+<source>
     OutputStream output = new FileOutputStream("demopage.html");
     JellyContext context = new JellyContext();
 
@@ -228,13 +228,13 @@ The code that actually runs Jelly is the following.
     XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
     context.runScript("src/test/org/apache/commons/jelly/demos/"+template), xmlOutput);
         xmlOutput.flush();
-</pre>
+</source>
 
 <p>
 The Jelly template looks like this:
 </p>
 
-<pre>
+<source>
    &lt;?xml version="1.0"?&gt;
    &lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:html="jelly:html"&gt;
      &lt;html&gt;
@@ -253,7 +253,7 @@ The Jelly template looks like this:
        &lt;/body&gt;
      &lt;/html&gt;
    &lt;/j:jelly&gt;
-</pre>
+</source>
 
 <p>
 As you can see, it's pretty straighforward to call a Jelly script programatically. First you need a context to run the script in. You can think of the context as the "environment" in which the script runs. The script can use and modify variables in the context however it wishes. Then you need an XML output stream where the output of the script will be sent. In some cases, like this one, the XML output is the essential product of the script. In other cases, it may just be a "byproduct" of running the script, used for logging, etc. This is the case when you are running a maven build, for example.
@@ -270,14 +270,14 @@ After you have explored this demo and its implementation, you may want to compar
 <section name="Transforming XML With JSL">
 
 <p>
-With the <a href="tags.html#jelly:jsl">JSL tag library</a>, you can transform XML documents in an XSLT-like manner.
+With the <a href="libs/jsl/tags.html">JSL tag library</a>, you can transform XML documents in an XSLT-like manner.
 </p>
 
 <p>
-To run the demo type "maven demo:jsl" (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/jsl/example.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>). The demo transforms the demo source into HTML and ouputs it to the command line, like this:
+To run the demo type "maven demo:jsl" (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/jsl/src/test/org/apache/commons/jelly/tags/jsl/example.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>). The demo transforms the demo source into HTML and ouputs it to the command line, like this:
 </p>
 
-<pre>
+<source>
    &lt;html&gt;
      &lt;body&gt;
        &lt;h1&gt;Output&lt;/h1&gt;
@@ -289,14 +289,14 @@ To run the demo type "maven demo:jsl" (View the <a href="http://cvs.apache.org/v
        &lt;/small&gt;
      &lt;/body&gt;
    &lt;/html&gt;
-</pre>
+</source>
 
 <p>
 Of course, this HTML could just as easly be going to a file or out to a browser in a HTTP response.
 </p>
 
 <p>
-If you look at the <a href="tags.html#jelly:jsl">JSL tag library</a> documentation, you'll see that the JSL taglib consists of a mere four tags: style, template, stylesheet, and applyTemplates. Since many of the standard XSLT tags are already part of other Jelly taglibs, such as forEach and choose, these are the only others we really need. Moreover, much of the power of XSLT comes with using XPath expressions, which are natively supported by Jelly.
+If you look at the <a href="libs/jsl/tags.html">JSL tag library</a> documentation, you'll see that the JSL taglib consists of a mere four tags: style, template, stylesheet, and applyTemplates. Since many of the standard XSLT tags are already part of other Jelly taglibs, such as forEach and choose, these are the only others we really need. Moreover, much of the power of XSLT comes with using XPath expressions, which are natively supported by Jelly.
 </p>
 
 <p>
@@ -310,20 +310,20 @@ There are many good books and tutorials on XSLT, and since the concepts are the 
 <section name="Parsing HTML">
 
 <p>
-This demo demonstrates the use the handy parse tag in the <A HREF="tags.html#jelly:html">HTML tag library</A>
+This demo demonstrates the use the handy parse tag in the <A HREF="libs/html/tags.html">HTML tag library</A>
 </p>
 
 <p>
-To run the demo type "maven demo:html" (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/html/example.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>).
+To run the demo type "maven demo:html" (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/html/src/test/org/apache/commons/jelly/tags/html/example.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>).
 </p>
 
 <p>
 As you can see in the demo script, parsing an HTML file is simple:
 </p>
 
-<pre>
+<source>
     &lt;html:parse var="doc" html="index.html"/&gt;
-</pre>
+</source>
 
 <p>
 Once you have parsed the document you can treat it the same way as a parsed XML document, i.e. applying JSL transformations, querying the document with XPath expressions, and so on.

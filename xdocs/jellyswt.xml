@@ -21,16 +21,14 @@
       </p>
       <p>
         There is an example JellySWT script
-        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/jelly-tags/swt/src/test/org/apache/commons/jelly/tags/swt/example.jelly?rev=HEAD">here</a>
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/swt/src/test/org/apache/commons/jelly/tags/swt/example.jelly?rev=HEAD">here</a>
       </p>
       <p>
-        To try running the example, cd into the <i>jelly/jelly-tags/swt</i> directory 
-        and then type the following command then you should see a full SWT user interface 
+        To try running the example, cd into the <i>[jelly-home]/jelly-tags/swt</i> directory 
+        and type the following command, you should see a full SWT user interface 
         appear with pull down menus, a simple form, a table, toolbar buttons, tooltip etc.
       </p>
-      <source>
-	maven demo
-      </source>
+      <source>maven demo</source>
     </section>
     
     <section name="Running SWT"> 

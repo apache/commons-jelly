@@ -124,14 +124,14 @@
         <dd>
         	Try the following code. Note that the runScript() method below is overloaded and can take a File, URL etc.
 <code>
-<pre>
+<source>
 // pass the output of the script somewhere
 Writer someWriter = new FileWriter( "output.xml" );
 XMLOutput output = XMLOutput.createXMLOutput( someWriter );
 
 // now run a script using a URL
 JellyContext context = new JellyContext();
-context.runScript( "foo.jelly", output );</pre>
+context.runScript( "foo.jelly", output );</source>
 </code>
         </dd>
       </dl>
@@ -196,7 +196,7 @@ context.runScript( "foo.jelly", output );</pre>
         </dd>
         <dd>
 <code>
-<pre>
+<source>
 &lt;j:jelly xmlns:j="jelly:core" xmlns:foo="jelly:com.acme.something.MyTagLibrary"&gt;
 
   &lt;foo:bar x="12&gt;
@@ -204,7 +204,7 @@ context.runScript( "foo.jelly", output );</pre>
   &lt;/foo:bar&gt;
 
 &lt;/j:jelly&gt;
-</pre>
+</source>
 </code>
         </dd>
         <dd>
@@ -216,7 +216,7 @@ context.runScript( "foo.jelly", output );</pre>
         </dd>
         <dd>
 <code>
-<pre>
+<source>
 &lt;j:jelly xmlns:j="jelly:core" xmlns:foo="jelly:foo"&gt;
 
   &lt;foo:bar x="12&gt;
@@ -224,7 +224,7 @@ context.runScript( "foo.jelly", output );</pre>
   &lt;/foo:bar&gt;
 
 &lt;/j:jelly&gt;
-</pre>
+</source>
 </code>
         </dd>
       </dl>
@@ -243,7 +243,7 @@ context.runScript( "foo.jelly", output );</pre>
         </dd>
         <dd>
 <code>
-<pre>
+<source>
 public class FooTag extends TagSupport {
   private String value;
 
@@ -252,25 +252,25 @@ public class FooTag extends TagSupport {
 
 
   .
-}</pre>
+}</source>
 </code>
                 </dd>
         <dd>
         Then if you were to use it like this...
 <code>
-<pre>
+<source>
   &lt;my:foo value="${customer.fullName}"/&gt;
-</pre>
+</source>
 </code>
         Then this would be equivalent in pseudocode to
 <code>
-<pre>
+<source>
 FooTag tag = FooTag();
 ...
 tag.setValue( ((Customer) context.getVariable("customer")).getFullName() );
 ...
 tag.doTag(output);
-</pre>
+</source>
 </code>
              </dd>
         <dd>
@@ -285,8 +285,7 @@ tag.doTag(output);
           For example if you want to evaluate the expression as an Iterator you can use a property
           on your Tag of type Expression so that in your Tag you can use the Expression.evaluateAsIterator()
           method. This is how the &lt;x:forEach&gt; tag currently is implemented for example.
-<code>
-<pre>
+<source>
 public class FooTag extends TagSupport {
   private Expression value;
 
@@ -298,8 +297,7 @@ public class FooTag extends TagSupport {
     Iterator iter = expression.evaluateAsIterator();
             ...
   }
-}</pre>
-</code>
+}</source>
         </dd>
       </dl>
             <dl>
@@ -314,8 +312,8 @@ public class FooTag extends TagSupport {
           a CDATA section to create a DTD.  The following Jelly script:
         </dd>
                 <dd>
-<code>
-<pre>
+
+<source>
 &lt;?xml version="1.0"?>
 
 &lt;j:file xmlns:j="jelly:core" var="foo" escapeText="false">
@@ -329,23 +327,20 @@ public class FooTag extends TagSupport {
     &lt;foo/>
     
 &lt;/j:file>
-</pre>
-</code>
+</source>
 </dd>
 <dd>
    will produce this output:
         </dd>
 <dd>
-<code>
-<pre>
+<source>
 &lt;?xml version="1.0" encoding="UTF-8"?>
 &lt;!DOCTYPE foo [
     &lt;!ELEMENT foo (#PCDATA)>
 ]>
 
 &lt;foo/>
-</pre>
-</code>
+</source>
 </dd>
       </dl>
     </section>

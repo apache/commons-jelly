@@ -21,10 +21,8 @@
       </p>
 
       <blockquote>
-        <pre>
             server: <b>irc.werken.com</b>
               port: <b>6667</b>
-        </pre>
       </blockquote>
 
       <p>
@@ -37,6 +35,7 @@
       or <code><b>#maven</b></code>.
       </p>
 
+      <!-- PL: sadly disabled archives...
       <subsection name="Logs">
         <p>
         Many of the channels hosted by The Werken Company are archived
@@ -48,7 +47,7 @@
         <a href="http://irc.werken.com/channels/jelly/">#jelly archive</a>
         </p>
       </subsection>
-      
+      -->
 
     </section>
     

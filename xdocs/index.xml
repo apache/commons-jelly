@@ -31,7 +31,7 @@ Maven or inside a Servlet, Web Service, JMS MessageListener or embedded directly
 
 <p>
 Jelly has native support for a Velocity-like expression language called
-<a href="http://jakarta.apache.org/commons/sandbox/jexl/">Jexl</a> 
+<a href="http://jakarta.apache.org/commons/jexl/">Jexl</a> 
 which is a superset of the JSP, JSTL and JSF expression languages
 as  well as support for other pluggable expression languages like XPath via 
 <a href="http://jaxen.org">Jaxen</a>, JavaScript, beanshell and Jython.
@@ -66,11 +66,11 @@ context.
 </p> 
 
 
-<pre>
+<source>
 &lt;document time="${now}"&gt;
   Welcome ${user.name} to Jelly!
 &lt;/document&gt;
-</pre>
+</source>
 
 
 <p> 
@@ -93,7 +93,7 @@ There is an Ant Tag Library which allows all Ant tasks to be used inside a Jelly
 
 <p>
 Also Jelly Tags can be defined at runtime in dynamic Jelly script using the 
-<a href="tags.html#jelly:define">define</a> tag 
+<a href="libs/define/tags.html">define</a> tag 
 library so that simple yet powerful macros can be made very easily using just Jelly script.
 </p>
 
@@ -107,7 +107,7 @@ of invokable method, like run(), invoke() or execute() then the bean will also b
 For example imagine if you had written the following bean
 </p>
 
-<pre>
+<source>
 public class MyTask {
 
     // 'doIt' method that does some function/task...
@@ -123,14 +123,14 @@ public class MyTask {
         this.y = y;
     }
 }
-</pre>
+</source>
 
 <p>
 Then you can use this bean in a script by defining a new tag library and
 then using the new tag as follows...
 </p>
 
-<pre>
+<source>
 &lt;j:jelly xmlns:j="jelly:core" xmlns:define="jelly:define" xmlns:my="myTagLib"&gt;
 
   &lt;define:taglib uri="myTagLib"&gt;
@@ -142,7 +142,7 @@ then using the new tag as follows...
   &lt;my:foo x="2" y="cheese"/&gt;
 
 &lt;/j:jelly&gt;
-</pre>
+</source>
 
 <p>
 This mechanism is kinda similar to using a &lt;taskdef&gt; in Ant except that the
@@ -214,7 +214,7 @@ Once a Jelly script is parsed, it can be cached so that whenever it is run, no X
 
 <p>
 In addition there is a tag library called the Jelly Stylesheet Library (
-<a href="tags.html#jelly:jsl">JSL</a>) for
+<a href="libs/jsl/tags.html">JSL</a>) for
 performing XSLT-style declarative processing of XML documents using a pattern match approach.
 </p>
 
@@ -229,11 +229,11 @@ body (which can contain any Jelly tags, JSTL or Ant tasks) then convert the body
 then format the results neatly as XML.
 </p>
 
-<pre>
+<source>
 &lt;babelfish:translate from="en" to="fr"&gt;
   Welcome ${user.name} to Jelly!
 &lt;/babelfish:translate&gt;
-</pre>
+</source>
 
 <p>
 A Jelly script is an XML document, which means that Jelly can process itself.

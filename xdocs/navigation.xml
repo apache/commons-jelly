@@ -2,7 +2,7 @@
 <project name="Jelly">
 
   <title>Jelly</title>
-  <organizationLogo href="/images/jakarta-logo-blue.gif">Jakarta</organizationLogo>
+  <organizationLogo href="http://jakarta.apache.org/images/jakarta-logo.gif">Jakarta</organizationLogo>
 
   <body>
     <menu name="Jelly">
@@ -14,14 +14,14 @@
       <item name="Download"                href="http://www.ibiblio.org/maven/commons-jelly/distributions/"/>
     </menu>
     <menu name="Community">
-      <item name="News Blog"			         href="http://blogs.werken.com/projects/jelly/"/>
+      <!-- <item name="News Blog"			         href="http://blogs.werken.com/projects/jelly/"/>-->
       <item name="IRC"					   				 href="/irc.html"/>
       <item name="Powered By"              href="/powered.html"/>
       <item name="To Do List"              href="/todo.html"/>
     </menu>
     <menu name="Features">
       <item name="JellyUnit"               href="/jellyunit.html"/>
-      <item name="JellySwing"              href="/jellyswing.html"/>
+      <item name="JellySwing"              href="/libs/swing/index.html"/>
       <item name="JellySWT"                href="/jellyswt.html"/>
       <item name="XML Pipeline"            href="/pipeline.html"/>
       <item name="Core Tags"               href="/tags.html"/>

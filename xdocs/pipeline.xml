@@ -76,16 +76,16 @@ or scripting languages (like JavaScript, Jython etc) as well as using other tech
 
 <ul>
 	<li>
-		parsing XML, transforming it with XSLT or using XPath via the <a href="">xml</a> library
+		parsing XML, transforming it with XSLT or using XPath via the <a href="libs/xml/tags.html">xml</a> library
 	</li>
 	<li>
-		parsing HTML via the <a href="tags.html#jelly:html">html</a> library
+		parsing HTML via the <a href="libs/html/tags.html">html</a> library
 	</li>
 	<li>
-		performing XML validation against DTD, XML Schema or RelaxNG using the <a href="tags.html#jelly:validate">validate</a> library
+		performing XML validation against DTD, XML Schema or RelaxNG using the <a href="libs/validate/tags.html">validate</a> library
 	</li>
 	<li>
-		performing SOAP operations via Apache Axis with the <a href="tags.html#jelly:soap">soap</a> library
+		performing SOAP operations via Apache Axis with the <a href="libs/soap/tags.html">soap</a> library
 	</li>
 	<li>
 		mixing and matching the processing of XML in pipelines with support for other libraries like 
@@ -98,19 +98,20 @@ It should be noted that highly complex, yet easy to use XML pipelines can be cre
 pipelines don't have to be linear. At any point in the chain, custom logic can decide what to do next.
 </p>
 
-<pre>
-  &lt;j:if test="${myBean.fooEnabled('uk')}&gt;
-    &lt;j:file name="${userdir}/results.html"&gt;
-      &lt;x:transform xslt="asHTML.xsl"&gt;
-        &lt;soap:invoke endpoint="http://com.myserver/..."&gt;
-          &lt;x:transform xslt="foo.xsl"&gt;
-            &lt;x:parse xml="${myBean.getSomeURL()}"/&gt;
-          &lt;x:transform&gt;
-        &lt;/soap:invoke&gt;
-      &lt;/x:transform&gt;
-    &lt;/j:file&gt;
-  &lt;/j:if&gt;		
-</pre>
+<source><![CDATA[
+  <j:if test="${myBean.fooEnabled('uk')}>
+    <j:file name="${userdir}/results.html">
+      <x:transform xslt="asHTML.xsl">
+        <soap:invoke endpoint="http://com.myserver/...">
+          <x:transform xslt="foo.xsl">
+            <x:parse xml="${myBean.getSomeURL()}"/>
+          <x:transform>
+        </soap:invoke>
+      </x:transform>
+    </j:file>
+  </j:if>		
+]]>
+</source>
 
 </subsection>.
 

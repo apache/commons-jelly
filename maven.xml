@@ -2,8 +2,7 @@
 
   <!-- create the lib and bin directories in the binary distro -->
   <preGoal name="dist:build">
-
-    <echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
+<echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
 
     <mkdir dir="${maven.dist.assembly.dir}/bin"/>
     <mkdir dir="${maven.dist.assembly.dir}/lib"/>
@@ -126,13 +125,9 @@
 
 
   <!-- ===================================================================== -->
-  <!-- GENERATE THE LIBRARY AND JELLYDOC DOCUMENTATION                       -->
+  <!-- GENERATE THE TAG-LIBRARY LIST                       -->
   <!-- ===================================================================== -->
   <preGoal name="xdoc:transform">
-    <!-- use a template to create the plugins home page
-       if it's an xdoc, it must be done before xdoc:transform
-       and should generate to ${maven.gen.docs}/libs/index.xml
-      -->
       
     <!-- can't pass anything into the jellydoc doclet so its hard coded to target -->      
     <mkdir dir="target"/>
@@ -173,50 +168,29 @@
   </preGoal>
 
   <preGoal name="xdoc">
-    <maven:reactor
-      basedir="${basedir}"
-      includes="jelly-tags/*/project.xml"
-      goals="jellydoc,maven-jdepend-plugin:report,maven-javadoc-plugin:report,maven-junit-report-plugin:report,maven-changelog-plugin:report,xdoc:transform"
-      banner="Generating jellydoc for"
-      ignoreFailures="false"
-    />
-
-  <!--    
-        <attainGoal name="maven-checkstyle-plugin:report"/>
-        <attainGoal name="maven-changelog-plugin:report"/>
-        <attainGoal name="maven-developer-activity-plugin:report"/>
-        <attainGoal name="maven-file-activity-plugin:report"/>
-        <attainGoal name="maven-junit-report-plugin:report"/>
-        <attainGoal name="maven-linkcheck-plugin:report"/>
-        <attainGoal name="maven-tasklist-plugin:report"/>    
-  -->        
-        
   <!--        
     This runs out of memory - have a feeling its the velocity & xdoc plugin
-    
-    <maven:reactor
+    -->
+    <!-- <maven:reactor
       basedir="${basedir}"
       includes="jelly-tags/*/project.xml"
       goals="site"
       banner="Generating site for"
       ignoreFailures="false"
-    />
-    -->
-    
+    />-->
+		<!-- PL: instead... invoke maven from the command-line directly for
+			each directory in jelly-tags. -->
+		<attainGoal name="tags:build-site-individually"/>
+		
+		<!-- then copy all the results to docs/libs -->
     <j:if test="${context.getVariable('maven.docs.dest') == null}">
       <j:set var="maven.docs.dest" value="target/docs"/>
     </j:if>
     
     <!-- create the parent directory for the docs -->
     <mkdir dir="${maven.docs.dest}/libs" />
-  
-    <!-- copy them all to ${maven.docs.dest}/libs/${plugin.id}/ -->
-    <fileScanner var="pluginProjects">
-      <fileset dir="${basedir}">
-        <include name="jelly-tags/*/project.xml" />
-      </fileset>
-    </fileScanner>
     
+    <!-- copy them all to ${maven.docs.dest}/libs/${plugin.id}/ -->
     <j:forEach items="${pluginProjects.iterator()}" var="plugin">
       <j:set var="pluginName" value="${plugin.parentFile.name}" />
       <mkdir dir="${maven.docs.dest}/libs/${pluginName}/" />
@@ -233,7 +207,49 @@
     
   </preGoal>
 
+	<goal name="tags:build-site-individually">
 
+    <fileScanner var="taglibProjects">
+      <fileset dir="${basedir}">
+        <include name="jelly-tags/*/project.xml" />
+      </fileset>
+    </fileScanner>
+			
+		<property name="mavenCmd" value="maven"/>
+		
+    <j:forEach items="${taglibProjects.iterator()}" var="taglib">
+      <j:set var="tlName" value="${taglib.parentFile.name}" />
+			<echo>Processing tablib ${tlName}.</echo>
+			<j:set var="dir" value="${basedir}/jelly-tags/${tlName}"/>
+			<uptodate property="siteIsBuilt">
+				<srcfiles dir="${dir}" excludes="target/**/*"/>
+				<mapper type="merge" to="${dir}/target/docs/index.html"/>
+				</uptodate>
+		  <echo>Tag-library ${tlname}'s site is up-to-date ? "${siteIsBuilt}"</echo>
+			<j:if test="${!siteIsBuilt}">
+				<echo>Building tag-library ${tlname}'s site.</echo>
+				<echo>Outputting navigation to ${dir}/target/generated-xdocs/navigation.xml.</echo>
+				<mkdir dir="${dir}/target/generated-xdocs"/>
+					<copy file="${basedir}/jelly-tags/tag-navigation.xml" tofile="${dir}/target/generated-xdocs/navigation.xml"
+							overwrite="true">
+						<filterchain> 
+							<replacetokens><token key="pom.name" value="jelly-${tlName}"/></replacetokens>
+							</filterchain>
+					  </copy>
+
+					<exec executable="${mavenCmd}"
+						failonerror="true" dir="${dir}">
+					<arg value="jellydoc"/>
+					<arg value="site"/>
+					<arg value="-Dmaven.xdoc.developmentProcessUrl=http://jakarta.apache.org/commons/charter.html"/>
+					<arg value="-Dmaven.xdoc.poweredby.image=maven-feather.png"/>
+					<arg value="-Dmaven.xdoc.date=left"/>
+					<arg value="-Dmaven.license.licenseFile=${basedir}/LICENSE.txt"/>
+					</exec>
+				</j:if>
+			</j:forEach>
+		
+			</goal>
 
 
   <!-- demo programs -->
@@ -286,11 +302,6 @@
     description="A private target invoked by the async demo">
     <echo>YYYY</echo>
   </goal>
-
-  <!--
-   | Disable some goals not currently working with CVS HEAD 
-   |-->
-  <goal name="maven-license-plugin:report"/>
 
 
   <!-- define the classpath used to run examples -->
