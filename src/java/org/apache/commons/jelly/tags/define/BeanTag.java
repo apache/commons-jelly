@@ -76,6 +76,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.JellyException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -136,7 +137,20 @@ public class BeanTag extends DynaBeanTagSupport {
                 methodInvocationError(bean, method, e);
             }
             catch (InvocationTargetException e) {
-                methodInvocationError(bean, method, e);
+                // methodInvocationError(bean, method, e);
+
+                Throwable inner = e.getTargetException();
+
+                inner.fillInStackTrace();
+
+                if ( inner instanceof Exception )
+                {
+                    throw (Exception) inner;
+                }
+                else
+                {
+                    throw new JellyException( inner );
+                }
             }
         }
     }
