@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.7 2002/06/26 09:24:35 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/26 09:24:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/07/06 13:53:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IfTag.java,v 1.7 2002/06/26 09:24:35 jstrachan Exp $
+ * $Id: IfTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -74,7 +74,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class IfTag extends TagSupport {
 
@@ -100,7 +100,11 @@ public class IfTag extends TagSupport {
     
     // Properties
     //-------------------------------------------------------------------------                
-    /** Sets the XPath expression to evaluate. */
+    /** Sets the Jelly expression to evaluate. If this returns true, the body of
+     * the tag is evaluated
+     *
+     * @param test the Jelly expression to evaluate
+     */
     public void setTest(Expression test) {
         this.test = test;
     }
