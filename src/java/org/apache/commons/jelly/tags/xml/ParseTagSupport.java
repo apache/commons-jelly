@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,11 +33,11 @@ import org.dom4j.io.SAXContentHandler;
 import org.dom4j.io.SAXReader;
 import org.xml.sax.SAXException;
 
-/** 
+/**
  * An abstract base class for any tag which parsers its body as XML.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public abstract class ParseTagSupport extends TagSupport {
 
@@ -46,7 +46,7 @@ public abstract class ParseTagSupport extends TagSupport {
 
     /** The variable that will be generated for the document */
     private String var;
-    
+
     /** The markup text to be parsed */
     private String text;
 
@@ -58,7 +58,7 @@ public abstract class ParseTagSupport extends TagSupport {
 
 
     // Properties
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     /** The variable name that will be used for the Document variable created
      */
     public String getVar() {
@@ -87,7 +87,7 @@ public abstract class ParseTagSupport extends TagSupport {
         this.text = text;
     }
 
-    
+
     /** @return the SAXReader used for parsing, creating one lazily if need be  */
     public SAXReader getSAXReader() throws SAXException {
         if (saxReader == null) {
@@ -100,24 +100,24 @@ public abstract class ParseTagSupport extends TagSupport {
     public void setSAXReader(SAXReader saxReader) {
         this.saxReader = saxReader;
     }
-    
+
 
     // Implementation methods
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
 
     /**
      * Factory method to create a new SAXReader
-     */    
+     */
     protected abstract SAXReader createSAXReader() throws SAXException;
-    
-    
+
+
     /**
      * Parses the body of this tag and returns the parsed document
      */
     protected Document parseBody(XMLOutput output) throws JellyTagException {
         SAXContentHandler handler = new SAXContentHandler();
         XMLOutput newOutput = new XMLOutput(handler);
-        
+
         try {
             handler.startDocument();
             invokeBody( newOutput);
@@ -127,7 +127,7 @@ public abstract class ParseTagSupport extends TagSupport {
             throw new JellyTagException(e);
         }
     }
-    
+
     /**
      * Parses the give piece of text as being markup
      */
@@ -135,13 +135,13 @@ public abstract class ParseTagSupport extends TagSupport {
         if ( log.isDebugEnabled() ) {
             log.debug( "About to parse: " + text );
         }
-        
+
         try {
             return getSAXReader().read( new StringReader( text ) );
-        } 
+        }
         catch (DocumentException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (SAXException e) {
             throw new JellyTagException(e);
         }
@@ -149,18 +149,18 @@ public abstract class ParseTagSupport extends TagSupport {
 
     /**
      * Parses the given source
-     */    
+     */
     protected Document parse(Object source) throws JellyTagException {
         // #### we should allow parsing to output XML events to
         // the output if no var is specified
-        
-        
+
+
         try {
             if (source instanceof String) {
                 String uri = (String) source;
                 source = context.getResource(uri);
             }
-            
+
             if (source instanceof URL) {
                 return getSAXReader().read((URL) source);
             }
@@ -181,13 +181,13 @@ public abstract class ParseTagSupport extends TagSupport {
                         + " with value: "
                         + source);
             }
-        } 
+        }
         catch (DocumentException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (SAXException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (MalformedURLException e) {
             throw new JellyTagException(e);
         }

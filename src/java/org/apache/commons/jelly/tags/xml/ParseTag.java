@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.dom4j.io.SAXReader;
   * xml property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class ParseTag extends ParseTagSupport {
 
@@ -51,8 +51,8 @@ public class ParseTag extends ParseTagSupport {
         if (getVar() == null) {
             throw new MissingAttributeException("The var attribute cannot be null");
         }
-        
-        Document document = getXmlDocument(output);       
+
+        Document document = getXmlDocument(output);
         context.setVariable(getVar(), document);
     }
 
@@ -92,20 +92,20 @@ public class ParseTag extends ParseTagSupport {
     protected Document getXmlDocument(XMLOutput output) throws JellyTagException {
         Document document = null;
         Object xmlObj = this.getXml();
-        
+
         if (xmlObj == null) {
             String text = getText();
             if (text != null) {
                 document = parseText(text);
             }
-            else {            
+            else {
                 document = parseBody(output);
             }
         }
         else {
             document = parse(xmlObj);
         }
-        
+
         return document;
     }
 

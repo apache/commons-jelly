@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,11 +22,11 @@ import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
-/** 
+/**
  * Evaluates the XPath expression to be a boolean and only evaluates the body
- * if the expression is true.    
+ * if the expression is true.
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class IfTag extends XPathTagSupport {
 
@@ -37,14 +37,14 @@ public class IfTag extends XPathTagSupport {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (select == null) {
             throw new MissingAttributeException( "select" );
         }
-        
+
         Object xpathContext = getXPathContext();
-        
+
         try {
             if ( select.booleanValueOf(xpathContext) ) {
                 invokeBody(output);
@@ -55,21 +55,21 @@ public class IfTag extends XPathTagSupport {
     }
 
     // Properties
-    //-------------------------------------------------------------------------   
-                 
+    //-------------------------------------------------------------------------
+
     /** Sets the XPath expression to evaluate. */
     public void setSelect(XPath select) {
         this.select = select;
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     protected Object getXPathContext() {
-        ForEachTag tag = (ForEachTag) findAncestorWithClass( ForEachTag.class );    
+        ForEachTag tag = (ForEachTag) findAncestorWithClass( ForEachTag.class );
         if ( tag != null ) {
             return tag.getXPathContext();
         }
         return null;
     }
-    
+
 }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -73,7 +73,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
   * xslt property which can be a Reader, InputStream, URL or String URI.
   *
   * @author Robert Leftwich
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class TransformTag extends ParseTag {
 
@@ -118,11 +118,11 @@ public class TransformTag extends ParseTag {
 
         // set a resolver to locate uri
         this.tf.setURIResolver(createURIResolver());
-        
+
         try {
             this.transformerHandler =
                 this.tf.newTransformerHandler(this.getObjAsSAXSource(this.getXslt()));
-        } 
+        }
         catch (TransformerConfigurationException e) {
             throw new JellyTagException(e);
         }
@@ -153,10 +153,10 @@ public class TransformTag extends ParseTag {
                 Document transformedDoc = result.getDocument();
                 this.context.setVariable(varName, transformedDoc);
             }
-        } 
+        }
         catch (SAXException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (IOException e) {
             throw new JellyTagException(e);
         }
@@ -363,18 +363,18 @@ public class TransformTag extends ParseTag {
             for (Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
                 Script script = (Script) iter.next();
                 if (script instanceof TagScript) {
-                    
+
                     Tag tag = null;
                     try {
                         tag = ((TagScript) script).getTag();
                     } catch (JellyException e) {
                         throw new JellyTagException(e);
                     }
-                    
+
                     if (tag instanceof ParamTag) {
                         script.run(context, output);
                     }
-                    
+
 
                 }
             }
@@ -385,7 +385,7 @@ public class TransformTag extends ParseTag {
       * to hide the details of where the input for the transform is obtained
       *
       * @author <a href="mailto:robert@leftwich.info">Robert Leftwich</a>
-      * @version $Revision: 1.4 $
+      * @version $Revision: 1.5 $
       */
     private class TagBodyXMLReader implements XMLReader {
 

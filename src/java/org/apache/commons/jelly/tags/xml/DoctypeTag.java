@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,13 +22,13 @@ import org.apache.commons.jelly.xpath.XPathTagSupport;
 
 import org.xml.sax.SAXException;
 
-/** 
+/**
  * A tag which outputs a DOCTYPE declaration to the current XML output pipe.
  * Note that there should only be a single DOCTYPE declaration in any XML stream and
  * it should occur before any element content.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class DoctypeTag extends XPathTagSupport {
 
@@ -40,12 +40,12 @@ public class DoctypeTag extends XPathTagSupport {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException( "name" );
         }
-        
+
         try {
             output.startDTD(name, publicId, systemId);
             invokeBody(output);
@@ -56,7 +56,7 @@ public class DoctypeTag extends XPathTagSupport {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     /**
      * Returns the name.
      * @return String
@@ -82,14 +82,14 @@ public class DoctypeTag extends XPathTagSupport {
     }
 
     /**
-     * Sets the document type name of the DOCTYPE 
+     * Sets the document type name of the DOCTYPE
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Sets the declared public identifier for DTD 
+     * Sets the declared public identifier for DTD
      */
     public void setPublicId(String publicId) {
         this.publicId = publicId;
