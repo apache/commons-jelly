@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/MessageTag.java,v 1.1 2003/01/16 16:21:46 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/MessageTag.java,v 1.1 2003/01/16 16:21:46 jstrachan Exp
  * 1.1
  * 2003/01/16 16:21:46
  *
@@ -79,7 +79,6 @@ import java.util.MissingResourceException;
  * @version 1.1
  *
  * @task decide how to implement setResponseLocale
- * @task handle trimming of key coming from body content
  */
 public class MessageTag extends TagSupport {
 	
