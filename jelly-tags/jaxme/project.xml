@@ -60,6 +60,11 @@
     
 
     <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <groupId>commons-jelly</groupId>
       <version>SNAPSHOT</version>

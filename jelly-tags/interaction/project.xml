@@ -35,6 +35,11 @@
     
   <dependencies>
   
-  </dependencies>
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+		</dependencies>
   
 </project>

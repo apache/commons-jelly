@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../commonDependencies.ent">
+]>
 <!--
   Copyright 2002-2004 The Apache Software Foundation
 
@@ -234,24 +238,11 @@
   </contributors>
     
   <dependencies>
-    <!-- 
-      the common Maven dependencies for Jelly shared by the core
-      build and all individual taglib builds.  Use this
-      file to keep all dependency versions in sync.
-      Does not include CLI (Command Line Interface).
-    -->
-    <dependency>
-      <id>commons-jelly</id>
-      <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/</url>
-      <properties>
-        <classloader>root.maven</classloader>
-      </properties>
-    </dependency>
+ 
     
     <dependency>
       <id>commons-jexl</id>
-      <version>1.0-beta-1</version>
+      <version>SNAPSHOT</version>
     </dependency>
     
     <dependency>
@@ -271,19 +262,23 @@
     
     <dependency>
       <id>commons-logging</id>
-      <version>1.0</version>
+      <version>1.0.3</version>
     </dependency>
     
     <dependency>
       <id>dom4j</id>
-      <version>1.4</version>
+      <version>1.5-beta-2</version>
+    </dependency>
+
+    <dependency>
+      <id>jaxen</id>
+      <version>1.1-beta-2</version>
     </dependency>
 
     <dependency>
       <id>xerces</id>
       <version>2.2.1</version>
     </dependency>
-
   </dependencies>
   
   <build>

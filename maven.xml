@@ -14,7 +14,7 @@
   limitations under the License.
 -->
 
-<project default="jar:jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util">
+<project default="jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util">
 
   <!-- create the lib and bin directories in the binary distro -->
   <preGoal name="dist:build">

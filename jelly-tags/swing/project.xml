@@ -40,6 +40,11 @@
   
     
   
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
     <!-- START for test -->
     <dependency>
       <groupId>commons-jelly</groupId>
