@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestNonexistentTags.java,v 1.1 2003/01/23 22:25:01 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/23 22:25:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestNonexistentTags.java,v 1.2 2003/01/24 02:22:59 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/24 02:22:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestNonexistentTags.java,v 1.1 2003/01/23 22:25:01 morgand Exp $
+ * $Id: TestNonexistentTags.java,v 1.2 2003/01/24 02:22:59 morgand Exp $
  */
  
 package org.apache.commons.jelly.test.xml;
@@ -70,6 +70,7 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.xml.sax.SAXParseException;
@@ -79,7 +80,7 @@ import org.xml.sax.SAXParseException;
  * that do not exist
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TestNonexistentTags extends TestCase {
      Jelly jelly = null;
@@ -118,8 +119,8 @@ public class TestNonexistentTags extends TestCase {
         setUp("nonexistentTags1.jelly");
         try {
             Script script = jelly.compileScript();
-            fail("Scripts should throw SAXParseException when it declares a nonexistent tag.");
-        } catch (SAXParseException e) {
+            fail("Scripts should throw JellyException when it declares a nonexistent tag.");
+        } catch (JellyException e) {
         }
     }
     

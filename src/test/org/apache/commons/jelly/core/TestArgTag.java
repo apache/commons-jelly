@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestArgTag.java,v 1.1 2002/11/30 07:41:21 rwaldhoff Exp $
- * $Revision: 1.1 $
- * $Date: 2002/11/30 07:41:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestArgTag.java,v 1.2 2003/01/24 02:22:59 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/24 02:22:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestArgTag.java,v 1.1 2002/11/30 07:41:21 rwaldhoff Exp $
+ * $Id: TestArgTag.java,v 1.2 2003/01/24 02:22:59 morgand Exp $
  */
 package org.apache.commons.jelly.core;
 
@@ -76,7 +76,7 @@ import org.apache.commons.jelly.tags.core.ArgTagParent;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.1 $ $Date: 2002/11/30 07:41:21 $
+ * @version $Revision: 1.2 $ $Date: 2003/01/24 02:22:59 $
  */
 public class TestArgTag extends BaseJellyTest {
 
@@ -265,7 +265,7 @@ public class TestArgTag extends BaseJellyTest {
     }
     
     class MockScript implements Script {
-        public Script compile() throws Exception {
+        public Script compile() throws JellyException {
             return this;
         }
 

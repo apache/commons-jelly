@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.9 2002/12/11 12:40:55 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/12/11 12:40:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.10 2003/01/24 02:22:59 morgand Exp $
+ * $Revision: 1.10 $
+ * $Date: 2003/01/24 02:22:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptBlock.java,v 1.9 2002/12/11 12:40:55 jstrachan Exp $
+ * $Id: ScriptBlock.java,v 1.10 2003/01/24 02:22:59 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -66,13 +66,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 public class ScriptBlock implements Script {
 
@@ -106,7 +107,7 @@ public class ScriptBlock implements Script {
 
     // Script interface
     //-------------------------------------------------------------------------                    
-    public Script compile() throws Exception {
+    public Script compile() throws JellyException {
         int size = list.size();
         if (size == 1) {
             Script script = (Script) list.get(0);

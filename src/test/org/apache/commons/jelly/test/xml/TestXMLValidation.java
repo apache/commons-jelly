@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestXMLValidation.java,v 1.4 2002/12/11 12:40:58 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/12/11 12:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestXMLValidation.java,v 1.5 2003/01/24 02:22:59 morgand Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/01/24 02:22:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLValidation.java,v 1.4 2002/12/11 12:40:58 jstrachan Exp $
+ * $Id: TestXMLValidation.java,v 1.5 2003/01/24 02:22:59 morgand Exp $
  */
 package org.apache.commons.jelly.test.xml;
 
@@ -69,6 +69,7 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.xml.sax.SAXParseException;
@@ -78,7 +79,7 @@ import org.xml.sax.SAXParseException;
  * reject iff jelly.setValidateXML(true)
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class TestXMLValidation extends TestCase {
 
@@ -134,8 +135,8 @@ public class TestXMLValidation extends TestCase {
         jelly.setValidateXML(true);
         try {
             Script script = jelly.compileScript();
-            fail("Invalid scripts should throw SAXParseException on parse");
-        } catch (SAXParseException e) {
+            fail("Invalid scripts should throw JellyException on parse");
+        } catch (JellyException e) {
         }
     }
 

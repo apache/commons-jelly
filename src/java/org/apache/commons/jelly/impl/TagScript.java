@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.31 2002/12/19 10:50:22 jstrachan Exp $
- * $Revision: 1.31 $
- * $Date: 2002/12/19 10:50:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.32 2003/01/24 02:22:59 morgand Exp $
+ * $Revision: 1.32 $
+ * $Date: 2003/01/24 02:22:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.31 2002/12/19 10:50:22 jstrachan Exp $
+ * $Id: TagScript.java,v 1.32 2003/01/24 02:22:59 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -96,7 +96,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.31 $
+ * @version $Revision: 1.32 $
  */
 public class TagScript implements Script {
 
@@ -176,7 +176,7 @@ public class TagScript implements Script {
     /**
      * Compiles the tags body
      */
-    public Script compile() throws Exception {
+    public Script compile() throws JellyException {
         if (tagBody != null) {
             tagBody = tagBody.compile();
         }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.25 2003/01/24 02:03:40 morgand Exp $
- * $Revision: 1.25 $
- * $Date: 2003/01/24 02:03:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.26 2003/01/24 02:22:59 morgand Exp $
+ * $Revision: 1.26 $
+ * $Date: 2003/01/24 02:22:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.25 2003/01/24 02:03:40 morgand Exp $
+ * $Id: Jelly.java,v 1.26 2003/01/24 02:22:59 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -76,6 +76,8 @@ import org.apache.commons.jelly.util.CommandLineParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.xml.sax.SAXException;
+
 /** 
  * <p><code>Jelly</code> is a helper class which is capable of
  * running a Jelly script. This class can be used from the command line
@@ -86,7 +88,7 @@ import org.apache.commons.logging.LogFactory;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.25 $
+ * @version $Revision: 1.26 $
  */
 public class Jelly {
     
@@ -149,21 +151,34 @@ public class Jelly {
     /**
      * Compiles the script
      */
-    public Script compileScript() throws Exception {
+    public Script compileScript() throws JellyException {
         if (! loadedProperties) {
             loadedProperties = true;
             loadJellyProperties();
         }
         
         XMLParser parser = new XMLParser();
-        parser.setContext(getJellyContext());
-        parser.setDefaultNamespaceURI(this.defaultNamespaceURI);
-        parser.setValidating(this.validateXML);
-        Script script = parser.parse(getUrl());
-        script = script.compile();
-        if (log.isDebugEnabled()) {
-            log.debug("Compiled script: " + getUrl());
+        try {
+            parser.setContext(getJellyContext());
+        } catch (MalformedURLException e) {
+            throw new JellyException(e.toString());
         }
+        
+        Script script = null;
+        try {
+            parser.setDefaultNamespaceURI(this.defaultNamespaceURI);
+            parser.setValidating(this.validateXML);
+            script = parser.parse(getUrl());
+            script = script.compile();
+            if (log.isDebugEnabled()) {
+               log.debug("Compiled script: " + getUrl());
+            }
+        } catch (IOException e) {
+            throw new JellyException("could not parse Jelly script",e);
+        } catch (SAXException e) {
+            throw new JellyException("could not parse Jelly script",e);
+        }
+        
         return script;
     }
 
