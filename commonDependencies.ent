@@ -17,13 +17,7 @@
     
     <dependency>
       <id>commons-beanutils</id>
-      <!-- 
-        Jelly now depends on a version of beanutils that includes ConstructorUtils
-        (e.g., nightly builds from 
-              http://jakarta.apache.org/builds/jakarta-commons/nightly/commons-beanutils/
-        dated 2002-11-27 or later)
-      -->
-      <version>SNAPSHOT</version>
+      <version>1.6</version>
     </dependency>
     
     <dependency>

@@ -2,6 +2,8 @@
 
 <project default="jar" name="commons-jelly-build-all" basedir=".">
 
+  <property name="libdir" value="target/lib"/>
+
   <!-- 
     Documentation:
     
@@ -99,11 +101,6 @@
     <antcall target="subant">
       <param name="sub.target" value="clean"/>
     </antcall>
-    <!-- hopefully a placeholder until maven uses target/lib instead of lib -->
-    <delete dir="lib"/>
-    <delete>
-      <fileset dir="jelly-tags" includes="*/lib/"/>
-    </delete>
   </target>
   
   <target name="ant">
@@ -331,16 +328,16 @@
     <ant dir="jelly-tags/${sub.taglib}" target="get-deps"/>
     
     <delete>
-      <fileset dir="jelly-tags/${sub.taglib}/lib" includes="commons-jelly-*"/>
+      <fileset dir="jelly-tags/${sub.taglib}/${libdir}" includes="commons-jelly-*"/>
     </delete>
-    <copy todir="jelly-tags/${sub.taglib}/lib">
+    <copy todir="jelly-tags/${sub.taglib}/${libdir}">
       <fileset dir="target" includes="commons-jelly-*.jar"/>
     </copy>
   </target>
   
   <!-- don't call directly, called inside jar-* tasks -->
   <target name="get-ext-taglibs">
-    <copy todir="jelly-tags/${sub.taglib}/lib" flatten="true">
+    <copy todir="jelly-tags/${sub.taglib}/${libdir}" flatten="true">
       <fileset dir="." includes="jelly-tags/*/target/commons-jelly-*.jar"/>
     </copy>
   </target>
