@@ -168,10 +168,14 @@ public class JellyContext {
         this.rootURL = rootURL;
     }
 
-    private void init() {
-        variables.put("context", this);
-        variables.put("systemScope", System.getProperties());
-    }    
+	private void init() {
+		variables.put("context",this);
+		try {
+			variables.put("systemScope", System.getProperties() );
+		} catch (SecurityException e) {
+			// ignore security exceptions
+		}
+	}
     
     /**
      * @return the parent context for this context
