@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyTagException.java,v 1.1 2003/01/24 01:57:55 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/24 01:57:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyTagException.java,v 1.2 2003/01/24 18:12:54 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/24 18:12:54 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyTagException.java,v 1.1 2003/01/24 01:57:55 morgand Exp $
+ * $Id: JellyTagException.java,v 1.2 2003/01/24 18:12:54 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -67,9 +67,36 @@ package org.apache.commons.jelly;
  * implementation.</p>
  *
  * @author <a href="mailto:morgand@apache.org">Morgan Delagrange</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 
 public class JellyTagException extends JellyException {
+    
+    public JellyTagException() {
+    }
+
+    public JellyTagException(String message) {
+        super(message);
+    }
+
+    public JellyTagException(String message, Throwable cause) {
+        super(message,cause);
+    }
+    
+    public JellyTagException(Throwable cause) {
+        super(cause);
+    }
+    
+    public JellyTagException(Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
+        super(cause, fileName, elementName, columnNumber, lineNumber);
+    }
+    
+    public JellyTagException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
+        super(reason,cause,fileName,elementName,columnNumber,lineNumber);
+    }
+    
+    public JellyTagException(String reason, String fileName, String elementName, int columnNumber, int lineNumber) {
+        super(reason,fileName,elementName,columnNumber,lineNumber);
+    }
     
 }
