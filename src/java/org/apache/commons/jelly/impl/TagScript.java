@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.26 2002/11/08 18:27:51 jstrachan Exp $
- * $Revision: 1.26 $
- * $Date: 2002/11/08 18:27:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.27 2002/11/10 11:09:05 vmassol Exp $
+ * $Revision: 1.27 $
+ * $Date: 2002/11/10 11:09:05 $
  *
  * ====================================================================
  *
@@ -57,20 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.26 2002/11/08 18:27:51 jstrachan Exp $
+ * $Id: TagScript.java,v 1.27 2002/11/10 11:09:05 vmassol Exp $
  */
 package org.apache.commons.jelly.impl;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
-import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
@@ -102,7 +95,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.26 $
+ * @version $Revision: 1.27 $
  */
 public class TagScript implements Script {
 
@@ -451,8 +444,10 @@ public class TagScript implements Script {
 	 * Returns the namespace context of this tag. This is all the prefixes
 	 * in scope in the document where this tag is used which are mapped to
 	 * their namespace URIs.
-	 * 	 * @return a Map with the keys are namespace prefixes and the values are
-	 * namespace URIs.	 */
+	 * 
+	 * @return a Map with the keys are namespace prefixes and the values are
+	 * namespace URIs.
+	 */
 	public synchronized Map getNamespaceContext() {
 		if (namespaceContext == null) {
 			if (parent != null) {
