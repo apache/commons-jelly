@@ -1,10 +1,7 @@
 <?xml version="1.0"?>
-
 <!-- defines a new taglib of babelfish soap services -->
-
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:define="jelly:define" xmlns:http="notImplementedYet">
-  <define:taglib uri="jelly:babelfish">
-  
+  <define:taglib uri="jelly:babelfish">  
     <!-- defines the <translate> tag                                            -->
     <!-- notice how the 'from' and 'to' attributes are available as variables   -->
     <!-- and the body of the <translate> tag is invoked via <define:invokeBody> -->
@@ -29,5 +26,4 @@
       </http:post>
     </define:tag>
     
-  </define:taglib>    
-</j:jelly>
+  </define:taglib>    </j:jelly>
