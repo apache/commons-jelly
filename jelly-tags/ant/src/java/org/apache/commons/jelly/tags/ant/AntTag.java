@@ -68,14 +68,15 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.MethodUtils;
+import org.apache.commons.beanutils.PropertyUtils;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.MethodUtils;
-import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.jelly.impl.StaticTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -229,23 +230,41 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 }
                 catch (Exception e) {
                 }
+
+                // now lets invoke the body
+                String body = getBodyText();
+    
+                // now lets set any attributes of this tag...
+                setBeanProperties();
+    
+                // now lets add it to its parent
+                if ( parentObject != null ) {
+                    IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );
+                    try {
+                        ih.storeElement( project, parentObject, nested, tagName );
+                    }
+                    catch (Exception e) {
+                        //log.warn( "Caught exception setting nested: " + tagName, e );
+                    }
+                }
             }
-
-            // now lets invoke the body
-            String body = getBodyText();
-
-            // now lets set any attributes of this tag...
-            setBeanProperties();
-
-            // now lets add it to its parent
-            if ( parentObject != null ) {
-                IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );
-                try {
-                    ih.storeElement( project, parentObject, nested, tagName );
+            else {
+                // lets treat this tag as static XML...                
+                StaticTag tag = new StaticTag("", tagName, tagName);
+                tag.setParent( getParent() );
+                tag.setBody( getBody() );
+    
+                tag.setContext(context);
+        
+                for (Iterator iter = getAttributes().entrySet().iterator(); iter.hasNext();) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String name = (String) entry.getKey();
+                    Object value = entry.getValue();
+        
+                    tag.setAttribute(name, value);
                 }
-                catch (Exception e) {
-                    //log.warn( "Caught exception setting nested: " + tagName, e );
-                }
+            
+                tag.doTag(output);
             }
         }
     }
@@ -290,13 +309,13 @@ public class AntTag extends MapTagSupport implements TaskSource {
     public void setBeanProperties() throws Exception {
         Object object = getTaskObject();
         if ( object != null ) {
-        Map map = getAttributes();
-        for ( Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String name = (String) entry.getKey();
-            Object value = entry.getValue();
-            setBeanProperty( object, name, value );
-        }
+            Map map = getAttributes();
+            for ( Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                String name = (String) entry.getKey();
+                Object value = entry.getValue();
+                setBeanProperty( object, name, value );
+            }
         }
     }
 
