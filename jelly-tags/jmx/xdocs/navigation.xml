@@ -19,15 +19,16 @@
   <title>JellyMBean</title>
 
   <body>
-		<links>
-      <item name="Jelly" 							href="http://jakarta.apache.org/commons/jelly/"/>
-      <item name="Commons Modeler"		href="http://jakarta.apache.org/commons/modeler.html"/>
-      <item name="JBoss" 							href="http://jboss.org/"/>
-      <item name="mx4j"  							href="http://mx4j.sourceforge.net/"/>
-		</links>
-		
+    <links>
+      <item name="Jelly"               href="http://jakarta.apache.org/commons/jelly/"/>
+      <item name="Commons Modeler"     href="http://jakarta.apache.org/commons/modeler/"/>
+      <item name="JBoss"               href="http://jboss.org/"/>
+      <item name="mx4j"                href="http://mx4j.sourceforge.net/"/>
+    </links>
+    
     <menu name="JellyMBean">
-      <item name="Home"                href="index.html"/>
+      <item name="Overview"            href="index.html"/>
+      <item name="Tags"                href="tags.html"/>
     </menu>
   </body>
 </project>
