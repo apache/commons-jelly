@@ -172,6 +172,6 @@ public class TestSwingTags extends BaseJellyTest {
      * @return true if we are running with AWT present
      */
     private boolean isAWTAvailable() {
-        return Boolean.getBoolean("java.awt.headless");
+        return !Boolean.getBoolean("java.awt.headless");
     }
 }
