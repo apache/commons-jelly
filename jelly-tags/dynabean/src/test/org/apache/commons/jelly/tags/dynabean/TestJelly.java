@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
- * $Revision: 1.8 $
- * $Date: 2002/07/06 13:53:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/test/org/apache/commons/jelly/tags/dynabean/TestJelly.java,v 1.1 2003/01/15 15:18:32 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 15:18:32 $
  *
  * ====================================================================
  *
@@ -57,9 +57,9 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: TestJelly.java,v 1.1 2003/01/15 15:18:32 dion Exp $
  */
-package org.apache.commons.jelly.dynabean;
+package org.apache.commons.jelly.tags.dynabean;
 
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
@@ -70,7 +70,7 @@ import org.apache.commons.jelly.tags.junit.JellyTestSuite;
  * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
 public class TestJelly extends JellyTestSuite {
 

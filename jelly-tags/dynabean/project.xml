@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-dynabean</id>
+  <name>commons-jelly-tags-dynabean</name>
+
+  <package>org.apache.commons.jelly.tags.dynabean</package>
+
+  <description>
+  	 The Jelly DynaBean Tag Library
+  </description>
+  <shortDescription>Commons Jelly Dyna Bean Tag Library</shortDescription>
+  
+  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/dynabean/</url>
+
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/dynabean/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/dynabean</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/dynabean/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/dynabean/</url>
+  </repository>
+  
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+      
+    <!-- END for compilation -->
+    
+  </dependencies>
+  
+</project>

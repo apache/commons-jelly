@@ -1,7 +1,7 @@
 /*
- * $Header:  $
- * $Revision: 1.0 $
- * $Date:  $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/SetTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 15:18:32 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id:  $
+ * $Id: SetTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
  */
 package org.apache.commons.jelly.tags.dynabean;
 

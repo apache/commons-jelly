@@ -1,7 +1,7 @@
 /*
- * $Header:  $
- * $Revision: 1.0 $
- * $Date:  $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 15:18:32 $
  *
  * ====================================================================
  *
@@ -57,57 +57,84 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id:  $
+ * $Id: DynaclassTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
  */
 package org.apache.commons.jelly.tags.dynabean;
 
-import org.apache.commons.beanutils.DynaBean;
+import java.util.ArrayList;
+
+import org.apache.commons.beanutils.BasicDynaClass;
 import org.apache.commons.beanutils.DynaClass;
+import org.apache.commons.beanutils.DynaProperty;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
+/**
+ * A tag which creates and defines and creates a DynaClass
+ * The DynaClass object is placed by name in the context,
+ * so that a DynaBean tag can use it by name to instantiate
+ * a DynaBean object
+ *
+ * @author Theo Niemeijer
+ * @version 1.0
+ */
+public class DynaclassTag extends TagSupport {
 
-/** A tag which conditionally evaluates its body based on some condition
-  *
-  * @author Theo Niemeijer
-  * @version $Revision: 1.6 $
-  */
-public class DynabeanTag extends TagSupport {
+    private ArrayList propList = new ArrayList();
+    private DynaProperty[] props = null;
+    private DynaClass dynaClass = null;
 
-    private DynaClass dynaClass;
+    private String name;
     private String var;
 
-    public DynabeanTag() {
+    public DynaclassTag() {
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws Exception {
 
-        if (dynaClass == null) {
-            throw new MissingAttributeException( "dynaclass" );
+        if (name == null) {
+            throw new MissingAttributeException("name");
         }
 
         if (var == null) {
-            throw new MissingAttributeException( "var" );
+            var = name;
         }
 
-        // Create dynabean instance for this dynaclass
-        DynaBean dynaBean = dynaClass.newInstance();
+        // Evaluate the body of the dynaclass definition
+        invokeBody(output);
 
-        // Place new dynabean in context as a variable
-        context.setVariable(getVar(), dynaBean);
+        // Convert the list of properties into array
+        props =
+            (DynaProperty[]) propList.toArray(
+                new DynaProperty[propList.size()]);
+
+        if (props == null) {
+            throw new JellyException("No properties list");
+        }
+
+        if (props.length == 0) {
+            throw new JellyException("No properties");
+        }
+
+        // Create the dynaclass with name and properties
+        dynaClass = (DynaClass) new BasicDynaClass(name, null, props);
+
+        // Place new dynaclass in context
+        context.setVariable(getVar(), dynaClass);
     }
 
     // Properties
     //-------------------------------------------------------------------------
     
     /**
-     * Sets the DynaClass of the new instance to create
+     * Sets the name of the new DynaClass 
      */
-    public void setDynaclass(DynaClass dynaClass) {
-        this.dynaClass = dynaClass;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getVar() {
@@ -115,11 +142,13 @@ public class DynabeanTag extends TagSupport {
     }
 
     /**
-     * Sets the name of the variable to export the new DynaBean instance to
+     * Sets the name of the variable to export the DynaClass instance
      */
     public void setVar(String var) {
         this.var = var;
     }
 
-
+    protected void addDynaProperty(DynaProperty prop) {
+        propList.add(prop);
+    }
 }
