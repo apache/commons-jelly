@@ -164,17 +164,17 @@ public abstract class ParseTagSupport extends TagSupport {
         
         if (source instanceof String) {
             String uri = (String) source;
-            InputStream in = context.getResourceAsStream(uri);
-            return getSAXReader().read(in, uri);
+            source = context.getResource(uri);
+        }
+        
+        if (source instanceof URL) {
+            return getSAXReader().read((URL) source);
         }
         else if (source instanceof Reader) {
             return getSAXReader().read((Reader) source);
         }
         else if (source instanceof InputStream) {
             return getSAXReader().read((InputStream) source);
-        }
-        else if (source instanceof URL) {
-            return getSAXReader().read((URL) source);
         }
         else {
             throw new IllegalArgumentException(
