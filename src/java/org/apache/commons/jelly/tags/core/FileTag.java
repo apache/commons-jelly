@@ -67,10 +67,10 @@ import java.io.Writer;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.util.SafeContentHandler;
 import org.dom4j.io.HTMLWriter;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-
 import org.xml.sax.SAXException;
 
 /** 
@@ -199,6 +199,10 @@ public class FileTag extends TagSupport {
 
         XMLOutput newOutput = createXMLOutput(writer);
         try {
+            // we need to avoid multiple start/end document events
+            newOutput.setContentHandler(
+            	new SafeContentHandler(newOutput.getContentHandler())
+            );
             newOutput.startDocument();
             invokeBody(newOutput);
             newOutput.endDocument();
