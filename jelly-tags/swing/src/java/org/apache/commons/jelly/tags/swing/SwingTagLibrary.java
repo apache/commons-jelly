@@ -110,10 +110,10 @@ public class SwingTagLibrary extends TagLibrary {
                 return new TagScript(
                     new TagFactory() {
                         public Tag createTag(String name, Attributes attributes) throws JellyException {
-							if ( factory instanceof TagFactory ) {
-								return ((TagFactory) factory).createTag(name, attributes);
+                            if ( factory instanceof TagFactory ) {
+                                return ((TagFactory) factory).createTag(name, attributes);
                             }
-							else {
+                            else {
                                 return new ComponentTag(factory);
                             }
                         }
@@ -139,14 +139,14 @@ public class SwingTagLibrary extends TagLibrary {
      */
     protected void registerFactories() {
         registerBeanFactory( "button", JButton.class );
-		registerBeanFactory( "buttonGroup", ButtonGroup.class );        
+        registerBeanFactory( "buttonGroup", ButtonGroup.class );        
         registerBeanFactory( "checkBox", JCheckBox.class );
         registerBeanFactory( "checkBoxMenuItem", JCheckBoxMenuItem.class );
         registerBeanFactory( "comboBox", JComboBox.class );
-					// how to add content there ?
-					// Have a ComboBoxModel (just one should have a Table or Tree Model objects) ?
-					// can the element control it's children ?
-					// but children should also be able to be any component (as Swing comps. are all container)
+        // how to add content there ?
+        // Have a ComboBoxModel (just one should have a Table or Tree Model objects) ?
+        // can the element control it's children ?
+        // but children should also be able to be any component (as Swing comps. are all container)
         registerBeanFactory( "desktopPane", JDesktopPane.class );
         registerBeanFactory( "editorPane", JEditorPane.class );
         registerBeanFactory( "fileChooser", JFileChooser.class );
@@ -160,7 +160,7 @@ public class SwingTagLibrary extends TagLibrary {
         registerBeanFactory( "panel", JPanel.class );        
         registerBeanFactory( "passwordField", JPasswordField.class );        
         registerBeanFactory( "popupMenu", JPopupMenu.class );        
-		registerBeanFactory( "progressBar", JProgressBar.class );                
+        registerBeanFactory( "progressBar", JProgressBar.class );                
         registerBeanFactory( "radioButton", JRadioButton.class );        
         registerBeanFactory( "radioButtonMenuItem", JRadioButtonMenuItem.class );        
         registerBeanFactory( "optionPane", JOptionPane.class );
