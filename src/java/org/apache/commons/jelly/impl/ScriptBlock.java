@@ -28,16 +28,22 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.15 $
+  * @version $Revision: 1.16 $
   */
 public class ScriptBlock implements Script {
 
     /** The list of scripts */
     private List list = new ArrayList();
 
+    /**
+     * Create a new instance.
+     */
     public ScriptBlock() {
     }
 
+    /**
+     * @see Object#toString()
+     */
     public String toString() {
         return super.toString() + "[scripts=" + list + "]";
     }
@@ -87,6 +93,28 @@ public class ScriptBlock implements Script {
         for (Iterator iter = list.iterator(); iter.hasNext(); ) {
             Script script = (Script) iter.next();
             script.run(context, output);
+        }
+    }
+    
+    /**
+     * Trim the body of the script.
+     * In this case, trim all elements, removing any that are empty text.
+     */
+    public void trimWhitespace() {
+        List list = getScriptList();
+        for ( int i = list.size() - 1; i >= 0; i-- ) {
+            Script script = (Script) list.get(i);
+            if ( script instanceof TextScript ) {
+                TextScript textScript = (TextScript) script;
+                String text = textScript.getText();
+                text = text.trim();
+                if ( text.length() == 0 ) {
+                    list.remove(i);
+                }
+                else {
+                    textScript.setText(text);
+                }
+            }
         }
     }
 }

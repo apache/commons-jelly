@@ -15,6 +15,10 @@
  */
 package org.apache.commons.jelly.impl;
 
+import java.util.List;
+
+import org.apache.commons.jelly.Script;
+
 
 /**
  * <p><code>CompositeTextScriptBlock</code> represents a text body of a
@@ -26,6 +30,36 @@ package org.apache.commons.jelly.impl;
  */
 public class CompositeTextScriptBlock extends ScriptBlock {
 
+    /**
+     * Create an instance.
+     */
     public CompositeTextScriptBlock() {
     }
+    
+    
+    /**
+     * Trim the body of the script.
+     * In this case, trim the whitespace from the start of the first element
+     * and from the end of the last element.
+     */
+    public void trimWhitespace() {
+        List list = getScriptList();
+        int size = list.size();
+        if ( size > 0 ) {
+            Script script = (Script) list.get(0);
+            if ( script instanceof TextScript ) {
+                TextScript textScript = (TextScript) script;
+                textScript.trimStartWhitespace();
+            }
+            if ( size > 1 ) {
+                script = (Script) list.get(size - 1);
+                if ( script instanceof TextScript ) {
+                    TextScript textScript = (TextScript) script;
+                    textScript.trimEndWhitespace();
+                }
+            }
+        }
+    }
+
+
 }

@@ -19,7 +19,6 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.List;
 
 import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
 import org.apache.commons.jelly.impl.ScriptBlock;
@@ -29,7 +28,7 @@ import org.apache.commons.jelly.impl.TextScript;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.33 $
+  * @version $Revision: 1.34 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -245,46 +244,14 @@ public abstract class TagSupport implements Tag {
      */
     protected void trimBody() {
         synchronized(body) {
-            // #### should refactor this code into
-            // #### trimWhitespace() methods on the Script objects
-
             if ( body instanceof CompositeTextScriptBlock ) {
                 CompositeTextScriptBlock block = (CompositeTextScriptBlock) body;
-                List list = block.getScriptList();
-                int size = list.size();
-                if ( size > 0 ) {
-                    Script script = (Script) list.get(0);
-                    if ( script instanceof TextScript ) {
-                        TextScript textScript = (TextScript) script;
-                        textScript.trimStartWhitespace();
-                    }
-                    if ( size > 1 ) {
-                        script = (Script) list.get(size - 1);
-                        if ( script instanceof TextScript ) {
-                            TextScript textScript = (TextScript) script;
-                            textScript.trimEndWhitespace();
-                        }
-                    }
-                }
+                block.trimWhitespace();
             }
             else
             if ( body instanceof ScriptBlock ) {
                 ScriptBlock block = (ScriptBlock) body;
-                List list = block.getScriptList();
-                for ( int i = list.size() - 1; i >= 0; i-- ) {
-                    Script script = (Script) list.get(i);
-                    if ( script instanceof TextScript ) {
-                        TextScript textScript = (TextScript) script;
-                        String text = textScript.getText();
-                        text = text.trim();
-                        if ( text.length() == 0 ) {
-                            list.remove(i);
-                        }
-                        else {
-                            textScript.setText(text);
-                        }
-                    }
-                }
+                block.trimWhitespace();
             }
             else if ( body instanceof TextScript ) {
                 TextScript textScript = (TextScript) body;
