@@ -206,7 +206,7 @@
     </antcall>
   </target>
 
-  <target name="jar-fmt" depends="jar-jelly,jar-junit">
+  <target name="jar-fmt" depends="jar-jelly,jar-junit,jar-ant,jar-beanshell">
     <antcall target="taglib-template">
       <param name="sub.taglib" value="fmt"/>
     </antcall>
