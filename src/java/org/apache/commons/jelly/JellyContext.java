@@ -142,7 +142,6 @@ public class JellyContext {
         this.parent = parent;
         this.rootURL = parent.rootURL;
         this.currentURL = parent.currentURL;
-        this.taglibs = parent.taglibs;
         this.variables.put("parentScope", parent.variables);
         this.cacheTags = cacheTags;
         init();
@@ -364,7 +363,16 @@ public class JellyContext {
     }
 
     public boolean isTagLibraryRegistered(String namespaceURI) {
-        return taglibs.containsKey( namespaceURI );
+        boolean answer = taglibs.containsKey( namespaceURI );
+        if (answer) {
+            return true;
+        }
+        else if ( parent != null ) {
+            return parent.isTagLibraryRegistered(namespaceURI);
+        }
+        else {
+            return false;
+        }
     }
 
     /** 
@@ -372,16 +380,13 @@ public class JellyContext {
      */
     public TagLibrary getTagLibrary(String namespaceURI) {
 
-        Object answer = null;
+        // use my own mapping first, so that namespaceURIs can 
+        // be redefined inside child contexts...
+        
+        Object answer = taglibs.get(namespaceURI);
 
-        if ( getInherit()
-             &&
-             getParent() != null ) {
-            answer = getParent().getTagLibrary( namespaceURI );
-        }
-
-        if ( answer == null ) {
-            answer = taglibs.get(namespaceURI);
+        if ( answer == null && parent != null ) {
+            answer = parent.getTagLibrary( namespaceURI );
         }
 
         if ( answer instanceof TagLibrary ) {
