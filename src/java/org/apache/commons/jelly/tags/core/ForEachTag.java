@@ -33,7 +33,7 @@ import org.apache.commons.logging.LogFactory;
   * <code>forEach</code> tag does.
   * 
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.26 $
+  * @version $Revision: 1.27 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -188,6 +188,6 @@ public class ForEachTag extends TagSupport {
      * syntax.
      */
     public void setVarStatus(String var) {
-            setIndexVar( var );
+        setIndexVar( var );
     }
 }
