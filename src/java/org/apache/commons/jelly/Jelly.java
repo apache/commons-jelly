@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.17 2002/10/04 11:28:20 jstrachan Exp $
- * $Revision: 1.17 $
- * $Date: 2002/10/04 11:28:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.18 2002/10/09 21:03:08 morgand Exp $
+ * $Revision: 1.18 $
+ * $Date: 2002/10/09 21:03:08 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.17 2002/10/04 11:28:20 jstrachan Exp $
+ * $Id: Jelly.java,v 1.18 2002/10/09 21:03:08 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -87,7 +87,7 @@ import org.apache.commons.cli.*;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public class Jelly {
     
@@ -105,6 +105,8 @@ public class Jelly {
     
     /** Whether we have loaded the properties yet */
     private boolean loadedProperties = false;
+
+    private String defaultNamespaceURI = null;
         
     public Jelly() {
     }
@@ -245,6 +247,7 @@ public class Jelly {
         
         XMLParser parser = new XMLParser();
         parser.setContext(getJellyContext());
+        parser.setDefaultNamespaceURI(defaultNamespaceURI);
         Script script = parser.parse(getUrl().openStream());
         script = script.compile();
         if (log.isDebugEnabled()) {
@@ -304,6 +307,18 @@ public class Jelly {
             context = new JellyContext(getRootContext(), new URL(text));
         }
         return context;
+    }
+
+
+    /**
+     * Set the jelly namespace to use for unprefixed elements.
+     * Will be overridden by an explicit namespace in the
+     * XML document.
+     * 
+     * @param namespace jelly namespace to use (e.g. 'jelly:core')
+     */
+    public void setDefaultNamespaceURI(String namespace) {
+        defaultNamespaceURI = namespace;
     }
     
     // Implementation methods

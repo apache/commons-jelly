@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.30 2002/10/03 18:14:43 jstrachan Exp $
- * $Revision: 1.30 $
- * $Date: 2002/10/03 18:14:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.31 2002/10/09 21:03:08 morgand Exp $
+ * $Revision: 1.31 $
+ * $Date: 2002/10/09 21:03:08 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.30 2002/10/03 18:14:43 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.31 2002/10/09 21:03:08 morgand Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -121,7 +121,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.30 $
+ * @version $Revision: 1.31 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -213,12 +213,12 @@ public class XMLParser extends DefaultHandler {
     /** Flag to indicate if this object has been configured */
     private boolean configured;
 
+    private String defaultNamespaceURI = null;
+
     /**
      * The Log to which logging calls will be made.
      */
     private Log log = LogFactory.getLog(XMLParser.class);
-
-
     
     /**
      * Construct a new XMLParser with default properties.
@@ -356,6 +356,17 @@ public class XMLParser extends DefaultHandler {
 
     public void setContext(JellyContext context) {
         this.context = context;
+    }
+
+    /**
+     * Set the jelly namespace to use for unprefixed elements.
+     * Will be overridden by an explicit namespace in the
+     * XML document.
+     * 
+     * @param namespace jelly namespace to use (e.g. 'jelly:core')
+     */
+    public void setDefaultNamespaceURI(String namespace) {
+        defaultNamespaceURI = namespace;
     }
 
     /**
@@ -507,12 +518,16 @@ public class XMLParser extends DefaultHandler {
     public synchronized XMLReader getXMLReader() throws SAXException {
         if (reader == null) {
             reader = getParser().getXMLReader();
+            if (defaultNamespaceURI != null) {
+                reader = new DefaultNamespaceFilter(defaultNamespaceURI,reader);
+            }
         }
         //set up the parse
         reader.setContentHandler(this);
         reader.setDTDHandler(this);
         //reader.setEntityResolver(this);
         reader.setErrorHandler(this);
+
         return reader;
     }
 
@@ -1165,4 +1180,5 @@ public class XMLParser extends DefaultHandler {
     protected SAXException createSAXException(String message) {
         return createSAXException(message, null);
     }
+
 }

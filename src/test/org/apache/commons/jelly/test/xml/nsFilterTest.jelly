@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<j:jelly 
+	xmlns:j="jelly:core">
+  
+  <set var="foo" value="bar"/>
+  
+  <j:if test="${foo != null}">
+      <j:set var="usedDefaultNamespace">true</j:set>
+  </j:if>            
+
+</j:jelly>
