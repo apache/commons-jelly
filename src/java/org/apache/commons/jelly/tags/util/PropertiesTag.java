@@ -1,13 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/util/Attic/UtilTagLibrary.java,v 1.2 2002/10/02 11:03:38 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/02 11:03:38 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +26,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,22 +53,88 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: UtilTagLibrary.java,v 1.2 2002/10/02 11:03:38 jstrachan Exp $
+ *
  */
+
 package org.apache.commons.jelly.tags.util;
 
-import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.MissingAttributeException;
 
-/** Implements general utility tags.
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- *  @version $Revision: 1.2 $
+import java.util.StringTokenizer;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Properties;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+/**
+ * A tag which loads a properties file from a given file name or URI
+ * which are loaded into the current context.
+ * 
+ * @author Jim Birchfield
+ * @version $Revision: 1.8 $
  */
-public class UtilTagLibrary extends TagLibrary
-{
-    public UtilTagLibrary() {
-        registerTag("tokenize", TokenizeTag.class);
-        registerTag("properties", PropertiesTag.class);
+public class PropertiesTag extends TagSupport {
+    private String file;
+    private String uri;
+
+    public PropertiesTag() {
     }
+
+    // Tag interface
+    //------------------------------------------------------------------------- 
+    public void doTag(final XMLOutput output) throws Exception {
+        if (file == null && uri == null) {
+            throw new JellyException("This tag must define a 'file' or 'uri' attribute");
+        }
+        InputStream is = null;
+        if (file != null) {
+            File f = new File(file);
+            if (!f.exists()) {
+                throw new JellyException("file: " + file + " does not exist!");
+            }
+            is = new FileInputStream(f);
+        }
+        else {
+            is = context.getResourceAsStream(uri);
+            if (is == null) {
+                throw new JellyException( "Could not find: " + uri );
+            }
+        }
+        Properties props = new Properties();
+        props.load(is);
+        Enumeration enum = props.propertyNames();
+        while (enum.hasMoreElements()) {
+            String key = (String) enum.nextElement();
+            String value = props.getProperty(key);
+            
+            // @todo we should parse the value in case its an Expression
+            context.setVariable(key, value);
+        }
+
+    }
+
+    // Properties
+    //------------------------------------------------------------------------- 
+    
+    /**
+     * Sets the file name to be used to load the properties file.
+     */
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    /**
+     * Sets the URI of the properties file to use. This can be a full URL or a relative URI
+     * or an absolute URI to the root context of this JellyContext.
+     */
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
 }

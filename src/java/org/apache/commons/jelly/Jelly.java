@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.14 2002/08/09 19:11:56 jstrachan Exp $
- * $Revision: 1.14 $
- * $Date: 2002/08/09 19:11:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.15 2002/10/02 11:03:38 jstrachan Exp $
+ * $Revision: 1.15 $
+ * $Date: 2002/10/02 11:03:38 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.14 2002/08/09 19:11:56 jstrachan Exp $
+ * $Id: Jelly.java,v 1.15 2002/10/02 11:03:38 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -65,10 +65,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.FileInputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Enumeration;
+import java.util.Properties;
 
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
@@ -80,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * or can be used as the basis of an Ant task.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public class Jelly {
     
@@ -96,10 +99,11 @@ public class Jelly {
     /** The URL of the root context for other scripts */
     private URL rootContext;
     
-    
+    /** Whether we have loaded the properties yet */
+    private boolean loadedProperties = false;
+        
     public Jelly() {
     }
-    
     public static void main(String[] args) throws Exception {
 
         try
@@ -155,11 +159,18 @@ public class Jelly {
             }
         }
     }
+
+    
     
     /**
      * Compiles the script
      */
     public Script compileScript() throws Exception {
+        if (! loadedProperties) {
+            loadedProperties = true;
+            loadJellyProperties();
+        }
+        
         XMLParser parser = new XMLParser();
         parser.setContext(getJellyContext());
         Script script = parser.parse(getUrl().openStream());
@@ -169,7 +180,7 @@ public class Jelly {
         }
         return script;
     }
-    
+
     
     // Properties
     //-------------------------------------------------------------------------                
@@ -234,5 +245,64 @@ public class Jelly {
             return file.toURL();
         }
         return new URL(name);
+    }
+
+    /**
+     * Attempts to load jelly.properties from the current directory,
+     * the users home directory or from the classpath
+     */
+    protected void loadJellyProperties() {
+        InputStream is = null;
+    
+        String userDir = System.getProperty("user.home");
+        File f = new File(userDir + File.separator + "jelly.properties");
+        try {
+            if (f.exists()) {
+                is = new FileInputStream(f);
+                loadProperties(is);
+            }
+        }
+        catch (Exception e) {
+            log.error( "Caught exception while loading: " + f.getName() + ". Reason: " + e, e );
+        }
+    
+        f = new File("jelly.properties");
+        try {
+            if (f.exists()) {
+                is = new FileInputStream(f);
+                loadProperties(is);
+            }
+        }
+        catch (Exception e) {
+            log.error( "Caught exception while loading: " + f.getName() + ". Reason: " + e, e );
+        }
+        
+        
+        is = getClass().getClassLoader().getResourceAsStream("jelly.properties");
+        if (is != null) {
+            try {
+                loadProperties(is);
+            }
+            catch (Exception e) {
+                log.error( "Caught exception while loading jelly.properties from the classpath. Reason: " + e, e );
+            }
+        }
+    }
+
+    /**
+     * Loads the properties from the given input stream 
+     */    
+    protected void loadProperties(InputStream is) throws Exception {
+        JellyContext context = getJellyContext();
+        Properties props = new Properties();
+        props.load(is);
+        Enumeration enum = props.propertyNames();
+        while (enum.hasMoreElements()) {
+            String key = (String) enum.nextElement();
+            String value = props.getProperty(key);
+            
+            // @todo we should parse the value in case its an Expression
+            context.setVariable(key, value);
+        }
     }
 }

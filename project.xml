@@ -150,6 +150,14 @@
       	<role>Developer</role>
       </roles>
     </contributor>    
+    <contributor>
+      <name>Jim Birchfield</name>
+      <email>jim.birchfield@genscape.com</email>
+      <organization>Genscape, Inc.</organization>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>    
   </contributors>
 
   <dependencies>
