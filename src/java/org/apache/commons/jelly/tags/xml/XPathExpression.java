@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.8 2002/11/08 18:27:51 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/11/08 18:27:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.9 2002/11/13 09:03:31 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/11/13 09:03:31 $
  *
  * ====================================================================
  *
@@ -57,12 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.8 2002/11/08 18:27:51 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.9 2002/11/13 09:03:31 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyContext;
@@ -82,7 +84,7 @@ import org.jaxen.VariableContext;
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
     
@@ -98,7 +100,9 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     public XPathExpression(XPath xpath, TagScript tagScript) {
         this.xpath = xpath;
         
-        Map uris = tagScript.getNamespaceContext();
+        Map namespaceContext = tagScript.getNamespaceContext();
+        
+        Map uris = createUriMap(namespaceContext);
         
         if (log.isDebugEnabled()) {
         	log.debug( "Setting the namespace context to be: " + uris );
@@ -131,5 +135,24 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         //log.debug( "Looking up XPath variable of name: " + localName + " value is: " + value );            
         
         return value;
+    }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    
+    /**
+     * Factory method to create a synchronized Map of non-null and non-blank
+     * namespace prefixes to namespace URIs     */ 
+    protected Map createUriMap(Map namespaceContext) {
+        // now lets clone the Map but ignoring default or null prefixes
+        Map uris = new Hashtable(namespaceContext.size());
+        for (Iterator iter = namespaceContext.entrySet().iterator(); iter.hasNext(); ) {
+        	Map.Entry entry = (Map.Entry) iter.next();
+        	String prefix = (String) entry.getKey();
+        	if (prefix != null && prefix.length() != 0) {
+        		uris.put(prefix, entry.getValue());
+        	}
+        }
+        return uris;
     }
 }
