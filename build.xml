@@ -81,8 +81,8 @@
         <fileset dir="lib">
           <include name="*.jar"></include>
         </fileset>
-        <pathelement location="target/${final.name}.jar"></pathelement>
         <pathelement path="${testclassesdir}"></pathelement>
+        <pathelement path="${classesdir}"></pathelement>
       </classpath>
       <batchtest todir="${testreportdir}">
         <fileset dir="src/test">
@@ -105,7 +105,7 @@
         <fileset dir="lib">
           <include name="*.jar"></include>
         </fileset>
-        <pathelement location="target/${final.name}.jar"></pathelement>
+        <pathelement path="${classesdir}"></pathelement>
       </classpath>
     </javac>
 
@@ -156,6 +156,8 @@
     <get dest="lib/commons-beanutils-1.4-dev.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.4-dev.jar"></get>
     <get dest="lib/commons-collections-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-2.0.jar"></get>
     <get dest="lib/commons-digester-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-SNAPSHOT.jar"></get>
+    <get dest="lib/commons-cli-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-cli/jars/commons-cli-SNAPSHOT.jar"></get>
+    <get dest="lib/commons-lang-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-SNAPSHOT.jar"></get>
     <get dest="lib/commons-discovery-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-discovery/jars/commons-discovery-SNAPSHOT.jar"></get>
     <get dest="lib/commons-grant-1.0-beta-4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-grant/jars/commons-grant-1.0-beta-4.jar"></get>
     <get dest="lib/commons-jexl-1.0-beta-1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jexl/jars/commons-jexl-1.0-beta-1.jar"></get>
