@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.18 2002/10/09 21:03:08 morgand Exp $
- * $Revision: 1.18 $
- * $Date: 2002/10/09 21:03:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.19 2002/10/14 19:17:01 morgand Exp $
+ * $Revision: 1.19 $
+ * $Date: 2002/10/14 19:17:01 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.18 2002/10/09 21:03:08 morgand Exp $
+ * $Id: Jelly.java,v 1.19 2002/10/14 19:17:01 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -87,7 +87,7 @@ import org.apache.commons.cli.*;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public class Jelly {
     
@@ -106,7 +106,15 @@ public class Jelly {
     /** Whether we have loaded the properties yet */
     private boolean loadedProperties = false;
 
+    /**
+     * whether to override the default namespace
+     */
     private String defaultNamespaceURI = null;
+
+    /**
+     * whether or not to validate the Jelly script
+     */
+    private boolean validateXML = false;
         
     public Jelly() {
     }
@@ -248,6 +256,7 @@ public class Jelly {
         XMLParser parser = new XMLParser();
         parser.setContext(getJellyContext());
         parser.setDefaultNamespaceURI(defaultNamespaceURI);
+        parser.setValidating(validateXML);
         Script script = parser.parse(getUrl().openStream());
         script = script.compile();
         if (log.isDebugEnabled()) {
@@ -318,7 +327,17 @@ public class Jelly {
      * @param namespace jelly namespace to use (e.g. 'jelly:core')
      */
     public void setDefaultNamespaceURI(String namespace) {
-        defaultNamespaceURI = namespace;
+        this.defaultNamespaceURI = namespace;
+    }
+
+    /**
+     * When set to true, the XML parser will attempt to validate
+     * the Jelly XML before converting it into a Script.
+     * 
+     * @param validate whether or not to validate
+     */
+    public void setValidateXML(boolean validate) {
+        this.validateXML = validate;
     }
     
     // Implementation methods

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE j:jelly [
+
+  <!-- document is not valid -->
+  <!ELEMENT j:jelly (j:set)>
+  <!ATTLIST j:jelly xmlns:j CDATA 'jelly:core'>
+  
+  <!ELEMENT j:set EMPTY>
+  <!ATTLIST j:set varicose   CDATA #REQUIRED
+                  value CDATA #REQUIRED>
+
+]>
+<j:jelly 
+	xmlns:j="jelly:core">
+  
+  <j:set var="foo" value="bar"/>
+  
+</j:jelly>
