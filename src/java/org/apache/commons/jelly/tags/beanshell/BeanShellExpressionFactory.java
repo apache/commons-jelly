@@ -78,6 +78,16 @@ public class BeanShellExpressionFactory implements ExpressionFactory {
      * A helper method to return the JellyInterpreter for the given JellyContext
      */
     public static JellyInterpreter getInterpreter(JellyContext context) throws EvalError {
+  
+        /** 
+         * @todo when we can unify the BeanShell and Jelly variable scopes we can share a single
+         * BeanShell context for each JellyContext. 
+         * For now lets create a new one each time, which is slower.
+         */
+        JellyInterpreter interpreter = new JellyInterpreter();
+        interpreter.setJellyContext(context);
+        return interpreter;
+/*        
         JellyInterpreter interpreter 
             = (JellyInterpreter) context.getVariable( "org.apache.commons.jelly.beanshell.JellyInterpreter" );
         if ( interpreter == null ) {
@@ -86,6 +96,7 @@ public class BeanShellExpressionFactory implements ExpressionFactory {
             context.setVariable( "org.apache.commons.jelly.beanshell.JellyInterpreter", interpreter );
         }            
         return interpreter;
+*/        
     }
     
     
