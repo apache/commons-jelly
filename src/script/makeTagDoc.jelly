@@ -90,10 +90,11 @@
     
     <x:forEach select="tag">
     <x:set var="tagName" select="string(@name)"/>
+    <x:set var="doc" select="doc"/>
 	<tr>
     	<td><a href="#${prefix}:${tagName}">${tagName}</a></td>
         <td>        
-      	  <jsl:style stylesheet="${docStylesheet}" select="doc"/>
+      	  <jsl:style stylesheet="${docStylesheet}" select="$doc"/>
 		</td>
 	</tr>
     </x:forEach>
@@ -114,13 +115,12 @@
     
     <x:forEach select="$libraries">
     <x:set var="prefix" select="string(@prefix)"/>
-      <x:forEach select="tag">
+      <x:forEach select="tag" var="tag">
       <x:set var="tagName" select="string(@name)"/>
-
 
 	    <subsection name="${prefix}:${tagName}">
 	    <p>
-	      <jsl:style stylesheet="${docStylesheet}" select="doc"/>
+	      <jsl:style stylesheet="${docStylesheet}" select="$tag/doc"/>
 	    </p>
 	      
 	    <table>
@@ -130,12 +130,12 @@
 	      <th>Description</th>
 	    </tr>
 	    
-	    <x:forEach select="attribute">
+	    <x:forEach var="attr" select="$tag/attribute">
 		<tr>
-	    	<td><x:expr select="@name"/></td>
-	    	<td><x:expr select="@type"/></td>
+	    	<td><x:expr select="$attr/@name"/></td>
+	    	<td><x:expr select="$attr/@type"/></td>
 	        <td>        
-	      	  <jsl:style stylesheet="${docStylesheet}" select="doc"/>
+	      	  <jsl:style stylesheet="${docStylesheet}" select="$attr/doc"/>
 			</td>
 		</tr>
 	    </x:forEach>
