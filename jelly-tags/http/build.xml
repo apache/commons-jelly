@@ -59,7 +59,7 @@
     <junit dir="./" printSummary="yes" fork="true" haltonerror="true">
       <sysproperty key="basedir" value="src/test"></sysproperty>
       <formatter type="xml"></formatter>
-      <formatter usefile="true" type="plain"></formatter>
+      <formatter usefile="false" type="plain"></formatter>
       <classpath>
         <fileset dir="lib">
           <include name="*.jar"></include>
