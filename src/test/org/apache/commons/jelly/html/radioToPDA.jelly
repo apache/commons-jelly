@@ -19,7 +19,7 @@
 	
 	<log:info>About to generate file ${outputFile}</log:info>
 	
-	<j:file name="${outputFile}" outputMode="html">
+	<j:file name="${outputFile}" outputMode="html" encoding="ISO-8859-1">
 		<jsl:stylesheet select="$doc">
 			<jsl:template match="/">
 				<jsl:applyTemplates/>
