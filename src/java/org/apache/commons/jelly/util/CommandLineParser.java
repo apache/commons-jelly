@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -40,13 +40,13 @@ import org.apache.commons.jelly.XMLOutput;
  * Using a separate class allows us to run Jelly without
  * CLI in the classpath when the command line interface
  * is not in use.
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Morgan Delagrange
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class CommandLineParser {
-    
+
     protected static CommandLineParser _instance = new CommandLineParser();
 
     public static CommandLineParser getInstance() {
@@ -56,7 +56,7 @@ public class CommandLineParser {
     /**
      * Parse out the command line options and configure
      * the give Jelly instance.
-     * 
+     *
      * @param args   options from the command line
      * @exception JellyException
      *                   if the command line could not be parsed
@@ -101,7 +101,7 @@ public class CommandLineParser {
             JellyContext context = jelly.getJellyContext();
             context.setVariable("args", args);
             context.setVariable("commandLine", cmdLine);
-            script.run(context, output);        
+            script.run(context, output);
 
             // now lets wait for all threads to close
             Runtime.getRuntime().addShutdownHook(new Thread() {

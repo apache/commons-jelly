@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,7 +45,7 @@ import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * This tag creates a Swing component and adds it to its parent tag, optionally declaring this
  * component as a variable if the <i>var</i> attribute is specified.</p>
  *
@@ -65,7 +65,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 
     /** the factory of widgets */
     private Factory factory;
-    
+
     public ComponentTag() {
     }
 
@@ -106,7 +106,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             // lets just try set the 'font' property
             try {
                 BeanUtils.setProperty( component, "font", font );
-            } 
+            }
             catch (IllegalAccessException e) {
                 throw new JellyTagException(e);
             }
@@ -145,7 +145,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                 RootPaneContainer rpc = (RootPaneContainer) component;
                 component = rpc.getContentPane();
             }
-            
+
             try {
                 // lets just try set the 'layout' property
                 BeanUtils.setProperty( component, "layout", layout );
@@ -169,15 +169,15 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             window.addWindowListener(listener);
         }
     }
-    
+
     /**
      * Adds a FocusListener to this component
      */
     public void addFocusListener(FocusListener listener) throws JellyTagException {
         Component component = getComponent();
-        component.addFocusListener(listener);    
+        component.addFocusListener(listener);
     }
-    
+
     /**
      * Adds a KeyListener to this component
      */
@@ -187,7 +187,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * @return the visible component, if there is one.
@@ -198,12 +198,12 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             return (Component) bean;
         }
         return null;
-    }    
-    
-    
+    }
+
+
     // ContainerTag interface
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Adds a child component to this parent
      */
@@ -257,12 +257,12 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             else {
                 container.add( component );
             }
-        }            
+        }
     }
 
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * A class may be specified otherwise the Factory will be used.
@@ -275,7 +275,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             return super.convertToClass(classObject);
         }
     }
-    
+
     /**
      * A class may be specified otherwise the Factory will be used.
      */
@@ -292,11 +292,11 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             throw new JellyTagException(e);
         }
     }
-    
+
 
     /**
      * Either defines a variable or adds the current component to the parent
-     */    
+     */
     protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
@@ -314,7 +314,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             }
         }
     }
-    
+
     /**
      * Patch to handle wierd properties that don't quite match the Java Beans contract
      */
@@ -324,7 +324,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             String name = (String) entry.getKey();
             Object value = entry.getValue();
 
-            // ### special hacks for properties that don't introspect properly            
+            // ### special hacks for properties that don't introspect properly
             Component component = getComponent();
             if (component != null) {
                 if (name.equals("location")) {
@@ -417,7 +417,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     protected Object getConstraint() {
         return null;
     }
-    
+
     /**Overrides the default UseBean functionality to clear the bean after the
      * tag runs. This prevents us from keeping references to heavy Swing objects
      * around for longer than they are needed.
@@ -427,11 +427,11 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
         super.doTag(output);
         clearBean();
     }
-    
+
     /** Sets the bean to null, to prevent it from
      * sticking around in the event that this tag instance is
      * cached. This method is called at the end of doTag.
-     * 
+     *
      */
     protected void clearBean() {
         setBean(null);

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Represents a column in an ExpressionTable
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -33,20 +33,20 @@ public class ExpressionTableColumn extends TableColumn {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog( ExpressionTableColumn.class );
-    
+
     private Expression value;
     private Class type = Object.class;
-    
+
     public ExpressionTableColumn() {
     }
 
     public String toString() {
         return super.toString() + "[value:" + value + "]";
     }
-    
+
     /**
      * Evaluates the value of a cell
-     */    
+     */
     public Object evaluateValue(ExpressionTableModel model, Object row, int rowIndex, int columnIndex) {
         if (value == null) {
             return null;
@@ -58,7 +58,7 @@ public class ExpressionTableColumn extends TableColumn {
         context.setVariable("row", row);
         context.setVariable("rowIndex", new Integer(rowIndex));
         context.setVariable("columnIndex", new Integer(columnIndex));
-        
+
         // now lets invoke the expression
         try {
             return value.evaluateRecurse(context);
@@ -70,8 +70,8 @@ public class ExpressionTableColumn extends TableColumn {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Returns the column type.
      * @return Class

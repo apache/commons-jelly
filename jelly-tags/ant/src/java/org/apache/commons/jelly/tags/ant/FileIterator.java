@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,8 +23,8 @@ import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 
-/** 
- * <p><code>FileIterator</code> is an iterator over a 
+/**
+ * <p><code>FileIterator</code> is an iterator over a
  * over a number of files from a colleciton of FileSet instances.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -34,19 +34,19 @@ public class FileIterator implements Iterator {
 
     /** The iterator over the FileSet objects */
     private Iterator fileSetIterator;
-    
+
     /** The Ant project */
     private Project project;
-    
+
     /** The directory scanner */
     private DirectoryScanner ds;
-    
+
     /** The file names in the current FileSet scan */
     private String[] files;
-    
+
     /** The current index into the file name array */
     private int fileIndex = -1;
-    
+
     /** The next File object we'll iterate over */
     private File nextFile;
 
@@ -68,15 +68,15 @@ public class FileIterator implements Iterator {
         this.fileSetIterator = fileSetIterator;
         this.iterateDirectories = iterateDirectories;
     }
-    
+
     // Iterator interface
     //-------------------------------------------------------------------------
-    
+
     /** @return true if there is another object that matches the given predicate */
     public boolean hasNext() {
         if ( nextObjectSet ) {
             return true;
-        } 
+        }
         else {
             return setNextObject();
         }
@@ -92,9 +92,9 @@ public class FileIterator implements Iterator {
         nextObjectSet = false;
         return nextFile;
     }
-    
+
     /**
-     * throws UnsupportedOperationException 
+     * throws UnsupportedOperationException
      */
     public void remove() {
         throw new UnsupportedOperationException();
@@ -104,7 +104,7 @@ public class FileIterator implements Iterator {
     //-------------------------------------------------------------------------
 
     /**
-     * Set nextObject to the next object. If there are no more 
+     * Set nextObject to the next object. If there are no more
      * objects then return false. Otherwise, return true.
      */
     private boolean setNextObject() {
@@ -118,7 +118,7 @@ public class FileIterator implements Iterator {
                 ds.scan();
                 if (iterateDirectories) {
                     files = ds.getIncludedDirectories();
-                } 
+                }
                 else {
                     files = ds.getIncludedFiles();
                 }
@@ -130,7 +130,7 @@ public class FileIterator implements Iterator {
                     ds = null;
                 }
             }
-        
+
             if ( ds != null && files != null ) {
                 if ( ++fileIndex < files.length ) {
                     nextFile = new File( ds.getBasedir(), files[fileIndex] );

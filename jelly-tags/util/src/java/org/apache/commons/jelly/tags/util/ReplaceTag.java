@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,13 +31,13 @@ import org.xml.sax.SAXException;
 /**
  * A tag that replaces occurrences of a character or string in its body or
  * (or value) and places the result into the context
- * 
+ *
  * @author dion
  */
 public class ReplaceTag extends TagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ReplaceTag.class);
-    
+
     /** The variable name to export. */
     private String var;
 
@@ -46,7 +46,7 @@ public class ReplaceTag extends TagSupport {
 
     /** the old character to be replaced */
     private String oldChar;
-    
+
     /** the new character that will replace the old */
     private String newChar;
 
@@ -55,9 +55,9 @@ public class ReplaceTag extends TagSupport {
 
     /** the new string that will replace the old */
     private String newString;
-    
+
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         // check required properties
         if (oldChar != null) {
@@ -83,7 +83,7 @@ public class ReplaceTag extends TagSupport {
         } else {
             answer = getBodyText(false);
         }
-        
+
         // set the result in the context, or output it
         if (answer != null) {
             String stringAnswer = StringUtils.replace(answer.toString(), oldString, newString);
@@ -98,7 +98,7 @@ public class ReplaceTag extends TagSupport {
             }
         }
     }
-    
+
     /**
      * Returns the newChar used in replacing. Should only be a single
      * character.

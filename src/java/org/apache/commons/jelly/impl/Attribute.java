@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,10 +17,10 @@ package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.expression.Expression;
 
-/** 
+/**
  * Represents the attribute definition used by dynamic tags, such as whether the attribute is required
  * or any default values etc.
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
@@ -28,19 +28,19 @@ public class Attribute {
 
     /** the name of the attribute */
     private String name;
-    
+
     /** the default value expression */
     private Expression defaultValue;
-    
+
     /** whether this attribute is required */
     private boolean required;
-    
+
     public Attribute() {
     }
 
     // Properties
-    //-------------------------------------------------------------------------   
-                     
+    //-------------------------------------------------------------------------
+
     /**
      * Returns whether this attribute is required.
      * @return boolean

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,13 +26,13 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Implementation of SWT ImageTag
- * 
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
+ *
+ * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class JFaceImageTag extends ImageTag {
 
     /**
-     * @return the parent window 
+     * @return the parent window
      */
     public Window getParentWindow() {
         ApplicationWindowTag tag =
@@ -52,7 +52,7 @@ public class JFaceImageTag extends ImageTag {
         window.getShell().setImage(image);
     }
 
-    /* 
+    /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     public void doTag(XMLOutput output) throws JellyTagException {

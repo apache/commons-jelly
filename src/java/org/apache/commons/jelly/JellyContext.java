@@ -40,7 +40,30 @@ import org.xml.sax.SAXException;
 public class JellyContext {
 
     /** The Log to which logging calls will be made. */
-    private static Log log = LogFactory.getLog(JellyContext.class);
+    private static final Log log = LogFactory.getLog(JellyContext.class);
+
+    /** Default for inheritance of variables **/
+    private static final boolean DEFAULT_INHERIT = true;
+
+    /** Default for export of variables **/
+    private static final boolean DEFAULT_EXPORT = false;
+
+    /** String used to denote a script can't be parsed */
+    private static final String BAD_PARSE = "Could not parse Jelly script";
+
+    /**
+     * The class loader to use for instantiating application objects.
+     * If not specified, the context class loader, or the class loader
+     * used to load this class itself, is used, based on the value of the
+     * <code>useContextClassLoader</code> variable.
+     */
+    protected ClassLoader classLoader;
+
+    /**
+     * Do we want to use the Context ClassLoader when loading classes
+     * for instantiating new objects?  Default is <code>false</code>.
+     */
+    protected boolean useContextClassLoader = false;
 
     /** The root URL context (where scripts are located from) */
     private URL rootURL;
@@ -57,14 +80,8 @@ public class JellyContext {
     /** The parent context */
     private JellyContext parent;
 
-    /** Default for inheritance of variables **/
-    private static final boolean DEFAULT_INHERIT = true;
-
     /** Do we inherit variables from parent context? */
     private boolean inherit = JellyContext.DEFAULT_INHERIT;
-
-    /** Default for export of variables **/
-    private static final boolean DEFAULT_EXPORT = false;
 
     /** Do we export our variables to parent context? */
     private boolean export  = JellyContext.DEFAULT_EXPORT;
@@ -74,23 +91,6 @@ public class JellyContext {
 
     /** Should we cache Tag instances, per thread, to reduce object contruction overhead? */
     private boolean cacheTags = false;
-
-    /**
-     * The class loader to use for instantiating application objects.
-     * If not specified, the context class loader, or the class loader
-     * used to load this class itself, is used, based on the value of the
-     * <code>useContextClassLoader</code> variable.
-     */
-    protected ClassLoader classLoader;
-
-    /**
-     * Do we want to use the Context ClassLoader when loading classes
-     * for instantiating new objects?  Default is <code>false</code>.
-     */
-    protected boolean useContextClassLoader = false;
-
-    /** String used to denote a script can't be parsed */
-    private static final String BAD_PARSE = "Could not parse Jelly script";
 
     /**
      * Create a new context with the currentURL set to the rootURL
@@ -232,9 +232,9 @@ public class JellyContext {
         if (definedHere) return value;
 
         if ( value == null && isInherit() ) {
-            JellyContext parent = getParent();
-            if (parent != null) {
-                value = parent.getVariable( name );
+            JellyContext parentContext = getParent();
+            if (parentContext != null) {
+                value = parentContext.getVariable( name );
             }
         }
 
@@ -873,9 +873,9 @@ public class JellyContext {
             return (this.classLoader);
         }
         if (this.useContextClassLoader) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            if (classLoader != null) {
-                return (classLoader);
+            ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
+            if (contextClassLoader != null) {
+                return (contextClassLoader);
             }
         }
         return (this.getClass().getClassLoader());
@@ -925,11 +925,12 @@ public class JellyContext {
      */
     protected URL createRelativeURL(URL rootURL, String relativeURI)
         throws MalformedURLException {
-        if (rootURL == null) {
+        URL url = rootURL;
+        if (url == null) {
             File file = new File(System.getProperty("user.dir"));
-            rootURL = file.toURL();
+            url = file.toURL();
         }
-        String urlText = rootURL.toString() + relativeURI;
+        String urlText = url.toString() + relativeURI;
         if ( log.isDebugEnabled() ) {
             log.debug("Attempting to open url: " + urlText);
         }

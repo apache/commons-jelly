@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,8 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  *  This Tag creates a JFace WizardPage
- * 
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
+ *
+ * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class WizardPageTag extends UseBeanTag {
 
@@ -49,14 +49,14 @@ public class WizardPageTag extends UseBeanTag {
             // set initial parent Control to avoid a NPE during invokeBody
             setControl(parent);
 
-            // create page contents 
+            // create page contents
             try {
                 invokeBody(output);
             } catch (JellyTagException e) {
                 log.error(e);
             }
-            
-            // parentComposite should be first Composite child 
+
+            // parentComposite should be first Composite child
             if (parentComposite != null) {
                 setControl(parentComposite);
             }
@@ -84,7 +84,7 @@ public class WizardPageTag extends UseBeanTag {
         super(theClass);
     }
 
-    /* 
+    /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     public void doTag(XMLOutput output) throws JellyTagException {
@@ -108,7 +108,7 @@ public class WizardPageTag extends UseBeanTag {
         String var = (String) getAttributes().get("var");
         processBean(var, page);
 
-        // get Wizard 
+        // get Wizard
         WizardDialogTag.WizardDialogImpl dialog = wizardTag.getWizardDialogImpl();
         Wizard wizard = (Wizard) dialog.getWizard();
 

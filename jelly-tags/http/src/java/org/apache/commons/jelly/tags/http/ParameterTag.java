@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * A tag to hold parameters
- * 
+ *
  * @author  dion
  * @version $Id: ParameterTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
  */
@@ -31,7 +31,7 @@ public class ParameterTag extends TagSupport {
     private String _name;
     /** parameter value */
     private String _value;
-    
+
     /** Creates a new instance of ParameterTag */
     public ParameterTag() {
     }
@@ -60,7 +60,7 @@ public class ParameterTag extends TagSupport {
     public String getName() {
         return _name;
     }
-    
+
     /**
      * Setter for property name.
      *
@@ -69,7 +69,7 @@ public class ParameterTag extends TagSupport {
     public void setName(String name) {
         _name = name;
     }
-    
+
     /**
      * Getter for property value.
      *
@@ -78,7 +78,7 @@ public class ParameterTag extends TagSupport {
     public String getValue() {
         return _value;
     }
-    
+
     /**
      * Setter for property value.
      *
@@ -87,5 +87,5 @@ public class ParameterTag extends TagSupport {
     public void setValue(String value) {
         _value = value;
     }
-    
+
 }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,12 +33,12 @@ import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.DefaultHandler;
 
-/** <p><code>XMLOutput</code> is used to output XML events 
+/** <p><code>XMLOutput</code> is used to output XML events
   * in a SAX-like manner. This also allows pipelining to be done
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.17 $
+  * @version $Revision: 1.18 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -50,25 +50,25 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
 
     /** empty attributes */
     private static final Attributes EMPTY_ATTRIBUTES = new AttributesImpl();
-    
+
     /** The SAX ContentHandler that output goes to */
     private ContentHandler contentHandler;
-    
+
     /** The SAX LexicalHandler that output goes to */
     private LexicalHandler lexicalHandler;
-    
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(XMLOutput.class);
 
     /** the default for escaping of text */
     private static final boolean DEFAULT_ESCAPE_TEXT = false;
-    
+
     public XMLOutput() {
     }
 
     public XMLOutput(ContentHandler contentHandler) {
         this.contentHandler = contentHandler;
-        // often classes will implement LexicalHandler as well 
+        // often classes will implement LexicalHandler as well
         if (contentHandler instanceof LexicalHandler) {
             this.lexicalHandler = (LexicalHandler) contentHandler;
         }
@@ -90,9 +90,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
             + "]";
     }
 
-    /** 
-     * Provides a useful hook that implementations can use to close the 
-     * underlying OutputStream or Writer 
+    /**
+     * Provides a useful hook that implementations can use to close the
+     * underlying OutputStream or Writer
      */
     public void close() throws IOException {
     }
@@ -105,9 +105,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     // Static helper methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
-    /** 
+    /**
      * Creates an XMLOutput from an existing SAX XMLReader
      */
     public static XMLOutput createXMLOutput(XMLReader xmlReader) {
@@ -130,7 +130,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         return output;
     }
 
-    /** 
+    /**
      * Creates a text based XMLOutput which converts all XML events into
      * text and writes to the underlying Writer.
      */
@@ -138,10 +138,10 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         return createXMLOutput(writer, DEFAULT_ESCAPE_TEXT);
     }
 
-    /** 
+    /**
      * Creates a text based XMLOutput which converts all XML events into
      * text and writes to the underlying Writer.
-     * 
+     *
      * @param writer is the writer to output to
      * @param escapeText is whether or not text output will be escaped. This must be true
      * if the underlying output is XML or could be false if the underlying output is textual.
@@ -152,19 +152,19 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         xmlWriter.setEscapeText(escapeText);
         return createXMLOutput(xmlWriter);
     }
-    
-    /** 
+
+    /**
      * Creates a text based XMLOutput which converts all XML events into
      * text and writes to the underlying OutputStream.
      */
     public static XMLOutput createXMLOutput(OutputStream out) throws UnsupportedEncodingException {
         return createXMLOutput(out, DEFAULT_ESCAPE_TEXT);
     }
-    
-    /** 
+
+    /**
      * Creates a text based XMLOutput which converts all XML events into
      * text and writes to the underlying OutputStream.
-     * 
+     *
      * @param out is the output stream to write
      * @param escapeText is whether or not text output will be escaped. This must be true
      * if the underlying output is XML or could be false if the underlying output is textual.
@@ -178,19 +178,19 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /**
      * returns an XMLOutput object that will discard all
      * tag-generated XML events.  Useful when tag output is not expected
-     * or not significant. 
-     * 
+     * or not significant.
+     *
      * @return a no-op XMLOutput
      */
     public static XMLOutput createDummyXMLOutput() {
         return new XMLOutput(new DefaultHandler());
     }
-    
-    // Extra helper methods provided for tag authors
-    //-------------------------------------------------------------------------                    
 
-    /** 
-     * Outputs the given String as a piece of valid text in the 
+    // Extra helper methods provided for tag authors
+    //-------------------------------------------------------------------------
+
+    /**
+     * Outputs the given String as a piece of valid text in the
      * XML event stream.
      * Any special XML characters should be properly escaped.
      */
@@ -199,8 +199,8 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         characters(ch, 0, ch.length);
     }
 
-    /** 
-     * Outputs the given String as a piece of CDATA in the 
+    /**
+     * Outputs the given String as a piece of CDATA in the
      * XML event stream.
      */
     public void writeCDATA(String text) throws SAXException {
@@ -210,7 +210,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         endCDATA();
     }
 
-    /** 
+    /**
      * Outputs a comment to the XML stream
      */
     public void writeComment(String text) throws SAXException {
@@ -231,7 +231,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     public void startElement(String localName, Attributes attributes) throws SAXException {
         startElement("", localName, localName, attributes);
     }
-    
+
     /**
      * Helper method for outputting an end element event for an element in no namespace
      */
@@ -239,9 +239,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         endElement("", localName, localName);
     }
 
-    
+
     // ContentHandler interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * Receive an object for locating the origin of SAX document events.
@@ -276,7 +276,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * Receive notification of the beginning of a document.
      *
      * <p>The SAX parser will invoke this method only once, before any
-     * other event callbacks (except for {@link #setDocumentLocator 
+     * other event callbacks (except for {@link #setDocumentLocator
      * setDocumentLocator}).</p>
      *
      * @exception org.xml.sax.SAXException Any SAX exception, possibly
@@ -308,7 +308,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * Begin the scope of a prefix-URI Namespace mapping.
      *
      * <p>The information from this event is not necessary for
-     * normal Namespace processing: the SAX XML reader will 
+     * normal Namespace processing: the SAX XML reader will
      * automatically replace prefixes for element and attribute
      * names when the <code>http://xml.org/sax/features/namespaces</code>
      * feature is <var>true</var> (the default).</p>
@@ -323,11 +323,11 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * <p>Note that start/endPrefixMapping events are not
      * guaranteed to be properly nested relative to each other:
      * all startPrefixMapping events will occur immediately before the
-     * corresponding {@link #startElement startElement} event, 
+     * corresponding {@link #startElement startElement} event,
      * and all {@link #endPrefixMapping endPrefixMapping}
      * events will occur immediately after the corresponding
      * {@link #endElement endElement} event,
-     * but their order is not otherwise 
+     * but their order is not otherwise
      * guaranteed.</p>
      *
      * <p>There should never be start/endPrefixMapping events for the
@@ -349,9 +349,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /**
      * End the scope of a prefix-URI mapping.
      *
-     * <p>See {@link #startPrefixMapping startPrefixMapping} for 
+     * <p>See {@link #startPrefixMapping startPrefixMapping} for
      * details.  These events will always occur immediately after the
-     * corresponding {@link #endElement endElement} event, but the order of 
+     * corresponding {@link #endElement endElement} event, but the order of
      * {@link #endPrefixMapping endPrefixMapping} events is not otherwise
      * guaranteed.</p>
      *
@@ -391,7 +391,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * properties:</p>
      *
      * <ul>
-     * <li>the Namespace URI and local name are required when 
+     * <li>the Namespace URI and local name are required when
      * the namespaces property is <var>true</var> (the default), and are
      * optional when the namespaces property is <var>false</var> (if one is
      * specified, both must be);</li>
@@ -406,7 +406,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * will contain attributes used for Namespace declarations
      * (xmlns* attributes) only if the
      * <code>http://xml.org/sax/features/namespace-prefixes</code>
-     * property is true (it is false by default, and support for a 
+     * property is true (it is false by default, and support for a
      * true value is optional).</p>
      *
      * <p>Like {@link #characters characters()}, attribute values may have
@@ -442,7 +442,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *
      * <p>The SAX parser will invoke this method at the end of every
      * element in the XML document; there will be a corresponding
-     * {@link #startElement startElement} event for every endElement 
+     * {@link #startElement startElement} event for every endElement
      * event (even when the element is empty).</p>
      *
      * <p>For information on the names, see startElement.</p>
@@ -495,7 +495,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *
      * <p>Note that some parsers will report whitespace in element
      * content using the {@link #ignorableWhitespace ignorableWhitespace}
-     * method rather than this one (validating parsers <em>must</em> 
+     * method rather than this one (validating parsers <em>must</em>
      * do so).</p>
      *
      * @param ch The characters from the XML document.
@@ -503,7 +503,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param length The number of characters to read from the array.
      * @exception org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
-     * @see #ignorableWhitespace 
+     * @see #ignorableWhitespace
      * @see org.xml.sax.Locator
      */
     public void characters(char ch[], int start, int length) throws SAXException {
@@ -584,7 +584,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * <code>http://xml.org/sax/features/external-parameter-entities</code>
      * properties.</p>
      *
-     * @param name The name of the skipped entity.  If it is a 
+     * @param name The name of the skipped entity.  If it is a
      *        parameter entity, the name will begin with '%', and if
      *        it is the external DTD subset, it will be the string
      *        "[dtd]".
@@ -597,7 +597,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
 
 
     // Lexical Handler interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * Report the start of DTD declarations, if any.
@@ -606,7 +606,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * DOCTYPE declaration; if the document has no DOCTYPE declaration,
      * this method will not be invoked.</p>
      *
-     * <p>All declarations reported through 
+     * <p>All declarations reported through
      * {@link org.xml.sax.DTDHandler DTDHandler} or
      * {@link org.xml.sax.ext.DeclHandler DeclHandler} events must appear
      * between the startDTD and {@link #endDTD endDTD} events.
@@ -614,14 +614,14 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * unless they appear between {@link #startEntity startEntity}
      * and {@link #endEntity endEntity} events.  Comments and
      * processing instructions from the DTD should also be reported
-     * between the startDTD and endDTD events, in their original 
+     * between the startDTD and endDTD events, in their original
      * order of (logical) occurrence; they are not required to
      * appear in their correct locations relative to DTDHandler
      * or DeclHandler events, however.</p>
      *
      * <p>Note that the start/endDTD events will appear within
      * the start/endDocument events from ContentHandler and
-     * before the first 
+     * before the first
      * {@link org.xml.sax.ContentHandler#startElement startElement}
      * event.</p>
      *
@@ -671,12 +671,12 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * feature to query or control the reporting of parameter entities.</p>
      *
      * <p>General entities are reported with their regular names,
-     * parameter entities have '%' prepended to their names, and 
+     * parameter entities have '%' prepended to their names, and
      * the external DTD subset has the pseudo-entity name "[dtd]".</p>
      *
-     * <p>When a SAX2 driver is providing these events, all other 
-     * events must be properly nested within start/end entity 
-     * events.  There is no additional requirement that events from 
+     * <p>When a SAX2 driver is providing these events, all other
+     * events must be properly nested within start/end entity
+     * events.  There is no additional requirement that events from
      * {@link org.xml.sax.ext.DeclHandler DeclHandler} or
      * {@link org.xml.sax.DTDHandler DTDHandler} be properly ordered.</p>
      *
@@ -685,7 +685,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * event, which is part of the ContentHandler interface.</p>
      *
      * <p>Because of the streaming event model that SAX uses, some
-     * entity boundaries cannot be reported under any 
+     * entity boundaries cannot be reported under any
      * circumstances:</p>
      *
      * <ul>
@@ -707,7 +707,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @exception SAXException The application may raise an exception.
      * @see #endEntity
      * @see org.xml.sax.ext.DeclHandler#internalEntityDecl
-     * @see org.xml.sax.ext.DeclHandler#externalEntityDecl 
+     * @see org.xml.sax.ext.DeclHandler#externalEntityDecl
      */
     public void startEntity(String name) throws SAXException {
         if (lexicalHandler != null) {
@@ -778,7 +778,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     /**
      * @return the SAX ContentHandler to use to pipe SAX events into
      */
@@ -789,7 +789,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /**
      * Sets the SAX ContentHandler to pipe SAX events into
      *
-     * @param contentHandler is the new ContentHandler to use. 
+     * @param contentHandler is the new ContentHandler to use.
      *      This value cannot be null.
      */
     public void setContentHandler(ContentHandler contentHandler) {
@@ -809,7 +809,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /**
      * Sets the SAX LexicalHandler to pipe SAX events into
      *
-     * @param lexicalHandler is the new LexicalHandler to use. 
+     * @param lexicalHandler is the new LexicalHandler to use.
      *      This value can be null.
      */
     public void setLexicalHandler(LexicalHandler lexicalHandler) {
@@ -817,7 +817,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     /**
      * Factory method to create a new XMLOutput from an XMLWriter
      */

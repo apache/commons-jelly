@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,9 +27,9 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
-/** 
- * This tag is bound onto a {@link DynaClass} instance. 
- * When the tag is invoked a {@link DynaBean will be created using the tags attributes. 
+/**
+ * This tag is bound onto a {@link DynaClass} instance.
+ * When the tag is invoked a {@link DynaBean will be created using the tags attributes.
  * So this class is like a {@link DynaBean} implemenation of {@link DynamicBeanTag}
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -39,9 +39,9 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
 
     /** the bean class */
     private DynaClass beanClass;
-    
-    /** 
-     * the tag attribute name that is used to declare the name 
+
+    /**
+     * the tag attribute name that is used to declare the name
      * of the variable to export after running this tag
      */
     private String variableNameAttribute;
@@ -53,8 +53,8 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
     private Set setAttributesSet = new HashSet();
 
     /** the attribute definitions */
-    private Map attributes;    
-        
+    private Map attributes;
+
     public DynamicDynaBeanTag(DynaClass beanClass, Map attributes, String variableNameAttribute) {
         this.beanClass = beanClass;
         this.attributes = attributes;
@@ -71,10 +71,10 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
             throw new JellyTagException("Could not instantiate dynabean",e);
         }
 
-        setAttributesSet.clear();                    
+        setAttributesSet.clear();
     }
 
-    public void setAttribute(String name, Object value) throws JellyTagException {        
+    public void setAttribute(String name, Object value) throws JellyTagException {
         boolean isVariableName = false;
         if (variableNameAttribute != null ) {
             if ( variableNameAttribute.equals( name ) ) {
@@ -88,23 +88,23 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
             }
         }
         if (! isVariableName) {
-            
+
             // #### strictly speaking we could
             // know what attributes are specified at compile time
-            // so this dynamic set is unnecessary            
+            // so this dynamic set is unnecessary
             setAttributesSet.add(name);
-            
+
             // we could maybe implement attribute specific validation here
-            
+
             super.setAttribute(name, value);
         }
     }
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
 
-        // lets find any attributes that are not set and 
+        // lets find any attributes that are not set and
         for ( Iterator iter = attributes.values().iterator(); iter.hasNext(); ) {
             Attribute attribute = (Attribute) iter.next();
             String name = attribute.getName();
@@ -118,7 +118,7 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
                 if ( expression != null ) {
                     value = expression.evaluate(context);
                 }
-                
+
                 // only set non-null values?
                 if ( value != null ) {
                     super.setAttribute(name, value);
@@ -133,11 +133,11 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
             context.setVariable(var, getDynaBean());
         }
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     /**
-     * @return the bean that has just been created 
+     * @return the bean that has just been created
      */
     public Object getBean() {
         return getDynaBean();

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.xml.sax.Attributes;
 
-/** 
+/**
  * <p><code>DynamicTagLibrary</code> represents a TagLibrary which
  * gets created by running a Jelly script.</p>
  *
@@ -62,14 +62,14 @@ public class DynamicTagLibrary extends TagLibrary {
         throws JellyException {
 
         Object value = templates.get(name);
-        if ( value instanceof Script ) {            
+        if ( value instanceof Script ) {
             Script template = (Script) value;
             return new DynamicTag(template);
         }
         else if ( value instanceof TagFactory ) {
             TagFactory factory = (TagFactory) value;
             return factory.createTag(name, attributes);
-        } 
+        }
         else if ( parent != null ) {
             // delegate to the parent
             return parent.createTag(name, attributes);
@@ -79,14 +79,14 @@ public class DynamicTagLibrary extends TagLibrary {
     }
 
     /**
-     * Creates a new tag with the given name and template 
+     * Creates a new tag with the given name and template
      */
     public void registerDynamicTag(String name, Script template) {
         templates.put(name, template);
     }
 
     /**
-     * Creates a new Jelly Bean Tag with the given name 
+     * Creates a new Jelly Bean Tag with the given name
      */
     public void registerBeanTag(String name, TagFactory factory) {
         templates.put(name, factory);
@@ -96,7 +96,7 @@ public class DynamicTagLibrary extends TagLibrary {
      * Returns the script associated with the given tag name
      *
      * @param name The tag name
-     * @return The script associated with <code>name</code>, or 
+     * @return The script associated with <code>name</code>, or
      *         <code>null</code> if the tag doesn't exist or isn't a script
      */
     public Script getDynamicTag(String name) {
@@ -109,7 +109,7 @@ public class DynamicTagLibrary extends TagLibrary {
      * <p/>
      * If the tag is not registered within this library, the set of
      * parent libraries will be searched.
-     * 
+     *
      * @param name The tag name
      * @return The tag library containing the named tag, or <code>null</code>
      *         if the tag is not registered.
@@ -118,7 +118,7 @@ public class DynamicTagLibrary extends TagLibrary {
         DynamicTagLibrary result = null;
         if (templates.get(name) != null) {
             result = this;
-        } 
+        }
         else if (parent instanceof DynamicTagLibrary) {
             result = ((DynamicTagLibrary) parent).find(name);
         }
@@ -126,7 +126,7 @@ public class DynamicTagLibrary extends TagLibrary {
     }
 
     // Properties
-    //-------------------------------------------------------------------------     
+    //-------------------------------------------------------------------------
     public String getUri() {
         return uri;
     }

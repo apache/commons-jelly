@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -45,13 +45,13 @@ public class ParseTag extends ParseTagSupport {
     /** The HTML to parse, either a String URI, a Reader or InputStream */
     private Object html;
     private String element = "match";
-    private String attribute = "no-change"; 
+    private String attribute = "no-change";
 
     public ParseTag() {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
         if (getVar() == null) {
             throw new IllegalArgumentException("The var attribute cannot be null");
@@ -73,7 +73,7 @@ public class ParseTag extends ParseTagSupport {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     /** Sets the source of the HTML which is either a String URI, Reader or InputStream */
     public void setHtml(Object html) {
         this.html = html;
@@ -82,7 +82,7 @@ public class ParseTag extends ParseTagSupport {
     /**
      * Sets whether attributes should be converted to a different case.
      * Possible values are "upper", "lower" or "no-change"
-     * 
+     *
      * @param attribute The processing mode of attributes
      */
     public void setAttribute(String attribute) {
@@ -92,7 +92,7 @@ public class ParseTag extends ParseTagSupport {
     /**
      * Sets whether elements should be converted to a different case
      * Possible values are "upper", "lower" or "match"
-     * 
+     *
      * @param element The processing mode of elements
      */
     public void setElement(String element) {
@@ -101,11 +101,11 @@ public class ParseTag extends ParseTagSupport {
 
 
     // Implementation methods
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
 
     /**
      * Factory method to create a new SAXReader
-     */    
+     */
     protected SAXReader createSAXReader() throws SAXException {
         // installs the NeckHTML parser
         SAXParser parser = new SAXParser();

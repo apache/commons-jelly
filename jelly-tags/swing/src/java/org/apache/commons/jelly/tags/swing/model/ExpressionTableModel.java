@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,8 +24,8 @@ import javax.swing.table.TableColumnModel;
 
 import org.apache.commons.jelly.JellyContext;
 
-/** 
- * A Swing TableModel that uses a List of rows with pluggable Expressions 
+/**
+ * A Swing TableModel that uses a List of rows with pluggable Expressions
  * to evaluate the value of the cells
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -36,10 +36,10 @@ public class ExpressionTableModel extends AbstractTableModel {
     private JellyContext context;
     private List rows = new ArrayList();
     private MyTableColumnModel columnModel = new MyTableColumnModel();
-        
+
     public ExpressionTableModel() {
     }
-    
+
     /**
      * Returns the column definitions.
      * @return List
@@ -54,7 +54,7 @@ public class ExpressionTableModel extends AbstractTableModel {
     public TableColumnModel getColumnModel() {
         return columnModel;
     }
-    
+
     /**
      * Adds a new column definition to the table
      */
@@ -68,18 +68,18 @@ public class ExpressionTableModel extends AbstractTableModel {
     public void removeColumn(ExpressionTableColumn column) {
         columnModel.removeColumn(column);
     }
-    
-    
+
+
     // TableModel interface
-    //-------------------------------------------------------------------------  
+    //-------------------------------------------------------------------------
     public int getRowCount() {
         return rows.size();
     }
-    
+
     public int getColumnCount() {
         return columnModel.getColumnCount();
     }
-    
+
     public String getColumnName(int columnIndex) {
         String answer = null;
         if (columnIndex < 0 || columnIndex >= columnModel.getColumnCount()) {
@@ -91,7 +91,7 @@ public class ExpressionTableModel extends AbstractTableModel {
         }
         return answer;
     }
-    
+
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object answer = null;
         if (rowIndex < 0 || rowIndex >= rows.size()) {
@@ -110,9 +110,9 @@ public class ExpressionTableModel extends AbstractTableModel {
 
 
     // Properties
-    //-------------------------------------------------------------------------                    
-    
-    
+    //-------------------------------------------------------------------------
+
+
     /**
      * Returns the list of rows.
      * @return List
@@ -144,14 +144,14 @@ public class ExpressionTableModel extends AbstractTableModel {
     public void setContext(JellyContext context) {
         this.context = context;
     }
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     protected static class MyTableColumnModel extends DefaultTableColumnModel {
         public List getColumnList() {
             return tableColumns;
         }
     };
-        
+
 
 }

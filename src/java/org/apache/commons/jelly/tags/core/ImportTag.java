@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,22 +31,22 @@ import org.apache.commons.jelly.XMLOutput;
  *  </p>
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
 public class ImportTag extends TagSupport {
 
-    /** 
+    /**
      * the location of the script being imported, relative to the
      * current script
      */
     private String uri;
-    
+
     /**
      * Whether the imported script has access to the caller's variables
      */
     private boolean inherit;
-    
+
     /**
      * The file to be imported. Mutually exclusive with uri.
      * uri takes precedence.
@@ -67,7 +67,7 @@ public class ImportTag extends TagSupport {
      * @param output the destination for output
      * @throws MissingAttributeException if a required attribute is missing
      * @throws JellyTagException on any other errors
-     */ 
+     */
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (uri == null && file == null) {
             throw new MissingAttributeException( "uri" );
@@ -89,7 +89,7 @@ public class ImportTag extends TagSupport {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
 
     /**
      * @return whether property inheritence is enabled
@@ -105,7 +105,7 @@ public class ImportTag extends TagSupport {
         this.inherit = inherit;
     }
 
-    /** 
+    /**
      * Sets the URI (relative URI or absolute URL) for the script to evaluate.
      */
     public void setUri(String uri) {

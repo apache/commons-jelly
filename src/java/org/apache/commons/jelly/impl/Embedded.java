@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -55,7 +55,7 @@ import org.xml.sax.SAXException;
  *         String errorMsg=embedded.getErrorMsg();<br/>
  *     }<br/>
  *  </code>  <br/>
- * 
+ *
  * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
  */
 public class Embedded {
@@ -83,12 +83,12 @@ public class Embedded {
 
     /**
      * Default Constructor
-     * 
+     *
      */
     public Embedded() {
         //m_context.setClassLoader(new TagLibraryClassLoader(m_context));
     }
-    
+
     /**
      * Method setContext.
      * @param context
@@ -115,7 +115,7 @@ public class Embedded {
     }
 
     /**
-     * Set the input script 
+     * Set the input script
      * @param scriptAsString
      */
     public void setScript(String scriptAsString) {
@@ -138,7 +138,7 @@ public class Embedded {
     }
 
     /**
-     * @return the URL for the relative file name or absolute URL 
+     * @return the URL for the relative file name or absolute URL
      */
     private URL resolveURL(String name) throws MalformedURLException {
         File file = new File(name);
@@ -147,9 +147,9 @@ public class Embedded {
         }
         return new URL(name);
     }
-    
+
     /**
-     * Set the input stream 
+     * Set the input stream
      * @param scriptAsInputStream
      */
     public void setScript(InputStream scriptAsInputStream) {
@@ -158,7 +158,7 @@ public class Embedded {
     }
 
     /**
-     * Compile the script 
+     * Compile the script
      */
     private void compileScriptAndKeep() {
         XMLParser parser = new XMLParser();
@@ -190,7 +190,7 @@ public class Embedded {
             XMLOutput.createXMLOutput(new OutputStreamWriter(m_outputStream));
     }
 
-    /** 
+    /**
      * Registers the given tag library class name against the given namespace URI.
      * The class will be loaded via the given ClassLoader
      * This should be called before the parser is used.
@@ -200,7 +200,7 @@ public class Embedded {
             m_context.registerTagLibrary(namespaceURI, className);
     }
 
-    /** 
+    /**
      * Registers the given tag library against the given namespace URI.
      * This should be called before the parser is used.
      */
@@ -227,7 +227,7 @@ public class Embedded {
 
     /**
      * Execute the jelly script and capture the errors (ifany)within.
-     * 
+     *
      * @throws JellyException
      */
     public boolean execute() {

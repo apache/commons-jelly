@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.apache.commons.jelly.tags.swing.impl.Cell;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Represents a tabular row inside a &lt;tableLayout&gt; tag which mimicks the
  * &lt;tr&gt; HTML tag.
  *
@@ -43,7 +43,7 @@ public class TrTag extends TagSupport {
     private TableLayoutTag tableLayoutTag;
     private List cells = new ArrayList();
     private int rowIndex;
-    
+
     public TrTag() {
     }
 
@@ -53,11 +53,11 @@ public class TrTag extends TagSupport {
     public void addCell(Component component, GridBagConstraints constraints) throws JellyTagException {
         constraints.gridx = cells.size();
         cells.add(new Cell(constraints, component));
-    }        
-    
+    }
+
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws JellyTagException {
         tableLayoutTag = (TableLayoutTag) findAncestorWithClass( TableLayoutTag.class );
         if (tableLayoutTag == null) {
@@ -65,9 +65,9 @@ public class TrTag extends TagSupport {
         }
         rowIndex = tableLayoutTag.nextRowIndex();
         cells.clear();
-        
+
         invokeBody(output);
-        
+
         // now iterate through the rows and add each one to the layout...
         for (Iterator iter = cells.iterator(); iter.hasNext(); ) {
             Cell cell = (Cell) iter.next();
@@ -76,23 +76,23 @@ public class TrTag extends TagSupport {
             // are we the last cell in the row
             if ( iter.hasNext() ) {
                 // not last in row
-                c.gridwidth = GridBagConstraints.RELATIVE;                
+                c.gridwidth = GridBagConstraints.RELATIVE;
             }
             else {
                 // end of row
                 c.gridwidth = GridBagConstraints.REMAINDER;
             }
             c.gridy = rowIndex;
-            
+
             // now lets add the cell to the table
             tableLayoutTag.addCell(cell);
-        }        
+        }
         cells.clear();
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * @return the row index of this row
      */

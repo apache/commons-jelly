@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,40 +30,40 @@ public interface LocationAware {
     /** 
      * @return the line number of the tag 
      */
-    public int getLineNumber();
+    int getLineNumber();
     
     /** 
      * Sets the line number of the tag 
      */
-    public void setLineNumber(int lineNumber);
+    void setLineNumber(int lineNumber);
 
     /** 
      * @return the column number of the tag 
      */
-    public int getColumnNumber();
+    int getColumnNumber();
     
     /** 
      * Sets the column number of the tag 
      */
-    public void setColumnNumber(int columnNumber);
+    void setColumnNumber(int columnNumber);
 
     /** 
      * @return the Jelly file which caused the problem 
      */
-    public String getFileName();
+    String getFileName();
+    
     /** 
      * Sets the Jelly file which caused the problem 
      */
-    public void setFileName(String fileName);
+    void setFileName(String fileName);
     
-
     /** 
      * @return the element name which caused the problem
      */
-    public String getElementName();
+    String getElementName();
 
     /** 
      * Sets the element name which caused the problem
      */
-    public void setElementName(String elementName);
+    void setElementName(String elementName);
 }

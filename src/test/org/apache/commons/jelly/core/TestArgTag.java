@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import org.apache.commons.jelly.tags.core.ArgTagParent;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.7 $ $Date: 2004/02/24 14:19:58 $
+ * @version $Revision: 1.8 $ $Date: 2004/09/09 12:29:35 $
  */
 public class TestArgTag extends BaseJellyTest {
 
@@ -40,7 +40,7 @@ public class TestArgTag extends BaseJellyTest {
     }
 
     public static TestSuite suite() throws Exception {
-        return new TestSuite(TestArgTag.class);        
+        return new TestSuite(TestArgTag.class);
     }
 
     public void setUp() throws Exception {
@@ -50,14 +50,14 @@ public class TestArgTag extends BaseJellyTest {
         argTag.setContext(getJellyContext());
         argTag.setParent(parentTag);
         argTag.setBody(new MockScript());
-    }    
-    
+    }
+
     public void tearDown() throws Exception {
         super.tearDown();
         parentTag = null;
         argTag = null;
-    }    
-    
+    }
+
     public void testToBooleanFromString() throws Exception {
         argTag.setType("boolean");
         argTag.setValue("true");
@@ -65,7 +65,7 @@ public class TestArgTag extends BaseJellyTest {
         assertEquals(Boolean.TYPE,parentTag.getType(0));
         assertEquals(Boolean.TRUE,parentTag.getValue(0));
     }
-    
+
     public void testToCharFromString() throws Exception {
         argTag.setType("char");
         argTag.setValue("X");
@@ -121,7 +121,7 @@ public class TestArgTag extends BaseJellyTest {
         assertEquals(Integer.TYPE,parentTag.getType(0));
         assertEquals(new Integer((int)17),parentTag.getValue(0));
     }
-    
+
     public void testToFloatFromString() throws Exception {
         argTag.setType("float");
         argTag.setValue("17.3");
@@ -137,7 +137,7 @@ public class TestArgTag extends BaseJellyTest {
         assertEquals(Float.TYPE,parentTag.getType(0));
         assertEquals(new Float((float)17.3),parentTag.getValue(0));
     }
-    
+
     public void testToLongFromString() throws Exception {
         argTag.setType("long");
         argTag.setValue("17");
@@ -153,7 +153,7 @@ public class TestArgTag extends BaseJellyTest {
         assertEquals(Long.TYPE,parentTag.getType(0));
         assertEquals(new Long((long)17),parentTag.getValue(0));
     }
-    
+
     public void testToDoubleFromString() throws Exception {
         argTag.setType("double");
         argTag.setValue("17.3");
@@ -196,9 +196,9 @@ public class TestArgTag extends BaseJellyTest {
     }
 
     private MockArgTagParent parentTag = null;
-    private ArgTag argTag = null;    
-    
-    class MockArgTagParent extends TagSupport implements ArgTagParent {        
+    private ArgTag argTag = null;
+
+    class MockArgTagParent extends TagSupport implements ArgTagParent {
         public void addArgument(Class type, Object value) {
             typeList.add(type);
             valueList.add(value);
@@ -206,19 +206,19 @@ public class TestArgTag extends BaseJellyTest {
 
         public void doTag(XMLOutput output)  {
         }
-        
+
         private Class getType(int i) {
             return (Class)(typeList.get(i));
         }
-        
+
         private Object getValue(int i) {
             return valueList.get(i);
         }
-        
+
         private List typeList = new ArrayList();
         private List valueList = new ArrayList();
     }
-    
+
     class MockScript implements Script {
         public Script compile() throws JellyException {
             return this;
@@ -227,5 +227,5 @@ public class TestArgTag extends BaseJellyTest {
         public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         }
     }
-    
+
 }

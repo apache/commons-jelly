@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,11 +47,11 @@ public class TestSwingTags extends BaseJellyTest {
     public TestSwingTags(String name) {
         super(name);
     }
-    
+
     public static TestSuite suite() throws Exception {
         return new TestSuite(TestSwingTags.class);
     }
-    
+
     /** Tests some basic Swing tag functions like creating components
      * , adding them to the parent container and setting bean values.
      * @throws Exception
@@ -69,7 +69,7 @@ public class TestSwingTags extends BaseJellyTest {
         assertEquals(new Color(0x11,0x22,0x33), button.getBackground());
         assertEquals(new Color(0x44,0x55,0x66), button.getForeground());
     }
-    
+
     /** Tests the GridbagLayout tags, making sure that the constraints are
      * set properly including inheritance and basedOn.
      * @throws Exception
@@ -83,7 +83,7 @@ public class TestSwingTags extends BaseJellyTest {
         JButton button2 = (JButton) componentByName(frame.getContentPane(), "button2");
         GridBagLayout layout = (GridBagLayout) frame.getContentPane().getLayout();
         GridBagConstraints constraints = layout.getConstraints(button);
-        
+
         // this is failing
         assertEquals(GridBagConstraints.NORTH,constraints.anchor);
         assertEquals(GridBagConstraints.VERTICAL, constraints.fill);
@@ -96,7 +96,7 @@ public class TestSwingTags extends BaseJellyTest {
         assertEquals(0.3, constraints.weightx, 0);
         assertEquals(new Insets(1,2,3,4), constraints.insets);
         assertEquals(0.6, constraints.weighty, 0);
-        
+
         GridBagConstraints constraints2 = layout.getConstraints(button2);
         assertEquals(1, constraints2.gridx);
         assertEquals(2, constraints2.gridy);
@@ -104,7 +104,7 @@ public class TestSwingTags extends BaseJellyTest {
         assertEquals(9, constraints2.ipady);
         assertEquals(new Insets(3,4,5,6), constraints2.insets);
     }
-    
+
     public void testGridBag14() throws Exception {
         if (!isAWTAvailable()) return;
         if (System.getProperty("java.version").startsWith("1.4")) {
@@ -118,7 +118,7 @@ public class TestSwingTags extends BaseJellyTest {
             assertEquals(21,constraints.anchor);
         }
     }
-    
+
     public void testGridBagFail(){
         if (!isAWTAvailable()) return;
         try {
@@ -129,7 +129,7 @@ public class TestSwingTags extends BaseJellyTest {
         }
         fail("Should have thrown an exception for a bad GBC anchor");
     }
-    
+
     public void testButtonGroup() throws Exception {
         if (!isAWTAvailable()) return;
         runSwingScript("test.buttonGroup");
@@ -139,7 +139,7 @@ public class TestSwingTags extends BaseJellyTest {
         assertNotNull(bg.getSelection());
     }
 
-    
+
     protected void runSwingScript(String testName) throws Exception {
         setUpScript("swingTags.jelly");
         Script script = getJelly().compileScript();
@@ -147,7 +147,7 @@ public class TestSwingTags extends BaseJellyTest {
         getJellyContext().setVariable(testName,Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
     }
-    
+
     /** Searches a container for a component with a given name. Searches only
      * the immediate container, not child containers.
      * @param container the Container to search in
@@ -157,17 +157,17 @@ public class TestSwingTags extends BaseJellyTest {
      */
     protected static Component componentByName(Container container, String name) throws Exception{
         Component[] components = container.getComponents();
-        
+
         for (int i=0;i<components.length;i++) {
             Component component = components[i];
             if (component.getName().equals(name)) {
                 return component;
             }
         }
-        
+
         throw new Exception("Component " + name + " not found in container " + container);
     }
-    
+
     /**
      * @return true if we are running with AWT present
      */

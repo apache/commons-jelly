@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,18 +23,18 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.14 $
+  * @version $Revision: 1.15 $
   */
 public class WhenTag extends TagSupport {
 
     /** The expression to evaluate. */
-    private Expression test;        
+    private Expression test;
 
     public WhenTag() {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
         ChooseTag tag = (ChooseTag) findAncestorWithClass( ChooseTag.class );
         if ( tag == null ) {
@@ -49,11 +49,11 @@ public class WhenTag extends TagSupport {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                
-    
+    //-------------------------------------------------------------------------
+
     /** Sets the expression to evaluate. */
     public void setTest(Expression test) {
         this.test = test;
     }
-    
+
 }

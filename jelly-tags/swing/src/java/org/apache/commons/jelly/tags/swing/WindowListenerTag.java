@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Creates a WindowListener which is attached to its parent window control which will invoke
  * named Jelly scripts as window events are fired, or will invoke its body if there is no script
  * specified for the named event type.
@@ -51,7 +51,7 @@ public class WindowListenerTag extends TagSupport {
     }
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws JellyTagException {
 
         // now lets add this action to its parent if we have one
@@ -82,16 +82,16 @@ public class WindowListenerTag extends TagSupport {
                     invokeScript( output, e, iconified );
                 }
 
-                public void windowOpened(WindowEvent e) {                     
+                public void windowOpened(WindowEvent e) {
                     invokeScript( output, e, opened );
                 }
             };
             tag.addWindowListener(listener);
         }
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
 
     /**
@@ -100,7 +100,7 @@ public class WindowListenerTag extends TagSupport {
     public void setVar(String var) {
         this.var = var;
     }
-            
+
     /**
      * Sets the Script to be executed when the window is activated.
      */
@@ -151,15 +151,15 @@ public class WindowListenerTag extends TagSupport {
     }
 
 
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     protected void invokeScript(XMLOutput output, WindowEvent event, Script script) {
         if ( var != null ) {
             // define a variable of the event
             context.setVariable(var, event);
         }
-        
+
         try {
             if ( script != null ) {
                 script.run(context, output );
@@ -173,5 +173,5 @@ public class WindowListenerTag extends TagSupport {
             log.error( "Caught exception processing window event: " + event, e );
         }
     }
-        
+
 }

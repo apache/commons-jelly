@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,9 +31,9 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Invokes a web service
- * 
+ *
  * @author <a href="mailto:jim@bnainc.net">James Birchfield</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class InvokeTag extends TagSupport {
 
@@ -43,7 +43,7 @@ public class InvokeTag extends TagSupport {
     private String method = null;
     private Service service;
     private Object params;
-    
+
     public InvokeTag() {
     }
 
@@ -59,7 +59,7 @@ public class InvokeTag extends TagSupport {
         if (method == null) {
             throw new MissingAttributeException("method");
         }
-        
+
         Object[] params = getParamArray();
         if (params == null) {
             params = new Object[]{ getBodyText() };
@@ -73,7 +73,7 @@ public class InvokeTag extends TagSupport {
         if (service == null) {
             service = createService();
         }
-        
+
         Object answer = null;
         try {
             Call call = (Call) service.createCall();
@@ -84,17 +84,17 @@ public class InvokeTag extends TagSupport {
             call.setOperationName(new QName(namespace, method));
 
             answer = call.invoke(params);
-        } 
+        }
         catch (MalformedURLException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (ServiceException e) {
             throw new JellyTagException(e);
         }
         catch (RemoteException e) {
             throw new JellyTagException(e);
         }
-        
+
         if (var != null) {
             context.setVariable(var, answer);
         }
@@ -124,7 +124,7 @@ public class InvokeTag extends TagSupport {
     public void setMethod(String method) {
         this.method = method;
     }
-    
+
     /**
      * Returns the service to be used by this web service invocation.
      * @return Service
@@ -149,7 +149,7 @@ public class InvokeTag extends TagSupport {
     }
 
     /**
-     * Sets the parameters for this SOAP call. This can be an array or collection of 
+     * Sets the parameters for this SOAP call. This can be an array or collection of
      * SOAPBodyElements or types.
      */
     public void setParams(Object params) {

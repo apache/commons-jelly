@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.14 $
+  * @version $Revision: 1.15 $
   */
 public class ScriptBlock implements Script {
 
@@ -46,13 +46,13 @@ public class ScriptBlock implements Script {
     public void addScript(Script script) {
         list.add(script);
     }
-    
+
     /** Removes a script from this block */
     public void removeScript(Script script) {
         list.remove(script);
     }
 
-    /** 
+    /**
      * Gets the child scripts that make up this block. This list is live
      * so that it can be modified if requried
      */
@@ -61,7 +61,7 @@ public class ScriptBlock implements Script {
     }
 
     // Script interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public Script compile() throws JellyException {
         int size = list.size();
         if (size == 1) {
@@ -78,12 +78,12 @@ public class ScriptBlock implements Script {
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
-/*        
+/*
         for (int i = 0, size = scripts.length; i < size; i++) {
             Script script = scripts[i];
             script.run(context, output);
         }
-*/    
+*/
         for (Iterator iter = list.iterator(); iter.hasNext(); ) {
             Script script = (Script) iter.next();
             script.run(context, output);

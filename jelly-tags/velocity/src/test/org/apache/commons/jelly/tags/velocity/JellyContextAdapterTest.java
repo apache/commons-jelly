@@ -2,13 +2,13 @@ package org.apache.commons.jelly.tags.velocity;
 
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.apache.commons.collections.CollectionUtils;
  * Unit test for <code>JellyContextAdapter</code>.
  *
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id: JellyContextAdapterTest.java,v 1.2 2004/02/25 01:32:00 dion Exp $
+ * @version $Id: JellyContextAdapterTest.java,v 1.3 2004/09/09 12:23:17 dion Exp $
  */
 public class JellyContextAdapterTest extends TestCase
 {
@@ -61,7 +61,7 @@ public class JellyContextAdapterTest extends TestCase
         adapter = new JellyContextAdapter( jellyContext );
     }
 
-    /** 
+    /**
      * Test the behavior of null keys.
      */
     public void testNullKey()
@@ -72,7 +72,7 @@ public class JellyContextAdapterTest extends TestCase
         assertTrue( adapter.get( null ) == null );
     }
 
-    /** 
+    /**
      * Test the behavior of null values.
      */
     public void testNullValue()
@@ -83,7 +83,7 @@ public class JellyContextAdapterTest extends TestCase
         assertTrue( adapter.get( "key" ) == null );
     }
 
-    /** 
+    /**
      * Test that items can be added and retrieved from a read-write
      * adpater.  Also verify the key/value pair was actually inserted
      * into the JellyContext.
@@ -102,7 +102,7 @@ public class JellyContextAdapterTest extends TestCase
                 jellyContext.getVariable( "key" ) == value );
     }
 
-    /** 
+    /**
      * Test that items can be added and retrieved from a read-only
      * adapter.  Also verify the key/value pair was not inserted into
      * the JellyContext.
@@ -121,7 +121,7 @@ public class JellyContextAdapterTest extends TestCase
                 jellyContext.getVariable( "key" ) == null );
     }
 
-    /** 
+    /**
      * Test that items can be removed from a read-write context.  Also
      * verify that the item is removed from the JellyContext.
      */
@@ -146,7 +146,7 @@ public class JellyContextAdapterTest extends TestCase
                 adapter.remove( "non-existent key" ) == null );
     }
 
-    /** 
+    /**
      * Test that items can be removed from a read-only context.  Also
      * verify that the JellyContext is not impacted by removal of keys.
      */
@@ -159,20 +159,20 @@ public class JellyContextAdapterTest extends TestCase
 
         Object oldValue = adapter.remove( "key" );
 
-        assertTrue( "Value returned from remove() is not the original", 
+        assertTrue( "Value returned from remove() is not the original",
                 value == oldValue );
 
         assertTrue( "adapter: after removal of key, value should be null",
                 adapter.get( "key" ) == null );
 
-        assertTrue( "jellyContext: value should not be affected.", 
+        assertTrue( "jellyContext: value should not be affected.",
                 jellyContext.getVariable( "key" ) == null );
 
         assertTrue( "Removal of non-existent key should return null",
                 adapter.remove( "non-existent key" ) == null );
     }
 
-    /** 
+    /**
      * Test that items can shadow or hide items in the JellyContext.
      * Removal of a key in the private context will unveil the key in
      * the JellyContext if it exists.
@@ -194,11 +194,11 @@ public class JellyContextAdapterTest extends TestCase
         assertTrue( "adapter: after removal of key, value should be 2",
                 adapter.get( "key" ) == value2 );
 
-        assertTrue( "jellyContext: value should not be affected.", 
+        assertTrue( "jellyContext: value should not be affected.",
                 jellyContext.getVariable( "key" ) == value2 );
     }
 
-    /** 
+    /**
      * Test the containsKey method in a read-write adapter.
      */
     public void testReadWriteContainsKey()
@@ -220,7 +220,7 @@ public class JellyContextAdapterTest extends TestCase
                 jellyContext.getVariable( "key1" ) != null );
     }
 
-    /** 
+    /**
      * Test the containsKey method in a read-only adapter.
      */
     public void testReadOnlyContainsKey()
@@ -242,7 +242,7 @@ public class JellyContextAdapterTest extends TestCase
                 jellyContext.getVariable( "key1" ) == null );
     }
 
-    /** 
+    /**
      * Test the getKeys method of a read-write adapter.
      */
     public void testReadWriteGetKeys()
@@ -260,7 +260,7 @@ public class JellyContextAdapterTest extends TestCase
         expectedKeys.add( "key1" );
         expectedKeys.add( "key2" );
         expectedKeys.add( "key3" );
-        
+
         Set actualKeys = new HashSet();
         CollectionUtils.addAll(actualKeys, adapter.getKeys());
 
@@ -268,7 +268,7 @@ public class JellyContextAdapterTest extends TestCase
                 actualKeys.containsAll( expectedKeys ) );
     }
 
-    /** 
+    /**
      * Test the getKeys method of a read-only adapter.
      */
     public void testReadOnlyGetKeys()
@@ -285,7 +285,7 @@ public class JellyContextAdapterTest extends TestCase
         Set expectedKeys = new HashSet();
         expectedKeys.add( "key1" );
         expectedKeys.add( "key2" );
-        
+
         Set actualKeys = new HashSet();
         CollectionUtils.addAll(actualKeys, adapter.getKeys());
 

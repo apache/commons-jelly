@@ -2,13 +2,13 @@ package org.apache.commons.jelly.tags.velocity;
 
 /*
  * Copyright 2001,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,15 +29,15 @@ import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
 
-/** 
+/**
  * A tag that uses Velocity to render a specified template with the
  * JellyContext storing the results in either a variable in the
  * JellyContext or in a specified file.
- * 
+ *
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id: MergeTag.java,v 1.3 2004/02/25 01:31:59 dion Exp $
+ * @version $Id: MergeTag.java,v 1.4 2004/09/09 12:23:16 dion Exp $
  */
-public class MergeTag extends VelocityTagSupport 
+public class MergeTag extends VelocityTagSupport
 {
     private static final String ENCODING = "ISO-8859-1";
 
@@ -51,26 +51,26 @@ public class MergeTag extends VelocityTagSupport
 
     // -- Tag interface -----------------------------------------------------
 
-    public void doTag( final XMLOutput output ) throws JellyTagException 
+    public void doTag( final XMLOutput output ) throws JellyTagException
     {
         if ( basedir == null || template == null )
         {
-            throw new JellyTagException( 
+            throw new JellyTagException(
                     "This tag must define 'basedir' and 'template'" );
         }
 
         if ( name != null )
         {
             try {
-                Writer writer = new OutputStreamWriter( 
-                        new FileOutputStream( name ), 
+                Writer writer = new OutputStreamWriter(
+                        new FileOutputStream( name ),
                         outputEncoding == null ? ENCODING : outputEncoding );
                 mergeTemplate( writer );
                 writer.close();
-            } 
+            }
             catch (IOException e) {
                 throw new JellyTagException(e);
-            } 
+            }
         }
         else if ( var != null )
         {
@@ -78,13 +78,13 @@ public class MergeTag extends VelocityTagSupport
             mergeTemplate( writer );
             context.setVariable( var, writer.toString() );
         }
-        else 
+        else
         {
-            throw new JellyTagException( 
+            throw new JellyTagException(
                     "This tag must define either 'name' or 'var'" );
         }
     }
-        
+
     // -- Properties --------------------------------------------------------
 
     /**
@@ -93,7 +93,7 @@ public class MergeTag extends VelocityTagSupport
      * @param var The var to set in the JellyContext with the results of
      * the merge.
      */
-    public void setVar( String var ) 
+    public void setVar( String var )
     {
         this.var = var;
     }
@@ -104,15 +104,15 @@ public class MergeTag extends VelocityTagSupport
      * @param name The name of the output file that is used to store the
      * results of the merge.
      */
-    public void setName( String name ) 
+    public void setName( String name )
     {
         this.name = name;
     }
 
-    /** 
+    /**
      * Sets the base directory used for loading of templates by the
      * Velocity file resource loader.
-     * 
+     *
      * @param basedir The directory where templates can be located by
      * the Velocity file resource loader.
      */
@@ -121,10 +121,10 @@ public class MergeTag extends VelocityTagSupport
         this.basedir = basedir;
     }
 
-    /** 
+    /**
      * Sets the filename of the template used to merge with the
      * JellyContext.
-     * 
+     *
      * @param template The filename of the template to be merged.
      */
     public void setTemplate( String template )
@@ -132,11 +132,11 @@ public class MergeTag extends VelocityTagSupport
         this.template = template;
     }
 
-    /** 
+    /**
      * Sets the read-only flag for this adapter which prevents
      * modifications in the Velocity context from propogating to the
      * JellyContext.
-     * 
+     *
      * @param readOnly <tt>true</tt> prevents modifications from
      * propogating (the default), or <tt>false</tt> which permits
      * modifications.
@@ -145,7 +145,7 @@ public class MergeTag extends VelocityTagSupport
     {
         this.readOnly = readOnly;
     }
-    
+
     /**
      * Sets the output encoding mode which defaults to ISO-8859-1 used
      * when storing the results of a merge in a file.
@@ -153,7 +153,7 @@ public class MergeTag extends VelocityTagSupport
      * @param encoding  The file encoding to use when writing the
      * output.
      */
-    public void setOutputEncoding( String encoding ) 
+    public void setOutputEncoding( String encoding )
     {
         this.outputEncoding = encoding;
     }
@@ -164,7 +164,7 @@ public class MergeTag extends VelocityTagSupport
      *
      * @param encoding  The encoding used in the template.
      */
-    public void setInputEncoding( String encoding ) 
+    public void setInputEncoding( String encoding )
     {
         this.inputEncoding = encoding;
     }
@@ -183,12 +183,12 @@ public class MergeTag extends VelocityTagSupport
         adapter.setReadOnly( readOnly );
 
         try {
-            getVelocityEngine( basedir ).mergeTemplate( 
+            getVelocityEngine( basedir ).mergeTemplate(
                 template,
-                inputEncoding == null ? ENCODING : inputEncoding, 
+                inputEncoding == null ? ENCODING : inputEncoding,
                 adapter,
                 writer );
-        } 
+        }
         catch (ResourceNotFoundException e) {
             throw new JellyTagException(e);
         }
@@ -197,10 +197,10 @@ public class MergeTag extends VelocityTagSupport
         }
         catch (MethodInvocationException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (Exception e) {
             throw new JellyTagException(e);
         }
     }
 }
-    
+

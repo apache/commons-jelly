@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,13 +33,13 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
 
     /** the variable exported */
     private String var;
-    
+
     /** the class name of the object to instantiate */
     private String className;
-    
+
     private List paramTypes = new ArrayList();
     private List paramValues = new ArrayList();
-    
+
     public NewTag() {
     }
 
@@ -47,19 +47,19 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
     public void setVar(String var) {
         this.var = var;
     }
-    
+
     /** Sets the class name of the object to instantiate */
     public void setClassName(String className) {
         this.className = className;
     }
-    
+
     public void addArgument(Class type, Object value) {
         paramTypes.add(type);
         paramValues.add(value);
     }
-    
+
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         ArgTag parentArg = null;
         if ( var == null ) {
@@ -96,13 +96,13 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         }
         catch (InstantiationException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (NoSuchMethodException e) {
             throw new JellyTagException(e);
         }
         catch (IllegalAccessException e) {
             throw new JellyTagException(e);
-        } 
+        }
         catch (InvocationTargetException e) {
             throw new JellyTagException(e);
         }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Creates a titled border.
  * The border will either be exported as a variable defined by the 'var' attribute
  * or will be set on the parent widget's border property
@@ -50,16 +50,16 @@ public class TitledBorderTag extends BorderTagSupport {
 
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( title == null) {
             throw new MissingAttributeException("title");
         }
         super.doTag(output);
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * Sets the color of the title for this border. Can be set via a nested <color> tag.
@@ -101,8 +101,8 @@ public class TitledBorderTag extends BorderTagSupport {
 
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Factory method to create a new Border instance.
      */
@@ -111,7 +111,7 @@ public class TitledBorderTag extends BorderTagSupport {
             if (titleJustification != null && titlePosition != null) {
                 int justification = asTitleJustification(titleJustification);
                 int position = asTitlePosition(titlePosition);
-                
+
                 if (font != null) {
                     if (color != null) {
                         return BorderFactory.createTitledBorder(border, title, justification, position, font, color);
@@ -127,10 +127,10 @@ public class TitledBorderTag extends BorderTagSupport {
         return BorderFactory.createTitledBorder(title);
     }
 
-    /** 
+    /**
      * @return the enumeration for the title justification
      */
-    protected int asTitleJustification(String text) {    
+    protected int asTitleJustification(String text) {
         if (text.equalsIgnoreCase("LEFT")) {
             return TitledBorder.LEFT;
         }
@@ -151,10 +151,10 @@ public class TitledBorderTag extends BorderTagSupport {
         }
     }
 
-    /** 
+    /**
      * @return the enumeration for the title position
      */
-    protected int asTitlePosition(String text) {    
+    protected int asTitlePosition(String text) {
         if (text.equalsIgnoreCase("ABOVE_TOP")) {
             return TitledBorder.ABOVE_TOP;
         }

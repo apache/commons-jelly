@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,9 +33,9 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * This tag is bound onto a Java Bean class. When the tag is invoked a bean will be created
- * using the tags attributes. 
+ * using the tags attributes.
  * The bean may also have an invoke method called invoke(), run(), execute() or some such method
  * which will be invoked after the bean has been configured.</p>
  *
@@ -50,18 +50,18 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
 
     /** Empty arguments for Method.invoke() */
     private static final Object[] emptyArgs = {};
-    
+
     /** the bean class */
     private Class beanClass;
-    
+
     /** the current bean instance */
     private Object bean;
-    
-    /** the method to invoke on the bean */
-    private Method method;    
 
-    /** 
-     * the tag attribute name that is used to declare the name 
+    /** the method to invoke on the bean */
+    private Method method;
+
+    /**
+     * the tag attribute name that is used to declare the name
      * of the variable to export after running this tag
      */
     private String variableNameAttribute;
@@ -73,12 +73,12 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
     private Set setAttributesSet = new HashSet();
 
     /** the attribute definitions */
-    private Map attributes;    
-        
+    private Map attributes;
+
     /**
-     * 
+     *
      * @param beanClass Class of the bean that will receive the setter events
-     * @param attributes 
+     * @param attributes
      * @param variableNameAttribute
      * @param method method of the Bean to invoke after the attributes have been set.  Can be null.
      */
@@ -100,10 +100,10 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
             throw new JellyTagException("Could not instantiate dynabean",e);
         }
 
-        setAttributesSet.clear();                    
+        setAttributesSet.clear();
     }
 
-    public void setAttribute(String name, Object value) throws JellyTagException {        
+    public void setAttribute(String name, Object value) throws JellyTagException {
         boolean isVariableName = false;
         if (variableNameAttribute != null ) {
             if ( variableNameAttribute.equals( name ) ) {
@@ -117,23 +117,23 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
             }
         }
         if (! isVariableName) {
-            
+
             // #### strictly speaking we could
             // know what attributes are specified at compile time
-            // so this dynamic set is unnecessary            
+            // so this dynamic set is unnecessary
             setAttributesSet.add(name);
-            
+
             // we could maybe implement attribute specific validation here
-            
+
             super.setAttribute(name, value);
         }
     }
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
 
-        // lets find any attributes that are not set and 
+        // lets find any attributes that are not set and
         for ( Iterator iter = attributes.values().iterator(); iter.hasNext(); ) {
             Attribute attribute = (Attribute) iter.next();
             String name = attribute.getName();
@@ -147,7 +147,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
                 if ( expression != null ) {
                     value = expression.evaluate(context);
                 }
-                
+
                 // only set non-null values?
                 if ( value != null ) {
                     super.setAttribute(name, value);
@@ -163,7 +163,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
             tag.setContext(getContext());
             tag.setParent(getParent());
             ((Tag) bean).doTag(output);
-            
+
             return;
         }
 
@@ -173,7 +173,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         if ( var != null ) {
             context.setVariable(var, bean);
         }
-        
+
         // now, I may invoke the 'execute' method if I have one
         if ( method != null ) {
             try {
@@ -191,11 +191,11 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
                 Throwable inner = e.getTargetException();
 
                 throw new JellyTagException(inner);
-                
+
             }
         }
     }
-    
+
     /**
      * Report the state of the bean when method invocation fails
      * so that the user can determine any problems that might
@@ -208,22 +208,22 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
     private void methodInvocationException(Object bean, Method method, Exception e) throws JellyTagException {
         log.error("Could not invoke " + method, e);
         BeanMap beanMap = new BeanMap(bean);
-        
+
         log.error("Bean properties:");
         for (Iterator i = beanMap.keySet().iterator(); i.hasNext();) {
             String property = (String) i.next();
             Object value = beanMap.get(property);
             log.error(property + " -> " + value);
         }
-        
+
         log.error(beanMap);
         throw new JellyTagException(e);
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     /**
-     * @return the bean that has just been created 
+     * @return the bean that has just been created
      */
     public Object getBean() {
         return bean;

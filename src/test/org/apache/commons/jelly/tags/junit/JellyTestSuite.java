@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,11 +24,11 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * An abstract base class for creating a TestSuite via a Jelly script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public abstract class JellyTestSuite {
 
@@ -38,14 +38,14 @@ public abstract class JellyTestSuite {
 
     /**
      * Helper method to create a test suite from a file name on the class path
-     * in the package of the given class. 
-     * For example a test could call 
+     * in the package of the given class.
+     * For example a test could call
      * <code>
      * createTestSuite( Foo.class, "suite.jelly" );
      * </code>
-     * which would loaad the 'suite.jelly script from the same package as the Foo 
+     * which would loaad the 'suite.jelly script from the same package as the Foo
      * class on the classpath.
-     * 
+     *
      * @param testClass is the test class used to load the script via the classpath
      * @param script is the name of the script, which is typically just a name, no directory.
      * @return a newly created TestSuite
@@ -53,17 +53,17 @@ public abstract class JellyTestSuite {
     public static TestSuite createTestSuite(Class testClass, String script) throws Exception {
         URL url = testClass.getResource(script);
         if ( url == null ) {
-            throw new Exception( 
-                "Could not find Jelly script: " + script 
-                + " in package of class: " + testClass.getName() 
+            throw new Exception(
+                "Could not find Jelly script: " + script
+                + " in package of class: " + testClass.getName()
             );
         }
         return createTestSuite( url );
     }
-        
+
     /**
      * Helper method to create a test suite from the given Jelly script
-     * 
+     *
      * @param script is the URL to the script which should create a TestSuite
      * @return a newly created TestSuite
      */

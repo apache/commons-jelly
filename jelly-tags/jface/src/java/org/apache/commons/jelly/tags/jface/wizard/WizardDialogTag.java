@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,8 +31,8 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  *  This Tag creates a JFace WizardDialog
- *  
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
+ *
+ * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class WizardDialogTag extends UseBeanTag {
 
@@ -86,7 +86,7 @@ public class WizardDialogTag extends UseBeanTag {
             return true;
         }
     }
-    
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(WizardDialogTag.class);
 
@@ -106,7 +106,7 @@ public class WizardDialogTag extends UseBeanTag {
         super(theClass);
     }
 
-    /* 
+    /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     public void doTag(XMLOutput output) throws JellyTagException {
@@ -158,7 +158,7 @@ public class WizardDialogTag extends UseBeanTag {
         return null;
     }
 
-    /* 
+    /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output)

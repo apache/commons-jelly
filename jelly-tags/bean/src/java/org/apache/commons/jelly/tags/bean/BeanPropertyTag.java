@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,33 +29,33 @@ import org.apache.commons.jelly.XMLOutput;
  * Creates a nested property via calling a beans createFoo() method then
  * either calling the setFoo(value) or addFoo(value) methods in a similar way
  * to how Ant tags construct themselves.
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class BeanPropertyTag extends BeanTag {
 
     /** empty arguments constant */
     private static final Object[] EMPTY_ARGS = {};
-    
+
     /** empty argument types constant */
     private static final Class[] EMPTY_ARG_TYPES = {};
 
     /** the name of the create method */
     private String createMethodName;
 
-    
+
     public BeanPropertyTag(String tagName) {
         super(Object.class, tagName);
 
         if (tagName.length() > 0) {
-            createMethodName = "create" 
-                + tagName.substring(0,1).toUpperCase() 
+            createMethodName = "create"
+                + tagName.substring(0,1).toUpperCase()
                 + tagName.substring(1);
         }
     }
-    
+
     /**
      * Creates a new instance by calling a create method on the parent bean
      */
@@ -121,5 +121,5 @@ public class BeanPropertyTag extends BeanTag {
         return MethodUtils.getAccessibleMethod(
             theClass, createMethodName, EMPTY_ARG_TYPES
         );
-    }    
+    }
 }

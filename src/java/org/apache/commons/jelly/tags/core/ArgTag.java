@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,35 +31,35 @@ import org.apache.commons.beanutils.converters.ShortConverter;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
-/** 
+/**
  * An argument to a {@link NewTag} or {@link InvokeTag}.
- * This tag MUST be enclosed within an {@link ArgTagParent} 
+ * This tag MUST be enclosed within an {@link ArgTagParent}
  * implementation.
  *
  * @author Rodney Waldhoff
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class ArgTag extends BaseClassLoaderTag {
 
     // constructors
     //-------------------------------------------------------------------------
-    
+
     public ArgTag() {
     }
 
     // attribute setters
     //-------------------------------------------------------------------------
 
-    /** 
-     * The name of the argument class or type, if any. 
-     * This may be a fully specified class name or 
+    /**
+     * The name of the argument class or type, if any.
+     * This may be a fully specified class name or
      * a primitive type name
      * (<code>boolean<code>, <code>int</code>, <code>double</code>, etc.).
      */
     public void setType(String type) {
         this.typeString = type;
     }
-    
+
     /** The (possibly null) value of this argument. */
     public void setValue(Object value) {
         this.value= value;
@@ -72,9 +72,9 @@ public class ArgTag extends BaseClassLoaderTag {
         invokeBody(output);
 
         Class klass = null;
-        if("boolean".equals(typeString)) {                
+        if("boolean".equals(typeString)) {
             klass = Boolean.TYPE;
-            assertNotNull(value);            
+            assertNotNull(value);
         } else if("byte".equals(typeString)) {
             klass = Byte.TYPE;
             assertNotNull(value);
@@ -122,10 +122,10 @@ public class ArgTag extends BaseClassLoaderTag {
                 value = convert(klass,value);
             }
         }
-        
+
         ArgTagParent parent = (ArgTagParent)findAncestorWithClass(ArgTagParent.class);
         if(null == parent) {
-            throw new JellyTagException("This tag must be enclosed inside an ArgTagParent implementation (for example, <new> or <invoke>)" );        
+            throw new JellyTagException("This tag must be enclosed inside an ArgTagParent implementation (for example, <new> or <invoke>)" );
         } else {
             parent.addArgument(klass,value);
         }
@@ -149,7 +149,7 @@ public class ArgTag extends BaseClassLoaderTag {
 
     /** The name of the parameter type, if any. */
     private String typeString;
-    
+
     /** The value of the parameter, if any */
     private Object value;
 
@@ -161,7 +161,7 @@ public class ArgTag extends BaseClassLoaderTag {
             return null;
         } else if(!klass.isInstance(value)) {
             Converter converter = (Converter)(converterMap.get(klass));
-            if(null == converter) { 
+            if(null == converter) {
                 throw new JellyTagException("Can't convert " + value + " to " + klass);
             } else {
                 try {
@@ -173,9 +173,9 @@ public class ArgTag extends BaseClassLoaderTag {
         } else {
             return value;
         }
-        
+
     }
-        
+
     /** My bag of converters, by target Class */
     private static Map converterMap = new HashMap();
     // these inner classes should probably move to beanutils
@@ -197,9 +197,9 @@ public class ArgTag extends BaseClassLoaderTag {
                         return new Byte(((Number)value).byteValue());
                     } else {
                         return inner.convert(klass,value);
-                    }                        
-                }           
-                private Converter inner = new ByteConverter();     
+                    }
+                }
+                private Converter inner = new ByteConverter();
             };
             converterMap.put(Byte.TYPE,c);
             converterMap.put(Byte.class,c);
@@ -211,9 +211,9 @@ public class ArgTag extends BaseClassLoaderTag {
                         return new Short(((Number)value).shortValue());
                     } else {
                         return inner.convert(klass,value);
-                    }                        
-                }           
-                private Converter inner = new ShortConverter();     
+                    }
+                }
+                private Converter inner = new ShortConverter();
             };
             converterMap.put(Short.TYPE,c);
             converterMap.put(Short.class,c);
@@ -225,9 +225,9 @@ public class ArgTag extends BaseClassLoaderTag {
                         return new Integer(((Number)value).intValue());
                     } else {
                         return inner.convert(klass,value);
-                    }                        
-                }           
-                private Converter inner = new IntegerConverter();     
+                    }
+                }
+                private Converter inner = new IntegerConverter();
             };
             converterMap.put(Integer.TYPE,c);
             converterMap.put(Integer.class,c);
@@ -239,9 +239,9 @@ public class ArgTag extends BaseClassLoaderTag {
                         return new Long(((Number)value).longValue());
                     } else {
                         return inner.convert(klass,value);
-                    }                        
-                }           
-                private Converter inner = new LongConverter();     
+                    }
+                }
+                private Converter inner = new LongConverter();
             };
             converterMap.put(Long.TYPE,c);
             converterMap.put(Long.class,c);
@@ -253,9 +253,9 @@ public class ArgTag extends BaseClassLoaderTag {
                         return new Float(((Number)value).floatValue());
                     } else {
                         return inner.convert(klass,value);
-                    }                        
-                }           
-                private Converter inner = new FloatConverter();     
+                    }
+                }
+                private Converter inner = new FloatConverter();
             };
             converterMap.put(Float.TYPE,c);
             converterMap.put(Float.class,c);
@@ -267,12 +267,12 @@ public class ArgTag extends BaseClassLoaderTag {
                         return new Double(((Number)value).doubleValue());
                     } else {
                         return inner.convert(klass,value);
-                    }                        
-                }           
-                private Converter inner = new DoubleConverter();     
+                    }
+                }
+                private Converter inner = new DoubleConverter();
             };
             converterMap.put(Double.TYPE,c);
             converterMap.put(Double.class,c);
-        }       
+        }
     }
 }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,17 +20,17 @@ import org.apache.commons.jelly.Tag;
 
 import org.xml.sax.Attributes;
 
-/** 
+/**
  * <p><code>DefaultTagFactory</code> a default implementation of TagFactory
  * which creates new instances of a given class.
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.16 $
  */
 public class DefaultTagFactory implements TagFactory {
 
     private Class tagClass;
-        
+
     public DefaultTagFactory() {
     }
 
@@ -39,7 +39,7 @@ public class DefaultTagFactory implements TagFactory {
     }
 
     // TagFactory interface
-    //-------------------------------------------------------------------------      
+    //-------------------------------------------------------------------------
     public Tag createTag(String name, Attributes attributes) throws JellyException {
         try {
           return (Tag) tagClass.newInstance();
@@ -50,10 +50,10 @@ public class DefaultTagFactory implements TagFactory {
         }
     }
 
-    
+
     // Properties
-    //-------------------------------------------------------------------------      
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Returns the tagClass.
      * @return Class

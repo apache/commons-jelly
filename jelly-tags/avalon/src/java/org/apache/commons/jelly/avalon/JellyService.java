@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,12 +41,12 @@ import org.apache.commons.jelly.XMLOutput;
  * An Avalon based service for executing Jelly scripts. The
  * service allows executing a script based on a name as well
  * as by a URL.
- * 
+ *
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
  * @version 1.1
  */
 public interface JellyService {
-     
+
     /**
      * Executes a named script with the supplied
      * Map of parameters.
@@ -95,7 +95,7 @@ public interface JellyService {
     /**
      * Runs a script from the supplied url and sends the output of the script to
      * the supplied OutputStream.
-     * 
+     *
      * @param url The URL of the script
      * @param params Parameters to be supplied to the script
      * @param out The OutputStream to send the output of the script to

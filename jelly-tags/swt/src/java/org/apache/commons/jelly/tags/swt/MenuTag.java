@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Widget;
 
-/** 
+/**
  * This tag creates an SWT Menu
  * </p>
  *
@@ -35,7 +35,7 @@ public class MenuTag extends WidgetTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(MenuTag.class);
-    
+
     public MenuTag() {
         super(Menu.class);
     }
@@ -45,12 +45,12 @@ public class MenuTag extends WidgetTag {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Provides a strategy method to allow a new child widget to be attached to
      * its parent
-     * 
+     *
      * @param parent is the parent widget which is never null
      * @param widget is the new child widget to be attached to the parent
      */
@@ -69,14 +69,14 @@ public class MenuTag extends WidgetTag {
             menuItem.setMenu(menu);
         }
     }
-    
+
     /**
      * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
      */
     protected Object createWidget(Class theClass, Widget parent, int style)
         throws JellyTagException {
 
-        if (parent instanceof Decorations) {            
+        if (parent instanceof Decorations) {
             return super.createWidget(theClass, parent, style);
         }
         else {

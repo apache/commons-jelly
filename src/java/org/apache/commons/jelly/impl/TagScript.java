@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,25 +44,25 @@ import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
-/** 
+/**
  * <p><code>TagScript</code> is a Script that evaluates a custom tag.</p>
- * 
+ *
  * <b>Note</b> that this class should be re-entrant and used
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.42 $
+ * @version $Revision: 1.43 $
  */
 public class TagScript implements Script {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TagScript.class);
 
-    /** 
+    /**
      * Thread local storage for the tag used by the current thread.
      * This allows us to pool tag instances, per thread to reduce object construction
      * over head, if we need it.
-     * 
+     *
      * Note that we could use the stack and create a new tag for each invocation
      * if we made a slight change to the Script API to pass in the parent tag.
      */
@@ -70,17 +70,17 @@ public class TagScript implements Script {
 
     /** The attribute expressions that are created */
     protected Map attributes = new Hashtable();
-    
+
     /** the optional namespaces Map of prefix -> URI of this single Tag */
     private Map tagNamespacesMap;
-    
-    /** 
+
+    /**
      * The optional namespace context mapping all prefixes -> URIs in scope
      * at the point this tag is used.
      * This Map is only created lazily if it is required by the NamespaceAwareTag.
      */
     private Map namespaceContext;
-    
+
     /** the Jelly file which caused the problem */
     private String fileName;
 
@@ -92,38 +92,38 @@ public class TagScript implements Script {
 
     /** the line number of the tag */
     private int lineNumber = -1;
-    
+
     /** the column number of the tag */
     private int columnNumber = -1;
 
     /** the factory of Tag instances */
     private TagFactory tagFactory;
-    
+
     /** the body script used for this tag */
     private Script tagBody;
-    
+
     /** the parent TagScript */
     private TagScript parent;
 
     /** the SAX attributes */
     private Attributes saxAttributes;
-        
-    /** 
-     * @return a new TagScript based on whether 
-     * the given Tag class is a bean tag or DynaTag 
+
+    /**
+     * @return a new TagScript based on whether
+     * the given Tag class is a bean tag or DynaTag
      */
     public static TagScript newInstance(Class tagClass) {
         TagFactory factory = new DefaultTagFactory(tagClass);
         return new TagScript(factory);
     }
-    
+
     public TagScript() {
     }
 
     public TagScript(TagFactory tagFactory) {
         this.tagFactory = tagFactory;
     }
-    
+
     public String toString() {
         return super.toString() + "[tag=" + elementName + ";at=" + lineNumber + ":" + columnNumber + "]";
     }
@@ -137,9 +137,9 @@ public class TagScript implements Script {
         }
         return this;
     }
-    
+
     /**
-     * Sets the optional namespaces prefix -> URI map of 
+     * Sets the optional namespaces prefix -> URI map of
      * the namespaces attached to this Tag
      */
     public void setTagNamespacesMap(Map tagNamespacesMap) {
@@ -149,7 +149,7 @@ public class TagScript implements Script {
         }
         this.tagNamespacesMap = tagNamespacesMap;
     }
-        
+
     /**
      * Configures this TagScript from the SAX Locator, setting the column
      * and line numbers
@@ -159,9 +159,9 @@ public class TagScript implements Script {
         setColumnNumber( locator.getColumnNumber() );
     }
 
-    
+
     /** Add an initialization attribute for the tag.
-     * This method must be called after the setTag() method 
+     * This method must be called after the setTag() method
      */
     public void addAttribute(String name, Expression expression) {
         if (log.isDebugEnabled()) {
@@ -169,9 +169,9 @@ public class TagScript implements Script {
         }
         attributes.put(name, expression);
     }
-    
+
     // Script interface
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
@@ -184,10 +184,10 @@ public class TagScript implements Script {
                 return;
             }
             tag.setContext(context);
-    
-            if ( tag instanceof DynaTag ) {        
+
+            if ( tag instanceof DynaTag ) {
                 DynaTag dynaTag = (DynaTag) tag;
-        
+
                 // ### probably compiling this to 2 arrays might be quicker and smaller
                 for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
                     Map.Entry entry = (Map.Entry) iter.next();
@@ -195,7 +195,7 @@ public class TagScript implements Script {
                     Expression expression = (Expression) entry.getValue();
 
                     Class type = dynaTag.getAttributeType(name);
-                    Object value = null;        
+                    Object value = null;
                     if (type != null && type.isAssignableFrom(Expression.class) && !type.isAssignableFrom(Object.class)) {
                         value = expression;
                     }
@@ -219,7 +219,7 @@ public class TagScript implements Script {
                     }
                     Class type = property.getType();
 
-                    Object value = null;        
+                    Object value = null;
                     if (type.isAssignableFrom(Expression.class) && !type.isAssignableFrom(Object.class)) {
                         value = expression;
                     }
@@ -229,9 +229,9 @@ public class TagScript implements Script {
                     dynaBean.set(name, value);
                 }
             }
-        
+
             tag.doTag(output);
-        } 
+        }
         catch (JellyTagException e) {
             handleException(e);
         }
@@ -240,23 +240,23 @@ public class TagScript implements Script {
         }
         catch (RuntimeException e) {
             handleException(e);
-        } 
+        }
         catch (Error e) {
            /*
             * Not sure if we should be converting errors to exceptions,
-            * but not trivial to remove because JUnit tags throw 
+            * but not trivial to remove because JUnit tags throw
             * Errors in the normal course of operation.  Hmm...
             */
             handleException(e);
         }
-        
-    }
-    
-    
-    // Properties
-    //-------------------------------------------------------------------------                
 
-    /** 
+    }
+
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /**
      * @return the tag to be evaluated, creating it lazily if required.
      */
     public Tag getTag() throws JellyException {
@@ -319,57 +319,57 @@ public class TagScript implements Script {
         this.tagBody = tagBody;
     }
 
-    /** 
-     * @return the Jelly file which caused the problem 
+    /**
+     * @return the Jelly file which caused the problem
      */
     public String getFileName() {
         return fileName;
     }
 
-    /** 
-     * Sets the Jelly file which caused the problem 
+    /**
+     * Sets the Jelly file which caused the problem
      */
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
-    
 
-    /** 
+
+    /**
      * @return the element name which caused the problem
      */
     public String getElementName() {
         return elementName;
     }
 
-    /** 
+    /**
      * Sets the element name which caused the problem
      */
     public void setElementName(String elementName) {
         this.elementName = elementName;
     }
-    /** 
-     * @return the line number of the tag 
+    /**
+     * @return the line number of the tag
      */
     public int getLineNumber() {
         return lineNumber;
     }
-    
-    /** 
-     * Sets the line number of the tag 
+
+    /**
+     * Sets the line number of the tag
      */
     public void setLineNumber(int lineNumber) {
         this.lineNumber = lineNumber;
     }
 
-    /** 
-     * @return the column number of the tag 
+    /**
+     * @return the column number of the tag
      */
     public int getColumnNumber() {
         return columnNumber;
     }
-    
-    /** 
-     * Sets the column number of the tag 
+
+    /**
+     * Sets the column number of the tag
      */
     public void setColumnNumber(int columnNumber) {
         this.columnNumber = columnNumber;
@@ -412,7 +412,7 @@ public class TagScript implements Script {
      * Returns the namespace context of this tag. This is all the prefixes
      * in scope in the document where this tag is used which are mapped to
      * their namespace URIs.
-     * 
+     *
      * @return a Map with the keys are namespace prefixes and the values are
      * namespace URIs.
      */
@@ -437,15 +437,15 @@ public class TagScript implements Script {
         }
         return namespaceContext;
     }
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------      
+    //-------------------------------------------------------------------------
 
     /**
-     * Factory method to create a new Tag instance. 
+     * Factory method to create a new Tag instance.
      * The default implementation is to delegate to the TagFactory
      */
-    protected Tag createTag() throws JellyException {    
+    protected Tag createTag() throws JellyException {
         if ( tagFactory != null) {
             return tagFactory.createTag(localName, getSaxAttributes());
         }
@@ -466,7 +466,7 @@ public class TagScript implements Script {
         }
         tag.setParent( parentTag );
         tag.setBody( tagBody );
-        
+
         if (tag instanceof NamespaceAwareTag) {
             NamespaceAwareTag naTag = (NamespaceAwareTag) tag;
             naTag.setNamespaceContext(getNamespaceContext());
@@ -475,15 +475,15 @@ public class TagScript implements Script {
             applyLocation((LocationAware) tag);
         }
     }
-     
+
     /**
      * Flushes the current cached tag so that it will be created, lazily, next invocation
      */
     protected void clearTag() {
         tagHolder.set(null);
     }
-    
-    /** 
+
+    /**
      * Allows the script to set the tag instance to be used, such as in a StaticTagScript
      * when a StaticTag is switched with a DynamicTag
      */
@@ -493,7 +493,7 @@ public class TagScript implements Script {
 
     /**
      * Output the new namespace prefixes used for this element
-     */    
+     */
     protected void startNamespacePrefixes(XMLOutput output) throws SAXException {
         if ( tagNamespacesMap != null ) {
             for ( Iterator iter = tagNamespacesMap.entrySet().iterator(); iter.hasNext(); ) {
@@ -504,10 +504,10 @@ public class TagScript implements Script {
             }
         }
     }
-    
+
     /**
      * End the new namespace prefixes mapped for the current element
-     */    
+     */
     protected void endNamespacePrefixes(XMLOutput output) throws SAXException {
         if ( tagNamespacesMap != null ) {
             for ( Iterator iter = tagNamespacesMap.keySet().iterator(); iter.hasNext(); ) {
@@ -516,9 +516,9 @@ public class TagScript implements Script {
             }
         }
     }
-    
-    /** 
-     * Converts the given value to the required type. 
+
+    /**
+     * Converts the given value to the required type.
      *
      * @param value is the value to be converted. This will not be null
      * @param requiredType the type that the value should be converted to
@@ -533,16 +533,16 @@ public class TagScript implements Script {
         }
         return value;
     }
-    
+
     /**
      * Creates a new Jelly exception, adorning it with location information
      */
     protected JellyException createJellyException(String reason) {
-        return new JellyException( 
+        return new JellyException(
             reason, fileName, elementName, columnNumber, lineNumber
         );
     }
-    
+
     /**
      * Creates a new Jelly exception, adorning it with location information
      */
@@ -560,7 +560,7 @@ public class TagScript implements Script {
                 columnNumber,
                 lineNumber);
         }
-        return new JellyException( 
+        return new JellyException(
             reason, cause, fileName, elementName, columnNumber, lineNumber
         );
     }
@@ -576,10 +576,10 @@ public class TagScript implements Script {
         }
 
         applyLocation(e);
-        
+
         throw e;
     }
-    
+
     /**
      * A helper method to handle this Jelly exception.
      * This method adorns the JellyException with location information
@@ -591,10 +591,10 @@ public class TagScript implements Script {
         }
 
         applyLocation(e);
-        
+
         throw new JellyTagException(e);
     }
-    
+
     protected void applyLocation(LocationAware locationAware) {
         if (locationAware.getLineNumber() == -1) {
             locationAware.setColumnNumber(columnNumber);
@@ -607,7 +607,7 @@ public class TagScript implements Script {
             locationAware.setElementName( elementName );
         }
     }
-    
+
     /**
      * A helper method to handle this non-Jelly exception.
      * This method will rethrow the exception, wrapped in a JellyException
@@ -636,7 +636,7 @@ public class TagScript implements Script {
 
         throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
     }
-    
+
     /**
      * A helper method to handle this non-Jelly exception.
      * This method will rethrow the exception, wrapped in a JellyException

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 
-/** 
+/**
  * A tag which can retrieve the value of a static field of a given class.
  * The following attributes are required:<br />
  * <ul>
@@ -34,10 +34,10 @@ import org.apache.commons.jelly.XMLOutput;
  * Example usage:
  * <pre>
  * &lt;j:getStatic var="closeOperation" className="javax.swing.JFrame"
- *              field="EXIT_ON_CLOSE"/&gt; 
+ *              field="EXIT_ON_CLOSE"/&gt;
  * </pre>
  *
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 
 public class GetStaticTag extends TagSupport {
@@ -52,7 +52,7 @@ public class GetStaticTag extends TagSupport {
     private String className;
 
 
-    /** 
+    /**
      * Sets the name of the variable exported by this tag.
      *
      * @param var The variable name.
@@ -86,7 +86,7 @@ public class GetStaticTag extends TagSupport {
 
 
     // Tag interface
-    //------------------------------------------------------------------------ 
+    //------------------------------------------------------------------------
 
     public void doTag(XMLOutput output) throws JellyTagException {
         String message = null;

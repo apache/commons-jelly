@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,9 +29,9 @@ public class TestUseBeanTag extends BaseJellyTest {
     }
 
     public static TestSuite suite() throws Exception {
-        return new TestSuite(TestUseBeanTag.class);        
+        return new TestSuite(TestUseBeanTag.class);
     }
-    
+
     /**
      * Test a simple useBean tag works ok
      * @throws Exception
@@ -47,7 +47,7 @@ public class TestUseBeanTag extends BaseJellyTest {
         assertEquals("name not set", "testing", customer.getName());
         assertEquals("city not set", "sydney", customer.getCity());
     }
-    
+
     /**
      * test extension
      */
@@ -62,7 +62,7 @@ public class TestUseBeanTag extends BaseJellyTest {
         assertNull("name set wrongly", customer.getName());
         assertEquals("city not set", "sydney", customer.getCity());
     }
-    
+
     /** Test set a bad property name on a bean, should fail.
      * @throws Exception
      */
@@ -74,7 +74,7 @@ public class TestUseBeanTag extends BaseJellyTest {
         Exception e = (Exception)getJellyContext().getVariable("ex");
         assertNotNull("Should have failed to set invalid bean property", e);
     }
-    
+
     /** Test set a bad property name on a bean, this should be silently ignored.
      * @throws Exception
      */

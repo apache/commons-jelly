@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Widget;
  *
  * @author <a href="mailto:crafterm@apache.org">Marcus Crafter</a>
  * @author Written with much help thanks to the ImageTag class
- * @version CVS $Id: ColorTag.java,v 1.1 2004/09/05 15:25:02 dion Exp $
+ * @version CVS $Id: ColorTag.java,v 1.2 2004/09/09 12:20:26 dion Exp $
  */
 public class ColorTag extends TagSupport {
 
@@ -112,12 +112,12 @@ public class ColorTag extends TagSupport {
             throw new JellyTagException("This tag requires a context variable name");
         }
 
-        final Color color = 
+        final Color color =
             new Color(
-                parent.getDisplay(), 
+                parent.getDisplay(),
                 ColorConverter.getInstance().parse(getRgb())
             );
-        
+
         // store the Color in the context
         context.setVariable(var, color);
     }

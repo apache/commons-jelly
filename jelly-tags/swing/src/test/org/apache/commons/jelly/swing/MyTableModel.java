@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,7 +20,7 @@ import javax.swing.table.AbstractTableModel;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * A sample table model
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -30,22 +30,22 @@ public class MyTableModel extends AbstractTableModel {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(MyTableModel.class);
-        
+
     public MyTableModel() {
     }
-    
-    
+
+
     final String[] columnNames = {
-        "First Name", 
+        "First Name",
         "Last Name",
         "Sport",
         "# of Years",
         "Vegetarian"
     };
     final Object[][] data = {
-        {"Mary", "Campione", 
+        {"Mary", "Campione",
          "Snowboarding", new Integer(5), new Boolean(false)},
-        {"Alison", "Huml", 
+        {"Alison", "Huml",
          "Rowing", new Integer(3), new Boolean(true)},
         {"Kathy", "Walrath",
          "Chasing toddlers", new Integer(2), new Boolean(false)},
@@ -58,7 +58,7 @@ public class MyTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return columnNames.length;
     }
-    
+
     public int getRowCount() {
         return data.length;
     }
@@ -88,7 +88,7 @@ public class MyTableModel extends AbstractTableModel {
     public boolean isCellEditable(int row, int col) {
         //Note that the data/cell address is constant,
         //no matter where the cell appears onscreen.
-        if (col < 2) { 
+        if (col < 2) {
             return false;
         } else {
             return true;
@@ -103,18 +103,18 @@ public class MyTableModel extends AbstractTableModel {
         if (log.isDebugEnabled()) {
             log.debug("Setting value at " + row + "," + col
                                + " to " + value
-                               + " (an instance of " 
+                               + " (an instance of "
                                + value.getClass() + ")");
         }
 
-        if (data[0][col] instanceof Integer                        
-                && !(value instanceof Integer)) {                  
-            //With JFC/Swing 1.1 and JDK 1.2, we need to create    
-            //an Integer from the value; otherwise, the column     
-            //switches to contain Strings.  Starting with v 1.3,   
+        if (data[0][col] instanceof Integer
+                && !(value instanceof Integer)) {
+            //With JFC/Swing 1.1 and JDK 1.2, we need to create
+            //an Integer from the value; otherwise, the column
+            //switches to contain Strings.  Starting with v 1.3,
             //the table automatically converts value to an Integer,
-            //so you only need the code in the 'else' part of this 
-            //'if' block.                                          
+            //so you only need the code in the 'else' part of this
+            //'if' block.
             //XXX: See TableEditDemo.java for a better solution!!!
             try {
                 data[row][col] = new Integer(value.toString());

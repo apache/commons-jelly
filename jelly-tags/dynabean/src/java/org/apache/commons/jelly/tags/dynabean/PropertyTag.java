@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.apache.commons.jelly.XMLOutput;
  * The properties are added to the properties array
  * of the parent context, and will be used to
  * create the DynaClass object
- * 
+ *
  * @author Theo Niemeijer
  * @version 1.0
  */
@@ -61,34 +61,34 @@ public class PropertyTag extends TagSupport {
         // Lookup appropriate property class
         Class propClass = propertyClass;
         if (propClass == null) {
-            
+
             // Check property type
             if (type == null) {
                 throw new MissingAttributeException( "type" );
             }
-    
+
             if (type.equals("String")) {
                 propClass = String.class;
-            } 
+            }
             else if (type.equals("Integer")) {
                 propClass = Integer.TYPE;
-            } 
+            }
             else if (type.equals("Short")) {
                 propClass = Short.TYPE;
-            } 
-            else if (type.equals("Long")) {
-                propClass = Long.TYPE;
-            } 
-            else if (type.equals("Float")) {
-                propClass = Float.TYPE;
-            } 
-            else if (type.equals("Double")) {
-                propClass = Double.TYPE;
-            } 
+            }
             else if (type.equals("Long")) {
                 propClass = Long.TYPE;
             }
-    
+            else if (type.equals("Float")) {
+                propClass = Float.TYPE;
+            }
+            else if (type.equals("Double")) {
+                propClass = Double.TYPE;
+            }
+            else if (type.equals("Long")) {
+                propClass = Long.TYPE;
+            }
+
             if (propClass == null) {
                 try {
                     propClass = Class.forName(type);
@@ -110,7 +110,7 @@ public class PropertyTag extends TagSupport {
 
     // Properties
     //-------------------------------------------------------------------------
-    
+
     /**
      * Sets the name of this property
      */
@@ -124,7 +124,7 @@ public class PropertyTag extends TagSupport {
     public void setType(String type) {
         this.type = type;
     }
-    
+
     /**
      * Returns the Class for this property
      */

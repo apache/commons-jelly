@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * <p><code>DefaultTagLibraryResolver</code> is a default implemenation
  * which attempts to interpret the URI as a String called 'jelly:className'
- * and class load the given Java class. Otherwise META-INF/services/jelly/uri 
+ * and class load the given Java class. Otherwise META-INF/services/jelly/uri
  * is searched for on the thread context's class path and, if found, that
  * class will be loaded.</p>
  *
@@ -40,7 +40,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
     private static final Log log = LogFactory.getLog(DefaultTagLibraryResolver.class);
 
     private DiscoverClasses discovery;
-    
+
     /**
      * The class loader to use for instantiating application objects.
      * If not specified, the context class loader, or the class loader
@@ -54,50 +54,50 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * for instantiating new objects?  Default is <code>false</code>.
      */
     private boolean useContextClassLoader = false;
-    
-    
+
+
     public DefaultTagLibraryResolver() {
     }
 
-    
+
     // TagLibraryResolver interface
-    //-------------------------------------------------------------------------                
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Attempts to resolve the given URI to be associated with a TagLibrary
      * otherwise null is returned to indicate no tag library could be found
      * so that the namespace URI should be treated as just vanilla XML.
-     */    
+     */
     public TagLibrary resolveTagLibrary(String uri) {
         DiscoverClasses discovery = getDiscoverClasses();
         String name = uri;
         if ( uri.startsWith( "jelly:" ) ) {
             name = "jelly." + uri.substring(6);
         }
-        
+
         log.info( "Looking up service name: " + name );
 
-/*        
+/*
         ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
-        
+
         DiscoverClass discover = new DiscoverClass(loaders);
         Class implClass = discover.find(TestInterface2.class);
 
 
 
         TagLibrary answer = null;
-        try {                
+        try {
             answer = (TagLibrary) DiscoverSingleton.find(TagLibrary.class, name);
         }
         catch (Exception e) {
             log.error( "Could not load service: " + name );
         }
         return answer;
-*/        
+*/
         ResourceClassIterator iter = discovery.findResourceClasses(name);
         while (iter.hasNext()) {
             ResourceClass resource = iter.nextResourceClass();
-            try {                
+            try {
                 Class typeClass = resource.loadClass();
                 if ( typeClass != null ) {
                     return newInstance(uri, typeClass);
@@ -110,10 +110,10 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         log.info( "Could not find any services for name: " + name );
         return null;
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Return the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
@@ -136,7 +136,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         }
         return (this.getClass().getClassLoader());
     }
-    
+
     /**
      * Set the class loader to be used for instantiating application objects
      * when required.
@@ -147,7 +147,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
     public void setClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
-    
+
     /**
      * Return the boolean as to whether the context classloader should be used.
      */
@@ -179,20 +179,20 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         }
         return discovery;
     }
-    
+
     /**
-     * Sets the fully configured DiscoverClasses instance to be used to 
+     * Sets the fully configured DiscoverClasses instance to be used to
      * lookup services
      */
     public void setDiscoverClasses(DiscoverClasses discovery) {
         this.discovery = discovery;
     }
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
 
     /**
-     * Instantiates the given class name. Otherwise an exception is logged 
+     * Instantiates the given class name. Otherwise an exception is logged
      * and null is returned
      */
     protected TagLibrary loadClass(String uri, String className) {
@@ -207,7 +207,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         }
         return null;
     }
-            
+
 
     /**
      * Creates a new instance of the given TagLibrary class or
@@ -218,7 +218,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
             Object object = theClass.newInstance();
             if (object instanceof TagLibrary) {
                 return (TagLibrary) object;
-            }                
+            }
             else {
                 log.error(
                     "The tag library object mapped to: "
@@ -234,5 +234,5 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         }
         return null;
     }
-    
+
 }

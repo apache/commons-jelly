@@ -1,18 +1,18 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */ 
+ */
 
 package javax.servlet.jsp.jstl.sql;
 
@@ -21,8 +21,8 @@ import java.util.*;
 
 /**
  * <p>This class creates a cached version of a <tt>ResultSet</tt>.
- * It's represented as a <tt>Result</tt> implementation, capable of 
- * returing an array of <tt>Row</tt> objects containing a <tt>Column</tt> 
+ * It's represented as a <tt>Result</tt> implementation, capable of
+ * returing an array of <tt>Row</tt> objects containing a <tt>Column</tt>
  * instance for each column in the row.   It is not part of the JSTL
  * API; it serves merely as a back-end to ResultSupport's static methods.
  * Thus, we scope its access to the package.
@@ -48,7 +48,7 @@ class ResultImpl implements Result {
      * @exception if a database error occurs
      */
     public ResultImpl(ResultSet rs, int startRow, int maxRows)
-        throws SQLException 
+        throws SQLException
     {
         rowMap = new ArrayList();
         rowByIndex = new ArrayList();
@@ -71,11 +71,11 @@ class ResultImpl implements Result {
         int processedRows = 0;
         while (rs.next()) {
             if ((maxRows != -1) && (processedRows == maxRows)) {
-                isLimited = true; 
+                isLimited = true;
                 break;
             }
             Object[] columns = new Object[noOfColumns];
-            SortedMap columnMap = 
+            SortedMap columnMap =
                 new TreeMap(String.CASE_INSENSITIVE_ORDER);
 
             // JDBC uses 1 as the lowest index!

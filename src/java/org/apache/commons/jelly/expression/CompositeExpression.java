@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -25,7 +25,7 @@ import org.apache.commons.collections.iterators.SingletonIterator;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 
-/** 
+/**
  * <p><code>CompositeExpression</code> is a Composite expression made up of several
  * Expression objects which are concatenated into a single String.</p>
  *
@@ -36,31 +36,31 @@ public class CompositeExpression extends ExpressionSupport {
 
     /** The expressions */
     private List expressions;
-    
+
     public CompositeExpression() {
         this.expressions = new ArrayList();
     }
-    
+
     public CompositeExpression(List expressions) {
         this.expressions = expressions;
     }
-    
+
     public String toString() {
         return super.toString() + "[expressions=" + expressions +"]";
     }
-    
+
     /**
      * Parses the given String to be either a ConstantExpresssion, an Expression denoted as
      * "${foo}" or some String with embedded expresssions such as "abc${something}def${else}xyz"
      * which results in a CompositeExpression being returned.
-     * 
+     *
      * @param text is the String to parse into expressions
      * @param factory is the Factory of Expression objects used to create expresssions for the contents
      *  of the String "foo" inside expressions such as "${foo}"
-     * 
+     *
      * @return the Expresssion for the given String.
      * @throws JellyException if the text is invalid (such as missing '}' character).
-     * @throws JellyException if there was some problem creating the underlying Expression object 
+     * @throws JellyException if there was some problem creating the underlying Expression object
      *  from the ExpressionFactory
      */
     public static Expression parse(String text, ExpressionFactory factory) throws JellyException {
@@ -201,7 +201,7 @@ public class CompositeExpression extends ExpressionSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the Expression objects that make up this 
+     * @return the Expression objects that make up this
      * composite expression
      */
     public List getExpressions() {
@@ -209,30 +209,30 @@ public class CompositeExpression extends ExpressionSupport {
     }
 
     /**
-     * Sets the Expression objects that make up this 
+     * Sets the Expression objects that make up this
      * composite expression
      */
     public void setExpressions(List expressions) {
         this.expressions = expressions;
     }
-        
-    /** 
+
+    /**
      * Adds a new expression to the end of the expression list
      */
     public void addExpression(Expression expression) {
         expressions.add(expression);
     }
-    
+
     /**
-     * A helper method to add a new constant text expression 
+     * A helper method to add a new constant text expression
      */
     public void addTextExpression(String text) {
         addExpression(new ConstantExpression(text));
     }
-    
+
     // Expression interface
     //-------------------------------------------------------------------------
-    
+
     public String getExpressionText() {
         StringBuffer buffer = new StringBuffer();
         for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
@@ -241,13 +241,13 @@ public class CompositeExpression extends ExpressionSupport {
         }
         return buffer.toString();
     }
-    
-        
+
+
     // inherit javadoc from interface
     public Object evaluate(JellyContext context) {
         return evaluateAsString(context);
     }
-    
+
     // inherit javadoc from interface
     public String evaluateAsString(JellyContext context) {
         StringBuffer buffer = new StringBuffer();
@@ -259,9 +259,9 @@ public class CompositeExpression extends ExpressionSupport {
             }
         }
         return buffer.toString();
-        
+
     }
-    
+
     // inherit javadoc from interface
     public Iterator evaluateAsIterator(JellyContext context) {
         String value = evaluateAsString(context);

@@ -2,13 +2,13 @@ package org.apache.commons.jelly.tags.quartz;
 
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,7 +17,7 @@ package org.apache.commons.jelly.tags.quartz;
  */
 
 import java.text.ParseException;
- 
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
@@ -157,9 +157,9 @@ public class CronTriggerTag extends QuartzTagSupport
         return this.jobGroup;
     }
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //     org.apache.commons.jelly.Tag
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     /** Perform this tag.
      *
@@ -205,7 +205,7 @@ public class CronTriggerTag extends QuartzTagSupport
         trigger.setJobName( getJobName() );
         trigger.setJobGroup( getJobGroup() );
         trigger.setStartTime( new Date() );
-        
+
         try {
             Scheduler sched = getScheduler();
             sched.scheduleJob( trigger );

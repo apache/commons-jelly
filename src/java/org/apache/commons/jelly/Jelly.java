@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.32 $
+ * @version $Revision: 1.33 $
  */
 public class Jelly {
     
@@ -217,8 +217,8 @@ public class Jelly {
      */
     protected URL resolveURL(String name) throws MalformedURLException {
         
-        URL url = this.getClass().getClassLoader().getResource(name);
-        if (url == null)
+        URL resourceUrl = this.getClass().getClassLoader().getResource(name);
+        if (resourceUrl == null)
         {
             File file = new File(name);
             if (file.exists()) {
@@ -226,7 +226,7 @@ public class Jelly {
             }
             return new URL(name);
         } else {
-            return url;
+            return resourceUrl;
         }
     }
 
@@ -284,7 +284,7 @@ public class Jelly {
      * Loads the properties from the given input stream 
      */    
     protected void loadProperties(InputStream is) throws IOException {
-        JellyContext context = getJellyContext();
+        JellyContext theContext = getJellyContext();
         Properties props = new Properties();
         props.load(is);
         Enumeration propsEnum = props.propertyNames();
@@ -293,7 +293,7 @@ public class Jelly {
             String value = props.getProperty(key);
             
             // @todo we should parse the value in case its an Expression
-            context.setVariable(key, value);
+            theContext.setVariable(key, value);
         }
     }
 }

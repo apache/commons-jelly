@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ import java.awt.LayoutManager;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * A Layout tag which uses nested &lt;borderAlign&gt; tags to implement a BorderLayout
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -34,13 +34,13 @@ public class BorderLayoutTag extends LayoutTagSupport {
 
     private int hgap;
     private int vgap;
-    
+
     public BorderLayoutTag() {
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Returns the hgap.
      * @return int
@@ -72,12 +72,12 @@ public class BorderLayoutTag extends LayoutTagSupport {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Creates a BorderLayout
      */
     protected LayoutManager createLayoutManager() {
-        return new BorderLayout(hgap, vgap);        
+        return new BorderLayout(hgap, vgap);
     }
 }

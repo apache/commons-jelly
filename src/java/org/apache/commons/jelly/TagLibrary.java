@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.24 $
+  * @version $Revision: 1.25 $
   */
 
 public abstract class TagLibrary {
@@ -44,8 +44,8 @@ public abstract class TagLibrary {
 
     static {
 
-        // register standard converters 
-               
+        // register standard converters
+
         ConvertUtils.register(
             new Converter() {
                 public Object convert(Class type, Object value) {
@@ -61,7 +61,7 @@ public abstract class TagLibrary {
             },
             File.class
         );
-    }        
+    }
 
     public TagLibrary() {
     }
@@ -81,7 +81,7 @@ public abstract class TagLibrary {
         return null;
 
     }
-    
+
     /** Creates a new Tag for the given tag name and attributes */
     public Tag createTag(String name, Attributes attributes)
         throws JellyException {
@@ -103,7 +103,7 @@ public abstract class TagLibrary {
         }
         return null;
     }
-    
+
     /** Allows taglibs to use their own expression evaluation mechanism */
     public Expression createExpression(
         ExpressionFactory factory,
@@ -119,24 +119,24 @@ public abstract class TagLibrary {
         if (myFactory != null) {
             return CompositeExpression.parse(attributeValue, myFactory);
         }
-        
+
         // will use a constant expression instead
         return new ConstantExpression(attributeValue);
     }
-    
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------     
 
-    /** 
-     * Registers a tag implementation Class for a given tag name 
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Registers a tag implementation Class for a given tag name
      */
     protected void registerTag(String name, Class type) {
         tags.put(name, type);
     }
 
-    /** 
-     * Registers a tag factory for a given tag name 
+    /**
+     * Registers a tag factory for a given tag name
      */
     protected void registerTagFactory(String name, TagFactory tagFactory) {
         tags.put(name, tagFactory);
@@ -146,7 +146,7 @@ public abstract class TagLibrary {
     protected ExpressionFactory getExpressionFactory() {
         return null;
     }
-    
+
     protected Map getTagClasses() {
         return tags;
     }

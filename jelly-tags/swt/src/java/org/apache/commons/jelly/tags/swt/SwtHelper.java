@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,7 @@ import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * A helper class for working with SWT.
  * </p>
  *
@@ -34,7 +34,7 @@ public class SwtHelper extends UseBeanTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(SwtHelper.class);
-    
+
 
     /**
      * Parses the comma delimited String of style codes which are or'd
@@ -56,7 +56,7 @@ public class SwtHelper extends UseBeanTag {
      * @param text is a comma delimited text value such as "border, resize"
      * @param toUpperCase is whether the text should be converted to upper case
      * before its compared against the reflection fields
-     * 
+     *
      * @return the int code
      */
     public static int parseStyle(Class constantClass, String text, boolean toUpperCase) throws JellyTagException{
@@ -73,7 +73,7 @@ public class SwtHelper extends UseBeanTag {
         }
         return answer;
     }
-    
+
     /**
      * @return the code for the given word or zero if the word doesn't match a
      * valid style

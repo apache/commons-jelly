@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import org.jaxen.JaxenException;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class ForEachTag extends XPathTagSupport implements XPathSource {
 
@@ -51,15 +51,15 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
 
     public ForEachTag() {
     }
-    
+
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
         if (select != null) {
             List nodes = null;
             try {
                 nodes = select.selectNodes( getXPathContext() );
-            } 
+            }
             catch (JaxenException e) {
                 throw new JellyTagException(e);
             }
@@ -79,9 +79,9 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
             }
         }
     }
-    
+
     // XPathSource interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * @return the current XPath iteration value
@@ -90,9 +90,9 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     public Object getXPathSource() {
         return iterationValue;
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     /** Sets the XPath selection expression
       */
     public void setSelect(XPath select) {
@@ -119,12 +119,12 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
         if (xpCmp == null) xpCmp = new XPathComparator();
         xpCmp.setDescending(descending);
     }
-    
+
     /*
      * Override superclass so method can be access by IfTag
      */
     protected Object getXPathContext() {
         return super.getXPathContext();
     }
-    
+
 }

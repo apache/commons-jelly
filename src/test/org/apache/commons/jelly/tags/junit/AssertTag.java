@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,18 +23,18 @@ import org.apache.commons.jelly.expression.Expression;
 import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
-/** 
+/**
  * Performs an assertion that a given boolean expression, or XPath expression is
  * true. If the expression returns false then this test fails.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class AssertTag extends AssertTagSupport {
 
     /** The expression to evaluate. */
     private Expression test;
-    
+
     /** The XPath expression to evaluate */
     private XPath xpath;
 
@@ -42,7 +42,7 @@ public class AssertTag extends AssertTagSupport {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
         if (test == null && xpath == null) {
             throw new MissingAttributeException( "test" );
@@ -61,15 +61,15 @@ public class AssertTag extends AssertTagSupport {
             } catch (JaxenException anException) {
                 throw new JellyTagException("Error evaluating xpath", anException);
             }
-            
+
         }
 
     }
-    
-    // Properties
-    //-------------------------------------------------------------------------                
 
-    /** 
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /**
      * Sets the boolean expression to evaluate. If this expression returns true
      * then the test succeeds otherwise if it returns false then the text will
      * fail with the content of the tag being the error message.
@@ -78,7 +78,7 @@ public class AssertTag extends AssertTagSupport {
         this.test = test;
     }
 
-    /** 
+    /**
      * Sets the boolean XPath expression to evaluate. If this expression returns true
      * then the test succeeds otherwise if it returns false then the text will
      * fail with the content of the tag being the error message.

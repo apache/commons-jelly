@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Widget;
  *
  * @author <a href="mailto:crafterm@apache.org">Marcus Crafter</a>
  * @author Written with much help thanks to the ImageTag class
- * @version CVS $Id: FontTag.java,v 1.1 2004/09/05 15:25:02 dion Exp $
+ * @version CVS $Id: FontTag.java,v 1.2 2004/09/09 12:20:26 dion Exp $
  */
 public class FontTag extends TagSupport {
 
@@ -137,7 +137,7 @@ public class FontTag extends TagSupport {
 
     /**
      * Creates a {@link Font} instance as defined by the type, size and style
-     * attributes, and stores this {@link Font} instance in the Context so that 
+     * attributes, and stores this {@link Font} instance in the Context so that
      * it can be referenced in the Jelly script.
      *
      * @param output {@link XMLOutput} reference
@@ -174,14 +174,14 @@ public class FontTag extends TagSupport {
             }
         }
 
-        final Font font = 
+        final Font font =
             new Font(
-                parent.getDisplay(), 
+                parent.getDisplay(),
                 type,
                 size,
                 style == null ? SWT.NORMAL : SwtHelper.parseStyle(SWT.class, style)
             );
-        
+
         // store the Color in the context
         context.setVariable(var, font);
     }

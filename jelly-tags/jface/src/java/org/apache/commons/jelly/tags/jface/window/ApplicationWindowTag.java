@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,14 +29,14 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * This tag creates an JFace ApplicationWindow
- *  
+ *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class ApplicationWindowTag extends UseBeanTag {
 
     private Shell parent;
     private int style = SWT.NULL;
-    
+
     /**
      * @param widgetClass
      */
@@ -44,7 +44,7 @@ public class ApplicationWindowTag extends UseBeanTag {
         super(tagClass);
     }
 
-    /* 
+    /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     public void doTag(XMLOutput output)
@@ -62,9 +62,9 @@ public class ApplicationWindowTag extends UseBeanTag {
                         + parent);
             }
         }
-        
+
         super.doTag(output);
-        
+
         // set Title of aaplicationWindow
         Object title = attributes.remove("title");
         if (title != null) {
@@ -79,7 +79,7 @@ public class ApplicationWindowTag extends UseBeanTag {
         }
     }
 
-    /* 
+    /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
     protected Object newInstance(
@@ -102,5 +102,5 @@ public class ApplicationWindowTag extends UseBeanTag {
         }
         return null;
     }
-    
+
 }

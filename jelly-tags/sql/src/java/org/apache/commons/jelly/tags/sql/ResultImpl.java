@@ -1,18 +1,18 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */ 
+ */
 
 package org.apache.commons.jelly.tags.sql;
 
@@ -22,8 +22,8 @@ import javax.servlet.jsp.jstl.sql.Result;
 
 /**
  * <p>This class creates a cached version of a <tt>ResultSet</tt>.
- * It's represented as a <tt>Result</tt> implementation, capable of 
- * returing an array of <tt>Row</tt> objects containing a <tt>Column</tt> 
+ * It's represented as a <tt>Result</tt> implementation, capable of
+ * returing an array of <tt>Row</tt> objects containing a <tt>Column</tt>
  * instance for each column in the row.</p>
  *
  * <p>Note -- this is a private copy for the RI to avoid making the
@@ -51,7 +51,7 @@ public class ResultImpl implements Result {
      */
     public ResultImpl(ResultSet rs, int startRow, int maxRows)
         throws SQLException {
-            
+
         rowMap = new ArrayList();
         rowByIndex = new ArrayList();
 
@@ -73,11 +73,11 @@ public class ResultImpl implements Result {
         int processedRows = 0;
         while (rs.next()) {
             if ((maxRows != -1) && (processedRows == maxRows)) {
-                isLimited = true; 
+                isLimited = true;
                 break;
             }
             Object[] columns = new Object[noOfColumns];
-            SortedMap columnMap = 
+            SortedMap columnMap =
                 new TreeMap(String.CASE_INSENSITIVE_ORDER);
 
             // JDBC uses 1 as the lowest index!
@@ -102,7 +102,7 @@ public class ResultImpl implements Result {
      * @param listOfMaps is a list of Maps where a Map represents a Row keyed by the column name
      */
     public ResultImpl(List listOfMaps) {
-            
+
         rowMap = new ArrayList();
         rowByIndex = new ArrayList();
         isLimited = false;
@@ -113,21 +113,21 @@ public class ResultImpl implements Result {
             Map row = (Map) iter.next();
             keySet.addAll( row.keySet() );
         }
-        
+
         // Create the column name array
         int noOfColumns = keySet.size();
-        columnNames = new String[noOfColumns];        
+        columnNames = new String[noOfColumns];
         int i = 0;
         for (Iterator iter = keySet.iterator(); iter.hasNext(); i++ ) {
             columnNames[i] = (String) iter.next();
         }
-        
+
         // Now add each row to the result set
         for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
             Map row = (Map) iter.next();
-            
+
             Object[] columns = new Object[noOfColumns];
-            SortedMap columnMap = 
+            SortedMap columnMap =
                 new TreeMap(String.CASE_INSENSITIVE_ORDER);
 
             for (i = 0; i < noOfColumns; i++) {

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,7 +35,7 @@ import org.apache.commons.lang.StringUtils;
   * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.14 $
+  * @version $Revision: 1.15 $
   */
 public abstract class ExpressionSupport implements Expression {
 
@@ -48,7 +48,7 @@ public abstract class ExpressionSupport implements Expression {
         // of an expression can actually be an expression.
         // e.g. ${foo.bar} can lookup "foo.bar" in a Maven context
         // which could actually be an expression
-      
+
         if ( value != null ) {
             return value.toString();
         }
@@ -65,7 +65,7 @@ public abstract class ExpressionSupport implements Expression {
         }
         return value;
     }
-    
+
     // inherit javadoc from interface
     public boolean evaluateAsBoolean(JellyContext context) {
         Object value = evaluateRecurse(context);

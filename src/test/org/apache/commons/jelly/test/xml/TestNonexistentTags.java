@@ -1,19 +1,19 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 package org.apache.commons.jelly.test.xml;
 
 import java.net.URL;
@@ -30,9 +30,9 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * A test to confirm that Jelly scripts fail to parse if they declare tags
  * that do not exist
- * 
+ *
  * @author Morgan Delagrange
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class TestNonexistentTags extends TestCase {
      Jelly jelly = null;
@@ -44,7 +44,7 @@ public class TestNonexistentTags extends TestCase {
     }
 
     public static TestSuite suite() throws Exception {
-        return new TestSuite(TestNonexistentTags.class);        
+        return new TestSuite(TestNonexistentTags.class);
     }
 
     public void setUp(String scriptName) throws Exception {
@@ -52,13 +52,13 @@ public class TestNonexistentTags extends TestCase {
         xmlOutput = XMLOutput.createDummyXMLOutput();
 
         jelly = new Jelly();
-        
+
         String script = scriptName;
         URL url = this.getClass().getResource(script);
         if ( url == null ) {
-            throw new Exception( 
-                "Could not find Jelly script: " + script 
-                + " in package of class: " + this.getClass().getName() 
+            throw new Exception(
+                "Could not find Jelly script: " + script
+                + " in package of class: " + this.getClass().getName()
             );
         }
         jelly.setUrl(url);
@@ -75,5 +75,5 @@ public class TestNonexistentTags extends TestCase {
         } catch (JellyException e) {
         }
     }
-    
+
 }

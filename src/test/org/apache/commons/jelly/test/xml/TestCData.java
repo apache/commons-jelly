@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -39,7 +39,7 @@ public class TestCData extends TestCase {
 
     /**
      * CDATA sections should be retained in the output.
-     * 
+     *
      * @throws Exception
      */
     public void testCData() throws Exception {
@@ -48,18 +48,18 @@ public class TestCData extends TestCase {
         Script script = jelly.compileScript();
         JellyContext context = new JellyContext();
         script.run(context, XMLOutput.createDummyXMLOutput());
-        
+
         String output = (String) context.getVariable("foo");
         assertTrue("'foo' is not null", output != null);
-        
+
         String golden = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         golden += "<!DOCTYPE foo [\n";
         golden += "  <!ELEMENT foo (#PCDATA)>\n";
         golden += "]><foo></foo>";
-        
+
         assertEquals("output should contain the CDATA section", golden, output);
     }
-    
+
     public void testDom4JCData() throws SAXException {
         StringWriter writer = new StringWriter();
         OutputFormat format = new OutputFormat();
@@ -78,7 +78,7 @@ public class TestCData extends TestCase {
         output.endDocument();
         System.err.println("output was: '" + writer.toString() +"'");
         System.err.println("golden is : '" + golden +"'");
-        assertEquals("output should contain the CDATA section", 
+        assertEquals("output should contain the CDATA section",
                 decl + golden, writer.toString());
     }
 

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.apache.commons.jelly.XMLOutput;
  * @author dion
  */
 public class SessionTag extends TagSupport {
-    
+
     /** default host for requests */
     private String _host;
     /** default port for requests */
@@ -40,16 +40,16 @@ public class SessionTag extends TagSupport {
     private String _userAgent;
     /** strict compliance */
     private boolean _strictMode = false;
-    
+
     /** http client used to store state and execute requests */
     private HttpClient _httpClient;
-    
-    /** 
+
+    /**
      * Creates a new instance of SessionTag
      */
     public SessionTag() {
     }
-    
+
     /**
      * Process the tag
      *
@@ -63,10 +63,10 @@ public class SessionTag extends TagSupport {
         } else {
             _httpClient = new HttpClient();
         }
-        
+
         invokeBody(xmlOutput);
     }
-    
+
     /**
      * Getter for property httpClient.
      *
@@ -75,7 +75,7 @@ public class SessionTag extends TagSupport {
     public HttpClient getHttpClient() {
         return _httpClient;
     }
-    
+
     /**
      * Setter for property httpClient.
      *
@@ -90,10 +90,10 @@ public class SessionTag extends TagSupport {
      * @return true if the {@link #getProxy() proxy} is configured for use
      */
     public boolean isProxyAvailable() {
-        return getProxy() != null && getProxy().getHost() != null 
+        return getProxy() != null && getProxy().getHost() != null
             && getProxy().getPort() != Proxy.PORT_UNSPECIFIED;
     }
-    
+
     /**
      * Helper method for proxy host property
      *
@@ -102,7 +102,7 @@ public class SessionTag extends TagSupport {
     public String getProxyHost() {
         return getProxy().getHost();
     }
-    
+
     /**
      * Helper method for proxy <code>host</code> property
      *
@@ -111,7 +111,7 @@ public class SessionTag extends TagSupport {
     public void setProxyHost(String host) {
         getProxy().setHost(host);
     }
-    
+
     /**
      * Helper method for proxy <code>port</code> property
      *
@@ -120,7 +120,7 @@ public class SessionTag extends TagSupport {
     public int getProxyPort() {
         return getProxy().getPort();
     }
-    
+
     /**
      * Helper method for proxy <code>port</code> property
      *
@@ -129,7 +129,7 @@ public class SessionTag extends TagSupport {
     public void setProxyPort(int port) {
         getProxy().setPort(port);
     }
-    
+
     /**
      * Getter for property host.
      *
@@ -138,7 +138,7 @@ public class SessionTag extends TagSupport {
     public String getHost() {
         return _host;
     }
-    
+
     /**
      * Setter for property host.
      *
@@ -147,21 +147,21 @@ public class SessionTag extends TagSupport {
     public void setHost(String host) {
         _host = host;
     }
-    
+
     /** Getter for property port.
      * @return Value of property port.
      */
     public String getPort() {
         return _port;
     }
-    
+
     /** Setter for property port.
      * @param port New value of property port.
      */
     public void setPort(String port) {
         _port = port;
     }
-    
+
     /**
      * Getter for property proxy.
      *
@@ -170,7 +170,7 @@ public class SessionTag extends TagSupport {
     public Proxy getProxy() {
         return _proxy;
     }
-    
+
     /**
      * Setter for property proxy.
      *
@@ -179,7 +179,7 @@ public class SessionTag extends TagSupport {
     public void setProxy(Proxy proxy) {
         _proxy = proxy;
     }
-    
+
     /**
      * Getter for property secure.
      *
@@ -188,7 +188,7 @@ public class SessionTag extends TagSupport {
     public boolean isSecure() {
         return _secure;
     }
-    
+
     /**
      * Setter for property secure.
      *
@@ -204,26 +204,26 @@ public class SessionTag extends TagSupport {
     public String getUserAgent() {
         return _userAgent;
     }
-    
+
     /** Setter for property userAgent.
      * @param userAgent New value of property userAgent.
      */
     public void setUserAgent(String userAgent) {
         _userAgent = userAgent;
     }
-    
+
     /** Getter for property strictMode.
      * @return Value of property strictMode.
      */
     public boolean isStrictMode() {
         return _strictMode;
     }
-    
+
     /** Setter for property strictMode.
      * @param strictMode New value of property strictMode.
      */
     public void setStrictMode(boolean strictMode) {
         _strictMode = strictMode;
     }
-    
+
 }

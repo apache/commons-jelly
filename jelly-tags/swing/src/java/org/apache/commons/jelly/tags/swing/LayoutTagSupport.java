@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * An abstract base class used for concrete layout tags which create new LayoutManager implementations
  * and either export them as variables or set them on parent widgets.
  *
@@ -47,10 +47,10 @@ public abstract class LayoutTagSupport extends TagSupport {
     public void addLayoutComponent(Component component, Object constraints) throws JellyTagException {
         getComponentTag().addChild(component, constraints);
     }
-    
+
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws JellyTagException {
 
         LayoutManager layout = createLayoutManager();
@@ -60,26 +60,26 @@ public abstract class LayoutTagSupport extends TagSupport {
         }
 
         getComponentTag().setLayout(layout);
-        
-        // allow some nested tags to set properties        
+
+        // allow some nested tags to set properties
         invokeBody(output);
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
 
     /**
-     * Sets the name of the variable to use to expose the new LayoutManager object. 
-     * If this attribute is not set then the parent widget tag will have its 
+     * Sets the name of the variable to use to expose the new LayoutManager object.
+     * If this attribute is not set then the parent widget tag will have its
      * layout property set.
      */
     public void setVar(String var) {
         this.var = var;
     }
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * @return the parent component tag or throw an exception
@@ -91,9 +91,9 @@ public abstract class LayoutTagSupport extends TagSupport {
         }
         return tag;
     }
-    
+
     /**
      * Factory method to create a new LayoutManager instance.
      */
-    protected abstract LayoutManager createLayoutManager();   
+    protected abstract LayoutManager createLayoutManager();
 }

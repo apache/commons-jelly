@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,20 +30,20 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BeanSource;
 
-/** 
+/**
  * A tag which instantiates an instance of the given class
  * and then sets the properties on the bean.
  * The class can be specified via a {@link java.lang.Class} instance or
  * a String which will be used to load the class using either the current
  * thread's context class loader or the class loader used to load this
  * Jelly library.
- * 
- * This tag can be used it as follows, 
+ *
+ * This tag can be used it as follows,
  * <pre>
  * &lt;j:useBean var="person" class="com.acme.Person" name="James" location="${loc}"/&gt;
  * &lt;j:useBean var="order" class="${orderClass}" amount="12" price="123.456"/&gt;
  * </pre>
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.3 $
  */
@@ -51,7 +51,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
 
     /** the current bean instance */
     private Object bean;
-    
+
     /** the default class to use if no Class is specified */
     private Class defaultClass;
 
@@ -60,8 +60,8 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * Map of attributes before passing to ConvertUtils)
      */
     private Set ignoreProperties;
-    
-    /** 
+
+    /**
      * If this tag finds an attribute in the XML that's not
      * ignored by {@link #ignoreProperties} and isn't a
      * bean property, should it throw an exception?
@@ -78,10 +78,10 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     }
 
     // BeanSource interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
-     * @return the bean that has just been created 
+     * @return the bean that has just been created
      */
     public Object getBean() {
         return bean;
@@ -89,33 +89,33 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
 
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
         String var = (String) attributes.get( "var" );
         Object classObject = attributes.get( "class" );
         addIgnoreProperty("class");
         addIgnoreProperty("var");
-        
+
         try {
             // this method could return null in derived classes
             Class theClass = convertToClass(classObject);
-            
+
             bean = newInstance(theClass, attributes, output);
             setBeanProperties(bean, attributes);
-        
+
             // invoke body which could result in other properties being set
             invokeBody(output);
-            
+
             processBean(var, bean);
-        } 
+        }
         catch (ClassNotFoundException e) {
             throw new JellyTagException(e);
         }
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * Allow derived classes to programatically set the bean
@@ -123,14 +123,14 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     protected void setBean(Object bean) {
         this.bean = bean;
     }
-    
+
     /**
      * Attempts to convert the given object to a Class instance.
-     * If the classObject is already a Class it will be returned 
+     * If the classObject is already a Class it will be returned
      * otherwise it will be converted to a String and loaded
      * using the default class loading mechanism.
      */
-    protected Class convertToClass(Object classObject) 
+    protected Class convertToClass(Object classObject)
     throws MissingAttributeException, ClassNotFoundException {
         if (classObject instanceof Class) {
             return (Class) classObject;
@@ -152,7 +152,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * Loads the given class using the default class loading mechanism
      * which is to try use the current Thread's context class loader first
      * otherise use the class loader which loaded this class.
-     */    
+     */
     protected Class loadClass(String className) throws ClassNotFoundException {
         try {
           ClassLoader loader = Thread.currentThread().getContextClassLoader();
@@ -164,13 +164,13 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
             return getClass().getClassLoader().loadClass(className);
         }
     }
-    
+
     /**
      * Creates a new instance of the given class, which by default will invoke the
      * default constructor.
      * Derived tags could do something different here.
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) 
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
     throws JellyTagException {
         try {
             return theClass.newInstance();
@@ -180,9 +180,9 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
             throw new JellyTagException(e.toString());
         }
     }
-    
+
     /**
-     * Sets the properties on the bean. Derived tags could implement some custom 
+     * Sets the properties on the bean. Derived tags could implement some custom
      * type conversion etc.
      * <p/>
      * This method ignores all property names in the Set returned by {@link #getIgnorePropertySet()}.
@@ -190,9 +190,9 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         Map attrsToUse = new HashMap(attributes);
         attrsToUse.keySet().removeAll(getIgnorePropertySet());
-           
+
         validateBeanProperties(bean, attrsToUse);
-        
+
         try {
             BeanUtils.populate(bean, attrsToUse);
         } catch (IllegalAccessException e) {
@@ -201,7 +201,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
             throw new JellyTagException("could not set the properties of the bean",e);
         }
     }
-    
+
     /**
      * If {@link #isIgnoreUnknownProperties()} returns true, make sure that
      * every non-ignored ({@see #addIgnoreProperty(String)}) property
@@ -229,7 +229,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
-        } 
+        }
         else {
             ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
             if(null != parentArg) {
@@ -237,7 +237,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
             }
         }
     }
-    
+
     /**
      * Allows derived classes to provide a default bean implementation class
      */
@@ -266,7 +266,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
 
         return ignoreProperties;
     }
-    
+
     /**
      * @see {@link #setIgnoreUnknownProperties(boolean)}
      * @return
@@ -274,7 +274,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     public boolean isIgnoreUnknownProperties() {
         return ignoreUnknownProperties;
     }
-    
+
     /**
      * If this tag finds an attribute in the XML that's not
      * ignored by {@link #ignoreProperties} and isn't a

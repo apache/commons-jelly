@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Widget;
 
-/** 
+/**
  * A tag which implements a Listener to allow events to be processed by
  * Jelly scripts
  *
@@ -39,7 +39,7 @@ public class OnEventTag extends TagSupport implements Listener {
     private static final Log log = LogFactory.getLog(OnEventTag.class);
 
     private String var = "event";
-    private String type; 
+    private String type;
     private XMLOutput output;
 
     public OnEventTag() {
@@ -47,7 +47,7 @@ public class OnEventTag extends TagSupport implements Listener {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    
+
     /**
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
@@ -58,22 +58,22 @@ public class OnEventTag extends TagSupport implements Listener {
         if (type == null) {
             throw new MissingAttributeException("type");
         }
-        
+
         Widget widget = getParentWidget();
         if (widget == null) {
             throw new JellyTagException("This tag must be nested within a widget tag");
         }
 
-        
+
         int eventType = getEventType(type);
         if (eventType == 0) {
             throw new JellyTagException("No event type specified, could not understand: " + type);
         }
-        
+
         this.output = output;
         widget.addListener(eventType, this);
     }
-    
+
     // Listener interface
     //-------------------------------------------------------------------------
     /**
@@ -88,7 +88,7 @@ public class OnEventTag extends TagSupport implements Listener {
             log.error("Caught exception: " + e + " while processing event: " + event, e);
         }
     }
-    
+
     // Properties
     //-------------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ public class OnEventTag extends TagSupport implements Listener {
     public void setVar(String var) {
         this.var = var;
     }
-    
+
     /**
      * Returns the type.
      * @return String
@@ -121,7 +121,7 @@ public class OnEventTag extends TagSupport implements Listener {
 
     /**
      * Sets the type of the event listener to listen for.
-     * 
+     *
      * @param type The type of the event to listen for
      */
     public void setType(String type) {
@@ -140,5 +140,5 @@ public class OnEventTag extends TagSupport implements Listener {
     protected int getEventType(String type) throws JellyTagException {
         return SwtHelper.parseStyle(SWT.class, type, false);
     }
-    
+
 }

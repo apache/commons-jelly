@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,9 +31,9 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * A tag which loads a properties file from a given file name or URI
  * which are loaded into the current context.
- * 
+ *
  * @author Jim Birchfield
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class PropertiesTag extends TagSupport {
     private String file;
@@ -44,7 +44,7 @@ public class PropertiesTag extends TagSupport {
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws JellyTagException {
         if (file == null && uri == null) {
             throw new JellyTagException("This tag must define a 'file' or 'uri' attribute");
@@ -55,7 +55,7 @@ public class PropertiesTag extends TagSupport {
             if (!f.exists()) {
                 throw new JellyTagException("file: " + file + " does not exist!");
             }
-            
+
             try {
                 is = new FileInputStream(f);
             } catch (FileNotFoundException e) {
@@ -69,13 +69,13 @@ public class PropertiesTag extends TagSupport {
             }
         }
         Properties props = new Properties();
-        
+
         try {
             props.load(is);
         } catch (IOException e) {
             throw new JellyTagException("properties tag could not load from file",e);
         }
-        
+
         if (var != null) {
             context.setVariable(var, props);
         }
@@ -84,7 +84,7 @@ public class PropertiesTag extends TagSupport {
             while (propsEnum.hasMoreElements()) {
                 String key = (String) propsEnum.nextElement();
                 String value = props.getProperty(key);
-                
+
                 // @todo we should parse the value in case its an Expression
                 context.setVariable(key, value);
             }
@@ -93,8 +93,8 @@ public class PropertiesTag extends TagSupport {
     }
 
     // Properties
-    //------------------------------------------------------------------------- 
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Sets the file name to be used to load the properties file.
      */
@@ -114,7 +114,7 @@ public class PropertiesTag extends TagSupport {
      * If this is defined then a Properties object containing all the
      * properties will be created and exported, otherwise the current variable
      * scope will be set to the value of the properties.
-     * 
+     *
      * @param var The var to set
      */
     public void setVar(String var) {

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,7 +32,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Creates a Betwixt XMLIntrospector instance that can be used by the other Betwixt tags.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -45,11 +45,11 @@ public class IntrospectorTag extends TagSupport {
 
     private XMLIntrospector introspector;
     private String var;
-    
+
     static {
 
         // register converters to standard Strategies
-        ConvertUtils.register( 
+        ConvertUtils.register(
             new Converter() {
                 public Object convert(Class type, Object value) {
                     if ( value instanceof String ) {
@@ -59,9 +59,9 @@ public class IntrospectorTag extends TagSupport {
                         return null;
                     }
                     else {
-                        throw new ConversionException( 
-                            "Don't know how to convert: " + value 
-                            + " of type: " + value.getClass().getName() 
+                        throw new ConversionException(
+                            "Don't know how to convert: " + value
+                            + " of type: " + value.getClass().getName()
                             + " into a NameMapper"
                         );
                     }
@@ -72,29 +72,29 @@ public class IntrospectorTag extends TagSupport {
     }
 
 
-    
+
     public IntrospectorTag() {
     }
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if ( var == null ) {
             throw new MissingAttributeException( "var" );
         }
-        invokeBody(output);        
-        
+        invokeBody(output);
+
         XMLIntrospector introspector = getIntrospector();
-        
+
         context.setVariable( var, introspector );
-        
+
         // now lets clear this introspector so that its recreated again next time
         this.introspector = null;
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * @return the current XMLIntrospector, lazily creating one if required
@@ -105,7 +105,7 @@ public class IntrospectorTag extends TagSupport {
         }
         return introspector;
     }
-    
+
     /**
      * Sets whether attributes or elements should be used for primitive types.
      * The default is false.
@@ -116,23 +116,23 @@ public class IntrospectorTag extends TagSupport {
 
     /**
      * Sets the name mapper used for element names.
-     * You can also use the Strings 'lowercase', 'uppercase' or 'hyphenated' 
+     * You can also use the Strings 'lowercase', 'uppercase' or 'hyphenated'
      * as aliases to the common name mapping strategies or specify a class name String.
      */
     public void setElementNameMapper(NameMapper nameMapper) {
         getIntrospector().setElementNameMapper(nameMapper);
     }
-            
+
     /**
      * Sets the name mapper used for attribute names.
-     * You can also use the Strings 'lowercase', 'uppercase' or 'hyphenated' 
+     * You can also use the Strings 'lowercase', 'uppercase' or 'hyphenated'
      * as aliases to the common name mapping strategies or specify a class name String.
      */
     public void setAttributeNameMapper(NameMapper nameMapper) {
         getIntrospector().setAttributeNameMapper(nameMapper);
     }
-            
-    
+
+
     /**
      * Sets the variable name to output the new XMLIntrospector to.
      * If this attribute is not specified then this tag must be nested
@@ -143,8 +143,8 @@ public class IntrospectorTag extends TagSupport {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Static helper method which will convert the given string into
      * standard named strategies such as 'lowercase', 'uppercase' or 'hyphenated'
@@ -169,7 +169,7 @@ public class IntrospectorTag extends TagSupport {
             catch (Exception e) {
                 throw new ConversionException( "Could not load class called: " + name, e );
             }
-            
+
             Object object = null;
             try {
                 object = theClass.newInstance();
@@ -184,14 +184,14 @@ public class IntrospectorTag extends TagSupport {
                 throw new ConversionException( "No NameMapper created for type: " + name );
             }
             else {
-                throw new ConversionException( 
-                    "Created object: " + object 
-                    + " is not a NameMapper! Its type is: " + object.getClass().getName() 
+                throw new ConversionException(
+                    "Created object: " + object
+                    + " is not a NameMapper! Its type is: " + object.getClass().getName()
                 );
             }
         }
     }
-    
+
     /**
      * Factory method to create a new XMLIntrospector
      */

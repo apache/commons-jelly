@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -35,26 +35,26 @@ import org.apache.commons.jelly.XMLOutput;
  * @version $Id: HttpTagSupport.java,v 1.3 2002/07/14 16:51:33 dion Exp $
  */
 public abstract class HttpTagSupport extends TagSupport {
-    
+
     /** unique identifier of the tag/ variable to store result in */
     private String _var;
 
     /**
      * the path to be tested relative to the host/port specifed on the parent
-     * {@link SuiteTag suite tag}. 
+     * {@link SuiteTag suite tag}.
      * Either this property and the suite's host
      * must be provided, or the {@link #getUrl() url} property must be specifed
      */
     private String _path;
-    
+
     /**
      * The complete uri to be processed
      * Either this property or the {@link #getPath() path} and the suite's host
      * must be provided.
      */
     private String _uri;
-    
-    /** whether or not to follow redirects */ 
+
+    /** whether or not to follow redirects */
     private boolean _followRedirects = false;
     /** list of parameters as name value pairs */
     private List _parameters;
@@ -62,7 +62,7 @@ public abstract class HttpTagSupport extends TagSupport {
     private List _requestHeaders;
     /** the header name for the user agent */
     private static final String HEADER_NAME_USER_AGENT = "User-Agent";
-    
+
     /**
      * Creates a new instance of HttpTag
      */
@@ -70,7 +70,7 @@ public abstract class HttpTagSupport extends TagSupport {
         setParameters(new ArrayList());
         setRequestHeaders(new ArrayList());
     }
-    
+
     /**
      * @return the url specified by the tag, either the url if not null, or
      * a combination of the host, port and path
@@ -88,18 +88,18 @@ public abstract class HttpTagSupport extends TagSupport {
             return "http://" + host + getPath();
         }
     }
-    
+
     /**
-     * A method that must be implemented by subclasses to provide the 
+     * A method that must be implemented by subclasses to provide the
      * {@link HttpMethod url method} implementation
      *
      * @return a HttpUrlMethod implementation
-     * @throws MalformedURLException when the {@link getUrl() url} or 
+     * @throws MalformedURLException when the {@link getUrl() url} or
      * {@link #getPath() path} is invalid
      */
-    protected abstract HttpMethod getHttpMethod() 
+    protected abstract HttpMethod getHttpMethod()
         throws MalformedURLException;
-    
+
     /**
      * Perform the tag functionality. In this case, get the http url method
      * execute it and make it available for validation
@@ -112,12 +112,12 @@ public abstract class HttpTagSupport extends TagSupport {
         invokeBody(xmlOutput);
 
         // track request execution
-        long start = System.currentTimeMillis();        
+        long start = System.currentTimeMillis();
         HttpMethod urlMethod = null;
         try {
             urlMethod = getConfiguredHttpMethod();
             getHttpClient().executeMethod(urlMethod);
-        } 
+        }
         catch (MalformedURLException e) {
             throw new JellyTagException(e);
         }
@@ -125,23 +125,23 @@ public abstract class HttpTagSupport extends TagSupport {
             throw new JellyTagException(e);
         }
         long end = System.currentTimeMillis();
-        
+
         // set variable to value
         if (getVar() != null) {
             getContext().setVariable(getVar(), urlMethod);
-            getContext().setVariable(getVar() + ".responseTime", 
+            getContext().setVariable(getVar() + ".responseTime",
                 String.valueOf(end - start));
         }
     }
 
-    /** 
-     * retrieve the {@link HttpUrlMethod method} from the subclass and 
+    /**
+     * retrieve the {@link HttpUrlMethod method} from the subclass and
      * configure it ready for execution
      *
      * @return a configured {@link HttpUrlMethod method}
      * @throws MalformedURLException when retrieving the URL fails
      */
-    private HttpMethod getConfiguredHttpMethod() throws 
+    private HttpMethod getConfiguredHttpMethod() throws
     MalformedURLException {
         // retrieve and configure url method
         HttpMethod urlMethod = getHttpMethod();
@@ -156,23 +156,23 @@ public abstract class HttpTagSupport extends TagSupport {
         setParameters(urlMethod);
         // add the default user agent to the list if one doesn't exist
         // and the session tag does exist and have a user agent
-        if (urlMethod.getRequestHeader(HttpTagSupport.HEADER_NAME_USER_AGENT) 
+        if (urlMethod.getRequestHeader(HttpTagSupport.HEADER_NAME_USER_AGENT)
             == null && getSessionTag() != null
             && getSessionTag().getUserAgent() != null) {
-                
+
             urlMethod.addRequestHeader(HttpTagSupport.HEADER_NAME_USER_AGENT,
                     getSessionTag().getUserAgent());
         }
         return urlMethod;
     }
-    
-    /** 
+
+    /**
      * Set the current parameters on the url method ready for processing
      *
      * @param method the {@link HttpUrlMethod method} to configure
      * @throws MalformedURLException when {@link #getHttpUrlMethod()} does
      */
-    protected void setParameters(HttpMethod method) throws 
+    protected void setParameters(HttpMethod method) throws
     MalformedURLException {
         if (getParameters().size() > 0) {
             NameValuePair[] parameters = (NameValuePair[]) getParameters().
@@ -180,7 +180,7 @@ public abstract class HttpTagSupport extends TagSupport {
             method.setQueryString(parameters);
         }
     }
-    
+
     /**
      * retrieve the optional parent session tag
      *
@@ -210,7 +210,7 @@ public abstract class HttpTagSupport extends TagSupport {
         }
         return client;
     }
-    
+
     /**
      * Add a parameter to the list
      *
@@ -220,7 +220,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public void addParameter(String name, String value) {
         getParameters().add(new NameValuePair(name, value));
     }
-    
+
     /**
      * Add a request header to the list
      *
@@ -230,11 +230,11 @@ public abstract class HttpTagSupport extends TagSupport {
     public void addRequestHeader(String name, String value) {
         getRequestHeaders().add(new NameValuePair(name, value));
     }
-    
+
     //--------------------------------------------------------------------------
     // Property accessors/mutators
     //--------------------------------------------------------------------------
-    
+
     /**
      * Getter for property var.
      *
@@ -243,7 +243,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public String getVar() {
         return _var;
     }
-    
+
     /**
      * Setter for property var.
      *
@@ -253,7 +253,7 @@ public abstract class HttpTagSupport extends TagSupport {
         _var = var;
     }
 
-    /** 
+    /**
      * Getter for property path.
      *
      * @return Value of property path.
@@ -261,7 +261,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public String getPath() {
         return _path;
     }
-    
+
     /**
      * Setter for property path.
      *
@@ -270,7 +270,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public void setPath(String path) {
         _path = path;
     }
-    
+
     /**
      * Getter for property uri.
      *
@@ -279,7 +279,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public String getUri() {
         return _uri;
     }
-    
+
     /**
      * Setter for property uri.
      *
@@ -288,7 +288,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public void setUri(String uri) {
         _uri = uri;
     }
-    
+
     /**
      * Getter for property followRedirects.
      *
@@ -297,7 +297,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public boolean isFollowRedirects() {
         return _followRedirects;
     }
-    
+
     /**
      * Setter for property followRedirects.
      *
@@ -306,7 +306,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public void setFollowRedirects(boolean followRedirects) {
         _followRedirects = followRedirects;
     }
-    
+
     /**
      * Getter for property parameters.
      *
@@ -315,7 +315,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public List getParameters() {
         return _parameters;
     }
-    
+
     /**
      * Setter for property parameters.
      *
@@ -324,7 +324,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public void setParameters(List parameters) {
         _parameters = parameters;
     }
-    
+
     /**
      * Getter for property requestHeaders.
      *
@@ -333,8 +333,8 @@ public abstract class HttpTagSupport extends TagSupport {
     public List getRequestHeaders() {
         return _requestHeaders;
     }
-    
-    /** 
+
+    /**
      * Setter for property requestHeaders.
      *
      * @param requestHeaders New value of property requestHeaders.
@@ -342,5 +342,5 @@ public abstract class HttpTagSupport extends TagSupport {
     public void setRequestHeaders(List requestHeaders) {
         _requestHeaders = requestHeaders;
     }
-    
+
 }

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.widgets.Widget;
 
-/** 
+/**
  * An abstract base class for Layout or LayoutData tags.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -60,8 +60,8 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     }
 
     /**
-     * Sets the name of the variable to use to expose the new Layout object. 
-     * If this attribute is not set then the parent widget tag will have its 
+     * Sets the name of the variable to use to expose the new Layout object.
+     * If this attribute is not set then the parent widget tag will have its
      * layout property set.
      */
     public void setVar(String var) {
@@ -69,7 +69,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     /**
      * Either defines a variable or adds the current component to the parent
      */
@@ -118,9 +118,9 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     /**
      * Provides a strategy method that allows values to be converted,
      * particularly to support integer enumerations and String representations.
-     * 
+     *
      * @param bean is the bean on which the property is to be set
-     * @param name is the name of the property 
+     * @param name is the name of the property
      * @param value the value of the property
      * @return the new value
      */

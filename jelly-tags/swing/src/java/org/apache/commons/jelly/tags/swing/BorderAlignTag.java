@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-/** 
+/**
  * Represents a layout of a child component within its parent &lt;borderLayout&gt; layout.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -31,10 +31,10 @@ import org.apache.commons.jelly.XMLOutput;
 public class BorderAlignTag extends TagSupport implements ContainerTag {
 
     private String align;
-    
+
     // ContainerTag interface
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Adds a child component to this parent
      */
@@ -45,16 +45,16 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
         }
         tag.addLayoutComponent(component, getConstraints());
     }
-    
+
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
     }
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
      * Returns the align.
      * @return String
@@ -64,7 +64,7 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
     }
 
     /**
-     * Sets the alignment of the child component which is a case insensitive value 
+     * Sets the alignment of the child component which is a case insensitive value
      * of {NORTH, SOUTH, EAST, WEST, CENTER} which defaults to CENTER
      */
     public void setAlign(String align) {
@@ -72,7 +72,7 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     protected Object getConstraints() {
         if ("north".equalsIgnoreCase(align)) {

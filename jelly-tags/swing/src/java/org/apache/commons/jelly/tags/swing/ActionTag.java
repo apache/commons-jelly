@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
+/**
  * Creates a Swing Action which on invocation will execute the body of this tag.
  * The Action is then output as a variable for reuse if the 'var' attribute is specified
  * otherwise the action is added to the parent JellySwing widget.
@@ -47,9 +47,9 @@ public class ActionTag extends UseBeanTag {
     public ActionTag() {
     }
 
-    
+
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
     /**
      * @return the Action object for this tag
@@ -57,14 +57,14 @@ public class ActionTag extends UseBeanTag {
     public Action getAction() {
         return (Action) getBean();
     }
-    
-    
+
+
     // Implementation methods
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
 
 
     /**
-     * An existing Action could be specified via the 'action' attribute or an action class 
+     * An existing Action could be specified via the 'action' attribute or an action class
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
     protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
@@ -75,16 +75,16 @@ public class ActionTag extends UseBeanTag {
             return super.convertToClass(classObject);
         }
     }
-    
+
     /**
-     * An existing Action could be specified via the 'action' attribute or an action class 
+     * An existing Action could be specified via the 'action' attribute or an action class
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
     protected Object newInstance(Class theClass, Map attributes, final XMLOutput output) throws JellyTagException {
         Action action = (Action) attributes.remove( "action" );
         if ( action == null ) {
             if (theClass != null ) {
-                
+
                 try {
                     return theClass.newInstance();
                 } catch (InstantiationException e) {
@@ -92,7 +92,7 @@ public class ActionTag extends UseBeanTag {
                 } catch (IllegalAccessException e) {
                     throw new JellyTagException(e);
                 }
-                
+
             }
             else {
                 action = new AbstractAction() {
@@ -110,11 +110,11 @@ public class ActionTag extends UseBeanTag {
         }
         return action;
     }
-    
+
 
     /**
      * Either defines a variable or adds the current component to the parent
-     */    
+     */
     protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
@@ -129,14 +129,14 @@ public class ActionTag extends UseBeanTag {
             }
         }
     }
-    
-        
+
+
     /**
      * Perform the strange setting of Action properties using its custom API
      */
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         Action action = getAction();
-        
+
         String enabled = "enabled";
         if (attributes.containsKey(enabled)) {
             try {
@@ -146,18 +146,18 @@ public class ActionTag extends UseBeanTag {
             } catch (InvocationTargetException e) {
                 throw new JellyTagException("Failed to set the enabled property.", e);
             }
-            
+
             attributes.remove(enabled);
         }
-        
+
         for ( Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iter.next();
             String name = (String) entry.getKey();
-            
-            // typically standard Action names start with upper case, so lets upper case it            
+
+            // typically standard Action names start with upper case, so lets upper case it
             name = capitalize(name);
             Object value = entry.getValue();
-            
+
             action.putValue( name, value );
         }
     }
@@ -173,5 +173,5 @@ public class ActionTag extends UseBeanTag {
         buffer.append( text.substring(1) );
         return buffer.toString();
     }
-        
+
 }

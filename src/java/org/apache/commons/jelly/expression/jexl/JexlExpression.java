@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,13 +29,13 @@ import org.apache.commons.jexl.JexlContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** 
- * Represents a <a href="http://jakarta.apache.org/commons/jexl.html">Jexl</a> 
- * expression which fully supports the Expression Language in JSTL and JSP 
+/**
+ * Represents a <a href="http://jakarta.apache.org/commons/jexl.html">Jexl</a>
+ * expression which fully supports the Expression Language in JSTL and JSP
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 
 public class JexlExpression extends ExpressionSupport {
@@ -53,26 +53,26 @@ public class JexlExpression extends ExpressionSupport {
     public String toString() {
         return super.toString() + "[" + expression.getExpression() + "]";
     }
-    
+
     // Expression interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public String getExpressionText() {
         return "${" + expression.getExpression() + "}";
     }
-    
+
     public Object evaluate(JellyContext context) {
         try {
             JexlContext jexlContext = new JellyJexlContext( context );
             if (log.isDebugEnabled()) {
                 log.debug("Evaluating EL: " + expression.getExpression());
-            }           
+            }
             Object value = expression.evaluate(jexlContext);
-            
+
             if (log.isDebugEnabled()) {
                 log.debug("value of expression: " + value);
             }
-            
-            return value;           
+
+            return value;
         }
         catch (Exception e) {
             log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
@@ -135,7 +135,7 @@ class JellyMap implements Map {
     public Set keySet() {
         return null;
     }
-        
+
     public Object put(Object key, Object value) {
         return null;
     }

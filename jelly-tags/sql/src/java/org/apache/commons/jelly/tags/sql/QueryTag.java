@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,8 +32,8 @@ import org.apache.commons.logging.LogFactory;
 
 
 /**
- * <p>Tag handler for &lt;Query&gt; in JSTL.  
- * 
+ * <p>Tag handler for &lt;Query&gt; in JSTL.
+ *
  * @author Hans Bergsten
  * @author Justyna Horwat
  */
@@ -127,7 +127,7 @@ public class QueryTag extends SqlTagSupport {
         String sqlStatement = null;
 
         log.debug( "About to lookup connection" );
-        
+
         ResultSet rs = null;
         Statement statement = null;
         try {
@@ -153,7 +153,7 @@ public class QueryTag extends SqlTagSupport {
                 throw new JellyTagException(Resources.getMessage("PARAM_BAD_VALUE"));
             }
 
-            /* 
+            /*
              * Note! We must not use the setMaxRows() method on the
              * the statement to limit the number of rows, since the
              * Result factory must be able to figure out the correct
@@ -163,24 +163,24 @@ public class QueryTag extends SqlTagSupport {
             if ( log.isDebugEnabled() ) {
                 log.debug( "About to execute query: " + sqlStatement );
             }
-            
+
             if ( hasParameters() ) {
                 PreparedStatement ps = conn.prepareStatement(sqlStatement);
                 statement = ps;
-                setParameters(ps);            
+                setParameters(ps);
                 rs = ps.executeQuery();
             }
             else {
                 statement = conn.createStatement();
                 rs = statement.executeQuery(sqlStatement);
             }
-            
+
             result = new ResultImpl(rs, startRow, maxRows);
             context.setVariable(var, result);
-            
-            // always close the result set first since it may be closed by 
-            // JDBC 3 when closing statements 
-            
+
+            // always close the result set first since it may be closed by
+            // JDBC 3 when closing statements
+
             // lets nullify before we close in case we get exceptions
             // while closing, we don't want to try to close again
             ResultSet tempRs = rs;
@@ -200,7 +200,7 @@ public class QueryTag extends SqlTagSupport {
                 }
                 catch (SQLException e) {
                     log.error("Caught exception while closing result set: " + e, e);
-                } 
+                }
             }
             if (statement != null) {
                 try {

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -27,7 +27,7 @@ import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BeanSource;
 
-/** 
+/**
  * A tag which sets the bean properties on the given bean.
  * So if you used it as follows, for example using the &lt;j:new&gt; tag.
  * <pre>
@@ -40,7 +40,7 @@ import org.apache.commons.jelly.impl.BeanSource;
  * This tag can also be nested inside a bean tag such as the &lt;useBean&gt; tag
  * or a JellySwing tag to set one or more properties, maybe inside some conditional
  * logic.
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.3 $
  */
@@ -50,7 +50,7 @@ public class SetPropertiesTag extends MapTagSupport  {
     }
 
     // Tag interface
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         Map attributes = getAttributes();
         Object bean = attributes.remove( "object" );
@@ -72,10 +72,10 @@ public class SetPropertiesTag extends MapTagSupport  {
     }
 
     // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------
+
     /**
-     * Sets the properties on the bean. Derived tags could implement some custom 
+     * Sets the properties on the bean. Derived tags could implement some custom
      * type conversion etc.
      */
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,20 +23,20 @@ import org.apache.commons.jelly.impl.TagScript;
 
 import org.xml.sax.Attributes;
 
-/** 
+/**
  * A normal tag library which will use a BeanTag to create beans but this tag
  * library does not derive from BeanTagLibrary and so does not have a &lt;
  * beandef&gt; tag
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class MyTagLibrary extends TagLibrary {
 
     public MyTagLibrary() {
     }
-    
-    
+
+
     // TagLibrary interface
     //-------------------------------------------------------------------------
     public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
@@ -70,7 +70,7 @@ public class MyTagLibrary extends TagLibrary {
 
     /**
      * Return the bean class that we should use for the given element name
-     * 
+     *
      * @param name is the XML element name
      * @param attributes the XML attributes
      * @return Class the bean class to use for this element or null if the tag

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class TestFileTag extends BaseJellyTest
 {
@@ -53,8 +53,8 @@ public class TestFileTag extends BaseJellyTest
         String data = (String)getJellyContext().getVariable("testFileTag");
 
         //FIXME This doesn't take into account attribute ordering
-        assertEquals("fully qualified attributes not passed", 
-                "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"></html>", 
+        assertEquals("fully qualified attributes not passed",
+                "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"></html>",
                 data);
     }
 

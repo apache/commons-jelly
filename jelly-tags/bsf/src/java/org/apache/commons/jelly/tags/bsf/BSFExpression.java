@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 /** Represents a BSF expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class BSFExpression extends ExpressionSupport {
 
@@ -39,15 +39,15 @@ public class BSFExpression extends ExpressionSupport {
 
     /** The expression */
     private String text;
-    
+
     /** The BSF Engine to evaluate expressions */
     private BSFEngine engine;
     /** The BSF Manager to evaluate expressions */
     private BSFManager manager;
-    
+
     /** The adapter to BSF's ObjectRegistry that uses the JellyContext */
     private JellyContextRegistry registry;
-    
+
     public BSFExpression(String text, BSFEngine engine, BSFManager manager, JellyContextRegistry registry) {
         this.text = text;
         this.engine = engine;
@@ -56,11 +56,11 @@ public class BSFExpression extends ExpressionSupport {
     }
 
     // Expression interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public String getExpressionText() {
         return "${" + text + "}";
     }
-    
+
     public Object evaluate(JellyContext context) {
         // XXXX: unfortunately we must sychronize evaluations
         // so that we can swizzle in the context.
@@ -68,7 +68,7 @@ public class BSFExpression extends ExpressionSupport {
         // (and so create a BSFManager for a context)
         synchronized (registry) {
             registry.setJellyContext(context);
-            
+
             try {
                 // XXXX: hack - there must be a better way!!!
                 for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {

@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,13 +31,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
-/** 
+/**
  * Creates a bean for the given tag which is then either output as a variable
  * or can be added to a parent tag.
- * 
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version   $Revision: 1.10 $
+ * @version   $Revision: 1.11 $
  */
 public class BeanTag extends UseBeanTag {
 
@@ -68,10 +68,10 @@ public class BeanTag extends UseBeanTag {
         super(defaultClass);
         this.tagName = tagName;
         this.invokeMethod = invokeMethod;
-        
+
         if (tagName.length() > 0) {
-            addMethodName = "add" 
-                + tagName.substring(0,1).toUpperCase() 
+            addMethodName = "add"
+                + tagName.substring(0,1).toUpperCase()
                 + tagName.substring(1);
         }
     }
@@ -91,17 +91,17 @@ public class BeanTag extends UseBeanTag {
         if (var != null) {
             context.setVariable(var, bean);
         }
-        
+
         // now lets try set the parent property via calling the adder or the setter method
         if (bean != null) {
             Tag parent = this;
-            
+
             while (true) {
                 parent = parent.getParent();
                 if (parent == null) {
                     break;
                 }
-                
+
                 if (parent instanceof BeanSource) {
                     BeanSource source = (BeanSource) parent;
                     Object parentObject = source.getBean();
@@ -157,7 +157,7 @@ public class BeanTag extends UseBeanTag {
                 }
             }
             else {
-                if (parent == null && var == null) { 
+                if (parent == null && var == null) {
                     //warn if the bean gets lost in space
                     log.warn( "Could not add bean to parent for bean: " + bean );
                 }
@@ -177,8 +177,8 @@ public class BeanTag extends UseBeanTag {
             beanClass, addMethodName, argTypes
         );
     }
-        
-        
+
+
     /**
      * @return the parent bean object
      */
@@ -188,5 +188,5 @@ public class BeanTag extends UseBeanTag {
             return tag.getBean();
         }
         return null;
-    }        
+    }
 }
