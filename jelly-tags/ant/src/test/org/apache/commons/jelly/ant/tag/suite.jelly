@@ -22,7 +22,7 @@
 
 	<test:case name="nestedClasspath">
 			
-		<my:dummy var="path">
+		<my:dummy var="path" flag="true">
 			<classpath>
 				<pathelement path="target/classes"/>
 				<pathelement path="target/test-classes"/>
