@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.28 2002/11/19 13:28:42 jstrachan Exp $
- * $Revision: 1.28 $
- * $Date: 2002/11/19 13:28:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.29 2002/11/28 08:35:48 jstrachan Exp $
+ * $Revision: 1.29 $
+ * $Date: 2002/11/28 08:35:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.28 2002/11/19 13:28:42 jstrachan Exp $
+ * $Id: TagScript.java,v 1.29 2002/11/28 08:35:48 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -75,6 +75,7 @@ import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.DynaTag;
+import org.apache.commons.jelly.LocationAware;
 import org.apache.commons.jelly.NamespaceAwareTag;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
@@ -95,7 +96,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.28 $
+ * @version $Revision: 1.29 $
  */
 public class TagScript implements Script {
 
@@ -500,8 +501,11 @@ public class TagScript implements Script {
         tag.setBody( tagBody );
         
         if (tag instanceof NamespaceAwareTag) {
-        	NamespaceAwareTag naTag = (NamespaceAwareTag) tag;
-        	naTag.setNamespaceContext(getNamespaceContext());
+            NamespaceAwareTag naTag = (NamespaceAwareTag) tag;
+            naTag.setNamespaceContext(getNamespaceContext());
+        }
+        if (tag instanceof LocationAware) {
+            applyLocation((LocationAware) tag);
         }
     }
      
@@ -600,21 +604,26 @@ public class TagScript implements Script {
      * such as adding line number information etc.
      */
     protected void handleException(JellyException e) throws Exception {
-    	if (log.isTraceEnabled()) {
-        	log.trace( "Caught exception: " + e, e );
-    	}
+        if (log.isTraceEnabled()) {
+            log.trace( "Caught exception: " + e, e );
+        }
 
-        if (e.getLineNumber() == -1) {
-            e.setColumnNumber(columnNumber);
-            e.setLineNumber(lineNumber);
-        }
-        if ( e.getFileName() == null ) {
-            e.setFileName( fileName );
-        }
-        if ( e.getElementName() == null ) {
-            e.setElementName( elementName );
-        }
+        applyLocation(e);
+        
         throw e;
+    }
+    
+    protected void applyLocation(LocationAware locationAware) {
+        if (locationAware.getLineNumber() == -1) {
+            locationAware.setColumnNumber(columnNumber);
+            locationAware.setLineNumber(lineNumber);
+        }
+        if ( locationAware.getFileName() == null ) {
+            locationAware.setFileName( fileName );
+        }
+        if ( locationAware.getElementName() == null ) {
+            locationAware.setElementName( elementName );
+        }
     }
     
     /**
@@ -627,6 +636,10 @@ public class TagScript implements Script {
         	log.trace( "Caught exception: " + e, e );
     	}
 
+        if (e instanceof LocationAware) {
+            applyLocation((LocationAware) e);
+        }
+        
         if ( e instanceof JellyException ) {
             e.fillInStackTrace();
             throw e;

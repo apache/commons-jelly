@@ -61,9 +61,8 @@
  */
 package org.apache.commons.jelly.tags.validate;
 
-import junit.framework.AssertionFailedError;
-
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.junit.JellyAssertionFailedError;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -122,7 +121,7 @@ public class AssertValidTag extends ValidateTag {
         
         if ( ! valid ) {
             String message = buffer.toString();
-            throw new AssertionFailedError( "The XML is not valid according to the schema: " + message );
+            throw new JellyAssertionFailedError( "The XML is not valid according to the schema: " + message );
         }
     }
     

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.12 2002/11/28 08:35:48 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/11/28 08:35:48 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/JellyAssertionFailedError.java,v 1.11 2002/10/30 19:10:48 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/10/30 19:10:48 $
  *
  * ====================================================================
  *
@@ -57,22 +57,28 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.12 2002/11/28 08:35:48 jstrachan Exp $
+ * $Id: JellyAssertionFailedError.java,v 1.11 2002/10/30 19:10:48 jstrachan Exp $
  */
 
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.tags.junit;
 
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
+import junit.framework.AssertionFailedError;
+
+import org.apache.commons.jelly.LocationAware;
+
 /** 
- * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
+ * <p><code>JellyAssertionFailedError</code> is 
+ * a JUnit AssertionFailedError which is LocationAware so that it can include
+ * details of where in the JellyUnit test case that the failure occurred.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.11 $
  */
 
-public class JellyException extends Exception implements LocationAware {
+public class JellyAssertionFailedError extends Exception implements LocationAware {
     
     /** the underlying cause of the exception */
     private Throwable cause;
@@ -89,42 +95,21 @@ public class JellyException extends Exception implements LocationAware {
     /** the column number in the script of the error */
     private int columnNumber = -1;
     
-    public JellyException() {
+    public JellyAssertionFailedError() {
     }
 
-    public JellyException(String message) {
+    public JellyAssertionFailedError(String message) {
         super(message);
     }
 
-    public JellyException(String message, Throwable cause) {
+    public JellyAssertionFailedError(String message, Throwable cause) {
         super(message);
         this.cause = cause;
     }
     
-    public JellyException(Throwable cause) {
+    public JellyAssertionFailedError(Throwable cause) {
         super(cause.getLocalizedMessage());
         this.cause = cause;
-    }
-    
-    public JellyException(Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
-        this(cause.getLocalizedMessage(), cause, fileName, elementName, columnNumber, lineNumber);
-    }
-    
-    public JellyException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
-        super( (reason==null?cause.getClass().getName():reason) );
-        this.cause = cause;
-        this.fileName = fileName;
-        this.elementName = elementName;
-        this.columnNumber = columnNumber;
-        this.lineNumber = lineNumber;
-    }
-    
-    public JellyException(String reason, String fileName, String elementName, int columnNumber, int lineNumber) {
-        super(reason);
-        this.fileName = fileName;
-        this.elementName = elementName;
-        this.columnNumber = columnNumber;
-        this.lineNumber = lineNumber;
     }
     
     public Throwable getCause() {
@@ -227,5 +212,4 @@ public class JellyException extends Exception implements LocationAware {
 			cause.printStackTrace();
 		}
 	}
-
 }

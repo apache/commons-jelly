@@ -61,15 +61,16 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 
-import junit.framework.AssertionFailedError;
-
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.junit.AssertTagSupport;
+
+
 import org.dom4j.Document;
 import org.dom4j.io.SAXContentHandler;
 import org.dom4j.io.SAXReader;
 
-public abstract class XMLUnitTagSupport extends TagSupport {
+public abstract class XMLUnitTagSupport extends AssertTagSupport {
 
 	/** The SAXReader used to parser the document */
 	private SAXReader saxReader;
@@ -129,12 +130,4 @@ public abstract class XMLUnitTagSupport extends TagSupport {
 					+ source);
 		}
 	}
-
-	/**
-	 * Produces a failure assertion with the given message
-	 */
-	protected void fail(String message) throws AssertionFailedError {
-		throw new AssertionFailedError(message);
-	}
-
 }

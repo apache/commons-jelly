@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/AssertTagSupport.java,v 1.8 2002/07/06 13:53:39 dion Exp $
- * $Revision: 1.8 $
- * $Date: 2002/07/06 13:53:39 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/LocationAware.java,v 1.11 2002/10/30 19:10:48 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/10/30 19:10:48 $
  *
  * ====================================================================
  *
@@ -57,57 +57,59 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AssertTagSupport.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: LocationAware.java,v 1.11 2002/10/30 19:10:48 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.junit;
 
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.tags.xml.XPathTagSupport;
+package org.apache.commons.jelly;
 
 /** 
- * The abstract base class of any assertion tag which is
- * useful for implementation inheritence.
- * 
+ * <p><code>LocationAware</code> represents a Tag or Exception which is location aware.
+ * That is to say it is capable of recording where in a Jelly script a tag or exception
+ * is used which can aid debugging and tracing.</p>
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.11 $
  */
-public abstract class AssertTagSupport extends XPathTagSupport {
 
-    public AssertTagSupport() {
-    }
+public interface LocationAware {
+    
+    /** 
+     * @return the line number of the tag 
+     */
+    public int getLineNumber();
+    
+    /** 
+     * Sets the line number of the tag 
+     */
+    public void setLineNumber(int lineNumber);
 
-    // Implementation methods
-    //-------------------------------------------------------------------------                
-    
-    /**
-     * Produces a failure assertion with the given message 
+    /** 
+     * @return the column number of the tag 
      */
-    protected void fail(String message) throws JellyAssertionFailedError {
-        throw new JellyAssertionFailedError(message);
-    }
+    public int getColumnNumber();
     
-    /**
-     * Produces a failure assertion with the given message and added detail.
+    /** 
+     * Sets the column number of the tag 
      */
-    protected void fail(String message, String detail) throws JellyAssertionFailedError {
-        if (message == null || message.length() == 0) {
-            fail(detail);
-        }
-        else {
-            fail(message + ". Assertion failed while " + detail);
-        }
-    }
-    
-    /**
-     * Produces a failure if the actual value was not equal to the expected value
+    public void setColumnNumber(int columnNumber);
+
+    /** 
+     * @return the Jelly file which caused the problem 
      */
-    protected void failNotEquals(String message, Object expected, Object actual, String expressions) throws JellyAssertionFailedError {
-        String formatted= "";
-        if (message != null) {
-            formatted = message +" ";
-        }
-        fail(formatted + "expected:[" + expected + "] but was:[" + actual + "]" + expressions);
-    }
+    public String getFileName();
+    /** 
+     * Sets the Jelly file which caused the problem 
+     */
+    public void setFileName(String fileName);
     
+
+    /** 
+     * @return the element name which caused the problem
+     */
+    public String getElementName();
+
+    /** 
+     * Sets the element name which caused the problem
+     */
+    public void setElementName(String elementName);
 }
