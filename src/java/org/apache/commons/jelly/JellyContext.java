@@ -337,6 +337,10 @@ public class JellyContext {
         if (isExportLibraries() && parent != null) {
             parent.registerTagLibrary( namespaceURI, taglib );
         }
+        
+        if (isExportLibraries() && parent != null) {
+            parent.registerTagLibrary( namespaceURI, taglib );
+        }
     }
 
     /** Registers the given tag library class name against the given namespace URI.

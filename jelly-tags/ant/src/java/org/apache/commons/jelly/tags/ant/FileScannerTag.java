@@ -91,6 +91,8 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
+        fileScanner.setProject(AntTagLibrary.getProject(context));
+        
         fileScanner.clear();
         
         // run the body first to configure the task via nested

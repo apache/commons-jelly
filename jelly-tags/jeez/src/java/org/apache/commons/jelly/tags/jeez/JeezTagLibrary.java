@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.6 2002/08/09 17:26:41 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/08/09 17:26:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.7 2002/08/27 14:04:29 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/08/27 14:04:29 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JeezTagLibrary.java,v 1.6 2002/08/09 17:26:41 jstrachan Exp $
+ * $Id: JeezTagLibrary.java,v 1.7 2002/08/27 14:04:29 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
@@ -92,7 +92,7 @@ import org.xml.sax.Attributes;
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class JeezTagLibrary extends DynamicTagLibrary {
 
@@ -106,23 +106,7 @@ public class JeezTagLibrary extends DynamicTagLibrary {
     private TagLibrary werkzTagLib = new WerkzTagLibrary();
 
     /** jelly:ant taglib. */
-    private AntTagLibrary antTagLib;
-
-    /**
-     * Use a default ant Project
-     */
-    public JeezTagLibrary() {
-        this.antTagLib    = new AntTagLibrary();
-    }
-
-    
-    /** Construct.
-     *
-     *  @param antProject The ant Project.
-     */
-    public JeezTagLibrary(Project antProject) {
-        this.antTagLib    = new AntTagLibrary( antProject );
-    }
+    private AntTagLibrary antTagLib= new AntTagLibrary();
 
     public TagScript createTagScript(
         final String name,

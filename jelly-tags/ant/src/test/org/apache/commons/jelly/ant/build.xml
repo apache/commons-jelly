@@ -1,0 +1,21 @@
+<project default="echoFoo" name="ant-test" basedir=".">
+
+  <property name="foo5.1" value="${foo5}"/>
+
+  <target name="writeFoo3Bar3">
+    <echo message="foo3 = bar3" file="test.properties"/>
+  </target>
+
+  <target name="readWriteFoo4.1Foo4">
+    <echo message="foo4.1 = ${foo4}" file="test.properties"/>
+  </target>
+
+  <target name="readWriteFoo5.1Foo5InStart">
+    <echo message="foo5.1 = ${foo5.1}" file="test.properties"/>
+  </target>
+
+  <target name="echoFoo">
+    <echo message="${foo}"/>
+  </target>
+
+</project>

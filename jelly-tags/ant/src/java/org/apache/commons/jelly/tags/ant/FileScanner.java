@@ -82,8 +82,9 @@ public class FileScanner {
     
     /** The Ant project */
     private Project project;
-
-    public FileScanner(Project project) {
+    
+    public void setProject(Project project)
+    {
         this.project = project;
     }
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/07/06 13:53:39 $
  *
  * ====================================================================
  *
@@ -57,74 +57,28 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
-package org.apache.commons.jelly.tags.ant;
+package org.apache.commons.jelly.ant;
 
-import org.apache.commons.beanutils.ConvertingWrapDynaBean;
-import org.apache.commons.beanutils.DynaBean;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.junit.JellyTestSuite;
 
 /** 
- * A tag which creates a new FileScanner bean instance that can be used to 
- * iterate over fileSets
+ * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.8 $
  */
-public class FileScannerTag extends TagSupport implements TaskSource {
+public class TestJelly extends JellyTestSuite {
 
-    /** The file walker that gets created */
-    private FileScanner fileScanner;
-
-    /** the variable exported */
-    private String var;
-    
-    public FileScannerTag(FileScanner fileScanner) {
-        this.fileScanner = fileScanner;
-    }
-
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        fileScanner.setProject(AntTagLibrary.getProject(context));
-        
-        fileScanner.clear();
-        
-        // run the body first to configure the task via nested
-        invokeBody(output);
-
-        // output the fileScanner
-        if ( var == null ) {
-            throw new MissingAttributeException( "var" );
-        }
-        context.setVariable( var, fileScanner );        
-        
+    public static void main( String[] args ) throws Exception {
+        TestRunner.run( suite() );
     }
     
-    // TaskSource interface
-    //------------------------------------------------------------------------- 
-    public Object getTaskObject() {
-        return fileScanner;
+    public static TestSuite suite() throws Exception {
+        return createTestSuite(TestJelly.class, "suite.jelly");        
     }
-    
-    // Properties
-    //-------------------------------------------------------------------------                
-    
-    /** 
-     * @return the Ant task
-     */
-    public FileScanner getFileScanner() {
-        return fileScanner;
-    }
-    
-    /** Sets the name of the variable exported by this tag */
-    public void setVar(String var) {
-        this.var = var;
-    }
-    
 }

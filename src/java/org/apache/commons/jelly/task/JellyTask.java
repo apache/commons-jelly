@@ -166,7 +166,7 @@ public class JellyTask extends Task {
             context = new AntJellyContext(project, parentContext);
             
             // register the Ant tag library
-            context.registerTagLibrary( "jelly:ant", new AntTagLibrary(project) );
+            context.registerTagLibrary( "jelly:ant", new AntTagLibrary() );
         }
         return context;
     }
