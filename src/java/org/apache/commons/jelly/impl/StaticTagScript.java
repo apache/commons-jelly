@@ -101,11 +101,15 @@ public class StaticTagScript extends DynaTagScript {
     public StaticTagScript(StaticTag tag) {
         super(tag);
     }
+    
 
     // Script interface
     //-------------------------------------------------------------------------                
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
+
+        startNamespacePrefixes(output);
+                
         if ( firstRun ) {
             firstRun = false;
             
@@ -135,6 +139,8 @@ public class StaticTagScript extends DynaTagScript {
         catch (Exception e) {
             handleException(e);
         }
+        
+        endNamespacePrefixes(output);
     }
 
     /**

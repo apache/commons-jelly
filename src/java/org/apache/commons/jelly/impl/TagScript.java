@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.14 2002/06/28 12:13:27 jstrachan Exp $
- * $Revision: 1.14 $
- * $Date: 2002/06/28 12:13:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.15 2002/07/15 11:22:27 jstrachan Exp $
+ * $Revision: 1.15 $
+ * $Date: 2002/07/15 11:22:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.14 2002/06/28 12:13:27 jstrachan Exp $
+ * $Id: TagScript.java,v 1.15 2002/07/15 11:22:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -87,13 +87,14 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.xml.sax.Locator;
+import org.xml.sax.SAXException;
 
 /** 
  * <p><code>TagScript</code> abstract base class for a 
  * script that evaluates a custom tag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public abstract class TagScript implements Script {
 
@@ -105,6 +106,9 @@ public abstract class TagScript implements Script {
 
     /** The attribute expressions that are created */
     protected Map attributes = new HashMap();
+    
+    /** the optional namespaces Map of prefix -> URI */
+    private Map namespacesMap;
     
     /** the Jelly file which caused the problem */
     private String fileName;
@@ -128,7 +132,14 @@ public abstract class TagScript implements Script {
     public String toString() {
         return super.toString() + "[tag=" + tag + "]";
     }
-    
+
+    /**
+     * Sets the optional namespaces prefix -> URI map
+     */
+    public void setNamespacesMap(Map namespacesMap) {
+        this.namespacesMap = namespacesMap;
+    }
+        
     /**
      * Configures this TagScript from the SAX Locator, setting the column
      * and line numbers
@@ -230,6 +241,32 @@ public abstract class TagScript implements Script {
     
     // Implementation methods
     //-------------------------------------------------------------------------      
+
+    /**
+     * Output the new namespace prefixes used for this element
+     */    
+    protected void startNamespacePrefixes(XMLOutput output) throws SAXException {
+        if ( namespacesMap != null ) {
+            for ( Iterator iter = namespacesMap.entrySet().iterator(); iter.hasNext(); ) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                String prefix = (String) entry.getKey();
+                String uri = (String) entry.getValue();
+                output.startPrefixMapping(prefix, uri);
+            }
+        }
+    }
+    
+    /**
+     * End the new namespace prefixes mapped for the current element
+     */    
+    protected void endNamespacePrefixes(XMLOutput output) throws SAXException {
+        if ( namespacesMap != null ) {
+            for ( Iterator iter = namespacesMap.keySet().iterator(); iter.hasNext(); ) {
+                String prefix = (String) iter.next();
+                output.endPrefixMapping(prefix);
+            }
+        }
+    }
     
     /** 
      * Converts the given value to the required type. 

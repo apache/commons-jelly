@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.25 2002/06/28 12:13:27 jstrachan Exp $
- * $Revision: 1.25 $
- * $Date: 2002/06/28 12:13:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.26 2002/07/15 11:22:27 jstrachan Exp $
+ * $Revision: 1.26 $
+ * $Date: 2002/07/15 11:22:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.25 2002/06/28 12:13:27 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.26 2002/07/15 11:22:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -121,7 +121,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.25 $
+ * @version $Revision: 1.26 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -198,6 +198,9 @@ public class XMLParser extends DefaultHandler {
      * prefix for different Namespace URIs).
      */
     protected HashMap namespaces = new HashMap();
+
+    /** The Map of the namespace prefix -> URIs defined for the current element */
+    private Map elementNamespaces;
 
     /**
      * The name of the file being parsed that is passed to the TagScript objects
@@ -599,6 +602,12 @@ public class XMLParser extends DefaultHandler {
                 // set parent relationship...
                 Tag tag = tagScript.getTag();
                 tag.setParent(parentTag);
+
+                // set the namespace Map
+                if ( elementNamespaces != null ) {
+                    tagScript.setNamespacesMap( elementNamespaces );
+                    elementNamespaces = null;
+                }                
                 
                 // set the line number details
                 if ( locator != null ) {
@@ -710,6 +719,30 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
+     * Process notification that a namespace prefix is coming in to scope.
+     *
+     * @param prefix Prefix that is being declared
+     * @param namespaceURI Corresponding namespace URI being mapped to
+     *
+     * @exception SAXException if a parsing error is to be reported
+     */
+    public void startPrefixMapping(String prefix, String namespaceURI)
+        throws SAXException {
+        // Register this prefix mapping
+        ArrayStack stack = (ArrayStack) namespaces.get(prefix);
+        if (stack == null) {
+            stack = new ArrayStack();
+            namespaces.put(prefix, stack);
+        }
+        stack.push(namespaceURI);
+        
+        if ( elementNamespaces == null ) {
+            elementNamespaces = new HashMap();
+        }
+        elementNamespaces.put(prefix, namespaceURI);
+    }
+    
+    /**
      * Process notification that a namespace prefix is going out of scope.
      *
      * @param prefix Prefix that is going out of scope
@@ -779,25 +812,6 @@ public class XMLParser extends DefaultHandler {
      */
     public void skippedEntity(String name) throws SAXException {
         ; // No processing required
-    }
-
-    /**
-     * Process notification that a namespace prefix is coming in to scope.
-     *
-     * @param prefix Prefix that is being declared
-     * @param namespaceURI Corresponding namespace URI being mapped to
-     *
-     * @exception SAXException if a parsing error is to be reported
-     */
-    public void startPrefixMapping(String prefix, String namespaceURI)
-        throws SAXException {
-        // Register this prefix mapping
-        ArrayStack stack = (ArrayStack) namespaces.get(prefix);
-        if (stack == null) {
-            stack = new ArrayStack();
-            namespaces.put(prefix, stack);
-        }
-        stack.push(namespaceURI);
     }
 
 

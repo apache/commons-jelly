@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.9 2002/06/27 14:09:15 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/27 14:09:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.10 2002/07/15 11:22:27 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/07/15 11:22:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StaticTag.java,v 1.9 2002/06/27 14:09:15 jstrachan Exp $
+ * $Id: StaticTag.java,v 1.10 2002/07/15 11:22:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -74,7 +74,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
 public class StaticTag extends TagSupport implements DynaTag {
@@ -93,6 +93,7 @@ public class StaticTag extends TagSupport implements DynaTag {
     
     public StaticTag() {
     }
+    
     public StaticTag(String uri, String localName, String qname) {
         this.uri = uri;
         this.localName = localName;
