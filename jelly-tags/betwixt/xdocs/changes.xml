@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.1-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="update">Move to betwixt 0.6</action>
       <action dev="dion" type="update">Move to betwixt 0.5 and digester 1.6</action>
     </release>
     <release version="1.0" date="2004-09-11">

@@ -46,7 +46,7 @@
   
     <dependency>
       <id>commons-betwixt</id>
-      <version>0.5</version>
+      <version>0.6</version>
       <url>http://jakarta.apache.org/commons/betwixt/</url>
     </dependency>
     
