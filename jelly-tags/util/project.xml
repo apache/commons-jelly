@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-util</id>
   <name>commons-jelly-tags-util</name>
-  <currentVersion>1.1.1</currentVersion>
+  <currentVersion>1.1.2-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.util</package>
   <description>This is a set of Jelly utility tags.</description>
   <shortDescription>Commons Jelly Util Tag Library</shortDescription>
@@ -46,6 +46,12 @@
     <dependency>
       <id>commons-lang</id>
       <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils-bean-collections</groupId>
+      <version>1.7.0</version>
+      <url>http://jakarta.apache.org/commons/beanutils/</url>
     </dependency>
     <!-- END for compilation -->
     <!-- START for test -->
