@@ -9,9 +9,13 @@
 	
 		<util:tokenize var="tokens" delim=",">Test1,Test2,Test3,Test4</util:tokenize>
 
+		<j:set var="s" value="${size(tokens)}"/>		
+		<test:assert test="${s == 4}"/>
+		<test:assert test="${size(tokens) == 4}"/>
+
 <!--		
-		<j:set var="size" value="${tokens.size()}"/>		
-		<test:assert test="${size == 4}"/>
+		<j:set var="s" value="${tokens.size()}"/>		
+		<test:assert test="${s == 4}"/>
 		
 		<test:assert test="${tokens.size() == 4}"/>
 -->
@@ -21,8 +25,12 @@
 		<test:assertEquals expected="Test3" actual="${tokens[2]}"/>
 		<test:assertEquals expected="Test4" actual="${tokens[3]}"/>
 		
+		<test:assertEquals expected="Test4" actual="${tokens[s - 1]}"/>
+		<test:assertEquals expected="Test4" actual="${tokens[size(tokens) - 1]}"/>
+		
 <!--		
-		<test:assertEquals expected="Test4" actual="${tokens[size]}"/>
+		<test:assertEquals expected="Test4" actual="${tokens.get(size(tokens) - 1)}"/>
+		
 		
 		<test:assertEquals expected="Test4" actual="${tokens[tokens.size() - 1]}"/>
 		<test:assertEquals expected="Test4" actual="${tokens.get(tokens.size() - 1)}"/>
