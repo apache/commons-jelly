@@ -1,5 +1,19 @@
 <project default="java:jar" xmlns:j="jelly:core">
 
+  <!-- define jelly task -->	
+  <goal name="jelly-task" prereqs="java:compile">
+	<path id="test.classpath">
+	    <pathelement path="${maven.build.dest}"/>
+	    <pathelement path="target/classes"/>
+	    <path refid="maven.dependency.classpath"/>
+	</path>
+	  
+    <taskdef
+      name="jelly"
+      classname="org.apache.commons.jelly.task.JellyTask">
+      <classpath refid="test.classpath"/>
+    </taskdef>    
+  </goal>
 
   <!-- runs the XML doclet -->  
   <goal name="xml-doclet" prereqs="java:compile">
@@ -31,34 +45,15 @@
       docletpathref="doclet.classpath">
     </javadoc>
   </goal>
-  
-  <!-- creates the XML webpage from the tag XML information -->    
-  <goal name="doc-tags" prereqs="tag-doclet" 
-  description="Generates the tag documentation">
-  
-    <mkdir dir="target/generated-xdocs"/>
+	
+  <!-- creates the XML webpage from the tag XML information -->		
+  <goal name="doc-tags" prereqs="tag-doclet, jelly-task" 
+	description="Generates the tag documentation">
+	
+	<mkdir dir="target/generated-xdocs"/>
 
-    <path id="test.classpath">
-      <pathelement path="${maven.build.dest}"/>
-      <pathelement path="target/classes"/>
-      <path refid="maven.dependency.classpath"/>
-    </path>
-    
-    <taskdef
-      name="jelly"
-      classname="org.apache.commons.jelly.task.JellyTask">
-      <classpath refid="test.classpath"/>
-    </taskdef>    
-      
-<!--  
-  <j:file name="target/generated-xdocs/tags.xml">
-    <j:include uri="src/script/makeTagDoc.jelly"/>
-  </j:file>
--->
-
-    <jelly file="src/script/makeTagDoc.jelly" 
-      output="target/generated-xdocs/tags.xml"/> 
-  
+	<jelly file="src/script/makeTagDoc.jelly" 
+		   output="target/generated-xdocs/tags.xml"/> 
   </goal>
 
 
@@ -105,6 +100,18 @@
             file="${maven.build.dir}/${maven.final.name}.jar"/>
   </preGoal>
 
+
+  <goal name="demo:soap" prereqs="jelly-task" 
+	description="Runs the example SOAP demo">
+	
+	<jelly file="src/test/org/apache/commons/jelly/define/example.jelly"/> 
+  </goal>
+
+  <goal name="demo:static" prereqs="jelly-task" 
+	description="Outputs some static XML">
+	
+	<jelly file="src/test/org/apache/commons/jelly/testStatic.jelly"/> 
+  </goal>
 
           
 </project>

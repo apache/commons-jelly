@@ -137,7 +137,7 @@
 
     <dependency>
       <id>dom4j</id>
-      <version>1.4-dev-3</version>
+      <version>1.4-dev-4</version>
     </dependency>
 
     <dependency>
