@@ -55,5 +55,9 @@
     </java>
   </goal>
 
+  
+  <goal name="trash"> 
+    <echo>${pom.id.substring(28)}</echo>
+  </goal>
 
 </project>

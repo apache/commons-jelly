@@ -11,7 +11,7 @@
   </description>
   <shortDescription>Commons Jelly Dyna Bean Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/dynabean/</url>
+  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/dynabean/</url>
 
   <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/dynabean/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/dynabean</distributionDirectory>
@@ -19,7 +19,7 @@
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/dynabean/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/dynabean/</url>
   </repository>
-  
+  -->
   <dependencies>
   
     

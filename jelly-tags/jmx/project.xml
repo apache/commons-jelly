@@ -14,14 +14,13 @@
   
   <shortDescription>Commons Jelly JMX Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/jelly/tags/jmx/</url>
-
+  <!-- <url>http://jakarta.apache.org/commons/jelly/tags/jmx/</url>
   <siteDirectory>/www/jakarta.apache.org/commons/jelly/jmx/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/jmx</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/jmx/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/jmx/</url>
-  </repository>
+  </repository>-->
   
   <dependencies>
   

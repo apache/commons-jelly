@@ -10,12 +10,12 @@
   </description>
   <shortDescription>Commons Jelly SOAP Tag Library</shortDescription>
   
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/soap</siteDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/soap</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/soap</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/soap/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/soap/</url>
-  </repository>
+  </repository>-->
   
     
   <dependencies>
@@ -23,7 +23,7 @@
     
   
     <!-- START for compilation -->
-  
+    <!-- may need JDK 1.4 -->
     <dependency>
       <id>commons-jelly</id>
       <version>SNAPSHOT</version>
@@ -35,15 +35,26 @@
     </dependency>
     
     <dependency>
-      <id>jaxrpc</id>
-      <version>1.0</version>
+      <groupId>jaxrpc</groupId>
+      <artifactId>jaxrpc-api</artifactId>
+      <version>1.1-FCS</version>
+      <url>http://java.sun.com/webservices/webservicespack.html</url>
     </dependency>
     
     <dependency>
-      <id>saaj</id>
-      <version>1.1</version>
+      <groupId>saaj</groupId>
+      <artifactId>saaj-api</artifactId>
+      <version>1.2-FCS</version>
+      <url>http://java.sun.com/webservices/webservicespack.html</url>
     </dependency>
   
+    <dependency>
+      <id>jax-qname</id>
+      <version>1.0</version>
+      <url>http://java.sun.com/webservices/webservicespack.html</url>
+    </dependency>
+
+    
     <!-- START for running demos -->
 
     <dependency>
@@ -57,6 +68,7 @@
     <dependency>
       <id>servletapi</id>
       <version>2.3</version>
+      <url>http://java.sun.com/products/servlets/</url>
     </dependency>
     	
     <!-- END for running demos -->

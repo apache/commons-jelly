@@ -2,7 +2,7 @@
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-swing</id>
-  <name>commons-jelly-tags-swing</name>
+  <name>JellySwing</name>
 
   <package>org.apache.commons.jelly.tags.swing</package>
 
@@ -11,7 +11,7 @@
   </description>
   <shortDescription>Commons Jelly Swing Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/swing/</url>
+  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/swing/</url>
 
   <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/swing/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/swing</distributionDirectory>
@@ -19,6 +19,7 @@
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/swing/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/swing/</url>
   </repository>
+  -->
   
   <dependencies>
   

@@ -11,14 +11,14 @@
   </description>
   <shortDescription>Commons Jelly Define Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/define/</url>
+  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/define/</url>
 
   <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/define/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/define</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/define/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/define/</url>
-  </repository>
+  </repository> -->
   
   <dependencies>
   

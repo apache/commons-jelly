@@ -11,20 +11,20 @@
   </description>
   <shortDescription>Commons Jelly Jetty Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/jetty/</url>
+  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/jetty/</url>
   <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/jetty/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/jetty</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/jetty/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/jetty/</url>
-  </repository>
+  </repository>-->
   
   <dependencies>
   
     
   
     <!-- START for compilation -->
-  
+    <!-- may need JDK 1.4 for jsse -->
     <dependency>
       <id>commons-jelly</id>
       <version>SNAPSHOT</version>
@@ -49,6 +49,7 @@
       <version>SNAPSHOT</version>
     </dependency>
 
+    <!-- PL: Commented out as it might be this is part of JDK 1.4...
     <dependency>
       <id>jsse</id>
       <version>1.0.3</version>
@@ -57,7 +58,7 @@
     <dependency>
       <id>jsse+jnet</id>
       <version>1.0.3</version>
-    </dependency>
+    </dependency> -->
 
 	
     <!-- END for testing -->

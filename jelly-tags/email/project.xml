@@ -10,12 +10,12 @@
   </description>
   <shortDescription>Commons Jelly e-mail Tag Library</shortDescription>
   
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/email</siteDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/email</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/email</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/email/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/email/</url>
-  </repository>
+  </repository> -->
   
     
   <dependencies>
@@ -31,14 +31,17 @@
     
     <!-- START for run time -->
     <dependency>
-      <id>jaf</id>
+      <groupId>jaf</groupId>
       <version>1.0.2</version>
-      <jar>activation-1.0.2.jar</jar>
+      <artifactId>activation</artifactId>
+      <url>http://java.sun.com/beans/glasgow/jaf.html</url>
     </dependency>
     
     <dependency>
-      <id>javamail</id>
+      <groupId>javamail</groupId>
+      <artifactId>mail</artifactId>
       <version>1.2</version>
+      <url>http://java.sun.com/products/javamail/javamail-1_2.html</url>
     </dependency>
     <!-- END for run time -->
 

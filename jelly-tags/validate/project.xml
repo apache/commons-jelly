@@ -11,12 +11,12 @@
   </description>
   <shortDescription>Commons Jelly Validate Tag Library</shortDescription>
   
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/validate</siteDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/validate</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/validate</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/validate/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/validate/</url>
-  </repository>
+  </repository>-->
   
     
   <dependencies>

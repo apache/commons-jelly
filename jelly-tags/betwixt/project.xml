@@ -10,12 +10,12 @@
   </description>
   <shortDescription>Commons Jelly Betwixt Tag Library</shortDescription>
   
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/betwixt/</siteDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/betwixt/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/betwixt</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/betwixt/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/betwixt/</url>
-  </repository>
+  </repository> -->
   
   <dependencies>
   

@@ -11,14 +11,14 @@
   </description>
   <shortDescription>Commons Jelly JUnit Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
+  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
 
   <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/junit/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/junit</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/junit/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/junit/</url>
-  </repository>
+  </repository>-->
   
   <dependencies>
   

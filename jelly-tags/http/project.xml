@@ -11,13 +11,13 @@
   </description>
   <shortDescription>Commons Jelly HTTP Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/http/</url>
+  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/http/</url>
   <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/http</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/http</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/http/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/http/</url>
-  </repository>
+  </repository> -->
   
   <dependencies>
   

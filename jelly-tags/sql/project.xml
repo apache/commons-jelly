@@ -29,10 +29,12 @@
       <version>SNAPSHOT</version>
     </dependency>
   
+    <!-- unneeded at least for java 1.4 -->
+    <!-- 
     <dependency>
       <id>jdbc</id>
       <version>2.0</version>
-    </dependency>
+    </dependency> -->
     
     <!-- END for compilation -->
     

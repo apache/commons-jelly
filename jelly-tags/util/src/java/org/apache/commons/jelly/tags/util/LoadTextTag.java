@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/util/src/java/org/apache/commons/jelly/tags/util/LoadTextTag.java,v 1.3 2003/10/09 21:21:26 rdonkin Exp $
- * $Revision: 1.3 $
- * $Date: 2003/10/09 21:21:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/util/src/java/org/apache/commons/jelly/tags/util/LoadTextTag.java,v 1.4 2003/12/25 21:58:39 polx Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/12/25 21:58:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: LoadTextTag.java,v 1.3 2003/10/09 21:21:26 rdonkin Exp $
+ * $Id: LoadTextTag.java,v 1.4 2003/12/25 21:58:39 polx Exp $
  */
 package org.apache.commons.jelly.tags.util;
 
@@ -67,7 +67,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.io.Reader;
 
 import org.apache.commons.jelly.JellyTagException;
@@ -82,7 +84,7 @@ import org.apache.commons.logging.LogFactory;
  * A tag which loads text from a file or URI into a Jelly variable. 
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class LoadTextTag extends TagSupport {
 
@@ -92,6 +94,7 @@ public class LoadTextTag extends TagSupport {
     private String var;
     private File file;
     private String uri;
+    private String encoding;
 
     public LoadTextTag() {
     }
@@ -112,9 +115,14 @@ public class LoadTextTag extends TagSupport {
             }
             
             try {
-                reader = new FileReader(file);
+                if ( encoding == null )
+                    reader = new FileReader(file);
+                else
+                    reader = new InputStreamReader(new FileInputStream(file),encoding);
             } catch (FileNotFoundException e) {
                 throw new JellyTagException("could not find the file",e);
+            } catch (UnsupportedEncodingException e) {
+                throw new JellyTagException("Could not use the encoding \"" + encoding + "\".",e);
             }
         }   
         else {
@@ -186,6 +194,19 @@ public class LoadTextTag extends TagSupport {
      */
     public void setUri(String uri) {
         this.uri = uri;
+    }
+    
+    /** Sets the encoding to be used to read the file, defaults to the platform-encoding.
+      */
+    public void setEncoding(String encName) {
+        this.encoding = encName;
+    }
+    
+    /** Returns the encoding set.
+    * @return the encoding set with {@link #setEncoding(String)}
+      */
+    public String getEncoding() {
+        return encoding;
     }
 
 

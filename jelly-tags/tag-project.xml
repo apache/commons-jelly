@@ -7,7 +7,7 @@
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://jakarta.apache.org/</url>
-    <logo>http://jakarta.apache.org/images/jakarta-logo-blue.gif</logo>
+    <logo>http://jakarta.apache.org/images/jakarta-logo.gif</logo>
   </organization>
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly.tags.ant</package>
@@ -20,15 +20,18 @@
   </description>
   <shortDescription>Commons Jelly Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/sandbox/jelly/</url>
-  <issueTrackingUrl>http://jira.werken.com/BrowseProject.jspa?id=10012</issueTrackingUrl>
+  <url>http://jakarta.apache.org/commons/jelly/libs/${pom.id.substring(33)}/index.html</url>
+  <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10012</issueTrackingUrl>
+  
   <siteAddress>jakarta.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/</distributionDirectory>
+  <siteDirectory>/www/jakarta.apache.org/commons/jelly/jelly-tags/${pom.id.substring(33)}/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}/</distributionDirectory>
+  
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/ant/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/ant/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}/</url>
   </repository>
+  
   
   <mailingLists>
     <mailingList>
@@ -253,7 +256,7 @@
     
     <dependency>
       <id>dom4j</id>
-      <version>1.4-dev-8</version>
+      <version>1.4</version>
     </dependency>
 
     <dependency>
