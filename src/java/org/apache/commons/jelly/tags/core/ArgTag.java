@@ -1,8 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.1 2002/11/28 00:22:23 rwaldhoff Exp $
- * $Revision: 1.1 $
- * $Date: 2002/11/28 00:22:23 $
- *
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/11/30 07:41:21 $
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
@@ -57,125 +56,101 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ArgTag.java,v 1.1 2002/11/28 00:22:23 rwaldhoff Exp $
+ * $Id: ArgTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.beanutils.ConversionException;
+import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils.converters.BooleanConverter;
+import org.apache.commons.beanutils.converters.ByteConverter;
+import org.apache.commons.beanutils.converters.CharacterConverter;
+import org.apache.commons.beanutils.converters.DoubleConverter;
+import org.apache.commons.beanutils.converters.FloatConverter;
+import org.apache.commons.beanutils.converters.IntegerConverter;
+import org.apache.commons.beanutils.converters.LongConverter;
+import org.apache.commons.beanutils.converters.ShortConverter;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.expression.Expression;
 
-/** An argument to a {@link NewTag} or {@link InvokeTag}.
-  * This tag MUST be enclosed within an {@link ArgTagParent} 
-  * implementation.
-  *
-  * @author Rodney Waldhoff
-  * @version $Revision: 1.1 $
-  */
+/** 
+ * An argument to a {@link NewTag} or {@link InvokeTag}.
+ * This tag MUST be enclosed within an {@link ArgTagParent} 
+ * implementation.
+ *
+ * @author Rodney Waldhoff
+ * @version $Revision: 1.2 $
+ */
 public class ArgTag extends BaseClassLoaderTag {
+
+    // constructors
+    //-------------------------------------------------------------------------
     
-    /** The name of the parameter type, if any. */
-    private String typeString;
-    
-    /** An {@link Expression} describing the parameter value. */
-    private Expression valueExpression;
-    
-    /** The parameter value as {@link #setValueObject set} by some child tag (if any). */
-    private Object valueObject;
-        
     public ArgTag() {
     }
 
-    /** The name of the parameter type, if any. */
+    // attribute setters
+    //-------------------------------------------------------------------------
+
+    /** 
+     * The name of the argument class or type, if any. 
+     * This may be a fully specified class name or 
+     * a primitive type name
+     * (<code>boolean<code>, <code>int</code>, <code>double</code>, etc.).
+     */
     public void setType(String type) {
         this.typeString = type;
     }
     
-    /** The parameter value. */
-    public void setValue(Expression value) {
-        this.valueExpression= value;
-    }
-    
-    /** (used by child tags) */
-    public void setValueObject(Object object) {
-        this.valueObject = object;
+    /** The (possibly null) value of this argument. */
+    public void setValue(Object value) {
+        this.value= value;
     }
 
-    // Tag interface
-    //------------------------------------------------------------------------- 
+    // tag methods
+    //-------------------------------------------------------------------------
+
     public void doTag(XMLOutput output) throws Exception {
         invokeBody(output);
-        if(null != valueObject && null != valueExpression) {
-            throw new JellyException("Either the value parameter or a value-setting child element can be provided, but not both.");
-        }
+
         Class klass = null;
-        Object value = valueObject;
-        if(null == value && null != valueExpression) {
-            value = valueExpression.evaluate(context);
-        }
         if("boolean".equals(typeString)) {                
             klass = Boolean.TYPE;
-            assertNotNull(value);
-            if(!(value instanceof Boolean) && null != valueExpression) {
-                value = new Boolean(valueExpression.evaluateAsBoolean(context));                
-            }
-            assertInstanceOf(Boolean.class,value);
+            assertNotNull(value);            
         } else if("byte".equals(typeString)) {
             klass = Byte.TYPE;
             assertNotNull(value);
-            if(!(value instanceof Byte) && null != valueExpression) {
-                value = new Byte(valueExpression.evaluateAsString(context));
-            }            
-            assertInstanceOf(Byte.class,value);
         } else if("short".equals(typeString)) {
             klass = Short.TYPE;
             assertNotNull(value);
-            if(!(value instanceof Short) && null != valueExpression) {
-                value = new Short(valueExpression.evaluateAsString(context));
-            }            
-            assertInstanceOf(Short.class,value);
         } else if("int".equals(typeString)) {
             klass = Integer.TYPE;
             assertNotNull(value);
-            if(!(value instanceof Integer) && null != valueExpression) {
-                value = new Integer(valueExpression.evaluateAsString(context));
-            }            
-            assertInstanceOf(Integer.class,value);
         } else if("char".equals(typeString)) {
             klass = Character.TYPE;
             assertNotNull(value);
-            if(!(value instanceof Character) && null != valueExpression) {
-                value = new Character(valueExpression.evaluateAsString(context).charAt(0));
-            }            
-            assertInstanceOf(Character.class,value);
         } else if("float".equals(typeString)) {
             klass = Float.TYPE;
             assertNotNull(value);
-            if(!(value instanceof Float) && null != valueExpression) {
-                value = new Float(valueExpression.evaluateAsString(context));
-            }            
-            assertInstanceOf(Float.class,value);
         } else if("long".equals(typeString)) {
             klass = Long.TYPE;
             assertNotNull(value);
-            if(!(value instanceof Long) && null != valueExpression) {
-                value = new Long(valueExpression.evaluateAsString(context));
-            }            
-            assertInstanceOf(Long.class,value);
         } else if("double".equals(typeString)) {
             klass = Double.TYPE;
             assertNotNull(value);
-            if(!(value instanceof Double) && null != valueExpression) {
-                value = new Double(valueExpression.evaluateAsString(context));
-            }            
-            assertInstanceOf(Double.class,value);
         } else if(null != typeString) {
             klass = getClassLoader().loadClass(typeString);
-            assertInstanceOf(klass,value);
-        } else if(null == value) {
+        } else if(null == value) { // and (by construction) null == typeString
             klass = Object.class;
         } else {
             klass = value.getClass();
+        }
+
+        if(!isInstanceOf(klass,value)) {
+            value = convert(klass,value);
         }
         
         ArgTagParent parent = (ArgTagParent)findAncestorWithClass(ArgTagParent.class);
@@ -186,19 +161,148 @@ public class ArgTag extends BaseClassLoaderTag {
         }
     }
 
+    // private methods
+    //-------------------------------------------------------------------------
+
     private void assertNotNull(Object value) throws JellyException {
         if(null == value) {
             throw new JellyException("A " + typeString + " instance cannot be null.");
         }
     }
 
-    private void assertInstanceOf(Class klass, Object value) throws JellyException {
-        if(null != klass && null != value && (!klass.isInstance(value))) {
-            if(null != valueExpression) {
-                throw new JellyException("Can't create a " + typeString + " instance from the expression " + valueExpression);
+    private boolean isInstanceOf(Class klass, Object value) {
+        return (null == value || (klass.isInstance(value)));
+    }
+
+    // attibutes
+    //-------------------------------------------------------------------------
+
+    /** The name of the parameter type, if any. */
+    private String typeString;
+    
+    /** The value of the parameter, if any */
+    private Object value;
+
+    // static stuff
+    //-------------------------------------------------------------------------
+
+    private static Object convert(Class klass, Object value) throws JellyException {
+        if(null == value) {
+            return null;
+        } else if(!klass.isInstance(value)) {
+            Converter converter = (Converter)(converterMap.get(klass));
+            if(null == converter) { 
+                throw new JellyException("Can't convert " + value + " to " + klass);
             } else {
-                throw new JellyException("Can't create a " + typeString + " instance from the object " + valueObject);
+                try {
+                    return converter.convert(klass,value);
+                } catch(ConversionException e) {
+                    throw new JellyException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")",e);
+                }
             }
+        } else {
+            return value;
         }
+        
+    }
+        
+    /** My bag of converters, by target Class */
+    private static Map converterMap = new HashMap();
+    // these inner classes should probably move to beanutils
+    static {
+        {
+            Converter c = new BooleanConverter();
+            converterMap.put(Boolean.TYPE,c);
+            converterMap.put(Boolean.class,c);
+        }
+        {
+            Converter c = new CharacterConverter();
+            converterMap.put(Character.TYPE,c);
+            converterMap.put(Character.class,c);
+        }
+        {
+            Converter c = new Converter() {
+                public Object convert(Class klass, Object value) {
+                    if(value instanceof Number) {
+                        return new Byte(((Number)value).byteValue());
+                    } else {
+                        return inner.convert(klass,value);
+                    }                        
+                }           
+                private Converter inner = new ByteConverter();     
+            };
+            converterMap.put(Byte.TYPE,c);
+            converterMap.put(Byte.class,c);
+        }
+        {
+            Converter c = new Converter() {
+                public Object convert(Class klass, Object value) {
+                    if(value instanceof Number) {
+                        return new Short(((Number)value).shortValue());
+                    } else {
+                        return inner.convert(klass,value);
+                    }                        
+                }           
+                private Converter inner = new ShortConverter();     
+            };
+            converterMap.put(Short.TYPE,c);
+            converterMap.put(Short.class,c);
+        }
+        {
+            Converter c = new Converter() {
+                public Object convert(Class klass, Object value) {
+                    if(value instanceof Number) {
+                        return new Integer(((Number)value).intValue());
+                    } else {
+                        return inner.convert(klass,value);
+                    }                        
+                }           
+                private Converter inner = new IntegerConverter();     
+            };
+            converterMap.put(Integer.TYPE,c);
+            converterMap.put(Integer.class,c);
+        }
+        {
+            Converter c = new Converter() {
+                public Object convert(Class klass, Object value) {
+                    if(value instanceof Number) {
+                        return new Long(((Number)value).longValue());
+                    } else {
+                        return inner.convert(klass,value);
+                    }                        
+                }           
+                private Converter inner = new LongConverter();     
+            };
+            converterMap.put(Long.TYPE,c);
+            converterMap.put(Long.class,c);
+        }
+        {
+            Converter c = new Converter() {
+                public Object convert(Class klass, Object value) {
+                    if(value instanceof Number) {
+                        return new Float(((Number)value).floatValue());
+                    } else {
+                        return inner.convert(klass,value);
+                    }                        
+                }           
+                private Converter inner = new FloatConverter();     
+            };
+            converterMap.put(Float.TYPE,c);
+            converterMap.put(Float.class,c);
+        }
+        {
+            Converter c = new Converter() {
+                public Object convert(Class klass, Object value) {
+                    if(value instanceof Number) {
+                        return new Double(((Number)value).doubleValue());
+                    } else {
+                        return inner.convert(klass,value);
+                    }                        
+                }           
+                private Converter inner = new DoubleConverter();     
+            };
+            converterMap.put(Double.TYPE,c);
+            converterMap.put(Double.class,c);
+        }       
     }
 }

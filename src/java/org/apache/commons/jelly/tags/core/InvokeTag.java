@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeTag.java,v 1.1 2002/11/29 15:53:10 rwaldhoff Exp $
- * $Revision: 1.1 $
- * $Date: 2002/11/29 15:53:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/11/30 07:41:21 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeTag.java,v 1.1 2002/11/29 15:53:10 rwaldhoff Exp $
+ * $Id: InvokeTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -72,7 +72,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which creates a new object of the given type
   *
   * @author Rodney Waldhoff
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class InvokeTag extends TagSupport implements ArgTagParent {
 
@@ -129,7 +129,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
         
         ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
         if(null != parentArg) {
-            parentArg.setValueObject(result);
+            parentArg.setValue(result);
         }
         if(null != var) {
             context.setVariable(var, result);

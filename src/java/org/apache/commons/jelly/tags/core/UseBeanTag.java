@@ -202,7 +202,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
         } else {
             ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
             if(null != parentArg) {
-                parentArg.setValueObject(bean);
+                parentArg.setValue(bean);
             }
         }
     }

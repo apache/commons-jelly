@@ -131,7 +131,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         if(null != var) {
             context.setVariable(var, object);
         } else {
-            parentArg.setValueObject(object);
+            parentArg.setValue(object);
         }
     }
 }

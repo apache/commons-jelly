@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestNewTag.java,v 1.1 2002/11/28 00:22:23 rwaldhoff Exp $
- * $Revision: 1.1 $
- * $Date: 2002/11/28 00:22:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestNewTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/11/30 07:41:21 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestNewTag.java,v 1.1 2002/11/28 00:22:23 rwaldhoff Exp $
+ * $Id: TestNewTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
  */
 package org.apache.commons.jelly.core;
 
@@ -70,7 +70,7 @@ import org.apache.commons.jelly.bean.Customer;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.1 $ $Date: 2002/11/28 00:22:23 $
+ * @version $Revision: 1.2 $ $Date: 2002/11/30 07:41:21 $
  */
 public class TestNewTag extends BaseJellyTest {
 
@@ -205,5 +205,4 @@ public class TestNewTag extends BaseJellyTest {
         assertEquals("Chicago",customer.getCity());
         assertEquals("Location",customer.getLocation());
     }
-
 }
