@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.18 2002/08/12 19:11:46 jstrachan Exp $
- * $Revision: 1.18 $
- * $Date: 2002/08/12 19:11:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.19 2002/08/19 21:38:09 jstrachan Exp $
+ * $Revision: 1.19 $
+ * $Date: 2002/08/19 21:38:09 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.18 2002/08/12 19:11:46 jstrachan Exp $
+ * $Id: TagScript.java,v 1.19 2002/08/19 21:38:09 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -98,7 +98,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public abstract class TagScript implements Script {
 
@@ -366,6 +366,14 @@ public abstract class TagScript implements Script {
         tagHolder.set(null);
     }
     
+    /** 
+     * Allows the script to set the tag instance to be used, such as in a StaticTagScript
+     * when a StaticTag is switched with a DynamicTag
+     */
+    protected void setTag(Tag tag) {
+        tagHolder.set(tag);
+    }
+
     /**
      * Output the new namespace prefixes used for this element
      */    

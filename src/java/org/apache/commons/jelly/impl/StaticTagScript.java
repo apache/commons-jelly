@@ -111,6 +111,7 @@ public class StaticTagScript extends DynaTagScript {
         
         // lets see if we have a dynamic tag
         tag = findDynamicTag(context, (StaticTag) tag);
+        setTag(tag);
         
         try {        
             if ( tag == null ) {
