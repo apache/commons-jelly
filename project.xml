@@ -4,7 +4,7 @@
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <id>commons-jelly</id>
-  <currentVersion>1.0-dev-5</currentVersion>
+  <currentVersion>1.0-dev</currentVersion>
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://www.apache.org</url>
