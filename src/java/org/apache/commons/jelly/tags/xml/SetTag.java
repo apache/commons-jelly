@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/SetTag.java,v 1.3 2003/10/09 21:21:26 rdonkin Exp $
- * $Revision: 1.3 $
- * $Date: 2003/10/09 21:21:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/SetTag.java,v 1.4 2003/12/25 21:52:31 polx Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/12/25 21:52:31 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.3 2003/10/09 21:21:26 rdonkin Exp $
+ * $Id: SetTag.java,v 1.4 2003/12/25 21:52:31 polx Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -76,10 +76,14 @@ import org.jaxen.JaxenException;
 import java.util.List;
 import java.util.Collections;
 
-/** A tag which defines a variable from an XPath expression 
-  *
+/** A tag which defines a variable from an XPath expression.
+  * This function creates a variable of type {@link List} or {@link org.dom4j.Node}
+  * (for example {@link org.dom4j.Element} or {@link org.dom4j.Attribute}).
+  * Thus, the variable created from xml:set can be
+  * used from the other xml library functions.
+  * 
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class SetTag extends XPathTagSupport {
 
