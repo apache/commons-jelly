@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.5 2003/09/12 01:16:32 dion Exp $
- * $Revision: 1.5 $
- * $Date: 2003/09/12 01:16:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.6 2003/09/12 01:32:25 dion Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/09/12 01:32:25 $
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
@@ -56,7 +56,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ArgTag.java,v 1.5 2003/09/12 01:16:32 dion Exp $
+ * $Id: ArgTag.java,v 1.6 2003/09/12 01:32:25 dion Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -82,7 +82,7 @@ import org.apache.commons.jelly.XMLOutput;
  * implementation.
  *
  * @author Rodney Waldhoff
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class ArgTag extends BaseClassLoaderTag {
 
@@ -189,7 +189,7 @@ public class ArgTag extends BaseClassLoaderTag {
         return (null == value || (klass.isInstance(value)));
     }
 
-    // attibutes
+    // attributes
     //-------------------------------------------------------------------------
 
     /** The name of the parameter type, if any. */
