@@ -30,3 +30,9 @@ rhino.jar=/java/rhino/js.jar
 #
 # beanshell.jar - go to http://www.beanshell.org
 beanshell.jar=/java/beanshell/beanshell.jar
+
+
+# for pnuts scripts the following jar is required
+# http://javacenter.sun.co.jp/pnuts/index.html
+pnuts.jar=/java/pnuts/pnuts.jar
+

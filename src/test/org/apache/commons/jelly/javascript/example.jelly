@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:javascript">
+  <j:forEach var="arg" items="args"><j:expr value="arg"/> </j:forEach>
+</j:jelly>

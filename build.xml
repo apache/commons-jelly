@@ -3,7 +3,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.8 2002/03/07 02:46:03 jstrachan Exp $
+        $Id: build.xml,v 1.9 2002/03/07 03:57:12 jstrachan Exp $
 -->
 
 
@@ -101,6 +101,7 @@
     <pathelement location="${jaxp.parser.jar}"/>
     <pathelement location="${dom4j.jar}"/>
     <pathelement location="${bsf.jar}"/>
+    <pathelement location="${pnuts.jar}"/>
     <pathelement location="${rhino.jar}"/>
     <pathelement location="${tools.jar}"/>
     <pathelement location="${beanshell.jar}"/>
@@ -124,6 +125,7 @@
     <pathelement location="${jaxp.parser.jar}"/>
     <pathelement location="${dom4j.jar}"/>
     <pathelement location="${bsf.jar}"/>
+    <pathelement location="${pnuts.jar}"/>
     <pathelement location="${rhino.jar}"/>
     <pathelement location="${tools.jar}"/>
     <pathelement location="${beanshell.jar}"/>
@@ -169,6 +171,10 @@
                classpathref="compile.classpath"
                classname="org.python.util.PythonInterpreter"/>
 
+    <available property="pnuts.present"
+               classpathref="compile.classpath"
+               classname="pnuts.ext.PnutsBSFEngine"/>
+
     <available property="rhino.present"
                classpathref="compile.classpath"
                classname="org.mozilla.javascript.Scriptable"/>
@@ -188,6 +194,9 @@
   </target>
   <target name="checkRhino" unless="rhino.present">
     <echo message="Warning: Rhino dependencies were not resolved."/>
+  </target>
+  <target name="checkPNuts" unless="pnuts.present">
+    <echo message="Warning: PNuts dependencies were not resolved."/>
   </target>
   <target name="checkDependencies" 
           depends="checkBsf, checkBeanShell, checkJPython, checkRhino"
@@ -372,6 +381,22 @@
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/show_properties.jelly"/> 
+    </java>
+   </target>
+
+   <target name="demo.pnuts" depends="compile, checkPNuts" 
+      description="Runs a pnuts demo which displays system properties">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/pnuts/example.jelly"/> 
+    </java>
+   </target>
+
+   <target name="demo.javascript" depends="compile, checkRhino" 
+      description="Runs a javascript demo which displays system properties">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/javascript/example.jelly"/> 
     </java>
    </target>
 

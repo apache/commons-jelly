@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/expression/beanshell/BeanShellExpressionFactory.java,v 1.3 2002/02/13 17:03:09 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/13 17:03:09 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/bsf/BSFExpressionFactory.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/03/07 02:46:04 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpressionFactory.java,v 1.3 2002/02/13 17:03:09 jstrachan Exp $
+ * $Id: BSFExpressionFactory.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
 
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 /** Represents a factory of BSF expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.1 $
   */
 public class BSFExpressionFactory implements ExpressionFactory {
 
@@ -131,7 +131,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
     public Expression createExpression(String text) throws Exception {
-        return new BSFExpression( text, getBSFEngine(), registry );
+        return new BSFExpression( text, getBSFEngine(), getBSFManager(), registry );
     }
     
     // Implementation methods
@@ -145,24 +145,6 @@ public class BSFExpressionFactory implements ExpressionFactory {
     /** Factory method */
     protected BSFManager createBSFManager() {
         BSFManager answer = new BSFManager();
-        
-        // sets a temporary directory
-        answer.setTempDir( "/tmp" );
-/*        
-        this fails on windows...
- 
-        try {
-            File file = File.createTempFile( "foo", "bar" );
-            File tmpDirectory = file.getParentFile();
-            if ( tmpDirectory != null ) {
-                log.debug( "Setting scripting temporary directory to be: " + tmpDirectory );
-                answer.setTempDir( tmpDirectory.getAbsolutePath() );
-            }
-        }
-        catch (Exception e) {
-            log.error( "Failed to set temporary directory for BSF manager" );
-        }
-*/
         return answer;
     }
 }
