@@ -28,6 +28,18 @@
           See the <a href="tags.html">tags</a> for more information.
       </p>
     </section>
+    <section name="Tips">
+      <p>
+        If you would like to use the <code>tokenize</code> tag and tokenize on
+        whitespace, you may think you could use a delimiter of <code>\n or \t</code>
+        etc, but those character strings are specific to Java, not XML.
+      </p>
+      <p>
+        Randy Xu came up with a workaround, using XML unicode entities, e.g.
+        <code><![CDATA[&#xA, &#xD, &#x9, &x20]]></code> for line feed, carriage return,
+        tab and space respectively.
+      </p>
+    </section>
   </body>
 </document>
 
