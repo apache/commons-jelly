@@ -29,11 +29,11 @@
   </description>
   <shortDescription>Commons Jelly Ant Tag Library</shortDescription>
   
-  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/ant</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/ant</distributionDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/ant</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/ant</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/ant/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/ant/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/ant/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/ant/</url>
   </repository>
   -->
     
@@ -67,13 +67,15 @@
     <!-- START for testing -->
 
     <dependency>
-      <id>commons-jelly+tags-junit</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-junit</artifactId>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
+      <url>http://jakarta.apache.org/commons/jelly/libs/junit/</url>
     </dependency>
 
     <dependency>
-      <id>commons-jelly+tags-util</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-util</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
 
@@ -83,7 +85,7 @@
 
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     	
     <!-- END for running demos -->
