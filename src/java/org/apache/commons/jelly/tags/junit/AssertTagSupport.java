@@ -63,9 +63,9 @@ package org.apache.commons.jelly.tags.junit;
 
 import junit.framework.AssertionFailedError;
 
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.tags.xml.XPathTagSupport;
 
 /** 
  * The abstract base class of any assertion tag which is
@@ -74,7 +74,7 @@ import org.apache.commons.jelly.expression.Expression;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public abstract class AssertTagSupport extends TagSupport {
+public abstract class AssertTagSupport extends XPathTagSupport {
 
     public AssertTagSupport() {
     }

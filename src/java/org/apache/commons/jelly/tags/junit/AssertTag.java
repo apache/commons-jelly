@@ -65,6 +65,12 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.expression.Expression;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+
+import org.jaxen.XPath;
+
 /** 
  * Performs an assertion that a given boolean expression, or XPath expression is
  * true. If the expression returns false then this test fails.
@@ -74,11 +80,14 @@ import org.apache.commons.jelly.expression.Expression;
  */
 public class AssertTag extends AssertTagSupport {
 
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(AssertTag.class);
+    
     /** The expression to evaluate. */
     private Expression test;
     
     /** The XPath expression to evaluate */
-    private Expression xpath;
+    private XPath xpath;
 
     public AssertTag() {
     }
@@ -95,7 +104,8 @@ public class AssertTag extends AssertTagSupport {
             }
         }
         else {
-            if (! xpath.evaluateAsBoolean(context)) {
+            Object xpathContext = getXPathContext();
+            if (! xpath.booleanValueOf(xpathContext)) {
                 fail( getBodyText(), "evaluating xpath: "+ xpath );
             }
         }
@@ -119,7 +129,7 @@ public class AssertTag extends AssertTagSupport {
      * then the test succeeds otherwise if it returns false then the text will
      * fail with the content of the tag being the error message.
      */
-    public void setXpath(Expression xpath) {
+    public void setXpath(XPath xpath) {
         this.xpath = xpath;
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit">
+<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:x="jelly:xml">
 
   <test:case name="assertTests">
   
@@ -7,6 +7,28 @@
     
     <j:catch var="ex">
 	  <test:assert test="${2 != 2}">This should always fail</test:assert>
+	</j:catch>    	
+	
+	<test:assert test="${ex != null}">We should have created an exception</test:assert>
+	
+	The exception was: ${ex.message}
+  </test:case>
+
+
+  <test:case name="assertXPathTests">
+  
+    <x:parse var="doc">
+      <foo>
+      	<bar>cheese</bar>
+      </foo>
+    </x:parse>  
+     
+  
+    <test:assert xpath="$doc/foo/bar">This should never fail</test:assert>
+    <test:assert xpath="$doc/foo/bar = 'cheese'">This should never fail</test:assert>
+    
+    <j:catch var="ex">
+	  <test:assert xpath="$doc/foo/xyz">This should always fail</test:assert>
 	</j:catch>    	
 	
 	<test:assert test="${ex != null}">We should have created an exception</test:assert>
