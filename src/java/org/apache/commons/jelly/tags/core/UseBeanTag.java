@@ -86,8 +86,15 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
 
     /** the current bean instance */
     private Object bean;
+    
+    /** the default class to use if no Class is specified */
+    private Class defaultClass;
 
-    public UseBeanTag(){
+    public UseBeanTag() {
+    }
+
+    public UseBeanTag(Class defaultClass) {
+        this.defaultClass = defaultClass;
     }
 
     // BeanSource interface
@@ -199,6 +206,6 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * Allows derived classes to provide a default bean implementation class
      */
     protected Class getDefaultClass() {
-        return null;
+        return defaultClass;
     }
 }

@@ -6,6 +6,17 @@
 
   <j:set var="dir" value="target/test-classes/org/apache/commons/jelly/ant"/>
 
+<test:case name="write">
+
+  <ant:property name="foo2" value="bar2"/>
+
+  <test:assertEquals
+    expected="bar2"
+    actual="${foo2}"
+  />
+
+</test:case>
+
 <test:case name="readWrite">
   
   <j:set var="foo1" value="bar1"/>
@@ -15,17 +26,6 @@
   <test:assertEquals
     expected="bar1"
     actual="${foo1.1}"
-  />
-
-</test:case>
-
-<test:case name="write">
-
-  <ant:property name="foo2" value="bar2"/>
-
-  <test:assertEquals
-    expected="bar2"
-    actual="${foo2}"
   />
 
 </test:case>

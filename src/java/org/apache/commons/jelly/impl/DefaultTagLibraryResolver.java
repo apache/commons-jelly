@@ -60,6 +60,8 @@ import org.apache.commons.discovery.ResourceClass;
 import org.apache.commons.discovery.ResourceClassIterator;
 import org.apache.commons.discovery.resource.ClassLoaders;
 import org.apache.commons.discovery.resource.classes.DiscoverClasses;
+import org.apache.commons.discovery.tools.DiscoverClass;
+import org.apache.commons.discovery.tools.DiscoverSingleton;
 
 import org.apache.commons.jelly.TagLibrary;
 
@@ -119,7 +121,24 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         }
         
         log.info( "Looking up service name: " + name );
+
+/*        
+        ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
         
+        DiscoverClass discover = new DiscoverClass(loaders);
+        Class implClass = discover.find(TestInterface2.class);
+
+
+
+        TagLibrary answer = null;
+        try {                
+            answer = (TagLibrary) DiscoverSingleton.find(TagLibrary.class, name);
+        }
+        catch (Exception e) {
+            log.error( "Could not load service: " + name );
+        }
+        return answer;
+*/        
         ResourceClassIterator iter = discovery.findResourceClasses(name);
         while (iter.hasNext()) {
             ResourceClass resource = iter.nextResourceClass();
@@ -200,10 +219,8 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      */
     public DiscoverClasses getDiscoverClasses() {
         if ( discovery == null ) {
-            ClassLoaders loaders = new ClassLoaders();
-            loaders.put( getClassLoader() );
+            ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
             discovery = new DiscoverClasses(loaders);
-            discovery.addClassLoader( getClassLoader() );
         }
         return discovery;
     }

@@ -147,9 +147,9 @@ public class SwingTagLibrary extends TagLibrary {
             if ( factory != null ) {
                 return new TagScript(
                     new TagFactory() {
-                        public Tag createTag() throws Exception {
+                        public Tag createTag(String name, Attributes attributes) throws Exception {
 							if ( factory instanceof TagFactory ) {
-								return ((TagFactory) factory).createTag();
+								return ((TagFactory) factory).createTag(name, attributes);
                             }
 							else {
                                 return new ComponentTag(factory);

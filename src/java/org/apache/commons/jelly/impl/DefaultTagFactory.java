@@ -63,6 +63,8 @@ package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.Tag;
 
+import org.xml.sax.Attributes;
+
 /** 
  * <p><code>DefaultTagFactory</code> a default implementation of TagFactory
  * which creates new instances of a given class.
@@ -83,8 +85,7 @@ public class DefaultTagFactory implements TagFactory {
 
     // TagFactory interface
     //-------------------------------------------------------------------------      
-    
-    public Tag createTag() throws Exception {
+    public Tag createTag(String name, Attributes attributes) throws Exception {
         return (Tag) tagClass.newInstance();
     }
 

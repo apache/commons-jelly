@@ -61,8 +61,9 @@
  */
 package org.apache.commons.jelly.impl;
 
-
 import org.apache.commons.jelly.Tag;
+
+import org.xml.sax.Attributes;
 
 /** 
  * <p><code>TagFactory</code> represents a Factory of {@link Tag} instances.</p>
@@ -75,5 +76,8 @@ import org.apache.commons.jelly.Tag;
  */
 public interface TagFactory {
 
-    public Tag createTag() throws Exception;
+    /**
+     * Creates a Tag for the given local name and the SAX attributes
+     */
+    public Tag createTag(String name, Attributes attributes) throws Exception;
 }

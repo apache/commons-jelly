@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.32 2002/10/14 19:46:22 morgand Exp $
- * $Revision: 1.32 $
- * $Date: 2002/10/14 19:46:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.33 2002/10/16 12:45:52 jstrachan Exp $
+ * $Revision: 1.33 $
+ * $Date: 2002/10/16 12:45:52 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.32 2002/10/14 19:46:22 morgand Exp $
+ * $Id: XMLParser.java,v 1.33 2002/10/16 12:45:52 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -116,12 +116,13 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.AttributesImpl;
 
 /** <p><code>XMLParser</code> parses the XML Jelly format.
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.32 $
+ * @version $Revision: 1.33 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -628,6 +629,7 @@ public class XMLParser extends DefaultHandler {
                 // sets the file name element names
                 tagScript.setFileName(fileName);
                 tagScript.setElementName(qName);
+                tagScript.setLocalName(localName);
                 
                 if (textBuffer.length() > 0) {
                     addTextScript(textBuffer.toString());
@@ -1003,6 +1005,9 @@ public class XMLParser extends DefaultHandler {
             if (taglib != null) {
                 TagScript script = taglib.createTagScript(localName, list);
                 if ( script != null ) {
+                    // clone the attributes to keep them around after this parse
+                    script.setSaxAttributes(new AttributesImpl(list));
+                    
                     // now iterate through through the expressions
                     int size = list.getLength();
                     for (int i = 0; i < size; i++) {
@@ -1051,7 +1056,7 @@ public class XMLParser extends DefaultHandler {
             StaticTag tag = new StaticTag( namespaceURI, localName, qName );
             StaticTagScript script = new StaticTagScript(
                 new TagFactory() {
-                    public Tag createTag() {
+                    public Tag createTag(String name, Attributes attributes) {
                         return new StaticTag( namespaceURI, localName, qName );   
                     }
                 }
@@ -1120,7 +1125,6 @@ public class XMLParser extends DefaultHandler {
             script.addScript(new ExpressionScript(expression));
         }
     }
-
 
     protected Expression createConstantExpression(
         String tagName,

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.22 2002/10/08 20:22:13 werken Exp $
- * $Revision: 1.22 $
- * $Date: 2002/10/08 20:22:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.23 2002/10/16 12:45:52 jstrachan Exp $
+ * $Revision: 1.23 $
+ * $Date: 2002/10/16 12:45:52 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.22 2002/10/08 20:22:13 werken Exp $
+ * $Id: TagScript.java,v 1.23 2002/10/16 12:45:52 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -90,6 +90,7 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
@@ -100,7 +101,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 public class TagScript implements Script {
 
@@ -126,8 +127,11 @@ public class TagScript implements Script {
     /** the Jelly file which caused the problem */
     private String fileName;
 
-    /** the tag name which caused the problem */
+    /** the qualified element name which caused the problem */
     private String elementName;
+
+    /** the local (non-namespaced) tag name */
+    private String localName;
 
     /** the line number of the tag */
     private int lineNumber = -1;
@@ -143,7 +147,10 @@ public class TagScript implements Script {
     
     /** the parent TagScript */
     private TagScript parent;
-    
+
+    /** the SAX attributes */
+    private Attributes saxAttributes;
+        
     /** 
      * @return a new TagScript based on whether 
      * the given Tag class is a bean tag or DynaTag 
@@ -397,6 +404,39 @@ public class TagScript implements Script {
     public void setColumnNumber(int columnNumber) {
         this.columnNumber = columnNumber;
     }
+
+    /**
+     * Returns the SAX attributes of this tag
+     * @return Attributes
+     */
+    public Attributes getSaxAttributes() {
+        return saxAttributes;
+    }
+
+    /**
+     * Sets the SAX attributes of this tag
+     * @param saxAttributes The saxAttributes to set
+     */
+    public void setSaxAttributes(Attributes saxAttributes) {
+        this.saxAttributes = saxAttributes;
+    }
+
+    /**
+     * Returns the local, non namespaced XML name of this tag
+     * @return String
+     */
+    public String getLocalName() {
+        return localName;
+    }
+
+    /**
+     * Sets the local, non namespaced name of this tag.
+     * @param localName The localName to set
+     */
+    public void setLocalName(String localName) {
+        this.localName = localName;
+    }
+
     
     // Implementation methods
     //-------------------------------------------------------------------------      
@@ -407,7 +447,7 @@ public class TagScript implements Script {
      */
     protected Tag createTag() throws Exception {    
         if ( tagFactory != null) {
-            return tagFactory.createTag();
+            return tagFactory.createTag(localName, getSaxAttributes());
         }
         return null;
     }
@@ -563,5 +603,4 @@ public class TagScript implements Script {
 
         throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);            
     }
-    
 }

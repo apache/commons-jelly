@@ -79,6 +79,7 @@ import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.xml.sax.Attributes;
 
 /** 
  * Binds a Java bean to the given named Jelly tag so that the attributes of
@@ -133,7 +134,7 @@ public class DynaBeanTag extends DefineTagSupport {
         final Map beanAttributes = (attributes != null) ? attributes : EMPTY_MAP;
         
         TagFactory factory = new TagFactory() {
-            public Tag createTag() {
+            public Tag createTag(String name, Attributes attributes) {
                 return  new DynamicDynaBeanTag(theDynaClass, beanAttributes, varAttribute);
             }
         };

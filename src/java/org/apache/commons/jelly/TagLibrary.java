@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.14 2002/09/24 16:49:40 jstrachan Exp $
- * $Revision: 1.14 $
- * $Date: 2002/09/24 16:49:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.15 2002/10/16 12:45:51 jstrachan Exp $
+ * $Revision: 1.15 $
+ * $Date: 2002/10/16 12:45:51 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.14 2002/09/24 16:49:40 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.15 2002/10/16 12:45:51 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -73,6 +73,7 @@ import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
 
 import org.xml.sax.Attributes;
@@ -80,7 +81,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.14 $
+  * @version $Revision: 1.15 $
   */
 
 public abstract class TagLibrary {
@@ -109,16 +110,21 @@ public abstract class TagLibrary {
     }        
 
     public TagLibrary() {
-
     }
 
     /** Creates a new script to execute the given tag name and attributes */
     public TagScript createTagScript(String name, Attributes attributes)
         throws Exception {
 
-        Class type = (Class) tags.get(name);
-        if ( type != null ) {
-            return TagScript.newInstance(type);
+        Object value = tags.get(name);
+        if (value instanceof Class) {
+            Class type = (Class) value;
+            if ( type != null ) {
+                return TagScript.newInstance(type);
+            }
+        }
+        else if (value instanceof TagFactory) {
+            return new TagScript( (TagFactory) value );
         }
         return null;
 
@@ -128,14 +134,23 @@ public abstract class TagLibrary {
     public Tag createTag(String name, Attributes attributes)
         throws Exception {
 
+        Object value = tags.get(name);
+        if (value instanceof Class) {
+            Class type = (Class) value;
+            if ( type != null ) {
+                return (Tag) type.newInstance();
+            }
+        }
+        else if (value instanceof TagFactory) {
+            TagFactory factory = (TagFactory) value;
+            return factory.createTag(name, attributes);
+        }
         Class type = (Class) tags.get(name);
         if ( type != null ) {
             return (Tag) type.newInstance();
         }
         return null;
-
     }
-    
     
     /** Allows taglibs to use their own expression evaluation mechanism */
     public Expression createExpression(
@@ -161,9 +176,18 @@ public abstract class TagLibrary {
     // Implementation methods
     //-------------------------------------------------------------------------     
 
-    /** Registers a tag class for a given tag name */
+    /** 
+     * Registers a tag implementation Class for a given tag name 
+     */
     protected void registerTag(String name, Class type) {
         tags.put(name, type);
+    }
+
+    /** 
+     * Registers a tag factory for a given tag name 
+     */
+    protected void registerTagFactory(String name, TagFactory tagFactory) {
+        tags.put(name, tagFactory);
     }
 
     /** Allows derived tag libraries to use their own factory */

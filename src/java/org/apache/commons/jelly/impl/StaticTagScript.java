@@ -154,7 +154,7 @@ public class StaticTagScript extends TagScript {
         TagLibrary taglib = context.getTagLibrary( tag.getUri() );
         if ( taglib instanceof DynamicTagLibrary ) {
             DynamicTagLibrary dynaLib = (DynamicTagLibrary) taglib;
-            Tag newTag = dynaLib.createTag( tag.getLocalName() );
+            Tag newTag = dynaLib.createTag( tag.getLocalName(), getSaxAttributes() );
             if ( newTag != null ) {
                 newTag.setParent( tag.getParent() );
                 newTag.setBody( tag.getBody() );

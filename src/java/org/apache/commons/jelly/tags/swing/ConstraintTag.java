@@ -55,7 +55,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
 
 		public static class HereFactory extends BeanFactory implements TagFactory {
 			public HereFactory(Class c) { super(c); }
-			public Tag createTag ( ) {
+			public Tag createTag(String name, Attributes attributes) {
 				return new ConstraintTag ( this );
 				// still scratching my head about "this" usage...
 			}
@@ -64,7 +64,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
 			public ConstantFactory(Object c) { this.constant = c;}
 			private Object constant;
 			public Object newInstance() { return constant; }
-			public Tag createTag ( ) throws Exception {
+			public Tag createTag(String name, Attributes attributes) throws Exception {
 				return new ConstraintTag ( this );
 			}
 		} // class ConstatnStringFactory
