@@ -78,6 +78,7 @@ import org.apache.commons.jelly.XMLOutput;
 public class PropertiesTag extends TagSupport {
     private String file;
     private String uri;
+    private String var;
 
     public PropertiesTag() {
     }
@@ -104,13 +105,18 @@ public class PropertiesTag extends TagSupport {
         }
         Properties props = new Properties();
         props.load(is);
-        Enumeration enum = props.propertyNames();
-        while (enum.hasMoreElements()) {
-            String key = (String) enum.nextElement();
-            String value = props.getProperty(key);
-            
-            // @todo we should parse the value in case its an Expression
-            context.setVariable(key, value);
+        if (var != null) {
+            context.setVariable(var, props);
+        }
+        else {
+            Enumeration enum = props.propertyNames();
+            while (enum.hasMoreElements()) {
+                String key = (String) enum.nextElement();
+                String value = props.getProperty(key);
+                
+                // @todo we should parse the value in case its an Expression
+                context.setVariable(key, value);
+            }
         }
 
     }
@@ -131,6 +137,17 @@ public class PropertiesTag extends TagSupport {
      */
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    /**
+     * If this is defined then a Properties object containing all the
+     * properties will be created and exported, otherwise the current variable
+     * scope will be set to the value of the properties.
+     * 
+     * @param var The var to set
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 
 }

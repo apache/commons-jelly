@@ -100,5 +100,23 @@
       and placed the result into a variable
     </test:assertEquals>
   </test:case>
+
+  <test:case name="testProperties">
+  	
+  	<util:properties uri="foo.properties"/>
+  	
+    <test:assertEquals expected="ABC" actual="${foo}"/>
+    
+  </test:case>
+	
+  <test:case name="testPropertiesVar">
+  	
+  	<util:properties uri="foo.properties" var="props"/>
+  	
+    <test:assertEquals expected="ABC" actual="${props.foo}"/>
+    
+    <log:info>Loaded properties value ${props}</log:info>
+    
+  </test:case>
 	
 </test:suite>
