@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/20 10:09:28 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/ExprTag.java,v 1.6 2002/05/16 18:20:35 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/05/16 18:20:35 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.6 2002/05/16 18:20:35 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -69,39 +69,49 @@ import org.apache.commons.jelly.XMLOutput;
 
 import org.jaxen.XPath;
 
-/** A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
-  * in XSLT
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
-  */
-public class ExprTag extends XPathTagSupport {
+/** 
+ * Evaluates the XPath expression to be a boolean and only evaluates the body
+ * if the expression is true.    
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.6 $
+ */
+public class IfTag extends XPathTagSupport {
 
     /** The XPath expression to evaluate. */
     private XPath select;
 
-    public ExprTag() {
+    public IfTag() {
     }
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        Object xpathContext = getXPathContext();
-        
         if (select == null) {
             throw new MissingAttributeException( "select" );
         }
         
-        String text = select.stringValueOf(xpathContext);
-        if ( text != null ) {
-            output.write(text);
+        Object xpathContext = getXPathContext();
+        if ( select.booleanValueOf(xpathContext) ) {
+            getBody().run( context, output );
         }
     }
 
     // Properties
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------   
+                 
     /** Sets the XPath expression to evaluate. */
     public void setSelect(XPath select) {
         this.select = select;
     }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+    protected Object getXPathContext() {
+        ForEachTag tag = (ForEachTag) findAncestorWithClass( ForEachTag.class );    
+        if ( tag != null ) {
+            return tag.getXPathContext();
+        }
+        return null;
+    }
+    
 }

@@ -1,13 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/20 10:09:28 $
- *
- * ====================================================================
- *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights 
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -15,7 +9,7 @@
  * are met:
  *
  * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
+ *    notice, this list of conditions and the following disclaimer. 
  *
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in
@@ -23,15 +17,15 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:
- *       "This product includes software developed by the
+ *    any, must include the following acknowlegement:  
+ *       "This product includes software developed by the 
  *        Apache Software Foundation (http://www.apache.org/)."
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
- *    from this software without prior written permission. For written
+ *    from this software without prior written permission. For written 
  *    permission, please contact apache@apache.org.
  *
  * 5. Products derived from this software may not be called "Apache"
@@ -56,52 +50,79 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: ExprTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
+ *
  */
-package org.apache.commons.jelly.tags.xml;
+package org.apache.commons.jelly.tags.ojb;
+
+import ojb.broker.PersistenceBroker;
+import ojb.broker.PersistenceBrokerException;
+import ojb.broker.PersistenceBrokerFactory;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.jaxen.XPath;
-
-/** A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
-  * in XSLT
-  *
+/**
+ * <p>Tag handler for &lt;Driver&gt; in JSTL, used to create
+ * a simple DataSource for prototyping.</p>
+ * 
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
-  */
-public class ExprTag extends XPathTagSupport {
+  * @version $Revision: 1.4 $
+ */
+public class BrokerTag extends TagSupport {
+    
+    /** The variable name to export. */
+    private String var;
 
-    /** The XPath expression to evaluate. */
-    private XPath select;
-
-    public ExprTag() {
+    /** The persistence broker instance */
+    private PersistenceBroker broker;
+    
+    public BrokerTag() {
     }
+
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        Object xpathContext = getXPathContext();
-        
-        if (select == null) {
-            throw new MissingAttributeException( "select" );
+        if ( var == null ) {
+            var = "org.apache.commons.jelly.ojb.Broker";
         }
-        
-        String text = select.stringValueOf(xpathContext);
-        if ( text != null ) {
-            output.write(text);
+        if ( broker != null ) {
+            context.setVariable(var, broker);            
+            getBody().run(context, output);                
+        }
+        else {
+            broker = PersistenceBrokerFactory.createPersistenceBroker();            
+            context.setVariable(var, broker);            
+            
+            try {
+                getBody().run(context, output);                
+            }
+            finally {            
+                broker.clearCache();
+                PersistenceBrokerFactory.releaseInstance(broker);
+                broker = null;
+                context.removeVariable(var);            
+            }
         }
     }
 
     // Properties
     //-------------------------------------------------------------------------                
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
-        this.select = select;
+    /** Sets the variable name to define for this expression
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
+    
+    /** @return the persistence broker instance */
+    public PersistenceBroker getBroker() {
+        return broker;
+    }
+    
+    /** Sets the persistence broker instance */
+    public void setBroker(PersistenceBroker broker) {
+        this.broker = broker;
+    }    
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+  <x:parse var="doc">
+    <html>
+      <title>It works!</title>
+      <body>
+      </body>
+    </html>
+  </x:parse>
+  <x:expr select="$doc/html/title"/>
+</j:jelly>

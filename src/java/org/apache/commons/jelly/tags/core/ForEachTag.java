@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.7 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/05/20 10:09:28 $
  *
  * ====================================================================
  *
@@ -57,185 +57,130 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.7 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
 
 import java.io.IOException;
-
 import java.io.Writer;
-
 import java.util.Iterator;
-
 import java.util.List;
 
 import org.apache.commons.jelly.JellyContext;
-
 import org.apache.commons.jelly.Script;
-
 import org.apache.commons.jelly.TagSupport;
-
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
-
 import org.apache.commons.logging.LogFactory;
 
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
-
 public class ForEachTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-
     private static final Log log = LogFactory.getLog(ForEachTag.class);
 
     /** Holds the variable name to export for the item being iterated over. */
-
     private Expression items;
 
     /** 
      * If specified then the current item iterated through will be defined
      * as the given variable name. 
      */
-
     private String var;
 
     /** 
      * If specified then the current index counter will be defined
      * as the given variable name. 
      */
-
     private String indexVar;
 
     /** The starting index value */
-
     private int begin;
 
     /** The ending index value */
-
     private int end = Integer.MAX_VALUE;
 
     /** The index increment step */
-
     private int step = 1;
 
     /** The iteration index */
-
     private int index;
 
     public ForEachTag() {
-
     }
 
     // Tag interface
 
     //------------------------------------------------------------------------- 
-
     public void doTag(XMLOutput output) throws Exception {
 
         if (log.isDebugEnabled()) {
-
             log.debug("running with items: " + items);
-
         }
 
         if (items != null) {
-
             Iterator iter = items.evaluateAsIterator(context);
-
             if (log.isDebugEnabled()) {
-
                 log.debug("Iterating through: " + iter);
-
             }
 
             for (index = begin; iter.hasNext() && index < end; index += step) {
-
                 Object value = iter.next();
-
                 if (var != null) {
-
                     context.setVariable(var, value);
-
                 }
-
                 if (indexVar != null) {
-
                     context.setVariable(indexVar, new Integer(index));
-
                 }
-
                 getBody().run(context, output);
-
             }
-
         }
-
     }
 
     // Properties
-
     //-------------------------------------------------------------------------                    
 
     /** Sets the expression used to iterate over
       */
-
     public void setItems(Expression items) {
-
         this.items = items;
-
     }
 
     /** Sets the variable name to export for the item being iterated over
      */
-
     public void setVar(String var) {
-
         this.var = var;
-
     }
 
     /** Sets the variable name to export the current index counter to 
      */
-
     public void setIndexVar(String indexVar) {
-
         this.indexVar = indexVar;
-
     }
 
     /** Sets the starting index value 
      */
-
     public void setBegin(int begin) {
-
         this.begin = begin;
-
     }
 
     /** Sets the ending index value 
      */
-
     public void setEnd(int end) {
-
         this.end = end;
-
     }
 
     /** Sets the index increment step 
      */
-
     public void setStep(int step) {
-
         this.step = step;
-
     }
 
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.5 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.6 2002/05/20 10:09:28 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/05/20 10:09:28 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.5 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: SetTag.java,v 1.6 2002/05/20 10:09:28 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -74,13 +74,20 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+
 /** A tag which sets a variable from the result of an expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class SetTag extends TagSupport {
 
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(SetTag.class);
+    
     /** The variable name to export. */
     private String var;
 
@@ -117,7 +124,7 @@ public class SetTag extends TagSupport {
             if ( property == null ) {
                 throw new JellyException( "You must define a 'property' attribute if you specify a 'target'" );
             }
-            setPropertyValue( target, property, value );
+            setPropertyValue( target, property, answer );
         }
     }
 
@@ -147,12 +154,17 @@ public class SetTag extends TagSupport {
     // Implementation methods
     //-------------------------------------------------------------------------                
     protected void setPropertyValue( Object target, String property, Object value ) throws Exception {
-        if ( target instanceof Map ) {
-            Map map = (Map) target;
-            map.put( property, value );
+        try {
+            if ( target instanceof Map ) {
+                Map map = (Map) target;
+                map.put( property, value );
+            }
+            else {
+                BeanUtils.setProperty( target, property, value );       
+            }
         }
-        else {
-            BeanUtils.setProperty( target, property, value );       
+        catch (Exception e) {
+            log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
         }
     }
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/20 10:09:28 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.2 2002/05/15 06:25:47 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/05/15 06:25:47 $
  *
  * ====================================================================
  *
@@ -57,51 +57,29 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
+ * $Id: JellyException.java,v 1.2 2002/05/15 06:25:47 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
+package org.apache.commons.jelly;
 
-import org.jaxen.XPath;
+/** 
+ * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.2 $
+ */
+public class MissingAttributeException extends JellyException {
 
-/** A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
-  * in XSLT
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
-  */
-public class ExprTag extends XPathTagSupport {
-
-    /** The XPath expression to evaluate. */
-    private XPath select;
-
-    public ExprTag() {
-    }
-
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        Object xpathContext = getXPathContext();
+    private String missingAttribute;
+    
+    // ### we may wish to implement a localized messag for this error
         
-        if (select == null) {
-            throw new MissingAttributeException( "select" );
-        }
-        
-        String text = select.stringValueOf(xpathContext);
-        if ( text != null ) {
-            output.write(text);
-        }
+    public MissingAttributeException(String missingAttribute) {
+        super( "You must define an attribute called '" + missingAttribute + "' for this tag." );
+        this.missingAttribute = missingAttribute;
     }
-
-    // Properties
-    //-------------------------------------------------------------------------                
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
-        this.select = select;
+    
+    public String getMissingAttribute() {
+        return missingAttribute;
     }
 }
