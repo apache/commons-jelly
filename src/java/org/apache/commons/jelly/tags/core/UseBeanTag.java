@@ -199,6 +199,11 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     protected void processBean(String var, Object bean) throws Exception {
         if (var != null) {
             context.setVariable(var, bean);
+        } else {
+            ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
+            if(null != parentArg) {
+                parentArg.setValueObject(bean);
+            }
         }
     }
     

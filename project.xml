@@ -222,7 +222,18 @@
 
     <dependency>
       <id>commons-beanutils</id>
-      <version>1.4-dev</version>
+      <!-- 
+        Jelly now depends on a version of beanutils that includes ConstructorUtils
+        (e.g., nightly builds from 
+              http://jakarta.apache.org/builds/jakarta-commons/nightly/commons-beanutils/
+        dated 2002-11-27 or later)
+
+        I've been doing this "manually" as:
+          <version>nightly</version> 
+        and "manually" adding this file to my local repository, 
+        but someone should update the maven repo SNAPSHOT
+      -->
+      <version>SNAPSHOT</version>
     </dependency>
 
     <dependency>

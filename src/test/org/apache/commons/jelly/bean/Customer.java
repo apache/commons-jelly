@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.bean;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -87,6 +88,32 @@ public class Customer {
     public Customer() {
     }
     
+    public Customer(String name) {
+        setName(name);
+    }
+    
+    public Customer(String name, String city) {
+        setName(name);
+        setCity(city);
+    }
+    
+    public Customer(String name, String city, Order anOrder) {
+        setName(name);
+        setCity(city);
+        addOrder(anOrder);
+    }
+    
+    public Customer(Customer cust) {
+        setName(cust.getName());
+        setCity(cust.getCity());
+        setLocation(cust.getLocation());
+        List list = cust.getOrders();
+        if(null != list) {
+            for(Iterator iter = list.iterator();iter.hasNext();) {
+                addOrder((Order)iter.next());
+            }
+        }
+    }
     
     public String toString() {
         return super.toString() + "[name=" + name + ";city=" + city + "]";

@@ -61,9 +61,11 @@
  */
 package org.apache.commons.jelly.tags.core;
 
-import org.apache.commons.jelly.JellyContext;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.beanutils.ConstructorUtils;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** A tag which creates a new object of the given type
@@ -71,7 +73,7 @@ import org.apache.commons.jelly.XMLOutput;
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.3 $
   */
-public class NewTag extends TagSupport {
+public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
 
     /** the variable exported */
     private String var;
@@ -79,21 +81,9 @@ public class NewTag extends TagSupport {
     /** the class name of the object to instantiate */
     private String className;
     
-    /**
-     * The class loader to use for instantiating application objects.
-     * If not specified, the context class loader, or the class loader
-     * used to load XMLParser itself, is used, based on the value of the
-     * <code>useContextClassLoader</code> variable.
-     */
-    protected ClassLoader classLoader = null;
-
-    /**
-     * Do we want to use the Context ClassLoader when loading classes
-     * for instantiating new objects?  Default is <code>false</code>.
-     */
-    protected boolean useContextClassLoader = false;
-
-        
+    private List paramTypes = new ArrayList();
+    private List paramValues = new ArrayList();
+    
     public NewTag() {
     }
 
@@ -107,72 +97,41 @@ public class NewTag extends TagSupport {
         this.className = className;
     }
     
-    /**
-     * Return the class loader to be used for instantiating application objects
-     * when required.  This is determined based upon the following rules:
-     * <ul>
-     * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
-     * <li>The thread context class loader, if it exists and the
-     *     <code>useContextClassLoader</code> property is set to true</li>
-     * <li>The class loader used to load the XMLParser class itself.
-     * </ul>
-     */
-    public ClassLoader getClassLoader() {
-        if (this.classLoader != null) {
-            return (this.classLoader);
-        }
-        if (this.useContextClassLoader) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            if (classLoader != null) {
-                return (classLoader);
-            }
-        }
-        return (this.getClass().getClassLoader());
+    public void addArgument(Class type, Object value) {
+        paramTypes.add(type);
+        paramValues.add(value);
     }
-
-    /**
-     * Set the class loader to be used for instantiating application objects
-     * when required.
-     *
-     * @param classLoader The new class loader to use, or <code>null</code>
-     *  to revert to the standard rules
-     */
-    public void setClassLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
-
-    /**
-     * Return the boolean as to whether the context classloader should be used.
-     */
-    public boolean getUseContextClassLoader() {
-        return useContextClassLoader;
-    }
-
-    /**
-     * Determine whether to use the Context ClassLoader (the one found by
-     * calling <code>Thread.currentThread().getContextClassLoader()</code>)
-     * to resolve/load classes.  If not
-     * using Context ClassLoader, then the class-loading defaults to
-     * using the calling-class' ClassLoader.
-     *
-     * @param boolean determines whether to use JellyContext ClassLoader.
-     */
-    public void setUseContextClassLoader(boolean use) {
-        useContextClassLoader = use;
-    }
-
     
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
+        ArgTag parentArg = null;
         if ( var == null ) {
-            throw new MissingAttributeException( "var" );
+            parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
+            if(null == parentArg) {
+                throw new MissingAttributeException( "var" );
+            }
         }
         if ( className == null ) {
             throw new MissingAttributeException( "className" );
         }
+        invokeBody(output);
+
         Class theClass = getClassLoader().loadClass( className );
-        Object object = theClass.newInstance();
-        context.setVariable(var, object);
+        Object object = null;
+        if(paramTypes.size() == 0) {
+            object = theClass.newInstance();
+        } else {
+            Object[] values = paramValues.toArray();
+            Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
+            object = ConstructorUtils.invokeConstructor(theClass,values,types);
+            paramTypes.clear();
+            paramValues.clear();
+        }
+        if(null != var) {
+            context.setVariable(var, object);
+        } else {
+            parentArg.setValueObject(object);
+        }
     }
 }
