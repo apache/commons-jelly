@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" >
+<x:transform xslt="import.xsl">
+<x:param name="language" value="DE"/>
+<root/>
+</x:transform>
+</j:jelly>
