@@ -3,10 +3,16 @@ TO DO LIST
 
 * rename the DynaTag interface to be DynamicAttributes along with JSP1.3, also add a namespace URI parameter
 
+* add JUnit tags along these lines...
 
-* warn if typeo is used for tag attribute; maybe even generate an error?
+	<junit:assert test="${foo == 22}">some description</junit:assert>
+	<junit:assertEquals value="${foo}" expected="${22}"some description</junit:assert>
+
+* warn if typeo is used for tag attribute; maybe even generate an error? 
+	Should raise error if unused attribute is specified.
 
 * add support for namespace URI use inside XPath expressions.
+
 * when defining new tags using <define:tag>, we should allow attributes to be named,
   specified as required, specify the optional conditions and so forth for validating instances. 
   I guess this could just be normal script though.
@@ -15,8 +21,6 @@ TO DO LIST
   also some of the classes in this package could maybe do with a rename? ScriptBlock for example - should we 
   just call it a Block or maybe a CompositeScript?
 		
-* add core tags from JSTL with pluggable expression engines like Velocity, beanshell, Rhino etc.
-
 * add EmptyScript to allow tags optimise if their body is empty.
 
 * add whitespace trimming support. Allow a taglib to decide which tags 'trim' and which don't so that
@@ -29,13 +33,11 @@ TO DO LIST
 * add getResource() and getResourceAsStream() methods from ServletContext to Context to allow 
   included files to be loaded etc.	
 
-* make Ant task to run Jelly
+
 
 * add an adapter to run JSP tag libraries inside Jelly when Jelly is used in a Servlet / JSP environment?
 
 * document much more!
-
-* add demo of tag which parses its body at compile time and modifies it. 
 
 * provide an alternative non-XML parser such that Jelly scripts do not
   need to be XML. This could allow Velocity-style concise notation 
