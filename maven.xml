@@ -262,12 +262,13 @@
       <j:set var="tlName" value="${taglib.parentFile.name}" />
       <echo>Processing tag-library ${tlName}.</echo>
       <j:set var="dir" value="${basedir}/jelly-tags/${tlName}"/>
-      <uptodate property="siteIsBuilt">
+      <j:set var="testVar" value="siteIsBuilt${tlName}"/>
+      <uptodate property="${testVar}">
         <srcfiles dir="${dir}" excludes="target/**/*"/>
         <mapper type="merge" to="${dir}/target/docs/index.html"/>
       </uptodate>
-      <echo>Tag-library ${tlname}'s site is up-to-date ? "${siteIsBuilt}"</echo>
-      <j:if test="${!siteIsBuilt}">
+      <echo>Tag-library ${tlname}'s site is up-to-date ? "${context.getVariable(testVar)}"</echo>
+      <j:if test="${!context.getVariable(testVar)}">
         <echo>Building tag-library ${tlname}'s site.</echo>
         <echo>Outputting navigation to ${dir}/target/generated-xdocs/navigation.xml.</echo>
         <mkdir dir="${dir}/target/generated-xdocs"/>
