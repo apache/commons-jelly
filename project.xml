@@ -5,9 +5,9 @@
 ]>
 <project>
   <pomVersion>3</pomVersion>
+  <id>commons-jelly-tags-ant</id>
   <name>commons-jelly-tags-ant</name>
   <groupId>commons-jelly</groupId>
-  <id>commons-jelly-tags-ant</id>
   <currentVersion>1.0-SNAPSHOT</currentVersion>
   
   <organization>
@@ -15,18 +15,16 @@
     <url>http://jakarta.apache.org/</url>
     <logo>http://jakarta.apache.org/images/jakarta-logo-blue.gif</logo>
   </organization>
-  <logo>/images/logo.gif</logo>
-
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly.tags.ant</package>
-  <shortDescription>Commons Jelly Ant Tag Library</shortDescription>
-
+  <logo>/images/logo.gif</logo>
   <!-- Gump integration -->
   <gumpRepositoryId>jakarta</gumpRepositoryId>
-  
+
   <description>
-  	This is a Jelly interface for Ant.
+      This is a Jelly interface for Ant.
   </description>
+  <shortDescription>Commons Jelly Ant Tag Library</shortDescription>
   
   <url>http://jakarta.apache.org/commons/sandbox/jelly/</url>
   <issueTrackingUrl>http://jira.werken.com/BrowseProject.jspa?id=10012</issueTrackingUrl>
@@ -111,7 +109,7 @@
       <name>Erik Fransen</name>
       <email>erik167@xs4all.nl</email>
       <roles>
-      	<role>Logo designer</role>
+          <role>Logo designer</role>
       </roles>
     </contributor>
     <contributor>
@@ -125,7 +123,7 @@
       <name>Vinay Chandran</name>
       <email>sahilvinay@yahoo.com</email>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>
     <contributor>
@@ -136,7 +134,7 @@
       <email>joew@thoughtworks.com</email>
       <organization>ThoughtWorks, Inc.</organization>
       <roles>
-      	<role>Inventor of Mock Tags</role>
+          <role>Inventor of Mock Tags</role>
       </roles>
     </contributor>
     <contributor>
@@ -144,22 +142,22 @@
       <email>vonwao@yahoo.com</email>
       <organization></organization>
       <roles>
-      	<role>Author of the tutorials</role>
-      	<role>Developer</role>
+          <role>Author of the tutorials</role>
+          <role>Developer</role>
       </roles>
     </contributor>
     <contributor>
       <name>Robert Leftwich</name>
       <email>robert@leftwich.info</email>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>
     <contributor>
       <name>Paul Libbrecht</name>
       <email>paul@activemath.org</email>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
@@ -167,14 +165,14 @@
       <email>jim.birchfield@genscape.com</email>
       <organization>Genscape, Inc.</organization>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
       <name>Jason Horman</name>
       <email>jhorman@musicmatch.com</email>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
@@ -182,7 +180,7 @@
       <email>tima@intalio.com</email>
       <organization>Intalio, Inc.</organization>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
@@ -190,7 +188,7 @@
       <email>theo.niemeijer@getthere.nl</email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
@@ -198,7 +196,7 @@
       <email>matthew_pryor@versata.com</email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>        
     <contributor>
@@ -206,7 +204,7 @@
       <email></email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>        
     <contributor>
@@ -214,7 +212,7 @@
       <email></email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>        
     <contributor>
@@ -222,11 +220,11 @@
       <email></email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+          <role>Developer</role>
       </roles>
     </contributor>            
   </contributors>
-	
+    
   <dependencies>
   
     &commonDeps;
@@ -261,45 +259,37 @@
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <integrationUnitTestSourceDirectory/>
-    <aspectSourceDirectory/>
 
-    <!-- Resources that are packaged up inside the JAR file -->
-    <resources>    	
-			<resource>    	
-				<directory>src/java</directory>
-				<includes>
-					<include>**/*.properties</include>
-				</includes>
-			</resource>
-    </resources>
-    
-    
     <!-- Unit test classes -->
     <unitTest>
       <includes>
         <include>**/Test*.java</include>
       </includes>
-			<resources>
-				<resource>
-					<directory>src/test</directory>
-					<includes>
-						<include>**/*.jelly</include>
-						<include>**/*.xml</include>
-						<include>**/*.xsl</include>
-						<include>**/*.rng</include>
-						<include>**/*.dtd</include>
-						<include>**/*.properties</include>
-						<include>**/*.html</include>
-					</includes>
-				</resource>
-			</resources>
+      <resources>
+          <resource>
+              <directory>src/test</directory>
+              <includes>
+                  <include>**/*.jelly</include>
+                  <include>**/*.xml</include>
+                  <include>**/*.xsl</include>
+                  <include>**/*.rng</include>
+                  <include>**/*.dtd</include>
+                  <include>**/*.properties</include>
+                  <include>**/*.html</include>
+              </includes>
+          </resource>
+      </resources>
     </unitTest>
 
-    
-    <!-- Integration unit test classes -->
-
-    <integrationUnitTestPatterns></integrationUnitTestPatterns>
-
+    <!-- Resources that are packaged up inside the JAR file -->
+    <resources>        
+            <resource>        
+                <directory>src/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+    </resources>
+  
   </build>
 </project>
