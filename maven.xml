@@ -3,10 +3,10 @@
   <!-- define jelly task -->	
   <goal name="jelly-task" prereqs="java:compile, test:compile">
 	<path id="test.classpath">
-	    <pathelement path="${maven.build.dest}"/>
-	    <pathelement path="target/classes"/>
-	    <pathelement path="target/test-classes"/>
-	    <path refid="maven.dependency.classpath"/>
+      <pathelement path="${maven.build.dest}"/>
+      <pathelement path="target/classes"/>
+      <pathelement path="target/test-classes"/>
+      <path refid="maven.dependency.classpath"/>
 	</path>
 	  
     <taskdef
@@ -443,7 +443,9 @@
     description="Runs the JellyUnit test cases using Jelly (rather than as part of the Maven/Ant junit task)">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/jellyunit.jelly"/> 
+      <sysproperty key="http.proxyHost" value="${maven.proxy.host}"/>
+      <sysproperty key="http.proxyPort" value="${maven.proxy.port}"/>
+     <arg value="src/test/org/apache/commons/jelly/jellyunit.jelly"/> 
     </java>
   </goal>
 	
