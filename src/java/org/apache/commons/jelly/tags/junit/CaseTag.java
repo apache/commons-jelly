@@ -64,7 +64,7 @@ package org.apache.commons.jelly.tags.junit;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -93,7 +93,12 @@ public class CaseTag extends TagSupport {
         // or something?
         TestCase testCase = new TestCase(name) {
             protected void runTest() throws Throwable {
-                invokeBody(output);
+                // create a new child context so that each test case
+                // will have its own variable scopes
+                JellyContext newContext = new JellyContext( context );
+                
+                // invoke the test case
+                getBody().run(newContext, output);
             }
         };
         
