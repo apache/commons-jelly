@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.1-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-96" due-to="Jason Horne">HttpClient cannot be specified in HttpSession</action>
     </release>
     <release version="1.0" date="2004-09-12"></release>
   </body>

@@ -57,11 +57,13 @@ public class SessionTag extends TagSupport {
      * @throws Exception when any error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+        if (_httpClient == null)
+        {
+            _httpClient = new HttpClient();
+        }
+        
         if (isProxyAvailable()) {
-            _httpClient = new HttpClient();
             _httpClient.getHostConfiguration().setProxy(getProxyHost(), getProxyPort());
-        } else {
-            _httpClient = new HttpClient();
         }
 
         invokeBody(xmlOutput);
