@@ -78,7 +78,7 @@ own expresssion language (but much more poweful), means that Ant properties can 
 </p>
 
 <p>
-So Jelly can be thought of as a scripting engine plugin for Ant tasks which can be easily integrated into your Ant build.
+So Jelly can be thought of as a scripting engine plugin for Ant.
 </p>
 </section>
 
