@@ -33,7 +33,7 @@ import org.apache.commons.jelly.XMLOutput;
  * which are loaded into the current context.
  *
  * @author Jim Birchfield
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class PropertiesTag extends TagSupport {
     private String file;
@@ -75,7 +75,16 @@ public class PropertiesTag extends TagSupport {
         } catch (IOException e) {
             throw new JellyTagException("properties tag could not load from file",e);
         }
-
+        finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException ioe) {
+                    ;
+                }   
+            }
+        }           
+        
         if (var != null) {
             context.setVariable(var, props);
         }
