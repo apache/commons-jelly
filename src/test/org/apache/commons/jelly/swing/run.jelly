@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<j:jelly 
+	xmlns:j="jelly:core" 
+	xmlns="jelly:swing" 
+	xmlns:log="jelly:log">
+
+	<!-- default working directory to swing examples -->		
+	<j:if test="${empty working.dir}">
+		<j:set var="working.dir" value="src/test/org/apache/commons/jelly/swing"/>
+	</j:if>
+		
+	<fileChooser var="chooser" description="Jelly files" currentDirectory="${working.dir}"/>
+	
+	${chooser.showDialog(frame, 'Choose Jelly file')}
+
+	<j:set var="file" value="${chooser.selectedFile}"/>
+	
+	<j:if test="${file != null}">
+		<log:info>about to run ${file}</log:info>	
+		<j:include uri="${file.toURL().toString()}"/>
+	</j:if>
+	
+</j:jelly>
+
+
+

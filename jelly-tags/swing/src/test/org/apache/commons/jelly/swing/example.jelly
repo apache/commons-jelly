@@ -42,10 +42,21 @@
           </action>
         </menuItem>
       </menu>
+      <menu text="Run">
+        <menuItem>
+          <action name="Run a Jelly script">
+          	<log:info>about to open the Jelly script runner...</log:info>
+          	<j:include uri="run.jelly"/>
+          </action>
+        </menuItem>
+      </menu>
       <menu text="Help">
-				<font family="Verdana" size="14"/>
-
-        <menuItem text="About"/>
+        <menuItem>
+          <action name="About">
+          	<log:info>about to display the about dialog...</log:info>
+          	<j:include uri="about.jelly"/>
+          </action>
+        </menuItem>
       </menu>
     </menuBar>
     

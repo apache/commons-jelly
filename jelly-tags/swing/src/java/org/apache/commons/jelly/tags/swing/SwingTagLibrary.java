@@ -177,7 +177,8 @@ public class SwingTagLibrary extends TagLibrary {
 					// can the element control it's children ?
 					// but children should also be able to be any component (as Swing comps. are all container)
         registerBeanFactory( "desktopPane", JDesktopPane.class );
-        registerBeanFactory( "dialog", JDesktopPane.class );
+        registerBeanFactory( "dialog", JDialog.class );
+        registerBeanFactory( "fileChooser", JFileChooser.class );
         registerBeanFactory( "frame", JFrame.class );
         registerBeanFactory( "internalFrame", JInternalFrame.class );
         registerBeanFactory( "label", JLabel.class );
