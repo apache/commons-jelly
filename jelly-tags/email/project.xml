@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-email</id>
+  <name>commons-jelly-tags-email</name>
+  <package>org.apache.commons.jelly.tags.email</package>
+
+  <description>
+      This is a Jelly interface for Email
+  </description>
+  <shortDescription>Commons Jelly e-mail Tag Library</shortDescription>
+  
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/email</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/email</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/email/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/email/</url>
+  </repository>
+  
+    
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    <!-- END for compilation -->
+    
+    <!-- START for run time -->
+    <dependency>
+      <id>jaf</id>
+      <version>1.0.2</version>
+      <jar>activation-1.0.2.jar</jar>
+    </dependency>
+    
+    <dependency>
+      <id>javamail</id>
+      <version>1.2</version>
+    </dependency>
+    <!-- END for run time -->
+
+    
+  </dependencies>
+  
+</project>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/XMLTagLibrary.java,v 1.9 2002/06/18 08:31:02 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/18 08:31:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/email/src/java/org/apache/commons/jelly/tags/email/EmailTag.java,v 1.1 2003/01/08 04:47:48 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/08 04:47:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XMLTagLibrary.java,v 1.9 2002/06/18 08:31:02 jstrachan Exp $
+ * $Id: EmailTag.java,v 1.1 2003/01/08 04:47:48 dion Exp $
  */
 package org.apache.commons.jelly.tags.email;
 
@@ -89,7 +89,7 @@ import java.io.FileNotFoundException;
  * multiple cc addresses, etc.
  *
  * @author  Jason Horman
- * @version  $Id$
+ * @version  $Id: EmailTag.java,v 1.1 2003/01/08 04:47:48 dion Exp $
  */
 
 public class EmailTag extends TagSupport {
