@@ -45,6 +45,9 @@ public class GridBagConstraintBean extends GridBagConstraints {
     
     /** Logging output */
     private static final Log LOG = LogFactory.getLog(GridBagConstraintBean.class);
+    
+    /** error message */
+    private static final String ILLEGAL_ANCHOR_MSG = "Anchor must be one of  the GridBagLayout constants for the current Java version.";
 
     public GridBagConstraintBean() {
     }
@@ -165,7 +168,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
         else if (this.anchor ==  getByReflection("LAST_LINE_END"))
             return "last_line_end";
         
-        throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants: CENTER, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, or NORTHWEST.");
+        throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
     }
 
     /** Accepts one of the strings with the same name as the constants 
@@ -335,16 +338,16 @@ public class GridBagConstraintBean extends GridBagConstraints {
             return rv.intValue();
         } catch (SecurityException e) {
             LOG.debug(e);
-            throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants for the current Java version.");
+            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
         } catch (NoSuchFieldException e) {
             LOG.debug(e);
-            throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants for the current Java version.");
+            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
         } catch (IllegalArgumentException e) {
             LOG.debug(e);
-            throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants for the current Java version.");
+            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
         } catch (IllegalAccessException e) {
             LOG.debug(e);
-            throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants for the current Java version.");
+            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
         }
     }
 
