@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.7 2002/04/25 18:14:09 jstrachan Exp $
- * $Revision: 1.7 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/04/25 18:14:09 $
  *
  * ====================================================================
@@ -57,84 +57,39 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.7 2002/04/25 18:14:09 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.tags.define;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
+import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
-/** <p><code>Context</code> represents the Jelly context.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
-  */
-public class Context {
-
-    /** synchronized access to the variables in scope */
-    private Map variables = new Hashtable();
-
-    public Context() {
+/** 
+ * <p><code>InvokeBodyTag</code> this tag needs to find
+ * the correct parent DynamicTag instance and call its
+ * body.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
+ */
+public class InvokeBodyTag extends TagSupport {
+    
+    public InvokeBodyTag() {
     }
     
-    public Context(Map variables) {
-        this.variables.putAll( variables );
-    }
-    
-    /** @return the value of the given variable name */
-    public Object getVariable( String name ) {
-        return variables.get( name );
-    }
-    
-    /** Sets the value of the given variable name */
-    public void setVariable( String name, Object value ) {
-        if ( value == null ) {
-            variables.remove( name );
+    // Tag interface
+    //-------------------------------------------------------------------------                    
+    public void run(Context context, XMLOutput output) throws Exception {
+        
+        // #### note this mechanism does not work properly for arbitrarily 
+        // #### nested dynamic tags. A better way is required.
+        Tag tag = findAncestorWithClass(this, DynamicTag.class);
+        if ( tag == null ) {
+            throw new JellyException( "Cannot invoke body, no dynamic tag is defined in this block" );
         }
-        else {
-            variables.put( name, value );
-        }
+        tag.getBody().run(context, output);
     }    
-
-    /** Removes the given variable */
-    public void removeVariable( String name ) {
-        variables.remove( name );
-    }
-    
-    /** 
-     * @return an Iterator over the current variable names in this
-     * context 
-     */
-    public Iterator getVariableNames() {
-        return variables.keySet().iterator();
-    }
-    
-    /**
-     * @return the Map of variables in this scope
-     */
-    public Map getVariables() {
-        return variables;
-    }
-    
-    /**
-     * Sets the Map of variables to use
-     */
-    public void setVariables(Map variables) {
-        this.variables = variables;
-    }
-    
-    
-    /**
-     * A factory method to create a new child context of the
-     * current context.
-     */
-    public Context newContext(Map newVariables) {
-        // XXXX: should allow this new context to
-        // XXXX: inherit parent contexts? 
-        // XXXX: Or at least publish the parent scope
-        // XXXX: as a Map in this new variable scope?
-        newVariables.put( "parentScope", variables );
-        return new Context( newVariables );
-    }
 }

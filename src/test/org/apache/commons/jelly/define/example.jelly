@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<!-- uses the babelfish taglib -->
+
+<j:jelly xmlns:j="jelly:core" xmlns:babelfish="jelly:babelfish">
+  <babelfish:translate from="EN" to="FR">
+    Jelly is cool stuff!
+  </babelfish:translate>
+</j:jelly>

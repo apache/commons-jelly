@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.7 2002/04/25 18:14:09 jstrachan Exp $
- * $Revision: 1.7 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/04/25 18:14:09 $
  *
  * ====================================================================
@@ -57,84 +57,70 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.7 2002/04/25 18:14:09 jstrachan Exp $
+ * $Id: DynamicTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.tags.define;
 
-import java.util.Hashtable;
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.Map;
 
-/** <p><code>Context</code> represents the Jelly context.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
-  */
-public class Context {
+import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.DynaTag;
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
-    /** synchronized access to the variables in scope */
-    private Map variables = new Hashtable();
+/** 
+ * <p><code>DynamicTag</code> is a tag that is created from
+ * inside a Jelly script as a Jelly template and will invoke a 
+ * given script, passing in its instantiation attributes 
+ * as variables and will allow the template to invoke its instance body.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
+ */
+public class DynamicTag extends TagSupport implements DynaTag {
+    
+    /** The template script */
+    private Script template;
+    /** The instance attributes */
+    private Map attributes = new HashMap();
+    
+    public DynamicTag() {
+    }
+    
+    public DynamicTag(Script template) {
+        this.template = template;
+    }
+    
+    
+    // Tag interface
+    //-------------------------------------------------------------------------                    
+    public void run(Context context, XMLOutput output) throws Exception {
 
-    public Context() {
-    }
-    
-    public Context(Map variables) {
-        this.variables.putAll( variables );
-    }
-    
-    /** @return the value of the given variable name */
-    public Object getVariable( String name ) {
-        return variables.get( name );
-    }
-    
-    /** Sets the value of the given variable name */
-    public void setVariable( String name, Object value ) {
-        if ( value == null ) {
-            variables.remove( name );
-        }
-        else {
-            variables.put( name, value );
-        }
+        // create new context based on current attributes
+        Context newContext = context.newContext( attributes );
+        
+        getTemplate().run( newContext, output );
     }    
-
-    /** Removes the given variable */
-    public void removeVariable( String name ) {
-        variables.remove( name );
+    
+    // DynaTag interface
+    //-------------------------------------------------------------------------                    
+    public void setAttribute(String name, Object value) {
+        attributes.put( name, value );
     }
     
-    /** 
-     * @return an Iterator over the current variable names in this
-     * context 
+    // Properties
+    //-------------------------------------------------------------------------                    
+    
+    /** The template to be executed by this tag which may well 
+     * invoke this instances body from inside the template
      */
-    public Iterator getVariableNames() {
-        return variables.keySet().iterator();
+    public Script getTemplate() {
+        return template;
     }
     
-    /**
-     * @return the Map of variables in this scope
-     */
-    public Map getVariables() {
-        return variables;
-    }
-    
-    /**
-     * Sets the Map of variables to use
-     */
-    public void setVariables(Map variables) {
-        this.variables = variables;
-    }
-    
-    
-    /**
-     * A factory method to create a new child context of the
-     * current context.
-     */
-    public Context newContext(Map newVariables) {
-        // XXXX: should allow this new context to
-        // XXXX: inherit parent contexts? 
-        // XXXX: Or at least publish the parent scope
-        // XXXX: as a Map in this new variable scope?
-        newVariables.put( "parentScope", variables );
-        return new Context( newVariables );
+    public void setTemplate(Script template) {
+        this.template = template;
     }
 }

@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.7 2002/04/25 18:14:09 jstrachan Exp $
- * $Revision: 1.7 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/04/25 18:14:09 $
  *
  * ====================================================================
@@ -57,84 +57,61 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.7 2002/04/25 18:14:09 jstrachan Exp $
+ * $Id: DefineTagLibTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.tags.define;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
+import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.DynaTag;
+import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
-/** <p><code>Context</code> represents the Jelly context.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
-  */
-public class Context {
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.AttributesImpl;
 
-    /** synchronized access to the variables in scope */
-    private Map variables = new Hashtable();
-
-    public Context() {
+/** 
+ * <p><code>DefineTag</code> is used to define a new taglib
+ * using a Jelly script..</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
+ */
+public class DefineTagLibTag extends TagSupport {
+    
+    /** The namespace URI */
+    private String uri;
+    /** The new tags being added */
+    private DynamicTagLibrary tagLibrary;
+    
+    public DefineTagLibTag() {
     }
     
-    public Context(Map variables) {
-        this.variables.putAll( variables );
+    public DefineTagLibTag(String uri) {
+        this.uri = uri;
     }
     
-    /** @return the value of the given variable name */
-    public Object getVariable( String name ) {
-        return variables.get( name );
-    }
-    
-    /** Sets the value of the given variable name */
-    public void setVariable( String name, Object value ) {
-        if ( value == null ) {
-            variables.remove( name );
-        }
-        else {
-            variables.put( name, value );
-        }
+    // Tag interface
+    //-------------------------------------------------------------------------                    
+    public void run(Context context, XMLOutput output) throws Exception {
+        tagLibrary = new DynamicTagLibrary( getUri() );
+        
+        getBody().run(context, output);
+
+        tagLibrary = null;
     }    
-
-    /** Removes the given variable */
-    public void removeVariable( String name ) {
-        variables.remove( name );
+    
+    // Properties
+    //-------------------------------------------------------------------------                    
+    public String getUri() {
+        return uri;
     }
     
-    /** 
-     * @return an Iterator over the current variable names in this
-     * context 
-     */
-    public Iterator getVariableNames() {
-        return variables.keySet().iterator();
+    public void setUri(String uri) {
+        this.uri = uri;
     }
     
-    /**
-     * @return the Map of variables in this scope
-     */
-    public Map getVariables() {
-        return variables;
-    }
-    
-    /**
-     * Sets the Map of variables to use
-     */
-    public void setVariables(Map variables) {
-        this.variables = variables;
-    }
-    
-    
-    /**
-     * A factory method to create a new child context of the
-     * current context.
-     */
-    public Context newContext(Map newVariables) {
-        // XXXX: should allow this new context to
-        // XXXX: inherit parent contexts? 
-        // XXXX: Or at least publish the parent scope
-        // XXXX: as a Map in this new variable scope?
-        newVariables.put( "parentScope", variables );
-        return new Context( newVariables );
+    public DynamicTagLibrary getTagLibrary() {
+        return tagLibrary;
     }
 }
