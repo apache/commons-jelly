@@ -70,12 +70,12 @@ public class JellyTask extends Task {
             
             Script script = compileScript();
             JellyContext context = getJellyContext();
-            context.setVariable( "project", project );
+            context.setVariable( "project", getProject() );
             script.run( context, getXMLOutput() );
             getXMLOutput().flush();
         }
         catch (Exception e) {
-            throw new BuildException(e, location);
+            throw new BuildException(e, getLocation() );
         }
     }
     
@@ -156,7 +156,7 @@ public class JellyTask extends Task {
             int idx = text.lastIndexOf('/');
             text = text.substring(0, idx + 1);
             JellyContext parentContext =  new JellyContext(getRootContext(), new URL(text));
-            context = new AntJellyContext(project, parentContext);
+            context = new AntJellyContext(getProject() , parentContext);
             
             // register the Ant tag library
             context.registerTagLibrary( "jelly:ant", new AntTagLibrary() );
@@ -186,7 +186,7 @@ public class JellyTask extends Task {
      * @return the URL for the relative file name or absolute URL 
      */
     protected URL resolveURL(String name) throws MalformedURLException {
-		File file = project.resolveFile(name);
+		File file = getProject().resolveFile(name);
         if (file.exists()) {
             return file.toURL();
         }
