@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- uses the babelfish taglib -->
+<!-- uses a JellyBean -->
 <j:jelly 
 	xmlns:j="jelly:core" 
 	xmlns:define="jelly:define" 
