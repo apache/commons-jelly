@@ -191,6 +191,14 @@
       <jar>commons-messenger-1.0-dev-2.jar</jar>
     </dependency>
     
+	<!-- http taglib -->
+    <dependency>
+      <name>commons-httpclient</name>
+      <type>required</type>
+      <version>2.0-dev</version>
+      <jar>commons-httpclient-2.0-dev.jar</jar>
+    </dependency>
+
 
 	<!-- validate taglib -->
     <dependency>
@@ -200,7 +208,6 @@
       <jar>isorelax-20020414.jar</jar>
     </dependency>
 
-	<!-- runtime dependency for validate taglib -->
     <dependency>
       <name>msv</name>
       <type>required</type>
@@ -208,6 +215,7 @@
       <jar>msv-20020414.jar</jar>
     </dependency>
 
+	<!-- runtime dependency for validate taglib -->
     <dependency>
       <name>xsdlib</name>
       <type>required</type>
