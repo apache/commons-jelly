@@ -93,6 +93,11 @@
       <id>morgand</id>
       <email>morgand@apache.org</email>
     </developer>
+    <developer>
+      <name>Rodney Waldhoff</name>
+      <id>rwaldhoff</id>
+      <email>rwaldhoff@apache.org</email>
+    </developer>
   </developers>
 
   <contributors>

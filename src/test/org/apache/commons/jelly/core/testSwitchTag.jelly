@@ -1,0 +1,19 @@
+<j:jelly xmlns:j="jelly:core">
+    <j:switch on="${switch.on.a}">
+        <j:case value="one" fallThru="true">
+            <j:set var="a.one" value="true"/>
+        </j:case>
+        <j:case value="two">
+            <j:set var="a.two" value="true"/>
+        </j:case>
+        <j:case value="three">
+            <j:set var="a.three" value="true"/>
+        </j:case>
+        <j:case value="${null}">
+            <j:set var="a.null" value="true"/>
+        </j:case>
+        <j:default>
+            <j:set var="a.default" value="true"/>
+        </j:default>
+    </j:switch>
+</j:jelly>
