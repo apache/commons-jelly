@@ -90,22 +90,42 @@ public class JellyContext {
 
     /** String used to denote a script can't be parsed */
     private static final String BAD_PARSE = "Could not parse Jelly script";
-    
+
+    /**
+     * Create a new context with the currentURL set to the rootURL
+     */
     public JellyContext() {
         this.currentURL = rootURL;
         init();
     }
 
+    /**
+     * Create a new context with the given rootURL
+     * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/' 
+     */
     public JellyContext(URL rootURL) {
         this( rootURL, rootURL );
     }
 
+    /**
+     * Create a new context with the given rootURL and currentURL
+     * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/' 
+     * @param currentURL the root URL used in resolving relative resources 
+     */
     public JellyContext(URL rootURL, URL currentURL) {
         this.rootURL = rootURL;
         this.currentURL = currentURL;
         init();
     }
 
+
+    /**
+     * Create a new context with the given parent context.
+     * The parent's rootURL and currentURL are set on the child, and the parent's variables are
+     * available in the child context under the name <code>parentScope</code>.
+     * 
+     * @param parent the parent context for the newly created context.
+     */
     public JellyContext(JellyContext parent) {
         this.parent = parent;
         this.rootURL = parent.rootURL;
@@ -130,7 +150,7 @@ public class JellyContext {
 		try {
 			variables.put("systemScope", System.getProperties() );
 		} catch (SecurityException e) {
-			// ignore security exceptions
+            log.debug("security exception accessing system properties", e);
 		}
 	}
     
@@ -172,12 +192,7 @@ public class JellyContext {
         }
         // ### this is a hack - remove this when we have support for pluggable Scopes
         if ( answer == null ) {
-            try {
-                answer = System.getProperty(name);
-            }
-            catch (SecurityException e) {
-                // ignore security exceptions
-            }
+            answer = getSystemProperty(name);
         }
         
         if (log.isDebugEnabled()) {
@@ -203,17 +218,27 @@ public class JellyContext {
 
         // ### this is a hack - remove this when we have support for pluggable Scopes
         if ( value == null ) {
-            try {
-                value = System.getProperty(name);
-            }
-            catch (SecurityException e) {
-                // ignore security exceptions
-            }
+            value = getSystemProperty(name);
         }
 
         return value;
     }
     
+    /**
+     * Get a system property and handle security exceptions
+     * @param name the name of the property to retrieve
+     * @return the value of the property, or null if a SecurityException occurs
+     */
+    private Object getSystemProperty(String name) {
+        try {
+            return System.getProperty(name);
+        }
+        catch (SecurityException e) {
+            log.debug("security exception accessing system properties", e);
+        }
+        return null;
+    }
+
     /** 
      * @return the value of the given variable name in the given variable scope 
      * @param name is the name of the variable
