@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<test:suite 
+	xmlns:j="jelly:core"
+	xmlns:b="jelly:beanshell" 
+	xmlns:test="jelly:junit">
+
+<test:case name="testPropertyWithDot">
+
+	<j:set var="foo.bar" value="hello"/>
+	
+	<b:script>
+		System.out.println( "foo.bar: " + context.getVariable("foo.bar") );
+
+		if (context.getVariable("foo.bar") == null) {
+			throw new Exception("Failed: no foo.bar defined: " + foo_bar);
+		}
+		context.setVariable("foo.bar", "worked");
+  </b:script>
+
+	<test:assertEquals expected="worked" actual="${foo.bar}"/>
+		
+</test:case>
+
+<test:case name="testDotConversion">
+
+	<j:set var="foo.bar" value="hello"/>
+	
+	<b:script>
+		System.out.println( "foo.bar: " + foo_bar );
+
+		if (foo_bar == null) {
+			 throw new Exception("Failed: no foo.bar defined: " + foo_bar);
+		}
+		context.setVariable("foo.bar", "worked");
+  </b:script>
+
+	<test:assertEquals expected="worked" actual="${foo.bar}"/>
+		
+</test:case>
+
+</test:suite>
