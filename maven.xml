@@ -458,4 +458,10 @@
       </j:if>
             
     </goal>
+
+    <goal name="generate-gump">
+      <j:set var="maven.multiproject.includes" value="project.xml,jelly-tags/*/project.xml" />
+      <j:set var="maven.multiproject.excludes" value="" />
+      <attainGoal name="gump:multiproject" />
+    </goal>
 </project>
