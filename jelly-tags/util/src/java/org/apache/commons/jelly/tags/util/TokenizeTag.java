@@ -62,6 +62,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -79,8 +80,7 @@ public class TokenizeTag extends TagSupport
     // Tag interface
     //------------------------------------------------------------------------- 
     
-    public void doTag(final XMLOutput output) throws Exception
-    {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( this.var == null )
         {
             throw new MissingAttributeException( "var" );

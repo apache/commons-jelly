@@ -58,13 +58,15 @@
 
 package org.apache.commons.jelly.tags.util;
 
-import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.xml.sax.SAXException;
 
 /**
  * A tag that replaces occurrences of strings in its body (or value)
@@ -90,7 +92,7 @@ public class ReplaceTag extends TagSupport {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         // check required properties
         if (oldChar == null) {
             throw new MissingAttributeException("oldChar must be provided");
@@ -114,7 +116,11 @@ public class ReplaceTag extends TagSupport {
             if ( var != null ) {
                 context.setVariable(var, stringAnswer);
             } else {
-                output.write(stringAnswer);
+                try {
+                    output.write(stringAnswer);
+                } catch (SAXException e) {
+                    throw new JellyTagException(e);
+                }
             }
         }
     }

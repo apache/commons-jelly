@@ -61,8 +61,10 @@ package org.apache.commons.jelly.tags.util;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -72,7 +74,7 @@ import org.apache.commons.jelly.XMLOutput;
  * URI from the current Jelly script.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class AvailableTag extends TagSupport {
 	
@@ -84,22 +86,24 @@ public class AvailableTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
     	boolean available = false;
     	
     	if (file != null) {
     		available = file.exists();
     	}
     	else if (uri != null) {
-    		URL url = context.getResource(uri);
-    		String fileName = url.getFile();
             try {
+                URL url = context.getResource(uri);
+    		    String fileName = url.getFile();
                 InputStream is = url.openStream();
                 available = (is != null);
                 is.close();
+            } catch (MalformedURLException e) {
+                throw new JellyTagException(e);
             } catch (IOException ioe) {
                 available = false;
-            }
+            } 
     	}
     	
     	if (available) {

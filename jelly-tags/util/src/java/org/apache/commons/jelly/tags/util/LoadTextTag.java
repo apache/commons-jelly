@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/util/src/java/org/apache/commons/jelly/tags/util/LoadTextTag.java,v 1.1 2003/01/06 16:15:46 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/06 16:15:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/util/src/java/org/apache/commons/jelly/tags/util/LoadTextTag.java,v 1.2 2003/01/25 19:31:48 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/25 19:31:48 $
  *
  * ====================================================================
  *
@@ -57,18 +57,20 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: LoadTextTag.java,v 1.1 2003/01/06 16:15:46 dion Exp $
+ * $Id: LoadTextTag.java,v 1.2 2003/01/25 19:31:48 morgand Exp $
  */
 package org.apache.commons.jelly.tags.util;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.Reader;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -80,7 +82,7 @@ import org.apache.commons.logging.LogFactory;
  * A tag which loads text from a file or URI into a Jelly variable. 
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class LoadTextTag extends TagSupport {
 
@@ -96,29 +98,43 @@ public class LoadTextTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException("var");
         }
         if (file == null && uri == null) {
-            throw new JellyException( "This tag must have a 'file' or 'uri' specified" );
+            throw new JellyTagException( "This tag must have a 'file' or 'uri' specified" );
         }
         Reader reader = null;
         if (file != null) {
             if (! file.exists()) {
-                throw new JellyException( "The file: " + file + " does not exist" );
+                throw new JellyTagException( "The file: " + file + " does not exist" );
             }
-            reader = new FileReader(file);
+            
+            try {
+                reader = new FileReader(file);
+            } catch (FileNotFoundException e) {
+                throw new JellyTagException("could not find the file",e);
+            }
         }   
         else {
             InputStream in = context.getResourceAsStream(uri);
             if (in == null) {
-                throw new JellyException( "Could not find uri: " + uri );
+                throw new JellyTagException( "Could not find uri: " + uri );
             }
             // @todo should we allow an encoding to be specified?
             reader = new InputStreamReader(in);
         }
-        String text = loadText(reader);
+        
+        String text = null;
+        
+        try {
+            text = loadText(reader);
+        } 
+        catch (IOException e) {
+            throw new JellyTagException(e);
+        }
+        
         context.setVariable(var, text);
     }
 
@@ -179,7 +195,7 @@ public class LoadTextTag extends TagSupport {
     /**
      * Loads all the text from the given Reader
      */
-    protected String loadText(Reader reader) throws Exception {
+    protected String loadText(Reader reader) throws IOException {
         StringBuffer buffer = new StringBuffer();
         
         // @todo its probably more efficient to use a fixed char[] buffer instead

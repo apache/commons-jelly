@@ -58,13 +58,14 @@
 
 package org.apache.commons.jelly.tags.util;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 /**
  * A tag which sleeps for a given amount of time.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class SleepTag extends TagSupport {
     private long millis;
@@ -74,9 +75,13 @@ public class SleepTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if (millis > 0) {
-            Thread.sleep(millis);
+            try {
+                Thread.sleep(millis);
+            } catch (InterruptedException e) {
+                throw new JellyTagException(e);
+            }
         }
     }
 

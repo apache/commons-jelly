@@ -60,6 +60,7 @@ package org.apache.commons.jelly.tags.util;
 
 import java.io.File;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -68,7 +69,7 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag which creates a {@link File} from a given name.
  * 
  * @author <a href="mailto:dion@apache.org">dIon Gillard</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class FileTag extends TagSupport {
     
@@ -80,7 +81,7 @@ public class FileTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         boolean available = false;
 
         if (name == null) {

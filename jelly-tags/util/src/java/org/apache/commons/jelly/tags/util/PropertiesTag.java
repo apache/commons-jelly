@@ -60,11 +60,13 @@ package org.apache.commons.jelly.tags.util;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.IOException;
 import java.util.Enumeration;
 import java.util.Properties;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -73,7 +75,7 @@ import org.apache.commons.jelly.XMLOutput;
  * which are loaded into the current context.
  * 
  * @author Jim Birchfield
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class PropertiesTag extends TagSupport {
     private String file;
@@ -85,26 +87,37 @@ public class PropertiesTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if (file == null && uri == null) {
-            throw new JellyException("This tag must define a 'file' or 'uri' attribute");
+            throw new JellyTagException("This tag must define a 'file' or 'uri' attribute");
         }
         InputStream is = null;
         if (file != null) {
             File f = new File(file);
             if (!f.exists()) {
-                throw new JellyException("file: " + file + " does not exist!");
+                throw new JellyTagException("file: " + file + " does not exist!");
             }
-            is = new FileInputStream(f);
+            
+            try {
+                is = new FileInputStream(f);
+            } catch (FileNotFoundException e) {
+                throw new JellyTagException(e);
+            }
         }
         else {
             is = context.getResourceAsStream(uri);
             if (is == null) {
-                throw new JellyException( "Could not find: " + uri );
+                throw new JellyTagException( "Could not find: " + uri );
             }
         }
         Properties props = new Properties();
-        props.load(is);
+        
+        try {
+            props.load(is);
+        } catch (IOException e) {
+            throw new JellyTagException("properties tag could not load from file",e);
+        }
+        
         if (var != null) {
             context.setVariable(var, props);
         }
