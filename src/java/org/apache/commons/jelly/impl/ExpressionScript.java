@@ -63,11 +63,11 @@ public class ExpressionScript implements Script {
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
-        String text = expression.evaluateAsString(context);
-        if ( text != null ) {
+        Object result = expression.evaluate(context);
+        if ( result != null ) {
 
             try {
-              output.write(text);
+              output.objectData(result);
             } catch (SAXException e) {
                 throw new JellyTagException("Could not write to XMLOutput",e);
             }

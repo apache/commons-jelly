@@ -38,7 +38,7 @@ import org.xml.sax.helpers.DefaultHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.19 $
+  * @version $Revision: 1.20 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -51,17 +51,18 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /** empty attributes */
     private static final Attributes EMPTY_ATTRIBUTES = new AttributesImpl();
 
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(XMLOutput.class);
+
+    /** the default for escaping of text */
+    private static final boolean DEFAULT_ESCAPE_TEXT = false;
+
     /** The SAX ContentHandler that output goes to */
     private ContentHandler contentHandler;
 
     /** The SAX LexicalHandler that output goes to */
     private LexicalHandler lexicalHandler;
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(XMLOutput.class);
-
-    /** the default for escaping of text */
-    private static final boolean DEFAULT_ESCAPE_TEXT = false;
 
     public XMLOutput() {
     }
@@ -786,7 +787,14 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
       * @exception SAXException The application may raise an exception.
 	  */
 	public void objectData(Object object) throws SAXException {
-		// do nothing
+		String output=null;
+		if(object!=null) {
+			output=object.toString();
+			write(output);
+		} else {
+			// we could have a "configurable null-toString"...
+			write("null");
+		}
 	}
 
     // Properties

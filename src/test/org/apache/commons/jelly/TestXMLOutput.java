@@ -67,4 +67,15 @@ public class TestXMLOutput extends BaseJellyTest {
         assertEquals("<html></html>",bos.toString());
     }
     
+    public void testOutputData() throws Exception {
+        setUpScript("outputData.jelly");
+        Script script = getJelly().compileScript();
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        XMLOutput ouput = XMLOutput.createXMLOutput(bos);
+
+        script.run(getJellyContext(),ouput);
+        ouput.flush();
+        assertEquals("[string]",bos.toString().trim());
+	}
 }
