@@ -104,6 +104,10 @@ public class StyleTag extends XPathTagSupport {
 			log.debug("About to evaluate stylesheet on source: " + source);
 		}
 
+		if (stylesheet instanceof JellyStylesheet) {
+			JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
+			jellyStyle.setOutput(output);
+		}
 		stylesheet.run(source);
 	}
     

@@ -106,6 +106,26 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     }
         
 
+	/**
+	 * @return the XMLOutput from the stylesheet if available
+	 */
+	public XMLOutput getStylesheetOutput() {
+		if (stylesheet instanceof JellyStylesheet) {
+			JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
+			return jellyStyle.getOutput();
+		}
+		return null;
+	}
+	
+	/**
+	 * Sets the XMLOutput to use by the current stylesheet	 */
+	public void setStylesheetOutput(XMLOutput output) {
+		if (stylesheet instanceof JellyStylesheet) {
+			JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
+			jellyStyle.setOutput(output);
+		}
+	}
+	
     /** 
      * Adds a new template rule to this stylesheet
      */    
@@ -201,21 +221,9 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
      * Factory method to create a new stylesheet 
      */
     protected Stylesheet createStylesheet(final XMLOutput output) {
-        // add default actions
-        Stylesheet answer = new Stylesheet();
-        answer.setValueOfAction( 
-            new Action() {
-                public void run(Node node) throws Exception {                    
-                    String text = node.getStringValue();
-                    if ( text != null && text.length() > 0 ) {
-                        // #### should use an 'output' property
-                        // when this variable gets reused
-                        output.write( text );
-                    }
-                }
-            }
-        );                    
-        return answer;
+    	JellyStylesheet answer = new JellyStylesheet();
+    	answer.setOutput(output);
+    	return answer;
     }
         
     /**

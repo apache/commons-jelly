@@ -196,7 +196,13 @@ public class TemplateTag extends TagSupport implements XPathSource {
                 if (log.isDebugEnabled()) {
                     log.debug( "Firing template body for match: " + match + " and node: " + node );          
                 }
-                invokeBody(output);
+                
+                XMLOutput actualOutput = tag.getStylesheetOutput();
+                if (actualOutput == null) {
+                	actualOutput = output;
+                }
+                
+                invokeBody(actualOutput);
             }
         };                    
     }

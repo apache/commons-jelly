@@ -57,90 +57,59 @@
  */
 package org.apache.commons.jelly.tags.jsl;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.xml.XPathTagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.dom4j.Node;
+import org.dom4j.rule.Action;
 import org.dom4j.rule.Stylesheet;
 
-import org.jaxen.XPath;
-
 /** 
- * This tag performs a JSL stylesheet which was previously
- * created via an &lt;stylesheet&gt; tag.
+ * This class is a specialization of the Stylesheet from dom4j's rule engine
+ * that adds some Jelly specific features.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class StyleTag extends XPathTagSupport {
+public class JellyStylesheet extends Stylesheet {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(StyleTag.class);
+    private Log log = LogFactory.getLog(JellyStylesheet.class);
 
-    
-    /** Holds the stylesheet which will be applied to the source context. */
-    private Stylesheet stylesheet;
-    
-    /** The XPath expression to evaluate. */    
-    private XPath select;
-    
-    public StyleTag() {
-    }
-        
-	// Tag interface
-	//-------------------------------------------------------------------------                    
-	public void doTag(XMLOutput output) throws Exception {
-		Stylesheet stylesheet = getStylesheet();
-		if (stylesheet == null) {
-			throw new MissingAttributeException("stylesheet");
-		}
-        
-        Object source = getSource();            
-		if (log.isDebugEnabled()) {
-			log.debug("About to evaluate stylesheet on source: " + source);
-		}
-
-		if (stylesheet instanceof JellyStylesheet) {
-			JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
-			jellyStyle.setOutput(output);
-		}
-		stylesheet.run(source);
+	private XMLOutput output;
+	
+	public JellyStylesheet() {
+        setValueOfAction( 
+            new Action() {
+                public void run(Node node) throws Exception {                    
+                    String text = node.getStringValue();
+                    if ( text != null && text.length() > 0 ) {
+                        getOutput().write( text );
+                    }
+                }
+            }
+        );                    
 	}
-    
-    
-    // Properties
-    //-------------------------------------------------------------------------                
-    
-    public Stylesheet getStylesheet() {
-        return stylesheet;
-    }
+	
+	// Properties
+    //------------------------------------------------------------------------- 
+	 
+	/**
+	 * Returns the output.
+	 * @return XMLOutput
+	 */
+	public XMLOutput getOutput() {
+		return output;
+	}
 
-    /**
-     * Sets the stylesheet to use to style this tags body
-     */
-    public void setStylesheet(Stylesheet stylesheet) {
-        this.stylesheet = stylesheet;
-    }    
-    
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
-        this.select = select;
-    }
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                
+	/**
+	 * Sets the output.
+	 * @param output The output to set
+	 */
+	public void setOutput(XMLOutput output) {
+		this.output = output;
+	}
 
-    /** @return the source on which the stylesheet should run
-     */
-    protected Object getSource() throws Exception {
-        Object source = getXPathContext();
-        if ( select != null ) {
-            return select.evaluate(source);
-        }
-        return source;
-    }    
 }

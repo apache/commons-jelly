@@ -101,7 +101,11 @@ public class ApplyTemplatesTag extends TagSupport {
                 "<applyTemplates> tag must be inside a <stylesheet> tag"
             );
         }
-        Stylesheet stylesheet = tag.getStylesheet();                
+        Stylesheet stylesheet = tag.getStylesheet();
+        
+        XMLOutput oldOutput = tag.getStylesheetOutput();
+        tag.setStylesheetOutput(output);
+        
         Object source = tag.getXPathSource();
         if ( select != null ) {
             stylesheet.applyTemplates( source, select );
@@ -109,6 +113,8 @@ public class ApplyTemplatesTag extends TagSupport {
         else {
             stylesheet.applyTemplates( source );
         }
+        
+        tag.setStylesheetOutput(oldOutput);
         
         // #### should support MODE!!!
         
