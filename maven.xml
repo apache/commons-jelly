@@ -163,6 +163,13 @@
   <!-- demo programs -->
 
   	
+  <goal name="demo:quartz" prereqs="jelly-task" 
+	description="Runs the example quartz demo">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/quartz/example.jelly"/> 
+    </java>
+  </goal>
 
   <goal name="demo:soap" prereqs="jelly-task" 
 	description="Runs the example SOAP demo">
