@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-41" due-to="Christiaan ten Klooster">set size for applicationWindow</action>
     </release>
   </body>
 </document>
