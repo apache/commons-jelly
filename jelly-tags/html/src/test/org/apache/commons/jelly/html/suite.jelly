@@ -1,34 +1,78 @@
 <?xml version="1.0"?>
 <test:suite 
-	xmlns:html="jelly:html" 
-	xmlns:test="jelly:junit">
+  xmlns:html="jelly:html" 
+  xmlns:j="jelly:core"
+  xmlns:x="jelly:xml"
+  xmlns:test="jelly:junit">
 
   <test:case name="testSimpleParse">
-		<html:parse var="doc" html="index.html"/>
-	
-		<test:assert xpath="$doc/html/head/title"/>
-		<test:assert xpath="$doc/html/body/IMG[@URI='foo']"/>
+    <html:parse var="doc" html="index.html"/>
+  
+    <test:assert xpath="$doc/html/head/title"/>
+    <test:assert xpath="$doc/html/body/IMG[@URI='foo']"/>
   </test:case>
 
   <test:case name="testUpperCase">
-		<html:parse var="doc" html="index.html" element="upper" attribute="upper"/>
-	
-		<test:assert xpath="$doc/HTML/HEAD/TITLE"/>		
-		<test:assert xpath="$doc/HTML/BODY/IMG[@URI='foo']"/>
+    <html:parse var="doc" html="index.html" element="upper" attribute="upper"/>
+  
+    <test:assert xpath="$doc/HTML/HEAD/TITLE"/>    
+    <test:assert xpath="$doc/HTML/BODY/IMG[@URI='foo']"/>
   </test:case>
   
   <test:case name="testLowerCase">
-		<html:parse var="doc" html="index.html" element="lower" attribute="lower"/>
-	
-		<test:assert xpath="$doc/html/head/title"/>
-		<test:assert xpath="$doc/html/body/img[@uri='foo']"/>
+    <html:parse var="doc" html="index.html" element="lower" attribute="lower"/>
+  
+    <test:assert xpath="$doc/html/head/title"/>
+    <test:assert xpath="$doc/html/body/img[@uri='foo']"/>
   </test:case>
   
   <test:case name="testMixedCase">
-		<html:parse var="doc" html="index.html" element="upper" attribute="lower"/>
-	
-		<test:assert xpath="$doc/HTML/HEAD/TITLE"/>
-		<test:assert xpath="$doc/HTML/BODY/IMG[@uri='foo']"/>
+    <html:parse var="doc" html="index.html" element="upper" attribute="lower"/>
+  
+    <test:assert xpath="$doc/HTML/HEAD/TITLE"/>
+    <test:assert xpath="$doc/HTML/BODY/IMG[@uri='foo']"/>
+  </test:case>
+
+  <test:case name="testInlineHtml">
+    <html:parse var="doc">
+      <html>
+        <head>
+          <title>Jelly - Jelly : Java and XML based processing engine</title>
+		  <meta name="author" value="James Strachan"/>
+          <meta name="email" value="jstrachan@apache.org" />
+        </head>
+        <body>
+        </body>
+      </html>
+    </html:parse>
+    
+    <test:assert xpath="$doc/html/head/title"/>
+    
+    <j:set var="title"><x:expr select="$doc/html/head/title" /></j:set>
+    <test:assertEquals expected="Jelly - Jelly : Java and XML based processing engine"
+      actual="${title}" />
+  </test:case>
+
+  <test:case name="testInlineFromVar">
+    <j:set var="html" encode="false">
+      <html>
+        <head>
+          <title>Jelly - Jelly : Java and XML based processing engine</title>
+		  <meta name="author" value="James Strachan"/>
+          <meta name="email" value="jstrachan@apache.org" />
+        </head>
+        <body>
+        </body>
+      </html>
+    </j:set>
+    
+    <html:parse var="doc">${html}</html:parse>
+
+    <test:assert xpath="$doc/html/head/title"/>
+    
+    <j:set var="title"><x:expr select="$doc/html/head/title" /></j:set>
+    <test:assertEquals expected="Jelly - Jelly : Java and XML based processing engine"
+      actual="${title}" />
   </test:case>
 
 </test:suite>
