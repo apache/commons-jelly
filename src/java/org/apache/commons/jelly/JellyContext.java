@@ -323,7 +323,7 @@ public class JellyContext {
      */
 
     public void setVariables(Map variables) {
-        this.variables = variables;
+        this.variables.putAll( variables );
     }
 
     /**
