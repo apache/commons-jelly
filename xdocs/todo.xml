@@ -17,10 +17,6 @@
     <section name="Core tasks"> 
       <ul>
         <li>write a Cocoon JellyTransformer so that Jelly scripts can be used easily inside Cocoon</li>
-        <li>autogenerate tag library documentation, in a kinda javadoc style, showing all tag libraries, 
-			their tags and descriptions of their tags. 
-			We could also autogenerate XML Schemas or RelaxNG docs for tag libraries</li>
-        <li>Patch TagLibrary to alias all &lt;mixedCase&gt; tags to &lt;mixed-case&gt;  tags</li>
 		<li>Rename the DynaTag interface to be DynamicAttributes along with JSP1.3, 
 			also add a namespace URI parameter
 		</li>
@@ -34,10 +30,6 @@
 			Also some of the classes in this package could maybe do with a rename? <br/>
 			ScriptBlock for example - should we just call it a Block or maybe a CompositeScript?
 		</li>
-		<li>Add whitespace trimming support. <br/>
-			Allow a taglib to decide which tags 'trim' and which don't so that<br/>
-			unnecessary whitespace can be removed at compile time.
-		</li>
 		<li>Add parent Context and support for other scopes such as session, <br/>
 			request, cookie, initParam, param etc.<br/>
 			Maybe add a Scope class for variable names which can contain a scope name <br/>
@@ -48,10 +40,6 @@
 			Servlet / JSP environment?
 		</li>
 		<li>Document much more!</li>
-		<li>Provide an alternative non-XML parser such that Jelly scripts do not<br/>
-			need to be XML. This could allow Velocity-style concise notation <br/>
-			for common Jelly tags.
-		</li>
 	  </ul>
     </section>
       
@@ -114,12 +102,11 @@
 			maybe consider a tag which will switch the default EL to XPath; then XPath and EL can be peers. Then ${foo}
 			can be used as an XPath expression anywhere
 		</li>
-		<li>
-			Consider using &lt;jsl:stylesheet var="foo"&gt; then reusing the stylesheet later via 
-<pre>
-&lt;style stylesheet="${foo}"&gt;
-	xml goes there...
-&lt;/style&gt;</pre>
+        <li>We could autogenerate XML Schemas or RelaxNG docs for tag libraries to help validate scripts</li>
+        <li>Patch TagLibrary to alias all &lt;mixedCase&gt; tags to &lt;mixed-case&gt;  tags</li>
+		<li>Provide an alternative non-XML parser such that Jelly scripts do not<br/>
+			need to be XML. This could allow Velocity-style concise notation <br/>
+			for common Jelly tags.
 		</li>
 	  </ul>
     </section>
