@@ -27,20 +27,20 @@
 		
 			<!-- strip out these elements-->
 			<jsl:template match="form|table|td|center">
-				<jsl:applyTemplates select="*"/>
+				<jsl:applyTemplates select="*|text()"/>
 			</jsl:template>
 				
 			<jsl:template match="tr">
 				<br />
 				<div>
-					<jsl:applyTemplates select="*"/>
+					<jsl:applyTemplates select="*|text()"/>
 				</div>
 			</jsl:template>
 				
 			<jsl:template match="script|img|input"/>
 		
 			<!-- pass through all other elements -->
-			<jsl:template match="*">
+			<jsl:template match="*" trim="false">
 				<jsl:copy>
 					<jsl:applyTemplates/>
 				</jsl:copy>
