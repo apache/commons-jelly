@@ -15,10 +15,6 @@
       <ul>
         <li>support the use of ${foo.bar} expressions within attribute values (as is common with Ant)
         	as well as inside element text also.</li>
-        <li>write an Ant &lt;fileWalker&gt; tag that takes one or more Ant &lt;fileSet&gt; elements 
-        	and outputs an Iterator to a variable that can then be used inside a &lt;j:forEach&gt; 
-        	tag to perform processing for each file in an Ant fileSet. 
-        	It'd be handy for recursive builds!</li>
         <li>autogenerate tag library documentation, in a kinda javadoc style, showing all tag libraries, 
 			their tags and descriptions of their tags</li>
         <li>Develop a http tag library, probably based on commons-httpclient, that can be used for scripting web services</li>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/16 16:29:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/05/17 15:18:08 $
  *
  * ====================================================================
  *
@@ -57,24 +57,27 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
+ * $Id: IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.xml;
+package org.apache.commons.jelly.tags.ant;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.beanutils.DynaBean;
 
 /** 
- * A tag which is capable of producing a source of XPath context objects
- * such as &lt;x:forEach&gt;
+ * A tag which provides an Ant Task object on which to set Ant DataTypes
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
-public interface XPathSource {
+public interface TaskSource {
 
-    public Object getXPathSource();
+    /** 
+     * @return the task object which may be an Ant Task.
+     */
+    public Object getTaskObject();
     
+    /**
+     * @return a DynaBean wrapper around the Task object
+     */
+    public DynaBean getDynaBean();
 }

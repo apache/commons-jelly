@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
+import java.io.File;
 import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
@@ -98,16 +99,30 @@ public class DataTypeTag extends DynaBeanTagSupport {
         this.dataType = dataType;
         setDynaBean( new ConvertingWrapDynaBean(dataType) );
     }
+    
+    // DynaTag interface
+    //------------------------------------------------------------------------- 
+    public void setAttribute(String name, Object value) {
+        if ( name.equals( "dir" ) ) {
+            // ### this is a hack - we should install some standard converters
+            // ### for Reference and File types
+            if ( value instanceof String ) {
+                value = new File( (String) value );
+            }
+        }
+        super.setAttribute(name, value);
+    }
+
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        TaskTag tag = (TaskTag) findAncestorWithClass( TaskTag.class );
+        TaskSource tag = (TaskSource) findAncestorWithClass( TaskSource.class );
         if ( tag == null ) {
             throw new JellyException( "You should only use Ant DataType tags within an Ant Task" );
         }        
         
-        Task task = tag.getTask();
+        Object task = tag.getTaskObject();
         Object dataType = getDataType();
 
         // now we need to configure the task with the data type

@@ -76,7 +76,7 @@ import org.apache.tools.ant.Task;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.6 $
  */
-public class TaskTag extends DynaBeanTagSupport {
+public class TaskTag extends DynaBeanTagSupport implements TaskSource {
 
     /** the Ant task */
     private Task task;
@@ -98,6 +98,12 @@ public class TaskTag extends DynaBeanTagSupport {
         getBody().run(context, output);
         
         task.execute();   
+    }
+    
+    // TaskSource interface
+    //------------------------------------------------------------------------- 
+    public Object getTaskObject() {
+        return task;
     }
     
     // Properties

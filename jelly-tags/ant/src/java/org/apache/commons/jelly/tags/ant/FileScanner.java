@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/XMLTagLibrary.java,v 1.6 2002/05/17 18:04:00 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
  * $Revision: 1.6 $
- * $Date: 2002/05/17 18:04:00 $
+ * $Date: 2002/05/17 15:18:08 $
  *
  * ====================================================================
  *
@@ -57,107 +57,50 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XMLTagLibrary.java,v 1.6 2002/05/17 18:04:00 jstrachan Exp $
+ * $Id: IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.ant;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.TagScript;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import org.apache.tools.ant.Project;
-import org.apache.tools.ant.Task;
-import org.apache.tools.ant.types.DataType;
-
-import org.xml.sax.Attributes;
+import org.apache.tools.ant.types.FileSet;
 
 /** 
- * A Jelly custom tag library that allows Ant tasks to be called from inside Jelly.
+ * <p><code>FileScanner</code> is a bean which allows the iteration
+ * over a number of files from a colleciton of FileSet instances.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.4 $
  */
-public class AntTagLibrary extends TagLibrary {
+public class FileScanner {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(AntTagLibrary.class);
+    /** FileSets */
+    private List filesets = new ArrayList();
     
-    /** the Ant Project for this tag library */
+    /** The Ant project */
     private Project project;
-        
-        
-    public AntTagLibrary() {
-    }
 
-    public AntTagLibrary(Project project) {
+    public FileScanner(Project project) {
         this.project = project;
     }
 
-    /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes) throws Exception {
-        Project project = getProject();
-        
-        // custom Ant tags
-        if ( name.equals("fileScanner") ) {            
-            Tag tag = new FileScannerTag(new FileScanner(project));
-            return TagScript.newInstance(tag);
-        }
-        
-        // is it an Ant task?
-        Class type = (Class) project.getTaskDefinitions().get(name);
-        if ( type != null ) {            
-            Task task = (Task) type.newInstance();
-            task.setProject(project);
-            task.setTaskName(name);
-            Tag tag = new TaskTag( task );
-            return TagScript.newInstance(tag);
-        }
-        
-        // an Ant DataType?
-        Object dataType = null;
-        type = (Class) project.getDataTypeDefinitions().get(name);
-        if ( type != null ) {            
-            dataType = type.newInstance();
-        }
-        else {
-            dataType = project.createDataType(name);
-        }
-        if ( dataType != null ) {
-            DataTypeTag tag = new DataTypeTag( name, dataType );
-            tag.getDynaBean().set( "project", project );
-            return TagScript.newInstance(tag);
-        }
-        
-        // assume its an Ant property object (classpath, arg etc).
-        Tag tag = new TaskPropertyTag( name );
-        return TagScript.newInstance(tag);
+    public Iterator iterator() {
+        return new FileIterator(project, filesets.iterator());
     }
-
     
     // Properties
-    //-------------------------------------------------------------------------                
-    
+    //-------------------------------------------------------------------------
+
     /**
-     * @return the Ant Project for this tag library.
+     * Adds a set of files (nested fileset attribute).
      */
-    public Project getProject() {
-        return project;
-    }
-    
-    /**
-     * Sets the Ant Project for this tag library.
-     */
-    public void setProject(Project project) {
-        this.project = project;
+    public void addFileset(FileSet set) {
+        filesets.add(set);
     }
 
 }
+
+

@@ -105,6 +105,14 @@ public class AntTagLibrary extends TagLibrary {
     /** Creates a new script to execute the given tag name and attributes */
     public TagScript createTagScript(String name, Attributes attributes) throws Exception {
         Project project = getProject();
+        
+        // custom Ant tags
+        if ( name.equals("fileScanner") ) {            
+            Tag tag = new FileScannerTag(new FileScanner(project));
+            return TagScript.newInstance(tag);
+        }
+        
+        // is it an Ant task?
         Class type = (Class) project.getTaskDefinitions().get(name);
         if ( type != null ) {            
             Task task = (Task) type.newInstance();
@@ -113,6 +121,8 @@ public class AntTagLibrary extends TagLibrary {
             Tag tag = new TaskTag( task );
             return TagScript.newInstance(tag);
         }
+        
+        // an Ant DataType?
         Object dataType = null;
         type = (Class) project.getDataTypeDefinitions().get(name);
         if ( type != null ) {            
@@ -126,6 +136,8 @@ public class AntTagLibrary extends TagLibrary {
             tag.getDynaBean().set( "project", project );
             return TagScript.newInstance(tag);
         }
+        
+        // assume its an Ant property object (classpath, arg etc).
         Tag tag = new TaskPropertyTag( name );
         return TagScript.newInstance(tag);
     }

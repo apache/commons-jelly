@@ -213,14 +213,21 @@
    <target name="demo.ant" depends="compile" 
       description="Runs demo which displays Ant properties">
       
-	<jelly file="src/test/org/apache/commons/jelly/show_ant_properties.jelly" output="target/ant.html"/>
+	<jelly file="src/test/org/apache/commons/jelly/ant/show_properties.jelly" output="target/ant.html"/>
 	
    </target>
 
    <target name="demo.ant.task" depends="compile" 
       description="Runs demo which invokes Ant tasks">
       
-	<jelly file="src/test/org/apache/commons/jelly/example_ant_tasks.jelly"/>
+	<jelly file="src/test/org/apache/commons/jelly/ant/example_tasks.jelly"/>
+	
+   </target>
+
+   <target name="demo.ant.files" depends="compile" 
+      description="Runs Ant demo which scans files">
+      
+	<jelly file="src/test/org/apache/commons/jelly/ant/filescanner.jelly"/>
 	
    </target>
 
