@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<test:suite 
+	xmlns:j="jelly:core" 
+	xmlns:x="jelly:xml" 
+	xmlns:test="jelly:junit" 
+	xmlns:log="jelly:log" 
+	xmlns:define="jelly:define">
+
+<test:case name="invoke">
+
+  <define:script var="fooScript">
+  	<log:info>Generating some XML</log:info>
+  	
+    <foo id="1">
+      <bar>some XML</bar>
+    </foo>
+  </define:script>
+  
+  
+  <!-- now lets invoke the script -->
+  
+  
+  <x:parse var="doc">
+  	<log:info>About to invoke the script!</log:info>
+  	
+  	<define:invoke script="${fooScript}"/>
+  </x:parse>
+  	   	
+  	   	
+  <x:forEach select="$doc//foo">
+    <test:assert xpath="bar"/>
+  </x:forEach>
+    
+    			  	   	
+  <test:assert xpath="$doc/foo/bar"/>
+  
+</test:case>
+   
+</test:suite>
