@@ -144,25 +144,6 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
     public Object getTaskObject() throws Exception {
         return getTask();
     }
-
-/*
-    This should not be required now... 
-    
-    public void setAttribute(String name,
-                             Object value)
-    {
-        // Catch the normal setAttribute, and call throw Ant's
-        // normal property-deref routines.
-        Project project = task.getProject();
-
-        String newValue = ProjectHelper.replaceProperties( project,
-                                                           (String) value,
-                                                           project.getProperties() );
-
-        super.setAttribute( name,
-                            newValue );
-    }
-*/    
     
     // Properties
     //-------------------------------------------------------------------------                
