@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.4 2002/06/22 23:53:55 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/06/22 23:53:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.5 2002/06/28 03:30:24 werken Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/28 03:30:24 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExpressionSupport.java,v 1.4 2002/06/22 23:53:55 jstrachan Exp $
+ * $Id: ExpressionSupport.java,v 1.5 2002/06/28 03:30:24 werken Exp $
  */
 package org.apache.commons.jelly.expression;
 
@@ -79,7 +79,7 @@ import org.apache.commons.jelly.JellyContext;
   * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public abstract class ExpressionSupport implements Expression {
 
@@ -102,7 +102,24 @@ public abstract class ExpressionSupport implements Expression {
             return b.booleanValue();
         }
         else if ( value instanceof String ) {
-            return Boolean.getBoolean( (String) value );
+            // return Boolean.getBoolean( (String) value );
+            String str = (String) value;
+
+            if ( str.equals( "on" )
+                 ||
+                 str.equals( "yes" )
+                 ||
+                 str.equals( "1" )
+                 ||
+                 str.equals( "true" ) )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
         }
         return false;
     }
