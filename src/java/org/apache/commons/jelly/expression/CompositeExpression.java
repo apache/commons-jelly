@@ -109,7 +109,7 @@ public class CompositeExpression extends ExpressionSupport {
      * @throws Exception if there was some problem creating the underlying Expression object 
      *  from the ExpressionFactory
      */
-    public static Expression parse(String text, ExpressionFactory factory) throws Exception {
+    public static Expression parse(String text, ExpressionFactory factory) throws JellyException {
 
         int len = text.length();
 

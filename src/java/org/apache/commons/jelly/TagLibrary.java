@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.21 2003/01/24 06:41:22 morgand Exp $
- * $Revision: 1.21 $
- * $Date: 2003/01/24 06:41:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.22 2003/01/24 07:40:59 morgand Exp $
+ * $Revision: 1.22 $
+ * $Date: 2003/01/24 07:40:59 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.21 2003/01/24 06:41:22 morgand Exp $
+ * $Id: TagLibrary.java,v 1.22 2003/01/24 07:40:59 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -81,7 +81,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.21 $
+  * @version $Revision: 1.22 $
   */
 
 public abstract class TagLibrary {
@@ -156,7 +156,7 @@ public abstract class TagLibrary {
         TagScript tagScript,
         String attributeName,
         String attributeValue)
-        throws Exception {
+        throws JellyException {
 
         ExpressionFactory myFactory = getExpressionFactory();
         if (myFactory == null) {

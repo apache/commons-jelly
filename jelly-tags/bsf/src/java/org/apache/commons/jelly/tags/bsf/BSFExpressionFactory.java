@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/BSFExpressionFactory.java,v 1.1 2003/01/08 05:02:47 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/08 05:02:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/BSFExpressionFactory.java,v 1.2 2003/01/24 07:40:58 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/24 07:40:58 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BSFExpressionFactory.java,v 1.1 2003/01/08 05:02:47 dion Exp $
+ * $Id: BSFExpressionFactory.java,v 1.2 2003/01/24 07:40:58 morgand Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.logging.Log;
@@ -73,7 +74,7 @@ import com.ibm.bsf.BSFManager;
 /** Represents a factory of BSF expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class BSFExpressionFactory implements ExpressionFactory {
 
@@ -127,8 +128,12 @@ public class BSFExpressionFactory implements ExpressionFactory {
     
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
-    public Expression createExpression(String text) throws Exception {
-        return new BSFExpression( text, getBSFEngine(), getBSFManager(), registry );
+    public Expression createExpression(String text) throws JellyException {
+        try {
+            return new BSFExpression( text, getBSFEngine(), getBSFManager(), registry );
+        } catch (BSFException e) {
+            throw new JellyException("Could not obtain BSF engine",e);
+        }
     }
     
     // Implementation methods

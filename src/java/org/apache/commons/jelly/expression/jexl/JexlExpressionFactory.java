@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.13 2002/11/27 13:07:27 jstrachan Exp $
- * $Revision: 1.13 $
- * $Date: 2002/11/27 13:07:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.14 2003/01/24 07:40:59 morgand Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/01/24 07:40:59 $
  *
  * ====================================================================
  *
@@ -57,12 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.13 2002/11/27 13:07:27 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.14 2003/01/24 07:40:59 morgand Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.jelly.expression.ExpressionFactory;
@@ -76,7 +77,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
@@ -86,7 +87,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
     
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
-    public Expression createExpression(final String text) throws Exception {
+    public Expression createExpression(String text) throws JellyException {
 /*        
         
         org.apache.commons.jexl.Expression expr = 
@@ -99,32 +100,18 @@ public class JexlExpressionFactory implements ExpressionFactory {
         return new JexlExpression( expr );
 */        
 
-        final Expression jexlExpression = new JexlExpression(
+        Expression jexlExpression = null;
+        try {
+            // this method really does throw Exception
+            jexlExpression = new JexlExpression(
             org.apache.commons.jexl.ExpressionFactory.createExpression(text)
             );
+        } catch (Exception e) {
+            throw new JellyException(e);
+        }
 
         if ( isSupportAntVariables() && isValidAntVariableName(text) ) {
-            ExpressionSupport expr = new ExpressionSupport() {
-                public Object evaluate(JellyContext context) {
-                    Object answer = jexlExpression.evaluate(context);
-
-                    if ( answer == null ) {
-                        answer = context.getVariable(text);
-                    }
-
-                    return answer;
-                }
-                
-                public String getExpressionText() {
-                    return "${" + text + "}";
-                }
-                
-                public String toString() {
-                    return super.toString() + "[expression:" + text + "]";
-                }
-            };
-
-            return expr;
+            return new ExpressionSupportLocal(jexlExpression,text);
         }
         return jexlExpression;
     }
@@ -165,6 +152,35 @@ public class JexlExpressionFactory implements ExpressionFactory {
             }
         }
         return true;
+    }
+    
+    private class ExpressionSupportLocal extends ExpressionSupport {
+        
+        protected Expression jexlExpression = null;
+        protected String text = null;
+        
+        public ExpressionSupportLocal(Expression jexlExpression, String text) {
+            this.jexlExpression = jexlExpression;
+            this.text = text;
+        }
+        
+        public Object evaluate(JellyContext context) {
+            Object answer = jexlExpression.evaluate(context);
+
+            if ( answer == null ) {
+                answer = context.getVariable(text);
+            }
+
+            return answer;
+        }
+                
+        public String getExpressionText() {
+            return "${" + text + "}";
+        }
+                
+        public String toString() {
+            return super.toString() + "[expression:" + text + "]";
+        }
     }
 
 }

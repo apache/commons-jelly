@@ -95,7 +95,7 @@ public class JSLTagLibrary extends XMLTagLibrary {
         ExpressionFactory factory,
         TagScript tagScript,
         String attributeName,
-        String attributeValue) throws Exception {
+        String attributeValue) throws JellyException {
 
         // #### may need to include some namespace URI information in the XPath instance?
         

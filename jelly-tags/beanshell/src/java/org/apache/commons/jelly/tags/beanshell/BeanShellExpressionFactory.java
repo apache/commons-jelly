@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2003/01/11 13:27:29 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/11 13:27:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.2 2003/01/24 07:40:58 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/24 07:40:58 $
  *
  * ====================================================================
  *
@@ -57,20 +57,21 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2003/01/11 13:27:29 dion Exp $
+ * $Id: BeanShellExpressionFactory.java,v 1.2 2003/01/24 07:40:58 morgand Exp $
  */
 package org.apache.commons.jelly.tags.beanshell;
 
 import bsh.EvalError;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 
 /** Represents a factory of <a href="http://www.beanshell.org">beanshell</a> expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class BeanShellExpressionFactory implements ExpressionFactory {
 
@@ -102,7 +103,7 @@ public class BeanShellExpressionFactory implements ExpressionFactory {
     
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
-    public Expression createExpression(String text) throws Exception {
+    public Expression createExpression(String text) throws JellyException {
         return new BeanShellExpression(text);
     }
 }

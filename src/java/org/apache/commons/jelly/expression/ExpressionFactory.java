@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionFactory.java,v 1.5 2002/12/11 12:41:00 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/12/11 12:41:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionFactory.java,v 1.6 2003/01/24 07:40:59 morgand Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/01/24 07:40:59 $
  *
  * ====================================================================
  *
@@ -57,15 +57,17 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExpressionFactory.java,v 1.5 2002/12/11 12:41:00 jstrachan Exp $
+ * $Id: ExpressionFactory.java,v 1.6 2003/01/24 07:40:59 morgand Exp $
  */
 
 package org.apache.commons.jelly.expression;
 
+import org.apache.commons.jelly.JellyException;
+
 /** <p><code>ExpressionFactory</code> is a factory of Expression objects.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public interface ExpressionFactory {
 
@@ -73,6 +75,6 @@ public interface ExpressionFactory {
      * Creates a new expression for the given text 
      */
 
-    public Expression createExpression(String text) throws Exception;
+    public Expression createExpression(String text) throws JellyException;
 
 }
