@@ -43,10 +43,19 @@
       </copy>
     </util:available>
   </postGoal>
-  <!-- ================================================================== -->
+    <!-- ================================================================== -->
   <!-- END: C O M M O N S - B U I L D                                     -->
   <!-- ================================================================== -->
 
+  <!-- build the timestamp after compiling -->
+  <postGoal name="java:compile">
+    <echo file="${maven.build.dest}/org/apache/commons/jelly/jelly-version.txt"
+      >${pom.currentVersion}</echo>
+    <tstamp><format property="now" pattern="yyyy-MM-dd kk:mm:ss zzz"/></tstamp>
+    <echo file="${maven.build.dest}/org/apache/commons/jelly/jelly-build-date.txt"
+      >${now}</echo>
+    </postGoal>
+  
   <!-- create the lib and bin directories in the binary distro -->
   <preGoal name="dist:build">
     <echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
@@ -383,6 +392,7 @@
       <property name="doBuildAll" value="false"/>
       <property name="fatJarPath" value="${maven.build.dir}/fatjelly.jar"/>
       <property name="classpathFile" value="${maven.build.dir}/classpath-with-deps.txt"/>
+      <property name="mergedDepsFile" value="${maven.build.dir}/mergedDeps.xml"/>
         
       <!-- if we need to build, we need to build first jelly -->
       <j:if test="${doBuildAll}"><attainGoal name="jar:install-snapshot"/></j:if>
@@ -417,9 +427,9 @@
         
       <j:forEach var="reactorProject" items="${reactorProjects}">
         <j:forEach var="dep" items="${reactorProject.dependencies}">
-					<j:if test="${dep.artifactId eq 'commons-jelly'}">${dep.setVersion("SNAPSHOT")}</j:if>
-					${deps.add(dep)}
-				</j:forEach>
+          <j:if test="${dep.artifactId eq 'commons-jelly'}">${dep.setVersion("SNAPSHOT")}</j:if>
+          ${deps.add(dep)}
+        </j:forEach>
       </j:forEach>
       <j:forEach var="tl" items="${jellyTaglibNames}">
         <j:new var="tlD" className="org.apache.maven.project.Dependency"/>
@@ -455,6 +465,17 @@
             <echo>Adding jar ${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}.</echo>
           </j:forEach>
         </jar>
+      </j:if>
+      
+    <j:if test="${!empty(mergedDepsFile)}">
+      <j:file prettyPrint="true" name="${mergedDepsFile}">
+        <dependencyList project="commons-jelly"
+              withAddOns="${tagLibs}">
+          <j:forEach var="dep" items="${deps}">
+            <dependency groupId="${dep.groupId}" artifactId="${dep.artifactId}" version="${dep.version}"/>
+            </j:forEach>
+          </dependencyList>
+        </j:file>
       </j:if>
             
     </goal>

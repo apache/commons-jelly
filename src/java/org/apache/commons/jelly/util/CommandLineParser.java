@@ -19,7 +19,9 @@ package org.apache.commons.jelly.util;
 import java.io.File;
 import java.io.FileWriter;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
@@ -27,6 +29,7 @@ import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.Parser;
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -41,11 +44,13 @@ import org.apache.commons.jelly.XMLOutput;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Morgan Delagrange
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class CommandLineParser {
 
     protected static CommandLineParser _instance = new CommandLineParser();
+    
+    private Options cmdLineOptions = null;
 
     public static CommandLineParser getInstance() {
         return _instance;
@@ -66,6 +71,19 @@ public class CommandLineParser {
         } catch (ParseException e) {
             throw new JellyException(e);
         }
+        
+        // check for -h or -v
+        if (cmdLine.hasOption("h")) {
+            new HelpFormatter().printHelp("jelly [scriptFile] [-script scriptFile] [-o outputFile] [-Dsysprop=syspropval] [-awt]",
+                cmdLineOptions);
+            System.exit(1);
+        }
+        if (cmdLine.hasOption("v")) {
+            System.err.println("Jelly " + Jelly.getJellyVersion());
+            System.err.println(" compiled: " + Jelly.getJellyBuildDate());
+            System.err.println("");
+            System.exit(1);
+        }
 
         // get the -script option. If there isn't one then use args[0]
         String scriptFile = null;
@@ -74,6 +92,9 @@ public class CommandLineParser {
         } else {
             scriptFile = args[0];
         }
+        
+        // check the -awt option.
+        boolean runInSwingThread = cmdLine.hasOption("awt") || cmdLine.hasOption("swing");
 
         //
         // Use classloader to find file
@@ -93,13 +114,22 @@ public class CommandLineParser {
             Jelly jelly = new Jelly();
             jelly.setScript(scriptFile);
 
-            Script script = jelly.compileScript();
+            final Script script = jelly.compileScript();
 
             // add the system properties and the command line arguments
-            JellyContext context = jelly.getJellyContext();
+            final JellyContext context = jelly.getJellyContext();
             context.setVariable("args", args);
             context.setVariable("commandLine", cmdLine);
-            script.run(context, output);
+            if (runInSwingThread) {
+                javax.swing.SwingUtilities.invokeAndWait(new Runnable() { public void run() {
+                    try {
+                        script.run(context, output);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+            } } ); } else {
+                script.run(context, output);
+            }
 
             // now lets wait for all threads to close
             Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -126,10 +156,17 @@ public class CommandLineParser {
      */
     public CommandLine parseCommandLineOptions(String[] args) throws ParseException {
         // create the expected options
-        Options cmdLineOptions = new Options();
+        cmdLineOptions = new Options();
         cmdLineOptions.addOption("o", true, "Output file");
         cmdLineOptions.addOption("script", true, "Jelly script to run");
-
+        cmdLineOptions.addOption("h","help", false, "Give this help message");
+        cmdLineOptions.addOption("v","version", false, "prints Jelly's version and exits");
+        cmdLineOptions.addOption("script", true, "Jelly script to run");
+        cmdLineOptions.addOption("awt", false, "Wether to run in the AWT thread.");
+        cmdLineOptions.addOption("swing", false, "Synonym of \"-awt\".");
+        List builtinOptionNames = Arrays.asList(new String[]{
+            "-o","-script","-h","--help","-v","--version","-awt","-swing"});
+        
         // -D options will be added to the system properties
         Properties sysProps = System.getProperties();
 
@@ -144,18 +181,18 @@ public class CommandLineParser {
             // -D args will not be copied into the filteredArgList.
             if (arg.startsWith("-D") && (arg.length() > 2)) {
                 arg = arg.substring(2);
-				int ePos = arg.indexOf("=");
-				if(ePos==-1 || ePos==0 || ePos==arg.length()-1)
-					System.err.println("Invalid system property: \"" + arg + "\".");
-				sysProps.setProperty(arg.substring(0,ePos), arg.substring(ePos+1));
+                int ePos = arg.indexOf("=");
+                if(ePos==-1 || ePos==0 || ePos==arg.length()-1)
+                    System.err.println("Invalid system property: \"" + arg + "\".");
+                sysProps.setProperty(arg.substring(0,ePos), arg.substring(ePos+1));
             } else {
                 // add this to the filtered list of arguments
                 filteredArgList.add(arg);
 
                 // add additional "-?" options to the options object. if this is not done
-                // the only options allowed would be "-o" and "-script".
+                // the only options allowed would be the builtin-ones.
                 if (arg.startsWith("-") && arg.length() > 1) {
-                    if (!(arg.equals("-o") && arg.equals("-script"))) {
+                    if (!(builtinOptionNames.contains(arg))) {
                         cmdLineOptions.addOption(arg.substring(1, arg.length()), true, "dynamic option");
                     }
                 }
@@ -167,7 +204,7 @@ public class CommandLineParser {
         filteredArgList.toArray(filterArgs);
 
         // parse the command line
-        Parser parser = new GnuParser();
+        Parser parser = new org.apache.commons.cli.GnuParser();
         return parser.parse(cmdLineOptions, filterArgs);
     }
 

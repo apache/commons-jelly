@@ -24,6 +24,10 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+    <release version="1.0-RC2" date="in CVS">
+      <action dev="polx" type="fix" issue="JELLY-85">Removed instance-based ThreadLocal substituting a JellyContext-based tag-caching.</action>
+      <action dev="polx" type="add" issue="JELLY-145">jelly -h or --help responds a help and jelly -v or --version responds the version.</action>
+      </release>
     <release version="1.0-RC1" date="2004-11-22">
       <action dev="dion" type="fix" issue="JELLY-148" due-to="Hans Gilde">Huge memory leak resulting from the use of ThreadLocal.</action>
       <action dev="dion" type="fix" issue="JELLY-138">Character data is flushed by XMLOuput while XML data isn't.</action>

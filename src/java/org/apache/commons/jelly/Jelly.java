@@ -43,7 +43,7 @@ import org.xml.sax.SAXException;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.34 $
+ * @version $Revision: 1.35 $
  */
 public class Jelly {
     
@@ -101,6 +101,34 @@ public class Jelly {
             }
         }
     }
+    
+    
+    public static String getJellyVersion() {
+        return readBuildTimestampResource("jelly-version.txt");
+    }
+    
+    public static String getJellyBuildDate() {
+        return readBuildTimestampResource("jelly-build-date.txt");
+    }
+    
+    private static String readBuildTimestampResource(String name) {
+        java.io.Reader in = null;
+        try {
+            java.io.StringWriter w = new java.io.StringWriter();
+            in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
+            int r;
+            while ( (r=in.read()) >= 0 ) {
+                w.write((char) r);
+            }
+            return w.toString();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            try { in.close(); } catch(Exception e) {}
+            throw new IllegalStateException("Resource \"" + name + "\" not found.");
+        }
+    }
+    
+    
 
     /**
      * Compiles the script
