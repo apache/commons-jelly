@@ -89,7 +89,7 @@ public class TokenizeTag extends TagSupport
 
         if ( this.delim == null )
         {
-            throw new MissingAttributeException( "var" );
+            throw new MissingAttributeException( "delim" );
         }
 
         StringTokenizer tokenizer = new StringTokenizer( getBodyText(),
