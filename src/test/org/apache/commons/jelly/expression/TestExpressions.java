@@ -119,22 +119,55 @@ public class TestExpressions extends TestCase {
         assertExpression("cheese ${maven.some.madeup.name}pizza", "cheese pizza");
         assertExpression("ham and ${maven.home.foo} pizza", "ham and cheese pizza");
     }
-
-/*    
-    temporally disablled until jexl gets patched...
     
-    public void testNull() throws Exception {
+    public void testNotConditions() throws Exception {
+        context.setVariable("a", Boolean.TRUE);
+        context.setVariable("b", Boolean.FALSE);
+        context.setVariable("c", "true");
+        context.setVariable("d", "false");
+        
+        assertExpression("${a}", Boolean.TRUE);
+        assertExpression("${!a}", Boolean.FALSE);
+        assertExpression("${b}", Boolean.FALSE);
+        assertExpression("${!b}", Boolean.TRUE);
+        
+        assertExpression("${c}", "true");
+        assertExpression("${!c}", Boolean.FALSE);
+        assertExpression("${d}", "false");
+        assertExpression("${!d}", Boolean.TRUE);
+    }
+    
+    // ##### re-enable this line once the Jexl sub-resolver work is complete!
+    public void DISABLED_testNotConditionsWithDot() throws Exception {
+        context.setVariable("x.a", Boolean.TRUE);
+        context.setVariable("x.b", Boolean.FALSE);
+        context.setVariable("x.c", "true");
+        context.setVariable("x.d", "false");
+        
+        assertExpression("${x.a}", Boolean.TRUE);
+        assertExpression("${!x.a}", Boolean.FALSE);
+        assertExpression("${x.b}", Boolean.FALSE);
+        assertExpression("${!x.b}", Boolean.TRUE);
+        
+        assertExpression("${x.c}", "true");
+        assertExpression("${!x.c}", Boolean.FALSE);
+        assertExpression("${x.d}", "false");
+        assertExpression("${!x.d}", Boolean.TRUE);
+    }
+    
+    // ##### re-enable this line once the Jexl sub-resolver work is complete!
+    public void DISABLED_testNull() throws Exception {
         context.setVariable("something.blank", "");
         context.setVariable("something.ok", "cheese");
         
-        assertExpression("${something.blank.length == 0}", Boolean.TRUE);
+        
+        assertExpression("${something.blank.length() == 0}", Boolean.TRUE);
         assertExpression("${something.blank == ''}", Boolean.TRUE);
         assertExpression("${something.ok != null}", Boolean.TRUE);
         assertExpression("${something.ok != ''}", Boolean.TRUE);
         assertExpression("${something.null != ''}", Boolean.FALSE);
         assertExpression("${unknown == null}", Boolean.TRUE);
     }
-*/
     
     protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
         Expression expression = CompositeExpression.parse(expressionText, factory);
