@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<!-- this file represents an optional local project's build -->
+<werkz:project xmlns:j="jelly:core" xmlns="jelly:ant" xmlns:werkz="jelly:werkz">
+
+  <!-- now include Maven's build -->
+  <j:include uri="maven.jelly"/>
+
+  <!-- define some callbacks that will be fired inside the Maven build -->
+  <werkz:preGoal name="compile">
+ 	<echo message="I am a callback: doing something before I compile"/> 	  		
+  </werkz:preGoal>
+
+  <!-- call all the targets made on the command line -->	
+  <werkz:attain>
+    <j:forEach var="arg" items="${args}" begin="1">
+      <werkz:attainGoal name="${arg}"/>
+    </j:forEach>
+  </werkz:attain>
+  	
+  
+</werkz:project>
+
+
+

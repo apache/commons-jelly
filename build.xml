@@ -14,15 +14,6 @@
   <!-- Set default values for the build -->
   <property file="project.properties" />
   
-  <path id="test.classpath">
-    <pathelement path="${maven.build.dest}"/>
-    <pathelement path="${maven.src.dir}/java"/>
-    <pathelement path="${basedir}"/>
-    <path refid="maven.dependency.classpath"/>
-    <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
-    <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
-  </path>
-
   <!-- maven:start -->
   
   <!-- ================================================================== -->
@@ -191,15 +182,14 @@
 	
 	<target name="compile" depends="maven:compile, maven:jar-resources">
 
-        <path refid="test.classpath"/>
-<!--	
 	  <path id="test.classpath">
 	    <pathelement path="${maven.build.dest}"/>
-        <path refid="maven.dependency.classpath"/>
-        <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
-        <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
+	    <pathelement path="${maven.src.dir}/java"/>
+	    <pathelement path="${basedir}"/>
+	    <path refid="maven.dependency.classpath"/>
+	    <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
+	    <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
 	  </path>
--->
 	  
       <taskdef
         name="jelly"
@@ -336,13 +326,13 @@
 	
    </target>
 
-   <target name="demo.werkz2">
+   <target name="demo.werkz2" depends="compile">
      <property name="maven.core.callback.post-compile.buildFile" value="build.xml"/>
      <property name="maven.core.callback.post-compile.buildTarget" value="demo.werkz2.callback"/>
      <maven-ant antfile="${maven.home}/plugins/core/build.xml" target="compile"/>
    </target>
 
-   <target name="demo.werkz2.callback">
+   <target name="demo.werkz2.callback" depends="compile">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/werkz/example.jelly"/> 
@@ -351,11 +341,21 @@
     </java>
    </target>
 
-   <target name="demo.werkz" depends="maven:compile" 
+   <target name="demo.werkz" depends="compile" 
       description="Runs a Werkz sample">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/werkz/example.jelly"/> 
+      <arg value="compile"/> 
+      <arg value="test"/> 
+    </java>
+   </target>
+
+   <target name="demo.maven" depends="compile" 
+      description="Runs a Maven example using Jelly and Werkz">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/maven/project.jelly"/> 
       <arg value="compile"/> 
       <arg value="test"/> 
     </java>

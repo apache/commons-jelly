@@ -106,7 +106,10 @@ public class ProjectTag extends TagSupport {
      * Evaluate the body to register all the various goals and pre/post conditions
      * then run all the current targets
      */
-    public void doTag(XMLOutput output) throws Exception {        
+    public void doTag(XMLOutput output) throws Exception {       
+        // force project to be lazily constructed        
+        getProject(); 
+        
         getBody().run(context, output);
     }
 }
