@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!-- revaluates the same script many times to test performance -->
+
+<j:jelly xmlns:j="jelly:core" xmlns:bsh="jelly:beanshell">
+
+	<bsh:script>
+		System.out.println( "Started at: " + new java.util.Date() );
+	</bsh:script>
+	
+  <j:forEach begin="1" end="1000">
+  	<j:include uri="sample.jelly"/>
+  </j:forEach>
+  
+	<bsh:script>
+		System.out.println( "Finished at: " + new java.util.Date() );
+	</bsh:script>
+</j:jelly>

@@ -549,4 +549,12 @@
     </java>
   </goal>
 
+  <goal name="test:benchmark" prereqs="jelly-task" 
+		description="A simple bit of Jelly script used as a benchmark to guage performance">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/benchmark/benchmark.jelly"/> 
+    </java>
+  </goal>
+
 </project>
