@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.7 2002/06/12 20:38:37 werken Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/12 20:38:37 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: JellyTag.java,v 1.7 2002/06/12 20:38:37 werken Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -80,29 +80,20 @@ import org.apache.commons.logging.LogFactory;
 /** The root Jelly tag which should be evaluated first
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class JellyTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog( JellyTag.class );
 
-    /** whether whitespace should be trimmed or not. */
-    private boolean trim = false;        
-
-    /** Whether we've trimmed or not */
-    private boolean hasTrimmed;
-    
     public JellyTag() {
     }
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        if ( trim && ! hasTrimmed ) {
-            trimBody();
-            hasTrimmed = true;
-        }
+
         if ( log.isDebugEnabled() ) {
             log.debug( "Running body: " + getBody() );
         }
@@ -112,43 +103,5 @@ public class JellyTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------                
     
-    /** Sets whether whitespace should be trimmed or not. */
-    public void setTrim(boolean trim) {
-        this.trim = trim;
-    }
-    
-    public void setBody(Script body) {
-        super.setBody( body );
-        hasTrimmed = false;
-    }
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                
-    
-    /** 
-     * Find all text nodes inside the top level of this body and 
-     * if they are just whitespace then remove them
-     */
-    protected void trimBody() throws Exception {
-        Script body = getBody();
-        if ( body instanceof ScriptBlock ) {
-            ScriptBlock block = (ScriptBlock) body;
-            List list = block.getScriptList();
-            for ( int i = list.size() - 1; i >= 0; i-- ) {
-                Script script = (Script) list.get(i);
-                if ( script instanceof TextScript ) {
-                    TextScript textScript = (TextScript) script;
-                    String text = textScript.getText();
-                    text = text.trim();
-                    if ( text.length() == 0 ) {
-                        list.remove(i);
-                    }
-                    else {
-                        textScript.setText(text);
-                    }
-                }
-            }                
-        }
-    }
 }
     
