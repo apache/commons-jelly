@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/SetTag.java,v 1.10 2002/11/27 17:21:16 jstrachan Exp $
+ * $Header: /home/cvspublic/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/ForEachTag.java,v 1.10 2002/10/30 19:16:23 jstrachan Exp $
  * $Revision: 1.10 $
- * $Date: 2002/11/27 17:21:16 $
+ * $Date: 2002/10/30 19:16:23 $
  *
  * ====================================================================
  *
@@ -56,85 +56,49 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: SetTag.java,v 1.10 2002/11/27 17:21:16 jstrachan Exp $
+ *
+ * $Id: ForEachTag.java,v 1.10 2002/10/30 19:16:23 jstrachan Exp $
  */
+
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
+import org.apache.commons.jelly.MissingAttributeException;
 import org.jaxen.XPath;
 import org.jaxen.JaxenException;
 
 import java.util.List;
 import java.util.Collections;
 
-/** A tag which defines a variable from an XPath expression 
+/** A tag that can sort a list of xml nodes via an xpath expression.
   *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
+  * @version $Id$
   */
-public class SetTag extends XPathTagSupport {
 
-    /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(SetTag.class);
-    
-    /** The variable name to export. */
-    private String var;
-    
-    /** The XPath expression to evaluate. */    
-    private XPath select;
-    
+public class SortTag extends XPathTagSupport {
+
+    /** The list to sort */
+    private List list = null;
+
     /** Xpath comparator for sorting */
     private XPathComparator xpCmp = null;
 
-    public SetTag() {
-
-    }
-    
-    // Tag interface
-    //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        if (var == null) {
-            throw new MissingAttributeException( "var" );
+        if (xpCmp == null) {
+            throw new MissingAttributeException( "xpCmp" );
         }
-        if (select == null) {
-            throw new MissingAttributeException( "select" );
-        }
-        
-        Object xpathContext = getXPathContext();        
-        Object value = select.evaluate(xpathContext);
-
-        if (value instanceof List) {
-            // sort the list if xpCmp is set.
-            if (xpCmp != null && (xpCmp.getXpath() != null)) {
-                Collections.sort((List)value, xpCmp);
-            }
+        if (list == null) {
+            throw new MissingAttributeException( "list" );
         }
 
-        //log.info( "Evaluated xpath: " + select + " as: " + value + " of type: " + value.getClass().getName() );
-        
-        context.setVariable(var, value);
-    }
-    
-    // Properties
-    //-------------------------------------------------------------------------                
-    
-    /** Sets the variable name to define for this expression
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-    
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
-        this.select = select;
+        Collections.sort(list, xpCmp);
     }
 
+    /** Set the list to sort. */
+    public void setList(List list) {
+        this.list = list;
+    }
 
     /** Sets the xpath expression to use to sort selected nodes.
      */
@@ -152,8 +116,8 @@ public class SetTag extends XPathTagSupport {
     }
 
     /**
-     * Set the data type to convert nodes being sorted on into before sorting.
-     * This should be the name of a class that commons.beanutils knows how to convert strings
+     * Set the data type to convert nodes being sorted on into before sorting. This
+     * should be the name of a class that commons.beanutils knows how to convert strings
      * into.
      */
     public void setSortDataType(String sortType) throws ClassNotFoundException {

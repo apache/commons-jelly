@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.10 2002/10/30 19:16:23 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/10/30 19:16:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.11 2002/11/27 17:21:16 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/11/27 17:21:16 $
  *
  * ====================================================================
  *
@@ -57,29 +57,31 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.10 2002/10/30 19:16:23 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.11 2002/11/27 17:21:16 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Collections;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.jaxen.XPath;
+import org.jaxen.JaxenException;
 
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 public class ForEachTag extends XPathTagSupport implements XPathSource {
 
     /** Holds the XPath selector. */
     private XPath select;
+
+    /** Xpath comparator for sorting */
+    private XPathComparator xpCmp = null;
 
     /** If specified then the current item iterated through will be defined
       * as the given variable name. */
@@ -87,8 +89,8 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
 
     /** The current iteration value */
     private Object iterationValue;
-    
-    
+
+
     public ForEachTag() {
     }
     
@@ -96,7 +98,14 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
         if (select != null) {
-            Iterator iter = select.selectNodes( getXPathContext() ).iterator();
+            List nodes = select.selectNodes( getXPathContext() );
+
+            // sort the list if xpCmp is set.
+            if (xpCmp != null && (xpCmp.getXpath() != null)) {
+                Collections.sort(nodes, xpCmp);
+            }
+
+            Iterator iter = nodes.iterator();
             while (iter.hasNext()) {
                 iterationValue = iter.next();
                 if (var != null) {
@@ -125,10 +134,35 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     public void setSelect(XPath select) {
         this.select = select;
     }
+
     /** Sets the variable name to export for the item being iterated over
      */
     public void setVar(String var) {
         this.var = var;
     }
-    
+
+    /** Sets the xpath expression to use to sort selected nodes.
+     */
+    public void setSort(XPath sortXPath) throws JaxenException {
+        if (xpCmp == null) xpCmp = new XPathComparator();
+        xpCmp.setXpath(sortXPath);
+    }
+
+    /**
+     * Set whether to sort ascending or descending.
+     */
+    public void setDescending(boolean descending) {
+        if (xpCmp == null) xpCmp = new XPathComparator();
+        xpCmp.setDescending(descending);
+    }
+
+    /**
+     * Set the data type to convert nodes being sorted on into before sorting. This
+     * should be the name of a class that commons.beanutils knows how to convert strings
+     * into.
+     */
+    public void setSortDataType(String sortType) throws ClassNotFoundException {
+        if (xpCmp == null) xpCmp = new XPathComparator();
+        xpCmp.setType(Class.forName(sortType));
+    }
 }

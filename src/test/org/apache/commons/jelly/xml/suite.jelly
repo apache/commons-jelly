@@ -94,6 +94,82 @@
 		<test:assert xpath="$doc/*[local-name()='foo']"/>
   </test:case>
 
+    <!-- test xpath sorting -->
+    <test:case name="testXpathSorting">
+        <x:parse var="nums">
+            <a>
+                <b v="3"/>
+                <b v="2"/>
+                <b v="1"/>
+                <b v="11"/>
+                <b v="1.4"/>
+                <b v="1.2"/>
+            </a>
+        </x:parse>
 
-  
+        <x:parse var="deeper">
+            <a>
+                <b><c><d>3<e>1</e></d></c></b>
+                <b><c><d>2<e>11</e></d></c></b>
+                <b><c><d>1</d></c></b>
+                <b><c><d>11</d></c></b>
+            </a>
+        </x:parse>
+
+        <!-- test ascending -->
+        <j:set var="result" value=""/>
+        <x:forEach select="$nums/a/b" var="x" sort="@v">
+            <x:set var="num" select="$x/@v"/>
+            <j:set var="result" value="${result} ${num.get(0).getText()}"/>
+        </x:forEach>
+
+        <test:assertEquals expected=" 1 1.2 1.4 2 3 11" actual="${result}"/>
+
+        <!-- test descending -->
+        <j:set var="result" value=""/>
+        <x:forEach select="$nums/a/b" var="x" sort="@v" descending="true">
+            <x:set var="num" select="$x/@v"/>
+            <j:set var="result" value="${result} ${num.get(0).getText()}"/>
+        </x:forEach>
+
+        <test:assertEquals expected=" 11 3 2 1.4 1.2 1" actual="${result}"/>
+
+        <!-- test deeper nesting -->
+        <j:set var="result" value=""/>
+        <x:forEach select="$deeper/a/b" var="x" sort="c/d">
+            <j:set var="result" value="${result} ${x.getStringValue()}"/>
+        </x:forEach>
+
+        <test:assertEquals expected=" 1 211 31 11" actual="${result}"/>
+
+        <!-- test sort as strings -->
+        <j:set var="result" value=""/>
+        <x:forEach select="$nums/a/b" var="x" sort="@v" sortDataType="java.lang.String">
+            <x:set var="num" select="$x/@v"/>
+            <j:set var="result" value="${result} ${num.get(0).getText()}"/>
+        </x:forEach>
+
+        <test:assertEquals expected=" 1 1.2 1.4 11 2 3" actual="${result}"/>
+
+        <!-- test x:set with sort -->
+        <j:set var="result" value=""/>
+        <x:set var="rset" select="$nums/a/b" sort="@v"/>
+        <j:forEach var="num" items="${rset.iterator()}">
+            <j:set var="result" value="${result} ${num.attributeValue('v')}"/>
+        </j:forEach>
+
+        <test:assertEquals expected=" 1 1.2 1.4 2 3 11" actual="${result}"/>
+
+        <!-- test x:set with sort -->
+        <j:set var="result" value=""/>
+        <x:set var="rset" select="$nums/a/b"/>
+        <x:sort list="${rset}" sort="@v"/>
+        <j:forEach var="num" items="${rset.iterator()}">
+            <j:set var="result" value="${result} ${num.attributeValue('v')}"/>
+        </j:forEach>
+
+        <test:assertEquals expected=" 1 1.2 1.4 2 3 11" actual="${result}"/>
+
+    </test:case>
+
 </test:suite>
