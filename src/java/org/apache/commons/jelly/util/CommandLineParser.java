@@ -43,7 +43,7 @@ import org.apache.commons.jelly.XMLOutput;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Morgan Delagrange
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class CommandLineParser {
 
@@ -146,15 +146,10 @@ public class CommandLineParser {
             // -D args will not be copied into the filteredArgList.
             if (arg.startsWith("-D") && (arg.length() > 2)) {
                 arg = arg.substring(2);
-                StringTokenizer toks = new StringTokenizer(arg, "=");
-
-                if (toks.countTokens() == 2) {
-                    // add the tokens to the system properties
-                    sysProps.setProperty(toks.nextToken(), toks.nextToken());
-                } else {
-                    System.err.println("Invalid system property: " + arg);
-                }
-
+				int ePos = arg.indexOf("=");
+				if(ePos==-1 || ePos==0 || ePos==arg.length()-1)
+					System.err.println("Invalid system property: \"" + arg + "\".");
+				sysProps.setProperty(arg.substring(0,ePos), arg.substring(ePos+1));
             } else {
                 // add this to the filtered list of arguments
                 filteredArgList.add(arg);
