@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.10 2003/06/11 15:55:58 morgand Exp $
- * $Revision: 1.10 $
- * $Date: 2003/06/11 15:55:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.11 2003/09/04 02:05:45 proyal Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/09/04 02:05:45 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XMLOutput.java,v 1.10 2003/06/11 15:55:58 morgand Exp $
+ * $Id: XMLOutput.java,v 1.11 2003/09/04 02:05:45 proyal Exp $
  */
 
 package org.apache.commons.jelly;
@@ -83,7 +83,7 @@ import org.xml.sax.helpers.DefaultHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -137,7 +137,10 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     public void flush() throws IOException {
-        ((XMLWriter)contentHandler).flush();
+        if( contentHandler instanceof XMLWriter )
+        {
+            ((XMLWriter)contentHandler).flush();
+        }
     }
 
     // Static helper methods
@@ -182,7 +185,8 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param escapeText is whether or not text output will be escaped. This must be true
      * if the underlying output is XML or could be false if the underlying output is textual.
      */
-    public static XMLOutput createXMLOutput(Writer writer, boolean escapeText) throws UnsupportedEncodingException {
+    public static XMLOutput createXMLOutput(Writer writer, boolean escapeText)
+    {
         XMLWriter xmlWriter = new XMLWriter(writer);
         xmlWriter.setEscapeText(escapeText);
         return createXMLOutput(xmlWriter);
