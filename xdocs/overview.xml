@@ -150,7 +150,7 @@ However Jelly is alot like Ant in many ways.
 The two can work hand in hand together very nicely. 
 Jelly could be thought of as a scripting plugin for Ant. 
 Jelly can be called from inside Ant as an Ant Task, then the Jelly script can script other Ant tasks,
-access Ant properties and using all other Jelly tags such as for logic, looping, working with beans, XPath, SQL etc.
+access Ant properties and use all other Jelly tags such as for logic, looping, working with beans, XPath, SQL etc.
 </p>
 
 <p>Similarities</p>
