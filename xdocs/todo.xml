@@ -78,7 +78,6 @@
         	purely on a SAX stream. Maybe we could wrap <a href="http://www.obqo.de/joost">Joost</a>
         	in a Jelly tag library
 		</li>
-        <li>A Betwixt tag library to make it easy to serialize beans to and from XML from within Jelly scripts.</li>
         <li>Implement a Schematron tag library for validing XML using a path based approach, rather than schema based.</li>
         <li>
         	Provide support for running a piece of Jelly script remotely. This would be particularly useful for distributed
