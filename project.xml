@@ -102,74 +102,74 @@
     </dependency>
     
     <dependency>
-      <name>xercesImpl</name>
+      <id>xercesImpl</id>
       <type>required</type>
       <version>2.0.0</version>
       <jar>xercesImpl-2.0.0.jar</jar>
     </dependency>
     
     <dependency>
-      <name>ant</name>
+      <id>ant</id>
       <version>1.4.1</version>
       <jar>ant-1.4.1.jar</jar>
     </dependency>
     
     <dependency>
-      <name>ant-optional</name>
+      <id>ant-optional</id>
       <version>1.4.1</version>
       <jar>ant-optional-1.4.1.jar</jar>
     </dependency>
 
     <dependency>
-      <name>commons-logging</name>
+      <id>commons-logging</id>
       <type>required</type>
       <version>1.0</version>
       <jar>commons-logging-1.0.jar</jar>
     </dependency>
     <dependency>
-      <name>commons-beanutils</name>
+      <id>commons-beanutils</id>
       <type>required</type>
       <version>1.4-dev</version>
       <jar>commons-beanutils-1.4-dev.jar</jar>
     </dependency>
     <dependency>
-      <name>commons-collections</name>
+      <id>commons-collections</id>
       <type>required</type>
       <version>2.0</version>
       <jar>commons-collections-2.0.jar</jar>
     </dependency>
     <dependency>
-      <name>commons-digester</name>
+      <id>commons-digester</id>
       <type>required</type>
       <version>1.2</version>
       <jar>commons-digester-1.2.jar</jar>
     </dependency>
     <dependency>
-      <name>dom4j</name>
+      <id>dom4j</id>
       <type>required</type>
       <version>1.4-dev-3</version>
       <jar>dom4j-1.4-dev-3.jar</jar>
     </dependency>
     <dependency>
-      <name>commons-jexl</name>
+      <id>commons-jexl</id>
       <type>required</type>
       <version>1.0-dev</version>
       <jar>commons-jexl-1.0-dev.jar</jar>
     </dependency>
     <dependency>
-      <name>velocity</name>
+      <id>velocity</id>
       <type>required</type>
       <version>1.4-dev</version>
       <jar>velocity-1.4-dev.jar</jar>
     </dependency>
     <dependency>
-      <name>jdbc-stdext</name>
+      <id>jdbc-stdext</id>
       <type>required</type>
       <version>2.0</version>
       <jar>jdbc2_0-stdext.jar</jar>
     </dependency>
     <dependency>
-      <name>werkz</name>
+      <id>werkz</id>
       <type>required</type>
       <version>1.0-beta-2</version>
       <jar>werkz-1.0-beta-2.jar</jar>
@@ -182,7 +182,7 @@
 
 	<!-- beanshell taglib -->
     <dependency>
-      <name>bsh</name>
+      <id>bsh</id>
       <type>required</type>
       <version>1.2-b3</version>
       <jar>bsh-1.2-b3.jar</jar>
@@ -190,7 +190,7 @@
 
 	<!-- bsf taglib -->
     <dependency>
-      <name>bsf</name>
+      <id>bsf</id>
       <type>required</type>
       <version>2.2</version>
       <jar>bsf-2.2.jar</jar>
@@ -198,7 +198,7 @@
 
 	<!-- ojb taglib -->
     <dependency>
-      <name>ojb</name>
+      <id>ojb</id>
       <type>required</type>
       <version>ojb-0.8.375</version>
       <jar>ojb-0.8.375.jar</jar>
@@ -206,13 +206,13 @@
 
 	<!-- jms taglib -->
     <dependency>
-      <name>jms</name>
+      <id>jms</id>
       <type>required</type>
       <version>1.0.2b</version>
       <jar>jms-1.0.2b.jar</jar>
     </dependency>
     <dependency>
-      <name>commons-messenger</name>
+      <id>commons-messenger</id>
       <type>required</type>
       <version>1.0-dev-3</version>
       <jar>commons-messenger-1.0-dev-3.jar</jar>
@@ -220,7 +220,7 @@
     
 	<!-- http taglib -->
     <dependency>
-      <name>commons-httpclient</name>
+      <id>commons-httpclient</id>
       <type>required</type>
       <version>2.0-dev</version>
       <jar>commons-httpclient-2.0-dev.jar</jar>
@@ -229,14 +229,14 @@
 
 	<!-- validate taglib -->
     <dependency>
-      <name>isorelax</name>
+      <id>isorelax</id>
       <type>required</type>
       <version>20020414</version>
       <jar>isorelax-20020414.jar</jar>
     </dependency>
 
     <dependency>
-      <name>msv</name>
+      <id>msv</id>
       <type>required</type>
       <version>20020414</version>
       <jar>msv-20020414.jar</jar>
@@ -244,14 +244,14 @@
 
 	<!-- runtime dependency for validate taglib -->
     <dependency>
-      <name>xsdlib</name>
+      <id>xsdlib</id>
       <type>required</type>
       <version>20020414</version>
       <jar>xsdlib-20020414.jar</jar>
     </dependency>
 
     <dependency>
-      <name>relaxngDatatype</name>
+      <id>relaxngDatatype</id>
       <type>required</type>
       <version>20020414</version>
       <jar>relaxngDatatype-20020414.jar</jar>
@@ -262,7 +262,7 @@
 	<!-- runtime dependencies for test programs -->
 	
     <dependency>
-      <name>hsqldb</name>
+      <id>hsqldb</id>
       <type>required</type>
       <version>1.7.0</version>
       <jar>hsqldb-1.7.0.jar</jar>
