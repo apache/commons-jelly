@@ -72,13 +72,13 @@ embedded into SOAP services, Servlet engines, JMS MessageListeners or your own s
 <p>
 There is a JellyTask for calling Jelly from 
 <a href="http://jakarta.apache.org/ant/">Ant</a> 
-as well as a Jelly tag library for  calling Ant Tasks from inside a Jelly script!
+as well as a Jelly tag library for using any Ant Tasks inside a Jelly script!
 Jelly's support for the Expresssion Language in JSTL, which looks very like Ant's 
-own expresssion language, means that Ant properties can be used inside Jelly scripts seamlessly.
+own expresssion language (but much more poweful), means that Ant properties can be used inside Jelly scripts seamlessly.
 </p>
 
 <p>
-So Jelly can be a scripting engine for Ant tasks which can be easily integrated into your Ant build. 
+So Jelly can be thought of as a scripting engine plugin for Ant tasks which can be easily integrated into your Ant build.
 </p>
 </section>
 

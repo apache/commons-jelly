@@ -20,8 +20,10 @@
         <li>autogenerate tag library documentation, in a kinda javadoc style, showing all tag libraries, 
 			their tags and descriptions of their tags</li>
         <li>Develop a http tag library, probably based on commons-httpclient, that can be used for scripting web services</li>
-        <li>Patch TagLibrary to alias all &lt;mixedCase&gt; tags to &lt;mixed-case&gt;  tags</li>
 		<li>Add tags &lt;copy&gt; &lt;copyOf&gt; &lt;element&gt; &lt;attribute&gt; to JSL </li>
+        <li>An XML validating tag library using MSV to validate XML against DTDs, RelaxNG, XML Schema etc</li>
+        <li>Implement a Schematron tag library for validing XML using a path based approach, rather than schema based.</li>
+        <li>Patch TagLibrary to alias all &lt;mixedCase&gt; tags to &lt;mixed-case&gt;  tags</li>
 		<li>Add JSL test cases to test for ordering of patterns and that the correct output comes out.</li>
 		<li>Rename the DynaTag interface to be DynamicAttributes along with JSP1.3, 
 			also add a namespace URI parameter
