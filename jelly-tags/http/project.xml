@@ -6,8 +6,9 @@
 <project>
   <pomVersion>3</pomVersion>
   <name>commons-jelly-tags-http</name>
+  <groupId>commons-jelly</groupId>
   <id>commons-jelly-tags-http</id>
-  <currentVersion>SNAPSHOT</currentVersion>
+  <currentVersion>1.0-SNAPSHOT</currentVersion>
   
   <organization>
     <name>Apache Software Foundation</name>
