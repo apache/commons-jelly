@@ -61,27 +61,21 @@
  */
 package org.apache.commons.jelly.impl;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
-import java.util.HashMap;
+import java.lang.reflect.Method;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
-
 import org.apache.commons.collections.BeanMap;
-
 import org.apache.commons.jelly.DynaBeanTagSupport;
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -193,7 +187,19 @@ public class DynamicBeanTag extends DynaBeanTagSupport {
                 }
             }
         }
-        
+
+        // If the dynamic bean is itself a tag, let it execute itself
+        if (bean instanceof Tag)
+        {
+            Tag tag = (Tag) bean;
+            tag.setBody(getBody());
+            tag.setContext(getContext());
+            tag.setParent(getParent());
+            ((Tag) bean).doTag(output);
+            
+            return;
+        }
+
         invokeBody(output);
 
         // export the bean if required
