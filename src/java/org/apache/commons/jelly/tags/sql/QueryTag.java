@@ -206,8 +206,8 @@ public class QueryTag extends SqlTagSupport {
             
             if ( hasParameters() ) {
                 PreparedStatement ps = conn.prepareStatement(sqlStatement);
-                setParameters(ps);            
                 statement = ps;
+                setParameters(ps);            
                 rs = ps.executeQuery();
             }
             else {

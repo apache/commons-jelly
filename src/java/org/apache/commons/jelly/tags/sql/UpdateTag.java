@@ -127,15 +127,17 @@ public class UpdateTag extends SqlTagSupport {
             throw new JellyException(Resources.getMessage("SQL_NO_STATEMENT"));
         }
 
+        Statement statement = null;
         int result = 0;
         try {
             if ( hasParameters() ) {
                 PreparedStatement ps = conn.prepareStatement(sqlStatement);
+                statement = ps;
                 setParameters(ps);
                 result = ps.executeUpdate();
             }
             else {
-                Statement statement = conn.createStatement();
+                statement = conn.createStatement();
                 result = statement.executeUpdate(sqlStatement);
             }
             if (var != null) {
@@ -146,6 +148,13 @@ public class UpdateTag extends SqlTagSupport {
             throw new JellyException(sqlStatement + ": " + e.getMessage(), e);
         }
         finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                }
+                catch (SQLException e) {
+                } // Not much we can do
+            }
             if (conn != null && !isPartOfTransaction) {
                 try {
                     conn.close();
