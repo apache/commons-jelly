@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-interaction</id>
   <name>commons-jelly-tags-interaction</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.1</currentVersion>
   <package>org.apache.commons.jelly.tags.interaction</package>
   <description>This is a Jelly interface to the user.</description>
   <shortDescription>Commons Jelly Interaction Tag Library</shortDescription>
@@ -31,5 +31,32 @@
       <tag>COMMONS-JELLY-INTERACTION-1_0</tag>
     </version>
   </versions>
+
+  <dependencies>
+		<dependency>
+		 <groupId>jline</groupId>
+		 <artifactId>jline</artifactId>
+		 <version>0.9.0</version>
+		 <type>jar</type>
+		</dependency> 
+    <dependency>
+      <id>commons-cli</id>
+      <version>1.0</version>
+    </dependency>
+
+    <!-- this is brought in by the commons-cli dependency -->
+    <dependency>
+      <id>commons-lang</id>
+      <version>2.0</version>
+      <properties>
+        <gump.runtime>true</gump.runtime>
+      </properties>
+    </dependency>
+    <dependency>
+      <id>commons-discovery</id>
+      <version>20030211.213356</version>
+    </dependency>
+		
+	</dependencies>
 
 </project>
