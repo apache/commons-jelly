@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.8 2002/06/26 09:43:31 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/26 09:43:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.9 2002/10/03 07:05:38 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/10/03 07:05:38 $
  *
  * ====================================================================
  *
@@ -57,17 +57,22 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Tag.java,v 1.8 2002/06/26 09:43:31 jstrachan Exp $
+ * $Id: Tag.java,v 1.9 2002/10/03 07:05:38 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
 
-/** <p><code>Tag</code> represents a Jelly custom tag.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
-  */
-
+/** 
+ * <p><code>Tag</code> represents a Jelly custom tag.
+ * A Tag is only ever used by a single thread so that Tag developers do not
+ * need to concern themselves with mutli-threading issues when writing a Tag.
+ * A Tag is created per custom tag in a script, per invocation.
+ * So there is no need to worry about pooling errors like those caused
+ * in JSP 1.x.(</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.9 $
+ */
 public interface Tag {
 
     /** 

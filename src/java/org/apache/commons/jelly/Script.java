@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Script.java,v 1.4 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Script.java,v 1.5 2002/10/03 07:02:34 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/10/03 07:02:34 $
  *
  * ====================================================================
  *
@@ -57,17 +57,21 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Script.java,v 1.4 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: Script.java,v 1.5 2002/10/03 07:02:34 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
 
-/** <p><code>Script</code> represents a Jelly script.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
-  */
-
+/** 
+ * <p><code>Script</code> represents a Jelly script.
+ * A Script <b>must</b> be thread safe so care should be taken on the 
+ * implementations of Scripts. However Tags are only used in a single thread
+ * (each thread will have create its own Tags for the Script it is running)
+ * so multi threading is not a concern for Tag developers.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.5 $
+ */
 public interface Script {
 
     /** Called by the parser to allow a more efficient
