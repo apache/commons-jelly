@@ -59,6 +59,8 @@
 package org.apache.commons.jelly.tags.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 
 import org.apache.commons.jelly.TagSupport;
@@ -91,8 +93,13 @@ public class AvailableTag extends TagSupport {
     	else if (uri != null) {
     		URL url = context.getResource(uri);
     		String fileName = url.getFile();
-    		File file = new File(fileName);
-    		available = file.exists();
+            try {
+                InputStream is = url.openStream();
+                available = (is != null);
+                is.close();
+            } catch (IOException ioe) {
+                available = false;
+            }
     	}
     	
     	if (available) {
