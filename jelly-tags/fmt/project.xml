@@ -27,15 +27,6 @@
   </description>
   <shortDescription>Commons Jelly FMT Tag Library</shortDescription>
   
-  <!-- <url>http://jakarta.apache.org/commons/jelly/tags/fmt/</url>
-
-  <siteDirectory>/www/jakarta.apache.org/commons/jelly/fmt/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/fmt</distributionDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/fmt/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/fmt/</url>
-  </repository> -->
-  
   <dependencies>
   
     
@@ -70,7 +61,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-beanshell</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
 
     <dependency>
