@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/junit/src/java/org/apache/commons/jelly/tags/junit/CaseTag.java,v 1.1 2003/01/19 06:17:10 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/19 06:17:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/junit/src/java/org/apache/commons/jelly/tags/junit/CaseTag.java,v 1.2 2003/01/25 17:56:53 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/25 17:56:53 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CaseTag.java,v 1.1 2003/01/19 06:17:10 dion Exp $
+ * $Id: CaseTag.java,v 1.2 2003/01/25 17:56:53 morgand Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
@@ -65,7 +65,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -74,7 +74,7 @@ import org.apache.commons.jelly.XMLOutput;
  * JUnit's TestCase class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class CaseTag extends TagSupport {
 
@@ -83,7 +83,7 @@ public class CaseTag extends TagSupport {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         String name = getName();
         if ( name == null ) {
             name = toString();
@@ -109,7 +109,7 @@ public class CaseTag extends TagSupport {
         // lets find the test suite
         TestSuite suite = getSuite();
         if ( suite == null ) {
-            throw new JellyException( "Could not find a TestSuite to add this test to. This tag should be inside a <test:suite> tag" );
+            throw new JellyTagException( "Could not find a TestSuite to add this test to. This tag should be inside a <test:suite> tag" );
         }
         suite.addTest(testCase);
     }

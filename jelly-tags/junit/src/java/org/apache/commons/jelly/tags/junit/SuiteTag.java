@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/junit/src/java/org/apache/commons/jelly/tags/junit/SuiteTag.java,v 1.1 2003/01/19 06:17:10 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/19 06:17:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/junit/src/java/org/apache/commons/jelly/tags/junit/SuiteTag.java,v 1.2 2003/01/25 17:56:53 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/25 17:56:53 $
  *
  * ====================================================================
  *
@@ -57,13 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SuiteTag.java,v 1.1 2003/01/19 06:17:10 dion Exp $
+ * $Id: SuiteTag.java,v 1.2 2003/01/25 17:56:53 morgand Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -72,7 +73,7 @@ import org.apache.commons.jelly.XMLOutput;
  * JUnit's TestSuite class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class SuiteTag extends TagSupport {
 
@@ -97,7 +98,7 @@ public class SuiteTag extends TagSupport {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         suite = createSuite();
         
         TestSuite parent = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");        
