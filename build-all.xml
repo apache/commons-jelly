@@ -5,7 +5,9 @@
   <!-- 
     Documentation:
     
-    call "clean jar" to build Jelly and each taglib from scratch.
+    call "clean jar" to build Jelly and each taglib from scratch,
+    or "clean jar-<tagName>" if you want to build a particular
+    taglib.
     If you don't call clean first, you can get a false positive;
     if the "depends" of a jar-* task is incomplete, the build might
     pull in an older jar.
@@ -13,12 +15,13 @@
     Also, will copy all built jars into each successive build, so
     it's possible for a tag to build successfully without declaring
     all its dependencies, if its dependencies happen to have been built
-    first.
+    first.  This is bad, but it keeps the script simple
     
     WRITTEN FOR SIMPLICITY, NOT ENFORCING STRICTNESS.
     
-    when adding tags to the build, add them to the "subexec" target and
-    add a jar-<tagName> target.
+    when adding tags to the build, add them to the "subexec" target,
+    add a jar-<tagName> target, and add that target as a dependency
+    of the "jar" target.
   -->
 
   <!-- 
@@ -28,8 +31,32 @@
   <target name="subexec">
     <ant dir="." target="${sub.target}"/>
     <ant dir="jelly-tags/ant" target="${sub.target}"/>
+    <ant dir="jelly-tags/antlr" target="${sub.target}"/>
+    <ant dir="jelly-tags/bean" target="${sub.target}"/>
+    <ant dir="jelly-tags/beanshell" target="${sub.target}"/>
+    <ant dir="jelly-tags/betwixt" target="${sub.target}"/>
+    <ant dir="jelly-tags/bsf" target="${sub.target}"/>
+    <ant dir="jelly-tags/email" target="${sub.target}"/>
+    <ant dir="jelly-tags/fmt" target="${sub.target}"/>
+    <ant dir="jelly-tags/html" target="${sub.target}"/>
+    <ant dir="jelly-tags/http" target="${sub.target}"/>
+    <ant dir="jelly-tags/interaction" target="${sub.target}"/>
+    <ant dir="jelly-tags/jetty" target="${sub.target}"/>
+    <ant dir="jelly-tags/jms" target="${sub.target}"/>
+    <ant dir="jelly-tags/jsl" target="${sub.target}"/>
     <ant dir="jelly-tags/junit" target="${sub.target}"/>
+    <ant dir="jelly-tags/ojb" target="${sub.target}"/>
+    <ant dir="jelly-tags/quartz" target="${sub.target}"/>
+    <ant dir="jelly-tags/soap" target="${sub.target}"/>
+    <ant dir="jelly-tags/sql" target="${sub.target}"/>
+    <ant dir="jelly-tags/swing" target="${sub.target}"/>
+    <ant dir="jelly-tags/swt" target="${sub.target}"/>
+    <ant dir="jelly-tags/threads" target="${sub.target}"/>
     <ant dir="jelly-tags/util" target="${sub.target}"/>
+    <ant dir="jelly-tags/validate" target="${sub.target}"/>
+    <ant dir="jelly-tags/velocity" target="${sub.target}"/>
+    <ant dir="jelly-tags/xml" target="${sub.target}"/>
+    <ant dir="jelly-tags/xmlunit" target="${sub.target}"/>
   </target>
   
   <target name="clean">
@@ -38,7 +65,14 @@
     </antcall>
   </target>
   
-  <target name="jar" depends="jar-jelly,jar-ant,jar-junit,jar-util"/>
+  <!-- putting jar-http last, because it currently fails -->
+  <target name="jar" 
+    depends="jar-jelly,jar-ant,jar-antlr,jar-bean,jar-beanshell,
+             jar-betwixt,jar-bsf,jar-email,jar-fmt,
+             jar-http,jar-interaction,jar-jetty,jar-jms,jar-jsl,
+             jar-junit,jar-ojb,jar-quartz,jar-soap,jar-sql,
+             jar-swing,jar-swt,jar-threads,jar-util,jar-validate,
+             jar-velocity,jar-xml,jar-xmlunit,jar-html"/>
     
   <target name="jar-jelly">
     <echo message="Building Jelly..."/>
@@ -50,10 +84,130 @@
       <param name="sub.taglib" value="ant"/>
     </antcall>
   </target>
+
+  <target name="jar-antlr" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="antlr"/>
+    </antcall>
+  </target>
+  
+  <target name="jar-bean" depends="jar-jelly,jar-ant">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="bean"/>
+    </antcall>
+  </target>
+
+  <target name="jar-beanshell" depends="jar-jelly,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="beanshell"/>
+    </antcall>
+  </target>
+  
+  <target name="jar-betwixt" depends="jar-jelly,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="betwixt"/>
+    </antcall>
+  </target>
+
+  <target name="jar-bsf" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="bsf"/>
+    </antcall>
+  </target>
+
+  <target name="jar-email" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="email"/>
+    </antcall>
+  </target>
+
+  <target name="jar-fmt" depends="jar-jelly,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="fmt"/>
+    </antcall>
+  </target>
+
+  <target name="jar-html" depends="jar-jelly,jar-xml">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="html"/>
+    </antcall>
+  </target>
+
+  <target name="jar-http" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="http"/>
+    </antcall>
+  </target>
+
+  <target name="jar-interaction" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="interaction"/>
+    </antcall>
+  </target>
+
+  <target name="jar-jetty" depends="jar-jelly,jar-http">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="jetty"/>
+    </antcall>
+  </target>
+
+  <target name="jar-jms" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="jms"/>
+    </antcall>
+  </target>
+
+  <target name="jar-jsl" depends="jar-jelly,jar-xml,jar-ant">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="jsl"/>
+    </antcall>
+  </target>
   
   <target name="jar-junit" depends="jar-jelly">
     <antcall target="taglib-template">
       <param name="sub.taglib" value="junit"/>
+    </antcall>
+  </target>
+
+  <target name="jar-ojb" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="ojb"/>
+    </antcall>
+  </target>
+
+  <target name="jar-quartz" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="quartz"/>
+    </antcall>
+  </target>
+
+  <target name="jar-soap" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="soap"/>
+    </antcall>
+  </target>
+
+  <target name="jar-sql" depends="jar-jelly,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="sql"/>
+    </antcall>
+  </target>
+
+  <target name="jar-swing" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="swing"/>
+    </antcall>
+  </target>
+
+  <target name="jar-swt" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="swt"/>
+    </antcall>
+  </target>
+
+  <target name="jar-threads" depends="jar-jelly,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="threads"/>
     </antcall>
   </target>
   
@@ -62,10 +216,38 @@
       <param name="sub.taglib" value="util"/>
     </antcall>
   </target>
+
+  <target name="jar-validate" depends="jar-jelly,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="validate"/>
+    </antcall>
+  </target>
+
+  <target name="jar-velocity" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="velocity"/>
+    </antcall>
+  </target>
+  
+  <target name="jar-xml" depends="jar-jelly,jar-junit">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="xml"/>
+    </antcall>
+  </target>
+
+  <target name="jar-xmlunit" depends="jar-jelly,jar-xml">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="xmlunit"/>
+    </antcall>
+  </target>
   
   <!-- don't call directly, called inside jar-* tasks -->
   <target name="taglib-template">
     <echo message="Building &quot;${sub.taglib}&quot; taglib..."/>
+    
+    <!-- maven-generated ant scripts freak out when this
+    directory is missing -->
+    <mkdir dir="jelly-tags/${sub.taglib}/src/test"/>
     
     <antcall target="prepare-taglib-deps">
       <param name="sub.taglib" value="${sub.taglib}"/>
