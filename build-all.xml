@@ -99,6 +99,11 @@
     <antcall target="subant">
       <param name="sub.target" value="clean"/>
     </antcall>
+    <!-- hopefully a placeholder until maven uses target/lib instead of lib -->
+    <delete dir="lib"/>
+    <delete>
+      <fileset dir="jelly-tags" includes="*/lib/"/>
+    </delete>
   </target>
   
   <target name="ant">
