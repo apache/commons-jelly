@@ -180,7 +180,7 @@ public class JellyTask extends Task {
     protected Script compileScript() throws Exception {
         XMLParser parser = new XMLParser();
         parser.setContext(getJellyContext());
-        Script script = parser.parse(getUrl().openStream());
+        Script script = parser.parse(getUrl().toString());
         script = script.compile();
         if (log.isDebugEnabled()) {
             log.debug("Compiled script: " + getUrl());
