@@ -15,7 +15,7 @@
       questions regarding various aspects of Jelly.  These questions are
       typically asked over and over again on the mailing lists, as a
       courtesy to the developers, we ask that you read this document
-      before posting to the mailing lists.  
+      before posting to the mailing lists.
     </p>
     <p><strong>General</strong></p>
     <ol>
@@ -65,11 +65,11 @@
           href="overview.html">Overview</a> documents for more detail.
         </dd>
       </dl>
-      
+
       <dl>
         <dt>
           <a name="why-called-jelly">
-          	Why is this called Jelly?
+            Why is this called Jelly?
           </a>
         </dt>
         <dd>
@@ -86,8 +86,8 @@
           using ideas from JSP, JSTL, Velocity, Cocoon and Ant.
         </dd>
       </dl>
-      
-      
+
+
     </section>
     <section name="Using Jelly">
       <dl>
@@ -99,7 +99,7 @@
         <dd>
           Firstly you need to create one or more tags, by deriving from TagSupport.
           Then create a TagLibrary class for your tags; typically all this does
-          is register all the tags in your tag library and give them names.          
+          is register all the tags in your tag library and give them names.
           Then you can use your new tag library by specifying the classname in
           a namespace URI. For example
         </dd>
@@ -109,35 +109,35 @@
 &lt;j:jelly xmlns:j="jelly:core" xmlns:foo="jelly:com.acme.something.MyTagLibrary"&gt;
 
   &lt;foo:bar x="12&gt;
-	something goes here
+    something goes here
   &lt;/foo:bar&gt;
 
 &lt;/j:jelly&gt;
 </pre>
 </code>
         </dd>
-        <dd>                
+        <dd>
           Going forward we hope to provide an alias mechanism using the jar-extension
-          mechanism used by JAXP so that a file could be placed on the classpath 
-		  called <code>META-INF/services/org.apache.commons.jelly.foo</code> which
-		  would contain the class name of the tag library (com.acme.something.MyTagLibrary)
-		  then you could use it as follows, which would avoid using the class name in your scripts.
+          mechanism used by JAXP so that a file could be placed on the classpath
+          called <code>META-INF/services/org.apache.commons.jelly.foo</code> which
+          would contain the class name of the tag library (com.acme.something.MyTagLibrary)
+          then you could use it as follows, which would avoid using the class name in your scripts.
         </dd>
-        <dd>                
+        <dd>
 <code>
 <pre>
 &lt;j:jelly xmlns:j="jelly:core" xmlns:foo="jelly:foo"&gt;
 
   &lt;foo:bar x="12&gt;
-	something goes here
+    something goes here
   &lt;/foo:bar&gt;
 
 &lt;/j:jelly&gt;
 </pre>
 </code>
-		</dd>
+        </dd>
       </dl>
-      
+
       <dl>
         <dt>
           <a name="tag-attributes">
@@ -150,22 +150,22 @@
           and the result of the expression will be passed into your Tag's setter method.
           For example if you had the following Tag...
         </dd>
-        <dd>                
+        <dd>
 <code>
 <pre>
 public class FooTag extends TagSupport {
   private String value;
-		
+
   public void setValue(String value) {
     this.value = value;
-  
-    
+
+
   .
 }</pre>
 </code>
-				</dd>
-        <dd>                
-        Then if you were to use it like this...	
+                </dd>
+        <dd>
+        Then if you were to use it like this...
 <code>
 <pre>
   &lt;my:foo value="${customer.fullName}"/&gt;
@@ -181,14 +181,14 @@ tag.setValue( ((Customer) context.getVariable("customer")).getFullName() );
 tag.doTag(output);
 </pre>
 </code>
-			 </dd>
+             </dd>
         <dd>
-	        If ever you find that your Tag's bean property is not being set it could be that your Tag is
-	        not properly following the bean introspection naming conventions. 
-	        For example do you have a method called getValue() or isValue() with the wrong return type?
-	        (In this discussion substitue 'value' for the name of your own property, it doesn't have to be called 'value' :).
-	        For more details of the introspection rules, please checkout the Java Bean specification.
-			 </dd>
+            If ever you find that your Tag's bean property is not being set it could be that your Tag is
+            not properly following the bean introspection naming conventions.
+            For example do you have a method called getValue() or isValue() with the wrong return type?
+            (In this discussion substitute 'value' for the name of your own property, it doesn't have to be called 'value' :).
+            For more details of the introspection rules, please checkout the Java Bean specification.
+             </dd>
         <dd>
           It could be that you want to coerce the value of an expression to some special type.
           For example if you want to evaluate the expression as an Iterator you can use a property
@@ -198,14 +198,14 @@ tag.doTag(output);
 <pre>
 public class FooTag extends TagSupport {
   private Expression value;
-		
+
   public void setValue(Expression value) {
     this.value = value;
   }
-    
+
   public void doTag(XMLOutput output) {
     Iterator iter = expression.evaluateAsIterator();
-    		...
+            ...
   }
 }</pre>
 </code>
@@ -221,8 +221,8 @@ public class FooTag extends TagSupport {
         </dt>
         <dd>
           Jelly uses Maven for its build system. So you should be able to build Jelly just like
-          any other Maven enabled project. Please see the 
-          <a href="http://jakarta.apache.org/turbine/maven/start/index.html">Maven</a> 
+          any other Maven enabled project. Please see the
+          <a href="http://jakarta.apache.org/turbine/maven/start/index.html">Maven</a>
           documentation for details.
         </dd>
       </dl>

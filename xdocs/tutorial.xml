@@ -19,8 +19,8 @@ from the command line using Maven.
 </p>
 
 <p>
-Before going any further it might be worth checking out the 
-<a href="gettingstarted.html">Getting Started</a> guide.
+If you don't have Maven installed, you should check out the
+<a href="gettingstarted.html">Getting Started</a> guide first.
 </p>
 
 <p>
@@ -33,7 +33,7 @@ hopefully make your first experience with Jelly enjoyable and fun).
 Once you have tried a few of demos, you can explore Jelly further by writing
 some Jelly scripts on your own, or by modifying some of the demos provided.
 You may also want to define your own Jelly taglib, and in some cases
-you may want to know how to embed Jelly into your own Java program (tutorials 
+you may want to know how to embed Jelly into your own Java program (tutorials
 on how to do these things are in the works).
 </p>
 
@@ -75,7 +75,7 @@ The JellySwing demo shows how you can use Jelly (using the <a href="tags.html#je
 
 <p>
 Why would you want to do this? If you have ever written a large Swing
-application, you will probably agree that coding a GUI in java can be a tedious task. 
+application, you will probably agree that coding a GUI in java can be a tedious task.
 Jelly allows you to define the View (in an MVC approach)
 in XML and bind it to a Model and Controller written in Java. Or you can
 define actions (Controller) directly in Jelly by using the &lt;action&gt; tag.
@@ -88,7 +88,7 @@ application using a rich set of functions and beans exposed via jelly tags.
 </p>
 
 <p>
-To run the swing demo type "maven demo:swing" 
+To run the swing demo type "maven demo:swing"
 (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swing/example.jelly?rev=HEAD">demo script</a>). You should see a window open with
 some swing components. You can test the actions by selecting a menu item or
 pressing the button. The actions in this demo simply output a message to the
@@ -161,7 +161,7 @@ As you can see, the HomepageBuilder is a (mini) fully-functional swing applicati
 </p>
 
 <p>
-See the section on Embedding Jelly to find out more about the Homepage Builder demo. This is also a good way to compare a Java implementation (HomepageBuilder.java) with a Jelly implementation (HomepageBuilder.jelly). 
+See the section on Embedding Jelly to find out more about the Homepage Builder demo. This is also a good way to compare a Java implementation (HomepageBuilder.java) with a Jelly implementation (HomepageBuilder.jelly).
 </p>
 
 </subsection>
@@ -174,7 +174,7 @@ You could write a taglib to allow you to bind data to various models
 (TreeModel, TableModel, etc) using Jelly.
 </li>
 <li>
-You could allow the end user of an application to easily customize (or localize) the UI, and even add 
+You could allow the end user of an application to easily customize (or localize) the UI, and even add
 custom actions from a library of possible actions!
 </li>
 <li>
@@ -203,18 +203,18 @@ To run the demo type "maven demo:embed" (View the <a href="http://cvs.apache.org
 </p>
 
 <p>
-The code that actually runs Jelly is the following. 
+The code that actually runs Jelly is the following.
 </p>
 
 <pre>
-	OutputStream output = new FileOutputStream("demopage.html");
-	JellyContext context = new JellyContext();
+    OutputStream output = new FileOutputStream("demopage.html");
+    JellyContext context = new JellyContext();
         context.setVariable("name",nameField.getText());
-        
+
         //...set other context variables
-	
-	XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
-	context.runScript("src/test/org/apache/commons/jelly/demos/"+template), xmlOutput);
+
+    XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
+    context.runScript("src/test/org/apache/commons/jelly/demos/"+template), xmlOutput);
         xmlOutput.flush();
 </pre>
 
@@ -245,7 +245,7 @@ If you look at the documentation (link above), you'll see that the JSL taglib co
 </p>
 
 <p>
-There are many good books and tutorials on XSLT, and since the concepts are the same, I won't waste Jelly documentation space and time on this subject. 
+There are many good books and tutorials on XSLT, and since the concepts are the same, I won't waste Jelly documentation space and time on this subject.
 </p>
 
 
@@ -263,11 +263,11 @@ To run the demo type "maven demo:html" (View the <a href="http://cvs.apache.org/
 </p>
 
 <p>
-As you can see in the demo script, parsing an HTML file is simple: 
+As you can see in the demo script, parsing an HTML file is simple:
 </p>
 
 <pre>
-	&lt;html:parse var="doc" html="index.html"/&gt;	
+    &lt;html:parse var="doc" html="index.html"/&gt;
 </pre>
 
 <p>
