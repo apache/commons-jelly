@@ -35,16 +35,8 @@
   </versions>
     
   <dependencies>
-  
-    
-  
-    <!-- START for compilation -->
-  
-    <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-beta-4</version>
-    </dependency>
 
+    <!-- START for compilation -->
     <dependency>
       <id>antlr</id>
       <version>2.7.1</version>

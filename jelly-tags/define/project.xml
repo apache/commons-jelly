@@ -37,15 +37,6 @@
 
   <dependencies>
 
-    <!-- START for compilation -->
-  
-    <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-beta-4</version>
-    </dependency>
-      
-    <!-- END for compilation -->
-
     <!-- START for test -->
   
     <dependency>

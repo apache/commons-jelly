@@ -39,17 +39,8 @@
   </versions>
 
 <dependencies>
-  
-    
-  
+
     <!-- START for compilation -->
-  
-    <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-beta-4</version>
-      <url>http://jakarta.apache.org/commons/jelly/</url>
-    </dependency>
-      
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-bean</artifactId>

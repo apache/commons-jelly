@@ -77,10 +77,6 @@
       </properties>
     </dependency>
     <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-beta-4</version>
-    </dependency>
-    <dependency>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <groupId>commons-jelly</groupId>
       <version>1.0</version>

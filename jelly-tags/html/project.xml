@@ -32,18 +32,12 @@
     </version>
   </versions>
   <dependencies>
-    <!-- START for compilation -->
-
-    <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-beta-4</version>
-    </dependency>
     <!-- html taglib -->
-
     <dependency>
       <id>nekohtml</id>
       <version>0.7.1</version>
     </dependency>
+
     <!-- START for running demos -->
 
     <dependency>

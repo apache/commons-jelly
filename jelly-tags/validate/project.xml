@@ -34,11 +34,6 @@
 
   <dependencies>
     <!-- START for compilation -->
-
-    <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-beta-4</version>
-    </dependency>
     <dependency>
       <groupId>msv</groupId>
       <artifactId>isorelax</artifactId>

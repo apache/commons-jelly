@@ -36,12 +36,7 @@
     <!-- START for compilation -->
     <!-- may need JDK 1.4 or jsse -->
 
-    <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-beta-4</version>
-    </dependency>
     <!-- http taglib -->
-
     <dependency>
       <id>commons-httpclient</id>
       <version>2.0</version>
@@ -54,6 +49,7 @@
       </properties>
     </dependency>
     <!-- END for compilation -->
+
     <!-- for testing -->
 
     <dependency>

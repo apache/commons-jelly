@@ -35,13 +35,7 @@
     </version>
   </versions>
 
-<dependencies>
-
-    <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-RC1</version>
-    </dependency>
-
+  <dependencies>
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>

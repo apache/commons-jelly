@@ -51,11 +51,6 @@
     <!-- START for compilation -->
   
     <dependency>
-      <id>commons-jelly</id>
-      <version>1.0-RC1</version>
-    </dependency>
-  
-    <dependency>
       <id>ant</id>
       <version>1.5.3-1</version>
     </dependency>
