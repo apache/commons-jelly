@@ -61,11 +61,14 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.expression.Expression;
+
+import org.xml.sax.SAXException;
+
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +110,7 @@ public class MessageTag extends TagSupport {
 		params.add(arg);
 	}
 	
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		Object keyInput = null;
 		if (this.key != null) {
 			keyInput = this.key.evaluate(context);
@@ -118,8 +121,12 @@ public class MessageTag extends TagSupport {
 		}
 		
 		if ((keyInput == null) || keyInput.equals("")) {
-			output.write("??????");
-			return;
+            try {
+			    output.write("??????");
+            } catch (SAXException e) {
+                throw new JellyTagException(e);
+            }
+            return;
 		}
 		
 		Object bundleInput = null;
@@ -182,7 +189,7 @@ public class MessageTag extends TagSupport {
 				context.setVariable(var, scope, message);
 			}
 			else {
-				throw new JellyException( "If 'scope' is specified, 'var' must be defined for this tag" );
+				throw new JellyTagException( "If 'scope' is specified, 'var' must be defined for this tag" );
 			}
 		}
 		else {
@@ -191,7 +198,11 @@ public class MessageTag extends TagSupport {
 			}
 			else {
 				// write the message
-				output.write(message);
+                try {
+				    output.write(message);
+                } catch (SAXException e) {
+                    throw new JellyTagException(e);
+                }
 			}
 		}
 	}

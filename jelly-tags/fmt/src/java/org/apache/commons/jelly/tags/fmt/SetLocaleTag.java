@@ -62,7 +62,7 @@
 package org.apache.commons.jelly.tags.fmt;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
@@ -96,7 +96,7 @@ public class SetLocaleTag extends TagSupport {
 	 * Evaluates this tag after all the tags properties have been initialized.
 	 *
 	 */
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		Locale locale = null;
 		
 		Object valueInput = null;

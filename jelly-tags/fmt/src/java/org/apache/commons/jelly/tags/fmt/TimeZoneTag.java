@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/TimeZoneTag.java,v 1.1 2003/01/18 06:35:27 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/18 06:35:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/TimeZoneTag.java,v 1.2 2003/01/26 02:02:08 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 02:02:08 $
  *
  * ====================================================================
  *
@@ -57,12 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TimeZoneTag.java,v 1.1 2003/01/18 06:35:27 dion Exp $
+ * $Id: TimeZoneTag.java,v 1.2 2003/01/26 02:02:08 morgand Exp $
  */
 package org.apache.commons.jelly.tags.fmt;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
@@ -78,7 +78,7 @@ import java.util.TimeZone;
  * tag in JSTL.
  *
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  *
  * @task decide how to implement setResponseLocale
  */
@@ -109,7 +109,7 @@ public class TimeZoneTag extends TagSupport {
 	 * Evaluates this tag after all the tags properties have been initialized.
 	 *
 	 */
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		Object valueInput = null;
 		if (this.value != null) {
 			valueInput = this.value.evaluate(context);

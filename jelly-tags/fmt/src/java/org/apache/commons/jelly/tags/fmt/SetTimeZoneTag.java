@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/SetTimeZoneTag.java,v 1.1 2003/01/18 06:35:27 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/18 06:35:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/SetTimeZoneTag.java,v 1.2 2003/01/26 02:02:08 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 02:02:08 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: SetTimeZoneTag.java,v 1.1 2003/01/18 06:35:27 dion Exp $
+ * $Id: SetTimeZoneTag.java,v 1.2 2003/01/26 02:02:08 morgand Exp $
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
@@ -72,7 +72,7 @@ import java.util.TimeZone;
  * Support for tag handlers for &lt;setTimeZone&gt;, the time zone setting
  * tag in JSTL.
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  *
  */
 public class SetTimeZoneTag extends TagSupport {
@@ -91,7 +91,7 @@ public class SetTimeZoneTag extends TagSupport {
 	 * Evaluates this tag after all the tags properties have been initialized.
 	 *
 	 */
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		TimeZone timeZone = null;
 		
 		Object valueInput = null;

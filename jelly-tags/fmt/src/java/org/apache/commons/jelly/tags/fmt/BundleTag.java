@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/BundleTag.java,v 1.1 2003/01/16 16:21:46 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/BundleTag.java,v 1.1 2003/01/16 16:21:46 jstrachan Exp
  * 1.1
  * 2003/01/16 16:21:46
  *
@@ -62,7 +62,7 @@
 package org.apache.commons.jelly.tags.fmt;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.expression.Expression;
@@ -131,7 +131,7 @@ public class BundleTag extends TagSupport {
 	 * Evaluates this tag after all the tags properties have been initialized.
 	 *
 	 */
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		Object basenameInput = null;
 		if (this.basename != null) {
 			basenameInput = this.basename.evaluate(context);

@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/ParamTag.java,v 1.1 2003/01/16 16:21:46 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/ParamTag.java,v 1.1 2003/01/16 16:21:46 jstrachan Exp
  * 1.1
  * 2003/01/16 16:21:46
  *
@@ -61,7 +61,7 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
@@ -88,14 +88,14 @@ public class ParamTag extends TagSupport {
 	 * Evaluates this tag after all the tags properties have been initialized.
 	 *
 	 */
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		MessageTag parent = null;
 		Tag t = findAncestorWithClass(this, MessageTag.class);
 		if (t != null) {
 			parent = (MessageTag) t;
 		} else {
 			// must be nested inside a <fmt:message> action.
-			throw new JellyException("must be nested inside a <fmt:message> action.");
+			throw new JellyTagException("must be nested inside a <fmt:message> action.");
 		}
 		
 		Object valueInput = null;

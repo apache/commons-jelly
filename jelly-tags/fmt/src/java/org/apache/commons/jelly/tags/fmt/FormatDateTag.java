@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java,v 1.1 2003/01/18 06:35:27 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/18 06:35:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/fmt/src/java/org/apache/commons/jelly/tags/fmt/FormatDateTag.java,v 1.2 2003/01/26 02:02:08 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 02:02:08 $
  *
  * ====================================================================
  *
@@ -57,15 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: FormatDateTag.java,v 1.1 2003/01/18 06:35:27 dion Exp $
+ * $Id: FormatDateTag.java,v 1.2 2003/01/26 02:02:08 morgand Exp $
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.expression.Expression;
+
+import org.xml.sax.SAXException;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -77,7 +80,7 @@ import java.util.TimeZone;
  * Support for tag handlers for &lt;formatDate&gt;, the date and time formatting
  * tag in JSTL.
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  * @task i18n exception message
  */
 public class FormatDateTag extends TagSupport {
@@ -131,10 +134,10 @@ public class FormatDateTag extends TagSupport {
 	 * Evaluates this tag after all the tags properties have been initialized.
 	 *
 	 */
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		
 		if (scope != null && var == null) {
-			throw new JellyException(
+			throw new JellyTagException(
 			"If 'scope' is specified, 'var' must be defined for this tag" );
 		}
 		
@@ -214,7 +217,7 @@ public class FormatDateTag extends TagSupport {
 				} else if (etimeZone instanceof TimeZone) {
 					tz = (TimeZone) etimeZone;
 				} else {
-					throw new JellyException("Bad time zone");
+					throw new JellyTagException("Bad time zone");
 				}
 			} else {
 				tz = TimeZoneTag.getTimeZone(context, this);
@@ -237,8 +240,12 @@ public class FormatDateTag extends TagSupport {
 			}
 		}
 		else {
-			// write the formatted
-			output.write(formatted);
+            try {
+			    // write the formatted
+			    output.write(formatted);
+            } catch (SAXException e) {
+                throw new JellyTagException("could not write formatted text",e);
+            }
 		}
 	}
 	
@@ -309,7 +316,7 @@ public class FormatDateTag extends TagSupport {
 	//*********************************************************************
 	// Private utility methods
 	
-	private DateFormat createFormatter(Locale loc) throws JellyException {
+	private DateFormat createFormatter(Locale loc) throws JellyTagException {
 		DateFormat formatter = null;
 		
 		if ((etype == null) || DATE.equalsIgnoreCase(etype)) {
@@ -326,7 +333,7 @@ public class FormatDateTag extends TagSupport {
 			getStyle(etimeStyle, "FORMAT_DATE_INVALID_TIME_STYLE"),
 			loc);
 		} else {
-			throw new JellyException("Date format invalue");
+			throw new JellyTagException("Date format invalue");
 		}
 		
 		return formatter;
@@ -344,7 +351,7 @@ public class FormatDateTag extends TagSupport {
 	 * @throws JellyException if the given style is invalid
 	 */
 	public static int getStyle(String style, String errCode)
-	throws JellyException {
+	throws JellyTagException {
 		int ret = DateFormat.DEFAULT;
 		
 		if (style != null) {
@@ -359,7 +366,7 @@ public class FormatDateTag extends TagSupport {
 			} else if (FULL.equalsIgnoreCase(style)) {
 				ret = DateFormat.FULL;
 			} else {
-				throw new JellyException("Invalid style " + errCode);
+				throw new JellyTagException("Invalid style " + errCode);
 			}
 		}
 		
