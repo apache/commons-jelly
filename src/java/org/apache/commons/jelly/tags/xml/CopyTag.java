@@ -95,27 +95,24 @@ public class CopyTag extends XPathTagSupport {
 	public void doTag(XMLOutput output) throws Exception {
 		Object xpathContext = getXPathContext();
 
-		if (select == null) {
-			throw new MissingAttributeException("select");
+        Object node = xpathContext;
+        
+		if (select != null) {
+            node = select.selectSingleNode(xpathContext);
 		}
 
-		SAXWriter saxWriter = new SAXWriter(output, output);
-		Object node = select.selectSingleNode(xpathContext);
-		if (node instanceof Element) {
-			Element element = (Element) node;
-            throw new JellyException( "Not implemented yet!" );
-/**
-  ### need to add these methods to dom4j            
+        if ( node instanceof Element ) {
+            Element element = (Element) node;
+            
+            SAXWriter saxWriter = new SAXWriter(output, output);
+            
             saxWriter.writeOpen(element);
+            invokeBody(output);
             saxWriter.writeClose(element);
-*/            
-		} 
-        else if (node instanceof Node) {
-			saxWriter.write((Node) node);
-		} 
-        else if (node != null) {
-			output.write(node.toString());
-		}
+        }
+        else {
+            invokeBody(output);
+        }
     }
 
     // Properties

@@ -250,7 +250,51 @@
   </goal>
 
 
+   <goal name="demo:jsl" prereqs="jelly-task" 
+      description="Runs a simple demo of the JSL tags">
 
+<!--      
+	<jelly file="src/test/org/apache/commons/jelly/jsl/example.jelly"/> 
+-->	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/jsl/example.jelly"/> 
+    </java>
+	
+   </goal>
+
+   <goal name="demo:jsl2" prereqs="jelly-task" 
+      description="Runs demo #2 of the JSL tags">
+      
+<!--      
+	<jelly file="src/test/org/apache/commons/jelly/jsl/example2.jelly"/> 
+-->	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/jsl/example2.jelly"/> 
+    </java>
+	
+	
+   </goal>
+
+
+   <demo name="demo:sql" prereqs="jelly-task" 
+      description="Runs an SQL demo">
+      
+      <!-- Values used for testing -->
+	  <property name="databaseUrl"             value="jdbc:hsqldb:hsql://localhost"/>
+	  <property name="databaseDriver"          value="org.hsqldb.jdbcDriver"/>
+	  <property name="databaseUser"            value="sa"/>
+	  <property name="databaseTable"           value="SYSTEM_TABLES"/>
+
+	<echo message="Running examples and outputting results to target directory"/>
+	
+	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="target/sqloutput.xml"/>
+	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="target/sqloutput2.xml"/>	
+	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="target/sqloutput3.xml"/>		
+   </demo>
+   
+	
 
   <goal name="demo:tagdef" prereqs="java:compile"
     description="A demonstration of the use of tagdef inside a Maven build">
