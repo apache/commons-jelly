@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.9 2002/08/12 10:28:51 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/08/12 10:28:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.10 2002/09/30 17:36:16 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/09/30 17:36:16 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.9 2002/08/12 10:28:51 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.10 2002/09/30 17:36:16 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -76,7 +76,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
@@ -105,16 +105,20 @@ public class JexlExpressionFactory implements ExpressionFactory {
 
         if ( isSupportAntVariables() && isValidAntVariableName(text) ) {
             ExpressionSupport expr = new ExpressionSupport() {
-                    public Object evaluate(JellyContext context) {
-                        Object answer = jexlExpression.evaluate(context);
+                public Object evaluate(JellyContext context) {
+                    Object answer = jexlExpression.evaluate(context);
 
-                        if ( answer == null ) {
-                            answer = context.getVariable(text);
-                        }
-
-                        return answer;
+                    if ( answer == null ) {
+                        answer = context.getVariable(text);
                     }
-                };
+
+                    return answer;
+                }
+                
+                public String toString() {
+                    return super.toString() + "[expression:" + text + "]";
+                }
+            };
 
             return expr;
         }
