@@ -5,7 +5,8 @@
 	xmlns:j="jelly:core" 
 	xmlns:define="jelly:define" 
 	xmlns:log="jelly:log" 
-	xmlns:my="myDummyTagLib">
+	xmlns:my="myDummyTagLib"
+	xmlns="jelly:ant">
 	
 <testcase>
 
@@ -21,11 +22,22 @@
 
   <log:info>Now lets invoke the new Jelly bean tag</log:info>
   
-  <my:foo x="2" y="cheese"/>
+  <my:foo x="2" y="cheese">
+    <fileset dir=".">
+      <include name="*.xml"/>
+    </fileset>
+    <fileset dir="src/java">
+      <include name="*.java"/>
+    </fileset>
+  </my:foo>
 
   <log:info>Did that work?</log:info>
   
-  <my:foo x="2"/>
+  <my:foo x="2">
+    <fileset dir=".">
+      <include name="*.xml"/>
+    </fileset>
+  </my:foo>
   
 </testcase>
   		

@@ -76,6 +76,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.impl.StaticTag;
 
 import org.apache.commons.logging.Log;
@@ -209,7 +210,11 @@ public class AntTag extends MapTagSupport implements TaskSource {
             if ( log.isDebugEnabled() ) {                            
                 log.debug( "Creating a nested object name: " + tagName );            
             }
-            
+
+            if ( parentObject == null ) {
+                parentObject = findBeanAncestor();
+            }
+                        
             Object nested = createNestedObject( parentObject, tagName );
             
             if ( nested == null ) {
@@ -332,7 +337,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 return;
             }
             catch (Exception e) {
-                log.error( "Caught: " + e, e );
+                // ignore: not a valid property
             }
         }
 
@@ -441,5 +446,20 @@ public class AntTag extends MapTagSupport implements TaskSource {
         task.setTaskName(taskName);
 
         return task;
+    }
+    
+    /**
+     * Attempts to look up in the parent hierarchy for a tag that implements the BeanSource interface
+     * which creates a dynamic bean, or will return the parent tag, which is also a bean.
+     */
+    protected Object findBeanAncestor() throws Exception {
+        Tag tag = getParent();
+        if (tag != null) {
+            if (tag instanceof BeanSource) {
+                BeanSource beanSource = (BeanSource) tag;
+                return beanSource.getBean();
+            }
+        }
+        return tag;
     }
 }

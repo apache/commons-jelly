@@ -61,8 +61,13 @@
  */
 package org.apache.commons.jelly.define;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import org.apache.tools.ant.types.FileSet;
 
 /** 
  * An example Runnable bean that is framework neutral and just performs
@@ -78,16 +83,23 @@ public class MyRunnable implements Runnable {
 
     private int x;
     private String y;
-    
+    private List fileSets = new ArrayList();    
         
     public MyRunnable() {
     }
     
     
+    // Adder methods
+    //-------------------------------------------------------------------------
+    public void addFileset(FileSet fileSet) {
+        fileSets.add(fileSet);
+    }
+    
     // Runnable interface
     //-------------------------------------------------------------------------
     public void run() {
         log.info( "About to do something where x = " + getX() + " y = " + getY() );
+        log.info( "FileSets are: " + fileSets );
     }
 
 
