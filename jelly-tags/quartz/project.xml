@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE project [
   <!-- 
-    see file "../../commonDependencies.ent" for explanation of Jelly dependencies
+    see file "file:../../commonDependencies.ent" for explanation of Jelly dependencies
     BRITTLE! cannot explicitly include 'file:' protocol below or Maven will
     not run this script outside of the base directory
   -->
