@@ -14,12 +14,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project name="SOAP Tag Library">
+<project name="Regexp Tag Library">
 
-  <title>SOAP Tag Library</title>
+  <title>Regexp Tag Library</title>
   
   <body>
-    <menu name="SOAP Tag Library">
+    <menu name="Regexp Tag Library">
       <item name="Overview"                href="/index.html"/>
       <item name="Tags"                    href="/tags.html"/>
     </menu>
