@@ -64,6 +64,11 @@
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
     <module name="Translation"/>
 
+    <!-- Checks for duplicate code                           -->
+    <!-- See http://checkstyle.sf.net/config_duplicates.html -->
+    <module name="StrictDuplicateCode">
+      <property name="min" value="19"/>
+    </module>
 
     <module name="TreeWalker">
 
@@ -74,23 +79,38 @@
         <module name="JavadocMethod"/>
         <module name="JavadocType"/>
         <module name="JavadocVariable"/>
-        <module name="JavadocStyle"/>
+        <module name="JavadocStyle">
+            <property name="checkEmptyJavadoc" value="true"/>
+        </module>
 
 
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
         <module name="ConstantName">
-          <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
+          <!-- property name="format" value="^[a-z][a-zA-Z0-9]*$"/-->
+          <property name="severity" value="error"/>
         </module>
-        <module name="LocalFinalVariableName"/>
-        <module name="LocalVariableName"/>
-        <module name="MemberName"/>
-        <module name="MethodName"/>
-        <module name="PackageName"/>
-        <module name="ParameterName"/>
-        <module name="StaticVariableName"/>
-        <module name="TypeName"/>
-
+        <module name="LocalVariableName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MemberName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MethodName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="PackageName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="ParameterName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="StaticVariableName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="TypeName">
+            <property name="severity" value="error"/>
+        </module>
 
         <!-- Checks for Headers                              -->
         <!-- See http://checkstyle.sf.net/config_header.html -->
@@ -105,7 +125,6 @@
             <!--     name="headerFile"                                  -->
             <!--     value="${basedir}/java.header"/>                   -->
             <property name="headerFile" value="${checkstyle.header.file}"/>
-            <property name="ignoreLines" value="1,2,3,4,5,6"/>
         </module>
 
         <!-- Following interprets the header file as regular expressions. -->
@@ -114,10 +133,24 @@
 
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
-        <module name="AvoidStarImport"/>
-        <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
-        <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
+        <module name="AvoidStarImport">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="IllegalImport">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="RedundantImport">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="UnusedImports">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="ImportOrder">
+            <property name="groups" value="java,javax,junit,org,com"/>
+            <property name="ordered" value="false"/>
+            <property name="separated" value="true"/>
+            <property name="caseSensitive" value="true"/>
+        </module>
 
 
         <!-- Checks for Size Violations.                    -->
@@ -164,37 +197,146 @@
         <!-- Checks for common coding problems               -->
         <!-- See http://checkstyle.sf.net/config_coding.html -->
         <module name="AvoidInlineConditionals"/>
-        <module name="DoubleCheckedLocking"/>    <!-- MY FAVOURITE -->
-        <module name="EmptyStatement"/>
-        <module name="EqualsHashCode"/>
-        <module name="HiddenField"/>
-        <module name="IllegalInstantiation"/>
-        <module name="InnerAssignment"/>
+        <module name="CovariantEquals">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="DeclarationOrder">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="DefaultComesLast">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="DoubleCheckedLocking">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="DeclarationOrder">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="DefaultComesLast">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="DoubleCheckedLocking">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="FallThrough"/>
+        <module name="HiddenField">
+            <property name="severity" value="error"/>
+            <property name="tokens" value="VARIABLE_DEF"/>
+        </module>
+        <module name="IllegalCatch">
+            <property name="severity" value="error"/>
+            <property name="illegalClassNames" value="java.lang.Throwable,java.lang.RuntimeException"/>
+        </module>
+        <module name="IllegalInstantiation">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="IllegalTokenText">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="IllegalType">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="InnerAssignment">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="JUnitTestCase">
+            <property name="severity" value="error"/>
+        </module>
         <module name="MagicNumber"/>
-        <module name="MissingSwitchDefault"/>
+        <module name="MissingSwitchDefault">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="MultipleVariableDeclarations">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="NestedIfDepth">
+            <property name="max" value="4"/>
+        </module>
+        <module name="NestedTryDepth">
+            <property name="max" value="3"/>
+        </module>
+        <module name="PackageDeclaration">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="ParameterAssignment">
+            <property name="severity" value="error"/>
+        </module>
         <module name="RedundantThrows"/>
-        <module name="SimplifyBooleanExpression"/>
-        <module name="SimplifyBooleanReturn"/>
+        <module name="SimplifyBooleanExpression">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="SimplifyBooleanReturn">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="StringLiteralEquality">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="SuperFinalize">
+            <property name="severity" value="error"/>
+        </module>
 
         <!-- Checks for class design                         -->
         <!-- See http://checkstyle.sf.net/config_design.html -->
-        <module name="DesignForExtension"/>
+        <!-- module name="DesignForExtension"/-->
         <module name="FinalClass"/>
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
         <module name="VisibilityModifier"/>
 
+        <!-- Checks code metrics                              -->
+        <!-- See http://checkstyle.sf.net/config_metrics.html -->
+        <module name="BooleanExpressionComplexity">
+            <property name="severity" value="info"/>
+            <property name="max" value="3"/>
+        </module>
+        <module name="ClassDataAbstractionCoupling">
+            <property name="severity" value="info"/>
+            <property name="max" value="10"/>
+        </module>        
+        <module name="ClassFanOutComplexity">
+            <property name="severity" value="info"/>
+            <property name="max" value="20"/>
+        </module>
+        <module name="CyclomaticComplexity">
+            <property name="severity" value="info"/>
+            <property name="max" value="10"/>
+        </module>
+        <module name="NPathComplexity">
+            <property name="severity" value="info"/>
+            <property name="max" value="200"/>
+        </module>
 
         <!-- Miscellaneous other checks.                   -->
         <!-- See http://checkstyle.sf.net/config_misc.html -->
         <module name="ArrayTypeStyle"/>
-        <module name="FinalParameters"/>
-        <module name="GenericIllegalRegexp">
+        <!-- module name="FinalParameters"/-->
+        <!-- module name="GenericIllegalRegexp">
             <property name="format" value="\s+$"/>
             <property name="message" value="Line has trailing spaces."/>
+        </module-->
+        <module name="GenericIllegalRegexp">
+            <property name="format" value="generated comment|auto-generated|template for this generated file|template for this generated type"/>
+            <property name="ignoreCase" value="true"/>
+            <property name="message" value="Generated Comment Found. Please enter a real one."/>
+            <property name="severity" value="error"/>
         </module>
+        <module name="Indentation"/>
         <module name="TodoComment"/>
+        <module name="UncommentedMain"/>
         <module name="UpperEll"/>
+
+        <!-- Checks for usage                               -->
+        <!-- See http://checkstyle.sf.net/config_usage.html -->
+        <module name="usage.OneMethodPrivateField">
+            <property name="ignoreFormat" value="Temp$"/>
+        </module>
+        <module name="usage.UnusedLocalVariable">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="usage.UnusedPrivateField">
+            <property name="ignoreFormat" value="LOG"/>
+            <property name="severity" value="error"/>
+        </module>
 
     </module>
 
