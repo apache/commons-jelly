@@ -41,7 +41,10 @@ public class DummyTag extends TagSupport implements BeanSource {
 	
 	private boolean calledCreatepath;
 	private boolean calledSetClasspath;
-	private Path classpath;
+    private boolean calledSetFlag;
+	
+    private Path classpath;
+    private boolean flag;
 	
     public DummyTag() {
     }
@@ -56,6 +59,10 @@ public class DummyTag extends TagSupport implements BeanSource {
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws JellyTagException {
 
+        if (! calledSetFlag) {
+            throw new AssertionFailedError("call to setFlag() was not made");
+        }
+        
     	calledCreatepath = false;    	
     	calledSetClasspath = false;    	
 
@@ -87,7 +94,15 @@ public class DummyTag extends TagSupport implements BeanSource {
     	log.info("called setClasspath()");
     	calledSetClasspath = true;    	
     	this.classpath = classpath;
-    } 
+    }
+    
+    public void setFlag(boolean flag)
+    {
+        log.info("called setFlag()");
+        calledSetFlag = true;      
+        this.flag = flag;
+        
+    }
     
     // Tag properties
     //-------------------------------------------------------------------------
