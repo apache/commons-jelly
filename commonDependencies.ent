@@ -23,7 +23,7 @@
     
     <dependency>
       <id>commons-jexl</id>
-      <version>SNAPSHOT</version>
+      <version>20030307.151331</version>
     </dependency>
     
     <dependency>

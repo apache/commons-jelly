@@ -44,7 +44,7 @@
     <dependency>
       <id>commons-jelly</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/jelly/sandbox/</url>
+      <url>http://jakarta.apache.org/commons/jelly/</url>
     </dependency>
   
     <dependency>
@@ -59,7 +59,7 @@
 
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     	
     <!-- END for running demos -->

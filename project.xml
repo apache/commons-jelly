@@ -319,7 +319,7 @@
 
     <dependency>
       <id>commons-discovery</id>
-      <version>SNAPSHOT</version>
+      <version>20030211.213356</version>
     </dependency>
 
   	<!-- for the jelly startup scripts -->
@@ -329,10 +329,6 @@
       <url>http://forehead.sf.net/</url>
     </dependency>
 
-    <dependency>
-        <id>junit</id>
-        <version>3.7</version>
-    </dependency>
   </dependencies>
   
   <build>
