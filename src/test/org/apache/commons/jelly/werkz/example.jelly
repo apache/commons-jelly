@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <werkz:project xmlns:j="jelly:core" xmlns="jelly:ant" xmlns:werkz="jelly:werkz">
 
-  <!-- the following could be in the mediator of Maven -->
-  <werkz:goal name="init">
-    <echo message="Running init goal's action"/>
-  </werkz:goal>
-  		
   <werkz:goal name="compile" prereqs="init">
     <echo message="Running compile goal's action"/>
   </werkz:goal>
@@ -18,6 +13,11 @@
  <werkz:preGoal name="compile">
     <echo message="I am a callback: doing something before I compile"/>
  </werkz:preGoal>
+
+  <!-- the following could be in the mediator of Maven -->
+  <werkz:goal name="init">
+    <echo message="Running init goal's action"/>
+  </werkz:goal>
 
   <!-- call all the targets made on the command line -->	
   <werkz:attain>
