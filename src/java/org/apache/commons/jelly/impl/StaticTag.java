@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.14 2003/01/25 18:59:23 morgand Exp $
- * $Revision: 1.14 $
- * $Date: 2003/01/25 18:59:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.15 2003/03/03 05:37:37 werken Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/03/03 05:37:37 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StaticTag.java,v 1.14 2003/01/25 18:59:23 morgand Exp $
+ * $Id: StaticTag.java,v 1.15 2003/03/03 05:37:37 werken Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -73,7 +73,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 
 public class StaticTag extends DynaTagSupport {
@@ -117,7 +117,7 @@ public class StaticTag extends DynaTagSupport {
     
     // DynaTag interface
     //-------------------------------------------------------------------------                    
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(String name, Object value) throws JellyTagException {
         // ### we'll assume that all attributes are in no namespace!
         // ### this is severely limiting!
         // ### - Tag attributes should allow for namespace aware 
