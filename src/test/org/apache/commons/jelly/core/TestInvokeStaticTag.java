@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestInvokeStaticTag.java,v 1.1 2003/02/25 23:26:15 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2003/02/25 23:26:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestInvokeStaticTag.java,v 1.2 2003/02/26 09:12:55 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/02/26 09:12:55 $
  *
  * ====================================================================
  *
@@ -57,18 +57,17 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestInvokeStaticTag.java,v 1.1 2003/02/25 23:26:15 jstrachan Exp $
+ * $Id: TestInvokeStaticTag.java,v 1.2 2003/02/26 09:12:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.core;
 
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.core.Customer;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TestInvokeStaticTag extends BaseJellyTest {
 
