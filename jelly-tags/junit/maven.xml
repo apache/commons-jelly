@@ -1,3 +1,23 @@
 <project default="java:jar">
 
+  <!-- define the classpath used to run examples -->
+  <goal name="create-classpath" prereqs="java:compile,test:compile">
+		<path id="test.classpath">
+			<pathelement path="${maven.build.dest}"/>
+			<pathelement path="target/classes"/>
+			<pathelement path="target/test-classes"/>
+			<path refid="maven.dependency.classpath"/>
+		</path>
+  </goal>
+
+	<!-- demo -->
+  <goal name="demo" prereqs="create-classpath"
+		description="Runs a sample JUnit test suite via Jelly">
+
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/tags/junit/runSuite.jelly"/>
+    </java>
+  </goal>
+
 </project>

@@ -5,7 +5,7 @@
     BRITTLE! cannot explicitly include 'file:' protocol below or Maven will
     not run this script outside of the base directory
   -->
-  <!ENTITY commonDeps SYSTEM "../../commonDependencies.ent">
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
 ]>
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
@@ -48,6 +48,14 @@
       
     <!-- END for compilation -->
     
+    <!-- START for running demos -->
+
+    <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    	
+    <!-- END for running demos -->
   </dependencies>
   
 </project>
