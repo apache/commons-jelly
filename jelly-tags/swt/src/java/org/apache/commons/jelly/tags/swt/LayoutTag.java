@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/swt/Attic/LayoutTagSupport.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/swt/LayoutTag.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  * 1.1
  * 2002/12/18 15:27:49
  *
@@ -57,35 +57,31 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * LayoutTagSupport.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
+ * LayoutTag.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  */
 package org.apache.commons.jelly.tags.swt;
 
-import java.lang.reflect.Field;
-import java.util.Iterator;
-import java.util.Map;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.jelly.tags.core.UseBeanTag;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Widget;
 
 /** 
- * An abstract base class for Layout or LayoutData tags.
+ * Creates a new Layout implementations and adds it to the parent Widget.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
-public abstract class LayoutTagSupport extends UseBeanTag {
+public class LayoutTag extends LayoutTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(LayoutTagSupport.class);
+    private static final Log log = LogFactory.getLog(LayoutTag.class);
 
-    private String var;
-
-    public LayoutTagSupport(Class layoutClass) {
+    public LayoutTag(Class layoutClass) {
         super(layoutClass);
     }
 
@@ -93,25 +89,16 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the parent widget which this widget will be added to.
+     * @return the Layout if there is one otherwise null
      */
-    public Widget getParentWidget() {
-        WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
-        if (tag != null) {
-            return tag.getWidget();
+    public Layout getLayout() {
+        Object bean = getBean();
+        if ( bean instanceof Layout ) {
+            return (Layout) bean;
         }
         return null;
     }
 
-    /**
-     * Sets the name of the variable to use to expose the new Layout object. 
-     * If this attribute is not set then the parent widget tag will have its 
-     * layout property set.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-    
     // Implementation methods
     //-------------------------------------------------------------------------                    
 
@@ -119,52 +106,29 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * Either defines a variable or adds the current component to the parent
      */
     protected void processBean(String var, Object bean) throws Exception {
-        if (var != null) {
-            context.setVariable(var, bean);
+        super.processBean(var, bean);
+        
+        Widget parent = getParentWidget();
+        if (parent instanceof Composite) {
+            Composite composite = (Composite) parent;
+            composite.setLayout(getLayout());
+        }
+        else {
+            throw new JellyException("This tag must be nested within a composite widget tag");
         }
     }
     
     /**
-     * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
-    protected void setBeanProperties(Object bean, Map attributes)
+    protected Object convertValue(Object bean, String name, Object value)
         throws Exception {
             
-        if (bean != null) {
-            Class theClass = bean.getClass();
-            for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                String name = (String) entry.getKey();
-                Object value = entry.getValue();
-                
-                value = convertValue(bean, name, value);
-                
-                // lets first see if there's a field available
-                Field field = theClass.getField(name);
-                if (field != null) {
-                    if (value instanceof String) {
-                        value = ConvertUtils.convert((String) value, field.getType());
-                    }
-                    field.set(bean, value);
-                }
-                else {
-                    BeanUtils.setProperty(bean, name, value);
-                }
-            }
+        if (bean instanceof FillLayout && name.equals("type") && value instanceof String) {
+            int style = SwtHelper.parseStyle(SWT.class, (String) value);
+            return new Integer(style);
         }
-    }
-    
-    /**
-     * Provides a strategy method that allows values to be converted,
-     * particularly to support integer enumerations and String representations.
-     * 
-     * @param bean is the bean on which the property is to be set
-     * @param name is the name of the property 
-     * @param value the value of the property
-     * @return the new value
-     */
-    protected Object convertValue(Object bean, String name, Object value) throws Exception {
-        return value;
+        return super.convertValue(bean, name, value);
     }
 
 }

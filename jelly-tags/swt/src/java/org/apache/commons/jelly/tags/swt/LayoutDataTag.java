@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/swt/Attic/LayoutTag.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/swt/LayoutDataTag.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  * 1.1
  * 2002/12/18 15:27:49
  *
@@ -57,46 +57,34 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * LayoutTag.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
+ * LayoutDataTag.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  */
 package org.apache.commons.jelly.tags.swt;
 
+import java.lang.reflect.Constructor;
+import java.util.Map;
+
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 
 /** 
- * Creates a new Layout implementations and adds it to the parent Widget.
+ * Creates a LayoutData object and sets it on the parent Widget.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
-public class LayoutTag extends LayoutTagSupport {
+public class LayoutDataTag extends LayoutTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(LayoutTag.class);
+    private static final Log log = LogFactory.getLog(LayoutDataTag.class);
 
-    public LayoutTag(Class layoutClass) {
-        super(layoutClass);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the Layout if there is one otherwise null
-     */
-    public Layout getLayout() {
-        Object bean = getBean();
-        if ( bean instanceof Layout ) {
-            return (Layout) bean;
-        }
-        return null;
+    public LayoutDataTag(Class layoutDataClass) {
+        super(layoutDataClass);
     }
 
     // Implementation methods
@@ -107,26 +95,54 @@ public class LayoutTag extends LayoutTagSupport {
      */
     protected void processBean(String var, Object bean) throws Exception {
         super.processBean(var, bean);
-        
+
         Widget parent = getParentWidget();
-        if (parent instanceof Composite) {
-            Composite composite = (Composite) parent;
-            composite.setLayout(getLayout());
+        
+        if (parent instanceof Control) {
+            Control control = (Control) parent;
+            control.setLayoutData(getBean());
         }
         else {
-            throw new JellyException("This tag must be nested within a composite widget tag");
+            throw new JellyException("This tag must be nested within a control widget tag");
         }
     }
     
+    
+    /**
+     * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
+     */
+    protected Object newInstance(
+        Class theClass,
+        Map attributes,
+        XMLOutput output)
+        throws Exception {
+            
+        String text = (String) attributes.remove("style");
+        if (text != null) {
+            int style = SwtHelper.parseStyle(theClass, text);
+            
+            // now lets try invoke a constructor
+            Class[] types = { int.class };
+            Constructor constructor = theClass.getConstructor(types);
+            if (constructor != null) {
+                Object[] values = { new Integer(style) };
+                return constructor.newInstance(values);
+            }
+        }
+        return super.newInstance(theClass, attributes, output);
+    }
+
     /**
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     protected Object convertValue(Object bean, String name, Object value)
         throws Exception {
-            
-        if (bean instanceof FillLayout && name.equals("type") && value instanceof String) {
-            int style = SwtHelper.parseStyle(SWT.class, (String) value);
-            return new Integer(style);
+
+        if (bean instanceof GridData) {
+            if (name.endsWith("Alignment") && value instanceof String) {
+                int style = SwtHelper.parseStyle(bean.getClass(), (String) value);
+                return new Integer(style);
+            }
         }
         return super.convertValue(bean, name, value);
     }
