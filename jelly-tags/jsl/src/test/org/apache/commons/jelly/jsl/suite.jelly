@@ -227,6 +227,46 @@
     <test:assertEquals expected="El1SomeText" actual="${contextText}" />
   </test:case>  
   
+  <test:case name="testXMLContextCDATA" xmlns="dummy">
+    <x:parse var="testDoc">
+      <element1>
+         <element2><![CDATA[SomeText]]></element2>
+      </element1>
+    </x:parse>
+
+    <jsl:stylesheet var="contextStyleSheet">
+      <jsl:template match="element1">El1<jsl:applyTemplates /></jsl:template>
+      <jsl:template match="element2"><x:expr select="."/></jsl:template>
+    </jsl:stylesheet>
+
+    <j:set var="contextText"><jsl:style stylesheet="${contextStyleSheet}" select="$testDoc"/></j:set>
+
+    <m:echo>text is '${contextText}'</m:echo>
+    
+    <test:assertEquals expected="El1SomeText" actual="${contextText}" />
+  </test:case>  
+  
+  <test:case name="testXMLContextCDATA2" xmlns="dummy">
+    <x:parse var="testDoc">
+      <element1>
+         <element2><![CDATA[CDATA2]]></element2>
+         <element3><![CDATA[CDATA3]]></element3>
+      </element1>
+    </x:parse>
+
+    <jsl:stylesheet var="contextStyleSheet">
+      <jsl:template match="element1">El1<jsl:applyTemplates /></jsl:template>
+      <jsl:template match="element2"><x:expr select="."/></jsl:template>
+      <jsl:template match="element3"><jsl:applyTemplates /></jsl:template>
+    </jsl:stylesheet>
+
+    <j:set var="contextText"><jsl:style stylesheet="${contextStyleSheet}" select="$testDoc"/></j:set>
+
+    <m:echo>text is '${contextText}'</m:echo>
+    
+    <test:assertEquals expected="El1CDATA2CDATA3" actual="${contextText}" />
+  </test:case>  
+  
   <test:case name="testModeBug" xmlns="dummy">
     <x:parse var="testDoc">
       <menu>
