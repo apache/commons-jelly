@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.10 2002/06/06 07:13:41 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/06/06 07:13:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.11 2002/06/07 11:56:29 dion Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/06/07 11:56:29 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.10 2002/06/06 07:13:41 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.11 2002/06/07 11:56:29 dion Exp $
  */
 
 package org.apache.commons.jelly;
@@ -76,7 +76,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 
 public abstract class TagLibrary {
@@ -117,7 +117,7 @@ public abstract class TagLibrary {
         }
         
         // will use a constant expression instead
-        return new ConstantExpression(attributeValue);;
+        return new ConstantExpression(attributeValue);
     }
     
     
