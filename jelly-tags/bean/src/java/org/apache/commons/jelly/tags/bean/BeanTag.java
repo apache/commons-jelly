@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.4 2003/01/24 22:53:33 morgand Exp $
- * $Revision: 1.4 $
- * $Date: 2003/01/24 22:53:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.5 2003/01/25 23:34:42 morgand Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/01/25 23:34:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanTag.java,v 1.4 2003/01/24 22:53:33 morgand Exp $
+ * $Id: BeanTag.java,v 1.5 2003/01/25 23:34:42 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -68,7 +68,6 @@ import java.util.Collection;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.impl.CollectionTag;
@@ -83,7 +82,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version   $Revision: 1.4 $
+ * @version   $Revision: 1.5 $
  */
 public class BeanTag extends UseBeanTag {
 
