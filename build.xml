@@ -210,6 +210,12 @@
     <maven-ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
    </target>
 
+   <target name="test.jsl"
+      description="Runs the JSL unit test">
+    <property name="maven.testcase" value="org.apache.commons.jelly.jsl.TestJSL"/>   
+    <maven-ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
+   </target>
+
 
 <!-- ========== Sample Program Targets ==================================== -->
 

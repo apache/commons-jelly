@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/TestXMLTags.java,v 1.6 2002/05/15 07:47:50 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/15 07:47:50 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/05/28 07:20:06 $
  *
  * ====================================================================
  *
@@ -57,16 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLTags.java,v 1.6 2002/05/15 07:47:50 jstrachan Exp $
+ * $Id: TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
  */
-package org.apache.commons.jelly.xml;
+package org.apache.commons.jelly.jsl;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Iterator;
-import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -76,81 +74,66 @@ import junit.textui.TestRunner;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.parser.XMLParser;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Node;
+import org.dom4j.Element;
+import org.dom4j.io.SAXContentHandler;
 
-/** Tests the parser, the engine and the XML tags
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
-  */
-public class TestXMLTags extends TestCase {
+/** 
+ * Tests the JSL tags.
+ * Note this test harness could be written in Jelly script
+ * if we had the junit tag library!
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.8 $
+ */
+public class TestJSL extends TestCase {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(TestXMLTags.class);
+    private static final Log log = LogFactory.getLog(TestJSL.class);
 
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
 
     public static Test suite() {
-        return new TestSuite(TestXMLTags.class);
+        return new TestSuite(TestJSL.class);
     }
 
-    public TestXMLTags(String testName) {
+    public TestJSL(String testName) {
         super(testName);
     }
 
-    public void testUnitTests() throws Exception {
-        runUnitTest( "src/test/org/apache/commons/jelly/xml/testForEach.jelly" );
-    }
-    
-    public void testParse() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/xml/example.jelly");
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-        log.debug("Found: " + script);
-        assertTrue("Parsed a Script", script instanceof Script);
-        StringWriter buffer = new StringWriter();
-        script.run(parser.getContext(), XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluated script as...");
-            log.debug(text);
-        }
-        assertEquals("Produces the correct output", "It works!", text);
-    }
-    
-    public void runUnitTest(String name) throws Exception {
-        // parse script
-        InputStream in = new FileInputStream(name);
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-        assertTrue("Parsed a Script", script instanceof Script);
-        StringWriter buffer = new StringWriter();
-        script.run(parser.getContext(), XMLOutput.createXMLOutput(buffer));
-
-        String text = buffer.toString().trim();
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluated script as...");
-            log.debug(text);
-        }
+    public void testExample1() throws Exception {
+        Document document = runScript( "src/test/org/apache/commons/jelly/jsl/example.jelly" );
+        Element small = (Element) document.selectSingleNode("/html/body/small");
         
-        // now lets parse the output
-        Document document = DocumentHelper.parseText( text );
-        List failures = document.selectNodes( "/*/fail" );
-        for ( Iterator iter = failures.iterator(); iter.hasNext(); ) {
-            Node node = (Node) iter.next();
-            fail( node.getStringValue() );
-        }
+        assertTrue( "<small> starts with 'James Elson'", small.getText().startsWith("James Elson") );
+        assertEquals( "I am a title!", small.valueOf( "h2" ).trim() );
+        assertEquals( "Twas a dark, rainy night...", small.valueOf( "small" ).trim() );
+        assertEquals( "dfjsdfjsdf", small.valueOf( "p" ).trim() );
     }
     
+        
+    protected Document runScript(String fileName) throws Exception {
+        InputStream in = new FileInputStream(fileName);
+        XMLParser parser = new XMLParser();
+        Script script = parser.parse(in);
+        script = script.compile();
+        JellyContext context = parser.getContext();
+        
+        SAXContentHandler contentHandler = new SAXContentHandler();
+        XMLOutput output = new XMLOutput( contentHandler );
+        
+        contentHandler.startDocument();
+        script.run(context, output);
+        contentHandler.endDocument();
+        
+        return contentHandler.getDocument();
+    }
 }
