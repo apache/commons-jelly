@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
-<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:x="jelly:xml">
+<test:suite 
+	xmlns:j="jelly:core" 
+	xmlns:test="jelly:junit" 
+	xmlns:log="jelly:log">
 
   <test:case name="testChoose">
 
@@ -63,4 +66,24 @@
 	  		  
   </test:case>
 
+	<test:case name="testNewAndSetProperties">
+		<j:new className="org.apache.commons.jelly.define.Customer" var="customer"/>
+		<j:setProperties object="${customer}" name="James" city="London" />
+
+		<log:info>Created a new bean: ${customer}</log:info>
+			
+		<test:assert test="${customer != null}">Created a customer DynaBean</test:assert>
+		
+		<test:assertEquals 
+			expected="James" 
+			actual="${customer.name}"/>
+			
+		<test:assertEquals 
+			expected="London" 
+			actual="${customer.city}"/>
+			
+		<test:assertEquals 
+			expected="org.apache.commons.jelly.define.Customer" 
+			actual="${customer.class.name}"/>
+  </test:case>
 </test:suite>

@@ -84,6 +84,10 @@ public class Customer {
     }
     
     
+    public String toString() {
+        return super.toString() + "[name=" + name + ";city=" + city + "]";
+    }
+    
     // Properties
     //-------------------------------------------------------------------------
     /**
