@@ -24,6 +24,8 @@ import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.dom4j.Node;
+
 import org.jaxen.XPath;
 import org.jaxen.JaxenException;
 
@@ -38,7 +40,7 @@ import java.util.Collections;
   * used from the other xml library functions.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 public class SetTag extends XPathTagSupport {
 
@@ -54,7 +56,9 @@ public class SetTag extends XPathTagSupport {
     /** Xpath comparator for sorting */
     private XPathComparator xpCmp = null;
 
-    private Boolean single=null;
+    private Boolean single = null;
+    
+    private Boolean asString = null;
 
     public SetTag() {
 
@@ -98,6 +102,8 @@ public class SetTag extends XPathTagSupport {
                     else
                         value=l.get(0);
                 }
+                if(asString!=null && asString.booleanValue() && value instanceof Node)
+                    value = ((Node) value).getStringValue();
             } else { // single == false
                 if(! (value instanceof List) ) {
                     List l = null;
@@ -140,6 +146,20 @@ public class SetTag extends XPathTagSupport {
         */
     public void setSingle(boolean single) {
         this.single = new Boolean(single);
+    }
+    
+    /** If set to true, will ensure that the (XPath) text-value
+      * of the selected node is taken instead of the node
+      * itself.
+      * This ensures that, thereafter, string manipulations
+      * can be performed on the result.
+      * Setting this attribute to true will also set the single
+      * attribute to true.
+      */
+    public void setAsString(boolean asString) {
+        if(asString)
+            this.single = new Boolean(asString);
+        this.asString = new Boolean(asString);
     }
 
 
