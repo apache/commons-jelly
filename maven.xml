@@ -110,6 +110,20 @@
             file="${maven.build.dir}/${maven.final.name}.jar"/>
   </preGoal>
 
+  <!-- TAG LIBS BUILD -->
+  <goal 
+    name="tags-build"
+    description="Build each tag into an installable jar">
+
+    <maven:reactor
+      basedir="jelly-tags"
+      includes="*/project.xml"
+      goals="clean,jar:install"
+      banner="Building tag"
+      ignoreFailures="false"/>
+  </goal>
+
+
   <!-- ===================================================================== -->
   <!--                      D I S T : I N S T A L L                          -->
   <!-- ===================================================================== -->
