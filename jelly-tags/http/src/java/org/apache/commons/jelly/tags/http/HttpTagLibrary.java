@@ -32,16 +32,18 @@ public class HttpTagLibrary extends TagLibrary {
      * Creates a new instance of LatkaTagLibrary
      */
     public HttpTagLibrary() {
-        registerTag("session", SessionTag.class);
-        registerTag("get", GetTag.class);
-        registerTag("post", PostTag.class);
-        registerTag("delete", DeleteTag.class);
-        registerTag("head", HeadTag.class);
-        registerTag("options", OptionsTag.class);
-        registerTag("put", PutTag.class);
-        registerTag("parameter", ParameterTag.class);
-        registerTag("header", HeaderTag.class);
         registerTag("body", BodyTag.class);
+        registerTag("delete", DeleteTag.class);
+        registerTag("get", GetTag.class);
+        registerTag("head", HeadTag.class);
+        registerTag("header", HeaderTag.class);
+        registerTag("mppost", MultipartPostTag.class);
+        registerTag("options", OptionsTag.class);
+        registerTag("parameter", ParameterTag.class);
+        registerTag("part", PartTag.class);
+        registerTag("post", PostTag.class);
+        registerTag("put", PutTag.class);
+        registerTag("session", SessionTag.class);
     }
 
     /**
