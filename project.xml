@@ -18,12 +18,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
 <project>
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <id>commons-jelly</id>
-  <currentVersion>1.0-beta-5-SNAPSHOT</currentVersion>
-
+  <currentVersion>1.0-RC1</currentVersion>
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://jakarta.apache.org</url>
@@ -32,7 +32,6 @@
   <logo>/images/logo.jpg</logo>
   <package>org.apache.commons.*</package>
   <gumpRepositoryId>jakarta</gumpRepositoryId>
-
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly</package>
   <packageGroups>
@@ -58,26 +57,17 @@
     </packageGroup>
   </packageGroups>
   <shortDescription>Commons Jelly</shortDescription>
-  
-  <description>
-    Jelly is a Java and XML based scripting engine. 
-    Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple
-    yet powerful scripting engine.
-  </description>
-  
+  <description>Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
   <url>http://jakarta.apache.org/commons/jelly/</url>
   <issueTrackingUrl>http://nagoya.apache.org/jira/secure/BrowseProject.jspa?id=10012</issueTrackingUrl>
-  
   <siteAddress>jakarta.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
-  
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly</connection>
     <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:jakarta-commons/jelly</developerConnection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons/${pom.artifactId.substring(8)}/</url>
   </repository>
-
   <mailingLists>
     <mailingList>
       <name>Commons Dev List</name>
@@ -92,7 +82,6 @@
       <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
     </mailingList>
   </mailingLists>
-
   <versions>
     <version>
       <id>1.0-beta-1</id>
@@ -104,9 +93,13 @@
       <name>1.0-beta-4</name>
       <tag>COMMONS-JELLY-1_0-beta-4</tag>
     </version>
+    <version>
+      <id>1.0-RC1</id>
+      <name>1.0-RC1</name>
+      <tag>COMMONS_JELLY-1_0_RC1</tag>
+    </version>
   </versions>
-  <branches></branches>
-  
+  <branches/>
   <developers>
     <developer>
       <name>James Strachan</name>
@@ -158,7 +151,7 @@
     <developer>
       <name>Paul Libbrecht</name>
       <email>paul@activemath.org</email>
-    </developer>    
+    </developer>
     <developer>
       <name>Robert Burrell Donkin</name>
       <id>rdonkin</id>
@@ -167,10 +160,9 @@
     <developer>
       <name>Daniel F. Savarese</name>
       <id>dfs</id>
-      <email>dfs -> apache.org</email>
+      <email>dfs -&gt; apache.org</email>
     </developer>
   </developers>
-
   <contributors>
     <contributor>
       <name>Erik Fransen</name>
@@ -207,7 +199,7 @@
     <contributor>
       <name>Otto von Wachter</name>
       <email>vonwao@yahoo.com</email>
-      <organization></organization>
+      <organization/>
       <roles>
         <role>Author of the tutorials</role>
         <role>Developer</role>
@@ -227,14 +219,14 @@
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>    
+    </contributor>
     <contributor>
       <name>Jason Horman</name>
       <email>jhorman@musicmatch.com</email>
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>    
+    </contributor>
     <contributor>
       <name>Tim Anderson</name>
       <email>tima@intalio.com</email>
@@ -242,107 +234,157 @@
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>    
+    </contributor>
     <contributor>
       <name>Theo Niemeijer</name>
       <email>theo.niemeijer@getthere.nl</email>
-      <organization></organization>
+      <organization/>
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>    
+    </contributor>
     <contributor>
       <name>J. Matthew Pryor</name>
       <email>matthew_pryor@versata.com</email>
-      <organization></organization>
+      <organization/>
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>        
+    </contributor>
     <contributor>
       <name>Knut Wannheden</name>
-      <email></email>
-      <organization></organization>
+      <email/>
+      <organization/>
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>        
+    </contributor>
     <contributor>
       <name>Kelvin Tan</name>
-      <email></email>
-      <organization></organization>
+      <email/>
+      <organization/>
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>        
+    </contributor>
     <contributor>
       <name>Todd Jonker</name>
-      <email></email>
-      <organization></organization>
+      <email/>
+      <organization/>
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>            
+    </contributor>
     <contributor>
       <name>Christiaan ten Klooster</name>
-      <email></email>
-      <organization></organization>
+      <email/>
+      <organization/>
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>            
+    </contributor>
     <contributor>
       <name>Pete Kazmier</name>
       <email>kaz@apache.org</email>
-      <organization></organization>
+      <organization/>
       <roles>
         <role>Developer</role>
       </roles>
-    </contributor>            
+    </contributor>
   </contributors>
-  
   <dependencies>
+    <!--
+  Copyright 2002,2004 The Apache Software Foundation.
   
-    &commonDeps;
-    
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+&commonDeps;
+    <!-- 
+      the common Maven dependencies for Jelly shared by the core
+      build and all individual taglib builds.  Use this
+      file to keep all dependency versions in sync.
+      Does not include CLI (Command Line Interface).
+    -->
+
+    <dependency>
+      <id>commons-jexl</id>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <id>xml-apis</id>
+      <version>1.0.b2</version>
+    </dependency>
+    <dependency>
+      <id>commons-beanutils</id>
+      <version>1.7.0</version>
+    </dependency>
+    <dependency>
+      <id>commons-collections</id>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <id>commons-logging</id>
+      <version>1.0.3</version>
+    </dependency>
+    <dependency>
+      <id>dom4j</id>
+      <version>1.5</version>
+    </dependency>
+    <dependency>
+      <id>jaxen</id>
+      <version>1.1-beta-2</version>
+    </dependency>
+    <dependency>
+      <id>xerces</id>
+      <version>2.2.1</version>
+    </dependency>
     <!-- for servlet support -->
+
     <dependency>
       <id>servletapi</id>
       <version>2.3</version>
     </dependency>
-
     <!-- for command line interface support -->
+
     <dependency>
       <id>commons-cli</id>
       <version>1.0</version>
     </dependency>
-
     <!-- this is brought in by the commons-cli dependency -->
+
     <dependency>
       <id>commons-lang</id>
       <version>2.0</version>
     </dependency>
-
     <dependency>
       <id>commons-discovery</id>
       <version>20030211.213356</version>
     </dependency>
-
     <!-- for the jelly startup scripts -->
+
     <dependency>
       <id>forehead</id>
       <version>1.0-beta-5</version>
       <url>http://forehead.werken.com/</url>
     </dependency>
-
     <!-- for the jstl interfaces -->
+
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
       <version>1.0.6</version>
       <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/intro.html</url>
     </dependency>
-
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -350,22 +392,20 @@
       <url>http://junit.org</url>
     </dependency>
   </dependencies>
-  
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
     <sourceDirectory>${basedir}/src/java</sourceDirectory>
-
     <resources>
-        <resource>
-            <directory>${basedir}/src/java</directory>
-            <includes>
-                <include>**/*.properties</include>
-            </includes>
-        </resource>
+      <resource>
+        <directory>${basedir}/src/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
     </resources>
-        
     <unitTestSourceDirectory>${basedir}/src/test</unitTestSourceDirectory>
     <!-- Unit test classes -->
+
     <unitTest>
       <includes>
         <include>**/Test*.java</include>
@@ -387,7 +427,6 @@
       </resources>
     </unitTest>
   </build>
-  
   <reports>
     <report>maven-changelog-plugin</report>
     <report>maven-changes-plugin</report>
@@ -403,5 +442,4 @@
     <report>maven-pmd-plugin</report>
     <report>maven-tasklist-plugin</report>
   </reports>
-  
 </project>
