@@ -219,7 +219,7 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
         Result result = null;
         String sqlStatement = null;
 
-        log.info( "About to lookup connection" );
+        log.debug( "About to lookup connection" );
         
         try {
             conn = getConnection();
@@ -254,16 +254,14 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
             PreparedStatement ps = conn.prepareStatement(sqlStatement);
             setParameters(ps, parameters);
             
-            log.info( "About to execute query: " + sqlStatement );
+            if ( log.isDebugEnabled() ) {
+                log.debug( "About to execute query: " + sqlStatement );
+            }
             
             ResultSet rs = ps.executeQuery();
             
-            log.info( "About to create result set" );
-            
             result = new ResultImpl(rs, startRow, maxRows);
             context.setVariable(var, result);
-            
-            log.info( "Created results and defined variable: " + var );
         }
         catch (SQLException e) {
             throw new JellyException(sqlStatement + ": " + e.getMessage(), e);

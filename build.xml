@@ -5,34 +5,32 @@
   <!-- Give user a chance to override without editing this file
        (and without typing -D each time they invoke a target) -->
 
-  <!-- Allow any user specific values to override the defaults -->
+  <!-- Allow any user specific values to override the defaults -->  
   <property file="${user.home}/build.properties" />
+  
   <!-- Allow user defaults for this project -->
   <property file="build.properties" />
+  
   <!-- Set default values for the build -->
   <property file="project.properties" />
   
   <!-- the default build location -->
   <property name="maven.build.dest" value="target/classes"/>
 
-  	  <path id="test.classpath">
-        <pathelement path="${maven.build.dest}"/>
-        <pathelement location="${lib.repo}/commons-logging-1.0.jar"/>
-        <pathelement location="${lib.repo}/commons-beanutils-20020520.jar"/>
-        <pathelement location="${lib.repo}/commons-collections-2.0.jar"/>
-        <pathelement location="${lib.repo}/commons-digester-1.2.jar"/>
-        <pathelement location="${lib.repo}/commons-jexl-1.0-dev.jar"/>
-        <pathelement location="${lib.repo}/dom4j-1.4-dev.jar"/>
-        <pathelement location="${lib.repo}/hsqldb.jar"/>
-        <pathelement location="${lib.repo}/velocity-1.4-dev.jar"/>
-        <pathelement location="/jpackages/jaxp-1.1/jaxp.jar"/>
-        <pathelement location="/jpackages/jaxp-1.1/crimson.jar"/>
-<!--        
-        <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
-        <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
--->        
-        <pathelement location="${lib.repo}/jdbc2_0-stdext.jar"/>
-      </path>
+  <path id="test.classpath">
+    <pathelement path="${maven.build.dest}"/>
+    <pathelement location="${lib.repo}/commons-logging-1.0.jar"/>
+    <pathelement location="${lib.repo}/commons-beanutils-20020520.jar"/>
+    <pathelement location="${lib.repo}/commons-collections-2.0.jar"/>
+    <pathelement location="${lib.repo}/commons-digester-1.2.jar"/>
+    <pathelement location="${lib.repo}/commons-jexl-1.0-dev.jar"/>
+    <pathelement location="${lib.repo}/dom4j-1.4-dev.jar"/>
+    <pathelement location="${lib.repo}/hsqldb-1.7.0.jar"/>
+    <pathelement location="${lib.repo}/velocity-1.4-dev.jar"/>
+    <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
+    <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
+    <pathelement location="${lib.repo}/jdbc2_0-stdext.jar"/>
+  </path>
 
   <!-- maven:start -->
   
@@ -228,31 +226,11 @@
 	  <property name="databaseUser"            value="sa"/>
 	  <property name="databaseTable"           value="SYSTEM_TABLES"/>
 
-	<echo message="Running example 3"/>
-
-<!--	
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/sql/example3.jelly"/> 
-      <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
-    </java>
--->
-    
-    <taskdef
-      name="jelly"
-      classname="org.apache.commons.jelly.task.JellyTask">
-      <classpath refid="test.classpath"/>
-    </taskdef>
-    
-	<echo message="Running example"/>
+	<echo message="Running examples and outputting results to target directory"/>
 	
-	<jelly file="src/test/org/apache/commons/jelly/sql/example3.jelly" output="target/sqloutput.xml"/>
 	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="target/sqloutput.xml"/>
-<!--
-	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${maven.build.dest}/sqloutput.xml"/>
-	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${maven.build.dest}/sqloutput2.xml"/>	
-	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="${maven.build.dest}/sqloutput3.xml"/>	
--->	
+	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="target/sqloutput2.xml"/>	
+	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="target/sqloutput3.xml"/>		
    </target>
    
 	
