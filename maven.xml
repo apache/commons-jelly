@@ -272,15 +272,6 @@
       <echo>Tag-library ${tlname}'s site is up-to-date ? "${context.getVariable(testVar)}"</echo>
       <j:if test="${!context.getVariable(testVar)}">
         <echo>Building tag-library ${tlname}'s site.</echo>
-        <!-- note: remove this once all taglibs have nav -->
-        <echo>Outputting navigation to ${dir}/target/generated-xdocs/navigation.xml.</echo>
-        <mkdir dir="${dir}/target/generated-xdocs"/>
-        <copy file="${basedir}/jelly-tags/tag-navigation.xml" tofile="${dir}/target/generated-xdocs/navigation.xml"
-          overwrite="true">
-          <filterchain> 
-            <replacetokens><token key="pom.name" value="jelly-${tlName}"/></replacetokens>
-          </filterchain>
-        </copy>
 
         <exec executable="${mavenCmd}" failonerror="true" dir="${dir}">
           <arg value="site"/>
