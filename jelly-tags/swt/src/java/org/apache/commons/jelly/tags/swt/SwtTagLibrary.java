@@ -151,6 +151,9 @@ public class SwtTagLibrary extends TagLibrary {
         
         // events
         registerTag("onEvent", OnEventTag.class);
+
+        // other tags                    
+        registerTag("image", ImageTag.class);
     }
 
     /**
