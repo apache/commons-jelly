@@ -17,9 +17,8 @@
 <project name="JellySwing">
 
   <title>Jelly Swing</title>
-  <organizationLogo href="/images/jakarta-logo-blue.gif">Jakarta</organizationLogo>
   
-  <body><!-- note, all links will be relativized at HTML production... -->
+  <body>
     <menu name="JellySwing">
       <item name="Overview"                href="/index.html"/>
       <item name="Tags"                    href="/tags.html"/>

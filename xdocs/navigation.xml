@@ -18,7 +18,6 @@
 <project name="Jelly">
 
   <title>Jelly</title>
-  <organizationLogo href="http://jakarta.apache.org/images/jakarta-logo.gif">Jakarta</organizationLogo>
 
   <body>
     <menu name="Jelly">
