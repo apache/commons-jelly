@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.23 2003/01/24 19:27:25 morgand Exp $
- * $Revision: 1.23 $
- * $Date: 2003/01/24 19:27:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.24 2003/01/25 17:37:25 morgand Exp $
+ * $Revision: 1.24 $
+ * $Date: 2003/01/25 17:37:25 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.23 2003/01/24 19:27:25 morgand Exp $
+ * $Id: TagSupport.java,v 1.24 2003/01/25 17:37:25 morgand Exp $
  */
 package org.apache.commons.jelly;
 
@@ -76,7 +76,7 @@ import org.apache.commons.jelly.impl.TextScript;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.23 $
+  * @version $Revision: 1.24 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -266,7 +266,7 @@ public abstract class TagSupport implements Tag {
      *
      * @return the text evaluation of the body
      */
-    protected String getBodyText() throws JellyException {
+    protected String getBodyText() throws JellyTagException {
         StringWriter writer = new StringWriter();
         invokeBody(XMLOutput.createXMLOutput(writer));
         return writer.toString();
