@@ -18,7 +18,7 @@
   	  || we'll specify some required attributes and some default values
   	  -->
   	  
-    <define:bean name="customer" className="org.apache.commons.jelly.bean.Customer">
+    <define:bean name="customer" className="org.apache.commons.jelly.core.Customer">
 	  <define:attribute name="name" required="true"/>
 	  <define:attribute name="location" defaultValue="UK"/>
 	</define:bean>    	

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestInvokeTag.java,v 1.1 2002/11/29 15:53:10 rwaldhoff Exp $
- * $Revision: 1.1 $
- * $Date: 2002/11/29 15:53:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestInvokeTag.java,v 1.2 2003/01/15 12:23:19 dion Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/15 12:23:19 $
  *
  * ====================================================================
  *
@@ -57,18 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestInvokeTag.java,v 1.1 2002/11/29 15:53:10 rwaldhoff Exp $
+ * $Id: TestInvokeTag.java,v 1.2 2003/01/15 12:23:19 dion Exp $
  */
 package org.apache.commons.jelly.core;
 
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.bean.Customer;
+import org.apache.commons.jelly.core.Customer;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.1 $ $Date: 2002/11/29 15:53:10 $
+ * @version $Revision: 1.2 $ $Date: 2003/01/15 12:23:19 $
  */
 public class TestInvokeTag extends BaseJellyTest {
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/28 07:20:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Product.java,v 1.1 2003/01/15 12:23:19 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 12:23:19 $
  *
  * ====================================================================
  *
@@ -57,13 +57,9 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
+ * $Id: Product.java,v 1.1 2003/01/15 12:23:19 dion Exp $
  */
-package org.apache.commons.jelly.bean;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+package org.apache.commons.jelly.core;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,86 +68,31 @@ import org.apache.commons.logging.LogFactory;
  * A sample bean that we can construct via Jelly tags
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
-public class Customer {
+public class Product {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(Customer.class);
+    private static final Log log = LogFactory.getLog(Product.class);
 
+    private String id;
     private String name;
-    private String city;
-    private String location;
-    private List orders = new ArrayList();
     
-        
-    public Customer() {
-    }
-    
-    public Customer(String name) {
-        setName(name);
-    }
-    
-    public Customer(String name, String city) {
-        setName(name);
-        setCity(city);
-    }
-    
-    public Customer(String name, String city, Order anOrder) {
-        setName(name);
-        setCity(city);
-        addOrder(anOrder);
-    }
-    
-    public Customer(Customer cust) {
-        setName(cust.getName());
-        setCity(cust.getCity());
-        setLocation(cust.getLocation());
-        List list = cust.getOrders();
-        if(null != list) {
-            for(Iterator iter = list.iterator();iter.hasNext();) {
-                addOrder((Order)iter.next());
-            }
-        }
+    public Product() {
     }
     
     public String toString() {
-        return super.toString() + "[name=" + name + ";city=" + city + "]";
+        return "Product[id=" + id + ";name=" + name + "]";
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
     /**
-     * Creates a new Order object 
-     */
-    public Order createOrder() {
-        return new Order();
-    }    
-
-    public List getOrders() {
-        return orders;
-    }
-    
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-    
-    public void removeOrder(Order order) {
-        orders.remove(order);
-    }    
-
-    /**
-     * Returns the city.
+     * Returns the id.
      * @return String
      */
-    public String getCity() {
-        return city;
-    }
-
-    /**
-     * Returns the location.
-     * @return String
-     */
-    public String getLocation() {
-        return location;
+    public String getId() {
+        return id;
     }
 
     /**
@@ -163,19 +104,11 @@ public class Customer {
     }
 
     /**
-     * Sets the city.
-     * @param city The city to set
+     * Sets the id.
+     * @param id The id to set
      */
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    /**
-     * Sets the location.
-     * @param location The location to set
-     */
-    public void setLocation(String location) {
-        this.location = location;
+    public void setId(String id) {
+        this.id = id;
     }
 
     /**
@@ -185,6 +118,5 @@ public class Customer {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }

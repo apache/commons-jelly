@@ -2,7 +2,7 @@
 
     <j:if test="${test.simpleInvoke}">
         <j:set var="namearg" value="Jane Doe"/>
-        <j:new var="foo" className="org.apache.commons.jelly.bean.Customer"/>
+        <j:new var="foo" className="org.apache.commons.jelly.core.Customer"/>
         <j:invoke method="setName" on="${foo}">
             <j:arg value="${namearg}"/>
         </j:invoke>
@@ -10,7 +10,7 @@
             <j:arg value="Chicago"/>
         </j:invoke>
         <j:invoke method="addOrder" on="${foo}">
-            <j:arg><j:new className="org.apache.commons.jelly.bean.Order"/></j:arg>
+            <j:arg><j:new className="org.apache.commons.jelly.core.Order"/></j:arg>
         </j:invoke>
     </j:if>
 
@@ -27,7 +27,7 @@
         <j:invoke on="${list}" method="add"><j:arg value="Jane Doe"/></j:invoke>
         <j:invoke on="${list}" method="add"><j:arg value="Chicago"/></j:invoke>
         
-        <j:new var="customer" className="org.apache.commons.jelly.bean.Customer">
+        <j:new var="customer" className="org.apache.commons.jelly.core.Customer">
             <j:arg><j:invoke on="${list}" method="get"><j:arg type="int" value="0"/></j:invoke></j:arg>
             <j:arg><j:invoke on="${list}" method="get"><j:arg type="int" value="1"/></j:invoke></j:arg>
         </j:new>
@@ -38,7 +38,7 @@
         <j:invoke on="${list}" method="add"><j:arg value="Jane Doe"/></j:invoke>
         <j:invoke on="${list}" method="add"><j:arg value="Chicago"/></j:invoke>
         
-        <j:new var="customer" className="org.apache.commons.jelly.bean.Customer">
+        <j:new var="customer" className="org.apache.commons.jelly.core.Customer">
             <j:arg><j:invoke on="${list}" method="get"><j:arg type="int" value="0"/></j:invoke></j:arg>
             <j:arg><j:invoke on="${list}" method="get" var="argtwo"><j:arg type="int" value="1"/></j:invoke></j:arg>
         </j:new>

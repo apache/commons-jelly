@@ -98,7 +98,7 @@
   </test:case>
 
 	<test:case name="testNewAndSetProperties">
-		<j:new className="org.apache.commons.jelly.bean.Customer" var="customer"/>
+		<j:new className="org.apache.commons.jelly.core.Customer" var="customer"/>
 		<j:setProperties object="${customer}" name="James" city="London" />
 
 		<log:info>Created a new bean: ${customer}</log:info>
@@ -114,12 +114,12 @@
 			actual="${customer.city}"/>
 			
 		<test:assertEquals 
-			expected="org.apache.commons.jelly.bean.Customer" 
+			expected="org.apache.commons.jelly.core.Customer" 
 			actual="${customer.class.name}"/>
   </test:case>
 
 	<test:case name="testUseBean">
-		<j:useBean var="customer" class="org.apache.commons.jelly.bean.Customer" name="James" city="London" />
+		<j:useBean var="customer" class="org.apache.commons.jelly.core.Customer" name="James" city="London" />
 
 		<log:info>Created a new bean: ${customer}</log:info>
 			
@@ -134,12 +134,12 @@
 			actual="${customer.city}"/>
 			
 		<test:assertEquals 
-			expected="org.apache.commons.jelly.bean.Customer" 
+			expected="org.apache.commons.jelly.core.Customer" 
 			actual="${customer.class.name}"/>
   </test:case>
 
 	<test:case name="testUseBeanWithSetProperties">
-		<j:useBean var="customer" class="org.apache.commons.jelly.bean.Customer" name="James">
+		<j:useBean var="customer" class="org.apache.commons.jelly.core.Customer" name="James">
 
 			<!-- typically the following tag might be nested inside some conditional logic -->
 			<j:setProperties name="Bob" city="Atlanta"/>
@@ -158,7 +158,7 @@
 			actual="${customer.city}"/>
 			
 		<test:assertEquals 
-			expected="org.apache.commons.jelly.bean.Customer" 
+			expected="org.apache.commons.jelly.core.Customer" 
 			actual="${customer.class.name}"/>
   </test:case>
 

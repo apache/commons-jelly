@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/28 07:20:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Customer.java,v 1.1 2003/01/15 12:23:20 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 12:23:20 $
  *
  * ====================================================================
  *
@@ -57,9 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
+ * $Id: Customer.java,v 1.1 2003/01/15 12:23:20 dion Exp $
  */
-package org.apache.commons.jelly.bean;
+package org.apache.commons.jelly.core;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -68,77 +72,119 @@ import org.apache.commons.logging.LogFactory;
  * A sample bean that we can construct via Jelly tags
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
-public class Order {
+public class Customer {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(Order.class);
+    private static final Log log = LogFactory.getLog(Customer.class);
 
-    private Product product;
-    private int amount;
-    private double price;
+    private String name;
+    private String city;
+    private String location;
+    private List orders = new ArrayList();
     
-    public Order() {
+        
+    public Customer() {
+    }
+    
+    public Customer(String name) {
+        setName(name);
+    }
+    
+    public Customer(String name, String city) {
+        setName(name);
+        setCity(city);
+    }
+    
+    public Customer(String name, String city, Order anOrder) {
+        setName(name);
+        setCity(city);
+        addOrder(anOrder);
+    }
+    
+    public Customer(Customer cust) {
+        setName(cust.getName());
+        setCity(cust.getCity());
+        setLocation(cust.getLocation());
+        List list = cust.getOrders();
+        if(null != list) {
+            for(Iterator iter = list.iterator();iter.hasNext();) {
+                addOrder((Order)iter.next());
+            }
+        }
     }
     
     public String toString() {
-        return "Order[amount=" + amount + ";price=" + price + ";product=" + product + "]";
+        return super.toString() + "[name=" + name + ";city=" + city + "]";
+    }
+
+    /**
+     * Creates a new Order object 
+     */
+    public Order createOrder() {
+        return new Order();
+    }    
+
+    public List getOrders() {
+        return orders;
     }
     
-    /** 
-     * Factory method to create a new Product
-     */
-    public Product createProduct() {
-        return new Product();
+    public void addOrder(Order order) {
+        orders.add(order);
     }
-        
+    
+    public void removeOrder(Order order) {
+        orders.remove(order);
+    }    
+
     /**
-     * Returns the amount.
-     * @return int
+     * Returns the city.
+     * @return String
      */
-    public int getAmount() {
-        return amount;
+    public String getCity() {
+        return city;
     }
 
     /**
-     * Returns the price.
-     * @return double
+     * Returns the location.
+     * @return String
      */
-    public double getPrice() {
-        return price;
+    public String getLocation() {
+        return location;
     }
 
     /**
-     * Sets the amount.
-     * @param amount The amount to set
+     * Returns the name.
+     * @return String
      */
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public String getName() {
+        return name;
     }
 
     /**
-     * Sets the price.
-     * @param price The price to set
+     * Sets the city.
+     * @param city The city to set
      */
-    public void setPrice(double price) {
-        this.price = price;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     /**
-     * Returns the product.
-     * @return Product
+     * Sets the location.
+     * @param location The location to set
      */
-    public Product getProduct() {
-        return product;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     /**
-     * Sets the product.
-     * @param product The product to set
+     * Sets the name.
+     * @param name The name to set
      */
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setName(String name) {
+        this.name = name;
     }
+
 
 }

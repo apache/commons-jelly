@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
- * $Revision: 1.8 $
- * $Date: 2002/07/06 13:53:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Order.java,v 1.1 2003/01/15 12:23:19 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/15 12:23:19 $
  *
  * ====================================================================
  *
@@ -57,28 +57,88 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: Order.java,v 1.1 2003/01/15 12:23:19 dion Exp $
  */
-package org.apache.commons.jelly.bean;
+package org.apache.commons.jelly.core;
 
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /** 
- * A helper class to run jelly test cases as part of Ant's JUnit tests
+ * A sample bean that we can construct via Jelly tags
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
-public class TestJelly extends JellyTestSuite {
+public class Order {
 
-    public static void main( String[] args ) throws Exception {
-        TestRunner.run( suite() );
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(Order.class);
+
+    private Product product;
+    private int amount;
+    private double price;
+    
+    public Order() {
     }
     
-    public static TestSuite suite() throws Exception {
-        return createTestSuite(TestJelly.class, "suite.jelly");        
+    public String toString() {
+        return "Order[amount=" + amount + ";price=" + price + ";product=" + product + "]";
     }
+    
+    /** 
+     * Factory method to create a new Product
+     */
+    public Product createProduct() {
+        return new Product();
+    }
+        
+    /**
+     * Returns the amount.
+     * @return int
+     */
+    public int getAmount() {
+        return amount;
+    }
+
+    /**
+     * Returns the price.
+     * @return double
+     */
+    public double getPrice() {
+        return price;
+    }
+
+    /**
+     * Sets the amount.
+     * @param amount The amount to set
+     */
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    /**
+     * Sets the price.
+     * @param price The price to set
+     */
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    /**
+     * Returns the product.
+     * @return Product
+     */
+    public Product getProduct() {
+        return product;
+    }
+
+    /**
+     * Sets the product.
+     * @param product The product to set
+     */
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
 }

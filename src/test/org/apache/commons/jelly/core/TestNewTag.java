@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestNewTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
- * $Revision: 1.2 $
- * $Date: 2002/11/30 07:41:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/TestNewTag.java,v 1.3 2003/01/15 12:23:20 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/15 12:23:20 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestNewTag.java,v 1.2 2002/11/30 07:41:21 rwaldhoff Exp $
+ * $Id: TestNewTag.java,v 1.3 2003/01/15 12:23:20 dion Exp $
  */
 package org.apache.commons.jelly.core;
 
@@ -66,11 +66,11 @@ import java.util.Date;
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.bean.Customer;
+import org.apache.commons.jelly.core.Customer;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.2 $ $Date: 2002/11/30 07:41:21 $
+ * @version $Revision: 1.3 $ $Date: 2003/01/15 12:23:20 $
  */
 public class TestNewTag extends BaseJellyTest {
 
