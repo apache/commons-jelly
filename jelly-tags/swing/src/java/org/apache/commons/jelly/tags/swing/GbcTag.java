@@ -63,10 +63,12 @@ package org.apache.commons.jelly.tags.swing;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
+import java.awt.Insets;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.jelly.tags.swing.impl.GridBagConstraintBean;
