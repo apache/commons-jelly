@@ -211,6 +211,8 @@ public class AntTag extends MapTagSupport implements TaskSource {
                     project.addReference( (String) id, nested );
                 }
 
+                // TODO: work out why we always set the name attribute.
+                // See JELLY-105.
                 try{
                     PropertyUtils.setProperty( nested, "name", tagName );
                 }
