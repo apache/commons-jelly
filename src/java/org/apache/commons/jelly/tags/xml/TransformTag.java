@@ -61,11 +61,13 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
@@ -352,6 +354,16 @@ public class TransformTag extends ParseTag {
             else if (sourceObj instanceof URL) {
                 String uri = ((URL) sourceObj).toString();
                 xmlInputSource = new InputSource(context.getResourceAsStream(uri));
+            }
+            else if (sourceObj instanceof File) {
+                try {
+                    String uri = ((File) sourceObj).toURL().toString();
+                    xmlInputSource = new InputSource(context.getResourceAsStream(uri));
+                }
+                catch (MalformedURLException e) {
+                    throw new IllegalArgumentException(
+                        "This should never occur. We should always be able to convert a File to a URL" + e );
+                }
             }
             else {
                 throw new IllegalArgumentException(
