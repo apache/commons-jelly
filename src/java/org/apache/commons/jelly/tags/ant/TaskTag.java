@@ -70,6 +70,7 @@ import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.Project;
+import org.apache.tools.ant.ProjectHelper;
 
 /** 
  * A tag which invokes an Ant Task
@@ -117,7 +118,9 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
         // normal property-deref routines.
         Project project = task.getProject();
 
-        String newValue = project.replaceProperties( (String) value );
+        String newValue = ProjectHelper.replaceProperties( project,
+                                                           (String) value,
+                                                           project.getProperties() );
 
         super.setAttribute( name,
                             newValue );
