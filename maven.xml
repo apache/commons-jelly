@@ -557,4 +557,12 @@
     </java>
   </goal>
 
+  <goal name="test:task" prereqs="jelly-task" 
+  	description="A simple test case for working with Ant tasks">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/ant/task/example.jelly"/> 
+    </java>
+  </goal>
+
 </project>
