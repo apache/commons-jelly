@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.8 2002/10/30 19:16:20 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/10/30 19:16:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.9 2002/11/16 09:49:08 dion Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/11/16 09:49:08 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: WhenTag.java,v 1.8 2002/10/30 19:16:20 jstrachan Exp $
+ * $Id: WhenTag.java,v 1.9 2002/11/16 09:49:08 dion Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -74,7 +74,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class WhenTag extends TagSupport {
 
@@ -102,7 +102,7 @@ public class WhenTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------                
     
-    /** Sets the XPath expression to evaluate. */
+    /** Sets the expression to evaluate. */
     public void setTest(Expression test) {
         this.test = test;
     }
