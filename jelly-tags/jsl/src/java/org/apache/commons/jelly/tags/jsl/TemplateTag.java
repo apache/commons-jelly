@@ -62,6 +62,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.xml.XPathSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,7 +78,7 @@ import org.dom4j.rule.Rule;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class TemplateTag extends TagSupport {
+public class TemplateTag extends TagSupport implements XPathSource {
 
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(TemplateTag.class);
@@ -102,6 +103,7 @@ public class TemplateTag extends TagSupport {
     public TemplateTag() {
     }
 
+    
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
@@ -125,8 +127,7 @@ public class TemplateTag extends TagSupport {
     //-------------------------------------------------------------------------                    
 
     /**
-     * @return the current XPath iteration value
-     *  so that any other XPath aware child tags to use
+     * @return the current XPath value on which relative paths are evaluated
      */
     public Object getXPathSource() {
         return xpathSource;
