@@ -311,8 +311,6 @@
     </j:thread>
 
     <echo>XXXX</echo>
-
-    <!-- FIXME: util now in a sep taglib    <util:sleep millis="1000"/> -->
   </goal>
 
   <goal name="demo:asyncOtherThread"
