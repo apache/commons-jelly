@@ -19,6 +19,10 @@
   <!-- ignore javadoc tags-->
   <jsl:template match="authortag"/>
   <jsl:template match="versiontag"/>
+  <jsl:template match="tagtag"/>
+  <jsl:template match="paramtag"/>
+  <jsl:template match="requiredtag"/>
+  <jsl:template match="seetag"/>
 
   <!-- let other text and elements pass through via default rules-->
   <jsl:template match="*" trim="false">

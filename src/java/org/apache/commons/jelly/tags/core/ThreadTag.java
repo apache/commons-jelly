@@ -65,7 +65,7 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-/** A tag that spwans the contained script in a separate thread
+/** A tag that spawns the contained script in a separate thread
   *
   * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
   */
