@@ -186,7 +186,7 @@ public class AntTag extends MapTagSupport {
         } 
         else {
             
-            //log.info( "Setting datatype/nested object of name: " + tagName );
+            // System.err.println( "Setting datatype/nested object of name: " + tagName );
             
             // must be a datatype.
             AntTag ancestor = (AntTag) findAncestorWithClass( AntTag.class );
@@ -195,6 +195,16 @@ public class AntTag extends MapTagSupport {
             
             if ( ancestor != null ) {
                 nested = ancestor.createNestedObject( tagName );
+            }
+            else
+            {
+                // System.err.println( "No ancestor" );
+
+                AntTagSupport ancestorToo = (AntTagSupport) findAncestorWithClass( AntTagSupport.class );
+
+                if ( ancestorToo != null ) {
+                    nested = ancestorToo.createNestedObject( tagName );
+                }
             }
             
             if ( nested == null ) {
@@ -290,7 +300,7 @@ public class AntTag extends MapTagSupport {
     }
     
     public void setBeanProperty(Object object, String name, Object value) throws Exception {
-        //log.info( "Setting bean property on: "+  object + " name: " + name + " value: " + value );
+        // System.err.println( "Setting bean property on: "+  object + " name: " + name + " value: " + value );
         
         IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
 
