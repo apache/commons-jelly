@@ -59,6 +59,7 @@
 package org.apache.commons.jelly.tags.werkz;
 
 import com.werken.werkz.Goal;
+import com.werken.werkz.Session;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -67,20 +68,22 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Calls a target to ensure that its built.
+ * Attains one or more goals.
  *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
+ * @version $Revision: 1.1 $
  */
-public class CallTargetTag extends WerkzTagSupport {
+public class AttainTag extends WerkzTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(CallTargetTag.class);
+    private Log log = LogFactory.getLog(AttainTag.class);
     
-    /** the name of the target */
-    private String name;
+    /** The goal session. */
+    private Session session;
     
-    public CallTargetTag() {
+    public AttainTag() {
+        log.debug( "ctor()" );
+        this.session = new Session();
     }
 
     // Tag interface
@@ -91,29 +94,16 @@ public class CallTargetTag extends WerkzTagSupport {
      * then run all the current targets
      */
     public void doTag(final XMLOutput output) throws Exception {
-        log.debug( "Trying to invoke target: " + name );
+        this.session.clear();
         
-        // attain the goal and throw up any exception to be caught by parent tags        
-        // getGoal(name).attain();
-
-        getProject().attainGoal(name);
+        getBody().run(context, output);
     }
 
     
     // Properties
     //------------------------------------------------------------------------- 
     
-    /**
-     * @return the name of the target
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the target
-     */
-    public void setName(String name) {
-        this.name = name;
+    public Session getSession() {
+        return this.session;
     }
 }

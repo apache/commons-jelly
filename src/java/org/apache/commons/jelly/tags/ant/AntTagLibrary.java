@@ -80,6 +80,8 @@ import org.apache.commons.logging.LogFactory;
 
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
+import org.apache.tools.ant.BuildLogger;
+import org.apache.tools.ant.NoBannerLogger;
 import org.apache.tools.ant.types.DataType;
 import org.apache.tools.ant.types.Reference;
 
@@ -137,8 +139,18 @@ public class AntTagLibrary extends TagLibrary {
     }        
         
     public AntTagLibrary() {
-        // need to spoof an Ant project
+
         this.project = new Project();
+
+        BuildLogger logger = new NoBannerLogger();
+
+        logger.setMessageOutputLevel( org.apache.tools.ant.Project.MSG_INFO );
+        logger.setOutputPrintStream( System.out );
+        logger.setErrorPrintStream( System.err);
+
+        project.addBuildListener( logger );
+        
+        project.init();
     }
 
     public AntTagLibrary(Project project) {

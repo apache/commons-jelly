@@ -104,7 +104,7 @@ public class TaskPropertyTag extends DynaBeanTagSupport implements CompilableTag
     // CompilableTag interface
     //------------------------------------------------------------------------- 
     public void compile() throws Exception {
-        TaskTag tag = (TaskTag) findAncestorWithClass( TaskTag.class );
+        TaskTag tag = (TaskTag) findAncestorWithClass( Task.class );
         if ( tag == null ) {
             throw new JellyException( "You should only use Ant DataType tags within an Ant Task" );
         }        

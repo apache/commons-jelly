@@ -58,10 +58,8 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.DefaultGoal;
-
-import java.util.Iterator;
-import java.util.List;
+import com.werken.werkz.Goal;
+import com.werken.werkz.PreGoalCallback;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -70,21 +68,15 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Implements a &lt;target&gt; tag which is similar to the Ant equivalent tag
- * but is based on the Werkz goal engine.
+ * Implements a &lt;preTarget&gt; tag which provides a callback 
+ * which is evaluated before a target.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
-public class TargetTag extends WerkzTagSupport {
+public class PreGoalTag extends CallbackTagSupport {
 
-    /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(TargetTag.class);
-    
-    /** the name of the target */
-    private String name;
-    
-    public TargetTag() {
+    public PreGoalTag() {
     }
 
 
@@ -97,35 +89,14 @@ public class TargetTag extends WerkzTagSupport {
      */
     public void doTag(final XMLOutput output) throws Exception {
         
-        // lets register a new goal...        
-		DefaultGoal goal = new DefaultGoal(name) {
-			public void performAction() throws Exception {
-				// lets run the body
-				log.info("Running target: " + name);
-				getBody().run(context, output);
-			}
-            public boolean requiresAction() {
-                return true;
+        getGoal(getName()).addPreGoalCallback(
+            new PreGoalCallback() {
+                public void firePreGoal(Goal goal) throws Exception {
+                    // lets run the body
+                    log.info( "Running pre target: " + getName() );
+                    getBody().run( context, output);               
+                }                
             }
-		};
-        getProject().addGoal(goal);
-    }
-
-
-    
-    // Properties
-    //------------------------------------------------------------------------- 
-    /**
-     * @return the name of the target
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the target
-     */
-    public void setName(String name) {
-        this.name = name;
+        );            
     }
 }

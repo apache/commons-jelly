@@ -58,8 +58,10 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.Goal;
-import com.werken.werkz.PostGoalCallback;
+import com.werken.werkz.DefaultGoal;
+
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -68,15 +70,21 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Implements a &lt;postTarget&gt; tag which provides a callback 
- * which is evaluated after a target has executed.
+ * Implements a &lt;target&gt; tag which is similar to the Ant equivalent tag
+ * but is based on the Werkz goal engine.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
-public class PostTargetTag extends CallbackTagSupport {
+public class GoalTag extends WerkzTagSupport {
 
-    public PostTargetTag() {
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog(GoalTag.class);
+    
+    /** the name of the target */
+    private String name;
+    
+    public GoalTag() {
     }
 
 
@@ -89,14 +97,38 @@ public class PostTargetTag extends CallbackTagSupport {
      */
     public void doTag(final XMLOutput output) throws Exception {
         
-        getGoal(getName()).addPostGoalCallback(
-            new PostGoalCallback() {
-                public void firePostGoal(Goal goal) throws Exception {
-                    // lets run the body
-                    log.info( "Running post target: " + getName() );
-                    getBody().run( context, output);                                        
-                }                
+        log.debug("doTag(..):" + name);
+
+        // lets register a new goal...        
+		DefaultGoal goal = new DefaultGoal(name) {
+			public void performAction() throws Exception {
+				// lets run the body
+				log.debug("Running target: " + name);
+				getBody().run(context, output);
+			}
+            public boolean requiresAction() {
+                return true;
             }
-        );            
+		};
+        getProject().addGoal(goal);
+    }
+
+
+    
+    // Properties
+    //------------------------------------------------------------------------- 
+    /**
+     * @return the name of the target
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name of the target
+     */
+    public void setName(String name) {
+        log.debug("setName(" + name + ")" );
+        this.name = name;
     }
 }

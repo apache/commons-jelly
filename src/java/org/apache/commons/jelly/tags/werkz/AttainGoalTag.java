@@ -59,7 +59,8 @@
 package org.apache.commons.jelly.tags.werkz;
 
 import com.werken.werkz.Goal;
-import com.werken.werkz.PreGoalCallback;
+import com.werken.werkz.Session;
+import com.werken.werkz.Project;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -68,17 +69,21 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Implements a &lt;preTarget&gt; tag which provides a callback 
- * which is evaluated before a target.
+ * Attains one or more goals.
  *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
+ * @version $Revision: 1.1 $
  */
-public class PreTargetTag extends CallbackTagSupport {
+public class AttainGoalTag extends WerkzTagSupport {
 
-    public PreTargetTag() {
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog(AttainGoalTag.class);
+    
+    /** The goal name. */
+    private String name;
+    
+    public AttainGoalTag() {
     }
-
 
     // Tag interface
     //------------------------------------------------------------------------- 
@@ -89,14 +94,34 @@ public class PreTargetTag extends CallbackTagSupport {
      */
     public void doTag(final XMLOutput output) throws Exception {
         
-        getGoal(getName()).addPreGoalCallback(
-            new PreGoalCallback() {
-                public void firePreGoal(Goal goal) throws Exception {
-                    // lets run the body
-                    log.info( "Running pre target: " + getName() );
-                    getBody().run( context, output);               
-                }                
-            }
-        );            
+        AttainTag attainTag = (AttainTag) findAncestorWithClass( AttainTag.class );
+        Session session = null;
+
+        if ( attainTag == null ) {
+            session = new Session();
+        } else {
+            session = attainTag.getSession();
+        }
+
+        ProjectTag projectTag = (ProjectTag) findAncestorWithClass( ProjectTag.class );
+
+        Project project = projectTag.getProject();
+
+        project.attainGoal( getName(),
+                            session );
+        
+        // getBody().run(context, output);
+    }
+
+    
+    // Properties
+    //------------------------------------------------------------------------- 
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
     }
 }

@@ -3,29 +3,31 @@
 <werkz:project xmlns:j="jelly:core" xmlns="jelly:ant" xmlns:werkz="jelly:werkz">
 
   <!-- the following could be in the mediator of Maven -->
-  <werkz:target name="init">
+  <werkz:goal name="init">
   	<echo message="Initializing the project!"/>
-  </werkz:target>
+  </werkz:goal>
   		
-  <werkz:target name="compile">
+  <werkz:goal name="compile">
   	<echo message="About to compile the project!"/>
-  </werkz:target>
+  </werkz:goal>
 
-  <werkz:target name="test">
+  <werkz:goal name="test">
   	<echo message="About to run the tests!"/>
-  </werkz:target>
+  </werkz:goal>
 
 
  <!-- define some callbacks in the projects build.jelly -->
- <werkz:preTarget name="compile">
+ <werkz:preGoal name="compile">
  	<echo message="I am a callback: doing something before I compile"/> 	  		
- </werkz:preTarget>
+ </werkz:preGoal>
 
 
   <!-- call all the targets made on the command line -->	
-  <j:forEach var="arg" items="${args}" begin="1">
-  	<werkz:callTarget name="${arg}"/>
-  </j:forEach>
+  <werkz:attain>
+      <j:forEach var="arg" items="${args}" begin="1">
+          <werkz:attainGoal name="${arg}"/>
+      </j:forEach>
+  </werkz:attain>
   	
 </werkz:project>
 

@@ -16,6 +16,7 @@
   
   <path id="test.classpath">
     <pathelement path="${maven.build.dest}"/>
+    <pathelement path="${maven.src.dir}/java"/>
     <pathelement path="${basedir}"/>
     <path refid="maven.dependency.classpath"/>
     <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
