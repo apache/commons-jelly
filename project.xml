@@ -153,6 +153,11 @@
       <name>Paul Libbrecht</name>
       <email>paul@activemath.org</email>
     </developer>    
+    <developer>
+      <name>Robert Burrell Donkin</name>
+      <id>rdonkin</id>
+      <email>rdonkin@apache.org</email>
+    </developer>
   </developers>
 
   <contributors>
