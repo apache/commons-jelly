@@ -312,11 +312,14 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
     }
 
-    public void setAttribute(String name,
-                             Object value) 
-    {
-        super.setAttribute( name,
-                            value.toString() );
+    public void setAttribute(String name, Object value) {
+        if ( value == null ) {
+            // should we send in null?
+            super.setAttribute( name, "" );
+        }
+        else {
+            super.setAttribute( name, value.toString() );
+        }
                             
     }
 
