@@ -52,7 +52,7 @@ public class TestCData extends TestCase {
         golden += "  <!ELEMENT foo (#PCDATA)>\n";
         golden += "]><foo></foo>";
         
-        assertEquals("output should contain the CDATA section", output, golden);
+        assertEquals("output should contain the CDATA section", golden, output);
     }
 
 }
