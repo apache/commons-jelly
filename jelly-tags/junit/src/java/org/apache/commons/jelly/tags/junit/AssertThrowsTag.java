@@ -56,6 +56,7 @@
 package org.apache.commons.jelly.tags.junit;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -86,17 +87,23 @@ public class AssertThrowsTag extends AssertTagSupport {
 	private String expected;
 
     /**
-     * Sets the ClassLoader to be used when loading an exception class     */
+     * Sets the ClassLoader to be used when loading an exception class
+     */
     private ClassLoader classLoader;
     
-	// Tag interface
-	//-------------------------------------------------------------------------
-	public void doTag(XMLOutput output) throws Exception {
-		Class throwableClass = getThrowableClass();
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws JellyTagException {
+        Class throwableClass = null;
+        try {
+             throwableClass = getThrowableClass();
+        } catch (ClassNotFoundException e) {
+            throw new JellyTagException(e);
+        }
 
-		try {
-			invokeBody(output);
-		} 
+        try {
+            invokeBody(output);
+        } 
         catch (Throwable t) {
             if (t instanceof JellyException) {
                 // unwrap Jelly exceptions which wrap other exceptions
@@ -110,10 +117,10 @@ public class AssertThrowsTag extends AssertTagSupport {
 			}
 			if (throwableClass != null && !throwableClass.isAssignableFrom(t.getClass())) {
 				fail("Unexpected exception: " + t);
-			} 
+            } 
             else {
-				return;
-			}
+                return;
+            }
 		}
 		fail("No exception was thrown.");
 	}
@@ -138,7 +145,8 @@ public class AssertThrowsTag extends AssertTagSupport {
 	}
 
     /**
-     * Sets the class loader to be used to load the exception type     */
+     * Sets the class loader to be used to load the exception type
+     */
     public void setClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
     }

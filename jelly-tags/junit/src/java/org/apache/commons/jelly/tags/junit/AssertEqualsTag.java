@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/junit/src/java/org/apache/commons/jelly/tags/junit/AssertEqualsTag.java,v 1.1 2003/01/19 06:17:10 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/19 06:17:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/junit/src/java/org/apache/commons/jelly/tags/junit/AssertEqualsTag.java,v 1.2 2003/01/24 23:23:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/24 23:23:47 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AssertEqualsTag.java,v 1.1 2003/01/19 06:17:10 dion Exp $
+ * $Id: AssertEqualsTag.java,v 1.2 2003/01/24 23:23:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
@@ -69,7 +70,7 @@ import org.apache.commons.jelly.expression.Expression;
  * then the test will fail.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class AssertEqualsTag extends AssertTagSupport {
 
@@ -79,7 +80,7 @@ public class AssertEqualsTag extends AssertTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         String message = getBodyText();
 
         Object expectedValue = expected.evaluate(context);                    
