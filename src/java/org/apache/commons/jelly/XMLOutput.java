@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.6 2002/06/21 03:18:42 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/21 03:18:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.7 2002/09/17 15:27:04 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/09/17 15:27:04 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XMLOutput.java,v 1.6 2002/06/21 03:18:42 jstrachan Exp $
+ * $Id: XMLOutput.java,v 1.7 2002/09/17 15:27:04 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -78,13 +78,14 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.LexicalHandler;
+import org.xml.sax.helpers.AttributesImpl;
 
 /** <p><code>XMLOutput</code> is used to output XML events 
   * in a SAX-like manner. This also allows pipelining to be done
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -97,13 +98,15 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(XMLOutput.class);
     
+    /** empty attributes */
+    private static final Attributes EMPTY_ATTRIBUTES = new AttributesImpl();
+    
     /** The SAX ContentHandler that output goes to */
     private ContentHandler contentHandler;
     
     /** The SAX LexicalHandler that output goes to */
     private LexicalHandler lexicalHandler;
-    
-    
+
     public XMLOutput() {
     }
 
@@ -245,6 +248,28 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         comment(ch, 0, ch.length);
     }
 
+    /**
+     * Helper method for outputting a start element event for an element in no namespace
+     */
+    public void startElement(String localName) throws SAXException {
+        startElement("", localName, localName, EMPTY_ATTRIBUTES);
+    }
+
+    /**
+     * Helper method for outputting a start element event for an element in no namespace
+     */
+    public void startElement(String localName, Attributes attributes) throws SAXException {
+        startElement("", localName, localName, attributes);
+    }
+    
+    /**
+     * Helper method for outputting an end element event for an element in no namespace
+     */
+    public void endElement(String localName) throws SAXException {
+        endElement("", localName, localName);
+    }
+
+    
     // ContentHandler interface
     //-------------------------------------------------------------------------                    
 
