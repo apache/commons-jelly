@@ -25,7 +25,11 @@
   <inceptionYear>2004</inceptionYear>
   <package>org.apache.commons.jelly.tags.jaxme</package>
   <logo></logo>
-  <description>JaxMe Tag Library</description>
+  <description>
+  JaxMe Tag Library. Apache JaxMe is an open source generative xml-object binder.
+  Tags are provided that generate java objects from schema using JaxMe
+  and that will marshall and unmarshall any JAXB complient implementations.
+  </description>
   <shortDescription>JaxMe Tag Library</shortDescription>
     
   <dependencies>
