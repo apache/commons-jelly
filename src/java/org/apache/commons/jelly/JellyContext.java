@@ -471,6 +471,13 @@ public class JellyContext {
         
         URL newJellyContextURL = getJellyContextURL(url);
         JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
+        
+        if (log.isDebugEnabled() ) {
+            log.debug( "About to run script: " + url );
+            log.debug( "root context URL: " + newJellyContext.rootURL );
+            log.debug( "current context URL: " + newJellyContext.currentURL );
+        }
+        
         script.run(newJellyContext, output);
         return newJellyContext;
     }

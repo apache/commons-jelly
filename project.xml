@@ -79,7 +79,6 @@
       <email>bob@eng.werken.com</email>
       <organization>The Werken Company</organization>
     </developer>
-    
     <developer>
       <name>dIon Gillard</name>
       <id>dion</id>
@@ -89,7 +88,6 @@
         <role>Interested party</role>
       </roles>
     </developer>
-
   </developers>
 
   <contributors>
@@ -114,6 +112,9 @@
     <contributor>
       <name>Vinay Chandran</name>
       <email>sahilvinay@yahoo.com</email>
+      <roles>
+      	<role>Developer</role>
+      </roles>
     </contributor>
     <contributor>
       <name>Theo Niemeijer</name>
@@ -134,6 +135,13 @@
       	<role>Author of the tutorials</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>Robert Leftwich</name>
+      <email>robert@leftwoch.info</email>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>
   </contributors>
 
   <dependencies>
@@ -149,6 +157,11 @@
     </dependency>
     
     <dependency>
+      <id>jaxp</id>
+      <version>1.2</version>
+    </dependency>
+    
+    <dependency>
       <id>xml-apis</id>
       <version>2.0.2</version>
     </dependency>
@@ -156,6 +169,11 @@
     <dependency>
       <id>xerces</id>
       <version>2.0.2</version>
+    </dependency>
+    
+    <dependency>
+      <id>xalan</id>
+      <version>2.3.1</version>
     </dependency>
     
     <dependency>

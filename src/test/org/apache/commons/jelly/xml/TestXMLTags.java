@@ -56,11 +56,12 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
+ *
  * $Id: TestXMLTags.java,v 1.6 2002/05/15 07:47:50 jstrachan Exp $
  */
 package org.apache.commons.jelly.xml;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.IOException;
@@ -110,11 +111,11 @@ public class TestXMLTags extends TestCase {
     public void testUnitTests() throws Exception {
         runUnitTest( "src/test/org/apache/commons/jelly/xml/testForEach.jelly" );
     }
-    
+
     public void testExpressions() throws Exception {
         runUnitTest( "src/test/org/apache/commons/jelly/xml/testExpressions.jelly");
     }
-    
+
     public void testParse() throws Exception {
         InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/xml/example.jelly");
         XMLParser parser = new XMLParser();
@@ -131,17 +132,38 @@ public class TestXMLTags extends TestCase {
         }
         assertEquals("Produces the correct output", "It works!", text);
     }
-    
+
+    public void testTransform() throws Exception {
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/transformExample.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+        
+    public void testTransformAllInLine() throws Exception {
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/transformExampleAllInLine.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+
+    public void testTransformSchematron() throws Exception {
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/schematron/transformSchematronExample.jelly"
+        );
+        assertEquals("Produces the correct output", "Report count=1:assert count=2", text);
+    }
+
     public void runUnitTest(String name) throws Exception {
         Document document = parseUnitTest(name);
-        
+
         List failures = document.selectNodes( "/*/fail" );
         for ( Iterator iter = failures.iterator(); iter.hasNext(); ) {
             Node node = (Node) iter.next();
             fail( node.getStringValue() );
         }
     }
-    
+
     public Document parseUnitTest(String name) throws Exception {
         // parse script
         InputStream in = new FileInputStream(name);
@@ -157,9 +179,32 @@ public class TestXMLTags extends TestCase {
             log.debug("Evaluated script as...");
             log.debug(text);
         }
-        
+
         // now lets parse the output
         return DocumentHelper.parseText( text );
     }
-    
+
+    /**
+     * Evaluates the script by the given file name and 
+     * returns the whitespace trimmed output as text
+     */
+    protected String evaluteScriptAsText(String fileName) throws Exception {
+        JellyContext context = new JellyContext();
+        
+        // allow scripts to refer to any resource inside this project
+        // using an absolute URI like /src/test/org/apache/foo.xml
+        context.setRootURL(new File(".").toURL());
+        
+        // cature the output
+        StringWriter buffer = new StringWriter();
+        XMLOutput output = XMLOutput.createXMLOutput(buffer);
+        
+        context.runScript( new File(fileName), output );
+        String text = buffer.toString().trim();
+        if (log.isDebugEnabled()) {
+            log.debug("Evaluated script as...");
+            log.debug(text);
+        }
+        return text;
+    }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.10 2002/07/19 22:18:10 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/07/19 22:18:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.11 2002/09/25 08:37:50 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/09/25 08:37:50 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ParseTag.java,v 1.10 2002/07/19 22:18:10 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.11 2002/09/25 08:37:50 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -74,7 +74,7 @@ import org.dom4j.io.SAXReader;
   * xml property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 public class ParseTag extends ParseTagSupport {
 
@@ -97,16 +97,10 @@ public class ParseTag extends ParseTagSupport {
         if (getVar() == null) {
             throw new IllegalArgumentException("The var attribute cannot be null");
         }
-        Document document = null;
-        if (xml == null) {
-            document = parseBody(output);
-        }
-        else {
-            document = parse(xml);            
-        }
+        Document document = getXmlDocument(output);
         context.setVariable(getVar(), document);
     }
-
+    
     // Properties
     //-------------------------------------------------------------------------                
     /** Sets the source of the XML which is either a String URI, Reader or InputStream */
@@ -134,4 +128,16 @@ public class ParseTag extends ParseTagSupport {
     protected SAXReader createSAXReader() throws Exception {
         return new SAXReader(validate);
     }
+    
+    protected Document getXmlDocument(XMLOutput output) throws Exception {
+        Document document = null;
+        if (xml == null) {
+            document = parseBody(output);
+        }
+        else {
+            document = parse(xml);            
+        }
+        return document;
+    }
+
 }
