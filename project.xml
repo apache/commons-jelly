@@ -8,8 +8,8 @@
   
   <organization>
     <name>Apache Software Foundation</name>
-    <url>http://www.apache.org</url>
-    <logo>/images/jakarta-logo-blue.gif</logo>
+    <url>http://jakarta.apache.org/</url>
+    <logo>http://jakarta.apache.org/images/jakarta-logo-blue.gif</logo>
   </organization>
   <logo>/images/logo.gif</logo>
 
@@ -497,11 +497,14 @@
 
     <!-- Resources that are packaged up inside the JAR file -->
     <resources>    	
-    	<directory>src/java</directory>
-      <includes>
-        <include>**/*.properties</include>
-      </includes>
+			<resource>    	
+				<directory>src/java</directory>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
     </resources>
+    
     
     <!-- Unit test classes -->
     <unitTest>
