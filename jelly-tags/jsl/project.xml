@@ -18,7 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-jsl</id>
   <name>commons-jelly-tags-jsl</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.1-SNAPSHOT</currentVersion>
 
   <package>org.apache.commons.jelly.tags.jsl</package>
 
@@ -106,7 +106,7 @@
 
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
         
     <!-- END for running demos -->

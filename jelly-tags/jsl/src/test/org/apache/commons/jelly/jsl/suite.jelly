@@ -227,4 +227,24 @@
     <test:assertEquals expected="El1SomeText" actual="${contextText}" />
   </test:case>  
   
+  <test:case name="testModeBug" xmlns="dummy">
+    <x:parse var="testDoc">
+      <menu>
+        <item />
+        <item />
+      </menu>
+    </x:parse>
+    
+    <jsl:stylesheet var="modeStyleSheet">
+      <jsl:template match="menu"><jsl:applyTemplates mode="bbb"/></jsl:template>
+	  <jsl:template match="item">No mode</jsl:template>
+	  <jsl:template match="item" trim="false" mode="bbb">BBB</jsl:template>
+    </jsl:stylesheet>
+    
+    <j:set var="modeText"><jsl:style stylesheet="${modeStyleSheet}" select="$testDoc"/></j:set>
+
+    <m:echo>text is '${modeText}'</m:echo>
+    
+    <test:assertEquals expected="BBBBBB" actual="${modeText}" />
+  </test:case>
 </test:suite>
