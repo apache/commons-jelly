@@ -214,16 +214,16 @@ The code that actually runs Jelly is the following.
     OutputStream output = new FileOutputStream("demopage.html");
     JellyContext context = new JellyContext();
 
-        context.setVariable("<b>name</b>",nameField.getText());
-        context.setVariable("<b>background</b>",colorField.getText());
-        context.setVariable("<b>url</b>",urlField.getText());
+        context.setVariable("name",nameField.getText());
+        context.setVariable("background",colorField.getText());
+        context.setVariable("url",urlField.getText());
           // Set the hobby list
         Vector v = new Vector();
         Enumeration enum= listModel.elements();
         while (enum.hasMoreElements()) {
             v.add(enum.nextElement());
         }
-        context.setVariable("<b>hobbies</b>", v);
+        context.setVariable("hobbies", v);
 
     XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
     context.runScript("src/test/org/apache/commons/jelly/demos/"+template), xmlOutput);
@@ -235,24 +235,24 @@ The Jelly template looks like this:
 </p>
 
 <pre>
-&lt;?xml version="1.0"?&gt;
-&lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:html="jelly:html"&gt;
-  &lt;html&gt;
-    &lt;head&gt;
-    &lt;title&gt;${<b>name</b>}'s Page&lt;/title&gt;
-    &lt;/head&gt;
-    &lt;body bgcolor="${<b>background</b>}" text="#FFFFFF"&gt;
-    &lt;h1&gt;${<b>name</b>}'s Homepage&lt;/h1&gt;
-    &lt;img src="${<b>url</b>}"/&gt;
-    &lt;h2&gt;My Hobbies&lt;/h2&gt;
-    &lt;ul&gt;
-    &lt;j:forEach items="${<b>hobbies</b>}" var="i"&gt;
-        &lt;li&gt;${i}&lt;/li&gt;
-    &lt;/j:forEach&gt;
-    &lt;/ul&gt;
-    &lt;/body&gt;
-  &lt;/html&gt;
-&lt;/j:jelly&gt;
+   &lt;?xml version="1.0"?&gt;
+   &lt;j:jelly trim="false" xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:html="jelly:html"&gt;
+     &lt;html&gt;
+       &lt;head&gt;
+         &lt;title&gt;${name}'s Page&lt;/title&gt;
+       &lt;/head&gt;
+       &lt;body bgcolor="${background}" text="#FFFFFF"&gt;
+         &lt;h1&gt;${name}'s Homepage&lt;/h1&gt;
+         &lt;img src="${url}"/&gt;
+         &lt;h2&gt;My Hobbies&lt;/h2&gt;
+         &lt;ul&gt;
+           &lt;j:forEach items="${hobbies}" var="i"&gt;
+             &lt;li&gt;${i}&lt;/li&gt;
+           &lt;/j:forEach&gt;
+         &lt;/ul&gt;
+       &lt;/body&gt;
+     &lt;/html&gt;
+   &lt;/j:jelly&gt;
 </pre>
 
 <p>
@@ -278,13 +278,17 @@ To run the demo type "maven demo:jsl" (View the <a href="http://cvs.apache.org/v
 </p>
 
 <pre>
-&lt;html&gt;
-&lt;body&gt;
-&lt;h1&gt;Output&lt;/h1&gt;
-&lt;small&gt;James Elson&lt;h2&gt;I am a title!&lt;/h2&gt;
-&lt;small&gt;Twas a dark, rainy night...&lt;/small&gt;&lt;p&gt;dfjsdfjsdf&lt;/p&gt;&lt;p&gt;fdsfsdfhdsff gyuf uysgf ds&lt;/p&gt;&lt;/small&gt;
-&lt;/body&gt;
-&lt;/html&gt;
+   &lt;html&gt;
+     &lt;body&gt;
+       &lt;h1&gt;Output&lt;/h1&gt;
+       &lt;small&gt;James Elson
+         &lt;h2&gt;I am a title!&lt;/h2&gt;
+         &lt;small&gt;Twas a dark, rainy night...&lt;/small&gt;
+         &lt;p&gt;dfjsdfjsdf&lt;/p&gt;
+         &lt;p&gt;fdsfsdfhdsff gyuf uysgf ds&lt;/p&gt;
+       &lt;/small&gt;
+     &lt;/body&gt;
+   &lt;/html&gt;
 </pre>
 
 <p>
