@@ -25,11 +25,11 @@
   </description>
   <shortDescription>Commons Jelly Interaction Tag Library</shortDescription>
   
-  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/interaction</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/interaction</distributionDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/interaction</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/interaction</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/interaction/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/interaction/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/interaction/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/interaction/</url>
   </repository>-->
   
     
@@ -40,6 +40,6 @@
       <version>SNAPSHOT</version>
     </dependency>
 
-		</dependencies>
+  </dependencies>
   
 </project>
