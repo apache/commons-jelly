@@ -65,7 +65,10 @@ package org.apache.commons.jelly.util;
 import java.io.*;
 import java.util.*;
 import com.sun.javadoc.*;
-import org.apache.xml.serialize.*;
+
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
+
 import org.xml.sax.*;
 import org.xml.sax.helpers.*;
 
@@ -90,14 +93,16 @@ public class XMLDoclet extends Doclet {
         try {
             OutputFormat format = new OutputFormat();
             format.setEncoding(encodingFormat);
-            format.setIndenting(true);
-            format.setIndent(4);
-            format.setLineWidth(4);
+            format.setIndentSize(4);
 /*            
+            format.setIndenting(true);
+            format.setLineWidth(4);
             format.setDoctype("-//APACHE//DTD JavaDoc V0.4//EN", "javadoc-v04draft.dtd");
-*/            
             XMLSerializer serializer = new XMLSerializer(writer, format);
             cm = serializer.asContentHandler();
+*/            
+            XMLWriter xmlWriter = new XMLWriter(writer, format);
+            cm = xmlWriter;
             javadocXML(root);
             writer.close();
         } catch (IOException e) {
