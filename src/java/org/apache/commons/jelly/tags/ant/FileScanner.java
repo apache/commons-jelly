@@ -95,6 +95,13 @@ public class FileScanner {
         return filesets.size() > 0;
     }        
 
+    /**
+     * Clears any file sets that have been added to this scanner
+     */
+    public void clear() {
+        filesets.clear();
+    }
+    
     // Properties
     //-------------------------------------------------------------------------
 
