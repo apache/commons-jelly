@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.2 2002/04/24 11:59:13 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/24 11:59:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: SetTag.java,v 1.2 2002/04/24 11:59:13 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -66,12 +66,13 @@ import java.io.Writer;
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
 /** A tag which sets a variable from the result of an expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class SetTag extends TagSupport {
 
@@ -85,7 +86,7 @@ public class SetTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, Writer writer) throws Exception {
+    public void run(Context context, XMLOutput output) throws Exception {
         if ( var == null ) {
             throw new IllegalArgumentException( "The var attribute cannot be null" );
         }

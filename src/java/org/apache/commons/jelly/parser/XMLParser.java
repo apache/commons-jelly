@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.7 2002/03/07 02:46:04 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/03/07 02:46:04 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.8 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.7 2002/03/07 02:46:04 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.8 2002/04/24 11:59:12 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -88,6 +88,7 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.ScriptBlock;
+import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.expression.ConstantExpression;
@@ -116,7 +117,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class XMLParser extends DefaultHandler {
     
@@ -622,6 +623,9 @@ public class XMLParser extends DefaultHandler {
         // if this is a tag then create a script to run it
         // otherwise pass the text to the current body
         tagScript = createTag( namespaceURI, localName, list );
+        if ( tagScript == null ) {
+            tagScript = createStaticTag( namespaceURI, localName, list );
+        }
         tagScriptStack.add( tagScript );
 
         if ( tagScript != null ) {            
@@ -1005,6 +1009,34 @@ public class XMLParser extends DefaultHandler {
         catch (Throwable e) {
             log.warn( "Could not create taglib or URI: " + namespaceURI + " tag name: " + localName, e );
             return null;
+        }
+    }
+    
+    /**
+     * Factory method to create a static Tag that represents some static content.
+     */
+    protected TagScript createStaticTag( String namespaceURI, String localName, Attributes list ) throws SAXException {
+        try {
+            Tag tag = new StaticTag( namespaceURI, localName );
+            
+            TagScript script = new TagScript( tag );
+                
+            // now iterate through through the expressions
+            int size = list.getLength();
+            for ( int i = 0; i < size; i++ ) {
+                String attributeName = list.getLocalName(i);
+                String attributeValue = list.getValue(i);
+                Expression expression = getExpressionFactory().createExpression( attributeValue );
+                if ( expression == null ) {
+                    expression = createExpression( localName, attributeName, attributeValue );
+                }
+                script.addAttribute( attributeName, expression );
+            }
+            return script;
+        }
+        catch (Exception e) {
+            log.warn( "Could not create static tag for URI: " + namespaceURI + " tag name: " + localName, e );
+            throw createSAXException(e);
         }
     }
     

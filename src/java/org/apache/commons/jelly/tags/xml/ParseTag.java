@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.4 2002/04/24 11:59:13 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/04/24 11:59:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ParseTag.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.4 2002/04/24 11:59:13 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -73,12 +73,14 @@ import java.net.URL;
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
+import org.dom4j.io.SAXContentHandler;
 import org.dom4j.io.SAXReader;
 
 import org.xml.sax.SAXException;
@@ -88,7 +90,7 @@ import org.xml.sax.SAXException;
   * source property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class ParseTag extends TagSupport {
 
@@ -112,19 +114,34 @@ public class ParseTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, Writer writer) throws Exception {
+    public void run(Context context, XMLOutput output) throws Exception {
         if ( var == null ) {
             throw new IllegalArgumentException( "The var attribute cannot be null" );
         }
         Document document = null;
         if ( source == null ) {
-            // parse body
+            SAXContentHandler handler = new SAXContentHandler();
+            
+            XMLOutput newOutput = new XMLOutput( handler );
+            
+            handler.startDocument();
+            
+            getBody().run( context, newOutput );
+            
+            handler.endDocument();
+            
+            document = handler.getDocument();
+/*
+            // the following is inefficient as it requires a parse of the text
+            // but is left here in the code to see how it could be done.
+
             String text = getBodyText( context );
             
             if ( log.isDebugEnabled() ) {
                 log.debug( "About to parse: " + text );
             }
             document = getSAXReader().read( new StringReader( text ) );
+*/
         }
         else {
             if ( source instanceof String ) {

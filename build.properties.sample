@@ -10,6 +10,9 @@ logging.jar=../../jakarta-commons/logging/dist/commons-logging.jar
 # jakarta-commons-httpclient.jar
 httpclient.jar=../../jakarta-commons/httpclient/dist/commons-httpclient.jar
 
+# jakarta-commons-jexl.jar
+jexl.jar=../jexl/dist/commons-jexl.jar
+
 # you can change this property to point at a local copy of the java 2 platform api
 jdk-doc-url=http://java.sun.com/products/jdk/1.3/docs/api
 

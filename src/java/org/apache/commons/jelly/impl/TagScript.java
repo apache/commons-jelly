@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.5 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.6 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.5 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: TagScript.java,v 1.6 2002/04/24 11:59:12 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -78,6 +78,7 @@ import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
@@ -86,7 +87,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class TagScript implements Script {
     
@@ -183,7 +184,7 @@ public class TagScript implements Script {
     }
     
     /** Evaluates the body of a tag */
-    public void run(Context context, Writer writer) throws Exception {
+    public void run(Context context, XMLOutput output) throws Exception {
         // initialize all the properties of the tag before its used
         // if there is a problem abort this tag
         for ( int i = 0, size = expressions.length; i < size; i++ ) {
@@ -209,7 +210,7 @@ public class TagScript implements Script {
             Object[] arguments = { value };
             method.invoke( tag, arguments );
         }        
-        tag.run( context, writer );
+        tag.run( context, output );
     }
     
     // Properties

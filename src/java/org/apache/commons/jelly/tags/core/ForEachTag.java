@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.4 2002/04/24 11:59:13 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/04/24 11:59:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.4 2002/04/24 11:59:13 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -69,6 +69,7 @@ import java.util.List;
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
@@ -78,7 +79,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -111,7 +112,7 @@ public class ForEachTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, Writer writer) throws Exception {
+    public void run(Context context, XMLOutput output) throws Exception {
         if ( log.isDebugEnabled() ) {
             log.debug( "running with items: " + items );
         }
@@ -131,7 +132,7 @@ public class ForEachTag extends TagSupport {
                 if ( indexVar != null ) {
                     context.setVariable( indexVar, new Integer(index) );
                 }
-                getBody().run( context, writer );
+                getBody().run( context, output );
             }
         }
     }

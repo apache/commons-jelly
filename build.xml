@@ -3,7 +3,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.9 2002/03/07 03:57:12 jstrachan Exp $
+        $Id: build.xml,v 1.10 2002/04/24 11:59:12 jstrachan Exp $
 -->
 
 
@@ -322,7 +322,7 @@
       description="Runs the test of the XML tags">
     <java classname="org.apache.commons.jelly.TestXMLTags" fork="yes">
       <classpath refid="test.classpath"/>
-      <sysproperty key="org.apache.commons.logging.log" value="org.apache.commons.logging.SimpleLog"/>
+      <sysproperty key="org.apache.commons.logging.log" value="org.apache.commons.logging.impl.SimpleLog"/>
       <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
     </java>
    </target>
@@ -331,7 +331,7 @@
       description="Runs the BeanShell EL tests">
     <java classname="org.apache.commons.jelly.beanshell.TestBeanShellEL" fork="yes">
       <classpath refid="test.classpath"/>
-      <sysproperty key="org.apache.commons.logging.log" value="org.apache.commons.logging.SimpleLog"/>
+      <sysproperty key="org.apache.commons.logging.log" value="org.apache.commons.logging.impl.SimpleLog"/>
       <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
     </java>
    </target>
@@ -343,6 +343,7 @@
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/hello_world.jelly"/> 
+      <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
     </java>
    </target>
 

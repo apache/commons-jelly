@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.2 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/04/24 11:59:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.2 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: TestCoreTags.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -72,6 +72,7 @@ import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.parser.XMLParser;
 
@@ -82,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class TestCoreTags extends TestCase {
     
@@ -116,7 +117,7 @@ public class TestCoreTags extends TestCase {
         context.setVariable( "args", args );
         StringWriter buffer = new StringWriter();
         
-        script.run( context, buffer );
+        script.run( context, XMLOutput.createXMLOutput( buffer ) );
         
         String text = buffer.toString().trim();
         

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/24 11:59:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/DynaTag.java,v 1.1 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,64 +57,27 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
+ * $Id: DynaTag.java,v 1.1 2002/04/24 11:59:12 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.xml;
+package org.apache.commons.jelly;
 
-import java.util.Iterator;
-import java.util.List;
+/** 
+ * <p><code>DynaTag</code> represents a Jelly custom tag which
+ * can take its attributes dynamically and store them in some data structure.
+ * Typically a DynaTag may use either a Map or a DynaBean to implement itself
+ * which avoids writing explicit getter and setter methods for each possible attribute.
+ * </p>
+ * <p>
+ * This kind of tag can be extremely useful when making HTML-like tags which
+ * generally output all the attributes which are used in the markup, except
+ * one or two special attributes are used, all others pass through.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
+ */
+public interface DynaTag extends Tag {
 
-import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-
-import org.dom4j.XPath;
-
-
-/** A tag which performs an iteration over the results of an XPath expression
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
-  */
-public class ForEachTag extends TagSupport {
-
-    /** Holds the XPath selector. */
-    private XPath select;
-    /** If specified then the current item iterated through will be defined
-      * as the given variable name. */
-    private String var;
-    
-    public ForEachTag() {
-    }
-
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void run(Context context, XMLOutput output) throws Exception {
-        if ( select != null ) { 
-            Iterator iter = select.selectNodes(null).iterator();
-            while ( iter.hasNext() ) {
-                Object value = iter.next();
-                if (var != null) {
-                    context.setVariable( var, value );
-                }
-                getBody().run( context, output );
-            }
-        }
-    }
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
-    
-    /** Sets the XPath selection expression
-      */
-    public void setSelect(XPath select) {
-        this.select = select;
-    }
-    
-    /** Sets the variable name to export for the item being iterated over
+    /** Sets an attribute value of this tag before the tag is invoked
      */
-    public void setVar(String var) {
-        this.var = var;
-    }
+    public void setAttribute(String name, Object value);    
 }

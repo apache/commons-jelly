@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Script.java,v 1.1 2002/02/11 00:27:40 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/11 00:27:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Script.java,v 1.2 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,16 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Script.java,v 1.1 2002/02/11 00:27:40 jstrachan Exp $
+ * $Id: Script.java,v 1.2 2002/04/24 11:59:12 jstrachan Exp $
  */
 package org.apache.commons.jelly;
-
-import java.io.Writer;
 
 /** <p><code>Script</code> represents a Jelly script.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public interface Script {
 
@@ -76,6 +74,6 @@ public interface Script {
     public Script compile() throws Exception;
     
     /** Evaluates the body of a tag */
-    public void run(Context context, Writer writer) throws Exception;
+    public void run(Context context, XMLOutput output) throws Exception;
     
 }

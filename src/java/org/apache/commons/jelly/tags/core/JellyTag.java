@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.2 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/04/24 11:59:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyTag.java,v 1.2 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: JellyTag.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -68,6 +68,7 @@ import java.util.List;
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TextScript;
@@ -79,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
 /** The root Jelly tag which should be evaluated first
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class JellyTag extends TagSupport {
 
@@ -97,7 +98,7 @@ public class JellyTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, Writer writer) throws Exception {
+    public void run(Context context, XMLOutput output) throws Exception {
         if ( trim && ! hasTrimmed ) {
             trimBody();
             hasTrimmed = true;
@@ -105,7 +106,7 @@ public class JellyTag extends TagSupport {
         if ( log.isDebugEnabled() ) {
             log.debug( "Running body: " + getBody() );
         }
-        getBody().run( context, writer );
+        getBody().run( context, output );
     }
 
     // Properties

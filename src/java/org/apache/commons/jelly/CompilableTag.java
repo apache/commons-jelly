@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/CompilableTag.java,v 1.1 2002/02/15 18:25:06 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/15 18:25:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/CompilableTag.java,v 1.2 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,16 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CompilableTag.java,v 1.1 2002/02/15 18:25:06 jstrachan Exp $
+ * $Id: CompilableTag.java,v 1.2 2002/04/24 11:59:12 jstrachan Exp $
  */
 package org.apache.commons.jelly;
-
-import java.io.Writer;
 
 /** <p><code>Compilable</code> represents a Tag that is compilable.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public interface CompilableTag {
 

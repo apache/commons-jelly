@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.4 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: Jelly.java,v 1.4 2002/04/24 11:59:12 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -74,7 +74,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>Jelly</code> an application which runs a Jelly script.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class Jelly {
 
@@ -99,7 +99,7 @@ public class Jelly {
             : new OutputStreamWriter( System.out );
         BufferedWriter output = new BufferedWriter( writer );
 */      
-        Writer output = new BufferedWriter( 
+        Writer writer = new BufferedWriter( 
             new OutputStreamWriter( System.out )
         );
         
@@ -117,7 +117,10 @@ public class Jelly {
         Context context = new Context();
         context.setVariable( "args", args );
         
+        XMLOutput output= XMLOutput.createXMLOutput( writer );
+        
         script.run( context, output );
-        output.close();
+        
+        writer.close();
     }    
 }

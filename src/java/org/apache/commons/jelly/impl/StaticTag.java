@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/24 11:59:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.1 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,64 +57,110 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
+ * $Id: StaticTag.java,v 1.1 2002/04/24 11:59:12 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.xml;
-
-import java.util.Iterator;
-import java.util.List;
+package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.dom4j.XPath;
+import org.xml.sax.Attributes;
+import org.xml.sax.helpers.AttributesImpl;
 
-
-/** A tag which performs an iteration over the results of an XPath expression
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
-  */
-public class ForEachTag extends TagSupport {
-
-    /** Holds the XPath selector. */
-    private XPath select;
-    /** If specified then the current item iterated through will be defined
-      * as the given variable name. */
-    private String var;
+/** 
+ * <p><code>StaticTag</code> represents a static XML element
+ * which echos itself to XMLOutput when it is invoked.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
+ */
+public class StaticTag extends TagSupport implements DynaTag {
     
-    public ForEachTag() {
+    /** The namespace URI */
+    private String uri;
+    /** The qualified name */
+    private String qname;
+    /** The local name */
+    private String localName;
+    /** The XML Attributes */
+    private AttributesImpl attributes = new AttributesImpl();
+    
+    public StaticTag() {
+    }
+    
+    public StaticTag(String uri, String localName) {
+        this.uri = uri;
+        this.localName = localName;
+        this.qname = localName;
+    }
+    
+    public String toString() {
+        return super.toString() + "[qname=" + qname + ";attributes=" + attributes+ "]";
     }
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------                    
     public void run(Context context, XMLOutput output) throws Exception {
-        if ( select != null ) { 
-            Iterator iter = select.selectNodes(null).iterator();
-            while ( iter.hasNext() ) {
-                Object value = iter.next();
-                if (var != null) {
-                    context.setVariable( var, value );
-                }
-                getBody().run( context, output );
-            }
+        output.startElement( uri, localName, qname, attributes );
+        
+        getBody().run(context, output);
+        
+        output.endElement( uri, localName, qname );
+    }    
+    
+    // DynaTag interface
+    //-------------------------------------------------------------------------                    
+    public void setAttribute(String name, Object value) {
+        // ### we'll assume that all attributes are in no namespace!
+        // ### this is severely limiting!
+        // ### - Tag attributes should allow for namespace aware 
+        int index = attributes.getIndex( "", name );
+        if ( index > 0 ) {
+            attributes.removeAttribute( index );
+        }
+        
+        // treat null values as no attribute 
+        if ( value != null ) {
+            attributes.addAttribute( "", name, name, "CDATA", value.toString() );
         }
     }
     
     // Properties
     //-------------------------------------------------------------------------                    
-    
-    /** Sets the XPath selection expression
-      */
-    public void setSelect(XPath select) {
-        this.select = select;
+    public String getURI() {
+        return uri;
     }
     
-    /** Sets the variable name to export for the item being iterated over
-     */
-    public void setVar(String var) {
-        this.var = var;
+    public void setURI(String uri) {
+        this.uri = uri;
+    }
+
+    public String getQName() {
+        return qname;
+    }
+    
+    public void setQName(String qname) {
+        this.qname = qname;
+        
+        int idx = qname.indexOf(':');
+        if ( idx >= 0 ) {
+            this.localName = qname.substring(idx+1);
+        }
+        else {
+            this.localName = qname;
+        }
+    }
+    
+    public String getLocalName() {
+        return localName;
+    }
+    
+    public void setLocalName(String localName) {
+        this.localName = localName;
+        if ( qname == null || ! qname.endsWith( localName ) ) {
+            localName = qname;
+        }
     }
 }

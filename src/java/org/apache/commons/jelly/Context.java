@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.4 2002/03/07 02:46:03 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/03/07 02:46:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.5 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,11 +57,10 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.4 2002/03/07 02:46:03 jstrachan Exp $
+ * $Id: Context.java,v 1.5 2002/04/24 11:59:12 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
-import java.io.Writer;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -69,7 +68,7 @@ import java.util.Map;
 /** <p><code>Context</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class Context {
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ChooseTag.java,v 1.1 2002/02/15 18:25:06 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/15 18:25:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ChooseTag.java,v 1.2 2002/04/24 11:59:13 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/24 11:59:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ChooseTag.java,v 1.1 2002/02/15 18:25:06 jstrachan Exp $
+ * $Id: ChooseTag.java,v 1.2 2002/04/24 11:59:13 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -72,6 +72,7 @@ import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.expression.Expression;
@@ -79,7 +80,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ChooseTag extends TagSupport implements CompilableTag {
     
@@ -133,17 +134,17 @@ public class ChooseTag extends TagSupport implements CompilableTag {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, Writer writer) throws Exception {
+    public void run(Context context, XMLOutput output) throws Exception {
         for ( int i = 0, size = whenTags.length; i < size; i++ ) {
             TagScript script = whenTags[i];
-            script.run( context, writer );
+            script.run( context, output );
             WhenTag tag = (WhenTag) script.getTag();
             if ( tag.getValue() ) {
                 return;
             }
         }
         if ( otherwiseTag != null ) {
-            otherwiseTag.run( context, writer );
+            otherwiseTag.run( context, output );
         }
     }
 }

@@ -10,8 +10,8 @@
 
 <h3>(0) Rationale</h3>
 
-<p>The <em>Jelly</em> package implements a simple XML tag based scripting 
-engine. Jelly borrows many ideas from both JSP custom tags, Velocity and the 
+<p>The <em>Jelly</em> is an XML based scripting and processing engine. Jelly borrows many 
+good ideas from both JSP custom tags, Velocity, Cocoon, XMLC and the 
 scripting engine inside XDoclet. Jelly can be used from the command line, inside 
 Ant or inside a Servlet. 
 </p>
@@ -20,6 +20,10 @@ Ant or inside a Servlet.
 Jelly is completely extendable via custom tags in a similar way to JSP. 
 Though Jelly is really simple and has no dependencies either Servlets or JSP.
 </p>
+
+<p>We hope Jelly can be both an XML processing and transformation engine, a HTTP 
+/ JMS / SOAP scripting engine as well as an XML based unit testing framework for 
+testing XML based applications and web services.</p>
 
 <p>As an experiment some of the JSTL tags are implemented.</p>
 
@@ -39,12 +43,13 @@ Commons<ul>
   <li>Collections (1.1 or greater)</li>
   <li>Logging (1.0 or greater)</li>
   <li>BeanUtils (1.1 or greater)</li>
+  <li>Jexl (1.0 or greater)</li>
   </ul>
 
-<p>The XML tags uses</p>
+<p><i>Jelly</i> also uses these other libraries</p>
 <ul>
-  <li>dom4j (1.1 or greater)</li>
-</ul>
+  <li>dom4j (1.3 or greater)</li>
+  </ul>
 
 <p><i>Jelly</i> utilizes the JUnit unit testing framework for developing and 
 executing unit tests, but this is of interest only to developers of the 
@@ -55,7 +60,9 @@ component.
 <h3>(2) Initial Source of the Package</h3>
 
 <p>
-   The code base is new and uses ideas from JSP taglibs, Velocity and XDoclet.
+   The code base is new and uses ideas from JSP taglibs, Velocity and XDoclet as 
+   well as incorporating pipelining ideas from Cocoon and XML processing ideas 
+   from XMLC.
 </p>
 
 <p>The proposed package name for the new component is

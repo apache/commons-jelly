@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.1 2002/02/12 21:34:33 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/12 21:34:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.2 2002/04/24 11:59:12 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/24 11:59:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.1 2002/02/12 21:34:33 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.2 2002/04/24 11:59:12 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -68,7 +68,7 @@ import java.io.Writer;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public abstract class TagSupport implements Tag {
 
@@ -136,7 +136,7 @@ public abstract class TagSupport implements Tag {
     protected String getBodyText( Context context ) throws Exception {
         // XXX: could maybe optimise this later on by having a pool of buffers
         StringWriter writer = new StringWriter();
-        body.run( context, writer );
+        body.run( context, XMLOutput.createXMLOutput( writer ) );
         return writer.toString();
     }
     
