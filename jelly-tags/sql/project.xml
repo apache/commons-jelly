@@ -54,6 +54,18 @@
     
     <!-- END for testing -->
 
+    <!-- START for running demos -->
+
+    <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <id>hsqldb</id>
+      <version>1.7.1</version>
+    </dependency>
+    	
+    <!-- END for running demos -->
   </dependencies>
   
 </project>

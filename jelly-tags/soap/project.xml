@@ -52,6 +52,22 @@
       <version>1.1</version>
     </dependency>
   
+    <!-- START for running demos -->
+
+    <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <id>commons-discovery</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <id>servletapi</id>
+      <version>2.3</version>
+    </dependency>
+    	
+    <!-- END for running demos -->
   </dependencies>
   
 </project>

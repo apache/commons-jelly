@@ -1,3 +1,36 @@
 <project default="java:jar">
 
+  <!-- define the classpath used to run examples -->
+  <goal name="create-classpath" prereqs="java:compile,test:compile">
+		<path id="test.classpath">
+			<pathelement path="${maven.build.dest}"/>
+			<pathelement path="target/classes"/>
+			<pathelement path="target/test-classes"/>
+			<path refid="maven.dependency.classpath"/>
+		</path>
+  </goal>
+
+	<!-- demos -->
+	<goal name="demo" prereqs="create-classpath"
+		description="Runs an SQL demo">
+
+      <!-- Values used for testing -->
+	  <property name="databaseUrl"             value="jdbc:hsqldb:target/hsql"/>
+	  <property name="databaseDriver"          value="org.hsqldb.jdbcDriver"/>
+	  <property name="databaseUser"            value="sa"/>
+	  <property name="databaseTable"           value="SYSTEM_TABLES"/>
+
+		<echo message="Running examples and outputting results to target directory"/>
+
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <sysproperty key="databaseUrl" value="${databaseUrl}"/>
+      <sysproperty key="databaseDriver" value="${databaseDriver}"/>
+      <sysproperty key="databaseUser" value="${databaseUser}"/>
+      <sysproperty key="databaseTable" value="${databaseTable}"/>
+      <arg value="src/test/org/apache/commons/jelly/tags/sql/example3.jelly"/>
+    </java>
+
+  </goal>
+
 </project>
