@@ -90,6 +90,11 @@
     </dependency>
 -->
     <dependency>
+      <id>ant</id>
+      <version>1.4.1</version>
+    </dependency>
+
+    <dependency>
       <name>commons-logging</name>
       <type>required</type>
       <version>1.0</version>
