@@ -169,6 +169,15 @@ public class AntTagLibrary extends TagLibrary {
     }
 
     /**
+     * Sets the Ant Project to be used for this JellyContext.
+     * 
+     * #### this method could move to an AntUtils class.
+     */
+    public static void setProject(JellyContext context, Project project) {
+        context.setVariable( PROJECT_CONTEXT_HANDLE, project );
+    }
+
+    /**
      * A helper method to create a new project
      * 
      * #### this method could move to an AntUtils class.
