@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-beta-5-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="add" issue="JELLY-49">Add Regexp taglib</action>
     </release>
     <release version="1.0-beta-4" date="2004-09-09">
       <action dev="dion" type="add" issue="JELLY-134">Handle JVMs that return null for getClass().getClassLoader()</action>
