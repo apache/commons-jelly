@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-beta-4-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-47">Attribute corruption when dealing with converting attributes that include namespaces</action>
       <action dev="dion" type="fix" issue="JELLY-103" due-to="Ralph Apel">Windows path in build.xml</action>
       <action dev="dion" type="fix" issue="JELLY-71" due-to="David Eric Pugh">Mention swing directory in docs</action>
       <action dev="dion" type="fix" issue="JELLY-98" due-to="Joerg Schaible">The "items" attribute of a "forEach" tag can contain a comma-separated String</action>
