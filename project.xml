@@ -225,7 +225,7 @@
     
     <dependency>
       <id>ant+optional</id>
-      <version>1.5</version>
+      <version>1.5.1</version>
     </dependency>
 
     <dependency>
