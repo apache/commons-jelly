@@ -91,140 +91,99 @@ public class CompositeExpression extends ExpressionSupport {
         StringBuffer expr  = new StringBuffer();
 
       MAIN:
-        while ( cur < len )
-        {
+        while ( cur < len ) {
             c = text.charAt( cur );
 
-            switch ( c )
-            {
+            switch ( c ) {
                 case('$'):
-                {
-                    if ( cur+1<len )
-                    {
+                    if ( cur+1<len ) {
                         ++cur;
                         c = text.charAt( cur );
 
-                        switch ( c )
-                        {
+                        switch ( c ) {
                             case('$'):
-                            {
                                 chars.append( c );
                                 break;
-                            }
                             case('{'):
-                            {
-                                if ( chars.length() > 0 )
-                                {
+                                if ( chars.length() > 0 ) {
                                     answer.addTextExpression( chars.toString() );
                                     chars.delete(0, chars.length() );
                                 }
 
-                                if (cur+1<len)
-                                {
+                                if (cur+1<len) {
                                     ++cur;
 
-                                    while (cur<len)
-                                    {
+                                    while (cur<len) {
                                         c = text.charAt(cur);
-                                        {
-                                            switch ( c )
-                                            {
-                                                case('"'):
-                                                {
-                                                    expr.append( c );
-                                                    ++cur;
+                                        switch ( c ) {
+                                            case('"'):
+                                              expr.append( c );
+                                              ++cur;
 
-                                                  DOUBLE_QUOTE:
-                                                    while(cur<len)
-                                                    {
-                                                        c = text.charAt(cur);
+                                              DOUBLE_QUOTE:
+                                                while(cur<len) {
+                                                    c = text.charAt(cur);
 
-                                                        boolean escape = false;
+                                                    boolean escape = false;
 
-                                                        switch ( c )
-                                                        {
-                                                            case('\\'):
-                                                            {
-                                                                escape = true;
-                                                                ++cur;
-                                                                expr.append(c);
-                                                                break;
-                                                            }
-                                                            case('"'):
-                                                            {
-                                                                ++cur;
-                                                                expr.append(c);
-                                                                break DOUBLE_QUOTE;
-                                                            }
-                                                            default:
-                                                            {
-                                                                escape=false;
-                                                                ++cur;
-                                                                expr.append(c);
-                                                            }
-                                                        }
-                                                    }
-                                                    break;
-                                                }
-                                                case('\''):
-                                                {
-                                                    expr.append( c );
-                                                    ++cur;
+                                                    switch ( c ) {
+                                                        case('\\'):
+                                                            escape = true;
+                                                            ++cur;
+                                                            expr.append(c);
+                                                            break;
+                                                        case('"'):
+                                                            ++cur;
+                                                            expr.append(c);
+                                                            break DOUBLE_QUOTE;
+                                                        default:
+                                                            escape=false;
+                                                            ++cur;
+                                                            expr.append(c);
+                                                    } // switch
+                                                } // while
+                                                break;
+                                            case('\''):
+                                                expr.append( c );
+                                                ++cur;
 
-                                                  SINGLE_QUOTE:
-                                                    while(cur<len)
-                                                    {
-                                                        c = text.charAt(cur);
+                                              SINGLE_QUOTE:
+                                                while(cur<len) {
+                                                    c = text.charAt(cur);
 
-                                                        boolean escape = false;
+                                                    boolean escape = false;
 
-                                                        switch ( c )
-                                                        {
-                                                            case('\\'):
-                                                            {
-                                                                escape = true;
-                                                                ++cur;
-                                                                expr.append(c);
-                                                                break;
-                                                            }
-                                                            case('\''):
-                                                            {
-                                                                ++cur;
-                                                                expr.append(c);
-                                                                break SINGLE_QUOTE;
-                                                            }
-                                                            default:
-                                                            {
-                                                                escape=false;
-                                                                ++cur;
-                                                                expr.append(c);
-                                                            }
-                                                        }
-                                                    }
-                                                    break;
-                                                }
-                                                case('}'):
-                                                {
-                                                    answer.addExpression(factory.createExpression(expr.toString()));
-                                                    expr.delete(0, expr.length());
-                                                    ++cur;
-                                                    continue MAIN;
-                                                }
-                                                default:
-                                                {
-                                                    expr.append( c );
-                                                    ++cur;
-                                                }
-                                            }
+                                                    switch ( c ) {
+                                                        case('\\'):
+                                                            escape = true;
+                                                            ++cur;
+                                                            expr.append(c);
+                                                            break;
+                                                        case('\''):
+                                                            ++cur;
+                                                            expr.append(c);
+                                                            break SINGLE_QUOTE;
+                                                        default:
+                                                            escape=false;
+                                                            ++cur;
+                                                            expr.append(c);
+                                                    } // switch
+                                                } // while
+                                                break;
+                                            case('}'):
+                                                answer.addExpression(factory.createExpression(expr.toString()));
+                                                expr.delete(0, expr.length());
+                                                ++cur;
+                                                continue MAIN;
+                                            default:
+                                                expr.append( c );
+                                                ++cur;
                                         }
                                     }
                                 }
                                 break;
-                            }
                             default:
-                            {
                                 chars.append(c);
-                            }
                         }
                     }
                     else
@@ -232,11 +191,8 @@ public class CompositeExpression extends ExpressionSupport {
                         chars.append(c);
                     }
                     break;
-                }
                 default:
-                {
                     chars.append( c );
-                }
             }
             ++cur;
         }
