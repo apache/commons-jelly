@@ -18,6 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-email</id>
   <name>commons-jelly-tags-email</name>
+  <currentVersion>1.0</currentVersion>
   <package>org.apache.commons.jelly.tags.email</package>
 
   <description>
@@ -25,18 +26,16 @@
   </description>
   <shortDescription>Commons Jelly e-mail Tag Library</shortDescription>
   
-  <!-- <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/email</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/email</distributionDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/email/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/email/</url>
-  </repository> -->
-  
-    
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS_JELLY_EMAIL-1_0</tag>
+    </version>
+  </versions>
+
   <dependencies>
-  
-    
-  
+
     <!-- START for compilation -->
     <dependency>
       <id>commons-jelly</id>
