@@ -35,7 +35,7 @@ import org.apache.commons.lang.StringUtils;
   * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 public abstract class ExpressionSupport implements Expression {
 
@@ -77,20 +77,13 @@ public abstract class ExpressionSupport implements Expression {
             // return Boolean.getBoolean( (String) value );
             String str = (String) value;
 
-            if ( str.equals( "on" )
+            return ( str.equalsIgnoreCase( "on" )
                  ||
-                 str.equals( "yes" )
+                 str.equalsIgnoreCase( "yes" )
                  ||
                  str.equals( "1" )
                  ||
-                 str.equals( "true" ) )
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+                 str.equalsIgnoreCase( "true" ) );
 
         }
         return false;
