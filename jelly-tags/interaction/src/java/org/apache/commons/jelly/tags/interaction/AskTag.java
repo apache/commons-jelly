@@ -53,7 +53,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: AskTag.java,v 1.2 2002/10/30 19:16:28 jstrachan Exp $
+ * $Id: AskTag.java,v 1.1 2003/01/08 04:27:30 dion Exp $
  */
 package org.apache.commons.jelly.tags.interaction;
 
