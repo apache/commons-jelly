@@ -57,7 +57,7 @@
 
 package org.apache.commons.jelly.tags.threads;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -113,9 +113,9 @@ public class WaitForTag extends TagSupport {
      * @throws TimeoutException If the call to waitUntilDone(onlyWait) times out
      * @throws RequirementException If a threads status doesn't match the setStatus() value
      */
-    public void doTag(XMLOutput output) throws TimeoutException, RequirementException, Exception {
+    public void doTag(XMLOutput output) throws TimeoutException, RequirementException, JellyTagException {
         if (thread == null && group == null) {
-            throw new JellyException("This tag requires that you set the thread or group attribute");
+            throw new JellyTagException("This tag requires that you set the thread or group attribute");
         }
 
         // wait on the thread

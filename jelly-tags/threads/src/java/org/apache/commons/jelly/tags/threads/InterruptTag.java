@@ -69,12 +69,12 @@ import java.util.List;
 
 public class InterruptTag extends UseThreadTag {
     /** Interrupt one thread */
-    protected void useThread(Thread thread, XMLOutput output) throws Exception {
+    protected void useThread(Thread thread, XMLOutput output) {
         thread.interrupt();
     }
 
     /** Interrupt all of the threads in a group */
-    protected void useThreadGroup(List threadGroup, XMLOutput output) throws Exception {
+    protected void useThreadGroup(List threadGroup, XMLOutput output) {
         for (int i = 0; i < threadGroup.size(); i++) {
             ((Thread) threadGroup.get(i)).interrupt();
         }

@@ -57,7 +57,7 @@
 
 package org.apache.commons.jelly.tags.threads;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -72,17 +72,17 @@ public abstract class UseMutexTag extends TagSupport {
     private Object mutex = null;
 
     /** Calls useMutex after checking to make sure that <i>setMutex</i> was called */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         // either use the set thread or search for a parent thread to use
         if (mutex == null) {
-            throw new JellyException("no mutex set");
+            throw new JellyTagException("no mutex set");
         }
 
         useMutex(mutex, output);
     }
 
     /** Implement this method to do something with the mutex */
-    protected abstract void useMutex(Object mutex, XMLOutput output) throws Exception;
+    protected abstract void useMutex(Object mutex, XMLOutput output) throws JellyTagException;
 
     /** Get the mutex */
     public Object getMutex() {

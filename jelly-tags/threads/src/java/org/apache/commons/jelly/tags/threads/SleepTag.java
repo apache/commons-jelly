@@ -56,6 +56,7 @@
  */
 package org.apache.commons.jelly.tags.threads;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -70,8 +71,13 @@ public class SleepTag extends TagSupport {
     private long howLong = 0;
 
     /** Put the thread to sleep */
-    public void doTag(XMLOutput output) throws Exception {
-        Thread.sleep(howLong);
+    public void doTag(XMLOutput output) throws JellyTagException {
+        try {
+            Thread.sleep(howLong);
+        } 
+        catch (InterruptedException e) {
+            throw new JellyTagException(e);
+        }
     }
 
     /**

@@ -57,6 +57,7 @@
 
 package org.apache.commons.jelly.tags.threads;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
@@ -70,11 +71,16 @@ public class WaitTag extends UseMutexTag {
     private long timeout = -1;
 
     /** Start waiting */
-    public void useMutex(Object mutex, XMLOutput output) throws Exception {
-        if (timeout > 0) {
-            mutex.wait(timeout);
-        } else {
-            mutex.wait();
+    public void useMutex(Object mutex, XMLOutput output) throws JellyTagException {
+        try {
+            if (timeout > 0) {
+                mutex.wait(timeout);
+            } else {
+                mutex.wait();
+            }
+        } 
+        catch (InterruptedException e) {
+            throw new JellyTagException(e);
         }
     }
 

@@ -71,7 +71,7 @@ public class NotifyTag extends UseMutexTag {
     private boolean notifyAll = false;
 
     /** Perform the notify */
-    public void useMutex(Object mutex, XMLOutput output) throws Exception {
+    public void useMutex(Object mutex, XMLOutput output) {
         if (notifyAll) {
             mutex.notifyAll();
         } else {

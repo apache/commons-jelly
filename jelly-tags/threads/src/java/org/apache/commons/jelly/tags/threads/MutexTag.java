@@ -57,7 +57,7 @@
 
 package org.apache.commons.jelly.tags.threads;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -72,9 +72,9 @@ public class MutexTag extends TagSupport {
     private String var = null;
 
     /** Create and set the mutex */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if (var == null) {
-            throw new JellyException("mutexes require a var attribute");
+            throw new JellyTagException("mutexes require a var attribute");
         }
 
         context.setVariable(var, this);

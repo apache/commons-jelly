@@ -57,7 +57,7 @@
 
 package org.apache.commons.jelly.tags.threads;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -81,40 +81,46 @@ public abstract class UseThreadTag extends TagSupport {
      * The default behavior is to either use the set thread or to
      * search for a parent thread to use.
      */
-    public void doTag(XMLOutput output) throws Exception {
-        // either use the set thread or search for a parent thread to use
-        if (thread != null) {
-            useThread(thread, output);
-        } else if (threadGroup != null) {
-            useThreadGroup(threadGroup, output);
-        } else {
-            // check if this tag is nested inside a thread. if so
-            // use the parent thread.
-            if (searchForParent) {
-                // first look for parent threads
-                ThreadTag tt = (ThreadTag) findAncestorWithClass(ThreadTag.class);
-                if (tt != null) {
-                    useThread(tt.getThread(), output);
-                } else {
-                    // then look for parent thread groups
-                    GroupTag gt = (GroupTag) findAncestorWithClass(GroupTag.class);
-                    if (gt != null) {
-                        useThreadGroup(gt.getThreads(), output);
-                    } else {
-                        throw new JellyException("no thread or thread group found");
-                    }
-                }
+    public void doTag(XMLOutput output) throws JellyTagException {
+        try {
+            // either use the set thread or search for a parent thread to use
+            if (thread != null) {
+                useThread(thread, output);
+            } else if (threadGroup != null) {
+                useThreadGroup(threadGroup, output);
             } else {
-                throw new JellyException("no thread or thread group found");
+                // check if this tag is nested inside a thread. if so
+                // use the parent thread.
+                if (searchForParent) {
+                    // first look for parent threads
+                    ThreadTag tt = (ThreadTag) findAncestorWithClass(ThreadTag.class);        
+
+                    if (tt != null) {
+                        useThread(tt.getThread(), output);
+                    } else {
+                        // then look for parent thread groups
+                        GroupTag gt = (GroupTag) findAncestorWithClass(GroupTag.class);
+                        if (gt != null) {
+                            useThreadGroup(gt.getThreads(), output);
+                        } else {
+                            throw new JellyTagException("no thread or thread group found");
+                        }
+                    }
+                } else {
+                    throw new JellyTagException("no thread or thread group found");
+                }
             }
+        }
+        catch (InterruptedException e) {
+            throw new JellyTagException(e);
         }
     }
 
     /** Implement this method to do something with the thread */
-    protected abstract void useThread(Thread thread, XMLOutput output) throws Exception;
+    protected abstract void useThread(Thread thread, XMLOutput output) throws InterruptedException ;
 
     /** Implement this method to do something with the threadGroup */
-    protected abstract void useThreadGroup(List threadGroup, XMLOutput output) throws Exception;
+    protected abstract void useThreadGroup(List threadGroup, XMLOutput output) throws InterruptedException ;
 
     /**
      * Set the thread to use in some way.

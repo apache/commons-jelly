@@ -57,6 +57,7 @@
 
 package org.apache.commons.jelly.tags.threads;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
@@ -69,7 +70,7 @@ import org.apache.commons.jelly.XMLOutput;
 
 public class SynchronizeTag extends UseMutexTag {
     /** Synchronize on the mutex */
-    protected void useMutex(Object mutex, XMLOutput output) throws Exception {
+    protected void useMutex(Object mutex, XMLOutput output) throws JellyTagException {
         synchronized (mutex) {
             invokeBody(output);
         }

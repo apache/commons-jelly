@@ -71,12 +71,12 @@ public class JoinTag extends UseThreadTag {
     private long timeout = -1;
 
     /** Perform the thread join */
-    protected void useThread(Thread thread, XMLOutput output) throws Exception {
+    protected void useThread(Thread thread, XMLOutput output) throws InterruptedException {
         joinThread(thread);
     }
 
     /** Join all of the threads in a thread group */
-    protected void useThreadGroup(List threadGroup, XMLOutput output) throws Exception {
+    protected void useThreadGroup(List threadGroup, XMLOutput output) throws InterruptedException {
         for (int i = 0; i < threadGroup.size(); i++) {
             joinThread((Thread) threadGroup.get(i));
         }

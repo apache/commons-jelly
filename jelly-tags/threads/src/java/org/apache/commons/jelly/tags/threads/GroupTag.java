@@ -57,6 +57,7 @@
 
 package org.apache.commons.jelly.tags.threads;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -79,7 +80,7 @@ public class GroupTag extends TagSupport {
     private List threads = new ArrayList();
 
     /** Child threads will add themselves and will then all be started together */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         invokeBody(output);
 
         // store the group in a jelly variable
