@@ -3,7 +3,7 @@
 
 <!--
         "Digester" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
+        $Id: build.xml,v 1.4 2002/02/13 17:03:09 jstrachan Exp $
 -->
 
 
@@ -299,6 +299,14 @@
       <arg value="one"/> 
       <arg value="two"/> 
       <arg value="three"/> 
+    </java>
+   </target>
+
+   <target name="demo.sysprop" depends="compile" 
+      description="Runs demo which displays system properties">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/show_properties.jelly"/> 
     </java>
    </target>
 

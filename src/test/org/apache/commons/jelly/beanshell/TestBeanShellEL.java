@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:35 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.1 2002/02/13 16:00:39 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/02/13 16:00:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
+ * $Id: TestBeanShellEL.java,v 1.1 2002/02/13 16:00:39 jstrachan Exp $
  */
 package org.apache.commons.jelly.beanshell;
 
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogSource;
 /** Tests the BeanShell EL
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
 public class TestBeanShellEL extends TestCase {
     
@@ -112,8 +112,8 @@ public class TestBeanShellEL extends TestCase {
     }
     
     public void testEL() throws Exception {
-        assertExpression( "{foo}", "abc" );
-        assertExpression( "{bar * 2}", new Integer( 246 ) );
+        assertExpression( "foo", "abc" );
+        assertExpression( "bar * 2", new Integer( 246 ) );
     }    
     
     /** Evaluates the given expression text and tests it against the expected value */

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.4 2002/02/13 16:00:39 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.5 2002/02/13 17:03:09 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/02/13 17:03:09 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.4 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.5 2002/02/13 17:03:09 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -115,7 +115,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class XMLParser extends DefaultHandler {
     
@@ -932,7 +932,7 @@ public class XMLParser extends DefaultHandler {
                 for ( int i = 0; i < size; i++ ) {
                     String attributeName = list.getLocalName(i);
                     String attributeValue = list.getValue(i);
-                    Expression expression = taglib.createExpression( localName, attributeName, attributeValue );
+                    Expression expression = taglib.createExpression( getExpressionFactory(), localName, attributeName, attributeValue );
                     if ( expression == null ) {
                         expression = createExpression( localName, attributeName, attributeValue );
                     }
@@ -954,9 +954,14 @@ public class XMLParser extends DefaultHandler {
     }
     
     protected Expression createExpression( String tagName, String attributeName, String attributeValue ) throws Exception {
-        Expression answer = getExpressionFactory().createExpression( attributeValue );
-        if ( answer != null ) {
-            return answer;
+        String text = attributeValue;
+        int length = text.length();
+        if ( length > 2 && text.charAt(0) == '{'  && text.charAt( length - 1 ) == '}' ) {
+            text = text.substring( 1, length - 1 );
+            Expression answer = getExpressionFactory().createExpression( text );
+            if ( answer != null ) {
+                return answer;
+            }
         }
         return new ConstantExpression( attributeValue );
     }
