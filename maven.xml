@@ -101,7 +101,50 @@
             file="${maven.build.dir}/${maven.final.name}.jar"/>
   </preGoal>
 
+  <!-- ===================================================================== -->
+  <!--                      D I S T : I N S T A L L                          -->
+  <!-- ===================================================================== -->
+  <!-- This installs Jelly on your system. With an installed Jelly, you'll   -->
+  <!-- be able to run Jelly scripts from wherever your are, using :          -->
+  <!-- "jelly <script> <outputfile>".                                        -->
+  <!-- The installation dir is set in the project.properties file, under the -->
+  <!-- name "maven.dist.install.dir", which defaults to "/usr/local/jelly"   -->
+  <!-- (yep, that's a Linux path :). Please override it to suit your needs   -->
+  <!-- ===================================================================== -->
 
+  <goal name="dist:install"
+            description="Installs Jelly on your system."
+            prereqs="dist:build">
+
+    <echo>
+      +-------------------------------------------------------+
+      | I N S T A L L I N G   J E L L Y                       |
+      +-------------------------------------------------------+
+    </echo>
+    <mkdir dir="${maven.dist.install.dir}"/>
+
+    <copy todir="${maven.dist.install.dir}">
+      <fileset dir="${maven.dist.assembly.dir}"/>
+    </copy>
+
+    <chmod file="${maven.dist.install.dir}/bin/jelly" perm="ugo+rx" />
+
+    <echo>
+      * ===================================================== *
+      *                    W A R N I N G                      *
+      * ===================================================== *
+      * Jelly is now almost installed on your system !        *
+      * Next, you must set JELLY_HOME to point to             *
+      * "maven.dist.install.dir", and add JELLY_HOME/bin      *
+      * to your PATH.                                         *
+      *                                                       *
+      * Then, you will be able to run Jelly scripts using the *
+      * command : "jelly script outputfile".                  *
+      *                                                       *
+      * Enjoy !                                               *
+      * ===================================================== *
+    </echo>
+  </goal>
 
   <!-- demo programs -->
 
