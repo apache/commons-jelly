@@ -213,12 +213,12 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
                 // TODO: work out why we always set the name attribute.
                 // See JELLY-105.
-                try{
-                    PropertyUtils.setProperty( nested, "name", tagName );
-                }
-                catch (Exception e) {
-                    log.warn( "Caught exception setting nested name: " + tagName, e );
-                }
+//                try{
+//                    PropertyUtils.setProperty( nested, "name", tagName );
+//                }
+//                catch (Exception e) {
+//                    log.warn( "Caught exception setting nested name: " + tagName, e );
+//                }
 
                 // now lets invoke the body
                 String body = getBodyText();
