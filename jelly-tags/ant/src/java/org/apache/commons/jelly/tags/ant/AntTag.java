@@ -149,13 +149,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
         Project project = getAntProject();
         String tagName = getTagName();
-        Object parentObject = null;
-        
-        // must be a datatype.
-        TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
-        if ( ancestor != null ) {
-            parentObject = ancestor.getTaskObject();
-        }
+        Object parentObject = findBeanAncestor();
 
         // lets assume that Task instances are not nested inside other Task instances
         // for example <manifest> inside a <jar> should be a nested object, where as 
@@ -221,10 +215,6 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 log.debug( "Creating a nested object name: " + tagName );            
             }
 
-            if ( parentObject == null ) {
-                parentObject = findBeanAncestor();
-            }
-
             Object nested = createNestedObject( parentObject, tagName );
 
             if ( nested == null ) {
@@ -256,10 +246,27 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 if ( parentObject != null ) {
                     IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );
                     try {
+                    	if (log.isDebugEnabled()) {
+                    		log.debug("About to set the: " + tagName 
+                    			+ " property on: " + parentObject + " to value: " 
+                    			+ nested + " with type: " + nested.getClass() 
+                			);
+                    	}
+                    	
                         ih.storeElement( project, parentObject, nested, tagName );
                     }
                     catch (Exception e) {
-                        //log.warn( "Caught exception setting nested: " + tagName, e );
+                        log.warn( "Caught exception setting nested: " + tagName, e );
+                    }
+                    
+                    // now try to set the property for good measure
+                    // as the storeElement() method does not
+                    // seem to call any setter methods of non-String types
+                    try {
+        				BeanUtils.setProperty( parentObject, tagName, nested );
+                    }
+                    catch (Exception e) {
+                    	log.debug("Caught exception trying to set property: " + tagName + " on: " + parentObject);
                     }
                 }
             }
@@ -464,17 +471,24 @@ public class AntTag extends MapTagSupport implements TaskSource {
     }
     
     /**
-     * Attempts to look up in the parent hierarchy for a tag that implements the BeanSource interface
-     * which creates a dynamic bean, or will return the parent tag, which is also a bean.
+     * Attempts to look up in the parent hierarchy for a tag that implements the 
+     * TaskSource interface, which returns an Ant Task object or that implements
+     * BeanSource interface which creates a bean, 
+     * or will return the parent tag, which is also a bean.
      */
     protected Object findBeanAncestor() throws Exception {
         Tag tag = getParent();
-        if (tag != null) {
+        while (tag != null) {
             if (tag instanceof BeanSource) {
                 BeanSource beanSource = (BeanSource) tag;
                 return beanSource.getBean();
             }
+            if (tag instanceof TaskSource) {
+            	TaskSource taskSource = (TaskSource) tag;
+            	return taskSource.getTaskObject();
+            }
+            tag = tag.getParent();
         }
-        return tag;
+        return getParent();
     }
 }
