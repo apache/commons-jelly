@@ -38,11 +38,15 @@ import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Caret;
+import org.eclipse.swt.widgets.ColorDialog;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.CoolBar;
 import org.eclipse.swt.widgets.CoolItem;
 import org.eclipse.swt.widgets.Decorations;
+import org.eclipse.swt.widgets.DirectoryDialog;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.FontDialog;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
@@ -133,10 +137,10 @@ public class SwtTagLibrary extends TagLibrary {
         registerLayoutDataTag( "rowData", RowData.class );
 
         // dialogs        
-        //registerWidgetTag( "colorDialog", ColorDialog.class );
-        //registerWidgetTag( "directoryDialog", DirectoryDialog.class );
-        //registerWidgetTag( "fileDialog", FileDialog.class );
-        //registerWidgetTag( "fontDialog", FontDialog.class );
+		registerDialogTag( "colorDialog", ColorDialog.class );
+		registerDialogTag( "directoryDialog", DirectoryDialog.class );
+		registerDialogTag( "fileDialog", FileDialog.class );
+		registerDialogTag( "fontDialog", FontDialog.class );
         
         // events
         registerTag("onEvent", OnEventTag.class);
@@ -210,6 +214,31 @@ public class SwtTagLibrary extends TagLibrary {
             }
         );
     }
+   
+	/**
+	 * Register a registerDialogTag tag for the given name
+	 */
+	protected void registerDialogTag(String name, Class widgetClass) {
+		registerDialogTag(name, widgetClass, SWT.NULL);
+	}
+	 
+	/**
+	   * Register a dialog tag for the given name
+	   */
+	protected void registerDialogTag(String name, final Class widgetClass, final int style) {
+		  registerTagFactory(
+			  name,
+			  new TagFactory() {
+				  /**
+				   * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+				   */
+				  public Tag createTag(String name, Attributes attributes)
+					  throws JellyException {
+					  return new DialogTag(widgetClass, style);
+				  }
+			  }
+		  );
+	  }
 
     /**
      * Register a menu tag for the given name and style
