@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/ant/Attic/AntTagSupport.java,v 1.4 2002/06/25 20:43:30 werken Exp $
- * $Revision: 1.4 $
- * $Date: 2002/06/25 20:43:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/ant/Attic/AntTagSupport.java,v 1.5 2002/06/27 18:17:24 werken Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/27 18:17:24 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AntTagSupport.java,v 1.4 2002/06/25 20:43:30 werken Exp $
+ * $Id: AntTagSupport.java,v 1.5 2002/06/27 18:17:24 werken Exp $
  */
 
 package org.apache.commons.jelly.tags.ant;
@@ -195,6 +195,10 @@ public abstract class AntTagSupport extends DynaBeanTagSupport {
         
         if ( obj == null ) {
             return;
+        }
+
+        if ( obj instanceof TaskAdapter ) {
+            obj = ((TaskAdapter)obj).getProxy();
         }
         
         IntrospectionHelper ih = IntrospectionHelper.getHelper( obj.getClass() );
