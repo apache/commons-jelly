@@ -215,7 +215,12 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
         }
         else if ( parent instanceof RootPaneContainer ) {
             RootPaneContainer rpc = (RootPaneContainer) parent;
-            rpc.getContentPane().add( component );
+            if (constraints != null) {
+                rpc.getContentPane().add( component, constraints );
+            }
+            else {
+                rpc.getContentPane().add( component);
+            }
         }
         else if ( parent instanceof JScrollPane ) {
             JScrollPane scrollPane = (JScrollPane) parent;

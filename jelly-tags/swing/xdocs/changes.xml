@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-128" due-to="Hans Gilde">Layout constraints don't work with RootPaneContainer classes.</action>
       <action dev="dion" type="fix" issue="JELLY-129" due-to="Hans Gilde">Fix error message for bad nesting of Gbc and BorderAlign tags.</action>
       <action dev="dion" type="fix" issue="JELLY-92" due-to="Robert McIntosh">Add EmptyBorder tag.</action>
       <action dev="dion" type="fix" issue="JELLY-93" due-to="Robert McIntosh">Add EtchedBorder tag.</action>
