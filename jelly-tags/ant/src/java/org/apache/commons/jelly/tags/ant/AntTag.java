@@ -149,7 +149,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         Project project = getAntProject();
         String tagName = getTagName();
@@ -212,7 +212,15 @@ public class AntTag extends MapTagSupport implements TaskSource {
                                                                  addTaskParamTypes );
                 if (method != null) {
                     Object[] args = { body };
-                    method.invoke(this.task, args);
+                    try {
+                        method.invoke(this.task, args);
+                    } 
+                    catch (IllegalAccessException e) {
+                        throw new JellyTagException(e);
+                    } 
+                    catch (InvocationTargetException e) {
+                        throw new JellyTagException(e);
+                    }
                 }
     
                 // now lets set all the attributes of the child elements
@@ -340,7 +348,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     /**
      * Sets the properties on the Ant task
      */
-    public void setBeanProperties() throws Exception {
+    public void setBeanProperties() throws JellyTagException {
         Object object = getTaskObject();
         if ( object != null ) {
             Map map = getAttributes();
@@ -410,7 +418,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     /**
      * Creates a nested object of the given object with the specified name
      */
-    public Object createNestedObject(Object object, String name) throws Exception {
+    public Object createNestedObject(Object object, String name) {
         Object dataType = null;
         if ( object != null ) {
             IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
@@ -432,7 +440,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         return dataType;
     }
 
-    public Object createDataType(String name) throws Exception {
+    public Object createDataType(String name) {
 
         Object dataType = null;
 
@@ -473,19 +481,28 @@ public class AntTag extends MapTagSupport implements TaskSource {
         return dataType;
     }
 
-    public Task createTask(String taskName) throws Exception {
+    public Task createTask(String taskName) throws JellyTagException {
         return createTask( taskName,
                            (Class) getAntProject().getTaskDefinitions().get( taskName ) );
     }
 
     public Task createTask(String taskName,
-                           Class taskType) throws Exception {
+                           Class taskType) throws JellyTagException {
                             
         if (taskType == null) {
             return null;
         }
 
-        Object o = taskType.newInstance();
+        Object o = null;
+        try {
+            o = taskType.newInstance();
+        } catch (InstantiationException e) {
+            throw new JellyTagException(e);
+        }
+        catch (IllegalAccessException e) {
+            throw new JellyTagException(e);
+        }
+        
         Task task = null;
         if ( o instanceof Task ) {
             task = (Task) o;
@@ -508,7 +525,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
      * BeanSource interface which creates a bean, 
      * or will return the parent tag, which is also a bean.
      */
-    protected Object findBeanAncestor() throws Exception {
+    protected Object findBeanAncestor() throws JellyTagException {
         Tag tag = getParent();
         while (tag != null) {
             if (tag instanceof BeanSource) {
@@ -527,7 +544,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     /**
      * Walks the hierarchy until it finds a parent TaskSource and returns its source or returns null
      */
-    protected Object findParentTaskObject() throws Exception {
+    protected Object findParentTaskObject() throws JellyTagException {
         Tag tag = getParent();
         while (tag != null) {
             if (tag instanceof TaskSource) {
