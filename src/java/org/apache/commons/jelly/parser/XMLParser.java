@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.39 2002/11/08 18:27:51 jstrachan Exp $
- * $Revision: 1.39 $
- * $Date: 2002/11/08 18:27:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.40 2002/11/10 11:02:48 vmassol Exp $
+ * $Revision: 1.40 $
+ * $Date: 2002/11/10 11:02:48 $
  *
  * ====================================================================
  *
@@ -57,22 +57,19 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.39 2002/11/08 18:27:51 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.40 2002/11/10 11:02:48 vmassol Exp $
  */
 package org.apache.commons.jelly.parser;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Reader;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -99,15 +96,10 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
 
-import org.apache.commons.jelly.tags.core.CoreTagLibrary;
-import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.xml.sax.Attributes;
-import org.xml.sax.ContentHandler;
-import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.InputSource;
@@ -121,7 +113,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.39 $
+ * @version $Revision: 1.40 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -276,7 +268,7 @@ public class XMLParser extends DefaultHandler {
      * Parse the content of the specified file using this XMLParser.  Returns
      * the root element from the object stack (if any).
      *
-     * @param file URL containing the XML data to be parsed
+     * @param url URL containing the XML data to be parsed
      *
      * @exception IOException if an input/output error occurs
      * @exception SAXException if a parsing exception occurs
@@ -454,7 +446,7 @@ public class XMLParser extends DefaultHandler {
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.
      *
-     * @param boolean determines whether to use JellyContext ClassLoader.
+     * @param use determines whether to use JellyContext ClassLoader.
      */
     public void setUseContextClassLoader(boolean use) {
         useContextClassLoader = use;
@@ -612,8 +604,9 @@ public class XMLParser extends DefaultHandler {
     /**
      * Process notification of the start of an XML element being reached.
      *
-     * @param uri The Namespace URI, or the empty string if the element
-     *   has no Namespace URI or if Namespace processing is not being performed.
+     * @param namespaceURI The Namespace URI, or the empty string if the
+     *   element has no Namespace URI or if Namespace processing is not
+     *   being performed.
      * @param localName The local name (without prefix), or the empty
      *   string if Namespace processing is not being performed.
      * @param qName The qualified name (with prefix), or the empty
@@ -706,12 +699,12 @@ public class XMLParser extends DefaultHandler {
     /**
      * Process notification of the end of an XML element being reached.
      *
-     * @param uri - The Namespace URI, or the empty string if the
+     * @param namespaceURI The Namespace URI, or the empty string if the
      *   element has no Namespace URI or if Namespace processing is not
      *   being performed.
-     * @param localName - The local name (without prefix), or the empty
+     * @param localName The local name (without prefix), or the empty
      *   string if Namespace processing is not being performed.
-     * @param qName - The qualified XML 1.0 name (with prefix), or the
+     * @param qName The qualified XML 1.0 name (with prefix), or the
      *   empty string if qualified names are not available.
      * @exception SAXException if a parsing error is to be reported
      */
@@ -803,7 +796,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param buffer The characters from the XML document
      * @param start Starting offset into the buffer
-     * @param length Number of characters from the buffer
+     * @param len Number of characters from the buffer
      *
      * @exception SAXException if a parsing error is to be reported
      */
@@ -1127,7 +1120,7 @@ public class XMLParser extends DefaultHandler {
 	/**
 	 * Configure a newly created TagScript instance before any Expressions are created
 	 *
-	 * @param tagScript
+	 * @param aTagScript
 	 */
 	protected void configureTagScript(TagScript aTagScript) {		
 	    // set parent relationship...
