@@ -17,11 +17,12 @@ package org.apache.commons.jelly.core;
 
 import junit.framework.TestSuite;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class TestInvokeStaticTag extends BaseJellyTest {
 
@@ -121,13 +122,13 @@ public class TestInvokeStaticTag extends BaseJellyTest {
         script.run(getJellyContext(),getXMLOutput());
         String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
         assertNotNull( exceptionMessage );
-        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
+        JellyException jellyException = (JellyException) getJellyContext().getVariable("jellyException");
         assertNotNull( jellyException );
         assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
         assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
         		exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
-//        assertNotNull( jellyException.getCause() );
-//        assertEquals( exceptionMessage, jellyException.getCause().getMessage() );
+        assertNotNull( jellyException.getCause() );
+        assertEquals( exceptionMessage, jellyException.getCause().getMessage() );
     }
     
 }
