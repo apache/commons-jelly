@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.35 2002/10/17 18:23:48 morgand Exp $
- * $Revision: 1.35 $
- * $Date: 2002/10/17 18:23:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.36 2002/10/22 13:44:03 jstrachan Exp $
+ * $Revision: 1.36 $
+ * $Date: 2002/10/22 13:44:03 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.35 2002/10/17 18:23:48 morgand Exp $
+ * $Id: XMLParser.java,v 1.36 2002/10/22 13:44:03 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -121,10 +121,16 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.35 $
+ * @version $Revision: 1.36 $
  */
 public class XMLParser extends DefaultHandler {
 
+    /**
+     * Share the Jelly properties across parsers
+     */
+    private static Properties jellyProperties;
+    
+    
     /** JellyContext which is used to locate tag libraries*/
     private JellyContext context = new JellyContext();
 
@@ -972,39 +978,51 @@ public class XMLParser extends DefaultHandler {
      */
     protected void configure() {
         // load the properties file of libraries available
-        InputStream in = null;
-        URL url =
-            getClassLoader().getResource("org/apache/commons/jelly/jelly.properties");
-        if (url != null) {
-            log.debug("Loading Jelly default tag libraries from: " + url);
-            Properties properties = new Properties();
-            try {
-                in = url.openStream();
-                properties.load(in);
-                for (Iterator iter = properties.entrySet().iterator(); iter.hasNext();) {
-                    Map.Entry entry = (Map.Entry) iter.next();
-                    String uri = (String) entry.getKey();
-                    String className = (String) entry.getValue();                    
-                    String libraryURI = "jelly:" + uri;
-                    
-                    // don't overload any Mock Tags already
-                    if ( ! context.isTagLibraryRegistered(libraryURI) ) {
-                        context.registerTagLibrary(libraryURI, className);
+        Properties properties = getJellyProperties();
+        for (Iterator iter = properties.entrySet().iterator(); iter.hasNext();) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String uri = (String) entry.getKey();
+            String className = (String) entry.getValue();                    
+            String libraryURI = "jelly:" + uri;
+            
+            // don't overload any Mock Tags already
+            if ( ! context.isTagLibraryRegistered(libraryURI) ) {
+                context.registerTagLibrary(libraryURI, className);
+            }
+        }
+    }
+
+
+    /**
+     * A helper method which loads the static Jelly properties once on startup
+     */
+    protected synchronized Properties getJellyProperties() {
+        if (jellyProperties == null) {
+            jellyProperties = new Properties();
+            
+            InputStream in = null;
+            URL url =
+                getClassLoader().getResource("org/apache/commons/jelly/jelly.properties");
+            if (url != null) {
+                log.debug("Loading Jelly default tag libraries from: " + url);
+                try {
+                    in = url.openStream();
+                    jellyProperties .load(in);
+                }
+                catch (IOException e) {
+                    log.error("Could not load jelly properties from: " + url + ". Reason: " + e, e);
+                }
+                finally {
+                    try {
+                        in.close();
+                    }
+                    catch (Exception e) {
+                        // ignore
                     }
                 }
             }
-            catch (IOException e) {
-                log.error("Could not load jelly properties from: " + url + ". Reason: " + e, e);
-            }
-            finally {
-                try {
-                    in.close();
-                }
-                catch (Exception e) {
-                    // ignore
-                }
-            }
         }
+        return jellyProperties;
     }
 
     /**

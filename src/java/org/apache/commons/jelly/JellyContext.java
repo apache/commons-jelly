@@ -109,7 +109,9 @@ public class JellyContext {
         
     /** Should we cache Tag instances, per thread, to reduce object contruction overhead? */
     private boolean cacheTags = false;
-    
+
+    /** a Thread local cache of XMLParsers to avoid startup overhead of an XMLParser */
+    private ThreadLocal parserPool = new ThreadLocal();
     
     /**
      * The class loader to use for instantiating application objects.
@@ -455,10 +457,23 @@ public class JellyContext {
      * {@link #getResource} method then returns the compiled script.
      */
     public Script compileScript(URL url) throws Exception {
-        XMLParser parser = new XMLParser();
+        XMLParser parser = getXMLParser();
         parser.setContext(this);
         Script script = parser.parse(url.toString());
         return script.compile();
+    }
+
+    /**
+     * @return a thread pooled XMLParser to avoid the startup overhead
+     * of the XMLParser
+     */
+    protected XMLParser getXMLParser() {
+        XMLParser parser = (XMLParser) parserPool.get();
+        if (parser == null) {
+            parser = new XMLParser();
+            parserPool.set(parser);
+        }
+        return parser;
     }
 
     /** 
