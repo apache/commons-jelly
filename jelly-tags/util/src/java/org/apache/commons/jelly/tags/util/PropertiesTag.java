@@ -73,7 +73,7 @@ import org.apache.commons.jelly.XMLOutput;
  * which are loaded into the current context.
  * 
  * @author Jim Birchfield
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.1 $
  */
 public class PropertiesTag extends TagSupport {
     private String file;

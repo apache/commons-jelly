@@ -1,4 +1,7 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/util/src/java/org/apache/commons/jelly/tags/util/UtilTagLibrary.java,v 1.1 2003/01/06 16:15:46 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/06 16:15:46 $
  *
  * ====================================================================
  *
@@ -26,7 +29,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
+ * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -53,97 +56,26 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- *
+ * 
+ * $Id: UtilTagLibrary.java,v 1.1 2003/01/06 16:15:46 dion Exp $
  */
-
 package org.apache.commons.jelly.tags.util;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
+import org.apache.commons.jelly.TagLibrary;
 
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-
-/**
- * A tag which evaluates its body if the given file is available.
- * The file can be specified via a File object or via a relative or absolute
- * URI from the current Jelly script.
- * 
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+/** Implements general utility tags.
+ *
+ *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
+ *  @version $Revision: 1.1 $
  */
-public class AvailableTag extends TagSupport {
-	
-	private File file;
-	private String uri;
-
-    public AvailableTag() {
+public class UtilTagLibrary extends TagLibrary {
+    
+    public UtilTagLibrary() {
+        registerTag("available", AvailableTag.class);
+        registerTag("loadText", LoadTextTag.class);
+        registerTag("properties", PropertiesTag.class);
+        registerTag("replace", ReplaceTag.class);
+        registerTag("tokenize", TokenizeTag.class);
+        registerTag("sleep", SleepTag.class);
     }
-
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
-    	boolean available = false;
-    	
-    	if (file != null) {
-    		available = file.exists();
-    	}
-    	else if (uri != null) {
-    		URL url = context.getResource(uri);
-    		String fileName = url.getFile();
-            try {
-                InputStream is = url.openStream();
-                available = (is != null);
-                is.close();
-            } catch (IOException ioe) {
-                available = false;
-            }
-    	}
-    	
-    	if (available) {
-    		invokeBody(output);
-    	}
-    }
-
-    // Properties
-    //------------------------------------------------------------------------- 
-
-
-	/**
-	 * Returns the file.
-	 * @return File
-	 */
-	public File getFile() {
-		return file;
-	}
-
-	/**
-	 * Returns the uri.
-	 * @return String
-	 */
-	public String getUri() {
-		return uri;
-	}
-
-	/**
-	 * Sets the file to use to test whether it exists or not.
-	 * @param file the file to test for
-	 */
-	public void setFile(File file) {
-		this.file = file;
-	}
-
-	/**
-	 * Sets the URI to use to test for availability. 
-	 * The URI can be a full file based URL or a relative URI 
-	 * or an absolute URI from the root context.
-	 * 
-	 * @param uri the URI of the file to test
-	 */
-	public void setUri(String uri) {
-		this.uri = uri;
-	}
-
 }

@@ -58,36 +58,92 @@
 
 package org.apache.commons.jelly.tags.util;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
 /**
- * A tag which sleeps for a given amount of time.
+ * A tag which evaluates its body if the given file is available.
+ * The file can be specified via a File object or via a relative or absolute
+ * URI from the current Jelly script.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.1 $
  */
-public class SleepTag extends TagSupport {
-    private long millis;
+public class AvailableTag extends TagSupport {
+	
+	private File file;
+	private String uri;
 
-    public SleepTag() {
+    public AvailableTag() {
     }
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(final XMLOutput output) throws Exception {
-        if (millis > 0) {
-            Thread.sleep(millis);
-        }
+    	boolean available = false;
+    	
+    	if (file != null) {
+    		available = file.exists();
+    	}
+    	else if (uri != null) {
+    		URL url = context.getResource(uri);
+    		String fileName = url.getFile();
+            try {
+                InputStream is = url.openStream();
+                available = (is != null);
+                is.close();
+            } catch (IOException ioe) {
+                available = false;
+            }
+    	}
+    	
+    	if (available) {
+    		invokeBody(output);
+    	}
     }
 
     // Properties
     //------------------------------------------------------------------------- 
 
-    /**
-     * Sets the amount of time that this thread should sleep for in milliseconds.
-     */
-    public void setMillis(long millis) {
-        this.millis = millis;
-    }
+
+	/**
+	 * Returns the file.
+	 * @return File
+	 */
+	public File getFile() {
+		return file;
+	}
+
+	/**
+	 * Returns the uri.
+	 * @return String
+	 */
+	public String getUri() {
+		return uri;
+	}
+
+	/**
+	 * Sets the file to use to test whether it exists or not.
+	 * @param file the file to test for
+	 */
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	/**
+	 * Sets the URI to use to test for availability. 
+	 * The URI can be a full file based URL or a relative URI 
+	 * or an absolute URI from the root context.
+	 * 
+	 * @param uri the URI of the file to test
+	 */
+	public void setUri(String uri) {
+		this.uri = uri;
+	}
 
 }

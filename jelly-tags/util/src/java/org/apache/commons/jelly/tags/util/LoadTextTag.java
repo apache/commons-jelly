@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/LoadTextTag.java,v 1.5 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/util/src/java/org/apache/commons/jelly/tags/util/LoadTextTag.java,v 1.1 2003/01/06 16:15:46 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/06 16:15:46 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: LoadTextTag.java,v 1.5 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: LoadTextTag.java,v 1.1 2003/01/06 16:15:46 dion Exp $
  */
 package org.apache.commons.jelly.tags.util;
 
@@ -80,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
  * A tag which loads text from a file or URI into a Jelly variable. 
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.1 $
  */
 public class LoadTextTag extends TagSupport {
 

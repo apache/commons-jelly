@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/util/Attic/UtilTagLibrary.java,v 1.7 2002/11/16 11:41:50 dion Exp $
- * $Revision: 1.7 $
- * $Date: 2002/11/16 11:41:50 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/util/src/test/org/apache/commons/jelly/tags/util/TestJelly.java,v 1.1 2003/01/06 16:15:48 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/06 16:15:48 $
  *
  * ====================================================================
  *
@@ -56,26 +56,29 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: UtilTagLibrary.java,v 1.7 2002/11/16 11:41:50 dion Exp $
+ *
+ * $Id: TestJelly.java,v 1.1 2003/01/06 16:15:48 dion Exp $
  */
 package org.apache.commons.jelly.tags.util;
 
-import org.apache.commons.jelly.TagLibrary;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
-/** Implements general utility tags.
+import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+
+/**
+ * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- *  @version $Revision: 1.7 $
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
  */
-public class UtilTagLibrary extends TagLibrary {
-    
-    public UtilTagLibrary() {
-        registerTag("available", AvailableTag.class);
-        registerTag("loadText", LoadTextTag.class);
-        registerTag("properties", PropertiesTag.class);
-        registerTag("replace", ReplaceTag.class);
-        registerTag("tokenize", TokenizeTag.class);
-        registerTag("sleep", SleepTag.class);
+public class TestJelly extends JellyTestSuite {
+
+    public static void main( String[] args ) throws Exception {
+        TestRunner.run( suite() );
+    }
+
+    public static TestSuite suite() throws Exception {
+        return createTestSuite(TestJelly.class, "suite.jelly");
     }
 }
