@@ -198,7 +198,7 @@
 
 	<target name="compile.test" depends="compile"/>
 	<target name="test" depends="maven:test"/>
-	<target name="dist" depends="maven:dist"/>
+	<target name="dist" depends="maven:dist-build"/>
 	<target name="site" depends="maven:site"/>
 	
 <!-- ========== Sample Program Targets ==================================== -->
