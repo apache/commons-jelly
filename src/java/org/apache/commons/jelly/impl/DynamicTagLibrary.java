@@ -68,9 +68,6 @@ import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.DynaTagScript;
-import org.apache.commons.jelly.impl.TagFactory;
-import org.apache.commons.jelly.impl.TagScript;
 
 import org.xml.sax.Attributes;
 
@@ -98,7 +95,7 @@ public class DynamicTagLibrary extends TagLibrary {
     public TagScript createTagScript(final String name, final Attributes attributes)
         throws Exception {
 
-        return new DynaTagScript(
+        return new TagScript(
             new TagFactory() {
                 public Tag createTag() throws Exception {
                     Tag answer = DynamicTagLibrary.this.createTag(name);

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.29 2002/09/10 18:20:51 jstrachan Exp $
- * $Revision: 1.29 $
- * $Date: 2002/09/10 18:20:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.30 2002/10/03 18:14:43 jstrachan Exp $
+ * $Revision: 1.30 $
+ * $Date: 2002/10/03 18:14:43 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.29 2002/09/10 18:20:51 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.30 2002/10/03 18:14:43 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -89,7 +89,6 @@ import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
 import org.apache.commons.jelly.impl.ExpressionScript;
 import org.apache.commons.jelly.impl.StaticTag;
-import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.StaticTagScript;
 import org.apache.commons.jelly.impl.TagFactory;
@@ -122,7 +121,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.29 $
+ * @version $Revision: 1.30 $
  */
 public class XMLParser extends DefaultHandler {
 

@@ -87,7 +87,7 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class StaticTagScript extends DynaTagScript {
+public class StaticTagScript extends TagScript {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(StaticTagScript.class);
@@ -102,7 +102,6 @@ public class StaticTagScript extends DynaTagScript {
 
     // Script interface
     //-------------------------------------------------------------------------                
-    /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
 
         startNamespacePrefixes(output);

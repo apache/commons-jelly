@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.7 2002/08/27 14:04:29 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/08/27 14:04:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.8 2002/10/03 18:14:43 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/10/03 18:14:43 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JeezTagLibrary.java,v 1.7 2002/08/27 14:04:29 jstrachan Exp $
+ * $Id: JeezTagLibrary.java,v 1.8 2002/10/03 18:14:43 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
@@ -73,9 +73,7 @@ import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.BeanTagScript;
 import org.apache.commons.jelly.impl.DynamicTagLibrary;
-import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
 import org.apache.commons.jelly.tags.werkz.WerkzTagLibrary;
@@ -92,7 +90,7 @@ import org.xml.sax.Attributes;
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class JeezTagLibrary extends DynamicTagLibrary {
 
@@ -114,7 +112,7 @@ public class JeezTagLibrary extends DynamicTagLibrary {
     ) throws Exception {
 
         if ( name.equals( "tagdef" ) ) {
-            return new BeanTagScript(
+            return new TagScript(
                 new TagFactory() {
                     public Tag createTag() {
                         return new TagDefTag( JeezTagLibrary.this );
@@ -123,7 +121,7 @@ public class JeezTagLibrary extends DynamicTagLibrary {
             );
         }
         if ( name.equals( "target" ) ) {
-            return new BeanTagScript(
+            return new TagScript(
                 new TagFactory() {
                     public Tag createTag() {
                         return new TargetTag();
@@ -135,7 +133,7 @@ public class JeezTagLibrary extends DynamicTagLibrary {
         if ( script == null ) {
             script = antTagLib.createCustomTagScript( name, attrs );
             if ( script == null ) {
-                return new DynaTagScript(
+                return new TagScript(
                     new TagFactory() {
                         public Tag createTag() throws Exception {
                             // lets try create a dynamic tag first

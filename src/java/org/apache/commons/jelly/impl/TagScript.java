@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.19 2002/08/19 21:38:09 jstrachan Exp $
- * $Revision: 1.19 $
- * $Date: 2002/08/19 21:38:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.20 2002/10/03 18:14:43 jstrachan Exp $
+ * $Revision: 1.20 $
+ * $Date: 2002/10/03 18:14:43 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.19 2002/08/19 21:38:09 jstrachan Exp $
+ * $Id: TagScript.java,v 1.20 2002/10/03 18:14:43 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -73,7 +73,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.DynaBean;
+import org.apache.commons.beanutils.DynaProperty;
 
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
@@ -91,16 +94,15 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
 /** 
- * <p><code>TagScript</code> abstract base class for a 
- * script that evaluates a custom tag.</p>
+ * <p><code>TagScript</code> is a Script that evaluates a custom tag.</p>
  * 
  * <b>Note</b> that this class should be re-entrant and used
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
-public abstract class TagScript implements Script {
+public class TagScript implements Script {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TagScript.class);
@@ -148,11 +150,7 @@ public abstract class TagScript implements Script {
      */
     public static TagScript newInstance(Class tagClass) {
         TagFactory factory = new DefaultTagFactory(tagClass);
-        
-        if ( DynaTag.class.isAssignableFrom(tagClass) ) {
-            return new DynaTagScript(factory);
-        }
-        return new BeanTagScript(factory);
+        return new TagScript(factory);
     }
     
     public TagScript() {
@@ -206,6 +204,77 @@ public abstract class TagScript implements Script {
         }
         attributes.put(name, expression);
     }
+    
+    // Script interface
+    //-------------------------------------------------------------------------                
+
+    /** Evaluates the body of a tag */
+    public void run(JellyContext context, XMLOutput output) throws Exception {
+        if ( ! context.isCacheTags() ) {
+            clearTag();
+        }
+        try {
+            Tag tag = getTag();
+            if ( tag == null ) {
+                return;
+            }
+            tag.setContext(context);
+    
+            if ( tag instanceof DynaTag ) {        
+                DynaTag dynaTag = (DynaTag) tag;
+        
+                // ### probably compiling this to 2 arrays might be quicker and smaller
+                for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String name = (String) entry.getKey();
+                    Expression expression = (Expression) entry.getValue();
+
+                    Class type = dynaTag.getAttributeType(name);
+                    Object value = null;        
+                    if (type != null && type.isAssignableFrom(Expression.class) && !type.isAssignableFrom(Object.class)) {
+                        value = expression;
+                    }
+                    else {
+                        value = expression.evaluate(context);
+                    }
+                    dynaTag.setAttribute(name, value);
+                }
+            }
+            else {
+                // treat the tag as a bean
+                DynaBean dynaBean = new ConvertingWrapDynaBean( tag );
+                for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
+                    Map.Entry entry = (Map.Entry) iter.next();
+                    String name = (String) entry.getKey();
+                    Expression expression = (Expression) entry.getValue();
+
+                    DynaProperty property = dynaBean.getDynaClass().getDynaProperty(name);
+                    if (property == null) {
+                        throw new JellyException("This tag does not understand the '" + name + "' attribute" );
+                    }
+                    Class type = property.getType();
+
+                    Object value = null;        
+                    if (type.isAssignableFrom(Expression.class) && !type.isAssignableFrom(Object.class)) {
+                        value = expression;
+                    }
+                    else {
+                        value = expression.evaluate(context);
+                    }
+                    dynaBean.set(name, value);
+                }
+            }
+        
+            tag.doTag(output);
+        } 
+        catch (JellyException e) {
+            handleException(e);
+        }
+        catch (Exception e) {
+            handleException(e);
+        }
+    }
+    
     
     // Properties
     //-------------------------------------------------------------------------                
@@ -456,22 +525,19 @@ public abstract class TagScript implements Script {
      * Creates a new Jelly exception, adorning it with location information
      */
     protected JellyException createJellyException(String reason, Exception cause) {
-        if ( cause instanceof JellyException )
-        {
+        if (cause instanceof JellyException) {
             return (JellyException) cause;
         }
 
-        if ( cause instanceof InvocationTargetException)
-        {
-            return new JellyException( 
+        if (cause instanceof InvocationTargetException) {
+            return new JellyException(
                 reason,
-                ((InvocationTargetException)cause).getTargetException(),
+                ((InvocationTargetException) cause).getTargetException(),
                 fileName,
                 elementName,
                 columnNumber,
                 lineNumber);
         }
-
         return new JellyException( 
             reason, cause, fileName, elementName, columnNumber, lineNumber
         );

@@ -86,7 +86,7 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.StaticTagScript;
-import org.apache.commons.jelly.impl.BeanTagScript;
+import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
@@ -379,8 +379,8 @@ public class TransformTag extends ParseTag {
             List scriptList = scriptBlock.getScriptList();
             for (Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
                 Script script = (Script) iter.next();
-                if (script instanceof BeanTagScript) {
-                    Tag tag = ((BeanTagScript) script).getTag();
+                if (script instanceof TagScript) {
+                    Tag tag = ((TagScript) script).getTag();
                     if (tag instanceof ParamTag) {
                         script.run(context, output);
                     }

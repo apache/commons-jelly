@@ -73,7 +73,6 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.tags.swing.converters.DimensionConverter;
 import org.apache.commons.jelly.tags.swing.converters.PointConverter;
@@ -146,7 +145,7 @@ public class SwingTagLibrary extends TagLibrary {
         if ( answer == null ) {
             final Factory factory = getFactory( name );
             if ( factory != null ) {
-                return new DynaTagScript(
+                return new TagScript(
                     new TagFactory() {
                         public Tag createTag() throws Exception {
 							if ( factory instanceof TagFactory ) {

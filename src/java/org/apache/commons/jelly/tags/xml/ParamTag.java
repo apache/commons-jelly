@@ -91,8 +91,11 @@ public class ParamTag extends TagSupport {
             throw new JellyException( "<param> tag must be enclosed inside a <transform> tag" );
         }
         Object value = this.getValue();
-        tag.setParameterValue( this.getName(),
-                               (null == value ? this.getBodyText(): value));
+        if (value == null) { 
+            value = getBodyText();
+        }
+
+        tag.setParameterValue( getName(), value );
     }
 
     // Properties

@@ -67,8 +67,6 @@ import org.apache.commons.grant.GrantProject;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.BeanTagScript;
-import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.logging.Log;
@@ -189,7 +187,7 @@ public class AntTagLibrary extends TagLibrary {
 
         TagScript answer = createCustomTagScript(name, attributes);
         if ( answer == null ) {
-            answer = new DynaTagScript(
+            answer = new TagScript(
                 new TagFactory() {
                     public Tag createTag() throws Exception {
                         return AntTagLibrary.this.createTag(name);
@@ -206,7 +204,7 @@ public class AntTagLibrary extends TagLibrary {
     public TagScript createCustomTagScript(final String name, Attributes attributes) throws Exception {
         // custom Ant tags
         if ( name.equals("fileScanner") ) {      
-            return new BeanTagScript(
+            return new TagScript(
                 new TagFactory() {
                     public Tag createTag() throws Exception {
                         return new FileScannerTag(new FileScanner());
@@ -215,7 +213,7 @@ public class AntTagLibrary extends TagLibrary {
             );      
         }
         if ( name.equals("setProperty") ) {      
-            return new BeanTagScript(
+            return new TagScript(
                 new TagFactory() {
                     public Tag createTag() throws Exception {
                         return new SetPropertyTag();
