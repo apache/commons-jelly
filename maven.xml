@@ -384,12 +384,16 @@
     About to define the foo tag...
     
     <tagdef name="foo">
+      <j:if test="${x == null}">
+        <j:set var="x" value="${0}"/>
+      </j:if>
 	  <echo>Called with ${name}. The value of x is ${x} and now will increment</echo>    	
 	  <j:set var="x" value="${x + 1}"/>
+	  <echo>Value is now ${x}</echo>    	
 	</tagdef>
 	
 	Now about to invoke the foo tag...
-	<foo name="a" x="0"/>
+	<foo name="a" x="1"/>
 	<foo name="b"/>			  			  
 	
 	Done
