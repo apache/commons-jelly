@@ -21,8 +21,10 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
+import org.apache.commons.jelly.tags.swt.converters.PointConverter;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Shell;
 
 /**
@@ -69,6 +71,12 @@ public class ApplicationWindowTag extends UseBeanTag {
             getWindow().getShell().setText((String)title);
         }
 
+        // set size of applicationWindow
+        Object size = attributes.remove("size");
+        if (size != null) {
+            Point point = new PointConverter().parse((String) size);
+            getWindow().getShell().setSize(point);
+        }
     }
 
     /* 
