@@ -101,7 +101,7 @@ public class ConnectionTag extends TagSupport implements ConnectionContext {
             context.setVariable( var, connection );
         }
         
-        getBody().run(context, output);
+        invokeBody(output);
     }
     
     // Properties

@@ -112,7 +112,7 @@ public class DataTypeTag extends AntTagSupport {
     public void doTag(XMLOutput output) throws Exception {
 
         // run the body first to configure any nested DataType instances
-        getBody().run(context, output);
+        invokeBody(output);
 
         AntTagSupport parentTag = (AntTagSupport) findAncestorWithClass( AntTagSupport.class);
 

@@ -120,7 +120,7 @@ public class ProjectTag extends WerkzTagSupport {
         // allow access to Ant methods via the project class
         context.setVariable( "project", antProject );
         
-        getBody().run(context, output);
+        invokeBody(output);
     }
 
     public void setDefault(String defaultGoalName) {

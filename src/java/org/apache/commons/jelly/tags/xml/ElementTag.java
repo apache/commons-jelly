@@ -116,7 +116,7 @@ public class ElementTag extends TagSupport {
             localName = name;
         }
         output.startElement(namespace, localName, name, attributes);
-        getBody().run(context,  output);
+        invokeBody(  output);
         output.endElement(namespace, localName, name);
     }
     

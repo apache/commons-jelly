@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * but is based on the Werkz goal engine.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class GoalTag extends WerkzTagSupport {
 
@@ -116,7 +116,7 @@ public class GoalTag extends WerkzTagSupport {
         Action action = new DefaultAction() {
                 public void performAction() throws Exception {
                     log.debug("Running action of target: " + getName() );
-                    getBody().run(context, output);
+                    invokeBody(output);
                 }
             };
 

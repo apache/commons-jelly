@@ -115,7 +115,7 @@ public class ValidateTag extends TagSupport {
             
             ContentHandler handler = filter.getContentHandler();
             handler.startDocument();
-            getBody().run(context, new XMLOutput( handler ) );
+            invokeBody( new XMLOutput( handler ) );
             handler.endDocument();
             valid = filter.isValid();            
         }
@@ -139,7 +139,7 @@ public class ValidateTag extends TagSupport {
 	
 	        VerifierHandler handler = verifier.getVerifierHandler();     
             handler.startDocument();
-	        getBody().run(context, new XMLOutput( handler ) );
+	        invokeBody( new XMLOutput( handler ) );
             handler.endDocument();
             valid = handler.isValid();            
         }

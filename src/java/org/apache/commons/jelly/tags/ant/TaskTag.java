@@ -154,7 +154,7 @@ public class TaskTag extends AntTagSupport implements TaskSource {
 			Object[] args = { text };
 			method.invoke(task, args);
 		} else {
-            getBody().run(context, output);
+            invokeBody(output);
         }
         
         task.perform();   

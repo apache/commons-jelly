@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.5 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.6 2002/06/26 09:24:36 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/26 09:24:36 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagLibTag.java,v 1.5 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: DefineTagLibTag.java,v 1.6 2002/06/26 09:24:36 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -75,7 +75,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * using a Jelly script..</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class DefineTagLibTag extends TagSupport {
     
@@ -98,7 +98,7 @@ public class DefineTagLibTag extends TagSupport {
 
         context.registerTagLibrary( getUri(), tagLibrary );
         
-        getBody().run(context, output);
+        invokeBody(output);
 
         tagLibrary = null;
     }    

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.7 2002/06/12 20:38:37 werken Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/12 20:38:37 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.8 2002/06/26 09:24:35 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/06/26 09:24:35 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyTag.java,v 1.7 2002/06/12 20:38:37 werken Exp $
+ * $Id: JellyTag.java,v 1.8 2002/06/26 09:24:35 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -80,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
 /** The root Jelly tag which should be evaluated first
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class JellyTag extends TagSupport {
 
@@ -97,7 +97,7 @@ public class JellyTag extends TagSupport {
         if ( log.isDebugEnabled() ) {
             log.debug( "Running body: " + getBody() );
         }
-        getBody().run(context, output);
+        invokeBody(output);
     }
 
     // Properties

@@ -66,12 +66,12 @@ public class OtherAntTag extends AntTagSupport {
                 Object[] args = { text };
                 method.invoke(this.task, args);
             } else {
-                getBody().run(context, output);
+                invokeBody(output);
             }
             
             this.task.perform(); 
         } else {
-            getBody().run( context, output );
+            invokeBody(output);
 
             AntTagSupport parent = (AntTagSupport) findAncestorWithClass(AntTagSupport.class);
 

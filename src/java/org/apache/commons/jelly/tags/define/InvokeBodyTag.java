@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.8 2002/06/26 09:24:36 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/06/26 09:24:36 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.8 2002/06/26 09:24:36 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -77,7 +77,7 @@ import org.apache.commons.logging.LogFactory;
  * body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class InvokeBodyTag extends TagSupport {
 
@@ -103,7 +103,7 @@ public class InvokeBodyTag extends TagSupport {
                 throw new JellyException("Cannot invoke body, no dynamic tag is defined in this block");
             }
             else {
-                tag.getBody().run(context, output);
+                tag.invokeBody(output);
             }
         }
     }

@@ -92,7 +92,7 @@ public class IfTag extends XPathTagSupport {
         
         Object xpathContext = getXPathContext();
         if ( select.booleanValueOf(xpathContext) ) {
-            getBody().run( context, output );
+            invokeBody(output);
         }
     }
 

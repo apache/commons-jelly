@@ -91,7 +91,7 @@ public class WhitespaceTag extends TagSupport {
         if ( log.isDebugEnabled() ) {
             log.debug( "Running body: " + getBody() );
         }
-        getBody().run(context, output);
+        invokeBody(output);
     }
 
 }

@@ -90,14 +90,14 @@ public class BrokerTag extends TagSupport {
         }
         if ( broker != null ) {
             context.setVariable(var, broker);            
-            getBody().run(context, output);                
+            invokeBody(output);                
         }
         else {
             broker = PersistenceBrokerFactory.createPersistenceBroker();            
             context.setVariable(var, broker);            
             
             try {
-                getBody().run(context, output);                
+                invokeBody(output);                
             }
             finally {            
                 broker.clearCache();

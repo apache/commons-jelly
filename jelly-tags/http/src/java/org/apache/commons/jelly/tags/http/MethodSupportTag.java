@@ -110,7 +110,7 @@ public abstract class MethodSupportTag extends TagSupport {
         
         try {
             // must use inner tags to extract the output....
-            getBody().run(context, output)
+            invokeBody(output)
         }
         finally {
             client.endSession();

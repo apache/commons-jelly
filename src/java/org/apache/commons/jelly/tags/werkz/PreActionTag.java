@@ -72,7 +72,7 @@ import org.apache.commons.logging.LogFactory;
  * which is evaluated before an action.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class PreActionTag extends CallbackTagSupport {
 
@@ -94,7 +94,7 @@ public class PreActionTag extends CallbackTagSupport {
                 public void firePreAction(Goal goal) throws Exception {
                     // lets run the body
                     log.debug( "Running pre action: " + getName() );
-                    getBody().run( context, output);               
+                    invokeBody( output);               
                 }                
             }
         );            

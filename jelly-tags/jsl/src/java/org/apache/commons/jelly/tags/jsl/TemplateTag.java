@@ -231,7 +231,7 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
                 if (log.isDebugEnabled()) {
                     log.debug( "Firing template body for match: " + match + " and node: " + node );          
                 }
-                getBody().run(context, output);
+                invokeBody(output);
             }
         };                    
     }

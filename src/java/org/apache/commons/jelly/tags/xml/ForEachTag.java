@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.8 2002/05/25 18:27:21 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/25 18:27:21 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.9 2002/06/26 09:24:35 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/06/26 09:24:35 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.8 2002/05/25 18:27:21 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.9 2002/06/26 09:24:35 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -74,7 +74,7 @@ import org.jaxen.XPath;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class ForEachTag extends XPathTagSupport implements XPathSource {
 
@@ -102,7 +102,7 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
                 if (var != null) {
                     context.setVariable(var, iterationValue);
                 }
-                getBody().run(context, output);
+                invokeBody(output);
             }
         }
     }

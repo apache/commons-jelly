@@ -123,7 +123,7 @@ public class StylesheetTag extends XPathTagSupport {
 		stylesheet.clear();
 
 		// run the body to add the rules
-		getBody().run(context, output);
+		invokeBody(output);
 		stylesheet.setModeName(getMode());
 
 		if (var != null) {

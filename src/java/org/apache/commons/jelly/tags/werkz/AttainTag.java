@@ -71,7 +71,7 @@ import org.apache.commons.logging.LogFactory;
  * Attains one or more goals.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class AttainTag extends WerkzTagSupport {
 
@@ -95,7 +95,7 @@ public class AttainTag extends WerkzTagSupport {
     public void doTag(final XMLOutput output) throws Exception {
         this.session = new JellySession( output );
         
-        getBody().run(context, output);
+        invokeBody(output);
     }
 
     

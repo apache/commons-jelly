@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.13 2002/06/18 18:36:43 werken Exp $
- * $Revision: 1.13 $
- * $Date: 2002/06/18 18:36:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.14 2002/06/26 09:24:35 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/06/26 09:24:35 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.13 2002/06/18 18:36:43 werken Exp $
+ * $Id: ForEachTag.java,v 1.14 2002/06/26 09:24:35 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -80,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -145,7 +145,7 @@ public class ForEachTag extends TagSupport {
                 if (indexVar != null) {
                     context.setVariable(indexVar, new Integer(index));
                 }
-                getBody().run(context, output);
+                invokeBody(output);
                 
                 // now we need to move to next index
                 index++;

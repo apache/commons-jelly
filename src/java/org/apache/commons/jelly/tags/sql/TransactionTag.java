@@ -148,7 +148,7 @@ public class TransactionTag extends TagSupport {
 
         boolean finished = false;
         try {
-            getBody().run(context, output);
+            invokeBody(output);
             finished = true;
         }
         catch (Exception e) {

@@ -72,7 +72,7 @@ import org.apache.commons.logging.LogFactory;
  * which is evaluated before a goal.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class PreGoalTag extends CallbackTagSupport {
 
@@ -94,7 +94,7 @@ public class PreGoalTag extends CallbackTagSupport {
                 public void firePreGoal(Goal goal) throws Exception {
                     // lets run the body
                     log.debug( "Running pre goal: " + getName() );
-                    getBody().run( context, output);               
+                    invokeBody( output);               
                 }                
             }
         );            

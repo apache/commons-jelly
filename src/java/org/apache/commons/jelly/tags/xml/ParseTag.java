@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.8 2002/05/17 15:18:13 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/17 15:18:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.9 2002/06/26 09:24:35 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/06/26 09:24:35 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ParseTag.java,v 1.8 2002/05/17 15:18:13 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.9 2002/06/26 09:24:35 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -90,7 +90,7 @@ import org.xml.sax.SAXException;
   * xml property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class ParseTag extends TagSupport {
 
@@ -124,7 +124,7 @@ public class ParseTag extends TagSupport {
             SAXContentHandler handler = new SAXContentHandler();
             XMLOutput newOutput = new XMLOutput(handler);
             handler.startDocument();
-            getBody().run(context, newOutput);
+            invokeBody( newOutput);
             handler.endDocument();
             document = handler.getDocument();
             /*

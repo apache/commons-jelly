@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.7 2002/06/25 19:12:29 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/25 19:12:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.8 2002/06/26 09:24:36 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/06/26 09:24:36 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StaticTag.java,v 1.7 2002/06/25 19:12:29 jstrachan Exp $
+ * $Id: StaticTag.java,v 1.8 2002/06/26 09:24:36 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -74,7 +74,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
 public class StaticTag extends TagSupport implements DynaTag {
@@ -107,7 +107,7 @@ public class StaticTag extends TagSupport implements DynaTag {
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
         output.startElement(uri, localName, qname, attributes);
-        getBody().run(context,  output);
+        invokeBody(  output);
         output.endElement(uri, localName, qname);
     }
     

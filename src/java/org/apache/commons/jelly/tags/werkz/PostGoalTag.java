@@ -72,7 +72,7 @@ import org.apache.commons.logging.LogFactory;
  * which is evaluated after a goal has executed.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class PostGoalTag extends CallbackTagSupport {
 
@@ -94,7 +94,7 @@ public class PostGoalTag extends CallbackTagSupport {
                 public void firePostGoal(Goal goal) throws Exception {
                     // lets run the body
                     log.info( "Running post goal: " + getName() );
-                    getBody().run( context, output);                                        
+                    invokeBody( output);                                        
                 }                
             }
         );            

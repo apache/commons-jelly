@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/OtherwiseTag.java,v 1.5 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/OtherwiseTag.java,v 1.6 2002/06/26 09:24:35 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/26 09:24:35 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: OtherwiseTag.java,v 1.5 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: OtherwiseTag.java,v 1.6 2002/06/26 09:24:35 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -73,7 +73,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** The otherwise block of a choose/when/otherwise group of tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class OtherwiseTag extends TagSupport {
 
@@ -83,6 +83,6 @@ public class OtherwiseTag extends TagSupport {
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        getBody().run(context, output);
+        invokeBody(output);
     }
 }

@@ -85,7 +85,7 @@ public class SendTag extends MessageOperationTag {
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
         // evaluate body as it may contain a <destination> or message tag
-        getBody().run(context, output);
+        invokeBody(output);
         
         Message message = getMessage();
         if ( message == null ) {

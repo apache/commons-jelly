@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.14 2002/06/25 17:12:57 jstrachan Exp $
- * $Revision: 1.14 $
- * $Date: 2002/06/25 17:12:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.15 2002/06/26 09:24:36 jstrachan Exp $
+ * $Revision: 1.15 $
+ * $Date: 2002/06/26 09:24:36 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.14 2002/06/25 17:12:57 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.15 2002/06/26 09:24:36 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -73,7 +73,7 @@ import java.util.List;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.14 $
+  * @version $Revision: 1.15 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -161,12 +161,6 @@ public abstract class TagSupport implements Tag {
     
     /** @return the body of the tag */
     public Script getBody() {
-        if ( isTrim()
-             &&
-             ! hasTrimmed )
-        {
-            trimBody();
-        }
         return body;
     }
     
@@ -203,9 +197,8 @@ public abstract class TagSupport implements Tag {
      * @return the text evaluation of the body
      */
     protected String getBodyText() throws Exception {
-        // XXX: could maybe optimise this later on by having a pool of buffers
         StringWriter writer = new StringWriter();
-        getBody().run(context, XMLOutput.createXMLOutput(writer));
+        invokeBody(XMLOutput.createXMLOutput(writer));
         return writer.toString();
     }
     
@@ -213,7 +206,10 @@ public abstract class TagSupport implements Tag {
      * Invokes the body of this tag using the given output
      */
     protected void invokeBody(XMLOutput output) throws Exception {
-        getBody().run(context, output);
+        if ( isTrim() && ! hasTrimmed ) {
+            trimBody();
+        }
+        invokeBody(output);
     }
 
     /** 
