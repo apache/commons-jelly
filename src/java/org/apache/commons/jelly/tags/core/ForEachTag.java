@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.16 2002/10/12 12:25:23 jstrachan Exp $
- * $Revision: 1.16 $
- * $Date: 2002/10/12 12:25:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.17 2002/10/24 06:59:53 jstrachan Exp $
+ * $Revision: 1.17 $
+ * $Date: 2002/10/24 06:59:53 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.16 2002/10/12 12:25:23 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.17 2002/10/24 06:59:53 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -73,6 +73,7 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.impl.BreakException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -80,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.16 $
+  * @version $Revision: 1.17 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -126,55 +127,62 @@ public class ForEachTag extends TagSupport {
             log.debug("running with items: " + items);
         }
 
-        if (items != null) {
-            Iterator iter = items.evaluateAsIterator(context);
-            if (log.isDebugEnabled()) {
-                log.debug("Iterating through: " + iter);
-            }
-
-            // ignore the first items of the iterator
-            for (index = 0; index < begin && iter.hasNext(); index++ ) {
-                iter.next();
-            }
-            
-            while (iter.hasNext() && index < end) {
-                Object value = iter.next();
-                if (var != null) {
-                    context.setVariable(var, value);
+        try {            
+            if (items != null) {
+                Iterator iter = items.evaluateAsIterator(context);
+                if (log.isDebugEnabled()) {
+                    log.debug("Iterating through: " + iter);
                 }
-                if (indexVar != null) {
-                    context.setVariable(indexVar, new Integer(index));
-                }
-                invokeBody(output);
-                
-                // now we need to move to next index
-                index++;
-                for ( int i = 1; i < step; i++, index++ ) {
-                    if ( ! iter.hasNext() ) {
-                       return;
-                    }
+    
+                // ignore the first items of the iterator
+                for (index = 0; index < begin && iter.hasNext(); index++ ) {
                     iter.next();
+                }
+                
+                while (iter.hasNext() && index < end) {
+                    Object value = iter.next();
+                    if (var != null) {
+                        context.setVariable(var, value);
+                    }
+                    if (indexVar != null) {
+                        context.setVariable(indexVar, new Integer(index));
+                    }
+                    invokeBody(output);
+                    
+                    // now we need to move to next index
+                    index++;
+                    for ( int i = 1; i < step; i++, index++ ) {
+                        if ( ! iter.hasNext() ) {
+                           return;
+                        }
+                        iter.next();
+                    }
+                }
+            }
+            else {
+                if ( end == Integer.MAX_VALUE && begin == 0 ) {
+                    throw new MissingAttributeException( "items" );
+                }
+                else {
+                    String varName = var;
+                    if ( varName == null ) {
+                        varName = indexVar;
+                    }
+                    
+                    for (index = begin; index <= end; index += step ) {
+                    
+                        if (varName != null) {
+                            Object value = new Integer(index);
+                            context.setVariable(varName, value);
+                        }
+                        invokeBody(output);
+                    }
                 }
             }
         }
-        else {
-            if ( end == Integer.MAX_VALUE && begin == 0 ) {
-                throw new MissingAttributeException( "items" );
-            }
-            else {
-                String varName = var;
-                if ( varName == null ) {
-                    varName = indexVar;
-                }
-                
-                for (index = begin; index <= end; index += step ) {
-                
-                    if (varName != null) {
-                        Object value = new Integer(index);
-                        context.setVariable(varName, value);
-                    }
-                    invokeBody(output);
-                }
+        catch (BreakException e) {
+            if (log.isDebugEnabled()) {
+                log.debug("loop terminated by break: " + e, e);
             }
         }
     }

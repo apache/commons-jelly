@@ -73,6 +73,7 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.impl.BreakException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -107,13 +108,21 @@ public class WhileTag extends TagSupport {
     public void doTag(XMLOutput output) throws MissingAttributeException, 
     Exception {
         if (test != null) {
-            while (test.evaluateAsBoolean(getContext())) {
-                if (log.isDebugEnabled()) {
-                    log.debug("evaluated to true! gonna keep on chuggin!");
+            try {
+                while (test.evaluateAsBoolean(getContext())) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("evaluated to true! gonna keep on chuggin!");
+                    }
+                    invokeBody(output);
                 }
-                invokeBody(output);
             }
-        } else {
+            catch (BreakException e) {
+                if (log.isDebugEnabled()) {
+                    log.debug("loop terminated by break: " + e, e);
+                }
+            }
+        } 
+        else {
             throw new MissingAttributeException("test");
         }
     }

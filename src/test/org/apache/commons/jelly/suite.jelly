@@ -213,4 +213,43 @@
 			expected="foo 1 barfoo 2 barfoo 3 bar"
 			actual="${foo}"/>
   </test:case>
+  
+	<test:case name="testBreak">
+		
+		<j:forEach var="i" begin="1" end="10">
+			<j:if test="${i==4}">
+				<j:break/>
+			</j:if>
+		</j:forEach>
+
+		<test:assertTrue test="${i==4}"/> 
+
+		<j:while test="${i != 10}">
+			<j:if test="${i==6}">
+				<j:break/>
+			</j:if>
+			<j:set var="i" value="${i+1}"/>
+		</j:while>
+
+		<test:assertTrue test="${i==6}"/> 
+		
+  </test:case>
+  
+	<test:case name="testBreakWithIf">
+		
+		<j:forEach var="i" begin="1" end="10">
+			<j:break test="${i==4}"/>
+		</j:forEach>
+
+		<test:assertTrue test="${i==4}"/> 
+
+		<j:while test="${i != 10}">
+			<j:break test="${i==6}"/>
+			<j:set var="i" value="${i+1}"/>
+		</j:while>
+
+		<test:assertTrue test="${i==6}"/> 
+		
+  </test:case>
+  
 </test:suite>
