@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/SetTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 15:18:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/SetTag.java,v 1.2 2003/01/26 00:20:39 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:20:39 $
  *
  * ====================================================================
  *
@@ -57,14 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: SetTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
+ * $Id: SetTag.java,v 1.2 2003/01/26 00:20:39 morgand Exp $
  */
 package org.apache.commons.jelly.tags.dynabean;
 
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
@@ -101,7 +101,7 @@ public class SetTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         Object answer = null;
         if ( value != null ) {
             answer = value.evaluate(context);
@@ -141,10 +141,10 @@ public class SetTag extends TagSupport {
         }
         else {
             if ( target == null ) {
-                throw new JellyException( "Either a 'var' or a 'target' attribute must be defined for this tag" );
+                throw new JellyTagException( "Either a 'var' or a 'target' attribute must be defined for this tag" );
             }
             if ( property == null ) {
-                throw new JellyException( "You must define a 'property' attribute if you specify a 'target'" );
+                throw new JellyTagException( "You must define a 'property' attribute if you specify a 'target'" );
             }
             setPropertyValue( target, property, answer );
         }
@@ -186,7 +186,7 @@ public class SetTag extends TagSupport {
 
     // Implementation methods
     //-------------------------------------------------------------------------
-    protected void setPropertyValue( Object target, String property, Object value ) throws Exception {
+    protected void setPropertyValue( Object target, String property, Object value ) {
         try {
             if ( target instanceof Map ) {
                 Map map = (Map) target;

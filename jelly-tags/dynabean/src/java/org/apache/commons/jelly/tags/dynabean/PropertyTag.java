@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/PropertyTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 15:18:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/PropertyTag.java,v 1.2 2003/01/26 00:20:39 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:20:39 $
  *
  * ====================================================================
  *
@@ -57,12 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: PropertyTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
+ * $Id: PropertyTag.java,v 1.2 2003/01/26 00:20:39 morgand Exp $
  */
 package org.apache.commons.jelly.tags.dynabean;
 
 import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -89,14 +89,14 @@ public class PropertyTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag (XMLOutput output) throws Exception {
+    public void doTag (XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         // Check that this tag is used inside the body of
         // a DynaClass tag, so that it can access the
         // context of that tag
         DynaclassTag parentTag = (DynaclassTag) findAncestorWithClass( DynaclassTag.class );
         if ( parentTag == null ) {
-            throw new JellyException( "This tag must be enclosed inside a <dynaclass> tag" );
+            throw new JellyTagException( "This tag must be enclosed inside a <dynaclass> tag" );
         }
 
         // Check property name
@@ -140,7 +140,7 @@ public class PropertyTag extends TagSupport {
                     propClass = Class.forName(type);
                 }
                 catch (Exception e) {
-                    throw new JellyException
+                    throw new JellyTagException
                             ("Class " + type +
                             " not found by Class.forName");
                 }

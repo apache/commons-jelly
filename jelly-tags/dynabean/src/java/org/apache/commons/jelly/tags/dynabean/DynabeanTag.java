@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/DynabeanTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 15:18:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/DynabeanTag.java,v 1.2 2003/01/26 00:20:39 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:20:39 $
  *
  * ====================================================================
  *
@@ -57,12 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DynabeanTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
+ * $Id: DynabeanTag.java,v 1.2 2003/01/26 00:20:39 morgand Exp $
  */
 package org.apache.commons.jelly.tags.dynabean;
 
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -71,7 +72,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author Theo Niemeijer
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class DynabeanTag extends TagSupport {
 
@@ -83,7 +84,7 @@ public class DynabeanTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (dynaClass == null) {
             throw new MissingAttributeException( "dynaclass" );
@@ -93,11 +94,17 @@ public class DynabeanTag extends TagSupport {
             throw new MissingAttributeException( "var" );
         }
 
-        // Create dynabean instance for this dynaclass
-        DynaBean dynaBean = dynaClass.newInstance();
+        try {
+            // Create dynabean instance for this dynaclass
+            DynaBean dynaBean = dynaClass.newInstance();
 
-        // Place new dynabean in context as a variable
-        context.setVariable(getVar(), dynaBean);
+            // Place new dynabean in context as a variable
+            context.setVariable(getVar(), dynaBean);
+        } catch (IllegalAccessException e) {
+            throw new JellyTagException(e);
+        } catch (InstantiationException e) {
+            throw new JellyTagException(e);
+        }
     }
 
     // Properties

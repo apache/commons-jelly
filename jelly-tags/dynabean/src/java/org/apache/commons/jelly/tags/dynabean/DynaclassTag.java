@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 15:18:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/dynabean/src/java/org/apache/commons/jelly/tags/dynabean/DynaclassTag.java,v 1.2 2003/01/26 00:20:39 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 00:20:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DynaclassTag.java,v 1.1 2003/01/15 15:18:32 dion Exp $
+ * $Id: DynaclassTag.java,v 1.2 2003/01/26 00:20:39 morgand Exp $
  */
 package org.apache.commons.jelly.tags.dynabean;
 
@@ -66,7 +66,7 @@ import java.util.ArrayList;
 import org.apache.commons.beanutils.BasicDynaClass;
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -94,7 +94,7 @@ public class DynaclassTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (name == null) {
             throw new MissingAttributeException("name");
@@ -113,11 +113,11 @@ public class DynaclassTag extends TagSupport {
                 new DynaProperty[propList.size()]);
 
         if (props == null) {
-            throw new JellyException("No properties list");
+            throw new JellyTagException("No properties list");
         }
 
         if (props.length == 0) {
-            throw new JellyException("No properties");
+            throw new JellyTagException("No properties");
         }
 
         // Create the dynaclass with name and properties
