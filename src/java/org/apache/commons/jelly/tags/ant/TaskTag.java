@@ -92,13 +92,12 @@ public class TaskTag extends DynaBeanTagSupport {
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        Task task = getTask();
         task.init();
-        
+                
         // run the body first to configure the task via nested
         getBody().run(context, output);
         
-        task.execute();        
+        task.execute();   
     }
     
     // Properties

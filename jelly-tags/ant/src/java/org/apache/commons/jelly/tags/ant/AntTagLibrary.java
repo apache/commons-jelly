@@ -113,14 +113,21 @@ public class AntTagLibrary extends TagLibrary {
             Tag tag = new TaskTag( task );
             return TagScript.newInstance(tag);
         }
+        Object dataType = null;
         type = (Class) project.getDataTypeDefinitions().get(name);
-        if ( type != null ) {
-            DataType dataType = (DataType) type.newInstance();
-            dataType.setProject(project);
-            Tag tag = new DataTypeTag( name, dataType );
+        if ( type != null ) {            
+            dataType = type.newInstance();
+        }
+        else {
+            dataType = project.createDataType(name);
+        }
+        if ( dataType != null ) {
+            DataTypeTag tag = new DataTypeTag( name, dataType );
+            tag.getDynaBean().set( "project", project );
             return TagScript.newInstance(tag);
         }
-        return null;
+        Tag tag = new TaskPropertyTag( name );
+        return TagScript.newInstance(tag);
     }
 
     

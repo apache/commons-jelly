@@ -62,120 +62,104 @@
 package org.apache.commons.jelly.tags.ant;
 
 import java.lang.reflect.Method;
+import java.util.Iterator;
+import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaClass;
-import org.apache.commons.beanutils.DynaProperty;
 import org.apache.commons.beanutils.WrapDynaBean;
 
+import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.types.DataType;
+import org.apache.tools.ant.types.Reference;
 
 /** 
- * A tag which manages a DataType used to configure a Task
+ * A tag which configures a property bean of a Task, 
+ * such as a &lt;classpath&lt; element inside a &lt;java&gt; element.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.6 $
  */
-public class DataTypeTag extends DynaBeanTagSupport {
+public class TaskPropertyTag extends DynaBeanTagSupport implements CompilableTag {
 
-    /** the name of the DataType */
+    private static final Class[] emptyParameterTypes = {};
+    private static final Object[] emptyParameters = {};
+    
+    /** the name of the property */
     private String name;
     
-    /** the Ant DataType */
-    private Object dataType;
-
-    public DataTypeTag() {
+    public TaskPropertyTag() {
     }
 
-    public DataTypeTag(String name, Object dataType) {
-        this.name = name;
-        this.dataType = dataType;
-        setDynaBean( new WrapDynaBean(dataType) );
+    public TaskPropertyTag(String name) {
+        setName(name);
     }
 
-    // Tag interface
+    // DynaTag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void setAttribute(String name, Object value) {
+        if ( name.equals( "refid" ) ) {
+            if ( value instanceof String ) {
+                value = new Reference( (String) value );
+            }
+        }
+        super.setAttribute(name, value);
+    }
+
+    // CompilableTag interface
+    //------------------------------------------------------------------------- 
+    public void compile() throws Exception {
         TaskTag tag = (TaskTag) findAncestorWithClass( TaskTag.class );
         if ( tag == null ) {
             throw new JellyException( "You should only use Ant DataType tags within an Ant Task" );
         }        
         
         Task task = tag.getTask();
-        Object dataType = getDataType();
-
-        // now we need to configure the task with the data type
+        Class taskClass = task.getClass();
+        String methodName = "create" + name.substring(0,1).toUpperCase() + name.substring(1);
+        Method method = taskClass.getMethod( methodName, emptyParameterTypes );
+        if ( method == null ) {
+            throw new JellyException( 
+                "Cannot create Task property: " + name + " of Ant task: " + task 
+                + " as no method called: " + methodName + " could be found" 
+            );
+        }            
         
-        // first try setting a property on the DynaBean wrapper of the task
-        DynaBean dynaBean = tag.getDynaBean();
-        DynaClass dynaClass = dynaBean.getDynaClass();
-        DynaProperty dynaProperty = dynaClass.getDynaProperty(name);
-        if ( dynaProperty != null ) {
-            // lets set the bean property
-            dynaBean.set( name, dataType );
-        }
-        else {
-            // lets invoke the addFoo() method instead
-            String methodName = "add" + name.substring(0,1).toUpperCase() + name.substring(1);
-            
-            System.out.println( "About to invoke method: " + methodName );
-            
-            Class taskClass = task.getClass();
-            Class[] parameterTypes = new Class[] { dataType.getClass() };
-            Method method = taskClass.getMethod( methodName, parameterTypes );
-            if ( method == null ) {
-                throw new JellyException( 
-                    "Cannot add dataType: " + dataType + " to Ant task: " + task 
-                    + " as no method called: " + methodName + " could be found" 
-                );
-            }
-            
-            Object[] parameters = new Object[] { dataType };
-            method.invoke( task, parameters );
+        Object propertyBean = method.invoke( task, emptyParameters );
+        if ( propertyBean == null ) {
+            throw new JellyException( "No property: " + name + " of task: " + task + " was returned." );
         }
         
-        
-                
-        // run the body first to configure any nested DataType instances
-        getBody().run(context, output);
+        setDynaBean( new WrapDynaBean(propertyBean) );
+    }
+    
+    // Tag interface
+    //------------------------------------------------------------------------- 
+    public void doTag(XMLOutput output) throws Exception {
+        // do nothing; just configuring the underlying property bean of the Task is enough
     }
     
     // Properties
     //-------------------------------------------------------------------------                
     
     /** 
-     * @return the name of the DataType 
+     * @return the name of the Task property bean 
      */
     public String getName() {
         return name;
     }
     
     /** 
-     * Sets the name of the DataType 
+     * Sets the name of the Task property bean
      */
     public void setName(String name) {
         this.name = name;
-    }
-    
-    /** 
-     * @return the Ant dataType
-     */
-    public Object getDataType() {
-        return dataType;
-    }
-    
-    /** 
-     * Sets the Ant dataType
-     */
-    public void setDataType(Object dataType) {
-        this.dataType = dataType;
-        setDynaBean( new WrapDynaBean(dataType) );
-    }
-    
+    }    
 }
