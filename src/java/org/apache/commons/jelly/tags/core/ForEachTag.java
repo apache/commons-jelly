@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.2 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
@@ -57,86 +57,106 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptBlock.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
  */
-package org.apache.commons.jelly.impl;
+package org.apache.commons.jelly.tags.core;
 
+import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.expression.Expression;
 
-/** <p><code>ScriptBlock</code> a block of scripts.</p>
+
+/** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
-public class ScriptBlock implements Script {
-    
-    private static final Script[] EMPTY_ARRAY = {};
-    
-    /** The list of scripts */
-    private List list = new ArrayList();
-    
-    /** Compiled form uses arrays for speed 
-     * - no Iterator, object allocation or typecast */
-    private Script[] scripts = EMPTY_ARRAY;
+public class ForEachTag extends TagSupport {
 
-    public ScriptBlock() {
-    }
+    /** Holds the variable name to export for the item being iterated over. */
+    private Expression items;
+    /** 
+     * If specified then the current item iterated through will be defined
+     * as the given variable name. 
+     */
+    private String var;
+    /** 
+     * If specified then the current index counter will be defined
+     * as the given variable name. 
+     */
+    private String indexVar;    
+    /** The starting index value */
+    private int begin;
+    /** The ending index value */
+    private int end = Integer.MAX_VALUE;
+    /** The index increment step */
+    private int step = 1;
+    /** The iteration index */
+    private int index;
     
-    public String toString() {
-        return super.toString() + "[scripts=" + list + "]";
-    }
-    
-    
-    /** Add a new script to the end of this block */
-    public void addScript(Script script) {
-        list.add( script );
-    }
-    
-    /** Removes a script from this block */
-    public void removeScript(Script script) {
-        list.remove( script );
+    public ForEachTag() {
     }
 
-    /** Gets the child scripts that make up this block */
-    public Script[] getScripts() {
-        return scripts;
-    }
-
-    /** Allows direct modification of the List of scripts */
-    public List getScriptList() {
-        return list;
-    }
-    
-    // Script interface
-    //-------------------------------------------------------------------------                    
-    public Script compile() throws Exception {            
-        int size = list.size();
-        if ( size == 1 ) {
-            Script script = (Script) list.get(0);
-            return script.compile();
-        }
-        scripts = new Script[ size ];
-        list.toArray( scripts );
-
-        // now compile children
-        for ( int i = 0; i < size; i++ ) {
-            Script script = scripts[i];
-            script.compile();
-        }
-        return this;
-    }
-    
-    /** Evaluates the body of a tag */
+    // Tag interface
+    //------------------------------------------------------------------------- 
     public void run(Context context, Writer writer) throws Exception {
-        for ( int i = 0, size = scripts.length; i < size; i++ ) {
-            Script script = scripts[i];
-            script.run( context, writer );
+        if ( items != null ) { 
+            Iterator iter = items.evaluateAsIterator( context );
+            for ( index = begin; iter.hasNext() && index < end; index += step ) {
+                Object value = iter.next();
+                if (var != null) {
+                    context.setVariable( var, value );
+                }
+                if ( indexVar != null ) {
+                    context.setVariable( indexVar, new Integer(index) );
+                }
+                getBody().run( context, writer );
+            }
         }
-    }    
+    }
+    
+    // Properties
+    //-------------------------------------------------------------------------                    
+    
+    /** Sets the expression used to iterate over
+      */
+    public void setItems(Expression items) {
+        this.items = items;
+    }
+    
+    /** Sets the variable name to export for the item being iterated over
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+    
+    /** Sets the variable name to export the current index counter to 
+     */
+    public void setIndexVar(String indexVar) {
+        this.indexVar = indexVar;
+    }
+    
+    /** Sets the starting index value 
+     */
+    public void setBegin(int begin) {
+        this.begin = begin;
+    }
+    
+    /** Sets the ending index value 
+     */
+    public void setEnd(int end) {
+        this.end = end;
+    }
+    
+    /** Sets the index increment step 
+     */
+    public void setStep(int step) {
+        this.step = step;
+    }
 }

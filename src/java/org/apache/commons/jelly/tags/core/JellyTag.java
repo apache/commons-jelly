@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,73 +57,97 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
+ * $Id: JellyTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.tags.core;
 
-import java.io.InputStream;
 import java.io.IOException;
-import java.io.StringWriter;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import java.io.Writer;
+import java.util.List;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.impl.ScriptBlock;
+import org.apache.commons.jelly.impl.TextScript;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogSource;
 
 
-/** Tests the parser, the engine and the XML tags
+/** The root Jelly tag which should be evaluated first
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
-public class TestXMLTags extends TestCase {
-    
+public class JellyTag extends TagSupport {
+
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TestXMLTags.class );
+    private static final Log log = LogSource.getInstance( JellyTag.class );
 
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
-    }
-    
-    public static Test suite() {
-        return new TestSuite(TestXMLTags.class);
-    }
-    
-    public TestXMLTags(String testName) {
-        super(testName);
-    }
-    
-    public void testParse() throws Exception {
-        InputStream in = getClass().getResourceAsStream( "example.jelly" );
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse( in );
-        script = script.compile();
+    /** whether whitespace should be trimmed or not. */
+    private boolean trim = false;        
 
-        log.debug( "Found: " + script );
-        
-        assertTrue( "Script is a TagScript", script instanceof TagScript );
-        
-        Context context = new Context();        
-        StringWriter buffer = new StringWriter();
-        
-        script.run( context, buffer );
-        
-        String text = buffer.toString().trim();
-        
-        if ( log.isDebugEnabled() ) {
-            log.debug( "Evaluated script as..." );
-            log.debug( text );
+    /** Whether we've trimmed or not */
+    private boolean hasTrimmed;
+    
+    public JellyTag() {
+    }
+
+    // Tag interface
+    //------------------------------------------------------------------------- 
+    public void run(Context context, Writer writer) throws Exception {
+        if ( trim && ! hasTrimmed ) {
+            trimBody();
+            hasTrimmed = true;
         }
-        
-        assertEquals( "Produces the correct output", "It works!", text );        
-    }    
-}
+        if ( log.isDebugEnabled() ) {
+            log.debug( "Running body: " + getBody() );
+        }
+        getBody().run( context, writer );
+    }
 
+    // Properties
+    //-------------------------------------------------------------------------                
+    
+    /** Sets whether whitespace should be trimmed or not. */
+    public void setTrim(boolean trim) {
+        this.trim = trim;
+    }
+    
+    public void setBody(Script body) {
+        super.setBody( body );
+        hasTrimmed = false;
+    }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+    
+    /** 
+     * Find all text nodes inside the top level of this body and 
+     * if they are just whitespace then remove them
+     */
+    protected void trimBody() throws Exception {
+        Script body = getBody();
+        if ( body instanceof ScriptBlock ) {
+            ScriptBlock block = (ScriptBlock) body;
+            List list = block.getScriptList();
+            for ( int i = list.size() - 1; i >= 0; i-- ) {
+                Script script = (Script) list.get(i);
+                if ( script instanceof TextScript ) {
+                    TextScript textScript = (TextScript) script;
+                    String text = textScript.getText();
+                    text = text.trim();
+                    if ( text.length() == 0 ) {
+                        list.remove(i);
+                    }
+                    else {
+                        textScript.setText(text);
+                    }
+                }
+            }                
+        }
+    }
+}
+    

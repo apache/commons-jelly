@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.1 2002/02/12 21:34:33 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/02/12 21:34:33 $
  *
  * ====================================================================
  *
@@ -57,73 +57,53 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
+ * $Id: Jelly.java,v 1.1 2002/02/12 21:34:33 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.parser.XMLParser;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogSource;
 
-
-/** Tests the parser, the engine and the XML tags
+/** <p><code>Jelly</code> an application which runs a Jelly script.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
-public class TestXMLTags extends TestCase {
-    
+public class Jelly {
+
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TestXMLTags.class );
+    private static final Log log = LogSource.getInstance( Jelly.class );
 
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
-    }
-    
-    public static Test suite() {
-        return new TestSuite(TestXMLTags.class);
-    }
-    
-    public TestXMLTags(String testName) {
-        super(testName);
-    }
-    
-    public void testParse() throws Exception {
-        InputStream in = getClass().getResourceAsStream( "example.jelly" );
+
+    public static void main(String[] args) throws Exception {
+        if ( args.length <= 0 ) {
+            System.out.println( "Usage: Jelly scriptFile [outputFile]" );
+            return;
+        }
+        String input = args[0];
+        Writer writer = ( args.length > 1 ) 
+            ? new FileWriter( args[1] ) 
+            : new OutputStreamWriter( System.out );
+        BufferedWriter output = new BufferedWriter( writer );
+        
         XMLParser parser = new XMLParser();
-        Script script = parser.parse( in );
+        Script script = parser.parse( input );
+    
         script = script.compile();
-
-        log.debug( "Found: " + script );
-        
-        assertTrue( "Script is a TagScript", script instanceof TagScript );
-        
-        Context context = new Context();        
-        StringWriter buffer = new StringWriter();
-        
-        script.run( context, buffer );
-        
-        String text = buffer.toString().trim();
         
         if ( log.isDebugEnabled() ) {
-            log.debug( "Evaluated script as..." );
-            log.debug( text );
+            log.debug( "Compiled script: " + script );
         }
         
-        assertEquals( "Produces the correct output", "It works!", text );        
+        Context context = new Context( System.getProperties() );        
+        script.run( context, output );
+        output.close();
     }    
 }
-

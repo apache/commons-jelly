@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/11 00:27:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -66,17 +66,17 @@ import java.io.Writer;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.TagSupport;
 
 import org.dom4j.XPath;
 
 /** A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
-  * in XLST
+  * in XSLT
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
-public class ExprTag implements Tag {
+public class ExprTag extends TagSupport {
 
     /** The XPath expression to evaluate. */
     private XPath select;        
@@ -86,7 +86,7 @@ public class ExprTag implements Tag {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, Writer writer, Script body) throws IOException {
+    public void run(Context context, Writer writer) throws IOException {
         if ( select != null ) {
             String text = select.valueOf( null );
             writer.write( text );

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,73 +57,78 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
+ * $Id: ExpressionSupport.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.expression;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.StringWriter;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import org.apache.commons.collections.ArrayIterator;
+import org.apache.commons.collections.SingletonIterator;
 
 import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.parser.XMLParser;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
-
-
-/** Tests the parser, the engine and the XML tags
+/** <p><code>ExpressionSupport</code> 
+  * an abstract base class for Expression implementations
+  * which provides default implementations of some of the
+  * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
-public class TestXMLTags extends TestCase {
-    
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TestXMLTags.class );
+public abstract class ExpressionSupport implements Expression {
 
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
-    }
+    protected static final Iterator EMPTY_ITERATOR = Collections.EMPTY_LIST.iterator();
     
-    public static Test suite() {
-        return new TestSuite(TestXMLTags.class);
-    }
-    
-    public TestXMLTags(String testName) {
-        super(testName);
-    }
-    
-    public void testParse() throws Exception {
-        InputStream in = getClass().getResourceAsStream( "example.jelly" );
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse( in );
-        script = script.compile();
-
-        log.debug( "Found: " + script );
-        
-        assertTrue( "Script is a TagScript", script instanceof TagScript );
-        
-        Context context = new Context();        
-        StringWriter buffer = new StringWriter();
-        
-        script.run( context, buffer );
-        
-        String text = buffer.toString().trim();
-        
-        if ( log.isDebugEnabled() ) {
-            log.debug( "Evaluated script as..." );
-            log.debug( text );
+    // inherit javadoc from interface
+    public String evaluateAsString(Context context) {
+        Object value = evaluate(context);
+        if ( value != null ) {
+            return value.toString();
         }
-        
-        assertEquals( "Produces the correct output", "It works!", text );        
-    }    
+        return null;
+    }
+    
+    // inherit javadoc from interface
+    public boolean evaluateAsBoolean(Context context) {
+        Object value = evaluate(context);
+        if ( value instanceof Boolean ) {
+            Boolean b = (Boolean) value;
+            return b.booleanValue();
+        }
+        else if ( value instanceof String ) {
+            return Boolean.getBoolean( (String) value );
+        }
+        return false;
+    }
+    
+    // inherit javadoc from interface
+    public Iterator evaluateAsIterator(Context context) {
+        Object value = evaluate(context);
+        if ( value == null ) {
+            return EMPTY_ITERATOR;
+        }
+        else
+        if ( value instanceof Iterator ) {
+            return (Iterator) value;
+        }
+        else if ( value instanceof List ) {
+            List list = (List) value;
+            return list.iterator();
+        }
+        else if ( value instanceof Map ) {
+            Map map = (Map) value;
+            return map.entrySet().iterator();
+        }
+        else if ( value.getClass().isArray() ) {
+            return new ArrayIterator( value );
+        }
+        else {
+            // XXX: should we return single iterator?
+            return new SingletonIterator( value );
+        }
+    }
 }
-

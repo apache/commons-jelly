@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/BeanShellExpressionFactory.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,73 +57,28 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
+ * $Id: BeanShellExpressionFactory.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.expression.beanshell;
 
-import java.io.InputStream;
-import java.io.IOException;
-import java.io.StringWriter;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.parser.XMLParser;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
-
-
-/** Tests the parser, the engine and the XML tags
+/** Represents a factory of <a href="http://www.beanshell.org">beanshell</a> expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
-public class TestXMLTags extends TestCase {
-    
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TestXMLTags.class );
+public class BeanShellExpressionFactory implements ExpressionFactory {
 
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
-    }
-    
-    public static Test suite() {
-        return new TestSuite(TestXMLTags.class);
-    }
-    
-    public TestXMLTags(String testName) {
-        super(testName);
-    }
-    
-    public void testParse() throws Exception {
-        InputStream in = getClass().getResourceAsStream( "example.jelly" );
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse( in );
-        script = script.compile();
-
-        log.debug( "Found: " + script );
-        
-        assertTrue( "Script is a TagScript", script instanceof TagScript );
-        
-        Context context = new Context();        
-        StringWriter buffer = new StringWriter();
-        
-        script.run( context, buffer );
-        
-        String text = buffer.toString().trim();
-        
-        if ( log.isDebugEnabled() ) {
-            log.debug( "Evaluated script as..." );
-            log.debug( text );
+    // ExpressionFactory interface
+    //------------------------------------------------------------------------- 
+    public Expression createExpression(String text) throws Exception {
+        int length = text.length();
+        if ( length > 2 && text.charAt(0) == '{'  && text.charAt( length - 1 ) == '}' ) {
+            text = text.substring( 1, length - 1 );
+            return new BeanShellExpression(text);
         }
-        
-        assertEquals( "Produces the correct output", "It works!", text );        
-    }    
+        return null;
+    }
 }
-

@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
 
-<j:jelly 
-  xmlns:j="http://jakarta.apache.org/commons/jelly/1.0"
-  xmlns:x="jelly:org.apache.commons.jelly.tags.xml.XMLTagLibrary"
->
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
   <x:parse var="doc">
     <html>
       <title>It works!</title>

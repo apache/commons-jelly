@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/11 00:27:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ParseTag.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -72,7 +72,7 @@ import java.net.URL;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.TagSupport;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogSource;
@@ -88,9 +88,9 @@ import org.xml.sax.SAXException;
   * source property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
-public class ParseTag implements Tag {
+public class ParseTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogSource.getInstance( ParseTag.class );
@@ -112,21 +112,19 @@ public class ParseTag implements Tag {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, Writer writer, Script body) throws Exception {
+    public void run(Context context, Writer writer) throws Exception {
         if ( var == null ) {
             throw new IllegalArgumentException( "The var attribute cannot be null" );
         }
         Document document = null;
         if ( source == null ) {
             // parse body
-            StringWriter buffer = new StringWriter();
-            body.run( context, buffer );
+            String text = getBodyText( context );
             
             if ( log.isDebugEnabled() ) {
-                log.debug( "Evaluated body: " + body );
-                log.debug( "About to parse: " + buffer.toString() );
+                log.debug( "About to parse: " + text );
             }
-            document = getSAXReader().read( new StringReader( buffer.toString() ) );
+            document = getSAXReader().read( new StringReader( text ) );
         }
         else {
             if ( source instanceof String ) {

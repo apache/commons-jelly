@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/11 00:27:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -67,7 +67,7 @@ import java.io.Writer;
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionSupport;
 
 import org.dom4j.DocumentFactory;
 import org.dom4j.XPath;
@@ -76,9 +76,9 @@ import org.jaxen.VariableContext;
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
-public class XPathExpression implements Expression, VariableContext {
+public class XPathExpression extends ExpressionSupport implements VariableContext {
 
     private XPath xpath;        
     private Context context;

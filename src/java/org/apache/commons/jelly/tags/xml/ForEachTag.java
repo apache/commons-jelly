@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/11 00:27:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ForEachTag.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -68,7 +68,7 @@ import java.util.List;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.TagSupport;
 
 import org.dom4j.XPath;
 
@@ -76,9 +76,9 @@ import org.dom4j.XPath;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
-public class ForEachTag implements Tag {
+public class ForEachTag extends TagSupport {
 
     /** Holds the XPath selector. */
     private XPath select;
@@ -91,7 +91,7 @@ public class ForEachTag implements Tag {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, Writer writer, Script body) throws Exception {
+    public void run(Context context, Writer writer) throws Exception {
         if ( select != null ) { 
             Iterator iter = select.selectNodes(null).iterator();
             while ( iter.hasNext() ) {
@@ -99,7 +99,7 @@ public class ForEachTag implements Tag {
                 if (var != null) {
                     context.setVariable( var, value );
                 }
-                body.run( context, writer );
+                getBody().run( context, writer );
             }
         }
     }

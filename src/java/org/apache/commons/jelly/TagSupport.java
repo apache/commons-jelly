@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.1 2002/02/12 21:34:33 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/02/12 21:34:33 $
  *
  * ====================================================================
  *
@@ -57,73 +57,87 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.1 2002/02/12 21:34:33 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.parser.XMLParser;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
-
-
-/** Tests the parser, the engine and the XML tags
+/** <p><code>TagSupport</code> an abstract base class which is useful to 
+  * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
-public class TestXMLTags extends TestCase {
-    
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TestXMLTags.class );
+public abstract class TagSupport implements Tag {
 
-    public static void main( String[] args ) {
-        TestRunner.run( suite() );
-    }
+    /** the parent of this tag */
+    private Tag parent;
     
-    public static Test suite() {
-        return new TestSuite(TestXMLTags.class);
-    }
-    
-    public TestXMLTags(String testName) {
-        super(testName);
-    }
-    
-    public void testParse() throws Exception {
-        InputStream in = getClass().getResourceAsStream( "example.jelly" );
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse( in );
-        script = script.compile();
+    /** the body of the tag */
+    private Script body;
 
-        log.debug( "Found: " + script );
-        
-        assertTrue( "Script is a TagScript", script instanceof TagScript );
-        
-        Context context = new Context();        
-        StringWriter buffer = new StringWriter();
-        
-        script.run( context, buffer );
-        
-        String text = buffer.toString().trim();
-        
-        if ( log.isDebugEnabled() ) {
-            log.debug( "Evaluated script as..." );
-            log.debug( text );
+    /** 
+     * Searches up the parent hierarchy from the given tag 
+     * for a Tag of the given type 
+     *
+     * @param from the tag to start searching from
+     * @param tagClass the type of the tag to find
+     * @return the tag of the given type or null if it could not be found
+     */
+    public static Tag findAncestorWithClass(Tag from, Class tagClass) {
+        while ( from != null ) {
+            if ( tagClass.isInstance( from ) ) {
+                return from;
+            }
+            from = from.getParent();
         }
-        
-        assertEquals( "Produces the correct output", "It works!", text );        
-    }    
-}
+        return null;
+    }
 
+    /** @return the parent of this tag */
+    public Tag getParent() {
+        return parent;
+    }
+    
+    /** Sets the parent of this tag */
+    public void setParent(Tag parent) {
+        this.parent = parent;
+    }
+
+    /** @return the body of the tag */
+    public Script getBody() {
+        return body;
+    }
+    
+    /** Sets the body of the tag */
+    public void setBody(Script body) {
+        this.body = body; 
+    }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+    
+    /** 
+     * Searches up the parent hierarchy for a Tag of the given type 
+     * @return the tag of the given type or null if it could not be found
+     */
+    protected Tag findAncestorWithClass(Class parentClass) {
+        return findAncestorWithClass( getParent(), parentClass );
+    }
+
+    /**
+     * Evaluates the given body using a buffer and returns the String 
+     * of the result.
+     *
+     * @return the text evaluation of the body
+     */
+    protected String getBodyText( Context context ) throws Exception {
+        // XXX: could maybe optimise this later on by having a pool of buffers
+        StringWriter writer = new StringWriter();
+        body.run( context, writer );
+        return writer.toString();
+    }
+    
+}

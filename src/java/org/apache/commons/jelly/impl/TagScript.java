@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/11 00:27:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.1 2002/02/11 00:27:41 jstrachan Exp $
+ * $Id: TagScript.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -85,7 +85,7 @@ import org.apache.commons.logging.LogSource;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class TagScript implements Script {
     
@@ -94,9 +94,6 @@ public class TagScript implements Script {
     
     /** the tag to be evaluated */
     private Tag tag;
-
-    /** the body of the tag */
-    private Script body;
 
     /** The attribute expressions that are created */
     private Map attributes = new HashMap();
@@ -118,7 +115,7 @@ public class TagScript implements Script {
     }
 
     public String toString() {
-        return super.toString() + "[tag=" + tag + ", body=" + body + "]";
+        return super.toString() + "[tag=" + tag + "]";
     }
     
     /** Add an initialization attribute for the tag.
@@ -138,8 +135,6 @@ public class TagScript implements Script {
       * Will only be called once by the parser 
       */
     public Script compile() throws Exception {
-        this.body = body.compile();
-        
         List typeList = new ArrayList();
         List methodList = new ArrayList();
         List expressionList = new ArrayList();
@@ -177,6 +172,9 @@ public class TagScript implements Script {
         expressionList.toArray( expressions );
         methodList.toArray( methods );
         typeList.toArray( types );
+        
+        // compile body
+        tag.setBody( tag.getBody().compile() );        
         return this;
     }
     
@@ -198,7 +196,7 @@ public class TagScript implements Script {
             Object[] arguments = { value };
             method.invoke( tag, arguments );
         }        
-        tag.run( context, writer, body );
+        tag.run( context, writer );
     }
     
     // Properties
@@ -212,16 +210,6 @@ public class TagScript implements Script {
     /** Sets the tag to be evaluated */
     public void setTag(Tag tag) {
         this.tag = tag; 
-    }
-    
-    /** @return the body of the tag */
-    public Script getBody() {
-        return body;
-    }
-    
-    /** Sets the body of the tag */
-    public void setBody(Script body) {
-        this.body = body; 
     }
     
     // Implementation methods

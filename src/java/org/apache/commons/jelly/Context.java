@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.1 2002/02/11 00:27:40 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/11 00:27:40 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.2 2002/02/12 21:34:33 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/12 21:34:33 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.1 2002/02/11 00:27:40 jstrachan Exp $
+ * $Id: Context.java,v 1.2 2002/02/12 21:34:33 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -68,12 +68,19 @@ import java.util.Map;
 /** <p><code>Context</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class Context {
 
     /** synchronized access to the variables in scope */
     private Map variables = new Hashtable();
+
+    public Context() {
+    }
+    
+    public Context(Map variables) {
+        this.variables.putAll( variables );
+    }
     
     /** @return the value of the given variable name */
     public Object getVariable( String name ) {

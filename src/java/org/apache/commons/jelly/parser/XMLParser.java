@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.2 2002/02/11 18:14:17 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/11 18:14:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.3 2002/02/12 21:34:34 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/02/12 21:34:34 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.2 2002/02/11 18:14:17 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.3 2002/02/12 21:34:34 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -91,6 +91,10 @@ import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.expression.beanshell.BeanShellExpressionFactory;
+import org.apache.commons.jelly.tags.core.CoreTagLibrary;
+import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogSource;
@@ -111,30 +115,33 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class XMLParser extends DefaultHandler {
+    
+    /** the expression factory used to evaluate tag attributes */
+    private ExpressionFactory expressionFactory;
     
     /** The current script block */
     private ScriptBlock script;
     
-    /** The current tag */
-    private TagScript tag;
+    /** The current tagScript */
+    private TagScript tagScript;
+
+    /** The current parent tag */
+    private Tag parentTag;
     
     /** The stack of body scripts. */
     private ArrayStack scriptStack = new ArrayStack();
     
-    /** The stack of tags - use ArrayList as it allows null. */
-    private ArrayList tagStack = new ArrayList();
+    /** The stack of tagScripts - use ArrayList as it allows null. */
+    private ArrayList tagScriptStack = new ArrayList();
     
     /** The current text buffer where non-custom tags get written */
     private StringBuffer textBuffer;
     
     /** Tag libraries found so far */
     private Map taglibs = new HashMap();
-    
-    /** whether we are inside the root element or not */
-    private boolean insideRoot = false;
     
     /**
      * The class loader to use for instantiating application objects.
@@ -186,7 +193,6 @@ public class XMLParser extends DefaultHandler {
     protected HashMap namespaces = new HashMap();
     
     
-    
     /**
      * Do we want to use the Context ClassLoader when loading classes
      * for instantiating new objects?  Default is <code>false</code>.
@@ -199,6 +205,9 @@ public class XMLParser extends DefaultHandler {
      */
     protected boolean validating = false;
     
+    
+    /** Flag to indicate if this object has been configured */
+    private boolean configured;
     
     /**
      * The Log to which most logging calls will be made.
@@ -237,7 +246,7 @@ public class XMLParser extends DefaultHandler {
     /** Registers the given tag library against the given namespace URI.
      * This should be called before the parser is used.
      */
-    public void registerTaglib(String namespaceURI, TagLibrary taglib) {
+    public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
         taglibs.put( namespaceURI, taglib );
     }
     
@@ -251,6 +260,7 @@ public class XMLParser extends DefaultHandler {
      * @exception SAXException if a parsing exception occurs
      */
     public Script parse(File file) throws IOException, SAXException {
+        ensureConfigured();
         getXMLReader().parse(new InputSource(new FileReader(file)));
         return script;
     }
@@ -266,6 +276,7 @@ public class XMLParser extends DefaultHandler {
      * @exception SAXException if a parsing exception occurs
      */
     public Script parse(InputSource input) throws IOException, SAXException {
+        ensureConfigured();
         getXMLReader().parse(input);
         return script;
         
@@ -282,9 +293,9 @@ public class XMLParser extends DefaultHandler {
      * @exception SAXException if a parsing exception occurs
      */
     public Script parse(InputStream input) throws IOException, SAXException {
+        ensureConfigured();
         getXMLReader().parse(new InputSource(input));
-        return script;
-        
+        return script;        
     }
     
     
@@ -298,6 +309,7 @@ public class XMLParser extends DefaultHandler {
      * @exception SAXException if a parsing exception occurs
      */
     public Script parse(Reader reader) throws IOException, SAXException {
+        ensureConfigured();
         getXMLReader().parse(new InputSource(reader));
         return script;
         
@@ -314,6 +326,7 @@ public class XMLParser extends DefaultHandler {
      * @exception SAXException if a parsing exception occurs
      */
     public Script parse(String uri) throws IOException, SAXException {
+        ensureConfigured();
         getXMLReader().parse(uri);
         return script;
         
@@ -411,6 +424,19 @@ public class XMLParser extends DefaultHandler {
      */
     public void setLogger(Log log) {
         this.log = log;
+    }
+
+    /** @return the expression factory used to evaluate tag attributes */
+    public ExpressionFactory getExpressionFactory() {
+        if ( expressionFactory == null ) {
+            expressionFactory = createExpressionFactory();
+        }
+        return expressionFactory;
+    }
+    
+    /** Sets the expression factory used to evaluate tag attributes */
+    public void setExpressionFactory(ExpressionFactory expressionFactory) {
+        this.expressionFactory = expressionFactory;
     }
     
     /**
@@ -532,7 +558,10 @@ public class XMLParser extends DefaultHandler {
     public void startDocument() throws SAXException {
         script = new ScriptBlock();
         textBuffer = new StringBuffer();
-        insideRoot = false;
+        tagScript = null;
+        parentTag = null;
+        scriptStack.clear();
+        tagScriptStack.clear();
     }
     
     
@@ -562,30 +591,28 @@ public class XMLParser extends DefaultHandler {
     String namespaceURI, String localName, String qName, Attributes list
     ) throws SAXException {
         
-        // ignore the first element
-        if ( ! insideRoot ) {
-            insideRoot = true;
-            tagStack.add( null );
-            return;
-        }
-        
         // if this is a tag then create a script to run it
         // otherwise pass the text to the current body
-        tag = createTag( namespaceURI, localName, list );
-        tagStack.add( tag );
+        tagScript = createTag( namespaceURI, localName, list );
+        tagScriptStack.add( tagScript );
         
-        if ( tag != null ) {
+        if ( tagScript != null ) {            
+            // set parent relationship...
+            Tag tag = tagScript.getTag();
+            tag.setParent( parentTag );
+            parentTag = tag;
+            
             if ( textBuffer.length() > 0 ) {
                 script.addScript( new TextScript( textBuffer.toString() ) );
                 textBuffer.setLength(0);
             }
             
-            script.addScript( tag );
+            script.addScript( tagScript );
             
             // start a new body
             scriptStack.push( script );
             script = new ScriptBlock();
-            tag.setBody( script );
+            tag.setBody( script );            
         }
         else {
             // XXXX: might wanna handle empty elements later...
@@ -637,18 +664,13 @@ public class XMLParser extends DefaultHandler {
         String namespaceURI, String localName, String qName
     ) throws SAXException {        
         
-        tag = (TagScript) tagStack.remove( tagStack.size() - 1 );
-        if ( tag != null ) {
+        tagScript = (TagScript) tagScriptStack.remove( tagScriptStack.size() - 1 );
+        if ( tagScript != null ) {
             if ( textBuffer.length() > 0 ) {
                 script.addScript( new TextScript( textBuffer.toString() ) );
                 textBuffer.setLength(0);
             }
-            if ( scriptStack.isEmpty() ) {
-                script = (ScriptBlock) scriptStack.peek();
-            }
-            else {
-                script = (ScriptBlock) scriptStack.pop();
-            }
+            script = (ScriptBlock) scriptStack.pop();
         }
         else {
             textBuffer.append( "</" );
@@ -782,8 +804,9 @@ public class XMLParser extends DefaultHandler {
      * @param systemId The system identifier (if any)
      * @param notation The name of the associated notation
      */
-    public void unparsedEntityDecl(String name, String publicId,
-    String systemId, String notation) {
+    public void unparsedEntityDecl(
+        String name, String publicId, String systemId, String notation
+    ) {
     }
     
     // ErrorHandler interface
@@ -857,7 +880,27 @@ public class XMLParser extends DefaultHandler {
     
     // Implementation methods
     //-------------------------------------------------------------------------
+
+    /**
+     * If this object has not been configured then register the default
+     * namespaces
+     */
+    private void ensureConfigured() {
+        if ( ! configured ) {
+            configure();
+            configured = false;
+        }
+    }
     
+    /**
+     * This method is called only once before parsing occurs
+     * which allows tag libraries to be registered and so forth
+     */
+    protected void configure() {
+        registerTagLibrary( "jelly:core", new CoreTagLibrary() );
+        registerTagLibrary( "jelly:xml", new XMLTagLibrary() );
+    }
+        
     
     /**
      * Factory method to create new Tag script for the given namespaceURI and name or
@@ -905,11 +948,17 @@ public class XMLParser extends DefaultHandler {
         }
     }
     
-    protected Expression createExpression( String tagName, String attributeName, String attributeValue ) {
-        // should use the default Expression library in context
+    protected Expression createExpression( String tagName, String attributeName, String attributeValue ) throws Exception {
+        Expression answer = getExpressionFactory().createExpression( attributeValue );
+        if ( answer != null ) {
+            return answer;
+        }
         return new ConstantExpression( attributeValue );
     }
-    
+        
+    protected ExpressionFactory createExpressionFactory() {
+        return new BeanShellExpressionFactory();
+    }
     
     
     /**
