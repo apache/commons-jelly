@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.4 2002/02/15 18:25:06 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/02/15 18:25:06 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.5 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.4 2002/02/15 18:25:06 jstrachan Exp $
+ * $Id: TagScript.java,v 1.5 2002/02/19 15:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -81,17 +81,17 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class TagScript implements Script {
     
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TagScript.class );
+    private static final Log log = LogFactory.getLog( TagScript.class );
     
     /** the tag to be evaluated */
     private Tag tag;

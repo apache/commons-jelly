@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -72,18 +72,18 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class ForEachTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( ForEachTag.class );
+    private static final Log log = LogFactory.getLog( ForEachTag.class );
     
     /** Holds the variable name to export for the item being iterated over. */
     private Expression items;

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/BeanShellExpression.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/BeanShellExpression.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpression.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: BeanShellExpression.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression.beanshell;
 
@@ -65,18 +65,18 @@ import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /** Represents a <a href="http://www.beanshell.org">beanshell</a> expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class BeanShellExpression extends ExpressionSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( BeanShellExpression.class );
+    private static final Log log = LogFactory.getLog( BeanShellExpression.class );
 
     /** The expression */
     private String text;

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.5 2002/02/13 17:03:09 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/02/13 17:03:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.6 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.5 2002/02/13 17:03:09 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.6 2002/02/19 15:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -97,7 +97,7 @@ import org.apache.commons.jelly.tags.core.CoreTagLibrary;
 import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
@@ -115,7 +115,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class XMLParser extends DefaultHandler {
     
@@ -212,7 +212,7 @@ public class XMLParser extends DefaultHandler {
     /**
      * The Log to which most logging calls will be made.
      */
-    private Log log = LogSource.getInstance("org.apache.commons.digester.XMLParser");
+    private Log log = LogFactory.getLog("org.apache.commons.digester.XMLParser");
     
     
     /**

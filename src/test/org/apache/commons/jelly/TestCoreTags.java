@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.1 2002/02/13 16:00:39 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.2 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.1 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: TestCoreTags.java,v 1.2 2002/02/19 15:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -76,18 +76,18 @@ import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.parser.XMLParser;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class TestCoreTags extends TestCase {
     
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TestXMLTags.class );
+    private static final Log log = LogFactory.getLog( TestXMLTags.class );
 
     public static void main( String[] args ) {
         TestRunner.run( suite() );

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/JellyTag.java,v 1.2 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: JellyTag.java,v 1.2 2002/02/19 15:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -73,18 +73,18 @@ import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TextScript;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /** The root Jelly tag which should be evaluated first
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class JellyTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( JellyTag.class );
+    private static final Log log = LogFactory.getLog( JellyTag.class );
 
     /** whether whitespace should be trimmed or not. */
     private boolean trim = false;        

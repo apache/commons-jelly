@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/02/19 15:40:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: Jelly.java,v 1.3 2002/02/19 15:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -69,17 +69,17 @@ import java.io.Writer;
 import org.apache.commons.jelly.parser.XMLParser;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 /** <p><code>Jelly</code> an application which runs a Jelly script.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class Jelly {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( Jelly.class );
+    private static final Log log = LogFactory.getLog( Jelly.class );
 
 
     public static void main(String[] args) throws Exception {

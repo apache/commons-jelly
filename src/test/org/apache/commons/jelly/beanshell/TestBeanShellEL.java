@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.2 2002/02/13 17:03:09 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/13 17:03:09 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.3 2002/02/15 18:25:06 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/02/15 18:25:06 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestBeanShellEL.java,v 1.2 2002/02/13 17:03:09 jstrachan Exp $
+ * $Id: TestBeanShellEL.java,v 1.3 2002/02/15 18:25:06 jstrachan Exp $
  */
 package org.apache.commons.jelly.beanshell;
 
@@ -72,18 +72,18 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.jelly.expression.beanshell.BeanShellExpressionFactory;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.logging.LogFactory;
 
 
 /** Tests the BeanShell EL
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class TestBeanShellEL extends TestCase {
     
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( TestBeanShellEL.class );
+    private static final Log log = LogFactory.getLog( TestBeanShellEL.class );
 
     /** Jelly context */
     protected Context context;
