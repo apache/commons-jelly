@@ -242,7 +242,7 @@
     
     <dependency>
       <id>commons-jexl</id>
-      <version>SNAPSHOT</version>
+      <version>1.0-RC1</version>
     </dependency>
     
     <dependency>
