@@ -50,6 +50,14 @@
     </dependency>
     
     <!-- END for compilation -->
+
+    <!-- START for testing -->
+    <dependency>
+      <id>commons-jelly+tags-util</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    <!-- END for testing -->
+
     
   </dependencies>
   
