@@ -35,13 +35,11 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
 /**
- * 
- * 
  * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
- */
-/** <p><code>Embedded</code> provides easy means to embed JellyEngine <br/>
- *  and use Jelly scripts within an application</p>
- *  A typical usage:<br/>
+ *
+ * <p><code>Embedded</code> provides easy means to embed JellyEngine <br/>
+ * and use Jelly scripts within an application</p>
+ * A typical usage:<br/>
  *  <code><br/>
  *     Embedded embedded = new Embedded();<br/>
  *     embedded.setOutputStream(new ByteArrayOutputStream());<br/>
@@ -165,6 +163,7 @@ public class Embedded {
     private void compileScriptAndKeep() {
         XMLParser parser = new XMLParser();
         parser.setContext(m_context);
+        m_scriptCompiled = false;
         try {
             m_script = parser.parse(m_inputStream);
             m_script = m_script.compile();
@@ -172,15 +171,12 @@ public class Embedded {
         }
         catch (IOException e) {
             m_scriptCompilationException = e;
-            m_scriptCompiled = false;
         }
         catch (SAXException e) {
             m_scriptCompilationException = e;
-            m_scriptCompiled = false;
         }
         catch (Exception e) {
             m_scriptCompilationException = e;
-            m_scriptCompiled = false;
         }
     }
 
