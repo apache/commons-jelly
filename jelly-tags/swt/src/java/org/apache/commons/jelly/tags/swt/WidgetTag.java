@@ -85,10 +85,16 @@ public class WidgetTag extends UseBeanTag {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(WidgetTag.class);
 
-    private Widget parent;    
+    private Widget parent;
+    private int style = SWT.DEFAULT; 
     
     public WidgetTag(Class widgetClass) {
         super(widgetClass);
+    }
+
+    public WidgetTag(Class widgetClass, int style) {
+        super(widgetClass);
+        this.style = style;
     }
 
     public String toString() {
@@ -230,6 +236,6 @@ public class WidgetTag extends UseBeanTag {
         if (text != null) {
             return SwtHelper.parseStyle(SWT.class, text);
         }
-        return SWT.DEFAULT;
+        return style;
     }
 }

@@ -86,20 +86,10 @@ public class MenuTag extends WidgetTag {
         super(Menu.class);
     }
 
-    /**
-     * @return the parent Shell or returns null
-     */
-/*    
-    public Widget getParentWidget() {
-        Widget parent = super.getParentWidget();
-        if (parent instanceof Menu) {
-            Menu menu = (Menu) parent;
-            return menu.getShell();
-        }
-        return null;
+    public MenuTag(int style) {
+        super(Menu.class, style);
     }
-*/
-    
+
     // Implementation methods
     //-------------------------------------------------------------------------                    
     

@@ -61,12 +61,13 @@
  */
 package org.apache.commons.jelly.tags.swt;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.*;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.custom.*;
 import org.eclipse.swt.widgets.*;
 
 import org.apache.commons.jelly.JellyException;
@@ -96,35 +97,37 @@ public class SwtTagLibrary extends TagLibrary {
         
     public SwtTagLibrary() {
         // widgets
-        registerWidgetTag( "button", Button.class );
+        registerWidgetTag( "button", Button.class, SWT.BORDER | SWT.PUSH | SWT.CENTER );
         registerWidgetTag( "canvas", Canvas.class );
         registerWidgetTag( "caret", Caret.class );
-        registerWidgetTag( "combo", Combo.class );
+        registerWidgetTag( "combo", Combo.class, SWT.DROP_DOWN );
         registerWidgetTag( "composite", Composite.class );
-        registerWidgetTag( "coolBar", CoolBar.class );
+        registerWidgetTag( "coolBar", CoolBar.class, SWT.VERTICAL );
         registerWidgetTag( "coolItem", CoolItem.class );
         registerWidgetTag( "decorations", Decorations.class );
         registerWidgetTag( "group", Group.class );
-        registerWidgetTag( "label", Label.class );
+        registerWidgetTag( "label", Label.class, SWT.HORIZONTAL | SWT.SHADOW_IN ); 
         registerWidgetTag( "list", List.class );
-        registerTag( "menu", MenuTag.class );
+        registerMenuTag( "menu", SWT.DEFAULT );
+        registerMenuTag( "menuBar", SWT.BAR );
+        registerWidgetTag( "menuSeparator", MenuItem.class, SWT.SEPARATOR );
         registerWidgetTag( "menuItem", MenuItem.class );
         registerWidgetTag( "messageBox", MessageBox.class );
-        registerWidgetTag( "progressBar", ProgressBar.class );
+        registerWidgetTag( "progressBar", ProgressBar.class, SWT.HORIZONTAL );
         registerWidgetTag( "sash", Sash.class );
         registerWidgetTag( "scale", Scale.class );
-        registerWidgetTag( "shell", Shell.class );
+        registerWidgetTag( "shell", Shell.class, SWT.BORDER | SWT.CLOSE | SWT.MIN | SWT.MAX | SWT.RESIZE | SWT.TITLE );
         registerWidgetTag( "slider", Slider.class );
         registerWidgetTag( "tabFolder", TabFolder.class );
         registerWidgetTag( "tabItem", TabItem.class );
-        registerWidgetTag( "table", Table.class );
+        registerWidgetTag( "table", Table.class, SWT.MULTI | SWT.BORDER | SWT.FULL_SELECTION );
         registerWidgetTag( "tableColumn", TableColumn.class );
         registerWidgetTag( "tableItem", TableItem.class );
         registerWidgetTag( "text", Text.class );
-        registerWidgetTag( "toolBar", ToolBar.class );
+        registerWidgetTag( "toolBar", ToolBar.class, SWT.VERTICAL );
         registerWidgetTag( "toolItem", ToolItem.class );
         registerWidgetTag( "tracker", Tracker.class );
-        registerWidgetTag( "tree", Tree.class );
+        registerWidgetTag( "tree", Tree.class, SWT.MULTI );
         registerWidgetTag( "treeItem", TreeItem.class );
 
         // custom widgets
@@ -189,7 +192,14 @@ public class SwtTagLibrary extends TagLibrary {
     /**
      * Register a widget tag for the given name
      */
-    protected void registerWidgetTag(String name, final Class widgetClass) {
+    protected void registerWidgetTag(String name, Class widgetClass) {
+        registerWidgetTag(name, widgetClass, SWT.DEFAULT);
+    }
+    
+    /**
+     * Register a widget tag for the given name
+     */
+    protected void registerWidgetTag(String name, final Class widgetClass, final int style) {
         registerTagFactory(
             name,
             new TagFactory() {
@@ -198,7 +208,25 @@ public class SwtTagLibrary extends TagLibrary {
                  */
                 public Tag createTag(String name, Attributes attributes)
                     throws JellyException {
-                    return new WidgetTag(widgetClass);
+                    return new WidgetTag(widgetClass, style);
+                }
+            }
+        );
+    }
+
+    /**
+     * Register a menu tag for the given name and style
+     */
+    protected void registerMenuTag(String name, final int style) {
+        registerTagFactory(
+            name,
+            new TagFactory() {
+                /**
+                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+                 */
+                public Tag createTag(String name, Attributes attributes)
+                    throws JellyException {
+                    return new MenuTag(style);
                 }
             }
         );
