@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/MessageOperationTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/MessageOperationTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,21 +57,21 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: MessageOperationTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
+ * $Id: MessageOperationTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.messenger.Messenger;
 
 /** An abstract base class for JMS Message operation tags such as send, receive or call.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public abstract class MessageOperationTag extends TagSupport implements ConnectionContext {
 
@@ -89,7 +89,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     
     // Properties
     //-------------------------------------------------------------------------                                
-    public Messenger getConnection() throws JellyException, JMSException {
+    public Messenger getConnection() throws JellyTagException, JMSException {
         if ( connection == null ) {
             return findConnection();
         }
@@ -103,7 +103,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
         this.connection = connection;
     }
     
-    public Destination getDestination() throws JellyException, JMSException {
+    public Destination getDestination() throws JellyTagException, JMSException {
         if (destination == null) {
             // if we have a subject defined, lets use it to find the destination
             if (subject != null) {
@@ -134,10 +134,10 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     /**
      * Strategy Method allowing derived classes to change this behaviour
      */
-    protected Messenger findConnection() throws JellyException, JMSException {
+    protected Messenger findConnection() throws JellyTagException, JMSException {
         ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
         if ( messengerTag == null ) {
-            throw new JellyException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
+            throw new JellyTagException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
         }
         return messengerTag.getConnection();
     }
@@ -145,7 +145,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     /**
      * Strategy Method allowing derived classes to change this behaviour
      */
-    protected Destination findDestination(String subject) throws JellyException, JMSException {
+    protected Destination findDestination(String subject) throws JellyTagException, JMSException {
         return getConnection().getDestination(subject);
     }
 }    

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/DestinationTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/DestinationTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,13 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DestinationTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
+ * $Id: DestinationTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
+import javax.jms.JMSException;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.messenger.Messenger;
@@ -71,7 +72,7 @@ import org.apache.commons.messenger.Messenger;
 /** Creates a Destination object from a String name.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class DestinationTag extends TagSupport {
 
@@ -83,24 +84,32 @@ public class DestinationTag extends TagSupport {
         
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {        
+    public void doTag(XMLOutput output) throws JellyTagException {        
         ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
         if ( messengerTag == null ) {
-            throw new JellyException("<jms:destination> tag must be within a <jms:connection> or <jms:send> or <jms:receive> tag");
+            throw new JellyTagException("<jms:destination> tag must be within a <jms:connection> or <jms:send> or <jms:receive> tag");
         }
-        Messenger messenger = messengerTag.getConnection();
-        if (messenger == null) {
-            throw new JellyException("No JMS Connection could be found!" );            
+        
+        Destination destination = null;
+        try {
+            Messenger messenger = messengerTag.getConnection();
+            if (messenger == null) {
+                throw new JellyTagException("No JMS Connection could be found!" );            
+            }
+            String subject = (name != null) ? name : getBodyText();
+            destination = messenger.getDestination( subject );
+        } 
+        catch (JMSException e) {
+            throw new JellyTagException(e);
         }
-        String subject = (name != null) ? name : getBodyText();
-        Destination destination = messenger.getDestination( subject );
+            
         if ( var != null ) {
             context.setVariable( var, destination );
         }
         else {
             MessageOperationTag tag = (MessageOperationTag) findAncestorWithClass( MessageOperationTag.class );
             if ( tag == null ) {
-                throw new JellyException("<jms:destination> tag must be within a <jms:send> or <jms:receive> tag or the 'var' attribute should be specified");
+                throw new JellyTagException("<jms:destination> tag must be within a <jms:send> or <jms:receive> tag or the 'var' attribute should be specified");
             }
             tag.setDestination( destination );
         }

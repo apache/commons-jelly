@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/MapEntryTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/MapEntryTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: MapEntryTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
+ * $Id: MapEntryTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -69,7 +69,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** Adds a map entry to the outer Map Message tag
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class MapEntryTag extends TagSupport {
 
@@ -82,14 +82,15 @@ public class MapEntryTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {        
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {        
         if ( name == null ) {
             throw new MissingAttributeException("name");
         }
         MapMessageTag tag = (MapMessageTag) findAncestorWithClass( MapMessageTag.class );
         if ( tag == null ) {
-            throw new JellyException("<jms:mapEntry> tag must be within a <jms:mapMessage> tag");
+            throw new JellyTagException("<jms:mapEntry> tag must be within a <jms:mapMessage> tag");
         }
+        
         if (value != null) {
             tag.addEntry( name, value );
         }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/SendTag.java,v 1.1 2003/01/07 16:11:03 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/SendTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,20 +57,21 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SendTag.java,v 1.1 2003/01/07 16:11:03 dion Exp $
+ * $Id: SendTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
+import javax.jms.JMSException;
 import javax.jms.Message;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
 /** Sends a JMS message to some destination.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class SendTag extends MessageOperationTag {
 
@@ -82,19 +83,25 @@ public class SendTag extends MessageOperationTag {
         
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         // evaluate body as it may contain a <destination> or message tag
         invokeBody(output);
         
         Message message = getMessage();
         if ( message == null ) {
-            throw new JellyException( "No message specified. Either specify a 'message' attribute or use a nested <jms:message> tag" );
+            throw new JellyTagException( "No message specified. Either specify a 'message' attribute or use a nested <jms:message> tag" );
         }
-        Destination destination = getDestination();
-        if ( destination == null ) {
-            throw new JellyException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
+        
+        try {
+            Destination destination = getDestination();
+            if ( destination == null ) {
+                throw new JellyTagException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
+            }
+            getConnection().send( destination, message );
         }
-        getConnection().send( destination, message );
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     // Properties

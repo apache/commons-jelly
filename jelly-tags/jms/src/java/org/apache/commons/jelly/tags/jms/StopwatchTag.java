@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/StopwatchTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/StopwatchTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,13 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StopwatchTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
+ * $Id: StopwatchTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.MessageListener;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
@@ -76,7 +76,7 @@ import org.apache.commons.messenger.tool.StopWatchMessageListener;
  * This tag can be wrapped around any custom JMS tag which consumes JMS messages.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
 
@@ -94,7 +94,7 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         // evaluate body as it may contain child tags to register a MessageListener
         invokeBody(output);
@@ -103,7 +103,7 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
 
 		ConsumerTag tag = (ConsumerTag) findAncestorWithClass(ConsumerTag.class);
 		if (tag == null) {
-			throw new JellyException("This tag must be nested within a ConsumerTag like the subscribe tag");
+			throw new JellyTagException("This tag must be nested within a ConsumerTag like the subscribe tag");
 		}			
 
         // clear the listener for the next tag invocation, if caching is employed

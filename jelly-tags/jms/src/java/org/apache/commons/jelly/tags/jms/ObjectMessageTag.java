@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/ObjectMessageTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/ObjectMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,18 +57,21 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ObjectMessageTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
+ * $Id: ObjectMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import java.io.Serializable;
 
+import javax.jms.JMSException;
 import javax.jms.Message;
+
+import org.apache.commons.jelly.JellyTagException;
 
 /** Creates a JMS ObjectMessage
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ObjectMessageTag extends MessageTag {
 
@@ -91,8 +94,13 @@ public class ObjectMessageTag extends MessageTag {
     
     // Implementation methods
     //-------------------------------------------------------------------------                            
-    protected Message createMessage() throws Exception {
+    protected Message createMessage() throws JellyTagException {
         Serializable value = (object != null) ? object : getBodyText();
-        return getConnection().createObjectMessage(value);
+        try {
+            return getConnection().createObjectMessage(value);
+        } 
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }    
 }    

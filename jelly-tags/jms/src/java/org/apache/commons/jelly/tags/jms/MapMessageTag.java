@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/MapMessageTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/MapMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: MapMessageTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
+ * $Id: MapMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
@@ -66,20 +66,28 @@ import java.util.Map;
 
 import javax.jms.Message;
 import javax.jms.MapMessage;
+import javax.jms.JMSException;
+
+import org.apache.commons.jelly.JellyTagException;
 
 /** Creates a JMS MapMessage
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class MapMessageTag extends MessageTag {
 
     public MapMessageTag() {
     }
 
-    public void addEntry(String name, Object value) throws Exception {
+    public void addEntry(String name, Object value) throws JellyTagException {
         MapMessage message = (MapMessage) getMessage();
-        message.setObject(name, value);
+        try {
+            message.setObject(name, value);
+        } 
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     // Properties
@@ -88,19 +96,29 @@ public class MapMessageTag extends MessageTag {
     /**
      * Sets the Map of entries to be used for this Map Message
      */
-    public void setMap(Map map) throws Exception {
+    public void setMap(Map map) throws JellyTagException {
         MapMessage message = (MapMessage) getMessage();
         for (Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iter.next();
             String name = entry.getKey().toString();
             Object value = entry.getValue();
-            message.setObject(name, value);
+            
+            try {
+                message.setObject(name, value);
+            } 
+            catch (JMSException e) {
+                throw new JellyTagException(e);
+            }
         }
     }
     
     // Implementation methods
     //-------------------------------------------------------------------------                            
-    protected Message createMessage() throws Exception {
-        return getConnection().createMapMessage();
+    protected Message createMessage() throws JellyTagException {
+        try {
+            return getConnection().createMapMessage();
+        } catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }    
 }    

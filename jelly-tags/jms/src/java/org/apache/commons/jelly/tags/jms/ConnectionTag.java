@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/ConnectionTag.java,v 1.1 2003/01/07 16:11:00 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:00 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/ConnectionTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,11 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ConnectionTag.java,v 1.1 2003/01/07 16:11:00 dion Exp $
+ * $Id: ConnectionTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
-import org.apache.commons.jelly.JellyException;
+import javax.jms.JMSException;
+
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.messenger.Messenger;
@@ -70,7 +72,7 @@ import org.apache.commons.messenger.MessengerManager;
 /** Defines a JMS connection for use by other JMS tags.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ConnectionTag extends TagSupport implements ConnectionContext {
 
@@ -91,11 +93,17 @@ public class ConnectionTag extends TagSupport implements ConnectionContext {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {        
-        connection = MessengerManager.get( name );
+    public void doTag(XMLOutput output) throws JellyTagException {        
+        
+        try { 
+            connection = MessengerManager.get( name );
+        }
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
 
         if (connection == null) {        
-            throw new JellyException( "Could not find a JMS connection called: " + name );
+            throw new JellyTagException( "Could not find a JMS connection called: " + name );
         }
 
         if ( var != null ) {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/MessageTag.java,v 1.1 2003/01/07 16:11:03 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/MessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,14 +57,15 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: MessageTag.java,v 1.1 2003/01/07 16:11:03 dion Exp $
+ * $Id: MessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
 import javax.jms.Message;
+import javax.jms.JMSException;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -73,7 +74,7 @@ import org.apache.commons.messenger.Messenger;
 /** A tag which creates a JMS message
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class MessageTag extends TagSupport {
 
@@ -90,24 +91,32 @@ public class MessageTag extends TagSupport {
     }
     
     /** Adds a JMS property to the message */
-    public void addProperty(String name, Object value) throws Exception {
+    public void addProperty(String name, Object value) throws JellyTagException {
         Message message = getMessage();
-        message.setObjectProperty(name, value);
+        
+        try {
+            message.setObjectProperty(name, value);
+        } catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {                
+    public void doTag(XMLOutput output) throws JellyTagException {                
         if ( var == null ) {
             // expose message to parent message consumer
             SendTag tag = (SendTag) findAncestorWithClass( SendTag.class );
             if ( tag == null ) {
-                throw new JellyException("<jms:message> tags must either have the 'var' attribute specified or be used inside a <jms:send> tag");
+                throw new JellyTagException("<jms:message> tags must either have the 'var' attribute specified or be used inside a <jms:send> tag");
             }
-            tag.setMessage( getMessage() );            
+            
+            tag.setMessage( getMessage() );
         }
         else {
+            
             context.setVariable( var, getMessage() );
+
         }        
     }
     
@@ -119,7 +128,7 @@ public class MessageTag extends TagSupport {
         this.var = var;        
     }
     
-    public Messenger getConnection() throws Exception {
+    public Messenger getConnection() throws JellyTagException {
         if ( connection == null ) {
             return findConnection();
         }
@@ -133,7 +142,7 @@ public class MessageTag extends TagSupport {
         this.connection = connection;
     }
     
-    public Message getMessage() throws Exception {
+    public Message getMessage() throws JellyTagException {
         if ( message == null ) {
             message = createMessage();
         }
@@ -146,35 +155,60 @@ public class MessageTag extends TagSupport {
     /**
      * Sets the JMS Correlation ID to be used on the message 
      */    
-    public void setCorrelationID(String correlationID) throws Exception {
-        getMessage().setJMSCorrelationID(correlationID);
+    public void setCorrelationID(String correlationID) throws JellyTagException {
+        try {
+            getMessage().setJMSCorrelationID(correlationID);
+        } 
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     /**
      * Sets the reply-to destination to add to the message
      */
-    public void setReplyTo(Destination destination) throws Exception {
-        getMessage().setJMSReplyTo(destination);
+    public void setReplyTo(Destination destination) throws JellyTagException {
+        try {
+            getMessage().setJMSReplyTo(destination);
+        } 
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     /**
      * Sets the type name of the message
      */
-    public void setType(String type) throws Exception {
-        getMessage().setJMSType(type);
+    public void setType(String type) throws JellyTagException {
+        try {
+            getMessage().setJMSType(type);
+        } 
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     // Implementation methods
     //-------------------------------------------------------------------------                            
-    protected Messenger findConnection() throws Exception {
+    protected Messenger findConnection() throws JellyTagException {
         ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
         if ( messengerTag == null ) {
-            throw new JellyException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
+            throw new JellyTagException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
         }
-        return messengerTag.getConnection();
+        
+        try {
+            return messengerTag.getConnection();
+        } 
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
     
-    protected Message createMessage() throws Exception {
-        return getConnection().createMessage();
+    protected Message createMessage() throws JellyTagException {
+        try {
+            return getConnection().createMessage();
+        } catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }    
 }    

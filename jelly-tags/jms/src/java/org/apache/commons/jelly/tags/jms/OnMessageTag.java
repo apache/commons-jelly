@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/OnMessageTag.java,v 1.1 2003/01/07 16:11:03 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/OnMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: OnMessageTag.java,v 1.1 2003/01/07 16:11:03 dion Exp $
+ * $Id: OnMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
@@ -65,7 +65,7 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -80,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
  * variable name, but can be overloaded by the var attribute.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class OnMessageTag extends TagSupport {
 
@@ -94,10 +94,10 @@ public class OnMessageTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 		ConsumerTag tag = (ConsumerTag) findAncestorWithClass(ConsumerTag.class);
 		if (tag == null) {
-			throw new JellyException("This tag must be nested within a ConsumerTag like the subscribe tag");
+			throw new JellyTagException("This tag must be nested within a ConsumerTag like the subscribe tag");
 		}			
 
 

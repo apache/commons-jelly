@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/ReceiveTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/ReceiveTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,14 +57,15 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ReceiveTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
+ * $Id: ReceiveTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
 import javax.jms.Message;
+import javax.jms.JMSException;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
@@ -73,7 +74,7 @@ import org.apache.commons.logging.LogFactory;
 /** Receives a JMS message.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ReceiveTag extends MessageOperationTag {
 
@@ -88,35 +89,41 @@ public class ReceiveTag extends MessageOperationTag {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         // evaluate body as it may contain a <destination> tag
         invokeBody(output);
         
-        Destination destination = getDestination();
-        if ( destination == null ) {
-            throw new JellyException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
-        }
         Message message = null;
-        if ( timeout > 0 ) {
-            if ( log.isDebugEnabled() ) {
-                log.debug( "Receiving message on destination: " + destination + " with timeout: " + timeout );
+        try {
+            Destination destination = getDestination();
+            if ( destination == null ) {
+                throw new JellyTagException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
             }
+            if ( timeout > 0 ) {
+                if ( log.isDebugEnabled() ) {
+                    log.debug( "Receiving message on destination: " + destination + " with timeout: " + timeout );
+                }
+                
+                message = getConnection().receive( destination, timeout );
+            }
+            else if ( timeout == 0 ) {
+                if ( log.isDebugEnabled() ) {
+                    log.debug( "Receiving message on destination: " + destination + " with No Wait" );
+                }
+                
+                message = getConnection().receiveNoWait( destination );
+            }
+            else {
+                if ( log.isDebugEnabled() ) {
+                    log.debug( "Receiving message on destination: " + destination );
+                }
+                message = getConnection().receive( destination );
+            }
+        }
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
             
-            message = getConnection().receive( destination, timeout );
-        }
-        else if ( timeout == 0 ) {
-            if ( log.isDebugEnabled() ) {
-                log.debug( "Receiving message on destination: " + destination + " with No Wait" );
-            }
-            
-            message = getConnection().receiveNoWait( destination );
-        }
-        else {
-            if ( log.isDebugEnabled() ) {
-                log.debug( "Receiving message on destination: " + destination );
-            }
-            message = getConnection().receive( destination );
-        }
         onMessage( message );
     }
     

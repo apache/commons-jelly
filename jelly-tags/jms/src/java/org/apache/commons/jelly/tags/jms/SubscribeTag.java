@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/SubscribeTag.java,v 1.1 2003/01/07 16:11:03 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/SubscribeTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,14 +57,15 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SubscribeTag.java,v 1.1 2003/01/07 16:11:03 dion Exp $
+ * $Id: SubscribeTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
+import javax.jms.JMSException;
 import javax.jms.MessageListener;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -75,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  * its parent (so a special tag could construct a MessageListener object and register it with this tag).
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
 
@@ -93,23 +94,30 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         // evaluate body as it may contain child tags to register a MessageListener
         invokeBody(output);
         
         MessageListener listener = getMessageListener();
         if (listener == null) {
-            throw new JellyException( "No messageListener attribute is specified so could not subscribe" );
+            throw new JellyTagException( "No messageListener attribute is specified so could not subscribe" );
         }
 
         // clear the listener for the next tag invocation, if caching is employed
         setMessageListener(null);
 
         
-        Destination destination = getDestination();
+        Destination destination = null;
+        try {
+            destination = getDestination();
+        } 
+        catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
+        
         if ( destination == null ) {
-            throw new JellyException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
+            throw new JellyTagException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
         }
         
         if ( log.isDebugEnabled() ) {
@@ -117,12 +125,17 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
         }
             
         log.info( "About to consume to: " + destination + " with listener: " + listener );
-            
-        if (selector == null ) {            
-            getConnection().addListener( destination, listener );
+        
+        try {
+            if (selector == null ) {            
+                getConnection().addListener( destination, listener );
+            }
+            else {
+                getConnection().addListener( destination, selector, listener );
+            }
         }
-        else {
-            getConnection().addListener( destination, selector, listener );
+        catch (JMSException e) {
+            throw new JellyTagException(e);
         }
     }
     

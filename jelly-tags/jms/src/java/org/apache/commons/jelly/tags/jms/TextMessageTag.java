@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/TextMessageTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 16:11:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/TextMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 06:24:47 $
  *
  * ====================================================================
  *
@@ -57,16 +57,19 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TextMessageTag.java,v 1.1 2003/01/07 16:11:01 dion Exp $
+ * $Id: TextMessageTag.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Message;
+import javax.jms.JMSException;
+
+import org.apache.commons.jelly.JellyTagException;
 
 /** Creates a JMS TextMessage
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class TextMessageTag extends MessageTag {
 
@@ -89,8 +92,12 @@ public class TextMessageTag extends MessageTag {
     
     // Implementation methods
     //-------------------------------------------------------------------------                            
-    protected Message createMessage() throws Exception {
+    protected Message createMessage() throws JellyTagException {
         String value = (text != null) ? text : getBodyText();
-        return getConnection().createTextMessage(value);
+        try {
+            return getConnection().createTextMessage(value);
+        } catch (JMSException e) {
+            throw new JellyTagException(e);
+        }
     }    
 }    
