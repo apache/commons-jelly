@@ -58,7 +58,7 @@
 
 package org.apache.commons.jelly.tags.jsl;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathSource;
@@ -103,10 +103,10 @@ public class TemplateTag extends TagSupport implements XPathSource {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
         if (tag == null) {
-            throw new JellyException( "This <template> tag must be used inside a <stylesheet> tag" );
+            throw new JellyTagException( "This <template> tag must be used inside a <stylesheet> tag" );
         }
 
         if ( log.isDebugEnabled() ) {        

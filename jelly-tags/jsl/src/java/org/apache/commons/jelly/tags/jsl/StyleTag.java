@@ -57,12 +57,14 @@
  */
 package org.apache.commons.jelly.tags.jsl;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.rule.Stylesheet;
+import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
 /** 
@@ -89,22 +91,28 @@ public class StyleTag extends XPathTagSupport {
         
 	// Tag interface
 	//-------------------------------------------------------------------------                    
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 		Stylesheet stylesheet = getStylesheet();
 		if (stylesheet == null) {
 			throw new MissingAttributeException("stylesheet");
 		}
-        
-        Object source = getSource();            
-		if (log.isDebugEnabled()) {
-			log.debug("About to evaluate stylesheet on source: " + source);
-		}
 
-		if (stylesheet instanceof JellyStylesheet) {
+        if (stylesheet instanceof JellyStylesheet) {
 			JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
 			jellyStyle.setOutput(output);
 		}
-		stylesheet.run(source);
+        
+        // dom4j only seems to throw Exception
+        try {
+        	Object source = getSource();            
+			if (log.isDebugEnabled()) {
+				log.debug("About to evaluate stylesheet on source: " + source);
+			}
+
+			stylesheet.run(source);
+        } catch (Exception e) {
+            throw new JellyTagException(e);
+        }
 	}
     
     
@@ -132,7 +140,7 @@ public class StyleTag extends XPathTagSupport {
 
     /** @return the source on which the stylesheet should run
      */
-    protected Object getSource() throws Exception {
+    protected Object getSource() throws JaxenException {
         Object source = getXPathContext();
         if ( select != null ) {
             return select.evaluate(source);

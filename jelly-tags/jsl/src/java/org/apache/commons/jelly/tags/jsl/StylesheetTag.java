@@ -57,6 +57,7 @@
  */
 package org.apache.commons.jelly.tags.jsl;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathSource;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
@@ -64,6 +65,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.rule.Rule;
 import org.dom4j.rule.Stylesheet;
+import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
 
@@ -111,7 +113,8 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 	}
 	
 	/**
-	 * Sets the XMLOutput to use by the current stylesheet	 */
+	 * Sets the XMLOutput to use by the current stylesheet
+	 */
 	public void setStylesheetOutput(XMLOutput output) {
 		if (stylesheet instanceof JellyStylesheet) {
 			JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
@@ -140,7 +143,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		stylesheet = createStylesheet(output);
 
 		// run the body to add the rules
@@ -151,13 +154,21 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 			context.setVariable(var, stylesheet);
 		} 
         else {
-			Object source = getSource();
+            
+            //dom4j seems to only throw generic Exceptions
+            try {
+			    Object source = getSource();
 
-			if (log.isDebugEnabled()) {
-				log.debug("About to evaluate stylesheet on source: " + source);
-			}
+				if (log.isDebugEnabled()) {
+					log.debug("About to evaluate stylesheet on source: " + source);
+				}
 
-			stylesheet.run(source);
+				stylesheet.run(source);
+            } 
+            catch (Exception e) {
+                throw new JellyTagException(e);
+            }
+                
 		}
 	}
     
@@ -201,7 +212,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
     /** @return the source on which the stylesheet should run
      */
-    protected Object getSource() throws Exception {
+    protected Object getSource() throws JaxenException {
         Object source = getXPathContext();
         if ( select != null ) {
             return select.evaluate(source);

@@ -57,7 +57,7 @@
  */
 package org.apache.commons.jelly.tags.jsl;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
@@ -90,10 +90,10 @@ public class ApplyTemplatesTag extends TagSupport {
     // Tag interface
     //------------------------------------------------------------------------- 
     /** By default just evaluate the body */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
         if (tag == null) {
-            throw new JellyException( 
+            throw new JellyTagException( 
                 "<applyTemplates> tag must be inside a <stylesheet> tag"
             );
         }
@@ -103,11 +103,17 @@ public class ApplyTemplatesTag extends TagSupport {
         tag.setStylesheetOutput(output);
         
         Object source = tag.getXPathSource();
-        if ( select != null ) {
-            stylesheet.applyTemplates( source, select );
-        }
-        else {
-            stylesheet.applyTemplates( source );
+        // for some reason, these DOM4J methods only throw Exception
+        try {
+            if ( select != null ) {
+                stylesheet.applyTemplates( source, select );
+            }
+            else {
+                stylesheet.applyTemplates( source );
+            }
+        } 
+        catch (Exception e) {
+            throw new JellyTagException(e);
         }
         
         tag.setStylesheetOutput(oldOutput);
