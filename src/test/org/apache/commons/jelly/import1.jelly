@@ -1,0 +1,5 @@
+<jelly xmlns="jelly:core">
+
+  <set var="test1" value="${parentVar}"/>
+  
+</jelly>
