@@ -49,6 +49,12 @@ import org.apache.commons.logging.LogFactory;
  * This tag creates a Swing component and adds it to its parent tag, optionally declaring this
  * component as a variable if the <i>var</i> attribute is specified.</p>
  *
+ * <p> This tag clears the reference to it's bean after doTag runs.
+ * This means that child tags can access the component (bean) normally
+ * during execution but should not hold a reference to this
+ * tag after their doTag completes.
+ * </p>
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
@@ -405,5 +411,24 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 
     protected Object getConstraint() {
         return null;
+    }
+    
+    /**Overrides the default UseBean functionality to clear the bean after the
+     * tag runs. This prevents us from keeping references to heavy Swing objects
+     * around for longer than they are needed.
+     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+     */
+    public void doTag(XMLOutput output) throws JellyTagException {
+        super.doTag(output);
+        clearBean();
+    }
+    
+    /** Sets the bean to null, to prevent it from
+     * sticking around in the event that this tag instance is
+     * cached. This method is called at the end of doTag.
+     * 
+     */
+    protected void clearBean() {
+        setBean(null);
     }
 }
