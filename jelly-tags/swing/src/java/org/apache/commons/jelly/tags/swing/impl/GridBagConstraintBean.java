@@ -139,22 +139,6 @@ public class GridBagConstraintBean extends GridBagConstraints {
                 return "west";
             case NORTHWEST :
                 return "northwest";
-            case LINE_START :
-                return "line_start";
-            case LINE_END :
-                return "line_end";
-            case PAGE_START :
-                return "page_start";
-            case PAGE_END :
-                return "page_end";
-            case FIRST_LINE_START :
-                return "first_line_start";
-            case FIRST_LINE_END :
-                return "first_line_end";
-            case LAST_LINE_START :
-                return "last_line_start";
-            case LAST_LINE_END :
-                return "last_line_end";
             default :
                 throw new IllegalArgumentException("Anchor must be one of  the GridBagLayout constants: CENTER, NORTH, NORTHEAST, EAST, SOUTHEAST, SOUTH, SOUTHWEST, WEST, or NORTHWEST.");
         }
@@ -186,22 +170,6 @@ public class GridBagConstraintBean extends GridBagConstraints {
             this.anchor = WEST;
         else if (lcAnchorString.equals("northwest"))
             this.anchor = NORTHWEST;
-        else if (lcAnchorString.equals("page_start"))
-            this.anchor = PAGE_START;
-        else if (lcAnchorString.equals("page_end"))
-            this.anchor = PAGE_END;
-        else if (lcAnchorString.equals("line_start"))
-            this.anchor = LINE_START;
-        else if (lcAnchorString.equals("line_end"))
-            this.anchor = LINE_END;
-        else if (lcAnchorString.equals("first_line_start"))
-            this.anchor = FIRST_LINE_START;
-        else if (lcAnchorString.equals("first_line_end"))
-            this.anchor = FIRST_LINE_END;
-        else if (lcAnchorString.equals("last_line_end"))
-            this.anchor = LAST_LINE_END;
-        else if (lcAnchorString.equals("last_line_start"))
-            this.anchor = LAST_LINE_START;
         else
             throw new IllegalArgumentException("Anchor must be the name of one of  the GridBagLayoutConstants (case doesn't matter): center, north, northeast, east, southeast, south, southwest, west, or northwest.");
         this.anchorSet = true;
