@@ -13,6 +13,8 @@
         Jelly.  Contributions are welcome!.
       </p>
       <ul>
+        <li>support the use of ${foo.bar} expressions within attribute values (as is common with Ant)
+        	as well as inside element text also.</li>
         <li>write an Ant &lt;fileWalker&gt; tag that takes one or more Ant &lt;fileSet&gt; elements 
         	and outputs an Iterator to a variable that can then be used inside a &lt;j:forEach&gt; 
         	tag to perform processing for each file in an Ant fileSet. 
