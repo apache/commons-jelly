@@ -17,7 +17,7 @@
   </goal>
 
   <!-- runs the XML doclet -->  
-  <goal name="xml-doclet" prereqs="java:compile">
+  <goal name="doclet:xml" prereqs="java:compile">
     <path id="doclet.classpath">
       <pathelement path="${maven.build.dest}"/>
       <path refid="maven.dependency.classpath"/>
@@ -32,7 +32,7 @@
   </goal>
 
   <!-- runs the Tag doclet -->  
-  <goal name="tag-doclet" prereqs="java:compile">
+  <goal name="doclet:tag" prereqs="java:compile">
     <path id="doclet.classpath">
       <pathelement path="target/classes"/>
       <pathelement path="${maven.build.dest}"/>
@@ -48,13 +48,20 @@
   </goal>
 	
   <!-- creates the XML webpage from the tag XML information -->		
-  <goal name="doc-tags" prereqs="tag-doclet, jelly-task" 
+  <goal name="doc:tags" prereqs="doclet:tag, jelly-task" 
 	description="Generates the tag documentation">
 	
 	<mkdir dir="target/generated-xdocs"/>
 
+<!--      
 	<jelly file="src/script/makeTagDoc.jelly" 
 		   output="target/generated-xdocs/tags.xml"/> 
+-->	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/script/makeTagDoc.jelly"/> 
+      <arg value="target/generated-xdocs/tags.xml"/> 
+    </java>
   </goal>
 
 
@@ -62,7 +69,7 @@
   <preGoal
     name="site:generate">
 
-    <attainGoal name="doc-tags"/>
+    <attainGoal name="doc:tags"/>
   
   </preGoal>
 
