@@ -114,11 +114,10 @@ public class BaseMemoryLeakTest extends TestCase {
 
             script = parser.parse(scriptISource);
             script.run(jc, output);
-			log.info("TagHolderMap has " + jc.getTagHolderMap().size() + " entries.");
-			// PL: I don't see why but removing the clear here 
-			//     does make the test fail!
-			//     As if the WeakHashMap wasn't weak enough...
-			jc.clear();
+            // PL: I don't see why but removing the clear here 
+            //     does make the test fail!
+            //     As if the WeakHashMap wasn't weak enough...
+            jc.clear();
 
             if (outputEveryXIterations != 0 && i % outputEveryXIterations == 0) {
                 parser = null;
@@ -127,6 +126,7 @@ public class BaseMemoryLeakTest extends TestCase {
                 rt.runFinalization();
                 rt.gc();
                 long middle = rt.totalMemory() - rt.freeMemory();
+                log.info("TagHolderMap has " + jc.getTagHolderMap().size() + " entries.");
                 log.info("Memory test after " + i + " runs: "
                         + (middle - start));
             }
