@@ -177,7 +177,20 @@
       <jar>ojb-0.8.375.jar</jar>
     </dependency>
 
-	
+	<!-- jms taglib -->
+    <dependency>
+      <name>jms</name>
+      <type>required</type>
+      <version>1.0.2b</version>
+      <jar>jms-1.0.2b.jar</jar>
+    </dependency>
+    <dependency>
+      <name>commons-messenger</name>
+      <type>required</type>
+      <version>1.0-dev</version>
+      <jar>commons-messenger-1.0-dev.jar</jar>
+    </dependency>
+    
 	<!-- runtime dependencies for test programs -->
 	
     <dependency>
