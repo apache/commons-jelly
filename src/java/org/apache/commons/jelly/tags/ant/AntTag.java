@@ -60,7 +60,6 @@
  * $Id: AntTagSupport.java,v 1.4 2002/06/25 20:43:30 werken Exp $
  */
 
-
 package org.apache.commons.jelly.tags.ant;
 
 import java.lang.reflect.Constructor;
@@ -71,23 +70,21 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
-
-import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.grant.DefaultPropsHandler;
+import org.apache.commons.grant.GrantProject;
+import org.apache.commons.grant.PropsHandler;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.impl.StaticTag;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.tools.ant.Project;
 import org.apache.tools.ant.IntrospectionHelper;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.TaskAdapter;
 import org.apache.tools.ant.types.DataType;
-import org.apache.tools.ant.types.Reference;
 
 /**
  * Tag supporting ant's Tasks as well as
@@ -106,9 +103,6 @@ public class AntTag extends MapTagSupport implements TaskSource {
     /** store the name of the manifest tag for special handling */
     private static final String ANT_MANIFEST_TAG = "manifest";
 
-    /** The Ant project */
-    private Project project;
-
     /** The name of this tag. */
     protected String tagName;
 
@@ -123,15 +117,13 @@ public class AntTag extends MapTagSupport implements TaskSource {
      *  @param project The Ant project.
      *  @param tagName The name on the tag.
      */
-    public AntTag(Project project, String tagName) {
-        this.project = project;
+    public AntTag(String tagName) {
         this.tagName = tagName;
     }
 
     public String toString() {
         return "[AntTag: name=" + getTagName() + "]";
     }
-
 
     // Tag interface
     //-------------------------------------------------------------------------
@@ -140,7 +132,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         Project project = getAntProject();
         String tagName = getTagName();
         Object parentObject = null;
-
+        
         // must be a datatype.
         TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
         if ( ancestor != null ) {
@@ -150,7 +142,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         // lets assume that Task instances are not nested inside other Task instances
         // for example <manifest> inside a <jar> should be a nested object, where as 
         // if the parent is not a Task the <manifest> should create a ManifestTask
-                
+
         if ( ! ( parentObject instanceof Task ) && 
             project.getTaskDefinitions().containsKey( tagName ) ) {                            
             
@@ -214,9 +206,9 @@ public class AntTag extends MapTagSupport implements TaskSource {
             if ( parentObject == null ) {
                 parentObject = findBeanAncestor();
             }
-                        
+
             Object nested = createNestedObject( parentObject, tagName );
-            
+
             if ( nested == null ) {
                 nested = createDataType( tagName );
             }
@@ -271,7 +263,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
             
                 tag.doTag(output);
             }
-        }
+        }        
     }
 
 
@@ -297,12 +289,8 @@ public class AntTag extends MapTagSupport implements TaskSource {
         this.object = object;
     }
 
-    public void setAntProject(Project project) {
-        this.project = project;
-    }
-
     public Project getAntProject() {
-        return this.project;
+        return AntTagLibrary.getProject(context);
     }
 
     // Implementation methods
@@ -405,9 +393,9 @@ public class AntTag extends MapTagSupport implements TaskSource {
                     dataType = (DataType) ctor.newInstance(new Object[0]);
                 }
                 else {
-                    dataType = (DataType) ctor.newInstance(new Object[] {project});
+                    dataType = (DataType) ctor.newInstance(new Object[] { getAntProject() });
                 }
-                ((DataType)dataType).setProject( project );
+                ((DataType)dataType).setProject( getAntProject() );
 
             }
             catch (Throwable t) {

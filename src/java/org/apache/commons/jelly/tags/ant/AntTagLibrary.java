@@ -62,35 +62,25 @@
 package org.apache.commons.jelly.tags.ant;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.List;
 
-import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.ConvertUtils;
-
+import org.apache.commons.beanutils.Converter;
+import org.apache.commons.grant.GrantProject;
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.BeanTagScript;
 import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.tools.ant.Project;
-import org.apache.tools.ant.ProjectComponent;
-import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildLogger;
 import org.apache.tools.ant.NoBannerLogger;
-import org.apache.tools.ant.types.DataType;
-import org.apache.tools.ant.types.Reference;
-import org.apache.tools.ant.types.EnumeratedAttribute;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.optional.junit.FormatterElement;
-
+import org.apache.tools.ant.types.EnumeratedAttribute;
+import org.apache.tools.ant.types.Reference;
 import org.xml.sax.Attributes;
 
 /** 
@@ -105,8 +95,7 @@ public class AntTagLibrary extends TagLibrary {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(AntTagLibrary.class);
     
-    /** the Ant Project for this tag library */
-    private Project project;
+    public static final String PROJECT_CONTEXT_HANDLE = "org.apache.commons.jelly.ant.Project";
 
     static {
 
@@ -163,15 +152,6 @@ public class AntTagLibrary extends TagLibrary {
             );
     }
 
-        
-    public AntTagLibrary() {
-        this.project = createProject();
-    }
-
-    public AntTagLibrary(Project project) {
-        this.project = project;
-    }
-
 
     /**
      * A helper method which will attempt to find a project in the current context
@@ -180,10 +160,10 @@ public class AntTagLibrary extends TagLibrary {
      * #### this method could move to an AntUtils class.
      */
     public static Project getProject(JellyContext context) {
-        Project project = (Project) context.findVariable( "org.apache.commons.jelly.ant.Project" );
+        Project project = (Project) context.findVariable( PROJECT_CONTEXT_HANDLE );
         if ( project == null ) {
-            project = createProject();
-            context.setVariable( "org.apache.commons.jelly.ant.Project", project );
+            project = createProject(context);
+            context.setVariable( PROJECT_CONTEXT_HANDLE , project );
         }
         return project;
     }
@@ -193,8 +173,9 @@ public class AntTagLibrary extends TagLibrary {
      * 
      * #### this method could move to an AntUtils class.
      */    
-    public static Project createProject() {
-        Project project = new Project();
+    public static Project createProject(JellyContext context) {
+        GrantProject project = new GrantProject();
+        project.setPropsHandler(new JellyPropsHandler(context));
 
         BuildLogger logger = new NoBannerLogger();
 
@@ -203,11 +184,10 @@ public class AntTagLibrary extends TagLibrary {
         logger.setErrorPrintStream( System.err);
 
         project.addBuildListener( logger );
-        project.init();
         
-        // force lazy construction which avoids null pointer exceptions when using 
-        // file sets
-        project.getBaseDir();        
+        project.init();
+        project.getBaseDir();
+
         return project;
     }
 
@@ -237,7 +217,7 @@ public class AntTagLibrary extends TagLibrary {
             return new BeanTagScript(
                 new TagFactory() {
                     public Tag createTag() throws Exception {
-                        return new FileScannerTag(new FileScanner(getProject()));
+                        return new FileScannerTag(new FileScanner());
                     }
                 }
             );      
@@ -249,30 +229,12 @@ public class AntTagLibrary extends TagLibrary {
      * A helper method which creates an AntTag instance for the given element name
      */
     public Tag createTag(String name) throws Exception {
-        AntTag tag = new AntTag( getProject(), name );
+        AntTag tag = new AntTag( name );
         if ( name.equals( "echo" ) ) {
             tag.setTrim(false);
         }
         return tag;
     }
-    
 
-    
-    // Properties
-    //-------------------------------------------------------------------------                
-    
-    /**
-     * @return the Ant Project for this tag library.
-     */
-    public Project getProject() {
-        return project;
-    }
-    
-    /**
-     * Sets the Ant Project for this tag library.
-     */
-    public void setProject(Project project) {
-        this.project = project;
-    }
 
 }
