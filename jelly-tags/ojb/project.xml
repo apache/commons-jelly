@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-ojb</id>
+  <name>commons-jelly-tags-ojb</name>
+  <groupId>commons-jelly</groupId>
+
+  <package>org.apache.commons.jelly.tags.ojb</package>
+
+  <description>
+  	 A variety of tags for working with the  ObjectBridge persistence engine 
+  </description>
+  <shortDescription>Commons Jelly OjB Tag Library</shortDescription>
+  
+  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/ojb/</url>
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/ojb</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/ojb</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/ojb/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/ojb/</url>
+  </repository>
+  
+  <dependencies>
+  
+    &commonDeps;
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    
+    <!-- ojb taglib -->
+    <dependency>
+      <id>ojb</id>
+      <version>0.9.6</version>
+    </dependency>
+    
+    <dependency>
+      <id>commons-lang</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    
+  </dependencies>
+  
+</project>

@@ -377,12 +377,6 @@
       <version>0.6.5</version>
     </dependency>
 
-	<!-- ojb taglib -->
-    <dependency>
-      <id>ojb</id>
-      <version>0.9.6</version>
-    </dependency>
-
 	<!-- scheduler taglib -->
     <dependency>
       <id>quartz</id>
