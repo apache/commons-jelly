@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.1" date="2004-10-27">
+      <action dev="dion" type="fix" due-to="Stefan Bodewig">Handle null encoding in loadText tag</action>
       <action dev="dion" type="add" issue="JELLY-157">Add util:sort to sort lists, including sorting by bean properties</action>
       <action dev="dion" type="update" issue="JELLY-57" due-to="Bill Keese">support encoding parameter for util:loadText</action>
     </release>
