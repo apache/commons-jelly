@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.24 2002/10/30 19:16:26 jstrachan Exp $
- * $Revision: 1.24 $
- * $Date: 2002/10/30 19:16:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.25 2003/01/24 02:03:40 morgand Exp $
+ * $Revision: 1.25 $
+ * $Date: 2003/01/24 02:03:40 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.24 2002/10/30 19:16:26 jstrachan Exp $
+ * $Id: Jelly.java,v 1.25 2003/01/24 02:03:40 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -65,6 +65,7 @@ package org.apache.commons.jelly;
 import java.io.File;
 import java.io.InputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
@@ -85,7 +86,7 @@ import org.apache.commons.logging.LogFactory;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  */
 public class Jelly {
     
@@ -299,7 +300,7 @@ public class Jelly {
     /**
      * Loads the properties from the given input stream 
      */    
-    protected void loadProperties(InputStream is) throws Exception {
+    protected void loadProperties(InputStream is) throws IOException {
         JellyContext context = getJellyContext();
         Properties props = new Properties();
         props.load(is);
