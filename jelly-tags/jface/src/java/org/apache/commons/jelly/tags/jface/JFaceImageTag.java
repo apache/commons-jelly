@@ -95,7 +95,7 @@ public class JFaceImageTag extends ImageTag {
      * @param image
      */
     private void setWindowImage(Window window, Image image) {
-        Window.setDefaultImage(image);
+        window.getShell().setImage(image);
     }
 
     /* 
