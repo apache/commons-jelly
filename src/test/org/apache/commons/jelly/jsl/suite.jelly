@@ -4,7 +4,8 @@
             xmlns:m="jelly:jeez"
             xmlns:test="jelly:junit" 
             xmlns:u="jelly:util" 
-            xmlns:x="jelly:xml">
+            xmlns:x="jelly:xml"
+            xmlns="dummy">
 
     <!-- see if we can break template -->
     <m:fileScanner var="files">
