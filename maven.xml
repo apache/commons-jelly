@@ -316,7 +316,7 @@
 	
 	
 	
-	<goal name="pack-fat-jar" prereqs="jar"
+	<goal name="pack-fat-jar" prereqs=""
 			description="Creates a jar with all the dependencies of jelly and the taglibs indicated in ${tagLibs}.">
 	<!-- this goal isn't really much tested yet but could be the key
 		to get a better packaging -->
@@ -337,7 +337,7 @@
      <j:new var="deps" className="java.util.HashSet"/>
 
     <maven:reactor
-      basedir="." goal="jar:install-snapshot"
+      basedir="."
       postProcessing="true"
       includes="${taglibs_projects}"
       ignoreFailures="false">
