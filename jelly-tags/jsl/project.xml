@@ -8,7 +8,7 @@
   <id>commons-jelly-tags-jsl</id>
   <name>commons-jelly-tags-jsl</name>
 
-  <package>org.apache.commons.jelly.tags.ant</package>
+  <package>org.apache.commons.jelly.tags.jsl</package>
 
   <description>
   	 The Jelly Stylesheet Library (JSL) 
