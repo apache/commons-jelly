@@ -119,6 +119,10 @@
 
 
 	    <subsection name="${prefix}:${tagName}">
+	    <p>
+	      <jsl:style stylesheet="${docStylesheet}" select="doc"/>
+	    </p>
+	      
 	    <table>
 	    <tr>
 	      <th>Attribute Name</th>
