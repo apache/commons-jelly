@@ -175,6 +175,14 @@
       	<role>Developer</role>
       </roles>
     </contributor>    
+    <contributor>
+      <name>Tim Anderson</name>
+      <email>tima@intalio.com</email>
+      <organization>Intalio, Inc.</organization>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>    
   </contributors>
 
   <dependencies>
