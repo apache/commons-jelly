@@ -11,8 +11,16 @@
 
 <section name="Jelly : Java and XML based processing engine">
 
-<p><em>Jelly</em> is a Java and XML based scripting and processing engine. Jelly borrows many 
-good ideas from both JSP custom tags, Velocity, Cocoon, Ant and the 
+<p><em>Jelly</em> is a Java and XML based scripting and processing engine. 
+Jelly can be used as a more flexible front end to <a href="http://jakarta.apache.org/ant/">Ant</a> 
+such as in the <a href="http://jakarta.apache.org/turbine/maven/">Maven</a> 
+project, as a testing framework such as <a href="jellyunit.html">JellyUnit</a>, in an intgration or workflow
+system such as <a href="http://werkflow.werken.com/">werkflow</a> or as a page templating system
+inside engines like <a href="http://xml.apache.org/cocoon/">Cocoon</a>.
+</p>
+
+<p>
+Jelly borrows many good ideas from both JSP custom tags, Velocity, Cocoon, Ant and the 
 scripting engine inside XDoclet. Jelly can be used from the command line, inside 
 Ant and Maven or inside a Servlet, Web Service, JMS MessageListener or embedded directly into your software. 
 </p>
