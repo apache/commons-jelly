@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.15 2002/10/02 11:03:38 jstrachan Exp $
- * $Revision: 1.15 $
- * $Date: 2002/10/02 11:03:38 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.16 2002/10/02 13:56:23 jstrachan Exp $
+ * $Revision: 1.16 $
+ * $Date: 2002/10/02 13:56:23 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.15 2002/10/02 11:03:38 jstrachan Exp $
+ * $Id: Jelly.java,v 1.16 2002/10/02 13:56:23 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * or can be used as the basis of an Ant task.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public class Jelly {
     
@@ -104,39 +104,38 @@ public class Jelly {
         
     public Jelly() {
     }
+    
     public static void main(String[] args) throws Exception {
 
-        try
-        {
+        try {
             if (args.length <= 0) {
                 System.out.println("Usage: Jelly scriptFile [outputFile]");
                 return;
             }
-            
+
             Jelly jelly = new Jelly();
             jelly.setScript(args[0]);
-            
+
             // later we might wanna add some command line arguments 
             // checking stuff using commons-cli to specify the output file
             // and input file via command line arguments
-            final Writer writer = ( args.length > 1 ) 
-                ? new FileWriter( args[1] ) 
-                : new OutputStreamWriter( System.out );
-            
+            final XMLOutput output =
+                (args.length > 1)
+                    ? XMLOutput.createXMLOutput(new FileWriter(args[1]))
+                    : XMLOutput.createXMLOutput(System.out);
+
             Script script = jelly.compileScript();
-            XMLOutput output = XMLOutput.createXMLOutput(writer);
-            
+
             // add the system properties and the command line arguments
             JellyContext context = jelly.getJellyContext();
             context.setVariable("args", args);
             script.run(context, output);
-            
+
             // now lets wait for all threads to close
-            Runtime.getRuntime().addShutdownHook(
-                new Thread() {
+            Runtime.getRuntime().addShutdownHook(new Thread() {
                     public void run() {
                         try {
-                            writer.close();
+                            output.close();
                         }
                         catch (Exception e) {
                             // ignore errors
@@ -145,22 +144,17 @@ public class Jelly {
                 }
             );
         }
-        catch (JellyException e)
-        {
+        catch (JellyException e) {
             Throwable cause = e.getCause();
 
-            if ( cause != null )
-            {
+            if (cause != null) {
                 cause.printStackTrace();
             }
-            else
-            {
+            else {
                 e.printStackTrace();
             }
         }
-    }
-
-    
+    }   
     
     /**
      * Compiles the script
