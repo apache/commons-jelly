@@ -68,7 +68,7 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag which creates a {@link File} from a given name.
  * 
  * @author <a href="mailto:dion@apache.org">dIon Gillard</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class FileTag extends TagSupport {
     
@@ -92,14 +92,7 @@ public class FileTag extends TagSupport {
         }
 
         File newFile = new File(name);
-        available = newFile.exists() && newFile.canRead();
-        if (available) {
-            getContext().setVariable(var, newFile);
-        } else {
-            throw new IllegalArgumentException("file '"+ name
-                + "' is not readable");
-        }
-
+        getContext().setVariable(var, newFile);
     }
 
     /**
