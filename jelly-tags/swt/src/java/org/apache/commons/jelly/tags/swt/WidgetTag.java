@@ -72,6 +72,7 @@ import org.apache.commons.jelly.tags.swt.converters.PointConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
@@ -208,6 +209,12 @@ public class WidgetTag extends UseBeanTag {
      * @param widget is the new child widget to be attached to the parent
      */
     protected void attachWidgets(Widget parent, Widget widget) {
+        // set the content that will be scrolled if the parent is a ScrolledComposite
+	   if (parent instanceof ScrolledComposite
+	       && widget instanceof Control) {
+	       ScrolledComposite scrolledComposite = (ScrolledComposite) parent;
+	       scrolledComposite.setContent((Control) widget);
+	   }
     }
     
     /**

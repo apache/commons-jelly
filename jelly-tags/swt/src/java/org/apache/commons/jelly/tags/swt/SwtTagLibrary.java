@@ -107,6 +107,7 @@ public class SwtTagLibrary extends TagLibrary {
         registerWidgetTag( "caret", Caret.class );
         registerWidgetTag( "combo", Combo.class, SWT.DROP_DOWN );
         registerWidgetTag( "composite", Composite.class );
+	 	registerWidgetTag( "scrolledComposite", ScrolledComposite.class, SWT.H_SCROLL | SWT.V_SCROLL);
         registerWidgetTag( "coolBar", CoolBar.class, SWT.VERTICAL );
         registerWidgetTag( "coolItem", CoolItem.class );
         registerWidgetTag( "decorations", Decorations.class );
