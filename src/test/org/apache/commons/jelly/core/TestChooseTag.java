@@ -18,10 +18,11 @@ package org.apache.commons.jelly.core;
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author <a href="mailto:bwalding@apache.org">Ben Walding</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class TestChooseTag extends BaseJellyTest
 {

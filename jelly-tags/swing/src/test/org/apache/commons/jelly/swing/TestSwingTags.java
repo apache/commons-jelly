@@ -36,7 +36,7 @@ import junit.framework.TestSuite;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.core.BaseJellyTest;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
 /** Tests many swing tags for basic functionality.
  * @author Hans Gilde

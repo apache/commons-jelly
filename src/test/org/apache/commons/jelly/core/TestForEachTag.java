@@ -18,11 +18,12 @@ package org.apache.commons.jelly.core;
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.test.BaseJellyTest;
 import org.apache.commons.lang.StringUtils;
 
 /**
  * @author <a href="mailto:benanderson@benanderson.us">Ben Anderson</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TestForEachTag extends BaseJellyTest
 {

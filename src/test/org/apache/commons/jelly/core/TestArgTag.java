@@ -28,10 +28,11 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.ArgTag;
 import org.apache.commons.jelly.tags.core.ArgTagParent;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.8 $ $Date: 2004/09/09 12:29:35 $
+ * @version $Revision: 1.9 $ $Date: 2004/10/26 23:54:37 $
  */
 public class TestArgTag extends BaseJellyTest {
 

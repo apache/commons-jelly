@@ -19,10 +19,11 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class TestInvokeStaticTag extends BaseJellyTest {
 

@@ -18,6 +18,7 @@ package org.apache.commons.jelly.core;
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * Tests for UseBean tag

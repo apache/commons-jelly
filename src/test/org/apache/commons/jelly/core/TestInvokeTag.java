@@ -20,10 +20,11 @@ import junit.framework.TestSuite;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.core.Customer;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.8 $ $Date: 2004/09/08 04:36:52 $
+ * @version $Revision: 1.9 $ $Date: 2004/10/26 23:54:37 $
  */
 public class TestInvokeTag extends BaseJellyTest {
 

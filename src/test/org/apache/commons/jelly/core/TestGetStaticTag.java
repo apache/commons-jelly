@@ -19,9 +19,10 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 
 public class TestGetStaticTag extends BaseJellyTest {

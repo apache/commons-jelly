@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.commons.jelly.core;
+package org.apache.commons.jelly.test;
 
 import java.net.URL;
 
@@ -25,7 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.4 $ $Date: 2004/09/09 12:29:35 $
+ * @version $Revision: 1.1 $ $Date: 2004/10/26 23:54:37 $
  */
 public abstract class BaseJellyTest extends TestCase {
 
