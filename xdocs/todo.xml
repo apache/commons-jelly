@@ -16,9 +16,11 @@
       
     <section name="Core tasks"> 
       <ul>
+        <li>write a Cocoon JellyTransformer so that Jelly scripts can be used easily inside Cocoon</li>
         <li>support the use of ${foo.bar} expressions within element text.</li>
         <li>autogenerate tag library documentation, in a kinda javadoc style, showing all tag libraries, 
-			their tags and descriptions of their tags</li>
+			their tags and descriptions of their tags. 
+			We could also autogenerate XML Schemas or RelaxNG docs for tag libraries</li>
         <li>Patch TagLibrary to alias all &lt;mixedCase&gt; tags to &lt;mixed-case&gt;  tags</li>
 		<li>Rename the DynaTag interface to be DynamicAttributes along with JSP1.3, 
 			also add a namespace URI parameter
