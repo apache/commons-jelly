@@ -27,12 +27,12 @@
     
     <dependency>
       <id>commons-logging</id>
-      <version>1.0</version>
+      <version>1.0.3</version>
     </dependency>
     
     <dependency>
       <id>dom4j</id>
-      <version>1.4-dev-8</version>
+      <version>1.4</version>
     </dependency>
 
     <dependency>
