@@ -26,13 +26,13 @@
   </description>
   <shortDescription>Commons Jelly JSL Tag Library</shortDescription>
   
-  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/jsl/</url>
+  <!-- <url>http://jakarta.apache.org/commons/jelly/tags/jsl/</url>
 
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/jsl/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/jsl</distributionDirectory>
+  <siteDirectory>/www/jakarta.apache.org/commons/jelly/jsl/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/jsl</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/jsl/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/jsl/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/jsl/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/jsl/</url>
   </repository>-->
   
   <dependencies>
@@ -53,7 +53,7 @@
       <properties>
         <classloader>root.maven</classloader>
       </properties>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/xml/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/xml/</url>
     </dependency>
     
       
@@ -68,14 +68,14 @@
       <properties>
         <classloader>root.maven</classloader>
       </properties>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/ant/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/ant/</url>
     </dependency>
 
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
     </dependency>
 
     <dependency>
@@ -85,7 +85,7 @@
       <properties>
         <classloader>root.maven</classloader>
       </properties>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
     </dependency>
 
     <dependency>

@@ -25,11 +25,11 @@
   </description>
   <shortDescription>Commons Jelly SOAP Tag Library</shortDescription>
   
-  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/soap</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/soap</distributionDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/soap</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/soap</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/soap/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/soap/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/soap/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/soap/</url>
   </repository>-->
   
     
@@ -77,11 +77,11 @@
 
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <id>commons-discovery</id>
-      <version>SNAPSHOT</version>
+      <version>20030211.213356</version>
     </dependency>
     <dependency>
       <id>servletapi</id>

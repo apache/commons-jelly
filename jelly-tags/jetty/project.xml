@@ -26,12 +26,12 @@
   </description>
   <shortDescription>Commons Jelly Jetty Tag Library</shortDescription>
   
-  <!-- <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/jetty/</url>
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/jetty/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/jetty</distributionDirectory>
+  <!-- <url>http://jakarta.apache.org/commons/jelly/tags/jetty/</url>
+  <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/jetty/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/jetty</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/jetty/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/jetty/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/jetty/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/jetty/</url>
   </repository>-->
   
   <dependencies>
@@ -48,7 +48,7 @@
 	<!-- http taglib -->
     <dependency>
       <id>commons-httpclient</id>
-      <version>SNAPSHOT</version>
+      <version>2.0</version>
     </dependency>
         
     <dependency>

@@ -25,11 +25,11 @@
   </description>
   <shortDescription>Commons Jelly SQL Tag Library</shortDescription>
   
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/sql</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/sql</distributionDirectory>
+  <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/sql</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/sql</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/sql/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/sql/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/sql/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/sql/</url>
   </repository>
   
     
@@ -58,7 +58,7 @@
     <dependency>
       <id>commons-jelly+tags-junit</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
     </dependency>
     
     <!-- END for testing -->
@@ -67,7 +67,7 @@
 
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <id>hsqldb</id>

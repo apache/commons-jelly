@@ -26,11 +26,11 @@
   </description>
   <shortDescription>Commons Jelly SWT Tag Library</shortDescription>
   
-  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/swt</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/swt</distributionDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/swt</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/swt</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/swt/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/swt/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/swt/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/swt/</url>
   </repository>-->
   
     
@@ -59,7 +59,7 @@
 
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     <dependency>
       <id>commons-jelly+tags-log</id>

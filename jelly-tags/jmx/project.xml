@@ -83,7 +83,7 @@
     
     <dependency>
       <id>commons-cli</id>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
       
     <!-- END for test -->
