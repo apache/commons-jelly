@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.17 2002/11/08 18:27:51 jstrachan Exp $
- * $Revision: 1.17 $
- * $Date: 2002/11/08 18:27:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.18 2003/01/17 06:59:03 jstrachan Exp $
+ * $Revision: 1.18 $
+ * $Date: 2003/01/17 06:59:03 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.17 2002/11/08 18:27:51 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.18 2003/01/17 06:59:03 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -81,7 +81,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.17 $
+  * @version $Revision: 1.18 $
   */
 
 public abstract class TagLibrary {
@@ -137,17 +137,11 @@ public abstract class TagLibrary {
         Object value = tags.get(name);
         if (value instanceof Class) {
             Class type = (Class) value;
-            if ( type != null ) {
-                return (Tag) type.newInstance();
-            }
+            return (Tag) type.newInstance();
         }
         else if (value instanceof TagFactory) {
             TagFactory factory = (TagFactory) value;
             return factory.createTag(name, attributes);
-        }
-        Class type = (Class) tags.get(name);
-        if ( type != null ) {
-            return (Tag) type.newInstance();
         }
         return null;
     }
