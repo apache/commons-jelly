@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<test:suite 
+	xmlns:j="jelly:core" 
+	xmlns:util="jelly:util" 
+	xmlns:test="jelly:junit" 
+	xmlns:log="jelly:log">
+
+  <test:case name="testTokenize">
+	
+		<util:tokenize var="tokens" delim=",">Test1,Test2,Test3,Test4</util:tokenize>
+
+<!--		
+		<j:set var="size" value="${tokens.size()}"/>		
+		<test:assert test="${size == 4}"/>
+		
+		<test:assert test="${tokens.size() == 4}"/>
+-->
+			
+		<test:assertEquals expected="Test1" actual="${tokens[0]}"/>
+		<test:assertEquals expected="Test2" actual="${tokens[1]}"/>
+		<test:assertEquals expected="Test3" actual="${tokens[2]}"/>
+		<test:assertEquals expected="Test4" actual="${tokens[3]}"/>
+		
+<!--		
+		<test:assertEquals expected="Test4" actual="${tokens[size]}"/>
+		
+		<test:assertEquals expected="Test4" actual="${tokens[tokens.size() - 1]}"/>
+		<test:assertEquals expected="Test4" actual="${tokens.get(tokens.size() - 1)}"/>
+-->		
+		
+  </test:case>
+</test:suite>

@@ -2,12 +2,12 @@
 
   <!-- define jelly task -->	
   <goal name="jelly-task" prereqs="java:compile, test:compile">
-	<path id="test.classpath">
+		<path id="test.classpath">
       <pathelement path="${maven.build.dest}"/>
       <pathelement path="target/classes"/>
       <pathelement path="target/test-classes"/>
       <path refid="maven.dependency.classpath"/>
-	</path>
+		</path>
 	  
     <taskdef
       name="jelly"
@@ -19,7 +19,7 @@
     
 
   <!-- copies unit testing stuff -->
-  <preGoal name="test:test">
+  <postGoal name="test:compile">
     <copy todir="target/test-classes">
       <fileset dir="src/test">
         <include name="**/*.properties"/>
@@ -30,7 +30,7 @@
         <include name="**/*.rng"/>
       </fileset>
     </copy>
-  </preGoal>
+  </postGoal>
   
   <!-- runs the XML doclet -->  
   <goal name="doclet:xml" prereqs="java:compile">
