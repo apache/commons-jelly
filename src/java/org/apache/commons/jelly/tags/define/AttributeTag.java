@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/define/DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/05/17 15:18:12 $
  *
  * ====================================================================
  *
@@ -57,79 +57,76 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Id: DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
  */
-
 package org.apache.commons.jelly.tags.define;
 
-import java.lang.reflect.Method;
-
-import org.apache.commons.beanutils.MethodUtils;
-
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /** 
- * Binds a Java bean to the given named Jelly tag so that the attributes of
- * the tag set the bean properties. After the body of this tag is invoked
- * then the beans invoke() method will be called, if the bean has one.
- * 
+ * This tag is bound onto a Java Bean class. When the tag is invoked a bean will be created
+ * using the tags attributes. 
+ * The bean may also have an invoke method called invoke(), run(), execute() or some such method
+ * which will be invoked after the bean has been configured.</p>
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @author <a href="mailto:jason@zenplex.com">Jason van Zyl</a>
+ * @version $Revision: 1.7 $
  */
-public class DefineJellyBeanTag extends DefineBeanTag {
+public class AttributeTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(DefineJellyBeanTag.class);
+    private static final Log log = LogFactory.getLog(AttributeTag.class);
 
-    /** Empty parameter types for Method lookup */
-    private static final Class[] emptyParamTypes = {};
-    
-    /** the name of the method to invoke on the bean */
-    private String method;
+    /** the attribute definition */
+    private Attribute attribute;    
+        
+    public AttributeTag() {
+        attribute = new Attribute();
+    }
+
+    public AttributeTag(Attribute attribute) {
+        this.attribute = attribute;
+    }
+
+    // Tag interface
+    //-------------------------------------------------------------------------                    
+    public void doTag(XMLOutput output) throws Exception {
+        DefineBeanTag tag = (DefineBeanTag) findAncestorWithClass( DefineBeanTag.class );
+        if ( tag == null ) {
+            throw new JellyException( "This tag should be nested inside a <define:bean> or <define:jellybean> tag" );
+        }
+
+        tag.addAttribute( attribute );        
+    }
     
     // Properties
     //-------------------------------------------------------------------------                    
     
     /**
-     * @return the method name to use, which defaults to 'run' for Runnable
-     * objects
+     * Sets the name of the attribute 
      */
-    public String getMethod() {
-        if ( method == null ) {
-            return "run";
-        }
-        return method;
+    public void setName(String name) {
+        attribute.setName(name);
     }
     
-    /** 
-     * Sets the name of the method to invoke on the bean. 
-     * This defaults to "run" so that Runnable objects can be
-     * invoked, but this property can be set to whatever is required,
-     * such as "execute" or "invoke"
+    /**
+     * Sets whether this attribute is mandatory or not
      */
-    public void setMethod(String method) {
-        this.method = method;
+    public void setRequired(boolean required) {
+        attribute.setRequired(required);
     }
     
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
-    protected Method getInvokeMethod( Class theClass ) throws Exception {
-        Method invokeMethod =
-            MethodUtils.getAccessibleMethod(
-                theClass,
-                getMethod(),
-                emptyParamTypes);
-                
-        if ( invokeMethod == null ) {
-        }
-        return invokeMethod;
+    /**
+     * Sets the default value of this attribute
+     */
+    public void setDefaultValue(Expression defaultValue) {
+        attribute.setDefaultValue(defaultValue);
     }
 }

@@ -63,9 +63,11 @@ package org.apache.commons.jelly.tags.define;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 
@@ -73,10 +75,12 @@ import org.apache.commons.collections.BeanMap;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -108,22 +112,94 @@ public class BeanTag extends DynaBeanTagSupport {
     /** the method to invoke on the bean */
     private Method method;    
 
+    /** 
+     * the tag attribute name that is used to declare the name 
+     * of the variable to export after running this tag
+     */
+    private String variableNameAttribute;
 
-    public BeanTag(Class beanClass, Method method) {
+    /** the current variable name that the bean should be exported as */
+    private String var;
+
+    /** the set of attribute names we've already set */
+    private Set setAttributesSet = new HashSet();
+
+    /** the attribute definitions */
+    private Map attributes;    
+        
+    public BeanTag(Class beanClass, Map attributes, String variableNameAttribute, Method method) {
         this.beanClass = beanClass;
         this.method = method;
+        this.attributes = attributes;
+        this.variableNameAttribute = variableNameAttribute;
     }
 
     public void beforeSetAttributes() throws Exception {
         // create a new dynabean before the attributes are set
         bean = beanClass.newInstance();
         setDynaBean( new ConvertingWrapDynaBean( bean ) );
+
+        setAttributesSet.clear();                    
+    }
+
+    public void setAttribute(String name, Object value) throws Exception {        
+        boolean isVariableName = false;
+        if (variableNameAttribute != null ) {
+            if ( variableNameAttribute.equals( name ) ) {
+                if (value == null) {
+                    var = null;
+                }
+                else {
+                    var = value.toString();
+                }
+                isVariableName = true;
+            }
+        }
+        if (! isVariableName) {
+            
+            // #### strictly speaking we could
+            // know what attributes are specified at compile time
+            // so this dynamic set is unnecessary            
+            setAttributesSet.add(name);
+            
+            // we could maybe implement attribute specific validation here
+            
+            super.setAttribute(name, value);
+        }
     }
 
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
+
+        // lets find any attributes that are not set and 
+        for ( Iterator iter = attributes.values().iterator(); iter.hasNext(); ) {
+            Attribute attribute = (Attribute) iter.next();
+            String name = attribute.getName();
+            if ( ! setAttributesSet.contains( name ) ) {
+                if ( attribute.isRequired() ) {
+                    throw new MissingAttributeException(name);
+                }
+                // lets get the default value
+                Object value = null;
+                Expression expression = attribute.getDefaultValue();
+                if ( expression != null ) {
+                    value = expression.evaluate(context);
+                }
+                
+                // only set non-null values?
+                if ( value != null ) {
+                    super.setAttribute(name, value);
+                }
+            }
+        }
+        
         invokeBody(output);
+
+        // export the bean if required
+        if ( var != null ) {
+            context.setVariable(var, bean);
+        }
         
         // now, I may invoke the 'execute' method if I have one
         if ( method != null ) {

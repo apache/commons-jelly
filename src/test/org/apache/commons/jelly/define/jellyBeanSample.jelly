@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- uses a JellyBean -->
+<!-- uses a JellyBean, which invokes the run() method -->
 <j:jelly 
 	xmlns:j="jelly:core" 
 	xmlns:define="jelly:define" 
@@ -12,7 +12,11 @@
   <log:info>Lets define a new tag library</log:info>
   
   <define:taglib uri="myDummyTagLib">  
-    <define:jellybean name="foo" className="org.apache.commons.jelly.define.MyRunnable"/>
+  
+    <define:jellybean name="foo" className="org.apache.commons.jelly.define.MyRunnable">
+      <define:attribute name="y" defaultValue="wine"/>
+    </define:jellybean>
+      
   </define:taglib>
 
   <log:info>Now lets invoke the new Jelly bean tag</log:info>
@@ -20,6 +24,8 @@
   <my:foo x="2" y="cheese"/>
 
   <log:info>Did that work?</log:info>
+  
+  <my:foo x="2"/>
   
 </testcase>
   		

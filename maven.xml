@@ -5,6 +5,7 @@
 	<path id="test.classpath">
 	    <pathelement path="${maven.build.dest}"/>
 	    <pathelement path="target/classes"/>
+	    <pathelement path="target/test-classes"/>
 	    <path refid="maven.dependency.classpath"/>
 	</path>
 	  
@@ -101,10 +102,39 @@
   </preGoal>
 
 
+
+  <!-- demo programs -->
+
+  	
+
   <goal name="demo:soap" prereqs="jelly-task" 
 	description="Runs the example SOAP demo">
 	
 	<jelly file="src/test/org/apache/commons/jelly/define/example.jelly"/> 
+  </goal>
+
+  <goal name="demo:bean" prereqs="jelly-task" 
+	description="Runs the example of binding beans to tags">
+
+<!--	
+	<jelly file="src/test/org/apache/commons/jelly/define/beanSample.jelly"/> 
+-->	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/define/beanSample.jelly"/> 
+    </java>
+  </goal>
+
+  <goal name="demo:jellybean" prereqs="jelly-task" 
+	description="Runs the example of binding jelly beans to tags">
+	
+<!--	
+	<jelly file="src/test/org/apache/commons/jelly/define/jellyBeanSample.jelly"/> 
+-->	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/define/jellyBeanSample.jelly"/> 
+    </java>
   </goal>
 
   <goal name="demo:static" prereqs="jelly-task" 
@@ -113,5 +143,32 @@
 	<jelly file="src/test/org/apache/commons/jelly/testStatic.jelly"/> 
   </goal>
 
-          
+  <goal name="demo:jeez" prereqs="jelly-task" 
+	description="A demo of the jeez taglib">
+	
+	<jelly file="src/test/org/apache/commons/jelly/jeez/example.jelly"/> 
+  </goal>
+
+  <goal name="demo:file" prereqs="jelly-task" 
+	description="A demo of the fileScanner tag to walk Ant fileSets">
+	
+	<jelly file="src/test/org/apache/commons/jelly/ant/filescanner.jelly"/> 
+  </goal>
+
+
+
+  <goal name="demo:tagdef" prereqs="java:compile"
+    description="A demonstration of the use of tagdef inside a Maven build">
+    
+    <tagdef name="foo">
+	  <echo>Called with ${name}. The value of x is ${x} and now will increment</echo>    	
+	  <j:set var="x" value="${x + 1}"/>
+	</tagdef>
+	
+	<!-- now lets use the tag -->
+	<foo name="a"/>
+	<foo name="b"/>			  			  	
+  	
+  </goal>
+  	          
 </project>

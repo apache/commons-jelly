@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/define/DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/05/17 15:18:12 $
  *
  * ====================================================================
  *
@@ -57,79 +57,85 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Id: DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
  */
-
 package org.apache.commons.jelly.tags.define;
 
-import java.lang.reflect.Method;
-
-import org.apache.commons.beanutils.MethodUtils;
-
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /** 
- * Binds a Java bean to the given named Jelly tag so that the attributes of
- * the tag set the bean properties. After the body of this tag is invoked
- * then the beans invoke() method will be called, if the bean has one.
+ * Represents the attribute definition used by dynamic tags, such as whether the attribute is required
+ * or any default values etc.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.7 $
  */
-public class DefineJellyBeanTag extends DefineBeanTag {
+public class Attribute {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(DefineJellyBeanTag.class);
+    /** the name of the attribute */
+    private String name;
+    
+    /** the default value expression */
+    private Expression defaultValue;
+    
+    /** whether this attribute is required */
+    private boolean required;
+    
+    public Attribute() {
+    }
 
-    /** Empty parameter types for Method lookup */
-    private static final Class[] emptyParamTypes = {};
-    
-    /** the name of the method to invoke on the bean */
-    private String method;
-    
     // Properties
-    //-------------------------------------------------------------------------                    
-    
+    //-------------------------------------------------------------------------   
+                     
     /**
-     * @return the method name to use, which defaults to 'run' for Runnable
-     * objects
+     * Returns whether this attribute is required.
+     * @return boolean
      */
-    public String getMethod() {
-        if ( method == null ) {
-            return "run";
-        }
-        return method;
+    public boolean isRequired() {
+        return required;
     }
-    
-    /** 
-     * Sets the name of the method to invoke on the bean. 
-     * This defaults to "run" so that Runnable objects can be
-     * invoked, but this property can be set to whatever is required,
-     * such as "execute" or "invoke"
+
+    /**
+     * Sets whether this attribute is required.
+     * @param required is true if this attribute is a mandatory attribute
      */
-    public void setMethod(String method) {
-        this.method = method;
+    public void setRequired(boolean required) {
+        this.required = required;
     }
-    
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
-    protected Method getInvokeMethod( Class theClass ) throws Exception {
-        Method invokeMethod =
-            MethodUtils.getAccessibleMethod(
-                theClass,
-                getMethod(),
-                emptyParamTypes);
-                
-        if ( invokeMethod == null ) {
-        }
-        return invokeMethod;
+
+    /**
+     * Returns the name.
+     * @return String
+     */
+    public String getName() {
+        return name;
     }
+
+    /**
+     * Sets the name.
+     * @param name The name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Returns the defaultValue.
+     * @return Expression
+     */
+    public Expression getDefaultValue() {
+        return defaultValue;
+    }
+
+    /**
+     * Sets the defaultValue.
+     * @param defaultValue The defaultValue to set
+     */
+    public void setDefaultValue(Expression defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
 }
