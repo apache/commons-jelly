@@ -199,6 +199,7 @@ public class SwingTagLibrary extends TagLibrary {
         registerBeanFactory( "panel", JPanel.class );        
         registerBeanFactory( "passwordField", JPasswordField.class );        
         registerBeanFactory( "popupMenu", JPopupMenu.class );        
+		registerBeanFactory( "progressBar", JProgressBar.class );                
         registerBeanFactory( "radioButton", JRadioButton.class );        
         registerBeanFactory( "radioButtonMenuItem", JRadioButtonMenuItem.class );        
         registerBeanFactory( "optionPane", JOptionPane.class );
