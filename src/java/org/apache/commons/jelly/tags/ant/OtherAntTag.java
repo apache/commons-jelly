@@ -71,7 +71,7 @@ public class OtherAntTag extends AntTagSupport {
             this.task.perform(); 
         } else {
             getBody().run( context, output );
-            AntTagSupport parent = (AntTagSupport) getParent();
+            AntTagSupport parent = (AntTagSupport) findAncestorWithClass(AntTagSupport.class);
             
             Object parentObj =  parent.getObject();
             
