@@ -93,7 +93,7 @@ public class ResponseBodyTag extends TagSupport {
         ByteArrayISO8859Writer writer = new ByteArrayISO8859Writer(1500);
         writer.write(getBodyText());
         writer.flush();
-        httpResponse.setContentLength(writer.length());
+        httpResponse.setContentLength(writer.size());
         writer.writeTo(httpResponse.getOutputStream());
 
     }
