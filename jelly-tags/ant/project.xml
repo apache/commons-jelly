@@ -48,13 +48,12 @@
   
     <dependency>
       <id>ant</id>
-      <version>1.5.1</version>
+      <version>1.5.3-1</version>
     </dependency>
     
     <dependency>
       <id>ant+optional</id>
-      <version>dev</version>
-      <version>1.5.1</version>
+      <version>1.5.3-1</version>
     </dependency>
     
     <dependency>
