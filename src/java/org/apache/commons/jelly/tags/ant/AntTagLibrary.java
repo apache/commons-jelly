@@ -216,6 +216,14 @@ public class AntTagLibrary extends TagLibrary {
             Tag tag = new FileScannerTag(new FileScanner(project));
             return TagScript.newInstance(tag);
         }
+
+        AntTag tag = new AntTag( getProject(), name );
+        if ( name.equals( "echo" ) ) {
+            tag.setTrim(false);
+        }
+        return TagScript.newInstance(tag);
+
+        /*
         
         // is it an Ant task?
         Class type = (Class) project.getTaskDefinitions().get(name);
@@ -229,7 +237,6 @@ public class AntTagLibrary extends TagLibrary {
             return new AntTagScript(tag);
         }
         
-        /*
         // an Ant DataType?
         DataType dataType = null;
         type = (Class) project.getDataTypeDefinitions().get(name);
@@ -267,7 +274,6 @@ public class AntTagLibrary extends TagLibrary {
             tag.getDynaBean().set( "project", project );
             return TagScript.newInstance(tag);
         }
-        */
         
         // Since ant resolves so many dynamically loaded/created
         // things at run-time, we can make virtually no assumptions
@@ -276,6 +282,7 @@ public class AntTagLibrary extends TagLibrary {
                                    name );
 
         return new AntTagScript( tag );
+        */
     }
 
     public TagScript createRuntimeTaskTagScript(String taskName, Attributes attributes) throws Exception {

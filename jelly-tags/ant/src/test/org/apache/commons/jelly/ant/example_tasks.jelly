@@ -9,6 +9,8 @@
   	Maven home is ${maven.home}
   </echo>
 
+  classpath: ${project.getReference('test.classpath')}
+
   <!-- lets try invoke a program -->
   <java classname="org.apache.commons.jelly.Jelly" fork="yes">
     <classpath refid="test.classpath"/>
