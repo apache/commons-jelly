@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.10 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.11 2002/05/23 23:53:42 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/05/23 23:53:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.10 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: Jelly.java,v 1.11 2002/05/23 23:53:42 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -80,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
  * or can be used as the basis of an Ant task.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public class Jelly {
     
@@ -94,7 +94,6 @@ public class Jelly {
     private URL url;
     
     /** The URL of the root context for other scripts */
-    
     private URL rootContext;
     
     

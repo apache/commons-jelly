@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.8 2002/05/23 23:53:42 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/05/23 23:53:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.8 2002/05/23 23:53:42 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -74,7 +74,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 
 public abstract class TagLibrary {
@@ -106,18 +106,29 @@ public abstract class TagLibrary {
         String attributeValue)
         throws Exception {
 
+        ExpressionFactory myFactory = getExpressionFactory();
+        if (myFactory == null) {
+            myFactory = factory;
+        }
+        if (myFactory != null) {
+            return myFactory.createExpression(attributeValue);
+        }
         // will use the default expression instead
-
         return null;
-
     }
-
+    
+    
     // Implementation methods
     //-------------------------------------------------------------------------     
 
     /** Registers a tag class for a given tag name */
     protected void registerTag(String name, Class type) {
         tags.put(name, type);
+    }
+
+    /** Allows derived tag libraries to use their own factory */
+    protected ExpressionFactory getExpressionFactory() {
+        return null;
     }
 
 }
