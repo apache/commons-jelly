@@ -38,7 +38,7 @@ import org.xml.sax.helpers.DefaultHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.18 $
+  * @version $Revision: 1.19 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -776,6 +776,18 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
             lexicalHandler.comment(ch, start, length);
         }
     }
+	
+	/** Pass data through the pipline.
+	  * By default, this call is ignored.
+	  * Subclasses are invited to use this as a way for children tags to
+	  * pass data to their parent.
+	  * 
+	  * @param object the data to pass
+      * @exception SAXException The application may raise an exception.
+	  */
+	public void objectData(Object object) throws SAXException {
+		// do nothing
+	}
 
     // Properties
     //-------------------------------------------------------------------------
