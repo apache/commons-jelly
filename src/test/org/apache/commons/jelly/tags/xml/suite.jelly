@@ -220,7 +220,7 @@
     </test:case>
 
 
-  <test:case name="testComment">
+  <test:case name="testCommentWithLexical">
       
       <x:parse var="doc">
           <foo>
@@ -232,13 +232,13 @@
     
         <test:assert xpath="$doc/foo"/>
 
-        <j:set var="t"><x:copyOf select="$doc/foo/comment()"/></j:set>
+        <j:set var="t"><x:copyOf select="$doc/foo/comment()" lexical="true"/></j:set>
         
         <test:assertEquals expected="&lt;!--this is a comment--&gt;" actual="${t.trim()}"/>
 
     </test:case>
-
-  <test:case name="testCommentWithTextAttribute">
+    
+    <test:case name="testCommentWithoutLexical">
       
       <x:parse var="doc">
           <foo>
@@ -250,7 +250,25 @@
     
         <test:assert xpath="$doc/foo"/>
 
-        <j:set var="t"><x:copyOf select="$doc/foo/comment()"/></j:set>
+        <j:set var="t"><x:copyOf select="string($doc/foo/comment())" lexical="true"/></j:set>
+        
+        <test:assertEquals expected="this is a comment" actual="${t.trim()}"/>
+
+    </test:case>
+
+  <test:case name="testCommentWithTextAttributeWithLexical">
+      
+      <x:parse var="doc">
+          <foo>
+                <!-- this will not be output -->
+                
+                <x:comment text="this is a comment"/>
+          </foo>
+      </x:parse>
+    
+        <test:assert xpath="$doc/foo"/>
+
+        <j:set var="t"><x:copyOf select="$doc/foo/comment()" lexical="true"/></j:set>
         
         <test:assertEquals expected="&lt;!--this is a comment--&gt;" actual="${t.trim()}"/>
   </test:case>
@@ -278,13 +296,17 @@
         <j:set var="blopSingleText"><x:expr select="$blopSingle/text()"/></j:set>
         <test:assertEquals actual="${blopSingleText}" expected="blop0"/>
   </test:case>
-    
-  <!-- dom4j is busted -->
+   
   <test:case name="testEntities">
     <x:parse var="doc" xml="entity.xml"/> 
-    <x:set var="value" select="string($doc/a)"/>
-    <j:set var="expected">y</j:set>
-    <!--test:assertEquals actual="${value}" expected="${expected}"/-->
+    
+    <!--just the entity is output-->
+    <j:set var="value"><x:copyOf select="$doc/a/node()"/></j:set>
+    <test:assertEquals actual="${value}" expected="y"/>
+    
+    <!--both the entity and it's lexical name are properly output-->
+    <j:set var="value"><x:copyOf select="$doc/a/node()" lexical="true"/></j:set>
+    <test:assertEquals actual="${value}" expected="&amp;x;y"/>
   </test:case>
     
 </test:suite>

@@ -34,6 +34,10 @@ public class CopyTag extends XPathTagSupport {
 
     /** The XPath expression to evaluate. */
     private XPath select;
+    
+    /** Should we output lexical XML data like entity names?
+     */
+    private boolean lexical;
 
     public CopyTag() {
     }
@@ -53,8 +57,14 @@ public class CopyTag extends XPathTagSupport {
             if ( node instanceof Element ) {
                 Element element = (Element) node;
             
-                SAXWriter saxWriter = new SAXWriter(output, output);
-            
+                SAXWriter saxWriter;
+                
+                if (lexical) {
+                    saxWriter = new SAXWriter(output, output);
+                } else {
+                    saxWriter = new SAXWriter(output);
+                }
+                
                 saxWriter.writeOpen(element);
                 invokeBody(output);
                 saxWriter.writeClose(element);
@@ -76,5 +86,8 @@ public class CopyTag extends XPathTagSupport {
     /** Sets the XPath expression to evaluate. */
     public void setSelect(XPath select) {
         this.select = select;
+    }
+    public void setLexical(boolean lexical) {
+        this.lexical = lexical;
     }
 }
