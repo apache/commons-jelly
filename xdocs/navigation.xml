@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-
+<!DOCTYPE org.apache.commons.menus SYSTEM '../../commons-build/menus/menus.dtd'>
 <project name="Jelly">
 
   <title>Jelly</title>
@@ -51,5 +51,7 @@
 			<item name="CVS Repositories"        href="http://jakarta.apache.org/site/cvsindex.html"/>
 			<item name="Who We Are"              href="http://jakarta.apache.org/site/whoweare.html"/>
     </menu>
+    
+    &common-menus;
   </body>
 </project>
