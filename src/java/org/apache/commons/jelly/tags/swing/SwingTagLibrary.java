@@ -62,16 +62,18 @@
 package org.apache.commons.jelly.tags.swing;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.*;
 
-import org.apache.commons.beanutils.Converter;
 import org.apache.commons.beanutils.ConvertUtils;
 
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagScript;
+import org.apache.commons.jelly.tags.swing.converters.DimensionConverter;
+import org.apache.commons.jelly.tags.swing.converters.PointConverter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -96,23 +98,9 @@ public class SwingTagLibrary extends TagLibrary {
     static {
 
         // ### we should create Converters from Strings to various Swing types such as
-        // ### Dimension, Icon, KeyStroke etc.
-
-/*               
-        ConvertUtils.register(
-            new Converter() {
-                public Object convert(Class type, Object value) {
-                    if ( value != null ) {
-                        String text = value.toString();
-                        // now lets parse the dimension...
-                        return new Dimension( x, y );
-                    }
-                    return null;
-                }
-            },
-            Dimension.class
-       );
-*/       
+        // ### Icon, KeyStroke etc.
+        ConvertUtils.register( new DimensionConverter(), Dimension.class );
+        ConvertUtils.register( new PointConverter(), Point.class );
     }
         
     public SwingTagLibrary() {

@@ -64,10 +64,13 @@ package org.apache.commons.jelly.tags.swing;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Point;
 
 import javax.swing.*;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
+import org.apache.commons.beanutils.ConvertUtils;
 
 import org.apache.commons.collections.BeanMap;
 
@@ -163,7 +166,36 @@ public class ComponentTag extends DynaBeanTagSupport {
             this.var = value.toString();
         }
         else {
-            super.setAttribute(name, value);
+            // ### special hacks for properties that don't introspect properly            
+            Component component = getComponent();
+            if ( component != null ) {
+                if ( name.equals( "location" ) ) {
+                    Point p = null;
+                    if ( value instanceof Point ) {
+                        p = (Point) value;
+                    }
+                    else if ( value != null) {
+                        p = (Point) ConvertUtils.convert( value.toString(), Point.class );
+                    }
+                    component.setLocation(p);
+                }
+                else if ( name.equals( "size" ) ) {                
+                    Dimension d = null;
+                    if ( value instanceof Dimension ) {
+                        d = (Dimension) value;
+                    }
+                    else if ( value != null) {
+                        d = (Dimension) ConvertUtils.convert( value.toString(), Dimension.class );
+                    }
+                    component.setSize(d);
+                }                    
+                else {
+                    super.setAttribute(name, value);
+                }
+            }
+            else {
+                super.setAttribute(name, value);
+            }
         }
     }
 
@@ -182,9 +214,8 @@ public class ComponentTag extends DynaBeanTagSupport {
         // This is currently quite simplistic. 
         // We could well support layout managers and such like
 
-        if ( bean instanceof Component ) {
-            Component component = (Component) bean;
-            
+        Component component = getComponent();
+        if ( component != null ) {
             ComponentTag parentTag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
             if ( parentTag != null ) {
                 parentTag.addChild(component);
@@ -201,5 +232,14 @@ public class ComponentTag extends DynaBeanTagSupport {
     public Object getBean() {
         return bean;
     }
-    
+
+    /**
+     * @return the visible component, if there is one.
+     */
+    public Component getComponent() {
+        if ( bean instanceof Component ) {
+            return (Component) bean;
+        }
+        return null;
+    }    
 }
