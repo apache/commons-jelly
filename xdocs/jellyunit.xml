@@ -41,6 +41,11 @@
         along with a common shared test script
         <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/betwixt/common.jelly?rev=HEAD">here</a>
       </p>
+      <p>
+      	The <a href="http://jakarta.apache.org/commons/sandbox/jelly/tags.html#jelly:validate">validate</a> library can be used to perform XML validation inside JellyUnit.
+      	For example there's an example JellyUnit script validating XML 
+      	<a href="http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/validate/suite.jelly?rev=HEAD">here</a>
+      </p>
     </section>
     <section name="Integration with TestRunners"> 
       <p>
