@@ -148,7 +148,7 @@ public class LayoutDataTag extends LayoutTagSupport {
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     protected Object convertValue(Object bean, String name, Object value)
-        throws Exception {
+        throws JellyException {
 
         if (bean instanceof GridData) {
             if (name.endsWith("Alignment") && value instanceof String) {

@@ -130,7 +130,7 @@ public class MenuTag extends WidgetTag {
      * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
      */
     protected Object createWidget(Class theClass, Widget parent, int style)
-        throws Exception {
+        throws JellyException {
 
         if (parent instanceof Decorations) {            
             return super.createWidget(theClass, parent, style);

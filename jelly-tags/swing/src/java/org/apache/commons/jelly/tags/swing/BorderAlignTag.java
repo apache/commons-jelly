@@ -84,7 +84,7 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
-    public void addChild(Component component, Object constraints) throws Exception {
+    public void addChild(Component component, Object constraints) throws JellyException {
         BorderLayoutTag tag = (BorderLayoutTag) findAncestorWithClass( BorderLayoutTag.class );
         if (tag == null) {
             throw new JellyException( "this tag must be nested within a <tr> tag" );

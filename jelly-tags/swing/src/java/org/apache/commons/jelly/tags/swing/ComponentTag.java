@@ -273,21 +273,16 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * A class may be specified otherwise the Factory will be used.
      */
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyException {
-        if (theClass != null ) {
-            try {
-              return theClass.newInstance();
-            } catch (IllegalAccessException e) {
-                throw new JellyException(e);
-            } catch (InstantiationException e) {
-                throw new JellyException(e);
-            }
-        }
-        else {
-            try {
+        try {
+            if (theClass != null ) {
+                return theClass.newInstance();
+            } else {
                 return factory.newInstance();
-            } catch (InstantiationException e) {
-                throw new JellyException(e);
             }
+        } catch (IllegalAccessException e) {
+            throw new JellyException(e);
+        } catch (InstantiationException e) {
+            throw new JellyException(e);
         }
     }
     
