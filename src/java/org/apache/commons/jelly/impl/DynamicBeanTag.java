@@ -73,7 +73,6 @@ import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.collections.BeanMap;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;

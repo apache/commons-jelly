@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/DynaTag.java,v 1.7 2003/01/24 05:54:37 morgand Exp $
- * $Revision: 1.7 $
- * $Date: 2003/01/24 05:54:37 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/DynaTag.java,v 1.8 2003/01/26 11:03:36 morgand Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/01/26 11:03:36 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynaTag.java,v 1.7 2003/01/24 05:54:37 morgand Exp $
+ * $Id: DynaTag.java,v 1.8 2003/01/26 11:03:36 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -74,14 +74,14 @@ package org.apache.commons.jelly;
  * one or two special attributes are used, all others pass through.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 
 public interface DynaTag extends Tag {
 
     /** Sets an attribute value of this tag before the tag is invoked
      */
-    public void setAttribute(String name, Object value) throws JellyException;
+    public void setAttribute(String name, Object value) throws JellyTagException;
 
     /**
      * @return the type of the given attribute. By default just return
@@ -89,5 +89,5 @@ public interface DynaTag extends Tag {
      * If this method returns Expression.class then the expression will not
      * be evaluated and just passed in as the attribute value.
      */
-    public Class getAttributeType(String name) throws JellyException;
+    public Class getAttributeType(String name) throws JellyTagException;
 }
