@@ -90,7 +90,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     public UseBeanTag(){
     }
 
-    //BeanSource interface
+    // BeanSource interface
     //-------------------------------------------------------------------------                    
 
     /**
@@ -141,7 +141,11 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
             return (Class) classObject;
         }
         else if ( classObject == null ) {
-            throw new MissingAttributeException("class");
+            Class theClass = getDefaultClass();
+            if (theClass == null) {
+                throw new MissingAttributeException("class");
+            }
+            return theClass;
         }
         else {
             String className = classObject.toString();
@@ -189,5 +193,12 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
         if (var != null) {
             context.setVariable(var, bean);
         }
+    }
+    
+    /**
+     * Allows derived classes to provide a default bean implementation class
+     */
+    protected Class getDefaultClass() {
+        return null;
     }
 }
