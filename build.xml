@@ -14,7 +14,7 @@
 		
   
   
-  <property name="resourcedir" value="C:\workspace\jelly/src/java"></property>
+  <property name="resourcedir" value="src/java"></property>
   
   <property name="distdir" value="dist"></property>
   <property name="javadocdir" value="target/docs/apidocs"></property>
@@ -114,7 +114,7 @@
       <mkdir dir="${testreportdir}"></mkdir>
       <junit dir="./" failureproperty="test.failure" printSummary="yes" fork="true" haltonerror="true">
         
-        <sysproperty key="basedir" value="C:\workspace\jelly"></sysproperty>
+        <sysproperty key="basedir" value="C:\Program Files\eclipse\workspace\jelly"></sysproperty>
         <formatter type="xml"></formatter>
         <formatter usefile="true" type="plain"></formatter>
         <classpath>
@@ -215,7 +215,7 @@
     <get dest="lib/bsf-2.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/bsf/jars/bsf-2.2.jar"></get>
     <get dest="lib/commons-betwixt-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-betwixt/jars/commons-betwixt-SNAPSHOT.jar"></get>
     <get dest="lib/commons-httpclient-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-httpclient/jars/commons-httpclient-SNAPSHOT.jar"></get>
-    <get dest="lib/jetty-4.1-rc6.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jetty/jars/jetty-4.1-rc6.jar"></get>
+    <get dest="lib/jetty-4.2.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jetty/jars/jetty-4.2.2.jar"></get>
     <get dest="lib/commons-messenger-1.0-dev-8.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-messenger/jars/commons-messenger-1.0-dev-8.jar"></get>
     <get dest="lib/jms-1.0.2b.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jms/jars/jms-1.0.2b.jar"></get>
     <get dest="lib/isorelax-20020414.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/isorelax/jars/isorelax-20020414.jar"></get>
