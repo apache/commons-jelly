@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <test:suite 
 	xmlns:j="jelly:core" 
-	xmlns:x="jelly:xml" 
-	xmlns:test="jelly:junit" 
-	xmlns:log="jelly:log" 
+	xmlns:test="jelly:junit"
 	xmlns:v="jelly:validate">
 
 <!-- test RelaxNG --> 
@@ -52,7 +50,7 @@
 
 <test:assert test="${!flag}">The document should not be valid</test:assert>
 <test:assert test="${exception != null}">An exception should have been thrown</test:assert>
-<log:info>The exception was ${exception.message}</log:info>
+The exception was ${exception.message}
   
 </test:case>
 
@@ -102,7 +100,7 @@
 
 <test:assert test="${!flag}">The document should not be valid</test:assert>
 <test:assert test="${exception != null}">An exception should have been thrown</test:assert>
-<log:info>The exception was ${exception.message}</log:info>
+The exception was ${exception.message}
   
 </test:case>
    

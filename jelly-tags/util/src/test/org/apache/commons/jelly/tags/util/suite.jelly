@@ -2,8 +2,7 @@
 <test:suite 
     xmlns:j="jelly:core" 
     xmlns:util="jelly:util" 
-    xmlns:test="jelly:junit" 
-    xmlns:log="jelly:log">
+    xmlns:test="jelly:junit">
 
   <test:case name="testTokenize">
     
@@ -115,7 +114,7 @@
       
       <test:assertEquals expected="ABC" actual="${props.foo}"/>
     
-      <log:info>Loaded properties value ${props}</log:info>
+      Loaded properties value ${props}
     
   </test:case>
   
