@@ -14,8 +14,8 @@
       <item name="To Do List"              href="/todo.html"/>
     </menu>
     <menu name="Community">
-      <item name="News Blog"			   href="http://blogs.werken.com/projects/jelly/"/>
-      <item name="IRC"					   href="/irc.html"/>
+      <item name="News Blog"			         href="http://blogs.werken.com/projects/jelly/"/>
+      <item name="IRC"					           href="/irc.html"/>
       <item name="Powered By"              href="/powered.html"/>
     </menu>
     <menu name="Libraries">

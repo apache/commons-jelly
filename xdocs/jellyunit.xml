@@ -30,6 +30,7 @@
         Jelly scripts or XML data files and use this data to define new test cases.
       </p>
     </section>
+    
     <section name="Examples"> 
       <p>
         There is a simple example JellyUnit script
@@ -47,6 +48,35 @@
       	<a href="http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/validate/suite.jelly?rev=HEAD">here</a>
       </p>
     </section>
+
+    <section name="Mock Tags"> 
+      <p>
+        In unit testing scenarios its often useful to use 
+        <a href="http://c2.com/cgi/wiki?MockObject">Mock Objects</a> to test application logic and stub the behaviour
+        of other service
+      </p>
+      <p>
+        JellyUnit supports a feature called <i>Mock Tags</i> which are very similar to Mock Objects. 
+        Mock Tags were invented by by Joe Walnes.
+      </p>
+      <p>
+        Essentially the technique is to mock, or stub the behaviour of Jelly tags so that they give the results that you expect
+        from services.
+        For example imagine you had a Jelly script with tags which worked with databases or web services.
+        You could use mock tags to stub what the tags are meant to do, to test your script invokes them correctly
+        without requiring the underlying services
+      </p>
+      <p>
+        There's an and example of using Mock Tags via the <a href="tags.html#jelly:define">define</a> library 
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/mock/suite.jelly?rev=HEAD">here</a>
+        which creates the mock tags, inside a JellyUnit test case and then invokes this example 
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/mock/service.jelly?rev=HEAD">service</a>
+        using the mock tags rather than the underlying SQL and web service tags.
+        Running the same service from outside of the Mock Tags JellyUnit test case would use the real tag implementations.
+      </p>
+    </section>
+    
+
     <section name="Integration with TestRunners"> 
       <p>
         To integrate cleanly inside JUnit TestRunner frameworks there is a helper class,
