@@ -24,7 +24,7 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.0-SNAPSHOT" date="in CVS">
+    <release version="1.0" date="2004-09-13">
       <action dev="dion" type="fix" issue="JELLY-123" due-to="Marcus Crafter">var and resource support for images</action>
       <action dev="dion" type="fix" issue="JELLY-42" due-to="Christiaan ten Klooster">add cTabFolder + cTabItem widgets</action>
       <action dev="dion" type="fix" issue="JELLY-48" due-to="Christiaan ten Klooster">dialog tag</action>
