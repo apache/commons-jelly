@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.9 2002/07/15 16:18:15 werken Exp $
- * $Revision: 1.9 $
- * $Date: 2002/07/15 16:18:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.10 2002/10/30 13:19:57 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/10/30 13:19:57 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.9 2002/07/15 16:18:15 werken Exp $
+ * $Id: JellyException.java,v 1.10 2002/10/30 13:19:57 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -69,7 +69,7 @@ import java.io.PrintWriter;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
 public class JellyException extends Exception {
@@ -201,28 +201,22 @@ public class JellyException extends Exception {
 
     // #### overload the printStackTrace methods...
     public void printStackTrace(PrintWriter s) { 
-        super.printStackTrace(s);
-        if  (cause != null) {
-            s.println("Root cause");
-            cause.printStackTrace(s);
+        synchronized (s) {
+            super.printStackTrace(s);
+            if  (cause != null) {
+                s.println("Root cause");
+                cause.printStackTrace(s);
+            }
         }
     }
         
     public void printStackTrace(PrintStream s) {
-        super.printStackTrace(s);
-        if  (cause != null) {
-            s.println("Root cause");
-            cause.printStackTrace(s);
+        synchronized (s) {
+            super.printStackTrace(s);
+            if  (cause != null) {
+                s.println("Root cause");
+                cause.printStackTrace(s);
+            }
         }
     }
-
-    /*
-    public void printStackTrace() {
-        super.printStackTrace();
-        if ( cause != null ) {
-            System.err.println("Root cause");
-            cause.printStackTrace();
-        }
-    }
-    */
 }
