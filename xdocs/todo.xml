@@ -17,6 +17,11 @@
     <section name="Core tasks"> 
       <ul>
         <li>write a Cocoon JellyGenerator so that Jelly scripts can be used easily inside Cocoon</li>
+		<li>consider implementing a Jelly Doclet so that Jelly can be used to code generate
+			stuff from javadoc tags in a similar way to XDoclet but making use of the JSTL tags and
+			the Velocity like expression language (Jexl) which will avoid the need to use huge numbers 
+			of tags.				
+		</li>
 		<li>Rename the DynaTag interface to be DynamicAttributes along with JSP1.3, 
 			also add a namespace URI parameter
 		</li>
@@ -76,7 +81,6 @@
 		</li>
         <li>Develop a http tag library, probably based on commons-httpclient, that can be used for scripting web services</li>
         <li>A Betwixt tag library to make it easy to serialize beans to and from XML from within Jelly scripts.</li>
-        <li>An XML validating tag library using MSV to validate XML against DTDs, RelaxNG, XML Schema etc</li>
         <li>Implement a Schematron tag library for validing XML using a path based approach, rather than schema based.</li>
         <li>
         	Provide support for running a piece of Jelly script remotely. This would be particularly useful for distributed

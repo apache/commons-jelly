@@ -429,6 +429,17 @@
     </java>
    </target>   
 	
+	<!-- Schema validation demos using JARV and MSV -->	
+   <target name="demo.validate.dtd" depends="compile" 
+      description="Runs demo validation which uses DTD">      
+	<jelly file="src/test/org/apache/commons/jelly/validate/validateDTD.jelly"/>	
+   </target>
+
+   <target name="demo.validate.rng" depends="compile" 
+      description="Runs demo validation which uses RelaxNG">      
+	<jelly file="src/test/org/apache/commons/jelly/validate/validateRNG.jelly"/>	
+   </target>
+
 	
 	<!-- 
 	  || JMS examples 

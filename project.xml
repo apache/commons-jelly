@@ -187,10 +187,43 @@
     <dependency>
       <name>commons-messenger</name>
       <type>required</type>
-      <version>1.0-dev</version>
-      <jar>commons-messenger-1.0-dev.jar</jar>
+      <version>1.0-dev-2</version>
+      <jar>commons-messenger-1.0-dev-2.jar</jar>
     </dependency>
     
+
+	<!-- validate taglib -->
+    <dependency>
+      <name>isorelax</name>
+      <type>required</type>
+      <version>20020414</version>
+      <jar>isorelax-20020414.jar</jar>
+    </dependency>
+
+	<!-- runtime dependency for validate taglib -->
+    <dependency>
+      <name>msv</name>
+      <type>required</type>
+      <version>20020414</version>
+      <jar>msv-20020414.jar</jar>
+    </dependency>
+
+    <dependency>
+      <name>xsdlib</name>
+      <type>required</type>
+      <version>20020414</version>
+      <jar>xsdlib-20020414.jar</jar>
+    </dependency>
+
+    <dependency>
+      <name>relaxngDatatype</name>
+      <type>required</type>
+      <version>20020414</version>
+      <jar>relaxngDatatype-20020414.jar</jar>
+    </dependency>
+
+	
+	
 	<!-- runtime dependencies for test programs -->
 	
     <dependency>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:v="jelly:validate">
+
+Loading the verifier for a DTD
+
+<v:verifier uri="address.dtd" var="addressSchema"/>
+
+Attempting to validate a valid address ...
+
+<v:validate var="flag" verifier="${addressSchema}">
+  <addressBook>
+    <card>
+      <name>John Smith</name>
+      <email>js@example.com</email>
+    </card>
+    <card>
+      <name>Fred Bloggs</name>
+      <email>fb@example.net</email>
+    </card>
+  </addressBook>
+</v:validate>
+
+Validation returned: ${flag}
+
+Attempting to validate a wrong address
+
+<v:validate var="flag" verifier="${addressSchema}">
+  <addressBook>
+    <card>
+      <email>js@example.com</email>
+    </card>
+    <card>
+      <name>Fred Bloggs</name>
+    </card>
+    <card>
+      <wrongname>Fred Bloggs</wrongname>
+    </card>
+    <card>
+    </card>
+  </addressBook>
+</v:validate>
+
+Validation returned: ${flag}
+	
+</j:jelly>
