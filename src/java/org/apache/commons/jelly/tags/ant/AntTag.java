@@ -109,6 +109,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     /** Task, if this tag represents a task. */
     protected Task task;
+    
+    /** Does this task have an ID attribute */
+	private boolean hasIDAttribute;
+
 
     /** Construct with a project and tag name.
      *
@@ -147,6 +151,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws Exception {
 
+        hasIDAttribute = false;
         Project project = getAntProject();
         String tagName = getTagName();
         Object parentObject = findBeanAncestor();
@@ -154,13 +159,17 @@ public class AntTag extends MapTagSupport implements TaskSource {
         // lets assume that Task instances are not nested inside other Task instances
         // for example <manifest> inside a <jar> should be a nested object, where as 
         // if the parent is not a Task the <manifest> should create a ManifestTask
+        //
+        // also its possible to have a root Ant tag which isn't a task, such as when
+        // defining <fileset id="...">...</fileset>
 
-        if ( ! ( parentObject instanceof Task ) && 
-            project.getTaskDefinitions().containsKey( tagName ) ) {                            
+		if (findParentTaskSource() == null && 
+            project.getTaskDefinitions().containsKey( tagName )) {			
             
             if ( log.isDebugEnabled() ) {
                 log.debug( "Creating an ant Task for name: " + tagName );            
             }
+
             // the following algorithm follows the lifetime of a tag
             // http://jakarta.apache.org/ant/manual/develop.html#writingowntask
             // kindly recommended by Stefan Bodewig
@@ -177,6 +186,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
             // set the task ID if one is given
             Object id = getAttributes().remove( "id" );
             if ( id != null ) {
+            	hasIDAttribute = true;
                 project.addReference( (String) id, task );
             }
 
@@ -212,7 +222,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
             if ( log.isDebugEnabled() ) {                            
                 log.debug( "Creating a nested object name: " + tagName );            
             }
-
+            
             Object nested = createNestedObject( parentObject, tagName );
 
             if ( nested == null ) {
@@ -225,6 +235,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 // set the task ID if one is given
                 Object id = getAttributes().remove( "id" );
                 if ( id != null ) {
+            		hasIDAttribute = true;
                     project.addReference( (String) id, nested );
                 }
 
@@ -489,4 +500,19 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
         return getParent();
     }
+	
+    /**
+     * Walks the hierarchy until it finds a parent TaskSource or returns null
+     */
+    protected TaskSource findParentTaskSource() throws Exception {
+        Tag tag = getParent();
+        while (tag != null) {
+            if (tag instanceof TaskSource) {
+            	return (TaskSource) tag;
+            }
+            tag = tag.getParent();
+        }
+        return null;
+    }
+    
 }

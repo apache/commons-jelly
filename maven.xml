@@ -539,13 +539,6 @@
     </java>
   </goal>
 
-  <goal name="test:discovery" prereqs="jelly-task">
-    <java classname="org.apache.commons.jelly.impl.TestTagLibraryResolver" fork="yes">
-      <classpath refid="test.classpath"/>
-      <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
-    </java>
-  </goal>
-
   <goal name="demo:compactxml" prereqs="jelly-task">
   	<mkdir dir="build/compactxml"/>
   	
@@ -568,14 +561,6 @@
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/benchmark/benchmark.jelly"/> 
-    </java>
-  </goal>
-
-  <goal name="test:task" prereqs="jelly-task" 
-  	description="A simple test case for working with Ant tasks">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/ant/task/example.jelly"/> 
     </java>
   </goal>
 
