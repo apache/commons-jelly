@@ -145,7 +145,7 @@
     </antcall>
   </target>
   
-  <target name="jar-bean" depends="jar-jelly,jar-ant">
+  <target name="jar-bean" depends="jar-jelly,jar-ant,jar-log">
     <antcall target="taglib-template">
       <param name="sub.taglib" value="bean"/>
     </antcall>
