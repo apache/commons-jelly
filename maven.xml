@@ -1,71 +1,5 @@
 <project default="java:jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util">
 
-  <!-- define the classpath used to run examples -->
-  <goal name="create-classpath" prereqs="java:compile,test:compile">
-		<path id="test.classpath">
-			<pathelement path="${maven.build.dest}"/>
-			<pathelement path="target/classes"/>
-			<pathelement path="target/test-classes"/>
-			<path refid="maven.dependency.classpath"/>
-		</path>
-  </goal>
-
-  <!-- runs the XML doclet -->
-  <goal name="doclet:xml" prereqs="java:compile">
-    <path id="doclet.classpath">
-      <pathelement path="${maven.build.dest}"/>
-      <path refid="maven.dependency.classpath"/>
-    </path>
-
-    <javadoc
-      sourcepath="src/java"
-      packagenames="org.apache.commons.jelly.tags.*"
-      doclet="org.apache.commons.jelly.util.XMLDoclet"
-      docletpathref="doclet.classpath">
-    </javadoc>
-  </goal>
-
-  <!-- runs the Tag doclet -->
-  <goal name="doclet:tag" prereqs="java:compile">
-    <path id="doclet.classpath">
-      <pathelement path="target/classes"/>
-      <pathelement path="${maven.build.dest}"/>
-      <path refid="maven.dependency.classpath"/>
-    </path>
-
-    <javadoc
-      sourcepath="src/java"
-      packagenames="org.apache.commons.jelly.tags.*"
-      doclet="org.apache.commons.jelly.util.TagXMLDoclet"
-      docletpathref="doclet.classpath">
-    </javadoc>
-  </goal>
-
-  <!-- creates the XML webpage from the tag XML information -->
-  <goal name="doc:tags" prereqs="doclet:tag, create-classpath"
-		description="Generates the tag documentation">
-
-		<mkdir dir="target/generated-xdocs"/>
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/script/makeTagDoc.jelly"/>
-      <arg value="-o"/>
-      <arg value="target/generated-xdocs/tags.xml"/>
-    </java>
-  </goal>
-
-
-  <!-- ensure that the tag documentation is generated as part of the site -->
-  <preGoal
-    name="site:generate">
-
-    <attainGoal name="doc:tags"/>
-
-  </preGoal>
-
-
-
   <!-- create the lib and bin directories in the binary distro -->
   <preGoal name="dist:build">
 
@@ -101,7 +35,7 @@
 
   <!-- TAG LIBS BUILD -->
   <goal 
-    name="tags-build"
+    name="tags:build"
     description="Build each tag into an installable jar">
 
     <maven:reactor
@@ -112,9 +46,24 @@
       ignoreFailures="false"/>
   </goal>
 
+	<!-- TAG DOCUMENTATION -->
+  <goal 
+    name="tags:doc"
+    description="Build the documentation for each tag library">
+
+    <j:set var="maven.jellydoc.packages" value="org.apache.commons.jelly.*"/>
+    
+    <maven:reactor
+      basedir="jelly-tags"
+      includes="*/project.xml"
+      goals="jellydoc,xdoc"
+      banner="Building tag"
+      ignoreFailures="false"/>
+  </goal>
+
   <!-- Do the same goal on all Tag Libs -->
   <goal 
-    name="tags-do"
+    name="tags:do"
     description="Do a specific goal on each taglib">
 
     <maven:reactor
@@ -124,6 +73,7 @@
       banner="Building tag"
       ignoreFailures="false"/>
   </goal>
+
 
   <!-- ===================================================================== -->
   <!--                      D I S T : I N S T A L L                          -->
@@ -175,10 +125,88 @@
   </goal>
 
 
+  <!-- ===================================================================== -->
+  <!-- GENERATE THE LIBRARY AND JELLYDOC DOCUMENTATION                       -->
+  <!-- ===================================================================== -->
+  <preGoal name="site">
+  	<!-- use a template to create the plugins home page
+  		 if it's an xdoc, it must be done before xdoc:transform
+  		 and should generate to ${maven.gen.docs}/libs/index.xml
+  	  -->
+  	  
+		<!-- can't pass anything into the jellydoc doclet so its hard coded to target -->  	  
+		<mkdir dir="target"/>
+		  	  
+		<mkdir dir="${maven.gen.docs}/libs/"/>
+    <j:file name="${maven.gen.docs}/libs/index.xml"
+      prettyPrint="true">
+      <document>
+        <properties>
+          <title>Jelly Libraries</title>
+          <author email="dion@multitask.com.au">dIon Gillard</author>
+        </properties>
+        <body>
+          <section name="Jelly Libraries">
+            <p>
+              The following libraries are available for Jelly as part of the standard distribution.
+              Other libraries are maintained elsewhere - please see the 
+              <a href="../poweredby.html">powered by</a> page for more details.
+            </p>
+            <ul>
+              <fileScanner var="pluginProjects">
+                <fileset dir="${basedir}">
+                  <include name="jelly-tags/*/project.xml" />
+                </fileset>
+             </fileScanner>
+             <j:forEach items="${pluginProjects.iterator()}" var="plugin">
+               <j:set var="pluginName" value="${plugin.parentFile.name}" />
+               <li>
+                 <a href="./${pluginName}/index.html">${pluginName}</a>
+               </li>
+             </j:forEach>
+            </ul>
+          </section>
+        </body>
+      </document>
+    </j:file>
+
+		<maven:reactor
+			basedir="${basedir}"
+			includes="jelly-tags/*/project.xml"
+			goals="jellydoc,site"
+			banner="Generating site for"
+			ignoreFailures="false"
+		/>
+		
+		<!-- create the parent directory for the docs -->
+		<mkdir dir="${maven.docs.dest}/libs" />
+	
+		<!-- copy them all to ${maven.docs.dest}/libs/${plugin.id}/ -->
+		<fileScanner var="pluginProjects">
+			<fileset dir="${basedir}">
+				<include name="jelly-tags/*/project.xml" />
+			</fileset>
+		</fileScanner>
+		<j:forEach items="${pluginProjects.iterator()}" var="plugin">
+			<j:set var="pluginName" value="${plugin.parentFile.name}" />
+			<mkdir dir="${maven.docs.dest}/libs/${pluginName}/" />
+			<copy toDir="${maven.docs.dest}/libs/${pluginName}/">
+				<fileset dir="jelly-tags/${pluginName}/target/docs/">
+					<include name="**" />
+				</fileset>
+			</copy>
+		</j:forEach>
+
+		<!-- now lets implement the jellydoc for the core package -->		
+    <j:set var="maven.jellydoc.packages" value="org.apache.commons.jelly.tags.core.*"/>
+    <attainGoal name="jellydoc"/>
+    
+  </preGoal>
+
+
 
 
   <!-- demo programs -->
-
 
 	<!-- a sample of using the command line interface to invoke Jelly -->
   <goal name="demo:cmdline" prereqs="create-classpath"
@@ -255,4 +283,22 @@
     </copy>
   </postGoal>
 
+
+	<!--
+		|| Disable some goals not currently working with CVS HEAD 
+		-->
+	<goal name="maven-license-plugin:report"/>
+
+
+  <!-- define the classpath used to run examples -->
+  <goal name="create-classpath" prereqs="java:compile,test:compile">
+		<path id="test.classpath">
+			<pathelement path="${maven.build.dest}"/>
+			<pathelement path="target/classes"/>
+			<pathelement path="target/test-classes"/>
+			<path refid="maven.dependency.classpath"/>
+		</path>
+  </goal>
+
+			
 </project>
