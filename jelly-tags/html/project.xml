@@ -57,7 +57,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-jsl</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     
     <dependency>
