@@ -182,9 +182,15 @@ public class UpdateTag extends TagSupport implements SQLExecutionTag {
 
         int result = 0;
         try {
-            PreparedStatement ps = conn.prepareStatement(sqlStatement);
-            setParameters(ps, parameters);
-            result = ps.executeUpdate();
+            if ( parameters == null || parameters.size() == 0 ) {
+                Statement statement = conn.createStatement();
+                result = statement.executeUpdate(sqlStatement);
+            }
+            else {
+                PreparedStatement ps = conn.prepareStatement(sqlStatement);
+                setParameters(ps, parameters);
+                result = ps.executeUpdate();
+            }
             if (var != null) {
                 context.setVariable(var, new Integer(result));
             }

@@ -251,14 +251,20 @@ public class QueryTag extends TagSupport implements SQLExecutionTag {
              * value for isLimitedByMaxRows(); there's no way to check
              * if it was from the ResultSet.
              */
-            PreparedStatement ps = conn.prepareStatement(sqlStatement);
-            setParameters(ps, parameters);
-            
             if ( log.isDebugEnabled() ) {
                 log.debug( "About to execute query: " + sqlStatement );
             }
             
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = null;
+            if ( parameters == null || parameters.size() == 0 ) {
+                Statement statement = conn.createStatement();
+                rs = statement.executeQuery(sqlStatement);
+            }
+            else {
+                PreparedStatement ps = conn.prepareStatement(sqlStatement);
+                setParameters(ps, parameters);            
+                rs = ps.executeQuery();
+            }
             
             result = new ResultImpl(rs, startRow, maxRows);
             context.setVariable(var, result);
