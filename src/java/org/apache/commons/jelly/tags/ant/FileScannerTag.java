@@ -90,7 +90,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         fileScanner.setProject(AntTagLibrary.getProject(context));
         
         fileScanner.clear();

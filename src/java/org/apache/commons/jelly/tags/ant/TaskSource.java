@@ -74,7 +74,7 @@ public interface TaskSource {
     /** 
      * @return the Ant object which may be an Ant Task or nested element
      */
-    public Object getTaskObject() throws Exception;
+    public Object getTaskObject() throws JellyTagException;
     
     /**
      * Allows nested tags to set a property on the task object of this tag
