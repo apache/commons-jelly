@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.29 $
+ * @version $Revision: 1.30 $
  */
 public class Jelly {
     
@@ -93,11 +93,10 @@ public class Jelly {
         catch (JellyException e) {
             Throwable cause = e.getCause();
 
-            if (cause != null) {
-                cause.printStackTrace();
-            }
-            else {
+            if (cause == null) {
                 e.printStackTrace();
+            } else {
+                cause.printStackTrace();
             }
         }
     }
@@ -219,17 +218,15 @@ public class Jelly {
     protected URL resolveURL(String name) throws MalformedURLException {
         
         URL url = this.getClass().getClassLoader().getResource(name);
-        if (url != null)
+        if (url == null)
         {
-          return url;
-        }
-        else
-        {
-          File file = new File(name);
-          if (file.exists()) {
-              return file.toURL();
-          }
-          return new URL(name);
+            File file = new File(name);
+            if (file.exists()) {
+                return file.toURL();
+            }
+            return new URL(name);
+        } else {
+            return url;
         }
     }
 
