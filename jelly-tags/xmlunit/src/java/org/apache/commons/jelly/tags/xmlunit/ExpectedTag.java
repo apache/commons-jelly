@@ -57,13 +57,14 @@
 
 package org.apache.commons.jelly.tags.xmlunit;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
 
 public class ExpectedTag extends XMLUnitTagSupport {
 
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		Document expectedDocument = parseBody();
 
 		AssertDocumentsEqualTag assertTag =
@@ -72,7 +73,7 @@ public class ExpectedTag extends XMLUnitTagSupport {
 		assertTag.setExpected(expectedDocument);
 	}
 
-	protected SAXReader createSAXReader() throws Exception {
+	protected SAXReader createSAXReader() {
 		return new SAXReader();
 	}
 

@@ -57,11 +57,16 @@
 
 package org.apache.commons.jelly.tags.xmlunit;
 
+import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
+import org.xml.sax.SAXException;
 
 /**
  * Compares two XML documents using XMLUnit (http://xmlunit.sourceforge.net/).
@@ -83,7 +88,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
 	 */
 	private boolean ignoreWhitespace = false;
 
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		invokeBody(output);
 
 		if (actual != null) {
@@ -109,10 +114,23 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
 
 		if (actualDocument != null) {
 			XMLUnit.setIgnoreWhitespace(ignoreWhitespace);
-			Diff delta =
-				XMLUnit.compare(
+            
+			Diff delta = null;
+            try {
+				delta = XMLUnit.compare(
 					expectedDocument.asXML(),
 					actualDocument.asXML());
+            }
+            catch (SAXException e) {
+                throw new JellyTagException(e);
+            }
+            catch (IOException e) {
+                throw new JellyTagException(e);
+            }
+            catch (ParserConfigurationException e) {
+                throw new JellyTagException(e);
+            }
+            
 			if (delta.identical()) {
 				return;
 			}
@@ -145,7 +163,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
 		this.ignoreWhitespace = ignoreWhitespace;
 	}
 
-	protected SAXReader createSAXReader() throws Exception {
+	protected SAXReader createSAXReader() {
 		return new SAXReader();
 	}
 
