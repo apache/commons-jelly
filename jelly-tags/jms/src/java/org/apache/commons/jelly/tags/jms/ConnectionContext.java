@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/ConnectionContext.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/26 06:24:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jms/src/java/org/apache/commons/jelly/tags/jms/ConnectionContext.java,v 1.3 2003/10/09 21:21:20 rdonkin Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/10/09 21:21:20 $
  *
  * ====================================================================
  *
@@ -23,11 +23,11 @@
  *    distribution.
  *
  * 3. The end-user documentation included with the redistribution, if
- *    any, must include the following acknowlegement:
+ *    any, must include the following acknowledgement:
  *       "This product includes software developed by the
  *        Apache Software Foundation (http://www.apache.org/)."
- *    Alternately, this acknowlegement may appear in the software itself,
- *    if and wherever such third-party acknowlegements normally appear.
+ *    Alternately, this acknowledgement may appear in the software itself,
+ *    if and wherever such third-party acknowledgements normally appear.
  *
  * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
@@ -36,7 +36,7 @@
  *
  * 5. Products derived from this software may not be called "Apache"
  *    nor may "Apache" appear in their names without prior written
- *    permission of the Apache Group.
+ *    permission of the Apache Software Foundation.
  *
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ConnectionContext.java,v 1.2 2003/01/26 06:24:47 morgand Exp $
+ * $Id: ConnectionContext.java,v 1.3 2003/10/09 21:21:20 rdonkin Exp $
  */
 package org.apache.commons.jelly.tags.jms;
 
@@ -70,7 +70,7 @@ import org.apache.commons.messenger.Messenger;
 /** Represents a context capable of providing a Messenger connection to use
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public interface ConnectionContext {
 
