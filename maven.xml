@@ -356,8 +356,14 @@
   </goal>
     
     
-    
-    <goal name="pack-fat-jar" prereqs=""
+  <goal name="clean-build">
+    <attainGoal name="clean"/>
+    <attainGoal name="jar:install-snapshot"/>
+    ${systemScope.put('goal','clean,jar:install-snapshot')}
+    <attainGoal name="multiproject:goal"/>
+  </goal>
+  
+  <goal name="pack-fat-jar" prereqs=""
             description="Creates a jar with all the dependencies of jelly and the taglibs indicated in ${tagLibs}.">
       <!-- variables: 
         - tagLibs: a comma-separated list of taglib-names (without the "jelly:")
