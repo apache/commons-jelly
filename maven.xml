@@ -359,6 +359,31 @@
     </java>
   </goal>
 	
+  <goal name="demo:validate-rng" prereqs="jelly-task"
+    description="Runs a validation demo, with RelaxNG">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/validate/validateRNG.jelly"/> 
+    </java>
+  </goal>
+	
+  <goal name="demo:validate-dtd" prereqs="jelly-task"
+    description="Runs a validation demo, with DTD">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/validate/validateDTD.jelly"/> 
+    </java>
+  </goal>
+	
+
+  <goal name="demo:antjar" prereqs="jelly-task"
+    description="Runs a sample which creates a jar using the Ant tag library">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/ant/example_jar.jelly"/> 
+    </java>
+  </goal>
+	
 
    <goal name="demo:sql" prereqs="jelly-task" 
       description="Runs an SQL demo">
@@ -386,6 +411,8 @@
 	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="target/sqloutput3.xml"/>		
 -->	
   </goal>
+
+
    
   <goal name="demo:tagdef" prereqs="java:compile"
     description="A demonstration of the use of tagdef inside a Maven build">

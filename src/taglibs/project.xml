@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <extend>../../project.xml</extend>
+  <name>Jelly-foo</name>
+  <id>commons-jelly-foo</id>
+  <currentVersion>1.0-beta-1</currentVersion>
+
+  <description>
+    My Jelly library...
+  </description>
+  
+  <developers>
+    <developer>
+      <name>Someone</name>
+      <id></id>
+      <email></email>
+      <organization></organization>
+    </developer>
+  </developers>
+
+<!--  
+
+	add new dependencies if required...
+	
+  <dependencies>
+    
+    <dependency>
+      <id>junit</id>
+      <version>3.7</version>
+    </dependency>
+
+  </dependencies>
+-->
+
+</project>

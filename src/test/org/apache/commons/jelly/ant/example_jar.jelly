@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:ant">
+
+  <j:set var="jarname" value="target/anttest.jar"/>
+  
+  <echo>
+  	About to create jar: ${jarname}
+  </echo>
+
+    <jar
+      jarfile="${jarname}"
+      basedir="target/classes">
+
+      <metainf dir=".">
+        <include name="LICENSE.txt"/>
+      </metainf>
+      <manifest>
+        <attribute name="Built-By" value="${user.name}"/>
+        <attribute name="Created-By" value="Apache Jakarta Maven"/>
+        <attribute name="Package" value="${pom.package}"/>
+        <section name="mySection">
+          <attribute name="Specification-Title" value="Some Title"/>
+          <attribute name="Specification-Version" value="1.1"/>
+          <attribute name="Specification-Vendor" value="Apache"/>
+          <attribute name="Implementation-Title" value="Some implementation title"/>
+          <attribute name="Implementation-Version" value="1.1"/>
+          <attribute name="Implementation-Vendor" value="Apache"/>
+        </section>
+      </manifest>
+    </jar>
+</j:jelly>
