@@ -345,6 +345,12 @@
       <version>SNAPSHOT</version>
     </dependency>
     
+    <!-- http server taglib -->
+    <dependency>
+      <id>jetty</id>
+      <version>4.1-rc6</version>
+    </dependency>
+    
 	<!-- jms taglib -->
     <dependency>
       <id>commons-messenger</id>

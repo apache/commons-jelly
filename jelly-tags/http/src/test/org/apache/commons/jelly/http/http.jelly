@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <j:jelly
     xmlns:j="jelly:core"
-    xmlns="jelly:org.apache.commons.jelly.tags.http.HttpTagLibrary"
+    xmlns="jelly:http"
     trim="false">
     <!-- a session holds shared http state info 
     <session> -->
