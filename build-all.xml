@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project default="jar" name="commons-jelly-build-all" basedir=".">
+
+  <target name="clean">
+    <ant dir="." target="clean"/>
+    <ant dir="jelly-tags/ant" target="clean"/>
+    <ant dir="jelly-tags/junit" target="clean"/>
+    <ant dir="jelly-tags/util" target="clean"/>
+  </target>
+  
+  <target name="jar">
+    <antcall target="jar-all"/>
+  </target>
+  
+  <target name="jar-all" depends="jar-jelly,jar-ant,jar-junit,jar-util"/>
+  
+  <target name="jar-jelly">
+    <echo message="Building Jelly..."/>
+    <ant dir="." target="jar"/>
+  </target>
+  
+  <target name="jar-ant" depends="jar-jelly,jar-util,jar-junit">
+    <echo message="Building Ant taglib..."/>
+    <ant dir="jelly-tags/ant" target="get-deps"/>
+    
+    <delete>
+      <fileset dir="jelly-tags/ant/lib" includes="commons-jelly-*"/>
+    </delete>
+    <copy todir="jelly-tags/ant/lib">
+      <fileset dir="target" includes="commons-jelly-*.jar"/>
+      <fileset dir="jelly-tags/util/target" includes="commons-jelly-*.jar"/>
+      <fileset dir="jelly-tags/junit/target" includes="commons-jelly-*.jar"/>
+    </copy>
+    
+    <ant dir="jelly-tags/ant" target="jar">
+      <property name="noget" value="true"/>
+    </ant>
+    
+  </target>
+  
+  <target name="jar-util" depends="jar-jelly,jar-junit">
+    <echo message="Building Util taglib..."/>
+    
+    <ant dir="jelly-tags/util" target="get-deps"/>
+    
+    <delete>
+      <fileset dir="jelly-tags/util/lib" includes="commons-jelly-*"/>
+    </delete>
+    <copy todir="jelly-tags/util/lib">
+      <fileset dir="target" includes="commons-jelly-*.jar"/>
+      <fileset dir="jelly-tags/junit/target" includes="commons-jelly-*.jar"/>
+    </copy>
+    
+    <ant dir="jelly-tags/util" target="jar">
+      <property name="noget" value="true"/>
+    </ant>
+    
+  </target>
+  
+  <target name="jar-junit" depends="jar-jelly">
+    <echo message="Building JUnit taglib..."/>
+    
+    <ant dir="jelly-tags/junit" target="get-deps"/>
+    
+    <delete>
+      <fileset dir="jelly-tags/junit/lib" includes="commons-jelly-*"/>
+    </delete>
+    <copy todir="jelly-tags/junit/lib">
+      <fileset dir="target" includes="commons-jelly-*.jar"/>
+    </copy>
+    
+    <ant dir="jelly-tags/junit" target="jar">
+      <property name="noget" value="true"/>
+    </ant>
+    
+  </target>
+    
+</project>
+    
