@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-log</id>
+  <name>commons-jelly-tags-log</name>
+
+  <package>org.apache.commons.jelly.tags.log</package>
+
+  <description>
+  	 The Jelly Log Tag Library
+  </description>
+  <shortDescription>Commons Jelly Log Tag Library</shortDescription>
+  
+  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/log/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/log</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/log/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/log/</url>
+  </repository>
+  
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+      
+    <!-- END for compilation -->
+    
+  </dependencies>
+  
+</project>
