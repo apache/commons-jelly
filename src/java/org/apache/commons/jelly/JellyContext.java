@@ -148,7 +148,7 @@ public class JellyContext {
         this.rootURL = parent.rootURL;
         this.currentURL = parent.currentURL;
         this.variables.put("parentScope", parent.variables);
-        this.cacheTags = cacheTags;
+        this.cacheTags = parent.cacheTags;
         init();
     }
 
