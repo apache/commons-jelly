@@ -61,6 +61,8 @@
  */
 package org.apache.commons.jelly.impl;
 
+import org.apache.commons.jelly.JellyTagException;
+
 /** 
  * A tag which is capable of consuming objects, such as a &lt;useList&gt; tag
  * such that nested objects will be added to the parent tag.
@@ -73,5 +75,5 @@ public interface CollectionTag {
     /** 
      * @return adds an item to the tags collection
      */
-    public void addItem(Object value);
+    public void addItem(Object value) throws JellyTagException;
 }
