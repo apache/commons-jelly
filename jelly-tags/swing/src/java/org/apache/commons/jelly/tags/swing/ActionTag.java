@@ -16,12 +16,14 @@
 package org.apache.commons.jelly.tags.swing;
 
 import java.awt.event.ActionEvent;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
@@ -43,29 +45,6 @@ public class ActionTag extends UseBeanTag {
     private static final Log log = LogFactory.getLog(ActionTag.class);
 
     public ActionTag() {
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Map attributes = getAttributes();
-        String var = (String) attributes.get( "var" );
-        Object classObject = attributes.remove( "class" );
-        
-        // this method could return null in derived classes
-        Class theClass = null;
-        try {
-           theClass = convertToClass(classObject);
-        } catch (ClassNotFoundException e) {
-            throw new JellyTagException(e);
-        }
-        
-        Object bean = newInstance(theClass, attributes, output);
-        setBean(bean);
-        
-        setBeanProperties(bean, attributes);
-        
-        processBean(var, bean);
     }
 
     
@@ -157,6 +136,20 @@ public class ActionTag extends UseBeanTag {
      */
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         Action action = getAction();
+        
+        String enabled = "enabled";
+        if (attributes.containsKey(enabled)) {
+            try {
+                BeanUtils.copyProperty(action, enabled, attributes.get(enabled));
+            } catch (IllegalAccessException e) {
+                throw new JellyTagException("Failed to set the enabled property.", e);
+            } catch (InvocationTargetException e) {
+                throw new JellyTagException("Failed to set the enabled property.", e);
+            }
+            
+            attributes.remove(enabled);
+        }
+        
         for ( Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iter.next();
             String name = (String) entry.getKey();
