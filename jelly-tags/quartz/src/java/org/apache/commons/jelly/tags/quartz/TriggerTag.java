@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/WaitForSchedulerTag.java,v 1.2 2002/10/23 16:35:36 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/23 16:35:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/TriggerTag.java,v 1.1 2003/01/07 14:54:15 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/07 14:54:15 $
  *
  * ====================================================================
  *
@@ -61,15 +61,11 @@ package org.apache.commons.jelly.tags.quartz;
  *
  */
 
-import org.apache.commons.jelly.XMLOutput;
-
-import org.quartz.Scheduler;
-
-/** Block and wait for the Quartz scheduler to shutdown.
+/** Abstract base for all triggers.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
-public class WaitForSchedulerTag extends QuartzTagSupport
+public abstract class TriggerTag extends QuartzTagSupport
 {
     // ------------------------------------------------------------
     //     Constructors
@@ -77,40 +73,8 @@ public class WaitForSchedulerTag extends QuartzTagSupport
 
     /** Construct.
      */
-    public WaitForSchedulerTag()
+    protected TriggerTag()
     {
-        // intentionally left blank.
-    }
-    
-    // ------------------------------------------------------------
-    //     Instance methods
-    // ------------------------------------------------------------
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    //     org.apache.commons.jelly.Tag
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-    /** Perform this tag.
-     *
-     *  @param output Output sink.
-     *
-     *  @throws Exception If an error occurs.
-     */
-    public void doTag(XMLOutput output) throws Exception
-    {
-        Scheduler sched = getScheduler();
-
-        while ( ! sched.isShutdown() )
-        {
-            try
-            {
-                Thread.sleep( 500 );
-            }
-            catch (InterruptedException e)
-            {
-                break;
-            }
-        }
+        // intentionally left blank
     }
 }
-

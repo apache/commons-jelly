@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/QuartzTagLibrary.java,v 1.2 2002/10/23 16:35:36 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/23 16:35:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/JellyJob.java,v 1.1 2003/01/07 14:54:15 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/07 14:54:15 $
  *
  * ====================================================================
  *
@@ -61,29 +61,71 @@ package org.apache.commons.jelly.tags.quartz;
  *
  */
 
-import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.XMLOutput;
 
-/** Tag library for the Quartz enterprise job scheduler.
- *
- *  <p>
- *  <a href="http://quartz.sf.net/">quartz @ sourceforge</a>
- *  </p>
+import org.quartz.Job;
+import org.quartz.JobDetail;
+import org.quartz.JobDataMap;
+import org.quartz.JobExecutionContext;
+import org.quartz.JobExecutionException;
+
+/** Implementation of a quart <code>Job</code> to execute jellyscript.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
-public class QuartzTagLibrary extends TagLibrary
+public class JellyJob implements Job
 {
-    /** Construct and register tags.
+    // ------------------------------------------------------------
+    //     Constructors
+    // ------------------------------------------------------------
+
+    /** Construct.
      */
-    public QuartzTagLibrary()
+    public JellyJob()
     {
-        registerTag( "job",
-                     JobTag.class );
+        // intentionally left blank.
+    }
 
-        registerTag( "cron",
-                     CronTriggerTag.class );
+    // ------------------------------------------------------------
+    //     Instance methods
+    // ------------------------------------------------------------
 
-        registerTag( "wait-for-scheduler",
-                     WaitForSchedulerTag.class );
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    //     org.quartz.Job
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+    /** Execute this job.
+     *
+     *  @param jobContext Job context data.
+     *
+     *  @throws JobExecutionException If an error occurs during job execution.
+     */
+    public void execute(JobExecutionContext jobContext) throws JobExecutionException
+    {
+
+        JobDetail  detail = jobContext.getJobDetail();
+
+        JobDataMap data   = detail.getJobDataMap();
+
+        Script script = (Script) data.get( "jelly.script" );
+
+        JellyContext jellyContext = (JellyContext) data.get( "jelly.context" );
+
+        XMLOutput    output       = (XMLOutput) data.get( "jelly.output" );
+
+        try
+        {
+            script.run( jellyContext,
+                        output );
+            output.flush();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            throw new JobExecutionException( e,
+                                             false );
+        }
     }
 }

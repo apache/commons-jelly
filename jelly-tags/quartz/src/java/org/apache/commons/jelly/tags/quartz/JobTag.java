@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/JellyJob.java,v 1.2 2002/10/23 16:35:36 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/23 16:35:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/JobTag.java,v 1.1 2003/01/07 14:54:15 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/07 14:54:15 $
  *
  * ====================================================================
  *
@@ -61,29 +61,36 @@ package org.apache.commons.jelly.tags.quartz;
  *
  */
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.MissingAttributeException;
 
-import org.quartz.Job;
+import org.quartz.Scheduler;
 import org.quartz.JobDetail;
 import org.quartz.JobDataMap;
-import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 
-/** Implementation of a quart <code>Job</code> to execute jellyscript.
+/** Defines a schedulable job.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
-public class JellyJob implements Job
+public class JobTag extends QuartzTagSupport
 {
+    // ------------------------------------------------------------
+    //     Instance members
+    // ------------------------------------------------------------
+
+    /** Group of the job. */
+    private String group;
+
+    /** Name of the job. */
+    private String name;
+
     // ------------------------------------------------------------
     //     Constructors
     // ------------------------------------------------------------
 
     /** Construct.
      */
-    public JellyJob()
+    public JobTag()
     {
         // intentionally left blank.
     }
@@ -92,40 +99,87 @@ public class JellyJob implements Job
     //     Instance methods
     // ------------------------------------------------------------
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-    //     org.quartz.Job
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-    /** Execute this job.
+    /** Set the name of this job.
      *
-     *  @param jobContext Job context data.
-     *
-     *  @throws JobExecutionException If an error occurs during job execution.
+     *  @param name The name of this job.
      */
-    public void execute(JobExecutionContext jobContext) throws JobExecutionException
+    public void setName(String name)
     {
+        this.name = name;
+    }
 
-        JobDetail  detail = jobContext.getJobDetail();
+    /** Retrieve the name of this job.
+     *
+     *  @return The name of this job.
+     */
+    public String getName()
+    {
+        return this.name;
+    }
 
-        JobDataMap data   = detail.getJobDataMap();
+    /** Set the group of this job.
+     *
+     *  @param group The group of this job.
+     */
+    public void setGroup(String group)
+    {
+        this.group = group;
+    }
 
-        Script script = (Script) data.get( "jelly.script" );
+    /** Retrieve the group of this job.
+     *
+     *  @return The group of this job.
+     */
+    public String getGroup()
+    {
+        return this.group;
+    }
 
-        JellyContext jellyContext = (JellyContext) data.get( "jelly.context" );
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    //     org.apache.commons.jelly.Tag
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-        XMLOutput    output       = (XMLOutput) data.get( "jelly.output" );
-
-        try
+    /** Perform this tag.
+     *
+     *  @param output Output sink.
+     *
+     *  @throws Exception If an error occurs.
+     */
+    public void doTag(XMLOutput output) throws Exception
+    {
+        if ( getName() == null )
         {
-            script.run( jellyContext,
-                        output );
-            output.flush();
+            throw new MissingAttributeException( "name" );
         }
-        catch (Exception e)
+
+        if ( getGroup() == null )
         {
-            e.printStackTrace();
-            throw new JobExecutionException( e,
-                                             false );
+            throw new MissingAttributeException( "group" );
         }
+
+        Scheduler sched = getScheduler();
+
+        JobDetail detail = new JobDetail( getName(),
+                                          getGroup(),
+                                          JellyJob.class );
+
+        detail.setDurability( true );
+
+        JobDataMap data = new JobDataMap();
+
+        data.put( "jelly.output",
+                  output );
+        
+        data.put( "jelly.context",
+                  getContext() );
+
+        data.put( "jelly.script",
+                  getBody() );
+
+        detail.setJobDataMap( data );
+
+        sched.addJob( detail,
+                      true );
     }
 }
+

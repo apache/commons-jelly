@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/JobTag.java,v 1.2 2002/10/23 16:35:36 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/23 16:35:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/CronTriggerTag.java,v 1.1 2003/01/07 14:54:15 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/07 14:54:15 $
  *
  * ====================================================================
  *
@@ -64,75 +64,138 @@ package org.apache.commons.jelly.tags.quartz;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
 
+import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
-import org.quartz.JobDetail;
-import org.quartz.JobDataMap;
 
-/** Defines a schedulable job.
+import java.util.Date;
+
+/** Define a trigger using a cron time spec.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
-public class JobTag extends QuartzTagSupport
+public class CronTriggerTag extends QuartzTagSupport
 {
     // ------------------------------------------------------------
     //     Instance members
     // ------------------------------------------------------------
 
-    /** Group of the job. */
-    private String group;
+    /** Cron time spec. */
+    private String spec;
 
-    /** Name of the job. */
+    /** Trigger name. */
     private String name;
 
+    /** Trigger group. */
+    private String group;
+
+    /** Job name. */
+    private String jobName;
+
+    /** Job group. */
+    private String jobGroup;
+
     // ------------------------------------------------------------
-    //     Constructors
+    //     COnstructors
     // ------------------------------------------------------------
 
     /** Construct.
      */
-    public JobTag()
+    public CronTriggerTag()
     {
         // intentionally left blank.
     }
 
     // ------------------------------------------------------------
-    //     Instance methods
     // ------------------------------------------------------------
 
-    /** Set the name of this job.
+    /** Set the name.
      *
-     *  @param name The name of this job.
+     *  @param name.
      */
     public void setName(String name)
     {
         this.name = name;
     }
 
-    /** Retrieve the name of this job.
+    /** Retrieve the name.
      *
-     *  @return The name of this job.
+     *  @return The name.
      */
     public String getName()
     {
         return this.name;
     }
 
-    /** Set the group of this job.
+    /** Set the group
      *
-     *  @param group The group of this job.
+     *  @param group The group
      */
     public void setGroup(String group)
     {
         this.group = group;
     }
 
-    /** Retrieve the group of this job.
+    /** Retrieve the group.
      *
-     *  @return The group of this job.
+     *  @return The group.
      */
     public String getGroup()
     {
         return this.group;
+    }
+
+    /** Set the cron time spec.
+     *
+     *  @param spec The cron time spec.
+     */
+    public void setSpec(String spec)
+    {
+        this.spec = spec;
+    }
+
+    /** Retrieve the cron time spec.
+     *
+     *  @param spec The cron time spec.
+     */
+    public String getSpec()
+    {
+        return this.spec;
+    }
+
+    /** Set the job name.
+     *
+     *  @param jobName The job name.
+     */
+    public void setJobName(String jobName)
+    {
+        this.jobName = jobName;
+    }
+
+    /** Retrieve the job name.
+     *
+     *  @return The job name.
+     */
+    public String getJobName()
+    {
+        return this.jobName;
+    }
+
+    /** Set the job group.
+     *
+     *  @param jobGroup The job group.
+     */
+    public void setJobGroup(String jobGroup)
+    {
+        this.jobGroup = jobGroup;
+    }
+
+    /** Retrieve the job group.
+     *
+     *  @return The job group.
+     */
+    public String getJobGroup()
+    {
+        return this.jobGroup;
     }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
@@ -147,6 +210,11 @@ public class JobTag extends QuartzTagSupport
      */
     public void doTag(XMLOutput output) throws Exception
     {
+        if ( getSpec() == null )
+        {
+            throw new MissingAttributeException( "spec" );
+        }
+
         if ( getName() == null )
         {
             throw new MissingAttributeException( "name" );
@@ -157,29 +225,24 @@ public class JobTag extends QuartzTagSupport
             throw new MissingAttributeException( "group" );
         }
 
+        if ( getJobName() == null )
+        {
+            throw new MissingAttributeException( "jobName" );
+        }
+
+        if ( getJobGroup() == null )
+        {
+            throw new MissingAttributeException( "jobGroup" );
+        }
+
+        CronTrigger trigger = new CronTrigger( getName(),
+                                               getGroup() );
+
+        trigger.setCronExpression( getSpec() );
+        trigger.setJobName( getJobName() );
+        trigger.setJobGroup( getJobGroup() );
+        trigger.setStartTime( new Date() );
         Scheduler sched = getScheduler();
-
-        JobDetail detail = new JobDetail( getName(),
-                                          getGroup(),
-                                          JellyJob.class );
-
-        detail.setDurability( true );
-
-        JobDataMap data = new JobDataMap();
-
-        data.put( "jelly.output",
-                  output );
-        
-        data.put( "jelly.context",
-                  getContext() );
-
-        data.put( "jelly.script",
-                  getBody() );
-
-        detail.setJobDataMap( data );
-
-        sched.addJob( detail,
-                      true );
+        sched.scheduleJob( trigger );
     }
 }
-

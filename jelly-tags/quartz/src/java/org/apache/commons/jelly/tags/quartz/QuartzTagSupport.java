@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/QuartzTagSupport.java,v 1.4 2002/12/11 12:40:58 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/12/11 12:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/QuartzTagSupport.java,v 1.1 2003/01/07 14:54:15 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/07 14:54:15 $
  *
  * ====================================================================
  *

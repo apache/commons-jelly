@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/CronTriggerTag.java,v 1.2 2002/10/23 16:35:36 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/23 16:35:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/WaitForSchedulerTag.java,v 1.1 2003/01/07 14:54:15 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/07 14:54:15 $
  *
  * ====================================================================
  *
@@ -62,141 +62,29 @@ package org.apache.commons.jelly.tags.quartz;
  */
 
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.MissingAttributeException;
 
-import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 
-import java.util.Date;
-
-/** Define a trigger using a cron time spec.
+/** Block and wait for the Quartz scheduler to shutdown.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
-public class CronTriggerTag extends QuartzTagSupport
+public class WaitForSchedulerTag extends QuartzTagSupport
 {
     // ------------------------------------------------------------
-    //     Instance members
-    // ------------------------------------------------------------
-
-    /** Cron time spec. */
-    private String spec;
-
-    /** Trigger name. */
-    private String name;
-
-    /** Trigger group. */
-    private String group;
-
-    /** Job name. */
-    private String jobName;
-
-    /** Job group. */
-    private String jobGroup;
-
-    // ------------------------------------------------------------
-    //     COnstructors
+    //     Constructors
     // ------------------------------------------------------------
 
     /** Construct.
      */
-    public CronTriggerTag()
+    public WaitForSchedulerTag()
     {
         // intentionally left blank.
     }
-
+    
     // ------------------------------------------------------------
+    //     Instance methods
     // ------------------------------------------------------------
-
-    /** Set the name.
-     *
-     *  @param name.
-     */
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    /** Retrieve the name.
-     *
-     *  @return The name.
-     */
-    public String getName()
-    {
-        return this.name;
-    }
-
-    /** Set the group
-     *
-     *  @param group The group
-     */
-    public void setGroup(String group)
-    {
-        this.group = group;
-    }
-
-    /** Retrieve the group.
-     *
-     *  @return The group.
-     */
-    public String getGroup()
-    {
-        return this.group;
-    }
-
-    /** Set the cron time spec.
-     *
-     *  @param spec The cron time spec.
-     */
-    public void setSpec(String spec)
-    {
-        this.spec = spec;
-    }
-
-    /** Retrieve the cron time spec.
-     *
-     *  @param spec The cron time spec.
-     */
-    public String getSpec()
-    {
-        return this.spec;
-    }
-
-    /** Set the job name.
-     *
-     *  @param jobName The job name.
-     */
-    public void setJobName(String jobName)
-    {
-        this.jobName = jobName;
-    }
-
-    /** Retrieve the job name.
-     *
-     *  @return The job name.
-     */
-    public String getJobName()
-    {
-        return this.jobName;
-    }
-
-    /** Set the job group.
-     *
-     *  @param jobGroup The job group.
-     */
-    public void setJobGroup(String jobGroup)
-    {
-        this.jobGroup = jobGroup;
-    }
-
-    /** Retrieve the job group.
-     *
-     *  @return The job group.
-     */
-    public String getJobGroup()
-    {
-        return this.jobGroup;
-    }
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
     //     org.apache.commons.jelly.Tag
@@ -210,39 +98,19 @@ public class CronTriggerTag extends QuartzTagSupport
      */
     public void doTag(XMLOutput output) throws Exception
     {
-        if ( getSpec() == null )
-        {
-            throw new MissingAttributeException( "spec" );
-        }
-
-        if ( getName() == null )
-        {
-            throw new MissingAttributeException( "name" );
-        }
-
-        if ( getGroup() == null )
-        {
-            throw new MissingAttributeException( "group" );
-        }
-
-        if ( getJobName() == null )
-        {
-            throw new MissingAttributeException( "jobName" );
-        }
-
-        if ( getJobGroup() == null )
-        {
-            throw new MissingAttributeException( "jobGroup" );
-        }
-
-        CronTrigger trigger = new CronTrigger( getName(),
-                                               getGroup() );
-
-        trigger.setCronExpression( getSpec() );
-        trigger.setJobName( getJobName() );
-        trigger.setJobGroup( getJobGroup() );
-        trigger.setStartTime( new Date() );
         Scheduler sched = getScheduler();
-        sched.scheduleJob( trigger );
+
+        while ( ! sched.isShutdown() )
+        {
+            try
+            {
+                Thread.sleep( 500 );
+            }
+            catch (InterruptedException e)
+            {
+                break;
+            }
+        }
     }
 }
+

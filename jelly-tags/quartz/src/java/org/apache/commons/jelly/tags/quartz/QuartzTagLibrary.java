@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/TriggerTag.java,v 1.2 2002/10/23 16:35:36 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/23 16:35:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/quartz/src/java/org/apache/commons/jelly/tags/quartz/QuartzTagLibrary.java,v 1.1 2003/01/07 14:54:15 dion Exp $
+ * $Revision: 1.1 $
+ * $Date: 2003/01/07 14:54:15 $
  *
  * ====================================================================
  *
@@ -61,20 +61,29 @@ package org.apache.commons.jelly.tags.quartz;
  *
  */
 
-/** Abstract base for all triggers.
+import org.apache.commons.jelly.TagLibrary;
+
+/** Tag library for the Quartz enterprise job scheduler.
+ *
+ *  <p>
+ *  <a href="http://quartz.sf.net/">quartz @ sourceforge</a>
+ *  </p>
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
-public abstract class TriggerTag extends QuartzTagSupport
+public class QuartzTagLibrary extends TagLibrary
 {
-    // ------------------------------------------------------------
-    //     Constructors
-    // ------------------------------------------------------------
-
-    /** Construct.
+    /** Construct and register tags.
      */
-    protected TriggerTag()
+    public QuartzTagLibrary()
     {
-        // intentionally left blank
+        registerTag( "job",
+                     JobTag.class );
+
+        registerTag( "cron",
+                     CronTriggerTag.class );
+
+        registerTag( "wait-for-scheduler",
+                     WaitForSchedulerTag.class );
     }
 }
