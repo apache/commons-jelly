@@ -1,5 +1,6 @@
 <project default="java:jar" xmlns:j="jelly:core">
 
+
   <!-- runs the XML doclet -->	
   <goal name="xml-doclet" prereqs="java:compile">
     <path id="doclet.classpath">
@@ -59,16 +60,44 @@
 	
   </goal>
 
+
   <!-- ensure that the tag documentation is generated as part of the site -->	
-  <goal
-    name="deploy-site2" prereqs="doc-tags, deploy-site">
-  </goal>
-  
   <preGoal
     name="site:generate">
 
 	<attainGoal name="doc-tags"/>
 	
   </preGoal>
+
+  <!-- create the lib and bin directories in the binary distro -->	
+  <preGoal
+    name="dist:build">
+
+	<echo>The POM is ${pom.build}</echo>
+	<echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
+
+	<mkdir dir="${maven.dist.assembly.dir}/bin"/>
+	<mkdir dir="${maven.dist.assembly.dir}/lib"/>
+	
+    <copy todir="${maven.dist.assembly.dir}/bin">
+      <fileset dir="src/bin"/>
+    </copy>
+
+    <j:forEach var="dep" items="${pom.dependencies}">
+      <j:choose>
+        <j:when test="${dep.id == 'forehead'}">
+      	  <copy tofile="${maven.dist.assembly.dir}/lib/forehead.jar" 
+      	    	file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
+        </j:when>
+        <j:otherwise>
+      	  <copy todir="${maven.dist.assembly.dir}/lib" 
+      	    	file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
+      	</j:otherwise>
+      </j:choose>
+	</j:forEach>
+		       	    
+  </preGoal>
+
+
           
 </project>

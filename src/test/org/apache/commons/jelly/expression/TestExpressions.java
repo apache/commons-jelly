@@ -119,6 +119,22 @@ public class TestExpressions extends TestCase {
         assertExpression("cheese ${maven.some.madeup.name}pizza", "cheese pizza");
         assertExpression("ham and ${maven.home.foo} pizza", "ham and cheese pizza");
     }
+
+/*    
+    temporally disablled until jexl gets patched...
+    
+    public void testNull() throws Exception {
+        context.setVariable("something.blank", "");
+        context.setVariable("something.ok", "cheese");
+        
+        assertExpression("${something.blank.length == 0}", Boolean.TRUE);
+        assertExpression("${something.blank == ''}", Boolean.TRUE);
+        assertExpression("${something.ok != null}", Boolean.TRUE);
+        assertExpression("${something.ok != ''}", Boolean.TRUE);
+        assertExpression("${something.null != ''}", Boolean.FALSE);
+        assertExpression("${unknown == null}", Boolean.TRUE);
+    }
+*/
     
     protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
         Expression expression = CompositeExpression.parse(expressionText, factory);
