@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-RC2" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-196">SwitchTag can not be reused if default encountered.</action>
       <action dev="polx" type="add" issue="JELLY-191">FileTag now allows appending to the file.</action>
       <action dev="polx" type="fix" issue="JELLY-85">Removed instance-based ThreadLocal substituting a JellyContext-based tag-caching.</action>
       <action dev="polx" type="add" issue="JELLY-145">jelly -h or --help responds a help and jelly -v or --version responds the version.</action>
