@@ -1,10 +1,13 @@
 /*
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/TargetTag.java,v 1.2 2002/07/19 23:04:11 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/07/19 23:04:11 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,7 +29,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
+ * 4. The names "The Jakarta Project", "Commons", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -53,7 +56,8 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- *
+ * 
+ * $Id: TargetTag.java,v 1.2 2002/07/19 23:04:11 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
@@ -64,7 +68,7 @@ import org.apache.commons.jelly.tags.werkz.GoalTag;
  *  ant <code>&lt;target&gt;</code>.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TargetTag extends GoalTag {
 
