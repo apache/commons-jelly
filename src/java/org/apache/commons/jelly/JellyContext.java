@@ -603,7 +603,9 @@ public class JellyContext {
             throw new JellyException(e.toString());
         }
         
-        JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
+        JellyContext newJellyContext = newJellyContext();
+        newJellyContext.setRootURL( newJellyContextURL );
+        newJellyContext.setCurrentURL( newJellyContextURL );
         newJellyContext.setExport( export );
         newJellyContext.setInherit( inherit );
             
