@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/util/CommandLineParser.java,v 1.2 2002/10/30 19:16:27 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/30 19:16:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/util/CommandLineParser.java,v 1.3 2003/09/04 01:32:45 proyal Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/09/04 01:32:45 $
  *
  * ====================================================================
  *
@@ -57,13 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CommandLineParser.java,v 1.2 2002/10/30 19:16:27 jstrachan Exp $
+ * $Id: CommandLineParser.java,v 1.3 2003/09/04 01:32:45 proyal Exp $
  */
 
 package org.apache.commons.jelly.util;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -88,7 +89,7 @@ import org.apache.commons.jelly.XMLOutput;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Morgan Delagrange
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class CommandLineParser {
     
@@ -102,7 +103,6 @@ public class CommandLineParser {
      * Parse out the command line options and configure
      * the give Jelly instance.
      * 
-     * @param jelly  Jelly instance to configure
      * @param args   options from the command line
      * @exception JellyException
      *                   if the command line could not be parsed
@@ -123,8 +123,12 @@ public class CommandLineParser {
             scriptFile = args[0];
         }
 
+        //
+        // Use classloader to find file
+        //
+        URL url = this.getClass().getClassLoader().getResource(scriptFile);
         // check if the script file exists
-        if (!(new File(scriptFile)).exists()) {
+        if (url == null && !(new File(scriptFile)).exists()) {
             throw new JellyException("Script file " + scriptFile + " not found");
         }
 

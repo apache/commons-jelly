@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.26 2003/01/24 02:22:59 morgand Exp $
- * $Revision: 1.26 $
- * $Date: 2003/01/24 02:22:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.27 2003/09/04 01:32:45 proyal Exp $
+ * $Revision: 1.27 $
+ * $Date: 2003/09/04 01:32:45 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.26 2003/01/24 02:22:59 morgand Exp $
+ * $Id: Jelly.java,v 1.27 2003/09/04 01:32:45 proyal Exp $
  */
 
 package org.apache.commons.jelly;
@@ -88,7 +88,7 @@ import org.xml.sax.SAXException;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.26 $
+ * @version $Revision: 1.27 $
  */
 public class Jelly {
     
@@ -263,11 +263,20 @@ public class Jelly {
      * @return the URL for the relative file name or absolute URL 
      */
     protected URL resolveURL(String name) throws MalformedURLException {
-        File file = new File(name);
-        if (file.exists()) {
-            return file.toURL();
+        
+        URL url = this.getClass().getClassLoader().getResource(name);
+        if (url != null)
+        {
+          return url;
         }
-        return new URL(name);
+        else
+        {
+          File file = new File(name);
+          if (file.exists()) {
+              return file.toURL();
+          }
+          return new URL(name);
+        }
     }
 
     /**
