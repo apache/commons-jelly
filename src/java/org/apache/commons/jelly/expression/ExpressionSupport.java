@@ -27,6 +27,7 @@ import org.apache.commons.collections.iterators.EnumerationIterator;
 import org.apache.commons.collections.iterators.SingletonIterator;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.lang.StringUtils;
 
 /** <p><code>ExpressionSupport</code>
   * an abstract base class for Expression implementations
@@ -34,7 +35,7 @@ import org.apache.commons.jelly.JellyContext;
   * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.12 $
+  * @version $Revision: 1.13 $
   */
 public abstract class ExpressionSupport implements Expression {
 
@@ -100,30 +101,26 @@ public abstract class ExpressionSupport implements Expression {
         Object value = evaluateRecurse(context);
         if ( value == null ) {
             return EMPTY_ITERATOR;
-        }
-        else
-        if ( value instanceof Iterator ) {
+        } else if ( value instanceof Iterator ) {
             return (Iterator) value;
-        }
-        else if ( value instanceof List ) {
+        } else if ( value instanceof List ) {
             List list = (List) value;
             return list.iterator();
-        }
-        else if ( value instanceof Map ) {
+        } else if ( value instanceof Map ) {
             Map map = (Map) value;
             return map.entrySet().iterator();
-        }
-        else if ( value.getClass().isArray() ) {
+        } else if ( value.getClass().isArray() ) {
             return new ArrayIterator( value );
-        }
-        else if ( value instanceof Enumeration ) {
+        } else if ( value instanceof Enumeration ) {
             return new EnumerationIterator((Enumeration ) value);
-        }
-        else if ( value instanceof Collection ) {
+        } else if ( value instanceof Collection ) {
           Collection collection = (Collection) value;
           return collection.iterator();
-        }
-        else {
+        } else if ( value instanceof String ) {
+           String[] array = StringUtils.split((String) value, "," );
+           array = StringUtils.stripAll( array );
+           return new ArrayIterator( array );
+        } else {
             // XXX: should we return single iterator?
             return new SingletonIterator( value );
         }

@@ -335,5 +335,14 @@
     <j:set var="shouldBeNothing"><j:mute>blop</j:mute></j:set>
     <test:assertEquals expected="" actual="${shouldBeNothing}"/>
   </test:case>
-    
+
+  <test:case name="testForEachWithString">
+    <j:set var="j" value=""/>
+        
+    <j:forEach var="i" items="a,b,c">
+      <j:set var="j" value="${j}${i}"/>
+    </j:forEach>
+
+    <test:assertEquals expected="abc" actual="${j}"/>
+  </test:case>    
 </test:suite>
