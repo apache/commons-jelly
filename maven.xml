@@ -36,10 +36,26 @@
 	description="Generates the tag documentation">
 	
 	<mkdir dir="target/generated-xdocs"/>
-	
+
+	<path id="test.classpath">
+	    <pathelement path="${maven.build.dest}"/>
+	    <pathelement path="target/classes"/>
+	    <path refid="maven.dependency.classpath"/>
+	</path>
+	  
+    <taskdef
+      name="jelly"
+      classname="org.apache.commons.jelly.task.JellyTask">
+      <classpath refid="test.classpath"/>
+    </taskdef>    
+      
+<!--	
 	<j:file name="target/generated-xdocs/tags.xml">
 	  <j:include uri="src/script/makeTagDoc.jelly"/>
 	</j:file>
+-->
+
+	<jelly file="src/script/makeTagDoc.jelly" output="target/generated-xdocs/tags.xml"/> 
 	
   </goal>
 
