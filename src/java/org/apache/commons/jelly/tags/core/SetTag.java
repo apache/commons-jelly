@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.6 2002/05/20 10:09:28 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/20 10:09:28 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.7 2002/07/15 16:57:44 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/07/15 16:57:44 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.6 2002/05/20 10:09:28 jstrachan Exp $
+ * $Id: SetTag.java,v 1.7 2002/07/15 16:57:44 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which sets a variable from the result of an expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class SetTag extends TagSupport {
 
@@ -91,6 +91,9 @@ public class SetTag extends TagSupport {
     /** The variable name to export. */
     private String var;
 
+    /** The variable scope to export */
+    private String scope;
+    
     /** The expression to evaluate. */
     private Expression value;
 
@@ -115,7 +118,12 @@ public class SetTag extends TagSupport {
         }
         
         if ( var != null ) {
-            context.setVariable(var, answer);
+            if ( scope != null ) {
+                context.setVariable(var, scope, answer);
+            }
+            else {
+                context.setVariable(var, answer);
+            }
         }
         else {
             if ( target == null ) {
@@ -134,6 +142,17 @@ public class SetTag extends TagSupport {
      */
     public void setVar(String var) {
         this.var = var;
+    }
+    
+    /** 
+     * Sets the variable scope for this variable. For example setting this value to 'parent' will
+     * set this value in the parent scope. When Jelly is run from inside a Servlet environment
+     * then other scopes will be available such as 'request', 'session' or 'application'.
+     * 
+     * Other applications may implement their own custom scopes.
+     */
+    public void setScope(String scope) {
+        this.scope = scope;
     }
     
     /** Sets the expression to evaluate. */
