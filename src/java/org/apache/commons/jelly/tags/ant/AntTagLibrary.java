@@ -222,6 +222,10 @@ public class AntTagLibrary extends TagLibrary {
         if ( type != null ) {            
             TaskTag tag = new TaskTag( project, type, name );
             tag.setTrim( true );
+
+            if ( name.equals( "echo" ) ) {
+                tag.setTrim(false);
+            }
             return TagScript.newInstance(tag);
         }
         
