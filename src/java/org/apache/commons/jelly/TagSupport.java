@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.17 2002/08/20 05:02:51 werken Exp $
- * $Revision: 1.17 $
- * $Date: 2002/08/20 05:02:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.18 2002/10/12 11:28:00 jstrachan Exp $
+ * $Revision: 1.18 $
+ * $Date: 2002/10/12 11:28:00 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.17 2002/08/20 05:02:51 werken Exp $
+ * $Id: TagSupport.java,v 1.18 2002/10/12 11:28:00 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -73,7 +73,7 @@ import java.util.List;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.17 $
+  * @version $Revision: 1.18 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -161,6 +161,12 @@ public abstract class TagSupport implements Tag {
     
     /** @return the body of the tag */
     public Script getBody() {
+        if (! hasTrimmed) {
+            hasTrimmed = true;
+            if (isTrim()) {
+                trimBody();
+            }
+        }
         return body;
     }
     
@@ -184,9 +190,6 @@ public abstract class TagSupport implements Tag {
      * Invokes the body of this tag using the given output
      */
     public void invokeBody(XMLOutput output) throws Exception {
-        if ( isTrim() && ! hasTrimmed ) {
-            trimBody();
-        }
         getBody().run(context, output);
     }
     
@@ -278,7 +281,5 @@ public abstract class TagSupport implements Tag {
             TextScript textScript = (TextScript) body;
             textScript.trimWhitespace();
         }
-
-        this.hasTrimmed = true;
     }
 }
