@@ -16,20 +16,19 @@
 package org.apache.commons.jelly;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.parser.XMLParser;
-import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -91,11 +90,11 @@ public class JellyContext {
     /** Should we export tag libraries to our parents context */
     private boolean exportLibraries = true;
 
-    /** A map that associates TagScript objects to Tag objects.
-      * Is made a WeakHashMap so that the storage is discarded if the 
-      * Script is discarded.
+    /** Holds a Map containing thread-specific data for Scripts.
+     * Scripts may hold a single object in this map using the
+     * {@link #setThreadLocalScriptData(Script,Object)}
       */
-    private Map tagHolderMap = new java.util.WeakHashMap(5);
+    private ThreadLocal threadLocalScriptData = new ThreadLocal();
     // THINKME: Script objects are like Object (for equals and hashCode) I think.
     //          It should be asy to optimize hash-map distribution, e.g. by
     //          shifting the hashcode return value (presuming Object.hashcode()
@@ -386,38 +385,90 @@ public class JellyContext {
     }
     
 
-    /** @return the tag associated to the given TagScript for the current run.
+    /** Gets the Script data item that may have previously been stored
+     * by the script, in this context, for the current thread.
+     *  
+     * @return the tag associated with the current context and thread
       */
-    public Tag getTagOfTagScript(TagScript script) {
+    public Object getThreadScriptData(Script script) {
         if( script == null )
             return null;
-        Tag tag = (Tag) tagHolderMap.get(script);
+        Tag tag = (Tag) getThreadScriptDataMap().get(script);
 		if( tag == null && getParent() != null) {
-			return getParent().getTagOfTagScript(script);
+			return getParent().getThreadScriptData(script);
 		} else {
 			return tag;
 		}
     }
 	
-	/** @return the Map that associates the the Tags to Scripts */
-	public Map getTagHolderMap() {
-		return tagHolderMap;
+	/** Gets a per-thread (thread local) Map of data for use by
+     * Scripts.
+     * @return the thread local Map of Script data */
+	public Map getThreadScriptDataMap() {
+        Map rv;
+        Map data = (Map) threadLocalScriptData.get();
+        if (data == null) {
+            rv = new HashMap();
+            threadLocalScriptData.set(rv);
+        } else {
+            rv = data;
+        }
+		return rv;
 	}
     
-    /** Associates, for the run of this context, the tag of this TagScript.
+    /** Stores an object that lasts for the life of this context
+     * and is local to the current thread. This method is
+     * mainly intended to store Tag instances. However, any
+     * Script that wants to cache data can use this
+     * method.
       */
-    public void setTagForScript(TagScript script, Tag tag) {
-        tagHolderMap.put(script,tag);
+    public void setThreadScriptData(Script script, Object data) {
+        getThreadScriptDataMap().put(script,data);
     }
     
-    /** Clears both the script-to-tags association and the variables association.
+    /** Clears variables set by Tags (basically, variables set in a Jelly script)
+     * and data stored by {@link Script} instances.
+     * @see #clearVariables()
+     * @see #clearThreadScriptData()
+     * @see #clearScriptData()
       */
     public void clear() {
-        tagHolderMap.clear();
+        getThreadScriptDataMap().clear();
         variables.clear();
     }
     
+    /** Clears variables set by Tags (variables set while running a Jelly script)
+     * @see #clear()
+     * @see #clearThreadScriptData()
+     * @see #clearScriptData()
+     */
+    public void clearVariables() {
+        variables.clear();
+    }
     
+    /** Clears data cached by {@link Script} instances, 
+     * for this context, <strong>for the current thread</strong>.
+     * The data cleared could be cached Tag instances or other data
+     * saved by Script classes.
+     * @see #clear()
+     * @see #clearVariables()
+     * @see #clearScriptData()
+     */
+    public void clearThreadScriptData() {
+        getThreadScriptDataMap().clear();
+    }
+    
+    /** Clears data cached by {@link Script} instances, 
+     * for this context, <strong>for all threads</strong>. 
+     * The data cleared could be cached Tag instances or other data
+     * saved by Script classes.
+     * @see #clear()
+     * @see #clearThreadScriptData()
+     * @see #clearVariables()
+     */
+    public void clearScriptData() {
+        threadLocalScriptData = new ThreadLocal();
+    }
     
     /** Registers the given tag library against the given namespace URI.
      * This should be called before the parser is used.
