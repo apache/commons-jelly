@@ -105,11 +105,7 @@ public class DynamicTagLibrary extends TagLibrary {
                     
                     // delegate to my parent instead
                     if ( answer == null && parent != null ) {
-                        // #### this is a bit ugly.
-                        // #### maybe we could refactor this so that a TagScript
-                        // #### is constructed from a TagFactory instance
-                        TagScript tagScript = parent.createTagScript(name, attributes);
-                        return tagScript.getTag();
+                        return parent.createTag(name, attributes);
                     }
                     return answer;
                 }

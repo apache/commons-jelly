@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.12 2002/08/01 09:53:18 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/08/01 09:53:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.13 2002/09/05 16:43:29 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/09/05 16:43:29 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.12 2002/08/01 09:53:18 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.13 2002/09/05 16:43:29 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -76,7 +76,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.12 $
+  * @version $Revision: 1.13 $
   */
 
 public abstract class TagLibrary {
@@ -98,7 +98,20 @@ public abstract class TagLibrary {
         return null;
 
     }
+    
+    /** Creates a new Tag for the given tag name and attributes */
+    public Tag createTag(String name, Attributes attributes)
+        throws Exception {
 
+        Class type = (Class) tags.get(name);
+        if ( type != null ) {
+            return (Tag) type.newInstance();
+        }
+        return null;
+
+    }
+    
+    
     /** Allows taglibs to use their own expression evaluation mechanism */
     public Expression createExpression(
         ExpressionFactory factory,
