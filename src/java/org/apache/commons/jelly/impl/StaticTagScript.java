@@ -92,8 +92,6 @@ public class StaticTagScript extends DynaTagScript {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(StaticTagScript.class);
 
-    private boolean firstRun = true;
-    
     public StaticTagScript() {
     }
 
@@ -110,12 +108,10 @@ public class StaticTagScript extends DynaTagScript {
         startNamespacePrefixes(output);
             
         Tag tag = getTag();                
-        if ( firstRun ) {
-            firstRun = false;
-            
-            // lets see if we have a dynamic tag
-            tag = findDynamicTag(context, (StaticTag) tag);
-        }
+        
+        // lets see if we have a dynamic tag
+        tag = findDynamicTag(context, (StaticTag) tag);
+        
         try {        
             if ( tag == null ) {
                 return;
