@@ -22,7 +22,12 @@
     <echo message="Running init goal's action"/>
   </werkz:goal>
 
+
+  <!-- now lets attain a goal -->	
+  <werkz:attainGoal name="test"/> 
+  
   <!-- call all the targets made on the command line -->	
+<!--  
   <werkz:attain>
 
     <j:forEach var="arg" items="${args}" begin="1">
@@ -30,5 +35,6 @@
     </j:forEach>
 
   </werkz:attain>
+-->
 
 </werkz:project>

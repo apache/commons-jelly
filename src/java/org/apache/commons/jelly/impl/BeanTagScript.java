@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.14 2002/08/12 19:11:46 jstrachan Exp $
- * $Revision: 1.14 $
- * $Date: 2002/08/12 19:11:46 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.15 2002/08/13 08:04:38 jstrachan Exp $
+ * $Revision: 1.15 $
+ * $Date: 2002/08/13 08:04:38 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.14 2002/08/12 19:11:46 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.15 2002/08/13 08:04:38 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.14 $
+  * @version $Revision: 1.15 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -129,6 +129,9 @@ public class BeanTagScript extends TagScript {
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
+        if ( ! context.isCacheTags() ) {
+            clearTag();
+        }
         Tag tag = getTag();
         if ( tag == null ) {
             return;
@@ -181,11 +184,6 @@ public class BeanTagScript extends TagScript {
         }
         catch (Exception e) {
             handleException(e);
-        }
-        finally {
-            if ( ! context.isCacheTags() ) {
-                clearTag();
-            }
         }
     }
     

@@ -308,6 +308,15 @@
     </java>
   </goal>
 
+  <goal name="demo:werkz" prereqs="jelly-task" 
+	description="A demo of the werkz tag library">
+	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/werkz/example.jelly"/> 
+    </java>
+  </goal>
+
   <goal name="demo:file" prereqs="jelly-task" 
 	description="A demo of using the file tag to output to multiple files">
 	
