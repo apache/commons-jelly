@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParseTag.java,v 1.2 2003/01/22 10:56:27 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/22 10:56:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParseTag.java,v 1.3 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,24 +57,31 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: ParseTag.java,v 1.2 2003/01/22 10:56:27 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.3 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
+import java.net.MalformedURLException;
+
+import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
+
+import org.xml.sax.SAXException;
 
 /** A tag which parses some XML and defines a variable with the parsed Document.
   * The XML can either be specified as its body or can be passed in via the
   * xml property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class ParseTag extends ParseTagSupport {
 
@@ -93,11 +100,12 @@ public class ParseTag extends ParseTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (getVar() == null) {
-            throw new IllegalArgumentException("The var attribute cannot be null");
+            throw new MissingAttributeException("The var attribute cannot be null");
         }
-        Document document = getXmlDocument(output);
+        
+        Document document = getXmlDocument(output);       
         context.setVariable(getVar(), document);
     }
 
@@ -130,13 +138,14 @@ public class ParseTag extends ParseTagSupport {
     /**
      * Factory method to create a new SAXReader
      */
-    protected SAXReader createSAXReader() throws Exception {
+    protected SAXReader createSAXReader() {
         return new SAXReader(validate);
     }
 
-    protected Document getXmlDocument(XMLOutput output) throws Exception {
+    protected Document getXmlDocument(XMLOutput output) throws JellyTagException {
         Document document = null;
         Object xmlObj = this.getXml();
+        
         if (xmlObj == null) {
             String text = getText();
             if (text != null) {
@@ -149,6 +158,7 @@ public class ParseTag extends ParseTagSupport {
         else {
             document = parse(xmlObj);
         }
+        
         return document;
     }
 

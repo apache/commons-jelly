@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ExprTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ExprTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,20 +57,23 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: ExprTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
+import org.jaxen.JaxenException;
 import org.jaxen.XPath;
+import org.xml.sax.SAXException;
 
 /** A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
   * in XSLT
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ExprTag extends XPathTagSupport {
 
@@ -82,16 +85,24 @@ public class ExprTag extends XPathTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         Object xpathContext = getXPathContext();
         
         if (select == null) {
             throw new MissingAttributeException( "select" );
         }
         
-        String text = select.stringValueOf(xpathContext);
-        if ( text != null ) {
-            output.write(text);
+        try {
+            String text = select.stringValueOf(xpathContext);
+            if ( text != null ) {
+                output.write(text);
+            }
+        } 
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
+        catch (JaxenException e) {
+            throw new JellyTagException(e);
         }
     }
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/CopyOfTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/CopyOfTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,19 +57,22 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CopyOfTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: CopyOfTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.dom4j.Node;
 import org.dom4j.io.SAXWriter;
+import org.jaxen.JaxenException;
 import org.jaxen.XPath;
+import org.xml.sax.SAXException;
 
 /** A tag which performs a copy-of operation like the XSLT tag
   *
@@ -85,7 +88,7 @@ public class CopyOfTag extends XPathTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         Object xpathContext = getXPathContext();
         
         if (select == null) {
@@ -93,15 +96,22 @@ public class CopyOfTag extends XPathTagSupport {
         }
 
         SAXWriter saxWriter = new SAXWriter(output, output);
-        List nodes = select.selectNodes(xpathContext);
-        for (Iterator iter = nodes.iterator(); iter.hasNext(); ) {
-            Object object = iter.next();
-            if ( object instanceof Node ) {
-                saxWriter.write( (Node) object );
-            }
-            else if (object != null ) {
-                output.write( object.toString() );
-            }
+        try {
+            List nodes = select.selectNodes(xpathContext);
+            for (Iterator iter = nodes.iterator(); iter.hasNext(); ) {
+                Object object = iter.next();
+                if ( object instanceof Node ) {
+                    saxWriter.write( (Node) object );
+                }
+                else if (object != null ) {
+                    output.write( object.toString() );
+                }
+            } 
+        }
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        } catch (JaxenException e) {
+            throw new JellyTagException(e);
         }
     }
 

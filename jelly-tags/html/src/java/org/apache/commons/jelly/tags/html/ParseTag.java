@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.tags.html;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.xml.ParseTagSupport;
 
@@ -71,6 +72,8 @@ import org.cyberneko.html.parsers.SAXParser;
 
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
+
+import org.xml.sax.SAXException;
 
 
 /** A tag which parses some HTML and defines a variable with the parsed Document.
@@ -95,7 +98,7 @@ public class ParseTag extends ParseTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if (getVar() == null) {
             throw new IllegalArgumentException("The var attribute cannot be null");
         }
@@ -149,7 +152,7 @@ public class ParseTag extends ParseTagSupport {
     /**
      * Factory method to create a new SAXReader
      */    
-    protected SAXReader createSAXReader() throws Exception {
+    protected SAXReader createSAXReader() throws SAXException {
         // installs the NeckHTML parser
         SAXParser parser = new SAXParser();
         parser.setProperty(

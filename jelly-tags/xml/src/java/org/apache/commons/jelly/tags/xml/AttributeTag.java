@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/AttributeTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/AttributeTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AttributeTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: AttributeTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -69,7 +69,7 @@ import org.apache.commons.jelly.XMLOutput;
   * the <code>&lt;xsl:attribute&gt;</code> tag.
   *
   * @author James Strachan
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class AttributeTag extends TagSupport {
     
@@ -82,10 +82,10 @@ public class AttributeTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         ElementTag tag = (ElementTag) findAncestorWithClass( ElementTag.class );
         if ( tag == null ) {
-            throw new JellyException( "<attribute> tag must be enclosed inside an <element> tag" );
+            throw new JellyTagException( "<attribute> tag must be enclosed inside an <element> tag" );
         }
         tag.setAttributeValue( getName(), getBodyText() );
     }

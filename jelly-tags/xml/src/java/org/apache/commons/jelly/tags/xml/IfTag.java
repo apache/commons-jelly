@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/IfTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/IfTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,20 +57,22 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IfTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: IfTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
+import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
 /** 
  * Evaluates the XPath expression to be a boolean and only evaluates the body
  * if the expression is true.    
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class IfTag extends XPathTagSupport {
 
@@ -82,14 +84,19 @@ public class IfTag extends XPathTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (select == null) {
             throw new MissingAttributeException( "select" );
         }
         
         Object xpathContext = getXPathContext();
-        if ( select.booleanValueOf(xpathContext) ) {
-            invokeBody(output);
+        
+        try {
+            if ( select.booleanValueOf(xpathContext) ) {
+                invokeBody(output);
+            }
+        } catch (JaxenException e) {
+            throw new JellyTagException(e);
         }
     }
 
