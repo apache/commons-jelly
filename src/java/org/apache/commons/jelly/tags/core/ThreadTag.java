@@ -68,23 +68,22 @@ import org.apache.commons.jelly.XMLOutput;
   *
   * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
   */
-public class ThreadTag extends TagSupport 
-{
+public class ThreadTag extends TagSupport  {
     /** Thread Name */
     private String name = null;
     /** the destination of output */
     private XMLOutput xmlOutput;
     
 
-    public ThreadTag()
-    {
+    public ThreadTag() {
     }
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(final XMLOutput output) throws Exception {
         if ( xmlOutput == null ) {
-            throw new MissingAttributeException("xmlOutput");
+            // lets default to system.out
+            xmlOutput = XMLOutput.createXMLOutput( System.out );
         }
         
         Thread thread = new Thread(
