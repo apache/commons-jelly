@@ -14,24 +14,6 @@
   <!-- Set default values for the build -->
   <property file="project.properties" />
   
-  <!-- the default build location -->
-  <property name="maven.build.dest" value="target/classes"/>
-
-  <path id="test.classpath">
-    <pathelement path="${maven.build.dest}"/>
-    <pathelement location="${lib.repo}/commons-logging-1.0.jar"/>
-    <pathelement location="${lib.repo}/commons-beanutils-20020520.jar"/>
-    <pathelement location="${lib.repo}/commons-collections-2.0.jar"/>
-    <pathelement location="${lib.repo}/commons-digester-1.2.jar"/>
-    <pathelement location="${lib.repo}/commons-jexl-1.0-dev.jar"/>
-    <pathelement location="${lib.repo}/dom4j-1.4-dev.jar"/>
-    <pathelement location="${lib.repo}/hsqldb-1.7.0.jar"/>
-    <pathelement location="${lib.repo}/velocity-1.4-dev.jar"/>
-    <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
-    <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
-    <pathelement location="${lib.repo}/jdbc2_0-stdext.jar"/>
-  </path>
-
   <!-- maven:start -->
   
   <!-- ================================================================== -->
@@ -39,31 +21,43 @@
   <!-- ================================================================== -->
         
 	<target name="maven:gump-descriptor">
-	  <ant antfile="${maven.home}/build-maven.xml" target="gump-descriptor"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="gump-descriptor"/>
 	</target>
 	
 	<target name="maven:maven-update">
-	  <ant antfile="${maven.home}/build-maven.xml" target="maven-update"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="maven-update"/>
 	</target>
 	
 	<target name="maven:update-jars">
-	  <ant antfile="${maven.home}/build-maven.xml" target="update-jars"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="update-jars"/>
 	</target>
 	
 	<target name="maven:jar">
-	  <ant antfile="${maven.home}/build-maven.xml" target="jar"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="jar"/>
 	</target>
 	
 	<target name="maven:docs-quick">
-	  <ant antfile="${maven.home}/build-docs.xml" target="docs-quick"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="docs-quick"/>
 	</target>
 	
 	<target name="maven:run-singletest">
-	  <ant antfile="${maven.home}/build-test.xml" target="run-singletest"/>
+	  <ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
 	</target>
 	
 	<target name="maven:compile">
-	  <ant antfile="${maven.home}/build-maven.xml" target="compile"/>
+	  <taskdef
+    	name="maven-ant"
+    	classname="org.apache.maven.ant.Ant">
+    	<classpath>
+          <pathelement location="${lib.repo}/maven.jar"/>
+    	</classpath>
+	  </taskdef>
+
+	  <maven-ant 
+	  	antfile="${maven.home}/plugins/core/build.xml" 
+	  	target="compile" 
+	  	exportRefs="true" 
+	  	exportAll="true"/>
 	</target>
 	
 	<target name="maven:jar-resources">
@@ -71,11 +65,11 @@
 	</target>
 	
 	<target name="maven:fo">
-	  <ant antfile="${maven.home}/build-docs.xml" target="fo"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="fo"/>
 	</target>
 	
 	<target name="maven:cvs-change-log">
-	  <ant antfile="${maven.home}/build-docs.xml" target="cvs-change-log"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="cvs-change-log"/>
 	</target>
 	
 	<target name="maven:war">
@@ -83,15 +77,15 @@
 	</target>
 	
 	<target name="maven:generate-reactor">
-	  <ant antfile="${maven.home}/build-reactor.xml" target="generate-reactor"/>
+	  <ant antfile="${maven.home}/plugins/reactor/build.xml" target="generate-reactor"/>
 	</target>
 	
 	<target name="maven:cross-ref">
-	  <ant antfile="${maven.home}/build-docs.xml" target="cross-ref"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="cross-ref"/>
 	</target>
 	
 	<target name="maven:deploy-site">
-	  <ant antfile="${maven.home}/build-docs.xml" target="deploy-site"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="deploy-site"/>
 	</target>
 	
 	<target name="maven:ear">
@@ -99,79 +93,79 @@
 	</target>
 	
 	<target name="maven:install-jar">
-	  <ant antfile="${maven.home}/build-maven.xml" target="install-jar"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="install-jar"/>
 	</target>
 	
 	<target name="maven:task-list">
-	  <ant antfile="${maven.home}/build-docs.xml" target="task-list"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="task-list"/>
 	</target>
 	
 	<target name="maven:docs">
-	  <ant antfile="${maven.home}/build-docs.xml" target="docs"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="docs"/>
 	</target>
 	
 	<target name="maven:site">
-	  <ant antfile="${maven.home}/build-docs.xml" target="site"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="site"/>
 	</target>
 	
 	<target name="maven:deploy-dist">
-	  <ant antfile="${maven.home}/build-maven.xml" target="deploy-dist"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="deploy-dist"/>
 	</target>
 	
 	<target name="maven:javadocs">
-	  <ant antfile="${maven.home}/build-docs.xml" target="javadocs"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="javadocs"/>
 	</target>
 	
 	<target name="maven:announce">
-	  <ant antfile="${maven.home}/build-maven.xml" target="announce"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="announce"/>
 	</target>
 	
 	<target name="maven:check-source">
-	  <ant antfile="${maven.home}/build-maven.xml" target="check-source"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="check-source"/>
 	</target>
 	
 	<target name="maven:dist">
-	  <ant antfile="${maven.home}/build-maven.xml" target="dist"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="dist"/>
 	</target>
 	
 	<target name="maven:dist-build">
-	  <ant antfile="${maven.home}/build-maven.xml" target="dist-build"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="dist-build"/>
 	</target>
 	
 	<target name="maven:metrics">
-	  <ant antfile="${maven.home}/build-metrics.xml" target="metrics"/>
+	  <ant antfile="${maven.home}/plugins/metrics/build.xml" target="metrics"/>
 	</target>
 	
 	<target name="maven:clean">
-	  <ant antfile="${maven.home}/build-maven.xml" target="clean"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="clean"/>
 	</target>
 	
 	<target name="maven:env">
-	  <ant antfile="${maven.home}/build-maven.xml" target="env"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="env"/>
 	</target>
 	
 	<target name="maven:test">
-	  <ant antfile="${maven.home}/build-test.xml" target="test"/>
+	  <ant antfile="${maven.home}/plugins/test/build.xml" target="test"/>
 	</target>
 	
 	<target name="maven:pdf">
-	  <ant antfile="${maven.home}/build-docs.xml" target="pdf"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="pdf"/>
 	</target>
 	
 	<target name="maven:iutest">
-	  <ant antfile="${maven.home}/build-iutest.xml" target="iutest"/>
+	  <ant antfile="${maven.home}/plugins/uitest/build.xml" target="iutest"/>
 	</target>
 	
 	<target name="maven:activity-log">
-	  <ant antfile="${maven.home}/build-docs.xml" target="activity-log"/>
+	  <ant antfile="${maven.home}/plugins/docs/build.xml" target="activity-log"/>
 	</target>
 	
 	<target name="maven:verify-project">
-	  <ant antfile="${maven.home}/build-maven.xml" target="verify-project"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="verify-project"/>
 	</target>
 	
 	<target name="maven:validate-pom">
-	  <ant antfile="${maven.home}/build-maven.xml" target="validate-pom"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="validate-pom"/>
 	</target>
 	
 	<target name="maven:validate-war">
@@ -192,11 +186,18 @@
 	<target name="test" depends="maven:test"/>
 
 	<target name="compile" depends="maven:compile, maven:jar-resources">
+	
+	  <path id="test.classpath">
+	    <pathelement path="${maven.build.dest}"/>
+        <path refid="maven.dependency.classpath"/>
+	  </path>
+	  
       <taskdef
         name="jelly"
         classname="org.apache.commons.jelly.task.JellyTask">
         <classpath refid="test.classpath"/>
       </taskdef>    
+      
     </target>	
 
 	<target name="dist" depends="maven:dist"/>
@@ -205,19 +206,9 @@
 
    <target name="demo.hw" depends="compile" 
       description="Runs the Hello World demo">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/hello_world.jelly"/> 
-    </java>
-   </target>
-
-   
-   <target name="demo.hw2" depends="compile" 
-      description="Runs the Hello World demo using Maven's classpath">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="maven.dependency.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/hello_world.jelly"/> 
-    </java>
+      
+	<jelly file="src/test/org/apache/commons/jelly/hello_world.jelly"/> 
+	
    </target>
 
    <target name="demo.ant" depends="compile" 
@@ -226,7 +217,6 @@
 	<jelly file="src/test/org/apache/commons/jelly/show_ant_properties.jelly" output="target/ant.html"/>
 	
    </target>
-
 
    <target name="demo.sql" depends="compile" 
       description="Runs an SQL demo">

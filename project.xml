@@ -112,7 +112,13 @@
       <jar>hsqldb-1.7.0.jar</jar>
     </dependency>
 
-<!--
+    <dependency>
+      <name>xmlParseAPIs</name>
+      <type>required</type>
+      <version>2.0.0</version>
+      <jar>xmlParserAPIs-2.0.0.jar</jar>
+    </dependency>
+    
     <dependency>
       <name>xercesImpl</name>
       <type>required</type>
@@ -120,12 +126,15 @@
       <jar>xercesImpl-2.0.0.jar</jar>
     </dependency>
 
+<!--
+
     <dependency>
-      <name>xmlParseAPIs</name>
+      <name>xerces</name>
       <type>required</type>
-      <version>2.0.0</version>
-      <jar>xmlParserAPIs-2.0.0.jar</jar>
+      <version>1.4.4</version>
+      <jar>xerces-1.4.4.jar</jar>
     </dependency>
+    
 -->
 
   </dependencies>
