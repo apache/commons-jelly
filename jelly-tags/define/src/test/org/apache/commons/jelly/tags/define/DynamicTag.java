@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/test/org/apache/commons/jelly/tags/define/DynamicTag.java,v 1.1 2003/01/15 14:58:05 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 14:58:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/define/src/test/org/apache/commons/jelly/tags/define/DynamicTag.java,v 1.2 2003/01/27 07:10:14 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/27 07:10:14 $
  *
  * ====================================================================
  *
@@ -57,16 +57,19 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynamicTag.java,v 1.1 2003/01/15 14:58:05 dion Exp $
+ * $Id: DynamicTag.java,v 1.2 2003/01/27 07:10:14 morgand Exp $
  */
  package org.apache.commons.jelly.tags.define;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.xml.sax.SAXException;
+
 /**
  * @author stephen
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class DynamicTag extends TagSupport
 {
@@ -74,9 +77,14 @@ public class DynamicTag extends TagSupport
     /**
      * @see org.apache.commons.jelly.Tag#doTag(XMLOutput)
      */
-    public void doTag(XMLOutput output) throws Exception
+    public void doTag(XMLOutput output) throws JellyTagException
     {
-        output.write("output - ignored body");
+        try {
+            output.write("output - ignored body");
+        }
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
     }
 
 }
