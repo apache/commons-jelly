@@ -15,6 +15,7 @@
  */
 package org.apache.commons.jelly.impl;
 
+import java.net.URL;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -50,7 +51,6 @@ public class StaticTagScript extends TagScript {
     // Script interface
     //-------------------------------------------------------------------------
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
-
         try {
             startNamespacePrefixes(output);
         } catch (SAXException e) {
@@ -71,11 +71,14 @@ public class StaticTagScript extends TagScript {
             throw new JellyTagException(e);
         }
 
+        URL rootURL = context.getRootURL();
+        URL currentURL = context.getCurrentURL();
         try {
             if ( tag == null ) {
                 return;
             }
             tag.setContext(context);
+            setContextURLs(context);
 
             DynaTag dynaTag = (DynaTag) tag;
 
@@ -103,6 +106,9 @@ public class StaticTagScript extends TagScript {
         }
         catch (RuntimeException e) {
             handleException(e);
+        } finally {
+            context.setCurrentURL(currentURL);
+            context.setRootURL(rootURL);
         }
 
         try {

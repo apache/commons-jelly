@@ -16,6 +16,8 @@
 package org.apache.commons.jelly.impl;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
@@ -51,7 +53,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.43 $
+ * @version $Revision: 1.44 $
  */
 public class TagScript implements Script {
 
@@ -107,6 +109,9 @@ public class TagScript implements Script {
 
     /** the SAX attributes */
     private Attributes saxAttributes;
+    
+    /** the url of the script when parsed */
+    private URL scriptURL = null;
 
     /**
      * @return a new TagScript based on whether
@@ -170,11 +175,24 @@ public class TagScript implements Script {
         attributes.put(name, expression);
     }
 
+    /**
+     * Strips off the name of a script to create a new context URL
+     * FIXME: Copied from JellyContext
+     */
+    private URL getJellyContextURL(URL url) throws MalformedURLException {
+        String text = url.toString();
+        int idx = text.lastIndexOf('/');
+        text = text.substring(0, idx + 1);
+        return new URL(text);
+    }
+
     // Script interface
     //-------------------------------------------------------------------------
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
+        URL rootURL = context.getRootURL();
+        URL currentURL = context.getCurrentURL();
         if ( ! context.isCacheTags() ) {
             clearTag();
         }
@@ -184,6 +202,7 @@ public class TagScript implements Script {
                 return;
             }
             tag.setContext(context);
+            setContextURLs(context);
 
             if ( tag instanceof DynaTag ) {
                 DynaTag dynaTag = (DynaTag) tag;
@@ -248,10 +267,25 @@ public class TagScript implements Script {
             * Errors in the normal course of operation.  Hmm...
             */
             handleException(e);
+        } finally {
+            context.setRootURL(rootURL);
+            context.setCurrentURL(currentURL);
         }
 
     }
 
+    /**
+     * Set the context's root and current URL if not present
+     * @param context
+     * @throws JellyTagException
+     */
+    protected void setContextURLs(JellyContext context) throws JellyTagException {
+        if ((context.getCurrentURL() == null || context.getRootURL() == null) && scriptURL != null)
+        {
+            if (context.getRootURL() == null) context.setRootURL(scriptURL);
+            if (context.getCurrentURL() == null) context.setCurrentURL(scriptURL);
+        }
+    }
 
     // Properties
     //-------------------------------------------------------------------------
@@ -331,6 +365,12 @@ public class TagScript implements Script {
      */
     public void setFileName(String fileName) {
         this.fileName = fileName;
+        try
+        {
+            this.scriptURL = getJellyContextURL(new URL(fileName));
+        } catch (MalformedURLException e) {
+            log.debug("error setting script url", e);
+        }
     }
 
 
