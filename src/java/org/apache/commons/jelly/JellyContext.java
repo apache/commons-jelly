@@ -321,8 +321,9 @@ public class JellyContext {
     /**
      * Sets the Map of variables to use
      */
-
     public void setVariables(Map variables) {
+        // FIXME: I have seen this fail when the passed Map contains a key, value 
+        // pair where the value is null
         this.variables.putAll( variables );
     }
 
