@@ -58,10 +58,14 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.DefaultGoal;
+import com.werken.werkz.Goal;
+import com.werken.werkz.Action;
+import com.werken.werkz.DefaultAction;
+import com.werken.werkz.CyclicGoalChainException;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -74,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * but is based on the Werkz goal engine.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class GoalTag extends WerkzTagSupport {
 
@@ -83,6 +87,8 @@ public class GoalTag extends WerkzTagSupport {
     
     /** the name of the target */
     private String name;
+
+    private String prereqs;
     
     public GoalTag() {
     }
@@ -99,20 +105,20 @@ public class GoalTag extends WerkzTagSupport {
         
         log.debug("doTag(..):" + name);
 
-        // lets register a new goal...        
-		DefaultGoal goal = new DefaultGoal(name) {
-			public void performAction() throws Exception {
-				// lets run the body
-				log.debug("Running target: " + name);
-				getBody().run(context, output);
-			}
-            public boolean requiresAction() {
-                return true;
-            }
-		};
-        getProject().addGoal(goal);
-    }
+        Goal goal = getProject().getGoal( getName(),
+                                          true );
 
+        addPrereqs( goal );
+
+        Action action = new DefaultAction() {
+                public void performAction() throws Exception {
+                    log.debug("Running action of target: " + getName() );
+                    getBody().run(context, output);
+                }
+            };
+
+        goal.setAction( action );
+    }
 
     
     // Properties
@@ -130,5 +136,39 @@ public class GoalTag extends WerkzTagSupport {
     public void setName(String name) {
         log.debug("setName(" + name + ")" );
         this.name = name;
+    }
+
+    public void setPrereqs(String prereqs) {
+        this.prereqs = prereqs;
+    }
+
+    public String getPrereqs() {
+        return this.prereqs;
+    }
+        
+
+    protected void addPrereqs(Goal goal) throws CyclicGoalChainException
+    {
+        String prereqs = getPrereqs();
+
+        if ( prereqs == null )
+        {
+            return;
+        }
+
+        StringTokenizer tokens = new StringTokenizer( getPrereqs(),
+                                                      "," );
+
+        String eachToken = null;
+        Goal   eachPrereq = null;
+
+        while ( tokens.hasMoreTokens() )
+        {
+            eachToken = tokens.nextToken().trim();
+
+            eachPrereq = getProject().getGoal( eachToken, true );
+
+            goal.addPrerequisite( eachPrereq );
+        }
     }
 }

@@ -345,8 +345,8 @@
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="callback.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/werkz/example.jelly"/> 
-      <arg value="compile"/> 
       <arg value="test"/> 
+      <arg value="compile"/>
     </java>
    </target>
 

@@ -4,15 +4,15 @@
 
   <!-- the following could be in the mediator of Maven -->
   <werkz:goal name="init">
-  	<echo message="Initializing the project!"/>
+  	<echo message="Running init goal's action"/>
   </werkz:goal>
   		
-  <werkz:goal name="compile">
-  	<echo message="About to compile the project!"/>
+  <werkz:goal name="compile" prereqs="init">
+  	<echo message="Running compile goal's action"/>
   </werkz:goal>
 
-  <werkz:goal name="test">
-  	<echo message="About to run the tests!"/>
+  <werkz:goal name="test" prereqs="init,compile">
+  	<echo message="Running test goal's action"/>
   </werkz:goal>
 
 
@@ -24,8 +24,15 @@
 
   <!-- call all the targets made on the command line -->	
   <werkz:attain>
+  	   <echo>-------------------------------------</echo>
+           <echo>jelly+werkz+ant-taskdefs</echo>
+  	   <echo>-------------------------------------</echo>
       <j:forEach var="arg" items="${args}" begin="1">
-          <werkz:attainGoal name="${arg}"/>
+  	   <echo>begin target [<j:expr value="${arg}"/>]</echo>
+  	   <echo>-------------------------------------</echo>
+           <werkz:attainGoal name="${arg}"/>
+  	   <echo>end target [<j:expr value="${arg}"/>]</echo>
+  	   <echo>-------------------------------------</echo>
       </j:forEach>
   </werkz:attain>
   	

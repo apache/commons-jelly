@@ -71,6 +71,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
+import org.apache.tools.ant.taskdefs.Echo;
 
 /** 
  * A tag which invokes an Ant Task
@@ -97,11 +98,20 @@ public class TaskTag extends DynaBeanTagSupport implements TaskSource {
         
         task.init();
 
-        // run the body first to configure the task via nested
-        getBody().run(context, output);
+        if ( "echo".equals( task.getTaskName() ) )
+        {
+            Echo echoTask = (Echo) task;
 
-        // task.execute();   
-        task.perform();   
+            echoTask.addText( getBodyText() );
+            echoTask.perform();   
+            echoTask.setMessage( "" );
+        }
+        else
+        {
+            // run the body first to configure the task via nested
+            getBody().run(context, output);
+            task.perform();   
+        }
     }
     
     // TaskSource interface
