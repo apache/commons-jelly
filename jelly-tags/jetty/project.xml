@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Copyright 2002,2004 The Apache Software Foundation.
   
@@ -14,57 +15,49 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-jetty</id>
   <name>commons-jelly-tags-jetty</name>
-
+  <currentVersion>1.0</currentVersion>
   <package>org.apache.commons.jelly.tags.jetty</package>
-
-  <description>
-      These are Jelly tags that can set up an in-process web server.
-  </description>
+  <description>These are Jelly tags that can set up an in-process web server.</description>
   <shortDescription>Commons Jelly Jetty Tag Library</shortDescription>
-  
-  <!-- <url>http://jakarta.apache.org/commons/jelly/tags/jetty/</url>
-  <siteDirectory>/www/jakarta.apache.org/commons/jelly/tags/jetty/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/jetty</distributionDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/jetty/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/jetty/</url>
-  </repository>-->
-  
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS-JELLY-JETTY-1_0</tag>
+    </version>
+  </versions>
+
   <dependencies>
-  
-    
-  
     <!-- START for compilation -->
     <!-- may need JDK 1.4 or jsse -->
+
     <dependency>
       <id>commons-jelly</id>
       <version>1.0-beta-4</version>
     </dependency>
-  
     <!-- http taglib -->
+
     <dependency>
       <id>commons-httpclient</id>
       <version>2.0</version>
     </dependency>
-        
     <dependency>
       <id>jetty</id>
       <version>4.2.3</version>
     </dependency>
-    
     <!-- END for compilation -->
-
     <!-- for testing -->
+
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-http</artifactId>
       <version>1.0</version>
     </dependency>
-
     <!-- PL: Commented out as it might be this is part of JDK 1.4...
     <dependency>
       <id>jsse</id>
@@ -75,11 +68,9 @@
       <id>jsse+jnet</id>
       <version>1.0.3</version>
     </dependency> -->
-
-    
     <!-- END for testing -->
-    
     <!-- for runtime -->
+
     <dependency>
       <id>servletapi</id>
       <version>2.2</version>
@@ -88,5 +79,4 @@
     <!-- END for runtime -->
 
   </dependencies>
-  
 </project>
