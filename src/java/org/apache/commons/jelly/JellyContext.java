@@ -98,11 +98,17 @@ public class JellyContext {
     /** The parent context */
     private JellyContext parent;
 
+    /** Default for inheritance of variables **/
+    private static boolean DEFAULT_INHERIT = true;
+
     /** Do we inherit variables from parent context? */
-    private boolean inherit = true;
+    private boolean inherit = JellyContext.DEFAULT_INHERIT;
+    
+    /** Default for export of variables **/
+    private static boolean DEFAULT_EXPORT = false;
 
     /** Do we export our variables to parent context? */
-    private boolean export  = false;
+    private boolean export  = JellyContext.DEFAULT_EXPORT;
 
     /** Should we export tag libraries to our parents context */
     private boolean exportLibraries = true;
@@ -486,7 +492,8 @@ public class JellyContext {
      * @return the new child context that was used to run the script
      */
     public JellyContext runScript(File file, XMLOutput output) throws Exception {
-        return runScript(file.toURL(), output);
+        return runScript(file.toURL(), output, JellyContext.DEFAULT_EXPORT,
+            JellyContext.DEFAULT_INHERIT);
     }
 
     /** 
@@ -495,19 +502,8 @@ public class JellyContext {
      * @return the new child context that was used to run the script
      */
     public JellyContext runScript(URL url, XMLOutput output) throws Exception {
-        Script script = compileScript(url);
-        
-        URL newJellyContextURL = getJellyContextURL(url);
-        JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
-        
-        if (log.isDebugEnabled() ) {
-            log.debug( "About to run script: " + url );
-            log.debug( "root context URL: " + newJellyContext.rootURL );
-            log.debug( "current context URL: " + newJellyContext.currentURL );
-        }
-        
-        script.run(newJellyContext, output);
-        return newJellyContext;
+        return runScript(url, output, JellyContext.DEFAULT_EXPORT,
+            JellyContext.DEFAULT_INHERIT);
     }
 
     /** 
@@ -521,12 +517,8 @@ public class JellyContext {
         if (url == null) {
             throw new JellyException("Could not find Jelly script: " + url);
         }
-        Script script = compileScript(url);
-        
-        URL newJellyContextURL = getJellyContextURL(url);
-        JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
-        script.run(newJellyContext, output);
-        return newJellyContext;
+        return runScript(url, output, JellyContext.DEFAULT_EXPORT,
+            JellyContext.DEFAULT_INHERIT);
     }
 
     /** 
@@ -541,6 +533,27 @@ public class JellyContext {
         if (url == null) {
             throw new JellyException("Could not find Jelly script: " + url);
         }
+        
+        return runScript(url, output, export, inherit);
+    }
+
+    /** 
+     * Parses the script from the given file then compiles it and runs it.
+     * 
+     * @return the new child context that was used to run the script
+     */
+    public JellyContext runScript(File file, XMLOutput output,
+                          boolean export, boolean inherit) throws Exception {
+        return runScript(file.toURL(), output, export, inherit);
+    }
+
+    /** 
+     * Parses the script from the given URL then compiles it and runs it.
+     * 
+     * @return the new child context that was used to run the script
+     */
+    public JellyContext runScript(URL url, XMLOutput output,
+                          boolean export, boolean inherit) throws Exception {
         Script script = compileScript(url);
         
         URL newJellyContextURL = getJellyContextURL(url);
@@ -553,6 +566,12 @@ public class JellyContext {
             // use the same variable scopes
             newJellyContext.variables = this.variables;
         } 
+
+        if (log.isDebugEnabled() ) {
+            log.debug( "About to run script: " + url );
+            log.debug( "root context URL: " + newJellyContext.rootURL );
+            log.debug( "current context URL: " + newJellyContext.currentURL );
+        }
 
         script.run(newJellyContext, output);
         

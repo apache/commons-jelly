@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ImportTag.java,v 1.4 2002/12/11 12:40:54 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/12/11 12:40:54 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ImportTag.java,v 1.5 2003/01/11 04:03:48 dion Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/01/11 04:03:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ImportTag.java,v 1.4 2002/12/11 12:40:54 jstrachan Exp $
+ * $Id: ImportTag.java,v 1.5 2003/01/11 04:03:48 dion Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -75,28 +75,56 @@ import org.apache.commons.jelly.XMLOutput;
  *  </p>
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
 public class ImportTag extends TagSupport {
 
+    /** 
+     * the location of the script being imported, relative to the
+     * current script
+     */
     private String uri;
+    
+    /**
+     * Whether the imported script has access to the caller's variables
+     */
     private boolean inherit;
+    
+    /**
+     * The file to be imported. Mutually exclusive with uri.
+     * uri takes precedence.
+     */
+    private String file;
 
+    /**
+     * Create a new Import tag.
+     * @see java.lang.Object#Object()
+     */
     public ImportTag() {
     }
 
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
+    /**
+     * Perform tag processing
+     * @param output the destination for output
+     * @throws Exception Any exception can be thrown
+     */ 
     public void doTag(XMLOutput output) throws Exception {
-        if (uri == null) {
+        if (uri == null && file == null) {
             throw new MissingAttributeException( "uri" );
         }
 
-        // we need to create a new JellyContext of the URI
-        // take off the script name from the URL
-        context.runScript(uri, output, true, isInherit() );
+        if (uri != null) {
+            // we need to create a new JellyContext of the URI
+            // take off the script name from the URL
+            context.runScript(uri, output, true, isInherit() );
+        } else {
+            context.runScript(new java.io.File(file), output, true,
+                isInherit());
+        }
     }
 
     // Properties
@@ -121,6 +149,15 @@ public class ImportTag extends TagSupport {
      */
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+
+    /**
+     * Sets the file for the script to evaluate.
+     * @param file The file to set
+     */
+    public void setFile(String file) {
+        this.file = file;
     }
 
 }
