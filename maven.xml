@@ -244,6 +244,14 @@
     </java>
   </goal>
 
+  <goal name="demo:junitui" prereqs="jelly-task" 
+	description="Runs the Swing JUnit runner on the Jelly JUnit test suite">
+	
+    <java classname="junit.swingui.TestRunner" fork="yes">
+      <classpath refid="test.classpath"/>
+    </java>
+  </goal>
+
   <goal name="demo:jeez" prereqs="jelly-task" 
 	description="A demo of the jeez taglib">
 	
