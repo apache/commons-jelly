@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
 
-  <shell text="TableTree Demo" var="shell" style="border, close, min, max, resize, title">
+  <shell text="TableTree Demo" var="subShell" style="border, close, min, max, resize, title">
   	
   	<gridLayout/>
 
@@ -40,5 +40,5 @@
 		</tableTree>
   </shell>
 
-	${shell.open()}
+	${subShell.open()}
 </j:jelly>

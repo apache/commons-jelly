@@ -71,6 +71,11 @@
   				<j:include uri="tableTree.jelly"/>
   			</onEvent>
 			</toolItem>
+  		<toolItem text="Parent Demo" toolTipText="Starts the Parent Demo that shows how to start a component given a parent widget">
+  			<onEvent type="Selection">
+  				<j:include uri="parentDemo.jelly"/>
+  			</onEvent>
+			</toolItem>
   	</toolBar>
   </shell>
 

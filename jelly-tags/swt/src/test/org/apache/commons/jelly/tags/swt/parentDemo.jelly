@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
+
+  <shell text="Parent Demo" var="subShell" style="border, close, min, max, resize, title">
+  	
+  	<gridLayout/>
+
+  </shell>
+
+	<!-- 
+		|| This demo shows how we can create a brand new widget which is added to a 
+		|| given parent control (in this case the shell).
+		|| This widget can be defined as a variable using the var="foo" attribute just
+		|| like any other widget.
+		-->
+	<tree parent="${subShell}" toolTipText="This is a tree!" style="multi">
+		
+		<gridData style="fill_both"/>
+		
+		<!-- we'd normally use some Java bean model to implement the next bit -->
+		<treeItem text="A">
+			<treeItem text="A/A"/>
+			<treeItem text="A/B"/>
+			<treeItem text="A/C"/>
+		</treeItem>
+		<treeItem text="B">
+			<treeItem text="B/A"/>
+			<treeItem text="B/B"/>
+			<treeItem text="B/C"/>
+		</treeItem>
+						
+		<menu style="pop_up">
+			<menuItem text="do something!">
+				<onEvent type="Selection">
+					<log:info>Clicked on ${event}</log:info>
+				</onEvent>
+			</menuItem>
+		</menu>							
+	</tree>
+	
+	${subShell.pack()}
+	${subShell.open()}
+	
+</j:jelly>

@@ -84,7 +84,8 @@ public class WidgetTag extends UseBeanTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(WidgetTag.class);
-    
+
+    private Widget parent;    
     
     public WidgetTag(Class widgetClass) {
         super(widgetClass);
@@ -113,13 +114,33 @@ public class WidgetTag extends UseBeanTag {
      * @return the parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
-        WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
-        if (tag != null) {
-            return tag.getWidget();
+        if (parent == null) {
+            WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
+            if (tag != null) {
+                parent = tag.getWidget();
+            }
         }
-        return null;
+        return parent;
     }
 
+    // Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws JellyTagException {
+        Map attributes = getAttributes();
+        Object parent = attributes.remove("parent");
+        if (parent != null) {
+            if (parent instanceof Widget) {
+                this.parent = (Widget) parent;
+            }
+            else {
+                throw new JellyTagException(
+                    "The parent attribute is not a Widget, it is of type: "
+                    + parent.getClass().getName() + " value: " + parent
+                );
+            }                    
+        }
+        super.doTag(output);
+    }
     
     // Implementation methods
     //-------------------------------------------------------------------------                    

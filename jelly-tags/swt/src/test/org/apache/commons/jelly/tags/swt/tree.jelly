@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
 
-  <shell text="Tree Demo" var="shell" style="border, close, min, max, resize, title">
+  <shell text="Tree Demo" var="subShell" style="border, close, min, max, resize, title">
   	
   	<gridLayout/>
 
@@ -31,6 +31,6 @@
 		</tree>
   </shell>
 
-	${shell.pack()}
-	${shell.open()}
+	${subShell.pack()}
+	${subShell.open()}
 </j:jelly>
