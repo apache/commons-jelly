@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.11 2003/01/24 22:53:34 morgand Exp $
- * $Revision: 1.11 $
- * $Date: 2003/01/24 22:53:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.12 2003/01/29 15:45:36 dion Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/01/29 15:45:36 $
  *
  * ====================================================================
  *
@@ -57,11 +57,10 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: WhenTag.java,v 1.11 2003/01/24 22:53:34 morgand Exp $
+ * $Id: WhenTag.java,v 1.12 2003/01/29 15:45:36 dion Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -70,7 +69,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 public class WhenTag extends TagSupport {
 

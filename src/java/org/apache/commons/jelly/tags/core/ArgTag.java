@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.3 2003/01/24 22:53:33 morgand Exp $
- * $Revision: 1.3 $
- * $Date: 2003/01/24 22:53:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ArgTag.java,v 1.4 2003/01/29 15:45:36 dion Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/01/29 15:45:36 $
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
@@ -56,7 +56,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ArgTag.java,v 1.3 2003/01/24 22:53:33 morgand Exp $
+ * $Id: ArgTag.java,v 1.4 2003/01/29 15:45:36 dion Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -73,7 +73,6 @@ import org.apache.commons.beanutils.converters.FloatConverter;
 import org.apache.commons.beanutils.converters.IntegerConverter;
 import org.apache.commons.beanutils.converters.LongConverter;
 import org.apache.commons.beanutils.converters.ShortConverter;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -83,7 +82,7 @@ import org.apache.commons.jelly.XMLOutput;
  * implementation.
  *
  * @author Rodney Waldhoff
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class ArgTag extends BaseClassLoaderTag {
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/DefaultTag.java,v 1.4 2003/01/24 22:53:33 morgand Exp $
- * $Revision: 1.4 $
- * $Date: 2003/01/24 22:53:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/DefaultTag.java,v 1.5 2003/01/29 15:45:36 dion Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/01/29 15:45:36 $
  *
  * ====================================================================
  *
@@ -57,11 +57,10 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefaultTag.java,v 1.4 2003/01/24 22:53:33 morgand Exp $
+ * $Id: DefaultTag.java,v 1.5 2003/01/29 15:45:36 dion Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -78,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
  * @see SwitchTag
  * 
  * @author Rodney Waldhoff
- * @version $Revision: 1.4 $ $Date: 2003/01/24 22:53:33 $
+ * @version $Revision: 1.5 $ $Date: 2003/01/29 15:45:36 $
  */
 public class DefaultTag extends TagSupport {
 
