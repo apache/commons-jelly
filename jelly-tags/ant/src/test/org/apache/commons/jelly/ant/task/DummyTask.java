@@ -80,29 +80,29 @@ public class DummyTask extends Task {
     }
     
 	public Thingy createDing() {
-		System.out.println(messages[i++]);
+		System.out.println("addCreateDing: " + messages[i++]);
 		return new Thingy();
 	}
 
 	public void addDang(Thingy thingy) {
-		System.out.println(messages[i++]);
+		System.out.println("addDang: " + messages[i++]);
 	}
 
 	public void addConfiguredDong(Thingy thingy) {
-		System.out.println(messages[i++]);
+		System.out.println("addConfiguredDong: " + messages[i++]);
 	}
 
 	public Thingy createHipHop() {
-		System.out.println(messages[i++]);
+		System.out.println("createHipHop: " + messages[i++]);
 		return new Thingy();
 	}
 
 	public void addWontStop(Thingy thingy) {
-		System.out.println(messages[i++]);
+		System.out.println("addWontStop: " + messages[i++]);
 	}
 
 	public void addConfiguredTillYouDrop(Thingy thingy) {
-		System.out.println(messages[i++]);
+		System.out.println("addConfiguredTillYouDrop: " + messages[i++]);
 	}
 
     public boolean isForce() {
