@@ -67,6 +67,34 @@
   </target>
   <target name="jar" description="o Create the jar" depends="compile,test">
     <jar jarfile="target/${final.name}.jar" excludes="**/package.html" basedir="${classesdir}">
+      <metainf dir="${basedir}">
+        <include name="LICENSE.txt">
+        </include>
+      </metainf>
+      <manifest>
+        <attribute name="Built-By" value="${user.name}">
+        </attribute>
+        <attribute name="Created-By" value="Apache Jakarta Maven">
+        </attribute>
+        <attribute name="Package" value="org.apache.commons.jelly.tags.fmt">
+        </attribute>
+        <attribute name="Build-Jdk" value="${java.version}">
+        </attribute>
+        <section name="org.apache.commons.jelly.tags.fmt">
+          <attribute name="Specification-Title" value="commons-jelly-tags-fmt">
+          </attribute>
+          <attribute name="Specification-Version" value="1.0-SNAPSHOT">
+          </attribute>
+          <attribute name="Specification-Vendor" value="Apache Software Foundation">
+          </attribute>
+          <attribute name="Implementation-Title" value="org.apache.commons.jelly.tags.fmt">
+          </attribute>
+          <attribute name="Implementation-Version" value="1.0-SNAPSHOT">
+          </attribute>
+          <attribute name="Implementation-Vendor" value="Apache Software Foundation">
+          </attribute>
+        </section>
+      </manifest>
     </jar>
   </target>
   <target name="clean" description="o Clean up the generated directories">
@@ -81,7 +109,7 @@
     <copy todir="dist">
       <fileset dir="${defaulttargetdir}" includes="*.jar">
       </fileset>
-      <fileset dir="${basedir}" includes="LICENSE*, README*">
+      <fileset dir="${basedir}" includes="LICENSE*, README*, RELEASE*">
       </fileset>
     </copy>
   </target>
@@ -158,20 +186,6 @@
     </javadoc>
   </target>
   <target name="get-deps" unless="noget" depends="init">
-    <get dest="${libdir}/commons-jexl-1.0-beta-1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jexl/jars/commons-jexl-1.0-beta-1.jar">
-    </get>
-    <get dest="${libdir}/xml-apis-1.0.b2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xml-apis/jars/xml-apis-1.0.b2.jar">
-    </get>
-    <get dest="${libdir}/commons-beanutils-1.6.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.jar">
-    </get>
-    <get dest="${libdir}/commons-collections-2.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-2.1.jar">
-    </get>
-    <get dest="${libdir}/commons-logging-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.jar">
-    </get>
-    <get dest="${libdir}/dom4j-1.4-dev-8.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4-dev-8.jar">
-    </get>
-    <get dest="${libdir}/xerces-2.2.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xerces/jars/xerces-2.2.1.jar">
-    </get>
     <get dest="${libdir}/commons-jelly-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jelly/jars/commons-jelly-SNAPSHOT.jar">
     </get>
     <get dest="${libdir}/commons-jelly-tags-ant-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jelly/jars/commons-jelly-tags-ant-SNAPSHOT.jar">
@@ -185,6 +199,20 @@
     <get dest="${libdir}/commons-jelly-tags-junit-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jelly/jars/commons-jelly-tags-junit-SNAPSHOT.jar">
     </get>
     <get dest="${libdir}/bsh-1.2-b3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/bsh/jars/bsh-1.2-b3.jar">
+    </get>
+    <get dest="${libdir}/commons-jexl-1.0-beta-1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jexl/jars/commons-jexl-1.0-beta-1.jar">
+    </get>
+    <get dest="${libdir}/xml-apis-1.0.b2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xml-apis/jars/xml-apis-1.0.b2.jar">
+    </get>
+    <get dest="${libdir}/commons-beanutils-1.6.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.jar">
+    </get>
+    <get dest="${libdir}/commons-collections-2.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-2.1.jar">
+    </get>
+    <get dest="${libdir}/commons-logging-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.jar">
+    </get>
+    <get dest="${libdir}/dom4j-1.4-dev-8.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.4-dev-8.jar">
+    </get>
+    <get dest="${libdir}/xerces-2.2.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xerces/jars/xerces-2.2.1.jar">
     </get>
     <get dest="${libdir}/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar">
     </get>
