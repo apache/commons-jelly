@@ -168,6 +168,8 @@ public class QueryTag extends SqlTagSupport {
 
         log.debug( "About to lookup connection" );
         
+        ResultSet rs = null;
+        Statement statement = null;
         try {
             conn = getConnection();
 
@@ -202,14 +204,14 @@ public class QueryTag extends SqlTagSupport {
                 log.debug( "About to execute query: " + sqlStatement );
             }
             
-            ResultSet rs = null;
             if ( hasParameters() ) {
                 PreparedStatement ps = conn.prepareStatement(sqlStatement);
                 setParameters(ps);            
+                statement = ps;
                 rs = ps.executeQuery();
             }
             else {
-                Statement statement = conn.createStatement();
+                statement = conn.createStatement();
                 rs = statement.executeQuery(sqlStatement);
             }
             
@@ -220,6 +222,20 @@ public class QueryTag extends SqlTagSupport {
             throw new JellyException(sqlStatement + ": " + e.getMessage(), e);
         }
         finally {
+            if (statement != null) {
+                try {
+                    statement.close();
+                }
+                catch (SQLException e) {
+                } // Not much we can do
+            }
+            if (rs != null) {
+                try {
+                    rs.close();
+                }
+                catch (SQLException e) {
+                } // Not much we can do
+            }
             if (conn != null && !isPartOfTransaction) {
                 try {
                     conn.close();
