@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestXMLParserCache.java,v 1.5 2003/01/24 02:22:59 morgand Exp $
- * $Revision: 1.5 $
- * $Date: 2003/01/24 02:22:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestXMLParserCache.java,v 1.6 2003/01/29 16:10:13 dion Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/01/29 16:10:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLParserCache.java,v 1.5 2003/01/24 02:22:59 morgand Exp $
+ * $Id: TestXMLParserCache.java,v 1.6 2003/01/29 16:10:13 dion Exp $
  */
 package org.apache.commons.jelly.test.xml;
 
@@ -72,14 +72,13 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
-import org.xml.sax.SAXParseException;
 
 /**
  * A test to confirm that invalid documents are
  * reject iff jelly.setValidateXML(true)
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class TestXMLParserCache extends TestCase {
 

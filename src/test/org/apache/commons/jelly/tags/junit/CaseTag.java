@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/tags/junit/CaseTag.java,v 1.2 2003/01/27 02:35:26 dion Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/27 02:35:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/tags/junit/CaseTag.java,v 1.3 2003/01/29 16:10:13 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/29 16:10:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CaseTag.java,v 1.2 2003/01/27 02:35:26 dion Exp $
+ * $Id: CaseTag.java,v 1.3 2003/01/29 16:10:13 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
@@ -65,7 +65,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -75,7 +74,7 @@ import org.apache.commons.jelly.XMLOutput;
  * JUnit's TestCase class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class CaseTag extends TagSupport {
 

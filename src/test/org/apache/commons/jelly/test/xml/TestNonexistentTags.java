@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestNonexistentTags.java,v 1.2 2003/01/24 02:22:59 morgand Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/24 02:22:59 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestNonexistentTags.java,v 1.3 2003/01/29 16:10:13 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/29 16:10:13 $
  *
  * ====================================================================
  *
@@ -57,12 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestNonexistentTags.java,v 1.2 2003/01/24 02:22:59 morgand Exp $
+ * $Id: TestNonexistentTags.java,v 1.3 2003/01/29 16:10:13 dion Exp $
  */
  
 package org.apache.commons.jelly.test.xml;
 
-import java.io.StringWriter;
 import java.net.URL;
 
 import junit.framework.TestCase;
@@ -73,14 +72,13 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
-import org.xml.sax.SAXParseException;
 
 /**
  * A test to confirm that Jelly scripts fail to parse if they declare tags
  * that do not exist
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class TestNonexistentTags extends TestCase {
      Jelly jelly = null;
