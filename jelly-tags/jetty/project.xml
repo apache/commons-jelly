@@ -39,10 +39,10 @@
     
   
     <!-- START for compilation -->
-    <!-- may need JDK 1.4 for jsse -->
+    <!-- may need JDK 1.4 or jsse -->
     <dependency>
       <id>commons-jelly</id>
-      <version>SNAPSHOT</version>
+      <version>1.0-beta-4</version>
     </dependency>
   
     <!-- http taglib -->

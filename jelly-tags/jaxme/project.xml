@@ -67,7 +67,7 @@
     <dependency>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <groupId>commons-jelly</groupId>
-      <version>SNAPSHOT</version>
+      <version>1.0-beta-4</version>
     </dependency>    
     <dependency>
       <artifactId>commons-jelly-tags-xmlunit</artifactId>
