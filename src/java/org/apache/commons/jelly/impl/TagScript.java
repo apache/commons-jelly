@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.24 2002/10/30 19:16:23 jstrachan Exp $
- * $Revision: 1.24 $
- * $Date: 2002/10/30 19:16:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.25 2002/10/30 19:29:15 jstrachan Exp $
+ * $Revision: 1.25 $
+ * $Date: 2002/10/30 19:29:15 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.24 2002/10/30 19:16:23 jstrachan Exp $
+ * $Id: TagScript.java,v 1.25 2002/10/30 19:29:15 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -101,7 +101,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  */
 public class TagScript implements Script {
 
@@ -563,8 +563,9 @@ public class TagScript implements Script {
      * such as adding line number information etc.
      */
     protected void handleException(JellyException e) throws Exception {
-        //e.printStackTrace();
-        // log.error( "Caught exception: " + e, e );
+    	if (log.isTraceEnabled()) {
+        	log.trace( "Caught exception: " + e, e );
+    	}
 
         if (e.getLineNumber() == -1) {
             e.setColumnNumber(columnNumber);
@@ -585,8 +586,9 @@ public class TagScript implements Script {
      * while adding line number information etc.
      */
     protected void handleException(Exception e) throws Exception {
-        //e.printStackTrace();
-        // log.error( "Caught exception: " + e, e );
+    	if (log.isTraceEnabled()) {
+        	log.trace( "Caught exception: " + e, e );
+    	}
 
         if ( e instanceof JellyException ) {
             e.fillInStackTrace();
