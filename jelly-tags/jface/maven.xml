@@ -15,7 +15,7 @@
 		description="Runs a JellySWT demo">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/tags/swt/example.jelly"/>
+      <arg value="src/test/org/apache/commons/jelly/tags/jface/JFaceDemo.jelly"/>
     </java>
   </goal>
 
