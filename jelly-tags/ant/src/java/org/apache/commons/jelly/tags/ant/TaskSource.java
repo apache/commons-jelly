@@ -61,6 +61,8 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
+import org.apache.commons.jelly.JellyTagException;
+
 /** 
  * A tag which provides an Ant Task object on which to set Ant DataTypes or create nested types
  *
@@ -77,5 +79,5 @@ public interface TaskSource {
     /**
      * Allows nested tags to set a property on the task object of this tag
      */
-    public void setTaskProperty(String name, Object value) throws Exception;
+    public void setTaskProperty(String name, Object value) throws JellyTagException;
 }

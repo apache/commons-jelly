@@ -63,6 +63,7 @@
 package org.apache.commons.jelly.tags.ant;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.Map;
@@ -70,6 +71,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
@@ -138,7 +140,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     /**
      * Allows nested tags to set a property on the task object of this tag
      */
-    public void setTaskProperty(String name, Object value) throws Exception {
+    public void setTaskProperty(String name, Object value) throws JellyTagException {
         Object object = getTaskObject();
         if ( object != null ) {
             setBeanProperty( object, name, value );
@@ -368,7 +370,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     	}
     }
 
-    public void setBeanProperty(Object object, String name, Object value) throws Exception {
+    public void setBeanProperty(Object object, String name, Object value) throws JellyTagException {
         if ( log.isDebugEnabled() ) {
             log.debug( "Setting bean property on: "+  object + " name: " + name + " value: " + value );
         }
@@ -391,8 +393,16 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
         catch (Exception e) {
 
-            // let any exceptions bubble up from here
-            BeanUtils.setProperty( object, name, value );
+            try {
+                // let any exceptions bubble up from here
+                BeanUtils.setProperty( object, name, value );
+            } 
+            catch (IllegalAccessException ex) {
+                throw new JellyTagException(ex);
+            }
+            catch (InvocationTargetException ex) {
+                throw new JellyTagException(ex);
+            }
         }
     }
 

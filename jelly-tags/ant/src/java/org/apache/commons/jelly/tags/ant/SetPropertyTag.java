@@ -62,7 +62,7 @@
 
 package org.apache.commons.jelly.tags.ant;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -91,13 +91,13 @@ public class SetPropertyTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException("name");
         }
         TaskSource tag = (TaskSource) findAncestorWithClass( TaskSource.class );
         if ( tag == null ) {
-            throw new JellyException( "This tag must be nested within an Ant task tag" );
+            throw new JellyTagException( "This tag must be nested within an Ant task tag" );
         }
         Object value = getValue();
         if (value == null) {
