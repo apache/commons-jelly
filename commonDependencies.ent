@@ -7,7 +7,7 @@
     
     <dependency>
       <id>commons-jexl</id>
-      <version>1.0-beta-1</version>
+      <version>SNAPSHOT</version>
     </dependency>
     
     <dependency>
