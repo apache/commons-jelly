@@ -54,22 +54,13 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.46 $
+ * @version $Revision: 1.47 $
  */
 public class TagScript implements Script {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TagScript.class);
 
-    /**
-     * Thread local storage for the tag used by the current thread.
-     * This allows us to pool tag instances, per thread to reduce object construction
-     * over head, if we need it.
-     *
-     * Note that we could use the stack and create a new tag for each invocation
-     * if we made a slight change to the Script API to pass in the parent tag.
-     */
-    private ThreadLocal tagHolder = new ThreadLocal();
 
     /** The attribute expressions that are created */
     protected Map attributes = new Hashtable();
@@ -194,11 +185,8 @@ public class TagScript implements Script {
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         URL rootURL = context.getRootURL();
         URL currentURL = context.getCurrentURL();
-        if ( ! context.isCacheTags() ) {
-            clearTag();
-        }
         try {
-            Tag tag = getTag();
+            Tag tag = getTag(context);
             if ( tag == null ) {
                 return;
             }
@@ -295,15 +283,15 @@ public class TagScript implements Script {
     /**
      * @return the tag to be evaluated, creating it lazily if required.
      */
-    public Tag getTag() throws JellyException {
-        Tag tag = (Tag) tagHolder.get();
+    public Tag getTag(JellyContext context) throws JellyException {
+        Tag tag = context.getTagOfTagScript(this);
         if ( tag == null ) {
             tag = createTag();
             if ( tag != null ) {
-                tagHolder.set(tag);
+                context.setTagForScript(this,tag);
             }
         }
-        configureTag(tag);
+        configureTag(tag,context);
         return tag;
     }
 
@@ -494,21 +482,20 @@ public class TagScript implements Script {
         return null;
     }
 
-
+	
     /**
      * Compiles a newly created tag if required, sets its parent and body.
      */
-    protected void configureTag(Tag tag) throws JellyException {
+    protected void configureTag(Tag tag, JellyContext context) throws JellyException {
         if (tag instanceof CompilableTag) {
             ((CompilableTag) tag).compile();
         }
         Tag parentTag = null;
         if ( parent != null ) {
-            parentTag = parent.getTag();
+            parentTag = parent.getTag(context);
         }
         tag.setParent( parentTag );
-        tag.setBody( new WeakReferenceWrapperScript(tagBody) );
-        //tag.setBody( tagBody );
+        tag.setBody( tagBody );
 
         if (tag instanceof NamespaceAwareTag) {
             NamespaceAwareTag naTag = (NamespaceAwareTag) tag;
@@ -519,19 +506,13 @@ public class TagScript implements Script {
         }
     }
 
-    /**
-     * Flushes the current cached tag so that it will be created, lazily, next invocation
-     */
-    protected void clearTag() {
-        tagHolder.set(null);
-    }
 
     /**
      * Allows the script to set the tag instance to be used, such as in a StaticTagScript
      * when a StaticTag is switched with a DynamicTag
      */
-    protected void setTag(Tag tag) {
-        tagHolder.set(tag);
+    protected void setTag(Tag tag, JellyContext context) {
+        context.setTagForScript(this,tag);
     }
 
     /**

@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,8 +91,15 @@ public class JellyContext {
     /** Should we export tag libraries to our parents context */
     private boolean exportLibraries = true;
 
-    /** Should we cache Tag instances, per thread, to reduce object contruction overhead? */
-    private boolean cacheTags = false;
+    /** A map that associates TagScript objects to Tag objects.
+      * Is made a WeakHashMap so that the storage is discarded if the 
+      * Script is discarded.
+      */
+    private Map tagHolderMap = new java.util.WeakHashMap(5);
+    // THINKME: Script objects are like Object (for equals and hashCode) I think.
+    //          It should be asy to optimize hash-map distribution, e.g. by
+    //          shifting the hashcode return value (presuming Object.hashcode()
+    //          is something like an address)
 
     /**
      * Create a new context with the currentURL set to the rootURL
@@ -133,7 +141,6 @@ public class JellyContext {
         this.rootURL = parent.rootURL;
         this.currentURL = parent.currentURL;
         this.variables.put("parentScope", parent.variables);
-        this.cacheTags = parent.cacheTags;
         init();
     }
 
@@ -377,7 +384,36 @@ public class JellyContext {
     public JellyContext newJellyContext() {
         return createChildContext();
     }
+    
 
+    /** @return the tag associated to the given TagScript for the current run.
+      */
+    public Tag getTagOfTagScript(TagScript script) {
+        if( script == null )
+            return null;
+        return (Tag) tagHolderMap.get(script);
+    }
+	
+	/** @return the Map that associates the the Tags to Scripts */
+	public Map getTagHolderMap() {
+		return tagHolderMap;
+	}
+    
+    /** Associates, for the run of this context, the tag of this TagScript.
+      */
+    public void setTagForScript(TagScript script, Tag tag) {
+        tagHolderMap.put(script,tag);
+    }
+    
+    /** Clears both the script-to-tags association and the variables association.
+      */
+    public void clear() {
+        tagHolderMap.clear();
+        variables.clear();
+    }
+    
+    
+    
     /** Registers the given tag library against the given namespace URI.
      * This should be called before the parser is used.
      */
@@ -787,30 +823,6 @@ public class JellyContext {
      */
     public void setCurrentURL(URL currentURL) {
         this.currentURL = currentURL;
-    }
-
-    /**
-     * Returns whether caching of Tag instances, per thread, is enabled.
-     * Caching Tags can boost performance, on some JVMs, by reducing the cost of
-     * object construction when running Jelly inside a multi-threaded application server
-     * such as a Servlet engine.
-     *
-     * @return whether caching of Tag instances is enabled.
-     */
-    public boolean isCacheTags() {
-        return cacheTags;
-    }
-
-    /**
-     * Sets whether caching of Tag instances, per thread, is enabled.
-     * Caching Tags can boost performance, on some JVMs, by reducing the cost of
-     * object construction when running Jelly inside a multi-threaded application server
-     * such as a Servlet engine.
-     *
-     * @param cacheTags Whether caching should be enabled or disabled.
-     */
-    public void setCacheTags(boolean cacheTags) {
-        this.cacheTags = cacheTags;
     }
 
     /**

@@ -26,6 +26,7 @@ import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.parser.XMLParser;
@@ -35,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class TestParser extends TestCase {
 
@@ -66,26 +67,28 @@ public class TestParser extends TestCase {
 
         log.debug("Found: " + script);
 
-        assertTagsHaveParent( script, null );
+        assertTagsHaveParent( script, null, null );
     }
 
     /**
      * Tests that the Tag in the TagScript has the given parent and then
      * recurse to check its children has the correct parent and so forth.
      */
-    protected void assertTagsHaveParent(Script script, Tag parent) throws Exception {
+    protected void assertTagsHaveParent(Script script, Tag parent, JellyContext context) throws Exception {
+        if ( context == null )
+            context = new JellyContext();
         if ( script instanceof TagScript ) {
             TagScript tagScript = (TagScript) script;
-            Tag tag = tagScript.getTag();
+            Tag tag = tagScript.getTag(context);
 
             assertEquals( "Tag: " + tag + " has the incorrect parent", parent, tag.getParent() );
 
-            assertTagsHaveParent( tag.getBody(), tag );
+            assertTagsHaveParent( tag.getBody(), tag, context );
         }
         else if ( script instanceof ScriptBlock ) {
             ScriptBlock block = (ScriptBlock) script;
             for ( Iterator iter = block.getScriptList().iterator(); iter.hasNext(); ) {
-                assertTagsHaveParent( (Script) iter.next(), parent );
+                assertTagsHaveParent( (Script) iter.next(), parent, context );
             }
         }
     }

@@ -59,14 +59,14 @@ public class StaticTagScript extends TagScript {
 
         Tag tag = null;
         try {
-            tag = getTag();
+            tag = getTag(context);
 
             // lets see if we have a dynamic tag
             if (tag instanceof StaticTag) {
                 tag = findDynamicTag(context, (StaticTag) tag);
             }
 
-            setTag(tag);
+            setTag(tag,context);
         } catch (JellyException e) {
             throw new JellyTagException(e);
         }

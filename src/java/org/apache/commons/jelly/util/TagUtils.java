@@ -20,7 +20,6 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TextScript;
-import org.apache.commons.jelly.impl.WeakReferenceWrapperScript;
 
 /** Contains static methods to help tag developers.
  * @author Hans Gilde
@@ -36,15 +35,7 @@ public class TagUtils {
      */
     public static void trimScript(Script body) {
         synchronized(body) {
-            if (body instanceof WeakReferenceWrapperScript) {
-                WeakReferenceWrapperScript wrrs = (WeakReferenceWrapperScript) body;
-                try {
-                    wrrs.trimWhitespace();
-                } catch (JellyTagException e) {
-                    //TODO handle this exception once the Tag interface allows JellyTagException to be thrown
-                    return;
-                }
-            } else if ( body instanceof CompositeTextScriptBlock ) {
+            if ( body instanceof CompositeTextScriptBlock ) {
                 CompositeTextScriptBlock block = (CompositeTextScriptBlock) body;
                 block.trimWhitespace();
             }
