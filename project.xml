@@ -301,12 +301,12 @@
       || These will be sub-projects one day, when Maven handles them gracefully
       -->
 
-	<!-- antlr taglib -->
+	<!-- antlr taglib 
     <dependency>
       <id>antlr</id>
       <version>2.7.1</version>
       <jar>antlrall-2.7.1.jar</jar>
-    </dependency>
+    </dependency> -->
 
 	<!-- beanshell taglib -->
     <dependency>
