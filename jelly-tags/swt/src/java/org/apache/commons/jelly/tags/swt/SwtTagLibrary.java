@@ -25,6 +25,8 @@ import org.apache.commons.jelly.tags.swt.converters.PointConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CTabFolder;
+import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.TableTree;
 import org.eclipse.swt.custom.TableTreeItem;
@@ -124,6 +126,8 @@ public class SwtTagLibrary extends TagLibrary {
         registerWidgetTag( "treeItem", TreeItem.class );
 
         // custom widgets
+        registerWidgetTag( "cTabFolder", CTabFolder.class );
+        registerWidgetTag( "cTabItem", CTabItem.class );
         registerWidgetTag( "tableTree", TableTree.class );
         registerWidgetTag( "tableTreeItem", TableTreeItem.class );
 

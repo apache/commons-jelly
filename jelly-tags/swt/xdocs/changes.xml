@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix" issue="JELLY-42" due-to="Christiaan ten Klooster">add cTabFolder + cTabItem widgets</action>
       <action dev="dion" type="fix" issue="JELLY-48" due-to="Christiaan ten Klooster">dialog tag</action>
       <action dev="dion" type="fix" issue="JELLY-126" due-to="Marcus Crafter">Support for SWT GC objects</action>
       <action dev="dion" type="fix" issue="JELLY-125" due-to="Marcus Crafter">Support for SWT Font objects</action>
