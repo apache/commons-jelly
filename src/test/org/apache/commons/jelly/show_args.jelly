@@ -1,9 +1,8 @@
 <?xml version="1.0"?>
 
 <!-- displays the current command line arguments -->
-
-
 <j:jelly xmlns:j="jelly:core">
+
 <arguments>
   <j:forEach var="arg" items="${args}" begin="1">
       <argument>${arg}"</argument>
