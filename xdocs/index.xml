@@ -266,13 +266,19 @@ testing web applications and web services.
 </p>
 
 <p>
-Currently Jelly is being used inside the new version of 
-<a href="http://maven.apache.org/">Maven</a>
+Currently Jelly is being used inside <a href="http://maven.apache.org/">Maven</a>
 to provide more flexible and powerful build mechanism while still preserving investment in Ant tasks.
 </p>
 
 </section>
 
+<section name="JSTL References">
+  <ul>
+    <li><a href="JSTL Tag reference">http://java.sun.com/products/jsp/jstl/1.1/docs/tlddocs/index.html</a></li>
+    <li><a href="JSTL API">http://java.sun.com/products/jsp/jstl/1.1/docs/api/index.html</a></li>
+    <li><a href="Apache JSTL Implementation">http://jakarta.apache.org/taglibs/doc/standard-doc/intro.html</a></li>
+  </ul>
+</section>
 
 </body>
 </document>
