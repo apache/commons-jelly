@@ -85,11 +85,11 @@
       <j:choose>
         <j:when test="${dep.id == 'forehead'}">
           <copy tofile="${maven.dist.assembly.dir}/lib/forehead.jar"
-              file="${maven.repo.local}/${dep.projectId}/jars/${dep.artifact}"/>
+              file="${maven.repo.local}/${dep.artifactDirectory}/${dep.artifact}"/>
         </j:when>
         <j:otherwise>
           <copy todir="${maven.dist.assembly.dir}/lib"
-              file="${maven.repo.local}/${dep.projectId}/jars/${dep.artifact}"/>
+              file="${maven.repo.local}/${dep.artifactDirectory}/${dep.artifact}"/>
         </j:otherwise>
       </j:choose>
     </j:forEach>
