@@ -4,7 +4,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -73,7 +73,7 @@ import org.apache.commons.logging.LogFactory;
  * Attains one or more goals.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class AttainGoalTag extends WerkzTagSupport {
 
