@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.7 2002/06/21 02:57:17 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/21 02:57:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.8 2002/06/25 17:10:07 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/06/25 17:10:07 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DynaTagScript.java,v 1.7 2002/06/21 02:57:17 jstrachan Exp $
+ * $Id: DynaTagScript.java,v 1.8 2002/06/25 17:10:07 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -79,7 +79,7 @@ import org.apache.commons.logging.LogFactory;
  * <p><code>DynaTagScript</code> is a script evaluates a custom DynaTag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class DynaTagScript extends TagScript {
 
@@ -114,10 +114,6 @@ public class DynaTagScript extends TagScript {
         
         DynaTag dynaTag = (DynaTag) tag;
 
-        if (dynaTag instanceof DynaBeanTagSupport) {
-            ((DynaBeanTagSupport)dynaTag).beforeSetAttributes();
-        }
-        
         // ### probably compiling this to 2 arrays might be quicker and smaller
         for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
             Map.Entry entry = (Map.Entry) iter.next();
