@@ -370,7 +370,6 @@
       <j:choose>
         <j:when test="${doBuildAll}">
           <maven:reactor basedir="." 
-                         banner
                          postProcessing="true"
                          goals="jar:install-snapshot"
                          includes="${taglibs_projects}" 
