@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ChooseTag.java,v 1.5 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ChooseTag.java,v 1.6 2002/08/11 11:44:36 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/08/11 11:44:36 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ChooseTag.java,v 1.5 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: ChooseTag.java,v 1.6 2002/08/11 11:44:36 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -67,7 +67,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
@@ -80,69 +79,27 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
-public class ChooseTag extends TagSupport implements CompilableTag {
+public class ChooseTag extends TagSupport {
 
-    private TagScript[] whenTags;
-    private TagScript otherwiseTag;
+    private boolean blockEvaluated;
 
     public ChooseTag() {
     }
 
-    // CompilableTag interface
-    //------------------------------------------------------------------------- 
-    public void compile() throws Exception {
-        // extract the When tags and the Other tag script
-        // XXX: iterate through the body....
-        List whenTagList = new ArrayList();
-        otherwiseTag = null;
-        Script body = getBody();
-        if (body instanceof ScriptBlock) {
-            ScriptBlock block = (ScriptBlock) body;
-            for (Iterator iter = block.getScriptList().iterator(); iter.hasNext();) {
-                Script script = (Script) iter.next();
-                if (script instanceof TagScript) {
-                    TagScript tagScript = (TagScript) script;
-                    Tag tag = tagScript.getTag();
-                    if (tag instanceof WhenTag) {
-                        whenTagList.add(tagScript);
-                    }
-                    else if (tag instanceof OtherwiseTag) {
-                        otherwiseTag = tagScript;
-                        break;
-                    }
-                }
-            }
-        }
-        else if (body instanceof TagScript) {
-            // if only one child tag
-            TagScript tagScript = (TagScript) body;
-            Tag tag = tagScript.getTag();
-            if (tag instanceof WhenTag) {
-                whenTagList.add(tagScript);
-            }
-            else if (tag instanceof OtherwiseTag) {
-                otherwiseTag = tagScript;
-            }
-        }
-        whenTags = new TagScript[whenTagList.size()];
-        whenTagList.toArray(whenTags);
-    }
-    
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        for (int i = 0, size = whenTags.length; i < size; i++) {
-            TagScript script = whenTags[i];
-            script.run(context, output);
-            WhenTag tag = (WhenTag) script.getTag();
-            if (tag.getValue()) {
-                return;
-            }
-        }
-        if (otherwiseTag != null) {
-            otherwiseTag.run(context, output);
-        }
+        setBlockEvaluated(false);
+        invokeBody(output);
+    }
+    
+    protected boolean isBlockEvaluated() {
+        return blockEvaluated;
+    }
+    
+    protected void setBlockEvaluated(boolean blockEvaluated) {
+        this.blockEvaluated = blockEvaluated;
     }
 }

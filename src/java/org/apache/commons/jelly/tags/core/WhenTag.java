@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.6 2002/06/26 09:24:35 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/26 09:24:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/WhenTag.java,v 1.7 2002/08/11 11:44:36 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/08/11 11:44:36 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: WhenTag.java,v 1.6 2002/06/26 09:24:35 jstrachan Exp $
+ * $Id: WhenTag.java,v 1.7 2002/08/11 11:44:36 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -65,6 +65,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -73,26 +74,26 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class WhenTag extends TagSupport {
 
     /** The expression to evaluate. */
     private Expression test;        
 
-    /** whether this tag evaluated its body after calling run() */
-    private boolean value;
-    
     public WhenTag() {
     }
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        value = false;
-        if ( test != null ) {            
+        ChooseTag tag = (ChooseTag) findAncestorWithClass( ChooseTag.class );
+        if ( tag == null ) {
+            throw new JellyException( "This tag must be enclosed inside a <choose> tag" );
+        }
+        if ( ! tag.isBlockEvaluated() && test != null ) {
             if ( test.evaluateAsBoolean( context ) ) {
-                value = true;
+                tag.setBlockEvaluated(true);
                 invokeBody(output);
             }
         }
@@ -106,11 +107,4 @@ public class WhenTag extends TagSupport {
         this.test = test;
     }
     
-    /** 
-     * @return the last evaluation of this tag. This method is used
-     * by the choose tag to determine if this tag evaluated anything.
-     */
-    public boolean getValue() {
-        return value;
-    }
 }
