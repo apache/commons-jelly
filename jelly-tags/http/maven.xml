@@ -1,18 +1,3 @@
-<project default="java:jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util">
-
-  <!-- copies unit testing stuff -->
-  <postGoal name="test:compile">
-    <copy todir="${maven.test.dest}">
-      <fileset dir="src/test">
-        <include name="**/*.properties"/>
-        <include name="META-INF/services/*"/>
-        <include name="**/*.jelly"/>
-        <include name="**/*.xml"/>
-        <include name="**/*.html"/>
-        <include name="**/*.dtd"/>
-        <include name="**/*.rng"/>
-      </fileset>
-    </copy>
-  </postGoal>
+<project default="java:jar">
 
 </project>
