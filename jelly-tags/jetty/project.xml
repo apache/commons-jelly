@@ -49,6 +49,17 @@
       <version>SNAPSHOT</version>
     </dependency>
 
+    <dependency>
+      <id>jsse</id>
+      <version>1.0.3</version>
+    </dependency>
+
+    <dependency>
+      <id>jsse+jnet</id>
+      <version>1.0.3</version>
+    </dependency>
+
+	
     <!-- END for testing -->
     
     <!-- for runtime -->
