@@ -24,6 +24,10 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+		<release version="1.1" date="in CVS">
+			<action dev="polx" type="add" issue="JELLY-200" due-to="Michael Schuerig"
+				>xml:set can now return XPath strings and comma-separated strings</action>
+			</release>
     <release version="1.0" date="2004-09-11">
       <action dev="dion" type="add">Initial release</action>
     </release>

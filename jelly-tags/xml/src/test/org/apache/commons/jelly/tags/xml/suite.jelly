@@ -300,11 +300,36 @@
         <x:set var="blip" select="$blopElements/root/blip" single="false"/>
         <j:invokeStatic var="listClass" className="java.lang.Class" method="forName"><j:arg value="java.util.List"/></j:invokeStatic>
         <test:assert test="${listClass.isAssignableFrom(blip.getClass())}"/>
-        <!-- check if selecting blop/@id asString returns a string -->
-        <x:set var="blopId" select="$blopElements/root/blop/@id" asString="true"/>
+        <!-- check if selecting blop/@id asString and single returns a string -->
+        <x:set var="blopId" select="$blopElements/root/blop/@id" asString="true" single="true"/>
         <j:invokeStatic var="stringClass" className="java.lang.Class" method="forName"><j:arg value="java.lang.String"/></j:invokeStatic>
         <test:assert test="${stringClass.isAssignableFrom(blopId.getClass())}"/>
   </test:case>
+
+
+  <test:case name="testSetStringLists">
+        <j:invokeStatic var="listClass" className="java.lang.Class" method="forName"><j:arg value="java.util.List"/></j:invokeStatic>
+        <j:invokeStatic var="stringClass" className="java.lang.Class" method="forName"><j:arg value="java.lang.String"/></j:invokeStatic>
+
+        <x:parse var="blopElements">
+          <root>
+            <blop>blop1</blop>
+            <blip/>
+            <blop id="bla">blop0</blop></root>
+        </x:parse>
+
+        <!-- check if selecting root/blop asString returns a list of strings -->
+        <x:set var="blopList" select="$blopElements/root/blop" asString="true" />
+        <test:assert test="${listClass.isAssignableFrom(blopList.getClass())}"/>
+        <test:assert test="${stringClass.isAssignableFrom(blopList.get(0).getClass())}"/>
+        <test:assertEquals expected="blop1" actual="${blopList.get(0)}"/>
+
+        <!-- check if selecting root/blop asString + delim returns a delimited string -->
+        <x:set var="blopString" select="$blopElements/root/blop" asString="true" delim=","/>
+        <test:assert test="${stringClass.isAssignableFrom(blopString.getClass())}"/>
+        <test:assertEquals expected="blop1,blop0" actual="${blopString}"/>
+  </test:case>
+
    
   <test:case name="testEntities">
     <x:parse var="doc" xml="entity.xml"/> 
