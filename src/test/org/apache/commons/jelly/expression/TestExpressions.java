@@ -88,7 +88,7 @@ public class TestExpressions extends TestCase {
     }
     
     public void testNotConditionsWithDot() throws Exception {
-        // ##### re-enable commented out lines once the Jexl sub-resolver work is complete!
+        // ##### re-enable commented out lines once the Jexl release is complete!
         context.setVariable("x.a", Boolean.TRUE);
         context.setVariable("x.b", Boolean.FALSE);
         context.setVariable("x.c", "true");
@@ -106,7 +106,7 @@ public class TestExpressions extends TestCase {
     }
     
     public void testNull() throws Exception {
-        // ##### re-enable commented out lines once the Jexl sub-resolver work is complete!
+        // ##### re-enable commented out lines once the Jexl release is complete!
         context.setVariable("something.blank", "");
         context.setVariable("something.ok", "cheese");
         
@@ -122,11 +122,9 @@ public class TestExpressions extends TestCase {
         Expression expression = CompositeExpression.parse(expressionText, factory);
         assertTrue( "Created a valid expression for: " + expressionText, expression != null );
         Object value = expression.evaluate(context);
-        //assertEquals( "Expression for: " + expressionText + " is: " + expression, expectedValue, value );
         assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
         
         String text = expression.getExpressionText();
         assertEquals( "Wrong textual representation for expression text: ", expressionText, text);
     }
-    
 }
