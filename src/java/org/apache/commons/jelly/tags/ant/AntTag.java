@@ -24,7 +24,6 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.Tag;
