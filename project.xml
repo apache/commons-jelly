@@ -328,18 +328,6 @@
       <version>2.2</version>
     </dependency>
 
-  <!-- email taglib -->
-    <dependency>
-      <id>jaf</id>
-      <version>1.0.2</version>
-      <jar>activation-1.0.2.jar</jar>
-    </dependency>
-    
-    <dependency>
-      <id>javamail</id>
-      <version>1.2</version>
-    </dependency>
-
   </dependencies>
   
   <build>
