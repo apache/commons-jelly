@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.4 2002/05/17 15:18:08 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.5 2002/06/05 07:00:58 werken Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/05 07:00:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IncludeTag.java,v 1.4 2002/05/17 15:18:08 jstrachan Exp $
+ * $Id: IncludeTag.java,v 1.5 2002/06/05 07:00:58 werken Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -77,15 +77,39 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 
 public class IncludeTag extends TagSupport {
 
     private String uri;
 
-    public IncludeTag() {
+    private boolean shouldExport;
+    private boolean shouldInherit;
 
+    public IncludeTag() {
+        this.shouldExport = false;
+        this.shouldInherit = false;
+    }
+
+    public void setInherit(String inherit) {
+        if ( "true".equals( inherit ) ) {
+            this.shouldInherit = true;
+        }
+    }
+
+    public void setExport(String export) {
+        if ( "true".equals( export ) ) {
+            this.shouldExport = true;
+        }
+    }
+
+    public boolean getInherit() {
+        return this.shouldInherit;
+    }
+
+    public boolean getExport() {
+        return this.shouldExport;
     }
 
     // Tag interface
@@ -104,8 +128,7 @@ public class IncludeTag extends TagSupport {
 
         // take off the script name from the URL
 
-        context.runScript(uri, output);
-
+        context.runScript(uri, output, getExport(), getInherit() );
     }
 
     // Properties

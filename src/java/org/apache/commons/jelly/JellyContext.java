@@ -97,6 +97,12 @@ public class JellyContext {
 
     /** The parent context */
     private JellyContext parent;
+
+    /** Do we inherit variables from parent context? */
+    private boolean shouldInherit = false;
+
+    /** Do we export our variables to parent context? */
+    private boolean shouldExport  = false;
     
     /**
      * The class loader to use for instantiating application objects.
@@ -148,6 +154,36 @@ public class JellyContext {
         return parent;
     }
 
+    public void setExport(boolean shouldExport) {
+        this.shouldExport = shouldExport;
+    }
+
+    public boolean getExport() {
+        return this.shouldExport;
+    }
+
+    public void setInherit(boolean shouldInherit) {
+        this.shouldInherit = shouldInherit;
+    }
+
+    public boolean getInherit() {
+        return this.shouldInherit;
+    }
+
+    public Object getScopedVariable(String name) {
+        if ( getInherit() ) {
+            return findVariable( name );
+        }
+
+        return getVariable( name );
+    }
+
+    public void setScopedVariable(String name, Object value) {
+        if ( getExport() ) {
+            getParent().setScopedVariable( name, value );
+        }
+    }
+
     /** 
      * Finds the variable value of the given name in this context or in any other parent context.
      * If this context does not contain the variable, then its parent is used and then its parent 
@@ -167,11 +203,18 @@ public class JellyContext {
         
     /** @return the value of the given variable name */
     public Object getVariable(String name) {
+        if ( getInherit() ) {
+            return getParent().findVariable( name );
+        }
         return variables.get(name);
     }
 
     /** Sets the value of the given variable name */
     public void setVariable(String name, Object value) {
+        if ( getExport() ) {
+            getParent().setVariable( name, value );
+            return;
+        }
         if (value == null) {
             variables.remove(name);
         }
@@ -328,6 +371,23 @@ public class JellyContext {
         
         URL newJellyContextURL = getJellyContextURL(url);
         JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
+        script.run(newJellyContext, output);
+    }
+
+    public void runScript(String uri, XMLOutput output,
+                          boolean export, boolean inherit) throws Exception {
+        URL url = getResource(uri);
+        if (url == null) {
+            throw new JellyException("Could not find Jelly script: " + url);
+        }
+        Script script = compileScript(url);
+        
+        URL newJellyContextURL = getJellyContextURL(url);
+        JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
+
+        newJellyContext.setExport( export );
+        newJellyContext.setInherit( inherit );
+
         script.run(newJellyContext, output);
     }
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.4 2002/05/17 15:18:14 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.5 2002/06/05 07:00:58 werken Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/05 07:00:58 $
  *
  * ====================================================================
  *
@@ -57,12 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpression.java,v 1.4 2002/05/17 15:18:14 jstrachan Exp $
+ * $Id: JexlExpression.java,v 1.5 2002/06/05 07:00:58 werken Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
 
 import java.util.Map;
+import java.util.Set;
+import java.util.Collection;
 
 import org.apache.commons.jelly.JellyContext;
 
@@ -84,7 +86,7 @@ import org.apache.commons.logging.LogFactory;
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
 public class JexlExpression extends ExpressionSupport {
@@ -111,25 +113,7 @@ public class JexlExpression extends ExpressionSupport {
 
         try {
 
-            JexlContext jexlContext = new JexlContext() {
-
-                Map ctx;
-
-                public void setVars(Map vars) {
-
-                    ctx = vars;
-
-                }
-
-                public Map getVars() {
-
-                    return ctx;
-
-                }
-
-            };
-
-            jexlContext.setVars(context.getVariables());
+            JexlContext jexlContext = new JellyJexlContext( context );
 
             if (log.isDebugEnabled()) {
 
@@ -151,4 +135,80 @@ public class JexlExpression extends ExpressionSupport {
 
     }
 
+}
+
+class JellyJexlContext implements JexlContext {
+
+    private Map vars;
+
+    JellyJexlContext(JellyContext context) {
+        this.vars = new JellyMap( context );
+    }
+
+    public void setVars(Map vars) {
+        this.vars.clear();
+        this.vars.putAll( vars );
+    }
+
+    public Map getVars() {
+        return this.vars;
+    }
+}
+
+
+class JellyMap implements Map {
+
+    private JellyContext context;
+
+    JellyMap(JellyContext context) {
+        this.context = context;
+    }
+
+    public Object get(Object key) {
+        return context.getScopedVariable( (String) key );
+    }
+
+    public void clear() {
+        // not implemented
+    }
+
+    public boolean containsKey(Object key) {
+        return ( get( key ) != null );
+    }
+
+    public boolean containsValue(Object value) {
+        return false;
+    }
+
+    public Set entrySet() {
+        return null;
+    }
+
+    public boolean isEmpty() {
+        return false;
+    }
+
+    public Set keySet() {
+        return null;
+    }
+        
+    public Object put(Object key, Object value) {
+        return null;
+    }
+
+    public void putAll(Map t) {
+        // not implemented
+    }
+
+    public Object remove(Object key) {
+        return null;
+    }
+
+    public int size() {
+        return -1;
+    }
+
+    public Collection values() {
+        return null;
+    }
 }
