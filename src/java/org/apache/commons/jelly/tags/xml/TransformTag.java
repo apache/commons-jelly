@@ -1,7 +1,7 @@
 /*
- * $Header:$
- * $Revision:$
- * $Date:$
+ * $Header: $
+ * $Revision: $
+ * $Date: $
  *
  * ====================================================================
  *
@@ -57,15 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id:$
+ * $Id: $
  */
 package org.apache.commons.jelly.tags.xml;
 
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.commons.jelly.XMLOutput;
@@ -117,9 +120,6 @@ public class TransformTag extends ParseTag {
      * @throws Exception - when required attributes are missing
      */
     public void doTag(XMLOutput output) throws Exception {
-        if (this.getVar() == null) {
-            throw new IllegalArgumentException("The var attribute cannot be null");
-        }
         Document xmlDocument = this.getXmlDocument(output);
         Document xslDocument = this.parse(this.xsl);
 
@@ -127,13 +127,23 @@ public class TransformTag extends ParseTag {
         Transformer transformer = tf.newTransformer(new DocumentSource(xslDocument));
 
         DocumentSource xmlDocSource = new DocumentSource(xmlDocument);
-        DocumentResult result = new DocumentResult();
+
+        String var = getVar();        
+        if (var == null) {
+            // pass the result of the transform out as SAX events
+            Result result = createSAXResult(output);
+            transformer.transform(xmlDocSource, result);
+        }
+        else {
+            DocumentResult result = new DocumentResult();
+            transformer.transform(xmlDocSource, result);
+
+            // output the result as a variable
+            Document transformedDoc = result.getDocument();
+            context.setVariable(var, transformedDoc);
+        }
         
-        transformer.transform(xmlDocSource, result);
 
-        Document transformedDoc = result.getDocument();
-
-        context.setVariable(getVar(), transformedDoc);
     }
 
     // Properties
@@ -188,5 +198,16 @@ public class TransformTag extends ParseTag {
                 return new StreamSource(context.getResourceAsStream(href));
             }
         };
+    }
+    
+    /**
+     * Factory method to create a new SAXResult for the given
+     * XMLOutput so that the output of an XSLT transform will go
+     * directly into the XMLOutput that we are given.
+     */
+    protected Result createSAXResult(XMLOutput output) {
+        SAXResult result = new SAXResult(output);
+        result.setLexicalHandler(output);
+        return result;
     }
 }

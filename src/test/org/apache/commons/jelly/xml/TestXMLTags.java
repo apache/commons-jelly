@@ -147,6 +147,13 @@ public class TestXMLTags extends TestCase {
         assertEquals("Produces the correct output", "It works!", text);
     }
 
+    public void testTransformSAXOutput() throws Exception {
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/transformExampleSAXOutput.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+
     public void testTransformSchematron() throws Exception {
         String text = evaluteScriptAsText(
             "src/test/org/apache/commons/jelly/xml/schematron/transformSchematronExample.jelly"
