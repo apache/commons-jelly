@@ -67,6 +67,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.ant.AntTagLibrary;
 
 /** 
  * The root tag of a Project definition.
@@ -110,6 +111,14 @@ public class ProjectTag extends WerkzTagSupport {
     public void doTag(XMLOutput output) throws Exception {       
         // force project to be lazily constructed        
         getProject(); 
+
+        AntTagLibrary ant = (AntTagLibrary) context.getTagLibrary( "jelly:ant" );
+
+        org.apache.tools.ant.Project antProject = ant.getProject();
+
+        antProject.getBuildListeners().clear();
+
+        antProject.addBuildListener( new JellyBuildListener( output ) );
         
         getBody().run(context, output);
     }

@@ -72,7 +72,7 @@ import org.apache.commons.logging.LogFactory;
  * Attains one or more goals.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class AttainGoalTag extends WerkzTagSupport {
 
@@ -98,7 +98,7 @@ public class AttainGoalTag extends WerkzTagSupport {
         Session session = null;
 
         if ( attainTag == null ) {
-            session = new Session();
+            session = new JellySession( output );
         } else {
             session = attainTag.getSession();
         }
@@ -111,7 +111,6 @@ public class AttainGoalTag extends WerkzTagSupport {
 
         project.attainGoal( getName(),
                             session );
-        
     }
     
     // Properties

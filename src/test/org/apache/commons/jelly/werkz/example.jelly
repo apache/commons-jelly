@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
-<werkz:project xmlns:j="jelly:core" xmlns="jelly:ant" xmlns:werkz="jelly:werkz">
+<werkz:project 
+       xmlns="jelly:ant" 
+       xmlns:j="jelly:core" 
+       xmlns:werkz="jelly:werkz">
 
   <werkz:goal name="compile" prereqs="init">
     <echo message="Running compile goal's action"/>
@@ -22,21 +25,9 @@
   <!-- call all the targets made on the command line -->	
   <werkz:attain>
 
-  	   <echo>+---------------------------------------</echo>
-           <echo>| jelly+werkz+ant-taskdefs</echo>
-  	   <echo>+---------------------------------------</echo>
-
-           <j:forEach var="arg" items="${args}" begin="1">
-
-  	       <echo>| begin target [<j:expr value="${arg}"/>]</echo>
-  	       <echo>+----------------------------------------</echo>
-
-               <werkz:attainGoal name="${arg}"/> 
-
-  	       <echo>| end target [<j:expr value="${arg}"/>]</echo>
-  	       <echo>+----------------------------------------</echo>
-
-           </j:forEach>
+    <j:forEach var="arg" items="${args}" begin="1">
+      <werkz:attainGoal name="${arg}"/> 
+    </j:forEach>
 
   </werkz:attain>
 
