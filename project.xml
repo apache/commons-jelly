@@ -354,7 +354,7 @@
 	<!-- jms taglib -->
     <dependency>
       <id>commons-messenger</id>
-      <version>1.0-dev-3</version>
+      <version>1.0-dev-8</version>
     </dependency>
     
     <dependency>

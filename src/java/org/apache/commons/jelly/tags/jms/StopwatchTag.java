@@ -61,8 +61,6 @@
  */
 package org.apache.commons.jelly.tags.jms;
 
-import javax.jms.Destination;
-import javax.jms.Message;
 import javax.jms.MessageListener;
 
 import org.apache.commons.jelly.JellyException;
@@ -71,26 +69,27 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.commons.messenger.tool.StopWatchMessageListener;
+
 /** 
- * Performs a subscription to some JMS connection to a destination maybe with a selector.
- * A JMS MessageListener can be specified, or a special child tag can explicitly set it on 
- * its parent (so a special tag could construct a MessageListener object and register it with this tag).
+ * This tag can be used to measure the amount of time it takes to process JMS messages.
+ * This tag can be wrapped around any custom JMS tag which consumes JMS messages.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.1 $
  */
-public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
+public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(SubscribeTag.class);
-
-    /** the JMS Selector for the subscription */
-    private String selector;
-    
-    /** The JMS MessageListener used to create the subscription */
+    /** the underlying MessageListener */
     private MessageListener messageListener;
+        
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog( StopwatchTag.class );
     
-    public SubscribeTag() {
+    /** the message group size */
+    private int groupSize = 1000;
+
+    public StopwatchTag() {
     }
     
     // Tag interface
@@ -101,55 +100,64 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
         invokeBody(output);
         
         MessageListener listener = getMessageListener();
-        if (listener == null) {
-            throw new JellyException( "No messageListener attribute is specified so could not subscribe" );
-        }
+
+		ConsumerTag tag = (ConsumerTag) findAncestorWithClass(ConsumerTag.class);
+		if (tag == null) {
+			throw new JellyException("This tag must be nested within a ConsumerTag like the subscribe tag");
+		}			
 
         // clear the listener for the next tag invocation, if caching is employed
         setMessageListener(null);
 
-        
-        Destination destination = getDestination();
-        if ( destination == null ) {
-            throw new JellyException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
-        }
-        
-        if ( log.isDebugEnabled() ) {
-            log.debug( "About to consume to: " + destination + " with listener: " + listener );
-        }
-            
-        log.info( "About to consume to: " + destination + " with listener: " + listener );
-            
-        if (selector == null ) {            
-            getConnection().addListener( destination, listener );
-        }
-        else {
-            getConnection().addListener( destination, selector, listener );
-        }
+		StopWatchMessageListener stopWatch = new StopWatchMessageListener(listener);
+		stopWatch.setGroupSize(groupSize);
+		stopWatch.setLog(log);
+
+		// perform the consumption
+		tag.setMessageListener(stopWatch);		
     }
     
     // Properties
     //-------------------------------------------------------------------------   
-    
-    /**
-     * Sets the optional JMS Message selector for the subscription
-     */
-    public void setSelector(String selector) {
-        this.selector = selector;
-    }                             
-    
 
     /**
-     * Returns the messageListener.
-     * @return MessageListener
+     * @return the number of messages in the group before the performance statistics are logged
+     */
+    public int getGroupSize() {
+        return groupSize;
+    }    
+        
+    /**
+     * Sets the number of messages in the group before the performance statistics are logged
+     */
+    public void setGroupSize(int groupSize) {
+        this.groupSize = groupSize;
+    }    
+    
+    
+    /**
+     * @return the logger to which statistic messages will be sent
+     */
+    public Log getLog() {
+        return log;
+    }
+    
+    /**
+     * Sets the logger to which statistic messages will be sent
+     */
+    public void setLog(Log log) {
+        this.log = log;
+    }
+        
+    /**
+     * @return the MessageListener which this listener delegates to
      */
     public MessageListener getMessageListener() {
-        return messageListener;
+        return messageListener;    
     }
-
     
     /**
-     * Sets the JMS messageListener used ot consume JMS messages on the given destination
+     * Sets the JMS messageListener used to consume JMS messages on the given destination
      */
     public void setMessageListener(MessageListener messageListener) {
         this.messageListener = messageListener;
