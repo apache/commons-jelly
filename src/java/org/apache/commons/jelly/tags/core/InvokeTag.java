@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeTag.java,v 1.4 2003/10/09 21:21:29 rdonkin Exp $
- * $Revision: 1.4 $
- * $Date: 2003/10/09 21:21:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeTag.java,v 1.5 2003/12/25 21:52:31 polx Exp $
+ * $Revision: 1.5 $
+ * $Date: 2003/12/25 21:52:31 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeTag.java,v 1.4 2003/10/09 21:21:29 rdonkin Exp $
+ * $Id: InvokeTag.java,v 1.5 2003/12/25 21:52:31 polx Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -71,10 +71,10 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-/** A tag which creates a new object of the given type
+/**  A tag which calls a function in an object instantied by core:new.
   *
   * @author Rodney Waldhoff
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class InvokeTag extends TagSupport implements ArgTagParent {
 

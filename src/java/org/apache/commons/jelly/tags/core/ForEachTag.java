@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.22 2003/10/09 21:21:29 rdonkin Exp $
- * $Revision: 1.22 $
- * $Date: 2003/10/09 21:21:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.23 2003/12/25 21:52:31 polx Exp $
+ * $Revision: 1.23 $
+ * $Date: 2003/12/25 21:52:31 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.22 2003/10/09 21:21:29 rdonkin Exp $
+ * $Id: ForEachTag.java,v 1.23 2003/12/25 21:52:31 polx Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -73,10 +73,12 @@ import org.apache.commons.jelly.impl.BreakException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** A tag which performs an iteration over the results of an XPath expression
-  *
+/** 
+  * Iterates over a collection, iterator or an array of objects.
+  * 
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.22 $
+  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+  * @version $Revision: 1.23 $
   */
 public class ForEachTag extends TagSupport {
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeStaticTag.java,v 1.3 2003/10/09 21:21:29 rdonkin Exp $
- * $Revision: 1.3 $
- * $Date: 2003/10/09 21:21:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeStaticTag.java,v 1.4 2003/12/25 21:52:31 polx Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/12/25 21:52:31 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeStaticTag.java,v 1.3 2003/10/09 21:21:29 rdonkin Exp $
+ * $Id: InvokeStaticTag.java,v 1.4 2003/12/25 21:52:31 polx Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -72,10 +72,8 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
-  * <p>
   * A Tag which can invoke a static method on a class, without an 
   * instance of the class being needed.
-  * </p>
   * <p>
   * Like the {@link InvokeTag}, this tag can take a set of
   * arguments using the {@link ArgTag}.
@@ -90,7 +88,7 @@ import org.apache.commons.jelly.XMLOutput;
   * </p>
   *
   * @author <a href="mailto:robert@bull-enterprises.com>Robert McIntosh</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 
