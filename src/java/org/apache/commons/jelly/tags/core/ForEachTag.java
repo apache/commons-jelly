@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.20 2003/01/24 22:53:34 morgand Exp $
- * $Revision: 1.20 $
- * $Date: 2003/01/24 22:53:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.21 2003/03/04 08:25:29 jstrachan Exp $
+ * $Revision: 1.21 $
+ * $Date: 2003/03/04 08:25:29 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.20 2003/01/24 22:53:34 morgand Exp $
+ * $Id: ForEachTag.java,v 1.21 2003/03/04 08:25:29 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.20 $
+  * @version $Revision: 1.21 $
   */
 public class ForEachTag extends TagSupport {
 
@@ -219,5 +219,15 @@ public class ForEachTag extends TagSupport {
      */
     public void setStep(int step) {
         this.step = step;
+    }
+    
+    /**
+     * Sets the variable name to export the current index to. 
+     * This does the same thing as #setIndexVar(), but is consistent
+     * with the <a href="http://java.sun.com/products/jsp/jstl/">JSTL</a>
+     * syntax.
+     */
+    public void setVarStatus(String var) {
+            setIndexVar( var );
     }
 }
