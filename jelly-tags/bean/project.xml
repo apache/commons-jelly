@@ -37,29 +37,6 @@
       
     <!-- END for compilation -->
     
-    <!-- below for testing, pulled in by ant taglib -->
-
-    <dependency>
-      <id>commons-jelly+tags-ant</id>
-      <version>SNAPSHOT</version>
-    </dependency>
-    
-    <dependency>
-      <id>ant</id>
-      <version>1.5.1</version>
-    </dependency>
-    
-    <dependency>
-      <id>ant+optional</id>
-      <version>1.5.1</version>
-    </dependency>
-    
-    <dependency>
-      <id>commons-grant</id>
-      <version>1.0-beta-4</version>
-    </dependency>
-
-    
   </dependencies>
   
 </project>
