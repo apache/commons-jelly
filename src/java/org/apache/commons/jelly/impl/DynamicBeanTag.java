@@ -23,17 +23,13 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
-
 import org.apache.commons.collections.BeanMap;
-
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.impl.BeanSource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
