@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<test:suite 
+	xmlns:j="jelly:core"
+	xmlns="jelly:jmx"
+	xmlns:test="jelly:junit"
+	xmlns:log="jelly:log">
+
+	<test:case name="foo">
+	</test:case>
+	
+</test:suite>

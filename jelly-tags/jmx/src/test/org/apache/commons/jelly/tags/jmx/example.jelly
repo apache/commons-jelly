@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<server xmlns="jelly:jmx">
+	<!--
+		|| define some common MBean types
+		-->
+	<beandef name="dummyMBean" className="org.apache.commons.jelly.tags.jmx.Dummy"/>
+	
+	<!-- 
+		|| Register the MBeans 
+		|| Attributes can be set on MBeans using 
+		|| XML attributes or nested elements
+		-->
+	<register name="Examples:type=short">
+		<dummyMBean name="Short version"/>
+		<operation name="doSomething"/>
+	</register>				
+		
+	<register name="Examples:type=long">
+		<mbean class="org.apache.commons.jelly.tags.jmx.Dummy" name="Longer version"/>
+		<operation name="doSomething"/>
+	</register>				
+		
+	<register name="Naming:type=rmiregistry">
+		<mbean class="mx4j.tools.naming.NamingService"/>
+		<operation name="start"/>
+	</register>
+		
+	<register name="Adaptor:protocol=JRMP">
+		<mbean class="mx4j.adaptor.rmi.jrmp.JRMPAdaptor" JNDIName="jrmp"/>
+		<operation name="start"/>
+	</register>
+		
+</server>
