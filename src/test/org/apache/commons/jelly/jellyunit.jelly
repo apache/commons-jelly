@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:test="jelly:junit">
+
+  <!-- try an absolute path -->
+  <j:include uri="/src/test/org/apache/commons/jelly/junit/suite.jelly"/>
+
+	<test:run/>  
+</j:jelly>

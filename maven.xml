@@ -439,4 +439,12 @@
   </goal>
 
     	          
+  <goal name="demo:jellyunit" prereqs="jelly-task"
+    description="Runs the JellyUnit test cases using Jelly (rather than as part of the Maven/Ant junit task)">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/jellyunit.jelly"/> 
+    </java>
+  </goal>
+	
 </project>
