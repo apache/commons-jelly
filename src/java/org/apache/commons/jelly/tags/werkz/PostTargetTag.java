@@ -1,13 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.9 2002/06/11 21:41:11 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/11 21:41:11 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +26,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,57 +53,50 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: ExprTag.java,v 1.9 2002/06/11 21:41:11 jstrachan Exp $
+ *
  */
-package org.apache.commons.jelly.tags.core;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
+package org.apache.commons.jelly.tags.werkz;
+
+import com.werken.werkz.Goal;
+import com.werken.werkz.PreGoalCallback;
+
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.expression.Expression;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** A tag which evaluates an expression
-  *
-  * @tag out
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
-  */
-public class ExprTag extends TagSupport {
+/** 
+ * Implements a &lt;postTarget&gt; tag which provides a callback 
+ * which is evaluated after a target has executed.
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.8 $
+ */
+public class PostTargetTag extends CallbackTagSupport {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(ExprTag.class);
-
-    /** The expression to evaluate. */
-    private Expression value;
-
-    public ExprTag() {
+    public PostTargetTag() {
     }
+
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        if (value != null) {
-            String text = value.evaluateAsString(context);
-            if (text != null) {
-                output.write(text);
-            }
-        }
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------                
     
     /** 
-     * Sets the Jexl expression to evaluate. 
-     * 
-     * @required true
+     * Evaluate the body to register all the various goals and pre/post conditions
+     * then run all the current targets
      */
-    public void setValue(Expression value) {
-        this.value = value;
+    public void doTag(final XMLOutput output) throws Exception {
+        
+        getGoal(getName()).addPostGoalCallback(
+            new PreGoalCallback() {
+                public void firePreGoal(Goal goal) throws Exception {
+                    // lets run the body
+                    log.info( "Running post target: " + getName() );
+                    getBody().run( context, output);                                        
+                }                
+            }
+        );            
     }
 }

@@ -324,6 +324,16 @@
 	
    </target>
 
+   <target name="demo.werkz" depends="compile" 
+      description="Runs a Werkz sample">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/werkz/example.jelly"/> 
+      <arg value="compile"/> 
+      <arg value="test"/> 
+    </java>
+   </target>
+
    <target name="demo.args" depends="compile" 
       description="Runs a demo of processing command line arguments">
       

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.9 2002/06/11 21:41:11 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/11 21:41:11 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/XMLTagLibrary.java,v 1.6 2002/05/17 18:04:00 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/05/17 18:04:00 $
  *
  * ====================================================================
  *
@@ -57,56 +57,36 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.9 2002/06/11 21:41:11 jstrachan Exp $
+ * $Id: XMLTagLibrary.java,v 1.6 2002/05/17 18:04:00 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.core;
+package org.apache.commons.jelly.tags.werkz;
+
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.TagLibrary;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** A tag which evaluates an expression
+/** Implements a bunch of tags that are useful for working with Werkz.
   *
-  * @tag out
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.6 $
   */
-public class ExprTag extends TagSupport {
+public class WerkzTagLibrary extends TagLibrary {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(ExprTag.class);
-
-    /** The expression to evaluate. */
-    private Expression value;
-
-    public ExprTag() {
-    }
-
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        if (value != null) {
-            String text = value.evaluateAsString(context);
-            if (text != null) {
-                output.write(text);
-            }
-        }
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------                
+    private Log log = LogFactory.getLog(WerkzTagLibrary.class);
     
-    /** 
-     * Sets the Jexl expression to evaluate. 
-     * 
-     * @required true
-     */
-    public void setValue(Expression value) {
-        this.value = value;
+    public WerkzTagLibrary() {
+        registerTag("project", ProjectTag.class);
+        registerTag("target", TargetTag.class);
+        registerTag("preTarget", PreTargetTag.class);
+        registerTag("postTarget", PostTargetTag.class);
+        registerTag("callTarget", CallTargetTag.class);
     }
 }

@@ -1,13 +1,10 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.9 2002/06/11 21:41:11 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/06/11 21:41:11 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +26,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,57 +53,47 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: ExprTag.java,v 1.9 2002/06/11 21:41:11 jstrachan Exp $
+ *
  */
-package org.apache.commons.jelly.tags.core;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.expression.Expression;
+package org.apache.commons.jelly.tags.werkz;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** A tag which evaluates an expression
-  *
-  * @tag out
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
-  */
-public class ExprTag extends TagSupport {
+/** 
+ * Abstract base class for all callback tags.
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.8 $
+ */
+public abstract class CallbackTagSupport extends WerkzTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(ExprTag.class);
-
-    /** The expression to evaluate. */
-    private Expression value;
-
-    public ExprTag() {
-    }
-
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        if (value != null) {
-            String text = value.evaluateAsString(context);
-            if (text != null) {
-                output.write(text);
-            }
-        }
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------                
+    protected Log log = LogFactory.getLog(getClass());
     
-    /** 
-     * Sets the Jexl expression to evaluate. 
-     * 
-     * @required true
+    /** the name of the target */
+    private String name;
+    
+    public CallbackTagSupport() {
+    }
+
+
+    
+    // Properties
+    //------------------------------------------------------------------------- 
+    
+    /**
+     * @return the name of the target
      */
-    public void setValue(Expression value) {
-        this.value = value;
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name of the target
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 }
