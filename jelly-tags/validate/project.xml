@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-validate</id>
+  <name>commons-jelly-tags-validate</name>
+  <groupId>commons-jelly</groupId>
+  <package>org.apache.commons.jelly.tags.validate</package>
+
+  <description>
+      This is a Jelly interface for XML validation.
+  </description>
+  <shortDescription>Commons Jelly Validate Tag Library</shortDescription>
+  
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/validate</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/validate</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/validate/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/validate/</url>
+  </repository>
+  
+    
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+  
+    <dependency>
+      <id>isorelax</id>
+      <version>20020414</version>
+    </dependency>
+
+    <dependency>
+      <id>junit</id>
+      <version>3.8.1</version>
+    </dependency>
+
+    <dependency>
+      <id>msv</id>
+      <version>20020414</version>
+    </dependency>
+    <!-- END for compilation -->
+
+	<!-- runtime dependencies -->
+    <dependency>
+      <id>xsdlib</id>
+      <version>20020414</version>
+    </dependency>
+
+    <dependency>
+      <id>relaxngDatatype</id>
+      <version>20020414</version>
+    </dependency>
+    <!-- END runtime -->
+    
+  </dependencies>
+  
+</project>

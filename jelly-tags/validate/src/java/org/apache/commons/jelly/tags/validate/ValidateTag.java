@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/validate/src/java/org/apache/commons/jelly/tags/validate/ValidateTag.java,v 1.1 2003/01/06 15:46:01 dion Exp $
  * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Date: 2003/01/06 15:46:01 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ * $Id: ValidateTag.java,v 1.1 2003/01/06 15:46:01 dion Exp $
  */
 package org.apache.commons.jelly.tags.validate;
 
