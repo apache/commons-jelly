@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/swt/Attic/SwtHelper.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/swt/SwtHelper.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  * 1.1
  * 2002/12/18 15:27:49
  *
@@ -80,20 +80,41 @@ public class SwtHelper extends UseBeanTag {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(SwtHelper.class);
     
-    
+
     /**
      * Parses the comma delimited String of style codes which are or'd
      * together. The given class describes the integer static constants
-     *  
-     * @param text is a comma delimited text value such as "border, resize" 
-     * @return int
+     *
+     * @param constantClass is the type to look for static fields
+     * @param text is a comma delimited text value such as "border, resize"
+     * @return the int code
      */
     public static int parseStyle(Class constantClass, String text) throws Exception {
+        return parseStyle(constantClass, text, true);
+    }
+
+    /**
+     * Parses the comma delimited String of style codes which are or'd
+     * together. The given class describes the integer static constants
+     *
+     * @param constantClass is the type to look for static fields
+     * @param text is a comma delimited text value such as "border, resize"
+     * @param toUpperCase is whether the text should be converted to upper case
+     * before its compared against the reflection fields
+     * 
+     * @return the int code
+     */
+    public static int parseStyle(Class constantClass, String text, boolean toUpperCase) throws Exception {
         int answer = 0;
-        StringTokenizer enum = new StringTokenizer(text, ",");
-        while (enum.hasMoreTokens()) {
-            String token = enum.nextToken().trim();
-            answer |= getStyleCode(constantClass, token);
+        if (text != null) {
+            if (toUpperCase) {
+                text = text.toUpperCase();
+            }
+            StringTokenizer enum = new StringTokenizer(text, ",");
+            while (enum.hasMoreTokens()) {
+                String token = enum.nextToken().trim();
+                answer |= getStyleCode(constantClass, token);
+            }
         }
         return answer;
     }
@@ -103,7 +124,6 @@ public class SwtHelper extends UseBeanTag {
      * valid style
      */
     public static int getStyleCode(Class constantClass,String text) throws Exception {
-        text = text.toUpperCase();
         Field field = constantClass.getField(text);
         if (field == null) {
             log.warn( "Unknown style code: " + text +" will be ignored");

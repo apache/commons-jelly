@@ -1,11 +1,16 @@
 <?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:core" xmlns="jelly:swt">
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
 
   <shell text="This is a shell" var="shell" style="border, close, min, max, resize, title">
 		<menu style="bar">
 			<menuItem text="File" style="cascade">
 				<menu>
-					<menuItem text="New"/>
+					<menuItem text="New">
+						<onEvent type="Selection">
+							<log:info>Selected New option with event ${event}</log:info>
+						</onEvent>
+					</menuItem>
+						
 					<menuItem text="Open"/>
 					<menuItem style="separator"/>
 					<menuItem text="Save"/>
@@ -25,7 +30,7 @@
 
 			<gridLayout numColumns="2"/>
 			<label text="Hello" style="horizontal, shadow_in"/>
-			<text text="1234" editable="true">
+			<text var="textField" text="1234" editable="true">
 				<gridData style="fill_horizontal"/>
 			</text>
 		</group>
@@ -51,7 +56,11 @@
 		</table>
 
   	<toolBar style="vertical">
-  		<toolItem text="ToolBar Item" toolTipText="I am a ToolBar Item that you can click"/>
+  		<toolItem text="ToolBar Item" toolTipText="I am a ToolBar Item that you can click">
+  			<onEvent type="Selection">
+  				<log:info>Clicked button with event ${event} and text field contains ${textField.text}</log:info>
+  			</onEvent>
+			</toolItem>
   	</toolBar>
   </shell>
 

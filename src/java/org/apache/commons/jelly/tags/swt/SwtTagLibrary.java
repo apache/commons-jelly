@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/swt/Attic/SwtTagLibrary.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/swt/SwtTagLibrary.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  * 1.1
  * 2002/12/18 15:27:49
  *
@@ -139,6 +139,9 @@ public class SwtTagLibrary extends TagLibrary {
         //registerWidgetTag( "directoryDialog", DirectoryDialog.class );
         //registerWidgetTag( "fileDialog", FileDialog.class );
         //registerWidgetTag( "fontDialog", FontDialog.class );
+        
+        // events
+        registerTag("onEvent", OnEventTag.class);
     }
 
     /**
