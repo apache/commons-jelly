@@ -119,7 +119,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
             String name = (String) i.next();
             Object value = this.context.getVariable(name);
             if (value != null) {
-                h.put(name, value);
+                h.put(name, value.toString());
             }
         }
         return h;
