@@ -54,7 +54,7 @@
  */
 package org.apache.commons.jelly.tags.ojb;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.ojb.broker.PersistenceBroker;
@@ -80,9 +80,9 @@ public class StoreTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if ( value == null ) {
-            throw new JellyException( "No value is supplied!" );
+            throw new JellyTagException( "No value is supplied!" );
         }
         getBroker().store( value );
     }

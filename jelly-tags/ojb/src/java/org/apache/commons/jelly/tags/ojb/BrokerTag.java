@@ -54,6 +54,7 @@
  */
 package org.apache.commons.jelly.tags.ojb;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.ojb.broker.PersistenceBroker;
@@ -80,7 +81,7 @@ public class BrokerTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         if ( var == null ) {
             var = "org.apache.commons.jelly.ojb.Broker";
         }
