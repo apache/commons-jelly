@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -33,7 +33,7 @@ public class AskTag extends TagSupport
     /** The question to ask to the user */
     private String question;
 
-    /** 
+    /**
      * The variable in which we will stock the user's input.
      * This defaults to "interact.answer".
      */
@@ -92,7 +92,7 @@ public class AskTag extends TagSupport
      * Perform functionality provided by the tag
      * @param output the place to write output
      */
-    public void doTag(XMLOutput output) 
+    public void doTag(XMLOutput output)
     {
         if (question != null)
         {
@@ -104,7 +104,7 @@ public class AskTag extends TagSupport
             {
                 System.out.println(question);
             }
-            // The prompt should be just before the user's input, 
+            // The prompt should be just before the user's input,
             // but it doesn't work ...
             //System.out.print(prompt + " ");
         }
