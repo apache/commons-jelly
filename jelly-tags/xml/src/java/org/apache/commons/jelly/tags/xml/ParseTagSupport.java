@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParseTagSupport.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParseTagSupport.java,v 1.2 2003/01/22 10:56:27 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/22 10:56:27 $
  *
  * ====================================================================
  *
@@ -57,13 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ParseTagSupport.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: ParseTagSupport.java,v 1.2 2003/01/22 10:56:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
+import java.io.StringReader;
 import java.net.URL;
 
 import org.apache.commons.jelly.TagSupport;
@@ -78,7 +79,7 @@ import org.dom4j.io.SAXReader;
  * An abstract base class for any tag which parsers its body as XML.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public abstract class ParseTagSupport extends TagSupport {
 
@@ -87,6 +88,9 @@ public abstract class ParseTagSupport extends TagSupport {
 
     /** The variable that will be generated for the document */
     private String var;
+    
+    /** The markup text to be parsed */
+    private String text;
 
     /** The SAXReader used to parser the document */
     private SAXReader saxReader;
@@ -108,6 +112,23 @@ public abstract class ParseTagSupport extends TagSupport {
     public void setVar(String var) {
         this.var = var;
     }
+
+    /**
+     * Returns the text to be parsed
+     * @return String
+     */
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * Sets the text to be parsed by this parser
+     * @param text The text to be parsed by this parser
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
     
     /** @return the SAXReader used for parsing, creating one lazily if need be  */
     public SAXReader getSAXReader() throws Exception {
@@ -142,18 +163,16 @@ public abstract class ParseTagSupport extends TagSupport {
         invokeBody( newOutput);
         handler.endDocument();
         return handler.getDocument();
-
-/*
-        // the following is inefficient as it requires a parse of the text
-        // but is left here in the code to see how it could be done.
-
-        String text = getBodyText();
-        
+    }
+    
+    /**
+     * Parses the give piece of text as being markup
+     */
+    protected Document parseText(String text) throws Exception {
         if ( log.isDebugEnabled() ) {
             log.debug( "About to parse: " + text );
         }
         return getSAXReader().read( new StringReader( text ) );
-*/
     }
 
     /**
