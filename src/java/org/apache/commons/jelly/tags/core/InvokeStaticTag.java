@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeStaticTag.java,v 1.1 2003/02/19 07:44:35 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2003/02/19 07:44:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/InvokeStaticTag.java,v 1.2 2003/02/20 15:57:56 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/02/20 15:57:56 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeStaticTag.java,v 1.1 2003/02/19 07:44:35 jstrachan Exp $
+ * $Id: InvokeStaticTag.java,v 1.2 2003/02/20 15:57:56 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -90,7 +90,7 @@ import org.apache.commons.jelly.XMLOutput;
   * </p>
   *
   * @author <a href="mailto:robert@bull-enterprises.com>Robert McIntosh</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 
@@ -195,11 +195,16 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      * current threads context class loader
      */ 
     protected Class loadClass() throws ClassNotFoundException {
-        Class theClass = getClass().getClassLoader().loadClass( className );
-        if (theClass == null ) {
-            theClass = Thread.currentThread().getContextClassLoader().loadClass( className );
+        ClassLoader loader = getClass().getClassLoader();
+        if (loader != null) {
+            try {
+                return loader.loadClass( className );
+            }
+            catch (ClassNotFoundException e) {
+                // ignore this exception as we'll try another loader
+            }
         }
-        return theClass; 
+        return getClass().getClassLoader().loadClass( className );
     }
 
 	/**
