@@ -86,6 +86,18 @@
 
   </developers>
 
+  <contributors>
+    <contributor>
+      <name>Martin van dem Bemt</name>
+      <email>mvdb@mvdb.com</email>
+    </contributor>
+    <contributor>
+      <name>Erik Fransen</name>
+      <email>erik167@xs4all.nl</email>
+      <role>Log designer</role>
+    </contributor>
+  </contributors>
+
   <dependencies>
     <dependency>
       <id>junit</id>
