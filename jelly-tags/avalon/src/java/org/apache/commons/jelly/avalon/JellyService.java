@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/avalon/src/java/org/apache/commons/jelly/avalon/JellyService.java,v 1.1 2003/01/22 09:19:30 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/jelly-tags/avalon/src/java/org/apache/commons/jelly/avalon/JellyService.java,v 1.1 2003/01/22 09:19:30 jstrachan Exp
  * 1.1
  * 2003/01/22 09:19:30
  *
@@ -60,7 +60,7 @@
  * JellyService.java,v 1.1 2003/01/22 09:19:30 jstrachan Exp
  */
 
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.avalon;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -80,6 +80,7 @@ import org.apache.avalon.framework.configuration.ConfigurationException;
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
