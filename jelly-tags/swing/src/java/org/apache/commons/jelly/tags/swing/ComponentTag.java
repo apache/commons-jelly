@@ -168,6 +168,40 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             }
         }
     }
+	
+    
+	private String tagName = null;
+	
+	private XMLOutput currentOutput = null;
+	
+	/** Puts this tag into the context under the given name
+	 * allowing later calls to {@link #rerun()}.
+	 * For example, it makes sense to use ${myTag.rerun()} as a child
+	 * of an <code>action</code> element.
+	 *
+	 * @param the name to be used
+	 */
+	public void setTagName(String name) {
+		this.tagName = name;
+	}
+	
+	/** Runs the body of this script again after clearing the content
+	 * of this component.
+	 * This is useful to use jelly-logic and "re-populate" a part of the user-interface
+	 * after having updated a model part (e.g. an XML-document).
+	 * @throws JellyTagException if anything
+	 */
+	public void rerun() throws JellyTagException {
+		Component comp = getComponent();
+		if(comp instanceof java.awt.Container) {
+			((java.awt.Container) comp).removeAll();
+		}
+		this.doTag(currentOutput,false);
+		if ( comp instanceof javax.swing.JComponent ) {
+			((javax.swing.JComponent) comp).revalidate();
+		}
+	}
+	
 
     /**
      * Adds a WindowListener to this component
@@ -290,6 +324,14 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * A class may be specified otherwise the Factory will be used.
      */
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
+		if (attributes.containsKey("tagName")) {
+			this.setTagName((String)attributes.get("tagName"));
+			addIgnoreProperty("tagName");
+		}
+		if(tagName!=null) {
+			context.setVariable(tagName,this);
+			currentOutput = output;
+		}
         try {
             if (theClass != null ) {
                 return theClass.newInstance();
@@ -363,6 +405,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                     component.setSize(d);
                     addIgnoreProperty("size");
                 }
+				
                 
                 if (attributes.containsKey("debugGraphicsOptions")) {
                     try {
@@ -398,8 +441,13 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     public void doTag(XMLOutput output) throws JellyTagException {
+        this.doTag(output,true);
+    }
+    
+    public void doTag(XMLOutput output, boolean resetBean) throws JellyTagException {
+        if(resetBean) clearBean();
         super.doTag(output);
-        clearBean();
+        //clearBean();
     }
 
     /** Sets the bean to null, to prevent it from
