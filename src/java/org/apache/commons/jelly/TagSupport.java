@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.16 2002/06/26 09:43:31 jstrachan Exp $
- * $Revision: 1.16 $
- * $Date: 2002/06/26 09:43:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.17 2002/08/20 05:02:51 werken Exp $
+ * $Revision: 1.17 $
+ * $Date: 2002/08/20 05:02:51 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.16 2002/06/26 09:43:31 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.17 2002/08/20 05:02:51 werken Exp $
  */
 package org.apache.commons.jelly;
 
@@ -73,7 +73,7 @@ import java.util.List;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.16 $
+  * @version $Revision: 1.17 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -211,6 +211,21 @@ public abstract class TagSupport implements Tag {
         invokeBody(XMLOutput.createXMLOutput(writer));
         return writer.toString();
     }
+
+    /**
+     * Evaluates the given body using a buffer and returns the String 
+     * of the result.
+     *
+     * @param shouldEscape Signal if the text should be escaped.
+     *
+     * @return the text evaluation of the body
+     */
+    protected String getBodyText(boolean shouldEscape) throws Exception {
+        StringWriter writer = new StringWriter();
+        invokeBody(XMLOutput.createXMLOutput(writer,shouldEscape));
+        return writer.toString();
+    }
+
 
     /** 
      * Find all text nodes inside the top level of this body and 
