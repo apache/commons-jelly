@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.7 2002/09/17 15:27:04 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/09/17 15:27:04 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.8 2002/10/14 21:31:15 morgand Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/10/14 21:31:15 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XMLOutput.java,v 1.7 2002/09/17 15:27:04 jstrachan Exp $
+ * $Id: XMLOutput.java,v 1.8 2002/10/14 21:31:15 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -79,13 +79,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
+import org.xml.sax.helpers.DefaultHandler;
 
 /** <p><code>XMLOutput</code> is used to output XML events 
   * in a SAX-like manner. This also allows pipelining to be done
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -214,6 +215,17 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         XMLWriter xmlWriter = new XMLWriter(out);
         xmlWriter.setEscapeText(escapeText);
         return createXMLOutput(xmlWriter);
+    }
+
+    /**
+     * returns an XMLOutput object that will discard all
+     * tag-generated XML events.  Useful when tag output is not expected
+     * or not significant. 
+     * 
+     * @return a no-op XMLOutput
+     */
+    public static XMLOutput createDummyXMLOutput() {
+        return new XMLOutput(new DefaultHandler());
     }
     
     // Extra helper methods provided for tag authors
