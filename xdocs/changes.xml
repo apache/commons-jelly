@@ -26,6 +26,8 @@
   <body>
     <release version="1.0-beta-4-SNAPSHOT" date="in CVS">
       <action dev="dion" type="add" issue="JELLY-116" due-to="Felipe Leme">Add exceptionVar to invoke and invokeStatic</action>
+      <action dev="dion" type="remove" issue="JELLY-85">Back out patch as it breaks define taglibs</action>
+      <action dev="dion" type="fix" issue="JELLY-117" due-to="Dennis Lundberg">Remove sandbox and fix some dependencies to use groupId/artifactId</action>
     </release>
   </body>
 </document>
