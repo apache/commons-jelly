@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTag.java,v 1.4 2002/04/26 12:20:12 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/04/26 12:20:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTag.java,v 1.5 2002/05/15 06:25:48 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/15 06:25:48 $
  *
  * ====================================================================
  *
@@ -57,14 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynamicTag.java,v 1.4 2002/04/26 12:20:12 jstrachan Exp $
+ * $Id: DynamicTag.java,v 1.5 2002/05/15 06:25:48 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * as variables and will allow the template to invoke its instance body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class DynamicTag extends TagSupport implements DynaTag {
 
@@ -103,16 +103,16 @@ public class DynamicTag extends TagSupport implements DynaTag {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void run(Context context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws Exception {
 
         log.info( "Invoking dynamic tag with attributes: " + attributes );
 
         attributes.put( "org.apache.commons.jelly.body", getBody() );
         
         // create new context based on current attributes
-        Context newContext = context.newContext( attributes );
+        JellyContext newJellyContext = context.newJellyContext( attributes );
         
-        getTemplate().run( newContext, output );
+        getTemplate().run( newJellyContext, output );
     }    
     
     // DynaTag interface

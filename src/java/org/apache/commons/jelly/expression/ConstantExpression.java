@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ConstantExpression.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ConstantExpression.java,v 1.3 2002/05/15 06:25:50 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/05/15 06:25:50 $
  *
  * ====================================================================
  *
@@ -57,18 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ConstantExpression.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: ConstantExpression.java,v 1.3 2002/05/15 06:25:50 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 
 /** <p><code>ConstantExpression</code> represents a constant expression.</p>
   *
   * <p> In other words, {@link #evaluate} returns a value independent of the context. </p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class ConstantExpression extends ExpressionSupport {
 
@@ -96,7 +96,7 @@ public class ConstantExpression extends ExpressionSupport {
       * @param context evaluate expression against this context
       * @return current value of <code>value</code> property  
       */
-    public Object evaluate(Context context) {
+    public Object evaluate(JellyContext context) {
         return value;
     }
     

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestXMLTags.java,v 1.4 2002/04/24 11:59:13 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/04/24 11:59:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestXMLTags.java,v 1.5 2002/05/15 06:25:49 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/15 06:25:49 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestXMLTags.java,v 1.4 2002/04/24 11:59:13 jstrachan Exp $
+ * $Id: TestXMLTags.java,v 1.5 2002/05/15 06:25:49 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -70,7 +70,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.TagScript;
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the parser, the engine and the XML tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class TestXMLTags extends TestCase {
     
@@ -112,7 +112,7 @@ public class TestXMLTags extends TestCase {
         
         assertTrue( "Script is a TagScript", script instanceof TagScript );
         
-        Context context = new Context();        
+        JellyContext context = new JellyContext();        
         StringWriter buffer = new StringWriter();
         
         script.run( context, XMLOutput.createXMLOutput( buffer ) );

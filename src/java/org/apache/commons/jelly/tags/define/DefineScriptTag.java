@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineScriptTag.java,v 1.2 2002/04/26 10:00:49 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/04/26 10:00:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineScriptTag.java,v 1.3 2002/05/15 06:25:48 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/05/15 06:25:48 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineScriptTag.java,v 1.2 2002/04/26 10:00:49 jstrachan Exp $
+ * $Id: DefineScriptTag.java,v 1.3 2002/05/15 06:25:48 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -72,7 +72,7 @@ import org.apache.commons.jelly.XMLOutput;
  * maybe from inside Jexl.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class DefineScriptTag extends TagSupport {
     
@@ -83,7 +83,7 @@ public class DefineScriptTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void run(Context context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws Exception {
         if ( var == null ) {
             throw new JellyException( "<define:script> must have a var attribute" );
         }

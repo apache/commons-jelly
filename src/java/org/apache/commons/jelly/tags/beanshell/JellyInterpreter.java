@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/expression/beanshell/JellyInterpreter.java,v 1.1 2002/02/13 16:00:39 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/beanshell/JellyInterpreter.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
  * $Revision: 1.1 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Date: 2002/03/07 02:46:04 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyInterpreter.java,v 1.1 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: JellyInterpreter.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.beanshell;
 
@@ -66,25 +66,25 @@ import bsh.Interpreter;
 
 import java.util.Iterator;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 
-/** Integrates BeanShell's interpreter with Jelly's Context
+/** Integrates BeanShell's interpreter with Jelly's JellyContext
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.1 $
   */
 public class JellyInterpreter extends Interpreter {
 
-    private Context context;
+    private JellyContext context;
     
     public JellyInterpreter() {
     }
 
-    public Context getContext() {
+    public JellyContext getJellyContext() {
         return context;
     }
     
-    public void setContext(Context context) throws EvalError {
+    public void setJellyContext(JellyContext context) throws EvalError {
         this.context = context;
         
         // now pass in all the variables

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/03/07 02:46:04 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java,v 1.2 2002/03/07 03:57:12 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/03/07 03:57:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BSFExpression.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
+ * $Id: BSFExpression.java,v 1.2 2002/03/07 03:57:12 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
 
@@ -66,7 +66,7 @@ import com.ibm.bsf.BSFManager;
 
 import java.util.Iterator;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 
 import org.apache.commons.logging.Log;
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 /** Represents a BSF expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class BSFExpression extends ExpressionSupport {
 
@@ -91,10 +91,10 @@ public class BSFExpression extends ExpressionSupport {
     /** The BSF Manager to evaluate expressions */
     private BSFManager manager;
     
-    /** The adapter to BSF's ObjectRegistry that uses the Context */
-    private ContextRegistry registry;
+    /** The adapter to BSF's ObjectRegistry that uses the JellyContext */
+    private JellyContextRegistry registry;
     
-    public BSFExpression(String text, BSFEngine engine, BSFManager manager, ContextRegistry registry) {
+    public BSFExpression(String text, BSFEngine engine, BSFManager manager, JellyContextRegistry registry) {
         this.text = text;
         this.engine = engine;
         this.manager = manager;
@@ -103,13 +103,13 @@ public class BSFExpression extends ExpressionSupport {
 
     // Expression interface
     //------------------------------------------------------------------------- 
-    public Object evaluate(Context context) {
+    public Object evaluate(JellyContext context) {
         // XXXX: unfortunately we must sychronize evaluations
         // so that we can swizzle in the context.
         // maybe we could create an expression from a context
         // (and so create a BSFManager for a context)
         synchronized (registry) {
-            registry.setContext(context);
+            registry.setJellyContext(context);
             
             try {
                 // XXXX: hack - there must be a better way!!!

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.13 2002/04/26 12:28:56 jstrachan Exp $
- * $Revision: 1.13 $
- * $Date: 2002/04/26 12:28:56 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.14 2002/05/15 06:25:49 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/05/15 06:25:49 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.13 2002/04/26 12:28:56 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.14 2002/05/15 06:25:49 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -83,7 +83,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.collections.ArrayStack;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
@@ -118,12 +118,12 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 public class XMLParser extends DefaultHandler {
 
-    /** Context which is used to locate tag libraries*/
-    private Context context = new Context();
+    /** JellyContext which is used to locate tag libraries*/
+    private JellyContext context = new JellyContext();
     
     /** the expression factory used to evaluate tag attributes */
     private ExpressionFactory expressionFactory;
@@ -197,7 +197,7 @@ public class XMLParser extends DefaultHandler {
     
     
     /**
-     * Do we want to use the Context ClassLoader when loading classes
+     * Do we want to use the JellyContext ClassLoader when loading classes
      * for instantiating new objects?  Default is <code>false</code>.
      */
     protected boolean useContextClassLoader = false;
@@ -356,11 +356,11 @@ public class XMLParser extends DefaultHandler {
     // Properties
     //-------------------------------------------------------------------------                    
     
-    public Context getContext() {
+    public JellyContext getJellyContext() {
         return context;
     }
     
-    public void setContext(Context context) {
+    public void setJellyContext(JellyContext context) {
         this.context = context;
     }
         
@@ -543,13 +543,13 @@ public class XMLParser extends DefaultHandler {
     
     
     /**
-     * Determine whether to use the Context ClassLoader (the one found by
+     * Determine whether to use the JellyContext ClassLoader (the one found by
      * calling <code>Thread.currentThread().getContextClassLoader()</code>)
      * to resolve/load classes that are defined in various rules.  If not
-     * using Context ClassLoader, then the class-loading defaults to
+     * using JellyContext ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.
      *
-     * @param boolean determines whether to use Context ClassLoader.
+     * @param boolean determines whether to use JellyContext ClassLoader.
      */
     public void setUseContextClassLoader(boolean use) {
         useContextClassLoader = use;

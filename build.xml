@@ -3,7 +3,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.15 2002/04/29 12:59:43 jstrachan Exp $
+        $Id: build.xml,v 1.16 2002/05/15 06:25:49 jstrachan Exp $
 -->
 
 
@@ -31,7 +31,7 @@
   <property name="digester.home"           value="${commons.home}/digester"/>
   <property name="jexl.home"               value="${sandbox.home}/jexl"/>
 
-
+  <!-- Values used for testing -->  <property name="databaseUrl"             value="jdbc:hsqldb:hsql://localhost"/>  <property name="databaseDriver"          value="org.hsqldb.jdbcDriver"/>  <property name="databaseUser"            value="sa"/>  <property name="databaseTable"           value="SYSTEM_TABLES"/>  <property name="database.jar"            value="/java/hsqldb/hsqldb.jar"/>
 <!-- ========== Derived Values ============================================ -->
 
 
@@ -138,8 +138,7 @@
     <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
     <pathelement location="${commons-digester.jar}"/>
-    <pathelement location="${junit.jar}"/>
-    
+    <pathelement location="${junit.jar}"/>    <pathelement location="${database.jar}"/>    
     <!-- optional JARs -->
     <pathelement location="${beanshell.jar}"/>
     <pathelement location="${bsf.jar}"/>
@@ -425,13 +424,6 @@
     </java>
    </target>
 
-   <target name="demo.javascript" depends="compile, checkRhino" 
-      description="Runs a javascript demo which displays system properties">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/javascript/example.jelly"/> 
-    </java>
-   </target>
-
+   <target name="demo.javascript" depends="compile, checkRhino"       description="Runs a javascript demo which displays system properties">    <java classname="org.apache.commons.jelly.Jelly" fork="yes">      <classpath refid="test.classpath"/>      <arg value="src/test/org/apache/commons/jelly/javascript/example.jelly"/>     </java>   </target>   <target name="demo.sql" depends="compile"       description="Runs an SQL demo">    <taskdef      name="jelly"      classname="org.apache.commons.jelly.task.JellyTask">      <classpath refid="test.classpath"/>    </taskdef>	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${build.home}/sqloutput.xml"/>	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${build.home}/sqloutput2.xml"/>	   </target>
 
 </project>

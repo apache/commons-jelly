@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.4 2002/02/19 15:40:58 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/02/19 15:40:58 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.5 2002/03/07 02:46:04 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/03/07 02:46:04 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestBeanShellEL.java,v 1.4 2002/02/19 15:40:58 jstrachan Exp $
+ * $Id: TestBeanShellEL.java,v 1.5 2002/03/07 02:46:04 jstrachan Exp $
  */
 package org.apache.commons.jelly.beanshell;
 
@@ -66,7 +66,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the BeanShell EL
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class TestBeanShellEL extends TestCase {
     
@@ -86,7 +86,7 @@ public class TestBeanShellEL extends TestCase {
     private static final Log log = LogFactory.getLog( TestBeanShellEL.class );
 
     /** Jelly context */
-    protected Context context;
+    protected JellyContext context;
     
     /** The factory of Expression objects */
     protected ExpressionFactory factory;
@@ -105,7 +105,7 @@ public class TestBeanShellEL extends TestCase {
     }
     
     public void setUp() {
-        context = new Context();
+        context = new JellyContext();
         context.setVariable( "foo", "abc" );
         context.setVariable( "bar", new Integer( 123 ) );
         factory = new BeanShellExpressionFactory();

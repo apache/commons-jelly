@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.1 2002/04/26 12:20:12 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/04/26 12:20:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.2 2002/05/15 06:25:46 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/05/15 06:25:46 $
  *
  * ====================================================================
  *
@@ -57,13 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IncludeTag.java,v 1.1 2002/04/26 12:20:12 jstrachan Exp $
+ * $Id: IncludeTag.java,v 1.2 2002/05/15 06:25:46 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
 import java.net.URL;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
@@ -72,7 +72,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class IncludeTag extends TagSupport {
 
@@ -83,12 +83,12 @@ public class IncludeTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws Exception {
         if ( uri == null ) {
             throw new JellyException( "<j:include> must have a 'uri' attribute defined" );
         }
         
-        // we need to create a new Context of the URI
+        // we need to create a new JellyContext of the URI
         
         // take off the script name from the URL
         context.runScript( uri, output );

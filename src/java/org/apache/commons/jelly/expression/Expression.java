@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/Expression.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/Expression.java,v 1.3 2002/05/15 06:25:50 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/05/15 06:25:50 $
  *
  * ====================================================================
  *
@@ -57,19 +57,19 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Expression.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: Expression.java,v 1.3 2002/05/15 06:25:50 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression;
 
 import java.util.Iterator;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 
 /** <p><code>Expression</code> represents an arbitrary expression using some pluggable
   * expression language.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public interface Expression {
 
@@ -77,23 +77,23 @@ public interface Expression {
      * Evaluates the expression with the given context
      * and returns the result 
      */
-    public Object evaluate(Context context);        
+    public Object evaluate(JellyContext context);        
     
     /**
      * Evaluates the expression with the given context
      * coercing the result to be a String.
      */
-    public String evaluateAsString(Context context);
+    public String evaluateAsString(JellyContext context);
     
     /**
      * Evaluates the expression with the given context
      * coercing the result to be a boolean.
      */
-    public boolean evaluateAsBoolean(Context context);
+    public boolean evaluateAsBoolean(JellyContext context);
     
     /**
      * Evaluates the expression with the given context
      * coercing the result to be an Iterator.
      */
-    public Iterator evaluateAsIterator(Context context);
+    public Iterator evaluateAsIterator(JellyContext context);
 }

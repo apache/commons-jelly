@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.3 2002/05/15 06:25:49 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/05/15 06:25:49 $
  *
  * ====================================================================
  *
@@ -57,14 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.3 2002/05/15 06:25:49 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
 import java.io.IOException;
 import java.io.Writer;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.expression.ExpressionSupport;
@@ -76,12 +76,12 @@ import org.jaxen.VariableContext;
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
 
     private XPath xpath;        
-    private Context context;
+    private JellyContext context;
     
     public XPathExpression() {
     }
@@ -96,7 +96,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
 
     // Expression interface
     //------------------------------------------------------------------------- 
-    public Object evaluate(Context context) {
+    public Object evaluate(JellyContext context) {
         this.context = context;
         xpath.setVariableContext( this );
         return xpath;

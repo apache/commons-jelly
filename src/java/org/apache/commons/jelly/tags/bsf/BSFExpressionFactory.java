@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/bsf/BSFExpressionFactory.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/03/07 02:46:04 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/bsf/BSFExpressionFactory.java,v 1.2 2002/03/07 03:57:12 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/03/07 03:57:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BSFExpressionFactory.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
+ * $Id: BSFExpressionFactory.java,v 1.2 2002/03/07 03:57:12 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
 
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 /** Represents a factory of BSF expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class BSFExpressionFactory implements ExpressionFactory {
 
@@ -86,7 +86,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
     private String language = "javascript";
     private BSFManager manager;
     private BSFEngine engine;
-    private ContextRegistry registry = new ContextRegistry();
+    private JellyContextRegistry registry = new JellyContextRegistry();
     
     public BSFExpressionFactory() {
     }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.4 2002/04/24 11:59:13 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/04/24 11:59:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.5 2002/05/15 06:25:49 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/15 06:25:49 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ParseTag.java,v 1.4 2002/04/24 11:59:13 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.5 2002/05/15 06:25:49 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -70,7 +70,7 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -90,7 +90,7 @@ import org.xml.sax.SAXException;
   * source property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class ParseTag extends TagSupport {
 
@@ -114,7 +114,7 @@ public class ParseTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws Exception {
         if ( var == null ) {
             throw new IllegalArgumentException( "The var attribute cannot be null" );
         }
@@ -135,7 +135,7 @@ public class ParseTag extends TagSupport {
             // the following is inefficient as it requires a parse of the text
             // but is left here in the code to see how it could be done.
 
-            String text = getBodyText( context );
+            String text = getBodyText();
             
             if ( log.isDebugEnabled() ) {
                 log.debug( "About to parse: " + text );

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/04/25 18:14:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagTag.java,v 1.2 2002/05/15 06:25:48 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/05/15 06:25:48 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
+ * $Id: DefineTagTag.java,v 1.2 2002/05/15 06:25:48 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -71,7 +71,7 @@ import org.apache.commons.jelly.XMLOutput;
  * using a Jelly script..</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class DefineTagTag extends TagSupport {
     
@@ -82,7 +82,7 @@ public class DefineTagTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void run(Context context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws Exception {
         DefineTagLibTag tag 
             = (DefineTagLibTag) findAncestorWithClass(this, DefineTagLibTag.class);
         if ( tag == null ) {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/24 11:59:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.4 2002/05/15 06:25:49 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/15 06:25:49 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.3 2002/04/24 11:59:13 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.4 2002/05/15 06:25:49 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -72,7 +72,7 @@ import org.dom4j.XPath;
   * in XSLT
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class ExprTag extends TagSupport {
 
@@ -84,7 +84,7 @@ public class ExprTag extends TagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void run(Context context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws Exception {
         if ( select != null ) {
             String text = select.valueOf( null );
             output.write( text );

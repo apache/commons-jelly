@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.3 2002/04/24 11:59:12 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/24 11:59:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.4 2002/05/15 06:25:48 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/15 06:25:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptBlock.java,v 1.3 2002/04/24 11:59:12 jstrachan Exp $
+ * $Id: ScriptBlock.java,v 1.4 2002/05/15 06:25:48 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -66,14 +66,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class ScriptBlock implements Script {
     
@@ -134,7 +134,7 @@ public class ScriptBlock implements Script {
     }
     
     /** Evaluates the body of a tag */
-    public void run(Context context, XMLOutput output) throws Exception {
+    public void run(JellyContext context, XMLOutput output) throws Exception {
         for ( int i = 0, size = scripts.length; i < size; i++ ) {
             Script script = scripts[i];
             script.run( context, output );
