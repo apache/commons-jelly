@@ -3,7 +3,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.13 2002/04/26 07:39:07 jstrachan Exp $
+        $Id: build.xml,v 1.14 2002/04/26 12:20:11 jstrachan Exp $
 -->
 
 
@@ -359,6 +359,17 @@
    </target>
 
 <!-- ========== Sample Program Targets ==================================== -->
+
+   <target name="demo.all" depends="compile" 
+      description="Runs all the demo scripts inside one single script">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/run_all.jelly"/> 
+      <arg value="one"/> 
+      <arg value="two"/> 
+      <arg value="three"/> 
+    </java>
+   </target>
 
    <target name="demo.hw" depends="compile" 
       description="Runs the Hello World demo">

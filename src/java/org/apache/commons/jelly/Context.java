@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.9 2002/04/26 11:28:55 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/04/26 11:28:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.10 2002/04/26 12:20:12 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/04/26 12:20:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.9 2002/04/26 11:28:55 jstrachan Exp $
+ * $Id: Context.java,v 1.10 2002/04/26 12:20:12 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>Context</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 public class Context {
 
@@ -115,6 +115,7 @@ public class Context {
         this.rootContext = parentContext.rootContext;
         this.currentContext = parentContext.currentContext;
         this.taglibs = parentContext.taglibs;
+        this.variables.put( "parentScope", parentContext.variables );
     }
     
     public Context(Context parentContext, URL currentContext) {
@@ -232,7 +233,23 @@ public class Context {
         XMLParser parser = new XMLParser();
         parser.setContext( this );
         
-        Script script = parser.parse( getResourceAsStream( uri ) );
+        InputStream in = getResourceAsStream( uri );
+        if ( in == null ) {
+            throw new JellyException( "Could not find Jelly script: " + uri );
+        }
+        Script script = parser.parse( in );
+        return script.compile();
+    }
+
+    /** 
+     * Attempts to parse the script from the given URL using the 
+     * {#link getResource()} method then returns the compiled script.
+     */
+    public Script compileScript(URL url) throws Exception {
+        XMLParser parser = new XMLParser();
+        parser.setContext( this );
+        
+        Script script = parser.parse( url.toString() );
         return script.compile();
     }
 
@@ -241,8 +258,15 @@ public class Context {
      * Context.getResource() API then compiles it and runs it.
      */
     public void runScript(String uri, XMLOutput output) throws Exception {
-        Script script = compileScript( uri );
-        script.run( this, output );
+        URL url = getResource(uri);
+        if ( url == null ) {
+            throw new JellyException( "Could not find Jelly script: " + url );
+        }
+        Script script = compileScript( url );
+        
+        URL newContextURL = getContextURL( url );
+        Context newContext = new Context( this, newContextURL );
+        script.run( newContext, output );
     }
 
     /**
@@ -308,9 +332,25 @@ public class Context {
      * @throws MalformedURLException if the URL is invalid.
      */
     protected URL createRelativeURL(URL rootURL, String relativeURI) throws MalformedURLException {
+        String urlText = null;
         if ( rootURL == null ) {
-            return new URL( "file://" + relativeURI );
+            String userDir = System.getProperty( "user.dir" );
+            urlText = "file://" + userDir + relativeURI; 
         }
-        return new URL( rootURL.toString() + relativeURI );
+        else {
+            urlText = rootURL.toString() + relativeURI;
+        }
+        log.info( "Attempting to open url: " + urlText );
+        return new URL( urlText );
+    }
+    
+    /** 
+     * Strips off the name of a script to create a new context URL
+     */
+    protected URL getContextURL( URL url ) throws MalformedURLException {
+        String text = url.toString();
+        int idx = text.lastIndexOf( '/' );
+        text = text.substring( 0, idx + 1 );
+        return new URL( text );
     }
 }

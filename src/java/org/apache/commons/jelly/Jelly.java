@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.6 2002/04/26 11:28:55 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/04/26 11:28:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.7 2002/04/26 12:20:12 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/04/26 12:20:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.6 2002/04/26 11:28:55 jstrachan Exp $
+ * $Id: Jelly.java,v 1.7 2002/04/26 12:20:12 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * or can be used as the basis of an Ant task.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class Jelly {
 
@@ -90,9 +90,12 @@ public class Jelly {
 
     /** The Context to use */
     private Context context;
-    
+        
     /** The URL of the script to execute */
     private URL url;
+    
+    /** The URL of the root context for other scripts */
+    private URL rootContext;
     
     public Jelly() {
     }
@@ -172,12 +175,34 @@ public class Jelly {
     }
     
     
+    /** 
+     * Gets the root context
+     */
+    public URL getRootContext() throws MalformedURLException {
+        if ( rootContext == null ) {
+            rootContext = new File( System.getProperty( "user.dir" ) ).toURL();
+        }
+        return rootContext;
+    }
+    
+    /** 
+     * Sets the root context
+     */
+    public void setRootContext(URL rootContext) {
+        this.rootContext = rootContext;
+    }
+    
+    
     /**
      * The context to use
      */
-    public Context getContext() {
+    public Context getContext() throws MalformedURLException {
         if ( context == null ) {
-            context = new Context( getUrl() );
+            // take off the name off the URL
+            String text = getUrl().toString();
+            int idx = text.lastIndexOf( '/' );
+            text = text.substring( 0, idx + 1 );
+            context = new Context( getRootContext(), new URL( text ) );
         }
         return context;
     }

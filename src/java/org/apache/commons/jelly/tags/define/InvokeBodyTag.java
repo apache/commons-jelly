@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.3 2002/04/26 11:28:55 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/26 11:28:55 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.4 2002/04/26 12:20:12 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/04/26 12:20:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.3 2002/04/26 11:28:55 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.4 2002/04/26 12:20:12 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class InvokeBodyTag extends TagSupport {
 
@@ -93,8 +93,8 @@ public class InvokeBodyTag extends TagSupport {
     //-------------------------------------------------------------------------                    
     public void run(Context context, XMLOutput output) throws Exception {
 
-        // Try find find the body from the reserved 'jelly.body' variable
-        Script script = (Script) context.getVariable( "jelly.body" );
+        // Try find find the body from the reserved 'org.apache.commons.jelly.body' variable
+        Script script = (Script) context.getVariable( "org.apache.commons.jelly.body" );
         if ( script != null ) {
             script.run( context, output );
         }
