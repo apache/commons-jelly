@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.6 2002/06/27 14:08:27 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/27 14:08:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.7 2002/06/28 12:13:27 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/28 12:13:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.6 2002/06/27 14:08:27 jstrachan Exp $
+ * $Id: JellyException.java,v 1.7 2002/06/28 12:13:27 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -69,7 +69,7 @@ import java.io.PrintWriter;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public class JellyException extends Exception {
@@ -77,13 +77,18 @@ public class JellyException extends Exception {
     /** the underlying cause of the exception */
     private Throwable cause;
 
+    /** the Jelly file which caused the problem */
+    private String fileName;
+
+    /** the tag name which caused the problem */
+    private String elementName;
+
     /** the line number in the script of the error */
     private int lineNumber = -1;
     
     /** the column number in the script of the error */
     private int columnNumber = -1;
-
-
+    
     public JellyException() {
     }
 
@@ -101,19 +106,23 @@ public class JellyException extends Exception {
         this.cause = cause;
     }
     
-    public JellyException(Throwable cause, int columnNumber, int lineNumber) {
-        this(cause.getLocalizedMessage(), cause, columnNumber, lineNumber);
+    public JellyException(Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
+        this(cause.getLocalizedMessage(), cause, fileName, elementName, columnNumber, lineNumber);
     }
     
-    public JellyException(String reason, Throwable cause, int columnNumber, int lineNumber) {
+    public JellyException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
         super(reason);
         this.cause = cause;
+        this.fileName = fileName;
+        this.elementName = elementName;
         this.columnNumber = columnNumber;
         this.lineNumber = lineNumber;
     }
     
-    public JellyException(String reason, int columnNumber, int lineNumber) {
+    public JellyException(String reason, String fileName, String elementName, int columnNumber, int lineNumber) {
         super(reason);
+        this.fileName = fileName;
+        this.elementName = elementName;
         this.columnNumber = columnNumber;
         this.lineNumber = lineNumber;
     }
@@ -150,9 +159,39 @@ public class JellyException extends Exception {
     public void setColumnNumber(int columnNumber) {
         this.columnNumber = columnNumber;
     }
+
+    /** 
+     * @return the Jelly file which caused the problem 
+     */
+    public String getFileName() {
+        return fileName;
+    }
+
+    /** 
+     * Sets the Jelly file which caused the problem 
+     */
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+    
+
+    /** 
+     * @return the element name which caused the problem
+     */
+    public String getElementName() {
+        return elementName;
+    }
+
+    /** 
+     * Sets the element name which caused the problem
+     */
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
+    }
+    
     
     public String getMessage() {
-        return super.getMessage() + " At line: " 
+        return super.getMessage() + " File: " + fileName + " At tag <" + elementName + ">: line: " 
             + lineNumber + " column: " + columnNumber;
     }
     // #### overload the printStackTrace methods...

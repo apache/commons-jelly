@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.24 2002/06/25 19:12:29 jstrachan Exp $
- * $Revision: 1.24 $
- * $Date: 2002/06/25 19:12:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.25 2002/06/28 12:13:27 jstrachan Exp $
+ * $Revision: 1.25 $
+ * $Date: 2002/06/28 12:13:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.24 2002/06/25 19:12:29 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.25 2002/06/28 12:13:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -121,7 +121,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.24 $
+ * @version $Revision: 1.25 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -200,6 +200,12 @@ public class XMLParser extends DefaultHandler {
     protected HashMap namespaces = new HashMap();
 
     /**
+     * The name of the file being parsed that is passed to the TagScript objects
+     * for error reporting
+     */
+    private String fileName;
+    
+    /**
      * Do we want to use a validating parser?
      */
     protected boolean validating = false;
@@ -257,6 +263,7 @@ public class XMLParser extends DefaultHandler {
      */
     public Script parse(File file) throws IOException, SAXException {
         ensureConfigured();
+        this.fileName = file.toString();
         getXMLReader().parse(new InputSource(new FileReader(file)));
         return script;
     }
@@ -272,6 +279,7 @@ public class XMLParser extends DefaultHandler {
      */
     public Script parse(InputSource input) throws IOException, SAXException {
         ensureConfigured();
+        this.fileName = input.getSystemId();
         getXMLReader().parse(input);
         return script;
     }
@@ -287,6 +295,7 @@ public class XMLParser extends DefaultHandler {
      */
     public Script parse(InputStream input) throws IOException, SAXException {
         ensureConfigured();
+        this.fileName = null;
         getXMLReader().parse(new InputSource(input));
         return script;
     }
@@ -302,6 +311,7 @@ public class XMLParser extends DefaultHandler {
      */
     public Script parse(Reader reader) throws IOException, SAXException {
         ensureConfigured();
+        this.fileName = null;
         getXMLReader().parse(new InputSource(reader));
         return script;
     }
@@ -317,6 +327,7 @@ public class XMLParser extends DefaultHandler {
      */
     public Script parse(String uri) throws IOException, SAXException {
         ensureConfigured();
+        this.fileName = uri;
         getXMLReader().parse(uri);
         return script;
     }
@@ -593,6 +604,9 @@ public class XMLParser extends DefaultHandler {
                 if ( locator != null ) {
                     tagScript.setLocator(locator);
                 }
+                // sets the file name element names
+                tagScript.setFileName(fileName);
+                tagScript.setElementName(qName);
                 
                 // pop another tag onto the stack
                 if ( parentTag != null ) {

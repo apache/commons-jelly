@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.13 2002/06/27 14:09:15 jstrachan Exp $
- * $Revision: 1.13 $
- * $Date: 2002/06/27 14:09:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.14 2002/06/28 12:13:27 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/06/28 12:13:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.13 2002/06/27 14:09:15 jstrachan Exp $
+ * $Id: TagScript.java,v 1.14 2002/06/28 12:13:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -93,7 +93,7 @@ import org.xml.sax.Locator;
  * script that evaluates a custom tag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.13 $
+ * @version $Revision: 1.14 $
  */
 public abstract class TagScript implements Script {
 
@@ -106,6 +106,12 @@ public abstract class TagScript implements Script {
     /** The attribute expressions that are created */
     protected Map attributes = new HashMap();
     
+    /** the Jelly file which caused the problem */
+    private String fileName;
+
+    /** the tag name which caused the problem */
+    private String elementName;
+
     /** the line number of the tag */
     private int lineNumber = -1;
     
@@ -167,6 +173,34 @@ public abstract class TagScript implements Script {
     }
     
     /** 
+     * @return the Jelly file which caused the problem 
+     */
+    public String getFileName() {
+        return fileName;
+    }
+
+    /** 
+     * Sets the Jelly file which caused the problem 
+     */
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+    
+
+    /** 
+     * @return the element name which caused the problem
+     */
+    public String getElementName() {
+        return elementName;
+    }
+
+    /** 
+     * Sets the element name which caused the problem
+     */
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
+    }
+    /** 
      * @return the line number of the tag 
      */
     public int getLineNumber() {
@@ -221,7 +255,25 @@ public abstract class TagScript implements Script {
      */
     protected void handleException(Exception e) throws Exception {
         log.error( "Caught exception: " + e, e );
-        throw new JellyException(e, columnNumber, lineNumber);            
+        throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);            
+    }
+    
+    /**
+     * Creates a new Jelly exception, adorning it with location information
+     */
+    protected JellyException createJellyException(String reason) {
+        return new JellyException( 
+            reason, fileName, elementName, columnNumber, lineNumber
+        );
+    }
+    
+    /**
+     * Creates a new Jelly exception, adorning it with location information
+     */
+    protected JellyException createJellyException(String reason, Exception cause) {
+        return new JellyException( 
+            reason, cause, fileName, elementName, columnNumber, lineNumber
+        );
     }
     
     /**
@@ -233,6 +285,12 @@ public abstract class TagScript implements Script {
         if (e.getLineNumber() == -1) {
             e.setColumnNumber(columnNumber);
             e.setLineNumber(lineNumber);
+        }
+        if ( e.getFileName() == null ) {
+            e.setFileName( fileName );
+        }
+        if ( e.getElementName() == null ) {
+            e.setElementName( elementName );
         }
         throw e;
     }

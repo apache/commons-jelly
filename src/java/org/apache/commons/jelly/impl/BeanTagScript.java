@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.11 2002/06/27 14:09:15 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/06/27 14:09:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.12 2002/06/28 12:13:27 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/06/28 12:13:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.11 2002/06/27 14:09:15 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.12 2002/06/28 12:13:27 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -180,9 +180,8 @@ public class BeanTagScript extends TagScript {
         for ( Iterator iter = attributes.keySet().iterator(); iter.hasNext(); ) {
             String name = (String) iter.next();
             if ( ! attributeSet.contains( name ) ) {
-                throw new JellyException( 
-                    "This tag does not understand the attribute '" + name + "'", 
-                    getColumnNumber(), getLineNumber()  
+                throw createJellyException( 
+                    "This tag does not understand the attribute '" + name + "'"
                 );
             }
         }
@@ -223,10 +222,10 @@ public class BeanTagScript extends TagScript {
                     "Cannot call method: " + method.getName() + " as I cannot convert: " 
                     + value + " of type: " + valueTypeName + " into type: " + type.getName() 
                 );
-                throw new JellyException( 
+                throw createJellyException( 
                     "Cannot call method: " + method.getName() + " on tag of type: " 
                     + tag.getClass().getName() + " with value: " + value + " of type: " 
-                    + valueTypeName + ". Exception: " + e, getColumnNumber(), getLineNumber()
+                    + valueTypeName + ". Exception: " + e, e
                 );
             }
         }
