@@ -119,5 +119,68 @@
   <test:assertEquals expected="bar" actual="${output}"/>
 
 </test:case>
+
+<test:case name="testExtend" xmlns="taglibExtend">
+
+  <define:taglib uri="taglibExtend" inherit="false">
+     <define:tag name="foo">
+        foo
+     </define:tag>
+  </define:taglib>
+
+  <j:set var="output"><foo/></j:set>
+  <test:assertEquals expected="foo" actual="${output}"/>
+
+  <!-- extend the foo tag -->
+  <define:taglib uri="taglibExtend" inherit="true">
+     <define:extend name="foo">
+        bar
+     </define:extend>
+  </define:taglib>
+
+  <j:set var="output">
+     <foo/>
+  </j:set>
+  <test:assertEquals expected="bar" actual="${output}"/>
+
+</test:case>
+
+<test:case name="testSuper" xmlns="taglibSuper">
+
+  <define:taglib uri="taglibSuper" inherit="false">
+     <define:tag name="foo">
+        foo
+     </define:tag>
+  </define:taglib>
+
+  <!-- extend the foo tag -->
+  <define:taglib uri="taglibSuper" inherit="true">
+     <define:extend name="foo">
+        <define:super/>
+        bar
+     </define:extend>
+  </define:taglib>
+
+  <j:set var="output">
+    <foo/>
+  </j:set>
+  <test:assertEquals expected="foobar" actual="${output}"/>
+
+  <!-- extend the foo tag -->
+  <define:taglib uri="taglibSuper" inherit="true">
+     <define:extend name="foo">
+        bar
+        <define:super/>
+     </define:extend>
+  </define:taglib>
+
+  <j:set var="output">
+    <foo/>
+  </j:set>
+  <test:assertEquals expected="barfoobar" actual="${output}"/>
+
+</test:case>
+
+
    
 </test:suite>

@@ -139,6 +139,39 @@ public class DynamicTagLibrary extends TagLibrary {
         templates.put(name, factory);
     }
 
+    /**
+     * Returns the script associated with the given tag name
+     *
+     * @param name The tag name
+     * @return The script associated with <code>name</code>, or 
+     *         <code>null</code> if the tag doesn't exist or isn't a script
+     */
+    public Script getDynamicTag(String name) {
+        Object result = templates.get(name);
+        return (result instanceof Script) ? (Script) result : null;
+    }
+
+    /**
+     * Returns the tag library instance which contains the named tag.
+     * <p/>
+     * If the tag is not registered within this library, the set of
+     * parent libraries will be searched.
+     * 
+     * @param name The tag name
+     * @return The tag library containing the named tag, or <code>null</code>
+     *         if the tag is not registered.
+     */
+    public DynamicTagLibrary find(String name) {
+        DynamicTagLibrary result = null;
+        if (templates.get(name) != null) {
+            result = this;
+        } 
+        else if (parent instanceof DynamicTagLibrary) {
+            result = ((DynamicTagLibrary) parent).find(name);
+        }
+        return result;
+    }
+
     // Properties
     //-------------------------------------------------------------------------     
     public String getUri() {
