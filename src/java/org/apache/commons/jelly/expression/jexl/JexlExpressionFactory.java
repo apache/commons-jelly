@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.5 2002/06/06 07:13:41 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/06 07:13:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.6 2002/06/13 09:27:14 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/13 09:27:14 $
  *
  * ====================================================================
  *
@@ -57,30 +57,88 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.5 2002/06/06 07:13:41 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.6 2002/06/13 09:27:14 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
 
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 
 /** 
  * Represents a factory of <a href="http://jakarta.apache.org/commons/jexl.html">Jexl</a> 
  * expression which fully supports the Expression Language in JSTL and JSP.
+ * In addition this ExpressionFactory can also support Ant style variable
+ * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
 
+    /** whether we should allow Ant-style expresssions, using dots as part of variable name */
+    private boolean supportAntVariables = true;
+    
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
-    public Expression createExpression(String text) throws Exception {
-        return new JexlExpression(
+    public Expression createExpression(final String text) throws Exception {
+        final Expression jexlExpression = new JexlExpression(
             org.apache.commons.jexl.ExpressionFactory.createExpression(text)
         );
+        
+        if ( isSupportAntVariables() && isValidAntVariableName(text) ) {
+            return new ExpressionSupport() {
+                public Object evaluate(JellyContext context) {
+                    Object answer = jexlExpression.evaluate(context);
+                    if ( answer == null ) {
+                        answer = context.getVariable(text);
+                    }
+                    return answer;
+                }
+            };
+        }
+        return jexlExpression;
+    }
+    
+    // Properties
+    //------------------------------------------------------------------------- 
+
+    /** 
+     * @return whether we should allow Ant-style expresssions, using dots as 
+     * part of variable name 
+     */
+    public boolean isSupportAntVariables() {
+        return supportAntVariables;
+    }
+    
+    /** 
+     * Sets whether we should allow Ant-style expresssions, using dots as 
+     * part of variable name 
+     */
+    public void setSupportAntVariables(boolean supportAntVariables) {
+        this.supportAntVariables = supportAntVariables;
+    }
+
+    // Implementation methods
+    //------------------------------------------------------------------------- 
+
+    /**
+     * @return true if the given string is a valid Ant variable name,
+     * typically thats alphanumeric text with '.' etc.
+     */
+    protected boolean isValidAntVariableName(String text) {
+        char[] chars = text.toCharArray();            
+        for (int i = 0, size = chars.length; i < size; i++ ) {
+            char ch = chars[i];
+            // could maybe be a bit more restrictive...
+            if ( Character.isWhitespace(ch) || ch == '[' ) {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

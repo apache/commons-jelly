@@ -2,7 +2,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns="jelly:ant">
 
   <fileScanner var="scanner">
-    <fileset dir="src/taglibs" includes="**/build.xml"/>
+    <fileset dir="src/test" includes="**/*.jelly"/>
   </fileScanner>
     
   Iterating through build files

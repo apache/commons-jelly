@@ -111,6 +111,12 @@ public class TestExpressions extends TestCase {
         assertExpression("${topping}-${type}", "cheese-deepPan");
     }
     
+    public void testAntExpresssions() throws Exception {
+        context.setVariable("maven.home.foo", "cheese");
+
+        assertExpression("${maven.home.foo}", "cheese");
+    }
+    
     protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
         Expression expression = CompositeExpression.parse(expressionText, factory);
         assertTrue( "Created a valid expression for: " + expressionText, expression != null );

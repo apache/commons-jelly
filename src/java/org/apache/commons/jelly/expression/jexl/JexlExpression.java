@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.5 2002/06/05 07:00:58 werken Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/05 07:00:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.6 2002/06/13 09:27:14 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/13 09:27:14 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpression.java,v 1.5 2002/06/05 07:00:58 werken Exp $
+ * $Id: JexlExpression.java,v 1.6 2002/06/13 09:27:14 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -67,17 +67,12 @@ import java.util.Set;
 import java.util.Collection;
 
 import org.apache.commons.jelly.JellyContext;
-
 import org.apache.commons.jelly.expression.ExpressionSupport;
 
 import org.apache.commons.jexl.Expression;
-
 import org.apache.commons.jexl.JexlContext;
 
-import org.apache.commons.jexl.context.HashMapContext;
-
 import org.apache.commons.logging.Log;
-
 import org.apache.commons.logging.LogFactory;
 
 /** 
@@ -86,31 +81,24 @@ import org.apache.commons.logging.LogFactory;
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 
 public class JexlExpression extends ExpressionSupport {
 
     /** The Log to which logging calls will be made. */
-
     private static final Log log = LogFactory.getLog(JexlExpression.class);
 
     /** The Jexl expression object */
-
     private Expression expression;
 
     public JexlExpression(Expression expression) {
-
         this.expression = expression;
-
     }
 
     // Expression interface
-
     //------------------------------------------------------------------------- 
-
     public Object evaluate(JellyContext context) {
-
         try {
 
             JexlContext jexlContext = new JellyJexlContext( context );
