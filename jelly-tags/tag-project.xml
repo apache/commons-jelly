@@ -268,7 +268,7 @@
     
     <dependency>
       <id>dom4j</id>
-      <version>1.5-beta-2</version>
+      <version>20040902.021138</version>
     </dependency>
 
     <dependency>
