@@ -3,7 +3,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.14 2002/04/26 12:20:11 jstrachan Exp $
+        $Id: build.xml,v 1.15 2002/04/29 12:59:43 jstrachan Exp $
 -->
 
 
@@ -52,7 +52,7 @@
   <property name="commons-digester.api"    value="${digester.home}/dist/docs/api"/>
   <property name="commons-digester.jar"    value="${digester.home}/dist/commons-digester.jar"/>
   <property name="commons-jexl.jar"        value="${jexl.home}/dist/commons-jexl.jar"/>
-  <property name="velocity-dep.jar"        value="${jexl.home}/lib/velocity-dep-1.4-dev.jar"/>
+  <property name="velocity-dep.jar"        value="/java/velocity/velocity-dep-1.4-dev.jar"/>
   
 
 <!-- ========== Component Declarations ==================================== -->
