@@ -24,7 +24,7 @@ import org.apache.commons.jelly.core.Customer;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.5 $ $Date: 2004/02/24 14:19:58 $
+ * @version $Revision: 1.6 $ $Date: 2004/08/30 00:10:29 $
  */
 public class TestNewTag extends BaseJellyTest {
 
@@ -36,14 +36,6 @@ public class TestNewTag extends BaseJellyTest {
         return new TestSuite(TestNewTag.class);        
     }
 
-    public void setUp() throws Exception {
-        super.setUp();
-    }    
-    
-    public void tearDown() throws Exception {
-        super.tearDown();
-    }    
-    
     public void testSimpleNew() throws Exception {
         setUpScript("testNewTag.jelly");
         Script script = getJelly().compileScript();
