@@ -19,6 +19,7 @@
   <id>commons-jelly-tags-fmt</id>
   <groupId>commons-jelly</groupId>
   <name>commons-jelly-tags-fmt</name>
+  <currentVersion>1.0</currentVersion>
 
   <package>org.apache.commons.jelly.tags.fmt</package>
 
@@ -26,7 +27,15 @@
       The Jelly JSP Standard Tag Library (JSTL) for I18N and Formatting
   </description>
   <shortDescription>Commons Jelly FMT Tag Library</shortDescription>
-  
+
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS_JELLY_FMT-1_0</tag>
+    </version>
+  </versions>
+
   <dependencies>
   
     
