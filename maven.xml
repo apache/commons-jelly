@@ -1,7 +1,7 @@
 <project default="java:jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util">
 
   <!-- define the classpath used to run examples -->
-  <goal name="create-classpath" prereqs="java:compile, test:compile">
+  <goal name="create-classpath" prereqs="java:compile,test:compile">
 		<path id="test.classpath">
 			<pathelement path="${maven.build.dest}"/>
 			<pathelement path="target/classes"/>
@@ -158,223 +158,10 @@
     </echo>
   </goal>
 
+
+
+
   <!-- demo programs -->
-
-
-  <goal name="demo:quartz" prereqs="create-classpath"
-		description="Runs the example quartz demo">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/quartz/example.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:bean" prereqs="create-classpath"
-		description="Runs the example of binding beans to tags">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/define/beanSample.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:jellybean" prereqs="create-classpath"
-		description="Runs the example of binding jelly beans to tags">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/define/jellyBeanSample.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:html" prereqs="create-classpath"
-		description="Runs the example of parsing HTML with jelly">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/html/example.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:text" prereqs="create-classpath"
-		description="Runs the example of parsing text with tags via jelly">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/html/example2.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:test" prereqs="create-classpath"
-	description="Runs a sample JUnit test suite via Jelly">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/junit/testSuite.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:junit" prereqs="create-classpath"
-	description="Runs the Jelly JUnit test suite">
-
-    <java classname="org.apache.commons.jelly.junit.TestJUnit" fork="yes">
-      <classpath refid="test.classpath"/>
-    </java>
-  </goal>
-
-  <goal name="demo:betwixt" prereqs="create-classpath"
-	description="Runs the betwixt test suite">
-
-    <java classname="org.apache.commons.jelly.betwixt.TestJelly" fork="yes">
-      <classpath refid="test.classpath"/>
-    </java>
-  </goal>
-
-  <goal name="demo:jeez" prereqs="create-classpath"
-	description="A demo of the jeez taglib">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/jeez/example.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:jeez2" prereqs="create-classpath"
-	description="A demo of the jeez taglib looks just like Ant">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/jeez/filescanner.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:fileset2" prereqs="create-classpath"
-	description="A demo of the fileScanner tag to walk Ant fileSets">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/ant/filescanner.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:werkz" prereqs="create-classpath"
-	description="A demo of the werkz tag library">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/werkz/example.jelly"/>
-    </java>
-  </goal>
-
-   <goal name="demo:jsl" prereqs="create-classpath"
-      description="Runs a simple demo of the JSL tags">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/jsl/example.jelly"/>
-    </java>
-
-   </goal>
-
-   <goal name="demo:jsl2" prereqs="create-classpath"
-      description="Runs demo #2 of the JSL tags">
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/jsl/example2.jelly"/>
-    </java>
-
-
-   </goal>
-
-  <goal name="demo:validate-rng" prereqs="create-classpath"
-    description="Runs a validation demo, with RelaxNG">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/validate/validateRNG.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:validate-dtd" prereqs="create-classpath"
-    description="Runs a validation demo, with DTD">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/validate/validateDTD.jelly"/>
-    </java>
-  </goal>
-
-
-  <goal name="demo:antjar" prereqs="create-classpath"
-    description="Runs a sample which creates a jar using the Ant tag library">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/ant/example_jar.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:embed" prereqs="create-classpath"
-    description="A sample Swing app which lets you build a personalized homepage, and uses Jelly as a templating engine">
-    <java classname="org.apache.commons.jelly.demos.HomepageBuilder" fork="yes">
-      <classpath refid="test.classpath"/>
-    </java>
-  </goal>
-
-   <goal name="demo:sql" prereqs="create-classpath"
-      description="Runs an SQL demo">
-
-      <!-- Values used for testing -->
-	  <property name="databaseUrl"             value="jdbc:hsqldb:target/hsql"/>
-	  <property name="databaseDriver"          value="org.hsqldb.jdbcDriver"/>
-	  <property name="databaseUser"            value="sa"/>
-	  <property name="databaseTable"           value="SYSTEM_TABLES"/>
-
-	<echo message="Running examples and outputting results to target directory"/>
-
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <sysproperty key="databaseUrl" value="${databaseUrl}"/>
-      <sysproperty key="databaseDriver" value="${databaseDriver}"/>
-      <sysproperty key="databaseUser" value="${databaseUser}"/>
-      <sysproperty key="databaseTable" value="${databaseTable}"/>
-      <arg value="src/test/org/apache/commons/jelly/sql/example3.jelly"/>
-    </java>
-
-  </goal>
-
-
-
-  <goal name="demo:tagdef" prereqs="java:compile"
-    description="A demonstration of the use of tagdef inside a Maven build">
-
-    About to define the foo tag...
-
-    <tagdef name="foo">
-      <j:if test="${x == null}">
-        <j:set var="x" value="${0}"/>
-      </j:if>
-	  <echo>Called with ${name}. The value of x is ${x} and now will increment</echo>
-	  <j:set var="x" value="${x + 1}"/>
-	  <echo>Value is now ${x}</echo>
-	</tagdef>
-
-	Now about to invoke the foo tag...
-	<foo name="a" x="1"/>
-	<foo name="b"/>
-
-	Done
-
-  </goal>
-
-
-  <goal name="demo:jellyunit" prereqs="create-classpath"
-    description="Runs the JellyUnit test cases using Jelly (rather than as part of the Maven/Ant junit task)">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <sysproperty key="http.proxyHost" value="${maven.proxy.host}"/>
-      <sysproperty key="http.proxyPort" value="${maven.proxy.port}"/>
-     <arg value="src/test/org/apache/commons/jelly/jellyunit.jelly"/>
-    </java>
-  </goal>
 
 
 	<!-- a sample of using the command line interface to invoke Jelly -->
@@ -394,6 +181,21 @@
   </goal>
 
 
+  <goal name="test:benchmark" prereqs="create-classpath"
+		description="A simple bit of Jelly script used as a benchmark to guage performance">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/benchmark/benchmark.jelly"/>
+    </java>
+  </goal>
+
+  <goal name="demo:embed" prereqs="create-classpath"
+    description="A sample Swing app which lets you build a personalized homepage, and uses Jelly as a templating engine">
+    <java classname="org.apache.commons.jelly.demos.HomepageBuilder" fork="yes">
+      <classpath refid="test.classpath"/>
+    </java>
+  </goal>
+
   <goal name="demo:async"
   	description="An example of using asynchronous invocation of goals">
 
@@ -409,40 +211,6 @@
   <goal name="demo:asyncOtherThread"
   	description="A private target invoked by the async demo">
     <echo>YYYY</echo>
-  </goal>
-
-
-  <goal name="demo:soap" prereqs="create-classpath"
-		description="Runs a sample using Apache Axis to invoke a web service from inside Jelly">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/soap/example.jelly"/>
-    </java>
-  </goal>
-
-  <goal name="demo:compactxml" prereqs="create-classpath">
-  	<mkdir dir="build/compactxml"/>
-
-		<xslt basedir="." destdir="build/compactxml"
-			includes="*.xml" extension=".cml" style="src/script/asCompact.xsl"/>
-  </goal>
-
-
-  <goal name="demo:radio2pda" prereqs="create-classpath"
-		description="Converts the HTML news output of Radio Userland to simple HTML viewable on a PDA">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/html/radioToPDA.jelly"/>
-      <sysproperty key="outputFile" value="${pdaOutputFile}"/>
-    </java>
-  </goal>
-
-  <goal name="test:benchmark" prereqs="create-classpath"
-		description="A simple bit of Jelly script used as a benchmark to guage performance">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/benchmark/benchmark.jelly"/>
-    </java>
   </goal>
 
 
@@ -470,13 +238,5 @@
       </fileset>
     </copy>
   </postGoal>
-
-  <goal name="demo:swt" prereqs="create-classpath"
-		description="Runs a JellySWT demo">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/swt/example.jelly"/>
-    </java>
-  </goal>
 
 </project>
