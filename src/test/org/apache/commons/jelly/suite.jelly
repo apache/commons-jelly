@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:x="jelly:xml">
+
+  <test:case name="testChoose">
+
+	<j:set var="x" value="abc"/>
+	
+	<j:choose>
+	  <j:when test="${x == 'abc'}">
+	    this should always work
+	  </j:when>
+	  <j:when test="${x == 'xyz'}">
+	    <fail>This should never fail</fail>
+	  </j:when>
+	  <j:otherwise>
+	    <fail>This should never fail</fail>
+	  </j:otherwise>
+	</j:choose>
+	  		  
+	<j:choose>
+	  <j:when test="${x == 'xyz'}">
+	    <fail>This should never fail</fail>
+	  </j:when>
+	  <j:when test="${x == 'abc'}">
+	    this should always work
+	  </j:when>
+	  <j:otherwise>
+	    <fail>This should never fail</fail>
+	  </j:otherwise>
+	</j:choose>
+	  		  
+	  		  
+	<j:choose>
+	  <j:when test="${x == 'xyz'}">
+	    <fail>This should never fail</fail>
+	  </j:when>
+	  <j:when test="${x == 'zzz'}">
+	    <fail>This should never fail</fail>
+	  </j:when>
+	  <j:otherwise>
+	    this should always work
+	  </j:otherwise>
+	</j:choose>
+	  		  
+  </test:case>
+
+
+  <test:case name="testIf">
+
+	<j:set var="x" value="abc"/>
+	<j:set var="worked" value="f"/>
+	
+	<j:if test="${x == 'abc'}">
+	  this should always work
+	  <j:set var="worked" value="t"/>
+	</j:if>
+	
+	<test:assertEquals expected="t" actual="${worked}"/>
+	
+	<j:if test="${x == 'zzz'}">
+	  <fail>This should never fail</fail>
+	</j:if>
+	  		  
+  </test:case>
+
+</test:suite>
