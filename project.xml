@@ -51,10 +51,18 @@
     <!-- END for compilation -->
 
     <!-- START for testing -->
+
+    <dependency>
+      <id>commons-jelly+tags-junit</id>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+    </dependency>
+
     <dependency>
       <id>commons-jelly+tags-util</id>
       <version>SNAPSHOT</version>
     </dependency>
+
     <!-- END for testing -->
 
     
