@@ -29,9 +29,17 @@
         You can also use Ant FileSets and the &lt;fileScanner&gt; tag to iterate over collections of 
         Jelly scripts or XML data files and use this data to define new test cases.
       </p>
+    </section>
+    <section name="Examples"> 
       <p>
-        There is an example JellyUnit script
+        There is a simple example JellyUnit script
         <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/junit/suite.jelly?rev=HEAD">here</a>
+      </p>
+      <p>
+        An example demonstrating the use of the <a href="tags.html#jelly:betwixt">Betwixt</a> library is 
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/betwixt/suite.jelly?rev=HEAD">here</a>
+        along with a common shared test script
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/betwixt/common.jelly?rev=HEAD">here</a>
       </p>
     </section>
     <section name="Integration with TestRunners"> 

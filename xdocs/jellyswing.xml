@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>JellySwing</title>
+    <author email="jstrachan@apache.org">James Strachan</author>
+  </properties>
+
+  <body>
+    <section name="JellySwing"> 
+      <p>
+        JellySwing is a simple Jelly library which can be used to create Swing user interfaces.
+        It allows XML documents (Jelly scripts) to be used to define the layout and rendering of Swing 
+        front ends which avoids lots of mundane Java coding, using markup to define the view 
+        of your front end and allowing you to bind to Java code for the business objects and models. 
+      </p>
+      <p>
+        This mechanism uses seperation of concerns and MVC ideas from web applications, allowing the rendering
+        of your Swing front end to be easily transformed (since its XML) into different styles while leaving your
+        model and business objects untouched. It also allows different views to be constructed independently of your models.
+      </p>
+      <p>
+        There is an example JellySwing script
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swing/example.jelly?rev=HEAD">here</a>
+      </p>
+      <p>
+        To try running the example type the following command then you should see a full Swing user interface 
+        appear with pull down menus, a splitter pane, a form, entry fields, buttons and a table.
+      </p>
+      <source>
+	maven demo:swing
+      </source>
+      <p>
+        This example even shows that simple actions can be coded in Jelly script too! Though typically most
+        complex logic and models (such as TableModel, TreeModel) should be written in Java code.
+        Then Jelly script can be used to create the view and bind in the models.
+      </p>
+    </section>
+  </body>
+</document>
+
