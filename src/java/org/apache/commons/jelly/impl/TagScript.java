@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.10 2002/05/17 15:18:10 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/05/17 15:18:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.11 2002/06/21 02:57:17 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/06/21 02:57:17 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.10 2002/05/17 15:18:10 jstrachan Exp $
+ * $Id: TagScript.java,v 1.11 2002/06/21 02:57:17 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -73,22 +73,27 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.ConvertUtils;
+
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import org.xml.sax.Locator;
 
 /** 
  * <p><code>TagScript</code> abstract base class for a 
  * script that evaluates a custom tag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public abstract class TagScript implements Script {
 
@@ -100,6 +105,12 @@ public abstract class TagScript implements Script {
 
     /** The attribute expressions that are created */
     protected Map attributes = new HashMap();
+    
+    /** the line number of the tag */
+    private int lineNumber = -1;
+    
+    /** the column number of the tag */
+    private int columnNumber = -1;
 
     public TagScript() {
     }
@@ -111,6 +122,16 @@ public abstract class TagScript implements Script {
     public String toString() {
         return super.toString() + "[tag=" + tag + "]";
     }
+    
+    /**
+     * Configures this TagScript from the SAX Locator, setting the column
+     * and line numbers
+     */
+    public void setLocator(Locator locator) {
+        setLineNumber( locator.getLineNumber() );
+        setColumnNumber( locator.getColumnNumber() );
+    }
+
     
     /** 
      * @return a new TagScript based on whether 
@@ -145,8 +166,57 @@ public abstract class TagScript implements Script {
         this.tag = tag;
     }
     
+    /** 
+     * @return the line number of the tag 
+     */
+    public int getLineNumber() {
+        return lineNumber;
+    }
+    
+    /** 
+     * Sets the line number of the tag 
+     */
+    public void setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+    }
+
+    /** 
+     * @return the column number of the tag 
+     */
+    public int getColumnNumber() {
+        return columnNumber;
+    }
+    
+    /** 
+     * Sets the column number of the tag 
+     */
+    public void setColumnNumber(int columnNumber) {
+        this.columnNumber = columnNumber;
+    }
+    
     // Implementation methods
     //-------------------------------------------------------------------------      
+    
+    /**
+     * Evaluates the tag, catching any exceptions and rethrowing them in
+     * a wrapped exception which includes the line and column numbers
+     */
+    protected void runTag(XMLOutput output) throws Exception {
+		try {
+			tag.doTag(output);
+		} 
+        catch (JellyException e) {
+			if (e.getLineNumber() == -1) {
+				e.setColumnNumber(columnNumber);
+				e.setLineNumber(lineNumber);
+			}
+			throw e;
+		}
+        catch (Exception e) {
+            throw new JellyException(e, columnNumber, lineNumber);            
+        }
+    }
+    
     /** Converts the given value to the required type. 
      *
      * @param value is the value to be converted. This will not be null

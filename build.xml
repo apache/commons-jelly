@@ -286,6 +286,13 @@
 	
    </target>
 
+   <target name="demo.ant.typo" depends="compile" 
+      description="Runs demo which has typeo to test line numbering">
+      
+	<jelly file="src/test/org/apache/commons/jelly/ant/typoTest.jelly"/>
+	
+   </target>
+
    <target name="demo.ant.files" depends="compile" 
       description="Runs Ant demo which scans files">
       

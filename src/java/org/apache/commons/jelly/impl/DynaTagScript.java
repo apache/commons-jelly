@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.6 2002/06/18 18:36:42 werken Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/18 18:36:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.7 2002/06/21 02:57:17 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/21 02:57:17 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DynaTagScript.java,v 1.6 2002/06/18 18:36:42 werken Exp $
+ * $Id: DynaTagScript.java,v 1.7 2002/06/21 02:57:17 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -79,7 +79,7 @@ import org.apache.commons.logging.LogFactory;
  * <p><code>DynaTagScript</code> is a script evaluates a custom DynaTag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class DynaTagScript extends TagScript {
 
@@ -127,6 +127,7 @@ public class DynaTagScript extends TagScript {
             Object value = expression.evaluate(context);
             dynaTag.setAttribute(name, value);
         }
-        tag.doTag(output);
+        
+        runTag(output);
     }
 }

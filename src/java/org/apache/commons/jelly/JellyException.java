@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.4 2002/06/21 02:57:17 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/06/21 02:57:17 $
  *
  * ====================================================================
  *
@@ -57,21 +57,32 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.3 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: JellyException.java,v 1.4 2002/06/21 02:57:17 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
+
+import java.io.PrintStream;
+import java.io.PrintWriter;
 
 /** 
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 
 public class JellyException extends Exception {
     
+    /** the underlying cause of the exception */
     private Throwable cause;
+
+    /** the line number in the script of the error */
+    private int lineNumber = -1;
+    
+    /** the column number in the script of the error */
+    private int columnNumber = -1;
+
 
     public JellyException() {
     }
@@ -90,10 +101,64 @@ public class JellyException extends Exception {
         this.cause = cause;
     }
     
+    public JellyException(Throwable cause, int columnNumber, int lineNumber) {
+        super(cause.getLocalizedMessage());
+        this.cause = cause;
+        this.columnNumber = columnNumber;
+        this.lineNumber = lineNumber;
+    }
+    
     public Throwable getCause() {
         return cause;
     }
 
+    
+    /** 
+     * @return the line number of the tag 
+     */
+    public int getLineNumber() {
+        return lineNumber;
+    }
+    
+    /** 
+     * Sets the line number of the tag 
+     */
+    public void setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+    }
+
+    /** 
+     * @return the column number of the tag 
+     */
+    public int getColumnNumber() {
+        return columnNumber;
+    }
+    
+    /** 
+     * Sets the column number of the tag 
+     */
+    public void setColumnNumber(int columnNumber) {
+        this.columnNumber = columnNumber;
+    }
+    
+    public String getMessage() {
+        return super.getMessage() + " At column: " 
+            + columnNumber + " line: " + lineNumber;
+    }
     // #### overload the printStackTrace methods...
+    public void printStackTrace(PrintWriter s) { 
+        super.printStackTrace(s);
+        if  (cause != null) {
+            s.println("Root cause");
+            cause.printStackTrace(s);
+        }
+    }
         
+    public void printStackTrace(PrintStream s) {
+        super.printStackTrace(s);
+        if  (cause != null) {
+            s.println("Root cause");
+            cause.printStackTrace(s);
+        }
+    }
 }

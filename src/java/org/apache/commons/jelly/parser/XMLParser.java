@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.22 2002/06/14 15:25:18 jstrachan Exp $
- * $Revision: 1.22 $
- * $Date: 2002/06/14 15:25:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.23 2002/06/21 02:57:17 jstrachan Exp $
+ * $Revision: 1.23 $
+ * $Date: 2002/06/21 02:57:17 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.22 2002/06/14 15:25:18 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.23 2002/06/21 02:57:17 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -120,7 +120,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -587,6 +587,11 @@ public class XMLParser extends DefaultHandler {
                 // set parent relationship...
                 Tag tag = tagScript.getTag();
                 tag.setParent(parentTag);
+                
+                // set the line number details
+                if ( locator != null ) {
+                    tagScript.setLocator(locator);
+                }
                 
                 // pop another tag onto the stack
                 if ( parentTag != null ) {
