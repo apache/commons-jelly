@@ -1,13 +1,13 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/HeaderTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/07/14 12:38:22 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2001 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,63 +56,80 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ *
  */
 
 package org.apache.commons.jelly.tags.http;
 
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-/** Defines a header on an outer HTTP tag
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
-  */
+/**
+ * A tag to hold request headers
+ * 
+ * @author  dion
+ * @version $Id: HeaderTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ */
 public class HeaderTag extends TagSupport {
-
-    /** Stores the name of the property */
-    private String name;
+    /** parameter name */
+    private String _name;
+    /** parameter value */
+    private String _value;
     
-    /** Stores the value of the property */
-    private Object value;
-    
-    
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
-        if ( name == null ) {
-            throw new MissingAttributeException("name");
-        }
-        MethodSupportTag tag = (MethodSupportTag) findAncestorWithClass( MethodSupportTag.class );
-        if ( tag == null ) {
-            throw new JellyException("<http:header> tag must be within a <http:method> tag");
-        }
-        
-        if ( value != null ) {
-            tag.addHeader(name, value.toString());
-        }
-        else {
-            tag.addHeader(name, getBodyText());
-        }
+    /** Creates a new instance of HeaderTag */
+    public HeaderTag() {
     }
 
+    /**
+     * Perform the tag functionality. In this case, simply evaluate the body.
+     *
+     * @param xmlOutput where to send output
+     * @throws Exception when an error occurs
+     */
+    public void doTag(XMLOutput xmlOutput) throws Exception {
+        HttpTagSupport http = (HttpTagSupport) findAncestorWithClass(
+            HttpTagSupport.class);
+        http.addRequestHeader(getName(), getValue());
+        invokeBody(xmlOutput);
+    }
+
+    //--------------------------------------------------------------------------
+    // Property accessors/mutators
+    //--------------------------------------------------------------------------
+    /**
+     * Getter for property name.
+     *
+     * @return Value of property name.
+     */
+    public String getName() {
+        return _name;
+    }
     
-    // Properties
-    //-------------------------------------------------------------------------                    
-    /** Sets the name of the JMS property
-      */
+    /**
+     * Setter for property name.
+     *
+     * @param name New value of property name.
+     */
     public void setName(String name) {
-        this.name = name;
+        _name = name;
     }
     
-    /** Sets the value of the JMS property. 
-      * If no value is set then the body of the tag is used
-      */
-    public void setValue(Object value) {
-        this.value = value;
+    /**
+     * Getter for property value.
+     *
+     * @return Value of property value.
+     */
+    public String getValue() {
+        return _value;
     }
+    
+    /**
+     * Setter for property value.
+     *
+     * @param value New value of property value.
+     */
+    public void setValue(String value) {
+        _value = value;
+    }
+    
 }

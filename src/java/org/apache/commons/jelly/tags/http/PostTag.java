@@ -1,13 +1,13 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/PostTag.java,v 1.4 2002/07/14 16:41:38 dion Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/07/14 16:41:38 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2001 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,29 +56,58 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ *
  */
+
 package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
-
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpUrlMethod;
+import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.UrlPostMethod;
 
-/** 
- * Performs a HTTP POST request fron a given URL.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
- */
-public class PostTag extends MethodSupportTag {
 
-    /**
-     * @return the HTTP method to invoke
-     */
-    public HttpMethod getMethod() throws HttpException, MalformedURLException {
-        return new UrlPostMethod(getUrl());
+/**
+ * A http post
+ *
+ * @author  dion
+ */
+public class PostTag extends HttpTagSupport {
+    
+    /** the post method */
+    private UrlPostMethod _postMethod;
+
+    /** Creates a new instance of PostTag */
+    public PostTag() {
     }
+    
+    /** 
+     * Return a {@link HttpUrlMethod method} to be used for post'ing
+     *
+     * @return a HttpUrlMethod implementation
+     * @throws MalformedURLException when the {@link getUrl() url} or
+     * {@link #getPath() path} is invalid
+     */
+    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+        if (_postMethod == null) {
+            _postMethod = new UrlPostMethod(getResolvedUrl());
+        }
+        return _postMethod;
+    }
+    
+    /** 
+     * Set the current parameters on the url method ready for processing
+     *
+     * This method <strong>must</strong> be called after 
+     *  {@link getHttpUrlMethod}
+     */
+    protected void setParameters() {
+        NameValuePair nvp = null;
+        for (int index = 0; index < getParameters().size(); index++) {
+            NameValuePair parameter = (NameValuePair) getParameters().
+                get(index);
+            _postMethod.addParameter(parameter);
+        }
+    }
+
 }

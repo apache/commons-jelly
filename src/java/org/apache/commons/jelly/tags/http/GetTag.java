@@ -1,13 +1,13 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/GetTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/07/14 12:38:22 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2001 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,29 +56,42 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ *
  */
+
 package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
 
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpUrlMethod;
 import org.apache.commons.httpclient.methods.UrlGetMethod;
 
-/** 
- * Performs a HTTP GET request fron a given URL.
+/**
+ * A http get tag
  *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @author  dion
+ * @version $Id: GetTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
  */
-public class GetTag extends MethodSupportTag {
-
+public class GetTag extends HttpTagSupport {
+    
+    /** the get method */
+    private UrlGetMethod _getMethod;
+    
     /**
-     * @return the HTTP method to invoke
+     * Creates a new instance of GetTag
      */
-    public HttpMethod getMethod() throws HttpException, MalformedURLException {
-        return new UrlGetMethod(getUrl());
+    public GetTag() {
     }
+    
+    /**
+     * @return a url method for a get request
+     * @throws MalformedURLException when the url is bad
+     */
+    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+        if (_getMethod == null) {
+            _getMethod = new UrlGetMethod(getResolvedUrl());
+        }
+        return _getMethod;
+    }
+        
 }

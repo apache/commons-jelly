@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/14 13:05:14 $
+ * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/OptionsTag.java,v 1.2 2002/07/14 12:38:22 dion Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/07/14 12:38:22 $
  *
  * ====================================================================
  *
@@ -61,42 +61,37 @@
 
 package org.apache.commons.jelly.tags.http;
 
-import java.util.Map;
+import java.net.MalformedURLException;
 
-import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.httpclient.HttpUrlMethod;
+import org.apache.commons.httpclient.methods.UrlOptionsMethod;
 
 /**
- * The set of jelly tags provided by Latka
+ * A http get tag
  *
- * @author dion
- * @version $Id: HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
+ * @author  dion
+ * @version $Id: OptionsTag.java,v 1.2 2002/07/14 12:38:22 dion Exp $
  */
-public class HttpTagLibrary extends TagLibrary {
+public class OptionsTag extends HttpTagSupport {
     
-    /** 
-     * Creates a new instance of LatkaTagLibrary
+    /** the options method */
+    private UrlOptionsMethod _optionsMethod;
+    
+    /**
+     * Creates a new instance of OptionsTag
      */
-    public HttpTagLibrary() {
-        registerTag("session", SessionTag.class);
-        registerTag("get", GetTag.class);
-        registerTag("post", PostTag.class);
-        registerTag("delete", DeleteTag.class);
-        registerTag("head", HeadTag.class);
-        registerTag("options", OptionsTag.class);
-        registerTag("put", PutTag.class);
-        registerTag("parameter", ParameterTag.class);
-        registerTag("header", HeaderTag.class);
-        registerTag("body", BodyTag.class);
+    public OptionsTag() {
     }
     
     /**
-     * @see TagLibarary#getTagClasses()
-     *
-     * @return a Map of tag name to tag class
+     * @return a url method for an options request
+     * @throws MalformedURLException when the url is bad
      */
-    public Map getTagClasses() {
-        return super.getTagClasses();
+    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+        if (_optionsMethod == null) {
+            _optionsMethod = new UrlOptionsMethod(getResolvedUrl());
+        }
+        return _optionsMethod;
     }
-    
+        
 }
-

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/14 13:05:14 $
+ *
+ *
+ *
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2001 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -61,42 +61,75 @@
 
 package org.apache.commons.jelly.tags.http;
 
-import java.util.Map;
-
-import org.apache.commons.jelly.TagLibrary;
-
 /**
- * The set of jelly tags provided by Latka
+ * A class that holds proxy details for a session. 
+ * At the moment this is a placeholder for two simple properties that may
+ * get added to as time goes by
  *
- * @author dion
- * @version $Id: HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
+ * @author  dion
+ * @version $Id: Proxy.java,v 1.3 2002/07/04 14:06:32 dion Exp $
  */
-public class HttpTagLibrary extends TagLibrary {
+public class Proxy {
+    
+    /** the host to use as a proxy */
+    private String _host;
+    /** the port to send proxied requests on */
+    private int _port;
+    /** the port number that represents port is unassigned */
+    public static final int PORT_UNSPECIFIED = -1;
+    
+    /**
+     * Creates a new instance of Proxy
+     */
+    public Proxy() {
+        this(null, Proxy.PORT_UNSPECIFIED);
+    }
     
     /** 
-     * Creates a new instance of LatkaTagLibrary
+     * Create a proxy given a host name and port number .
+     *
+     * @param host the host name of the proxy to be used.
+     * @param port the port to send proxied requests on.
      */
-    public HttpTagLibrary() {
-        registerTag("session", SessionTag.class);
-        registerTag("get", GetTag.class);
-        registerTag("post", PostTag.class);
-        registerTag("delete", DeleteTag.class);
-        registerTag("head", HeadTag.class);
-        registerTag("options", OptionsTag.class);
-        registerTag("put", PutTag.class);
-        registerTag("parameter", ParameterTag.class);
-        registerTag("header", HeaderTag.class);
-        registerTag("body", BodyTag.class);
+    public Proxy(String host, int port) {
+        setHost(host);
+        setPort(port);
     }
     
     /**
-     * @see TagLibarary#getTagClasses()
+     * Getter for property host.
      *
-     * @return a Map of tag name to tag class
+     * @return the host name of the proxy to be used.
      */
-    public Map getTagClasses() {
-        return super.getTagClasses();
+    public String getHost() {
+        return _host;
+    }
+    
+    /**
+     * Setter for property host.
+     *
+     * @param host the host name of the proxy to be used.
+     */
+    public void setHost(String host) {
+        _host = host;
+    }
+    
+    /**
+     * Getter for property port.
+     *
+     * @return the port to send proxied requests on.
+     */
+    public int getPort() {
+        return _port;
+    }
+    
+    /**
+     * Setter for property port.
+     *
+     * @param port the port to send proxied requests on.
+     */
+    public void setPort(int port) {
+        _port = port;
     }
     
 }
-

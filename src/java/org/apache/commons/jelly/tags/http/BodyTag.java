@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/14 13:05:14 $
+ * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/BodyTag.java,v 1.3 2002/07/14 16:44:10 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/07/14 16:44:10 $
  *
  * ====================================================================
  *
@@ -61,42 +61,47 @@
 
 package org.apache.commons.jelly.tags.http;
 
-import java.util.Map;
-
-import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.httpclient.HttpUrlMethod;
+import org.apache.commons.httpclient.methods.UrlPostMethod;
+import org.apache.commons.httpclient.methods.UrlPutMethod;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
 /**
- * The set of jelly tags provided by Latka
+ * A tag to set the body for posts and puts etc
  *
- * @author dion
- * @version $Id: HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
+ * @author  dion
+ * @version $Id: BodyTag.java,v 1.3 2002/07/14 16:44:10 dion Exp $
  */
-public class HttpTagLibrary extends TagLibrary {
+public class BodyTag extends TagSupport {
     
-    /** 
-     * Creates a new instance of LatkaTagLibrary
-     */
-    public HttpTagLibrary() {
-        registerTag("session", SessionTag.class);
-        registerTag("get", GetTag.class);
-        registerTag("post", PostTag.class);
-        registerTag("delete", DeleteTag.class);
-        registerTag("head", HeadTag.class);
-        registerTag("options", OptionsTag.class);
-        registerTag("put", PutTag.class);
-        registerTag("parameter", ParameterTag.class);
-        registerTag("header", HeaderTag.class);
-        registerTag("body", BodyTag.class);
+    /** Creates a new instance of BodyTag */
+    public BodyTag() {
     }
     
     /**
-     * @see TagLibarary#getTagClasses()
+     * Perform the tag functionality. In this case, get the parent http tag,
+     * and if it's a post or put, set the request body from the body of this
+     * tag.
      *
-     * @return a Map of tag name to tag class
+     * @param xmlOutput for writing output to
+     * @throws Exception when any error occurs
      */
-    public Map getTagClasses() {
-        return super.getTagClasses();
+    public void doTag(XMLOutput xmlOutput) throws Exception {
+        HttpTagSupport httpTag = (HttpTagSupport) findAncestorWithClass(
+            HttpTagSupport.class);
+        HttpUrlMethod httpMethod = httpTag.getHttpUrlMethod();
+        String bodyText = getBodyText();
+        if (httpMethod instanceof UrlPostMethod) {
+            UrlPostMethod postMethod = (UrlPostMethod) httpMethod;
+            postMethod.setRequestBody(bodyText);
+        } else if (httpMethod instanceof UrlPutMethod) {
+            UrlPutMethod putMethod = (UrlPutMethod) httpMethod;
+            putMethod.setRequestBody(bodyText);
+        } else {
+            throw new IllegalStateException("Http method from parent was "
+                + "not post or put");
+        }
     }
     
 }
-

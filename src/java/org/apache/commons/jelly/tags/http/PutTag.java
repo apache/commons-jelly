@@ -1,13 +1,13 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/taglibs/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/05/21 07:58:55 $
+ * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/PutTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/07/14 12:38:22 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999-2001 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -56,29 +56,60 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/05/21 07:58:55 jstrachan Exp $
+ *
  */
+
 package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
-
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpUrlMethod;
 import org.apache.commons.httpclient.methods.UrlPutMethod;
 
-/** 
- * Performs a HTTP POST request fron a given URL.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
- */
-public class PutTag extends MethodSupportTag {
 
-    /**
-     * @return the HTTP method to invoke
-     */
-    public HttpMethod getMethod() throws HttpException, MalformedURLException {
-        return new UrlPutMethod(getUrl());
+/**
+ * A http put
+ *
+ * @author  dion
+ * @version $Id: PutTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ */
+public class PutTag extends HttpTagSupport {
+    
+    /** the put method */
+    private UrlPutMethod _putMethod;
+
+    /** Creates a new instance of PutTag */
+    public PutTag() {
     }
+    
+    /** 
+     * Return a {@link HttpUrlMethod method} to be used for put'ing
+     *
+     * @return a HttpUrlMethod implementation
+     * @throws MalformedURLException when the {@link getUrl() url} or
+     * {@link #getPath() path} is invalid
+     */
+    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+        if (_putMethod == null) {
+            _putMethod = new UrlPutMethod(getResolvedUrl());
+        }
+        return _putMethod;
+    }
+    
+    /** 
+     * Set the current parameters on the url method ready for processing
+     *
+     */
+    protected void setParameters() {
+    }
+    
+    /**
+     * Fail as PUT requests don't have parameters
+     *
+     * @param name the parameter name
+     * @param value the parameter value
+     */
+    public void addParameter(String name, String value) {
+        throw new IllegalArgumentException("PUT requests don't have params");
+    }
+
 }

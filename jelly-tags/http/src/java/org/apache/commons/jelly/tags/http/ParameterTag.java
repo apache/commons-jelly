@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/14 13:05:14 $
+ * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/ParameterTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/07/14 12:38:22 $
  *
  * ====================================================================
  *
@@ -61,42 +61,75 @@
 
 package org.apache.commons.jelly.tags.http;
 
-import java.util.Map;
-
-import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
 /**
- * The set of jelly tags provided by Latka
- *
- * @author dion
- * @version $Id: HttpTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
+ * A tag to hold parameters
+ * 
+ * @author  dion
+ * @version $Id: ParameterTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
  */
-public class HttpTagLibrary extends TagLibrary {
+public class ParameterTag extends TagSupport {
+    /** parameter name */
+    private String _name;
+    /** parameter value */
+    private String _value;
     
-    /** 
-     * Creates a new instance of LatkaTagLibrary
+    /** Creates a new instance of ParameterTag */
+    public ParameterTag() {
+    }
+
+    /**
+     * Perform the tag functionality. In this case, simply evaluate the body.
+     *
+     * @param xmlOutput where to send output
+     * @throws Exception when an error occurs
      */
-    public HttpTagLibrary() {
-        registerTag("session", SessionTag.class);
-        registerTag("get", GetTag.class);
-        registerTag("post", PostTag.class);
-        registerTag("delete", DeleteTag.class);
-        registerTag("head", HeadTag.class);
-        registerTag("options", OptionsTag.class);
-        registerTag("put", PutTag.class);
-        registerTag("parameter", ParameterTag.class);
-        registerTag("header", HeaderTag.class);
-        registerTag("body", BodyTag.class);
+    public void doTag(XMLOutput xmlOutput) throws Exception {
+        HttpTagSupport http = (HttpTagSupport) findAncestorWithClass(
+            HttpTagSupport.class);
+        http.addParameter(getName(), getValue());
+        invokeBody(xmlOutput);
+    }
+
+    //--------------------------------------------------------------------------
+    // Property accessors/mutators
+    //--------------------------------------------------------------------------
+    /**
+     * Getter for property name.
+     *
+     * @return Value of property name.
+     */
+    public String getName() {
+        return _name;
     }
     
     /**
-     * @see TagLibarary#getTagClasses()
+     * Setter for property name.
      *
-     * @return a Map of tag name to tag class
+     * @param name New value of property name.
      */
-    public Map getTagClasses() {
-        return super.getTagClasses();
+    public void setName(String name) {
+        _name = name;
+    }
+    
+    /**
+     * Getter for property value.
+     *
+     * @return Value of property value.
+     */
+    public String getValue() {
+        return _value;
+    }
+    
+    /**
+     * Setter for property value.
+     *
+     * @param value New value of property value.
+     */
+    public void setValue(String value) {
+        _value = value;
     }
     
 }
-
