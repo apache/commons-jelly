@@ -219,7 +219,7 @@
 
     <dependency>
       <id>commons-collections</id>
-      <version>2.0</version>
+      <version>2.1</version>
     </dependency>
 
     <dependency>
@@ -409,7 +409,7 @@
 	<!-- ojb taglib -->
     <dependency>
       <id>ojb</id>
-      <version>0.8.375</version>
+      <version>0.9.6</version>
     </dependency>
 
 	<!-- scheduler taglib -->

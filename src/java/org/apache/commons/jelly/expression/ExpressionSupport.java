@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.9 2002/10/30 19:16:18 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/10/30 19:16:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.10 2002/11/13 16:55:27 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/11/13 16:55:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: ExpressionSupport.java,v 1.9 2002/10/30 19:16:18 jstrachan Exp $
+ * $Id: ExpressionSupport.java,v 1.10 2002/11/13 16:55:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression;
 
@@ -68,9 +68,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.ArrayIterator;
-import org.apache.commons.collections.EnumerationIterator;
-import org.apache.commons.collections.SingletonIterator;
+import org.apache.commons.collections.iterators.ArrayIterator;
+import org.apache.commons.collections.iterators.EnumerationIterator;
+import org.apache.commons.collections.iterators.SingletonIterator;
 
 import org.apache.commons.jelly.JellyContext;
 
@@ -80,7 +80,7 @@ import org.apache.commons.jelly.JellyContext;
   * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 public abstract class ExpressionSupport implements Expression {
 

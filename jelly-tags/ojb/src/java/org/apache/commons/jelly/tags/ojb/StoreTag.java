@@ -54,9 +54,9 @@
  */
 package org.apache.commons.jelly.tags.ojb;
 
-import ojb.broker.PersistenceBroker;
-import ojb.broker.PersistenceBrokerException;
-import ojb.broker.PersistenceBrokerFactory;
+import org.apache.ojb.broker.PersistenceBroker;
+import org.apache.ojb.broker.PersistenceBrokerException;
+import org.apache.ojb.broker.PersistenceBrokerFactory;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;

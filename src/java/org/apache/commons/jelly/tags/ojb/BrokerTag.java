@@ -54,9 +54,9 @@
  */
 package org.apache.commons.jelly.tags.ojb;
 
-import ojb.broker.PersistenceBroker;
-import ojb.broker.PersistenceBrokerException;
-import ojb.broker.PersistenceBrokerFactory;
+import org.apache.ojb.broker.PersistenceBroker;
+import org.apache.ojb.broker.PersistenceBrokerException;
+import org.apache.ojb.broker.PersistenceBrokerFactory;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -93,15 +93,14 @@ public class BrokerTag extends TagSupport {
             invokeBody(output);                
         }
         else {
-            broker = PersistenceBrokerFactory.createPersistenceBroker();            
+            broker = PersistenceBrokerFactory.defaultPersistenceBroker();            
             context.setVariable(var, broker);            
             
             try {
                 invokeBody(output);                
             }
             finally {            
-                broker.clearCache();
-                PersistenceBrokerFactory.releaseInstance(broker);
+                broker.close();
                 broker = null;
                 context.removeVariable(var);            
             }
