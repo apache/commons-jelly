@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/ant/Attic/AntTagSupport.java,v 1.3 2002/06/25 18:00:09 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/06/25 18:00:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/ant/Attic/AntTagSupport.java,v 1.4 2002/06/25 20:43:30 werken Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/06/25 20:43:30 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AntTagSupport.java,v 1.3 2002/06/25 18:00:09 jstrachan Exp $
+ * $Id: AntTagSupport.java,v 1.4 2002/06/25 20:43:30 werken Exp $
  */
 
 package org.apache.commons.jelly.tags.ant;
@@ -93,17 +93,63 @@ public abstract class AntTagSupport extends DynaBeanTagSupport {
 
     public Object createNestedObject(String name) throws Exception {
 
+        Object dataType = null;
+            
         Object object = getObject();
 
-        IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
+        if ( object != null )
+        {
+            IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
+            
+            if ( ih != null ) {
+                try {
+                    dataType = ih.createElement( getAntProject(), object, name );
+                } catch (Exception e) {
+                    dataType = null;
+                    e.printStackTrace();
+                }
+            }
+        }
 
+        if ( dataType == null ) {
+            dataType = createDataType( name );
+        }
+
+        return dataType;
+    }
+
+    public Object createDataType(String name) throws Exception {
+        
         Object dataType = null;
 
-        try {
-            dataType = ih.createElement( getAntProject(), object, name );
-        } catch (Exception e) {
-            dataType = null;
-            e.printStackTrace();
+        Class type = (Class) getAntProject().getDataTypeDefinitions().get(name);
+
+        if ( type != null ) {            
+            
+            try {
+                java.lang.reflect.Constructor ctor = null;
+                boolean noArg = false;
+                // DataType can have a "no arg" constructor or take a single 
+                // Project argument.
+                try {
+                    ctor = type.getConstructor(new Class[0]);
+                    noArg = true;
+                } catch (NoSuchMethodException nse) {
+                    ctor = type.getConstructor(new Class[] { Project.class });
+                    noArg = false;
+                }
+                
+                if (noArg) {
+                    dataType = (DataType) ctor.newInstance(new Object[0]);
+                } else {
+                    dataType = (DataType) ctor.newInstance(new Object[] {project});
+                }
+                ((DataType)dataType).setProject( project );
+                
+            } catch (Throwable t) {
+                t.printStackTrace();
+                // ignore 
+            }
         }
 
         return dataType;
@@ -158,14 +204,13 @@ public abstract class AntTagSupport extends DynaBeanTagSupport {
                 ih.setAttribute( getAntProject(), obj, name.toLowerCase(), (String) value );
                 return;
             } catch (Exception e) {
-                // e.printStackTrace();
+                e.printStackTrace();
             }
         }
 
         try {
             ih.storeElement( getAntProject(), obj, value, name );
         } catch (Exception e) {
-            // e.printStackTrace();
 
             // let any exceptions bubble up from here
             

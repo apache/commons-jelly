@@ -229,6 +229,7 @@ public class AntTagLibrary extends TagLibrary {
             return TagScript.newInstance(tag);
         }
         
+        /*
         // an Ant DataType?
         DataType dataType = null;
         type = (Class) project.getDataTypeDefinitions().get(name);
@@ -266,6 +267,7 @@ public class AntTagLibrary extends TagLibrary {
             tag.getDynaBean().set( "project", project );
             return TagScript.newInstance(tag);
         }
+        */
         
         // Since ant resolves so many dynamically loaded/created
         // things at run-time, we can make virtually no assumptions

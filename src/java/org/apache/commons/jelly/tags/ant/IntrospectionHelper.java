@@ -322,7 +322,7 @@ public class IntrospectionHelper implements BuildListener {
         NestedCreator nc = (NestedCreator) nestedCreators.get(elementName);
         if (nc == null) {
 	    String msg = getElementName(project, element) +
-            //String msg = "Class " + element.getClass().getName() +
+            // String msg = "Class " + element.getClass().getName() +
                 " doesn't support the nested \"" + elementName + "\" element.";
             throw new BuildException(msg);
         }

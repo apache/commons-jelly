@@ -13,6 +13,7 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.TaskAdapter;
 import org.apache.tools.ant.types.DataType;
+import org.apache.tools.ant.types.Reference;
 
 import java.lang.reflect.Method;
 
@@ -71,21 +72,29 @@ public class OtherAntTag extends AntTagSupport {
             this.task.perform(); 
         } else {
             getBody().run( context, output );
+
             AntTagSupport parent = (AntTagSupport) findAncestorWithClass(AntTagSupport.class);
-            
-            Object parentObj =  parent.getObject();
-            
-            IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObj.getClass() );
 
-            try
-            {
-                ih.storeElement( getAntProject(),
-                                 parentObj,
-                                 getObject(),
-                                 getTagName() );
-            }
-            catch (Exception e) {
-
+            if ( parent != null ) {
+                // otherwise it -must- be a top-level, non-parented datatype.
+                
+                Object parentObj =  parent.getObject();
+                
+                if ( parentObj != null )
+                {
+                    IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObj.getClass() );
+                    
+                    try
+                    {
+                        ih.storeElement( getAntProject(),
+                                         parentObj,
+                                         getObject(),
+                                         getTagName() );
+                    }
+                    catch (Exception e) {
+                        
+                    }
+                }
             }
         }
     }
@@ -128,14 +137,20 @@ public class OtherAntTag extends AntTagSupport {
             return;
             
         } else {
+            // must be a datatype.
+
             AntTagSupport ancestor = (AntTagSupport) findAncestorWithClass( AntTagSupport.class );
+
+            Object nested = null;
             
-            if ( ancestor == null ) {
-                return;
+            if ( ancestor != null ) {
+                nested = ancestor.createNestedObject( getTagName() );
             }
             
-            Object nested = ancestor.createNestedObject( getTagName() );
-            
+            if ( nested == null ) {
+                nested = createDataType( getTagName() );
+            }
+
             if ( nested != null ) {
                 setObject( nested );
 
@@ -149,6 +164,32 @@ public class OtherAntTag extends AntTagSupport {
             } 
         }
     }
+
+    public void setAttribute(String name, Object value) throws Exception {
+
+        if ( "id".equals( name ) ) {
+            try
+            {
+                Object obj = getObject();
+
+                getAntProject().addReference( (String) value, getObject() );
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                // ignore?
+            }
+            return;
+        }
+        
+        super.setAttribute( name, value );
+    }
+
+    public String toString()
+    {
+        return "[OtherAntTag: name=" + getTagName() + "]";
+    }
+    
 }
 
     

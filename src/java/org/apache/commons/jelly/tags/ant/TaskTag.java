@@ -160,18 +160,6 @@ public class TaskTag extends AntTagSupport implements TaskSource {
         task.perform();   
     }
 
-    // DataTypeCreator interface
-    //------------------------------------------------------------------------- 
-
-    public DataType createDataType(String name) throws Exception {
-
-        IntrospectionHelper helper = IntrospectionHelper.getHelper( getTask().getClass() );
-
-        return (DataType) helper.createElement( getAntProject(),
-                                                getTask(),
-                                                name );
-    }
-
     
     // TaskSource interface
     //------------------------------------------------------------------------- 
