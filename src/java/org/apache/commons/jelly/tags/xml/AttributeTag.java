@@ -23,7 +23,7 @@ import org.apache.commons.jelly.XMLOutput;
   * the <code>&lt;xsl:attribute&gt;</code> tag.
   *
   * @author James Strachan
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class AttributeTag extends TagSupport {
     
@@ -41,7 +41,7 @@ public class AttributeTag extends TagSupport {
         if ( tag == null ) {
             throw new JellyTagException( "<attribute> tag must be enclosed inside an <element> tag" );
         }
-        tag.setAttributeValue( getName(), getBodyText() );
+        tag.setAttributeValue( getName(), getBodyText( false ) );
     }
     
     // Properties
