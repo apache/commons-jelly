@@ -148,5 +148,78 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
             return new GridBagConstraintBean();
         }
     }
+
+    protected void setBeanProperties(Object bean, Map attributes)
+        throws JellyTagException {
+
+        Insets ins = null;
+        Object insetString = attributes.get("insets");
+        if (insetString instanceof String) {
+            attributes.remove("insets");
+
+            String[] parts = ((String) insetString).split(",");
+
+            if (parts.length != 4) {
+                throw new JellyTagException(
+                    "insets must be specified"
+                        + "as four comma - separated integers.");
+            }
+
+            ins =
+                new Insets(
+                    Integer.parseInt(parts[0].trim()),
+                    Integer.parseInt(parts[1].trim()),
+                    Integer.parseInt(parts[2].trim()),
+                    Integer.parseInt(parts[3].trim()));
+        }
+
+        super.setBeanProperties(bean, attributes);
+
+        // set basedOn info of the bean if we have a parent gbc tag
+        // in the context of the closest gridbaglayout tag
+
+        if (bean instanceof GridBagConstraintBean) {
+            GridBagConstraintBean gbc = (GridBagConstraintBean) bean;
+
+            if (ins != null) {
+                gbc.setInsets(ins);
+            }
+
+            GridBagLayoutTag parentLayoutTag =
+                (GridBagLayoutTag) (findAncestorWithClass(GridBagLayoutTag
+                    .class));
+            if (parentLayoutTag != null) {
+                GbcTag parentGbcTag =
+                    (GbcTag) (findAncestorWithClass(getParent(),
+                        GbcTag.class,
+                        parentLayoutTag));
+                if (parentGbcTag != null) {
+                    GridBagConstraints parentGbc =
+                        parentGbcTag.getConstraints();
+
+                    if (parentGbc != null
+                        && parentGbc instanceof GridBagConstraintBean) {
+                        gbc.setBasedOn((GridBagConstraintBean) parentGbc);
+                        if (insetString == null) {
+                            gbc.setInsets(parentGbc.insets);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static Tag findAncestorWithClass(
+        Tag from,
+        Class tagClass,
+        Tag parent) {
+        while (from != null && from != parent) {
+            if (tagClass.isInstance(from)) {
+                return from;
+            }
+            from = from.getParent();
+        }
+        return null;
+    }
 }
 
