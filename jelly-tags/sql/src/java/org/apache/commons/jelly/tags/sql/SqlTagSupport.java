@@ -64,7 +64,7 @@ import java.util.List;
 import javax.servlet.jsp.jstl.sql.SQLExecutionTag;
 import javax.sql.DataSource;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.tags.Resources;
 
@@ -169,7 +169,7 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
         parameters = null;
     }
 
-    protected Connection getConnection() throws JellyException, SQLException {
+    protected Connection getConnection() throws JellyTagException, SQLException {
         // Fix: Add all other mechanisms
         Connection conn = null;
         isPartOfTransaction = false;
@@ -178,21 +178,21 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
             (TransactionTag) findAncestorWithClass(TransactionTag.class);
         if (parent != null) {
             if (dataSourceSpecified) {
-                throw new JellyException(Resources.getMessage("ERROR_NESTED_DATASOURCE"));
+                throw new JellyTagException(Resources.getMessage("ERROR_NESTED_DATASOURCE"));
             }
             conn = parent.getSharedConnection();
             isPartOfTransaction = true;
         }
         else {
             if ((rawDataSource == null) && dataSourceSpecified) {
-                throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
+                throw new JellyTagException(Resources.getMessage("SQL_DATASOURCE_NULL"));
             }
             DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
             try {
                 conn = dataSource.getConnection();
             }
             catch (Exception ex) {
-                throw new JellyException(
+                throw new JellyTagException(
                     Resources.getMessage("DATASOURCE_INVALID", ex.getMessage()));
             }
         }

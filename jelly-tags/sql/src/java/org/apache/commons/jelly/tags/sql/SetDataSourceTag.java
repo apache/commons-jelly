@@ -57,7 +57,7 @@ package org.apache.commons.jelly.tags.sql;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.Resources;
@@ -132,7 +132,7 @@ public class SetDataSourceTag extends TagSupport {
     //*********************************************************************
     // Tag logic
 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         DataSource ds = null;
 
         if (dataSource != null) {
@@ -140,7 +140,7 @@ public class SetDataSourceTag extends TagSupport {
         }
         else {
             if (dataSourceSpecified) {
-                throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
+                throw new JellyTagException(Resources.getMessage("SQL_DATASOURCE_NULL"));
             }
 
             DataSourceWrapper dsw = new DataSourceWrapper();
@@ -152,7 +152,7 @@ public class SetDataSourceTag extends TagSupport {
             }
             catch (Exception e) {
                 log.error( "Could not load driver class: " + e, e );
-                throw new JellyException(
+                throw new JellyTagException(
                     Resources.getMessage("DRIVER_INVALID_CLASS", e.getMessage()));
             }
             dsw.setJdbcURL(jdbcURL);

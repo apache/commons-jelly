@@ -60,7 +60,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.Resources;
 import org.apache.commons.logging.Log;
@@ -105,12 +105,12 @@ public class UpdateTag extends SqlTagSupport {
      * element, or is retrieved from a JSP scope  attribute
      * named <code>javax.servlet.jsp.jstl.sql.dataSource</code>.
      */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         try {
             conn = getConnection();
         }
         catch (SQLException e) {
-            throw new JellyException(sql + ": " + e.getMessage(), e);
+            throw new JellyTagException(sql + ": " + e.getMessage(), e);
         }
 
         /*
@@ -125,7 +125,7 @@ public class UpdateTag extends SqlTagSupport {
             sqlStatement = getBodyText();
         }
         if (sqlStatement == null || sqlStatement.trim().length() == 0) {
-            throw new JellyException(Resources.getMessage("SQL_NO_STATEMENT"));
+            throw new JellyTagException(Resources.getMessage("SQL_NO_STATEMENT"));
         }
 
         Statement statement = null;
@@ -152,7 +152,7 @@ public class UpdateTag extends SqlTagSupport {
             tempStatement.close();
         }
         catch (SQLException e) {
-            throw new JellyException(sqlStatement + ": " + e.getMessage(), e);
+            throw new JellyTagException(sqlStatement + ": " + e.getMessage(), e);
         }
         finally {
             if (statement != null) {

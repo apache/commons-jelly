@@ -56,7 +56,7 @@ package org.apache.commons.jelly.tags.sql;
 
 import javax.servlet.jsp.jstl.sql.SQLExecutionTag;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.Resources;
@@ -79,11 +79,11 @@ public class ParamTag extends TagSupport {
     //*********************************************************************
     // Tag logic
 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         SQLExecutionTag parent =
             (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
         if (parent == null) {
-            throw new JellyException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
+            throw new JellyTagException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
         }
 
         Object paramValue = value;

@@ -58,7 +58,7 @@ import java.sql.Date;
 
 import javax.servlet.jsp.jstl.sql.SQLExecutionTag;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.Resources;
@@ -105,11 +105,11 @@ public class DateParamTag extends TagSupport {
     //*********************************************************************
     // Tag logic
 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         SQLExecutionTag parent =
             (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
         if (parent == null) {
-            throw new JellyException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
+            throw new JellyTagException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
         }
 
         if (value != null) {
@@ -122,7 +122,7 @@ public class DateParamTag extends TagSupport {
     //*********************************************************************
     // Private utility methods
 
-    private void convertValue() throws JellyException {
+    private void convertValue() throws JellyTagException {
 
         if ((type == null) || (type.equalsIgnoreCase(TIMESTAMP_TYPE))) {
             if (!(value instanceof java.sql.Timestamp)) {
@@ -140,7 +140,7 @@ public class DateParamTag extends TagSupport {
             }
         }
         else {
-            throw new JellyException(
+            throw new JellyTagException(
                 Resources.getMessage("SQL_DATE_PARAM_INVALID_TYPE", type));
         }
     }

@@ -63,7 +63,7 @@ import java.sql.Statement;
 
 import javax.servlet.jsp.jstl.sql.Result;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.Resources;
 import org.apache.commons.logging.Log;
@@ -138,7 +138,7 @@ public class QueryTag extends SqlTagSupport {
      * element, or is retrieved from a JSP scope  attribute
      * named <code>javax.servlet.jstl.sql.dataSource</code>.
      */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
 
         if (!maxRowsSpecified) {
             Object obj = context.getVariable("org.apache.commons.jelly.sql.maxRows");
@@ -151,13 +151,13 @@ public class QueryTag extends SqlTagSupport {
                         maxRows = Integer.parseInt((String) obj);
                     }
                     catch (NumberFormatException nfe) {
-                        throw new JellyException(
+                        throw new JellyTagException(
                             Resources.getMessage("SQL_MAXROWS_PARSE_ERROR", (String) obj),
                             nfe);
                     }
                 }
                 else {
-                    throw new JellyException(Resources.getMessage("SQL_MAXROWS_INVALID"));
+                    throw new JellyTagException(Resources.getMessage("SQL_MAXROWS_INVALID"));
                 }
             }
         }
@@ -183,13 +183,13 @@ public class QueryTag extends SqlTagSupport {
                 sqlStatement = getBodyText();
             }
             if (sqlStatement == null || sqlStatement.trim().length() == 0) {
-                throw new JellyException(Resources.getMessage("SQL_NO_STATEMENT"));
+                throw new JellyTagException(Resources.getMessage("SQL_NO_STATEMENT"));
             }
             /*
              * We shouldn't have a negative startRow or illegal maxrows
              */
             if ((startRow < 0) || (maxRows < -1)) {
-                throw new JellyException(Resources.getMessage("PARAM_BAD_VALUE"));
+                throw new JellyTagException(Resources.getMessage("PARAM_BAD_VALUE"));
             }
 
             /* 
@@ -230,7 +230,7 @@ public class QueryTag extends SqlTagSupport {
             tempStatement.close();
         }
         catch (SQLException e) {
-            throw new JellyException(sqlStatement + ": " + e.getMessage(), e);
+            throw new JellyTagException(sqlStatement + ": " + e.getMessage(), e);
         }
         finally {
             if (rs != null) {

@@ -55,7 +55,7 @@
 
 package org.apache.commons.jelly.tags.sql;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -109,13 +109,13 @@ public class DriverTag extends TagSupport {
     //*********************************************************************
     // Tag logic
 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         DataSourceWrapper ds = new DataSourceWrapper();
         try {
             ds.setDriverClassName(getDriverClassName());
         }
         catch (Exception e) {
-            throw new JellyException("Invalid driver class name: " + e.getMessage());
+            throw new JellyTagException("Invalid driver class name: " + e.getMessage());
         }
         ds.setJdbcURL(getJdbcURL());
         ds.setUserName(getUserName());

@@ -61,7 +61,7 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.tags.Resources;
 
 import org.apache.commons.logging.Log;
@@ -90,7 +90,7 @@ public class DataSourceUtil {
      * is
      */
     static DataSource getDataSource(Object rawDataSource, JellyContext pc)
-        throws JellyException {
+        throws JellyTagException {
         DataSource dataSource = null;
 
         if (rawDataSource == null) {
@@ -121,7 +121,7 @@ public class DataSourceUtil {
             dataSource = (DataSource) rawDataSource;
         }
         else {
-            throw new JellyException(Resources.getMessage("SQL_DATASOURCE_INVALID_TYPE"));
+            throw new JellyTagException(Resources.getMessage("SQL_DATASOURCE_INVALID_TYPE"));
         }
 
         return dataSource;
@@ -130,7 +130,7 @@ public class DataSourceUtil {
     /**
      * Parse JDBC parameters and setup dataSource appropriately
      */
-    private static DataSource getDataSource(String params) throws JellyException {
+    private static DataSource getDataSource(String params) throws JellyTagException {
         DataSourceWrapper dataSource = new DataSourceWrapper();
 
         String[] paramString = new String[4];
@@ -145,7 +145,7 @@ public class DataSourceUtil {
                     paramString[aryCount] = params.substring(begin, index);
                     begin = index + 1;
                     if (++aryCount > 4) {
-                        throw new JellyException(Resources.getMessage("JDBC_PARAM_COUNT"));
+                        throw new JellyTagException(Resources.getMessage("JDBC_PARAM_COUNT"));
                     }
                 }
             }
@@ -167,7 +167,7 @@ public class DataSourceUtil {
                 dataSource.setDriverClassName(paramString[1]);
             }
             catch (Exception ex) {
-                throw new JellyException(
+                throw new JellyTagException(
                     Resources.getMessage("DRIVER_INVALID_CLASS", ex.getMessage()));
             }
         }

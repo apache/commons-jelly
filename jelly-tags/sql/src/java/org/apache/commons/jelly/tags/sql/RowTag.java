@@ -54,7 +54,7 @@
  */
 package org.apache.commons.jelly.tags.sql;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -67,10 +67,10 @@ public class RowTag extends MapTagSupport {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         ResultSetTag tag = (ResultSetTag) findAncestorWithClass( ResultSetTag.class );
         if ( tag == null ) {
-            throw new JellyException( "This tag must be nested with in a <resultSet> tag" );
+            throw new JellyTagException( "This tag must be nested with in a <resultSet> tag" );
         }
         tag.addRow( getAttributes() );
     }
