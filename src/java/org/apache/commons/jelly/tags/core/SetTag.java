@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.7 2002/07/15 16:57:44 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/07/15 16:57:44 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.8 2002/10/02 16:55:04 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/10/02 16:55:04 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.7 2002/07/15 16:57:44 jstrachan Exp $
+ * $Id: SetTag.java,v 1.8 2002/10/02 16:55:04 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which sets a variable from the result of an expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class SetTag extends TagSupport {
 
@@ -102,6 +102,9 @@ public class SetTag extends TagSupport {
 
     /** The name of the property to set on the target object. */
     private String property;
+    
+    /** Should we XML encode the body of this tag as text? */
+    private boolean encode = true;
 
     public SetTag() {
     }
@@ -114,7 +117,7 @@ public class SetTag extends TagSupport {
             answer = value.evaluate(context);
         }
         else {
-            answer = getBodyText();
+            answer = getBodyText(isEncode());
         }
         
         if ( var != null ) {
@@ -170,6 +173,24 @@ public class SetTag extends TagSupport {
         this.property = property;
     }
     
+    /**
+     * Returns whether the body of this tag will be XML encoded or not.
+     */
+    public boolean isEncode() {
+        return encode;
+    }
+
+    /**
+     * Sets whether the body of the tag should be XML encoded as text (so that &lt; and &gt; are
+     * encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.
+     * This is only used if this tag is specified with no value so that the text body of this
+     * tag is used as the body.
+     */
+    public void setEncode(boolean encode) {
+        this.encode = encode;
+    }
+
+
     // Implementation methods
     //-------------------------------------------------------------------------                
     protected void setPropertyValue( Object target, String property, Object value ) throws Exception {

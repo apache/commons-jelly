@@ -107,6 +107,16 @@
 			actual="${customer.class.name}"/>
   </test:case>
 
+	<test:case name="testSetWithNoEncoding">
+		<j:set var="foo" encode="false">
+			<foo x="1">hello</foo>
+		</j:set>
+
+		<test:assertEquals 
+			expected='&lt;foo x="1"&gt;hello&lt;/foo&gt;' 
+			actual="${foo}"/>
+  </test:case>
+
 	<test:case name="testFileToVar">
 		<j:file var="foo" omitXmlDeclaration="true">
 			<foo x="1">hello</foo>
