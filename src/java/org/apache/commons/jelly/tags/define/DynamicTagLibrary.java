@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTagLibrary.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/04/25 18:14:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTagLibrary.java,v 1.2 2002/04/25 19:25:08 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/25 19:25:08 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynamicTagLibrary.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
+ * $Id: DynamicTagLibrary.java,v 1.2 2002/04/25 19:25:08 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -66,6 +66,7 @@ import java.util.Map;
 
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagScript;
 
 import org.xml.sax.Attributes;
@@ -75,7 +76,7 @@ import org.xml.sax.Attributes;
  * gets created by running a Jelly script.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class DynamicTagLibrary extends TagLibrary {
 
@@ -97,7 +98,7 @@ public class DynamicTagLibrary extends TagLibrary {
             // XXXX: somehow we should find the template's 
             // <invokeBody> tag and associate it with this instance
             
-            return new TagScript( tag );
+            return new DynaTagScript( tag );
         }
         return null;
     }

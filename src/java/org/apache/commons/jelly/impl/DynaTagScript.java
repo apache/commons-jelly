@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.7 2002/04/25 19:25:08 jstrachan Exp $
- * $Revision: 1.7 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/DynaTagScript.java,v 1.1 2002/04/25 19:25:08 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/04/25 19:25:08 $
  *
  * ====================================================================
@@ -57,28 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.7 2002/04/25 19:25:08 jstrachan Exp $
+ * $Id: DynaTagScript.java,v 1.1 2002/04/25 19:25:08 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
-import java.beans.BeanInfo;
-import java.beans.Introspector;
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.beanutils.ConvertUtils;
 
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
@@ -86,83 +76,54 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * <p><code>TagScript</code> abstract base class for a 
- * script that evaluates a custom tag.</p>
+ * <p><code>DynaTagScript</code> is a script evaluates a custom DynaTag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.1 $
  */
-public abstract class TagScript implements Script {
+public class DynaTagScript extends TagScript {
     
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog( TagScript.class );
+    private static final Log log = LogFactory.getLog( DynaTagScript.class );
     
-    /** the tag to be evaluated */
-    protected Tag tag;
-
-    /** The attribute expressions that are created */
-    protected Map attributes = new HashMap();
-    
-    public TagScript() {
+    public DynaTagScript() {
     }
     
-    public TagScript(Tag tag) {
-        this.tag = tag; 
+    public DynaTagScript(DynaTag tag) {
+        super( tag ); 
     }
 
-    public String toString() {
-        return super.toString() + "[tag=" + tag + "]";
-    }
-    
-    /** 
-     * @return a new TagScript based on whether 
-     * the tag is a bean tag or DynaTag 
-     */
-    public static TagScript newInstance(Tag tag) {
-        if ( tag instanceof DynaTag ) {
-            return new DynaTagScript( (DynaTag) tag );
-        }
-        return new BeanTagScript( tag );
-    }
-    
-    /** Add an initialization attribute for the tag.
-     * This method must be called after the setTag() method 
-     */
-    public void addAttribute(String name, Expression expression) {
-        if ( log.isDebugEnabled() ) {
-            log.debug( "adding attribute name: " + name + " expression: " + expression );
-        }
-        attributes.put( name, expression );
-    }
-    
-    // Properties
+    // Script interface
     //-------------------------------------------------------------------------                
     
-    /** @return the tag to be evaluated */
-    public Tag getTag() {
-        return tag;
+    /** Compiles the script to a more efficient form. 
+      * Will only be called once by the parser 
+      */
+    public Script compile() throws Exception {
+        if ( tag instanceof CompilableTag ) {
+            ((CompilableTag) tag).compile();
+        }
+        
+        // compile body
+        tag.setBody( tag.getBody().compile() );        
+        return this;
     }
     
-    /** Sets the tag to be evaluated */
-    public void setTag(Tag tag) {
-        this.tag = tag; 
-    }
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------      
-    
-    /** Converts the given value to the required type. 
-     *
-     * @param value is the value to be converted. This will not be null
-     * @param requiredType the type that the value should be converted to
-     */
-    protected Object convertType(Object value, Class requiredType ) throws Exception {
-        if ( requiredType.isInstance( value ) ) {
-            return value;
-        }
-        if ( value instanceof String ) {
-            return ConvertUtils.convert( (String) value, requiredType );
-        }
-        return value;
+    /** Evaluates the body of a tag */
+    public void run(Context context, XMLOutput output) throws Exception {
+        
+        DynaTag dynaTag = (DynaTag) tag;
+        
+        // ### probably compiling this to 2 arrays might be quicker and smaller
+        for ( Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String name = (String) entry.getKey();
+            Expression expression = (Expression) entry.getValue();
+
+            Object value = expression.evaluate( context );
+            
+            dynaTag.setAttribute( name, value );
+        }        
+        tag.run( context, output );
     }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.3 2002/04/24 11:59:12 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/24 11:59:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.4 2002/04/25 19:25:08 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/04/25 19:25:08 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.3 2002/04/24 11:59:12 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.4 2002/04/25 19:25:08 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -73,7 +73,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public abstract class TagLibrary {
 
@@ -86,7 +86,7 @@ public abstract class TagLibrary {
     public TagScript createTagScript(String name, Attributes attributes) throws Exception {
         Class type = (Class) tags.get( name );
         Tag tag = (Tag) type.newInstance();        
-        return new TagScript( tag );
+        return TagScript.newInstance( tag );
     }
     
     /** Allows taglibs to use their own expression evaluation mechanism */

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.11 2002/04/25 18:58:47 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/04/25 18:58:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.12 2002/04/25 19:25:08 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/04/25 19:25:08 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.11 2002/04/25 18:58:47 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.12 2002/04/25 19:25:08 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -89,6 +89,7 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.StaticTag;
+import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.expression.ConstantExpression;
@@ -117,7 +118,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -998,9 +999,9 @@ public class XMLParser extends DefaultHandler {
      */
     protected TagScript createStaticTag( String namespaceURI, String localName, Attributes list ) throws SAXException {
         try {
-            Tag tag = new StaticTag( namespaceURI, localName );
+            StaticTag tag = new StaticTag( namespaceURI, localName );
             
-            TagScript script = new TagScript( tag );
+            DynaTagScript script = new DynaTagScript( tag );
                 
             // now iterate through through the expressions
             int size = list.getLength();
