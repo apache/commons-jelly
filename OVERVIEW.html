@@ -1,0 +1,87 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-gb">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Jakarta Commons Betwixt User Guide</title>
+</head>
+
+<body>
+
+<h1>Jakarta Commons <i>Jelly</i> Overview</h1>
+
+<p>Jelly is a simple yet powerful scripting engine. Jelly is totally extendable 
+via custom tags (like JSP) as well as cleanly integrating with other scripting 
+languages via BSF (Bean Scripting Framework).</p>
+
+<h2>Comparisons</h2>
+
+<p>To try give you a better feel for what Jelly is, we'll compare and contrast 
+Jelly with other scripting engines and templating technologies.</p>
+
+<h3>Jelly versus JSP</h3>
+
+<p>Similarities</p>
+<ul>
+  <li>Jelly uses the concept of custom tag libraries from JSP and follows many 
+  of the lessons learnt from the JSTL (JSP Standard Tag Library). Indeed JSTL 
+  could be implemented in Jelly.</li>
+</ul>
+
+<p>Differences</p>
+<ul>
+  <li>Jelly has no dependency on Servlets or JSP so Jelly can be run from the 
+  command line, inside Ant, inside an applet or anywhere that Java code can be 
+  ran.</li>
+  <li>Jelly tags are much simpler to write and use than JSP tags. Because JSP 
+  must support scriptlets due to backwards compatibility issues, they are 
+  implemented 'inside out' with 3 different interfaces (Tag, BodyTag, 
+  IterationTag) to implement based on the kind of tag you are writing, together 
+  with a fairly complex set of event-based methods that are called by the page 
+  container. Jelly tags are very easy - just derive from TagSupport and 
+  implement the run() method. Really simple!</li>
+  <li>Jelly tags can parse and compile their bodies for more optimal performance 
+  and easier validation. So a tag can ignore whitespace, iterate over its body, 
+  transform its body etc. So a Jelly tag can be a simple macro, preprocessing 
+  its body at compile time, such as to build smart HTML forms or to make SOAP 
+  macros etc.</li>
+</ul>
+
+<h3>Jelly versus Velocity</h3>
+
+<p>Similarities</p>
+<ul>
+  <li>Jelly allows Java objects to be manipulated in a Java-like manner just 
+  like Velocity.</li>
+  <li>Jelly could have a <i>surface syntax</i> that looks similar to Velocity. 
+  i.e. someone could make a parser of Jelly that had a look-and-feel of Velocity 
+  for common directives and expressions.</li>
+</ul>
+
+<p>Differences</p>
+<ul>
+  <li>Jelly provides an extensible tag mechanism to provide more poweful 
+  scripting such as by supporting JSTL, XML, XPath, XSLT, SQL or SOAP service 
+  scripting.</li>
+  <li>Jelly has integrated support for other scripting languages such as 
+  JavaScript, NetRexx, Jython etc.</li>
+</ul>
+
+<h2>Possible uses for Jelly</h2>
+
+<p>Jelly has various possible uses. Here's a few to think about</p>
+<ul>
+  <li>Alternative to Velocity &amp; JSP</li>
+  <li>Page templating system</li>
+  <li>Code generation system</li>
+  <li>SOAP, HTTP and/or JMS based scripting framework</li>
+  <li>Ant scripting</li>
+  <li>Alternative implementation of JSTL</li>
+  <li>Enhanced scripting engine for XDoclet</li>
+</ul>
+
+</body>
+
+</html>
