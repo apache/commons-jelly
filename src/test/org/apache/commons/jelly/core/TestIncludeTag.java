@@ -1,5 +1,5 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Attic/TestIncludeNesting.java,v 1.3 2002/12/11 12:41:00 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/core/TestIncludeNesting.java,v 1.3 2002/12/11 12:41:00 jstrachan Exp $
  * $Revision: 1.3 $
  * $Date: 2002/12/11 12:41:00 $
  *
@@ -78,34 +78,37 @@ import org.apache.commons.jelly.XMLOutput;
  * @author Morgan Delagrange
  * @version $Revision: 1.3 $
  */
-public class TestIncludeNesting extends TestCase {
+public class TestIncludeTag extends TestCase {
 
     Jelly jelly = null;
     JellyContext context = null;
     XMLOutput xmlOutput = null;
 
-    public TestIncludeNesting(String name) {
+    public TestIncludeTag(String name) {
         super(name);
     }
 
     public static TestSuite suite() throws Exception {
-        return new TestSuite(TestIncludeNesting.class);        
+        return new TestSuite(TestIncludeTag.class);        
     }
     
     public void setUp(String scriptName) throws Exception {
+        URL url = this.getClass().getResource(scriptName);
+        if ( url == null ) {
+            throw new Exception( 
+                "Could not find Jelly script: " + scriptName 
+                + " in package of class: " + this.getClass().getName() 
+            );
+        }
+        setUpFromURL(url);
+    }
+    
+    public void setUpFromURL(URL url) throws Exception {
         context = new CoreTaglibOnlyContext();
         xmlOutput = XMLOutput.createDummyXMLOutput();
 
         jelly = new Jelly();
         
-        String script = scriptName;
-        URL url = this.getClass().getResource(script);
-        if ( url == null ) {
-            throw new Exception( 
-                "Could not find Jelly script: " + script 
-                + " in package of class: " + this.getClass().getName() 
-            );
-        }
         jelly.setUrl(url);
 
         String exturl = url.toExternalForm();
@@ -138,6 +141,25 @@ public class TestIncludeNesting extends TestCase {
     public void testOutermost() throws Exception {
         // performs one nested include
         setUp("a.jelly");
+        Script script = jelly.compileScript();
+        script.run(context,xmlOutput);
+        assertTrue("should have set 'c' variable to 'true'",
+                   context.getVariable("c").equals("true"));
+        assertTrue("should have set 'b' variable to 'true'",
+                   context.getVariable("b").equals("true"));
+        assertTrue("should have set 'a' variable to 'true'",
+                   context.getVariable("a").equals("true"));
+    }
+    
+    /**
+     * Insure that includes happen correctly when Jelly scripts
+     * are referenced as a file (rather than as a classpath
+     * element).  Specifically checks to make sure includes succeed
+     * when the initial script is not in the user.dir directory.
+     */
+    public void testFileInclude() throws Exception {
+        // testing outermost
+        setUpFromURL(new URL("file:src/test/org/apache/commons/jelly/core/a.jelly"));
         Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have set 'c' variable to 'true'",
