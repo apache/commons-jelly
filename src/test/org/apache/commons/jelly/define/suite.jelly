@@ -4,7 +4,8 @@
 	xmlns:x="jelly:xml" 
 	xmlns:test="jelly:junit" 
 	xmlns:log="jelly:log" 
-	xmlns:define="jelly:define">
+	xmlns:define="jelly:define"
+	xmlns:dynamicTest="dynamicTest">
 
 <test:case name="invoke">
 
@@ -34,6 +35,29 @@
     			  	   	
   <test:assert xpath="$doc/foo/bar"/>
   
+</test:case>
+
+<test:case name="dynamicTag">
+
+  <!-- Init the new tag. -->
+  <define:taglib uri="dynamicTest">
+    <define:jellybean
+      name="test"
+      className="org.apache.commons.jelly.define.DynamicTag"
+    />
+  </define:taglib>
+
+  <j:set var="output">
+    <dynamicTest:test>
+      ignored output to make sure doTag is being called
+    </dynamicTest:test>
+  </j:set>
+
+  <test:assertEquals
+    expected="output - ignored body"
+    actual="${output}"
+  />
+
 </test:case>
    
 </test:suite>
