@@ -33,14 +33,27 @@ public class BreakTag extends TagSupport {
     /** The expression to evaluate. */
     private Expression test;
 
+    /** 
+     * If specified, the given variable will hold a true/false value
+     * indicating if the loop was broken.
+     */
+    private String var;
+
     public BreakTag() {
     }
 
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws BreakException {
+    	boolean broken = false;
         if (test == null || test.evaluateAsBoolean(context)) {
-            throw new BreakException();
+        	broken = true;
+        }
+        if ( var != null ) {
+        	context.setVariable( this.var, String.valueOf(broken));
+        }
+        if ( broken ) {
+            throw new BreakException();        	
         }
     }
 
@@ -54,4 +67,13 @@ public class BreakTag extends TagSupport {
     public void setTest(Expression test) {
         this.test = test;
     }
+    
+    /** 
+     * Sets the variable name to export indicating if the item was broken
+     * @param var name of the variable to be exported
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+    
 }
