@@ -11,7 +11,7 @@
       <item name="Detail"                  href="/overview.html"/>
       <item name="JellyUnit"               href="/jellyunit.html"/>
       <item name="Tag Reference"           href="/tags.html"/>
-      <item name="Download"                href="/dist/"/>
+      <item name="Download"                href="http://jakarta.apache.org/turbine/jars2/commons-jelly/distributions/"/>
       <item name="To Do List"              href="/todo.html"/>
       <item name="Blog"			   		   href="http://blogs.werken.com/projects/jelly/"/>
     </menu>
