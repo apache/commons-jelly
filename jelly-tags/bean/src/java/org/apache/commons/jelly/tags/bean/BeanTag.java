@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.7 2003/03/03 19:09:04 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2003/03/03 19:09:04 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.8 2003/03/20 17:01:15 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2003/03/20 17:01:15 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanTag.java,v 1.7 2003/03/03 19:09:04 jstrachan Exp $
+ * $Id: BeanTag.java,v 1.8 2003/03/20 17:01:15 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version   $Revision: 1.7 $
+ * @version   $Revision: 1.8 $
  */
 public class BeanTag extends UseBeanTag {
 
@@ -101,6 +101,10 @@ public class BeanTag extends UseBeanTag {
     /** if present this is used to call a doit method when the bean is constructed */
     private Method invokeMethod;
 
+
+    public BeanTag() {
+        this(null, "bean", null);
+    }
 
     public BeanTag(Class defaultClass, String tagName) {
         this(defaultClass, tagName, null);
