@@ -81,10 +81,10 @@
 	</copy>
   </preGoal>
 
+
   <!-- create the lib and bin directories in the binary distro -->  
   <preGoal name="dist:build">
 
-    <echo>The POM is ${pom.build}</echo>
     <echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
 
     <mkdir dir="${maven.dist.assembly.dir}/bin"/>
@@ -101,11 +101,11 @@
       <j:choose>
         <j:when test="${dep.id == 'forehead'}">
           <copy tofile="${maven.dist.assembly.dir}/lib/forehead.jar" 
-              file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
+              file="${maven.repo.local}/${dep.projectId}/jars/${dep.jar}"/>
         </j:when>
         <j:otherwise>
           <copy todir="${maven.dist.assembly.dir}/lib" 
-              file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
+              file="${maven.repo.local}/${dep.projectId}/jars/${dep.jar}"/>
         </j:otherwise>
       </j:choose>
     </j:forEach>
