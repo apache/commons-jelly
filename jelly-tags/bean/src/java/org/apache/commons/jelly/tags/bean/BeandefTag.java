@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeandefTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/21 15:16:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeandefTag.java,v 1.3 2003/01/25 23:09:35 morgand Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/25 23:09:35 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeandefTag.java,v 1.2 2003/01/21 15:16:32 jstrachan Exp $
+ * $Id: BeandefTag.java,v 1.3 2003/01/25 23:09:35 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -65,7 +65,7 @@ package org.apache.commons.jelly.tags.bean;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * the tag set the bean properties..
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class BeandefTag extends TagSupport {
 
@@ -106,7 +106,7 @@ public class BeandefTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         invokeBody(output);
         
 		if (name == null) {
@@ -131,7 +131,7 @@ public class BeandefTag extends TagSupport {
 				} 
                 catch (ClassNotFoundException e3) {
                     log.error( "Could not load class: " + className + " exception: " + e, e );
-					throw new JellyException(
+					throw new JellyTagException(
 						"Could not find class: "
 							+ className
 							+ " using ClassLoader: "
