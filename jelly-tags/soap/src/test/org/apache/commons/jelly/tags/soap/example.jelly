@@ -22,7 +22,7 @@
 
   <soap:invoke
       var="answer"
-    endpoint="http://nagoya.apache.org:5049/axis/services/echo"
+    endpoint="http://cvs.apache.org:5049/axis/services/echo"
     namespace="http://soapinterop.org/"
     method="echoString">Hi Jim!</soap:invoke>
 
