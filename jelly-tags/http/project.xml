@@ -7,7 +7,6 @@
   <extend>../tag-project.xml</extend>
   <id>commons-jelly-tags-http</id>
   <name>commons-jelly-tags-http</name>
-  <groupId>commons-jelly</groupId>
 
   <package>org.apache.commons.jelly.tags.http</package>
 
