@@ -15,11 +15,15 @@
 */
 package org.apache.commons.jelly.tags.swing;
 
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-import org.apache.commons.jelly.*;
-import org.apache.commons.jelly.tags.swing.*;
-import org.apache.commons.logging.*;
+import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 public class KeyListenerTag extends TagSupport
 {

@@ -17,7 +17,6 @@ package org.apache.commons.jelly.tags.swing;
 
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
-import javax.swing.border.EmptyBorder;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
@@ -31,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
  * or will be set on the parent widget's border property
  *
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class EmptyBorderTag extends BorderTagSupport {
 
