@@ -31,7 +31,7 @@
       </p>
       <p>
         There is an example JellyUnit script
-        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/junit/suite.jelly?rev=HEAD&content-type=text/vnd.viewcvs-markup">here</a>
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/junit/suite.jelly?rev=HEAD">here</a>
       </p>
     </section>
     <section name="Integration with TestRunners"> 
@@ -42,7 +42,7 @@
         to produce a single Java class which has a static <i>suite()</i> method to create a TestSuite object 
         containing all the test cases created by the JellyUnit files.
 		There is an 
-        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/junit/TestJUnit.java?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">example</a>
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/junit/TestJUnit.java?rev=HEAD">example</a>
         of this in action.
       </p>
       <p>So if you had a test suite defined in a jelly script <a>suite.jelly</a> in a package com.acme.foo
