@@ -19,26 +19,26 @@
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly</package>
   <packageGroups>
-  	<packageGroup>
-  		<title>Core Public API</title>
-  		<packages>org.apache.commons.jelly</packages>
-  	</packageGroup>
-  	<packageGroup>
-  		<title>Utility classes for using Jelly from Ant</title>
-  		<packages>org.apache.commons.jelly.task</packages>
-  	</packageGroup>
-  	<packageGroup>
-  		<title>Utility classes for using Jelly from Servlets</title>
-  		<packages>org.apache.commons.jelly.servlet</packages>
-  	</packageGroup>
-  	<packageGroup>
-  		<title>Classes used by Tag Implementors</title>
-  		<packages>org.apache.commons.jelly.impl,org.apache.commons.jelly.tags,org.apache.commons.jelly.expression</packages>
-  	</packageGroup>
-  	<packageGroup>
-  		<title>Tag Implementations</title>
-  		<packages>org.apache.commons.jelly.tags.*</packages>
-  	</packageGroup>
+    <packageGroup>
+      <title>Core Public API</title>
+      <packages>org.apache.commons.jelly</packages>
+    </packageGroup>
+    <packageGroup>
+      <title>Utility classes for using Jelly from Ant</title>
+      <packages>org.apache.commons.jelly.task</packages>
+    </packageGroup>
+    <packageGroup>
+      <title>Utility classes for using Jelly from Servlets</title>
+      <packages>org.apache.commons.jelly.servlet</packages>
+    </packageGroup>
+    <packageGroup>
+      <title>Classes used by Tag Implementors</title>
+      <packages>org.apache.commons.jelly.impl,org.apache.commons.jelly.tags,org.apache.commons.jelly.expression</packages>
+    </packageGroup>
+    <packageGroup>
+      <title>Tag Implementations</title>
+      <packages>org.apache.commons.jelly.tags.*</packages>
+    </packageGroup>
   </packageGroups>
   <shortDescription>Commons Jelly</shortDescription>
 
@@ -46,9 +46,9 @@
   <gumpRepositoryId>jakarta</gumpRepositoryId>
   
   <description>
-  	Jelly is a Java and XML based scripting engine. 
-  	Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple
-  	yet powerful scripting engine.
+    Jelly is a Java and XML based scripting engine. 
+    Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple
+    yet powerful scripting engine.
   </description>
   
   <url>http://jakarta.apache.org/commons/sandbox/jelly/</url>
@@ -134,7 +134,7 @@
       <name>Erik Fransen</name>
       <email>erik167@xs4all.nl</email>
       <roles>
-      	<role>Logo designer</role>
+        <role>Logo designer</role>
       </roles>
     </contributor>
     <contributor>
@@ -148,7 +148,7 @@
       <name>Vinay Chandran</name>
       <email>sahilvinay@yahoo.com</email>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>
     <contributor>
@@ -159,7 +159,7 @@
       <email>joew@thoughtworks.com</email>
       <organization>ThoughtWorks, Inc.</organization>
       <roles>
-      	<role>Inventor of Mock Tags</role>
+        <role>Inventor of Mock Tags</role>
       </roles>
     </contributor>
     <contributor>
@@ -167,22 +167,22 @@
       <email>vonwao@yahoo.com</email>
       <organization></organization>
       <roles>
-      	<role>Author of the tutorials</role>
-      	<role>Developer</role>
+        <role>Author of the tutorials</role>
+        <role>Developer</role>
       </roles>
     </contributor>
     <contributor>
       <name>Robert Leftwich</name>
       <email>robert@leftwich.info</email>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>
     <contributor>
       <name>Paul Libbrecht</name>
       <email>paul@activemath.org</email>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
@@ -190,14 +190,14 @@
       <email>jim.birchfield@genscape.com</email>
       <organization>Genscape, Inc.</organization>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
       <name>Jason Horman</name>
       <email>jhorman@musicmatch.com</email>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
@@ -205,7 +205,7 @@
       <email>tima@intalio.com</email>
       <organization>Intalio, Inc.</organization>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
@@ -213,7 +213,7 @@
       <email>theo.niemeijer@getthere.nl</email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>    
     <contributor>
@@ -221,7 +221,7 @@
       <email>matthew_pryor@versata.com</email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>        
     <contributor>
@@ -229,7 +229,7 @@
       <email></email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>        
     <contributor>
@@ -237,7 +237,7 @@
       <email></email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>        
     <contributor>
@@ -245,11 +245,11 @@
       <email></email>
       <organization></organization>
       <roles>
-      	<role>Developer</role>
+        <role>Developer</role>
       </roles>
     </contributor>            
   </contributors>
-	
+  
   <dependencies>
   
     &commonDeps;
@@ -266,7 +266,7 @@
       <version>SNAPSHOT</version>
     </dependency>
 
-		<!-- this is brought in by the commons-cli dependency -->
+    <!-- this is brought in by the commons-cli dependency -->
     <dependency>
       <id>commons-lang</id>
       <version>SNAPSHOT</version>
@@ -277,7 +277,7 @@
       <version>SNAPSHOT</version>
     </dependency>
 
-	<!-- for the jelly startup scripts -->
+  <!-- for the jelly startup scripts -->
     <dependency>
       <id>forehead</id>
       <version>1.0-beta-2</version>
@@ -295,11 +295,11 @@
       <version>0.7.1</version>
     </dependency>
 
-    <!-- used by SQL library -->
+    <!-- used by SQL library
     <dependency>
       <id>jdbc</id>
       <version>2.0</version>
-    </dependency>
+    </dependency> -->
 
     <dependency>
       <id>junit</id>
@@ -322,19 +322,19 @@
       || These will be sub-projects one day, when Maven handles them gracefully
       -->
 
-	<!-- beanshell taglib -->
+  <!-- beanshell taglib -->
     <dependency>
       <id>bsh</id>
       <version>1.2-b3</version>
     </dependency>
 
-	<!-- bsf taglib -->
+  <!-- bsf taglib -->
     <dependency>
       <id>bsf</id>
       <version>2.2</version>
     </dependency>
 
-	<!-- jms taglib -->
+  <!-- jms taglib -->
     <dependency>
       <id>commons-messenger</id>
       <version>1.0-dev-8</version>
@@ -345,13 +345,13 @@
       <version>1.0.2b</version>
     </dependency>
     
-	<!-- scheduler taglib -->
+  <!-- scheduler taglib -->
     <dependency>
       <id>quartz</id>
       <version>SNAPSHOT</version>
     </dependency>
 
-	<!-- email taglib -->
+  <!-- email taglib -->
     <dependency>
       <id>jaf</id>
       <version>1.0.2</version>
@@ -363,26 +363,8 @@
       <version>1.2</version>
     </dependency>
 
-	<!-- soap taglib -->
-    <dependency>
-      <id>axis</id>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <id>jaxrpc</id>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <id>saaj</id>
-      <version>1.1</version>
-    </dependency>
-<!--    
-    <dependency>
-      <id>wsdl4j</id>
-      <version>1.0</version>
-    </dependency>
--->    
   </dependencies>
+  
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
@@ -391,13 +373,13 @@
     <aspectSourceDirectory/>
 
     <!-- Resources that are packaged up inside the JAR file -->
-    <resources>    	
-			<resource>    	
-				<directory>src/java</directory>
-				<includes>
-					<include>**/*.properties</include>
-				</includes>
-			</resource>
+    <resources>      
+      <resource>      
+        <directory>src/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
     </resources>
     
     
@@ -406,20 +388,20 @@
       <includes>
         <include>**/Test*.java</include>
       </includes>
-			<resources>
-				<resource>
-					<directory>src/test</directory>
-					<includes>
-						<include>**/*.jelly</include>
-						<include>**/*.xml</include>
-						<include>**/*.xsl</include>
-						<include>**/*.rng</include>
-						<include>**/*.dtd</include>
-						<include>**/*.properties</include>
-						<include>**/*.html</include>
-					</includes>
-				</resource>
-			</resources>
+      <resources>
+        <resource>
+          <directory>src/test</directory>
+          <includes>
+            <include>**/*.jelly</include>
+            <include>**/*.xml</include>
+            <include>**/*.xsl</include>
+            <include>**/*.rng</include>
+            <include>**/*.dtd</include>
+            <include>**/*.properties</include>
+            <include>**/*.html</include>
+          </includes>
+        </resource>
+      </resources>
     </unitTest>
 
     

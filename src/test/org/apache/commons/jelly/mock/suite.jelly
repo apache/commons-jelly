@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:mock="jelly:define" xmlns:sql="jelly:sql" xmlns:log="jelly:log">
+<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit" xmlns:mock="jelly:define" xmlns:log="jelly:log">
 
 	<!-- lets create some mock tags and test a sample script that it evaluates the 
 		|| mock tags as we'd expect
@@ -14,24 +14,24 @@
       -->
 		<j:set var="foodKind" value="pizza"/>
 	      
-	  <mock:taglib uri="jelly:sql">      
+<!--	  <mock:taglib uri="jelly:sql">      
 	    <mock:tag name="query">
-	    	
-	      <!-- generate a mock result set -->    
+-->	    	
+	      <!-- generate a mock result set   
 	      <sql:resultSet var="results">
           <sql:row id="abc"/>
           <sql:row id="def"/>
 	      </sql:resultSet>
-	      
-	      <!-- since we are inside a Tag Context, lets export the results variable to the parent context -->
-	      <j:set var="${var}" scope="parent" value="${results}"/>
-      </mock:tag>
+	       --> 
+	      <!-- since we are inside a Tag Context, lets export the results variable to the parent context 
+	      <j:set var="${var}" scope="parent" value="${results}"/>-->
+<!--      </mock:tag>
       
 	    <mock:tag name="param">
 	    	<test:equals expects="pizza" value="${value}"/>
       </mock:tag>
 		</mock:taglib>
-
+-->
 		<mock:taglib uri="myFoodWebService">
 		  <mock:tag name="eat">
 		  	<log:info>Invoking the eat web service with ${cheese}</log:info>
@@ -56,7 +56,7 @@
 			</mock:tag>
 		</mock:taglib>
 
-		<!-- now lets invoke the service using the Mock Tags -->			
+		<!-- now lets invoke the service using the Mock Tags -->		
 		<j:include uri="service.jelly"/>
 		
 	

@@ -102,7 +102,7 @@ public class TestParser extends TestCase {
      * Tests that parsing an example script correctly creates the parent relationships
      */
     public void testParser() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/sql/example2.jelly");
+        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/example2.jelly");
         XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();

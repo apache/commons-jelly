@@ -4,22 +4,27 @@
 	|| via Mock Tags
 	-->
 	
-<j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql" xmlns:my="myFoodWebService" xmlns:log="jelly:log">
+<j:jelly xmlns:j="jelly:core" xmlns:my="myFoodWebService" xmlns:log="jelly:log">
 
-	<sql:query var="results"> 
+<!--	<sql:query var="results"> 
 	  select * from food where kind = ?
-	  
+-->	  
 	  <!-- lets pass in some parametrized value -->
-	  <sql:param value="${foodKind}"/>
+<!--	  <sql:param value="${foodKind}"/>
 	</sql:query>
-	
-	<!-- invoke some service -->
+-->	
+	<!-- invoke some service 
 	<j:forEach items="${results.rows}" var="row">
 	
 		<log:info>Found row with ID ${row.id}</log:info>
-		
-	  <!-- this tag could invoke a web service etc -->
-	  <my:eat cheese="${row.id}"/>
-	</j:forEach>
+-->	
+	  <!-- this tag could invoke a web service etc
+	  <my:eat cheese="${row.id}"/> -->
+	  <!-- FIXME: Commented code above and repeated line are a 
+	              workaround as the sql taglib has been removed
+	    -->
+	  <my:eat cheese="abc"/>
+	  <my:eat cheese="def"/>
+<!--	</j:forEach> -->
 	
 </j:jelly>
