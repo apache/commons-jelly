@@ -54,11 +54,11 @@
   <url>http://jakarta.apache.org/commons/jelly/</url>
   <issueTrackingUrl>http://jira.werken.com/BrowseProject.jspa?id=10012</issueTrackingUrl>
   <siteAddress>jakarta.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/</distributionDirectory>
+  <siteDirectory>/www/jakarta.apache.org/commons/jelly/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/</url>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/</url>
   </repository>
   
   <versions>
@@ -254,13 +254,13 @@
   
     &commonDeps;
     
-
-    <!-- might be tied to betwixt only
+    <!-- for servlet support -->
     <dependency>
-      <id>commons-digester</id>
-      <version>SNAPSHOT</version>
-    </dependency> -->
+      <id>servletapi</id>
+      <version>2.3</version>
+    </dependency>
 
+		<!-- for command line interface support -->
     <dependency>
       <id>commons-cli</id>
       <version>SNAPSHOT</version>
@@ -277,7 +277,7 @@
       <version>SNAPSHOT</version>
     </dependency>
 
-  <!-- for the jelly startup scripts -->
+  	<!-- for the jelly startup scripts -->
     <dependency>
       <id>forehead</id>
       <version>1.0-beta-2</version>
@@ -295,21 +295,6 @@
       <version>0.7.1</version>
     </dependency>
 
-    <dependency>
-      <id>junit</id>
-      <version>3.8.1</version>
-    </dependency>
-    
-    <dependency>
-      <id>servletapi</id>
-      <version>2.3</version>
-    </dependency>
-    
-    <dependency>
-      <id>xalan</id>
-      <version>2.3.1</version>
-    </dependency>
-        
   </dependencies>
   
   <build>
