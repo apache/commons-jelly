@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.18 2003/01/17 06:59:03 jstrachan Exp $
- * $Revision: 1.18 $
- * $Date: 2003/01/17 06:59:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.19 2003/01/18 05:21:08 jstrachan Exp $
+ * $Revision: 1.19 $
+ * $Date: 2003/01/18 05:21:08 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.18 2003/01/17 06:59:03 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.19 2003/01/18 05:21:08 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -81,7 +81,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.18 $
+  * @version $Revision: 1.19 $
   */
 
 public abstract class TagLibrary {
@@ -119,9 +119,7 @@ public abstract class TagLibrary {
         Object value = tags.get(name);
         if (value instanceof Class) {
             Class type = (Class) value;
-            if ( type != null ) {
-                return TagScript.newInstance(type);
-            }
+            return TagScript.newInstance(type);
         }
         else if (value instanceof TagFactory) {
             return new TagScript( (TagFactory) value );
