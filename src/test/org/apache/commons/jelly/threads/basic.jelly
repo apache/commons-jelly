@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!--
+Basic example. Should print the numbers in reverse.
+-->
+
+<jelly xmlns="jelly:core" xmlns:threads="jelly:threads">
+
+    <threads:thread var="thread1">
+        <threads:sleep for="1000"/>
+        1
+    </threads:thread>
+
+    <threads:thread>
+        <threads:sleep for="500"/>
+        2
+    </threads:thread>
+
+    <threads:thread>
+        <threads:sleep for="100"/>
+        3
+    </threads:thread>
+
+    <threads:thread>
+        4
+    </threads:thread>
+
+<whitespace>
+[main]: waiting for threads to finish
+</whitespace>
+
+        <threads:join thread="${thread1}"/>
+
+<whitespace>
+[main]: threads are now done
+</whitespace>
+
+</jelly>
