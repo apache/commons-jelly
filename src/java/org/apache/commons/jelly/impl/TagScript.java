@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.11 2002/06/21 02:57:17 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/06/21 02:57:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.12 2002/06/25 17:11:41 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/06/25 17:11:41 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.11 2002/06/21 02:57:17 jstrachan Exp $
+ * $Id: TagScript.java,v 1.12 2002/06/25 17:11:41 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -93,7 +93,7 @@ import org.xml.sax.Locator;
  * script that evaluates a custom tag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public abstract class TagScript implements Script {
 
@@ -213,6 +213,7 @@ public abstract class TagScript implements Script {
 			throw e;
 		}
         catch (Exception e) {
+            log.error( "Caught exception: " + e, e );
             throw new JellyException(e, columnNumber, lineNumber);            
         }
     }
