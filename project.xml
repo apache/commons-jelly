@@ -278,7 +278,7 @@
     <!-- used by werkz library -->
     <dependency>
       <id>werkz</id>
-      <version>1.0-beta-2</version>
+      <version>1.0-beta-4</version>
     </dependency>
 
     <dependency>

@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * but is based on the Werkz goal engine.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 public class GoalTag extends WerkzTagSupport {
 
@@ -175,7 +175,7 @@ public class GoalTag extends WerkzTagSupport {
 
             eachPrereq = getProject().getGoal( eachToken, true );
 
-            goal.addPrerequisite( eachPrereq );
+            goal.addPrecursor( eachPrereq );
         }
     }
 }
