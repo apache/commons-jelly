@@ -17,6 +17,7 @@
 <project>
   <!-- TODO: should this inherit commons-build? -->
   <artifactId>commons-jelly-parent</artifactId>
+  <groupId>commons-jelly</groupId>
 
   <dependencies>
     <!-- 

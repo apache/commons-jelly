@@ -19,7 +19,7 @@
   <extend>parent-project.xml</extend>
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
-  <id>commons-jelly</id>
+  <artifactId>commons-jelly</artifactId>
   <currentVersion>1.0-RC2-SNAPSHOT</currentVersion>
   <organization>
     <name>Apache Software Foundation</name>
