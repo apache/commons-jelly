@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
 
-  <shell text="This is a shell" var="shell" style="border, close, min, max, resize, title">
+  <shell text="This is a shell" var="shell" size="600,300" style="border, close, min, max, resize, title">
 		<menu style="bar">
 			<menuItem text="File" style="cascade">
 				<menu>
@@ -86,7 +86,9 @@
 
 	<!-- we could abstract the following away as a tag -->
 	
+<!--
 	${shell.pack()}
+-->	
 	${shell.open()}
 	
 	<j:set var="display" value="${shell.display}"/>

@@ -63,6 +63,7 @@ package org.apache.commons.jelly.tags.swt;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.*;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -70,10 +71,13 @@ import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.*;
 
+import org.apache.commons.beanutils.ConvertUtils;
+
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
+import org.apache.commons.jelly.tags.swt.converters.PointConverter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -92,7 +96,8 @@ public class SwtTagLibrary extends TagLibrary {
     private static final Log log = LogFactory.getLog(SwtTagLibrary.class);
 
     static {
-        // we could create Converters from Strings to various SWT types 
+        // register the various beanutils Converters from Strings to various SWT types 
+        ConvertUtils.register( new PointConverter(), Point.class );
     }
         
     public SwtTagLibrary() {

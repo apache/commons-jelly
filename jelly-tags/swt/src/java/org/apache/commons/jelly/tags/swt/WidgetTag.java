@@ -68,9 +68,12 @@ import java.util.Map;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
+import org.apache.commons.jelly.tags.swt.converters.PointConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 
 /** 
@@ -78,6 +81,7 @@ import org.eclipse.swt.widgets.Widget;
  * this widget as a variable if the <i>var</i> attribute is specified.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
  * @version 1.1
  */
 public class WidgetTag extends UseBeanTag {
@@ -163,8 +167,38 @@ public class WidgetTag extends UseBeanTag {
         if (parent != null) {
             attachWidgets(parent, widget);
         }
+        
         return widget; 
     }
+    
+    /* 
+     * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
+     */
+    protected void setBeanProperties(Object bean, Map attributes)
+        throws JellyTagException {
+
+		// special handling of size property as the Control object breaks the
+		// JavaBean naming conventions by overloading the setSize() method 			
+		if (bean instanceof Control) {
+            Object size = attributes.remove("size");
+            if (size != null) {
+                Point point = null;
+	            if (size instanceof Point) {
+	                point = (Point) size;
+	            }
+	            else {
+	                point = PointConverter.getInstance().parse(size.toString());	                
+	            }
+                Control control = (Control) bean;
+                control.setSize(point);
+            }
+		}
+		
+        // TODO Auto-generated method stub
+        super.setBeanProperties(bean, attributes);
+    }
+
+
     
     /**
      * Provides a strategy method to allow a new child widget to be attached to
