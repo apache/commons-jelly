@@ -80,5 +80,25 @@
 		</util:available>
 		
   </test:case>
+  
+  <test:case name="testReplace">
+    
+    <util:replace oldChar="\" newChar="/" var="testString">A\B</util:replace>
+    <test:assertEquals expected="A/B" actual="${testString}">
+      Should have replaced a back slash with a forward one
+    </test:assertEquals>
+    
+    <j:set var="testString2"><util:replace oldChar="\" newChar="/">A\B</util:replace></j:set>
+    <test:assertEquals expected="A/B" actual="${testString2}">
+      Should have replaced a back slash with a forward one
+      and placed the result into output
+    </test:assertEquals>
+    
+    <util:replace oldChar="/" newChar="\" value="${testString}" var="testString3" />
+    <test:assertEquals expected="A\B" actual="${testString3}">
+      Should have replaced a slash with a back slash from a variable
+      and placed the result into a variable
+    </test:assertEquals>
+  </test:case>
 	
 </test:suite>
