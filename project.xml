@@ -63,8 +63,19 @@
       <email>geirm@adeptra.com</email>
       <organization>Adeptra , Inc.</organization>
     </developer>
+    
+    <developer>
+      <name>dIon Gillard</name>
+      <id>dion</id>
+      <email>dion@multitask.com.au</email>
+      <organization>Multitask Consulting</organization>
+      <roles>
+        <role>Interested party</role>
+      </roles>
+    </developer>
+
   </developers>
-  
+
   <dependencies>
     <dependency>
       <name>commons-logging</name>
