@@ -59,7 +59,7 @@ package org.apache.commons.jelly.tags.jsl;
 
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.xml.XPathTagSupport;
+import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.rule.Stylesheet;

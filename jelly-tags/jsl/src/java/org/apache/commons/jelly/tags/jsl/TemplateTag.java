@@ -61,7 +61,7 @@ package org.apache.commons.jelly.tags.jsl;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.xml.XPathSource;
+import org.apache.commons.jelly.xpath.XPathSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Node;
