@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -68,7 +68,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.55 $
+ * @version $Revision: 1.56 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -76,8 +76,8 @@ public class XMLParser extends DefaultHandler {
      * Share the Jelly properties across parsers
      */
     private static Properties jellyProperties;
-    
-    
+
+
     /** JellyContext which is used to locate tag libraries*/
     private JellyContext context = new JellyContext();
 
@@ -157,7 +157,7 @@ public class XMLParser extends DefaultHandler {
      * for error reporting
      */
     private String fileName;
-    
+
     /**
      * Do we want to use a validating parser?
      */
@@ -167,7 +167,7 @@ public class XMLParser extends DefaultHandler {
     private boolean configured;
 
     /**
-     * when not null, set the default namespace for 
+     * when not null, set the default namespace for
      * unprefixed elements via the DefaultNamespaceFilter
      * class
      */
@@ -177,7 +177,7 @@ public class XMLParser extends DefaultHandler {
      * The Log to which logging calls will be made.
      */
     private Log log = LogFactory.getLog(XMLParser.class);
-    
+
     /**
      * Construct a new XMLParser with default properties.
      */
@@ -260,9 +260,9 @@ public class XMLParser extends DefaultHandler {
      * (Note: if reading a File or URL, use one of the URL-based
      * parse methods instead.  This method will not be able
      * to resolve any relative paths inside a DTD.)
-     * 
+     *
      * @param input  Input stream containing the XML data to be parsed
-     * @return 
+     * @return
      * @exception IOException
      *                   if an input/output error occurs
      * @exception SAXException
@@ -281,9 +281,9 @@ public class XMLParser extends DefaultHandler {
      * (Note: if reading a File or URL, use one of the URL-based
      * parse methods instead.  This method will not be able
      * to resolve any relative paths inside a DTD.)
-     * 
+     *
      * @param reader Reader containing the XML data to be parsed
-     * @return 
+     * @return
      * @exception IOException
      *                   if an input/output error occurs
      * @exception SAXException
@@ -333,7 +333,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     // Properties
-    //-------------------------------------------------------------------------                    
+    //-------------------------------------------------------------------------
     public JellyContext getContext() {
         return context;
     }
@@ -346,7 +346,7 @@ public class XMLParser extends DefaultHandler {
      * Set the jelly namespace to use for unprefixed elements.
      * Will be overridden by an explicit namespace in the
      * XML document.
-     * 
+     *
      * @param namespace jelly namespace to use (e.g. 'jelly:core')
      */
     public void setDefaultNamespaceURI(String namespace) {
@@ -536,7 +536,7 @@ public class XMLParser extends DefaultHandler {
     /**
      * Returns the script that has just been created if this class is used
      * as a SAX ContentHandler and passed into some XML processor or parser.
-     * 
+     *
      * @return the ScriptBlock created if SAX events are piped into this class,
      * which must include a startDocument() and endDocument()
      */
@@ -589,13 +589,13 @@ public class XMLParser extends DefaultHandler {
         String qName,
         Attributes list)
         throws SAXException {
-            
-        try {            
+
+        try {
             // add check to ensure namespace URI is "" for no namespace
             if ( namespaceURI == null ) {
                 namespaceURI = "";
             }
-            
+
             // if this is a tag then create a script to run it
             // otherwise pass the text to the current body
             TagScript newTagScript = createTag(namespaceURI, localName, list);
@@ -613,7 +613,7 @@ public class XMLParser extends DefaultHandler {
                 tagScript.setFileName(fileName);
                 tagScript.setElementName(qName);
                 tagScript.setLocalName(localName);
-                
+
                 if (textBuffer.length() > 0) {
                     addTextScript(textBuffer.toString());
                     textBuffer.setLength(0);
@@ -645,10 +645,10 @@ public class XMLParser extends DefaultHandler {
         }
         catch (Exception e) {
             log.error( "Caught exception: " + e, e );
-            throw new SAXException( "Runtime Exception: " + e, e );            
+            throw new SAXException( "Runtime Exception: " + e, e );
         }
     }
-    
+
     /**
      * Process notification of character data received from the body of
      * an XML element.
@@ -678,7 +678,7 @@ public class XMLParser extends DefaultHandler {
      */
     public void endElement(String namespaceURI, String localName, String qName)
         throws SAXException {
-        try {            
+        try {
             tagScript = (TagScript) tagScriptStack.remove(tagScriptStack.size() - 1);
             if (tagScript != null) {
                 if (textBuffer.length() > 0) {
@@ -692,7 +692,7 @@ public class XMLParser extends DefaultHandler {
                 textBuffer.append(qName);
                 textBuffer.append(">");
             }
-            
+
             // now lets set the parent tag variable
             if ( tagScriptStack.isEmpty() ) {
                 tagScript = null;
@@ -702,7 +702,7 @@ public class XMLParser extends DefaultHandler {
             }
         } catch (Exception e) {
             log.error( "Caught exception: " + e, e );
-            throw new SAXException( "Runtime Exception: " + e, e );            
+            throw new SAXException( "Runtime Exception: " + e, e );
         }
     }
 
@@ -723,13 +723,13 @@ public class XMLParser extends DefaultHandler {
             namespaces.put(prefix, stack);
         }
         stack.push(namespaceURI);
-        
+
         if ( elementNamespaces == null ) {
             elementNamespaces = new HashMap();
         }
         elementNamespaces.put(prefix, namespaceURI);
     }
-    
+
     /**
      * Process notification that a namespace prefix is going out of scope.
      *
@@ -879,7 +879,7 @@ public class XMLParser extends DefaultHandler {
         if (errorHandler != null) {
             errorHandler.fatalError(exception);
         } else {
-            throw exception;        
+            throw exception;
         }
     }
 
@@ -930,9 +930,9 @@ public class XMLParser extends DefaultHandler {
         for (Iterator iter = properties.entrySet().iterator(); iter.hasNext();) {
             Map.Entry entry = (Map.Entry) iter.next();
             String uri = (String) entry.getKey();
-            String className = (String) entry.getValue();                    
+            String className = (String) entry.getValue();
             String libraryURI = "jelly:" + uri;
-            
+
             // don't overload any Mock Tags already
             if ( ! context.isTagLibraryRegistered(libraryURI) ) {
                 context.registerTagLibrary(libraryURI, className);
@@ -947,7 +947,7 @@ public class XMLParser extends DefaultHandler {
     protected synchronized Properties getJellyProperties() {
         if (jellyProperties == null) {
             jellyProperties = new Properties();
-            
+
             InputStream in = null;
             URL url =
                 getClassLoader().getResource("org/apache/commons/jelly/jelly.properties");
@@ -1012,10 +1012,10 @@ public class XMLParser extends DefaultHandler {
                 TagScript script = taglib.createTagScript(localName, list);
                 if ( script != null ) {
                     configureTagScript(script);
-                    
+
                     // clone the attributes to keep them around after this parse
                     script.setSaxAttributes(new AttributesImpl(list));
-                    
+
                     // now iterate through through the expressions
                     int size = list.getLength();
                     for (int i = 0; i < size; i++) {
@@ -1044,8 +1044,8 @@ public class XMLParser extends DefaultHandler {
             throw createSAXException(e);
         }
     }
-                
-    
+
+
     /**
      * Factory method to create a static Tag that represents some static content.
      */
@@ -1060,7 +1060,7 @@ public class XMLParser extends DefaultHandler {
             StaticTagScript script = new StaticTagScript(
                 new TagFactory() {
                     public Tag createTag(String name, Attributes attributes) {
-                        return new StaticTag( namespaceURI, localName, qName );   
+                        return new StaticTag( namespaceURI, localName, qName );
                     }
                 }
             );
@@ -1095,17 +1095,17 @@ public class XMLParser extends DefaultHandler {
      *
      * @param aTagScript
      */
-    protected void configureTagScript(TagScript aTagScript) {        
+    protected void configureTagScript(TagScript aTagScript) {
         // set parent relationship...
         aTagScript.setParent(this.tagScript);
-    
+
         // set the namespace Map
         if ( elementNamespaces != null ) {
             aTagScript.setTagNamespacesMap( elementNamespaces );
             elementNamespaces = null;
         }
-    }                
-    
+    }
+
     /**
      * Adds the text to the current script block parsing any embedded
      * expressions inot ExpressionScript objects.
@@ -1123,19 +1123,19 @@ public class XMLParser extends DefaultHandler {
      */
     protected void addExpressionScript(ScriptBlock script, Expression expression) {
         if ( expression instanceof ConstantExpression ) {
-            ConstantExpression constantExpression 
+            ConstantExpression constantExpression
                 = (ConstantExpression) expression;
             Object value = constantExpression.getValue();
             if ( value != null ) {
                 script.addScript(new TextScript( value.toString() ));
             }
         }
-        else 
+        else
         if ( expression instanceof CompositeExpression ) {
             CompositeTextScriptBlock newBlock = new CompositeTextScriptBlock();
             script.addScript(newBlock);
-            
-            CompositeExpression compositeExpression 
+
+            CompositeExpression compositeExpression
                 = (CompositeExpression) expression;
             Iterator iter = compositeExpression.getExpressions().iterator();
             while (iter.hasNext()) {
@@ -1159,7 +1159,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * @return the current context URI as a String or null if there is no 
+     * @return the current context URI as a String or null if there is no
      * current context defined on the JellyContext
      */
     protected String getCurrentURI() {
