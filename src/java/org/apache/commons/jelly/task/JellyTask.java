@@ -193,7 +193,7 @@ public class JellyTask extends Task {
      * @return the URL for the relative file name or absolute URL 
      */
     protected URL resolveURL(String name) throws MalformedURLException {
-        File file = new File(name);
+		File file = project.resolveFile(name);
         if (file.exists()) {
             return file.toURL();
         }
