@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java,v 1.5 2003/01/25 23:34:42 morgand Exp $
- * $Revision: 1.5 $
- * $Date: 2003/01/25 23:34:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanPropertyTag.java,v 1.6 2003/02/25 22:54:22 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/02/25 22:54:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanPropertyTag.java,v 1.5 2003/01/25 23:34:42 morgand Exp $
+ * $Id: BeanPropertyTag.java,v 1.6 2003/02/25 22:54:22 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -78,7 +78,7 @@ import org.apache.commons.jelly.XMLOutput;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class BeanPropertyTag extends BeanTag {
 
@@ -139,8 +139,7 @@ public class BeanPropertyTag extends BeanTag {
      * @param parentClass
      * @return the class of the first and only parameter
      */
-    protected Class findAddMethodClass(Class parentClass)
-    {
+    protected Class findAddMethodClass(Class parentClass) {
         Method[] methods = parentClass.getMethods();
         for (int i = 0; i < methods.length; i++) {
             Method method = methods[i];

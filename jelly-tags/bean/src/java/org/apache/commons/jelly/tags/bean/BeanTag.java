@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.5 2003/01/25 23:34:42 morgand Exp $
- * $Revision: 1.5 $
- * $Date: 2003/01/25 23:34:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.6 2003/02/25 22:54:22 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2003/02/25 22:54:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanTag.java,v 1.5 2003/01/25 23:34:42 morgand Exp $
+ * $Id: BeanTag.java,v 1.6 2003/02/25 22:54:22 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -82,13 +82,14 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version   $Revision: 1.5 $
+ * @version   $Revision: 1.6 $
  */
 public class BeanTag extends UseBeanTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(BeanTag.class);
 
+    protected static final Object[] EMPTY_ARGUMENTS = {};
 
     /** the name of the property to create */
     private String tagName;
@@ -96,10 +97,18 @@ public class BeanTag extends UseBeanTag {
     /** the name of the adder method */
     protected String addMethodName;
 
-    
+    /** if present this is used to call a doit method when the bean is constructed */
+    private Method invokeMethod;
+
+
     public BeanTag(Class defaultClass, String tagName) {
+        this(defaultClass, tagName, null);
+    }
+
+    public BeanTag(Class defaultClass, String tagName, Method invokeMethod) {
         super(defaultClass);
         this.tagName = tagName;
+        this.invokeMethod = invokeMethod;
         
         if (tagName.length() > 0) {
             addMethodName = "add" 
@@ -164,6 +173,16 @@ public class BeanTag extends UseBeanTag {
                 }
                 else if(var == null) { //warn if the bean gets lost in space
                     log.warn( "Could not add bean to parent for bean: " + bean );
+                }
+            }
+            
+            if (invokeMethod != null) {
+                Object[] args = { bean };
+                try {
+                    invokeMethod.invoke(bean, EMPTY_ARGUMENTS);
+                }
+                catch (Exception e) {
+                    throw new JellyTagException( "failed to invoke method: " + invokeMethod + " on bean: " + bean + " reason: " + e, e );
                 }
             }
         }

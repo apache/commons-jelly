@@ -14,6 +14,7 @@
 			 which it appears does not play any role - it becomes globally visible after it is executed -->
 			 
 	<beandef name="customer" className="org.apache.commons.jelly.tags.bean.Customer"/>
+	<beandef name="manager" className="org.apache.commons.jelly.tags.bean.Manager" methodName="run"/>
 	
 	<test:case name="testNestedBeanTag">
 
@@ -180,4 +181,27 @@
 	
 	</test:case>
 
+	<test:case name="testInvokeMethod">
+
+		<manager var="foo">
+			<customer name="James" location="London">
+				<order amount="100" price="2.99">
+					<product id="p1" name="Beer"/>
+				</order>
+				<order amount="200" price="4.99">
+					<product id="p2" name="Pizza"/>
+				</order>
+			</customer>
+			<customer name="Bob" location="Atlanta">
+				<order amount="200" price="2.99">
+					<product id="p1" name="Beer"/>
+				</order>
+			</customer>
+		</manager>	
+
+		<test:assertTrue test="${foo.isInvoked()}"/>
+		<test:assertTrue test="${size(foo.customers) == 2}"/>
+		
+	</test:case>
+	
 </test:suite>

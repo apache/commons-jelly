@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeandefTag.java,v 1.3 2003/01/25 23:09:35 morgand Exp $
- * $Revision: 1.3 $
- * $Date: 2003/01/25 23:09:35 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeandefTag.java,v 1.4 2003/02/25 22:54:22 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/02/25 22:54:22 $
  *
  * ====================================================================
  *
@@ -57,14 +57,16 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeandefTag.java,v 1.3 2003/01/25 23:09:35 morgand Exp $
+ * $Id: BeandefTag.java,v 1.4 2003/02/25 22:54:22 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
@@ -78,7 +80,7 @@ import org.apache.commons.logging.LogFactory;
  * the tag set the bean properties..
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class BeandefTag extends TagSupport {
 
@@ -87,6 +89,8 @@ public class BeandefTag extends TagSupport {
 
     /** An empty Map as I think Collections.EMPTY_MAP is only JDK 1.3 onwards */
     private static final Map EMPTY_MAP = new HashMap();
+    
+    protected static final Class[] EMPTY_ARGUMENT_TYPES = {};
 
     /** the name of the tag to create */
     private String name;
@@ -94,6 +98,9 @@ public class BeandefTag extends TagSupport {
     /** the Java class name to use for the tag */
     private String className;
 
+	/** the name of the invoke method */
+	private String methodName;
+	 
     /** the ClassLoader used to load beans */
     private ClassLoader classLoader;
     
@@ -139,9 +146,11 @@ public class BeandefTag extends TagSupport {
 				}
 			}
 		}
+		
+		Method invokeMethod = getInvokeMethod(theClass);
         
         // @todo should we allow the variable name to be specified?
-        library.registerBean(name, theClass);
+        library.registerBean(name, theClass, invokeMethod);
 	}
 
     
@@ -184,5 +193,30 @@ public class BeandefTag extends TagSupport {
             return answer;
         }
         return classLoader;
+    }
+
+    /**
+     * @return String
+     */
+    public String getMethodName() {
+        return methodName;
+    }
+
+    /**
+     * Sets the methodName.
+     * @param methodName The methodName to set
+     */
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                    
+    protected Method getInvokeMethod(Class theClass) {
+        if (methodName != null) {
+            // lets lookup the method name
+            return MethodUtils.getAccessibleMethod(theClass, methodName, EMPTY_ARGUMENT_TYPES);
+        }
+        return null;
     }
 }
