@@ -27,6 +27,7 @@
       <item name="Getting Started"         href="/gettingstarted.html"/>
       <item name="Tutorial"         	     href="/tutorial.html"/>
       <item name="Detail"                  href="/overview.html"/>
+      <item name="JellyDoc"                  href="/jellydoc.html"/>
       <item name="Download"                href="http://www.ibiblio.org/maven/commons-jelly/distributions/"/>
     </menu>
     <menu name="Community">
