@@ -126,6 +126,14 @@
       	<role>Inventor of Mock Tags</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>Otto von Wachter</name>
+      <email>vonwao@yahoo.com</email>
+      <organization></organization>
+      <roles>
+      	<role>Author of the tutorials</role>
+      </roles>
+    </contributor>
   </contributors>
 
   <dependencies>
