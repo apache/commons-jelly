@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.5 2002/06/28 03:30:24 werken Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/28 03:30:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionSupport.java,v 1.6 2002/07/13 01:03:27 plynch Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/07/13 01:03:27 $
  *
  * ====================================================================
  *
@@ -56,12 +56,13 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: ExpressionSupport.java,v 1.5 2002/06/28 03:30:24 werken Exp $
+ *
+ * $Id: ExpressionSupport.java,v 1.6 2002/07/13 01:03:27 plynch Exp $
  */
 package org.apache.commons.jelly.expression;
 
 import java.util.Collections;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -73,18 +74,18 @@ import org.apache.commons.collections.SingletonIterator;
 
 import org.apache.commons.jelly.JellyContext;
 
-/** <p><code>ExpressionSupport</code> 
+/** <p><code>ExpressionSupport</code>
   * an abstract base class for Expression implementations
   * which provides default implementations of some of the
   * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public abstract class ExpressionSupport implements Expression {
 
     protected static final Iterator EMPTY_ITERATOR = Collections.EMPTY_LIST.iterator();
-    
+
     // inherit javadoc from interface
     public String evaluateAsString(JellyContext context) {
         Object value = evaluate(context);
@@ -93,7 +94,7 @@ public abstract class ExpressionSupport implements Expression {
         }
         return null;
     }
-    
+
     // inherit javadoc from interface
     public boolean evaluateAsBoolean(JellyContext context) {
         Object value = evaluate(context);
@@ -123,7 +124,7 @@ public abstract class ExpressionSupport implements Expression {
         }
         return false;
     }
-    
+
     // inherit javadoc from interface
     public Iterator evaluateAsIterator(JellyContext context) {
         Object value = evaluate(context);
@@ -147,6 +148,10 @@ public abstract class ExpressionSupport implements Expression {
         }
         else if ( value instanceof Enumeration ) {
             return new EnumerationIterator((Enumeration ) value);
+        }
+        else if ( value instanceof Collection ) {
+          Collection collection = (Collection) value;
+          return collection.iterator();
         }
         else {
             // XXX: should we return single iterator?
