@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.10 2002/04/25 16:47:07 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/04/25 16:47:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.11 2002/04/25 18:58:47 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/04/25 18:58:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.10 2002/04/25 16:47:07 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.11 2002/04/25 18:58:47 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -117,9 +117,12 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public class XMLParser extends DefaultHandler {
+
+    /** Context which is used to locate tag libraries*/
+    private Context context = new Context();
     
     /** the expression factory used to evaluate tag attributes */
     private ExpressionFactory expressionFactory;
@@ -141,9 +144,6 @@ public class XMLParser extends DefaultHandler {
     
     /** The current text buffer where non-custom tags get written */
     private StringBuffer textBuffer;
-    
-    /** Tag libraries found so far */
-    private Map taglibs = new HashMap();
     
     /**
      * The class loader to use for instantiating application objects.
@@ -212,9 +212,9 @@ public class XMLParser extends DefaultHandler {
     private boolean configured;
     
     /**
-     * The Log to which most logging calls will be made.
+     * The Log to which logging calls will be made.
      */
-    private Log log = LogFactory.getLog("org.apache.commons.digester.XMLParser");
+    private Log log = LogFactory.getLog( XMLParser.class );
     
     
     /**
@@ -245,40 +245,7 @@ public class XMLParser extends DefaultHandler {
         this.reader = reader;
     }
 
-    /** Registers the given tag library against the given namespace URI.
-     * This should be called before the parser is used.
-     */
-    public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
-        taglibs.put( namespaceURI, taglib );
-    }
-    
 
-    /** Registers the given tag library class name against the given namespace URI.
-     * The class will be loaded via the getClassLoader().
-     * This should be called before the parser is used.
-     */
-    public void registerTagLibrary(String namespaceURI, String className) {
-        try {
-            Class theClass = getClassLoader().loadClass( className );
-            Object object = theClass.newInstance();
-            if ( object instanceof TagLibrary ) {
-                registerTagLibrary( namespaceURI, (TagLibrary) object );
-            }
-            else {
-                log.error( 
-                    "The tag library object mapped to: " 
-                    + namespaceURI + " is not a TagLibrary. Object = " + object 
-                );
-            }
-        }
-        catch (ClassNotFoundException e) {
-            log.error( "Could not find the class: " + className, e );
-        }
-        catch (Exception e) {
-            log.error( "Could not instantiate instance of class: " + className + ". Reason: " + e, e );
-        }
-    }
-    
     /**
      * Parse the content of the specified file using this XMLParser.  Returns
      * the root element from the object stack (if any).
@@ -383,7 +350,19 @@ public class XMLParser extends DefaultHandler {
         }
     }
     
+
     
+    // Properties
+    //-------------------------------------------------------------------------                    
+    
+    public Context getContext() {
+        return context;
+    }
+    
+    public void setContext(Context context) {
+        this.context = context;
+    }
+        
     /**
      * Return the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
@@ -921,7 +900,7 @@ public class XMLParser extends DefaultHandler {
     private void ensureConfigured() {
         if ( ! configured ) {
             configure();
-            configured = false;
+            configured = true;
         }
     }
     
@@ -944,7 +923,7 @@ public class XMLParser extends DefaultHandler {
                     Map.Entry entry = (Map.Entry) iter.next();
                     String uri = (String) entry.getKey();
                     String className = (String) entry.getValue();
-                    registerTagLibrary( "jelly:" + uri, className );
+                    context.registerTagLibrary( "jelly:" + uri, className, getClassLoader() );
                 }
             }
             catch (IOException e) {
@@ -969,7 +948,7 @@ public class XMLParser extends DefaultHandler {
     protected TagScript createTag( String namespaceURI, String localName, Attributes list ) throws SAXException {
         try {
             // use the URI to load a taglib
-            TagLibrary taglib = (TagLibrary) taglibs.get( namespaceURI );
+            TagLibrary taglib = context.getTagLibrary( namespaceURI );
             if ( taglib == null ) {
                 if ( namespaceURI != null && namespaceURI.startsWith( "jelly:" ) ) {
                     String uri = namespaceURI.substring(6);
@@ -977,6 +956,8 @@ public class XMLParser extends DefaultHandler {
                     try {
                         Class taglibClass = getClassLoader().loadClass( uri );
                         taglib = (TagLibrary) taglibClass.newInstance();
+                        
+                        context.registerTagLibrary( namespaceURI, taglib );
                     }
                     catch (ClassNotFoundException e) {
                         log.warn( "Could not load class: " + uri + " so disabling the taglib" );

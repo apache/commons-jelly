@@ -3,7 +3,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.11 2002/04/24 13:03:03 jstrachan Exp $
+        $Id: build.xml,v 1.12 2002/04/25 18:58:47 jstrachan Exp $
 -->
 
 
@@ -332,8 +332,17 @@
       description="Runs the test of the XML tags">
     <java classname="org.apache.commons.jelly.TestXMLTags" fork="yes">
       <classpath refid="test.classpath"/>
-      <sysproperty key="org.apache.commons.logging.log" value="org.apache.commons.logging.impl.SimpleLog"/>
       <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
+    </java>
+   </target>
+
+   <target name="test.define" depends="compile.tests" 
+      description="Runs the test of the define tags to test dynamic tags">
+    <java classname="org.apache.commons.jelly.define.TestDynamicTags" fork="yes">
+      <classpath refid="test.classpath"/>
+      <!--
+      <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
+      -->
     </java>
    </target>
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/04/25 18:14:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/25 18:58:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DynamicTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
+ * $Id: DynamicTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -70,6 +70,10 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+
 /** 
  * <p><code>DynamicTag</code> is a tag that is created from
  * inside a Jelly script as a Jelly template and will invoke a 
@@ -77,9 +81,12 @@ import org.apache.commons.jelly.XMLOutput;
  * as variables and will allow the template to invoke its instance body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class DynamicTag extends TagSupport implements DynaTag {
+
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog( DynamicTag.class );
     
     /** The template script */
     private Script template;
@@ -98,6 +105,8 @@ public class DynamicTag extends TagSupport implements DynaTag {
     //-------------------------------------------------------------------------                    
     public void run(Context context, XMLOutput output) throws Exception {
 
+        log.info( "Invoking dynamic tag with attributes: " + attributes );
+        
         // create new context based on current attributes
         Context newContext = context.newContext( attributes );
         

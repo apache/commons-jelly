@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.4 2002/04/24 11:59:12 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/04/24 11:59:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.5 2002/04/25 18:58:47 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/04/25 18:58:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.4 2002/04/24 11:59:12 jstrachan Exp $
+ * $Id: Jelly.java,v 1.5 2002/04/25 18:58:47 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -74,7 +74,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>Jelly</code> an application which runs a Jelly script.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public class Jelly {
 
@@ -103,7 +103,13 @@ public class Jelly {
             new OutputStreamWriter( System.out )
         );
         
+        // add the system properties and the command line arguments
+        //Context context = new Context( System.getProperties() );
+        Context context = new Context();
+        context.setVariable( "args", args );
+        
         XMLParser parser = new XMLParser();
+        parser.setContext( context );
         Script script = parser.parse( input );
     
         script = script.compile();
@@ -112,12 +118,7 @@ public class Jelly {
             log.debug( "Compiled script: " + script );
         }
         
-        // add the system properties and the command line arguments
-        //Context context = new Context( System.getProperties() );
-        Context context = new Context();
-        context.setVariable( "args", args );
-        
-        XMLOutput output= XMLOutput.createXMLOutput( writer );
+        XMLOutput output = XMLOutput.createXMLOutput( writer );
         
         script.run( context, output );
         

@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
- * $Revision: 1.2 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.1 2002/04/25 18:58:47 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/04/25 18:58:47 $
  *
  * ====================================================================
@@ -57,63 +57,79 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagLibTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
+ * $Id: TestDynamicTags.java,v 1.1 2002/04/25 18:58:47 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.define;
+package org.apache.commons.jelly.define;
+
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.StringWriter;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.Context;
-import org.apache.commons.jelly.DynaTag;
-import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.TagScript;
+import org.apache.commons.jelly.parser.XMLParser;
 
-import org.xml.sax.Attributes;
-import org.xml.sax.helpers.AttributesImpl;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-/** 
- * <p><code>DefineTag</code> is used to define a new taglib
- * using a Jelly script..</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
- */
-public class DefineTagLibTag extends TagSupport {
+
+/** Tests dynamic tags
+  *
+  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+  * @version $Revision: 1.1 $
+  */
+public class TestDynamicTags extends TestCase {
     
-    /** The namespace URI */
-    private String uri;
-    /** The new tags being added */
-    private DynamicTagLibrary tagLibrary;
+    XMLParser parser = new XMLParser();        
+    XMLOutput output;
     
-    public DefineTagLibTag() {
+    StringWriter buffer = new StringWriter();
+    
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog( TestDynamicTags.class );
+
+    public static void main( String[] args ) {
+        TestRunner.run( suite() );
     }
     
-    public DefineTagLibTag(String uri) {
-        this.uri = uri;
+    public static Test suite() {
+        return new TestSuite(TestDynamicTags.class);
     }
     
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void run(Context context, XMLOutput output) throws Exception {
-        tagLibrary = new DynamicTagLibrary( getUri() );
-
-        context.registerTagLibrary( getUri(), tagLibrary );
+    public TestDynamicTags(String testName) {
+        super(testName);
+    }
+    
+    public void testParse() throws Exception {
         
-        getBody().run(context, output);
+        
+        output = XMLOutput.createXMLOutput( buffer );
+    
+        runScript( "babelfishTaglib.jelly" );
+        runScript( "example.jelly" );
+        
+        log.info( "The output was as follows" );
+        log.info( buffer.toString() );
+    }
+    
+    protected void runScript(String name) throws Exception {
+        
+        InputStream in = getClass().getResourceAsStream( name );
+        
+        Script script = parser.parse( in );
+        script = script.compile();
 
-        tagLibrary = null;
+        log.info( "Evaluating: " + script );        
+        script.run( parser.getContext(), output );
     }    
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
-    public String getUri() {
-        return uri;
-    }
-    
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-    
-    public DynamicTagLibrary getTagLibrary() {
-        return tagLibrary;
-    }
 }
+

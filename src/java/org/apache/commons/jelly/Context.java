@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.7 2002/04/25 18:14:09 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/04/25 18:14:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.8 2002/04/25 18:58:47 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/04/25 18:58:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.7 2002/04/25 18:14:09 jstrachan Exp $
+ * $Id: Context.java,v 1.8 2002/04/25 18:58:47 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -65,15 +65,25 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+
 /** <p><code>Context</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class Context {
 
+    /** Tag libraries found so far */
+    private Map taglibs = new Hashtable();
+    
     /** synchronized access to the variables in scope */
     private Map variables = new Hashtable();
+
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog( Context.class );
 
     public Context() {
     }
@@ -135,6 +145,51 @@ public class Context {
         // XXXX: Or at least publish the parent scope
         // XXXX: as a Map in this new variable scope?
         newVariables.put( "parentScope", variables );
-        return new Context( newVariables );
+        Context answer = new Context( newVariables );
+        answer.taglibs = this.taglibs;
+        return answer;
+    }
+    
+    
+    /** Registers the given tag library against the given namespace URI.
+     * This should be called before the parser is used.
+     */
+    public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
+        log.info( "Registering tag library to: " + namespaceURI + " taglib: " + taglib );
+        
+        taglibs.put( namespaceURI, taglib );
+    }
+    
+    /** Registers the given tag library class name against the given namespace URI.
+     * The class will be loaded via the given ClassLoader
+     * This should be called before the parser is used.
+     */
+    public void registerTagLibrary(String namespaceURI, String className, ClassLoader classLoader) {
+        try {
+            Class theClass = classLoader.loadClass( className );
+            Object object = theClass.newInstance();
+            if ( object instanceof TagLibrary ) {
+                registerTagLibrary( namespaceURI, (TagLibrary) object );
+            }
+            else {
+                log.error( 
+                    "The tag library object mapped to: " 
+                    + namespaceURI + " is not a TagLibrary. Object = " + object 
+                );
+            }
+        }
+        catch (ClassNotFoundException e) {
+            log.error( "Could not find the class: " + className, e );
+        }
+        catch (Exception e) {
+            log.error( "Could not instantiate instance of class: " + className + ". Reason: " + e, e );
+        }
+    }
+    
+    /** 
+     * @return the TagLibrary for the given namespace URI or null if one could not be found
+     */
+    public TagLibrary getTagLibrary(String namespaceURI) {
+        return (TagLibrary) taglibs.get( namespaceURI );
     }
 }

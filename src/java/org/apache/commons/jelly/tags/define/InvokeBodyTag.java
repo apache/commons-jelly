@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/04/25 18:14:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/04/25 18:58:47 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.1 2002/04/25 18:14:09 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.2 2002/04/25 18:58:47 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -67,16 +67,24 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+
 /** 
  * <p><code>InvokeBodyTag</code> this tag needs to find
  * the correct parent DynamicTag instance and call its
  * body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class InvokeBodyTag extends TagSupport {
-    
+
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog( Context.class );
+
+
     public InvokeBodyTag() {
     }
     
@@ -88,8 +96,11 @@ public class InvokeBodyTag extends TagSupport {
         // #### nested dynamic tags. A better way is required.
         Tag tag = findAncestorWithClass(this, DynamicTag.class);
         if ( tag == null ) {
-            throw new JellyException( "Cannot invoke body, no dynamic tag is defined in this block" );
+            // throw new JellyException( "Cannot invoke body, no dynamic tag is defined in this block" );
+            log.warn( "Cannot invoke body, no dynamic tag is defined in this block" );
         }
-        tag.getBody().run(context, output);
+        else {
+            tag.getBody().run(context, output);
+        }
     }    
 }
