@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/servlet/JellyServlet.java,v 1.2 2002/12/11 12:41:02 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/12/11 12:41:02 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/servlet/JellyServlet.java,v 1.3 2002/12/17 08:32:56 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/12/17 08:32:56 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyServlet.java,v 1.2 2002/12/11 12:41:02 jstrachan Exp $
+ * $Id: JellyServlet.java,v 1.3 2002/12/17 08:32:56 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.servlet;
@@ -82,7 +82,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Servlet for handling display of Jelly-fied XML files. Modelled after VelocityServlet.
  * 
  * @author Kelvin Tan
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class JellyServlet extends HttpServlet {
 	/**
@@ -95,11 +95,11 @@ public class JellyServlet extends HttpServlet {
 	 */
 	public static final String RESPONSE = "response";
 
-	protected void doGet(
+    protected void doGet(
 		HttpServletRequest request,
 		HttpServletResponse response)
 		throws ServletException, IOException {
-			
+
 		doRequest(request, response);
 	}
 
@@ -107,7 +107,7 @@ public class JellyServlet extends HttpServlet {
 		HttpServletRequest request,
 		HttpServletResponse response)
 		throws ServletException, IOException {
-			
+
 		doRequest(request, response);
 	}
 
@@ -120,11 +120,11 @@ public class JellyServlet extends HttpServlet {
 	 */
 	protected void doRequest(HttpServletRequest req, HttpServletResponse res)
 		throws ServletException, IOException {
-			
+
 		JellyContext context = createContext(req, res);
-		URL template = getTemplate(req);
 		try {
-			runScript(template, context, req, res);
+            URL script = getScript(req);
+			runScript(script, context, req, res);
 		}
 		catch (Exception e) {
 			error(req, res, e);
@@ -140,27 +140,39 @@ public class JellyServlet extends HttpServlet {
 	protected JellyContext createContext(
 		HttpServletRequest req,
 		HttpServletResponse res) {
-			
-		JellyContext ctx = new JellyContext();
+
+		JellyContext ctx = new JellyServletContext(getServletContext());
 		ctx.setVariable(REQUEST, req);
 		ctx.setVariable(RESPONSE, res);
 		return ctx;
 	}
 
 	/**
+     * <p>
+     * Either use the query parameter "script", or the URI itself
+     * to denote the script to run.
+     * </p>
+     * <p>
+     * Example: script=index.jelly or http://localhost:8080/foo/index.jelly.
+     * </p>
+     *
 	 * @see org.apache.velocity.servlet.VelocityServlet#getTemplate
 	 * @param req
 	 * @return
 	 * @throws MalformedURLException
 	 */
-	protected URL getTemplate(HttpServletRequest req)
+	protected URL getScript(HttpServletRequest req)
 		throws MalformedURLException {
-			
-		String script = req.getParameter("template");
-		if (script == null) {
-			script = req.getServletPath();
+
+		String scriptUrl = req.getParameter("script");
+		if (scriptUrl == null) {
+			scriptUrl = req.getPathInfo();
 		}
-		return getServletContext().getResource(script);
+		URL url = getServletContext().getResource(scriptUrl);
+        if (url == null) {
+            throw new IllegalArgumentException("Invalid script url:" + scriptUrl);
+        }
+        return url;
 	}
 
 	/**
@@ -179,7 +191,7 @@ public class JellyServlet extends HttpServlet {
 		HttpServletRequest req,
 		HttpServletResponse res)
 		throws IOException, UnsupportedEncodingException, Exception {
-			
+
 		ServletOutputStream output = res.getOutputStream();
 		XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
 		context.runScript(script, xmlOutput);
@@ -204,12 +216,12 @@ public class JellyServlet extends HttpServlet {
 		HttpServletResponse response,
 		Exception cause)
 		throws ServletException, IOException {
-			
+
 		StringBuffer html = new StringBuffer();
 		html.append("<html>");
 		html.append("<title>Error</title>");
 		html.append("<body bgcolor=\"#ffffff\">");
-		html.append("<h2>JellyServlet : Error processing the template</h2>");
+		html.append("<h2>JellyServlet : Error processing the script</h2>");
 		html.append("<pre>");
 		String why = cause.getMessage();
 		if (why != null && why.trim().length() > 0) {
