@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.6 2002/06/14 06:53:03 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/14 06:53:03 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/impl/ExpressionScript.java,v 1.5 2002/05/17 15:18:10 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/05/17 15:18:10 $
  *
  * ====================================================================
  *
@@ -57,85 +57,45 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TextScript.java,v 1.6 2002/06/14 06:53:03 jstrachan Exp $
+ * $Id: ExpressionScript.java,v 1.5 2002/05/17 15:18:10 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
-
-import java.io.Writer;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
 
-/** <p><code>TextScript</code> outputs some static text.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
-  */
-public class TextScript implements Script {
+/** 
+ * <p><code>ExpressionScript</code> outputs the value of an expression as text.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.5 $
+ */
+public class ExpressionScript implements Script {
  
-    /** the text output by this script */
-    private String text;
+    /** the expression evaluated as a String and output by this script */
+    private Expression expression;
  
-    public TextScript() {
+    public ExpressionScript() {
     }
 
-    public TextScript(String text) {
-        this.text = text;
+    public ExpressionScript(Expression expression) {
+        this.expression = expression;
     }
 
     public String toString() {
-        return super.toString() + "[text=" + text + "]";
+        return super.toString() + "[expression=" + expression + "]";
     }
-    
-    /**
-     * Trims whitespace from the start and end of the text in this script
-     */
-    public void trimWhitespace() {
-        this.text = text.trim();
-    }
-    
-    /**
-     * Trims whitespace from the start of the text
-     */
-    public void trimStartWhitespace() {
-        int index = 0;        
-        for ( int length = text.length(); index < length; index++ ) {
-            char ch = text.charAt(index);
-            if (!Character.isWhitespace(ch)) {
-                break;
-            }            
-        }
-        if ( index > 0 ) {
-            this.text = text.substring(index);
-        }
-    }
-    
-    /**
-     * Trims whitespace from the end of the text
-     */
-    public void trimEndWhitespace() {
-        int index = text.length();
-        while (--index > 0) {
-            char ch = text.charAt(index);
-            if (!Character.isWhitespace(ch)) {
-                break;
-            }
-        }
-        index++;
-        if ( index < text.length() ) {
-            this.text = text.substring(0,index);
-        }
+ 
+    /** @return the expression evaluated as a String and output by this script */
+    public Expression getExpression() {
+        return expression;
     }
 
-    /** @return the text output by this script */
-    public String getText() {
-        return text;
-    }
-
-    /** Sets the text output by this script */
-    public void setText(String text) {
-        this.text = text;
+    /** Sets the expression evaluated as a String and output by this script */
+    public void setExpression(Expression expression) {
+        this.expression = expression;
     }
  
     // Script interface
@@ -146,8 +106,9 @@ public class TextScript implements Script {
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
-        output.write(text);
+        String text = expression.evaluateAsString(context);
+        if ( text != null ) {
+            output.write(text);
+        }
     }
-
-     
 }

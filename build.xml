@@ -242,6 +242,12 @@
     <maven-ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
    </target>
 
+   <target name="test.xml"
+      description="Runs the XML unit test">
+    <property name="maven.testcase" value="org.apache.commons.jelly.xml.TestXMLTags"/>   
+    <maven-ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
+   </target>
+
 
 <!-- ========== Sample Program Targets ==================================== -->
 

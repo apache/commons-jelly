@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.6 2002/06/14 06:53:03 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/14 06:53:03 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/impl/CompositeTextScriptBlock.java,v 1.7 2002/06/13 08:16:47 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/13 08:16:47 $
  *
  * ====================================================================
  *
@@ -57,97 +57,29 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TextScript.java,v 1.6 2002/06/14 06:53:03 jstrachan Exp $
+ * $Id: CompositeTextScriptBlock.java,v 1.7 2002/06/13 08:16:47 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
-/** <p><code>TextScript</code> outputs some static text.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
-  */
-public class TextScript implements Script {
- 
-    /** the text output by this script */
-    private String text;
- 
-    public TextScript() {
-    }
+/** 
+ * <p><code>CompositeTextScriptBlock</code> represents a text body of a
+ * a tag which contains expressions, so that whitespace trimming
+ * can be handled differently.</p>
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.7 $
+ */
+public class CompositeTextScriptBlock extends ScriptBlock {
 
-    public TextScript(String text) {
-        this.text = text;
+    public CompositeTextScriptBlock() {
     }
-
-    public String toString() {
-        return super.toString() + "[text=" + text + "]";
-    }
-    
-    /**
-     * Trims whitespace from the start and end of the text in this script
-     */
-    public void trimWhitespace() {
-        this.text = text.trim();
-    }
-    
-    /**
-     * Trims whitespace from the start of the text
-     */
-    public void trimStartWhitespace() {
-        int index = 0;        
-        for ( int length = text.length(); index < length; index++ ) {
-            char ch = text.charAt(index);
-            if (!Character.isWhitespace(ch)) {
-                break;
-            }            
-        }
-        if ( index > 0 ) {
-            this.text = text.substring(index);
-        }
-    }
-    
-    /**
-     * Trims whitespace from the end of the text
-     */
-    public void trimEndWhitespace() {
-        int index = text.length();
-        while (--index > 0) {
-            char ch = text.charAt(index);
-            if (!Character.isWhitespace(ch)) {
-                break;
-            }
-        }
-        index++;
-        if ( index < text.length() ) {
-            this.text = text.substring(0,index);
-        }
-    }
-
-    /** @return the text output by this script */
-    public String getText() {
-        return text;
-    }
-
-    /** Sets the text output by this script */
-    public void setText(String text) {
-        this.text = text;
-    }
- 
-    // Script interface
-    //-------------------------------------------------------------------------                
-    public Script compile() {
-        return this;
-    }
-
-    /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws Exception {
-        output.write(text);
-    }
-
-     
 }

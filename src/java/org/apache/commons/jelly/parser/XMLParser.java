@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.20 2002/06/06 07:13:41 jstrachan Exp $
- * $Revision: 1.20 $
- * $Date: 2002/06/06 07:13:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.21 2002/06/14 06:53:03 jstrachan Exp $
+ * $Revision: 1.21 $
+ * $Date: 2002/06/14 06:53:03 $
  *
  * ====================================================================
  *
@@ -57,9 +57,10 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.20 2002/06/06 07:13:41 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.21 2002/06/14 06:53:03 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.InputStream;
@@ -75,16 +76,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
 import org.apache.commons.collections.ArrayStack;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.ScriptBlock;
+import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
+import org.apache.commons.jelly.impl.ExpressionScript;
 import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.jelly.impl.DynaTagScript;
+import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.expression.CompositeExpression;
@@ -92,10 +98,13 @@ import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
+
 import org.apache.commons.jelly.tags.core.CoreTagLibrary;
 import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.EntityResolver;
@@ -110,7 +119,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -580,7 +589,7 @@ public class XMLParser extends DefaultHandler {
                 parentTag = tag;                
                 
                 if (textBuffer.length() > 0) {
-                    script.addScript(new TextScript(textBuffer.toString()));
+                    addTextScript(textBuffer.toString());
                     textBuffer.setLength(0);
                 }
                 script.addScript(tagScript);
@@ -613,7 +622,7 @@ public class XMLParser extends DefaultHandler {
             throw new SAXException( "Runtime Exception: " + e, e );            
         }
     }
-
+    
     /**
      * Process notification of character data received from the body of
      * an XML element.
@@ -643,25 +652,34 @@ public class XMLParser extends DefaultHandler {
      */
     public void endElement(String namespaceURI, String localName, String qName)
         throws SAXException {
-        tagScript = (TagScript) tagScriptStack.remove(tagScriptStack.size() - 1);
-        if (tagScript != null) {
-            if (textBuffer.length() > 0) {
-                script.addScript(new TextScript(textBuffer.toString()));
-                textBuffer.setLength(0);
-            }
-            script = (ScriptBlock) scriptStack.pop();
+        try {            
+	        tagScript = (TagScript) tagScriptStack.remove(tagScriptStack.size() - 1);
+	        if (tagScript != null) {
+	            if (textBuffer.length() > 0) {
+	                addTextScript(textBuffer.toString());
+	                textBuffer.setLength(0);
+	            }
+	            script = (ScriptBlock) scriptStack.pop();
+	        }
+	        else {
+	            textBuffer.append("</");
+	            textBuffer.append(qName);
+	            textBuffer.append(">");
+	        }
+	        int size = tagStack.size();
+	        if ( size <= 0 ) {
+	            parentTag = null;
+	        }
+	        else {
+	            parentTag = (Tag) tagStack.remove( size - 1 );
+	        }
         }
-        else {
-            textBuffer.append("</");
-            textBuffer.append(qName);
-            textBuffer.append(">");
+        catch (SAXException e) {
+            throw e;
         }
-        int size = tagStack.size();
-        if ( size <= 0 ) {
-            parentTag = null;
-        }
-        else {
-            parentTag = (Tag) tagStack.remove( size - 1 );
+        catch (Exception e) {
+            log.error( "Caught exception: " + e, e );
+            throw new SAXException( "Runtime Exception: " + e, e );            
         }
     }
 
@@ -1003,6 +1021,48 @@ public class XMLParser extends DefaultHandler {
             throw createSAXException(e);
         }
     }
+    
+    /**
+     * Adds the text to the current script block parsing any embedded
+     * expressions inot ExpressionScript objects.
+     */
+    protected void addTextScript(String text) throws Exception {
+        Expression expression =
+            CompositeExpression.parse(text, getExpressionFactory());
+
+        addExpressionScript(script, expression);
+    }
+
+
+    /**
+     * Adds the given Expression object to the current Script.
+     */
+    protected void addExpressionScript(ScriptBlock script, Expression expression) {
+        if ( expression instanceof ConstantExpression ) {
+            ConstantExpression constantExpression 
+                = (ConstantExpression) expression;
+            Object value = constantExpression.getValue();
+            if ( value != null ) {
+                script.addScript(new TextScript( value.toString() ));
+            }
+        }
+        else 
+        if ( expression instanceof CompositeExpression ) {
+            CompositeTextScriptBlock newBlock = new CompositeTextScriptBlock();
+            script.addScript(newBlock);
+            
+            CompositeExpression compositeExpression 
+                = (CompositeExpression) expression;
+            Iterator iter = compositeExpression.getExpressions().iterator();
+            while (iter.hasNext()) {
+                addExpressionScript( newBlock, (Expression) iter.next() );
+            }
+        }
+        else {
+            script.addScript(new ExpressionScript(expression));
+        }
+    }
+
 
     protected Expression createConstantExpression(
         String tagName,

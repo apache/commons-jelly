@@ -111,6 +111,10 @@ public class TestXMLTags extends TestCase {
         runUnitTest( "src/test/org/apache/commons/jelly/xml/testForEach.jelly" );
     }
     
+    public void testExpressions() throws Exception {
+        runUnitTest( "src/test/org/apache/commons/jelly/xml/testExpressions.jelly");
+    }
+    
     public void testParse() throws Exception {
         InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/xml/example.jelly");
         XMLParser parser = new XMLParser();
@@ -129,6 +133,16 @@ public class TestXMLTags extends TestCase {
     }
     
     public void runUnitTest(String name) throws Exception {
+        Document document = parseUnitTest(name);
+        
+        List failures = document.selectNodes( "/*/fail" );
+        for ( Iterator iter = failures.iterator(); iter.hasNext(); ) {
+            Node node = (Node) iter.next();
+            fail( node.getStringValue() );
+        }
+    }
+    
+    public Document parseUnitTest(String name) throws Exception {
         // parse script
         InputStream in = new FileInputStream(name);
         XMLParser parser = new XMLParser();
@@ -145,12 +159,7 @@ public class TestXMLTags extends TestCase {
         }
         
         // now lets parse the output
-        Document document = DocumentHelper.parseText( text );
-        List failures = document.selectNodes( "/*/fail" );
-        for ( Iterator iter = failures.iterator(); iter.hasNext(); ) {
-            Node node = (Node) iter.next();
-            fail( node.getStringValue() );
-        }
+        return DocumentHelper.parseText( text );
     }
     
 }

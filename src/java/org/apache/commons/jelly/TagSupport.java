@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.10 2002/06/13 14:07:25 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/06/13 14:07:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.11 2002/06/14 06:53:02 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/06/14 06:53:02 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.10 2002/06/13 14:07:25 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.11 2002/06/14 06:53:02 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
+import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TextScript;
 
@@ -72,7 +73,7 @@ import java.util.List;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -209,6 +210,30 @@ public abstract class TagSupport implements Tag {
      * if they are just whitespace then remove them
      */
     protected void trimBody() { 
+        
+        // #### should refactor this code into
+        // #### trimWhitespace() methods on the Script objects
+        
+        if ( body instanceof CompositeTextScriptBlock ) {
+            CompositeTextScriptBlock block = (CompositeTextScriptBlock) body;
+            List list = block.getScriptList();
+            int size = list.size();
+            if ( size > 0 ) {
+                Script script = (Script) list.get(0);
+                if ( script instanceof TextScript ) {
+                    TextScript textScript = (TextScript) script;
+                    textScript.trimStartWhitespace();
+                }
+                if ( size > 1 ) {
+                    script = (Script) list.get(size - 1);
+	                if ( script instanceof TextScript ) {
+	                    TextScript textScript = (TextScript) script;
+	                    textScript.trimEndWhitespace();
+	                }
+                }
+            }
+        }
+        else
         if ( body instanceof ScriptBlock ) {
             ScriptBlock block = (ScriptBlock) body;
             List list = block.getScriptList();
@@ -229,9 +254,7 @@ public abstract class TagSupport implements Tag {
         }
         else if ( body instanceof TextScript ) {
             TextScript textScript = (TextScript) body;
-            String text = textScript.getText();
-            text = text.trim();
-            textScript.setText(text);
+            textScript.trimWhitespace();
         }
 
         this.hasTrimmed = true;

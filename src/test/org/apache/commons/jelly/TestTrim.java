@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.6 2002/06/14 06:53:03 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/14 06:53:03 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/TestTrim.java,v 1.9 2002/06/07 09:36:11 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/06/07 09:36:11 $
  *
  * ====================================================================
  *
@@ -57,97 +57,85 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TextScript.java,v 1.6 2002/06/14 06:53:03 jstrachan Exp $
+ * $Id: TestTrim.java,v 1.9 2002/06/07 09:36:11 jstrachan Exp $
  */
-package org.apache.commons.jelly.impl;
+package org.apache.commons.jelly;
 
-import java.io.Writer;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.TextScript;
 
-/** <p><code>TextScript</code> outputs some static text.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
-  */
-public class TextScript implements Script {
- 
-    /** the text output by this script */
-    private String text;
- 
-    public TextScript() {
+/** 
+ * Tests the whitespace triming of scripts.
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.9 $
+ */
+public class TestTrim extends TestCase {
+
+    public static void main(String[] args) {
+        TestRunner.run(suite());
     }
 
-    public TextScript(String text) {
-        this.text = text;
+    public static Test suite() {
+        return new TestSuite(TestTrim.class);
     }
 
-    public String toString() {
-        return super.toString() + "[text=" + text + "]";
+    public TestTrim(String testName) {
+        super(testName);
+    }
+
+    public void testTrim() throws Exception {
+        TextScript script = new TextScript( "   foo    " );
+        script.trimWhitespace();
+        
+        assertEquals( "foo", script.getText() );
+
+        script = new TextScript( " foo " );
+        script.trimWhitespace();
+        
+        assertEquals( "foo", script.getText() );
+        
+        script = new TextScript( "foo" );
+        script.trimWhitespace();
+        
+        assertEquals( "foo", script.getText() );
     }
     
-    /**
-     * Trims whitespace from the start and end of the text in this script
-     */
-    public void trimWhitespace() {
-        this.text = text.trim();
+    public void testTrimStart() throws Exception {
+        TextScript script = new TextScript( "   foo    " );
+        script.trimStartWhitespace();
+        
+        assertEquals( "foo    ", script.getText() );
+
+        script = new TextScript( " foo " );
+        script.trimStartWhitespace();
+        
+        assertEquals( "foo ", script.getText() );
+        
+        script = new TextScript( "foo" );
+        script.trimStartWhitespace();
+        
+        assertEquals( "foo", script.getText() );
     }
     
-    /**
-     * Trims whitespace from the start of the text
-     */
-    public void trimStartWhitespace() {
-        int index = 0;        
-        for ( int length = text.length(); index < length; index++ ) {
-            char ch = text.charAt(index);
-            if (!Character.isWhitespace(ch)) {
-                break;
-            }            
-        }
-        if ( index > 0 ) {
-            this.text = text.substring(index);
-        }
-    }
-    
-    /**
-     * Trims whitespace from the end of the text
-     */
-    public void trimEndWhitespace() {
-        int index = text.length();
-        while (--index > 0) {
-            char ch = text.charAt(index);
-            if (!Character.isWhitespace(ch)) {
-                break;
-            }
-        }
-        index++;
-        if ( index < text.length() ) {
-            this.text = text.substring(0,index);
-        }
-    }
+    public void testTrimEnd() throws Exception {
+        TextScript script = new TextScript( "   foo    " );
+        script.trimEndWhitespace();
+        
+        assertEquals( "   foo", script.getText() );
 
-    /** @return the text output by this script */
-    public String getText() {
-        return text;
+        script = new TextScript( " foo " );
+        script.trimEndWhitespace();
+        
+        assertEquals( " foo", script.getText() );
+        
+        script = new TextScript( "foo" );
+        script.trimEndWhitespace();
+        
+        assertEquals( "foo", script.getText() );
     }
-
-    /** Sets the text output by this script */
-    public void setText(String text) {
-        this.text = text;
-    }
- 
-    // Script interface
-    //-------------------------------------------------------------------------                
-    public Script compile() {
-        return this;
-    }
-
-    /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws Exception {
-        output.write(text);
-    }
-
-     
 }
