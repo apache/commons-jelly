@@ -57,6 +57,7 @@ public class TestSwingTags extends BaseJellyTest {
      * @throws Exception
      */
     public void testBasicComponentFunctions() throws Exception {
+        if (!isAWTAvailable()) return;
         runSwingScript("test.simple");
         JellyContext context = getJellyContext();
         JFrame frame = (JFrame) context.getVariable("frame");
@@ -74,6 +75,7 @@ public class TestSwingTags extends BaseJellyTest {
      * @throws Exception
      */
     public void testGridBagBasic() throws Exception {
+        if (!isAWTAvailable()) return;
         runSwingScript("test.gbc");
         JellyContext context = getJellyContext();
         JFrame frame = (JFrame) context.getVariable("frame");
@@ -104,6 +106,7 @@ public class TestSwingTags extends BaseJellyTest {
     }
     
     public void testGridBag14() throws Exception {
+        if (!isAWTAvailable()) return;
         if (System.getProperty("java.version").startsWith("1.4")) {
             runSwingScript("test.gbc14");
             JellyContext context = getJellyContext();
@@ -117,6 +120,7 @@ public class TestSwingTags extends BaseJellyTest {
     }
     
     public void testGridBagFail(){
+        if (!isAWTAvailable()) return;
         try {
             runSwingScript("test.gbcBad");
         } catch (Exception e) {
@@ -127,6 +131,7 @@ public class TestSwingTags extends BaseJellyTest {
     }
     
     public void testButtonGroup() throws Exception {
+        if (!isAWTAvailable()) return;
         runSwingScript("test.buttonGroup");
         JellyContext context = getJellyContext();
         ButtonGroup bg = (ButtonGroup) context.getVariable("bg");
@@ -161,5 +166,12 @@ public class TestSwingTags extends BaseJellyTest {
         }
         
         throw new Exception("Component " + name + " not found in container " + container);
+    }
+    
+    /**
+     * @return true if we are running with AWT present
+     */
+    private boolean isAWTAvailable() {
+        return Boolean.getBoolean("java.awt.headless");
     }
 }
