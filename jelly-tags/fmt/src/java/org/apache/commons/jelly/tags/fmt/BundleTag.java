@@ -78,7 +78,7 @@ import java.util.MissingResourceException;
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  *
- * @task decide how to implement setResponseLocale
+ * @todo decide how to implement setResponseLocale
  */
 public class BundleTag extends TagSupport {
 	
@@ -221,7 +221,7 @@ public class BundleTag extends TagSupport {
 		}
 		if (pref != null) {
 			// Preferred locale is application-based
-			bundle = findMatch(basename, pref);
+			bundle = findMatch(basename, pref, jc.getClassLoader());
 			if (bundle != null) {
 				locCtxt = new LocalizationContext(bundle, pref);
 			}
@@ -236,7 +236,7 @@ public class BundleTag extends TagSupport {
 				}
 			}
 			if (pref != null) {
-				bundle = findMatch(basename, pref);
+				bundle = findMatch(basename, pref, jc.getClassLoader());
 				if (bundle != null) {
 					locCtxt = new LocalizationContext(bundle, pref);
 				}
@@ -246,8 +246,8 @@ public class BundleTag extends TagSupport {
 		if (locCtxt == null) {
 			// try using the root resource bundle with the given basename
 			try {
-				bundle = ResourceBundle.getBundle(basename, EMPTY_LOCALE,
-				Thread.currentThread().getContextClassLoader());
+				bundle = ResourceBundle.getBundle(basename, EMPTY_LOCALE, 
+				jc.getClassLoader());
 				if (bundle != null) {
 					locCtxt = new LocalizationContext(bundle, null);
 				}
@@ -281,19 +281,19 @@ public class BundleTag extends TagSupport {
 	 *
 	 * @param basename the resource bundle base name
 	 * @param pref the preferred locale
+	 * @param cl   classloader used to find resource bundle
 	 *
 	 * @return the requested resource bundle, or <tt>null</tt> if no resource
 	 * bundle with the given base name exists or if there is no exact- or
 	 * language-match between the preferred locale and the locale of
 	 * the bundle returned by java.util.ResourceBundle.getBundle().
 	 */
-	private static ResourceBundle findMatch(String basename, Locale pref) {
+	private static ResourceBundle findMatch(String basename, Locale pref, ClassLoader cl) {
 		ResourceBundle match = null;
 		
 		try {
 			ResourceBundle bundle =
-			ResourceBundle.getBundle(basename, pref,
-			Thread.currentThread().getContextClassLoader());
+			ResourceBundle.getBundle(basename, pref, cl);
 			Locale avail = bundle.getLocale();
 			if (pref.equals(avail)) {
 				// Exact match
