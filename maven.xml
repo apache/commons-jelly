@@ -287,37 +287,10 @@
     <echo>YYYY</echo>
   </goal>
 
-
-  <!-- NOTE that the following 2 postGoals can be removed when we can assume 1.0 Maven everywhere -->
-  <!-- copies JAR resources stuff -->
-  <postGoal name="java:compile">
-    <copy todir="${maven.build.dest}">
-      <fileset dir="src/java">
-        <include name="**/*.properties"/>
-      </fileset>
-    </copy>
-  </postGoal>
-
-  <!-- copies unit testing stuff -->
-  <postGoal name="test:compile">
-    <copy todir="${maven.test.dest}">
-      <fileset dir="src/test">
-        <include name="**/*.properties"/>
-        <include name="META-INF/services/*"/>
-        <include name="**/*.jelly"/>
-        <include name="**/*.xml"/>
-        <include name="**/*.html"/>
-        <include name="**/*.dtd"/>
-        <include name="**/*.rng"/>
-      </fileset>
-    </copy>
-  </postGoal>
-
-
-	<!--
-		|| Disable some goals not currently working with CVS HEAD 
-		-->
-	<goal name="maven-license-plugin:report"/>
+    <!--
+        || Disable some goals not currently working with CVS HEAD 
+        -->
+    <goal name="maven-license-plugin:report"/>
 
 
   <!-- define the classpath used to run examples -->

@@ -280,6 +280,18 @@
   </dependencies>
   
   <build>
+    <sourceDirectory>${basedir}/src/java</sourceDirectory>
+
+    <resources>
+        <resource>
+            <directory>${basedir}/src/java</directory>
+            <includes>
+                <include>**/*.properties</include>
+            </includes>
+        </resource>
+    </resources>
+        
+    <unitTestSourceDirectory>${basedir}/src/test</unitTestSourceDirectory>
     <!-- Unit test classes -->
     <unitTest>
       <includes>
@@ -289,6 +301,7 @@
         <resource>
           <directory>src/test</directory>
           <includes>
+            <include>META-INF/services/*</include>
             <include>**/*.jelly</include>
             <include>**/*.xml</include>
             <include>**/*.xsl</include>
