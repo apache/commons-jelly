@@ -5,10 +5,14 @@
   <name>commons-jelly</name>
   <id>commons-jelly</id>
   <currentVersion>1.0-dev</currentVersion>
+  
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://www.apache.org</url>
+    <logo>/images/jakarta-logo-blue.gif</logo>
   </organization>
+  <logo>/images/logo.jpg</logo>
+
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly</package>
   <shortDescription>Commons Jelly</shortDescription>
