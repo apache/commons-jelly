@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.14 2003/01/31 14:16:25 jstrachan Exp $
- * $Revision: 1.14 $
- * $Date: 2003/01/31 14:16:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.15 2003/03/07 12:21:27 jstrachan Exp $
+ * $Revision: 1.15 $
+ * $Date: 2003/03/07 12:21:27 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.14 2003/01/31 14:16:25 jstrachan Exp $
+ * $Id: SetTag.java,v 1.15 2003/03/07 12:21:27 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which sets a variable from the result of an expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.14 $
+  * @version $Revision: 1.15 $
   */
 public class SetTag extends TagSupport {
 
@@ -92,6 +92,9 @@ public class SetTag extends TagSupport {
     /** The expression to evaluate. */
     private Expression value;
 
+	/** The default value */
+	private Expression defaultValue;
+	
     /** The target object on which to set a property. */
     private Object target;
 
@@ -125,6 +128,9 @@ public class SetTag extends TagSupport {
         Object answer = null;
         if ( value != null ) {
             answer = value.evaluate(context);
+            if (defaultValue != null && isEmpty(answer)) {
+                answer = defaultValue.evaluate(context);
+            }
         }
         else {
             answer = getBodyText(isEncode());
@@ -165,6 +171,14 @@ public class SetTag extends TagSupport {
     /** Sets the expression to evaluate. */
     public void setValue(Expression value) {
         this.value = value;
+    }
+    
+    /** 
+     * Sets the default value to be used if the value exprsesion results 
+     * in a null value or blank String
+     */
+    public void setDefaultValue(Expression defaultValue) {
+        this.defaultValue = defaultValue;
     }
     
     /** Sets the target object on which to set a property. */
@@ -211,6 +225,21 @@ public class SetTag extends TagSupport {
         } catch (IllegalAccessException e) {
             log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
         }
+    }
+    
+    /**
+     * @param value
+     * @return true if the given value is null or an empty String
+     */
+    protected boolean isEmpty(Object value) {
+        if (value == null) {
+            return true;
+        }
+        if (value instanceof String) {
+            String s = (String) value;
+            return s.length() == 0;
+        }
+        return false;
     }
 
 }

@@ -16,6 +16,21 @@
 		
   </test:case>
 
+
+  <test:case name="testSetWithDefault">
+	
+		<j:set var="foo" value="abc"/>
+		<j:set var="x" value="${doesNotExist}" defaultValue="${foo}"/>
+		
+		<test:assertEquals expected="abc" actual="${x}"/>
+
+		<j:set var="doesNotExist" value="def"/>		
+		<j:set var="x" value="${doesNotExist}" defaultValue="${foo}"/>
+		
+		<test:assertEquals expected="def" actual="${x}"/>
+		
+  </test:case>
+
   <test:case name="testScope">
 
 		<j:set var="outer" value="def"/>
