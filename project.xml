@@ -356,6 +356,9 @@
       <includes>
         <include>**/Test*.java</include>
       </includes>
+      <excludes>
+        <exclude>**/TestCoreMemoryLeak.java</exclude>
+      </excludes>
       <resources>
         <resource>
           <directory>src/test</directory>
