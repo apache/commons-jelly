@@ -87,6 +87,7 @@ import org.apache.commons.logging.LogFactory;
  * which will be invoked after the bean has been configured.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @author <a href="mailto:jason@zenplex.com">Jason van Zyl</a>
  * @version $Revision: 1.7 $
  */
 public class BeanTag extends DynaBeanTagSupport {
@@ -125,32 +126,36 @@ public class BeanTag extends DynaBeanTagSupport {
         
         // now, I may invoke the 'execute' method if I have one
         if ( method != null ) {
-            try
-            {
+            try {
                 method.invoke( bean, emptyArgs );
             }
-            catch (IllegalAccessException e)
-            {
+            catch (IllegalAccessException e) {
                 methodInvocationError(bean, method, e);
             }
-            catch (IllegalArgumentException e)
-            {
+            catch (IllegalArgumentException e) {
                 methodInvocationError(bean, method, e);
             }
-            catch (InvocationTargetException e)
-            {
+            catch (InvocationTargetException e) {
                 methodInvocationError(bean, method, e);
             }
         }
     }
     
+    /**
+     * Report the state of the bean when method invocation fails
+     * so that the user can determine any problems that might
+     * be occuring while using dynamic jelly beans.
+     *
+     * @param bean Bean on which <code>method</code was invoked
+     * @param method Method that was invoked
+     * @param e Exception throw when <code>method</code> was invoked
+     */
     private void methodInvocationError(Object bean, Method method, Exception e) throws Exception {
         log.error("Could not invoke " + method, e);
         BeanMap beanMap = new BeanMap(bean);
         
         log.error("Bean properties:");
-        for (Iterator i = beanMap.keySet().iterator(); i.hasNext();)
-        {
+        for (Iterator i = beanMap.keySet().iterator(); i.hasNext();) {
             String property = (String) i.next();
             Object value = beanMap.get(property);
             log.error(property + " -> " + value);
