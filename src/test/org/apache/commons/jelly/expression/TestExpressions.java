@@ -67,7 +67,7 @@ public class TestExpressions extends TestCase {
         assertExpression("${maven.some.madeup.name}", null);
         assertExpression("cheese ${maven.some.madeup.name}pizza", "cheese pizza");
         assertExpression("ham and ${maven.home.foo} pizza", "ham and cheese pizza");
-//        assertExpression("${maven.home.foo.length()}", "6");
+        assertExpression("${maven.home.foo.length()}", new Integer(6));
     }
     
     public void testNotConditions() throws Exception {
@@ -88,32 +88,31 @@ public class TestExpressions extends TestCase {
     }
     
     public void testNotConditionsWithDot() throws Exception {
-        // ##### re-enable commented out lines once the Jexl release is complete!
         context.setVariable("x.a", Boolean.TRUE);
         context.setVariable("x.b", Boolean.FALSE);
         context.setVariable("x.c", "true");
         context.setVariable("x.d", "false");
         
         assertExpression("${x.a}", Boolean.TRUE);
-        //assertExpression("${!x.a}", Boolean.FALSE);
+        assertExpression("${!x.a}", Boolean.FALSE);
         assertExpression("${x.b}", Boolean.FALSE);
-        //assertExpression("${!x.b}", Boolean.TRUE);
+        assertExpression("${!x.b}", Boolean.TRUE);
         
         assertExpression("${x.c}", "true");
-        //assertExpression("${!x.c}", Boolean.FALSE);
+        assertExpression("${!x.c}", Boolean.FALSE);
         assertExpression("${x.d}", "false");
-        //assertExpression("${!x.d}", Boolean.TRUE);
+        assertExpression("${!x.d}", Boolean.TRUE);
     }
     
     public void testNull() throws Exception {
-        // ##### re-enable commented out lines once the Jexl release is complete!
         context.setVariable("something.blank", "");
         context.setVariable("something.ok", "cheese");
         
-        //assertExpression("${something.blank.length() == 0}", Boolean.TRUE);
-        //assertExpression("${something.blank == ''}", Boolean.TRUE);
-        //assertExpression("${something.ok != null}", Boolean.TRUE);
-        //assertExpression("${something.ok != ''}", Boolean.TRUE);
+        assertExpression("${something.blank.length() == 0}", Boolean.TRUE);
+        assertExpression("${something.blank == ''}", Boolean.TRUE);
+        assertExpression("${something.ok != null}", Boolean.TRUE);
+        assertExpression("${something.ok != ''}", Boolean.TRUE);
+        // null is a reserved word
         //assertExpression("${something.null != ''}", Boolean.FALSE);
         assertExpression("${unknown == null}", Boolean.TRUE);
     }
