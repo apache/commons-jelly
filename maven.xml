@@ -561,6 +561,7 @@
         <include name="META-INF/services/*"/>
         <include name="**/*.jelly"/>
         <include name="**/*.xml"/>
+        <include name="**/*.html"/>
         <include name="**/*.dtd"/>
         <include name="**/*.rng"/>
       </fileset>

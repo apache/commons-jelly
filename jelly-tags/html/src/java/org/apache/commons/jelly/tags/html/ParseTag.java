@@ -87,6 +87,8 @@ public class ParseTag extends ParseTagSupport {
 
     /** The HTML to parse, either a String URI, a Reader or InputStream */
     private Object html;
+    private String element = "match";
+    private String attribute = "no-change"; 
 
     public ParseTag() {
     }
@@ -114,6 +116,26 @@ public class ParseTag extends ParseTagSupport {
         this.html = html;
     }
 
+    /**
+     * Sets whether attributes should be converted to a different case.
+     * Possible values are "upper", "lower" or "no-change"
+     * 
+     * @param attribute The processing mode of attributes
+     */
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
+    }
+
+    /**
+     * Sets whether elements should be converted to a different case
+     * Possible values are "upper", "lower" or "match"
+     * 
+     * @param element The processing mode of elements
+     */
+    public void setElement(String element) {
+        this.element = element;
+    }
+
 
     // Implementation methods
     //-------------------------------------------------------------------------                
@@ -122,15 +144,15 @@ public class ParseTag extends ParseTagSupport {
      * Factory method to create a new SAXReader
      */    
     protected SAXReader createSAXReader() throws Exception {
-        // installs the NekoHTML parser
+        // installs the NeckHTML parser
         SAXParser parser = new SAXParser();
         parser.setProperty(
             "http://cyberneko.org/html/properties/names/elems",
-            "match"
+            element
         );
         parser.setProperty(
             "http://cyberneko.org/html/properties/names/attrs",
-            "match"
+            attribute
         );
         return new SAXReader( parser );
     }

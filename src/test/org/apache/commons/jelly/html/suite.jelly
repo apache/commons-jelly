@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<test:suite 
+	xmlns:html="jelly:html" 
+	xmlns:test="jelly:junit">
+
+  <test:case name="testSimpleParse">
+		<html:parse var="doc" html="index.html"/>
+	
+		<test:assert xpath="$doc/html/head/title"/>
+		<test:assert xpath="$doc/html/body/IMG[@URI='foo']"/>
+  </test:case>
+
+  <test:case name="testUpperCase">
+		<html:parse var="doc" html="index.html" element="upper" attribute="upper"/>
+	
+		<test:assert xpath="$doc/HTML/HEAD/TITLE"/>		
+		<test:assert xpath="$doc/HTML/BODY/IMG[@URI='foo']"/>
+  </test:case>
+  
+  <test:case name="testLowerCase">
+		<html:parse var="doc" html="index.html" element="lower" attribute="lower"/>
+	
+		<test:assert xpath="$doc/html/head/title"/>
+		<test:assert xpath="$doc/html/body/img[@uri='foo']"/>
+  </test:case>
+  
+  <test:case name="testMixedCase">
+		<html:parse var="doc" html="index.html" element="upper" attribute="lower"/>
+	
+		<test:assert xpath="$doc/HTML/HEAD/TITLE"/>
+		<test:assert xpath="$doc/HTML/BODY/IMG[@uri='foo']"/>
+  </test:case>
+
+</test:suite>
