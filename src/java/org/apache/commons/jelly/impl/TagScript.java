@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.47 $
+ * @version $Revision: 1.48 $
  */
 public class TagScript implements Script {
 
@@ -239,7 +239,9 @@ public class TagScript implements Script {
             }
 
             tag.doTag(output);
-            output.flush();
+            if (output != null) {
+                output.flush();
+            }
         }
         catch (JellyTagException e) {
             handleException(e);
