@@ -63,6 +63,7 @@ package org.apache.commons.jelly.impl;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Iterator;
 
 import org.apache.commons.jelly.DynaTagSupport;
 import org.apache.commons.jelly.JellyContext;
@@ -110,6 +111,17 @@ public class DynamicTag extends DynaTagSupport {
         
         // create new context based on current attributes
         JellyContext newJellyContext = context.newJellyContext(attributes);
+        Map attrMap = new HashMap();
+        for ( Iterator keyIter = this.attributes.keySet().iterator();
+              keyIter.hasNext();) {
+            String key = (String) keyIter.next();
+            if ( key.endsWith( "Attr" ) ) {
+                Object value = this.attributes.get( key );
+                attrMap.put( key, value );
+                attrMap.put( key.substring( 0, key.length()-4 ), value );
+            }  
+        }
+        newJellyContext.setVariable( "attrs", attrMap );
         getTemplate().run(newJellyContext, output);
     }
 
