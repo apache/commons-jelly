@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.1 2002/06/14 04:04:12 werken Exp $
- * $Revision: 1.1 $
- * $Date: 2002/06/14 04:04:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.2 2002/06/14 14:13:48 werken Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/06/14 14:13:48 $
  *
  * ====================================================================
  *
@@ -82,7 +82,7 @@ import org.xml.sax.Attributes;
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class JeezTagLibrary extends TagLibrary {
 
@@ -106,19 +106,28 @@ public class JeezTagLibrary extends TagLibrary {
         this.coreTagLib  = new CoreTagLibrary();
         this.antTagLib   = new AntTagLibrary( antProject );
         this.werkzTagLib = new WerkzTagLibrary();
+
+        registerTag( "target",
+                     TargetTag.class );
     }
 
     public TagScript createTagScript(String name,
                                      Attributes attrs) throws Exception
     {
-        TagScript script = this.coreTagLib.createTagScript( name, attrs );
+        
+        TagScript script = super.createTagScript( name, attrs );
 
         if ( script == null ) {
 
-            script = this.werkzTagLib.createTagScript( name, attrs );
+            script = this.coreTagLib.createTagScript( name, attrs );
 
             if ( script == null ) {
-                script = this.antTagLib.createTagScript( name, attrs );
+                
+                script = this.werkzTagLib.createTagScript( name, attrs );
+                
+                if ( script == null ) {
+                    script = this.antTagLib.createTagScript( name, attrs );
+                }
             }
         }
 
