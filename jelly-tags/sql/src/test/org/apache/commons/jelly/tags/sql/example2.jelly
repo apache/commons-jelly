@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql">
+
+  <sql:setDataSource 
+  	var="db"
+    url="${databaseUrl}" 
+    driver="${databaseDriver}" 
+    user="${databaseUser}"
+    password="${databasePassword}"/>
+
+  <sql:query var="results" dataSource="${db}">
+      select * from ${databaseTable}
+  </sql:query>
+
+  <dataSet>
+
+    <j:forEach var="columnName" items="${results.columnNames}" indexVar="i">
+      <column>${columnName}</column>                                
+    </j:forEach>
+
+    <j:forEach items="${results.rowsByIndex}" var="row">
+      <row>
+        <j:forEach var="field" items="${row}">
+          <field>${field}</field>                                
+        </j:forEach>
+      </row>
+    </j:forEach>                  
+  </dataSet>
+
+</j:jelly>
+
+
