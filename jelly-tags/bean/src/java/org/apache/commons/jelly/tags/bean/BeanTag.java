@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.6 2003/02/25 22:54:22 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2003/02/25 22:54:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/java/org/apache/commons/jelly/tags/bean/BeanTag.java,v 1.7 2003/03/03 19:09:04 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2003/03/03 19:09:04 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanTag.java,v 1.6 2003/02/25 22:54:22 jstrachan Exp $
+ * $Id: BeanTag.java,v 1.7 2003/03/03 19:09:04 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.bean;
@@ -69,6 +69,7 @@ import java.util.Collection;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.impl.CollectionTag;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
@@ -82,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version   $Revision: 1.6 $
+ * @version   $Revision: 1.7 $
  */
 public class BeanTag extends UseBeanTag {
 
@@ -135,47 +136,59 @@ public class BeanTag extends UseBeanTag {
         
         // now lets try set the parent property via calling the adder or the setter method
         if (bean != null) {
-            Object parentObject = getParentObject();
-            if (parentObject != null) {
-                if (parentObject instanceof Collection) {
-                    Collection collection = (Collection) parentObject;
-                    collection.add(bean);
+            Tag parent = this;
+            
+            while (true) {
+                parent = parent.getParent();
+                if (parent == null) {
+                    break;
                 }
-                else {
-                    // lets see if there's a setter method...
-                    Method method = findAddMethod(parentObject.getClass(), bean.getClass());
-                    if (method != null) {
-                        Object[] args = { bean };
-                        try {
-                            method.invoke(parentObject, args);
+                
+                if (parent instanceof BeanSource) {
+                    BeanSource source = (BeanSource) parent;
+                    Object parentObject = source.getBean();
+                    if (parentObject != null) {
+                        if (parentObject instanceof Collection) {
+                            Collection collection = (Collection) parentObject;
+                            collection.add(bean);
                         }
-                        catch (Exception e) {
-                            throw new JellyTagException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
+                        else {
+                            // lets see if there's a setter method...
+                            Method method = findAddMethod(parentObject.getClass(), bean.getClass());
+                            if (method != null) {
+                                Object[] args = { bean };
+                                try {
+                                    method.invoke(parentObject, args);
+                                }
+                                catch (Exception e) {
+                                    throw new JellyTagException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
+                                }
+                            }
+                            else {
+                                try {
+                                  BeanUtils.setProperty(parentObject, tagName, bean);
+                                } catch (IllegalAccessException e) {
+                                    throw new JellyTagException(e);
+                                } catch (InvocationTargetException e) {
+                                    throw new JellyTagException(e);
+                                }
+                            }
                         }
                     }
                     else {
-                        try {
-                          BeanUtils.setProperty(parentObject, tagName, bean);
-                        } catch (IllegalAccessException e) {
-                            throw new JellyTagException(e);
-                        } catch (InvocationTargetException e) {
-                            throw new JellyTagException(e);
-                        }
+                        log.warn("Cannot process null bean for tag: " + parent);
                     }
                 }
-                
-            }
-            else {
-                // lets try find a parent List to add this bean to
-                CollectionTag tag = (CollectionTag) findAncestorWithClass(CollectionTag.class);
-                if (tag != null) {
+                else if (parent instanceof CollectionTag) {
+                    CollectionTag tag = (CollectionTag) parent;
                     tag.addItem(bean);
                 }
-                else if(var == null) { //warn if the bean gets lost in space
-                    log.warn( "Could not add bean to parent for bean: " + bean );
+                else {
+                    continue;
                 }
+                break;
             }
-            
+
             if (invokeMethod != null) {
                 Object[] args = { bean };
                 try {
@@ -185,8 +198,13 @@ public class BeanTag extends UseBeanTag {
                     throw new JellyTagException( "failed to invoke method: " + invokeMethod + " on bean: " + bean + " reason: " + e, e );
                 }
             }
+            else {
+                if (parent == null && var == null) { 
+                    //warn if the bean gets lost in space
+                    log.warn( "Could not add bean to parent for bean: " + bean );
+                }
+            }
         }
-            
     }
 
     /**

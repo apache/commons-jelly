@@ -203,5 +203,50 @@
 		<test:assertTrue test="${size(foo.customers) == 2}"/>
 		
 	</test:case>
+
+	<test:case name="testCollectionTag" xmlns="jelly:org.apache.commons.jelly.tags.bean.MyBeanTagLibrary">
+
+		<myContainer var="list">
+			<customer name="James" location="London">
+				<order amount="100" price="2.99">
+					<product id="p1" name="Beer"/>
+				</order>
+				<order amount="200" price="4.99">
+					<product id="p2" name="Pizza"/>
+				</order>
+			</customer>
+			<customer name="Bob" location="Atlanta">
+				<order amount="200" price="2.99">
+					<product id="p1" name="Beer"/>
+				</order>
+			</customer>
+		</myContainer>	
+
+		<test:assertTrue test="${size(list) == 2}"/>
+		
+		Created list: ${list}
+
+		<test:assertEquals expected="James" actual="${list[0].name}"/>
+		<test:assertEquals expected="London" actual="${list[0].location}"/>
+		
+		<test:assertTrue test="${list[0].orders[0].amount == 100}"/>
+		<test:assertTrue test="${list[0].orders[0].price == 2.99}"/>
+		
+		<test:assertTrue test="${list[0].orders[1].amount == 200}"/>
+		<test:assertTrue test="${list[0].orders[1].price == 4.99}"/>
+	
+		<test:assertTrue test="${list[0].orders[0].product != null}"/>
+		<test:assertTrue test="${list[0].orders[1].product != null}"/>
+		
+		<test:assertEquals expected="p1" actual="${list[0].orders[0].product.id}"/>
+		<test:assertEquals expected="Beer" actual="${list[0].orders[0].product.name}"/>
+	
+		<test:assertEquals expected="p2" actual="${list[0].orders[1].product.id}"/>
+		<test:assertEquals expected="Pizza" actual="${list[0].orders[1].product.name}"/>
+		
+		
+		<test:assertEquals expected="Bob" actual="${list[1].name}"/>
+		<test:assertEquals expected="Atlanta" actual="${list[1].location}"/>
+	</test:case>
 	
 </test:suite>

@@ -1,5 +1,5 @@
 /*
- * /home/cvs/jakarta-commons/jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/MyBeanTagLibrary.java,v 1.1 2003/01/21 15:16:32 jstrachan Exp
+ * /home/cvs/jakarta-commons/jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/CustomerTag.java,v 1.1 2003/01/21 15:16:32 jstrachan Exp
  * 1.1
  * 2003/01/21 15:16:32
  *
@@ -57,25 +57,61 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * MyBeanTagLibrary.java,v 1.1 2003/01/21 15:16:32 jstrachan Exp
+ * CustomerTag.java,v 1.1 2003/01/21 15:16:32 jstrachan Exp
  */
 package org.apache.commons.jelly.tags.bean;
 
-import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
+import java.util.ArrayList;
+import java.util.List;
 
-/** 
- * Describes the Taglib. 
- * This could be created via Jelly script, or could load the mapping of 
- * tag names to bean classes from properties file etc  but is implemented in Java
- * code for simplicity
- *
+import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.CollectionTag;
+
+/**
+ * A simple tag which demonstrates how to process beans generically.
+ * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version 1.2
+ * @version  $Revision: 1.1 $
  */
-public class MyBeanTagLibrary extends BeanTagLibrary {
-
-    public MyBeanTagLibrary() {
-        registerBean( "customer", Customer.class );
-        registerTag( "myContainer", MyContainerTag.class );
+public class MyContainerTag extends TagSupport implements CollectionTag {
+    
+    private List list = new ArrayList();
+    private String var;
+    
+    public MyContainerTag() {
     }
+
+	// Tag interface
+    //-------------------------------------------------------------------------
+    public void doTag(XMLOutput output) throws JellyTagException {
+        invokeBody(output);
+        context.setVariable(var, list);
+        list = new ArrayList();
+    }
+
+	// CollectionTag interface
+    //-------------------------------------------------------------------------
+    public void addItem(Object value) {
+        list.add(value);
+    }
+
+	// Properties
+    //-------------------------------------------------------------------------
+    /**
+     * @return String
+     */
+    public String getVar() {
+        return var;
+    }
+
+    /**
+     * Sets the var.
+     * @param var The var to set
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
 }
