@@ -27,7 +27,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 
 public class StaticTag extends DynaTagSupport {
@@ -116,6 +116,7 @@ public class StaticTag extends DynaTagSupport {
     
     public void setLocalName(String localName) {
         this.localName = localName;
+        // FIXME This just doesn't seem right or work...
         if (qname == null || !qname.endsWith(localName)) {
             localName = qname;
         }
