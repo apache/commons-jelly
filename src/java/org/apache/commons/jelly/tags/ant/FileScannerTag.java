@@ -96,7 +96,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
         // run the body first to configure the task via nested
-        getBody().run(context, output);
+        invokeBody(output);
 
         // output the fileScanner
         if ( var == null ) {
