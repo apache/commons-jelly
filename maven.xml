@@ -128,7 +128,7 @@
   <!-- ===================================================================== -->
   <!-- GENERATE THE LIBRARY AND JELLYDOC DOCUMENTATION                       -->
   <!-- ===================================================================== -->
-  <preGoal name="site">
+  <preGoal name="xdoc:transform">
   	<!-- use a template to create the plugins home page
   		 if it's an xdoc, it must be done before xdoc:transform
   		 and should generate to ${maven.gen.docs}/libs/index.xml
@@ -161,7 +161,8 @@
              <j:forEach items="${pluginProjects.iterator()}" var="plugin">
                <j:set var="pluginName" value="${plugin.parentFile.name}" />
                <li>
-                 <a href="./${pluginName}/index.html">${pluginName}</a>
+                 <a href="./${pluginName}/index.html">${pluginName}</a> :
+                 <a href="./${pluginName}/tags.html">tags</a> 
                </li>
              </j:forEach>
             </ul>
@@ -169,14 +170,42 @@
         </body>
       </document>
     </j:file>
+  </preGoal>
 
+  <preGoal name="xdoc">
 		<maven:reactor
 			basedir="${basedir}"
 			includes="jelly-tags/*/project.xml"
-			goals="jellydoc,site"
+			goals="jellydoc,maven-jdepend-plugin:report,maven-javadoc-plugin:report,maven-junit-report-plugin:report,maven-changelog-plugin:report,xdoc:transform"
+			banner="Generating jellydoc for"
+			ignoreFailures="false"
+		/>
+
+	<!--		
+        <attainGoal name="maven-checkstyle-plugin:report"/>
+        <attainGoal name="maven-changelog-plugin:report"/>
+        <attainGoal name="maven-developer-activity-plugin:report"/>
+        <attainGoal name="maven-file-activity-plugin:report"/>
+        <attainGoal name="maven-junit-report-plugin:report"/>
+        <attainGoal name="maven-linkcheck-plugin:report"/>
+        <attainGoal name="maven-tasklist-plugin:report"/>		
+	-->        
+        
+	<!--        
+		This runs out of memory - have a feeling its the velocity & xdoc plugin
+		
+		<maven:reactor
+			basedir="${basedir}"
+			includes="jelly-tags/*/project.xml"
+			goals="site"
 			banner="Generating site for"
 			ignoreFailures="false"
 		/>
+		-->
+		
+		<j:if test="${context.getVariable('maven.docs.dest') == null}">
+			<j:set var="maven.docs.dest" value="target/docs"/>
+		</j:if>
 		
 		<!-- create the parent directory for the docs -->
 		<mkdir dir="${maven.docs.dest}/libs" />
@@ -187,6 +216,7 @@
 				<include name="jelly-tags/*/project.xml" />
 			</fileset>
 		</fileScanner>
+		
 		<j:forEach items="${pluginProjects.iterator()}" var="plugin">
 			<j:set var="pluginName" value="${plugin.parentFile.name}" />
 			<mkdir dir="${maven.docs.dest}/libs/${pluginName}/" />

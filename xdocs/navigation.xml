@@ -24,7 +24,8 @@
       <item name="JellySwing"              href="/jellyswing.html"/>
       <item name="JellySWT"                href="/jellyswt.html"/>
       <item name="XML Pipeline"            href="/pipeline.html"/>
-      <item name="Tag Reference"           href="/tags.html"/>
+      <item name="Core Tags"               href="/tags.html"/>
+      <item name="Tag Libraries"           href="/libs/index.html"/>
     </menu>
     
     <menu name="Jakarta Community">
