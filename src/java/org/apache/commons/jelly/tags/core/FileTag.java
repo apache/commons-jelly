@@ -56,11 +56,12 @@
  */
 package org.apache.commons.jelly.tags.core;
 
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.StringWriter;
+import java.io.Writer;
 
-import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -69,12 +70,13 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 
 /** 
- * A tag that pipes its body to a file.
+ * A tag that pipes its body to a file denoted by the name attribute or to an in memory String
+ * which is then output to a variable denoted by the var variable.
  *
  * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
  */
-public class FileTag extends TagSupport 
-{
+public class FileTag extends TagSupport {
+    private String var;
     private String name;
     private boolean omitXmlDeclaration = false;
     private String outputMode = "xml";
@@ -87,19 +89,22 @@ public class FileTag extends TagSupport
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(final XMLOutput output) throws Exception {
-        if ( name == null ) {
-            throw new MissingAttributeException( "name" );
+        if ( name != null ) {
+            Writer writer = new FileWriter(name);
+            writeBody(writer);
         }
-        XMLOutput newOutput = createXMLOutput();
-        try {
-            newOutput.startDocument();
-            invokeBody(newOutput);
-            newOutput.endDocument();
+        else if (var != null) {
+            StringWriter writer = new StringWriter();
+            writeBody(writer);
+            context.setVariable(var, writer.toString());
         }
-        finally {
-            newOutput.close();
+        else {
+            throw new JellyException( "This tag must have either the 'name' or the 'var' variables defined" );
         }
     }
+        
+    // Properties
+    //------------------------------------------------------------------------- 
     
     /**
      * Sets the file name for the output
@@ -137,9 +142,45 @@ public class FileTag extends TagSupport
         this.encoding = encoding;
     }
         
+    /**
+     * Returns the var.
+     * @return String
+     */
+    public String getVar() {
+        return var;
+    }
+
+    /**
+     * Sets the var.
+     * @param var The var to set
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
     // Implementation methods
     //------------------------------------------------------------------------- 
-    protected XMLOutput createXMLOutput() throws Exception {
+
+    /**
+     * Writes the body fo this tag to the given Writer
+     */
+    protected void writeBody(Writer writer) throws Exception {
+
+        XMLOutput newOutput = createXMLOutput(writer);
+        try {
+            newOutput.startDocument();
+            invokeBody(newOutput);
+            newOutput.endDocument();
+        }
+        finally {
+            newOutput.close();
+        }
+    }
+    
+    /**
+     * A Factory method to create a new XMLOutput from the given Writer.
+     */
+    protected XMLOutput createXMLOutput(Writer writer) throws Exception {
         
         OutputFormat format = null;
         if (prettyPrint) {
@@ -155,12 +196,10 @@ public class FileTag extends TagSupport
             format.setSuppressDeclaration(true);
         }
                     
-        OutputStream out = new FileOutputStream(name);
-        
         boolean isHtml = outputMode != null && outputMode.equalsIgnoreCase( "html" );
         final XMLWriter xmlWriter = (isHtml) 
-            ? new HTMLWriter(out, format)
-            : new XMLWriter(out, format);
+            ? new HTMLWriter(writer, format)
+            : new XMLWriter(writer, format);
 
         XMLOutput answer = new XMLOutput() {
             public void close() throws IOException {

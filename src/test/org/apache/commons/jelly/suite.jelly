@@ -106,4 +106,14 @@
 			expected="org.apache.commons.jelly.define.Customer" 
 			actual="${customer.class.name}"/>
   </test:case>
+
+	<test:case name="testFileToVar">
+		<j:file var="foo" omitXmlDeclaration="true">
+			<foo x="1">hello</foo>
+		</j:file>
+
+		<test:assertEquals 
+			expected='&lt;foo x="1"&gt;hello&lt;/foo&gt;' 
+			actual="${foo}"/>
+  </test:case>
 </test:suite>
