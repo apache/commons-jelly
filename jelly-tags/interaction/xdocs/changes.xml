@@ -24,9 +24,9 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-		<action dev="polx" type="add" issue="JELLY-175" due-to="Ryan Christianson"
-			>AskTag now uses JLine which allows history, auto-completion,
-			and edition of answers.</action>
+    <release version="1.1-SNAPSHOT" date="in SVN">
+      <action dev="polx" type="add" issue="JELLY-175" due-to="Ryan Christianson">AskTag now uses JLine which allows history, auto-completion, and edition of answers.</action>
+    </release>
     <release version="1.0" date="2004-09-12"></release>
   </body>
 </document>
