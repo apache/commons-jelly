@@ -99,7 +99,7 @@ public class JellyContext {
     private JellyContext parent;
 
     /** Do we inherit variables from parent context? */
-    private boolean inherit = false;
+    private boolean inherit = true;
 
     /** Do we export our variables to parent context? */
     private boolean export  = false;

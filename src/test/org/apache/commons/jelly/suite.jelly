@@ -19,10 +19,15 @@
 
   <test:case name="testScope">
 
+		<j:set var="outer" value="def"/>
+
+		<test:assertEquals expected="def" actual="${outer}"/>
+		
 		<j:scope>	
 			<j:set var="x" value="abc"/>
 			
 			<test:assertEquals expected="abc" actual="${x}"/>
+			<test:assertEquals expected="def" actual="${outer}"/>
 		</j:scope>			
 			
 		<test:assert test="${x == null}"/>
@@ -251,7 +256,7 @@
 		<test:assertTrue test="${i==6}"/> 
 		
   </test:case>
-  
+
 	<test:case name="testVariablesWithDots">
 		
 		<j:set var="page.name" value="a"/>
@@ -260,7 +265,16 @@
 		
 		<test:assertEquals expected="a" actual="${page.name}"/> 
 		<test:assertEquals expected="b" actual="${page.foo}"/> 
+
+		<j:set var="outer" value="def"/>
+
+		<test:assertEquals expected="def" actual="${outer}"/>
+		
+		<j:scope>	
+			<test:assertEquals expected="a" actual="${page.name}"/> 
+			<test:assertEquals expected="b" actual="${page.foo}"/> 
+		</j:scope>			
 		
   </test:case>
-  
+    
 </test:suite>
