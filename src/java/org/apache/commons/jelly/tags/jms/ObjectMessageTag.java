@@ -72,7 +72,7 @@ import javax.jms.Message;
   */
 public class ObjectMessageTag extends MessageTag {
 
-    private Serializable body;
+    private Serializable object;
     
     public ObjectMessageTag() {
     }
@@ -82,14 +82,17 @@ public class ObjectMessageTag extends MessageTag {
     
     /**
      * Sets the body of the message, a serializable java object.
+     * If this value is not set or the value is null then the content 
+     * of the tag will be used instead.
      */
-    public void setBody(Serializable body) {
-        this.body = body;
+    public void setObject(Serializable object) {
+        this.object = object;
     }
     
     // Implementation methods
     //-------------------------------------------------------------------------                            
     protected Message createMessage() throws Exception {
-        return getConnection().createObjectMessage(body);
+        Serializable value = (object != null) ? object : getBodyText();
+        return getConnection().createObjectMessage(value);
     }    
 }    

@@ -70,14 +70,27 @@ import javax.jms.Message;
   */
 public class TextMessageTag extends MessageTag {
 
+    private String text;
+    
     public TextMessageTag() {
     }
-
+    
+    // Properties
+    //-------------------------------------------------------------------------                                
+    
+    /**
+     * Sets the body of the message, a String. If this value is not set or
+     * the value is null then the content of the tag will be used instead.
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+    
     
     // Implementation methods
     //-------------------------------------------------------------------------                            
     protected Message createMessage() throws Exception {
-        String text = getBodyText();
-        return getConnection().createTextMessage(text);
+        String value = (text != null) ? text : getBodyText();
+        return getConnection().createTextMessage(value);
     }    
 }    

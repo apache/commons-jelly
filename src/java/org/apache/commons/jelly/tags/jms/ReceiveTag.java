@@ -83,6 +83,9 @@ public class ReceiveTag extends MessageOperationTag {
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
+        // evaluate body as it may contain a <destination> tag
+        getBody().run(context, output);
+        
         Destination destination = getDestination();
         if ( destination == null ) {
             throw new JellyException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );

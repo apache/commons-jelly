@@ -74,6 +74,7 @@ public class JMSTagLibrary extends TagLibrary {
         registerTag("connection", ConnectionTag.class);
         registerTag("destination", DestinationTag.class);
         registerTag("mapEntry", MapEntryTag.class);
+        registerTag("mapMessage", MapMessageTag.class);
         registerTag("message", MessageTag.class);
         registerTag("objectMessage", ObjectMessageTag.class);
         registerTag("property", PropertyTag.class);

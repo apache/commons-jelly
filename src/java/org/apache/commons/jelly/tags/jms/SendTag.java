@@ -84,6 +84,9 @@ public class SendTag extends MessageOperationTag {
     // Tag interface
     //-------------------------------------------------------------------------                    
     public void doTag(XMLOutput output) throws Exception {
+        // evaluate body as it may contain a <destination> or message tag
+        getBody().run(context, output);
+        
         Message message = getMessage();
         if ( message == null ) {
             throw new JellyException( "No message specified. Either specify a 'message' attribute or use a nested <jms:message> tag" );
