@@ -85,6 +85,7 @@ public class DynamicTagLibrary extends TagLibrary {
 
     private String uri;
     private Map templates = new HashMap();
+    private TagLibrary parent;
 
     public DynamicTagLibrary() {
     }
@@ -94,13 +95,23 @@ public class DynamicTagLibrary extends TagLibrary {
     }
 
     /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(final String name, Attributes attributes)
+    public TagScript createTagScript(final String name, final Attributes attributes)
         throws Exception {
 
         return new DynaTagScript(
             new TagFactory() {
                 public Tag createTag() throws Exception {
-                    return DynamicTagLibrary.this.createTag(name);
+                    Tag answer = DynamicTagLibrary.this.createTag(name);
+                    
+                    // delegate to my parent instead
+                    if ( answer == null && parent != null ) {
+                        // #### this is a bit ugly.
+                        // #### maybe we could refactor this so that a TagScript
+                        // #### is constructed from a TagFactory instance
+                        TagScript tagScript = parent.createTagScript(name, attributes);
+                        return tagScript.getTag();
+                    }
+                    return answer;
                 }
             }
         );
@@ -146,6 +157,21 @@ public class DynamicTagLibrary extends TagLibrary {
         this.uri = uri;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------     
+
+    /**
+     * Returns the parent library which will be used to resolve unknown tags.
+     * @return TagLibrary
+     */
+    public TagLibrary getParent() {
+        return parent;
+    }
+
+    /**
+     * Sets the parent to inherit tags from that are not defined in this library.
+     * @param parent The parent to set
+     */
+    public void setParent(TagLibrary parent) {
+        this.parent = parent;
+    }
+
 }
