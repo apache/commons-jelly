@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.6 2002/06/13 09:27:14 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/06/13 09:27:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.7 2002/06/22 23:53:34 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/06/22 23:53:34 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpression.java,v 1.6 2002/06/13 09:27:14 jstrachan Exp $
+ * $Id: JexlExpression.java,v 1.7 2002/06/22 23:53:34 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.6 $
+ * @version $Revision: 1.7 $
  */
 
 public class JexlExpression extends ExpressionSupport {
@@ -100,29 +100,17 @@ public class JexlExpression extends ExpressionSupport {
     //------------------------------------------------------------------------- 
     public Object evaluate(JellyContext context) {
         try {
-
             JexlContext jexlContext = new JellyJexlContext( context );
-
             if (log.isDebugEnabled()) {
-
                 log.debug("Evaluating EL: " + expression);
-
-            }
-            
+            }           
             return expression.evaluate(jexlContext);
-
         }
-
         catch (Exception e) {
-
             log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
-
             return null;
-
         }
-
     }
-
 }
 
 class JellyJexlContext implements JexlContext {
