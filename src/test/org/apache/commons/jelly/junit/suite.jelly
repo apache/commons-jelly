@@ -54,7 +54,11 @@
 		
 		<test:assert test="${ex != null}">We should have created an exception</test:assert>
 		
-		The exception was: ${ex.message}
+    <j:catch var="ex">
+		  <test:assert xpath="$doc/foo/bar">This should always fail, since foo is not in the empty namespace</test:assert>
+		</j:catch>    	
+		
+		<test:assert test="${ex != null}">We should have created an exception</test:assert>
   </test:case>
 
 
