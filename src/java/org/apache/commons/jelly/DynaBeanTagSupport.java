@@ -88,14 +88,14 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
     }
      
     /** Sets the context in which the tag will be run */
-    public void setContext(JellyContext context) throws Exception {
+    public void setContext(JellyContext context) throws JellyException {
         this.context = context;
         beforeSetAttributes();
     }
     
     /** Sets an attribute value of this tag before the tag is invoked
      */
-    public void setAttribute(String name, Object value) throws Exception {
+    public void setAttribute(String name, Object value) throws JellyException {
         getDynaBean().set(name, value);
     }
 
@@ -103,7 +103,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
      * @return the type of the given attribute. By default just return
      * Object.class if this is not known.
      */
-    public Class getAttributeType(String name) throws Exception {
+    public Class getAttributeType(String name) throws JellyException {
         DynaProperty property = getDynaBean().getDynaClass().getDynaProperty(name);
         if (property != null) {
             return property.getType();

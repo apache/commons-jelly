@@ -146,7 +146,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         setAttributesSet.clear();                    
     }
 
-    public void setAttribute(String name, Object value) throws Exception {        
+    public void setAttribute(String name, Object value) throws JellyException {        
         boolean isVariableName = false;
         if (variableNameAttribute != null ) {
             if ( variableNameAttribute.equals( name ) ) {
