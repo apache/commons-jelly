@@ -65,10 +65,9 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.apache.tools.ant.Project;
 import org.apache.tools.ant.DirectoryScanner;
+import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
-import org.apache.tools.ant.types.FilterSet;
 
 /** 
  * <p><code>FileIterator</code> is an iterator over a 
