@@ -8,7 +8,7 @@
     classname="org.apache.commons.jelly.ant.task.DummyTask">
 	</taskdef>
 	
-	<nested>
+	<nested force="true">
    <ding/>
    <dang/>
    <dong/>

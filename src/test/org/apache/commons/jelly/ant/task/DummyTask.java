@@ -108,8 +108,6 @@ f
 
 */
 
-
-
 /** 
  * A sample Task to test out the Ant introspection logic
  *
@@ -117,45 +115,50 @@ f
  * @version $Revision: 1.8 $
  */
 public class DummyTask extends Task {
-   private int i = 0;
-   private String[] messages = {
-       "a",
-       "b",
-       "c",
-       "d",
-       "e",
-       "f",
-       "g",
-       "h",
-       "i"
-   };
+	private int i = 0;
+	private String[] messages = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
+    private boolean force;
 
-   public Thingy createDing() {
-       System.out.println(messages[i++]);
-       return new Thingy();
-   }
+    public void execute() throws BuildException {
+        if (!force) {
+            throw new BuildException("Should have set force to be true!");
+        }
+    }
+    
+	public Thingy createDing() {
+		System.out.println(messages[i++]);
+		return new Thingy();
+	}
 
-   public void addDang(Thingy thingy) {
-       System.out.println(messages[i++]);
-   }
+	public void addDang(Thingy thingy) {
+		System.out.println(messages[i++]);
+	}
 
-   public void addConfiguredDong(Thingy thingy) {
-       System.out.println(messages[i++]);
-   }
+	public void addConfiguredDong(Thingy thingy) {
+		System.out.println(messages[i++]);
+	}
 
-   public Thingy createHipHop() {
-       System.out.println(messages[i++]);
-       return new Thingy();
-   }
+	public Thingy createHipHop() {
+		System.out.println(messages[i++]);
+		return new Thingy();
+	}
 
-   public void addWontStop(Thingy thingy) {
-       System.out.println(messages[i++]);
-   }
+	public void addWontStop(Thingy thingy) {
+		System.out.println(messages[i++]);
+	}
 
-   public void addConfiguredTillYouDrop(Thingy thingy) {
-       System.out.println(messages[i++]);
-   }
+	public void addConfiguredTillYouDrop(Thingy thingy) {
+		System.out.println(messages[i++]);
+	}
 
-   public static class Thingy {
-   }
+    public boolean isForce() {
+        return force;
+    }
+
+    public void setForce(boolean force) {
+        this.force = force;
+    }
+    
+	public static class Thingy {
+	}
 }
