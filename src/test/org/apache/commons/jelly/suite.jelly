@@ -252,4 +252,15 @@
 		
   </test:case>
   
+	<test:case name="testVariablesWithDots">
+		
+		<j:set var="page.name" value="a"/>
+		<j:set var="page.foo" value="b"/>
+		
+		
+		<test:assertEquals expected="a" actual="${page.name}"/> 
+		<test:assertEquals expected="b" actual="${page.foo}"/> 
+		
+  </test:case>
+  
 </test:suite>
