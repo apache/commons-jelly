@@ -68,7 +68,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.51 $
+ * @version $Revision: 1.52 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -176,7 +176,7 @@ public class XMLParser extends DefaultHandler {
     /**
      * The Log to which logging calls will be made.
      */
-    private Log log = LogFactory.getLog(XMLParser.class);
+    private static final Log log = LogFactory.getLog(XMLParser.class);
     
     /**
      * Construct a new XMLParser with default properties.

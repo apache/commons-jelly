@@ -38,7 +38,7 @@ public class ThreadTag extends TagSupport  {
     /** Should we close the underlying output */
     private boolean closeOutput;
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(ThreadTag.class);
+    private static final Log log = LogFactory.getLog(ThreadTag.class);
 
     public ThreadTag() {
     }
