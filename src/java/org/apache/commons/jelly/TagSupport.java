@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.20 2002/12/10 01:30:26 rwaldhoff Exp $
- * $Revision: 1.20 $
- * $Date: 2002/12/10 01:30:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.21 2003/01/24 06:41:22 morgand Exp $
+ * $Revision: 1.21 $
+ * $Date: 2003/01/24 06:41:22 $
  *
  * ====================================================================
  *
@@ -57,11 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.20 2002/12/10 01:30:26 rwaldhoff Exp $
+ * $Id: TagSupport.java,v 1.21 2003/01/24 06:41:22 morgand Exp $
  */
 package org.apache.commons.jelly;
 
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -75,7 +76,7 @@ import org.apache.commons.jelly.impl.TextScript;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.20 $
+  * @version $Revision: 1.21 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -221,14 +222,14 @@ public abstract class TagSupport implements Tag {
     }
     
     /** Sets the context in which the tag will be run */
-    public void setContext(JellyContext context) throws Exception {
+    public void setContext(JellyContext context) throws JellyException {
         this.context = context;
     }    
     
     /**
      * Invokes the body of this tag using the given output
      */
-    public void invokeBody(XMLOutput output) throws Exception {
+    public void invokeBody(XMLOutput output) throws JellyException {
         getBody().run(context, output);
     }
     
@@ -265,7 +266,7 @@ public abstract class TagSupport implements Tag {
      *
      * @return the text evaluation of the body
      */
-    protected String getBodyText() throws Exception {
+    protected String getBodyText() throws JellyException {
         StringWriter writer = new StringWriter();
         invokeBody(XMLOutput.createXMLOutput(writer));
         return writer.toString();
@@ -279,9 +280,13 @@ public abstract class TagSupport implements Tag {
      *
      * @return the text evaluation of the body
      */
-    protected String getBodyText(boolean shouldEscape) throws Exception {
+    protected String getBodyText(boolean shouldEscape) throws JellyException {
         StringWriter writer = new StringWriter();
-        invokeBody(XMLOutput.createXMLOutput(writer,shouldEscape));
+        try {
+          invokeBody(XMLOutput.createXMLOutput(writer,shouldEscape));
+        } catch (UnsupportedEncodingException e) {
+            throw new JellyException(e.toString());
+        }
         return writer.toString();
     }
 

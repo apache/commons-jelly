@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/MyTagLibrary.java,v 1.3 2003/01/24 05:26:13 morgand Exp $
- * $Revision: 1.3 $
- * $Date: 2003/01/24 05:26:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bean/src/test/org/apache/commons/jelly/tags/bean/MyTagLibrary.java,v 1.4 2003/01/24 06:41:22 morgand Exp $
+ * $Revision: 1.4 $
+ * $Date: 2003/01/24 06:41:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: MyTagLibrary.java,v 1.3 2003/01/24 05:26:13 morgand Exp $
+ * $Id: MyTagLibrary.java,v 1.4 2003/01/24 06:41:22 morgand Exp $
  */
 package org.apache.commons.jelly.tags.bean;
 
@@ -75,7 +75,7 @@ import org.xml.sax.Attributes;
  * beandef&gt; tag
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class MyTagLibrary extends TagLibrary {
 
@@ -85,7 +85,7 @@ public class MyTagLibrary extends TagLibrary {
     
     // TagLibrary interface
     //-------------------------------------------------------------------------
-    public TagScript createTagScript(String name, Attributes attributes) throws Exception {
+    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
 
         TagFactory factory = new TagFactory() {
             public Tag createTag(String name, Attributes attributes) throws JellyException {

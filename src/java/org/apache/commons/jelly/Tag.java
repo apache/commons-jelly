@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.10 2002/10/30 19:16:26 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/10/30 19:16:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.11 2003/01/24 06:41:22 morgand Exp $
+ * $Revision: 1.11 $
+ * $Date: 2003/01/24 06:41:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Tag.java,v 1.10 2002/10/30 19:16:26 jstrachan Exp $
+ * $Id: Tag.java,v 1.11 2003/01/24 06:41:22 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -71,7 +71,7 @@ package org.apache.commons.jelly;
  * in JSP 1.x.(</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public interface Tag {
 
@@ -103,7 +103,7 @@ public interface Tag {
     /** 
      * Sets the context in which the tag will be run 
      */
-    public void setContext(JellyContext context) throws Exception;
+    public void setContext(JellyContext context) throws JellyException;
 
     /** 
      * Evaluates this tag after all the tags properties have been initialized.
@@ -113,6 +113,6 @@ public interface Tag {
     /**
      * A helper method to invoke this tags body
      */
-    public void invokeBody(XMLOutput output) throws Exception;
+    public void invokeBody(XMLOutput output) throws JellyException;
     
 }

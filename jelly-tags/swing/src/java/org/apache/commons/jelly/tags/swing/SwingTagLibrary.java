@@ -144,7 +144,7 @@ public class SwingTagLibrary extends TagLibrary {
     }
 
     /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes) throws Exception {
+    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
         TagScript answer = super.createTagScript(name, attributes);
         if ( answer == null ) {
             final Factory factory = getFactory( name );

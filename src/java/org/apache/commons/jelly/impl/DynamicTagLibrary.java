@@ -92,7 +92,7 @@ public class DynamicTagLibrary extends TagLibrary {
 
     /** Creates a new script to execute the given tag name and attributes */
     public TagScript createTagScript(final String name, final Attributes attributes)
-        throws Exception {
+        throws JellyException {
 
         return new TagScript(
             new TagFactory() {
