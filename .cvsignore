@@ -1,9 +1,9 @@
+.project
 build.properties
 dist
 jms
 target
-velocity.log
-maven.log
-.project
-commons-jelly-1.0-dev-site.tar.gz
+*.log
+*.gz
 snapshot.bat
+tmp
