@@ -22,7 +22,7 @@
   <package>org.apache.commons.jelly.tags.xml</package>
 
   <description>
-  	 The Jelly XML Tag Library
+       The Jelly XML Tag Library
   </description>
   <shortDescription>Commons Jelly XML Tag Library</shortDescription>
   
