@@ -14,14 +14,7 @@
 		
   
   
-  
-  
-  	
-  
-  
   <property name="resourcedir" value="C:\workspace\jelly/src/java"></property>
-  <property name="testresourcedir" value="."></property>
-  
   
   <property name="distdir" value="dist"></property>
   <property name="javadocdir" value="target/docs/apidocs"></property>
@@ -67,6 +60,31 @@
     
 
     
+		
+ 
+    <copy todir="${testclassesdir}">
+      
+      
+      
+      
+      <fileset dir="src/test">
+      
+      
+        <include name="**/*.jelly"></include>
+      
+        <include name="**/*.xml"></include>
+      
+        <include name="**/*.xsl"></include>
+      
+        <include name="**/*.rng"></include>
+      
+        <include name="**/*.dtd"></include>
+      
+      
+      </fileset>
+    </copy>
+ 
+		
 
   </target>
     
