@@ -328,11 +328,19 @@
       <version>20030211.213356</version>
     </dependency>
 
-      <!-- for the jelly startup scripts -->
+    <!-- for the jelly startup scripts -->
     <dependency>
       <id>forehead</id>
       <version>1.0-beta-5</version>
       <url>http://forehead.werken.com/</url>
+    </dependency>
+
+    <!-- for the jstl interfaces -->
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.0.6</version>
+      <url>http://jakarta.apache.org/taglibs/doc/standard-1.0-doc/intro.html</url>
     </dependency>
 
   </dependencies>
