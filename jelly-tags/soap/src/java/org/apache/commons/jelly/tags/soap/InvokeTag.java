@@ -33,7 +33,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Invokes a web service
  *
  * @author <a href="mailto:jim@bnainc.net">James Birchfield</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class InvokeTag extends TagSupport {
 
@@ -41,6 +41,8 @@ public class InvokeTag extends TagSupport {
     private String endpoint = null;
     private String namespace = null;
     private String method = null;
+    private String username;
+    private String password;
     private Service service;
     private Object params;
 
@@ -63,8 +65,7 @@ public class InvokeTag extends TagSupport {
         Object[] params = getParamArray();
         if (params == null) {
             params = new Object[]{ getBodyText() };
-        }
-        else {
+        } else {
             // invoke body just in case we have nested tags
             invokeBody(output);
         }
@@ -83,22 +84,23 @@ public class InvokeTag extends TagSupport {
             call.setTargetEndpointAddress(new java.net.URL(endpoint));
             call.setOperationName(new QName(namespace, method));
 
+            if ( username != null && !username.equals("") ) {
+                call.setUsername( username );
+                call.setPassword( password );
+            }
+            
             answer = call.invoke(params);
-        }
-        catch (MalformedURLException e) {
+        } catch (MalformedURLException e) {
             throw new JellyTagException(e);
-        }
-        catch (ServiceException e) {
+        } catch (ServiceException e) {
             throw new JellyTagException(e);
-        }
-        catch (RemoteException e) {
+        } catch (RemoteException e) {
             throw new JellyTagException(e);
         }
 
         if (var != null) {
             context.setVariable(var, answer);
-        }
-        else {
+        } else {
             // should turn the answer into XML events...
             throw new JellyTagException( "Not implemented yet; should stream results as XML events. Results: " + answer );
         }
@@ -155,6 +157,23 @@ public class InvokeTag extends TagSupport {
     public void setParams(Object params) {
         this.params = params;
     }
+
+    /**
+     * Set the password for the SOAP call.
+     */
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
+
+    /**
+     * Set the username for the SOAP call.
+     */
+    public void setUsername(String username)
+    {
+        this.username = username;
+    }
+
 
     // Implementation methods
     //-------------------------------------------------------------------------
