@@ -95,6 +95,9 @@ public class JellyContext {
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(JellyContext.class);
 
+    /** The parent context */
+    private JellyContext parent;
+    
     /**
      * The class loader to use for instantiating application objects.
      * If not specified, the context class loader, or the class loader
@@ -121,20 +124,47 @@ public class JellyContext {
     public JellyContext(URL rootURL, URL currentURL) {
         this.rootURL = rootURL;
         this.currentURL = currentURL;
+        this.variables.put("context", this);
     }
 
-    public JellyContext(JellyContext parentJellyContext) {
-        this.rootURL = parentJellyContext.rootURL;
-        this.currentURL = parentJellyContext.currentURL;
-        this.taglibs = parentJellyContext.taglibs;
-        this.variables.put("parentScope", parentJellyContext.variables);
+    public JellyContext(JellyContext parent) {
+        this.parent = parent;
+        this.rootURL = parent.rootURL;
+        this.currentURL = parent.currentURL;
+        this.taglibs = parent.taglibs;
+        this.variables.put("parentScope", parent.variables);
+        this.variables.put("context", this);
     }
 
     public JellyContext(JellyContext parentJellyContext, URL currentURL) {
         this(parentJellyContext);
         this.currentURL = currentURL;
     }
+    
+    /**
+     * @return the parent context for this context
+     */
+    public JellyContext getParent() {
+        return parent;
+    }
 
+    /** 
+     * Finds the variable value of the given name in this context or in any other parent context.
+     * If this context does not contain the variable, then its parent is used and then its parent 
+     * and so forth until the context with no parent is found.
+     * 
+     * @return the value of the variable in this or one of its descendant contexts or null
+     *  if the variable could not be found.
+     */
+    public Object findVariable(String name) {
+        Object answer = variables.get(name);
+        if ( answer == null && parent != null ) {
+            return parent.findVariable(name);
+        }
+        return answer;
+    }
+            
+        
     /** @return the value of the given variable name */
     public Object getVariable(String name) {
         return variables.get(name);
