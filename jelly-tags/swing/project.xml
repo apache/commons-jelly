@@ -4,229 +4,27 @@
   <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
 ]>
 <project>
-  <pomVersion>3</pomVersion>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-swing</id>
   <name>commons-jelly-tags-swing</name>
   <groupId>commons-jelly</groupId>
-  <id>commons-jelly-tags-swing</id>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
-  
-  <organization>
-    <name>Apache Software Foundation</name>
-    <url>http://jakarta.apache.org/</url>
-    <logo>http://jakarta.apache.org/images/jakarta-logo-blue.gif</logo>
-  </organization>
-  <logo>/images/logo.gif</logo>
 
-  <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly.tags.swing</package>
-  <shortDescription>Commons Jelly Swing Tag Library</shortDescription>
 
-  <!-- Gump integration -->
-  <gumpRepositoryId>jakarta</gumpRepositoryId>
-  
   <description>
   	This is a Jelly interface for configuring Swing applications.
   </description>
+  <shortDescription>Commons Jelly Swing Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/sandbox/jelly/</url>
-  <issueTrackingUrl>http://jira.werken.com/BrowseProject.jspa?id=10012</issueTrackingUrl>
-  <siteAddress>jakarta.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/</siteDirectory>
+  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/swing/</url>
+
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/swing/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/swing</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/swing/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/swing/</url>
   </repository>
   
-  <versions>
-    <version>
-      <id>1.0-beta-1</id>
-      <name>1.0-beta-1</name>
-      <tag>1.0-beta-1</tag>
-    </version>
-  </versions>
-  <branches></branches>
-  
-  <mailingLists>
-    <mailingList>
-      <name>Commons Dev List</name>
-      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-dev@jakarta.apache.org</archive>
-    </mailingList>
-    <mailingList>
-      <name>Commons User List</name>
-      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://nagoya.apache.org/eyebrowse/SummarizeList?listName=commons-user@jakarta.apache.org</archive>
-    </mailingList>
-  </mailingLists>
-  
-  <developers>
-    <developer>
-      <name>James Strachan</name>
-      <id>jstrachan</id>
-      <email>jstrachan@apache.org</email>
-      <organization>SpiritSoft, Inc.</organization>
-    </developer>
-    <developer>
-      <name>Geir Magnusson Jr.</name>
-      <id>geirm</id>
-      <email>geirm@adeptra.com</email>
-      <organization>Adeptra, Inc.</organization>
-    </developer>
-    <developer>
-      <name>Bob McWhirter</name>
-      <id>werken</id>
-      <email>bob@eng.werken.com</email>
-      <organization>The Werken Company</organization>
-    </developer>
-    <developer>
-      <name>dIon Gillard</name>
-      <id>dion</id>
-      <email>dion@multitask.com.au</email>
-      <organization>Multitask Consulting</organization>
-      <roles>
-        <role>Interested party</role>
-      </roles>
-    </developer>
-    <developer>
-      <name>Morgan Delagrange</name>
-      <id>morgand</id>
-      <email>morgand@apache.org</email>
-    </developer>
-    <developer>
-      <name>Rodney Waldhoff</name>
-      <id>rwaldhoff</id>
-      <email>rwaldhoff@apache.org</email>
-    </developer>
-  </developers>
-
-  <contributors>
-    <contributor>
-      <name>Martin van dem Bemt</name>
-      <email>mvdb@mvdb.com</email>
-    </contributor>
-    <contributor>
-      <name>Erik Fransen</name>
-      <email>erik167@xs4all.nl</email>
-      <roles>
-      	<role>Logo designer</role>
-      </roles>
-    </contributor>
-    <contributor>
-      <name>Calvin Yu</name>
-    </contributor>
-    <contributor>
-      <name>Stephen Haberman</name>
-      <email>stephenh@chase3000.com</email>
-    </contributor>
-    <contributor>
-      <name>Vinay Chandran</name>
-      <email>sahilvinay@yahoo.com</email>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>
-    <contributor>
-      <name>Theo Niemeijer</name>
-    </contributor>
-    <contributor>
-      <name>Joe Walnes</name>
-      <email>joew@thoughtworks.com</email>
-      <organization>ThoughtWorks, Inc.</organization>
-      <roles>
-      	<role>Inventor of Mock Tags</role>
-      </roles>
-    </contributor>
-    <contributor>
-      <name>Otto von Wachter</name>
-      <email>vonwao@yahoo.com</email>
-      <organization></organization>
-      <roles>
-      	<role>Author of the tutorials</role>
-      	<role>Developer</role>
-      </roles>
-    </contributor>
-    <contributor>
-      <name>Robert Leftwich</name>
-      <email>robert@leftwich.info</email>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>
-    <contributor>
-      <name>Paul Libbrecht</name>
-      <email>paul@activemath.org</email>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>    
-    <contributor>
-      <name>Jim Birchfield</name>
-      <email>jim.birchfield@genscape.com</email>
-      <organization>Genscape, Inc.</organization>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>    
-    <contributor>
-      <name>Jason Horman</name>
-      <email>jhorman@musicmatch.com</email>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>    
-    <contributor>
-      <name>Tim Anderson</name>
-      <email>tima@intalio.com</email>
-      <organization>Intalio, Inc.</organization>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>    
-    <contributor>
-      <name>Theo Niemeijer</name>
-      <email>theo.niemeijer@getthere.nl</email>
-      <organization></organization>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>    
-    <contributor>
-      <name>J. Matthew Pryor</name>
-      <email>matthew_pryor@versata.com</email>
-      <organization></organization>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>        
-    <contributor>
-      <name>Knut Wannheden</name>
-      <email></email>
-      <organization></organization>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>        
-    <contributor>
-      <name>Kelvin Tan</name>
-      <email></email>
-      <organization></organization>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>        
-    <contributor>
-      <name>Todd Jonker</name>
-      <email></email>
-      <organization></organization>
-      <roles>
-      	<role>Developer</role>
-      </roles>
-    </contributor>            
-  </contributors>
-	
   <dependencies>
   
     &commonDeps;
@@ -242,49 +40,4 @@
     
   </dependencies>
   
-  <build>
-    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
-    <sourceDirectory>src/java</sourceDirectory>
-    <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
-    <integrationUnitTestSourceDirectory/>
-    <aspectSourceDirectory/>
-
-    <!-- Resources that are packaged up inside the JAR file -->
-    <resources>    	
-			<resource>    	
-				<directory>src/java</directory>
-				<includes>
-					<include>**/*.properties</include>
-				</includes>
-			</resource>
-    </resources>
-    
-    
-    <!-- Unit test classes -->
-    <unitTest>
-      <includes>
-        <include>**/Test*.java</include>
-      </includes>
-			<resources>
-				<resource>
-					<directory>src/test</directory>
-					<includes>
-						<include>**/*.jelly</include>
-						<include>**/*.xml</include>
-						<include>**/*.xsl</include>
-						<include>**/*.rng</include>
-						<include>**/*.dtd</include>
-						<include>**/*.properties</include>
-						<include>**/*.html</include>
-					</includes>
-				</resource>
-			</resources>
-    </unitTest>
-
-    
-    <!-- Integration unit test classes -->
-
-    <integrationUnitTestPatterns></integrationUnitTestPatterns>
-
-  </build>
 </project>
