@@ -63,6 +63,7 @@ package org.apache.commons.jelly.tags.jetty;
 
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.logging.LogFactory;
 
 import org.mortbay.http.HttpContext;
 import org.mortbay.http.HttpListener;
@@ -71,9 +72,13 @@ import org.mortbay.http.SocketListener;
 import org.mortbay.http.UserRealm;
 import org.mortbay.http.handler.NotFoundHandler;
 import org.mortbay.http.handler.ResourceHandler;
+import org.mortbay.util.Log;
+import org.mortbay.util.LogSink;
+import org.mortbay.util.OutputStreamLogSink;
 import org.mortbay.util.Resource;
 
 import java.net.URL;
+import java.net.MalformedURLException;
 
 /**
  * Declare an instance of a Jetty http server
@@ -95,14 +100,41 @@ public class JettyHttpServerTag extends TagSupport {
     /** default resource base to use for context */
     public static final String DEFAULT_RESOURCE_BASE = "./docRoot";
 
+    /** default log file for Jetty */
+    public static final String DEFAULT_LOG_FILE = "jetty.log";
+
+    /** The Log to which logging calls will be made. */
+    private static final org.apache.commons.logging.Log log =
+        LogFactory.getLog(JettyHttpServerTag.class);
+
+    /** the log sink for the Jety server */
+    private static OutputStreamLogSink _logSink;
+
+    // static initialisation
+    {
+        // setup a log for Jetty with a default filename
+        try {
+            _logSink = new OutputStreamLogSink(DEFAULT_LOG_FILE);
+            //_logSink.start();
+            Log.instance().add(_logSink);
+        } catch (Exception ex ) {
+            log.error(ex.getLocalizedMessage());
+        }
+
+    }
+
     /** unique identifier of the tag/ variable to store result in */
     private String _var;
 
     /** the http server for this tag */
     private HttpServer _server;
 
+    /** filename of Jetty log file - with default */
+    private String _logFileName = DEFAULT_LOG_FILE;
+
     /** Creates a new instance of JettyHttpServerTag */
     public JettyHttpServerTag() {
+
         // Create the server
         _server=new HttpServer();
 
@@ -121,6 +153,14 @@ public class JettyHttpServerTag extends TagSupport {
      */
     public void doTag(XMLOutput xmlOutput) throws Exception {
 
+        try {
+            URL logFileURL = getContext().getResource(getLogFileName());
+            _logSink.setFilename(logFileURL.getPath());
+            _logSink.start();
+        } catch (Exception ex ) {
+            log.error(ex.getLocalizedMessage());
+        }
+
         // allow nested tags first, e.g body
         invokeBody(xmlOutput);
 
@@ -134,6 +174,7 @@ public class JettyHttpServerTag extends TagSupport {
 
         // if no context/s create a default context
         if (_server.getContexts().length == 0) {
+            log.info("Creating a default context");
             // Create a context
             HttpContext context = _server.getContext(DEFAULT_HOST,
                                                     DEFAULT_CONTEXT_PATH);
@@ -151,6 +192,8 @@ public class JettyHttpServerTag extends TagSupport {
         for (int i = 0; i < allContexts.length; i++) {
             HttpContext currContext = allContexts[i];
             if (currContext.getHandlers().length == 0) {
+                log.info("Adding resource and not found handlers to context:" +
+                         currContext.getContextPath());
                 currContext.addHandler(new ResourceHandler());
                 currContext.addHandler(new NotFoundHandler());
             }
@@ -215,6 +258,24 @@ public class JettyHttpServerTag extends TagSupport {
      */
     public void setVar(String var) {
         _var = var;
+    }
+
+    /**
+     * Getter for property logFileName.
+     *
+     * @return Value of property logFileName.
+     */
+    public String getLogFileName() {
+        return _logFileName;
+    }
+
+    /**
+     * Setter for property logFileName.
+     *
+     * @param logFileName New value of property logFileName.
+     */
+    public void setLogFileName(String logFileName) {
+        _logFileName = logFileName;
     }
 
 }

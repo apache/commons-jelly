@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/JettyTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/14 13:05:14 $
+ * $Header: /home/cvs/jakarta-commons/latka/src/java/org/apache/commons/latka/jelly/ResponseCodeTag.java,v 1.3 2002/07/14 12:38:22 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/07/14 12:38:22 $
  *
  * ====================================================================
  *
@@ -61,48 +61,66 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import java.util.Map;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.jelly.TagLibrary;
+import org.mortbay.http.HttpResponse;
 
 /**
- * A set of jelly tags for instantiating a Jetty HTTP server
+ * Set the response code in the request handler of a Jetty http server
  *
- * @author rtl
- * @version $Id: JettyTagLibrary.java,v 1.1 2002/07/14 13:05:14 dion Exp $
+ * @author  rtl
  */
-public class JettyTagLibrary extends TagLibrary {
+public class ResponseCodeTag extends TagSupport {
+
+    /** parameter value */
+    private int _value;
 
     /**
-     * Creates a new instance of LatkaTagLibrary
+     * Perform the tag functionality. In this case, set the response code in the
+     * http response found in the jelly context
+     *
+     * @param xmlOutput where to send output
+     * @throws Exception when an error occurs
      */
-    public JettyTagLibrary() {
+    public void doTag(XMLOutput xmlOutput) throws Exception {
 
-        registerTag("jettyHttpServer", JettyHttpServerTag.class);
-        registerTag("socketListener", SocketListenerTag.class);
-        registerTag("realm", RealmTag.class);
-        registerTag("httpContext", HttpContextTag.class);
-        registerTag("resourceHandler", ResourceHandlerTag.class);
-        registerTag("notFoundHandler", NotFoundHandlerTag.class);
-        registerTag("securityHandler", SecurityHandlerTag.class);
+        if (getValue() <= 100) {
+            throw new JellyException("<responseCode> tag must have a value of at least 100");
+        }
 
-        registerTag("jellyResourceHandler", JellyResourceHandlerTag.class);
-        registerTag("getRequest", GetRequestTag.class);
-        registerTag("postRequest", PostRequestTag.class);
-        registerTag("putRequest", PutRequestTag.class);
-        registerTag("deleteRequest", DeleteRequestTag.class);
-        registerTag("responseHeader", ResponseHeaderTag.class);
-        registerTag("responseBody", ResponseBodyTag.class);
-        registerTag("responseCode", ResponseCodeTag.class);
+        // get the response from the context
+        HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
+        if (null == httpResponse) {
+            throw new JellyException("HttpResponse variable not available in Jelly context");
+        }
+
+        // set response code
+        httpResponse.setStatus(getValue());
+
+    }
+
+    //--------------------------------------------------------------------------
+    // Property accessors/mutators
+    //--------------------------------------------------------------------------
+
+    /**
+     * Getter for property value.
+     *
+     * @return value of property value.
+     */
+    public int getValue() {
+        return _value;
     }
 
     /**
-     * @see TagLibarary#getTagClasses()
+     * Setter for property value.
      *
-     * @return a Map of tag name to tag class
+     * @param value New value of property value.
      */
-    public Map getTagClasses() {
-        return super.getTagClasses();
+    public void setValue(int value) {
+        _value = value;
     }
 
 }

@@ -93,6 +93,7 @@ public class JettyTagLibrary extends TagLibrary {
         registerTag("deleteRequest", DeleteRequestTag.class);
         registerTag("responseHeader", ResponseHeaderTag.class);
         registerTag("responseBody", ResponseBodyTag.class);
+        registerTag("responseCode", ResponseCodeTag.class);
     }
 
     /**

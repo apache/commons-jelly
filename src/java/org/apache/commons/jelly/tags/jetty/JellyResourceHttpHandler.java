@@ -73,7 +73,11 @@ import org.mortbay.http.handler.AbstractHttpHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.StringBuffer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -137,6 +141,7 @@ class JellyResourceHttpHandler extends AbstractHttpHandler {
             jellyContext.setVariable( "pathInContext", pathInContext);
             jellyContext.setVariable( "pathParams", pathParams);
             jellyContext.setVariable( "request", request);
+            jellyContext.setVariable( "requestBody", getRequestBody(request));
             jellyContext.setVariable( "response", response);
 
             try {
@@ -145,6 +150,7 @@ class JellyResourceHttpHandler extends AbstractHttpHandler {
                 // if it has requested an override then reset the request
                 if (null == jellyContext.getVariable(OVERRIDE_SET_HANDLED_VAR)) {
                     request.setHandled(true);
+                    response.commit();
                 } else {
                     jellyContext.removeVariable(OVERRIDE_SET_HANDLED_VAR);
                 }
@@ -160,6 +166,26 @@ class JellyResourceHttpHandler extends AbstractHttpHandler {
         }
 
         return;
+    }
+
+    public String getRequestBody(HttpRequest request) throws IOException {
+
+        // read the body as a string from the input stream
+        InputStream is = request.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        StringBuffer sb = new StringBuffer();
+        char[] buffer = new char[1024];
+        int len;
+
+        while ((len = isr.read(buffer, 0, 1024)) != -1)
+          sb.append(buffer, 0, len);
+
+        if (sb.length() > 0)
+          return sb.toString();
+        else
+          return null;
+
     }
 }
 

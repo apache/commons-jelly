@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<j:jelly
+    xmlns:j="jelly:core"
+    xmlns="jelly:jetty"
+    xmlns:http="jelly:http"
+    trim="false">
+
+    <j:set var="contextPathVar" value=""/>
+    <j:set var="testPort" value="8100"/>
+    <j:set var="testUri" value="http://localhost:${testPort}${contextPathVar}/test1.txt"/>
+
+    <jettyHttpServer var="httpServer" logFileName="JellyLogFileTest.log"/>
+
+    <http:get var="mtc" uri="${testUri}"/>
+    <j:if test='${mtc.statusCode == 200}'>
+        ${mtc.responseBodyAsString}
+    </j:if>
+    <j:if test='${mtc.statusCode != 200}'>
+        Results for mtc url are:
+        http return code = ${mtc.statusCode}
+        http status text = '${mtc.statusText}'
+        size of result = ${mtc.responseBodyAsString.length()}
+        response time = ${mtc.responseTime}
+
+            <j:forEach items="${mtc.responseHeaders}" var="header" indexVar="i">
+                header[${i}] = ${header}
+            </j:forEach>
+    </j:if>
+    ${httpServer.stop()}
+
+</j:jelly>
