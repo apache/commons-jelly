@@ -69,13 +69,17 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
+
 import org.apache.commons.collections.BeanMap;
+
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.impl.BeanSource;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -89,7 +93,7 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jason@zenplex.com">Jason van Zyl</a>
  * @version $Revision: 1.7 $
  */
-public class DynamicBeanTag extends DynaBeanTagSupport {
+public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(DynamicBeanTag.class);

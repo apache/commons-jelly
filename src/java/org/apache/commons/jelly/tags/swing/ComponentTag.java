@@ -79,6 +79,7 @@ import org.apache.commons.collections.BeanMap;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.BeanSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -90,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public class ComponentTag extends DynaBeanTagSupport {
+public class ComponentTag extends DynaBeanTagSupport implements BeanSource {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ComponentTag.class);
