@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:html="jelly:html">
+
+  <html:parse var="doc" html="index.html"/>
+
+  The title is: 
+  
+  <x:expr select="$doc/HTML/HEAD/TITLE"/>
+
+  <j:whitespace>
+  	
+  The XML of the document is
+  
+  <x:copyOf select="$doc"/>
+  
+  </j:whitespace>
+  
+</j:jelly>
+
+

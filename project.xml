@@ -190,6 +190,12 @@
       <version>2.2</version>
     </dependency>
 
+	<!-- html taglib -->
+    <dependency>
+      <id>nekohtml</id>
+      <version>0.6.5</version>
+    </dependency>
+
 	<!-- ojb taglib -->
     <dependency>
       <id>ojb</id>

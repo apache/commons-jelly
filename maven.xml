@@ -186,6 +186,18 @@
 	<jelly file="src/test/org/apache/commons/jelly/testStatic.jelly"/> 
   </goal>
 
+  <goal name="demo:html" prereqs="jelly-task" 
+	description="Runs the example of parsing HTML with jelly">
+	
+<!--	
+	<jelly file="src/test/org/apache/commons/jelly/html/example.jelly"/> 
+-->	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/html/example.jelly"/> 
+    </java>
+  </goal>
+
   <goal name="demo:jeez" prereqs="jelly-task" 
 	description="A demo of the jeez taglib">
 	
@@ -197,6 +209,7 @@
 	
 	<jelly file="src/test/org/apache/commons/jelly/ant/filescanner.jelly"/> 
   </goal>
+
 
 
 
