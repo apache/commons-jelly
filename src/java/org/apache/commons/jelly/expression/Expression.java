@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/Expression.java,v 1.4 2002/05/17 15:18:15 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/Expression.java,v 1.5 2002/09/20 13:15:16 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/09/20 13:15:16 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Expression.java,v 1.4 2002/05/17 15:18:15 jstrachan Exp $
+ * $Id: Expression.java,v 1.5 2002/09/20 13:15:16 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression;
 
@@ -69,7 +69,7 @@ import org.apache.commons.jelly.JellyContext;
   * expression language.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
 public interface Expression {
 
@@ -96,4 +96,22 @@ public interface Expression {
      * coercing the result to be an Iterator.
      */
     public Iterator evaluateAsIterator(JellyContext context);
+
+    /**
+     * This method evaluates the expression until a value (a non-Expression) object
+     * is returned. 
+     * If the expression returns another expression, then the nested expression is evaluated.
+     * <p>
+     * Sometimes when Jelly is used inside Maven the value
+     * of an expression can actually be another expression.
+     * For example if a properties file is read, the values of variables
+     * can actually be expressions themselves.
+     * <p>
+     * e.g. ${foo.bar} can lookup "foo.bar" in a Maven context
+     * which could actually be another expression.
+     * <p>
+     * So using this method, nested expressions can be evaluated to the
+     * actual underlying value object.
+     */
+    public Object evaluateAsValue(JellyContext context);
 }
