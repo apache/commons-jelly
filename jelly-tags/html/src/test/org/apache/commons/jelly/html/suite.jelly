@@ -53,7 +53,7 @@
       <html>
         <head>
           <title>Jelly - Jelly : Java and XML based processing engine</title>
-		  <meta name="author" value="James Strachan"/>
+          <meta name="author" value="James Strachan"/>
           <meta name="email" value="jstrachan@apache.org" />
         </head>
         <body>
@@ -69,13 +69,13 @@
   </test:case>
 
   <test:case name="testInlineFromVar">
-  	
-  	<!-- this will turn the HTML markup from XML events into text -->
+      
+      <!-- this will turn the HTML markup from XML events into text -->
     <j:set var="html" encode="false">
       <html>
         <head>
           <title>Jelly - Jelly : Java and XML based processing engine</title>
-				  <meta name="author" value="James Strachan"/>
+                  <meta name="author" value="James Strachan"/>
           <meta name="email" value="jstrachan@apache.org" />
         </head>
         <body>
@@ -83,7 +83,7 @@
       </html>
     </j:set>
 
-		<!-- parse the text as markup -->
+        <!-- parse the text as markup -->
     <html:parse var="doc" text="${html}"/>
 
     <test:assert xpath="$doc/html/head/title"/>
@@ -91,7 +91,7 @@
     <j:set var="title"><x:expr select="$doc/html/head/title" /></j:set>
     
     <test:assertEquals 
-    	expected="Jelly - Jelly : Java and XML based processing engine"
+        expected="Jelly - Jelly : Java and XML based processing engine"
       actual="${title}" />
   </test:case>
 

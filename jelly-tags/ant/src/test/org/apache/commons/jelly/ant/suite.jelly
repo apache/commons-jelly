@@ -15,10 +15,10 @@
   limitations under the License.
 -->
 <test:suite 
-	xmlns:j="jelly:core" 
-	xmlns:test="jelly:junit" 
-	xmlns:util="jelly:util" 
-	xmlns="jelly:ant">
+    xmlns:j="jelly:core" 
+    xmlns:test="jelly:junit" 
+    xmlns:util="jelly:util" 
+    xmlns="jelly:ant">
 
   <j:set var="dir" value="target/test-classes/org/apache/commons/jelly/ant"/>
 
@@ -100,10 +100,10 @@
 
 <test:case name="copy">
 
-	<mkdir dir="${basedir}/target/tmp/ant-tests"/>
-	
+    <mkdir dir="${basedir}/target/tmp/ant-tests"/>
+    
   <copy
-  	overwrite="true"
+      overwrite="true"
     file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
     tofile="${basedir}/target/tmp/ant-tests/output.txt">
     <filterset>
@@ -120,14 +120,14 @@
 
 <test:case name="copyWithReference">
 
-	<mkdir dir="${basedir}/target/tmp/ant-tests"/>
+    <mkdir dir="${basedir}/target/tmp/ant-tests"/>
 
-	<filterset id="myFilter">
-		<filter token="foo" value="bar"/>
-	</filterset>
-	
+    <filterset id="myFilter">
+        <filter token="foo" value="bar"/>
+    </filterset>
+    
   <copy
-  	overwrite="true"
+      overwrite="true"
     file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
     tofile="${basedir}/target/tmp/ant-tests/output.txt">
     <filterset refid="myFilter"/>
@@ -143,19 +143,19 @@
 
 <test:case name="parallelCopy">
 
-	<mkdir dir="${basedir}/target/tmp/ant-tests"/>
-	
-	<parallel>
-		<copy
-			overwrite="true"
-			file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
-			tofile="${basedir}/target/tmp/ant-tests/output.txt">
-			<filterset>
-				<filter token="foo" value="bar"/>
-			</filterset>
-		</copy>
-		<echo>Performing copy in parallel</echo>
-	</parallel>
+    <mkdir dir="${basedir}/target/tmp/ant-tests"/>
+    
+    <parallel>
+        <copy
+            overwrite="true"
+            file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
+            tofile="${basedir}/target/tmp/ant-tests/output.txt">
+            <filterset>
+                <filter token="foo" value="bar"/>
+            </filterset>
+        </copy>
+        <echo>Performing copy in parallel</echo>
+    </parallel>
   
   <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
   <delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
@@ -166,21 +166,21 @@
 
 <test:case name="parallelCopyWithReference">
 
-	<mkdir dir="${basedir}/target/tmp/ant-tests"/>
+    <mkdir dir="${basedir}/target/tmp/ant-tests"/>
 
-	<filterset id="myFilter">
-		<filter token="foo" value="bar"/>
-	</filterset>
+    <filterset id="myFilter">
+        <filter token="foo" value="bar"/>
+    </filterset>
 
-	<parallel>
-		<copy
-			overwrite="true"
-			file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
-			tofile="${basedir}/target/tmp/ant-tests/output.txt">
-			<filterset refid="myFilter"/>
-		</copy>
-		<echo>Performing copy in parallel</echo>
-	</parallel>	
+    <parallel>
+        <copy
+            overwrite="true"
+            file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
+            tofile="${basedir}/target/tmp/ant-tests/output.txt">
+            <filterset refid="myFilter"/>
+        </copy>
+        <echo>Performing copy in parallel</echo>
+    </parallel>    
   
   <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
   <delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
@@ -195,42 +195,42 @@
 
   <j:set var="foo" value="setting the message worked!"/>
 
-	<echo>
-		<setProperty name="message" value="${foo}"/>
+    <echo>
+        <setProperty name="message" value="${foo}"/>
   </echo>
   
-	<echo>
-		<setProperty name="message" value="${bar}" default="the default also worked"/>
+    <echo>
+        <setProperty name="message" value="${bar}" default="the default also worked"/>
   </echo>
 
-	<!-- haven't thought of a neat way to test this yet... -->  
+    <!-- haven't thought of a neat way to test this yet... -->  
 </test:case>
 
 <test:case name="nestedTask">
 
-	<j:include uri="task/example.jelly"/>
-	
+    <j:include uri="task/example.jelly"/>
+    
 </test:case>
 
 <test:case name="setProperty">
 
-	<taskdef
-  	name="nested"
+    <taskdef
+      name="nested"
     classname="org.apache.commons.jelly.ant.task.DummyTask">
-	</taskdef>
+    </taskdef>
 
-	<nested>
-		<setProperty name="force" value="true"/>
-	</nested>
-	
-	<j:catch var="ex">
-		<nested>
-			<setProperty name="force" value="false"/>
-		</nested>
-	</j:catch>    	
-	
-	<test:assert test="${ex != null}">We should have created an exception</test:assert>
-	
+    <nested>
+        <setProperty name="force" value="true"/>
+    </nested>
+    
+    <j:catch var="ex">
+        <nested>
+            <setProperty name="force" value="false"/>
+        </nested>
+    </j:catch>        
+    
+    <test:assert test="${ex != null}">We should have created an exception</test:assert>
+    
 </test:case>
 
 </test:suite>

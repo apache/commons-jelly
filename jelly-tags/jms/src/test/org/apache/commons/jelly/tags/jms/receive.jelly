@@ -32,5 +32,5 @@ Properties are:
 </forEach>
 
 The text body is: ${message.text}
-	
+    
 </jelly>

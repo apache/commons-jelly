@@ -19,7 +19,7 @@
   <html:parse var="doc" html="textScript.txt"/>
 
   <j:whitespace>
-  	
+      
   The XML of the document is
   
   <x:copyOf select="$doc"/>

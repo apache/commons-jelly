@@ -17,12 +17,12 @@
 
 <!-- uses a JellyBean, which invokes the run() method -->
 <j:jelly 
-	xmlns:j="jelly:core" 
-	xmlns:define="jelly:define" 
-	xmlns:log="jelly:log" 
-	xmlns:my="myDummyTagLib"
-	xmlns="jelly:ant">
-	
+    xmlns:j="jelly:core" 
+    xmlns:define="jelly:define" 
+    xmlns:log="jelly:log" 
+    xmlns:my="myDummyTagLib"
+    xmlns="jelly:ant">
+    
 <testcase>
 
   <log:info>Lets define a new tag library</log:info>
@@ -77,6 +77,6 @@
   <my:bar/>
   
 </testcase>
-  		
+          
 </j:jelly>
 

@@ -25,9 +25,9 @@ Flushing the input queue
     </jms:receive>
     <if test="${message != null}">
 Found message: ${message}.
-	</if>
+    </if>
   </forEach>
-  	
+      
 </jms:connection>
-	
+    
 </jelly>

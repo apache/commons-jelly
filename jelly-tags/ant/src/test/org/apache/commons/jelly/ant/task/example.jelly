@@ -15,15 +15,15 @@
   limitations under the License.
 -->
 <j:jelly
-	xmlns:j="jelly:core" 
-	xmlns="jelly:ant">
+    xmlns:j="jelly:core" 
+    xmlns="jelly:ant">
 
-	<taskdef
-  	name="nested"
+    <taskdef
+      name="nested"
     classname="org.apache.commons.jelly.ant.task.DummyTask">
-	</taskdef>
-	
-	<nested force="true">
+    </taskdef>
+    
+    <nested force="true">
    <ding/>
    <dang/>
    <dong/>
@@ -33,6 +33,6 @@
    <hipHop/>
    <wontStop/>
    <tillYouDrop/>
-	</nested>
-	
+    </nested>
+    
 </j:jelly>

@@ -18,29 +18,29 @@
 
   <applicationWindow var="mainapp" title="Welcome to the JFace Demo">
 
-		<menuManager text="File">
-			<action text="Test">
-				<log:info> Very Nice !!!</log:info>
-			</action>
-			<separator />
-			
-			<action text="Check me" checked="true">
-				<log:info>I've been checked</log:info>
-			</action>
-		</menuManager>
-		
-		<menuManager text="Edit">
-			<action text="Say Hi Statusbar">
-				  ${mainapp.setStatus('Hello ...')} 
-			</action>
-		</menuManager>
-	
-		<fillLayout type="vertical"/>	
-	
-		<label text="A big red label 1" background="204, 0, 0"/>
-		<label text="I can barelly read this ;-(" foreground="#f2f2f2" />
-		<label text="It sure looks like the dutch flag ;-)" foreground="#ffffff" background="0, 0, 153" />		
-	
+        <menuManager text="File">
+            <action text="Test">
+                <log:info> Very Nice !!!</log:info>
+            </action>
+            <separator />
+            
+            <action text="Check me" checked="true">
+                <log:info>I've been checked</log:info>
+            </action>
+        </menuManager>
+        
+        <menuManager text="Edit">
+            <action text="Say Hi Statusbar">
+                  ${mainapp.setStatus('Hello ...')} 
+            </action>
+        </menuManager>
+    
+        <fillLayout type="vertical"/>    
+    
+        <label text="A big red label 1" background="204, 0, 0"/>
+        <label text="I can barelly read this ;-(" foreground="#f2f2f2" />
+        <label text="It sure looks like the dutch flag ;-)" foreground="#ffffff" background="0, 0, 153" />        
+    
   </applicationWindow>
   
   ${mainapp.MenuBarManager.updateAll(true)} 

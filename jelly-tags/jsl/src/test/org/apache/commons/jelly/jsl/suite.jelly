@@ -22,57 +22,57 @@
             xmlns:x="jelly:xml"
             xmlns:log="jelly:log">
 
-	<test:case name="testDionsBug" xmlns="dummy">
+    <test:case name="testDionsBug" xmlns="dummy">
 
-		<log:info>
-			<!-- see if we can break template -->
-			<m:fileScanner var="files">
-				<m:fileset dir="src/test/org/apache/commons/jelly/jsl">
-					<m:patternset>
-						<m:include name="**/*.xml"/>
-					</m:patternset>
-				</m:fileset>
-			</m:fileScanner>
-	
-			<j:forEach var="file" items="${files.iterator()}">
-				<x:parse var="doc" xml="${file.toURL()}" />
-				<jsl:stylesheet select="$doc">
-					<jsl:template match="document" trim="no">
-	
-						<h>
-							<j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
-							<j:set var="short"><x:expr select="./properties/title" /></j:set>
-							<m:echo>full=${full},short=${short}</m:echo>
-							<test:assert test="${full == short}">All iterations should succeed</test:assert>
-						</h>
-					</jsl:template>
-				</jsl:stylesheet>
-	
-			</j:forEach>
-	
-			<!-- test stylesheet external to loop -->
-			<jsl:stylesheet var="ss1">
-				<jsl:template match="document" trim="no">
-					<h>
-	
-						<j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
-						<j:set var="short"><x:expr select="./properties/title" /></j:set>
-						<m:echo>full=${full},short=${short}</m:echo>
-						<test:assert test="${full == short}">All iterations should succeed</test:assert>
-					</h>
-				</jsl:template>
-			</jsl:stylesheet>
-	
-			<j:forEach var="file" items="${files.iterator()}">
-				<x:parse var="doc" xml="${file.toURL()}" />
-				<jsl:style stylesheet="${ss1}" select="$doc" />
-			</j:forEach>
-		</log:info>			
+        <log:info>
+            <!-- see if we can break template -->
+            <m:fileScanner var="files">
+                <m:fileset dir="src/test/org/apache/commons/jelly/jsl">
+                    <m:patternset>
+                        <m:include name="**/*.xml"/>
+                    </m:patternset>
+                </m:fileset>
+            </m:fileScanner>
+    
+            <j:forEach var="file" items="${files.iterator()}">
+                <x:parse var="doc" xml="${file.toURL()}" />
+                <jsl:stylesheet select="$doc">
+                    <jsl:template match="document" trim="no">
+    
+                        <h>
+                            <j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
+                            <j:set var="short"><x:expr select="./properties/title" /></j:set>
+                            <m:echo>full=${full},short=${short}</m:echo>
+                            <test:assert test="${full == short}">All iterations should succeed</test:assert>
+                        </h>
+                    </jsl:template>
+                </jsl:stylesheet>
+    
+            </j:forEach>
+    
+            <!-- test stylesheet external to loop -->
+            <jsl:stylesheet var="ss1">
+                <jsl:template match="document" trim="no">
+                    <h>
+    
+                        <j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
+                        <j:set var="short"><x:expr select="./properties/title" /></j:set>
+                        <m:echo>full=${full},short=${short}</m:echo>
+                        <test:assert test="${full == short}">All iterations should succeed</test:assert>
+                    </h>
+                </jsl:template>
+            </jsl:stylesheet>
+    
+            <j:forEach var="file" items="${files.iterator()}">
+                <x:parse var="doc" xml="${file.toURL()}" />
+                <jsl:style stylesheet="${ss1}" select="$doc" />
+            </j:forEach>
+        </log:info>            
   </test:case>  
 
 
-	<test:case name="testStylesheetReuse" xmlns="dummy">
-		
+    <test:case name="testStylesheetReuse" xmlns="dummy">
+        
     <!-- see if we can break template -->
     <m:fileScanner var="files">
       <m:fileset dir="src/test/org/apache/commons/jelly/jsl">
@@ -83,14 +83,14 @@
     </m:fileScanner>
 
     <jsl:stylesheet var="myStylesheet">
-    	<jsl:template match="document" trim="no">
-    		<h>
+        <jsl:template match="document" trim="no">
+            <h>
         <j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
         <j:set var="short"><x:expr select="./properties/title" /></j:set>
         <m:echo>full=${full},short=${short}</m:echo>
         <test:assert test="${full == short}">All iterations should succeed</test:assert>
-    		</h>
-    	</jsl:template>
+            </h>
+        </jsl:template>
     </jsl:stylesheet>
 
 
@@ -101,54 +101,54 @@
   </test:case>  
 
 
-	<test:case name="testRelativeXPaths">
+    <test:case name="testRelativeXPaths">
 
-		<j:forEach var="i" begin="1" end="5">
-			<x:parse var="doc">
-				<document id="${i}">
-					<a x="1">
-						<b y="123"/>
-					</a>
-					<properties><title>value ${i}</title></properties>
-				</document>
-			</x:parse>
-		
-			<jsl:stylesheet select="$doc">
-				<jsl:template match="document">
-					<log:info>Found document with ID <x:expr select="./@id"/> title <x:expr select="./properties/title"/></log:info>
+        <j:forEach var="i" begin="1" end="5">
+            <x:parse var="doc">
+                <document id="${i}">
+                    <a x="1">
+                        <b y="123"/>
+                    </a>
+                    <properties><title>value ${i}</title></properties>
+                </document>
+            </x:parse>
+        
+            <jsl:stylesheet select="$doc">
+                <jsl:template match="document">
+                    <log:info>Found document with ID <x:expr select="./@id"/> title <x:expr select="./properties/title"/></log:info>
 
-					<j:set var="title"><x:expr select="./properties/title"/></j:set>
-					<test:assertEquals expected="value ${i}" actual="${title}"/>
-					
-					<j:set var="title"><x:expr select="$doc/document/properties/title"/></j:set>
-					<test:assertEquals expected="value ${i}" actual="${title}"/>
-					
-					
-					<j:set var="id"><x:expr select="./@id"/></j:set>
-					<test:assert test="${id == i}"/>
-					
-					<test:assert xpath="a[@x = '1']"/>
-					
-					<test:assert xpath="@id = $i"/>
-					
-					<jsl:applyTemplates/>
-				</jsl:template>
-	
-				<jsl:template match="a">
-					<test:assert xpath="@x='1'"/>				
-					<jsl:applyTemplates/>
-				</jsl:template>
-	
-				<jsl:template match="b">
-					<test:assert xpath="@y='123'"/>				
-					<jsl:applyTemplates/>
-				</jsl:template>
+                    <j:set var="title"><x:expr select="./properties/title"/></j:set>
+                    <test:assertEquals expected="value ${i}" actual="${title}"/>
+                    
+                    <j:set var="title"><x:expr select="$doc/document/properties/title"/></j:set>
+                    <test:assertEquals expected="value ${i}" actual="${title}"/>
+                    
+                    
+                    <j:set var="id"><x:expr select="./@id"/></j:set>
+                    <test:assert test="${id == i}"/>
+                    
+                    <test:assert xpath="a[@x = '1']"/>
+                    
+                    <test:assert xpath="@id = $i"/>
+                    
+                    <jsl:applyTemplates/>
+                </jsl:template>
+    
+                <jsl:template match="a">
+                    <test:assert xpath="@x='1'"/>                
+                    <jsl:applyTemplates/>
+                </jsl:template>
+    
+                <jsl:template match="b">
+                    <test:assert xpath="@y='123'"/>                
+                    <jsl:applyTemplates/>
+                </jsl:template>
 
 
-				<jsl:template match="@*"/>
-			</jsl:stylesheet>
-		</j:forEach>  	
-		
+                <jsl:template match="@*"/>
+            </jsl:stylesheet>
+        </j:forEach>      
+        
   </test:case>  
   
   <!-- 
@@ -171,9 +171,9 @@
     </jsl:stylesheet>
 
     <log:info>
-    	...
-	    <jsl:style stylesheet="${contextStyleSheet}" select="$testDoc"/>
-	    ...
+        ...
+        <jsl:style stylesheet="${contextStyleSheet}" select="$testDoc"/>
+        ...
     </log:info>
 
     <m:echo>text is '${contextText}'</m:echo>
@@ -198,9 +198,9 @@
     </jsl:stylesheet>
 
     <log:info>
-    	...
-	    <jsl:style stylesheet="${contextStyleSheet}" select="$testDoc"/>
-	    ...
+        ...
+        <jsl:style stylesheet="${contextStyleSheet}" select="$testDoc"/>
+        ...
     </log:info>
 
     <m:echo>text is '${contextText}'</m:echo>

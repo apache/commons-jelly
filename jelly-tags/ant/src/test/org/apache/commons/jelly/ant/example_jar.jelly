@@ -19,7 +19,7 @@
   <j:set var="jarname" value="target/anttest.jar"/>
   
   <echo>
-  	About to create jar: ${jarname}
+      About to create jar: ${jarname}
   </echo>
 
     <jar

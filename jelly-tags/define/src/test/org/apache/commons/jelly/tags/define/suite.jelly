@@ -15,18 +15,18 @@
   limitations under the License.
 -->
 <test:suite 
-	xmlns:j="jelly:core" 
-	xmlns:x="jelly:xml" 
-	xmlns:test="jelly:junit" 
-	xmlns:log="jelly:log" 
-	xmlns:define="jelly:define"
-	xmlns:dynamicTest="dynamicTest">
+    xmlns:j="jelly:core" 
+    xmlns:x="jelly:xml" 
+    xmlns:test="jelly:junit" 
+    xmlns:log="jelly:log" 
+    xmlns:define="jelly:define"
+    xmlns:dynamicTest="dynamicTest">
 
 <test:case name="invoke">
 
   <define:script var="fooScript">
-  	<log:info>Generating some XML</log:info>
-  	
+      <log:info>Generating some XML</log:info>
+      
     <foo id="1">
       <bar>some XML</bar>
     </foo>
@@ -37,17 +37,17 @@
   
   
   <x:parse var="doc">
-  	<log:info>About to invoke the script!</log:info>
-  	
-  	<define:invoke script="${fooScript}"/>
+      <log:info>About to invoke the script!</log:info>
+      
+      <define:invoke script="${fooScript}"/>
   </x:parse>
-  	   	
-  	   	
+             
+             
   <x:forEach select="$doc//foo">
     <test:assert xpath="bar"/>
   </x:forEach>
     
-    			  	   	
+                             
   <test:assert xpath="$doc/foo/bar"/>
   
 </test:case>
@@ -77,14 +77,14 @@
    
 
 <test:case name="dynaBeans" 
-	xmlns:dynabean="jelly:dynabean"
-	xmlns:my="dynamicDynaBeanTest">
+    xmlns:dynabean="jelly:dynabean"
+    xmlns:my="dynamicDynaBeanTest">
 
-	<!-- create a DynaClass -->
+    <!-- create a DynaClass -->
   <dynabean:dynaclass var="CustomerType" name="CustomerDynaClass"> 
-		<dynabean:property name="name" type="String" />
-		<dynabean:property name="address" type="String" />
-	</dynabean:dynaclass>
+        <dynabean:property name="name" type="String" />
+        <dynabean:property name="address" type="String" />
+    </dynabean:dynaclass>
 
   <!-- Create a new tag library binding the dynabeans. -->
   <define:taglib uri="dynamicDynaBeanTest">
@@ -94,22 +94,22 @@
     />
   </define:taglib>
 
-	<!-- now lets create a customer -->
-	<my:customer var="customer" name="Customer 1" address="Address of Customer 1" />
+    <!-- now lets create a customer -->
+    <my:customer var="customer" name="Customer 1" address="Address of Customer 1" />
 
-	<test:assert test="${customer != null}">Created a customer DynaBean</test:assert>
-	
-	<test:assertEquals 
-		expected="Customer 1" 
-		actual="${customer.name}"/>
-		
-	<test:assertEquals 
-		expected="Address of Customer 1" 
-		actual="${customer.address}"/>
-		
-	<test:assertEquals 
-		expected="CustomerDynaClass" 
-		actual="${customer.dynaClass.name}"/>
+    <test:assert test="${customer != null}">Created a customer DynaBean</test:assert>
+    
+    <test:assertEquals 
+        expected="Customer 1" 
+        actual="${customer.name}"/>
+        
+    <test:assertEquals 
+        expected="Address of Customer 1" 
+        actual="${customer.address}"/>
+        
+    <test:assertEquals 
+        expected="CustomerDynaClass" 
+        actual="${customer.dynaClass.name}"/>
 
 </test:case>
 

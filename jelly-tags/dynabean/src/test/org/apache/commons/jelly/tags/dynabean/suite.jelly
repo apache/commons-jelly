@@ -16,26 +16,26 @@
 -->
 
 <test:suite 
-	xmlns:j="jelly:core"
-	xmlns:dynabean="jelly:dynabean" 
-	xmlns:test="jelly:junit" 
-	xmlns:log="jelly:log">
+    xmlns:j="jelly:core"
+    xmlns:dynabean="jelly:dynabean" 
+    xmlns:test="jelly:junit" 
+    xmlns:log="jelly:log">
 
 <test:case name="simpleDynaBean">
 
   <dynabean:dynaclass var="CustomerType" name ="CustomerDynaClass"> 
-		<dynabean:property name="name" type="String" />
-		<dynabean:property name="address" type="String" />
-	</dynabean:dynaclass>
+        <dynabean:property name="name" type="String" />
+        <dynabean:property name="address" type="String" />
+    </dynabean:dynaclass>
 
   <dynabean:dynabean var="customer" dynaclass="${CustomerType}"/>
 
   <dynabean:set var="customer" property="name" value="Customer 1" />
   <dynabean:set var="customer" property="address" value="Address of Customer 1" />
 
-	<test:assertEquals expected="Customer 1" actual="${customer.name}"/>
-	<test:assertEquals expected="Address of Customer 1" actual="${customer.address}"/>
-	<test:assertEquals expected="CustomerDynaClass" actual="${customer.dynaClass.name}"/>
+    <test:assertEquals expected="Customer 1" actual="${customer.name}"/>
+    <test:assertEquals expected="Address of Customer 1" actual="${customer.address}"/>
+    <test:assertEquals expected="CustomerDynaClass" actual="${customer.dynaClass.name}"/>
 
 </test:case>
 
@@ -63,14 +63,14 @@
   <dynabean:set var="customer" property="address.street" value="Downing Street" />
   <dynabean:set var="customer" property="address.housenumber" value="10" />
 
-	<test:assertEquals expected="Customer 1" actual="${customer.name}"/>
-	<test:assertEquals expected="London" actual="${customer.address.city}"/>
-	<test:assertEquals expected="Downing Street" actual="${customer.address.street}"/>
-	
-	<!-- #### JellyUnit needs to support type cooercion for this to work...
-	<test:assertEquals expected="10" actual="${customer.address.housenumber}"/>
-	-->
-	
+    <test:assertEquals expected="Customer 1" actual="${customer.name}"/>
+    <test:assertEquals expected="London" actual="${customer.address.city}"/>
+    <test:assertEquals expected="Downing Street" actual="${customer.address.street}"/>
+    
+    <!-- #### JellyUnit needs to support type cooercion for this to work...
+    <test:assertEquals expected="10" actual="${customer.address.housenumber}"/>
+    -->
+    
   
 </test:case>
    

@@ -26,5 +26,5 @@ Waiting until I receive a JMS message
 
 Found message: ${message}
 The object body is: ${message.getObject()}
-	
+    
 </jelly>

@@ -30,5 +30,5 @@ Map values are:
 <forEach items="${message.mapNames}" var="key">
   ${key} = ${message.getObject(key)}
 </forEach>
-	
+    
 </jelly>

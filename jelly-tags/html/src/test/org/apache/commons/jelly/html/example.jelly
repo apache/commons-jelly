@@ -23,7 +23,7 @@
   <x:expr select="$doc/html/head/title"/>
 
   <j:whitespace>
-  	
+      
   The XML of the document is
   
   <x:copyOf select="$doc"/>
