@@ -143,6 +143,9 @@ public class SwtTagLibrary extends TagLibrary {
 
         // other tags                    
         registerTag("image", ImageTag.class);
+        registerTag("font", FontTag.class);
+        registerTag("color", ColorTag.class);
+        registerTag("colour", FontTag.class);
 
     }
 
