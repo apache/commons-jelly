@@ -56,7 +56,7 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
+ *
  * $Id: AntTagSupport.java,v 1.4 2002/06/25 20:43:30 werken Exp $
  */
 
@@ -85,8 +85,8 @@ import org.apache.tools.ant.TaskAdapter;
 import org.apache.tools.ant.types.DataType;
 import org.apache.tools.ant.types.Reference;
 
-/** 
- * Tag supporting ant's Tasks as well as 
+/**
+ * Tag supporting ant's Tasks as well as
  * dynamic runtime behaviour for 'unknown' tags.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
@@ -99,9 +99,12 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     private static final Class[] addTaskParamTypes = { String.class };
 
+    /** store the name of the manifest tag for special handling */
+    private static final String ANT_MANIFEST_TAG = "manifest";
+
     /** The Ant project */
     private Project project;
-    
+
     /** The name of this tag. */
     protected String tagName;
 
@@ -124,39 +127,75 @@ public class AntTag extends MapTagSupport implements TaskSource {
     public String toString() {
         return "[AntTag: name=" + getTagName() + "]";
     }
-    
+
 
     // Tag interface
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws Exception {
 
         Project project = getAntProject();
         String tagName = getTagName();
 
-        if ( project.getTaskDefinitions().containsKey( tagName ) ) {
-            
+        if ( project.getTaskDefinitions().containsKey( tagName ) )
+        {
+            // check if manifest is contained within a jar
+            // special handling for Ant 1.5 manifest which is a task
+            // but can also be contained within the jar task
+            // There has got to be a better way but I couldn't find it
+            if(tagName.equals(ANT_MANIFEST_TAG))
+            {
+                TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
+                if ( ancestor != null )
+                {
+                    Object nested = null;
+                    Object parentObject = null;
+
+                    parentObject = ancestor.getTaskObject();
+                    nested = createNestedObject( parentObject, tagName );
+
+                    // now lets invoke the body
+                    String body = getBodyText();
+
+                    // now lets set any attributes of this tag...
+                    setBeanProperties();
+
+                    // now lets add it to its parent
+                    if ( parentObject != null)
+                    {
+                        IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );
+                        try
+                        {
+                            ih.storeElement( project, parentObject, nested, tagName );
+                        }
+                        catch (Exception e) {
+                          //log.warn( "Caught exception setting nested: " + tagName, e );
+                        }
+                    }
+                    return;
+                }
+            }
             // the following algorithm follows the lifetime of a tag
             // http://jakarta.apache.org/ant/manual/develop.html#writingowntask
             // kindly recommended by Stefan Bodewig
-            
+
             // create and set its project reference
             task = createTask( tagName );
             if ( task instanceof TaskAdapter ) {
                 setObject( ((TaskAdapter)task).getProxy() );
-            } 
+            }
             else {
                 setObject( task );
             }
-            
+
             // set the task ID if one is given
             Object id = getAttributes().remove( "id" );
             if ( id != null ) {
                 project.addReference( (String) id, task );
             }
-            
+
             // ### we might want to spoof a Target setting here
-            
-            // now lets initialize 
+
+            // now lets initialize
             task.init();
 
             // now lets invoke the body to call all the createXXX() or addXXX() methods
@@ -164,37 +203,38 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
             // now lets set any attributes of this tag...
             setBeanProperties();
-            
+
             // now lets set the addText() of the body content, if its applicaable
             Method method = MethodUtils.getAccessibleMethod( task.getClass(),
                                                              "addText",
-                                                             addTaskParamTypes );            
+                                                             addTaskParamTypes );
             if (method != null) {
                 String text = getBodyText();
-                
+
                 Object[] args = { text };
                 method.invoke(this.task, args);
-            } 
-            
+            }
+
             // now lets set all the attributes of the child elements
             // XXXX: to do!
-            
-            
+
+
             // now we're ready to invoke the task
             // XXX: should we call execute() or perform()?
-            task.perform(); 
-        } 
-        else {
+            task.perform();
+        }
+        else
+        {
             Object nested = null;
             Object parentObject = null;
-            
+
             // must be a datatype.
             TaskSource ancestor = (TaskSource) findAncestorWithClass( TaskSource.class );
             if ( ancestor != null ) {
                 parentObject = ancestor.getTaskObject();
                 nested = createNestedObject( parentObject, tagName );
             }
-            
+
             if ( nested == null ) {
                 nested = createDataType( tagName );
             }
@@ -207,15 +247,15 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 if ( id != null ) {
                     project.addReference( (String) id, nested );
                 }
-            
+
                 try{
                     PropertyUtils.setProperty( nested, "name", tagName );
                 }
                 catch (Exception e) {
                 }
-            } 
+            }
 
-            // now lets invoke the body 
+            // now lets invoke the body
             String body = getBodyText();
 
             // now lets set any attributes of this tag...
@@ -223,7 +263,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
             // now lets add it to its parent
             if ( parentObject != null ) {
-                IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );                    
+                IntrospectionHelper ih = IntrospectionHelper.getHelper( parentObject.getClass() );
                 try {
                     ih.storeElement( project, parentObject, nested, tagName );
                 }
@@ -233,10 +273,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
             }
         }
     }
-    
+
 
     // Properties
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
     public String getTagName() {
         return this.tagName;
     }
@@ -248,7 +288,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     public Object getTaskObject() {
         return this.object;
     }
-    
+
     /** Set the object underlying this tag.
      *
      *  @param object The object.
@@ -266,45 +306,45 @@ public class AntTag extends MapTagSupport implements TaskSource {
     }
 
     // Implementation methods
-    //------------------------------------------------------------------------- 
+    //-------------------------------------------------------------------------
 
-    /** 
+    /**
      * Sets the properties on the Ant task
      */
     public void setBeanProperties() throws Exception {
         Object object = getTaskObject();
         if ( object != null ) {
-		    Map map = getAttributes();
-		    for ( Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
-		        Map.Entry entry = (Map.Entry) iter.next();
-		        String name = (String) entry.getKey();
-		        Object value = entry.getValue();
-		        setBeanProperty( object, name, value );
-		    }
+        Map map = getAttributes();
+        for ( Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String name = (String) entry.getKey();
+            Object value = entry.getValue();
+            setBeanProperty( object, name, value );
+        }
         }
     }
-    
+
     public void setBeanProperty(Object object, String name, Object value) throws Exception {
         if ( log.isDebugEnabled() ) {
             log.debug( "Setting bean property on: "+  object + " name: " + name + " value: " + value );
         }
-        
+
         IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
 
         if ( value instanceof String ) {
             try {
                 ih.setAttribute( getAntProject(), object, name.toLowerCase(), (String) value );
                 return;
-            } 
+            }
             catch (Exception e) {
                 log.error( "Caught: " + e, e );
             }
         }
 
         try {
-            
+
             ih.storeElement( getAntProject(), object, value, name );
-        } 
+        }
         catch (Exception e) {
 
             // let any exceptions bubble up from here
@@ -320,11 +360,11 @@ public class AntTag extends MapTagSupport implements TaskSource {
         Object dataType = null;
         if ( object != null ) {
             IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
-            
+
             if ( ih != null ) {
                 try {
                     dataType = ih.createElement( getAntProject(), object, name );
-                } 
+                }
                 catch (Exception e) {
                     log.error(e);
                 }
@@ -339,39 +379,39 @@ public class AntTag extends MapTagSupport implements TaskSource {
     }
 
     public Object createDataType(String name) throws Exception {
-        
+
         Object dataType = null;
 
         Class type = (Class) getAntProject().getDataTypeDefinitions().get(name);
 
-        if ( type != null ) {            
-            
+        if ( type != null ) {
+
             try {
                 Constructor ctor = null;
                 boolean noArg = false;
-                
-                // DataType can have a "no arg" constructor or take a single 
+
+                // DataType can have a "no arg" constructor or take a single
                 // Project argument.
                 try {
                     ctor = type.getConstructor(new Class[0]);
                     noArg = true;
-                } 
+                }
                 catch (NoSuchMethodException nse) {
                     ctor = type.getConstructor(new Class[] { Project.class });
                     noArg = false;
                 }
-                
+
                 if (noArg) {
                     dataType = (DataType) ctor.newInstance(new Object[0]);
-                } 
+                }
                 else {
                     dataType = (DataType) ctor.newInstance(new Object[] {project});
                 }
                 ((DataType)dataType).setProject( project );
-                
-            } 
+
+            }
             catch (Throwable t) {
-                // ignore 
+                // ignore
                 log.error(t);
             }
         }
@@ -394,7 +434,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         Task task = null;
         if ( o instanceof Task ) {
             task = (Task) o;
-        } 
+        }
         else {
             TaskAdapter taskA=new TaskAdapter();
             taskA.setProxy( o );
