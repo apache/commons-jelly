@@ -19,16 +19,17 @@
     
     WRITTEN FOR SIMPLICITY, NOT ENFORCING STRICTNESS.
     
-    when adding tags to the build, add them to the "subexec" target,
+    when adding tags to the build, add them to the 
+    "subant" and "subexec" target,
     add a jar-<tagName> target, and add that target as a dependency
-    of the "jar" target.
+    of the "jar" target. (Yes, that's a lot of places.)
   -->
 
   <!-- 
     target that can be used via antcall task
     to call a single target on all jelly build.xml scripts
   -->
-  <target name="subexec">
+  <target name="subant">
     <ant dir="." target="${sub.target}"/>
     <ant dir="jelly-tags/ant" target="${sub.target}"/>
     <ant dir="jelly-tags/antlr" target="${sub.target}"/>
@@ -61,9 +62,48 @@
     <ant dir="jelly-tags/xmlunit" target="${sub.target}"/>
   </target>
   
+  <target name="subexec">
+    <exec dir="." command="${sub.command}"/>
+    <exec dir="jelly-tags/ant" command="${sub.command}"/>
+    <exec dir="jelly-tags/antlr" command="${sub.command}"/>
+    <exec dir="jelly-tags/avalon" command="${sub.command}"/>
+    <exec dir="jelly-tags/bean" command="${sub.command}"/>
+    <exec dir="jelly-tags/beanshell" command="${sub.command}"/>
+    <exec dir="jelly-tags/betwixt" command="${sub.command}"/>
+    <exec dir="jelly-tags/bsf" command="${sub.command}"/>
+    <exec dir="jelly-tags/email" command="${sub.command}"/>
+    <exec dir="jelly-tags/fmt" command="${sub.command}"/>
+    <exec dir="jelly-tags/html" command="${sub.command}"/>
+    <exec dir="jelly-tags/http" command="${sub.command}"/>
+    <exec dir="jelly-tags/interaction" command="${sub.command}"/>
+    <exec dir="jelly-tags/jetty" command="${sub.command}"/>
+    <exec dir="jelly-tags/jms" command="${sub.command}"/>
+    <exec dir="jelly-tags/jsl" command="${sub.command}"/>
+    <exec dir="jelly-tags/junit" command="${sub.command}"/>
+    <exec dir="jelly-tags/log" command="${sub.command}"/>
+    <exec dir="jelly-tags/ojb" command="${sub.command}"/>
+    <exec dir="jelly-tags/quartz" command="${sub.command}"/>
+    <exec dir="jelly-tags/soap" command="${sub.command}"/>
+    <exec dir="jelly-tags/sql" command="${sub.command}"/>
+    <exec dir="jelly-tags/swing" command="${sub.command}"/>
+    <exec dir="jelly-tags/swt" command="${sub.command}"/>
+    <exec dir="jelly-tags/threads" command="${sub.command}"/>
+    <exec dir="jelly-tags/util" command="${sub.command}"/>
+    <exec dir="jelly-tags/validate" command="${sub.command}"/>
+    <exec dir="jelly-tags/velocity" command="${sub.command}"/>
+    <exec dir="jelly-tags/xml" command="${sub.command}"/>
+    <exec dir="jelly-tags/xmlunit" command="${sub.command}"/>
+  </target>
+  
   <target name="clean">
-    <antcall target="subexec">
+    <antcall target="subant">
       <param name="sub.target" value="clean"/>
+    </antcall>
+  </target>
+  
+  <target name="ant">
+    <antcall target="subexec">
+      <param name="sub.command" value="maven.bat ant"/>
     </antcall>
   </target>
   
