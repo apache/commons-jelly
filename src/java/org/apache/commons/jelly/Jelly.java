@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.30 $
+ * @version $Revision: 1.31 $
  */
 public class Jelly {
     
@@ -239,26 +239,10 @@ public class Jelly {
     
         String userDir = System.getProperty("user.home");
         File f = new File(userDir + File.separator + "jelly.properties");
-        try {
-            if (f.exists()) {
-                is = new FileInputStream(f);
-                loadProperties(is);
-            }
-        }
-        catch (Exception e) {
-            log.error( "Caught exception while loading: " + f.getName() + ". Reason: " + e, e );
-        }
+        loadProperties(f);
     
         f = new File("jelly.properties");
-        try {
-            if (f.exists()) {
-                is = new FileInputStream(f);
-                loadProperties(is);
-            }
-        }
-        catch (Exception e) {
-            log.error( "Caught exception while loading: " + f.getName() + ". Reason: " + e, e );
-        }
+        loadProperties(f);
         
         
         is = getClass().getClassLoader().getResourceAsStream("jelly.properties");
@@ -268,6 +252,30 @@ public class Jelly {
             }
             catch (Exception e) {
                 log.error( "Caught exception while loading jelly.properties from the classpath. Reason: " + e, e );
+            }
+        }
+    }
+
+    /**
+     * Load properties from a file into the context
+     * @param f
+     */
+    private void loadProperties(File f) {
+        InputStream is = null;
+        try {
+            if (f.exists()) {
+                is = new FileInputStream(f);
+                loadProperties(is);
+            }
+        } catch (Exception e) {
+            log.error( "Caught exception while loading: " + f.getName() + ". Reason: " + e, e );
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    if (log.isDebugEnabled()) log.debug("error closing property input stream", e);
+                }
             }
         }
     }
