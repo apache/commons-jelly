@@ -143,10 +143,7 @@ public class ValidateTag extends TagSupport {
             handler.endDocument();
             valid = handler.isValid();            
         }
-        if (var != null ) {
-            Boolean value = (valid) ? Boolean.TRUE : Boolean.FALSE;
-            context.setVariable(var, value);
-        }
+        handleValid(valid);
     }
     
     // Properties
@@ -159,6 +156,13 @@ public class ValidateTag extends TagSupport {
      */
     public void setVerifier(Verifier verifier) {
         this.verifier = verifier;
+    }
+    
+    /**
+     * @return the ErrorHandler used when validating
+     */
+    public ErrorHandler getErrorHandler() {
+        return errorHandler;
     }
     
     /** 
@@ -188,6 +192,18 @@ public class ValidateTag extends TagSupport {
     
     // Implementation methods
     //-------------------------------------------------------------------------                    
+    
+    /**
+     * Processes whether or not the document is valid.
+     * Derived classes can overload this method to do different things, such 
+     * as to throw assertion exceptions etc.
+     */    
+    protected void handleValid(boolean valid) throws Exception {
+        if (var != null ) {
+            Boolean value = (valid) ? Boolean.TRUE : Boolean.FALSE;
+            context.setVariable(var, value);
+        }
+    }
     
     /**
      * Outputs the given validation exception as XML to the output
