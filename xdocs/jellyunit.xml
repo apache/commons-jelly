@@ -29,6 +29,10 @@
         You can also use Ant FileSets and the &lt;fileScanner&gt; tag to iterate over collections of 
         Jelly scripts or XML data files and use this data to define new test cases.
       </p>
+      <p>
+        There is an example JellyUnit script
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/junit/suite.jelly?rev=HEAD&content-type=text/vnd.viewcvs-markup">here</a>
+      </p>
     </section>
     <section name="Integration with TestRunners"> 
       <p>
