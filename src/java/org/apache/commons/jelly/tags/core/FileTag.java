@@ -62,7 +62,14 @@ public class FileTag extends TagSupport {
             else if (var != null) {
                 StringWriter writer = new StringWriter();
                 writeBody(writer);
-                context.setVariable(var, writer.toString());
+                String result = writer.toString();
+                Object varValue = context.getVariable(var);
+                // if we're appending, and var is an instance of string, append it.
+                if (doAppend && varValue instanceof String) {
+                    context.setVariable(var, varValue + result);
+                } else {
+                    context.setVariable(var, result);
+                }
             }
             else {
                 throw new JellyTagException( "This tag must have either the 'name' or the 'var' variables defined" );

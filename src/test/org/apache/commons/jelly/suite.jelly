@@ -201,14 +201,12 @@
             actual="${foo}"/>
   </test:case>
 
-    <test:case name="testFileToVar">
-        <j:file var="foo" omitXmlDeclaration="true">
-            <foo x="1">hello</foo>
-        </j:file>
+  <test:case name="testFileToVar">
+    <j:file var="foo" omitXmlDeclaration="true">
+      <foo x="1">hello</foo>
+    </j:file>
 
-        <test:assertEquals 
-            expected='&lt;foo x="1"&gt;hello&lt;/foo&gt;' 
-            actual="${foo}"/>
+    <test:assertEquals expected='&lt;foo x="1"&gt;hello&lt;/foo&gt;' actual="${foo}"/>
   </test:case>
 
 
@@ -359,5 +357,12 @@
       <l>é#\ü</l></j:file>
     <j:set var="doubleSize" value="${f.length()}"/>
     <test:assertEquals expected="${singleSize*2}" actual="${doubleSize}"/>
-    </test:case>
+  </test:case>
+
+  <!-- make sure append works for the 'var' version of the file tag -->
+  <test:case name="testFileToVarAppend">
+    <j:set var="result" value="previous result."/>
+    <j:file var="result" omitXmlDeclaration="true" append="true">And again</j:file>
+    <test:assertEquals expected='previous result.And again' actual="${result}"/>
+  </test:case>
 </test:suite>
