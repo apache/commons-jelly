@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.9 2002/07/22 14:34:09 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/07/22 14:34:09 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.10 2002/10/16 12:42:12 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/10/16 12:42:12 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpression.java,v 1.9 2002/07/22 14:34:09 jstrachan Exp $
+ * $Id: JexlExpression.java,v 1.10 2002/10/16 12:42:12 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 
 public class JexlExpression extends ExpressionSupport {
@@ -96,6 +96,10 @@ public class JexlExpression extends ExpressionSupport {
         this.expression = expression;
     }
 
+    public String toString() {
+        return super.toString() + "[" + expression.getExpression() + "]";
+    }
+    
     // Expression interface
     //------------------------------------------------------------------------- 
     public Object evaluate(JellyContext context) {
