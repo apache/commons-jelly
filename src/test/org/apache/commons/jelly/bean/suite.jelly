@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<test:suite 
+	xmlns:j="jelly:core"
+	xmlns="jelly:org.apache.commons.jelly.bean.MyTagLibrary" 
+	xmlns:test="jelly:junit" 
+	xmlns:log="jelly:log">
+
+<test:case name="simpleBean">
+
+	<customer var="c1" name="James" location="London" >
+		<order amount="100" price="2.99">
+			<product id="p1" name="Beer"/>
+		</order>
+		<order amount="200" price="4.99">
+			<product id="p2" name="Pizza"/>
+		</order>
+  </customer>
+  
+  <log:info>Created a customer with name: ${c1.name} and location: ${c1.location}</log:info>
+  <log:info>Customer has orders ${c1.orders}</log:info>
+
+	<test:assertEquals expected="James" actual="${c1.name}"/>
+	<test:assertEquals expected="London" actual="${c1.location}"/>
+
+	<test:assertTrue test="${size(c1.orders) == 2}"/>
+
+	<test:assertTrue test="${c1.orders[0].amount == 100}"/>
+	<test:assertTrue test="${c1.orders[0].price == 2.99}"/>
+	
+	<test:assertTrue test="${c1.orders[1].amount == 200}"/>
+	<test:assertTrue test="${c1.orders[1].price == 4.99}"/>
+
+	<test:assertTrue test="${c1.orders[0].product != null}"/>
+	<test:assertTrue test="${c1.orders[1].product != null}"/>
+	
+	<test:assertEquals expected="p1" actual="${c1.orders[0].product.id}"/>
+	<test:assertEquals expected="Beer" actual="${c1.orders[0].product.name}"/>
+
+	<test:assertEquals expected="p2" actual="${c1.orders[1].product.id}"/>
+	<test:assertEquals expected="Pizza" actual="${c1.orders[1].product.name}"/>
+	
+	
+</test:case>
+
+</test:suite>

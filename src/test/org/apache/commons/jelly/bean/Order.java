@@ -59,83 +59,86 @@
  * 
  * $Id: TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
  */
-package org.apache.commons.jelly.define;
+package org.apache.commons.jelly.bean;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * A sample bean that we can script using &lt;define:bean&gt;
+ * A sample bean that we can construct via Jelly tags
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class Customer {
+public class Order {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(Customer.class);
+    private static final Log log = LogFactory.getLog(Order.class);
 
-    private String name;
-    private String city;
-    private String location;
+    private Product product;
+    private int amount;
+    private double price;
     
-        
-    public Customer() {
+    public Order() {
     }
-    
     
     public String toString() {
-        return super.toString() + "[name=" + name + ";city=" + city + "]";
+        return "Order[amount=" + amount + ";price=" + price + ";product=" + product + "]";
     }
     
-    // Properties
-    //-------------------------------------------------------------------------
-    /**
-     * Returns the city.
-     * @return String
+    /** 
+     * Factory method to create a new Product
      */
-    public String getCity() {
-        return city;
+    public Product createProduct() {
+        return new Product();
+    }
+        
+    /**
+     * Returns the amount.
+     * @return int
+     */
+    public int getAmount() {
+        return amount;
     }
 
     /**
-     * Returns the location.
-     * @return String
+     * Returns the price.
+     * @return double
      */
-    public String getLocation() {
-        return location;
+    public double getPrice() {
+        return price;
     }
 
     /**
-     * Returns the name.
-     * @return String
+     * Sets the amount.
+     * @param amount The amount to set
      */
-    public String getName() {
-        return name;
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     /**
-     * Sets the city.
-     * @param city The city to set
+     * Sets the price.
+     * @param price The price to set
      */
-    public void setCity(String city) {
-        this.city = city;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     /**
-     * Sets the location.
-     * @param location The location to set
+     * Returns the product.
+     * @return Product
      */
-    public void setLocation(String location) {
-        this.location = location;
+    public Product getProduct() {
+        return product;
     }
 
     /**
-     * Sets the name.
-     * @param name The name to set
+     * Sets the product.
+     * @param product The product to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
 }

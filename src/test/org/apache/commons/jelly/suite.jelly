@@ -93,7 +93,7 @@
   </test:case>
 
 	<test:case name="testNewAndSetProperties">
-		<j:new className="org.apache.commons.jelly.define.Customer" var="customer"/>
+		<j:new className="org.apache.commons.jelly.bean.Customer" var="customer"/>
 		<j:setProperties object="${customer}" name="James" city="London" />
 
 		<log:info>Created a new bean: ${customer}</log:info>
@@ -109,12 +109,12 @@
 			actual="${customer.city}"/>
 			
 		<test:assertEquals 
-			expected="org.apache.commons.jelly.define.Customer" 
+			expected="org.apache.commons.jelly.bean.Customer" 
 			actual="${customer.class.name}"/>
   </test:case>
 
 	<test:case name="testUseBean">
-		<j:useBean var="customer" class="org.apache.commons.jelly.define.Customer" name="James" city="London" />
+		<j:useBean var="customer" class="org.apache.commons.jelly.bean.Customer" name="James" city="London" />
 
 		<log:info>Created a new bean: ${customer}</log:info>
 			
@@ -129,7 +129,7 @@
 			actual="${customer.city}"/>
 			
 		<test:assertEquals 
-			expected="org.apache.commons.jelly.define.Customer" 
+			expected="org.apache.commons.jelly.bean.Customer" 
 			actual="${customer.class.name}"/>
   </test:case>
 
