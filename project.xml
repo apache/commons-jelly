@@ -14,13 +14,13 @@
   </description>
   <shortDescription>Commons Jelly Ant Tag Library</shortDescription>
   
-  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/ant</siteDirectory>
+  <!-- <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/ant</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/ant</distributionDirectory>
   <repository>
     <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/ant/</connection>
     <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/ant/</url>
   </repository>
-  
+  -->
     
   <dependencies>
   
