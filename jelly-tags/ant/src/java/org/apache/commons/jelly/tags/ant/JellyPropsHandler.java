@@ -19,7 +19,6 @@ package org.apache.commons.jelly.tags.ant;
 import java.util.Hashtable;
 import java.util.Iterator;
 
-import org.apache.commons.grant.DefaultPropsHandler;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
 
