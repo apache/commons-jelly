@@ -38,7 +38,7 @@ import java.util.Collections;
   * used from the other xml library functions.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 public class SetTag extends XPathTagSupport {
 
@@ -73,11 +73,11 @@ public class SetTag extends XPathTagSupport {
         Object xpathContext = getXPathContext();
         Object value = null;
         try {
-			if(single!=null && single.booleanValue()==true) {
-				value = select.selectSingleNode(xpathContext);
-			} else {
-				value = select.evaluate(xpathContext);
-			}
+            if(single!=null && single.booleanValue()==true) {
+                value = select.selectSingleNode(xpathContext);
+            } else {
+                value = select.evaluate(xpathContext);
+            }
         }
         catch (JaxenException e) {
             throw new JellyTagException(e);
@@ -90,26 +90,26 @@ public class SetTag extends XPathTagSupport {
             }
         }
         if (single!=null) {
-			if (single.booleanValue()==true) {
-				if(value instanceof List) {
-					List l = (List) value;
-					if (l.size()==0)
-						value=null;
-					else
-						value=l.get(0);
-				}
-			} else { // single == false
-				if(! (value instanceof List) ) {
+            if (single.booleanValue()==true) {
+                if(value instanceof List) {
+                    List l = (List) value;
+                    if (l.size()==0)
+                        value=null;
+                    else
+                        value=l.get(0);
+                }
+            } else { // single == false
+                if(! (value instanceof List) ) {
                     List l = null;
-					if (value==null) {
-						l = new ArrayList(0);
-					} else {
-						l = new ArrayList(1);
-						l.add(value);
-					}
-					value = l;
-				}
-			}
+                    if (value==null) {
+                        l = new ArrayList(0);
+                    } else {
+                        l = new ArrayList(1);
+                        l.add(value);
+                    }
+                    value = l;
+                }
+            }
         }
 
         //log.info( "Evaluated xpath: " + select + " as: " + value + " of type: " + value.getClass().getName() );
@@ -132,7 +132,7 @@ public class SetTag extends XPathTagSupport {
     }
 
     /** If set to true will only take the first element matching.
-		If set to false, guarantees that a list is returned.
+        If set to false, guarantees that a list is returned.
         It then guarantees that the result is of type
         {@link org.dom4j.Node} thereby making sure that, for example,
         when an element is selected, one can directly call such methods
@@ -144,7 +144,7 @@ public class SetTag extends XPathTagSupport {
 
 
     /** Sets the xpath expression to use to sort selected nodes.
-	 *  Ignored if single is true.
+     *  Ignored if single is true.
      */
     public void setSort(XPath sortXPath) throws JaxenException {
         if (xpCmp == null) xpCmp = new XPathComparator();
