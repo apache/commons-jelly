@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.2 2002/02/12 21:34:33 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/02/13 16:00:39 $
  *
  * ====================================================================
  *
@@ -57,18 +57,19 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.2 2002/02/12 21:34:33 jstrachan Exp $
+ * $Id: Context.java,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
 import java.io.Writer;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Map;
 
 /** <p><code>Context</code> represents the Jelly context.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class Context {
 
@@ -96,4 +97,12 @@ public class Context {
             variables.put( name, value );
         }
     }    
+    
+    /** 
+     * @return an Iterator over the current variable names in this
+     * context 
+     */
+    public Iterator getVariableNames() {
+        return variables.keySet().iterator();
+    }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/BeanShellExpression.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/BeanShellExpression.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/13 16:00:39 $
  *
  * ====================================================================
  *
@@ -57,30 +57,52 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpression.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: BeanShellExpression.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression.beanshell;
 
 import org.apache.commons.jelly.Context;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogSource;
+
+
 /** Represents a <a href="http://www.beanshell.org">beanshell</a> expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class BeanShellExpression extends ExpressionSupport {
+
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogSource.getInstance( BeanShellExpression.class );
 
     /** The expression */
     private String text;
     
-    public BeanShellExpression(String text) {
+    /** The interpreter */
+    private JellyInterpreter interpreter = new JellyInterpreter();
+    
+    public BeanShellExpression(String text, JellyInterpreter interpreter) {
         this.text = text;
+        this.interpreter = interpreter;
     }
 
     // Expression interface
     //------------------------------------------------------------------------- 
     public Object evaluate(Context context) {
-        return null;
+        try {
+            interpreter.setContext(context);
+            if ( log.isDebugEnabled() ) {            
+                log.debug( "Evaluating EL: " + text );
+            }
+            
+            return interpreter.eval( text );
+        }
+        catch (Exception e) {
+            log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
+            return null;
+        }
     }
 }

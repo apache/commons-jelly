@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/02/13 16:00:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.2 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: TagScript.java,v 1.3 2002/02/13 16:00:39 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -85,7 +85,7 @@ import org.apache.commons.logging.LogSource;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class TagScript implements Script {
     
@@ -185,12 +185,21 @@ public class TagScript implements Script {
         for ( int i = 0, size = expressions.length; i < size; i++ ) {
             Expression expression = expressions[i];
             Method method =  methods[i];
+            Class type = types[i];
             
-            Object value = expression.evaluate( context );
+            // some types are Expression objects so let the tag
+            // evaluate them
+            Object value = null;
+            if ( type.isAssignableFrom( Expression.class ) ) {
+                value = expression;
+            }
+            else {
+                value = expression.evaluate( context );
+            }
             
             // convert value to correct type
             if ( value != null ) {
-                value = convertType( value, types[i] );
+                value = convertType( value, type );
             }
             
             Object[] arguments = { value };

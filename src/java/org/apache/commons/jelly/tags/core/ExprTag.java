@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/13 16:00:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -69,12 +69,18 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.expression.Expression;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogSource;
+
 /** A tag which evaluates an expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ExprTag extends TagSupport {
+
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogSource.getInstance( ExprTag.class );
 
     /** The expression to evaluate. */
     private Expression value;        
@@ -86,7 +92,7 @@ public class ExprTag extends TagSupport {
     //------------------------------------------------------------------------- 
     public void run(Context context, Writer writer) throws IOException {
         if ( value != null ) {
-            String text = value.evaluateAsString( context );
+            String text = value.evaluateAsString( context );            
             if ( text != null ) {
                 writer.write( text );
             }

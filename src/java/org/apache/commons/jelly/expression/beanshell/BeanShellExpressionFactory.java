@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/BeanShellExpressionFactory.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/BeanShellExpressionFactory.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/02/13 16:00:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpressionFactory.java,v 1.1 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: BeanShellExpressionFactory.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression.beanshell;
 
@@ -67,17 +67,20 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
 /** Represents a factory of <a href="http://www.beanshell.org">beanshell</a> expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class BeanShellExpressionFactory implements ExpressionFactory {
 
+    /** The interpreter */
+    private JellyInterpreter interpreter = new JellyInterpreter();
+    
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
     public Expression createExpression(String text) throws Exception {
         int length = text.length();
         if ( length > 2 && text.charAt(0) == '{'  && text.charAt( length - 1 ) == '}' ) {
             text = text.substring( 1, length - 1 );
-            return new BeanShellExpression(text);
+            return new BeanShellExpression(text, interpreter);
         }
         return null;
     }

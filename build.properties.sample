@@ -7,8 +7,16 @@ collections.jar=../../jakarta-commons/collections/dist/commons-collections.jar
 # jakarta-commons-logging.jar
 logging.jar=../../jakarta-commons/logging/dist/commons-logging.jar
 
+# you can change this property to point at a local copy of the java 2 platform api
+jdk-doc-url=http://java.sun.com/products/jdk/1.3/docs/api
+
+# for the XML tags the following is required
+#
 # dom4j.jar - go to http://dom4j.org to download
 dom4j.jar=/java/dom4j/dom4j.jar
 
-# you can change this property to point at a local copy of the java 2 platform api
-jdk-doc-url=http://java.sun.com/products/jdk/1.3/docs/api
+# for the beanshell expression language the following is required
+#
+# beanshell.jar - go to http://www.beanshell.org
+beanshell.jar=/java/beanshell/beanshell.jar
+

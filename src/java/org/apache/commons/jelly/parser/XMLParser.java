@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.3 2002/02/12 21:34:34 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/12 21:34:34 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.4 2002/02/13 16:00:39 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/02/13 16:00:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.3 2002/02/12 21:34:34 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.4 2002/02/13 16:00:39 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -115,7 +115,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class XMLParser extends DefaultHandler {
     
@@ -588,27 +588,27 @@ public class XMLParser extends DefaultHandler {
      * @exception SAXException if a parsing error is to be reported
      */
     public void startElement(
-    String namespaceURI, String localName, String qName, Attributes list
+        String namespaceURI, String localName, String qName, Attributes list
     ) throws SAXException {
         
         // if this is a tag then create a script to run it
         // otherwise pass the text to the current body
         tagScript = createTag( namespaceURI, localName, list );
         tagScriptStack.add( tagScript );
-        
+
         if ( tagScript != null ) {            
             // set parent relationship...
             Tag tag = tagScript.getTag();
             tag.setParent( parentTag );
             parentTag = tag;
-            
+
             if ( textBuffer.length() > 0 ) {
                 script.addScript( new TextScript( textBuffer.toString() ) );
                 textBuffer.setLength(0);
             }
-            
+
             script.addScript( tagScript );
-            
+
             // start a new body
             scriptStack.push( script );
             script = new ScriptBlock();
@@ -616,7 +616,7 @@ public class XMLParser extends DefaultHandler {
         }
         else {
             // XXXX: might wanna handle empty elements later...
-            
+
             textBuffer.append( "<" );
             textBuffer.append( qName );
             int size = list.getLength();
@@ -717,8 +717,9 @@ public class XMLParser extends DefaultHandler {
      *
      * @exception SAXException if a parsing error is to be reported
      */
-    public void ignorableWhitespace(char buffer[], int start, int len)
-    throws SAXException {
+    public void ignorableWhitespace(
+        char buffer[], int start, int len
+    ) throws SAXException {
         ;	// No processing required
         
     }
@@ -911,7 +912,7 @@ public class XMLParser extends DefaultHandler {
             // use the URI to load a taglib
             TagLibrary taglib = (TagLibrary) taglibs.get( namespaceURI );
             if ( taglib == null ) {
-                if ( namespaceURI.startsWith( "jelly:" ) ) {
+                if ( namespaceURI != null && namespaceURI.startsWith( "jelly:" ) ) {
                     String uri = namespaceURI.substring(6);
                     // try to find the class on the claspath
                     try {
@@ -946,6 +947,10 @@ public class XMLParser extends DefaultHandler {
             log.warn( "Could not create taglib or URI: " + namespaceURI + " tag name: " + localName, e );
             throw createSAXException(e);
         }
+        catch (Throwable e) {
+            log.warn( "Could not create taglib or URI: " + namespaceURI + " tag name: " + localName, e );
+            return null;
+        }
     }
     
     protected Expression createExpression( String tagName, String attributeName, String attributeValue ) throws Exception {
@@ -968,19 +973,23 @@ public class XMLParser extends DefaultHandler {
      * @return the new exception
      */
     protected SAXException createSAXException(String message, Exception e) {
+        log.warn( "Underlying exception: " + e );
+        e.printStackTrace();
         if (locator != null) {
             String error = "Error at (" + locator.getLineNumber() + ", "
             + locator.getColumnNumber() + ": " + message;
             if (e != null) {
                 return new SAXParseException(error, locator, e);
-            } else {
+            } 
+            else {
                 return new SAXParseException(error, locator);
             }
         }
         log.error("No Locator!");
         if (e != null) {
             return new SAXException(message, e);
-        } else {
+        } 
+        else {
             return new SAXException(message);
         }
     }

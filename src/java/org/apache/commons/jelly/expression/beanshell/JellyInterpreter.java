@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
- * $Revision: 1.2 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/beanshell/Attic/JellyInterpreter.java,v 1.1 2002/02/13 16:00:39 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/02/13 16:00:39 $
  *
  * ====================================================================
@@ -57,67 +57,58 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: JellyInterpreter.java,v 1.1 2002/02/13 16:00:39 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.expression.beanshell;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import bsh.EvalError;
+import bsh.Interpreter;
 
-import org.apache.commons.jelly.parser.XMLParser;
+import java.util.Iterator;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogSource;
+import org.apache.commons.jelly.Context;
 
-/** <p><code>Jelly</code> an application which runs a Jelly script.</p>
+/** Integrates BeanShell's interpreter with Jelly's Context
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.1 $
   */
-public class Jelly {
+public class JellyInterpreter extends Interpreter {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( Jelly.class );
-
-
-    public static void main(String[] args) throws Exception {
-        if ( args.length <= 0 ) {
-            System.out.println( "Usage: Jelly scriptFile [outputFile]" );
-            return;
-        }
-        String input = args[0];
-        
-/*
-        // later we might wanna add some command line arguments 
-        // checking stuff using commons-cli to specify the output file
-        // and input file via command line arguments
-  
-        Writer writer = ( args.length > 1 ) 
-            ? new FileWriter( args[1] ) 
-            : new OutputStreamWriter( System.out );
-        BufferedWriter output = new BufferedWriter( writer );
-*/      
-        Writer output = new BufferedWriter( 
-            new OutputStreamWriter( System.out )
-        );
-        
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse( input );
+    private Context context;
     
-        script = script.compile();
+    public JellyInterpreter() {
+    }
+
+    public Context getContext() {
+        return context;
+    }
+    
+    public void setContext(Context context) throws EvalError {
+        this.context = context;
         
-        if ( log.isDebugEnabled() ) {
-            log.debug( "Compiled script: " + script );
+        // now pass in all the variables
+        for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            Object value = context.getVariable(name);
+            set( name, value );
         }
-        
-        // add the system properties and the command line arguments
-        //Context context = new Context( System.getProperties() );
-        Context context = new Context();
-        context.setVariable( "args", args );
-        
-        script.run( context, output );
-        output.close();
-    }    
+    }
+
+/*
+  
+    // the following code doesn't work - it seems that
+    // all variables must be passed into the Interpreter
+    // via set() method
+ 
+    public Object get(String name) throws EvalError {
+        if ( context != null ) {
+            Object answer = context.getVariable( name );
+            if ( answer != null ) { 
+                return answer;
+            }
+        }
+        return super.get( name );
+    }
+*/
 }

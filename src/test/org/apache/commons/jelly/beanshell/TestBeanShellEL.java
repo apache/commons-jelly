@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
  * $Revision: 1.2 $
- * $Date: 2002/02/13 16:00:39 $
+ * $Date: 2002/02/12 21:34:35 $
  *
  * ====================================================================
  *
@@ -57,67 +57,70 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.2 2002/02/13 16:00:39 jstrachan Exp $
+ * $Id: TestXMLTags.java,v 1.2 2002/02/12 21:34:35 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.beanshell;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.expression.beanshell.BeanShellExpressionFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogSource;
 
-/** <p><code>Jelly</code> an application which runs a Jelly script.</p>
+
+/** Tests the BeanShell EL
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.2 $
   */
-public class Jelly {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogSource.getInstance( Jelly.class );
-
-
-    public static void main(String[] args) throws Exception {
-        if ( args.length <= 0 ) {
-            System.out.println( "Usage: Jelly scriptFile [outputFile]" );
-            return;
-        }
-        String input = args[0];
-        
-/*
-        // later we might wanna add some command line arguments 
-        // checking stuff using commons-cli to specify the output file
-        // and input file via command line arguments
-  
-        Writer writer = ( args.length > 1 ) 
-            ? new FileWriter( args[1] ) 
-            : new OutputStreamWriter( System.out );
-        BufferedWriter output = new BufferedWriter( writer );
-*/      
-        Writer output = new BufferedWriter( 
-            new OutputStreamWriter( System.out )
-        );
-        
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse( input );
+public class TestBeanShellEL extends TestCase {
     
-        script = script.compile();
-        
-        if ( log.isDebugEnabled() ) {
-            log.debug( "Compiled script: " + script );
-        }
-        
-        // add the system properties and the command line arguments
-        //Context context = new Context( System.getProperties() );
-        Context context = new Context();
-        context.setVariable( "args", args );
-        
-        script.run( context, output );
-        output.close();
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogSource.getInstance( TestBeanShellEL.class );
+
+    /** Jelly context */
+    protected Context context;
+    
+    /** The factory of Expression objects */
+    protected ExpressionFactory factory;
+    
+    
+    public static void main( String[] args ) {
+        TestRunner.run( suite() );
+    }
+    
+    public static Test suite() {
+        return new TestSuite(TestBeanShellEL.class);
+    }
+    
+    public TestBeanShellEL(String testName) {
+        super(testName);
+    }
+    
+    public void setUp() {
+        context = new Context();
+        context.setVariable( "foo", "abc" );
+        context.setVariable( "bar", new Integer( 123 ) );
+        factory = new BeanShellExpressionFactory();
+    }
+    
+    public void testEL() throws Exception {
+        assertExpression( "{foo}", "abc" );
+        assertExpression( "{bar * 2}", new Integer( 246 ) );
     }    
+    
+    /** Evaluates the given expression text and tests it against the expected value */
+    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
+        Expression expr = factory.createExpression( expressionText );
+        Object value = expr.evaluate( context );
+        assertEquals( "Value of expression: " + expressionText, expectedValue, value );
+    }        
 }
+
