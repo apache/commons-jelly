@@ -56,10 +56,15 @@ package org.apache.commons.jelly.tags.velocity;
  * ====================================================================
  */
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.velocity.exception.MethodInvocationException;
+import org.apache.velocity.exception.ParseErrorException;
+import org.apache.velocity.exception.ResourceNotFoundException;
+
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -70,7 +75,7 @@ import java.io.Writer;
  * JellyContext or in a specified file.
  * 
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id: MergeTag.java,v 1.1 2003/01/07 03:33:31 dion Exp $
+ * @version $Id: MergeTag.java,v 1.2 2003/01/26 09:01:28 morgand Exp $
  */
 public class MergeTag extends VelocityTagSupport 
 {
@@ -86,21 +91,26 @@ public class MergeTag extends VelocityTagSupport
 
     // -- Tag interface -----------------------------------------------------
 
-    public void doTag( final XMLOutput output ) throws Exception 
+    public void doTag( final XMLOutput output ) throws JellyTagException 
     {
         if ( basedir == null || template == null )
         {
-            throw new JellyException( 
+            throw new JellyTagException( 
                     "This tag must define 'basedir' and 'template'" );
         }
 
         if ( name != null )
         {
-            Writer writer = new OutputStreamWriter( 
-                    new FileOutputStream( name ), 
-                    outputEncoding == null ? ENCODING : outputEncoding );
-            mergeTemplate( writer );
-            writer.close();
+            try {
+                Writer writer = new OutputStreamWriter( 
+                        new FileOutputStream( name ), 
+                        outputEncoding == null ? ENCODING : outputEncoding );
+                mergeTemplate( writer );
+                writer.close();
+            } 
+            catch (IOException e) {
+                throw new JellyTagException(e);
+            } 
         }
         else if ( var != null )
         {
@@ -110,7 +120,7 @@ public class MergeTag extends VelocityTagSupport
         }
         else 
         {
-            throw new JellyException( 
+            throw new JellyTagException( 
                     "This tag must define either 'name' or 'var'" );
         }
     }
@@ -207,16 +217,30 @@ public class MergeTag extends VelocityTagSupport
      * @param writer The output writer used to write the merged results.
      * @throws Exception If an exception occurs during the merge.
      */
-    private void mergeTemplate( Writer writer ) throws Exception 
+    private void mergeTemplate( Writer writer ) throws JellyTagException
     {
         JellyContextAdapter adapter = new JellyContextAdapter( getContext() );
         adapter.setReadOnly( readOnly );
 
-        getVelocityEngine( basedir ).mergeTemplate( 
+        try {
+            getVelocityEngine( basedir ).mergeTemplate( 
                 template,
                 inputEncoding == null ? ENCODING : inputEncoding, 
                 adapter,
                 writer );
+        } 
+        catch (ResourceNotFoundException e) {
+            throw new JellyTagException(e);
+        }
+        catch (ParseErrorException e) {
+            throw new JellyTagException(e);
+        }
+        catch (MethodInvocationException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (Exception e) {
+            throw new JellyTagException(e);
+        }
     }
 }
     

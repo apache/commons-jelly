@@ -56,6 +56,7 @@ package org.apache.commons.jelly.tags.velocity;
  * ====================================================================
  */
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.velocity.app.VelocityEngine;
 
@@ -67,7 +68,7 @@ import org.apache.velocity.app.VelocityEngine;
  * loader of an already init'd VelocityEngine).
  * 
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id: VelocityTagSupport.java,v 1.1 2003/01/07 03:33:31 dion Exp $
+ * @version $Id: VelocityTagSupport.java,v 1.2 2003/01/26 09:01:28 morgand Exp $
  */
 public abstract class VelocityTagSupport extends TagSupport
 {
@@ -82,7 +83,7 @@ public abstract class VelocityTagSupport extends TagSupport
      * @return A VelocityEngine with a file resource loader configured
      * for the specified base directory.
      */
-    public VelocityEngine getVelocityEngine( String basedir ) throws Exception
+    public VelocityEngine getVelocityEngine( String basedir ) throws JellyTagException
     {
         VelocityEngine ve = ( VelocityEngine ) getContext().getVariable( 
                 keyName( basedir ) );
@@ -92,7 +93,13 @@ public abstract class VelocityTagSupport extends TagSupport
             ve = new VelocityEngine();
             ve.setProperty( VelocityEngine.RUNTIME_LOG_LOGSYSTEM, this );
             ve.setProperty( VelocityEngine.FILE_RESOURCE_LOADER_PATH, basedir );
-            ve.init();
+            
+            try {
+                ve.init();
+            }
+            catch (Exception e) {
+                throw new JellyTagException(e);
+            }
 
             getContext().setVariable( keyName( basedir ), ve );
         }
