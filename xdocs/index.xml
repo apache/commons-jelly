@@ -23,9 +23,7 @@ Though Jelly is really simple and has no dependencies either Servlets or JSP.
 Jelly has native support for plugin expression languages and includes support 
 for the JSP, JSTL and JSF expression language via 
 
-<!-- #### update Jexl link when it gets Maven-ized -->
-
-<a href="http://jakarta.apache.org/commons/">Jexl</a> as well as others like XPath via 
+<a href="http://jakarta.apache.org/commons/sandbox/jexl/">Jexl</a> as well as others like XPath via 
 <a href="http://jaxen.org">Jaxen</a>.
 </p>
 </section>
