@@ -63,7 +63,7 @@
     <dependency>
       <id>commons-jelly+tags-junit</id>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
     </dependency>
 
     <!-- END for test -->
