@@ -81,10 +81,10 @@ import org.apache.commons.logging.LogFactory;
 public class JellyContext {
 
     /** The root URL context (where scripts are located from) */
-    private URL rootContext;
+    private URL rootURL;
 
     /** The current URL context (where relative scripts are located from) */
-    private URL currentJellyContext;
+    private URL currentURL;
 
     /** Tag libraries found so far */
     private Map taglibs = new Hashtable();
@@ -111,28 +111,28 @@ public class JellyContext {
 
 
     public JellyContext() {
-        this.currentJellyContext = rootContext;
+        this.currentURL = rootURL;
     }
 
-    public JellyContext(URL rootContext) {
-        this( rootContext, rootContext );
+    public JellyContext(URL rootURL) {
+        this( rootURL, rootURL );
     }
 
-    public JellyContext(URL rootContext, URL currentJellyContext) {
-        this.rootContext = rootContext;
-        this.currentJellyContext = currentJellyContext;
+    public JellyContext(URL rootURL, URL currentURL) {
+        this.rootURL = rootURL;
+        this.currentURL = currentURL;
     }
 
     public JellyContext(JellyContext parentJellyContext) {
-        this.rootContext = parentJellyContext.rootContext;
-        this.currentJellyContext = parentJellyContext.currentJellyContext;
+        this.rootURL = parentJellyContext.rootURL;
+        this.currentURL = parentJellyContext.currentURL;
         this.taglibs = parentJellyContext.taglibs;
         this.variables.put("parentScope", parentJellyContext.variables);
     }
 
-    public JellyContext(JellyContext parentJellyContext, URL currentJellyContext) {
+    public JellyContext(JellyContext parentJellyContext, URL currentURL) {
         this(parentJellyContext);
-        this.currentJellyContext = currentJellyContext;
+        this.currentURL = currentURL;
     }
 
     /** @return the value of the given variable name */
@@ -311,7 +311,7 @@ public class JellyContext {
     public URL getResource(String uri) throws MalformedURLException {
         if (uri.startsWith("/")) {
             // append this uri to the context root
-            return createRelativeURL(rootContext, uri.substring(1));
+            return createRelativeURL(rootURL, uri.substring(1));
         }
         else {
             try {
@@ -320,7 +320,7 @@ public class JellyContext {
             catch (MalformedURLException e) {
                 // lets try find a relative resource
                 try {
-                    return createRelativeURL(currentJellyContext, uri);
+                    return createRelativeURL(currentURL, uri);
                 }
                 catch (MalformedURLException e2) {
                     throw e;
@@ -358,6 +358,42 @@ public class JellyContext {
     // Properties
     //-------------------------------------------------------------------------                
 
+    /**
+     * @return the current root context URL from which all absolute resource URIs
+     *  will be relative to. For example in a web application the root URL will
+     *  map to the web directory which contains the WEB-INF directory.
+     */
+    public URL getRootURL() {
+        return rootURL;
+    }
+    
+    /**
+     * Sets the current root context URL from which all absolute resource URIs
+     *  will be relative to. For example in a web application the root URL will
+     *  map to the web directory which contains the WEB-INF directory.
+     */
+    public void setRootURL(URL rootURL) {
+        this.rootURL = rootURL;
+    }
+    
+
+    /** 
+     * @return the current URL context of the current script that is executing. 
+     *  This URL context is used to deduce relative scripts when relative URIs are
+     *  used in calls to {@link getResource()} to process relative scripts.
+     */ 
+    public URL getCurrentURL() {
+        return currentURL;
+    }
+    
+    /** 
+     * Sets the current URL context of the current script that is executing. 
+     *  This URL context is used to deduce relative scripts when relative URIs are
+     *  used in calls to {@link getResource()} to process relative scripts.
+     */ 
+    public void setCurrentURL(URL currentURL) { 
+        this.currentURL = currentURL;
+    }
 
     /**
      * Return the class loader to be used for instantiating application objects
