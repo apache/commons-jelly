@@ -232,7 +232,7 @@ public class JellyContext {
         if ( value == null && isInherit() ) {
             JellyContext parent = getParent();
             if (parent != null) {                
-                value = parent.findVariable( name );
+                value = parent.getVariable( name );
             }
         }
 
@@ -294,7 +294,6 @@ public class JellyContext {
      * @param name is the name of the variable
      * @param scopeName is the optional scope name such as 'parent'. For servlet environments
      *  this could be 'application', 'session' or 'request'.
-     * @param value is the value of the attribute
      */
     public void removeVariable(String name, String scopeName) {
         JellyContext scope = getScope(scopeName);
@@ -843,7 +842,7 @@ public class JellyContext {
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.
      *
-     * @param boolean determines whether to use JellyContext ClassLoader.
+     * @param use determines whether to use JellyContext ClassLoader.
      */
     public void setUseContextClassLoader(boolean use) {
         useContextClassLoader = use;
