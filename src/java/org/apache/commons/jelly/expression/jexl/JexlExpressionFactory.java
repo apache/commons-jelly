@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.4 2002/05/17 15:18:14 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/05/17 15:18:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.5 2002/06/06 07:13:41 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/06 07:13:41 $
  *
  * ====================================================================
  *
@@ -57,13 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.4 2002/05/17 15:18:14 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.5 2002/06/06 07:13:41 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
 
 import org.apache.commons.jelly.expression.Expression;
-
 import org.apache.commons.jelly.expression.ExpressionFactory;
 
 /** 
@@ -71,30 +70,17 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * expression which fully supports the Expression Language in JSTL and JSP.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
 
     // ExpressionFactory interface
-
     //------------------------------------------------------------------------- 
-
     public Expression createExpression(String text) throws Exception {
-
-        int length = text.length();
-
-        if (length > 3 && text.startsWith("${") && text.charAt(length - 1) == '}') {
-
-            text = text.substring(2, length - 1);
-
-            return new JexlExpression(
-                org.apache.commons.jexl.ExpressionFactory.createExpression(text));
-
-        }
-
-        return null;
-
+        return new JexlExpression(
+            org.apache.commons.jexl.ExpressionFactory.createExpression(text)
+        );
     }
 
 }

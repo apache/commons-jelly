@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.19 2002/05/30 14:27:07 jstrachan Exp $
- * $Revision: 1.19 $
- * $Date: 2002/05/30 14:27:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.20 2002/06/06 07:13:41 jstrachan Exp $
+ * $Revision: 1.20 $
+ * $Date: 2002/06/06 07:13:41 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.19 2002/05/30 14:27:07 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.20 2002/06/06 07:13:41 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 import java.io.File;
@@ -87,6 +87,7 @@ import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.jelly.impl.DynaTagScript;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
+import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
@@ -109,7 +110,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -985,10 +986,9 @@ public class XMLParser extends DefaultHandler {
             for (int i = 0; i < size; i++) {
                 String attributeName = list.getLocalName(i);
                 String attributeValue = list.getValue(i);
-                Expression expression = getExpressionFactory().createExpression(attributeValue);
-                if (expression == null) {
-                    expression = createConstantExpression(localName, attributeName, attributeValue);
-                }
+                Expression expression = CompositeExpression.parse(
+                    attributeValue, getExpressionFactory()
+                );
                 script.addAttribute(attributeName, expression);
             }
             return script;

@@ -560,7 +560,9 @@ public class JellyContext {
         else {
             urlText = rootURL.toString() + relativeURI;
         }
-        log.info("Attempting to open url: " + urlText);
+        if ( log.isDebugEnabled() ) {
+            log.debug("Attempting to open url: " + urlText);
+        }
         return new URL(urlText);
     }
 

@@ -202,7 +202,17 @@
 	<target name="dist" depends="maven:dist-build"/>
 	<target name="site" depends="maven:site"/>
 	
+<!-- ========== Specific Test cases ======================================= -->
+
+   <target name="test.expr"
+      description="Runs the Expression unit test">
+    <property name="maven.testcase" value="org.apache.commons.jelly.expression.TestExpressions"/>   
+    <maven-ant antfile="${maven.home}/plugins/test/build.xml" target="run-singletest"/>
+   </target>
+
+
 <!-- ========== Sample Program Targets ==================================== -->
+
 
    <target name="demo.hw" depends="compile" 
       description="Runs the Hello World demo">

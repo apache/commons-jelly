@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.10 2002/06/06 07:13:41 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/06/06 07:13:41 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/05/28 07:20:06 $
  *
  * ====================================================================
  *
@@ -57,85 +57,65 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.10 2002/06/06 07:13:41 jstrachan Exp $
+ * $Id: TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
  */
+package org.apache.commons.jelly.expression;
 
-package org.apache.commons.jelly;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
 
-import org.apache.commons.jelly.expression.CompositeExpression;
-import org.apache.commons.jelly.expression.ConstantExpression;
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.impl.TagScript;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import org.xml.sax.Attributes;
+/** 
+ * Tests the use of Expression parsing
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.8 $
+ */
+public class TestExpressions extends TestCase {
 
-/** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
-  */
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(TestExpressions.class);
 
-public abstract class TagLibrary {
+    protected JellyContext context = new JellyContext();
+    protected ExpressionFactory factory = new JexlExpressionFactory();
 
-    private Map tags = new HashMap();
-
-    public TagLibrary() {
-
+    public static void main(String[] args) {
+        TestRunner.run(suite());
     }
 
-    /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes)
-        throws Exception {
-
-        Class type = (Class) tags.get(name);
-        if ( type != null ) {
-            Tag tag = (Tag) type.newInstance();
-            return TagScript.newInstance(tag);
-        }
-        return null;
-
+    public static Test suite() {
+        return new TestSuite(TestExpressions.class);
     }
 
-    /** Allows taglibs to use their own expression evaluation mechanism */
-    public Expression createExpression(
-        ExpressionFactory factory,
-        String tagName,
-        String attributeName,
-        String attributeValue)
-        throws Exception {
+    public TestExpressions(String testName) {
+        super(testName);
+    }
 
-        ExpressionFactory myFactory = getExpressionFactory();
-        if (myFactory == null) {
-            myFactory = factory;
-        }
-        if (myFactory != null) {
-            return CompositeExpression.parse(attributeValue, myFactory);
-        }
+    public void testExpresssions() throws Exception {
+        context.setVariable("topping", "cheese");
+        context.setVariable("type", "deepPan");
         
-        // will use a constant expression instead
-        return new ConstantExpression(attributeValue);;
+
+        assertExpression("foo", "foo");
+        assertExpression("${topping}", "cheese");
+        assertExpression("some${topping}", "somecheese");
+        assertExpression("${topping}y", "cheesey");
+        assertExpression("A ${topping} ${type} pizza", "A cheese deepPan pizza");
+        assertExpression("${topping}-${type}", "cheese-deepPan");
     }
     
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------     
-
-    /** Registers a tag class for a given tag name */
-    protected void registerTag(String name, Class type) {
-        tags.put(name, type);
+    protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
+        Expression expression = CompositeExpression.parse(expressionText, factory);
+        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
+        Object value = expression.evaluate(context);
+        //assertEquals( "Expression for: " + expressionText + " is: " + expression, expectedValue, value );
+        assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
     }
-
-    /** Allows derived tag libraries to use their own factory */
-    protected ExpressionFactory getExpressionFactory() {
-        return null;
-    }
-    
-    protected Map getTagClasses() {
-        return tags;
-    }
-
 }
