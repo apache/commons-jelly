@@ -60,8 +60,8 @@ package org.apache.commons.jelly.tags.jsl;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.xml.XPathSource;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,7 +77,7 @@ import org.dom4j.rule.Rule;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class TemplateTag extends JSLTagSupport implements XPathSource {
+public class TemplateTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(TemplateTag.class);
@@ -92,18 +92,9 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
     /** Holds value of property priority. */
     private double priority;
     
-    /** Holds value of property rule. */
-    private Rule rule;    
-
-    /** Holds value of property action. */
-    private Action action;
-
     /** The pattern to match */
     private Pattern match;
     
-    /** store the current output instance for use by inner classes */
-    private XMLOutput output;
-
     /** The source XPath context for any child tags */
     private Object xpathSource;
     
@@ -114,9 +105,6 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        // for use by inner classes
-        this.output = output;
-        
         StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
         if (tag == null) {
             throw new JellyException( "This <template> tag must be used inside a <stylesheet> tag" );
@@ -126,7 +114,7 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
             log.debug( "adding template rule for match: " + match );
         }
         
-        Rule rule = getRule();
+        Rule rule = createRule(tag, output);
         if ( rule != null && tag != null) {
             rule.setMode( mode );
             tag.addTemplate( rule );
@@ -181,23 +169,6 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
     }
     
     
-    /** Getter for property action.
-     * @return Value of property action.
-     */
-    public Action getAction() {
-        if ( action == null ) {
-            action = createAction();
-        }
-        return action;
-    }
-    
-    /** Sets the action.
-     * @param action New value of property action.
-     */
-    public void setAction(Action action) {
-        this.action = action;
-    }
-    
     /** Sets the mode.
      * @param mode New value of property mode.
      */
@@ -205,27 +176,20 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
         this.mode = mode;
     }
     
-    /** Getter for property rule.
-     * @return Value of property rule.
-     */
-    public Rule getRule() {
-        if ( rule == null ) {
-            rule = createRule();
-        }
-        return rule;
-    }
-    
-    
     
     // Implementation methods
     //------------------------------------------------------------------------- 
-    protected Rule createRule() {
-        return new Rule( match, getAction() );
+    protected Rule createRule(StylesheetTag tag, XMLOutput output) {
+        return new Rule( match, createAction(tag, output) );
     }
     
-    protected Action createAction() {
+    protected Action createAction(final StylesheetTag tag, final XMLOutput output) {
         return new Action() {
             public void run(Node node) throws Exception {
+                
+                // store the context for use by applyTemplates tag
+                tag.setXPathSource( node );
+                
                 xpathSource = node;
     
                 if (log.isDebugEnabled()) {

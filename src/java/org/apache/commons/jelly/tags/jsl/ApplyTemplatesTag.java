@@ -59,7 +59,11 @@ package org.apache.commons.jelly.tags.jsl;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.dom4j.rule.Stylesheet;
 
@@ -72,8 +76,11 @@ import org.jaxen.XPath;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class ApplyTemplatesTag extends JSLTagSupport {
+public class ApplyTemplatesTag extends TagSupport {
 
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog(ApplyTemplatesTag.class);
+    
     /** Holds value of property mode. */
     private String mode;    
 
@@ -88,18 +95,19 @@ public class ApplyTemplatesTag extends JSLTagSupport {
     //------------------------------------------------------------------------- 
     /** By default just evaluate the body */
     public void doTag(XMLOutput output) throws Exception {
-        Stylesheet stylesheet = getStylesheet();        
-        if ( stylesheet == null ) {
+        StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
+        if (tag == null) {
             throw new JellyException( 
                 "<applyTemplates> tag must be inside a <stylesheet> tag"
             );
         }
-        Object context = getXPathContext();
+        Stylesheet stylesheet = tag.getStylesheet();                
+        Object source = tag.getXPathSource();
         if ( select != null ) {
-            stylesheet.applyTemplates( context, select );
+            stylesheet.applyTemplates( source, select );
         }
         else {
-            stylesheet.applyTemplates( context );
+            stylesheet.applyTemplates( source );
         }
         
         // #### should support MODE!!!

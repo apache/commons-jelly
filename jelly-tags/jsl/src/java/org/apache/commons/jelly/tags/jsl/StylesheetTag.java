@@ -60,6 +60,7 @@ package org.apache.commons.jelly.tags.jsl;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.xml.XPathSource;
 import org.apache.commons.jelly.tags.xml.XPathTagSupport;
 
 import org.apache.commons.logging.Log;
@@ -80,7 +81,7 @@ import org.jaxen.XPath;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class StylesheetTag extends XPathTagSupport {
+public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(StylesheetTag.class);
@@ -92,14 +93,14 @@ public class StylesheetTag extends XPathTagSupport {
     /** Holds value of property mode. */
     private String mode;    
 
-    /** store the current output instance for use by inner classes */
-    private XMLOutput output;
-
     /** The variable which the stylesheet will be output as */
     private String var;
         
     /** The XPath expression to evaluate. */    
     private XPath select;
+    
+    /** The XPath source used by TemplateTag and ApplyTemplatesTag to pass XPath contexts */
+    private Object xpathSource;
     
     public StylesheetTag() {
     }
@@ -112,15 +113,22 @@ public class StylesheetTag extends XPathTagSupport {
         getStylesheet().addRule( rule );
     }
     
+    // XPathSource interface
+    //-------------------------------------------------------------------------                    
+
+    /**
+     * @return the current XPath iteration value
+     *  so that any other XPath aware child tags to use
+     */
+    public Object getXPathSource() {
+        return xpathSource;
+    }
+    
     
     // Tag interface
     //-------------------------------------------------------------------------                    
 	public void doTag(XMLOutput output) throws Exception {
-		// for use by inner classes
-		this.output = output;
-
-		Stylesheet stylesheet = getStylesheet();
-		stylesheet.clear();
+		stylesheet = createStylesheet(output);
 
 		// run the body to add the rules
 		invokeBody(output);
@@ -161,9 +169,6 @@ public class StylesheetTag extends XPathTagSupport {
     }   
 
     public Stylesheet getStylesheet() {
-        if ( stylesheet == null ) {
-            stylesheet = createStylesheet();
-        }
         return stylesheet;
     }
     
@@ -195,7 +200,7 @@ public class StylesheetTag extends XPathTagSupport {
     /**
      * Factory method to create a new stylesheet 
      */
-    protected Stylesheet createStylesheet() {
+    protected Stylesheet createStylesheet(final XMLOutput output) {
         // add default actions
         Stylesheet answer = new Stylesheet();
         answer.setValueOfAction( 
@@ -213,4 +218,12 @@ public class StylesheetTag extends XPathTagSupport {
         return answer;
     }
         
+    /**
+     * Sets the xpathSource.
+     * @param xpathSource The xpathSource to set
+     */
+    void setXPathSource(Object xpathSource) {
+        this.xpathSource = xpathSource;
+    }
+
 }
