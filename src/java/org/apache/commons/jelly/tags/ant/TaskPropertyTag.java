@@ -68,6 +68,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.DynaBean;
+import org.apache.commons.beanutils.MethodUtils;
 
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.DynaBeanTagSupport;
@@ -112,7 +113,9 @@ public class TaskPropertyTag extends DynaBeanTagSupport implements CompilableTag
         Task task = tag.getTask();
         Class taskClass = task.getClass();
         String methodName = "create" + name.substring(0,1).toUpperCase() + name.substring(1);
-        Method method = taskClass.getMethod( methodName, emptyParameterTypes );
+        Method method = MethodUtils.getAccessibleMethod(
+            taskClass, methodName, emptyParameterTypes 
+        );
         if ( method == null ) {
             throw new JellyException( 
                 "Cannot create Task property: " + name + " of Ant task: " + task 

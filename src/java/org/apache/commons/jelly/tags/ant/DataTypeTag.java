@@ -67,6 +67,7 @@ import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.beanutils.DynaProperty;
+import org.apache.commons.beanutils.MethodUtils;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
@@ -125,7 +126,9 @@ public class DataTypeTag extends DynaBeanTagSupport {
             String methodName = "add" + name.substring(0,1).toUpperCase() + name.substring(1);
             Class taskClass = task.getClass();
             Class[] parameterTypes = new Class[] { dataType.getClass() };
-            Method method = taskClass.getMethod( methodName, parameterTypes );
+            Method method = MethodUtils.getAccessibleMethod(
+                taskClass, methodName, parameterTypes 
+            );
             if ( method == null ) {
                 throw new JellyException( 
                     "Cannot add dataType: " + dataType + " to Ant task: " + task 
