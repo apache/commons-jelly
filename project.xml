@@ -164,6 +164,11 @@
       <id>brett</id>
       <email>brett@apache.org</email>
     </developer>
+    <developer>
+      <name>Hans Gilde</name>
+      <id>hgilde</id>
+      <email>hgilde@apache.org</email>
+    </developer>
   </developers>
   <contributors>
     <contributor>
@@ -291,15 +296,6 @@
       <organization/>
       <roles>
         <role>Developer</role>
-      </roles>
-    </contributor>
-    <contributor>
-      <name>Hans Gilde</name>
-      <email>hgilde@apache.org</email>
-      <organization/>
-      <roles>
-        <role>Developer</role>
-        <role>User</role>
       </roles>
     </contributor>
   </contributors>
