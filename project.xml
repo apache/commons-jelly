@@ -199,6 +199,14 @@
       	<role>Developer</role>
       </roles>
     </contributor>        
+    <contributor>
+      <name>Knut Wannheden</name>
+      <email></email>
+      <organization></organization>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>        
   </contributors>
 	
   <dependencies>
@@ -297,13 +305,6 @@
       <version>2.3</version>
     </dependency>
     
-<!-- used to be required for Jexl but no longer needed     
-    <dependency>
-      <id>velocity</id>
-      <version>1.4-dev</version>
-    </dependency>
--->
-
     <!-- used by werkz library -->
     <dependency>
       <id>werkz</id>
@@ -461,6 +462,12 @@
       <version>1.0</version>
     </dependency>
 -->    
+
+	<!-- xmlunit taglib -->
+    <dependency>
+      <id>xmlunit</id>
+      <version>0.8</version>
+    </dependency>
   </dependencies>
   <build>
     <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
