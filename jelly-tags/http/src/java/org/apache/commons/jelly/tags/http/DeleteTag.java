@@ -63,8 +63,8 @@ package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
 
-import org.apache.commons.httpclient.HttpUrlMethod;
-import org.apache.commons.httpclient.methods.UrlDeleteMethod;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.DeleteMethod;
 
 /**
  * A http delete tag
@@ -75,7 +75,7 @@ import org.apache.commons.httpclient.methods.UrlDeleteMethod;
 public class DeleteTag extends HttpTagSupport {
     
     /** the delete method */
-    private UrlDeleteMethod _deleteMethod;
+    private DeleteMethod _deleteMethod;
     
     /**
      * Creates a new instance of DeleteTag
@@ -87,9 +87,9 @@ public class DeleteTag extends HttpTagSupport {
      * @return a url method for a get request
      * @throws MalformedURLException when the url is bad
      */
-    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+    protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_deleteMethod == null) {
-            _deleteMethod = new UrlDeleteMethod(getResolvedUrl());
+            _deleteMethod = new DeleteMethod(getResolvedUrl());
         }
         return _deleteMethod;
     }

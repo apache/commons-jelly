@@ -63,8 +63,8 @@ package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
 
-import org.apache.commons.httpclient.HttpUrlMethod;
-import org.apache.commons.httpclient.methods.UrlOptionsMethod;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.OptionsMethod;
 
 /**
  * A http get tag
@@ -75,7 +75,7 @@ import org.apache.commons.httpclient.methods.UrlOptionsMethod;
 public class OptionsTag extends HttpTagSupport {
     
     /** the options method */
-    private UrlOptionsMethod _optionsMethod;
+    private OptionsMethod _optionsMethod;
     
     /**
      * Creates a new instance of OptionsTag
@@ -87,9 +87,9 @@ public class OptionsTag extends HttpTagSupport {
      * @return a url method for an options request
      * @throws MalformedURLException when the url is bad
      */
-    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+    protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_optionsMethod == null) {
-            _optionsMethod = new UrlOptionsMethod(getResolvedUrl());
+            _optionsMethod = new OptionsMethod(getResolvedUrl());
         }
         return _optionsMethod;
     }

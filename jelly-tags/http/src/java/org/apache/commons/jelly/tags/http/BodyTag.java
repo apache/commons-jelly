@@ -61,9 +61,9 @@
 
 package org.apache.commons.jelly.tags.http;
 
-import org.apache.commons.httpclient.HttpUrlMethod;
-import org.apache.commons.httpclient.methods.UrlPostMethod;
-import org.apache.commons.httpclient.methods.UrlPutMethod;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -90,13 +90,13 @@ public class BodyTag extends TagSupport {
     public void doTag(XMLOutput xmlOutput) throws Exception {
         HttpTagSupport httpTag = (HttpTagSupport) findAncestorWithClass(
             HttpTagSupport.class);
-        HttpUrlMethod httpMethod = httpTag.getHttpUrlMethod();
+        HttpMethod httpMethod = httpTag.getHttpMethod();
         String bodyText = getBodyText();
-        if (httpMethod instanceof UrlPostMethod) {
-            UrlPostMethod postMethod = (UrlPostMethod) httpMethod;
+        if (httpMethod instanceof PostMethod) {
+            PostMethod postMethod = (PostMethod) httpMethod;
             postMethod.setRequestBody(bodyText);
-        } else if (httpMethod instanceof UrlPutMethod) {
-            UrlPutMethod putMethod = (UrlPutMethod) httpMethod;
+        } else if (httpMethod instanceof PutMethod) {
+            PutMethod putMethod = (PutMethod) httpMethod;
             putMethod.setRequestBody(bodyText);
         } else {
             throw new IllegalStateException("Http method from parent was "

@@ -61,7 +61,7 @@
 
 package org.apache.commons.jelly.tags.http;
 
-import org.apache.commons.httpclient.HttpMultiClient;
+import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -86,7 +86,7 @@ public class SessionTag extends TagSupport {
     private boolean _strictMode = false;
     
     /** http client used to store state and execute requests */
-    private HttpMultiClient _httpClient;
+    private HttpClient _httpClient;
     
     /** 
      * Creates a new instance of SessionTag
@@ -102,9 +102,10 @@ public class SessionTag extends TagSupport {
      */
     public void doTag(XMLOutput xmlOutput) throws Exception {
         if (isProxyAvailable()) {
-            _httpClient = new HttpMultiClient(getProxyHost(), getProxyPort());
+            _httpClient = new HttpClient();
+            _httpClient.getHostConfiguration().setProxy(getProxyHost(), getProxyPort());
         } else {
-            _httpClient = new HttpMultiClient();
+            _httpClient = new HttpClient();
         }
         
         invokeBody(xmlOutput);
@@ -115,7 +116,7 @@ public class SessionTag extends TagSupport {
      *
      * @return Value of property httpClient.
      */
-    public HttpMultiClient getHttpClient() {
+    public HttpClient getHttpClient() {
         return _httpClient;
     }
     
@@ -124,7 +125,7 @@ public class SessionTag extends TagSupport {
      *
      * @param httpClient New value of property httpClient.
      */
-    public void setHttpClient(HttpMultiClient httpClient) {
+    public void setHttpClient(HttpClient httpClient) {
         _httpClient = httpClient;
     }
     /**

@@ -62,8 +62,8 @@
 package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
-import org.apache.commons.httpclient.HttpUrlMethod;
-import org.apache.commons.httpclient.methods.UrlPutMethod;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.PutMethod;
 
 
 /**
@@ -75,22 +75,22 @@ import org.apache.commons.httpclient.methods.UrlPutMethod;
 public class PutTag extends HttpTagSupport {
     
     /** the put method */
-    private UrlPutMethod _putMethod;
+    private PutMethod _putMethod;
 
     /** Creates a new instance of PutTag */
     public PutTag() {
     }
     
     /** 
-     * Return a {@link HttpUrlMethod method} to be used for put'ing
+     * Return a {@link HttpMethod method} to be used for put'ing
      *
-     * @return a HttpUrlMethod implementation
+     * @return a HttpMethod implementation
      * @throws MalformedURLException when the {@link getUrl() url} or
      * {@link #getPath() path} is invalid
      */
-    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+    protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_putMethod == null) {
-            _putMethod = new UrlPutMethod(getResolvedUrl());
+            _putMethod = new PutMethod(getResolvedUrl());
         }
         return _putMethod;
     }

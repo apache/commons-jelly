@@ -62,9 +62,9 @@
 package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
-import org.apache.commons.httpclient.HttpUrlMethod;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.UrlPostMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 
 
 /**
@@ -75,7 +75,7 @@ import org.apache.commons.httpclient.methods.UrlPostMethod;
 public class PostTag extends HttpTagSupport {
     
     /** the post method */
-    private UrlPostMethod _postMethod;
+    private PostMethod _postMethod;
 
     /** Creates a new instance of PostTag */
     public PostTag() {
@@ -88,9 +88,9 @@ public class PostTag extends HttpTagSupport {
      * @throws MalformedURLException when the {@link getUrl() url} or
      * {@link #getPath() path} is invalid
      */
-    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+    protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_postMethod == null) {
-            _postMethod = new UrlPostMethod(getResolvedUrl());
+            _postMethod = new PostMethod(getResolvedUrl());
         }
         return _postMethod;
     }
@@ -101,12 +101,12 @@ public class PostTag extends HttpTagSupport {
      * This method <strong>must</strong> be called after 
      *  {@link getHttpUrlMethod}
      */
-    protected void setParameters(HttpUrlMethod method) {
+    protected void setParameters(HttpMethod method) {
         NameValuePair nvp = null;
         for (int index = 0; index < getParameters().size(); index++) {
             NameValuePair parameter = (NameValuePair) getParameters().
                 get(index);
-            ((UrlPostMethod) method).addParameter(parameter);
+            ((PostMethod) method).addParameter(parameter);
         }
     }
 

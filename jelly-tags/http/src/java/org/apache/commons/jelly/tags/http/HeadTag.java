@@ -63,8 +63,8 @@ package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
 
-import org.apache.commons.httpclient.HttpUrlMethod;
-import org.apache.commons.httpclient.methods.UrlHeadMethod;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.HeadMethod;
 
 /**
  * A http get tag
@@ -75,7 +75,7 @@ import org.apache.commons.httpclient.methods.UrlHeadMethod;
 public class HeadTag extends HttpTagSupport {
     
     /** the head method */
-    private UrlHeadMethod _headMethod;
+    private HeadMethod _headMethod;
     
     /**
      * Creates a new instance of HeadTag
@@ -87,9 +87,9 @@ public class HeadTag extends HttpTagSupport {
      * @return a url method for a Head request
      * @throws MalformedURLException when the url is bad
      */
-    protected HttpUrlMethod getHttpUrlMethod() throws MalformedURLException {
+    protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_headMethod == null) {
-            _headMethod = new UrlHeadMethod(getResolvedUrl());
+            _headMethod = new HeadMethod(getResolvedUrl());
         }
         return _headMethod;
     }

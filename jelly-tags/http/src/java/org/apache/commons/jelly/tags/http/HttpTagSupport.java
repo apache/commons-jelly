@@ -65,8 +65,8 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.httpclient.HttpMultiClient;
-import org.apache.commons.httpclient.HttpUrlMethod;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -134,13 +134,13 @@ public abstract class HttpTagSupport extends TagSupport {
     
     /**
      * A method that must be implemented by subclasses to provide the 
-     * {@link HttpUrlMethod url method} implementation
+     * {@link HttpMethod url method} implementation
      *
      * @return a HttpUrlMethod implementation
      * @throws MalformedURLException when the {@link getUrl() url} or 
      * {@link #getPath() path} is invalid
      */
-    protected abstract HttpUrlMethod getHttpUrlMethod() 
+    protected abstract HttpMethod getHttpMethod() 
         throws MalformedURLException;
     
     /**
@@ -153,7 +153,7 @@ public abstract class HttpTagSupport extends TagSupport {
     public void doTag(XMLOutput xmlOutput) throws Exception {
         // allow nested tags first, e.g body
         invokeBody(xmlOutput);
-        HttpUrlMethod urlMethod = getConfiguredHttpMethod();
+        HttpMethod urlMethod = getConfiguredHttpMethod();
         // track request execution
         long start = System.currentTimeMillis();
         getHttpClient().executeMethod(urlMethod);
@@ -173,10 +173,10 @@ public abstract class HttpTagSupport extends TagSupport {
      * @return a configured {@link HttpUrlMethod method}
      * @throws MalformedURLException when retrieving the URL fails
      */
-    private HttpUrlMethod getConfiguredHttpMethod() throws 
+    private HttpMethod getConfiguredHttpMethod() throws 
     MalformedURLException {
         // retrieve and configure url method
-        HttpUrlMethod urlMethod = getHttpUrlMethod();
+        HttpMethod urlMethod = getHttpMethod();
         urlMethod.setFollowRedirects(isFollowRedirects());
         // add request headers
         NameValuePair header = null;
@@ -204,7 +204,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * @param method the {@link HttpUrlMethod method} to configure
      * @throws MalformedURLException when {@link #getHttpUrlMethod()} does
      */
-    protected void setParameters(HttpUrlMethod method) throws 
+    protected void setParameters(HttpMethod method) throws 
     MalformedURLException {
         if (getParameters().size() > 0) {
             NameValuePair[] parameters = (NameValuePair[]) getParameters().
@@ -231,14 +231,14 @@ public abstract class HttpTagSupport extends TagSupport {
      *
      * @return the shared http client from the session tag, or create a new one.
      */
-    private HttpMultiClient getHttpClient() {
+    private HttpClient getHttpClient() {
         SessionTag session = getSessionTag();
-        HttpMultiClient client = null;
+        HttpClient client = null;
         if (session != null) {
             client = session.getHttpClient();
             client.setStrictMode(session.isStrictMode());
         } else {
-            client = new HttpMultiClient();
+            client = new HttpClient();
         }
         return client;
     }
