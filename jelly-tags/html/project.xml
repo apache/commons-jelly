@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Copyright 2002,2004 The Apache Software Foundation.
   
@@ -14,71 +15,66 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-html</id>
   <name>commons-jelly-tags-html</name>
+  <currentVersion>1.0</currentVersion>
   <package>org.apache.commons.jelly.tags.html</package>
-
-  <description>
-      These Jelly tags can scrub commons errors in HTML syntax.
-  </description>
+  <description>These Jelly tags can scrub commons errors in HTML syntax.</description>
   <shortDescription>Commons Jelly HTML Tag Library</shortDescription>
-
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS-JELLY-HTML-1_0</tag>
+    </version>
+  </versions>
   <dependencies>
-
     <!-- START for compilation -->
-  
+
     <dependency>
       <id>commons-jelly</id>
       <version>1.0-beta-4</version>
     </dependency>
-    
     <!-- html taglib -->
+
     <dependency>
       <id>nekohtml</id>
       <version>0.7.1</version>
     </dependency>
-    
-
     <!-- START for running demos -->
 
     <dependency>
       <id>commons-cli</id>
       <version>1.0</version>
     </dependency>
-    
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-log</artifactId>
       <version>1.0</version>
     </dependency>
-    
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-jsl</artifactId>
       <version>1.0</version>
     </dependency>
-    
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-xml</artifactId>
       <version>1.0</version>
     </dependency>
-    
     <!-- END for running demos -->
-  
     <!-- START for testing -->
-    
+
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
     </dependency>
-
     <!-- END for testing -->
-    
+
   </dependencies>
-  
 </project>
