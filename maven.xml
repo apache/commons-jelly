@@ -199,46 +199,48 @@
         </body>
       </document>
     </j:file>
-  </preGoal>
-
-  <preGoal name="xdoc">
-  <!--        
-    This runs out of memory - have a feeling its the velocity & xdoc plugin
-    -->
-    <!-- <maven:reactor
-      basedir="${basedir}"
-      includes="jelly-tags/*/project.xml"
-      goals="site"
-      banner="Generating site for"
-      ignoreFailures="false"
-    />-->
-    <!-- PL: instead... invoke maven from the command-line directly for
-     each directory in jelly-tags. -->
-    <attainGoal name="tags:build-site-individually"/>
-        
-    <!-- then copy all the results to docs/libs -->
-    <j:if test="${context.getVariable('maven.docs.dest') == null}">
-      <j:set var="maven.docs.dest" value="target/docs"/>
-    </j:if>
-    
-    <!-- create the parent directory for the docs -->
-    <mkdir dir="${maven.docs.dest}/libs" />
-    
-    <!-- copy them all to ${maven.docs.dest}/libs/${plugin.id}/ -->
-    <j:forEach items="${pluginProjects.iterator()}" var="plugin">
-      <j:set var="pluginName" value="${plugin.parentFile.name}" />
-      <mkdir dir="${maven.docs.dest}/libs/${pluginName}/" />
-      <copy toDir="${maven.docs.dest}/libs/${pluginName}/">
-        <fileset dir="jelly-tags/${pluginName}/target/docs/">
-          <include name="**" />
-        </fileset>
-      </copy>
-    </j:forEach>
 
     <!-- now lets implement the jellydoc for the core package -->    
     <j:set var="maven.jellydoc.packages" value="org.apache.commons.jelly.tags.core.*"/>
     <attainGoal name="jellydoc"/>
+  </preGoal>
+
+  <preGoal name="xdoc">
+
+    <j:if test="${empty(mainSiteOnly)}">
+      <!--        
+      This runs out of memory - have a feeling its the velocity & xdoc plugin
+      -->
+      <!-- <maven:reactor
+        basedir="${basedir}"
+        includes="jelly-tags/*/project.xml"
+        goals="site"
+        banner="Generating site for"
+        ignoreFailures="false"
+      />-->
+      <!-- PL: instead... invoke maven from the command-line directly for
+       each directory in jelly-tags. -->
+      <attainGoal name="tags:build-site-individually"/>
+        
+      <!-- then copy all the results to docs/libs -->
+      <j:if test="${context.getVariable('maven.docs.dest') == null}">
+        <j:set var="maven.docs.dest" value="target/docs"/>
+      </j:if>
     
+      <!-- create the parent directory for the docs -->
+      <mkdir dir="${maven.docs.dest}/libs" />
+    
+      <!-- copy them all to ${maven.docs.dest}/libs/${plugin.id}/ -->
+      <j:forEach items="${pluginProjects.iterator()}" var="plugin">
+        <j:set var="pluginName" value="${plugin.parentFile.name}" />
+        <mkdir dir="${maven.docs.dest}/libs/${pluginName}/" />
+        <copy toDir="${maven.docs.dest}/libs/${pluginName}/">
+          <fileset dir="jelly-tags/${pluginName}/target/docs/">
+            <include name="**" />
+          </fileset>
+        </copy>
+      </j:forEach>
+    </j:if>
   </preGoal>
 
   <goal name="tags:build-site-individually">
