@@ -30,7 +30,7 @@ import java.util.Collections;
 /** A tag that can sort a list of xml nodes via an xpath expression.
   *
   * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
-  * @version $Id: SortTag.java,v 1.5 2004/09/09 12:24:40 dion Exp $
+  * @version $Id$
   */
 
 public class SortTag extends XPathTagSupport {
