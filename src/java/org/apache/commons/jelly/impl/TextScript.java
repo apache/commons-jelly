@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.13 2003/01/24 19:03:24 morgand Exp $
- * $Revision: 1.13 $
- * $Date: 2003/01/24 19:03:24 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.14 2003/01/29 23:48:03 dion Exp $
+ * $Revision: 1.14 $
+ * $Date: 2003/01/29 23:48:03 $
  *
  * ====================================================================
  *
@@ -57,12 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TextScript.java,v 1.13 2003/01/24 19:03:24 morgand Exp $
+ * $Id: TextScript.java,v 1.14 2003/01/29 23:48:03 dion Exp $
  */
 package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
@@ -72,7 +71,7 @@ import org.xml.sax.SAXException;
 /** <p><code>TextScript</code> outputs some static text.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 public class TextScript implements Script {
  

@@ -61,8 +61,6 @@
 
 package org.apache.commons.jelly.tags.http;
 
-import java.net.MalformedURLException;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
