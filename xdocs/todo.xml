@@ -13,6 +13,10 @@
         Jelly.  Contributions are welcome!.
       </p>
       <ul>
+        <li>write an Ant &lt;fileWalker&gt; tag that takes one or more Ant &lt;fileSet&gt; elements 
+        	and outputs an Iterator to a variable that can then be used inside a &lt;j:forEach&gt; 
+        	tag to perform processing for each file in an Ant fileSet. 
+        	It'd be handy for recursive builds!</li>
         <li>autogenerate tag library documentation, in a kinda javadoc style, showing all tag libraries, 
 			their tags and descriptions of their tags</li>
         <li>Patch TagLibrary to alias all &lt;mixedCase&gt; tags to &lt;mixed-case&gt;  tags</li>
