@@ -42,7 +42,7 @@
   </description>
   
   <url>http://jakarta.apache.org/commons/jelly/</url>
-  <issueTrackingUrl>http://jira.werken.com/BrowseProject.jspa?id=10012</issueTrackingUrl>
+  <issueTrackingUrl>http://jira.codehaus.org/secure/BrowseProject.jspa?id=10012</issueTrackingUrl>
   
   <versions>
     <version>
