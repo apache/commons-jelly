@@ -20,7 +20,7 @@ import org.apache.commons.jelly.TagLibrary;
 /** Implements general utility tags.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- *  @version $Revision: 1.5 $
+ *  @version $Revision: 1.6 $
  */
 public class UtilTagLibrary extends TagLibrary {
 
@@ -30,7 +30,8 @@ public class UtilTagLibrary extends TagLibrary {
         registerTag("loadText", LoadTextTag.class);
         registerTag("properties", PropertiesTag.class);
         registerTag("replace", ReplaceTag.class);
-        registerTag("tokenize", TokenizeTag.class);
         registerTag("sleep", SleepTag.class);
+        registerTag("sort", SortTag.class);
+        registerTag("tokenize", TokenizeTag.class);
     }
 }

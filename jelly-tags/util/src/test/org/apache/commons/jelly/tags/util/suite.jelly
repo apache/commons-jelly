@@ -150,5 +150,42 @@
         var="suite" />
       <test:assert test="${suite != null}" >The suite should exist</test:assert>
   </test:case>
+  
+  <test:case name="testSortBasic">
+    <j:new var="testCollection" className="java.util.ArrayList"/>
+    <j:mute>
+    	${testCollection.add('Hello')}
+    	${testCollection.add('World')}
+    	${testCollection.add('Jelly')}
+    </j:mute>
+    <util:sort var="sorted" items="${testCollection}" />
+    <test:assertEquals expected="Hello" actual="${sorted[0]}"/>
+    <test:assertEquals expected="Jelly" actual="${sorted[1]}"/>
+    <test:assertEquals expected="World" actual="${sorted[2]}"/>
+  </test:case>
+  
+  <test:case name="testSortBean">
+    <j:new var="testCollection" className="java.util.ArrayList"/>
+    <j:useBean var="cust1" class="org.apache.commons.jelly.util.Customer" city="Sydney" location="Australia" name="Fred Nerk"/>
+    <j:useBean var="cust2" class="org.apache.commons.jelly.util.Customer" city="Melbourne" location="Australia" name="Joe Nerk"/>
+    <j:useBean var="cust3" class="org.apache.commons.jelly.util.Customer" city="San Francisco" location="U.S.A." name="Colette Cool"/>
+    <j:mute>
+    	${testCollection.add(cust1)}
+    	${testCollection.add(cust2)}
+    	${testCollection.add(cust3)}
+    </j:mute>
+    <!-- test sorting by the name property -->
+    <util:sort var="sortedByName" items="${testCollection}" property="name"/>
+    <test:assertEquals expected="Colette Cool" actual="${sortedByName[0].name}"/>
+    <test:assertEquals expected="Fred Nerk" actual="${sortedByName[1].name}"/>
+    <test:assertEquals expected="Joe Nerk" actual="${sortedByName[2].name}"/>
+
+    <!-- test sorting by the location property -->
+    <util:sort var="sortedByLocation" items="${testCollection}" property="location"/>
+    <test:assertEquals expected="Australia" actual="${sortedByLocation[0].location}"/>
+    <test:assertEquals expected="Australia" actual="${sortedByLocation[1].location}"/>
+    <test:assertEquals expected="U.S.A." actual="${sortedByLocation[2].location}"/>
+  
+  </test:case>
     
 </test:suite>
