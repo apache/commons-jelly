@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:log="jelly:log">
+
+  <x:transform xslt="transformExample5.xsl" var="doc">
+      <x:transform xslt="transformExample4.xsl">
+        <x:transform xslt="transformExample3.xsl">
+            <x:transform xslt="transformExample2.xsl">
+                <x:transform xslt="transformExample1.xsl">
+                    <document>
+                      <chapter>It works!</chapter>
+                    </document>
+                </x:transform>
+            </x:transform>
+        </x:transform>
+      </x:transform>
+  </x:transform>
+
+  <x:expr select="$doc/data5/data5_title"/>
+
+</j:jelly>
+
+

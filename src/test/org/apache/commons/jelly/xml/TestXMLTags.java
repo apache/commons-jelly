@@ -139,10 +139,25 @@ public class TestXMLTags extends TestCase {
         );
         assertEquals("Produces the correct output", "It works!", text);
     }
-        
+
     public void testTransformAllInLine() throws Exception {
         String text = evaluteScriptAsText(
             "src/test/org/apache/commons/jelly/xml/transformExampleAllInLine.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+
+    public void testTransformParams() throws Exception {
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/transformParamExample.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+
+    public void testTransformParamsInLine() throws Exception {
+
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/transformParamExample2.jelly"
         );
         assertEquals("Produces the correct output", "It works!", text);
     }
@@ -154,11 +169,25 @@ public class TestXMLTags extends TestCase {
         assertEquals("Produces the correct output", "It works!", text);
     }
 
+    public void testTransformSAXOutputNestedTransforms() throws Exception {
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/transformExampleSAXOutputNestedTransforms.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+
     public void testTransformSchematron() throws Exception {
         String text = evaluteScriptAsText(
             "src/test/org/apache/commons/jelly/xml/schematron/transformSchematronExample.jelly"
         );
         assertEquals("Produces the correct output", "Report count=1:assert count=2", text);
+    }
+
+    public void testTransformXmlVar() throws Exception {
+        String text = evaluteScriptAsText(
+            "src/test/org/apache/commons/jelly/xml/transformExampleXmlVar.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
     }
 
     public void runUnitTest(String name) throws Exception {
@@ -192,20 +221,20 @@ public class TestXMLTags extends TestCase {
     }
 
     /**
-     * Evaluates the script by the given file name and 
+     * Evaluates the script by the given file name and
      * returns the whitespace trimmed output as text
      */
     protected String evaluteScriptAsText(String fileName) throws Exception {
         JellyContext context = new JellyContext();
-        
+
         // allow scripts to refer to any resource inside this project
         // using an absolute URI like /src/test/org/apache/foo.xml
         context.setRootURL(new File(".").toURL());
-        
+
         // cature the output
         StringWriter buffer = new StringWriter();
         XMLOutput output = XMLOutput.createXMLOutput(buffer);
-        
+
         context.runScript( new File(fileName), output );
         String text = buffer.toString().trim();
         if (log.isDebugEnabled()) {

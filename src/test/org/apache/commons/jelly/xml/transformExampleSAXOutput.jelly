@@ -2,7 +2,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
 
   <x:parse var="xsl_doc">
-		<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
       <xsl:template match="document">
         <html>
@@ -16,20 +16,20 @@
       </xsl:template>
 
     </xsl:stylesheet>
-	</x:parse>
+        </x:parse>
 
-	<!-- here we're testing if the output of the XSLT comes out as SAX events
-		|| that the <x:parse> tag can then parse.
-		|| We're using the <x:parse> around the <x:transform> purely to test
-		|| that the <x:transform> is capable of outputting SAX events -->
-	<x:parse var="doc">		
-	  <x:transform xsl="${xsl_doc}">
-	    <document>
-	      <chapter>It works!</chapter>
-	    </document>
-	  </x:transform>
-	</x:parse>	
-	
+        <!-- here we're testing if the output of the XSLT comes out as SAX events
+                || that the <x:parse> tag can then parse.
+                || We're using the <x:parse> around the <x:transform> purely to test
+                || that the <x:transform> is capable of outputting SAX events -->
+        <x:parse var="doc">             
+          <x:transform xslt="${xsl_doc}">
+            <document>
+              <chapter>It works!</chapter>
+            </document>
+          </x:transform>
+        </x:parse>      
+        
   <x:expr select="$doc/html/title"/>
 
 </j:jelly>

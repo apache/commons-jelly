@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
 
-  <x:transform 
+  <x:transform
      xml="test-schematron.xml"
-     xsl="schematron-wrapper.xsl" 
+     xslt="schematron-wrapper.xsl"
      var="test_schematron"/>
 
-  <x:transform 
+  <x:transform
      xml="source.xml"
-     xsl="${test_schematron}" var="doc"/>
+     xslt="${test_schematron}" var="doc"/>
 
   Report count=<x:expr select="count($doc//report)"/>:assert count=<x:expr select="count($doc//assert)"/>
-  
+
 </j:jelly>
 
 

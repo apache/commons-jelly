@@ -2,7 +2,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
 
   <x:parse var="xsl_doc">
-		<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+                <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
 
       <xsl:template match="document">
         <html>
@@ -16,9 +16,9 @@
       </xsl:template>
 
     </xsl:stylesheet>
-	</x:parse>
+        </x:parse>
 
-  <x:transform xsl="${xsl_doc}" var="doc" >
+  <x:transform xslt="${xsl_doc}" var="doc" >
     <document>
       <chapter>It works!</chapter>
     </document>

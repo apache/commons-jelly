@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
 
-  <x:transform xsl="transformExample.xsl" var="doc" >
+  <x:transform xslt="transformExample.xsl" var="doc" >
     <document>
       <chapter>It works!</chapter>
     </document>

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.12 2002/09/30 08:05:45 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/09/30 08:05:45 $
+ * $Header$
+ * $Revision$
+ * $Date$
  *
  * ====================================================================
  *
@@ -57,93 +57,70 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: ParseTag.java,v 1.12 2002/09/30 08:05:45 jstrachan Exp $
+ * $Id$
  */
 package org.apache.commons.jelly.tags.xml;
 
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.dom4j.Document;
-import org.dom4j.io.SAXReader;
-
-/** A tag which parses some XML and defines a variable with the parsed Document.
-  * The XML can either be specified as its body or can be passed in via the
-  * xml property which can be a Reader, InputStream, URL or String URI.
+/** Sets a parameter in the parent transform tag
   *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.12 $
+  * @author Robert Leftwich
+  * @version $Revision$
   */
-public class ParseTag extends ParseTagSupport {
+public class ParamTag extends TagSupport {
 
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(ParseTag.class);
+    /** the name of the attribute. */
+    private String name;
 
-    /** The xml to parse, either a String URI, a Reader or InputStream */
-    private Object xml;
+    /** the value of the attribute. */
+    private Object value;
 
-    // Optional properties not defined in JSTL
-    /** whether XML validation is enabled or disabled */
-    private boolean validate;
 
-    public ParseTag() {
+    public ParamTag() {
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws Exception {
-        if (getVar() == null) {
-            throw new IllegalArgumentException("The var attribute cannot be null");
+        TransformTag tag = (TransformTag) this.findAncestorWithClass( TransformTag.class );
+        if ( tag == null ) {
+            throw new JellyException( "<param> tag must be enclosed inside a <transform> tag" );
         }
-        Document document = getXmlDocument(output);
-        context.setVariable(getVar(), document);
+        Object value = this.getValue();
+        tag.setParameterValue( this.getName(),
+                               (null == value ? this.getBodyText(): value));
     }
 
     // Properties
     //-------------------------------------------------------------------------
-    /** Gets the source of the XML which is either a String URI, Reader or InputStream */
-    public Object getXml() {
-        return this.xml;
-    }
-
-    /** Sets the source of the XML which is either a String URI, Reader or InputStream */
-    public void setXml(Object xml) {
-        this.xml = xml;
-    }
-
-    /** @return whether XML validation is enabled or disabled */
-    public boolean getValidate() {
-        return validate;
-    }
-
-    /** Sets whether XML validation is enabled or disabled */
-    public void setValidate(boolean validate) {
-        this.validate = validate;
-    }
-
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /**
-     * Factory method to create a new SAXReader
+     * @return the name of the attribute.
      */
-    protected SAXReader createSAXReader() throws Exception {
-        return new SAXReader(validate);
+    public String getName() {
+        return name;
+    }
+    /**
+     * Sets the name of the attribute
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
-    protected Document getXmlDocument(XMLOutput output) throws Exception {
-        Document document = null;
-        Object xmlObj = this.getXml();
-        if (xmlObj == null) {
-            document = parseBody(output);
-        }
-        else {
-            document = parse(xmlObj);
-        }
-        return document;
+    /**
+     * @return the value of the attribute.
+     */
+    public Object getValue() {
+        return value;
     }
-
+    /**
+     * Sets the value of the attribute
+     */
+    public void setValue(Object value) {
+        this.value = value;
+    }
 }
