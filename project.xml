@@ -7,7 +7,7 @@
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <id>commons-jelly</id>
-  <currentVersion>1.0-beta-4</currentVersion>
+  <currentVersion>SNAPSHOT</currentVersion>
   
   <organization>
     <name>Apache Software Foundation</name>
@@ -232,15 +232,6 @@
   
     &commonDeps;
     
-    <dependency>
-      <id>ant</id>
-      <version>1.5.1</version>
-    </dependency>
-    
-    <dependency>
-      <id>ant+optional</id>
-      <version>1.5.1</version>
-    </dependency>
 
     <!-- might be tied to betwixt only
     <dependency>
@@ -262,11 +253,6 @@
     <dependency>
       <id>commons-discovery</id>
       <version>SNAPSHOT</version>
-    </dependency>
-
-    <dependency>
-      <id>commons-grant</id>
-      <version>1.0-beta-4</version>
     </dependency>
 
 	<!-- for the jelly startup scripts -->
