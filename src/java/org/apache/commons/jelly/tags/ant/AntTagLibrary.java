@@ -226,7 +226,7 @@ public class AntTagLibrary extends TagLibrary {
             if ( name.equals( "echo" ) ) {
                 tag.setTrim(false);
             }
-            return TagScript.newInstance(tag);
+            return new AntTagScript(tag);
         }
         
         /*
@@ -272,10 +272,10 @@ public class AntTagLibrary extends TagLibrary {
         // Since ant resolves so many dynamically loaded/created
         // things at run-time, we can make virtually no assumptions
         // as to what this tag might be.  
-        Tag tag = new OtherAntTag( project,
+        OtherAntTag tag = new OtherAntTag( project,
                                    name );
 
-        return TagScript.newInstance( tag );
+        return new AntTagScript( tag );
     }
 
     public TagScript createRuntimeTaskTagScript(String taskName, Attributes attributes) throws Exception {
