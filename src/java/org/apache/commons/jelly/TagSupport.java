@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.25 2003/01/25 18:59:23 morgand Exp $
- * $Revision: 1.25 $
- * $Date: 2003/01/25 18:59:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.26 2003/09/10 07:44:51 dion Exp $
+ * $Revision: 1.26 $
+ * $Date: 2003/09/10 07:44:51 $
  *
  * ====================================================================
  *
@@ -57,12 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.25 2003/01/25 18:59:23 morgand Exp $
+ * $Id: TagSupport.java,v 1.26 2003/09/10 07:44:51 dion Exp $
  */
 package org.apache.commons.jelly;
 
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -76,7 +75,7 @@ import org.apache.commons.jelly.impl.TextScript;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.25 $
+  * @version $Revision: 1.26 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -282,11 +281,7 @@ public abstract class TagSupport implements Tag {
      */
     protected String getBodyText(boolean shouldEscape) throws JellyTagException {
         StringWriter writer = new StringWriter();
-        try {
-            invokeBody(XMLOutput.createXMLOutput(writer,shouldEscape));
-        } catch (UnsupportedEncodingException e) {
-            throw new JellyTagException(e.toString());
-        }
+        invokeBody(XMLOutput.createXMLOutput(writer,shouldEscape));
         return writer.toString();
     }
 
