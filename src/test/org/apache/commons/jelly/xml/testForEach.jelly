@@ -1,2 +1,40 @@
-<?xml version="1.0"?><j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml"><testcase>  <x:parse var="doc">
-    <a>	  <b v="1"/>	  <b v="2"/>	  <b v="3"/>	</a>  </x:parse>  <j:set var="i" value="0"/>  <j:set var="i2" value="0"/>	  <x:forEach select="$doc/a/b" var="x">	<x:set var="i2" select="$i2 + number($x/@v)"/>  </x:forEach>	  <x:forEach select="$doc/a">  	<x:forEach select="b">	  <x:set var="i" select="$i + @v"/>	</x:forEach>  </x:forEach>    <x:if select="$i2 != 6.0">  		  	<fail>The i2 should be 6! but the value is <x:expr select="$i2"/></fail>  </x:if>    <x:if select="$i != 6.0">  		  	<fail>The i should be 6! but the value is <x:expr select="$i"/></fail>  </x:if>  </testcase></j:jelly>
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+
+<testcase>
+
+  <x:parse var="doc">
+
+    <a>
+      <b v="1"/>
+      <b v="2"/>
+      <b v="3"/>
+    </a>
+  </x:parse>
+
+  <j:set var="i" value="0"/>
+  <j:set var="i2" value="0"/>
+    
+  <x:forEach select="$doc/a/b" var="x">
+    <x:set var="i2" select="$i2 + number($x/@v)"/>
+  </x:forEach>
+    
+  <x:forEach select="$doc/a">
+      <x:forEach select="b">
+      <x:set var="i" select="$i + @v"/>
+    </x:forEach>
+  </x:forEach>
+  
+  <x:if select="$i2 != 6.0">          
+      <fail>The i2 should be 6! but the value is <x:expr select="$i2"/></fail>
+  </x:if>
+  
+  <x:if select="$i != 6.0">          
+      <fail>The i should be 6! but the value is <x:expr select="$i"/></fail>
+  </x:if>
+  
+</testcase>
+
+</j:jelly>
+
+

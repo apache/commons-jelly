@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
+
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
-  <x:parse var="doc">    <web-app>
+
+  <x:parse var="doc">
+    <web-app>
       <servlet>
         <servlet-name>snoop</servlet-name>
         <servlet-class>SnoopServlet</servlet-class>
@@ -22,11 +25,16 @@
       </servlet-mapping>
     </web-app>
   </x:parse>
+
   <x:set var="count" select="count($doc//servlet)"/>
   <x:forEach var="s" select="$doc//servlet">
     name: <x:expr select="$s/servlet-name"/>
     class: <x:expr select="$s/servlet-class"/>
   </x:forEach>
+
   There are <x:expr select="$count"/> servlet(s)
+
 </j:jelly>
+
+
 

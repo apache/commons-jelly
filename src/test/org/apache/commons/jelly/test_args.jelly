@@ -1,2 +1,7 @@
-<?xml version="1.0"?><!-- displays the current command line arguments -->
-<j:jelly xmlns:j="jelly:core">  <j:forEach var="arg" items="${args}"><j:expr value="${arg}"/> </j:forEach></j:jelly>
+<?xml version="1.0"?>
+
+<!-- displays the current command line arguments -->
+
+<j:jelly xmlns:j="jelly:core">
+  <j:forEach var="arg" items="${args}"><j:expr value="${arg}"/> </j:forEach>
+</j:jelly>

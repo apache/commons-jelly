@@ -1,1 +1,8 @@
-<?xml version="1.0"?><j:jelly xmlns:j="jelly:core">  <j:if test='${context.findVariable("foo") != "bar"}'>  	<fail>The value of foo in a parent scope does not equal to 'bar'</fail>  </j:if>    The value of foo is <j:expr value='${context.findVariable("foo")}'/></j:jelly>
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core">
+  <j:if test='${context.findVariable("foo") != "bar"}'>
+      <fail>The value of foo in a parent scope does not equal to 'bar'</fail>
+  </j:if>
+  
+  The value of foo is <j:expr value='${context.findVariable("foo")}'/>
+</j:jelly>

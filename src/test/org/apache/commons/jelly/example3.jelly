@@ -1,5 +1,11 @@
-<?xml version="1.0"?><jelly xmlns="jelly:core">
-  <!-- a really silly way to do this but -->  <!-- this should test the choose/when/otherwise tags -->  <forEach var="iter" items="System.getProperties()">    <choose>      <when test='iter.key.equals( "java.home" )'>
+<?xml version="1.0"?>
+<jelly xmlns="jelly:core">
+
+  <!-- a really silly way to do this but -->
+  <!-- this should test the choose/when/otherwise tags -->
+  <forEach var="iter" items="System.getProperties()">
+    <choose>
+      <when test='iter.key.equals( "java.home" )'>
         Java Home = <expr value="iter.value"/>
       </when>
       <when test='iter.key.equals( "java.version" )'>
@@ -11,4 +17,6 @@
     </choose>
   </forEach>
 </jelly>
+
+
 

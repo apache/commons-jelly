@@ -1,15 +1,17 @@
 <?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql">
+
+<j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql">
+
   <sql:setDataSource var="db" url="${databaseUrl}" driver="${databaseDriver}" user="${databaseUser}"/>
 
   <sql:query var="results" dataSource="${db}">
-  	select * from <j:expr value="${databaseTable}"/>
+      select * from <j:expr value="${databaseTable}"/>
   </sql:query>
 
   <dataSet>
-
-  <size><j:expr value="${results.rowCount}"/></size>
-
+    <size><j:expr value="${results.rowCount}"/></size>
   </dataSet>
-  
-</j:jelly>
+
+</j:jelly>
+
+

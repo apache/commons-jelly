@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
+
 <j:jelly xmlns:j="jelly:core">
+
 <html>
   <body>
-    <h1>System properties</h1>    
+    <h1>System properties</h1>
+    
     <table>
       <tr>
         <th>Name</th>
         <th>Value</th>
       </tr>
+
       <j:forEach var="iter" items="${System.getProperties()}">
         <tr>
           <td><j:expr value="${iter.key}"/></td>
@@ -15,6 +19,9 @@
         </tr>
       </j:forEach>
     </table>
+
   </body>
+
 </html>
+
 </j:jelly>
