@@ -66,7 +66,7 @@
 		<test:assertEquals expected="value3 param1 param2" actual="${dummyKey3}" />
 	</test:case>
 
-	<test:case name="testParam" xmlns="dummy">
+	<test:case name="testParam2" xmlns="dummy">
 		<j:set var="keyvar" value="key4"/>
 		<j:set var="valuevar" value="param1"/>
 		<j:set var="intvalue" value="123"/>
