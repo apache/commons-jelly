@@ -54,7 +54,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.45 $
+ * @version $Revision: 1.46 $
  */
 public class TagScript implements Script {
 
@@ -507,7 +507,8 @@ public class TagScript implements Script {
             parentTag = parent.getTag();
         }
         tag.setParent( parentTag );
-        tag.setBody( tagBody );
+        tag.setBody( new WeakReferenceWrapperScript(tagBody) );
+        //tag.setBody( tagBody );
 
         if (tag instanceof NamespaceAwareTag) {
             NamespaceAwareTag naTag = (NamespaceAwareTag) tag;
