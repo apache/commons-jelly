@@ -18,7 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-threads</id>
   <name>commons-jelly-tags-threads</name>
-
+  <currentVersion>1.0</currentVersion>
   <package>org.apache.commons.jelly.tags.threads</package>
 
   <description>
@@ -26,19 +26,16 @@
   </description>
   <shortDescription>Commons Jelly Threads Tag Library</shortDescription>
   
-  <!-- <url>http://jakarta.apache.org/commons/jelly/tags/threads/</url>
-
-  <siteDirectory>/www/jakarta.apache.org/commons/jelly/threads/</siteDirectory>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/tags/threads</distributionDirectory>
-  <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/threads/</connection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/threads/</url>
-  </repository>-->
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS-JELLY-THREADS-1_0</tag>
+    </version>
+  </versions>
   
   <dependencies>
-  
-    
-  
+
     <!-- START for compilation -->
   
     <dependency>

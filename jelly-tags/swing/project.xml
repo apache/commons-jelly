@@ -18,6 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-swing</id>
   <name>JellySwing</name>
+  <currentVersion>1.0</currentVersion>
 
   <package>org.apache.commons.jelly.tags.swing</package>
 
@@ -26,7 +27,15 @@
   </description>
   <shortDescription>Commons Jelly Swing Tag Library</shortDescription>
   
-  <dependencies>
+  <versions>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>COMMONS-JELLY-SWING-1_0</tag>
+    </version>
+  </versions>
+
+<dependencies>
 
     <dependency>
       <id>commons-jelly</id>
