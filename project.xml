@@ -95,84 +95,69 @@
     </dependency>
     
     <dependency>
-      <id>xmlParseAPIs</id>
-      <type>required</type>
+      <id>xml-apis</id>
       <version>2.0.0</version>
-      <jar>xmlParserAPIs-2.0.0.jar</jar>
     </dependency>
     
     <dependency>
-      <id>xercesImpl</id>
-      <type>required</type>
+      <id>xerces</id>
       <version>2.0.0</version>
-      <jar>xercesImpl-2.0.0.jar</jar>
     </dependency>
     
     <dependency>
       <id>ant</id>
       <version>1.4.1</version>
-      <jar>ant-1.4.1.jar</jar>
     </dependency>
     
     <dependency>
-      <id>ant-optional</id>
+      <id>ant</id>
       <version>1.4.1</version>
-      <jar>ant-optional-1.4.1.jar</jar>
+      <jar>ant-optional-1.4.1</jar>
     </dependency>
 
     <dependency>
       <id>commons-logging</id>
-      <type>required</type>
       <version>1.0</version>
-      <jar>commons-logging-1.0.jar</jar>
     </dependency>
+
     <dependency>
       <id>commons-beanutils</id>
-      <type>required</type>
       <version>1.4-dev</version>
-      <jar>commons-beanutils-1.4-dev.jar</jar>
     </dependency>
+
     <dependency>
       <id>commons-collections</id>
-      <type>required</type>
       <version>2.0</version>
-      <jar>commons-collections-2.0.jar</jar>
     </dependency>
+
     <dependency>
       <id>commons-digester</id>
-      <type>required</type>
       <version>1.2</version>
-      <jar>commons-digester-1.2.jar</jar>
     </dependency>
+
     <dependency>
       <id>dom4j</id>
-      <type>required</type>
       <version>1.4-dev-3</version>
-      <jar>dom4j-1.4-dev-3.jar</jar>
     </dependency>
+
     <dependency>
       <id>commons-jexl</id>
-      <type>required</type>
       <version>1.0-dev</version>
-      <jar>commons-jexl-1.0-dev.jar</jar>
     </dependency>
+
     <dependency>
       <id>velocity</id>
-      <type>required</type>
       <version>1.4-dev</version>
-      <jar>velocity-1.4-dev.jar</jar>
     </dependency>
+
     <dependency>
-      <id>jdbc-stdext</id>
-      <type>required</type>
+      <id>jdbc</id>
       <version>2.0</version>
-      <jar>jdbc2_0-stdext.jar</jar>
     </dependency>
+
     <dependency>
       <id>werkz</id>
-      <type>required</type>
       <version>1.0-beta-2</version>
-      <jar>werkz-1.0-beta-2.jar</jar>
     </dependency>
     
     <!-- 
@@ -183,78 +168,58 @@
 	<!-- beanshell taglib -->
     <dependency>
       <id>bsh</id>
-      <type>required</type>
       <version>1.2-b3</version>
-      <jar>bsh-1.2-b3.jar</jar>
     </dependency>
 
 	<!-- bsf taglib -->
     <dependency>
       <id>bsf</id>
-      <type>required</type>
       <version>2.2</version>
-      <jar>bsf-2.2.jar</jar>
     </dependency>
 
 	<!-- ojb taglib -->
     <dependency>
       <id>ojb</id>
-      <type>required</type>
-      <version>ojb-0.8.375</version>
-      <jar>ojb-0.8.375.jar</jar>
+      <version>0.8.375</version>
     </dependency>
 
 	<!-- jms taglib -->
     <dependency>
       <id>jms</id>
-      <type>required</type>
       <version>1.0.2b</version>
-      <jar>jms-1.0.2b.jar</jar>
     </dependency>
     <dependency>
       <id>commons-messenger</id>
-      <type>required</type>
       <version>1.0-dev-3</version>
-      <jar>commons-messenger-1.0-dev-3.jar</jar>
     </dependency>
     
 	<!-- http taglib -->
     <dependency>
       <id>commons-httpclient</id>
-      <type>required</type>
       <version>2.0-dev</version>
-      <jar>commons-httpclient-2.0-dev.jar</jar>
     </dependency>
 
 
 	<!-- validate taglib -->
     <dependency>
       <id>isorelax</id>
-      <type>required</type>
       <version>20020414</version>
-      <jar>isorelax-20020414.jar</jar>
     </dependency>
 
     <dependency>
       <id>msv</id>
-      <type>required</type>
       <version>20020414</version>
-      <jar>msv-20020414.jar</jar>
     </dependency>
 
 	<!-- runtime dependency for validate taglib -->
     <dependency>
       <id>xsdlib</id>
-      <type>required</type>
       <version>20020414</version>
-      <jar>xsdlib-20020414.jar</jar>
     </dependency>
 
     <dependency>
       <id>relaxngDatatype</id>
-      <type>required</type>
       <version>20020414</version>
-      <jar>relaxngDatatype-20020414.jar</jar>
     </dependency>
 
 	
