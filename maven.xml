@@ -4,11 +4,11 @@
   <!-- runs the XML doclet -->	
   <goal name="xml-doclet" prereqs="java:compile">
     <path id="doclet.classpath">
-		<pathelement path="${maven.build.dest}"/>
-		<path refid="maven.dependency.classpath"/>
+      <pathelement path="${maven.build.dest}"/>
+      <path refid="maven.dependency.classpath"/>
   	</path>
   	
-	<javadoc 
+    <javadoc 
   	  sourcepath="src/java" 
   	  packagenames="org.apache.commons.jelly.tags.*"
   	  doclet="org.apache.commons.jelly.util.XMLDoclet"
@@ -21,10 +21,10 @@
     <path id="doclet.classpath">
       <pathelement path="target/classes"/>
       <pathelement path="${maven.build.dest}"/>
-	  <path refid="maven.dependency.classpath"/>
-	</path>
+      <path refid="maven.dependency.classpath"/>
+    </path>
 	
-	<javadoc 
+    <javadoc 
   	  sourcepath="src/java" 
   	  packagenames="org.apache.commons.jelly.tags.*"
   	  doclet="org.apache.commons.jelly.util.TagXMLDoclet"
@@ -36,13 +36,13 @@
   <goal name="doc-tags" prereqs="tag-doclet" 
 	description="Generates the tag documentation">
 	
-	<mkdir dir="target/generated-xdocs"/>
+    <mkdir dir="target/generated-xdocs"/>
 
-	<path id="test.classpath">
+    <path id="test.classpath">
 	    <pathelement path="${maven.build.dest}"/>
 	    <pathelement path="target/classes"/>
 	    <path refid="maven.dependency.classpath"/>
-	</path>
+    </path>
 	  
     <taskdef
       name="jelly"
@@ -56,7 +56,8 @@
 	</j:file>
 -->
 
-	<jelly file="src/script/makeTagDoc.jelly" output="target/generated-xdocs/tags.xml"/> 
+    <jelly file="src/script/makeTagDoc.jelly" 
+      output="target/generated-xdocs/tags.xml"/> 
 	
   </goal>
 
@@ -65,7 +66,7 @@
   <preGoal
     name="site:generate">
 
-	<attainGoal name="doc-tags"/>
+    <attainGoal name="doc-tags"/>
 	
   </preGoal>
 
@@ -73,12 +74,12 @@
   <preGoal
     name="dist:build">
 
-	<echo>The POM is ${pom.build}</echo>
-	<echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
+    <echo>The POM is ${pom.build}</echo>
+    <echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
 
-	<mkdir dir="${maven.dist.assembly.dir}/bin"/>
-	<mkdir dir="${maven.dist.assembly.dir}/lib"/>
-	<mkdir dir="${maven.dist.assembly.dir}/custom"/>
+    <mkdir dir="${maven.dist.assembly.dir}/bin"/>
+    <mkdir dir="${maven.dist.assembly.dir}/lib"/>
+    <mkdir dir="${maven.dist.assembly.dir}/custom"/>
 	
     <copy todir="${maven.dist.assembly.dir}/bin">
       <fileset dir="src/bin"/>
@@ -95,11 +96,11 @@
       	    	file="${maven.repo.local}/${dep.id}/jars/${dep.jar}"/>
       	</j:otherwise>
       </j:choose>
-	</j:forEach>
+    </j:forEach>
 	
-	<!-- put a copy of Jelly's jar there too -->	       	    
-	<copy todir="${maven.dist.assembly.dir}/lib" 
-      	  file="${maven.build.dir}/${maven.final.name}.jar"/>
+    <!-- put a copy of Jelly's jar there too -->	       	    
+    <copy todir="${maven.dist.assembly.dir}/lib" 
+            file="${maven.build.dir}/${maven.final.name}.jar"/>
   </preGoal>
 
 
