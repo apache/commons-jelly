@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<j:jelly 
+	xmlns:j="jelly:core" 
+	xmlns="jelly:swing" 
+	xmlns:log="jelly:log"
+	xmlns:w="jelly:werkz">
+
+	<w:useGoals var="goalMap"/>
+
+	<!-- action to choose a file -->
+	<action var="attainGoalAction" name="...">			
+	</action>
+
+
+	<!-- create the frame -->
+	<frame var="frame" size="400,150" location="200,200" title="Maven Wizard">
+    <menuBar>
+      <menu text="Run">
+				<j:forEach var="groupEntry" items="${goalMap.entrySet()}">			
+					
+					<menu text="${groupEntry.key}">
+						<j:forEach var="goalEntry" items="${groupEntry.value.entrySet()}">			
+
+							<!-- give each menu item its own scope then they have their own goal names -->
+							<j:scope>
+								<j:set var="goalName" value="${goalEntry.value.name}"/>
+								
+								<menuItem>
+									<action name="${goalEntry.key}">
+										<log:info>About to invoke the ${goalName} goal!</log:info>
+										<w:attainGoal name="${goalName}"/>
+									</action>
+								</menuItem>
+							</j:scope>
+						</j:forEach>
+					</menu>
+				</j:forEach>
+			</menu>
+    </menuBar>
+		<panel>
+    </panel>
+	</frame>
+
+	${frame.setVisible(true)}
+
+</j:jelly>
+
+
+

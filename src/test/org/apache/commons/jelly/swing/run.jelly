@@ -22,8 +22,8 @@
 	</action>
 
 
-	<!-- create the dialog -->
-	<dialog var="dialog" size="400,150" location="200,200" title="Jelly Runner">
+	<!-- create the frame -->
+	<frame var="frame" size="400,150" location="200,200" title="Jelly Runner">
 		<panel>
   		<tableLayout>
     		<tr>
@@ -57,9 +57,9 @@
   			</tr>
     	</tableLayout>
     </panel>
-	</dialog>
+	</frame>
 
-	${dialog.setVisible(true)}
+	${frame.setVisible(true)}
 
 </j:jelly>
 

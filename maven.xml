@@ -472,6 +472,19 @@
     </java>
   </goal>
 
+  <goal name="jelly:runner2" prereqs="jelly-task"
+    description="Runs the Jelly Runner which is a JellySwing script to run other Jelly scripts)">
+    <j:include uri="file:///${user.dir}/src/test/org/apache/commons/jelly/swing/run.jelly"/> 
+    <i:ask question="Hit Enter to terminate" answer="dummy" xmlns:i="jelly:interaction"/>
+  </goal>
+
+  <goal name="jelly:wizard" prereqs="jelly-task"
+    description="Runs the Jelly Runner which is a JellySwing script to run other Jelly scripts)">
+    <j:include uri="file:///${user.dir}/src/test/org/apache/commons/jelly/swing/wizard.jelly"/> 
+    <i:ask question="Hit Enter to terminate" answer="dummy" xmlns:i="jelly:interaction"/>
+  </goal>
+
+
 	<!-- a simple example program to demonstrate the use of <tableModel> -->	
   <goal name="jelly:showvars" prereqs="jelly-task"
     description="Displays the current variables in the Maven project">
