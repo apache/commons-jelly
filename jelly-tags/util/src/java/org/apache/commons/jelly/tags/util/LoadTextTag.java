@@ -38,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  * A tag which loads text from a file or URI into a Jelly variable.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class LoadTextTag extends TagSupport {
 
@@ -83,10 +83,14 @@ public class LoadTextTag extends TagSupport {
         }
 
         Reader reader = null;
-        try {
-            reader = new InputStreamReader(in, encoding);
-        } catch (UnsupportedEncodingException e) {
-            throw new JellyTagException("unsupported encoding",e);
+        if (encoding != null) {
+            try {
+                reader = new InputStreamReader(in, encoding);
+            } catch (UnsupportedEncodingException e) {
+                throw new JellyTagException("unsupported encoding",e);
+            }
+        } else {
+            reader = new InputStreamReader(in);
         }
 
         String text = null;
