@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:jface" xmlns:log="jelly:log">
+
+  <applicationWindow var="mainapp">
+  	
+  	<preferenceDialog var="pd">
+				
+			<preferencePage title="General settings" filename="settings.props">
+				<booleanFieldEditor name="var1" labelText="It's boolean" />
+				<colorFieldEditor name="var2" labelText="MainColor" />
+				<directoryFieldEditor name="var3" labelText="Directory" />
+				<fileFieldEditor name="var4" labelText="File" />
+				<fontFieldEditor name="var5" labelText="Font" />					
+				<integerFieldEditor name="var6" labelText="Integer" />					
+				<stringFieldEditor name="var7" labelText="String" />	
+			</preferencePage>	
+				
+			<preferencePage title="Personal settings" filename="personal-settings.props" >
+				<stringFieldEditor name="var8" labelText="String1" />			
+				<stringFieldEditor name="var9" labelText="String2" />								
+			</preferencePage>
+
+	</preferenceDialog>		
+
+		
+  </applicationWindow>
+
+ 
+  ${pd.open()}	
+
+ 
+
+</j:jelly>

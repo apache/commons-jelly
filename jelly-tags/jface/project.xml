@@ -45,11 +45,15 @@
     
 		<!-- jface libraries -->
     <dependency>
-      <id>eclipse+runtime</id>
+      <id>eclipse+boot</id>
       <version>2.1.0</version>
     </dependency>
     <dependency>
       <id>eclipse+jface</id>
+      <version>2.1.0</version>
+    </dependency>
+    <dependency>
+      <id>eclipse+runtime</id>
       <version>2.1.0</version>
     </dependency>
     
