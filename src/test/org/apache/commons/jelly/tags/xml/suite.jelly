@@ -283,12 +283,12 @@
   </test:case>
 
     
-    <test:case name="testSetSingleNode">
+    <test:case name="testSetSingleNodeAndAsString">
         <x:parse var="blopElements">
             <root>
             <blop>blop1</blop>
-						<blip/>
-            <blop>blop0</blop></root>
+            <blip/>
+            <blop id="bla">blop0</blop></root>
         </x:parse>
         <x:set var="blopSingle" select="$blopElements/root/blop" single="true"/>
         <!-- should return the second -->
@@ -296,10 +296,14 @@
         <test:assert test="${eltClass.isAssignableFrom(blopSingle.getClass())}"/>
         <j:set var="blopSingleText"><x:expr select="$blopSingle/text()"/></j:set>
         <test:assertEquals actual="${blopSingleText}" expected="blop1"/>
-				<!-- check if selecting root/blip returns a list -->
-				<x:set var="blip" select="$blopElements/root/blip" single="false"/>
+        <!-- check if selecting root/blip returns a list -->
+        <x:set var="blip" select="$blopElements/root/blip" single="false"/>
         <j:invokeStatic var="listClass" className="java.lang.Class" method="forName"><j:arg value="java.util.List"/></j:invokeStatic>
-				<test:assert test="${listClass.isAssignableFrom(blip.getClass())}"/>
+        <test:assert test="${listClass.isAssignableFrom(blip.getClass())}"/>
+        <!-- check if selecting blop/@id asString returns a string -->
+        <x:set var="blopId" select="$blopElements/root/blop/@id" asString="true"/>
+        <j:invokeStatic var="stringClass" className="java.lang.Class" method="forName"><j:arg value="java.lang.String"/></j:invokeStatic>
+        <test:assert test="${stringClass.isAssignableFrom(blopId.getClass())}"/>
   </test:case>
    
   <test:case name="testEntities">
