@@ -1,8 +1,10 @@
 <?xml version="1.0"?>
 
 <!-- uses the babelfish taglib -->
-<j:jelly xmlns:j="jelly:core" xmlns:babelfish="jelly:babelfish">
+<j:jelly xmlns:j="jelly:core" xmlns:babelfish="babelfish">
 
+  <j:include uri="babelfishTaglib.jelly"/>
+  
   This example should output a web service call...
 
   <babelfish:translate from="EN" to="FR">

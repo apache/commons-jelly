@@ -394,6 +394,24 @@ public class JellyContext {
     }
 
     /** 
+     * Attempts to parse the script from the given File then compiles it and runs it.
+     */
+    public void runScript(File file, XMLOutput output) throws Exception {
+        runScript(file.toURL(), output);
+    }
+
+    /** 
+     * Attempts to parse the script from the given URL then compiles it and runs it.
+     */
+    public void runScript(URL url, XMLOutput output) throws Exception {
+        Script script = compileScript(url);
+        
+        URL newJellyContextURL = getJellyContextURL(url);
+        JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
+        script.run(newJellyContext, output);
+    }
+
+    /** 
      * Attempts to parse the script from the given uri using the 
      * JellyContext.getResource() API then compiles it and runs it.
      */

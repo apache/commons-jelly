@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.7 2002/06/26 14:50:43 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/26 14:50:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.8 2002/07/15 12:13:20 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/07/15 12:13:20 $
  *
  * ====================================================================
  *
@@ -57,13 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestDynamicTags.java,v 1.7 2002/06/26 14:50:43 jstrachan Exp $
+ * $Id: TestDynamicTags.java,v 1.8 2002/07/15 12:13:20 jstrachan Exp $
  */
 package org.apache.commons.jelly.define;
 
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
@@ -84,11 +83,11 @@ import org.apache.commons.logging.LogFactory;
 /** Tests dynamic tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class TestDynamicTags extends TestCase {
 
-    XMLParser parser = new XMLParser();
+    JellyContext context = new JellyContext();
     XMLOutput output;
 
     /** The Log to which logging calls will be made. */
@@ -110,7 +109,7 @@ public class TestDynamicTags extends TestCase {
         StringWriter buffer = new StringWriter();        
         output = XMLOutput.createXMLOutput(buffer);
         
-        runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
+        //runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
         runScript("src/test/org/apache/commons/jelly/define/example.jelly");
         
         log.info("The output was as follows");
@@ -128,10 +127,6 @@ public class TestDynamicTags extends TestCase {
     }
     
     protected void runScript(String name) throws Exception {
-        InputStream in = new FileInputStream(name);
-        Script script = parser.parse(in);
-        script = script.compile();
-        log.info("Evaluating: " + script);
-        script.run(parser.getContext(), output);
+        context.runScript(new File(name), output);
     }
 }
