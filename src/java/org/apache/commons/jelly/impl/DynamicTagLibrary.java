@@ -1,5 +1,5 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DynamicTagLibrary.java,v 1.6 2002/08/01 09:53:18 jstrachan Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/define/DynamicTagLibrary.java,v 1.6 2002/08/01 09:53:18 jstrachan Exp $
  * $Revision: 1.6 $
  * $Date: 2002/08/01 09:53:18 $
  *
@@ -59,7 +59,7 @@
  * 
  * $Id: DynamicTagLibrary.java,v 1.6 2002/08/01 09:53:18 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.define;
+package org.apache.commons.jelly.impl;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -59,7 +59,7 @@
  * 
  * $Id: DynamicTag.java,v 1.7 2002/05/17 15:18:12 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.define;
+package org.apache.commons.jelly.impl;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;

@@ -63,8 +63,8 @@
 package org.apache.commons.jelly.tags.jeez;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.impl.DynamicTagLibrary;
 import org.apache.commons.jelly.tags.define.DefineTagTag;
-import org.apache.commons.jelly.tags.define.DynamicTagLibrary;
 
 /** 
  * This tag defines a dynamic tag in Jelly script. When the tag is invoked

@@ -74,7 +74,6 @@ import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.tags.define.DynamicTagLibrary;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -70,6 +70,8 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.Attribute;
+import org.apache.commons.jelly.impl.BeanTag;
 import org.apache.commons.jelly.impl.TagFactory;
 
 import org.apache.commons.logging.Log;

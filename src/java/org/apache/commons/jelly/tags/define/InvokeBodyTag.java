@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.9 2002/08/09 15:48:48 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/08/09 15:48:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.10 2002/08/09 17:26:40 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/08/09 17:26:40 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.9 2002/08/09 15:48:48 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.10 2002/08/09 17:26:40 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -67,6 +67,7 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.DynamicTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -77,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class InvokeBodyTag extends TagSupport {
 

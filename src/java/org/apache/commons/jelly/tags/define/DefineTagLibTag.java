@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.7 2002/08/09 15:48:48 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/08/09 15:48:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/DefineTagLibTag.java,v 1.8 2002/08/09 17:26:40 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/08/09 17:26:40 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefineTagLibTag.java,v 1.7 2002/08/09 15:48:48 jstrachan Exp $
+ * $Id: DefineTagLibTag.java,v 1.8 2002/08/09 17:26:40 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -66,6 +66,7 @@ import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.DynamicTagLibrary;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.AttributesImpl;
@@ -75,7 +76,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * using a Jelly script..</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.7 $
+ * @version $Revision: 1.8 $
  */
 public class DefineTagLibTag extends TagSupport {
     

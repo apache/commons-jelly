@@ -64,6 +64,7 @@ package org.apache.commons.jelly.tags.define;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.impl.DynamicTagLibrary;
 
 /** 
  * An abstract base class useful for implementation inheritence.
