@@ -22,10 +22,12 @@
   </properties>
 
   <body>
-    <p>
-      This is a Jelly interface for Ant. It allows any Ant task or datatype to be executed by Jelly. 
-      It also provides some extra <a href="tags.html">tags</a> to make working with Ant from Jelly easier.
-    </p>
+    <section name="Overview">
+      <p>
+        This is a Jelly interface for Ant. It allows any Ant task or datatype to be executed by Jelly. 
+        It also provides some extra <a href="tags.html">tags</a> to make working with Ant from Jelly easier.
+      </p>
+    </section>
   </body>
 </document>
 
