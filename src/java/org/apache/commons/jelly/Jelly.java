@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.21 2002/10/16 18:45:27 morgand Exp $
- * $Revision: 1.21 $
- * $Date: 2002/10/16 18:45:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.22 2002/10/16 22:58:19 morgand Exp $
+ * $Revision: 1.22 $
+ * $Date: 2002/10/16 22:58:19 $
  *
  * ====================================================================
  *
@@ -57,27 +57,21 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.21 2002/10/16 18:45:27 morgand Exp $
+ * $Id: Jelly.java,v 1.22 2002/10/16 22:58:19 morgand Exp $
  */
 
 package org.apache.commons.jelly;
+
 import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.FileInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.Properties;
-import java.util.StringTokenizer;
-import java.util.ArrayList;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.GnuParser;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.Parser;
-import org.apache.commons.cli.ParseException;
 import org.apache.commons.jelly.parser.XMLParser;
+import org.apache.commons.jelly.util.CommandLineParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -91,7 +85,7 @@ import org.apache.commons.logging.LogFactory;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 public class Jelly {
     
@@ -135,50 +129,9 @@ public class Jelly {
             }
 
             // parse the command line options using CLI
-            CommandLine cmdLine = parseCommandLineOptions(args);
-
-            // get the -script option. If there isn't one then use args[0]
-            String scriptFile = null;
-            if (cmdLine.hasOption("script")) {
-                scriptFile = cmdLine.getOptionValue("script");
-            } else {
-                scriptFile = args[0];
-            }
-
-            // check if the script file exists
-            if (!(new File(scriptFile)).exists()) {
-                System.out.println("Script file " + scriptFile + " not found");
-                return;
-            }
-
-            // extract the -o option for the output file to use
-            final XMLOutput output = cmdLine.hasOption("o") ?
-                    XMLOutput.createXMLOutput(new FileWriter(cmdLine.getOptionValue("o"))) :
-                    XMLOutput.createXMLOutput(System.out);
-
-            Jelly jelly = new Jelly();
-            jelly.setScript(scriptFile);
-
-            Script script = jelly.compileScript();
-
-            // add the system properties and the command line arguments
-            JellyContext context = jelly.getJellyContext();
-            context.setVariable("args", args);
-            context.setVariable("commandLine", cmdLine);
-            script.run(context, output);
-
-            // now lets wait for all threads to close
-            Runtime.getRuntime().addShutdownHook(new Thread() {
-                    public void run() {
-                        try {
-                            output.close();
-                        }
-                        catch (Exception e) {
-                            // ignore errors
-                        }
-                    }
-                }
-            );
+            // using a separate class to avoid unnecessary 
+            // dependencies
+            CommandLineParser.getInstance().invokeCommandLineJelly(args);
         }
         catch (JellyException e) {
             Throwable cause = e.getCause();
@@ -190,62 +143,6 @@ public class Jelly {
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * Parse the command line using CLI. -o and -script are reserved for Jelly.
-     * -Dsysprop=sysval is support on the command line as well.
-     */
-    private static CommandLine parseCommandLineOptions(String[] args) throws ParseException {
-        // create the expected options
-        Options cmdLineOptions = new Options();
-        cmdLineOptions.addOption("o", true, "Output file");
-        cmdLineOptions.addOption("script", true, "Jelly script to run");
-
-        // -D options will be added to the system properties
-        Properties sysProps = System.getProperties();
-
-        // filter the system property setting from the arg list
-        // before passing it to the CLI parser
-        ArrayList filteredArgList = new ArrayList();
-
-        for (int i=0;i<args.length;i++) {
-            String arg = args[i];
-
-            // if this is a -D property parse it and add it to the system properties.
-            // -D args will not be copied into the filteredArgList.
-            if (arg.startsWith("-D") && (arg.length() > 2)) {
-                arg = arg.substring(2);
-                StringTokenizer toks = new StringTokenizer(arg, "=");
-
-                if (toks.countTokens() == 2) {
-                    // add the tokens to the system properties
-                    sysProps.setProperty(toks.nextToken(), toks.nextToken());
-                } else {
-                    System.err.println("Invalid system property: " + arg);
-                }
-
-            } else {
-                // add this to the filtered list of arguments
-                filteredArgList.add(arg);
-
-                // add additional "-?" options to the options object. if this is not done
-                // the only options allowed would be "-o" and "-script".
-                if (arg.startsWith("-") && arg.length() > 1) {
-                    if (!(arg.equals("-o") && arg.equals("-script"))) {
-                        cmdLineOptions.addOption(arg.substring(1, arg.length()), true, "dynamic option");
-                    }
-                }
-            }
-        }
-
-        // make the filteredArgList into an array
-        String[] filterArgs = new String[filteredArgList.size()];
-        filteredArgList.toArray(filterArgs);
-
-        // parse the command line
-        Parser parser = new GnuParser();
-        return parser.parse(cmdLineOptions, filterArgs);
     }
 
     /**
