@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.jaxen.XPath;
 import org.jaxen.JaxenException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Collections;
 
@@ -37,7 +38,7 @@ import java.util.Collections;
   * used from the other xml library functions.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class SetTag extends XPathTagSupport {
 
@@ -100,9 +101,9 @@ public class SetTag extends XPathTagSupport {
 			} else { // single == false
 				if(! (value instanceof List) ) {
 					if (value==null) {
-						l = new java.util.ArrayList(0)
+						l = new ArrayList(0);
 					} else {
-						List l = new java.util.ArrayList(1);
+						List l = new ArrayList(1);
 						l.add(value);
 					}
 					value = l;
