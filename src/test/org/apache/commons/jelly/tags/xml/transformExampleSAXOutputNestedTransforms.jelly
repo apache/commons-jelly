@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:log="jelly:log">
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
 
   <x:transform xslt="transformExample5.xsl" var="doc">
       <x:transform xslt="transformExample4.xsl">
