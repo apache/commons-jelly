@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="add" issue="JELLY-49" due-to="Aslak Hellesoy">Added</action>
     </release>
   </body>
 </document>
