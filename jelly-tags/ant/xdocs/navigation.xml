@@ -14,12 +14,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project name="JellySwing">
+<project name="Ant Tag Library">
 
   <title>Jelly Swing</title>
   
   <body>
-    <menu name="JellySwing">
+    <menu name="Ant Tag Library">
       <item name="Overview"                href="/index.html"/>
       <item name="Tags"                    href="/tags.html"/>
     </menu>
