@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.43 2003/01/14 18:40:19 jstrachan Exp $
- * $Revision: 1.43 $
- * $Date: 2003/01/14 18:40:19 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.44 2003/01/23 22:25:01 morgand Exp $
+ * $Revision: 1.44 $
+ * $Date: 2003/01/23 22:25:01 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.43 2003/01/14 18:40:19 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.44 2003/01/23 22:25:01 morgand Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -113,7 +113,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.43 $
+ * @version $Revision: 1.44 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -1044,16 +1044,16 @@ public class XMLParser extends DefaultHandler {
                         context.registerTagLibrary(namespaceURI, taglib);
                     }
                     catch (ClassNotFoundException e) {
-                        log.warn("Could not load class: " + uri + " so disabling the taglib", e);
+                        throw createSAXException("Could not load class: " + uri + " so taglib instantiation failed", e);
                     }
                     catch (IllegalAccessException e) {
-                        log.warn("Constructor for class is not accessible: " + uri + " so disabling the taglib", e);
+                        throw createSAXException("Constructor for class is not accessible: " + uri + " so taglib instantiation failed",e);
                     }
                     catch (InstantiationException e) {
-                        log.warn("Class could not be instantiated: " + uri + " so disabling the taglib", e);
+                        throw createSAXException("Class could not be instantiated: " + uri + " so taglib instantiation failed",e);
                     }
                     catch (ClassCastException e) {
-                        log.warn("Class is not a TagLibrary: " + uri + " so disabling the taglib", e);
+                        throw createSAXException("Class is not a TagLibrary: " + uri + " so taglib instantiation failed",e);
                     }
                 }
             }

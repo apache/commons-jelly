@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<j:jelly 
+	xmlns:j="jelly:core" xmlns:x="jelly:xml">
+  
+  <j:set var="foo" value="bar"/>
+  
+  <!-- should fail, because xml tags are not in the classpath -->
+  <x:parse var="foo" xml="nonexistentTags1.jelly"/>
+  
+</j:jelly>
