@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.27 2003/10/09 21:21:27 rdonkin Exp $
- * $Revision: 1.27 $
- * $Date: 2003/10/09 21:21:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.28 2003/10/30 20:04:48 dion Exp $
+ * $Revision: 1.28 $
+ * $Date: 2003/10/30 20:04:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.27 2003/10/09 21:21:27 rdonkin Exp $
+ * $Id: TagSupport.java,v 1.28 2003/10/30 20:04:48 dion Exp $
  */
 package org.apache.commons.jelly;
 
@@ -75,7 +75,7 @@ import org.apache.commons.jelly.impl.TextScript;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.27 $
+  * @version $Revision: 1.28 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -260,8 +260,7 @@ public abstract class TagSupport implements Tag {
     }
     
     /**
-     * Evaluates the given body using a buffer and returns the String 
-     * of the result.
+     * Executes the body of the tag and returns the result as a String.
      *
      * @return the text evaluation of the body
      */
@@ -272,8 +271,7 @@ public abstract class TagSupport implements Tag {
     }
 
     /**
-     * Evaluates the given body using a buffer and returns the String 
-     * of the result.
+     * Executes the body of the tag and returns the result as a String.
      *
      * @param shouldEscape Signal if the text should be escaped.
      *
