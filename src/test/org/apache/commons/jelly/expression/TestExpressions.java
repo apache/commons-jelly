@@ -106,6 +106,7 @@ public class TestExpressions extends TestCase {
         assertExpression("foo", "foo");
         assertExpression("${topping}", "cheese");
         assertExpression("some${topping}", "somecheese");
+        assertExpression(" some ${topping} ", " some cheese ");
         assertExpression("${topping}y", "cheesey");
         assertExpression("A ${topping} ${type} pizza", "A cheese deepPan pizza");
         assertExpression("${topping}-${type}", "cheese-deepPan");
