@@ -1,3 +1,4 @@
+junit*.properties
 target
 maven.log
 velocity.log
