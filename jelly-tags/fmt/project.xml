@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright 2002,2004 The Apache Software Foundation.
+  Copyright 2002,2005 The Apache Software Foundation.
   
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@
   <id>commons-jelly-tags-fmt</id>
   <groupId>commons-jelly</groupId>
   <name>commons-jelly-tags-fmt</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.1-SNAPSHOT</currentVersion>
 
   <package>org.apache.commons.jelly.tags.fmt</package>
 
@@ -42,17 +42,12 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-ant</artifactId>
-      <version>1.0</version>
+      <version>1.1-SNAPSHOT</version>
     </dependency>
     
     <dependency>
       <id>ant</id>
-      <version>1.5.1</version>
-    </dependency>
-    
-    <dependency>
-      <id>commons-grant</id>
-      <version>1.0-beta-4</version>
+      <version>1.6.2</version>
     </dependency>
     
     <dependency>
