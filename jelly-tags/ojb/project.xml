@@ -42,7 +42,7 @@
       <id>ojb</id>
       <version>0.9.6</version>
       <properties>
-        <gump.project>db-ojb</gump.project>
+        <gump.project>db-ojb-from-packages</gump.project>
       </properties>
     </dependency>
     
