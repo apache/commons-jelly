@@ -232,41 +232,40 @@
       </fileset>
     </fileScanner>
             
-   <property name="mavenCmd" value="maven"/>
+    <property name="mavenCmd" value="maven"/>
         
     <j:forEach items="${taglibProjects.iterator()}" var="taglib">
       <j:set var="tlName" value="${taglib.parentFile.name}" />
-            <echo>Processing tablib ${tlName}.</echo>
-            <j:set var="dir" value="${basedir}/jelly-tags/${tlName}"/>
-            <uptodate property="siteIsBuilt">
-                <srcfiles dir="${dir}" excludes="target/**/*"/>
-                <mapper type="merge" to="${dir}/target/docs/index.html"/>
-                </uptodate>
-          <echo>Tag-library ${tlname}'s site is up-to-date ? "${siteIsBuilt}"</echo>
-            <j:if test="${!siteIsBuilt}">
-                <echo>Building tag-library ${tlname}'s site.</echo>
-                <echo>Outputting navigation to ${dir}/target/generated-xdocs/navigation.xml.</echo>
-                <mkdir dir="${dir}/target/generated-xdocs"/>
-                    <copy file="${basedir}/jelly-tags/tag-navigation.xml" tofile="${dir}/target/generated-xdocs/navigation.xml"
-                            overwrite="true">
-                        <filterchain> 
-                            <replacetokens><token key="pom.name" value="jelly-${tlName}"/></replacetokens>
-                            </filterchain>
-                      </copy>
+      <echo>Processing tablib ${tlName}.</echo>
+      <j:set var="dir" value="${basedir}/jelly-tags/${tlName}"/>
+      <uptodate property="siteIsBuilt">
+        <srcfiles dir="${dir}" excludes="target/**/*"/>
+        <mapper type="merge" to="${dir}/target/docs/index.html"/>
+      </uptodate>
+      <echo>Tag-library ${tlname}'s site is up-to-date ? "${siteIsBuilt}"</echo>
+      <j:if test="${!siteIsBuilt}">
+        <echo>Building tag-library ${tlname}'s site.</echo>
+        <echo>Outputting navigation to ${dir}/target/generated-xdocs/navigation.xml.</echo>
+        <mkdir dir="${dir}/target/generated-xdocs"/>
+        <copy file="${basedir}/jelly-tags/tag-navigation.xml" tofile="${dir}/target/generated-xdocs/navigation.xml"
+          overwrite="true">
+          <filterchain> 
+            <replacetokens><token key="pom.name" value="jelly-${tlName}"/></replacetokens>
+          </filterchain>
+        </copy>
 
-                    <exec executable="${mavenCmd}"
-                        failonerror="true" dir="${dir}">
-                    <arg value="jellydoc"/>
-                    <arg value="site"/>
-                    <arg value="-Dmaven.xdoc.developmentProcessUrl=http://jakarta.apache.org/commons/charter.html"/>
-                    <arg value="-Dmaven.xdoc.poweredby.image=maven-feather.png"/>
-                    <arg value="-Dmaven.xdoc.date=left"/>
-                    <arg value="-Dmaven.license.licenseFile=${basedir}/LICENSE.txt"/>
-                    </exec>
-                </j:if>
-            </j:forEach>
+        <exec executable="${mavenCmd}" failonerror="true" dir="${dir}">
+          <arg value="jellydoc"/>
+          <arg value="site"/>
+          <arg value="-Dmaven.xdoc.developmentProcessUrl=http://jakarta.apache.org/commons/charter.html"/>
+          <arg value="-Dmaven.xdoc.poweredby.image=maven-feather.png"/>
+          <arg value="-Dmaven.xdoc.date=left"/>
+          <arg value="-Dmaven.license.licenseFile=${basedir}/LICENSE.txt"/>
+        </exec>
+      </j:if>
+    </j:forEach>
         
-            </goal>
+  </goal>
 
 
   <!-- demo programs -->
