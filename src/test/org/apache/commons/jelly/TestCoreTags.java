@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.7 2002/05/21 07:59:33 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/21 07:59:33 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/05/28 07:20:06 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.7 2002/05/21 07:59:33 jstrachan Exp $
+ * $Id: TestCoreTags.java,v 1.8 2002/05/28 07:20:06 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -83,7 +83,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class TestCoreTags extends TestCase {
 
@@ -103,7 +103,7 @@ public class TestCoreTags extends TestCase {
     }
 
     public void testArgs() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/testing123.jelly");
+        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/test_args.jelly");
         XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();

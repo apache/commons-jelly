@@ -1,21 +1,10 @@
-<?xml version="1.0"?>
-<j:jelly xmlns:j="jelly:core">
-
+<?xml version="1.0"?><j:jelly xmlns:j="jelly:core">
   <!-- try an absolute path -->
-  <j:include uri="/src/test/org/apache/commons/jelly/example.jelly"/>
-  
-  <!-- all other scripts... -->
-  <j:include uri="example2.jelly"/>
-  <j:include uri="example2.jelly"/>
-  <j:include uri="example3.jelly"/>
-  <j:include uri="hello_world.jelly"/>
-  <j:include uri="show_properties.jelly"/>
-  <j:include uri="testing123.jelly"/>
-    
+  <j:include uri="/src/test/org/apache/commons/jelly/hello_world.jelly"/>    <!-- include other relative scripts... -->
+  <j:include uri="example2.jelly"/>    <j:include uri="jsl/example.jelly"/> 
+   
   <!-- loading all dynamic tags libraries -->
-  <j:include uri="define/babelfishTaglib.jelly"/>
-  
+  <j:include uri="define/babelfishTaglib.jelly"/>  
   <!-- now run a script using the new taglib -->
   <j:include uri="define/example.jelly"/>
-
 </j:jelly>

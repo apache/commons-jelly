@@ -255,56 +255,26 @@
    </target>
    
 	
-<!--   
-   <target name="demo.1" depends="compile" 
-      description="Runs demo #1">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/testing123.jelly"/> 
-      <arg value="one"/> 
-      <arg value="two"/> 
-      <arg value="three"/> 
-    </java>
-   </target>
-
-   <target name="demo.2" depends="compile" 
-      description="Runs demo #2">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/example2.jelly"/> 
-    </java>
-   </target>
-
-   <target name="demo.3" depends="compile" 
-      description="Runs demo #3">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/example3.jelly"/> 
-      <arg value="one"/> 
-      <arg value="two"/> 
-      <arg value="three"/> 
-    </java>
-   </target>
-
-   <target name="demo.sysprop" depends="compile" 
-      description="Runs demo which displays system properties">
-    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
-      <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/show_properties.jelly"/> 
-    </java>
-   </target>
-
    <target name="demo.all" depends="compile" 
-      description="Runs all the demo scripts inside one single script">
+      description="Runs various example Jelly scripts">
+      
+	<jelly file="src/test/org/apache/commons/jelly/run_all.jelly"/> 
+	
+   </target>
+
+   <target name="demo.args" depends="compile" 
+      description="Runs a demo of processing command line arguments">
+      
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
-      <arg value="src/test/org/apache/commons/jelly/run_all.jelly"/> 
+      <arg value="src/test/org/apache/commons/jelly/show_args.jelly"/> 
       <arg value="one"/> 
       <arg value="two"/> 
       <arg value="three"/> 
     </java>
    </target>
 
+<!--
    <target name="demo.pnuts" depends="compile, checkPNuts" 
       description="Runs a pnuts demo which displays system properties">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
