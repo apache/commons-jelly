@@ -161,69 +161,80 @@ public class AntTag extends MapTagSupport implements TaskSource {
         // also its possible to have a root Ant tag which isn't a task, such as when
         // defining <fileset id="...">...</fileset>
 
-		if ( (parentTask == null || parentTask instanceof TaskContainer) && 
-            project.getTaskDefinitions().containsKey( tagName )) {			
-            
-            if ( log.isDebugEnabled() ) {
-                log.debug( "Creating an ant Task for name: " + tagName );            
-            }
-
-            // the following algorithm follows the lifetime of a tag
-            // http://jakarta.apache.org/ant/manual/develop.html#writingowntask
-            // kindly recommended by Stefan Bodewig
-
-            // create and set its project reference
+        Object nested = null;
+        if (parentObject != null && !( parentTask instanceof TaskContainer) ) {
+            nested = createNestedObject( parentObject, tagName );
+        }
+        
+        if (nested == null) {
             task = createTask( tagName );
-            if ( task instanceof TaskAdapter ) {
-                setObject( ((TaskAdapter)task).getProxy() );
+            
+            if (task != null) {
+
+                if ( log.isDebugEnabled() ) {
+                    log.debug( "Creating an ant Task for name: " + tagName );            
+                }
+    
+                // the following algorithm follows the lifetime of a tag
+                // http://jakarta.apache.org/ant/manual/develop.html#writingowntask
+                // kindly recommended by Stefan Bodewig
+    
+                // create and set its project reference
+                if ( task instanceof TaskAdapter ) {
+                    setObject( ((TaskAdapter)task).getProxy() );
+                }
+                else {
+                    setObject( task );
+                }
+    
+                // set the task ID if one is given
+                Object id = getAttributes().remove( "id" );
+                if ( id != null ) {
+                    project.addReference( (String) id, task );
+                }
+    
+                // ### we might want to spoof a Target setting here
+    
+                // now lets initialize
+                task.init();
+    
+                // now lets invoke the body to call all the createXXX() or addXXX() methods
+                String body = getBodyText();
+    
+                // now lets set any attributes of this tag...
+                setBeanProperties();
+    
+                // now lets set the addText() of the body content, if its applicaable
+                Method method = MethodUtils.getAccessibleMethod( task.getClass(),
+                                                                 "addText",
+                                                                 addTaskParamTypes );
+                if (method != null) {
+                    Object[] args = { body };
+                    method.invoke(this.task, args);
+                }
+    
+                // now lets set all the attributes of the child elements
+                // XXXX: to do!
+    
+                // now we're ready to invoke the task
+                // XXX: should we call execute() or perform()?
+                task.perform();
+            }
+        }
+        
+        if (task == null) {
+            
+            if (nested == null) {
+            
+                if ( log.isDebugEnabled() ) {                            
+                    log.debug( "Trying to create a data type for tag: " + tagName );            
+                }
+                nested = createDataType( tagName );
             }
             else {
-                setObject( task );
-            }
-
-            // set the task ID if one is given
-            Object id = getAttributes().remove( "id" );
-            if ( id != null ) {
-                project.addReference( (String) id, task );
-            }
-
-            // ### we might want to spoof a Target setting here
-
-            // now lets initialize
-            task.init();
-
-            // now lets invoke the body to call all the createXXX() or addXXX() methods
-            String body = getBodyText();
-
-            // now lets set any attributes of this tag...
-            setBeanProperties();
-
-            // now lets set the addText() of the body content, if its applicaable
-            Method method = MethodUtils.getAccessibleMethod( task.getClass(),
-                                                             "addText",
-                                                             addTaskParamTypes );
-            if (method != null) {
-                Object[] args = { body };
-                method.invoke(this.task, args);
-            }
-
-            // now lets set all the attributes of the child elements
-            // XXXX: to do!
-
-            // now we're ready to invoke the task
-            // XXX: should we call execute() or perform()?
-            task.perform();
-        }
-        else {
-
-            if ( log.isDebugEnabled() ) {                            
-                log.debug( "Creating a nested object name: " + tagName );            
-            }
-            
-            Object nested = createNestedObject( parentObject, tagName );
-
-            if ( nested == null ) {
-                nested = createDataType( tagName );
+                if ( log.isDebugEnabled() ) {
+                    log.debug( "Created nested property tag: " + tagName );
+                }
             }
 
             if ( nested != null ) {
@@ -276,6 +287,8 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 }
             }
             else {
+                log.warn("Could not convert tag: " + tagName + " into an Ant task, data type or property");
+                
                 // lets treat this tag as static XML...                
                 StaticTag tag = new StaticTag("", tagName, tagName);
                 tag.setParent( getParent() );
@@ -312,7 +325,11 @@ public class AntTag extends MapTagSupport implements TaskSource {
     }
 
     public Project getAntProject() {
-        return AntTagLibrary.getProject(context);
+        Project project = AntTagLibrary.getProject(context);
+        if (project == null) {
+            throw new NullPointerException("No Ant Project object is available");
+        }
+        return project;
     }
 
     // Implementation methods
