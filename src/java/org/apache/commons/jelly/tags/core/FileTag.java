@@ -57,10 +57,16 @@
 package org.apache.commons.jelly.tags.core;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
+import org.dom4j.io.HTMLWriter;
+import org.dom4j.io.OutputFormat;
+import org.dom4j.io.XMLWriter;
 
 /** 
  * A tag that pipes its body to a file.
@@ -70,6 +76,10 @@ import org.apache.commons.jelly.XMLOutput;
 public class FileTag extends TagSupport 
 {
     private String name;
+    private boolean omitXmlDeclaration = false;
+    private String outputMode = "xml";
+    private boolean prettyPrint;
+    private String encoding;
     
     public FileTag(){
     }
@@ -80,7 +90,7 @@ public class FileTag extends TagSupport
         if ( name == null ) {
             throw new MissingAttributeException( "name" );
         }
-        XMLOutput newOutput = XMLOutput.createXMLOutput(new FileOutputStream(name));
+        XMLOutput newOutput = createXMLOutput();
         try {
             newOutput.startDocument();
             invokeBody(newOutput);
@@ -96,5 +106,69 @@ public class FileTag extends TagSupport
      */
     public void setName(String name) {
         this.name = name;
+    }
+    
+    /**
+     * Sets whether the XML declaration should be output or not 
+     */
+    public void setOmitXmlDeclaration(boolean omitXmlDeclaration) {
+        this.omitXmlDeclaration = omitXmlDeclaration;
+    }
+    
+    
+    /**
+     * Sets the output mode, whether XML or HTML
+     */
+    public void setOutputMode(String outputMode) {
+        this.outputMode = outputMode;
+    }
+
+    /**
+     * Sets whether pretty printing mode is turned on. The default is off so that whitespace is preserved
+     */
+    public void setPrettyPrint(boolean prettyPrint) {
+        this.prettyPrint = prettyPrint;
+    }
+        
+    /**
+     * Sets the XML encoding mode, which defaults to UTF-8
+     */
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+        
+    // Implementation methods
+    //------------------------------------------------------------------------- 
+    protected XMLOutput createXMLOutput() throws Exception {
+        
+        OutputFormat format = null;
+        if (prettyPrint) {
+            format = OutputFormat.createPrettyPrint();
+        }
+        else {
+            format = new OutputFormat();
+        }
+        if ( encoding != null ) {
+            format.setEncoding( encoding );
+        }           
+        if ( omitXmlDeclaration ) {
+            format.setSuppressDeclaration(true);
+        }
+                    
+        OutputStream out = new FileOutputStream(name);
+        
+        boolean isHtml = outputMode != null && outputMode.equalsIgnoreCase( "html" );
+        final XMLWriter xmlWriter = (isHtml) 
+            ? new HTMLWriter(out, format)
+            : new XMLWriter(out, format);
+
+        XMLOutput answer = new XMLOutput() {
+            public void close() throws IOException {
+                xmlWriter.close();
+            }
+        };
+        answer.setContentHandler(xmlWriter);
+        answer.setLexicalHandler(xmlWriter);
+        return answer;
     }
 }

@@ -16,6 +16,16 @@
     </taskdef>    
   </goal>
 
+  <!-- copies unit testing stuff -->
+  <preGoal name="test:test">
+    <copy todir="target/test-classes">
+      <fileset dir="src/test">
+        <include name="**/*.properties"/>
+      </fileset>
+    </copy>
+    
+    
+  </preGoal>
   <!-- runs the XML doclet -->  
   <goal name="doclet:xml" prereqs="java:compile">
     <path id="doclet.classpath">
@@ -265,10 +275,16 @@
 	<jelly file="src/test/org/apache/commons/jelly/jeez/example.jelly"/> 
   </goal>
 
-  <goal name="demo:file" prereqs="jelly-task" 
+  <goal name="demo:fileset" prereqs="jelly-task" 
 	description="A demo of the fileScanner tag to walk Ant fileSets">
 	
 	<jelly file="src/test/org/apache/commons/jelly/ant/filescanner.jelly"/> 
+  </goal>
+
+  <goal name="demo:file" prereqs="jelly-task" 
+	description="A demo of using the file tag to output to multiple files">
+	
+	<jelly file="src/test/org/apache/commons/jelly/testFile.jelly"/> 
   </goal>
 
 

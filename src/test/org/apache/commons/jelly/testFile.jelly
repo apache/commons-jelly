@@ -9,4 +9,18 @@
   </file>
 </forEach>
 
+<!-- now lets test some different formatting -->
+
+<file name="target/test_normal.xml">
+  <include uri="dummy.xml"/>
+</file>
+
+<file name="target/test_pretty.xml" prettyPrint="true" omitXmlDeclaration="true">
+  <include uri="dummy.xml"/>
+</file>
+
+<file name="target/test_iso.xml" encoding="ISO-8859-1">
+  <include uri="dummy.xml"/>
+</file>
+ 
 </jelly>
