@@ -183,11 +183,21 @@ public class JellyContext {
     /** @return the value of the given variable name */
     public Object getVariable(String name) {
         Object value = variables.get(name);
-
+		
         if ( value == null && isInherit() ) {
             JellyContext parent = getParent();
             if (parent != null) {                
                 value = parent.getVariable( name );
+            }
+        }
+
+        // ### this is a hack - remove this when we have support for pluggable Scopes
+        if ( value == null ) {
+            try {
+                value = System.getProperty(name);
+            }
+            catch (SecurityException e) {
+                // ignore security exceptions
             }
         }
 
