@@ -382,7 +382,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
             if ( ih != null ) {
                 try {
-                    dataType = ih.createElement( getAntProject(), object, name );
+                    dataType = ih.createElement( getAntProject(), object, name.toLowerCase() );
                 }
                 catch (Exception e) {
                     log.error(e);
