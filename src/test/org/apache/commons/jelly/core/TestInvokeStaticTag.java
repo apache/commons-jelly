@@ -21,7 +21,7 @@ import org.apache.commons.jelly.Script;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class TestInvokeStaticTag extends BaseJellyTest {
 
@@ -126,6 +126,8 @@ public class TestInvokeStaticTag extends BaseJellyTest {
         assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
         assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
         		exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
+//        assertNotNull( jellyException.getCause() );
+//        assertEquals( exceptionMessage, jellyException.getCause().getMessage() );
     }
     
 }

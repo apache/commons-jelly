@@ -22,7 +22,7 @@ import org.apache.commons.jelly.core.Customer;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.5 $ $Date: 2004/08/12 04:25:42 $
+ * @version $Revision: 1.6 $ $Date: 2004/08/16 01:59:32 $
  */
 public class TestInvokeTag extends BaseJellyTest {
 
@@ -122,6 +122,8 @@ public class TestInvokeTag extends BaseJellyTest {
         assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
         assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
         		exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
+//        assertNotNull( jellyException.getCause() );
+//        assertEquals( exceptionMessage, jellyException.getCause().getMessage() );
     }
     
 
