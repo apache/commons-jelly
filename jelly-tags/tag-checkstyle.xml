@@ -87,7 +87,7 @@
         <!-- Checks for Naming Conventions.                  -->
         <!-- See http://checkstyle.sf.net/config_naming.html -->
         <module name="ConstantName">
-          <!-- property name="format" value="^[a-z][a-zA-Z0-9]*$"/-->
+          <property name="format" value="^(log)|[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$"/>
           <property name="severity" value="error"/>
         </module>
         <module name="LocalVariableName">
@@ -125,6 +125,7 @@
             <!--     name="headerFile"                                  -->
             <!--     value="${basedir}/java.header"/>                   -->
             <property name="headerFile" value="${checkstyle.header.file}"/>
+            <property name="severity" value="error"/>
         </module>
 
         <!-- Following interprets the header file as regular expressions. -->
