@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.40 2002/11/10 11:02:48 vmassol Exp $
- * $Revision: 1.40 $
- * $Date: 2002/11/10 11:02:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.41 2002/12/16 10:51:06 jstrachan Exp $
+ * $Revision: 1.41 $
+ * $Date: 2002/12/16 10:51:06 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.40 2002/11/10 11:02:48 vmassol Exp $
+ * $Id: XMLParser.java,v 1.41 2002/12/16 10:51:06 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -113,7 +113,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.40 $
+ * @version $Revision: 1.41 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -1033,6 +1033,15 @@ public class XMLParser extends DefaultHandler {
                     catch (ClassNotFoundException e) {
                         log.warn("Could not load class: " + uri + " so disabling the taglib");
                     }
+                    catch (IllegalAccessException e) {
+                        log.warn("Constructor for class is not accessible: " + uri + " so disabling the taglib");
+                    }
+                    catch (InstantiationException e) {
+                        log.warn("Class could not be instantiated: " + uri + " so disabling the taglib");
+                    }
+                    catch (ClassCastException e) {
+                        log.warn("Class is not a TagLibrary: " + uri + " so disabling the taglib");
+                    }
                 }
             }
             if (taglib != null) {
@@ -1201,7 +1210,7 @@ public class XMLParser extends DefaultHandler {
                     + locator.getLineNumber()
                     + ", "
                     + locator.getColumnNumber()
-                    + ": "
+                    + "): "
                     + message;
             if (e != null) {
                 return new SAXParseException(error, locator, e);

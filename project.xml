@@ -215,6 +215,14 @@
       	<role>Developer</role>
       </roles>
     </contributor>        
+    <contributor>
+      <name>Todd Jonker</name>
+      <email></email>
+      <organization></organization>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>            
   </contributors>
 	
   <dependencies>
