@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.tags.http;
 
 import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -100,7 +101,7 @@ public class SessionTag extends TagSupport {
      * @param xmlOutput to write output
      * @throws Exception when any error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         if (isProxyAvailable()) {
             _httpClient = new HttpClient();
             _httpClient.getHostConfiguration().setProxy(getProxyHost(), getProxyPort());

@@ -61,6 +61,9 @@
 
 package org.apache.commons.jelly.tags.http;
 
+import java.net.MalformedURLException;
+
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -86,7 +89,7 @@ public class HeaderTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         HttpTagSupport http = (HttpTagSupport) findAncestorWithClass(
             HttpTagSupport.class);
         http.addRequestHeader(getName(), getValue());

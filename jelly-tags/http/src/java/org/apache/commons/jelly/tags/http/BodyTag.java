@@ -61,9 +61,12 @@
 
 package org.apache.commons.jelly.tags.http;
 
+import java.net.MalformedURLException;
+
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -87,10 +90,17 @@ public class BodyTag extends TagSupport {
      * @param xmlOutput for writing output to
      * @throws Exception when any error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         HttpTagSupport httpTag = (HttpTagSupport) findAncestorWithClass(
             HttpTagSupport.class);
-        HttpMethod httpMethod = httpTag.getHttpMethod();
+        
+        HttpMethod httpMethod = null;
+        try {
+            httpMethod = httpTag.getHttpMethod();
+        } catch (MalformedURLException e) {
+            throw new JellyTagException(e);
+        }
+        
         String bodyText = getBodyText();
         if (httpMethod instanceof PostMethod) {
             PostMethod postMethod = (PostMethod) httpMethod;

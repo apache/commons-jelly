@@ -61,6 +61,7 @@
 
 package org.apache.commons.jelly.tags.http;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,7 @@ import java.util.List;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -150,14 +152,25 @@ public abstract class HttpTagSupport extends TagSupport {
      * @param xmlOutput where to send output
      * @throws Exception when an error occurs
      */
-    public void doTag(XMLOutput xmlOutput) throws Exception {
+    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         // allow nested tags first, e.g body
         invokeBody(xmlOutput);
-        HttpMethod urlMethod = getConfiguredHttpMethod();
+
         // track request execution
-        long start = System.currentTimeMillis();
-        getHttpClient().executeMethod(urlMethod);
+        long start = System.currentTimeMillis();        
+        HttpMethod urlMethod = null;
+        try {
+            urlMethod = getConfiguredHttpMethod();
+            getHttpClient().executeMethod(urlMethod);
+        } 
+        catch (MalformedURLException e) {
+            throw new JellyTagException(e);
+        }
+        catch (IOException e) {
+            throw new JellyTagException(e);
+        }
         long end = System.currentTimeMillis();
+        
         // set variable to value
         if (getVar() != null) {
             getContext().setVariable(getVar(), urlMethod);
