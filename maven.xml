@@ -85,11 +85,11 @@
       <j:choose>
         <j:when test="${dep.id == 'forehead'}">
           <copy tofile="${maven.dist.assembly.dir}/lib/forehead.jar"
-              file="${maven.repo.local}/${dep.artifactDirectory}/${dep.artifact}"/>
+              file="${maven.repo.local}/${dep.artifactDirectory}/${dep.type}s/${dep.artifact}"/>
         </j:when>
         <j:otherwise>
           <copy todir="${maven.dist.assembly.dir}/lib"
-              file="${maven.repo.local}/${dep.artifactDirectory}/${dep.artifact}"/>
+              file="${maven.repo.local}/${dep.artifactDirectory}/${dep.type}s/${dep.artifact}"/>
         </j:otherwise>
       </j:choose>
     </j:forEach>
@@ -159,13 +159,17 @@
       * ===================================================== *
       * Jelly is now almost installed on your system !        *
       * Next, you must set JELLY_HOME to point to             *
-      * "maven.dist.install.dir", and add JELLY_HOME/bin      *
+      * "${maven.dist.install.dir}", and add JELLY_HOME/bin   *
       * to your PATH.                                         *
       *                                                       *
       * Then, you will be able to run Jelly scripts using the *
       * command : "jelly script outputfile".                  *
       *                                                       *
       * Enjoy !                                               *
+      *                                                       *
+      * p.s. if ${maven.dist.install.dir} isn't where you'd   *
+      * like Jelly installed, please set a property called    *
+      * maven.dist.install.dir to the appropriate directory   *
       * ===================================================== *
     </echo>
   </goal>
