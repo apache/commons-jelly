@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.17 2002/10/24 06:59:53 jstrachan Exp $
- * $Revision: 1.17 $
- * $Date: 2002/10/24 06:59:53 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.18 2002/10/30 19:16:20 jstrachan Exp $
+ * $Revision: 1.18 $
+ * $Date: 2002/10/30 19:16:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.17 2002/10/24 06:59:53 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.18 2002/10/30 19:16:20 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.17 $
+  * @version $Revision: 1.18 $
   */
 public class ForEachTag extends TagSupport {
 

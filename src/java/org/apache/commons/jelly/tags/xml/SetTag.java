@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/SetTag.java,v 1.8 2002/06/18 12:30:10 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/18 12:30:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/SetTag.java,v 1.9 2002/10/30 19:16:23 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/10/30 19:16:23 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.8 2002/06/18 12:30:10 jstrachan Exp $
+ * $Id: SetTag.java,v 1.9 2002/10/30 19:16:23 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -77,7 +77,7 @@ import org.jaxen.XPath;
 /** A tag which defines a variable from an XPath expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class SetTag extends XPathTagSupport {
 

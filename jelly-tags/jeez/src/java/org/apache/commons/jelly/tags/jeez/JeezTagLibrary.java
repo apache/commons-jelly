@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.9 2002/10/16 12:45:51 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/10/16 12:45:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.10 2002/10/30 19:16:20 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/10/30 19:16:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JeezTagLibrary.java,v 1.9 2002/10/16 12:45:51 jstrachan Exp $
+ * $Id: JeezTagLibrary.java,v 1.10 2002/10/30 19:16:20 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
@@ -90,7 +90,7 @@ import org.xml.sax.Attributes;
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public class JeezTagLibrary extends DynamicTagLibrary {
 

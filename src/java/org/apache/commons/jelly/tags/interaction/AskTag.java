@@ -3,7 +3,7 @@
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: AskTag.java,v 1.1 2002/07/13 00:49:45 smor Exp $
+ * $Id: AskTag.java,v 1.2 2002/10/30 19:16:28 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.interaction;
 

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.6 2002/08/09 14:40:13 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/08/09 14:40:13 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.7 2002/10/30 19:16:23 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/10/30 19:16:23 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.6 2002/08/09 14:40:13 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.7 2002/10/30 19:16:23 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -75,7 +75,7 @@ import org.jaxen.VariableContext;
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
     

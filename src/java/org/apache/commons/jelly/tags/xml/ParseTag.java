@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.12 2002/09/30 08:05:45 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/09/30 08:05:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.13 2002/10/30 19:16:23 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/10/30 19:16:23 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: ParseTag.java,v 1.12 2002/09/30 08:05:45 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.13 2002/10/30 19:16:23 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -74,7 +74,7 @@ import org.dom4j.io.SAXReader;
   * xml property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.12 $
+  * @version $Revision: 1.13 $
   */
 public class ParseTag extends ParseTagSupport {
 

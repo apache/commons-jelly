@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.7 2002/06/13 08:16:47 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/06/13 08:16:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.8 2002/10/30 19:16:23 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/10/30 19:16:23 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptBlock.java,v 1.7 2002/06/13 08:16:47 jstrachan Exp $
+ * $Id: ScriptBlock.java,v 1.8 2002/10/30 19:16:23 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -73,7 +73,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class ScriptBlock implements Script {
 

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.9 2002/10/03 07:05:38 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/10/03 07:05:38 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.10 2002/10/30 19:16:26 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/10/30 19:16:26 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Tag.java,v 1.9 2002/10/03 07:05:38 jstrachan Exp $
+ * $Id: Tag.java,v 1.10 2002/10/30 19:16:26 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -71,7 +71,7 @@ package org.apache.commons.jelly;
  * in JSP 1.x.(</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision: 1.10 $
  */
 public interface Tag {
 

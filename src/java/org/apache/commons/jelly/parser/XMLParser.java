@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.37 2002/10/29 00:09:17 morgand Exp $
- * $Revision: 1.37 $
- * $Date: 2002/10/29 00:09:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.38 2002/10/30 19:16:33 jstrachan Exp $
+ * $Revision: 1.38 $
+ * $Date: 2002/10/30 19:16:33 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.37 2002/10/29 00:09:17 morgand Exp $
+ * $Id: XMLParser.java,v 1.38 2002/10/30 19:16:33 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -121,7 +121,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.37 $
+ * @version $Revision: 1.38 $
  */
 public class XMLParser extends DefaultHandler {
 

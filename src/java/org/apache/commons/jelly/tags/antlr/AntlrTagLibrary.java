@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/antlr/Attic/AntlrTagLibrary.java,v 1.1 2002/07/16 05:43:32 werken Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/16 05:43:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/antlr/Attic/AntlrTagLibrary.java,v 1.2 2002/10/30 19:16:33 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/30 19:16:33 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: AntlrTagLibrary.java,v 1.1 2002/07/16 05:43:32 werken Exp $
+ * $Id: AntlrTagLibrary.java,v 1.2 2002/10/30 19:16:33 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.antlr;
 
@@ -66,7 +66,7 @@ import org.apache.commons.jelly.TagLibrary;
 /** Implements tags that are useful for working with ANTLR.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- *  @version $Revision: 1.1 $
+ *  @version $Revision: 1.2 $
  */
 public class AntlrTagLibrary extends TagLibrary
 {

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.10 2002/09/30 17:36:16 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/09/30 17:36:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.11 2002/10/30 19:16:31 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/10/30 19:16:31 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.10 2002/09/30 17:36:16 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.11 2002/10/30 19:16:31 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -76,7 +76,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {

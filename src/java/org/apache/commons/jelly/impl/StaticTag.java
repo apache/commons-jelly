@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.11 2002/09/30 17:38:16 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/09/30 17:38:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.12 2002/10/30 19:16:23 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/10/30 19:16:23 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StaticTag.java,v 1.11 2002/09/30 17:38:16 jstrachan Exp $
+ * $Id: StaticTag.java,v 1.12 2002/10/30 19:16:23 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -74,7 +74,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 
 public class StaticTag extends DynaTagSupport {

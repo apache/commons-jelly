@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java,v 1.2 2002/10/14 19:46:22 morgand Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/14 19:46:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java,v 1.3 2002/10/30 19:16:33 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/10/30 19:16:33 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DefaultNamespaceFilter.java,v 1.2 2002/10/14 19:46:22 morgand Exp $
+ * $Id: DefaultNamespaceFilter.java,v 1.3 2002/10/30 19:16:33 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/05/20 10:09:28 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.9 2002/10/30 19:16:22 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/10/30 19:16:22 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.8 2002/05/20 10:09:28 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.9 2002/10/30 19:16:22 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -73,7 +73,7 @@ import org.jaxen.XPath;
   * in XSLT
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class ExprTag extends XPathTagSupport {
 

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/DefaultTag.java,v 1.2 2002/10/22 16:03:05 rwaldhoff Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/22 16:03:05 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/DefaultTag.java,v 1.3 2002/10/30 19:16:21 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/10/30 19:16:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: DefaultTag.java,v 1.2 2002/10/22 16:03:05 rwaldhoff Exp $
+ * $Id: DefaultTag.java,v 1.3 2002/10/30 19:16:21 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -77,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
  * @see SwitchTag
  * 
  * @author Rodney Waldhoff
- * @version $Revision: 1.2 $ $Date: 2002/10/22 16:03:05 $
+ * @version $Revision: 1.3 $ $Date: 2002/10/30 19:16:21 $
  */
 public class DefaultTag extends TagSupport {
 

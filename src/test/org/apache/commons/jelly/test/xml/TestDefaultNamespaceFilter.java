@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestDefaultNamespaceFilter.java,v 1.1 2002/10/09 21:03:08 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/09 21:03:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestDefaultNamespaceFilter.java,v 1.2 2002/10/30 19:16:26 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/30 19:16:26 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestDefaultNamespaceFilter.java,v 1.1 2002/10/09 21:03:08 morgand Exp $
+ * $Id: TestDefaultNamespaceFilter.java,v 1.2 2002/10/30 19:16:26 jstrachan Exp $
  */
 package org.apache.commons.jelly.test.xml;
 
@@ -77,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
  * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TestDefaultNamespaceFilter extends TestCase {
 

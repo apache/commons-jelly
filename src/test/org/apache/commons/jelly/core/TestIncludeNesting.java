@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Attic/TestIncludeNesting.java,v 1.1 2002/10/16 22:30:14 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/16 22:30:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Attic/TestIncludeNesting.java,v 1.2 2002/10/30 19:16:25 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/30 19:16:25 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestIncludeNesting.java,v 1.1 2002/10/16 22:30:14 morgand Exp $
+ * $Id: TestIncludeNesting.java,v 1.2 2002/10/30 19:16:25 jstrachan Exp $
  */
 package org.apache.commons.jelly.core;
 
@@ -78,7 +78,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Makes sure that nested includes work correctly
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TestIncludeNesting extends TestCase {
 

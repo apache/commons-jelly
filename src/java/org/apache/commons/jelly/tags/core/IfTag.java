@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
- * $Revision: 1.8 $
- * $Date: 2002/07/06 13:53:39 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.9 2002/10/30 19:16:21 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/10/30 19:16:21 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IfTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: IfTag.java,v 1.9 2002/10/30 19:16:21 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -74,7 +74,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class IfTag extends TagSupport {
 

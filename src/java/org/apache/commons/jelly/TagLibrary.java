@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.15 2002/10/16 12:45:51 jstrachan Exp $
- * $Revision: 1.15 $
- * $Date: 2002/10/16 12:45:51 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagLibrary.java,v 1.16 2002/10/30 19:16:26 jstrachan Exp $
+ * $Revision: 1.16 $
+ * $Date: 2002/10/30 19:16:26 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagLibrary.java,v 1.15 2002/10/16 12:45:51 jstrachan Exp $
+ * $Id: TagLibrary.java,v 1.16 2002/10/30 19:16:26 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -81,7 +81,7 @@ import org.xml.sax.Attributes;
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.15 $
+  * @version $Revision: 1.16 $
   */
 
 public abstract class TagLibrary {

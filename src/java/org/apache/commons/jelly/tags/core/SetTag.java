@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.8 2002/10/02 16:55:04 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/10/02 16:55:04 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SetTag.java,v 1.9 2002/10/30 19:16:20 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/10/30 19:16:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.8 2002/10/02 16:55:04 jstrachan Exp $
+ * $Id: SetTag.java,v 1.9 2002/10/30 19:16:20 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
 /** A tag which sets a variable from the result of an expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class SetTag extends TagSupport {
 

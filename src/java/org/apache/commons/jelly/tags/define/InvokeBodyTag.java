@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.11 2002/08/09 18:01:01 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/08/09 18:01:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.12 2002/10/30 19:16:29 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/10/30 19:16:29 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.11 2002/08/09 18:01:01 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.12 2002/10/30 19:16:29 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * the tag is invoked.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public class InvokeBodyTag extends TagSupport {
 

@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/OtherwiseTag.java,v 1.7 2002/08/11 11:44:36 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/08/11 11:44:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/OtherwiseTag.java,v 1.8 2002/10/30 19:16:20 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/10/30 19:16:20 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: OtherwiseTag.java,v 1.7 2002/08/11 11:44:36 jstrachan Exp $
+ * $Id: OtherwiseTag.java,v 1.8 2002/10/30 19:16:20 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -74,7 +74,7 @@ import org.apache.commons.jelly.expression.Expression;
 /** The otherwise block of a choose/when/otherwise group of tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class OtherwiseTag extends TagSupport {
 
