@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/Expression.java,v 1.7 2002/10/30 19:16:19 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/10/30 19:16:19 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/Expression.java,v 1.8 2002/11/27 12:43:20 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/11/27 12:43:20 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Expression.java,v 1.7 2002/10/30 19:16:19 jstrachan Exp $
+ * $Id: Expression.java,v 1.8 2002/11/27 12:43:20 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression;
 
@@ -69,10 +69,14 @@ import org.apache.commons.jelly.JellyContext;
   * expression language.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public interface Expression {
 
+    /**
+     * @return the textual representation of this expression     */
+    public String getExpressionText();
+    
     /** 
      * Evaluates the expression with the given context
      * and returns the result 

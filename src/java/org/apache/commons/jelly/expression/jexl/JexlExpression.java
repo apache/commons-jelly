@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.11 2002/10/30 19:16:31 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/10/30 19:16:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.12 2002/11/27 12:43:19 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/11/27 12:43:19 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpression.java,v 1.11 2002/10/30 19:16:31 jstrachan Exp $
+ * $Id: JexlExpression.java,v 1.12 2002/11/27 12:43:19 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -81,7 +81,7 @@ import org.apache.commons.logging.LogFactory;
  * along with some extra features like object method invocation.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 
 public class JexlExpression extends ExpressionSupport {
@@ -102,13 +102,23 @@ public class JexlExpression extends ExpressionSupport {
     
     // Expression interface
     //------------------------------------------------------------------------- 
+    public String getExpressionText() {
+        return expression.getExpression();
+    }
+    
     public Object evaluate(JellyContext context) {
         try {
             JexlContext jexlContext = new JellyJexlContext( context );
             if (log.isDebugEnabled()) {
                 log.debug("Evaluating EL: " + expression);
             }           
-            return expression.evaluate(jexlContext);
+            Object value = expression.evaluate(jexlContext);
+            
+            if (log.isDebugEnabled()) {
+                log.debug("value of expression: " + value);
+            }
+            
+            return value;           
         }
         catch (Exception e) {
             log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);

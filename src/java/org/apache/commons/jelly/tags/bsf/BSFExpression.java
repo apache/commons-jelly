@@ -103,6 +103,10 @@ public class BSFExpression extends ExpressionSupport {
 
     // Expression interface
     //------------------------------------------------------------------------- 
+    public String getExpressionText() {
+        return text;
+    }
+    
     public Object evaluate(JellyContext context) {
         // XXXX: unfortunately we must sychronize evaluations
         // so that we can swizzle in the context.

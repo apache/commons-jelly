@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.11 2002/10/30 19:16:31 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/10/30 19:16:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.12 2002/11/27 12:43:18 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/11/27 12:43:18 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.11 2002/10/30 19:16:31 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.12 2002/11/27 12:43:18 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -76,7 +76,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
@@ -113,6 +113,10 @@ public class JexlExpressionFactory implements ExpressionFactory {
                     }
 
                     return answer;
+                }
+                
+                public String getExpressionText() {
+                    return text;
                 }
                 
                 public String toString() {

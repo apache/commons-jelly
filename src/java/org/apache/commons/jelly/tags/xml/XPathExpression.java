@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.9 2002/11/13 09:03:31 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/11/13 09:03:31 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.10 2002/11/27 12:43:19 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/11/27 12:43:19 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.9 2002/11/13 09:03:31 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.10 2002/11/27 12:43:19 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -84,20 +84,22 @@ import org.jaxen.VariableContext;
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
     
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(XPathExpression.class);
 
+    private String text;
     private XPath xpath;
     private JellyContext context;
     
     public XPathExpression() {
     }
 
-    public XPathExpression(XPath xpath, TagScript tagScript) {
+    public XPathExpression(String text, XPath xpath, TagScript tagScript) {
+        this.text = text;
         this.xpath = xpath;
         
         Map namespaceContext = tagScript.getNamespaceContext();
@@ -117,6 +119,10 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
             
     // Expression interface
     //------------------------------------------------------------------------- 
+    public String getExpressionText() {
+        return text;
+    }
+    
     public Object evaluate(JellyContext context) {
         this.context = context;
         xpath.setVariableContext(this);

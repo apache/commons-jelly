@@ -79,18 +79,22 @@ import org.jaxen.VariableContext;
   * @version $Revision: 1.4 $
   */
 public class XPathPatternExpression extends ExpressionSupport implements VariableContext {
-    
+
+    private String text;    
     private Pattern pattern;
     private JellyContext context;
     
-    public XPathPatternExpression() {
-    }
-    public XPathPatternExpression(Pattern pattern) {
+    public XPathPatternExpression(String text, Pattern pattern) {
+        this.text = text;
         this.pattern = pattern;
     }
     
     // Expression interface
     //------------------------------------------------------------------------- 
+    public String getExpressionText() {
+        return text;
+    }
+    
     public Object evaluate(JellyContext context) {
         this.context = context;
         //pattern.setVariableContext(this);

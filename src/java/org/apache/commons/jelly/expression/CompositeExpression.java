@@ -94,7 +94,7 @@ public class CompositeExpression extends ExpressionSupport {
     public String toString() {
         return super.toString() + "[expressions=" + expressions +"]";
     }
-
+    
     /**
      * Parses the given String to be either a ConstantExpresssion, an Expression denoted as
      * "${foo}" or some String with embedded expresssions such as "abc${something}def${else}xyz"
@@ -330,6 +330,15 @@ public class CompositeExpression extends ExpressionSupport {
     
     // Expression interface
     //-------------------------------------------------------------------------
+    
+    public String getExpressionText() {
+        StringBuffer buffer = new StringBuffer();
+        for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
+            Expression expression = (Expression) iter.next();
+            buffer.append( expression.getExpressionText() );
+        }
+        return buffer.toString();
+    }
     
         
     // inherit javadoc from interface

@@ -208,6 +208,10 @@ public class JellyContext {
                 // ignore security exceptions
             }
         }
+        
+        if (log.isDebugEnabled()) {
+            log.debug("findVariable: " + name + " value: " + answer );
+        }
         return answer;
     }
             

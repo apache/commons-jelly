@@ -87,6 +87,10 @@ public class BeanShellExpression extends ExpressionSupport {
 
     // Expression interface
     //------------------------------------------------------------------------- 
+    public String getExpressionText() {
+        return text;
+    }
+    
     public Object evaluate(JellyContext context) {
         try {
             JellyInterpreter interpreter = new JellyInterpreter();
