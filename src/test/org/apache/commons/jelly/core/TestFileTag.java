@@ -15,9 +15,6 @@
  */
 package org.apache.commons.jelly.core;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
 
 import junit.framework.TestSuite;
@@ -31,7 +28,7 @@ import org.xml.sax.SAXException;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class TestFileTag extends BaseJellyTest
 {
@@ -56,9 +53,9 @@ public class TestFileTag extends BaseJellyTest
         String data = (String)getJellyContext().getVariable("testFileTag");
 
         //FIXME This doesn't take into account attribute ordering
-        //assertEquals("target/testFileTag.tmp", 
-        //        "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"></html>", 
-        //        data);
+        assertEquals("fully qualified attributes not passed", 
+                "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"></html>", 
+                data);
     }
 
     public void testDom4Xmlns() throws SAXException {

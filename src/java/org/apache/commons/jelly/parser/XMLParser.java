@@ -68,7 +68,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.49 $
+ * @version $Revision: 1.50 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -1069,12 +1069,12 @@ public class XMLParser extends DefaultHandler {
             // now iterate through through the expressions
             int size = list.getLength();
             for (int i = 0; i < size; i++) {
-                String attributeName = list.getLocalName(i);
                 String attributeValue = list.getValue(i);
                 Expression expression = CompositeExpression.parse(
-                    attributeValue, getExpressionFactory()
-                );
-                script.addAttribute(attributeName, expression);
+                        attributeValue, getExpressionFactory()
+                    );
+                String attrQName = list.getQName(i);
+                script.addAttribute(attrQName, expression);
             }
             return script;
         }
