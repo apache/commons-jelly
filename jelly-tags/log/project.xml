@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE project [
-  <!-- 
-    see file "file:../../commonDependencies.ent" for explanation of Jelly dependencies
-    BRITTLE! cannot explicitly include 'file:' protocol below or Maven will
-    not run this script outside of the base directory
-  -->
-  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
-]>
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-log</id>
@@ -30,17 +22,13 @@
   
   <dependencies>
   
-    &commonDeps;
-  
-    <!-- START for compilation -->
-  
     <dependency>
-      <id>commons-jelly</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-junit</artifactId>
       <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
     </dependency>
       
-    <!-- END for compilation -->
-    
   </dependencies>
   
 </project>

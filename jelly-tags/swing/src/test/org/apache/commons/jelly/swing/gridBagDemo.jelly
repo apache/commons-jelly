@@ -4,7 +4,7 @@
 	xmlns="jelly:swing" 
 	xmlns:log="jelly:log"
 	xmlns:define="jelly:define"
-	xmlns:bsh="jelly:org.apache.commons.jelly.tags.beanshell.BeanShellTagLibrary">
+	xmlns:bsh="jelly:beanshell">
 
 		<!-- 
 			TODO:

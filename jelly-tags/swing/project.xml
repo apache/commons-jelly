@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE project [
-  <!-- 
-    see file "file:../../commonDependencies.ent" for explanation of Jelly dependencies
-    BRITTLE! cannot explicitly include 'file:' protocol below or Maven will
-    not run this script outside of the base directory
-  -->
-  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
-]>
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-swing</id>
@@ -30,16 +22,50 @@
   
   <dependencies>
   
-    &commonDeps;
+    
   
-    <!-- START for compilation -->
-  
+    <!-- START for test -->
     <dependency>
-      <id>commons-jelly</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-define</artifactId>
       <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/define/</url>
+      <properties>
+        <classloader>root.maven</classloader>
+      </properties>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-interaction</artifactId>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/interaction/</url>
+      <properties>
+        <classloader>root.maven</classloader>
+      </properties>
     </dependency>
       
-    <!-- END for compilation -->
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-junit</artifactId>
+      <version>SNAPSHOT</version>
+      <properties>
+        <classloader>root.maven</classloader>
+      </properties>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/junit/</url>
+    </dependency>
+
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-log</artifactId>
+      <version>SNAPSHOT</version>
+      <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/log/</url>
+      <properties>
+        <classloader>root.maven</classloader>
+      </properties>
+    </dependency>
+
+    <!-- END for test -->
     
     <!-- START for demos -->
   
