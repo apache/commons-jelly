@@ -17,6 +17,8 @@
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/tags/junit/runSuite.jelly"/>
+      <sysproperty key="http.proxyHost" value="${maven.proxy.host}"/>
+      <sysproperty key="http.proxyPort" value="${maven.proxy.port}"/>
     </java>
   </goal>
 
