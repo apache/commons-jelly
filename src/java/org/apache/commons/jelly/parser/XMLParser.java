@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.21 2002/06/14 06:53:03 jstrachan Exp $
- * $Revision: 1.21 $
- * $Date: 2002/06/14 06:53:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.22 2002/06/14 15:25:18 jstrachan Exp $
+ * $Revision: 1.22 $
+ * $Date: 2002/06/14 15:25:18 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.21 2002/06/14 06:53:03 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.22 2002/06/14 15:25:18 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -115,11 +115,12 @@ import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
+
 /** <p><code>XMLParser</code> parses the XML Jelly format.
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.21 $
+ * @version $Revision: 1.22 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -570,6 +571,11 @@ public class XMLParser extends DefaultHandler {
         throws SAXException {
             
         try {            
+            // add check to ensure namespace URI is "" for no namespace
+            if ( namespaceURI == null ) {
+                namespaceURI = "";
+            }
+            
             // if this is a tag then create a script to run it
             // otherwise pass the text to the current body
             tagScript = createTag(namespaceURI, localName, list);
