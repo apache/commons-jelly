@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/JellyContextRegistry.java,v 1.1 2003/01/08 05:02:48 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/08 05:02:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/JellyContextRegistry.java,v 1.2 2003/03/05 08:11:55 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/03/05 08:11:55 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyContextRegistry.java,v 1.1 2003/01/08 05:02:48 dion Exp $
+ * $Id: JellyContextRegistry.java,v 1.2 2003/03/05 08:11:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
 
-import com.ibm.bsf.util.ObjectRegistry;
+import org.apache.bsf.util.ObjectRegistry;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.logging.Log;
@@ -71,7 +71,7 @@ import org.apache.commons.logging.LogFactory;
   * register objects
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class JellyContextRegistry extends ObjectRegistry {
 

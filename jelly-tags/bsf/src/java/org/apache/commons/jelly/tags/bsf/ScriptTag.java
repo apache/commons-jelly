@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java,v 1.1 2003/02/20 18:56:16 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2003/02/20 18:56:16 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/ScriptTag.java,v 1.2 2003/03/05 08:11:55 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/03/05 08:11:55 $
  *
  * ====================================================================
  *
@@ -57,9 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptTag.java,v 1.1 2003/02/20 18:56:16 jstrachan Exp $
+ * $Id: ScriptTag.java,v 1.2 2003/03/05 08:11:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
+
+import java.util.Iterator;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.LocationAware;
@@ -69,14 +71,15 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.ibm.bsf.BSFEngine;
-import com.ibm.bsf.BSFException;
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFManager;
+import org.apache.bsf.BSFException;
 
 /** 
  * A tag which evaluates its body using the current scripting language
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ScriptTag extends TagSupport implements LocationAware {
 
@@ -84,13 +87,15 @@ public class ScriptTag extends TagSupport implements LocationAware {
     private static final Log log = LogFactory.getLog(ScriptTag.class.getName() + ".evaluating");
 	
     private BSFEngine engine;
+    private BSFManager manager;
     private String elementName;
     private String fileName;
     private int columnNumber;
     private int lineNumber;
     
-    public ScriptTag(BSFEngine engine) {
+    public ScriptTag(BSFEngine engine, BSFManager manager) {
         this.engine = engine;
+        this.manager = manager;
     }
 
     // Tag interface
@@ -98,15 +103,28 @@ public class ScriptTag extends TagSupport implements LocationAware {
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         String text = getBodyText();
 
-		log.debug(text);        
-        
-        try {
-            engine.eval(fileName, lineNumber, columnNumber, text);
+        log.debug(text);        
+
+        // XXXX: unfortunately we must sychronize evaluations
+        // so that we can swizzle in the context.
+        // maybe we could create an expression from a context
+        // (and so create a BSFManager for a context)
+        synchronized (getRegistry()) {
+            getRegistry().setJellyContext(context);
+
+            try {            
+                // XXXX: hack - there must be a better way!!!
+                for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
+                    String name = (String) iter.next();
+                    Object value = context.getVariable( name );
+                    manager.declareBean( name, value, value.getClass() );
+                }
+                engine.exec(fileName, lineNumber, columnNumber, text);
+            }
+            catch (BSFException e) {
+                throw new JellyTagException("Error occurred with script: " + e, e);
+            }
         }
-        catch (BSFException e) {
-            throw new JellyTagException("Error occurred with script: " + e, e);
-        }
-        
     }
     
     // Properties
@@ -186,4 +204,8 @@ public class ScriptTag extends TagSupport implements LocationAware {
         this.lineNumber = lineNumber;
     }
 
+    private JellyContextRegistry getRegistry()
+    {
+        return (JellyContextRegistry) this.manager.getObjectRegistry();
+    }    
 }

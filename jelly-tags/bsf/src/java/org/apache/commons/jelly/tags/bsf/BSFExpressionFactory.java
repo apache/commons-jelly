@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/BSFExpressionFactory.java,v 1.2 2003/01/24 07:40:58 morgand Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/24 07:40:58 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/bsf/src/java/org/apache/commons/jelly/tags/bsf/BSFExpressionFactory.java,v 1.3 2003/03/05 08:11:55 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/03/05 08:11:55 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BSFExpressionFactory.java,v 1.2 2003/01/24 07:40:58 morgand Exp $
+ * $Id: BSFExpressionFactory.java,v 1.3 2003/03/05 08:11:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
 
@@ -67,14 +67,14 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.ibm.bsf.BSFEngine;
-import com.ibm.bsf.BSFException;
-import com.ibm.bsf.BSFManager;
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 
 /** Represents a factory of BSF expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class BSFExpressionFactory implements ExpressionFactory {
 
