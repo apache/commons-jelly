@@ -28,6 +28,10 @@
         This tag reference details all tags available for Jelly along with
         an example of it's usage.
       </p>
+      <p>
+        <!--  insert hans or other list here -->
+        Please select a tag on the navigation list for more information about that tag.
+      </p>
     </section>
   </body>
 </document>
