@@ -141,8 +141,6 @@ public class BeanTag extends DynaBeanTagSupport {
 
                 Throwable inner = e.getTargetException();
 
-                inner.fillInStackTrace();
-
                 if ( inner instanceof Exception )
                 {
                     throw (Exception) inner;
