@@ -66,6 +66,8 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.Window;
+import java.awt.event.WindowListener;
 
 import javax.swing.*;
 
@@ -161,6 +163,17 @@ public class ComponentTag extends DynaBeanTagSupport {
         if ( component != null ) {
             // lets just try set the 'action' property
             BeanUtils.setProperty( component, "action", action );
+        }
+    }
+
+    /**
+     * Adds a WindowListener to this component
+     */
+    public void addWindowListener(WindowListener listener) throws Exception {
+        Component component = getComponent();
+        if ( component instanceof Window ) {
+            Window window = (Window) component;
+            window.addWindowListener(listener);
         }
     }
 

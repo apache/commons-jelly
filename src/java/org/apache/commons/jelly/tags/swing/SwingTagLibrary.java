@@ -108,6 +108,7 @@ public class SwingTagLibrary extends TagLibrary {
         
     public SwingTagLibrary() {
         registerTag( "action", ActionTag.class );
+        registerTag( "windowListener", WindowListenerTag.class );
     }
 
     /** Creates a new script to execute the given tag name and attributes */
