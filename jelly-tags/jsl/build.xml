@@ -124,7 +124,7 @@
         
         <sysproperty key="basedir" value="."></sysproperty>
         <formatter type="xml"></formatter>
-        <formatter usefile="true" type="plain"></formatter>
+        <formatter usefile="false" type="plain"></formatter>
         <classpath>
           <fileset dir="lib">
             <include name="*.jar"></include>
@@ -182,7 +182,7 @@
  
     <property name="title" value="commons-jelly-tags-jsl 1.0-SNAPSHOT API"></property>
  
-    <javadoc use="true" private="true" destdir="${javadocdir}" author="true" version="true" sourcepath="src/java" packagenames="org.apache.commons.jelly.tags.ant.*">
+    <javadoc use="true" private="true" destdir="${javadocdir}" author="true" version="true" sourcepath="src/java" packagenames="org.apache.commons.jelly.tags.jsl.*">
       <classpath>
         <fileset dir="lib">
           <include name="*.jar"></include>
@@ -205,7 +205,9 @@
     <get dest="lib/jaxp-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jaxp/jars/jaxp-1.2.jar"></get>
     <get dest="lib/xerces-2.2.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xerces/jars/xerces-2.2.1.jar"></get>
     <get dest="lib/commons-jelly-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jelly/jars/commons-jelly-SNAPSHOT.jar"></get>
+    <get dest="lib/commons-jelly-tags-xml-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jelly/jars/commons-jelly-tags-xml-SNAPSHOT.jar"></get>
     <get dest="lib/commons-jelly-tags-ant-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jelly/jars/commons-jelly-tags-ant-SNAPSHOT.jar"></get>
+    <get dest="lib/commons-jelly-tags-log-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jelly/jars/commons-jelly-tags-log-SNAPSHOT.jar"></get>
     <get dest="lib/ant-1.5.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.1.jar"></get>
     <get dest="lib/ant-optional-1.5.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-optional-1.5.1.jar"></get>
     <get dest="lib/commons-grant-1.0-beta-4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-grant/jars/commons-grant-1.0-beta-4.jar"></get>
