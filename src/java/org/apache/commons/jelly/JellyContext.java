@@ -181,22 +181,18 @@ public class JellyContext {
         return this.shouldInherit;
     }
 
-    public Object getScopedVariable(String name) {
-        if ( getInherit() ) {
-            return findVariable( name );
+    /**
+     * @return the scope of the given name, such as the 'parent' scope.
+     * If Jelly is used in a Servlet situation then 'request', 'session' and 'application' are other names 
+     * for scopes
+     */
+    public JellyContext getScope(String name) {
+        if ( "parent".equals( name ) ) {
+            return getParent();
         }
-
-        return getVariable( name );
+        return null;
     }
-
-    public void setScopedVariable(String name, Object value) {
-        if ( getExport() && getParent() != null ) {
-            getParent().setScopedVariable( name, value );
-        } else {
-            setVariable( name, value );
-        }
-    }
-
+    
     /** 
      * Finds the variable value of the given name in this context or in any other parent context.
      * If this context does not contain the variable, then its parent is used and then its parent 
@@ -226,6 +222,22 @@ public class JellyContext {
 
         return value;
     }
+    
+    /** 
+     * @return the value of the given variable name in the given variable scope 
+     * @param name is the name of the variable
+     * @param scopeName is the optional scope name such as 'parent'. For servlet environments
+     * this could be 'application', 'session' or 'request'.
+     */
+    public Object getVariable(String name, String scopeName) {
+        JellyContext scope = getScope(scopeName);
+        if ( scope != null ) {
+            return scope.getVariable(name);
+        }
+        return null;
+    }
+    
+    
 
     /** Sets the value of the given variable name */
     public void setVariable(String name, Object value) {
@@ -241,11 +253,40 @@ public class JellyContext {
         }
     }
 
+    /** 
+     * Sets the value of the given variable name in the given variable scope 
+     * @param name is the name of the variable
+     * @param scopeName is the optional scope name such as 'parent'. For servlet environments
+     *  this could be 'application', 'session' or 'request'.
+     * @param value is the value of the attribute
+     */
+    public void setVariable(String name, String scopeName, Object value) {
+        JellyContext scope = getScope(scopeName);
+        if ( scope != null ) {
+            scope.setVariable(name, value);
+        }
+    }
+    
     /** Removes the given variable */
     public void removeVariable(String name) {
         variables.remove(name);
     }
 
+    /** 
+     * Removes the given variable in the specified scope.
+     * 
+     * @param name is the name of the variable
+     * @param scopeName is the optional scope name such as 'parent'. For servlet environments
+     *  this could be 'application', 'session' or 'request'.
+     * @param value is the value of the attribute
+     */
+    public void removeVariable(String name, String scopeName) {
+        JellyContext scope = getScope(scopeName);
+        if ( scope != null ) {
+            scope.removeVariable(name);
+        }
+    }
+    
     /** 
      * @return an Iterator over the current variable names in this
      * context 
