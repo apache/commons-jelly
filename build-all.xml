@@ -103,6 +103,21 @@
     </antcall>
   </target>
   
+  <!-- 
+    clean out all jelly-related builds without 
+    deleting existing target/lib directories,
+    not quite as safe as a clean build but much faster
+    than reloading all the "target/lib" directories
+  -->
+  <target name="clean-skiplib">
+    <delete>
+      <fileset dir="." >
+        <include name="**/target/**"/>
+        <exclude name="**/target/lib/*"/>
+      </fileset>
+    </delete>
+  </target>
+  
   <target name="ant">
     <antcall target="subexec">
       <param name="sub.command" value="maven.bat ant"/>
@@ -323,7 +338,11 @@
     </antcall>
   </target>
   
-  <!-- don't call directly, called inside jar-* tasks -->
+  <!-- 
+    don't call directly, called inside jar-* tasks 
+    if you set the noget property, the jars will
+    not be checked against the server
+  -->
   <target name="prepare-taglib-deps">
     <ant dir="jelly-tags/${sub.taglib}" target="get-deps"/>
     
