@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Copyright 2002-2004 The Apache Software Foundation
 
@@ -14,19 +15,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-util</id>
   <name>commons-jelly-tags-util</name>
   <currentVersion>1.1.1</currentVersion>
-
   <package>org.apache.commons.jelly.tags.util</package>
-
-  <description>
-      This is a set of Jelly utility tags.
-  </description>
+  <description>This is a set of Jelly utility tags.</description>
   <shortDescription>Commons Jelly Util Tag Library</shortDescription>
-  
   <versions>
     <version>
       <id>1.0</id>
@@ -38,24 +35,24 @@
       <name>1.1</name>
       <tag>COMMONS_JELLY-UTIL-1_1</tag>
     </version>
+    <version>
+      <id>1.1.1</id>
+      <name>1.1.1</name>
+      <tag>COMMONS_JELLY_UTIL-1_1_1</tag>
+    </version>
   </versions>
-
   <dependencies>
-
     <!-- START for compilation -->
-  
+
     <dependency>
       <id>commons-jelly</id>
       <version>1.0-RC1</version>
     </dependency>
-  
     <dependency>
       <id>commons-lang</id>
       <version>2.0</version>
     </dependency>
-
     <!-- END for compilation -->
-
     <!-- START for test -->
 
     <dependency>
@@ -64,9 +61,7 @@
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
     </dependency>
-
     <!-- END for test -->
-    
+
   </dependencies>
-  
 </project>
