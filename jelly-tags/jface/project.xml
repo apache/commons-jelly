@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+  <extend>${basedir}/../tag-project.xml</extend>
+  <id>commons-jelly-tags-swt</id>
+  <name>commons-jelly-tags-swt</name>
+
+  <package>org.apache.commons.jelly.tags.swt</package>
+
+  <description>
+      This is a Jelly interface for SWT.
+  </description>
+  <shortDescription>Commons Jelly SWT Tag Library</shortDescription>
+  
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/tags/swt</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/swt</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/swt/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/swt/</url>
+  </repository>
+  
+    
+  <dependencies>
+  
+    
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
+      <id>commons-jelly+tags-swt</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+  
+		<!-- swt library -->
+    <dependency>
+      <id>swt</id>
+      
+      <!-- don't know how to support OS-dependent jars in Maven yet -->
+      <version>win32-2.1.0</version>
+    </dependency>
+    
+		<!-- jface libraries -->
+    <dependency>
+      <id>eclipse+runtime</id>
+      <version>2.1.0</version>
+    </dependency>
+    <dependency>
+      <id>eclipse+jface</id>
+      <version>2.1.0</version>
+    </dependency>
+    
+    <!-- END for compilation -->
+    
+    <!-- START for running demos -->
+
+    <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <id>commons-jelly+tags-log</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    	
+    <!-- END for running demos -->
+  </dependencies>
+  
+</project>
