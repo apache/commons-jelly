@@ -167,6 +167,7 @@ public class OtherAntTag extends AntTagSupport {
 
     public void setAttribute(String name, Object value) throws Exception {
 
+        // System.err.println( this + " OtherAntTag.setAttribute(" + name + ", " + value + ")" );
         if ( "id".equals( name ) ) {
             try
             {
