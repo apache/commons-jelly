@@ -123,6 +123,15 @@ public class ParseTag extends ParseTagSupport {
      */    
     protected SAXReader createSAXReader() throws Exception {
         // installs the NeckHTML parser
-        return new SAXReader( new SAXParser() );
+        SAXParser parser = new SAXParser();
+        parser.setProperty(
+            "http://cyberneko.org/html/properties/names/elems",
+            "match"
+        );
+        parser.setProperty(
+            "http://cyberneko.org/html/properties/names/attrs",
+            "match"
+        );
+        return new SAXReader( parser );
     }
 }

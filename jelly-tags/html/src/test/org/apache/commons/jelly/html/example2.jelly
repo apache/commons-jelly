@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:html="jelly:html">
 
-  <html:parse var="doc" html="index.html"/>
-
-  The title is: 
-  
-  <x:expr select="$doc/html/head/title"/>
+  <html:parse var="doc" html="textScript.txt"/>
 
   <j:whitespace>
   	

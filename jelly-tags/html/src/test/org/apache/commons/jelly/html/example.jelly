@@ -5,7 +5,7 @@
 
   The title is: 
   
-  <x:expr select="$doc/HTML/HEAD/TITLE"/>
+  <x:expr select="$doc/html/head/title"/>
 
   <j:whitespace>
   	

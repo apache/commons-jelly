@@ -198,6 +198,18 @@
     </java>
   </goal>
 
+  <goal name="demo:text" prereqs="jelly-task" 
+	description="Runs the example of parsing text with tags via jelly">
+	
+<!--	
+	<jelly file="src/test/org/apache/commons/jelly/html/example2.jelly"/> 
+-->	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/html/example2.jelly"/> 
+    </java>
+  </goal>
+
   <goal name="demo:jeez" prereqs="jelly-task" 
 	description="A demo of the jeez taglib">
 	
