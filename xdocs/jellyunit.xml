@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+
+<document>
+  <properties>
+    <title>JellyUnit</title>
+    <author email="jstrachan@apache.org">James Strachan</author>
+  </properties>
+
+  <body>
+    <section name="JellyUnit"> 
+      <p>
+        JellyUnit is a Jelly based JUnit testing mechanism. 
+        This allows Jelly scripts to be used to perform unit testing which can be particularly useful
+        if you wish to test XML, XPath, SQL, HTTP, JMS or SOAP interactions.
+      </p>
+      <p>
+        JellyUnit works by using the <a href="tags.html#jelly:junit">JUnit library </a> in a Jelly script
+        to create JUnit TestSuite and TestCase objects. 
+        There are all the usual JUnit assertion tests available such as &lt;assert&gt; 
+        &lt;assertEquals&gt; and &lt;fail&gt;. You can use both Jexl and XPath expressions in the 
+        &lt;assert&gt; tag via either the <i>test</i> or the <i>xpath</i> attributes.
+      </p>
+      <p>
+        Inside these test scripts you can use the full range of Jelly tags such as navigating over
+        XML test data creating multiple test cases based on sample data, performing SQL operations, SOAP calls, 
+        HTTP or JMS requests etc. 
+      </p>
+      <p>
+        You can also use Ant FileSets and the &lt;fileScanner&gt; tag to iterate over collections of 
+        Jelly scripts or XML data files and use this data to define new test cases.
+      </p>
+    </section>
+    <section name="Integration with TestRunners"> 
+      <p>
+        To integrate cleanly inside JUnit TestRunner frameworks there is a helper class,
+        <a href="apidocs/org/apache/commons/jelly/tags/junit/JellyTestSuite.html">JellyTestSuite</a>
+        which you can derive from
+        to produce a single Java class which has a static <i>suite()</i> method to create a TestSuite object 
+        containing all the test cases created by the JellyUnit files.
+		There is an 
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/junit/TestJUnit.java?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">example</a>
+        of this in action.
+      </p>
+      <p>So if you had a test suite defined in a jelly script <a>suite.jelly</a> in a package com.acme.foo
+      	then you could create a class, capable of being ran inside any JUnit test runner framework as follows
+      </p>
+<pre>
+package com.acme.foo;
+      
+import junit.framework.TestSuite;
+
+import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+
+/** 
+ * A helper class to run jelly test cases in a JUnit TestRunner
+ */
+public class TestFoo extends JellyTestSuite {
+
+    public static TestSuite suite() throws Exception {
+        return createTestSuite(TestFoo.class, "suite.jelly");        
+    }
+}
+</pre>
+    </section>
+  </body>
+</document>
+
