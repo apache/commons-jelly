@@ -150,8 +150,6 @@ public class AntTagLibrary extends TagLibrary {
         project.addBuildListener( logger );
         
         project.init();
-
-        throw new RuntimeException( "foo" );
     }
 
     public AntTagLibrary(Project project) {
