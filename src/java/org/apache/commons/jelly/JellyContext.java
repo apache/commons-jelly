@@ -214,10 +214,11 @@ public class JellyContext {
     public Object getVariable(String name) {
         Object value = variables.get(name);
 
-        if ( value == null 
-             &&
-             isInherit() ) {
-            value = getParent().findVariable( name );
+        if ( value == null && isInherit() ) {
+            JellyContext parent = getParent();
+            if (parent != null) {                
+                value = parent.findVariable( name );
+            }
         }
 
         return value;
