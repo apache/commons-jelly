@@ -22,10 +22,16 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
 
 /** 
  * The &lt;taglib&gt; tag is used to define a new tag library
- * using a Jelly script..</p>
+ * using a Jelly script. The tag library is identified by its
+ * {@link #getURI() URI}.
+ * 
+ * The tags for a taglib are declared using the {@link TagTag}.
+ * 
+ * You can 'inherit' tags from a previously defined taglib, as well,
+ * allowing runtime extension of tag libraries
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class TaglibTag extends TagSupport {
     
