@@ -15,4 +15,10 @@
 -->
 <project default="java:jar">
 
+  <echo>
+Warning:
+This tag library requires JDK1.4 or JDK1.3 with JSSE installed to build.
+You are using version ${java.version}
+  </echo>
+
 </project>
