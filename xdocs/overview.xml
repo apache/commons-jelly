@@ -11,7 +11,7 @@
 
 <section name="Jelly Overview">
 
-<p>Jelly is an XML based <i>processing engine</i>. The basic idea is that XML 
+<p>Jelly is an XML based scripting engine. The basic idea is that XML 
 elements can be bound to a Java <i>Tag</i> which is a Java bean that performs 
 some function. Here's an example action</p>
 

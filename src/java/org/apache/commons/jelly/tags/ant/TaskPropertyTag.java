@@ -65,9 +65,9 @@ import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.WrapDynaBean;
 
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.DynaBeanTagSupport;
@@ -137,7 +137,7 @@ public class TaskPropertyTag extends DynaBeanTagSupport implements CompilableTag
             throw new JellyException( "No property: " + name + " of task: " + task + " was returned." );
         }
         
-        setDynaBean( new WrapDynaBean(propertyBean) );
+        setDynaBean( new ConvertingWrapDynaBean(propertyBean) );
     }
     
     // Tag interface

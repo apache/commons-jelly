@@ -61,8 +61,8 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
+import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.WrapDynaBean;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
@@ -86,7 +86,7 @@ public class TaskTag extends DynaBeanTagSupport {
 
     public TaskTag(Task task) {
         this.task = task;
-        setDynaBean( new WrapDynaBean(task) );
+        setDynaBean( new ConvertingWrapDynaBean(task) );
     }
 
     // Tag interface
@@ -115,7 +115,7 @@ public class TaskTag extends DynaBeanTagSupport {
      */
     public void setTask(Task task) {
         this.task = task;
-        setDynaBean( new WrapDynaBean(task) );
+        setDynaBean( new ConvertingWrapDynaBean(task) );
     }
     
 }

@@ -63,10 +63,10 @@ package org.apache.commons.jelly.tags.ant;
 
 import java.lang.reflect.Method;
 
+import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.beanutils.WrapDynaBean;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
@@ -96,7 +96,7 @@ public class DataTypeTag extends DynaBeanTagSupport {
     public DataTypeTag(String name, Object dataType) {
         this.name = name;
         this.dataType = dataType;
-        setDynaBean( new WrapDynaBean(dataType) );
+        setDynaBean( new ConvertingWrapDynaBean(dataType) );
     }
 
     // Tag interface
@@ -175,7 +175,7 @@ public class DataTypeTag extends DynaBeanTagSupport {
      */
     public void setDataType(Object dataType) {
         this.dataType = dataType;
-        setDynaBean( new WrapDynaBean(dataType) );
+        setDynaBean( new ConvertingWrapDynaBean(dataType) );
     }
     
 }
