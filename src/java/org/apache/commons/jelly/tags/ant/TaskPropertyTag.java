@@ -82,7 +82,7 @@ import org.apache.tools.ant.types.Reference;
 
 /** 
  * A tag which configures a property bean of a Task, 
- * such as a &lt;classpath&lt; element inside a &lt;java&gt; element.
+ * such as a &lt;classpath&gt; element inside a &lt;java&gt; element.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.6 $
