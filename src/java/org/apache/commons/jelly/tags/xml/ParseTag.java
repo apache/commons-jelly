@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.13 2002/10/30 19:16:23 jstrachan Exp $
- * $Revision: 1.13 $
- * $Date: 2002/10/30 19:16:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ParseTag.java,v 1.14 2002/12/31 11:11:34 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/12/31 11:11:34 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: ParseTag.java,v 1.13 2002/10/30 19:16:23 jstrachan Exp $
+ * $Id: ParseTag.java,v 1.14 2002/12/31 11:11:34 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -74,7 +74,7 @@ import org.dom4j.io.SAXReader;
   * xml property which can be a Reader, InputStream, URL or String URI.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 public class ParseTag extends ParseTagSupport {
 
@@ -108,7 +108,7 @@ public class ParseTag extends ParseTagSupport {
         return this.xml;
     }
 
-    /** Sets the source of the XML which is either a String URI, Reader or InputStream */
+    /** Sets the source of the XML which is either a String URI, a File, Reader or InputStream */
     public void setXml(Object xml) {
         this.xml = xml;
     }

@@ -61,6 +61,7 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
@@ -169,6 +170,9 @@ public abstract class ParseTagSupport extends TagSupport {
         
         if (source instanceof URL) {
             return getSAXReader().read((URL) source);
+        }
+        else if (source instanceof File) {
+            return getSAXReader().read((File) source);
         }
         else if (source instanceof Reader) {
             return getSAXReader().read((Reader) source);
