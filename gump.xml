@@ -2,7 +2,7 @@
 
 
   <description>Commons Jelly</description>
-  <url href="http://jakarta.apache.org/commons/sandbox/jelly.html"/>
+  <url href="http://jakarta.apache.org/commons/sandbox/jelly/"/>
   
   <cvs repository="jakarta"/>
   
@@ -31,6 +31,17 @@
     <depend project="commons-jexl"/>
     <depend project="velocity"/>
     <depend project="jdbc-stdext"/>
+    <depend project="werkz"/>
+    <depend project="bsh"/>
+    <depend project="bsf"/>
+    <depend project="ojb"/>
+    <depend project="jms"/>
+    <depend project="commons-messenger"/>
+    <depend project="commons-httpclient"/>
+    <depend project="isorelax"/>
+    <depend project="msv"/>
+    <depend project="xsdlib"/>
+    <depend project="relaxngDatatype"/>
     <depend project="hsqldb"/>
 
     <work nested="target/classes"/>
