@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.34 2002/10/16 16:18:42 morgand Exp $
- * $Revision: 1.34 $
- * $Date: 2002/10/16 16:18:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.35 2002/10/17 18:23:48 morgand Exp $
+ * $Revision: 1.35 $
+ * $Date: 2002/10/17 18:23:48 $
  *
  * ====================================================================
  *
@@ -57,12 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.34 2002/10/16 16:18:42 morgand Exp $
+ * $Id: XMLParser.java,v 1.35 2002/10/17 18:23:48 morgand Exp $
  */
 package org.apache.commons.jelly.parser;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -122,7 +121,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.34 $
+ * @version $Revision: 1.35 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -264,9 +263,25 @@ public class XMLParser extends DefaultHandler {
      * @exception SAXException if a parsing exception occurs
      */
     public Script parse(File file) throws IOException, SAXException {
+        return parse(file.toURL());
+    }
+
+    /**
+     * Parse the content of the specified file using this XMLParser.  Returns
+     * the root element from the object stack (if any).
+     *
+     * @param file URL containing the XML data to be parsed
+     *
+     * @exception IOException if an input/output error occurs
+     * @exception SAXException if a parsing exception occurs
+     */
+    public Script parse(URL url) throws IOException, SAXException {
         ensureConfigured();
-        this.fileName = file.toString();
-        getXMLReader().parse(new InputSource(new FileReader(file)));
+        this.fileName = url.toString();
+
+        InputSource source = new InputSource(url.toString());
+
+        getXMLReader().parse(source);
         return script;
     }
 
@@ -289,11 +304,16 @@ public class XMLParser extends DefaultHandler {
     /**
      * Parse the content of the specified input stream using this XMLParser.
      * Returns the root element from the object stack (if any).
-     *
-     * @param input Input stream containing the XML data to be parsed
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception SAXException if a parsing exception occurs
+     * (Note: if reading a File or URL, use one of the URL-based
+     * parse methods instead.  This method will not be able
+     * to resolve any relative paths inside a DTD.)
+     * 
+     * @param input  Input stream containing the XML data to be parsed
+     * @return 
+     * @exception IOException
+     *                   if an input/output error occurs
+     * @exception SAXException
+     *                   if a parsing exception occurs
      */
     public Script parse(InputStream input) throws IOException, SAXException {
         ensureConfigured();
@@ -305,11 +325,16 @@ public class XMLParser extends DefaultHandler {
     /**
      * Parse the content of the specified reader using this XMLParser.
      * Returns the root element from the object stack (if any).
-     *
+     * (Note: if reading a File or URL, use one of the URL-based
+     * parse methods instead.  This method will not be able
+     * to resolve any relative paths inside a DTD.)
+     * 
      * @param reader Reader containing the XML data to be parsed
-     *
-     * @exception IOException if an input/output error occurs
-     * @exception SAXException if a parsing exception occurs
+     * @return 
+     * @exception IOException
+     *                   if an input/output error occurs
+     * @exception SAXException
+     *                   if a parsing exception occurs
      */
     public Script parse(Reader reader) throws IOException, SAXException {
         ensureConfigured();

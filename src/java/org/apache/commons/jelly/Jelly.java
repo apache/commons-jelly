@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.22 2002/10/16 22:58:19 morgand Exp $
- * $Revision: 1.22 $
- * $Date: 2002/10/16 22:58:19 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.23 2002/10/17 18:23:48 morgand Exp $
+ * $Revision: 1.23 $
+ * $Date: 2002/10/17 18:23:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.22 2002/10/16 22:58:19 morgand Exp $
+ * $Id: Jelly.java,v 1.23 2002/10/17 18:23:48 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -85,7 +85,7 @@ import org.apache.commons.logging.LogFactory;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.22 $
+ * @version $Revision: 1.23 $
  */
 public class Jelly {
     
@@ -158,7 +158,7 @@ public class Jelly {
         parser.setContext(getJellyContext());
         parser.setDefaultNamespaceURI(this.defaultNamespaceURI);
         parser.setValidating(this.validateXML);
-        Script script = parser.parse(getUrl().openStream());
+        Script script = parser.parse(getUrl());
         script = script.compile();
         if (log.isDebugEnabled()) {
             log.debug("Compiled script: " + getUrl());
