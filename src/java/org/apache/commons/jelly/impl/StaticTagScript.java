@@ -167,9 +167,8 @@ public class StaticTagScript extends TagScript {
     protected Tag findDynamicTag(JellyContext context, StaticTag tag) throws JellyException {
         // lets see if there's a tag library for this URI...
         TagLibrary taglib = context.getTagLibrary( tag.getUri() );
-        if ( taglib instanceof DynamicTagLibrary ) {
-            DynamicTagLibrary dynaLib = (DynamicTagLibrary) taglib;
-            Tag newTag = dynaLib.createTag( tag.getLocalName(), getSaxAttributes() );
+        if ( taglib != null ) {
+            Tag newTag = taglib.createTag( tag.getLocalName(), getSaxAttributes() );
             if ( newTag != null ) {
                 newTag.setParent( tag.getParent() );
                 newTag.setBody( tag.getBody() );
