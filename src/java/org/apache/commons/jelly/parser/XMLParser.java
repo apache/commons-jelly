@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.36 2002/10/22 13:44:03 jstrachan Exp $
- * $Revision: 1.36 $
- * $Date: 2002/10/22 13:44:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.37 2002/10/29 00:09:17 morgand Exp $
+ * $Revision: 1.37 $
+ * $Date: 2002/10/29 00:09:17 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.36 2002/10/22 13:44:03 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.37 2002/10/29 00:09:17 morgand Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -121,7 +121,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.36 $
+ * @version $Revision: 1.37 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -1083,12 +1083,6 @@ public class XMLParser extends DefaultHandler {
                 "Could not create taglib or URI: " + namespaceURI + " tag name: " + localName,
                 e);
             throw createSAXException(e);
-        }
-        catch (Throwable e) {
-            log.warn(
-                "Could not create taglib or URI: " + namespaceURI + " tag name: " + localName,
-                e);
-            return null;
         }
     }
     
