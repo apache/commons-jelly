@@ -86,7 +86,7 @@ public class AssertEqualsTag extends AssertTagSupport {
         Object expectedValue = expected.evaluate(context);                    
         Object actualValue = actual.evaluate(context);                    
         
-        if (expectedValue == null && expectedValue == null) {
+        if (expectedValue == null && actualValue == null) {
             return;
         }
         if (actualValue != null && expectedValue.equals(actualValue)) {            
