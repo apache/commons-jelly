@@ -81,6 +81,7 @@ import org.xml.sax.helpers.*;
  * 
  * @author <a href="mailto:gopi@aztecsoft.com">Gopinath M.R.</a>
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @author Rodney Waldhoff
  */
 
 // #### somehow we need to handle taglib inheritence...
@@ -276,38 +277,45 @@ public class TagXMLDoclet extends Doclet {
      */
     private void docXML(Doc doc) throws SAXException {
         cm.startElement(xmlns, localName, "doc", emptyAtts);
-        String commentText = doc.commentText();
-        if (! commentText.equals("")) {
-            parseHTML(commentText);
-            // cm.characters(commentText.toCharArray(), 0, commentText.length());
-        }
-        Tag[] tags = doc.tags();
-        for (int i = 0; i < tags.length; ++i) {
-            javadocTagXML(tags[i]);
-        }
-        cm.endElement(xmlns, localName, "doc");
-/*        
-        String commentText = "";
-        boolean createDoc = false;
-        commentText = doc.commentText();
-        if (! commentText.equals("")) {
-            createDoc = true;
-        }
-        Tag[] tags = doc.tags();
-        if (tags.length > 0) {
-            createDoc = true;
-        }
-        if (createDoc) {
-            cm.startElement(xmlns, localName, "doc", emptyAtts);
-            if (! commentText.equals("")) {
-                cm.characters(commentText.toCharArray(), 0, commentText.length());
+        // handle the "comment" part, including {@link} tags
+        {
+            Tag[] tags = doc.inlineTags();
+            for(int i=0;i<tags.length;i++) {
+                // if tags[i] is an @link tag
+                if(tags[i] instanceof SeeTag) {                    
+                    String label = ((SeeTag)tags[i]).label();
+                    // if the label is null or empty, use the class#member part of the link
+                    if(null == label || "".equals(label)) { 
+                        StringBuffer buf = new StringBuffer();
+                        String className = ((SeeTag)tags[i]).referencedClassName();
+                        if("".equals(className)) { className = null; }
+                        String memberName = ((SeeTag)tags[i]).referencedMemberName();
+                        if("".equals(memberName)) { memberName = null; }
+                        if(null != className) {
+                            buf.append(className);
+                            if(null != memberName) {
+                                buf.append(".");
+                            }
+                        }
+                        if(null != memberName) {
+                            buf.append(memberName);
+                        }
+                        label = buf.toString();
+                    }
+                    parseHTML(label);
+                } else {
+                    parseHTML(tags[i].text());
+                }
             }
+        }
+        // handle the "tags" part
+        {
+            Tag[] tags = doc.tags();
             for (int i = 0; i < tags.length; ++i) {
                 javadocTagXML(tags[i]);
             }
-            cm.endElement(xmlns, localName, "doc");
         }
-*/        
+        cm.endElement(xmlns, localName, "doc");
     }
 
     protected void parseHTML(String text) throws SAXException {
