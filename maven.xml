@@ -208,7 +208,9 @@
 
   <preGoal name="xdoc">
 
-    <j:if test="${empty(mainSiteOnly)}">
+    <j:if test="${!empty(fullSite)}">
+      <echo>Building site for Jelly and all taglibs</echo>
+      <sleep seconds="5" />
       <!--        
       This runs out of memory - have a feeling its the velocity & xdoc plugin
       -->
