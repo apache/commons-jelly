@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/soap/src/java/org/apache/commons/jelly/tags/soap/InvokeTag.java,v 1.1 2003/01/07 14:10:03 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/07 14:10:03 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/soap/src/java/org/apache/commons/jelly/tags/soap/InvokeTag.java,v 1.2 2003/01/26 07:08:45 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 07:08:45 $
  *
  * ====================================================================
  *
@@ -57,17 +57,20 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: InvokeTag.java,v 1.1 2003/01/07 14:10:03 dion Exp $
+ * $Id: InvokeTag.java,v 1.2 2003/01/26 07:08:45 morgand Exp $
  */
 package org.apache.commons.jelly.tags.soap;
 
+import java.net.MalformedURLException;
+import java.rmi.RemoteException;
 import java.util.Collection;
 
 import javax.xml.namespace.QName;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -76,7 +79,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Invokes a web service
  * 
  * @author <a href="mailto:jim@bnainc.net">James Birchfield</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class InvokeTag extends TagSupport {
 
@@ -92,7 +95,7 @@ public class InvokeTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (endpoint == null) {
             throw new MissingAttributeException("endpoint");
         }
@@ -116,21 +119,34 @@ public class InvokeTag extends TagSupport {
         if (service == null) {
             service = createService();
         }
-        Call call = (Call) service.createCall();
+        
+        Object answer = null;
+        try {
+            Call call = (Call) service.createCall();
 
-        // @todo Jelly should have native support for URL and QName
-        // directly on properties
-        call.setTargetEndpointAddress(new java.net.URL(endpoint));
-        call.setOperationName(new QName(namespace, method));
+            // @todo Jelly should have native support for URL and QName
+            // directly on properties
+            call.setTargetEndpointAddress(new java.net.URL(endpoint));
+            call.setOperationName(new QName(namespace, method));
 
-        Object answer = call.invoke(params);
+            answer = call.invoke(params);
+        } 
+        catch (MalformedURLException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (ServiceException e) {
+            throw new JellyTagException(e);
+        }
+        catch (RemoteException e) {
+            throw new JellyTagException(e);
+        }
         
         if (var != null) {
             context.setVariable(var, answer);
         }
         else {
             // should turn the answer into XML events...
-            throw new JellyException( "Not implemented yet; should stream results as XML events. Results: " + answer );
+            throw new JellyTagException( "Not implemented yet; should stream results as XML events. Results: " + answer );
         }
     }
 
