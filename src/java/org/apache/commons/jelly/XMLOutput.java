@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.5 2002/06/18 18:36:42 werken Exp $
- * $Revision: 1.5 $
- * $Date: 2002/06/18 18:36:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/XMLOutput.java,v 1.6 2002/06/21 03:18:42 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/06/21 03:18:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XMLOutput.java,v 1.5 2002/06/18 18:36:42 werken Exp $
+ * $Id: XMLOutput.java,v 1.6 2002/06/21 03:18:42 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -84,7 +84,7 @@ import org.xml.sax.ext.LexicalHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {
@@ -178,10 +178,38 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
 
     /** 
      * Creates a text based XMLOutput which converts all XML events into
+     * text and writes to the underlying Writer.
+     * 
+     * @param writer is the writer to output to
+     * @param escapeText is whether or not text output will be escaped. This must be true
+     * if the underlying output is XML or could be false if the underlying output is textual.
+     */
+    public static XMLOutput createXMLOutput(Writer writer, boolean escapeText) throws UnsupportedEncodingException {
+        XMLWriter xmlWriter = new XMLWriter(writer);
+        xmlWriter.setEscapeText(escapeText);
+        return createXMLOutput(xmlWriter);
+    }
+    
+    /** 
+     * Creates a text based XMLOutput which converts all XML events into
      * text and writes to the underlying OutputStream.
      */
     public static XMLOutput createXMLOutput(OutputStream out) throws UnsupportedEncodingException {
         XMLWriter xmlWriter = new XMLWriter(out);
+        return createXMLOutput(xmlWriter);
+    }
+    
+    /** 
+     * Creates a text based XMLOutput which converts all XML events into
+     * text and writes to the underlying OutputStream.
+     * 
+     * @param out is the output stream to write
+     * @param escapeText is whether or not text output will be escaped. This must be true
+     * if the underlying output is XML or could be false if the underlying output is textual.
+     */
+    public static XMLOutput createXMLOutput(OutputStream out, boolean escapeText) throws UnsupportedEncodingException {
+        XMLWriter xmlWriter = new XMLWriter(out);
+        xmlWriter.setEscapeText(escapeText);
         return createXMLOutput(xmlWriter);
     }
     
