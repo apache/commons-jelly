@@ -107,11 +107,15 @@ public abstract class WerkzTagSupport extends TagSupport {
      * @return the goal manager instance 
      */
     protected Project getProject() {
+        Project answer = null;
         ProjectTag tag = (ProjectTag) findAncestorWithClass(ProjectTag.class);
         if ( tag != null) {
-            return tag.getProject();
+            answer = tag.getProject();
         }
-        return (Project) context.findVariable( "org.apache.commons.jelly.werkz.Project" );
+        if (answer == null) {
+            answer = (Project) context.findVariable( "org.apache.commons.jelly.werkz.Project" );
+        }
+        return answer;
     }
     
     

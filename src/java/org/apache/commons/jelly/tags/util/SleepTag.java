@@ -56,74 +56,38 @@
  *
  */
 
-package org.apache.commons.jelly.tags.werkz;
+package org.apache.commons.jelly.tags.util;
 
-import com.werken.werkz.Project;
-
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.ant.AntTagLibrary;
-
-/** 
- * The root tag of a Project definition.
- *
+/**
+ * A tag which sleeps for a given amount of time.
+ * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.6 $
  */
-public class ProjectTag extends WerkzTagSupport {
+public class SleepTag extends TagSupport {
+    private long millis;
 
-    /** the project */
-    private Project project;
-
-    private String defaultGoalName;
-        
-    public ProjectTag() {
-        super( true );
+    public SleepTag() {
     }
 
-
-    /**
-     * @return the project instance 
-     */
-    public Project getProject() {
-        if ( project == null && context != null ) {
-	        // we may be invoked inside a child script, so lets try find the parent project
-	        project = (Project) context.findVariable( "org.apache.commons.jelly.werkz.Project" );
-	        if ( project == null ) {
-	            project = new Project();
-	            context.setVariable( "org.apache.commons.jelly.werkz.Project", project );
-	        }
-        }
-        return project;
-    }
-    
-    
     // Tag interface
     //------------------------------------------------------------------------- 
-    
-    /** 
-     * Evaluate the body to register all the various goals and pre/post conditions
-     * then run all the current targets
+    public void doTag(final XMLOutput output) throws Exception {
+        if (millis > 0) {
+            Thread.currentThread().sleep(millis);
+        }
+    }
+
+    // Properties
+    //------------------------------------------------------------------------- 
+
+    /**
+     * Sets the amount of time that this thread should sleep for in milliseconds.
      */
-    public void doTag(XMLOutput output) throws Exception {       
-        // force project to be lazily constructed        
-
-        getProject().setDefaultGoalName( this.defaultGoalName );
-
-        org.apache.tools.ant.Project antProject = AntTagLibrary.getProject( context );
-
-        // allow access to Ant methods via the project class
-        context.setVariable( "project", antProject );
-        
-        invokeBody(output);
+    public void setMillis(long millis) {
+        this.millis = millis;
     }
 
-    public void setDefault(String defaultGoalName) {
-        this.defaultGoalName = defaultGoalName;
-    }
 }

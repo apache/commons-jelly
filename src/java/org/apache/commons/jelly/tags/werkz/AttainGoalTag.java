@@ -73,7 +73,7 @@ import org.apache.commons.logging.LogFactory;
  * Attains one or more goals.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class AttainGoalTag extends WerkzTagSupport {
 
@@ -94,44 +94,40 @@ public class AttainGoalTag extends WerkzTagSupport {
      * then run all the current targets
      */
     public void doTag(final XMLOutput output) throws Exception {
-        
-        AttainTag attainTag = (AttainTag) findAncestorWithClass( AttainTag.class );
+        AttainTag attainTag =
+            (AttainTag) findAncestorWithClass(AttainTag.class);
         Session session = null;
 
-        if ( attainTag == null ) {
-            session = new JellySession( output );
-        } else {
+        if (attainTag == null) {
+            session = new JellySession(output);
+        }
+        else {
             session = attainTag.getSession();
         }
 
-        ProjectTag projectTag = (ProjectTag) findAncestorWithClass( ProjectTag.class );
-
-        Project project = projectTag.getProject();
+        Project project = getProject();
+        
+        if (project == null) {
+            throw new JellyException("No Project available");
+        }
 
         invokeBody(output);
 
-        try
-        {
-            project.attainGoal( getName(),
-                                session );
+        try {
+            project.attainGoal(getName(), session);
         }
-        catch (UnattainableGoalException e)
-        {
+        catch (UnattainableGoalException e) {
             Throwable root = e.getRootCause();
 
-            if ( root != null )
-            {
-                if ( root instanceof JellyException )
-                {
+            if (root != null) {
+                if (root instanceof JellyException) {
                     throw (JellyException) root;
                 }
-                if ( root instanceof UnattainableGoalException )
-                {
+                if (root instanceof UnattainableGoalException) {
                     throw e;
                 }
             }
-            else
-            {
+            else {
                 e.fillInStackTrace();
                 throw e;
             }

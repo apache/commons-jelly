@@ -74,7 +74,8 @@ public class ThreadTag extends TagSupport  {
     private String name = null;
     /** the destination of output */
     private XMLOutput xmlOutput;
-    
+    /** Should we close the underlying output */
+    private boolean closeOutput;
 
     public ThreadTag() {
     }
@@ -88,14 +89,19 @@ public class ThreadTag extends TagSupport  {
         }
 
         // lets create a child context
-        final JellyContext newContext = new JellyContext(context);
+        final JellyContext newContext = context.newJellyContext();
                 
         Thread thread = new Thread(
             new Runnable() {
                 public void run() {
                     try {
                         getBody().run(newContext, xmlOutput);
-                        xmlOutput.close();
+                        if (closeOutput) {
+                            xmlOutput.close();
+                        }
+                        else {
+                            xmlOutput.flush();
+                        }
                     }
                     catch (Exception e) {
                         e.printStackTrace();
@@ -121,6 +127,7 @@ public class ThreadTag extends TagSupport  {
      * Sets the destination of output
      */
     public void setXmlOutput(XMLOutput xmlOutput) {
+        this.closeOutput = false;
         this.xmlOutput = xmlOutput;
     }
     
@@ -129,6 +136,7 @@ public class ThreadTag extends TagSupport  {
      * @param name The output file name
      */
     public void setFile(String name) throws IOException {
+        this.closeOutput = true;
         setXmlOutput( XMLOutput.createXMLOutput(new FileOutputStream(name)) );
     }
 }

@@ -1,4 +1,4 @@
-<project default="java:jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven">
+<project default="java:jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util">
 
   <!-- define jelly task -->	
   <goal name="jelly-task" prereqs="java:compile, test:compile">
@@ -498,4 +498,23 @@
       <arg value="-Dtestsysprop=valueOfTestSystemProp"/> 
     </java>
   </goal>
+
+
+  <goal name="demo:async" 
+  	description="An example of using asynchronous invocation of goals">
+
+    <j:thread>
+      <attainGoal name="demo:asyncOtherThread"/>
+    </j:thread>
+
+    <echo>XXXX</echo>
+
+		<util:sleep millis="1000"/>
+  </goal>
+
+  <goal name="demo:asyncOtherThread"
+  	description="A private target invoked by the async demo">
+    <echo>YYYY</echo>
+  </goal>
+
 </project>

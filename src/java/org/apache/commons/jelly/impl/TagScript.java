@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.20 2002/10/03 18:14:43 jstrachan Exp $
- * $Revision: 1.20 $
- * $Date: 2002/10/03 18:14:43 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.21 2002/10/08 11:26:00 jstrachan Exp $
+ * $Revision: 1.21 $
+ * $Date: 2002/10/08 11:26:00 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.20 2002/10/03 18:14:43 jstrachan Exp $
+ * $Id: TagScript.java,v 1.21 2002/10/08 11:26:00 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -100,7 +100,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.20 $
+ * @version $Revision: 1.21 $
  */
 public class TagScript implements Script {
 
@@ -487,32 +487,6 @@ public class TagScript implements Script {
     }
     
     /**
-     * A helper method to handle this non-Jelly exception.
-     * This method will rethrow the exception, wrapped in a JellyException
-     * while adding line number information etc.
-     */
-    protected void handleException(Exception e) throws Exception {
-        log.error( "Caught exception: " + e, e );
-
-        if ( e instanceof JellyException )
-        {
-            e.fillInStackTrace();
-            throw e;
-        }
-
-        if ( e instanceof InvocationTargetException)
-        {
-            throw new JellyException( ((InvocationTargetException)e).getTargetException(),
-                                      fileName,
-                                      elementName,
-                                      columnNumber,
-                                      lineNumber );
-        }
-
-        throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);            
-    }
-    
-    /**
      * Creates a new Jelly exception, adorning it with location information
      */
     protected JellyException createJellyException(String reason) {
@@ -549,6 +523,9 @@ public class TagScript implements Script {
      * such as adding line number information etc.
      */
     protected void handleException(JellyException e) throws Exception {
+        //e.printStackTrace();
+        log.error( "Caught exception: " + e, e );
+
         if (e.getLineNumber() == -1) {
             e.setColumnNumber(columnNumber);
             e.setLineNumber(lineNumber);
@@ -560,6 +537,31 @@ public class TagScript implements Script {
             e.setElementName( elementName );
         }
         throw e;
+    }
+    
+    /**
+     * A helper method to handle this non-Jelly exception.
+     * This method will rethrow the exception, wrapped in a JellyException
+     * while adding line number information etc.
+     */
+    protected void handleException(Exception e) throws Exception {
+        //e.printStackTrace();
+        log.error( "Caught exception: " + e, e );
+
+        if ( e instanceof JellyException ) {
+            e.fillInStackTrace();
+            throw e;
+        }
+
+        if ( e instanceof InvocationTargetException) {
+            throw new JellyException( ((InvocationTargetException)e).getTargetException(),
+                                      fileName,
+                                      elementName,
+                                      columnNumber,
+                                      lineNumber );
+        }
+
+        throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);            
     }
     
 }
