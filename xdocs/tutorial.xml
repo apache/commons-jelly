@@ -153,7 +153,7 @@ To start the JellyRunner type "maven jelly:runner" (View the <a href="http://cvs
 <subsection name="Homepage Builder (JellySwing Edition)">
 
 <p>
-This is a good chance to use the Jelly Runner. Find HomepageBuilder.jelly, which is located in /src/test/org/apache/commons/jelly/demos/ (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/demos/HomepageBuilder.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>).
+This is a good chance to use the Jelly Runner. Find HomepageBuilder.jelly, which is located in /src/test/org/apache/commons/jelly/demos/ (View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly?rev=HEAD&amp;content-type=text/vnd.viewcvs-markup">demo source</a>).
 </p>
 
 <p>
