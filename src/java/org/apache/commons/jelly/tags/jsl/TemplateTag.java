@@ -63,6 +63,9 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.xml.XPathSource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.dom4j.Node;
 import org.dom4j.rule.Action;
 import org.dom4j.rule.Pattern;
@@ -75,6 +78,10 @@ import org.dom4j.rule.Rule;
  * @version $Revision: 1.8 $
  */
 public class TemplateTag extends JSLTagSupport implements XPathSource {
+
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog(TemplateTag.class);
+    
 
     /** Holds value of property name. */
     private String name;
@@ -113,6 +120,10 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
         StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
         if (tag == null) {
             throw new JellyException( "This <template> tag must be used inside a <stylesheet> tag" );
+        }
+
+        if ( log.isDebugEnabled() ) {        
+            log.debug( "adding template rule for match: " + match );
         }
         
         Rule rule = getRule();
@@ -216,7 +227,10 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
         return new Action() {
             public void run(Node node) throws Exception {
                 xpathSource = node;
-                
+    
+                if (log.isDebugEnabled()) {
+                    log.debug( "Firing template body for match: " + match + " and node: " + node );          
+                }
                 getBody().run(context, output);
             }
         };                    

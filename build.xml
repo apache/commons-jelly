@@ -256,6 +256,22 @@
 	
    </target>
 
+   <target name="demo.jsl.debug" depends="compile" 
+      description="Runs a simple demo of the JSL tags with debugging on">
+      
+	<jelly file="src/test/org/apache/commons/jelly/jsl/example.jelly"/> 
+	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/jsl/example.jelly"/> 
+      
+      <!-- turn on debugging -->
+      <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
+      <sysproperty key="org.apache.commons.logging.simplelog.log.org.apache.commons.digester.Digester" value="warn"/>
+      <sysproperty key="org.apache.commons.logging.simplelog.log.org.apache.commons.digester.Digester.sax" value="warn"/>
+    </java>
+   </target>
+
    <target name="demo.jsl2" depends="compile" 
       description="Runs demo #2 of the JSL tags">
       

@@ -61,8 +61,10 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.dom4j.Node;
-//import org.dom4j.XPath;
 import org.dom4j.rule.Action;
 import org.dom4j.rule.Rule;
 import org.dom4j.rule.Stylesheet;
@@ -76,6 +78,10 @@ import org.dom4j.rule.Stylesheet;
  */
 public class StylesheetTag extends JSLTagSupport {
 
+    /** The Log to which logging calls will be made. */
+    private Log log = LogFactory.getLog(StylesheetTag.class);
+
+    
     /** Holds the stylesheet which will be applied to the source context. */
     private Stylesheet stylesheet = new Stylesheet();
     
@@ -125,6 +131,10 @@ public class StylesheetTag extends JSLTagSupport {
         try {        
             // run the body to add the rules
             getBody().run(context, output);
+            
+            if ( log.isDebugEnabled() ) {
+                log.debug( "About to evaluate stylesheet on source: " + source );
+            }
             
             stylesheet.setModeName( getMode() );
             stylesheet.run( source );
