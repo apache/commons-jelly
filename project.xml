@@ -18,6 +18,28 @@
 
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly</package>
+  <packageGroups>
+  	<packageGroup>
+  		<title>Core Public API</title>
+  		<packages>org.apache.commons.jelly</packages>
+  	</packageGroup>
+  	<packageGroup>
+  		<title>Utility classes for using Jelly from Ant</title>
+  		<packages>org.apache.commons.jelly.task</packages>
+  	</packageGroup>
+  	<packageGroup>
+  		<title>Utility classes for using Jelly from Servlets</title>
+  		<packages>org.apache.commons.jelly.servlet</packages>
+  	</packageGroup>
+  	<packageGroup>
+  		<title>Classes used by Tag Implementors</title>
+  		<packages>org.apache.commons.jelly.impl,org.apache.commons.jelly.tags,org.apache.commons.jelly.expression</packages>
+  	</packageGroup>
+  	<packageGroup>
+  		<title>Tag Implementations</title>
+  		<packages>org.apache.commons.jelly.tags.*</packages>
+  	</packageGroup>
+  </packageGroups>
   <shortDescription>Commons Jelly</shortDescription>
 
   <!-- Gump integration -->
