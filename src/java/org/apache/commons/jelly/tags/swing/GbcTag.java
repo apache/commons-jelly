@@ -62,6 +62,7 @@
 package org.apache.commons.jelly.tags.swing;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.util.Map;
 
@@ -76,8 +77,9 @@ import org.apache.commons.jelly.tags.swing.impl.GridBagConstraintBean;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** This class represents a {@link GridBagConstraint} constraints as passed in
- * the second argument of {@link Component#add(Component,Object)}.
+/** 
+ * This class represents a {@link GridBagConstraints} constraints as passed in
+ * the second argument of {@link Container#add(Component,Object)}.
  * It supports inheritence between such tags in the following fashion:
  * <ul>
  * 	<li>either using a <code>basedOn</code> attribute which is
@@ -86,10 +88,10 @@ import org.apache.commons.logging.LogFactory;
  * </ul>
  * The first version takes precedence.
  * A Grid-bag-constraint inherits from another simply by setting other attributes
- * as is done in {@link GridBagConstraintBean#setValueFrom}.
+ * as is done in {@link GridBagConstraintBean#setBasedOn}.
  * <p>
  * In essence, it looks really like nothing else than a bean-class...
- * with {@link #getConstraintObject}.
+ * with {@link #getConstraints}.
  * Probably a shorter java-source is do-able.
  * <p>
  * TODO: this class should probably be extended with special treatment for dimensions

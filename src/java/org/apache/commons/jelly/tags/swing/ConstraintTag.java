@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import java.awt.Component;
+import java.awt.Container;
 
 import org.apache.commons.beanutils.ConvertUtils;
 
@@ -29,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
 
 /** This class represents a layout-manager constraints as passed in
-	* the second argument of {@link Component#add(Component,Object)}.
+	* the second argument of {@link Container#add(Component,Object)}.
 	*	<p>
 	*	In essence, it looks really like nothing else than a bean-class...
 	*	with {@link #getConstraintObject}.
