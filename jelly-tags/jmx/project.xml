@@ -44,7 +44,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-bean</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/bean/</url>
     </dependency>
       
