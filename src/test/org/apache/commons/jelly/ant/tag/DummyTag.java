@@ -30,7 +30,7 @@ import org.apache.tools.ant.types.Path;
  * A mock tag which is used for testing the Ant nested properties behaviour
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.9 $
+ * @version $Revision$
  */
 public class DummyTag extends TagSupport implements BeanSource {
 
