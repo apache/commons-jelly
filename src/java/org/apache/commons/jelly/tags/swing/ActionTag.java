@@ -67,78 +67,130 @@ import java.util.Map;
 
 import javax.swing.*;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.tags.core.UseBeanTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** 
- * Creates a Swing Action and attaches it to the parent component. The This tag creates a Swing component and adds it to its parent tag, optionally declaring this
- * component as a variable if the <i>var</i> attribute is specified.</p>
+ * Creates a Swing Action which on invocation will execute the body of this tag.
+ * The Action is then output as a variable for reuse if the 'var' attribute is specified
+ * otherwise the action is added to the parent JellySwing widget.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public class ActionTag extends MapTagSupport {
+public class ActionTag extends UseBeanTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ActionTag.class);
-
-    /** the current action instance */
-    private Action action;
 
     public ActionTag() {
     }
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(final XMLOutput output) throws Exception {
-
-        Map map = getAttributes();
-        action = (Action) map.remove( "action" );
-        Object classObject = map.remove("className");
-        String var = (String) map.remove( "var" );
+    public void doTag(XMLOutput output) throws Exception {
+        Map attributes = getAttributes();
+        String var = (String) attributes.get( "var" );
+        Object classObject = attributes.remove( "class" );
         
+        // this method could return null in derived classes
+        Class theClass = convertToClass(classObject);
+        
+        Object bean = newInstance(theClass, attributes, output);
+        setBean(bean);
+        
+        setBeanProperties(bean, attributes);
+        
+        processBean(var, bean);
+    }
+
+    
+    // Properties
+    //-------------------------------------------------------------------------                    
+
+    /**
+     * @return the Action object for this tag
+     */
+    public Action getAction() {
+        return (Action) getBean();
+    }
+    
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                    
+
+
+    /**
+     * An existing Action could be specified via the 'action' attribute or an action class 
+     * may be specified via the 'class' attribute, otherwise a default Action class is created.
+     */
+    protected Class convertToClass(Object classObject) throws Exception {
+        if (classObject == null) {
+            return null;
+        }
+        else {
+            return super.convertToClass(classObject);
+        }
+    }
+    
+    /**
+     * An existing Action could be specified via the 'action' attribute or an action class 
+     * may be specified via the 'class' attribute, otherwise a default Action class is created.
+     */
+    protected Object newInstance(Class theClass, Map attributes, final XMLOutput output) throws Exception {
+        Action action = (Action) attributes.remove( "action" );
         if ( action == null ) {
-            Class actionClass = null;
-            if ( classObject != null ) {
-                if ( classObject instanceof Class ) {
-                    actionClass = (Class) classObject;
-                }
-                else {
-                    String name = classObject.toString();
-                    try {
-                        actionClass = Class.forName( name );
+            if (theClass != null ) {
+                return theClass.newInstance();
+            }
+            else {
+                action = new AbstractAction() {
+                    public void actionPerformed(ActionEvent event) {
+                        context.setVariable( "event", event );
+                        try {
+                            invokeBody(output);
+                        }
+                        catch (Exception e) {
+                            log.error( "Caught: " + e, e );
+                        }
                     }
-                    catch (Throwable t) {
-                        throw new JellyException( "Could not find class: " + name + " for this <action> tag. Exception: " +t, t );
-                    }
-                }
-                if ( actionClass != null ) {
-                    action = (Action) actionClass.newInstance();
-                }
+                };
             }
         }
-        if ( action == null ) {
-            action = new AbstractAction() {
-                public void actionPerformed(ActionEvent event) {
-                    context.setVariable( "event", event );
-                    try {
-                        invokeBody(output);
-                    }
-                    catch (Exception e) {
-                        log.error( "Caught: " + e, e );
-                    }
-                }
-            };
+        return action;
+    }
+    
+
+    /**
+     * Either defines a variable or adds the current component to the parent
+     */    
+    protected void processBean(String var, Object bean) throws Exception {
+        if (var != null) {
+            context.setVariable(var, bean);
         }
+        else {
+            ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+            if ( tag != null ) {
+                tag.setAction((Action) bean);
+            }
+            else {
+                throw new JellyException( "Either the 'var' attribute must be specified to export this Action or this tag must be nested within a JellySwing widget tag" );
+            }
+        }
+    }
+    
         
-        // now lets set the properties on the action object
-        for ( Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
+    /**
+     * Perform the strange setting of Action properties using its custom API
+     */
+    protected void setBeanProperties(Object bean, Map attributes) throws Exception {
+        Action action = getAction();
+        for ( Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
             Map.Entry entry = (Map.Entry) iter.next();
             String name = (String) entry.getKey();
             
@@ -148,32 +200,9 @@ public class ActionTag extends MapTagSupport {
             
             action.putValue( name, value );
         }
-
-        if ( var != null ) {
-            context.setVariable( var, action );
-        }
-        
-
-        // now lets add this action to its parent if we have one
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-        if ( tag != null ) {
-            tag.setAction(action);
-        }
     }
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
 
-    /**
-     * @return the Action object for this tag
-     */
-    public Action getAction() {
-        return action;
-    }
-    
-    
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
+
     protected String capitalize(String text) {
         char ch = text.charAt(0);
         if ( Character.isUpperCase( ch ) ) {
@@ -184,6 +213,5 @@ public class ActionTag extends MapTagSupport {
         buffer.append( text.substring(1) );
         return buffer.toString();
     }
-        
         
 }

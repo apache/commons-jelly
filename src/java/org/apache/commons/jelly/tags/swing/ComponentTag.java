@@ -61,25 +61,24 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.Window;
 import java.awt.event.WindowListener;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.swing.*;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.ConvertUtils;
 
-import org.apache.commons.collections.BeanMap;
-
-import org.apache.commons.jelly.DynaBeanTagSupport;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.BeanSource;
+import org.apache.commons.jelly.tags.core.UseBeanTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -91,7 +90,7 @@ import org.apache.commons.logging.LogFactory;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.7 $
  */
-public class ComponentTag extends DynaBeanTagSupport implements BeanSource {
+public class ComponentTag extends UseBeanTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ComponentTag.class);
@@ -99,11 +98,8 @@ public class ComponentTag extends DynaBeanTagSupport implements BeanSource {
     /** the factory of widgets */
     private Factory factory;
     
-    /** the current bean instance */
-    private Object bean;
-
-    /** the current variable name that the bean should be exported as */
-    private String var;
+    public ComponentTag() {
+    }
 
     public ComponentTag(Factory factory) {
         this.factory = factory;
@@ -168,6 +164,17 @@ public class ComponentTag extends DynaBeanTagSupport implements BeanSource {
     }
 
     /**
+     * Sets the Font of this component
+     */
+    public void setFont(Font font) throws Exception {
+        Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'font' property
+            BeanUtils.setProperty( component, "font", font );
+        }
+    }
+
+    /**
      * Adds a WindowListener to this component
      */
     public void addWindowListener(WindowListener listener) throws Exception {
@@ -178,19 +185,79 @@ public class ComponentTag extends DynaBeanTagSupport implements BeanSource {
         }
     }
 
-    // DynaTag interface
+    // Properties
     //-------------------------------------------------------------------------                    
-    public void beforeSetAttributes() throws Exception {
-        // create a new dynabean before the attributes are set
-        bean = factory.newInstance();
-        setDynaBean( new ConvertingWrapDynaBean( bean ) );
-    }
 
-    public void setAttribute(String name, Object value) throws Exception {        
-        if (name.equals( "var" ) ) {
-            this.var = value.toString();
+    /**
+     * @return the visible component, if there is one.
+     */
+    public Component getComponent() {
+        Object bean = getBean();
+        if ( bean instanceof Component ) {
+            return (Component) bean;
+        }
+        return null;
+    }    
+    
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                    
+
+    /**
+     * A class may be specified otherwise the Factory will be used.
+     */
+    protected Class convertToClass(Object classObject) throws Exception {
+        if (classObject == null) {
+            return null;
         }
         else {
+            return super.convertToClass(classObject);
+        }
+    }
+    
+    /**
+     * A class may be specified otherwise the Factory will be used.
+     */
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws Exception {
+        if (theClass != null ) {
+            return theClass.newInstance();
+        }
+        else {
+            return factory.newInstance();
+        }
+    }
+    
+
+    /**
+     * Either defines a variable or adds the current component to the parent
+     */    
+    protected void processBean(String var, Object bean) throws Exception {
+        if (var != null) {
+            context.setVariable(var, bean);
+        }
+        else {
+            Component component = getComponent();
+            if ( component != null ) {
+                ComponentTag parentTag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+                if ( parentTag != null ) {
+                    parentTag.addChild(component);
+                }
+                else {
+                    throw new JellyException( "This tag must be used within a JellySwing widget tag or the 'var' attribute must be specified" );
+                }
+            }
+        }
+    }
+    
+    /**
+     * Patch to handle wierd properties that don't quite match the Java Beans contract
+     */
+    protected void setBeanProperties(Object bean, Map attributes) throws Exception {
+        for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String name = (String) entry.getKey();
+            Object value = entry.getValue();
+
             // ### special hacks for properties that don't introspect properly            
             Component component = getComponent();
             if ( component != null ) {
@@ -215,56 +282,12 @@ public class ComponentTag extends DynaBeanTagSupport implements BeanSource {
                     component.setSize(d);
                 }                    
                 else {
-                    super.setAttribute(name, value);
+                    BeanUtils.setProperty(component, name, value);
                 }
             }
             else {
-                super.setAttribute(name, value);
+                BeanUtils.setProperty(bean, name, value);
             }
         }
     }
-
-    // Tag interface
-    //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
-
-        // export the bean if required
-        if ( var != null ) {
-            context.setVariable(var, bean);
-        }
-        
-        invokeBody(output);
-
-        // now we should add this component to its parent...
-        // This is currently quite simplistic. 
-        // We could well support layout managers and such like
-
-        Component component = getComponent();
-        if ( component != null ) {
-            ComponentTag parentTag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-            if ( parentTag != null ) {
-                parentTag.addChild(component);
-            }
-        }
-    }
-    
-    // Properties
-    //-------------------------------------------------------------------------                    
-
-    /**
-     * @return the bean that has just been created 
-     */
-    public Object getBean() {
-        return bean;
-    }
-
-    /**
-     * @return the visible component, if there is one.
-     */
-    public Component getComponent() {
-        if ( bean instanceof Component ) {
-            return (Component) bean;
-        }
-        return null;
-    }    
 }

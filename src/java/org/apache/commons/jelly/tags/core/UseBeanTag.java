@@ -63,6 +63,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.BeanSource;
 
 /** 
  * A tag which instantiates an instance of the given class
@@ -81,10 +82,24 @@ import org.apache.commons.jelly.XMLOutput;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.3 $
  */
-public class UseBeanTag extends MapTagSupport  {
+public class UseBeanTag extends MapTagSupport implements BeanSource {
+
+    /** the current bean instance */
+    private Object bean;
 
     public UseBeanTag(){
     }
+
+    //BeanSource interface
+    //-------------------------------------------------------------------------                    
+
+    /**
+     * @return the bean that has just been created 
+     */
+    public Object getBean() {
+        return bean;
+    }
+
 
     // Tag interface
     //-------------------------------------------------------------------------                    
@@ -92,18 +107,29 @@ public class UseBeanTag extends MapTagSupport  {
         Map attributes = getAttributes();
         String var = (String) attributes.get( "var" );
         Object classObject = attributes.remove( "class" );
-        if ( classObject == null ) {
-            throw new MissingAttributeException("class");
-        }
+        
+        // this method could return null in derived classes
         Class theClass = convertToClass(classObject);
-        Object bean = newInstance(theClass, attributes);
+        
+        this.bean = newInstance(theClass, attributes, output);
         setBeanProperties(bean, attributes);
+        
+        // invoke body which could result in other properties being set
+        invokeBody(output);
+        
         processBean(var, bean);
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------                    
 
+    /**
+     * Allow derived classes to programatically set the bean
+     */
+    protected void setBean(Object bean) {
+        this.bean = bean;
+    }
+    
     /**
      * Attempts to convert the given object to a Class instance.
      * If the classObject is already a Class it will be returned 
@@ -113,6 +139,9 @@ public class UseBeanTag extends MapTagSupport  {
     protected Class convertToClass(Object classObject) throws Exception {
         if (classObject instanceof Class) {
             return (Class) classObject;
+        }
+        else if ( classObject == null ) {
+            throw new MissingAttributeException("class");
         }
         else {
             String className = classObject.toString();
@@ -139,7 +168,7 @@ public class UseBeanTag extends MapTagSupport  {
      * default constructor.
      * Derived tags could do something different here.
      */
-    protected Object newInstance(Class theClass, Map attributes) throws Exception {
+    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws Exception {
         return theClass.newInstance();
     }
     

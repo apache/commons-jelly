@@ -5,11 +5,18 @@
 	xmlns:log="jelly:log"
 	xmlns:define="jelly:define">
 
-  <define:script var="onClosing">
+  <action var="fooAction" name="Foo" tooltip="some text">
+  	<log:info>Just evaluated the foo action!</log:info>
+  </action>
+
+  <font var="bigfont" name="helvetica" family="helvetica" size="${20}"/>
+
+	<define:script var="onClosing">
     <log:info>The frame is closing via event: ${event}</log:info>
   </define:script>
   
   <frame title="This is a frame" var="frame" location="100,100" size="800,400">
+  	<font family="helvetica" size="14"/>
     <menuBar>
       <menu text="File">
         <menuItem>
@@ -24,25 +31,30 @@
         </menuItem>
         <menuItem text="Save" enabled="false" />
         <separator/>
-        <menuItem text="Properties"/>
+        <menuItem text="Properties" font="${bigfont}"/>
+        <menuItem action="${fooAction}"/>
       </menu>
       <menu text="Help">
+				<font family="Verdana" size="14"/>
+
         <menuItem text="About"/>
       </menu>
     </menuBar>
     
-	<splitPane>    
+		<splitPane>    
       <panel>
         <label text="Enter your name"/>
-        <textField text="James"/>
+        <textField text="James" font="${bigfont}"/>
         <button>
           <action name="OK">
           	<log:info>Clicked on the OK button</log:info>
           </action>
         </button>
+        <button action="${fooAction}"/>
       </panel>
       <scrollPane>
-        <j:new className="org.apache.commons.jelly.swing.MyTableModel" var="tableModel"/>
+      	<!-- this tag can set properties on the bean model too -->
+        <j:useBean var="tableModel" class="org.apache.commons.jelly.swing.MyTableModel"/>
         <table model="${tableModel}"/>
       </scrollPane>
     </splitPane>
@@ -53,6 +65,3 @@
   ${frame.show()}
   
 </j:jelly>
-
-
-

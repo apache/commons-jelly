@@ -108,6 +108,7 @@ public class SwingTagLibrary extends TagLibrary {
         
     public SwingTagLibrary() {
         registerTag( "action", ActionTag.class );
+        registerTag( "font", FontTag.class );
         registerTag( "windowListener", WindowListenerTag.class );
     }
 
