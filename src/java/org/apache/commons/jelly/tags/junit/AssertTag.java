@@ -100,7 +100,7 @@ public class AssertTag extends AssertTagSupport {
         }
         if (test != null) {
             if (! test.evaluateAsBoolean(context)) {
-                fail( getBodyText(), "evaluating test: "+ test );
+                fail( getBodyText(), "evaluating test: "+ test.getExpressionText() );
             }
         }
         else {

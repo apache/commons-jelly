@@ -176,5 +176,9 @@ public class TestExpressions extends TestCase {
         Object value = expression.evaluate(context);
         //assertEquals( "Expression for: " + expressionText + " is: " + expression, expectedValue, value );
         assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
+        
+        String text = expression.getExpressionText();
+        assertEquals( "Wrong textual representation for expression text: ", expressionText, text);
     }
+    
 }

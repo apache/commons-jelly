@@ -93,7 +93,10 @@ public class AssertEqualsTag extends AssertTagSupport {
             return;
         }
 
-        String expressions = "\nExpected expression: " + expected + "\nActual expression: " + actual;
+        String expressions = "\nExpected expression: " 
+            + expected.getExpressionText() 
+            + "\nActual expression: " 
+            + actual.getExpressionText();
         
         failNotEquals(message, expectedValue, actualValue, expressions);
     }

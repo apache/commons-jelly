@@ -104,7 +104,7 @@ public class BSFExpression extends ExpressionSupport {
     // Expression interface
     //------------------------------------------------------------------------- 
     public String getExpressionText() {
-        return text;
+        return "${" + text + "}";
     }
     
     public Object evaluate(JellyContext context) {

@@ -88,7 +88,7 @@ public class BeanShellExpression extends ExpressionSupport {
     // Expression interface
     //------------------------------------------------------------------------- 
     public String getExpressionText() {
-        return text;
+        return "${" + text + "}";
     }
     
     public Object evaluate(JellyContext context) {
