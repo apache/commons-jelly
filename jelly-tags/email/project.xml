@@ -54,6 +54,7 @@
       <url>http://java.sun.com/products/javamail/javamail-1_2.html</url>
       <properties>
         <gump.project>javamail</gump.project>
+        <gump.id>javamail</gump.id>
       </properties>
     </dependency>
     <!-- END for run time -->
