@@ -61,9 +61,9 @@
   <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:jakarta-commons/jelly</developerConnection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/${pom.artifactId.substring(8)}/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/jelly/trunk</url>
   </repository>
   <mailingLists>
     <mailingList>

@@ -44,9 +44,9 @@
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}/</distributionDirectory>
   
   <repository>
-    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}</connection>
-    <developerConnection>scm:cvs:ext:${maven.username}@cvs.apache.org:/home/cvs:jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}</developerConnection>
-    <url>http://cvs.apache.org/viewcvs/jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</developerConnection>
+    <url>http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</url>
   </repository>
   
   
