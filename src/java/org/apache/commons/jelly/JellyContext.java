@@ -325,6 +325,14 @@ public class JellyContext {
         return answer;
     }
 
+    /**
+     * A factory method to create a new child context of the
+     * current context.
+     */
+    public JellyContext newJellyContext() {
+        return createChildContext();
+    }
+
     /** Registers the given tag library against the given namespace URI.
      * This should be called before the parser is used.
      */
