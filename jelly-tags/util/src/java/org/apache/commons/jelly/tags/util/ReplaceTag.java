@@ -24,11 +24,13 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import org.apache.commons.lang.StringUtils;
+
 import org.xml.sax.SAXException;
 
 /**
- * A tag that replaces occurrences of a character in its body (or value)
- * and places the result into the context
+ * A tag that replaces occurrences of a character or string in its body or
+ * (or value) and places the result into the context
  * 
  * @author dion
  */
@@ -47,18 +49,33 @@ public class ReplaceTag extends TagSupport {
     
     /** the new character that will replace the old */
     private String newChar;
+
+    /** the old string to be replace */
+    private String oldString;
+
+    /** the new string that will replace the old */
+    private String newString;
     
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         // check required properties
-        if (oldChar == null) {
-            throw new MissingAttributeException("oldChar must be provided");
+        if (oldChar != null) {
+            oldString = oldChar.substring(0,1);
         }
-        if (newChar == null) {
-            throw new MissingAttributeException("newChar must be provided");
+
+        if (newChar != null) {
+            newString = newChar.substring(0,1);
         }
-        
+
+        if (oldString == null) {
+            throw new MissingAttributeException("oldChar or oldString must be provided");
+        }
+
+        if (newString == null) {
+            throw new MissingAttributeException("newChar or newString must be provided");
+        }
+
         // get either the value or the body of the tag
         Object answer = null;
         if ( value != null ) {
@@ -69,8 +86,7 @@ public class ReplaceTag extends TagSupport {
         
         // set the result in the context, or output it
         if (answer != null) {
-            String stringAnswer = answer.toString().replace(oldChar.charAt(0),
-                newChar.charAt(0));
+            String stringAnswer = StringUtils.replace(answer.toString(), oldString, newString);
             if ( var != null ) {
                 context.setVariable(var, stringAnswer);
             } else {
@@ -101,6 +117,24 @@ public class ReplaceTag extends TagSupport {
     public String getOldChar()
     {
         return oldChar;
+    }
+
+    /**
+     * Returns the newString that will be replaced.
+     * @return String
+     */
+    public String getNew()
+    {
+        return newString;
+    }
+
+    /**
+     * Returns the oldString that will be replaced.
+     * @return String
+     */
+    public String getOld()
+    {
+        return oldString;
     }
 
     /**
@@ -137,6 +171,24 @@ public class ReplaceTag extends TagSupport {
     public void setOldChar(String oldChar)
     {
         this.oldChar = oldChar;
+    }
+
+    /**
+     * Sets the newString.
+     * @param newString The newString to set
+     */
+    public void setNew(String newString)
+    {
+        this.newString = newString;
+    }
+
+    /**
+     * Sets the oldString.
+     * @param oldString The oldString to set
+     */
+    public void setOld(String oldString)
+    {
+        this.oldString = oldString;
     }
 
     /**

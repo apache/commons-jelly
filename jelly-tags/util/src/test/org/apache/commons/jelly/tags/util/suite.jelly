@@ -113,6 +113,18 @@
       Should have replaced a slash with a back slash from a variable
       and placed the result into a variable
     </test:assertEquals>
+
+    <util:replace oldChar="ABC" newChar="123" value="CBABC" var="testString4" />
+    <test:assertEquals expected="CB1BC" actual="${testString4}">
+      Should have only substituted the 1 for the A, since the
+      old/newChar attributes were used.
+    </test:assertEquals>
+
+    <util:replace old="brown" new="black" value="The quick brown fox" var="testString6" />
+    <test:assertEquals expected="The quick black fox" actual="${testString6}">
+        Should have substituted the string "black" for "brown"
+    </test:assertEquals>
+
   </test:case>
 
   <test:case name="testProperties">
