@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.Parser;
@@ -44,7 +43,7 @@ import org.apache.commons.jelly.XMLOutput;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Morgan Delagrange
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public class CommandLineParser {
 
