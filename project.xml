@@ -322,12 +322,6 @@
       <version>1.2-b3</version>
     </dependency>
 
-  <!-- bsf taglib -->
-    <dependency>
-      <id>bsf</id>
-      <version>2.2</version>
-    </dependency>
-
   </dependencies>
   
   <build>
