@@ -137,7 +137,14 @@ public class StaticTagScript extends TagScript {
                 String name = (String) entry.getKey();
                 Expression expression = (Expression) entry.getValue();
     
-                Object value = expression.evaluate(context);
+                Object value = null;
+
+                if ( Expression.class.isAssignableFrom( dynaTag.getAttributeType(name) ) ) {
+                    value = expression;
+                } else {
+                    value = expression.evaluate(context);
+                }
+
                 dynaTag.setAttribute(name, value);
             }
         
