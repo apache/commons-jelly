@@ -16,8 +16,8 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-avalon</id>
-  <name>commons-jelly-avalon</name>
+  <id>commons-jelly-tags-avalon</id>
+  <name>commons-jelly-tags-avalon</name>
   <package>org.apache.commons.jelly.avalon</package>
 
   <description>
