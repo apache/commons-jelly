@@ -254,7 +254,7 @@
     </antcall>
   </target>
 
-  <target name="jar-log" depends="jar-jelly">
+  <target name="jar-log" depends="jar-jelly,jar-junit">
     <antcall target="taglib-template">
       <param name="sub.taglib" value="log"/>
     </antcall>
