@@ -62,6 +62,7 @@
         	in a Jelly tag library
 		</li>
         <li>Develop a http tag library, probably based on commons-httpclient, that can be used for scripting web services</li>
+        <li>A Betwixt tag library to make it easy to serialize beans to and from XML from within Jelly scripts.</li>
         <li>An XML validating tag library using MSV to validate XML against DTDs, RelaxNG, XML Schema etc</li>
         <li>Implement a Schematron tag library for validing XML using a path based approach, rather than schema based.</li>
 		<li>Add JUnit tag library along these lines...
