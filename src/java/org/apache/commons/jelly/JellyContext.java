@@ -58,13 +58,13 @@ public class JellyContext {
     private JellyContext parent;
 
     /** Default for inheritance of variables **/
-    private static boolean DEFAULT_INHERIT = true;
+    private static final boolean DEFAULT_INHERIT = true;
 
     /** Do we inherit variables from parent context? */
     private boolean inherit = JellyContext.DEFAULT_INHERIT;
 
     /** Default for export of variables **/
-    private static boolean DEFAULT_EXPORT = false;
+    private static final boolean DEFAULT_EXPORT = false;
 
     /** Do we export our variables to parent context? */
     private boolean export  = JellyContext.DEFAULT_EXPORT;

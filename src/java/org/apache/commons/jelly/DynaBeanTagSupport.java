@@ -1,6 +1,6 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,7 +31,7 @@ import org.apache.commons.beanutils.DynaProperty;
 
 public abstract class DynaBeanTagSupport extends DynaTagSupport {
 
-    /** the DynaBean which is used to store the attributes of this tag */
+    /** the DynaBean which is used to store the attributes of this tag. */
     private DynaBean dynaBean;
 
     public DynaBeanTagSupport() {
@@ -41,7 +41,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
         this.dynaBean = dynaBean;
     }
      
-    /** Sets the context in which the tag will be run */
+    /** Sets the context in which the tag will be run. */
     public void setContext(JellyContext context) throws JellyTagException {
         this.context = context;
         beforeSetAttributes();
