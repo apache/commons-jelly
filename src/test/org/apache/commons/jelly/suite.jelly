@@ -329,14 +329,11 @@
     <test:assertTrue test="${test1 == null}"/> 
 
   </test:case>
-	
-	
-	
-	
-	<!-- tests wether the mute tag indeed outputs nothing -->
-	<test:case name="testMuteTag">
-		<j:set var="shouldBeNothing"><j:mute>blop</j:mute></j:set>
-		<test:assertEquals expected="" actual="${shouldBeNothing}"/>
-		</test:case>
+
+  <!-- tests whether the mute tag indeed outputs nothing -->
+  <test:case name="testMuteTag">
+    <j:set var="shouldBeNothing"><j:mute>blop</j:mute></j:set>
+    <test:assertEquals expected="" actual="${shouldBeNothing}"/>
+  </test:case>
     
 </test:suite>
