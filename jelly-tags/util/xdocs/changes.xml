@@ -24,6 +24,8 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+    <release version="1.1-SNAPSHOT" date="in CVS">
+    </release>
     <release version="1.0" date="2004-09-10">
       <action dev="dion" type="fix" issue="JELLY-77" due-to="Paul O'Fallon">Update jelly:util replace tag to replace entire strings</action>
     </release>
