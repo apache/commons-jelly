@@ -112,6 +112,18 @@
       ignoreFailures="false"/>
   </goal>
 
+  <!-- Do the same goal on all Tag Libs -->
+  <goal 
+    name="tags-do"
+    description="Do a specific goal on each taglib">
+
+    <maven:reactor
+      basedir="jelly-tags"
+      includes="*/project.xml"
+      goals="${goal}"
+      banner="Building tag"
+      ignoreFailures="false"/>
+  </goal>
 
   <!-- ===================================================================== -->
   <!--                      D I S T : I N S T A L L                          -->
