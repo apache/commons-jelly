@@ -124,7 +124,7 @@
         
         <sysproperty key="basedir" value="."></sysproperty>
         <formatter type="xml"></formatter>
-        <formatter usefile="true" type="plain"></formatter>
+        <formatter usefile="false" type="plain"></formatter>
         <classpath>
           <fileset dir="lib">
             <include name="*.jar"></include>
