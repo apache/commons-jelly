@@ -48,7 +48,7 @@
     
     <dependency>
       <id>dom4j</id>
-      <version>20040902.021138</version>
+      <version>1.5</version>
     </dependency>
 
     <dependency>
