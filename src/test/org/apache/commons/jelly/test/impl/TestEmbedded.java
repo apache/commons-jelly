@@ -17,8 +17,13 @@ package org.apache.commons.jelly.test.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
 
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.Embedded;
+import org.xml.sax.InputSource;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -93,8 +98,27 @@ public class TestEmbedded extends TestCase
         boolean status = embedded.execute();
         //executed properly without script errors
         assertEquals(status, true);
-        //check that the output  confirms the exepected
+        //check that the output confirms the expected
         assertEquals("jelly-test-case", new String(baos.toByteArray()));
-
+    }
+    
+    /**
+     * Test simple 'raw' execution of a string. See JELLY-189.
+     */
+    public void testRawExecuteAsString() throws Exception
+    {
+        String message =
+            "<?xml version=\"1.0\"?>"
+                + " <j:jelly xmlns:j=\"jelly:core\">"
+                + "jelly-test-case"
+                + " </j:jelly>";
+       ByteArrayOutputStream output = new ByteArrayOutputStream();
+       XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
+       InputSource script = new InputSource( new StringReader(message.toString()) );
+       JellyContext context = new JellyContext();
+       context.runScript( script, xmlOutput);
+       output.close();
+       //check that the output confirms the expected
+       assertEquals("jelly-test-case", new String(output.toByteArray()));
     }
 }

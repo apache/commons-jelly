@@ -956,9 +956,14 @@ public class JellyContext {
      */
     protected URL getJellyContextURL(InputSource source) throws MalformedURLException {
         String text = source.getSystemId();
-        int idx = text.lastIndexOf('/');
-        text = text.substring(0, idx + 1);
-        return new URL(text);
+        if (text != null) {
+            int idx = text.lastIndexOf('/');
+            text = text.substring(0, idx + 1);
+            return new URL(text);
+        } else {
+            return null;
+        }
+        
     }
 
     /**
