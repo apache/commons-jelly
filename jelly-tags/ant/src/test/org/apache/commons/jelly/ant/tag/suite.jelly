@@ -2,7 +2,7 @@
 <test:suite 
 	xmlns:j="jelly:core" 
 	xmlns:test="jelly:junit" 
-	xmlns="jelly:jeez"
+	xmlns="jelly:ant"
 	xmlns:my="jelly:org.apache.commons.jelly.ant.tag.MyTagLibrary">
 
 	<test:case name="nestedClasspath">

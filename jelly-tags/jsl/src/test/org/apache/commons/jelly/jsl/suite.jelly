@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <test:suite xmlns:j="jelly:core" 
             xmlns:jsl="jelly:jsl"
-            xmlns:m="jelly:jeez"
+            xmlns:m="jelly:ant"
             xmlns:test="jelly:junit" 
             xmlns:u="jelly:util" 
             xmlns:x="jelly:xml"

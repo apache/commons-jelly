@@ -3,7 +3,7 @@
 	xmlns:j="jelly:core" 
 	xmlns:test="jelly:junit" 
 	xmlns:util="jelly:util" 
-	xmlns="jelly:jeez">
+	xmlns="jelly:ant">
 
   <j:set var="dir" value="target/test-classes/org/apache/commons/jelly/ant"/>
 
