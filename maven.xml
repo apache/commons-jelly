@@ -1,4 +1,4 @@
-<j:jelly xmlns:j="jelly:core">
+<project default="maven:jar" xmlns:j="jelly:core">
 
   <!-- runs the XML doclet -->	
   <goal name="xml-doclet" prereqs="maven:compile">
@@ -64,13 +64,11 @@
     name="deploy-site2" prereqs="doc-tags, deploy-site">
   </goal>
   
-<!--
   <preGoal
     name="site:generate">
 
 	<attainGoal name="doc-tags"/>
 	
   </preGoal>
--->  
           
-</j:jelly>
+</project>
