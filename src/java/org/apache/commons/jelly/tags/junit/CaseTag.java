@@ -1,5 +1,5 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/RunTestTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/CaseTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  * $Revision: 1.8 $
  * $Date: 2002/07/06 13:53:39 $
  *
@@ -57,87 +57,83 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: RunTestTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: CaseTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
-import junit.framework.Test;
-import junit.framework.TestResult;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
-import org.apache.commons.jelly.MissingAttributeException;
+
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
- * This tag will run the given Test which could be an individual TestCase or a TestSuite.
- * The TestResult can be specified to capture the output, otherwise the results are output
- * as XML so that they can be formatted in some custom manner.
+ * Represents a single test case in a test suite; this tag is analagous to
+ * JUnit's TestCase class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class RunTestTag extends TagSupport {
+public class CaseTag extends TagSupport {
 
-    private Test test;
-    private TestResult result;
+    private String name;
     
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        if ( test == null ) {
-            throw new MissingAttributeException( "test" );
+    public void doTag(final XMLOutput output) throws Exception {
+        String name = getName();
+        if ( name == null ) {
+            name = toString();
         }
-        TestResult result = getResult();
-        if ( result == null ) {
-            result = createResult(output);                    
+        
+        // #### we need to redirect the output to a TestListener
+        // or something?
+        TestCase testCase = new TestCase(name) {
+            protected void runTest() throws Throwable {
+                invokeBody(output);
+            }
+        };
+        
+        // lets find the test suite
+        TestSuite suite = getSuite();
+        if ( suite == null ) {
+            throw new JellyException( "Could not find a TestSuite to add this test to. This tag should be inside a <test:suite> tag" );
         }
-        test.run(result);
+        suite.addTest(testCase);
     }
     
     // Properties
     //-------------------------------------------------------------------------                
 
     /**
-     * Returns the TestResult used to capture the output of the test.
-     * @return TestResult
+     * @return the name of this test case
      */
-    public TestResult getResult() {
-        return result;
+    public String getName() {
+        return name;
     }
-
-    /**
-     * Returns the Test to be ran.
-     * @return Test
+    
+    /** 
+     * Sets the name of this test case
      */
-    public Test getTest() {
-        return test;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    /**
-     * Sets the JUnit TestResult used to capture the results of the tst
-     * @param result The TestResult to use
-     */
-    public void setResult(TestResult result) {
-        this.result = result;
-    }
-
-    /**
-     * Sets the JUnit Test to run which could be an individual test or a TestSuite
-     * @param test The test to run
-     */
-    public void setTest(Test test) {
-        this.test = test;
-    }
-
+    
     // Implementation methods
     //-------------------------------------------------------------------------                
 
     /**
-     * Factory method to create a new TestResult to capture the output of
-     * the test cases
+     * Strategy method to find the corrent TestSuite to add a new Test case to
      */
-    protected TestResult createResult(XMLOutput output) {
-        return new TestResult();
+    protected TestSuite getSuite() {
+        SuiteTag tag = (SuiteTag) findAncestorWithClass( SuiteTag.class );
+        if ( tag != null ) {
+            return tag.getSuite();
+        }
+        return (TestSuite) context.getVariable( "org.apache.commons.jelly.junit.suite" );
     }
+
 }

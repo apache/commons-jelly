@@ -90,9 +90,9 @@ public class JUnitTagLibrary extends TagLibrary {
         registerTag("assert", AssertTag.class);
         registerTag("assertEquals", AssertEqualsTag.class);
         registerTag("fail", FailTag.class);
-        registerTag("run", RunTestTag.class );
-        registerTag("case", TestCaseTag.class );
-        registerTag("suite", TestSuiteTag.class );
+        registerTag("run", RunTag.class );
+        registerTag("case", CaseTag.class );
+        registerTag("suite", SuiteTag.class );
     }
 
     public Expression createExpression(

@@ -1,5 +1,5 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/TestSuiteTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/RunTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  * $Revision: 1.8 $
  * $Date: 2002/07/06 13:53:39 $
  *
@@ -57,103 +57,87 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestSuiteTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: RunTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
 import junit.framework.Test;
-import junit.framework.TestSuite;
+import junit.framework.TestResult;
 
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
- * Represents a collection of TestCases.. This tag is analagous to
- * JUnit's TestSuite class.
+ * This tag will run the given Test which could be an individual TestCase or a TestSuite.
+ * The TestResult can be specified to capture the output, otherwise the results are output
+ * as XML so that they can be formatted in some custom manner.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class TestSuiteTag extends TagSupport {
+public class RunTag extends TagSupport {
 
-    /** the test suite this tag created */
-    private TestSuite suite;
+    private Test test;
+    private TestResult result;
     
-    /** the name of the variable of the test suite */
-    private String var;
-    
-    /** the name of the test suite to create */
-    private String name;
-
-    public TestSuiteTag() {
-    }
-    
-    /**
-     * Adds a new Test to this suite
-     */
-    public void addTest(Test test) {
-        getSuite().addTest(test);
-    }    
     
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        suite = createSuite();
-        
-        TestSuite parent = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");        
-        if ( parent == null ) {
-            context.setVariable("org.apache.commons.jelly.junit.suite", suite );
+        if ( test == null ) {
+            throw new MissingAttributeException( "test" );
         }
-        else {
-            parent.addTest( suite );
+        TestResult result = getResult();
+        if ( result == null ) {
+            result = createResult(output);                    
         }
-
-        invokeBody(output);
-        
-        if ( var != null ) {
-            context.setVariable(var, suite);
-        }            
+        test.run(result);
     }
     
     // Properties
     //-------------------------------------------------------------------------                
-    public TestSuite getSuite() {
-        return suite;
-    }
-    
+
     /**
-     * Sets the name of the test suite whichi is exported
+     * Returns the TestResult used to capture the output of the test.
+     * @return TestResult
      */
-    public void setVar(String var) {
-        this.var = var;
+    public TestResult getResult() {
+        return result;
     }
-    
+
     /**
-     * @return the name of this test suite
+     * Returns the Test to be ran.
+     * @return Test
      */
-    public String getName() {
-        return name;
+    public Test getTest() {
+        return test;
     }
-    
-    /** 
-     * Sets the name of this test suite
+
+    /**
+     * Sets the JUnit TestResult used to capture the results of the tst
+     * @param result The TestResult to use
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setResult(TestResult result) {
+        this.result = result;
     }
-    
+
+    /**
+     * Sets the JUnit Test to run which could be an individual test or a TestSuite
+     * @param test The test to run
+     */
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
     // Implementation methods
     //-------------------------------------------------------------------------                
-    
+
     /**
-     * Factory method to create a new TestSuite
+     * Factory method to create a new TestResult to capture the output of
+     * the test cases
      */
-    protected TestSuite createSuite() {
-        if ( name == null ) {
-            return new TestSuite();
-        }
-        else {
-            return new TestSuite(name);
-        }
+    protected TestResult createResult(XMLOutput output) {
+        return new TestResult();
     }
 }

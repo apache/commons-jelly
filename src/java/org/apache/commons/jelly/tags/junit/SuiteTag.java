@@ -1,5 +1,5 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/TestCaseTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/SuiteTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  * $Revision: 1.8 $
  * $Date: 2002/07/06 13:53:39 $
  *
@@ -57,66 +57,86 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCaseTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: SuiteTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
-import junit.framework.TestCase;
+import junit.framework.Test;
 import junit.framework.TestSuite;
 
-
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
- * Represents a single test case in a test suite; this tag is analagous to
- * JUnit's TestCase class.
+ * Represents a collection of TestCases.. This tag is analagous to
+ * JUnit's TestSuite class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class TestCaseTag extends TagSupport {
+public class SuiteTag extends TagSupport {
 
-    private String name;
+    /** the test suite this tag created */
+    private TestSuite suite;
     
+    /** the name of the variable of the test suite */
+    private String var;
+    
+    /** the name of the test suite to create */
+    private String name;
+
+    public SuiteTag() {
+    }
+    
+    /**
+     * Adds a new Test to this suite
+     */
+    public void addTest(Test test) {
+        getSuite().addTest(test);
+    }    
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(final XMLOutput output) throws Exception {
-        String name = getName();
-        if ( name == null ) {
-            name = toString();
-        }
+    public void doTag(XMLOutput output) throws Exception {
+        suite = createSuite();
         
-        // #### we need to redirect the output to a TestListener
-        // or something?
-        TestCase testCase = new TestCase(name) {
-            protected void runTest() throws Throwable {
-                invokeBody(output);
-            }
-        };
-        
-        // lets find the test suite
-        TestSuite suite = getSuite();
-        if ( suite == null ) {
-            throw new JellyException( "Could not find a TestSuite to add this test to. This tag should be inside a <test:suite> tag" );
+        TestSuite parent = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");        
+        if ( parent == null ) {
+            context.setVariable("org.apache.commons.jelly.junit.suite", suite );
         }
-        suite.addTest(testCase);
+        else {
+            parent.addTest( suite );
+        }
+
+        invokeBody(output);
+        
+        if ( var != null ) {
+            context.setVariable(var, suite);
+        }            
     }
     
     // Properties
     //-------------------------------------------------------------------------                
-
+    public TestSuite getSuite() {
+        return suite;
+    }
+    
     /**
-     * @return the name of this test case
+     * Sets the name of the test suite whichi is exported
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+    
+    /**
+     * @return the name of this test suite
      */
     public String getName() {
         return name;
     }
     
     /** 
-     * Sets the name of this test case
+     * Sets the name of this test suite
      */
     public void setName(String name) {
         this.name = name;
@@ -124,16 +144,16 @@ public class TestCaseTag extends TagSupport {
     
     // Implementation methods
     //-------------------------------------------------------------------------                
-
+    
     /**
-     * Strategy method to find the corrent TestSuite to add a new Test case to
+     * Factory method to create a new TestSuite
      */
-    protected TestSuite getSuite() {
-        TestSuiteTag tag = (TestSuiteTag) findAncestorWithClass( TestSuiteTag.class );
-        if ( tag != null ) {
-            return tag.getSuite();
+    protected TestSuite createSuite() {
+        if ( name == null ) {
+            return new TestSuite();
         }
-        return (TestSuite) context.getVariable( "org.apache.commons.jelly.junit.suite" );
+        else {
+            return new TestSuite(name);
+        }
     }
-
 }
