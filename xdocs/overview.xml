@@ -129,7 +129,7 @@ comparison anyways.</p>
 
 <p>Differences</p>
 <ul>
-  <li>Jelly provides an extensible tag mechanism to provide more poweful 
+  <li>Jelly provides an extensible tag mechanism to provide more powerful 
   scripting such as by supporting JSTL, XML, XPath, XSLT, SQL or SOAP service 
   scripting. In essence, Jelly uses XML tags to denote 'directives'.</li>
   <li>Jelly has integrated support for other scripting languages such as 
@@ -144,7 +144,7 @@ comparison anyways.</p>
 <p>
 Ant is a truly awesome build system which has always resisted 'scripting'. 
 Jelly has never tried to be a build system but instead has just focussed on 'scripting'.
-However Jelly is alot like Ant in many ways. 
+However Jelly is a lot like Ant in many ways. 
 </p>
 <p>
 The two can work hand in hand together very nicely. 
@@ -162,13 +162,13 @@ access Ant properties and use all other Jelly tags such as for logic, looping, w
 <p>Differences</p>
 <ul>
   <li>Jelly has full support for pluggable expression languages. The default expression language is a superset of the one
-  	used in JSP, JSTL and JSF which supports conditional expresssions, navigating bean properties, 
+  	used in JSP, JSTL and JSF which supports conditional expressions, navigating bean properties, 
   	and working with Maps, Collections, Lists, arrays etc. 
   	Jexl is the current implementation which adds some Velocity-like enhancements like method calls on beans etc.
-  	Jelly supports other expression and scripting languages like Velocity, beanshell, JavaScript, Jython, pnuts, BSF etc in seperate tag libraries
+  	Jelly supports other expression and scripting languages like Velocity, beanshell, JavaScript, Jython, pnuts, BSF etc in separate tag libraries
   </li>
-  <li>Jelly has native XML support. Jelly can parse XML and process it using XPath expresssions (via the JSTL tags). 
-  	Also Jelly supports a declarative model of processing XML (via the JSL tags) which is simillar to XSLT 
+  <li>Jelly has native XML support. Jelly can parse XML and process it using XPath expressions (via the JSTL tags). 
+  	Also Jelly supports a declarative model of processing XML (via the JSL tags) which is similar to XSLT 
   	but can use Jelly tags, beans and Ant tasks inside the XML template in a similar way to DVSL.</li>
   <li>
   	Jelly has a much more powerful collaboration mechanism for passing information between tags/tasks. 

@@ -57,8 +57,8 @@ is the JSP Standard Tag Library which is being standardized through the JCP proc
 </p>
 
 <p>
-Jelly implements a collection of JSTL tags to peform core features like 
-evalute expressions, conditional branching and looping, as well the processing of beans, XML, XPath and SQL. 
+Jelly implements a collection of JSTL tags to perform core features like 
+expression evaluation, conditional branching and looping, as well the processing of beans, XML, XPath and SQL. 
 </p>
 
 <p>
@@ -73,8 +73,8 @@ embedded into SOAP services, Servlet engines, JMS MessageListeners or your own s
 There is a JellyTask for calling Jelly from 
 <a href="http://jakarta.apache.org/ant/">Ant</a> 
 as well as a Jelly tag library for using any Ant Tasks inside a Jelly script!
-Jelly's support for the Expresssion Language in JSTL, which looks very like Ant's 
-own expresssion language (but much more poweful), means that Ant properties can be used inside Jelly scripts seamlessly.
+Jelly's support for the Expression Language in JSTL, which looks very like Ant's 
+own expression language (but much more powerful), means that Ant properties can be used inside Jelly scripts seamlessly.
 </p>
 
 <p>
@@ -94,7 +94,7 @@ runtime parsing.
 
 <p>
 In addition there is a tag library called the Jelly Stylesheet Library (JSL) for
-performing XSLT-style declarative processsing of XML documents using a pattern match approach.
+performing XSLT-style declarative processing of XML documents using a pattern match approach.
 </p>
 
 <p>
