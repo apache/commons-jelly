@@ -37,7 +37,7 @@ import java.util.Collections;
   * used from the other xml library functions.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class SetTag extends XPathTagSupport {
 
@@ -53,7 +53,7 @@ public class SetTag extends XPathTagSupport {
     /** Xpath comparator for sorting */
     private XPathComparator xpCmp = null;
 
-    private boolean single=false;
+    private Boolean single=null;
 
     public SetTag() {
 
@@ -72,7 +72,11 @@ public class SetTag extends XPathTagSupport {
         Object xpathContext = getXPathContext();
         Object value = null;
         try {
-            value = select.evaluate(xpathContext);
+			if(single!=null && single.booleanValue()==true) {
+				value = select.selectSingleNode(xpathContext);
+			} else {
+				value = select.evaluate(xpathContext);
+			}
         }
         catch (JaxenException e) {
             throw new JellyTagException(e);
@@ -84,16 +88,27 @@ public class SetTag extends XPathTagSupport {
                 Collections.sort((List)value, xpCmp);
             }
         }
-        if (single==true) {
-            if(value instanceof List) {
-                List l = (List) value;
-                if (l.size()==0)
-                    value=null;
-                else
-                    value=l.get(0);
-            }
+        if (single!=null) {
+			if (single.booleanValue()==true) {
+				if(value instanceof List) {
+					List l = (List) value;
+					if (l.size()==0)
+						value=null;
+					else
+						value=l.get(0);
+				}
+			} else { // single == false
+				if(! (value instanceof List) ) {
+					if (value==null) {
+						l = new java.util.ArrayList(0)
+					} else {
+						List l = new java.util.ArrayList(1);
+						l.add(value);
+					}
+					value = l;
+				}
+			}
         }
-
 
         //log.info( "Evaluated xpath: " + select + " as: " + value + " of type: " + value.getClass().getName() );
 
@@ -115,17 +130,19 @@ public class SetTag extends XPathTagSupport {
     }
 
     /** If set to true will only take the first element matching.
+		If set to false, guarantees that a list is returned.
         It then guarantees that the result is of type
         {@link org.dom4j.Node} thereby making sure that, for example,
         when an element is selected, one can directly call such methods
         as setAttribute.
         */
     public void setSingle(boolean single) {
-        this.single = single;
+        this.single = new Boolean(single);
     }
 
 
     /** Sets the xpath expression to use to sort selected nodes.
+	 *  Ignored if single is true.
      */
     public void setSort(XPath sortXPath) throws JaxenException {
         if (xpCmp == null) xpCmp = new XPathComparator();

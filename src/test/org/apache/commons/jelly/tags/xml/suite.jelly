@@ -287,14 +287,19 @@
         <x:parse var="blopElements">
             <root>
             <blop>blop1</blop>
+						<blip/>
             <blop>blop0</blop></root>
         </x:parse>
-        <x:set var="blopSingle" select="$blopElements/root/blop" sort="text()" single="true"/>
+        <x:set var="blopSingle" select="$blopElements/root/blop" single="true"/>
         <!-- should return the second -->
         <j:invokeStatic var="eltClass" className="java.lang.Class" method="forName"><j:arg value="org.dom4j.Element"/></j:invokeStatic>
         <test:assert test="${eltClass.isAssignableFrom(blopSingle.getClass())}"/>
         <j:set var="blopSingleText"><x:expr select="$blopSingle/text()"/></j:set>
-        <test:assertEquals actual="${blopSingleText}" expected="blop0"/>
+        <test:assertEquals actual="${blopSingleText}" expected="blop1"/>
+				<!-- check if selecting root/blip returns a list -->
+				<x:set var="blip" select="$blopElements/root/blip" single="false"/>
+        <j:invokeStatic var="listClass" className="java.lang.Class" method="forName"><j:arg value="java.util.List"/></j:invokeStatic>
+				<test:assert test="${listClass.isAssignableFrom(blip.getClass())}"/>
   </test:case>
    
   <test:case name="testEntities">
