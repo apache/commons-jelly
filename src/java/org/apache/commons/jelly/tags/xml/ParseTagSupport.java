@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParseTagSupport.java,v 1.2 2003/01/22 10:56:27 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/22 10:56:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParseTagSupport.java,v 1.3 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ParseTagSupport.java,v 1.2 2003/01/22 10:56:27 jstrachan Exp $
+ * $Id: ParseTagSupport.java,v 1.3 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -65,21 +65,25 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.io.SAXContentHandler;
 import org.dom4j.io.SAXReader;
+import org.xml.sax.SAXException;
 
 /** 
  * An abstract base class for any tag which parsers its body as XML.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public abstract class ParseTagSupport extends TagSupport {
 
@@ -131,7 +135,7 @@ public abstract class ParseTagSupport extends TagSupport {
 
     
     /** @return the SAXReader used for parsing, creating one lazily if need be  */
-    public SAXReader getSAXReader() throws Exception {
+    public SAXReader getSAXReader() throws SAXException {
         if (saxReader == null) {
             saxReader = createSAXReader();
         }
@@ -150,62 +154,88 @@ public abstract class ParseTagSupport extends TagSupport {
     /**
      * Factory method to create a new SAXReader
      */    
-    protected abstract SAXReader createSAXReader() throws Exception;
+    protected abstract SAXReader createSAXReader() throws SAXException;
     
     
     /**
      * Parses the body of this tag and returns the parsed document
      */
-    protected Document parseBody(XMLOutput output) throws Exception {
+    protected Document parseBody(XMLOutput output) throws JellyTagException {
         SAXContentHandler handler = new SAXContentHandler();
         XMLOutput newOutput = new XMLOutput(handler);
-        handler.startDocument();
-        invokeBody( newOutput);
-        handler.endDocument();
-        return handler.getDocument();
+        
+        try {
+            handler.startDocument();
+            invokeBody( newOutput);
+            handler.endDocument();
+            return handler.getDocument();
+        } catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     /**
      * Parses the give piece of text as being markup
      */
-    protected Document parseText(String text) throws Exception {
+    protected Document parseText(String text) throws JellyTagException {
         if ( log.isDebugEnabled() ) {
             log.debug( "About to parse: " + text );
         }
-        return getSAXReader().read( new StringReader( text ) );
+        
+        try {
+            return getSAXReader().read( new StringReader( text ) );
+        } 
+        catch (DocumentException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
     }
 
     /**
      * Parses the given source
      */    
-    protected Document parse(Object source) throws Exception {
+    protected Document parse(Object source) throws JellyTagException {
         // #### we should allow parsing to output XML events to
         // the output if no var is specified
         
-        if (source instanceof String) {
-            String uri = (String) source;
-            source = context.getResource(uri);
-        }
         
-        if (source instanceof URL) {
-            return getSAXReader().read((URL) source);
-        }
-        else if (source instanceof File) {
-            return getSAXReader().read((File) source);
-        }
-        else if (source instanceof Reader) {
-            return getSAXReader().read((Reader) source);
-        }
-        else if (source instanceof InputStream) {
-            return getSAXReader().read((InputStream) source);
-        }
-        else {
-            throw new IllegalArgumentException(
-                "Invalid source argument. Must be a String, Reader, InputStream or URL."
-                    + " Was type; "
-                    + source.getClass().getName()
-                    + " with value: "
-                    + source);
+        try {
+            if (source instanceof String) {
+                String uri = (String) source;
+                source = context.getResource(uri);
+            }
+            
+            if (source instanceof URL) {
+                return getSAXReader().read((URL) source);
+            }
+            else if (source instanceof File) {
+                return getSAXReader().read((File) source);
+            }
+            else if (source instanceof Reader) {
+                return getSAXReader().read((Reader) source);
+            }
+            else if (source instanceof InputStream) {
+                return getSAXReader().read((InputStream) source);
+            }
+            else {
+                throw new IllegalArgumentException(
+                    "Invalid source argument. Must be a String, Reader, InputStream or URL."
+                        + " Was type; "
+                        + source.getClass().getName()
+                        + " with value: "
+                        + source);
+            }
+        } 
+        catch (DocumentException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (MalformedURLException e) {
+            throw new JellyTagException(e);
         }
     }
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/CommentTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/CommentTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,19 +57,22 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CommentTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: CommentTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
+
+import org.xml.sax.SAXException;
 
 /** 
  * A tag which outputs a comment to the underlying XMLOutput based on the
  * contents of its body.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class CommentTag extends XPathTagSupport {
 
@@ -80,13 +83,17 @@ public class CommentTag extends XPathTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         String text = getText();
         if (text == null) {
             text = getBodyText(false);
         }
         char[] ch = text.toCharArray();
-        output.comment(ch, 0, ch.length);
+        try {
+            output.comment(ch, 0, ch.length);
+        } catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
     }
 
     // Properties

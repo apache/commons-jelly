@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/CopyTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/CopyTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,15 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: CopyTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: CopyTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
 import org.dom4j.Element;
 import org.dom4j.io.SAXWriter;
+import org.jaxen.JaxenException;
 import org.jaxen.XPath;
+import org.xml.sax.SAXException;
 
 /** 
  * A tag which performs a copy operation like the XSLT tag, 
@@ -83,26 +86,34 @@ public class CopyTag extends XPathTagSupport {
 
     // Tag interface
     //------------------------------------------------------------------------- 
-	public void doTag(XMLOutput output) throws Exception {
+	public void doTag(XMLOutput output) throws JellyTagException {
 		Object xpathContext = getXPathContext();
 
         Object node = xpathContext;
         
-		if (select != null) {
-            node = select.selectSingleNode(xpathContext);
-		}
+        try {
+		    if (select != null) {
+                node = select.selectSingleNode(xpathContext);
+		    }
 
-        if ( node instanceof Element ) {
-            Element element = (Element) node;
+            if ( node instanceof Element ) {
+                Element element = (Element) node;
             
-            SAXWriter saxWriter = new SAXWriter(output, output);
+                SAXWriter saxWriter = new SAXWriter(output, output);
             
-            saxWriter.writeOpen(element);
-            invokeBody(output);
-            saxWriter.writeClose(element);
+                saxWriter.writeOpen(element);
+                invokeBody(output);
+                saxWriter.writeClose(element);
+            }
+            else {
+                invokeBody(output);
+            }
+        } 
+        catch (SAXException e) {
+            throw new JellyTagException(e);
         }
-        else {
-            invokeBody(output);
+        catch (JaxenException e) {
+            throw new JellyTagException(e);
         }
     }
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/SetTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/SetTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,10 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SetTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: SetTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathComparator;
@@ -78,7 +79,7 @@ import java.util.Collections;
 /** A tag which defines a variable from an XPath expression 
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class SetTag extends XPathTagSupport {
 
@@ -100,7 +101,7 @@ public class SetTag extends XPathTagSupport {
     
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException( "var" );
         }
@@ -109,7 +110,13 @@ public class SetTag extends XPathTagSupport {
         }
         
         Object xpathContext = getXPathContext();        
-        Object value = select.evaluate(xpathContext);
+        Object value = null;
+        try { 
+            value = select.evaluate(xpathContext);
+        } 
+        catch (JaxenException e) {
+            throw new JellyTagException(e);
+        }
 
         if (value instanceof List) {
             // sort the list if xpCmp is set.

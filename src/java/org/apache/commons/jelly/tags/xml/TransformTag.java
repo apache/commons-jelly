@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/TransformTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/TransformTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TransformTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: TransformTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -74,6 +74,7 @@ import java.util.List;
 
 import javax.xml.transform.Result;
 import javax.xml.transform.Source;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
@@ -83,6 +84,9 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
@@ -115,7 +119,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
   * xslt property which can be a Reader, InputStream, URL or String URI.
   *
   * @author Robert Leftwich
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class TransformTag extends ParseTag {
 
@@ -152,41 +156,55 @@ public class TransformTag extends ParseTag {
      * @param output The pipeline for xml events
      * @throws Exception - when required attributes are missing
      */
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (null == this.getXslt()) {
-            throw new IllegalArgumentException("The xslt attribute cannot be null");
+            throw new MissingAttributeException("The xslt attribute cannot be null");
         }
 
         // set a resolver to locate uri
         this.tf.setURIResolver(createURIResolver());
-        this.transformerHandler =
-            this.tf.newTransformerHandler(this.getObjAsSAXSource(this.getXslt()));
+        
+        try {
+            this.transformerHandler =
+                this.tf.newTransformerHandler(this.getObjAsSAXSource(this.getXslt()));
+        } 
+        catch (TransformerConfigurationException e) {
+            throw new JellyTagException(e);
+        }
 
         // run any nested param tags
         this.doNestedParamTag(output);
 
-        // get a reader to provide SAX events to transformer
-        XMLReader xmlReader = this.createXMLReader();
-        xmlReader.setContentHandler(this.transformerHandler);
-        xmlReader.setProperty(LEXICAL_HANDLER_PROPERTY, this.transformerHandler);
+        try {
+            // get a reader to provide SAX events to transformer
+            XMLReader xmlReader = this.createXMLReader();
+            xmlReader.setContentHandler(this.transformerHandler);
+            xmlReader.setProperty(LEXICAL_HANDLER_PROPERTY, this.transformerHandler);
 
-        // handle result differently, depending on if var is specified
-        String varName = this.getVar();
-        if (null == varName) {
-            // pass the result of the transform out as SAX events
-            this.transformerHandler.setResult(this.createSAXResult(output));
-            xmlReader.parse(this.getXMLInputSource());
-        }
-        else {
-            // pass the result of the transform out as a document
-            DocumentResult result = new DocumentResult();
-            this.transformerHandler.setResult(result);
-            xmlReader.parse(this.getXMLInputSource());
+            // handle result differently, depending on if var is specified
+            String varName = this.getVar();
+            if (null == varName) {
+                // pass the result of the transform out as SAX events
+                this.transformerHandler.setResult(this.createSAXResult(output));
+                xmlReader.parse(this.getXMLInputSource());
+            }
+            else {
+                // pass the result of the transform out as a document
+                DocumentResult result = new DocumentResult();
+                this.transformerHandler.setResult(result);
+                xmlReader.parse(this.getXMLInputSource());
 
-            // output the result as a variable
-            Document transformedDoc = result.getDocument();
-            this.context.setVariable(varName, transformedDoc);
+                // output the result as a variable
+                Document transformedDoc = result.getDocument();
+                this.context.setVariable(varName, transformedDoc);
+            }
+        } 
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        } 
+        catch (IOException e) {
+            throw new JellyTagException(e);
         }
 
     }
@@ -314,8 +332,7 @@ public class TransformTag extends ParseTag {
      *
      * @return SAXSource from the source object or null
      */
-    protected SAXSource getObjAsSAXSource(Object saxSourceObj)
-    throws Exception {
+    protected SAXSource getObjAsSAXSource(Object saxSourceObj) {
         SAXSource saxSource = null;
         if (null != saxSourceObj) {
             if (saxSourceObj instanceof Document) {
@@ -383,7 +400,7 @@ public class TransformTag extends ParseTag {
      *
     * @param output The destination for any SAX output (not actually used)
      */
-    private void doNestedParamTag(XMLOutput output) throws Exception {
+    private void doNestedParamTag(XMLOutput output) throws JellyTagException {
         // find any nested param tags and run them
         Script bodyScript = this.getBody();
         if (bodyScript instanceof ScriptBlock) {
@@ -392,10 +409,18 @@ public class TransformTag extends ParseTag {
             for (Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
                 Script script = (Script) iter.next();
                 if (script instanceof TagScript) {
-                    Tag tag = ((TagScript) script).getTag();
+                    
+                    Tag tag = null;
+                    try {
+                        tag = ((TagScript) script).getTag();
+                    } catch (JellyException e) {
+                        throw new JellyTagException(e);
+                    }
+                    
                     if (tag instanceof ParamTag) {
                         script.run(context, output);
                     }
+                    
 
                 }
             }
@@ -406,7 +431,7 @@ public class TransformTag extends ParseTag {
       * to hide the details of where the input for the transform is obtained
       *
       * @author <a href="mailto:robert@leftwich.info">Robert Leftwich</a>
-      * @version $Revision: 1.1 $
+      * @version $Revision: 1.2 $
       */
     private class TagBodyXMLReader implements XMLReader {
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ElementTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ElementTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,11 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ElementTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: ElementTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.xml.sax.Attributes;
@@ -72,7 +72,7 @@ import org.xml.sax.helpers.AttributesImpl;
   * or elements like the <code>&lt;xsl:element&gt;</code> tag.
   *
   * @author James Strachan
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ElementTag extends TagSupport {
     
@@ -93,12 +93,16 @@ public class ElementTag extends TagSupport {
 
 	/**
 	 * Sets the attribute of the given name to the specified value.
-	 * 	 * @param name of the attribute	 * @param value of the attribute	 * @throws JellyException if the start element has already been output. 
+	 * 
+	 * @param name of the attribute
+	 * @param value of the attribute
+	 * @throws JellyException if the start element has already been output. 
 	 *   Attributes must be set on the outer element before any content 
-	 *   (child elements or text) is output	 */
-    public void setAttributeValue( String name, String value ) throws JellyException {
+	 *   (child elements or text) is output
+	 */
+    public void setAttributeValue( String name, String value ) throws JellyTagException {
     	if (outputAttributes) {
-    		throw new JellyException(
+    		throw new JellyTagException(
 				"Cannot set the value of attribute: " 
     			+ name + " as we have already output the startElement() SAX event"
 			);
@@ -119,7 +123,7 @@ public class ElementTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------                    
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         int idx = name.indexOf(':');
         final String localName = (idx >= 0) 
         	? name.substring(idx + 1)
@@ -165,7 +169,8 @@ public class ElementTag extends TagSupport {
 		
         	/** 
         	 * Ensure that the outer start element is generated 
-        	 * before any content is output        	 */ 
+        	 * before any content is output
+        	 */ 
         	protected void initialize() throws SAXException {
         		if (!outputAttributes) {
 			        super.startElement(namespace, localName, name, attributes);
@@ -176,13 +181,17 @@ public class ElementTag extends TagSupport {
         
         invokeBody(newOutput);
         
-        if (!outputAttributes) {
-	        output.startElement(namespace, localName, name, attributes);
-	        outputAttributes = true;
-        }
+        try {
+            if (!outputAttributes) {
+	            output.startElement(namespace, localName, name, attributes);
+	            outputAttributes = true;
+            }
         
-        output.endElement(namespace, localName, name);
-        attributes.clear();
+            output.endElement(namespace, localName, name);
+            attributes.clear();
+        } catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
     }
     
     // Properties

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParamTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/ParamTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,18 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: ParamTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: ParamTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** Sets a parameter in the parent transform tag
   *
   * @author Robert Leftwich
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class ParamTag extends TagSupport {
 
@@ -84,10 +84,10 @@ public class ParamTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws JellyTagException {
         TransformTag tag = (TransformTag) this.findAncestorWithClass( TransformTag.class );
         if ( tag == null ) {
-            throw new JellyException( "<param> tag must be enclosed inside a <transform> tag" );
+            throw new JellyTagException( "<param> tag must be enclosed inside a <transform> tag" );
         }
         Object value = this.getValue();
         if (value == null) { 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/SortTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/15 23:56:45 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/xml/src/java/org/apache/commons/jelly/tags/xml/SortTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/26 03:45:09 $
  *
  * ====================================================================
  *
@@ -57,11 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: SortTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+ * $Id: SortTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
  */
 
 package org.apache.commons.jelly.tags.xml;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.xpath.XPathComparator;
@@ -75,7 +76,7 @@ import java.util.Collections;
 /** A tag that can sort a list of xml nodes via an xpath expression.
   *
   * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
-  * @version $Id: SortTag.java,v 1.1 2003/01/15 23:56:45 dion Exp $
+  * @version $Id: SortTag.java,v 1.2 2003/01/26 03:45:09 morgand Exp $
   */
 
 public class SortTag extends XPathTagSupport {
@@ -86,7 +87,7 @@ public class SortTag extends XPathTagSupport {
     /** Xpath comparator for sorting */
     private XPathComparator xpCmp = null;
 
-    public void doTag(XMLOutput output) throws Exception {
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (xpCmp == null) {
             throw new MissingAttributeException( "xpCmp" );
         }
