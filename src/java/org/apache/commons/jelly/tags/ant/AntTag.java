@@ -312,6 +312,14 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
     }
 
+    public void setAttribute(String name,
+                             Object value) 
+    {
+        super.setAttribute( name,
+                            value.toString() );
+                            
+    }
+
     public void setBeanProperty(Object object, String name, Object value) throws Exception {
         if ( log.isDebugEnabled() ) {
             log.debug( "Setting bean property on: "+  object + " name: " + name + " value: " + value );
