@@ -21,7 +21,7 @@
   <echo message="Invoking the echo task from inside Jelly; the Maven repository is ${lib.repo}"/>          
 
   <echo>
-  	Maven home is ${maven.home}
+      Maven home is ${maven.home}
   </echo>
 
   <!-- lets try invoke a program -->
