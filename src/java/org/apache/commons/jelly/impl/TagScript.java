@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.29 2002/11/28 08:35:48 jstrachan Exp $
- * $Revision: 1.29 $
- * $Date: 2002/11/28 08:35:48 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.30 2002/12/16 10:46:42 jstrachan Exp $
+ * $Revision: 1.30 $
+ * $Date: 2002/12/16 10:46:42 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.29 2002/11/28 08:35:48 jstrachan Exp $
+ * $Id: TagScript.java,v 1.30 2002/12/16 10:46:42 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -96,7 +96,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.29 $
+ * @version $Revision: 1.30 $
  */
 public class TagScript implements Script {
 
@@ -281,6 +281,9 @@ public class TagScript implements Script {
             handleException(e);
         }
         catch (Exception e) {
+            handleException(e);
+        }
+        catch (Error e) {
             handleException(e);
         }
     }
@@ -632,14 +635,14 @@ public class TagScript implements Script {
      * while adding line number information etc.
      */
     protected void handleException(Exception e) throws Exception {
-    	if (log.isTraceEnabled()) {
-        	log.trace( "Caught exception: " + e, e );
-    	}
+        if (log.isTraceEnabled()) {
+            log.trace( "Caught exception: " + e, e );
+        }
 
         if (e instanceof LocationAware) {
             applyLocation((LocationAware) e);
         }
-        
+
         if ( e instanceof JellyException ) {
             e.fillInStackTrace();
             throw e;
@@ -653,6 +656,23 @@ public class TagScript implements Script {
                                       lineNumber );
         }
 
-        throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);            
+        throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);
+    }
+    
+    /**
+     * A helper method to handle this non-Jelly exception.
+     * This method will rethrow the exception, wrapped in a JellyException
+     * while adding line number information etc.
+     */
+    protected void handleException(Error e) throws Error, JellyException {
+        if (log.isTraceEnabled()) {
+            log.trace( "Caught exception: " + e, e );
+        }
+
+        if (e instanceof LocationAware) {
+            applyLocation((LocationAware) e);
+        }
+
+        throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);
     }
 }

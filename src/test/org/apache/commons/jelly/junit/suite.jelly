@@ -92,9 +92,13 @@
       </test:assertThrows>
     </j:catch>
     
-		<test:assert test="${ex != null}">We should have created an exception</test:assert>
+		<test:assert test="${ex != null}">assertThrows should fail when nothing is thrown from within it</test:assert>
     <test:assert test="${ex.message.startsWith('No exception was thrown.')}"/>
 
+    <test:assertEquals actual="${ex.elementName}" expected="test:assertThrows"/>
+    <test:assert test="${ex.fileName != null}">fileName not set</test:assert>
+    <test:assert test="${ex.lineNumber gt 0}">lineNumber not set</test:assert>
+    <test:assert test="${ex.columnNumber gt 0}">columnNumber not set</test:assert>
   </test:case>
 
 <!--
