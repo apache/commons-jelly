@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/junit/src/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java,v 1.1 2003/01/19 06:17:10 dion Exp $
- * $Revision: 1.1 $
- * $Date: 2003/01/19 06:17:10 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/junit/src/java/org/apache/commons/jelly/tags/junit/JellyAssertionFailedError.java,v 1.2 2003/01/22 15:44:39 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2003/01/22 15:44:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyAssertionFailedError.java,v 1.1 2003/01/19 06:17:10 dion Exp $
+ * $Id: JellyAssertionFailedError.java,v 1.2 2003/01/22 15:44:39 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.junit;
@@ -75,7 +75,7 @@ import org.apache.commons.jelly.LocationAware;
  * details of where in the JellyUnit test case that the failure occurred.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 
 public class JellyAssertionFailedError extends AssertionFailedError implements LocationAware {
@@ -176,8 +176,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     
     
     public String getMessage() {
-        return super.getMessage() + " File: " + fileName + " At tag <" + elementName + ">: line: " 
-            + lineNumber + " column: " + columnNumber;
+        return fileName + ":" + lineNumber + ":" + columnNumber + ": <" + elementName + "> " + super.getMessage();
     }
 
     public String getReason() {
