@@ -59,6 +59,9 @@ c
 d
 e
 f
+g
+h
+i
 
 */
 
@@ -80,7 +83,7 @@ public class DummyTask extends Task {
     }
     
 	public Thingy createDing() {
-		System.out.println("addCreateDing: " + messages[i++]);
+		System.out.println("createDing: " + messages[i++]);
 		return new Thingy();
 	}
 
