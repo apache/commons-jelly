@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.10 2002/06/21 02:57:17 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/06/21 02:57:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.11 2002/06/27 14:09:15 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/06/27 14:09:15 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.10 2002/06/21 02:57:17 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.11 2002/06/27 14:09:15 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -180,7 +180,10 @@ public class BeanTagScript extends TagScript {
         for ( Iterator iter = attributes.keySet().iterator(); iter.hasNext(); ) {
             String name = (String) iter.next();
             if ( ! attributeSet.contains( name ) ) {
-                throw new JellyException( "This tag does not understand the attribute '" + name + "'" );
+                throw new JellyException( 
+                    "This tag does not understand the attribute '" + name + "'", 
+                    getColumnNumber(), getLineNumber()  
+                );
             }
         }
         return this;
@@ -223,11 +226,19 @@ public class BeanTagScript extends TagScript {
                 throw new JellyException( 
                     "Cannot call method: " + method.getName() + " on tag of type: " 
                     + tag.getClass().getName() + " with value: " + value + " of type: " 
-                    + valueTypeName + ". Exception: " + e, e 
+                    + valueTypeName + ". Exception: " + e, getColumnNumber(), getLineNumber()
                 );
             }
         }
         
-        runTag(output);
+        try {
+            tag.doTag(output);
+        } 
+        catch (JellyException e) {
+            handleException(e);
+        }
+        catch (Exception e) {
+            handleException(e);
+        }
     }
 }

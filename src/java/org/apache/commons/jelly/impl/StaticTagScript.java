@@ -66,6 +66,7 @@ import java.util.Map;
 
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.DynaTag;
@@ -105,28 +106,35 @@ public class StaticTagScript extends DynaTagScript {
     //-------------------------------------------------------------------------                
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws Exception {
-
         if ( firstRun ) {
             firstRun = false;
             
             // lets see if we have a dynamic tag
             tag = findDynamicTag(context, (StaticTag) tag);
         }
-        tag.setContext(context);
+        try {        
+            tag.setContext(context);
+            
+            DynaTag dynaTag = (DynaTag) tag;
+    
+            // ### probably compiling this to 2 arrays might be quicker and smaller
+            for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                String name = (String) entry.getKey();
+                Expression expression = (Expression) entry.getValue();
+    
+                Object value = expression.evaluate(context);
+                dynaTag.setAttribute(name, value);
+            }
         
-        DynaTag dynaTag = (DynaTag) tag;
-
-        // ### probably compiling this to 2 arrays might be quicker and smaller
-        for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String name = (String) entry.getKey();
-            Expression expression = (Expression) entry.getValue();
-
-            Object value = expression.evaluate(context);
-            dynaTag.setAttribute(name, value);
+            tag.doTag(output);
+        } 
+        catch (JellyException e) {
+            handleException(e);
         }
-        
-        runTag(output);
+        catch (Exception e) {
+            handleException(e);
+        }
     }
 
     /**

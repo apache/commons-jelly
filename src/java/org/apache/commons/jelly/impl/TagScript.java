@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.12 2002/06/25 17:11:41 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/06/25 17:11:41 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.13 2002/06/27 14:09:15 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/06/27 14:09:15 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.12 2002/06/25 17:11:41 jstrachan Exp $
+ * $Id: TagScript.java,v 1.13 2002/06/27 14:09:15 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -93,7 +93,7 @@ import org.xml.sax.Locator;
  * script that evaluates a custom tag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 public abstract class TagScript implements Script {
 
@@ -197,28 +197,8 @@ public abstract class TagScript implements Script {
     // Implementation methods
     //-------------------------------------------------------------------------      
     
-    /**
-     * Evaluates the tag, catching any exceptions and rethrowing them in
-     * a wrapped exception which includes the line and column numbers
-     */
-    protected void runTag(XMLOutput output) throws Exception {
-		try {
-			tag.doTag(output);
-		} 
-        catch (JellyException e) {
-			if (e.getLineNumber() == -1) {
-				e.setColumnNumber(columnNumber);
-				e.setLineNumber(lineNumber);
-			}
-			throw e;
-		}
-        catch (Exception e) {
-            log.error( "Caught exception: " + e, e );
-            throw new JellyException(e, columnNumber, lineNumber);            
-        }
-    }
-    
-    /** Converts the given value to the required type. 
+    /** 
+     * Converts the given value to the required type. 
      *
      * @param value is the value to be converted. This will not be null
      * @param requiredType the type that the value should be converted to
@@ -232,5 +212,28 @@ public abstract class TagScript implements Script {
             return ConvertUtils.convert((String) value, requiredType);
         }
         return value;
+    }
+    
+    /**
+     * A helper method to handle this non-Jelly exception.
+     * This method will rethrow the exception, wrapped in a JellyException
+     * while adding line number information etc.
+     */
+    protected void handleException(Exception e) throws Exception {
+        log.error( "Caught exception: " + e, e );
+        throw new JellyException(e, columnNumber, lineNumber);            
+    }
+    
+    /**
+     * A helper method to handle this Jelly exception.
+     * This method adorns the JellyException with location information
+     * such as adding line number information etc.
+     */
+    protected void handleException(JellyException e) throws Exception {
+        if (e.getLineNumber() == -1) {
+            e.setColumnNumber(columnNumber);
+            e.setLineNumber(lineNumber);
+        }
+        throw e;
     }
 }
