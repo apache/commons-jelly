@@ -14,8 +14,26 @@
 
 <p>Jelly is an XML based <i>processing engine</i>. The basic idea is that XML 
 elements can be bound to a Java <i>action</i> which is a Java bean that performs 
-some function. So Jelly is totally extendable 
-via custom actions (like JSP custom tags) as well as cleanly integrating with  scripting 
+some function. Here's an example action</p>
+
+<pre>public class FooTag extends TagSupport {    
+    private int count;
+    public void setCount(int count) {
+        this.count = count;
+    }
+    public void run(Context context, Writer writer) throws Exception {
+        for ( int i = 0; i &lt; count; i++ ) {
+            // evaluate body
+            getBody().run( context, writer );
+        }
+    }
+}</pre>
+<p>Then in a Jelly script this tag could be used as follows:-</p>
+<pre>&lt;f:foo count=&quot;123&quot;&gt;
+    something...
+&lt;/f:foo&gt;</pre>
+<p>Jelly is totally extendable 
+via custom actions (in a similar way to JSP custom tags) as well as cleanly integrating with  scripting 
 languages such as Velocity, pnuts, beanshell and via BSF (Bean Scripting Framework) 
 languages like JavaScript &amp; JPython</p>
 
@@ -25,9 +43,9 @@ languages like JavaScript &amp; JPython</p>
 some kind of processing. Here are a few examples</p>
 
 <ul>
-  <li>Ant</li>
+  <li><a href="http://jakarta.apache.org/ant/">Ant</a></li>
   <li>XSLT</li>
-  <li>XML Pipeline language</li>
+  <li><a href="http://www.w3.org/TR/xml-pipeline/">XML Pipeline language</a></li>
   <li>JSTL and JSP custom tags</li>
   <li>Latka,&nbsp; AntEater &amp; other similar XML based unit testing frameworks</li>
   <li>commons-workflow</li>
@@ -39,7 +57,8 @@ qualified XML element name can be mapped to a Java Bean (or DynaBean), the
 attributes map to bean properties, once the bean is constructed and the 
 properties set it is executed via the Tag interfaces run() method. So custom 
 actions can perform all kinds of processing from lower level looping, 
-conditional logic and expression evaluations to higher level actions like making 
+conditional logic and expression evaluations to higher level actions like post 
+processing their bodies, making 
 a HTTP, SOAP or JMS call, querying SQL databases etc.</p>
 
 <h2>Comparisons</h2>
@@ -70,12 +89,16 @@ Jelly with other scripting engines and templating technologies.</p>
   implement the run() method. Really simple!</li>
   <li>Jelly tags can parse and compile their bodies for more optimal performance 
   and easier validation. So a tag can ignore whitespace, iterate over its body, 
-  transform its body etc. So a Jelly tag can be a simple macro, preprocessing 
+  transform its body at compile time etc. So a Jelly tag can be a simple macro, preprocessing 
   its body at compile time, such as to build smart HTML forms or to make SOAP 
   macros etc.</li>
 </ul>
 
 <h3>Jelly versus Velocity</h3>
+
+<p>Velocity could actually be used inside Jelly via custom tags which support 
+Velocity expressions, directives and scripts. However here's a head to head 
+comparison anyways.</p>
 
 <p>Similarities</p>
 <ul>
