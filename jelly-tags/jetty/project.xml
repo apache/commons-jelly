@@ -60,7 +60,8 @@
 
     <!-- for testing -->
     <dependency>
-      <id>commons-jelly+tags-http</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-http</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
 

@@ -51,25 +51,29 @@
     <!-- START for test -->
   
     <dependency>
-      <id>commons-jelly+tags-dynabean</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-dynabean</artifactId>
       <version>SNAPSHOT</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/dynabean/</url>
     </dependency>
 
     <dependency>
-      <id>commons-jelly+tags-junit</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-junit</artifactId>
       <version>SNAPSHOT</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
     </dependency>
 
     <dependency>
-      <id>commons-jelly+tags-log</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-log</artifactId>
       <version>SNAPSHOT</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
     </dependency>
       
     <dependency>
-      <id>commons-jelly+tags-xml</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-xml</artifactId>
       <version>SNAPSHOT</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/xml/</url>
     </dependency>

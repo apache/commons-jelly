@@ -62,7 +62,8 @@
       <version>1.0</version>
     </dependency>
     <dependency>
-      <id>commons-jelly+tags-log</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-log</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
     	

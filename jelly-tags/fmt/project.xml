@@ -68,7 +68,8 @@
     </dependency>
     
     <dependency>
-		<id>commons-jelly+tags-beanshell</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly-tags-beanshell</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
 
@@ -76,7 +77,7 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>SNAPSHOT</version>
-      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
+      <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
     </dependency>
 
 	<dependency>
