@@ -161,6 +161,10 @@ public class JellyContext {
      */
     public Object findVariable(String name) {
         Object answer = variables.get(name);
+        boolean definedHere = answer != null || variables.containsKey(name);
+        
+        if (definedHere) return answer;
+        
         if ( answer == null && parent != null ) {
             answer = parent.findVariable(name);
         }
@@ -184,7 +188,10 @@ public class JellyContext {
     /** @return the value of the given variable name */
     public Object getVariable(String name) {
         Object value = variables.get(name);
+        boolean definedHere = value != null || variables.containsKey(name);
 		
+        if (definedHere) return value;
+        
         if ( value == null && isInherit() ) {
             JellyContext parent = getParent();
             if (parent != null) {                
