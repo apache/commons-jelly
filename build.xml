@@ -81,8 +81,8 @@
         <fileset dir="lib">
           <include name="*.jar"></include>
         </fileset>
+        <pathelement location="target/${final.name}.jar"></pathelement>
         <pathelement path="${testclassesdir}"></pathelement>
-        <pathelement path="${classesdir}"></pathelement>
       </classpath>
       <batchtest todir="${testreportdir}">
         <fileset dir="src/test">
@@ -105,7 +105,7 @@
         <fileset dir="lib">
           <include name="*.jar"></include>
         </fileset>
-        <pathelement path="${classesdir}"></pathelement>
+        <pathelement location="target/${final.name}.jar"></pathelement>
       </classpath>
     </javac>
 
@@ -152,7 +152,7 @@
     <mkdir dir="lib"></mkdir>
     
     <get dest="lib/ant-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.jar"></get>
-    <get dest="lib/ant-optional-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-optional-1.5.jar"></get>
+    <get dest="lib/ant-optional-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant+optional/jars/ant-optional-1.5.jar"></get>
     <get dest="lib/commons-beanutils-1.4-dev.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.4-dev.jar"></get>
     <get dest="lib/commons-collections-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-2.0.jar"></get>
     <get dest="lib/commons-digester-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-digester/jars/commons-digester-SNAPSHOT.jar"></get>
@@ -169,7 +169,7 @@
     <get dest="lib/jdbc-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jdbc/jars/jdbc-2.0.jar"></get>
     <get dest="lib/junit-3.7.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.7.jar"></get>
     <get dest="lib/servletapi-2.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/servletapi/jars/servletapi-2.3.jar"></get>
-    <get dest="lib/werkz-1.0-beta-2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/werkz/jars/werkz-1.0-beta-2.jar"></get>
+    <get dest="lib/werkz-1.0-beta-4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/werkz/jars/werkz-1.0-beta-4.jar"></get>
     <get dest="lib/xalan-2.3.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xalan/jars/xalan-2.3.1.jar"></get>
     <get dest="lib/xerces-2.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xerces/jars/xerces-2.0.2.jar"></get>
     <get dest="lib/xml-apis-2.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xml-apis/jars/xml-apis-2.0.2.jar"></get>
@@ -188,6 +188,11 @@
     <get dest="lib/ojb-0.8.375.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ojb/jars/ojb-0.8.375.jar"></get>
     <get dest="lib/quartz-SNAPSHOT.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/quartz/jars/quartz-SNAPSHOT.jar"></get>
     <get dest="lib/hsqldb-1.7.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/hsqldb/jars/hsqldb-1.7.0.jar"></get>
+    <get dest="lib/activation-1.0.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jaf/jars/activation-1.0.2.jar"></get>
+    <get dest="lib/javamail-1.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/javamail/jars/javamail-1.2.jar"></get>
+    <get dest="lib/axis-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/axis/jars/axis-1.0.jar"></get>
+    <get dest="lib/jaxrpc-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jaxrpc/jars/jaxrpc-1.0.jar"></get>
+    <get dest="lib/saaj-1.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/saaj/jars/saaj-1.1.jar"></get>
     
     <get dest="lib/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"></get>
   
