@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.18 2002/05/21 07:59:32 jstrachan Exp $
- * $Revision: 1.18 $
- * $Date: 2002/05/21 07:59:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.19 2002/05/30 14:27:07 jstrachan Exp $
+ * $Revision: 1.19 $
+ * $Date: 2002/05/30 14:27:07 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.18 2002/05/21 07:59:32 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.19 2002/05/30 14:27:07 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 import java.io.File;
@@ -109,7 +109,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.18 $
+ * @version $Revision: 1.19 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -200,6 +200,12 @@ public class XMLParser extends DefaultHandler {
      */
     private Log log = LogFactory.getLog(XMLParser.class);
 
+
+    /** 
+     * A stack of tags used to assign the parent tag
+     */
+    private List tagStack = new ArrayList();
+    
     /**
      * Construct a new XMLParser with default properties.
      */
@@ -565,7 +571,13 @@ public class XMLParser extends DefaultHandler {
                 // set parent relationship...
                 Tag tag = tagScript.getTag();
                 tag.setParent(parentTag);
-                parentTag = tag;
+                
+                // pop another tag onto the stack
+                if ( parentTag != null ) {
+                    tagStack.add( parentTag );                
+                }
+                parentTag = tag;                
+                
                 if (textBuffer.length() > 0) {
                     script.addScript(new TextScript(textBuffer.toString()));
                     textBuffer.setLength(0);
@@ -642,6 +654,13 @@ public class XMLParser extends DefaultHandler {
             textBuffer.append("</");
             textBuffer.append(qName);
             textBuffer.append(">");
+        }
+        int size = tagStack.size();
+        if ( size <= 0 ) {
+            parentTag = null;
+        }
+        else {
+            parentTag = (Tag) tagStack.remove( size - 1 );
         }
     }
 
