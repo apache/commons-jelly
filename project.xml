@@ -191,6 +191,14 @@
       	<role>Developer</role>
       </roles>
     </contributor>    
+    <contributor>
+      <name>J. Matthew Pryor</name>
+      <email>matthew_pryor@versata.com</email>
+      <organization></organization>
+      <roles>
+      	<role>Developer</role>
+      </roles>
+    </contributor>        
   </contributors>
 	
   <dependencies>

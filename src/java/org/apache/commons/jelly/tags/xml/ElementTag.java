@@ -100,7 +100,7 @@ public class ElementTag extends TagSupport {
         }
         // treat null values as no attribute 
         if (value != null) {
-            attributes.addAttribute("", name, name, "CDATA", value.toString());
+            attributes.addAttribute("", name, name, "CDATA", value);
         }
     }
 
@@ -115,9 +115,17 @@ public class ElementTag extends TagSupport {
         else {
             localName = name;
         }
+        
+        /** 
+         * @todo we should buffer up any SAX events and replay then
+         * inside the startElement/endElement block         */
+        invokeBody(output);
         output.startElement(namespace, localName, name, attributes);
-        invokeBody(  output);
+        
+        /** @todo we should replay the cached SAX events (if any) here */
+        
         output.endElement(namespace, localName, name);
+        attributes.clear();
     }
     
     // Properties

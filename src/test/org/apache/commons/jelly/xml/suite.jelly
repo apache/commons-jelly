@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<test:suite 
+	xmlns:j="jelly:core" 
+	xmlns:x="jelly:xml" 
+	xmlns:test="jelly:junit" 
+	xmlns:log="jelly:log">
+
+  <test:case name="testElementAndAttribute">
+  	
+  	<x:parse var="doc">
+  		<x:element name="foo">
+  			<x:attribute name="x">1234</x:attribute>
+  		</x:element>
+  	</x:parse>
+	
+		<test:assert xpath="$doc/foo"/>
+		<test:assert xpath="$doc/foo[@x='1234']"/>
+		<test:assert xpath="count($doc/bar) = 0"/>
+		
+  </test:case>
+</test:suite>
