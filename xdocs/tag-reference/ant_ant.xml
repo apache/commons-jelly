@@ -37,11 +37,21 @@
         tag name you use, e.g. &lt;copy&gt;
       </p>
       <p>
-        Any tag <strong>not</strong> defined in the Jelly tag library for Ant is assumed to be an Ant task, target
-        or datatype. When Jelly tries to execute an undefined tag, it looks for an Ant task, target or datatype to match
-        the tag name, and if found, matches the tag's attributes to the Ant element's attributes, as Ant would.
+        Any tag <strong>not</strong> defined in the Jelly tag library for Ant, but defined to the Ant namespace,
+        is assumed to be an Ant task, target or datatype. When Jelly tries to execute this unknown Ant tag, 
+        it looks for a real Ant element to match the tag name, and if found, matches the tag's attributes 
+        to the Ant element's attributes, as Ant would.
       </p>
     </section>
+
+    <section name="Attributes">
+      <p>As per the ant task, target or datatype you are using.</p>
+    </section>
+    
+    <section name="Nested Elements">
+      <p>As per the ant task, target or datatype you are using.</p>
+    </section>
+
     <section name="Examples">
       <p>
         You never code this tag directly, instead you use it by defining the ant tag library namespace 
