@@ -28,15 +28,20 @@ import org.xml.sax.helpers.DefaultHandler;
  * A future version should go more internally so that this is avoided.
  *
  * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
   */
 public class MuteTag extends TagSupport {
 
+    /**
+     * Create an instance
+     */
     public MuteTag() {
-        super();
     }
 
-
+    /**
+     * Invoke the body and produce no output.
+     * @param output tag output, which is ignored.
+     */
     public void doTag(XMLOutput output) throws JellyTagException {
         super.invokeBody(new MuteXMLOutput());
     }
@@ -45,14 +50,15 @@ public class MuteTag extends TagSupport {
      * An XMLOutput which really outputs nothing, in particular, avoids calling
      * toString() in objects returned...
      */
-   static class MuteXMLOutput extends XMLOutput {
-       public MuteXMLOutput() {
-           super(new DefaultHandler());
-       }
+    static class MuteXMLOutput extends XMLOutput {
+        public MuteXMLOutput() {
+            super(new DefaultHandler());
+        }
        
-       public void objectData(Object o) {
-           // do nothing, not even invoke the toString!
-       }
-   }
-
+        /**
+         * Do nothing, not even invoke the toString!
+         */
+        public void objectData(Object o) {
+        }
+    } // class MuteXMLOutput
 } // class TagSupport
