@@ -70,7 +70,7 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     public void addChild(Component component, Object constraints) throws JellyTagException {
         GridBagLayoutTag tag = (GridBagLayoutTag) findAncestorWithClass( GridBagLayoutTag.class );
         if (tag == null) {
-            throw new JellyTagException( "this tag must be nested within a <tr> tag" );
+            throw new JellyTagException( "this tag must be nested within a <gridBagLayout> tag" );
         }
         tag.addLayoutComponent(component, getConstraints());
     }
