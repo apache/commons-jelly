@@ -71,12 +71,14 @@ import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.apache.tools.ant.BuildLogger;
 import org.apache.tools.ant.NoBannerLogger;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.taskdefs.optional.junit.FormatterElement;
 import org.apache.tools.ant.types.EnumeratedAttribute;
 import org.apache.tools.ant.types.Reference;
+
 import org.xml.sax.Attributes;
 
 /** 
@@ -183,14 +185,13 @@ public class AntTagLibrary extends TagLibrary {
 
 
     /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(final String name, Attributes attributes) throws Exception {
-
+    public TagScript createTagScript(String name, Attributes attributes) throws Exception {
         TagScript answer = createCustomTagScript(name, attributes);
         if ( answer == null ) {
             answer = new TagScript(
                 new TagFactory() {
-                    public Tag createTag() throws Exception {
-                        return AntTagLibrary.this.createTag(name);
+                    public Tag createTag(String name, Attributes attributes) throws Exception {
+                        return AntTagLibrary.this.createTag(name, attributes);
                     }
                 }
             );
@@ -201,12 +202,12 @@ public class AntTagLibrary extends TagLibrary {
     /** 
      * @return a new TagScript for any custom, statically defined tags, like 'fileScanner'
      */
-    public TagScript createCustomTagScript(final String name, Attributes attributes) throws Exception {
+    public TagScript createCustomTagScript(String name, Attributes attributes) throws Exception {
         // custom Ant tags
         if ( name.equals("fileScanner") ) {      
             return new TagScript(
                 new TagFactory() {
-                    public Tag createTag() throws Exception {
+                    public Tag createTag(String name, Attributes attributes) throws Exception {
                         return new FileScannerTag(new FileScanner());
                     }
                 }
@@ -215,7 +216,7 @@ public class AntTagLibrary extends TagLibrary {
         if ( name.equals("setProperty") ) {      
             return new TagScript(
                 new TagFactory() {
-                    public Tag createTag() throws Exception {
+                    public Tag createTag(String name, Attributes attributes) throws Exception {
                         return new SetPropertyTag();
                     }
                 }
@@ -227,7 +228,7 @@ public class AntTagLibrary extends TagLibrary {
     /**
      * A helper method which creates an AntTag instance for the given element name
      */
-    public Tag createTag(String name) throws Exception {
+    public Tag createTag(String name, Attributes attributes) throws Exception {
         AntTag tag = new AntTag( name );
         if ( name.equals( "echo" ) ) {
             tag.setTrim(false);
