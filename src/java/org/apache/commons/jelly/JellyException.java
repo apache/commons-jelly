@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.4 2002/06/21 02:57:17 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/06/21 02:57:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.5 2002/06/25 16:49:45 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/06/25 16:49:45 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.4 2002/06/21 02:57:17 jstrachan Exp $
+ * $Id: JellyException.java,v 1.5 2002/06/25 16:49:45 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -69,7 +69,7 @@ import java.io.PrintWriter;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 
 public class JellyException extends Exception {
@@ -142,8 +142,8 @@ public class JellyException extends Exception {
     }
     
     public String getMessage() {
-        return super.getMessage() + " At column: " 
-            + columnNumber + " line: " + lineNumber;
+        return super.getMessage() + " At line: " 
+            + lineNumber + " column: " + columnNumber;
     }
     // #### overload the printStackTrace methods...
     public void printStackTrace(PrintWriter s) { 
