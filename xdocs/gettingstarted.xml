@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<document>
+
+ <properties>
+  <title>Getting Started</title>
+  <author email="jstrachan@apache.org">James Strachan</author>
+ </properties>
+
+<body>
+
+<section name="Getting Started">
+
+<p>
+The easiest way to get started with Jelly is to try out the <a href="tutorial.html">tutorials</a>.	
+Before you try out any of the tutorials, you'll need to install Maven first.
+For more details on how to install Maven please refer to the 
+<a href="http://jakarta.apache.org/turbine/maven/start/install.html">Maven documentation</a>  	
+</p>
+
+<p>
+Here's a brief overview of what you need to do. 
+
+<ul>
+<li>
+Download a binary distribution of Maven.
+</li>
+<li>
+Set the environment variable MAVEN_HOME to point to where you installed Maven
+</li>
+<li>
+Change your PATH environment variable so that it points to MAVEN_HOME/bin
+</li>
+<li>
+Get a source distribution of Jelly. 
+The easiest way to do this is (until we have nightly builds working) is to grab a CVS checkout.
+Jelly currently resides in the jelly directory inside jakarta-commons-sandbox.
+There are instructions on performing CVS checkouts 
+<a href="http://jakarta.apache.org/site/cvsindex.html">here</a>
+</li>
+</ul>
+</p>
+
+<p>
+To verify that your Maven installation is working, change directory into your <i>jelly</i> directory 
+which should contain a <i>project.xml</i> file required by Maven. Then type
+</p>
+
+<pre>
+	maven test
+</pre>
+
+<p>
+This should download all the required jars required to build and run all the example Jelly scripts,
+compile all the code and build and run all the unit test cases. 
+</p>
+
+<p>
+Once you've got this far, it might be time to try out one of the <a href="tutorial.html">tutorials</a>	
+</p>
+
+</section>
+
+</body>
+
+</document>

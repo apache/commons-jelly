@@ -8,21 +8,22 @@
     <menu name="Jelly">
       <item name="Overview"                href="/index.html"/>
       <item name="FAQ"                     href="/faq.html"/>
+      <item name="Getting Started"         href="/gettingstarted.html"/>
+      <item name="Tutorial"         	   href="/tutorial.html"/>
       <item name="Detail"                  href="/overview.html"/>
       <item name="Tag Reference"           href="/tags.html"/>
       <item name="Download"                href="http://www.ibiblio.org/maven/commons-jelly/distributions/"/>
-      <item name="To Do List"              href="/todo.html"/>
     </menu>
     <menu name="Community">
       <item name="News Blog"			         href="http://blogs.werken.com/projects/jelly/"/>
       <item name="IRC"					           href="/irc.html"/>
       <item name="Powered By"              href="/powered.html"/>
+      <item name="To Do List"              href="/todo.html"/>
     </menu>
     <menu name="Libraries">
       <item name="JellyUnit"               href="/jellyunit.html"/>
       <item name="JellySwing"              href="/jellyswing.html"/>
     </menu>
-    
     
     <menu name="Jakarta Community">
         <item name="Get Involved"           href="http://jakarta.apache.org/site/getinvolved.html"/>

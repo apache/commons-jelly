@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+
+<document>
+
+ <properties>
+  <title>Jelly Tutorials</title>
+  <author email="vonwao@yahoo.com">Otto von Wachter</author>
+ </properties>
+
+<body>
+
+<section name="Jelly Tutorials">
+
+<p>
+The best way to get acquainted with Jelly, and get an idea what it can be
+used for, is to see it in action. So you want to get started as quickly as
+possible? Luckily for you Jelly comes with several demos that can be run
+from the command line using Maven.
+</p>
+
+<p>
+Before going any further it might be worth checking out the <a href="gettingstarted.html">Getting Started</a> guide.
+</p>
+
+<p>
+The goal of the tutorials is to guide you through running some of the Jelly
+demos and give you some ideas of other potential uses of Jelly (and
+hopefully make your first experience with Jelly enjoyable and fun).
+</p>
+
+<p>
+Once you have tried a few of demos, you can explore Jelly further by writing
+some Jelly scripts on your own, or by modifying some of the demos provided.
+You may also want to define your own Jelly taglib, and in some cases
+you may want to know how to embed Jelly into your own Java program (tutorials 
+on how to do these things are in the works).
+</p>
+
+<p>
+To see a list of the Jelly demos that you can run, type "maven -g" in the
+Jelly root directory (there should be a project.xml file there). Among the
+other maven goals, you will see the the demos available under the "demo"
+goal (incidentally, Maven is a project automation tool that uses Jelly as
+its xml processing engine, and Jelly in turn uses Maven as its build tool.
+Neat!)
+</p>
+
+<p>
+The following tutorials are currently available:
+</p>
+<ul>
+<li>
+<a href="#jellyswing">JellySwing Demo</a>
+</li>
+</ul>
+<br/>
+
+<a name="jellyswing"/>
+<section name="JellySwing Demo">
+
+
+<p>
+This demo shows how you can use Jelly (using the <a href="tags.html#jelly:jellyswing">JellySwing</a> library) to build the UI for a Swing java program.
+</p>
+
+<p>
+Why would you want to do this? If you have ever written a large Swing
+application, you will probably agree that coding a GUI in java can be a tedious task. 
+Jelly allows you to define the View (in an MVC approach)
+in XML and bind it to a Model and Controller written in Java. Or you can
+define actions (Controller) directly in Jelly by using the &lt;action&gt; tag.
+</p>
+
+<p>
+Jelly is also a great way for a designer to prototype a UI and avoid the
+learning curve of Java. In fact, a designer could develop a full-featured
+application using a rich set of functions and beans exposed via jelly tags.
+</p>
+
+<p>
+To run the swing demo type "maven demo:swing" 
+(View the <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swing/example.jelly?rev=HEAD">demo script</a>). You should see a window open with
+some swing components. You can test the actions by selecting a menu item or
+pressing the button. The actions in this demo simply output a message to the
+console. A more practical action could be to invoke a bean, call a script
+that opens another window, etc.
+</p>
+
+<p>
+If you look at the jelly code for this demo (link to the code), you will see
+that building a UI is pretty simple. For example, a menu bar is simply:
+</p>
+
+<pre>
+    &lt;menuBar&gt;
+      &lt;menu text="File"&gt;
+        &lt;menuItem&gt;
+          &lt;action name="New"&gt;
+           ... some action ...
+          &lt;/action&gt;
+        &lt;/menuItem&gt;
+      &lt;/menu&gt;
+      ... more menus/menu items
+    &lt;/menuBar&gt;
+</pre>
+
+<p>
+As you can see, nested elements are automatically added to parent components
+(unlike Java, where you have to call parent.add(child) ).
+</p>
+
+<p>
+For the table, you can see that it was added to the scrollPane using the
+"new" tag (from the jelly:core taglib):
+</p>
+
+<pre>
+    &lt;scrollPane&gt;
+      &lt;j:new className="org.apache.commons.jelly.swing.MyTableModel" var="tableModel"/&gt;
+      &lt;table model="${tableModel}"/&gt;
+    &lt;/scrollPane&gt;
+</pre>
+
+<p>
+The nice thing about this is that any component (or model in this case) that
+is not available in the JellySwing taglib or is too complex to express using
+Jelly, can be written in java and added by this method.
+</p>
+
+</section>
+
+<section name="Other Ideas for JellySwing">
+
+<ul>
+<li>
+You could write a taglib to allow you to bind data to various models
+(TreeModel, TableModel, etc) using Jelly.
+</li>
+<li>
+You could allow the end user of an application to easily customize (or localize) the UI, and even add 
+custom actions from a library of possible actions!
+</li>
+<li>
+You could you use JellySwing implement a "thin client", so that the entire UI of an application
+can be downloaded from a web server at runtime. In some applications, this would provide a lot of flexibility.
+</li>
+</ul>
+
+</section>
+
+</section>
+
+</body>
+
+</document>
