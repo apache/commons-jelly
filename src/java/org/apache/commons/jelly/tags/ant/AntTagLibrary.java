@@ -1,12 +1,12 @@
 /*
  * Copyright 2002,2004 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,7 @@ import org.apache.tools.ant.types.Reference;
 
 import org.xml.sax.Attributes;
 
-/** 
+/**
  * A Jelly custom tag library that allows Ant tasks to be called from inside Jelly.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -47,14 +47,14 @@ public class AntTagLibrary extends TagLibrary {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(AntTagLibrary.class);
-    
+
     public static final String PROJECT_CONTEXT_HANDLE = "org.apache.commons.jelly.ant.Project";
 
     static {
 
         // register standard converters for Ant types
-               
-        
+
+
         ConvertUtils.register(
             new Converter() {
                 public Object convert(Class type, Object value) {
@@ -70,7 +70,7 @@ public class AntTagLibrary extends TagLibrary {
             },
             Reference.class
             );
-        
+
         ConvertUtils.register(
             new Converter() {
                 public Object convert(Class type, Object value) {
@@ -84,7 +84,7 @@ public class AntTagLibrary extends TagLibrary {
                     }
                     return null;
                 }
-                
+
             },
             FormatterElement.TypeAttribute.class
             );
@@ -94,7 +94,7 @@ public class AntTagLibrary extends TagLibrary {
     /**
      * A helper method which will attempt to find a project in the current context
      * or install one if need be.
-     * 
+     *
      * #### this method could move to an AntUtils class.
      */
     public static Project getProject(JellyContext context) {
@@ -108,7 +108,7 @@ public class AntTagLibrary extends TagLibrary {
 
     /**
      * Sets the Ant Project to be used for this JellyContext.
-     * 
+     *
      * #### this method could move to an AntUtils class.
      */
     public static void setProject(JellyContext context, Project project) {
@@ -117,9 +117,9 @@ public class AntTagLibrary extends TagLibrary {
 
     /**
      * A helper method to create a new project
-     * 
+     *
      * #### this method could move to an AntUtils class.
-     */    
+     */
     public static Project createProject(JellyContext context) {
         GrantProject project = new GrantProject();
         project.setPropsHandler(new JellyPropsHandler(context));
@@ -131,11 +131,11 @@ public class AntTagLibrary extends TagLibrary {
         logger.setErrorPrintStream( System.err);
 
         project.addBuildListener( logger );
-        
+
         project.init();
         project.getBaseDir();
         if (context.getCurrentURL() != null) {
-            project.setProperty("ant.file", 
+            project.setProperty("ant.file",
                     context.getCurrentURL().toExternalForm());
         }
 
@@ -158,28 +158,28 @@ public class AntTagLibrary extends TagLibrary {
         return answer;
     }
 
-    /** 
+    /**
      * @return a new TagScript for any custom, statically defined tags, like 'fileScanner'
      */
     public TagScript createCustomTagScript(String name, Attributes attributes) throws JellyException {
         // custom Ant tags
-        if ( name.equals("fileScanner") ) {      
+        if ( name.equals("fileScanner") ) {
             return new TagScript(
                 new TagFactory() {
                     public Tag createTag(String name, Attributes attributes) throws JellyException {
                         return new FileScannerTag(new FileScanner());
                     }
                 }
-            );      
+            );
         }
-        if ( name.equals("setProperty") ) {      
+        if ( name.equals("setProperty") ) {
             return new TagScript(
                 new TagFactory() {
                     public Tag createTag(String name, Attributes attributes) throws JellyException {
                         return new SetPropertyTag();
                     }
                 }
-            );      
+            );
         }
         return null;
     }
