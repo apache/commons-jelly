@@ -163,7 +163,7 @@
         ${f.delete()}
       </j:mute>
     
-      <test:assertFalse test="${f.exists()}" >The file ${name} should no longer exist</test:assertFalse>
+      <test:assertEquals expected="${false}" actual="${f.exists()}" >The file ${name} should no longer exist</test:assertEquals>
 
   </test:case>
     
