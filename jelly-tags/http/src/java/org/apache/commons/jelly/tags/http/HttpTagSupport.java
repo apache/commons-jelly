@@ -100,7 +100,7 @@ public abstract class HttpTagSupport extends TagSupport {
     private String _uri;
     
     /** whether or not to follow redirects */ 
-    private boolean _followRedirects = true;
+    private boolean _followRedirects = false;
     /** list of parameters as name value pairs */
     private List _parameters;
     /** list of headers as name value pairs */
@@ -150,7 +150,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * execute it and make it available for validation
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         // allow nested tags first, e.g body
