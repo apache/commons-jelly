@@ -51,7 +51,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.40 $
+ * @version $Revision: 1.41 $
  */
 public class TagScript implements Script {
 
@@ -248,11 +248,6 @@ public class TagScript implements Script {
             * Errors in the normal course of operation.  Hmm...
             */
             handleException(e);
-        }
-        finally {
-            if ( ! context.isCacheTags() ) {
-                clearTag();
-            }
         }
         
     }

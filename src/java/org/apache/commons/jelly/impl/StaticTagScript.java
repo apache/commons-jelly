@@ -57,9 +57,6 @@ public class StaticTagScript extends TagScript {
             throw new JellyTagException("could not start namespace prefixes",e);
         }
             
-        if ( ! context.isCacheTags() ) {
-            clearTag();
-        }
         Tag tag = null;
         try {
             tag = getTag();                
@@ -106,11 +103,6 @@ public class StaticTagScript extends TagScript {
         }
         catch (RuntimeException e) {
             handleException(e);
-        }
-        finally {
-            if ( ! context.isCacheTags() ) {
-                clearTag();
-            }
         }
         
         try {
