@@ -217,6 +217,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                     PropertyUtils.setProperty( nested, "name", tagName );
                 }
                 catch (Exception e) {
+                    log.warn( "Caught exception setting nested name: " + tagName, e );
                 }
 
                 // now lets invoke the body
