@@ -123,9 +123,6 @@ public class DataTypeTag extends DynaBeanTagSupport {
         else {
             // lets invoke the addFoo() method instead
             String methodName = "add" + name.substring(0,1).toUpperCase() + name.substring(1);
-            
-            System.out.println( "About to invoke method: " + methodName );
-            
             Class taskClass = task.getClass();
             Class[] parameterTypes = new Class[] { dataType.getClass() };
             Method method = taskClass.getMethod( methodName, parameterTypes );
