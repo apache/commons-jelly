@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/QuartzTagSupport.java,v 1.1 2002/07/25 01:51:20 werken Exp $
- * $Revision: 1.1 $
- * $Date: 2002/07/25 01:51:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/QuartzTagSupport.java,v 1.2 2002/08/04 06:38:45 jefft Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/08/04 06:38:45 $
  *
  * ====================================================================
  *
@@ -82,7 +82,7 @@ public abstract class QuartzTagSupport extends TagSupport
      *
      *  <p>
      *  If a scheduler has already been created an installed
-     *  in the variable {@link SCHED_VAR_NAME}, then that scheduler
+     *  in the variable {@link #SCHED_VAR_NAME}, then that scheduler
      *  will be returned.  Otherwise, a new StdScheduler will be
      *  created, started, and installed.  Additionally, a runtime
      *  shutdown hook will be added to cleanly shutdown the scheduler.

@@ -419,7 +419,7 @@ public class JellyContext {
 
     /** 
      * Attempts to parse the script from the given uri using the 
-     * {#link getResource()} method then returns the compiled script.
+     * {@link #getResource} method then returns the compiled script.
      */
     public Script compileScript(String uri) throws Exception {
         XMLParser parser = new XMLParser();
@@ -434,7 +434,7 @@ public class JellyContext {
 
     /** 
      * Attempts to parse the script from the given URL using the 
-     * {#link getResource()} method then returns the compiled script.
+     * {@link #getResource} method then returns the compiled script.
      */
     public Script compileScript(URL url) throws Exception {
         XMLParser parser = new XMLParser();
@@ -594,7 +594,7 @@ public class JellyContext {
     /** 
      * @return the current URL context of the current script that is executing. 
      *  This URL context is used to deduce relative scripts when relative URIs are
-     *  used in calls to {@link getResource()} to process relative scripts.
+     *  used in calls to {@link #getResource} to process relative scripts.
      */ 
     public URL getCurrentURL() {
         return currentURL;
@@ -603,7 +603,7 @@ public class JellyContext {
     /** 
      * Sets the current URL context of the current script that is executing. 
      *  This URL context is used to deduce relative scripts when relative URIs are
-     *  used in calls to {@link getResource()} to process relative scripts.
+     *  used in calls to {@link #getResource} to process relative scripts.
      */ 
     public void setCurrentURL(URL currentURL) { 
         this.currentURL = currentURL;
