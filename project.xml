@@ -187,15 +187,24 @@
     </dependency>
 
     <dependency>
+      <id>servletapi</id>
+      <version>2.3</version>
+    </dependency>
+    
+<!-- used to be required for Jexl but no longer needed     
+    <dependency>
       <id>velocity</id>
       <version>1.4-dev</version>
     </dependency>
+-->
 
+		<!-- used by SQL library -->
     <dependency>
       <id>jdbc</id>
       <version>2.0</version>
     </dependency>
 
+		<!-- used by werkz library -->
     <dependency>
       <id>werkz</id>
       <version>1.0-beta-2</version>
