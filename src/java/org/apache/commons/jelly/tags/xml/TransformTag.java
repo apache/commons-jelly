@@ -48,7 +48,6 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.StaticTagScript;
 import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.impl.WeakReferenceWrapperScript;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
@@ -75,7 +74,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
   * xslt property which can be a Reader, InputStream, URL or String URI.
   *
   * @author Robert Leftwich
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class TransformTag extends ParseTag {
 
@@ -360,10 +359,7 @@ public class TransformTag extends ParseTag {
         // find any nested param tags and run them
         Script bodyScript = this.getBody();
         
-        if (bodyScript instanceof WeakReferenceWrapperScript) {
-            WeakReferenceWrapperScript wrws = (WeakReferenceWrapperScript) bodyScript;
-            invokeNestedTagsOfType(wrws, ParamTag.class,context,output);
-        }else if (bodyScript instanceof ScriptBlock) {
+        if (bodyScript instanceof ScriptBlock) {
             ScriptBlock scriptBlock = (ScriptBlock) bodyScript;
             List scriptList = scriptBlock.getScriptList();
             for (Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
@@ -387,52 +383,12 @@ public class TransformTag extends ParseTag {
         }
     }
 
-    /** Locates all child TagScripts, whose tags are of the type
-     * given. These tags are executed with the provided JellyContext and output.
-     * <p/>
-     * <strong>This method is in place
-     * to support specific features in the XML tag library and
-     * shouldn't be used by anyone at all.
-     * This method will be removed in a near-future verison of jelly.</strong>
-     * <p/>
-     * 
-     * XXX if possible, this is actually more bogus than "containsScriptType", it must be removed ASAP
-     * 
-     * @param clazz Execute all child tags of this type
-     * @param output The output to use when executing the tags.
-     * @throws JellyTagException
-     */
-    public void invokeNestedTagsOfType(WeakReferenceWrapperScript wrws, Class clazz, JellyContext context, XMLOutput output) throws JellyTagException {
-        Object bodyScript = wrws.script();
-        
-        if (bodyScript instanceof ScriptBlock) {
-            ScriptBlock scriptBlock = (ScriptBlock) bodyScript;
-            List scriptList = scriptBlock.getScriptList();
-            for (Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
-                Script script = (Script) iter.next();
-                if (script instanceof TagScript) {
-    
-                    Tag tag = null;
-                    try {
-                        tag = ((TagScript) script).getTag(getContext());
-                    } catch (JellyException e) {
-                        throw new JellyTagException(e);
-                    }
-    
-                    if (tag instanceof ParamTag) {
-                        script.run(context, output);
-                    }
-                } // instanceof
-            } // for
-        } // if
-    }
-
     
     /** A helper class that converts a transform tag body to an XMLReader
       * to hide the details of where the input for the transform is obtained
       *
       * @author <a href="mailto:robert@leftwich.info">Robert Leftwich</a>
-      * @version $Revision: 1.7 $
+      * @version $Revision: 1.8 $
       */
     private class TagBodyXMLReader implements XMLReader {
 
@@ -540,11 +496,6 @@ public class TransformTag extends ParseTag {
             boolean result = false;
             // check to see if we need to parse the body or just invoke it
             Script bodyScript = this.tag.getBody();
-            
-            if (bodyScript instanceof WeakReferenceWrapperScript) {
-                WeakReferenceWrapperScript wrws = (WeakReferenceWrapperScript) bodyScript;
-                return wrws.containsScriptType(StaticTagScript.class);
-            }
             
             if (bodyScript instanceof ScriptBlock) {
                 ScriptBlock scriptBlock = (ScriptBlock) bodyScript;
