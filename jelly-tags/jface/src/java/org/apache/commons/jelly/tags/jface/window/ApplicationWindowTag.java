@@ -106,7 +106,15 @@ public class ApplicationWindowTag extends UseBeanTag {
                         + parent);
             }
         }
+        
         super.doTag(output);
+        
+        // set Title of aaplicationWindow
+        Object title = attributes.remove("title");
+        if (title != null) {
+            getWindow().getShell().setText((String)title);
+        }
+
     }
 
     /* 

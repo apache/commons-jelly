@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <j:jelly xmlns:j="jelly:core" xmlns="jelly:jface" xmlns:log="jelly:log">
 
-  <applicationWindow var="mainapp">
+  <applicationWindow var="mainapp" title="Welcome to the JFace Demo">
 
 		<menuManager text="File">
 			<action text="Test">
@@ -29,6 +29,7 @@
   </applicationWindow>
   
   ${mainapp.MenuBarManager.updateAll(true)} 
+  ${mainapp.getShell().pack()}
   ${mainapp.open()}
 
 
