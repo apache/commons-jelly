@@ -67,7 +67,7 @@
 	</target>
 	
 	<target name="maven:jar-resources">
-	  <ant antfile="${maven.home}/build-maven.xml" target="jar-resources"/>
+	  <ant antfile="${maven.home}/plugins/core/build.xml" target="jar-resources"/>
 	</target>
 	
 	<target name="maven:fo">
@@ -205,6 +205,15 @@
       description="Runs the Hello World demo">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/hello_world.jelly"/> 
+    </java>
+   </target>
+
+   
+   <target name="demo.hw2" depends="compile" 
+      description="Runs the Hello World demo using Maven's classpath">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="maven.dependency.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/hello_world.jelly"/> 
     </java>
    </target>
