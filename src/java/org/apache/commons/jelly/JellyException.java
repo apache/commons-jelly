@@ -1,13 +1,13 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.10 2002/10/30 13:19:57 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/10/30 13:19:57 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.11 2002/10/30 19:10:48 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/10/30 19:10:48 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 2002 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.10 2002/10/30 13:19:57 jstrachan Exp $
+ * $Id: JellyException.java,v 1.11 2002/10/30 19:10:48 jstrachan Exp $
  */
 
 package org.apache.commons.jelly;
@@ -69,7 +69,7 @@ import java.io.PrintWriter;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 
 public class JellyException extends Exception {
@@ -219,4 +219,13 @@ public class JellyException extends Exception {
             }
         }
     }
+
+	public void printStackTrace() {
+		super.printStackTrace();
+		if (cause != null) {
+			System.out.println("Root cause");
+			cause.printStackTrace();
+		}
+	}
+
 }
