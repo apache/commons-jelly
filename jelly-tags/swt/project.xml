@@ -38,7 +38,7 @@
       <version>SNAPSHOT</version>
     </dependency>
   
-	<!-- swt taglib -->
+		<!-- swt taglib -->
     <dependency>
       <id>swt</id>
       
@@ -48,6 +48,14 @@
     
     <!-- END for compilation -->
     
+    <!-- START for running demos -->
+
+    <dependency>
+      <id>commons-cli</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    	
+    <!-- END for running demos -->
   </dependencies>
   
 </project>
