@@ -24,7 +24,7 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.0-beta-5-SNAPSHOT" date="in CVS">
+    <release version="1.0-RC1" date="2004-11-22">
       <action dev="dion" type="fix" issue="JELLY-148" due-to="Hans Gilde">Huge memory leak resulting from the use of ThreadLocal.</action>
       <action dev="dion" type="fix" issue="JELLY-138">Character data is flushed by XMLOuput while XML data isn't.</action>
       <action dev="dion" type="update">Move to beanutils 1.7.0.</action>
