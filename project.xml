@@ -160,6 +160,11 @@
     </dependency>
 
     <dependency>
+      <id>commons-discovery</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+
+    <dependency>
       <id>dom4j</id>
       <version>1.4-dev-7</version>
     </dependency>
