@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/ScriptTag.java,v 1.2 2003/01/25 23:13:14 morgand Exp $
- * $Revision: 1.2 $
- * $Date: 2003/01/25 23:13:14 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/beanshell/src/java/org/apache/commons/jelly/tags/beanshell/ScriptTag.java,v 1.3 2003/01/26 14:01:08 dion Exp $
+ * $Revision: 1.3 $
+ * $Date: 2003/01/26 14:01:08 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptTag.java,v 1.2 2003/01/25 23:13:14 morgand Exp $
+ * $Id: ScriptTag.java,v 1.3 2003/01/26 14:01:08 dion Exp $
  */
 package org.apache.commons.jelly.tags.beanshell;
 
@@ -72,7 +72,7 @@ import org.apache.commons.jelly.XMLOutput;
  *
  * @author Jason Horman
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class ScriptTag extends TagSupport {
 
@@ -88,7 +88,7 @@ public class ScriptTag extends TagSupport {
             // @todo it'd be really nice to create a JellyNameSpace to pass into
             // this method so that any variables declared by beanshell could be exported
             // into the JellyContext
-            String text = getBodyText();
+            String text = getBodyText(false);
             interpreter.eval(text);
         } catch (EvalError e) {
             throw new JellyTagException(e);
