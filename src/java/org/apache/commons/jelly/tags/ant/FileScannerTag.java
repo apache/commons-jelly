@@ -61,7 +61,10 @@
  */
 package org.apache.commons.jelly.tags.ant;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -112,8 +115,16 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     /**
      * Allows nested tags to set a property on the task object of this tag
      */
-    public void setTaskProperty(String name, Object value) throws Exception {
-        BeanUtils.setProperty( fileScanner, name, value );
+    public void setTaskProperty(String name, Object value) throws JellyTagException {
+        try {
+            BeanUtils.setProperty( fileScanner, name, value );
+        }
+        catch (IllegalAccessException ex) {
+            throw new JellyTagException(ex);
+        }
+        catch (InvocationTargetException ex) {
+            throw new JellyTagException(ex);
+        }
     }
     
     // Properties
