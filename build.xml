@@ -3,7 +3,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.12 2002/04/25 18:58:47 jstrachan Exp $
+        $Id: build.xml,v 1.13 2002/04/26 07:39:07 jstrachan Exp $
 -->
 
 
@@ -52,6 +52,7 @@
   <property name="commons-digester.api"    value="${digester.home}/dist/docs/api"/>
   <property name="commons-digester.jar"    value="${digester.home}/dist/commons-digester.jar"/>
   <property name="commons-jexl.jar"        value="${jexl.home}/dist/commons-jexl.jar"/>
+  <property name="velocity-dep.jar"        value="${jexl.home}/lib/velocity-dep-1.4-dev.jar"/>
   
 
 <!-- ========== Component Declarations ==================================== -->
@@ -104,6 +105,7 @@
     <pathelement location="${jaxp.parser.jar}"/>
     <pathelement location="${dom4j.jar}"/>
     <pathelement location="${jexl.jar}"/>
+    <pathelement location="${velocity-dep.jar}"/>
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
@@ -131,6 +133,7 @@
     <pathelement location="${jaxp.parser.jar}"/>
     <pathelement location="${dom4j.jar}"/>
     <pathelement location="${jexl.jar}"/>
+    <pathelement location="${velocity-dep.jar}"/>
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${commons-logging.jar}"/>

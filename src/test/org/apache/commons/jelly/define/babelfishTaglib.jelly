@@ -5,7 +5,9 @@
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml" xmlns:define="jelly:define" xmlns:http="notImplementedYet">
   <define:taglib uri="jelly:babelfish">
   
-    <!-- defines the <translate> tag -->
+    <!-- defines the <translate> tag                                            -->
+    <!-- notice how the 'from' and 'to' attributes are available as variables   -->
+    <!-- and the body of the <translate> tag is invoked via <define:invokeBody> -->
     <define:tag name="translate">
       <http:post url="http://services.xmethods.net:80/perl/soaplite.cgi">
        <http:header name="SOAPAction" value="urn:xmethodsBabelFish#BabelFish"/>
@@ -17,7 +19,9 @@
           <env:Body>
             <m:BabelFish xmlns:m="urn:xmethodsBabelFish">
               <translationmode><j:expr value="${from}"/>_<j:expr value="${to}"/></translationmode>      
-              <sourcedata><define:invokeBody/></sourcedata>    
+              <sourcedata>
+                <define:invokeBody/>
+              </sourcedata>    
             </m:BabelFish>
           </env:Body>
         </env:Envelope>
