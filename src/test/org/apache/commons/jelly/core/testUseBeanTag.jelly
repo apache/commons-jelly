@@ -14,11 +14,18 @@
   limitations under the License.
 -->
 
-<j:jelly xmlns:j="jelly:core">
+<j:jelly xmlns:j="jelly:core" xmlns:jx="jelly:org.apache.commons.jelly.core.extension.CoreExtensionTagLibrary">
     <j:if test="${test.simple}">
         <j:useBean var="foo" 
           class="org.apache.commons.jelly.core.Customer"
           name="testing"
           city="sydney"/>
+    </j:if>
+    <j:if test="${test.extension}">
+        <jx:useBeanX var="foo" 
+          class="org.apache.commons.jelly.core.Customer"
+          name="testing"
+          city="sydney"/>
+        Name is ${foo.name}
     </j:if>
 </j:jelly>
