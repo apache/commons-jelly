@@ -104,7 +104,7 @@ public class TransactionTag extends TagSupport {
     }
 
     /**
-     * Setter method for the SQL DataSource. DataSource can be
+     * Sets the SQL DataSource. DataSource can be
      * a String or a DataSource object.
      */
     public void setDataSource(Object dataSource) {
@@ -181,7 +181,7 @@ public class TransactionTag extends TagSupport {
     // Public utility methods
 
     /**
-     * Setter method for the transaction isolation level.
+     * Sets the transaction isolation level.
      */
     public void setIsolation(String iso) throws JellyException {
 

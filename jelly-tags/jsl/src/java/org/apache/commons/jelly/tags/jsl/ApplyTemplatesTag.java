@@ -113,7 +113,7 @@ public class ApplyTemplatesTag extends JSLTagSupport {
         this.select = select;
     }
     
-    /** Setter for property mode.
+    /** Sets the mode.
      * @param mode New value of property mode.
      */
     public void setMode(String mode) {

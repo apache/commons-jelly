@@ -153,7 +153,7 @@ public class StylesheetTag extends XPathTagSupport {
     }
     
     /** 
-     * Setter for property mode.
+     * Sets the mode.
      * @param mode New value of property mode.
      */
     public void setMode(String mode) {

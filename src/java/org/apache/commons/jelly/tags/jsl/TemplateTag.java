@@ -159,7 +159,7 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
         return priority;
     }
     
-    /** Setter for property priority.
+    /** Sets the priority.
      * @param priority New value of property priority.
      */
     public void setPriority(double priority) {
@@ -173,7 +173,7 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
         return name;
     }
     
-    /** Setter for property name.
+    /** Sets the name.
      * @param name New value of property name.
      */
     public void setName(String name) {
@@ -191,14 +191,14 @@ public class TemplateTag extends JSLTagSupport implements XPathSource {
         return action;
     }
     
-    /** Setter for property action.
+    /** Sets the action.
      * @param action New value of property action.
      */
     public void setAction(Action action) {
         this.action = action;
     }
     
-    /** Setter for property mode.
+    /** Sets the mode.
      * @param mode New value of property mode.
      */
     public void setMode(String mode) {

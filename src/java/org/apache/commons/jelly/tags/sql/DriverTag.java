@@ -93,7 +93,7 @@ public class DriverTag extends TagSupport {
     }
 
     /**
-     * Setter method for the scope of the variable to hold the
+     * Sets the scope of the variable to hold the
      * result.
      *
      */

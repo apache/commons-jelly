@@ -107,7 +107,7 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
     // Accessor methods
 
     /**
-     * Setter method for the name of the variable to hold the
+     * Sets the name of the variable to hold the
      * result.
      */
     public void setVar(String var) {
@@ -115,7 +115,7 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
     }
 
     /**
-     * Setter method for the scope of the variable to hold the
+     * Sets the scope of the variable to hold the
      * result.
      */
     public void setScope(String scopeName) {
@@ -123,7 +123,7 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
     }
 
     /**
-     * Setter method for the SQL DataSource. DataSource can be
+     * Sets the SQL DataSource. DataSource can be
      * a String or a DataSource object.
      */
     public void setDataSource(Object dataSource) {
@@ -132,7 +132,7 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
     }
 
     /**
-     * Setter method for the SQL statement to use for the
+     * Sets the SQL statement to use for the
      * query. The statement may contain parameter markers
      * (question marks, ?). If so, the parameter values must
      * be set using nested value elements.
