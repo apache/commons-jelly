@@ -435,28 +435,35 @@ public class JellyContext {
     }
 
     /** 
-     * Attempts to parse the script from the given File then compiles it and runs it.
+     * Parses the script from the given File then compiles it and runs it.
+     * 
+     * @return the new child context that was used to run the script
      */
-    public void runScript(File file, XMLOutput output) throws Exception {
-        runScript(file.toURL(), output);
+    public JellyContext runScript(File file, XMLOutput output) throws Exception {
+        return runScript(file.toURL(), output);
     }
 
     /** 
-     * Attempts to parse the script from the given URL then compiles it and runs it.
+     * Parses the script from the given URL then compiles it and runs it.
+     * 
+     * @return the new child context that was used to run the script
      */
-    public void runScript(URL url, XMLOutput output) throws Exception {
+    public JellyContext runScript(URL url, XMLOutput output) throws Exception {
         Script script = compileScript(url);
         
         URL newJellyContextURL = getJellyContextURL(url);
         JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
         script.run(newJellyContext, output);
+        return newJellyContext;
     }
 
     /** 
-     * Attempts to parse the script from the given uri using the 
+     * Parses the script from the given uri using the 
      * JellyContext.getResource() API then compiles it and runs it.
+     * 
+     * @return the new child context that was used to run the script
      */
-    public void runScript(String uri, XMLOutput output) throws Exception {
+    public JellyContext runScript(String uri, XMLOutput output) throws Exception {
         URL url = getResource(uri);
         if (url == null) {
             throw new JellyException("Could not find Jelly script: " + url);
@@ -466,9 +473,16 @@ public class JellyContext {
         URL newJellyContextURL = getJellyContextURL(url);
         JellyContext newJellyContext = new JellyContext(this, newJellyContextURL);
         script.run(newJellyContext, output);
+        return newJellyContext;
     }
 
-    public void runScript(String uri, XMLOutput output,
+    /** 
+     * Parses the script from the given uri using the 
+     * JellyContext.getResource() API then compiles it and runs it.
+     * 
+     * @return the new child context that was used to run the script
+     */
+    public JellyContext runScript(String uri, XMLOutput output,
                           boolean export, boolean inherit) throws Exception {
         URL url = getResource(uri);
         if (url == null) {
@@ -488,6 +502,7 @@ public class JellyContext {
         }
 
         script.run(newJellyContext, output);
+        return newJellyContext;
     }
 
     /**

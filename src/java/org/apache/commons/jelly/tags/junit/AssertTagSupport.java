@@ -97,7 +97,7 @@ public abstract class AssertTagSupport extends TagSupport {
         if (message != null) {
             formatted = message +" ";
         }
-        fail(formatted + "expected:<" + expected + "> but was:<" + actual + ">");
+        fail(formatted + "expected:[" + expected + "] but was:[" + actual + "]");
     }
     
 }

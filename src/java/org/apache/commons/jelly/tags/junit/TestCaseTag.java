@@ -1,5 +1,5 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/TestCaseTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  * $Revision: 1.8 $
  * $Date: 2002/07/06 13:53:39 $
  *
@@ -57,52 +57,83 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: TestCaseTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+
+
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
- * This tag causes a failure message. The message can either
- * be specified in the tags body or via the message attribute.
+ * Represents a single test case in a test suite; this tag is analagous to
+ * JUnit's TestCase class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class FailTag extends AssertTagSupport {
+public class TestCaseTag extends TagSupport {
 
-    private String message;
-
-    public FailTag() {
-    }
-
+    private String name;
+    
+    
     // Tag interface
     //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        String message = getMessage();
-        if ( message == null ) {
-            message = getBodyText();
+    public void doTag(final XMLOutput output) throws Exception {
+        String name = getName();
+        if ( name == null ) {
+            name = toString();
         }
-        fail( message );
+        
+        // #### we need to redirect the output to a TestListener
+        // or something?
+        TestCase testCase = new TestCase(name) {
+            protected void runTest() throws Throwable {
+                invokeBody(output);
+            }
+        };
+        
+        // lets find the test suite
+        TestSuite suite = getSuite();
+        if ( suite == null ) {
+            throw new JellyException( "Could not find a TestSuite to add this test to. This tag should be inside a <test:suite> tag" );
+        }
+        suite.addTest(testCase);
     }
     
     // Properties
     //-------------------------------------------------------------------------                
 
     /**
-     * @return the failure message
+     * @return the name of this test case
      */
-    public String getMessage() {
-        return message;
+    public String getName() {
+        return name;
     }
-    
     
     /** 
-     * Sets the failure message. If this attribute is not specified then the
-     * body of this tag will be used instead.
+     * Sets the name of this test case
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public void setName(String name) {
+        this.name = name;
     }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+
+    /**
+     * Strategy method to find the corrent TestSuite to add a new Test case to
+     */
+    protected TestSuite getSuite() {
+        TestSuiteTag tag = (TestSuiteTag) findAncestorWithClass( TestSuiteTag.class );
+        if ( tag != null ) {
+            return tag.getSuite();
+        }
+        return (TestSuite) context.getVariable( "org.apache.commons.jelly.junit.suite" );
+    }
+
 }

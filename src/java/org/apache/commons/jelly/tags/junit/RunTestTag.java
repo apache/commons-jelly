@@ -1,5 +1,5 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/RunTestTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  * $Revision: 1.8 $
  * $Date: 2002/07/06 13:53:39 $
  *
@@ -57,52 +57,87 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: RunTestTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
+import junit.framework.Test;
+import junit.framework.TestResult;
+
+import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
- * This tag causes a failure message. The message can either
- * be specified in the tags body or via the message attribute.
+ * This tag will run the given Test which could be an individual TestCase or a TestSuite.
+ * The TestResult can be specified to capture the output, otherwise the results are output
+ * as XML so that they can be formatted in some custom manner.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class FailTag extends AssertTagSupport {
+public class RunTestTag extends TagSupport {
 
-    private String message;
-
-    public FailTag() {
-    }
-
+    private Test test;
+    private TestResult result;
+    
+    
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        String message = getMessage();
-        if ( message == null ) {
-            message = getBodyText();
+        if ( test == null ) {
+            throw new MissingAttributeException( "test" );
         }
-        fail( message );
+        TestResult result = getResult();
+        if ( result == null ) {
+            result = createResult(output);                    
+        }
+        test.run(result);
     }
     
     // Properties
     //-------------------------------------------------------------------------                
 
     /**
-     * @return the failure message
+     * Returns the TestResult used to capture the output of the test.
+     * @return TestResult
      */
-    public String getMessage() {
-        return message;
+    public TestResult getResult() {
+        return result;
     }
-    
-    
-    /** 
-     * Sets the failure message. If this attribute is not specified then the
-     * body of this tag will be used instead.
+
+    /**
+     * Returns the Test to be ran.
+     * @return Test
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public Test getTest() {
+        return test;
+    }
+
+    /**
+     * Sets the JUnit TestResult used to capture the results of the tst
+     * @param result The TestResult to use
+     */
+    public void setResult(TestResult result) {
+        this.result = result;
+    }
+
+    /**
+     * Sets the JUnit Test to run which could be an individual test or a TestSuite
+     * @param test The test to run
+     */
+    public void setTest(Test test) {
+        this.test = test;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+
+    /**
+     * Factory method to create a new TestResult to capture the output of
+     * the test cases
+     */
+    protected TestResult createResult(XMLOutput output) {
+        return new TestResult();
     }
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<test:suite xmlns:j="jelly:core" xmlns:test="jelly:junit">
+
+  <test:case name="assertTests">
+  
+    <test:assert test="${2 == 2}">This should never fail</test:assert>
+    
+    <j:catch var="ex">
+	  <test:assert test="${2 != 2}">This should always fail</test:assert>
+	</j:catch>    	
+	
+	<test:assert test="${ex != null}">We should have created an exception</test:assert>
+	
+	The exception was: ${ex.message}
+  </test:case>
+
+
+  <test:case name="failTests">
+  
+    <j:catch var="ex">
+	  <test:fail>This should always fail</test:fail>
+	</j:catch>    	
+	
+	<test:assert test="${ex != null}">We should have created an exception</test:assert>
+	
+	The exception was: ${ex.message}
+	
+    <j:catch var="ex">
+	  <test:fail message="This should always fail"/>
+	</j:catch>    	
+	
+	<test:assert test="${ex != null}">We should have created an exception</test:assert>
+	
+	The exception was: ${ex.message}
+  </test:case>
+
+	
+  <test:case name="assertEqualTests">
+  
+    <j:set var="foo" value="abc"/>
+    
+    <test:assertEquals actual="${foo}" expected="abc">This should never fail</test:assertEquals>
+    
+    <j:catch var="ex">
+      <test:assertEquals actual="${foo}" expected="def">This should always fail</test:assertEquals>
+	</j:catch>    	
+	
+	<test:assert test="${ex != null}">We should have created an exception</test:assert>
+	
+	The exception was: ${ex.message}
+  </test:case>
+
+</test:suite>

@@ -1,5 +1,5 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/TestSuiteTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  * $Revision: 1.8 $
  * $Date: 2002/07/06 13:53:39 $
  *
@@ -57,52 +57,103 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: TestSuiteTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
+import junit.framework.Test;
+import junit.framework.TestSuite;
+
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
- * This tag causes a failure message. The message can either
- * be specified in the tags body or via the message attribute.
+ * Represents a collection of TestCases.. This tag is analagous to
+ * JUnit's TestSuite class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class FailTag extends AssertTagSupport {
+public class TestSuiteTag extends TagSupport {
 
-    private String message;
+    /** the test suite this tag created */
+    private TestSuite suite;
+    
+    /** the name of the variable of the test suite */
+    private String var;
+    
+    /** the name of the test suite to create */
+    private String name;
 
-    public FailTag() {
+    public TestSuiteTag() {
     }
-
+    
+    /**
+     * Adds a new Test to this suite
+     */
+    public void addTest(Test test) {
+        getSuite().addTest(test);
+    }    
+    
     // Tag interface
     //------------------------------------------------------------------------- 
     public void doTag(XMLOutput output) throws Exception {
-        String message = getMessage();
-        if ( message == null ) {
-            message = getBodyText();
+        suite = createSuite();
+        
+        TestSuite parent = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");        
+        if ( parent == null ) {
+            context.setVariable("org.apache.commons.jelly.junit.suite", suite );
         }
-        fail( message );
+        else {
+            parent.addTest( suite );
+        }
+
+        invokeBody(output);
+        
+        if ( var != null ) {
+            context.setVariable(var, suite);
+        }            
     }
     
     // Properties
     //-------------------------------------------------------------------------                
-
-    /**
-     * @return the failure message
-     */
-    public String getMessage() {
-        return message;
+    public TestSuite getSuite() {
+        return suite;
     }
     
+    /**
+     * Sets the name of the test suite whichi is exported
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+    
+    /**
+     * @return the name of this test suite
+     */
+    public String getName() {
+        return name;
+    }
     
     /** 
-     * Sets the failure message. If this attribute is not specified then the
-     * body of this tag will be used instead.
+     * Sets the name of this test suite
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+    
+    /**
+     * Factory method to create a new TestSuite
+     */
+    protected TestSuite createSuite() {
+        if ( name == null ) {
+            return new TestSuite();
+        }
+        else {
+            return new TestSuite(name);
+        }
     }
 }

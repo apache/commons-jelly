@@ -1,5 +1,5 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  * $Revision: 1.8 $
  * $Date: 2002/07/06 13:53:39 $
  *
@@ -57,52 +57,28 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
-package org.apache.commons.jelly.tags.junit;
+package org.apache.commons.jelly.junit;
 
-import org.apache.commons.jelly.XMLOutput;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
+
+import org.apache.commons.jelly.tags.junit.JellyTestSuite;
 
 /** 
- * This tag causes a failure message. The message can either
- * be specified in the tags body or via the message attribute.
+ * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class FailTag extends AssertTagSupport {
+public class TestJUnit extends JellyTestSuite {
 
-    private String message;
-
-    public FailTag() {
-    }
-
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        String message = getMessage();
-        if ( message == null ) {
-            message = getBodyText();
-        }
-        fail( message );
+    public static void main( String[] args ) throws Exception {
+        TestRunner.run( suite() );
     }
     
-    // Properties
-    //-------------------------------------------------------------------------                
-
-    /**
-     * @return the failure message
-     */
-    public String getMessage() {
-        return message;
-    }
-    
-    
-    /** 
-     * Sets the failure message. If this attribute is not specified then the
-     * body of this tag will be used instead.
-     */
-    public void setMessage(String message) {
-        this.message = message;
+    public static TestSuite suite() throws Exception {
+        return createTestSuite(TestJUnit.class, "suite.jelly");        
     }
 }

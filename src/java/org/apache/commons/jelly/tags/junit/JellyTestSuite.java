@@ -1,5 +1,5 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  * $Revision: 1.8 $
  * $Date: 2002/07/06 13:53:39 $
  *
@@ -57,52 +57,74 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: FailTag.java,v 1.8 2002/07/06 13:53:39 dion Exp $
+ * $Id: JellyTestSuite.java,v 1.8 2002/07/06 13:53:39 dion Exp $
  */
 package org.apache.commons.jelly.tags.junit;
 
+import java.net.URL;
+
+import junit.framework.TestSuite;
+
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /** 
- * This tag causes a failure message. The message can either
- * be specified in the tags body or via the message attribute.
+ * An abstract base class for creating a TestSuite via a Jelly script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.8 $
  */
-public class FailTag extends AssertTagSupport {
+public abstract class JellyTestSuite {
 
-    private String message;
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(JellyTestSuite.class);
 
-    public FailTag() {
-    }
-
-    // Tag interface
-    //------------------------------------------------------------------------- 
-    public void doTag(XMLOutput output) throws Exception {
-        String message = getMessage();
-        if ( message == null ) {
-            message = getBodyText();
-        }
-        fail( message );
-    }
-    
-    // Properties
-    //-------------------------------------------------------------------------                
 
     /**
-     * @return the failure message
+     * Helper method to create a test suite from a file name on the class path
+     * in the package of the given class. 
+     * For example a test could call 
+     * <code>
+     * createTestSuite( Foo.class, "suite.jelly" );
+     * </code>
+     * which would loaad the 'suite.jelly script from the same package as the Foo 
+     * class on the classpath.
+     * 
+     * @param testClass is the test class used to load the script via the classpath
+     * @param script is the name of the script, which is typically just a name, no directory.
+     * @return a newly created TestSuite
      */
-    public String getMessage() {
-        return message;
+    public static TestSuite createTestSuite(Class testClass, String script) throws Exception {
+        URL url = testClass.getResource(script);
+        if ( url == null ) {
+            throw new Exception( 
+                "Could not find Jelly script: " + script 
+                + " in package of class: " + testClass.getName() 
+            );
+        }
+        return createTestSuite( url );
     }
-    
-    
-    /** 
-     * Sets the failure message. If this attribute is not specified then the
-     * body of this tag will be used instead.
+        
+    /**
+     * Helper method to create a test suite from the given Jelly script
+     * 
+     * @param script is the URL to the script which should create a TestSuite
+     * @return a newly created TestSuite
      */
-    public void setMessage(String message) {
-        this.message = message;
+    public static TestSuite createTestSuite(URL script) throws Exception {
+        JellyContext context = new JellyContext(script);
+        XMLOutput output = XMLOutput.createXMLOutput(System.out);
+        context = context.runScript(script, output);
+        TestSuite answer = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
+        if ( answer == null ) {
+            log.warn( "Could not find a TestSuite created by Jelly for the script:" + script );
+            // return an empty test suite
+            return new TestSuite();
+        }
+        return answer;
     }
 }

@@ -30,9 +30,6 @@
 		</li>
 		<li>Write a JellyServlet so that Jelly can be used as a page templating system.
 		</li>
-		<li>Implement a JellyUnit system so that Jelly cleanly integrates with the JUnit framework
-			and Maven's test plugin neatly so that unit tests can be written in jelly script if required.
-		</li>
 		<li>Implement a HTML parser for Jelly, probably using NeckoHTML so that non-XML can be parsed
 			and tags with prefixes can be bound to Jelly tags.
 		</li>
@@ -64,11 +61,6 @@
       
     <section name="Ideas for new tag libraries"> 
       <ul>
-		<li>Add JUnit tag library along these lines...
-<pre>&lt;junit:assert test="${foo == 22}"&gt;some description&lt;/junit:assert&gt;
-&lt;junit:assertEquals value="${foo}" expected="${22}"&gt;some description&lt;/junit:assert&gt;
-</pre>
-		</li>
         <li>
         	An XSD tag library that can be used to parse XSD documents and create DynaBeans from the complex types.
 <pre>

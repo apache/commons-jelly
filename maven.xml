@@ -1,7 +1,7 @@
 <project default="java:jar" xmlns:j="jelly:core">
 
   <!-- define jelly task -->	
-  <goal name="jelly-task" prereqs="java:compile">
+  <goal name="jelly-task" prereqs="java:compile, test:compile">
 	<path id="test.classpath">
 	    <pathelement path="${maven.build.dest}"/>
 	    <pathelement path="target/classes"/>
@@ -66,9 +66,16 @@
   
   </preGoal>
 
+
+  <!-- ensure that the test jelly scripts are copied to the test-classes directory -->	
+  <preGoal name="test:test">
+    <copy todir="${maven.test.dest}">
+	  <fileset dir="${pom.build.unitTestSourceDirectory}" includes="**/*.jelly"/>
+	</copy>
+  </preGoal>
+
   <!-- create the lib and bin directories in the binary distro -->  
-  <preGoal
-    name="dist:build">
+  <preGoal name="dist:build">
 
     <echo>The POM is ${pom.build}</echo>
     <echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
@@ -207,6 +214,26 @@
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/html/example2.jelly"/> 
+    </java>
+  </goal>
+
+  <goal name="demo:test" prereqs="jelly-task" 
+	description="Runs a sample JUnit test suite via Jelly">
+	
+<!--	
+	<jelly file="src/test/org/apache/commons/jelly/junit/testSuite.jelly"/> 
+-->	
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/junit/testSuite.jelly"/> 
+    </java>
+  </goal>
+
+  <goal name="demo:junit" prereqs="jelly-task" 
+	description="Runs the Jelly JUnit test suite">
+	
+    <java classname="org.apache.commons.jelly.junit.TestJUnit" fork="yes">
+      <classpath refid="test.classpath"/>
     </java>
   </goal>
 
