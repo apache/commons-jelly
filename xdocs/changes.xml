@@ -24,6 +24,8 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+    <release version="1.0-beta-5-SNAPSHOT" date="in CVS">
+    </release>
     <release version="1.0-beta-4" date="2004-09-09">
       <action dev="dion" type="add" issue="JELLY-134">Handle JVMs that return null for getClass().getClassLoader()</action>
       <action dev="dion" type="fix" issue="JELLY-66" due-to="Knut Wannheden">Default XMLOutput to not escape XML</action>
