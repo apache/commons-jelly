@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.7 2002/05/25 18:27:22 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/05/25 18:27:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.8 2002/05/28 23:38:57 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/05/28 23:38:57 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.7 2002/05/25 18:27:22 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.8 2002/05/28 23:38:57 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -207,14 +207,23 @@ public class BeanTagScript extends TagScript {
             // convert value to correct type
             if (value != null) {
                 value = convertType(value, type);
-
-                Class theClass = value.getClass();
-                if ( ! type.isAssignableFrom( theClass ) ) {
-                    log.warn( "Cannot call method: " + method.getName() + " as I cannot convert: " + value + " of type: " + theClass.getName() + " into type: " + type.getName() );
-                }
             }            
             Object[] arguments = { value };
-            method.invoke(tag, arguments);
+            try {
+                method.invoke(tag, arguments);
+            }
+            catch (Exception e) {
+                String valueTypeName = (value != null ) ? value.getClass().getName() : "null";
+                log.warn( 
+                    "Cannot call method: " + method.getName() + " as I cannot convert: " 
+                    + value + " of type: " + valueTypeName + " into type: " + type.getName() 
+                );
+                throw new JellyException( 
+                    "Cannot call method: " + method.getName() + " on tag of type: " 
+                    + tag.getClass().getName() + " with value: " + value + " of type: " 
+                    + valueTypeName + ". Exception: " + e, e 
+                );
+            }
         }
         tag.doTag(output);
     }
