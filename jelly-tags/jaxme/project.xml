@@ -61,13 +61,13 @@
 
     <dependency>
       <id>commons-jelly</id>
-      <version>SNAPSHOT</version>
+      <version>1.0-beta-4</version>
     </dependency>
 
     <dependency>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <groupId>commons-jelly</groupId>
-      <version>1.0-beta-4</version>
+      <version>SNAPSHOT</version>
     </dependency>    
     <dependency>
       <artifactId>commons-jelly-tags-xmlunit</artifactId>
