@@ -285,22 +285,42 @@
    </goal>
 
 
-   <demo name="demo:sql" prereqs="jelly-task" 
+   <goal name="demo:sql" prereqs="jelly-task" 
       description="Runs an SQL demo">
       
       <!-- Values used for testing -->
-	  <property name="databaseUrl"             value="jdbc:hsqldb:hsql://localhost"/>
+	  <property name="databaseUrl"             value="jdbc:hsqldb:target/hsql"/>
 	  <property name="databaseDriver"          value="org.hsqldb.jdbcDriver"/>
 	  <property name="databaseUser"            value="sa"/>
 	  <property name="databaseTable"           value="SYSTEM_TABLES"/>
 
 	<echo message="Running examples and outputting results to target directory"/>
-	
+
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <sysproperty key="databaseUrl" value="${databaseUrl}"/>
+      <sysproperty key="databaseDriver" value="${databaseDriver}"/>
+      <sysproperty key="databaseUser" value="${databaseUser}"/>
+      <sysproperty key="databaseTable" value="${databaseTable}"/>
+      <arg value="src/test/org/apache/commons/jelly/sql/example3.jelly"/> 
+    </java>
+    
+<!--	
 	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="target/sqloutput.xml"/>
 	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="target/sqloutput2.xml"/>	
 	<jelly file="src/test/org/apache/commons/jelly/sql/testSql.jelly" output="target/sqloutput3.xml"/>		
-   </demo>
+-->	
+   </goal>
    
+  <goal name="demo:hsql" prereqs="jelly-task"
+    description="Runs a HSQL server, which can be useful for performing SQL tests">
+    <delete>
+      <fileset dir="." includes="test.*"/>
+    </delete>	
+    <java classname="org.hsqldb.Server" fork="yes">
+      <classpath refid="test.classpath"/>
+    </java>
+  </goal>
 	
 
   <goal name="demo:tagdef" prereqs="java:compile"

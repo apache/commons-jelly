@@ -2,10 +2,14 @@
 
 <j:jelly xmlns:j="jelly:core" xmlns:sql="jelly:sql">
 
-  <sql:setDataSource url="${databaseUrl}" driver="${databaseDriver}" user="${databaseUser}"/>
+  <sql:setDataSource 
+    url="${databaseUrl}" 
+    driver="${databaseDriver}" 
+    user="${databaseUser}"
+    password="${databasePassword}"/>
 
   <sql:query var="results">
-      select * from <j:expr value="${databaseTable}"/>
+      select * from ${databaseTable}
   </sql:query>
 
   <dataSet>
@@ -13,7 +17,7 @@
     <j:forEach items="${results.rowsByIndex}" var="row">
       <row>
         <j:forEach var="columnName" items="${results.columnNames}" indexVar="i">
-          <field column="${columnName}"><j:expr value="${row[i]}"/></field>                                
+          <field column="${columnName}">${row[i]}</field>                                
         </j:forEach>
       </row>
     </j:forEach>                  

@@ -21,7 +21,7 @@
   <jsl:template match="versiontag"/>
 
   <!-- let other text and elements pass through via default rules-->
-  <jsl:template match="*">
+  <jsl:template match="*" trim="false">
     <jsl:copy>
       <jsl:applyTemplates/>
     </jsl:copy>

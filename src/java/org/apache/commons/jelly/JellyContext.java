@@ -205,15 +205,14 @@ public class JellyContext {
         Object answer = variables.get(name);
         if ( answer == null && parent != null ) {
             answer = parent.findVariable(name);
-            
-            // ### this is a hack - remove this when we have support for pluggable Scopes
-            if ( answer == null ) {
-                try {
-                    answer = System.getProperty(name);
-                }
-                catch (Throwable t) {
-                    // ignore security exceptions
-                }
+        }
+        // ### this is a hack - remove this when we have support for pluggable Scopes
+        if ( answer == null ) {
+            try {
+                answer = System.getProperty(name);
+            }
+            catch (Throwable t) {
+                // ignore security exceptions
             }
         }
         return answer;
