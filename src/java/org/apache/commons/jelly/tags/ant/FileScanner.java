@@ -90,7 +90,11 @@ public class FileScanner {
     public Iterator iterator() {
         return new FileIterator(project, filesets.iterator());
     }
-    
+
+    public boolean hasFiles() {
+        return filesets.size() > 0;
+    }        
+
     // Properties
     //-------------------------------------------------------------------------
 
