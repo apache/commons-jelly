@@ -111,14 +111,18 @@ public class MessageTag extends TagSupport {
 	}
 	
 	public void doTag(XMLOutput output) throws JellyTagException {
+		
 		Object keyInput = null;
 		if (this.key != null) {
 			keyInput = this.key.evaluate(context);
+			// process <param> sub tags
+			invokeBody(output);
 		}
 		else {
 			// get key from body
 			keyInput = getBodyText();
 		}
+
 		
 		if ((keyInput == null) || keyInput.equals("")) {
             try {
