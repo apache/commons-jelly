@@ -84,11 +84,11 @@ public class Resources {
 
     /** The location of our resources. */
     private static final String RESOURCE_LOCATION
-	= "org.apache.commons.jelly.tags.Resources";
+    = "org.apache.commons.jelly.tags.Resources";
 
     /** Our class-wide ResourceBundle. */
     private static ResourceBundle rb =
-	ResourceBundle.getBundle(RESOURCE_LOCATION);
+    ResourceBundle.getBundle(RESOURCE_LOCATION);
 
 
     //*********************************************************************
@@ -96,69 +96,69 @@ public class Resources {
 
     /** Retrieves a message with no arguments. */
     public static String getMessage(String name)
-	    throws MissingResourceException {
-	return rb.getString(name);
+        throws MissingResourceException {
+    return rb.getString(name);
     }
 
     /** Retrieves a message with arbitrarily many arguments. */
     public static String getMessage(String name, Object[] a)
-	    throws MissingResourceException {
-	String res = rb.getString(name);
-	return MessageFormat.format(res, a);
+        throws MissingResourceException {
+    String res = rb.getString(name);
+    return MessageFormat.format(res, a);
     }
 
     /** Retrieves a message with one argument. */
     public static String getMessage(String name, Object a1)
-	    throws MissingResourceException {
-	return getMessage(name, new Object[] { a1 });
+        throws MissingResourceException {
+    return getMessage(name, new Object[] { a1 });
     }
 
     /** Retrieves a message with two arguments. */
     public static String getMessage(String name, Object a1, Object a2)
-	    throws MissingResourceException {
-	return getMessage(name, new Object[] { a1, a2 });
+        throws MissingResourceException {
+    return getMessage(name, new Object[] { a1, a2 });
     }
 
     /** Retrieves a message with three arguments. */
     public static String getMessage(String name,
-				    Object a1,
-				    Object a2,
-				    Object a3)
-	    throws MissingResourceException {
-	return getMessage(name, new Object[] { a1, a2, a3 });
+                    Object a1,
+                    Object a2,
+                    Object a3)
+        throws MissingResourceException {
+    return getMessage(name, new Object[] { a1, a2, a3 });
     }
 
     /** Retrieves a message with four arguments. */
     public static String getMessage(String name,
-			 	    Object a1,
-				    Object a2,
-				    Object a3,
-				    Object a4)
-	    throws MissingResourceException {
-	return getMessage(name, new Object[] { a1, a2, a3, a4 });
+                    Object a1,
+                    Object a2,
+                    Object a3,
+                    Object a4)
+        throws MissingResourceException {
+    return getMessage(name, new Object[] { a1, a2, a3, a4 });
     }
 
     /** Retrieves a message with five arguments. */
     public static String getMessage(String name,
-				    Object a1,
-				    Object a2,
-				    Object a3,
-				    Object a4,
-				    Object a5)
-	    throws MissingResourceException {
-	return getMessage(name, new Object[] { a1, a2, a3, a4, a5 });
+                    Object a1,
+                    Object a2,
+                    Object a3,
+                    Object a4,
+                    Object a5)
+        throws MissingResourceException {
+    return getMessage(name, new Object[] { a1, a2, a3, a4, a5 });
     }
 
     /** Retrieves a message with six arguments. */
     public static String getMessage(String name,
-				    Object a1,
-				    Object a2,
-				    Object a3,
-				    Object a4,
-				    Object a5,
-				    Object a6)
-	    throws MissingResourceException {
-	return getMessage(name, new Object[] { a1, a2, a3, a4, a5, a6 });
+                    Object a1,
+                    Object a2,
+                    Object a3,
+                    Object a4,
+                    Object a5,
+                    Object a6)
+        throws MissingResourceException {
+    return getMessage(name, new Object[] { a1, a2, a3, a4, a5, a6 });
     }
 
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ConstantExpression.java,v 1.3 2002/05/15 06:25:50 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/05/15 06:25:50 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ConstantExpression.java,v 1.4 2002/05/17 15:18:15 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/17 15:18:15 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ConstantExpression.java,v 1.3 2002/05/15 06:25:50 jstrachan Exp $
+ * $Id: ConstantExpression.java,v 1.4 2002/05/17 15:18:15 jstrachan Exp $
  */
 package org.apache.commons.jelly.expression;
 
@@ -68,7 +68,7 @@ import org.apache.commons.jelly.JellyContext;
   * <p> In other words, {@link #evaluate} returns a value independent of the context. </p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class ConstantExpression extends ExpressionSupport {
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.5 2002/03/07 02:46:04 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/03/07 02:46:04 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/beanshell/TestBeanShellEL.java,v 1.6 2002/05/15 06:25:49 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/05/15 06:25:49 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestBeanShellEL.java,v 1.5 2002/03/07 02:46:04 jstrachan Exp $
+ * $Id: TestBeanShellEL.java,v 1.6 2002/05/15 06:25:49 jstrachan Exp $
  */
 package org.apache.commons.jelly.beanshell;
 
@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
 /** Tests the BeanShell EL
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.6 $
   */
 public class TestBeanShellEL extends TestCase {
     

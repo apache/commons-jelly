@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java,v 1.2 2002/03/07 03:57:12 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/03/07 03:57:12 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/bsf/BSFExpression.java,v 1.3 2002/05/15 06:25:48 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/05/15 06:25:48 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BSFExpression.java,v 1.2 2002/03/07 03:57:12 jstrachan Exp $
+ * $Id: BSFExpression.java,v 1.3 2002/05/15 06:25:48 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.bsf;
 
@@ -76,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
 /** Represents a BSF expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.2 $
+  * @version $Revision: 1.3 $
   */
 public class BSFExpression extends ExpressionSupport {
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/expression/beanshell/BeanShellExpressionFactory.java,v 1.3 2002/02/13 17:03:09 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/02/13 17:03:09 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpressionFactory.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
+ * $Revision: 1.1 $
+ * $Date: 2002/03/07 02:46:04 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpressionFactory.java,v 1.3 2002/02/13 17:03:09 jstrachan Exp $
+ * $Id: BeanShellExpressionFactory.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.beanshell;
 
@@ -67,7 +67,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
 /** Represents a factory of <a href="http://www.beanshell.org">beanshell</a> expressions
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.1 $
   */
 public class BeanShellExpressionFactory implements ExpressionFactory {
 

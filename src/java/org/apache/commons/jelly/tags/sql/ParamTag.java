@@ -71,37 +71,37 @@ import org.apache.commons.jelly.tags.Resources;
  */
 
 public class ParamTag extends TagSupport {
-	protected Object value;
+    protected Object value;
 
     
     public void setValue(Object value) {
-		this.value = value;
+        this.value = value;
     }
     
-	//*********************************************************************
-	// Tag logic
+    //*********************************************************************
+    // Tag logic
 
-	public void doTag(XMLOutput output) throws Exception {
-		SQLExecutionTag parent =
-			(SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
-		if (parent == null) {
-			throw new JellyException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
-		}
+    public void doTag(XMLOutput output) throws Exception {
+        SQLExecutionTag parent =
+            (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
+        if (parent == null) {
+            throw new JellyException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
+        }
 
-		Object paramValue = value;
-		if (value != null) {
-			paramValue = value;
-		}
-		else {
-			String bodyContent = getBodyText();
-			if (bodyContent != null) {
-				bodyContent = bodyContent.trim();
-				if (bodyContent.length() > 0) {
-					paramValue = bodyContent;
-				}
-			}
-		}
+        Object paramValue = value;
+        if (value != null) {
+            paramValue = value;
+        }
+        else {
+            String bodyContent = getBodyText();
+            if (bodyContent != null) {
+                bodyContent = bodyContent.trim();
+                if (bodyContent.length() > 0) {
+                    paramValue = bodyContent;
+                }
+            }
+        }
 
-		parent.addSQLParameter(paramValue);
-	}
+        parent.addSQLParameter(paramValue);
+    }
 }

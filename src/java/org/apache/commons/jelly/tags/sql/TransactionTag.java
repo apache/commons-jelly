@@ -76,162 +76,162 @@ import org.apache.commons.jelly.tags.Resources;
 
 public class TransactionTag extends TagSupport {
 
-	//*********************************************************************
-	// Private constants
+    //*********************************************************************
+    // Private constants
 
-	private static final String TRANSACTION_READ_COMMITTED = "read_committed";
-	private static final String TRANSACTION_READ_UNCOMMITTED = "read_uncommitted";
-	private static final String TRANSACTION_REPEATABLE_READ = "repeatable_read";
-	private static final String TRANSACTION_SERIALIZABLE = "serializable";
+    private static final String TRANSACTION_READ_COMMITTED = "read_committed";
+    private static final String TRANSACTION_READ_UNCOMMITTED = "read_uncommitted";
+    private static final String TRANSACTION_REPEATABLE_READ = "repeatable_read";
+    private static final String TRANSACTION_SERIALIZABLE = "serializable";
 
-	//*********************************************************************
-	// Protected state
+    //*********************************************************************
+    // Protected state
 
-	protected Object rawDataSource;
-	protected boolean dataSourceSpecified;
+    protected Object rawDataSource;
+    protected boolean dataSourceSpecified;
 
-	//*********************************************************************
-	// Private state
+    //*********************************************************************
+    // Private state
 
-	private Connection conn;
-	private int isolation = Connection.TRANSACTION_NONE;
-	private int origIsolation;
+    private Connection conn;
+    private int isolation = Connection.TRANSACTION_NONE;
+    private int origIsolation;
 
-	//*********************************************************************
-	// Constructor and initialization
+    //*********************************************************************
+    // Constructor and initialization
 
-	public TransactionTag() {
-	}
+    public TransactionTag() {
+    }
 
     /**
      * Setter method for the SQL DataSource. DataSource can be
      * a String or a DataSource object.
      */
     public void setDataSource(Object dataSource) {
-		this.rawDataSource = dataSource;
-		this.dataSourceSpecified = true;
+        this.rawDataSource = dataSource;
+        this.dataSourceSpecified = true;
     }
 
 
-	//*********************************************************************
-	// Tag logic
+    //*********************************************************************
+    // Tag logic
 
-	/**
-	 * Prepares for execution by setting the initial state, such as
-	 * getting the <code>Connection</code> and preparing it for
-	 * the transaction.
-	 */
-	public void doTag(XMLOutput output) throws Exception {
+    /**
+     * Prepares for execution by setting the initial state, such as
+     * getting the <code>Connection</code> and preparing it for
+     * the transaction.
+     */
+    public void doTag(XMLOutput output) throws Exception {
 
-		if ((rawDataSource == null) && dataSourceSpecified) {
-			throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
-		}
+        if ((rawDataSource == null) && dataSourceSpecified) {
+            throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
+        }
 
-		DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
+        DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
 
-		try {
-			conn = dataSource.getConnection();
-			origIsolation = conn.getTransactionIsolation();
-			if (origIsolation == Connection.TRANSACTION_NONE) {
-				throw new JellyException(Resources.getMessage("TRANSACTION_NO_SUPPORT"));
-			}
-			if ((isolation != Connection.TRANSACTION_NONE)
-				&& (isolation != origIsolation)) {
-				conn.setTransactionIsolation(isolation);
-			}
-			conn.setAutoCommit(false);
-		}
-		catch (SQLException e) {
-			throw new JellyException(
-				Resources.getMessage("ERROR_GET_CONNECTION", e.getMessage()));
-		}
+        try {
+            conn = dataSource.getConnection();
+            origIsolation = conn.getTransactionIsolation();
+            if (origIsolation == Connection.TRANSACTION_NONE) {
+                throw new JellyException(Resources.getMessage("TRANSACTION_NO_SUPPORT"));
+            }
+            if ((isolation != Connection.TRANSACTION_NONE)
+                && (isolation != origIsolation)) {
+                conn.setTransactionIsolation(isolation);
+            }
+            conn.setAutoCommit(false);
+        }
+        catch (SQLException e) {
+            throw new JellyException(
+                Resources.getMessage("ERROR_GET_CONNECTION", e.getMessage()));
+        }
 
-		boolean finished = false;
-		try {
-			getBody().run(context, output);
-			finished = true;
-		}
-		catch (Exception e) {
-			if (conn != null) {
-				try {
-					conn.rollback();
-				}
-				catch (SQLException s) {
-					// Ignore to not hide orignal exception
-				}
-				doFinally();
-			}
-			throw e;
-		}
+        boolean finished = false;
+        try {
+            getBody().run(context, output);
+            finished = true;
+        }
+        catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback();
+                }
+                catch (SQLException s) {
+                    // Ignore to not hide orignal exception
+                }
+                doFinally();
+            }
+            throw e;
+        }
 
-		// lets commit			
-		try {
-			conn.commit();
-		}
-		catch (SQLException e) {
-			throw new JellyException(
-				Resources.getMessage("TRANSACTION_COMMIT_ERROR", e.getMessage()));
-		}
-		finally {
-			doFinally();
-		}
-	}
+        // lets commit          
+        try {
+            conn.commit();
+        }
+        catch (SQLException e) {
+            throw new JellyException(
+                Resources.getMessage("TRANSACTION_COMMIT_ERROR", e.getMessage()));
+        }
+        finally {
+            doFinally();
+        }
+    }
 
-	//*********************************************************************
-	// Public utility methods
+    //*********************************************************************
+    // Public utility methods
 
-	/**
-	 * Setter method for the transaction isolation level.
-	 */
-	public void setIsolation(String iso) throws JellyException {
+    /**
+     * Setter method for the transaction isolation level.
+     */
+    public void setIsolation(String iso) throws JellyException {
 
-		if (TRANSACTION_READ_COMMITTED.equals(iso)) {
-			isolation = Connection.TRANSACTION_READ_COMMITTED;
-		}
-		else if (TRANSACTION_READ_UNCOMMITTED.equals(iso)) {
-			isolation = Connection.TRANSACTION_READ_UNCOMMITTED;
-		}
-		else if (TRANSACTION_REPEATABLE_READ.equals(iso)) {
-			isolation = Connection.TRANSACTION_REPEATABLE_READ;
-		}
-		else if (TRANSACTION_SERIALIZABLE.equals(iso)) {
-			isolation = Connection.TRANSACTION_SERIALIZABLE;
-		}
-		else {
-			throw new JellyException(Resources.getMessage("TRANSACTION_INVALID_ISOLATION"));
-		}
-	}
+        if (TRANSACTION_READ_COMMITTED.equals(iso)) {
+            isolation = Connection.TRANSACTION_READ_COMMITTED;
+        }
+        else if (TRANSACTION_READ_UNCOMMITTED.equals(iso)) {
+            isolation = Connection.TRANSACTION_READ_UNCOMMITTED;
+        }
+        else if (TRANSACTION_REPEATABLE_READ.equals(iso)) {
+            isolation = Connection.TRANSACTION_REPEATABLE_READ;
+        }
+        else if (TRANSACTION_SERIALIZABLE.equals(iso)) {
+            isolation = Connection.TRANSACTION_SERIALIZABLE;
+        }
+        else {
+            throw new JellyException(Resources.getMessage("TRANSACTION_INVALID_ISOLATION"));
+        }
+    }
 
-	/**
-	 * Called by nested parameter elements to get a reference to
-	 * the Connection.
-	 */
-	public Connection getSharedConnection() {
-		return conn;
-	}
+    /**
+     * Called by nested parameter elements to get a reference to
+     * the Connection.
+     */
+    public Connection getSharedConnection() {
+        return conn;
+    }
 
-	//*********************************************************************
-	// Implementation methods methods
+    //*********************************************************************
+    // Implementation methods methods
 
-	/**
-	 * Restores the <code>Connection</code> to its initial state and
-	 * closes it.
-	 */
-	protected void doFinally() {
-		if (conn != null) {
-			try {
-				if ((isolation != Connection.TRANSACTION_NONE)
-					&& (isolation != origIsolation)) {
-					conn.setTransactionIsolation(origIsolation);
-				}
-				conn.setAutoCommit(true);
-				conn.close();
-			}
-			catch (SQLException e) {
-				// Not much we can do
-			}
-		}
-		conn = null;
-	}
+    /**
+     * Restores the <code>Connection</code> to its initial state and
+     * closes it.
+     */
+    protected void doFinally() {
+        if (conn != null) {
+            try {
+                if ((isolation != Connection.TRANSACTION_NONE)
+                    && (isolation != origIsolation)) {
+                    conn.setTransactionIsolation(origIsolation);
+                }
+                conn.setAutoCommit(true);
+                conn.close();
+            }
+            catch (SQLException e) {
+                // Not much we can do
+            }
+        }
+        conn = null;
+    }
 
 }

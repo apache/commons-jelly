@@ -75,99 +75,99 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SetDataSourceTag extends TagSupport {
 
-	/** The Log to which logging calls will be made. */
-	private static final Log log = LogFactory.getLog(SetDataSourceTag.class);
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(SetDataSourceTag.class);
 
-	protected Object dataSource;
-	protected boolean dataSourceSpecified;
-	protected String jdbcURL;
-	protected String driverClassName;
-	protected String userName;
-	protected String password;
+    protected Object dataSource;
+    protected boolean dataSourceSpecified;
+    protected String jdbcURL;
+    protected String driverClassName;
+    protected String userName;
+    protected String password;
 
-	private String scope = "page";
-	private String var;
+    private String scope = "page";
+    private String var;
 
-	//*********************************************************************
-	// Constructor and initialization
+    //*********************************************************************
+    // Constructor and initialization
 
-	public SetDataSourceTag() {
-	}
+    public SetDataSourceTag() {
+    }
 
-	//*********************************************************************
-	// Accessor methods
+    //*********************************************************************
+    // Accessor methods
 
-	/**
-	 * Setter method for the scope of the variable to hold the
-	 * result.
-	 *
-	 */
-	public void setScope(String scope) {
-		this.scope = scope;
-	}
+    /**
+     * Setter method for the scope of the variable to hold the
+     * result.
+     *
+     */
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
 
-	public void setVar(String var) {
-		this.var = var;
-	}
+    public void setVar(String var) {
+        this.var = var;
+    }
 
-	public void setDataSource(Object dataSource) {
-		this.dataSource = dataSource;
-		this.dataSourceSpecified = true;
-	}
+    public void setDataSource(Object dataSource) {
+        this.dataSource = dataSource;
+        this.dataSourceSpecified = true;
+    }
 
-	public void setDriver(String driverClassName) {
-		this.driverClassName = driverClassName;
-	}
+    public void setDriver(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
 
-	public void setUrl(String jdbcURL) {
-		this.jdbcURL = jdbcURL;
-	}
+    public void setUrl(String jdbcURL) {
+        this.jdbcURL = jdbcURL;
+    }
 
-	public void setUser(String userName) {
-		this.userName = userName;
-	}
+    public void setUser(String userName) {
+        this.userName = userName;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	//*********************************************************************
-	// Tag logic
+    //*********************************************************************
+    // Tag logic
 
-	public void doTag(XMLOutput output) throws Exception {
-		DataSource ds = null;
+    public void doTag(XMLOutput output) throws Exception {
+        DataSource ds = null;
 
-		if (dataSource != null) {
-			ds = DataSourceUtil.getDataSource(dataSource, context);
-		}
-		else {
-			if (dataSourceSpecified) {
-				throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
-			}
+        if (dataSource != null) {
+            ds = DataSourceUtil.getDataSource(dataSource, context);
+        }
+        else {
+            if (dataSourceSpecified) {
+                throw new JellyException(Resources.getMessage("SQL_DATASOURCE_NULL"));
+            }
 
-			DataSourceWrapper dsw = new DataSourceWrapper();
-			try {
-				// set driver class iff provided by the tag
-				if (driverClassName != null) {
-					dsw.setDriverClassName(driverClassName);
-				}
-			}
-			catch (Exception e) {
-				log.error( "Could not load driver class: " + e, e );
-				throw new JellyException(
-					Resources.getMessage("DRIVER_INVALID_CLASS", e.getMessage()));
-			}
-			dsw.setJdbcURL(jdbcURL);
-			dsw.setUserName(userName);
-			dsw.setPassword(password);
-			ds = (DataSource) dsw;
-		}
+            DataSourceWrapper dsw = new DataSourceWrapper();
+            try {
+                // set driver class iff provided by the tag
+                if (driverClassName != null) {
+                    dsw.setDriverClassName(driverClassName);
+                }
+            }
+            catch (Exception e) {
+                log.error( "Could not load driver class: " + e, e );
+                throw new JellyException(
+                    Resources.getMessage("DRIVER_INVALID_CLASS", e.getMessage()));
+            }
+            dsw.setJdbcURL(jdbcURL);
+            dsw.setUserName(userName);
+            dsw.setPassword(password);
+            ds = (DataSource) dsw;
+        }
 
-		if (var != null) {
-			context.setVariable(var, ds);
-		}
-		else {
-			context.setVariable("org.apache.commons.jelly.sql.DataSource", ds);
-		}
-	}
+        if (var != null) {
+            context.setVariable(var, ds);
+        }
+        else {
+            context.setVariable("org.apache.commons.jelly.sql.DataSource", ds);
+        }
+    }
 }

@@ -1,11 +1,9 @@
 <project name="Jelly" default="compile" basedir=".">
 
-
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.17 2002/05/16 18:20:35 jstrachan Exp $
+        $Id: build.xml,v 1.18 2002/05/17 15:18:14 jstrachan Exp $
 -->
-
 
 <!-- ========== Initialize Properties ===================================== -->
 
@@ -22,7 +20,9 @@
   <property name="jaxp.home"               value="/usr/local/jaxp1.1"/>
   <property name="jdk.home"                value="/usr/local/jdk1.3"/>
   <property name="junit.home"              value="/usr/local/junit3.7"/>
-  <property name="bsf.home"                value="/usr/local/bsf"/>  <property name="commons.home"            value="../../jakarta-commons"/>
+  <property name="bsf.home"                value="/usr/local/bsf"/>
+
+  <property name="commons.home"            value="../../jakarta-commons"/>
   <property name="sandbox.home"            value=".."/>
   <property name="beanutils.home"          value="${commons.home}/beanutils"/>
   <property name="collections.home"        value="${commons.home}/collections"/>
@@ -30,7 +30,14 @@
   <property name="digester.home"           value="${commons.home}/digester"/>
   <property name="jexl.home"               value="${sandbox.home}/jexl"/>
 
-  <!-- Values used for testing -->  <property name="databaseUrl"             value="jdbc:hsqldb:hsql://localhost"/>  <property name="databaseDriver"          value="org.hsqldb.jdbcDriver"/>  <property name="databaseUser"            value="sa"/>  <property name="databaseTable"           value="SYSTEM_TABLES"/>  <property name="database.jar"            value="/java/hsqldb/hsqldb.jar"/>
+  <!-- Values used for testing -->
+
+  <property name="databaseUrl"             value="jdbc:hsqldb:hsql://localhost"/>
+  <property name="databaseDriver"          value="org.hsqldb.jdbcDriver"/>
+  <property name="databaseUser"            value="sa"/>
+  <property name="databaseTable"           value="SYSTEM_TABLES"/>
+  <property name="database.jar"            value="/java/hsqldb/hsqldb.jar"/>
+
 <!-- ========== Derived Values ============================================ -->
 
 
@@ -51,7 +58,13 @@
   <property name="commons-digester.api"    value="${digester.home}/dist/docs/api"/>
   <property name="commons-digester.jar"    value="${digester.home}/dist/commons-digester.jar"/>
   <property name="commons-jexl.jar"        value="${jexl.home}/dist/commons-jexl.jar"/>
-  <property name="velocity-dep.jar"        value="/java/velocity/velocity-dep-1.4-dev.jar"/>  <!-- ObjectBridge jar for optional OJB tags -->    <property name="ojb.jar"                 value="/java/ojb/ojb.jar"/>  
+  <property name="velocity-dep.jar"        value="/java/velocity/velocity-dep-1.4-dev.jar"/>
+
+  <!-- ObjectBridge jar for optional OJB tags -->
+  
+  <property name="ojb.jar"                 value="/java/ojb/ojb.jar"/>
+
+  
 
 <!-- ========== Component Declarations ==================================== -->
 
@@ -111,7 +124,11 @@
     <pathelement location="${junit.jar}"/>
     
     <!-- optional JARs -->
-    <pathelement location="${ojb.jar}"/>    <pathelement location="${beanshell.jar}"/>    <pathelement location="${bsf.jar}"/>
+    <pathelement location="${ojb.jar}"/>
+
+    <pathelement location="${beanshell.jar}"/>
+
+    <pathelement location="${bsf.jar}"/>
     <pathelement location="${pnuts.jar}"/>
     <pathelement location="${rhino.jar}"/>
     <pathelement location="${tools.jar}"/>
@@ -135,9 +152,15 @@
     <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
     <pathelement location="${commons-digester.jar}"/>
-    <pathelement location="${junit.jar}"/>    <pathelement location="${database.jar}"/>    
+    <pathelement location="${junit.jar}"/>
+
+    <pathelement location="${database.jar}"/>
+
+    
     <!-- optional JARs -->
-    <pathelement location="${ojb.jar}"/>    <pathelement location="${beanshell.jar}"/>
+    <pathelement location="${ojb.jar}"/>
+
+    <pathelement location="${beanshell.jar}"/>
     <pathelement location="${bsf.jar}"/>
     <pathelement location="${pnuts.jar}"/>
     <pathelement location="${rhino.jar}"/>
@@ -154,7 +177,13 @@
 <!-- ========== Source files to be compiled =============================== -->
   <patternset id="javac.source.files">
     <!-- Optionally includes engines based on dependencies being present -->
-    <exclude name="**/ojb/**" unless="ojb.present"/>    <exclude name="**/beanshell/**" unless="beanshell.present"/>    <exclude name="**/bsf/**" unless="bsf.present"/>  </patternset>
+    <exclude name="**/ojb/**" unless="ojb.present"/>
+
+    <exclude name="**/beanshell/**" unless="beanshell.present"/>
+
+    <exclude name="**/bsf/**" unless="bsf.present"/>
+
+  </patternset>
 
 <!-- ========== Executable Targets ======================================== -->
 
@@ -165,7 +194,24 @@
     <filter  token="name"                  value="${component.package}"/>
     <filter  token="version"               value="${component.version}"/>
 
-    <!-- set the conditional compilations -->    <available property="ojb.present"               classpathref="compile.classpath"               classname="ojb.broker.PersistenceBroker"/>    <available property="bsf.present"               classpathref="compile.classpath"               classname="com.ibm.bsf.BSFEngine"/>
+    <!-- set the conditional compilations -->
+
+
+    <available property="ojb.present"
+
+               classpathref="compile.classpath"
+
+               classname="ojb.broker.PersistenceBroker"/>
+
+
+
+    <available property="bsf.present"
+
+               classpathref="compile.classpath"
+
+               classname="com.ibm.bsf.BSFEngine"/>
+
+
     <available property="beanshell.present"
                classpathref="compile.classpath"
                classname="bsh.Interpreter"/>
@@ -184,7 +230,19 @@
   </target>
 
   <!-- Warn the user about items not being compiled                        -->
-  <target name="checkOjb" unless="obj.present">    <echo message="Warning: OJB dependencies were not resolved."/>  </target>  <target name="checkBsf" unless="bsf.present">    <echo message="Warning: BSF dependencies were not resolved."/>  </target>  <target name="checkBeanShell" unless="beanshell.present">
+  <target name="checkOjb" unless="obj.present">
+
+    <echo message="Warning: OJB dependencies were not resolved."/>
+
+  </target>
+
+  <target name="checkBsf" unless="bsf.present">
+
+    <echo message="Warning: BSF dependencies were not resolved."/>
+
+  </target>
+
+  <target name="checkBeanShell" unless="beanshell.present">
     <echo message="Warning: BeanShell dependencies were not resolved."/>
   </target>
   <target name="checkJPython" unless="jpython.present">
@@ -412,6 +470,24 @@
     </java>
    </target>
 
-   <target name="demo.javascript" depends="compile, checkRhino"       description="Runs a javascript demo which displays system properties">    <java classname="org.apache.commons.jelly.Jelly" fork="yes">      <classpath refid="test.classpath"/>      <arg value="src/test/org/apache/commons/jelly/javascript/example.jelly"/>     </java>   </target>   <target name="demo.sql" depends="compile"       description="Runs an SQL demo">    <taskdef      name="jelly"      classname="org.apache.commons.jelly.task.JellyTask">      <classpath refid="test.classpath"/>    </taskdef>	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${build.home}/sqloutput.xml"/>	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${build.home}/sqloutput2.xml"/>	   </target>
+   <target name="demo.javascript" depends="compile, checkRhino" 
+      description="Runs a javascript demo which displays system properties">      
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/javascript/example.jelly"/> 
+    </java>
+   </target>
 
+
+   <target name="demo.sql" depends="compile" 
+      description="Runs an SQL demo">
+    <taskdef
+      name="jelly"
+      classname="org.apache.commons.jelly.task.JellyTask">
+      <classpath refid="test.classpath"/>
+    </taskdef>
+
+	<jelly file="src/test/org/apache/commons/jelly/sql/example.jelly" output="${build.home}/sqloutput.xml"/>
+	<jelly file="src/test/org/apache/commons/jelly/sql/example2.jelly" output="${build.home}/sqloutput2.xml"/>	
+   </target>
 </project>

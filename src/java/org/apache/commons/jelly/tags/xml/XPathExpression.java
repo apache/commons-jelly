@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.3 2002/05/15 06:25:49 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/05/15 06:25:49 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/XPathExpression.java,v 1.4 2002/05/17 15:18:13 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/17 15:18:13 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: XPathExpression.java,v 1.3 2002/05/15 06:25:49 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.4 2002/05/17 15:18:13 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
@@ -69,45 +69,44 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 
-import org.dom4j.DocumentFactory;
-import org.dom4j.XPath;
+import org.jaxen.XPath;
 import org.jaxen.VariableContext;
 
 /** An expression which returns an XPath object.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
-
-    private XPath xpath;        
+    
+    private XPath xpath;
     private JellyContext context;
     
     public XPathExpression() {
     }
-
     public XPathExpression(XPath xpath) {
         this.xpath = xpath;
     }
-
-    public XPathExpression(String text) {
-        this.xpath = DocumentFactory.getInstance().createXPath( text ); 
-    }
-
+    
     // Expression interface
     //------------------------------------------------------------------------- 
     public Object evaluate(JellyContext context) {
         this.context = context;
-        xpath.setVariableContext( this );
+        xpath.setVariableContext(this);
         return xpath;
     }
     
     // VariableContext interface
     //------------------------------------------------------------------------- 
-    public Object getVariableValue( 
-        String namespaceURI, String prefix, String localName 
-    ) {
-        return context.getVariable( localName );
+    public Object getVariableValue(
+        String namespaceURI,
+        String prefix,
+        String localName) {
+            
+        Object value = context.getVariable(localName);
+        
+        //log.info( "Looking up XPath variable of name: " + localName + " value is: " + value );            
+        
+        return value;
     }
-    
 }

@@ -69,92 +69,92 @@ import org.apache.commons.jelly.XMLOutput;
  * @author Hans Bergsten
  */
 public class DriverTag extends TagSupport {
-	private static final String DRIVER_CLASS_NAME =
-		"javax.servlet.jsp.jstl.sql.driver";
-	private static final String JDBC_URL = "javax.servlet.jsp.jstl.sql.jdbcURL";
-	private static final String USER_NAME = "javax.servlet.jsp.jstl.sql.userName";
-	private static final String PASSWORD = "javax.servlet.jsp.jstl.sql.password";
+    private static final String DRIVER_CLASS_NAME =
+        "javax.servlet.jsp.jstl.sql.driver";
+    private static final String JDBC_URL = "javax.servlet.jsp.jstl.sql.jdbcURL";
+    private static final String USER_NAME = "javax.servlet.jsp.jstl.sql.userName";
+    private static final String PASSWORD = "javax.servlet.jsp.jstl.sql.password";
 
-	private String driverClassName;
-	private String jdbcURL;
-	private String scope = "page";
-	private String userName;
-	private String var;
+    private String driverClassName;
+    private String jdbcURL;
+    private String scope = "page";
+    private String userName;
+    private String var;
 
-	//*********************************************************************
-	// Accessor methods
+    //*********************************************************************
+    // Accessor methods
 
-	public void setDriver(String driverClassName) {
-		this.driverClassName = driverClassName;
-	}
+    public void setDriver(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
 
-	public void setJdbcURL(String jdbcURL) {
-		this.jdbcURL = jdbcURL;
-	}
+    public void setJdbcURL(String jdbcURL) {
+        this.jdbcURL = jdbcURL;
+    }
 
-	/**
-	 * Setter method for the scope of the variable to hold the
-	 * result.
-	 *
-	 */
-	public void setScope(String scopeName) {
-		this.scope = scopeName;
-	}
+    /**
+     * Setter method for the scope of the variable to hold the
+     * result.
+     *
+     */
+    public void setScope(String scopeName) {
+        this.scope = scopeName;
+    }
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
-	public void setVar(String var) {
-		this.var = var;
-	}
+    public void setVar(String var) {
+        this.var = var;
+    }
 
-	//*********************************************************************
-	// Tag logic
+    //*********************************************************************
+    // Tag logic
 
-	public void doTag(XMLOutput output) throws Exception {
-		DataSourceWrapper ds = new DataSourceWrapper();
-		try {
-			ds.setDriverClassName(getDriverClassName());
-		}
-		catch (Exception e) {
-			throw new JellyException("Invalid driver class name: " + e.getMessage());
-		}
-		ds.setJdbcURL(getJdbcURL());
-		ds.setUserName(getUserName());
-		ds.setPassword(getPassword());
-		context.setVariable(var, ds);
-	}
+    public void doTag(XMLOutput output) throws Exception {
+        DataSourceWrapper ds = new DataSourceWrapper();
+        try {
+            ds.setDriverClassName(getDriverClassName());
+        }
+        catch (Exception e) {
+            throw new JellyException("Invalid driver class name: " + e.getMessage());
+        }
+        ds.setJdbcURL(getJdbcURL());
+        ds.setUserName(getUserName());
+        ds.setPassword(getPassword());
+        context.setVariable(var, ds);
+    }
 
-	//*********************************************************************
-	// Private utility methods
+    //*********************************************************************
+    // Private utility methods
 
-	private String getDriverClassName() {
-		if (driverClassName != null) {
-			return driverClassName;
-		}
-		return getInitParameter(DRIVER_CLASS_NAME);
-	}
+    private String getDriverClassName() {
+        if (driverClassName != null) {
+            return driverClassName;
+        }
+        return getInitParameter(DRIVER_CLASS_NAME);
+    }
 
-	private String getJdbcURL() {
-		if (jdbcURL != null) {
-			return jdbcURL;
-		}
-		return getInitParameter(JDBC_URL);
-	}
+    private String getJdbcURL() {
+        if (jdbcURL != null) {
+            return jdbcURL;
+        }
+        return getInitParameter(JDBC_URL);
+    }
 
-	private String getUserName() {
-		if (userName != null) {
-			return userName;
-		}
-		return getInitParameter(USER_NAME);
-	}
+    private String getUserName() {
+        if (userName != null) {
+            return userName;
+        }
+        return getInitParameter(USER_NAME);
+    }
 
-	private String getPassword() {
-		return getInitParameter(PASSWORD);
-	}
-	
-	protected String getInitParameter(String key) {
-		return "";
-	}
+    private String getPassword() {
+        return getInitParameter(PASSWORD);
+    }
+    
+    protected String getInitParameter(String key) {
+        return "";
+    }
 }

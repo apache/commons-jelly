@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpression.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/03/07 02:46:04 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/beanshell/BeanShellExpression.java,v 1.2 2002/05/15 06:25:49 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/05/15 06:25:49 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: BeanShellExpression.java,v 1.1 2002/03/07 02:46:04 jstrachan Exp $
+ * $Id: BeanShellExpression.java,v 1.2 2002/05/15 06:25:49 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.beanshell;
 
@@ -71,7 +71,7 @@ import org.apache.commons.logging.LogFactory;
 /** Represents a <a href="http://www.beanshell.org">beanshell</a> expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.1 $
+  * @version $Revision: 1.2 $
   */
 public class BeanShellExpression extends ExpressionSupport {
 

@@ -75,76 +75,76 @@ import org.apache.commons.jelly.tags.Resources;
 
 public class DateParamTag extends TagSupport {
 
-	//*********************************************************************
-	// Private constants
+    //*********************************************************************
+    // Private constants
 
-	private static final String TIMESTAMP_TYPE = "timestamp";
-	private static final String TIME_TYPE = "time";
-	private static final String DATE_TYPE = "date";
+    private static final String TIMESTAMP_TYPE = "timestamp";
+    private static final String TIME_TYPE = "time";
+    private static final String DATE_TYPE = "date";
 
-	//*********************************************************************
-	// Protected state
+    //*********************************************************************
+    // Protected state
 
-	protected String type;
-	protected java.util.Date value;
+    protected String type;
+    protected java.util.Date value;
 
-	//*********************************************************************
-	// Constructor
+    //*********************************************************************
+    // Constructor
 
-	public DateParamTag() {
-	}
+    public DateParamTag() {
+    }
 
-	//*********************************************************************
-	// Properties
-	
+    //*********************************************************************
+    // Properties
+    
     public void setValue(Date value) {
-		this.value = value;
+        this.value = value;
     }
 
     public void setType(String type) {
-		this.type = type;
+        this.type = type;
     }
 
-	//*********************************************************************
-	// Tag logic
+    //*********************************************************************
+    // Tag logic
 
-	public void doTag(XMLOutput output) throws Exception {
-		SQLExecutionTag parent =
-			(SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
-		if (parent == null) {
-			throw new JellyException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
-		}
+    public void doTag(XMLOutput output) throws Exception {
+        SQLExecutionTag parent =
+            (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
+        if (parent == null) {
+            throw new JellyException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
+        }
 
-		if (value != null) {
-			convertValue();
-		}
+        if (value != null) {
+            convertValue();
+        }
 
-		parent.addSQLParameter(value);
-	}
+        parent.addSQLParameter(value);
+    }
 
-	//*********************************************************************
-	// Private utility methods
+    //*********************************************************************
+    // Private utility methods
 
-	private void convertValue() throws JellyException {
+    private void convertValue() throws JellyException {
 
-		if ((type == null) || (type.equalsIgnoreCase(TIMESTAMP_TYPE))) {
-			if (!(value instanceof java.sql.Timestamp)) {
-				value = new java.sql.Timestamp(value.getTime());
-			}
-		}
-		else if (type.equalsIgnoreCase(TIME_TYPE)) {
-			if (!(value instanceof java.sql.Time)) {
-				value = new java.sql.Time(value.getTime());
-			}
-		}
-		else if (type.equalsIgnoreCase(DATE_TYPE)) {
-			if (!(value instanceof java.sql.Date)) {
-				value = new java.sql.Date(value.getTime());
-			}
-		}
-		else {
-			throw new JellyException(
-				Resources.getMessage("SQL_DATE_PARAM_INVALID_TYPE", type));
-		}
-	}
+        if ((type == null) || (type.equalsIgnoreCase(TIMESTAMP_TYPE))) {
+            if (!(value instanceof java.sql.Timestamp)) {
+                value = new java.sql.Timestamp(value.getTime());
+            }
+        }
+        else if (type.equalsIgnoreCase(TIME_TYPE)) {
+            if (!(value instanceof java.sql.Time)) {
+                value = new java.sql.Time(value.getTime());
+            }
+        }
+        else if (type.equalsIgnoreCase(DATE_TYPE)) {
+            if (!(value instanceof java.sql.Date)) {
+                value = new java.sql.Date(value.getTime());
+            }
+        }
+        else {
+            throw new JellyException(
+                Resources.getMessage("SQL_DATE_PARAM_INVALID_TYPE", type));
+        }
+    }
 }

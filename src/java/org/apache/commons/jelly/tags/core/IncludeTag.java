@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.3 2002/05/16 16:29:52 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/05/16 16:29:52 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.4 2002/05/17 15:18:08 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/17 15:18:08 $
  *
  * ====================================================================
  *
@@ -57,49 +57,67 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IncludeTag.java,v 1.3 2002/05/16 16:29:52 jstrachan Exp $
+ * $Id: IncludeTag.java,v 1.4 2002/05/17 15:18:08 jstrachan Exp $
  */
+
 package org.apache.commons.jelly.tags.core;
 
 import java.net.URL;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
+
+import org.apache.commons.jelly.MissingAttributeException;
+
 import org.apache.commons.jelly.Script;
+
 import org.apache.commons.jelly.TagSupport;
+
 import org.apache.commons.jelly.XMLOutput;
 
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
   */
+
 public class IncludeTag extends TagSupport {
 
-    private String uri;        
+    private String uri;
 
     public IncludeTag() {
+
     }
 
     // Tag interface
+
     //------------------------------------------------------------------------- 
+
     public void doTag(XMLOutput output) throws Exception {
-        if ( uri == null ) {
-            throw new JellyException( "<j:include> must have a 'uri' attribute defined" );
+
+        if (uri == null) {
+
+            throw new MissingAttributeException( "uri" );
+
         }
-        
+
         // we need to create a new JellyContext of the URI
-        
+
         // take off the script name from the URL
-        context.runScript( uri, output );
+
+        context.runScript(uri, output);
+
     }
 
     // Properties
+
     //-------------------------------------------------------------------------                
-    
-    
+
     /** Sets the URI (relative URI or absolute URL) for the script to evaluate. */
+
     public void setUri(String uri) {
+
         this.uri = uri;
+
     }
+
 }
