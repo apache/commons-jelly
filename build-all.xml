@@ -45,6 +45,7 @@
     <ant dir="jelly-tags/jms" target="${sub.target}"/>
     <ant dir="jelly-tags/jsl" target="${sub.target}"/>
     <ant dir="jelly-tags/junit" target="${sub.target}"/>
+    <ant dir="jelly-tags/log" target="${sub.target}"/>
     <ant dir="jelly-tags/ojb" target="${sub.target}"/>
     <ant dir="jelly-tags/quartz" target="${sub.target}"/>
     <ant dir="jelly-tags/soap" target="${sub.target}"/>
@@ -65,14 +66,18 @@
     </antcall>
   </target>
   
-  <!-- putting jar-http last, because it currently fails -->
+  <!-- 
+    putting jar-http last, because it currently fails
+    putting jetty last, seems to have an undeclared
+     dependency on a java extension "javax/net/SocketFactory"
+  -->
   <target name="jar" 
-    depends="jar-jelly,jar-ant,jar-antlr,jar-bean,jar-beanshell,
+    depends="jar-log,jar-jelly,jar-ant,jar-antlr,jar-bean,jar-beanshell,
              jar-betwixt,jar-bsf,jar-email,jar-fmt,
-             jar-http,jar-interaction,jar-jetty,jar-jms,jar-jsl,
-             jar-junit,jar-ojb,jar-quartz,jar-soap,jar-sql,
+             jar-http,jar-interaction,jar-jms,jar-jsl,
+             jar-junit,jar-log,jar-ojb,jar-quartz,jar-soap,jar-sql,
              jar-swing,jar-swt,jar-threads,jar-util,jar-validate,
-             jar-velocity,jar-xml,jar-xmlunit,jar-html"/>
+             jar-velocity,jar-xml,jar-xmlunit,jar-html,jar-jetty"/>
     
   <target name="jar-jelly">
     <echo message="Building Jelly..."/>
@@ -157,7 +162,7 @@
     </antcall>
   </target>
 
-  <target name="jar-jsl" depends="jar-jelly,jar-xml,jar-ant">
+  <target name="jar-jsl" depends="jar-jelly,jar-xml,jar-ant,jar-log,jar-junit">
     <antcall target="taglib-template">
       <param name="sub.taglib" value="jsl"/>
     </antcall>
@@ -169,6 +174,12 @@
     </antcall>
   </target>
 
+  <target name="jar-log" depends="jar-jelly">
+    <antcall target="taglib-template">
+      <param name="sub.taglib" value="log"/>
+    </antcall>
+  </target>
+  
   <target name="jar-ojb" depends="jar-jelly">
     <antcall target="taglib-template">
       <param name="sub.taglib" value="ojb"/>
