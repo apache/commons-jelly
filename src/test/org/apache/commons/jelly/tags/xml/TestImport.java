@@ -16,6 +16,7 @@
 package org.apache.commons.jelly.tags.xml;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 
@@ -33,6 +34,11 @@ import junit.framework.TestCase;
  */
 public class TestImport extends TestCase {
     
+    private String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+        + "<html xmlns=\"http://www.w3.org/TR/xhtml1/strict\" "
+        + "xmlns=\"http://www.w3.org/TR/xhtml1/strict\">"
+        + "<head><title>Expense Report Summary</title></head>"
+        + "<body><p>Total Amount: 12</p></body></html>";
     public TestImport(String name) {
         super(name);
     }
@@ -40,29 +46,35 @@ public class TestImport extends TestCase {
     public void testImportResources() throws JellyException, UnsupportedEncodingException, IOException {
         JellyContext context = new JellyContext();
         URL url = TestImport.class.getResource("/resources/import.jelly");
-        XMLOutput out = XMLOutput.createXMLOutput(System.out);
+        StringWriter writer = new StringWriter();
+        XMLOutput out = XMLOutput.createXMLOutput(writer);
 //         this works because of the created child context that has knowledge
 //         of the URL
         context.runScript(url, out);
         out.close();
+        assertEquals(expected, writer.toString());
     }
 
     public void testImportResourcesCompiled() throws JellyException, UnsupportedEncodingException, IOException {
         JellyContext context = new JellyContext();
         URL url = TestImport.class.getResource("/resources/import.jelly");
-        XMLOutput out = XMLOutput.createXMLOutput(System.out);
+        StringWriter writer = new StringWriter();
+        XMLOutput out = XMLOutput.createXMLOutput(writer);
         Script script = context.compileScript(url);
         script.run(context, out);
         out.close();
+        assertEquals(expected, writer.toString());
     }
 
     public void testImportResourcesFromUncompiledScript() throws JellyException, UnsupportedEncodingException, IOException, SAXException {
         JellyContext context = new JellyContext();
         URL url = TestImport.class.getResource("/resources/import.jelly");
-        XMLOutput out = XMLOutput.createXMLOutput(System.out);
+        StringWriter writer = new StringWriter();
+        XMLOutput out = XMLOutput.createXMLOutput(writer);
         Script script = new XMLParser().parse(url);
         script.run(context, out);
         out.close();
+        assertEquals(expected, writer.toString());
     }
 
 }
