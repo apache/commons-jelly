@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.13 2002/08/01 09:53:17 jstrachan Exp $
- * $Revision: 1.13 $
- * $Date: 2002/08/01 09:53:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.14 2002/08/12 19:11:46 jstrachan Exp $
+ * $Revision: 1.14 $
+ * $Date: 2002/08/12 19:11:46 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.13 2002/08/01 09:53:17 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.14 2002/08/12 19:11:46 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.13 $
+  * @version $Revision: 1.14 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -181,6 +181,11 @@ public class BeanTagScript extends TagScript {
         }
         catch (Exception e) {
             handleException(e);
+        }
+        finally {
+            if ( ! context.isCacheTags() ) {
+                clearTag();
+            }
         }
     }
     

@@ -104,6 +104,10 @@ public class JellyContext {
     /** Do we export our variables to parent context? */
     private boolean shouldExport  = false;
     
+    /** Should we cache Tag instances, per thread, to reduce object contruction overhead? */
+    private boolean cacheTags = false;
+    
+    
     /**
      * The class loader to use for instantiating application objects.
      * If not specified, the context class loader, or the class loader
@@ -140,6 +144,7 @@ public class JellyContext {
         this.currentURL = parent.currentURL;
         this.taglibs = parent.taglibs;
         this.variables.put("parentScope", parent.variables);
+        this.cacheTags = cacheTags;
         init();
     }
 
@@ -608,7 +613,31 @@ public class JellyContext {
     public void setCurrentURL(URL currentURL) { 
         this.currentURL = currentURL;
     }
+    
+    /**
+     * Returns whether caching of Tag instances, per thread, is enabled.
+     * Caching Tags can boost performance, on some JVMs, by reducing the cost of
+     * object construction when running Jelly inside a multi-threaded application server
+     * such as a Servlet engine.
+     * 
+     * @return whether caching of Tag instances is enabled.
+     */
+    public boolean isCacheTags() {
+        return cacheTags;
+    }
 
+    /**
+     * Sets whether caching of Tag instances, per thread, is enabled.
+     * Caching Tags can boost performance, on some JVMs, by reducing the cost of
+     * object construction when running Jelly inside a multi-threaded application server
+     * such as a Servlet engine.
+     * 
+     * @param cacheTags Whether caching should be enabled or disabled.
+     */
+    public void setCacheTags(boolean cacheTags) {
+        this.cacheTags = cacheTags;
+    }
+    
     /**
      * Return the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
@@ -706,4 +735,5 @@ public class JellyContext {
     protected JellyContext createChildContext() {
         return new JellyContext(this);
     }
+
 }

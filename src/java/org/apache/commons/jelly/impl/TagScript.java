@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.17 2002/08/01 09:53:17 jstrachan Exp $
- * $Revision: 1.17 $
- * $Date: 2002/08/01 09:53:17 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.18 2002/08/12 19:11:46 jstrachan Exp $
+ * $Revision: 1.18 $
+ * $Date: 2002/08/12 19:11:46 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.17 2002/08/01 09:53:17 jstrachan Exp $
+ * $Id: TagScript.java,v 1.18 2002/08/12 19:11:46 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -98,14 +98,21 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.17 $
+ * @version $Revision: 1.18 $
  */
 public abstract class TagScript implements Script {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TagScript.class);
 
-    /** thread local storage for the tag used by the current thread */
+    /** 
+     * Thread local storage for the tag used by the current thread.
+     * This allows us to pool tag instances, per thread to reduce object construction
+     * over head, if we need it.
+     * 
+     * Note that we could use the stack and create a new tag for each invocation
+     * if we made a slight change to the Script API to pass in the parent tag.
+     */
     private ThreadLocal tagHolder = new ThreadLocal();
 
     /** The attribute expressions that are created */
@@ -351,7 +358,14 @@ public abstract class TagScript implements Script {
         tag.setParent( parentTag );
         tag.setBody( tagBody );
     }
-                
+     
+    /**
+     * Flushes the current cached tag so that it will be created, lazily, next invocation
+     */
+    protected void clearTag() {
+        tagHolder.set(null);
+    }
+    
     /**
      * Output the new namespace prefixes used for this element
      */    
