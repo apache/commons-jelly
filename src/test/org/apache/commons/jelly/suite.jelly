@@ -344,5 +344,20 @@
     </j:forEach>
 
     <test:assertEquals expected="abc" actual="${j}"/>
-  </test:case>    
+  </test:case>
+  
+  <!-- tests the file output provided by j:file -->
+  <test:case name="testFileTag">
+    <j:file name="target/test_iso.xml" encoding="ISO-8859-1" omitXmlDeclaration="true">
+      <l>é#\ü</l></j:file>
+    <!-- how to check result without xml-unit ? -->
+    <j:new var="f" className="java.io.File"><j:arg value="target/test_iso.xml"/></j:new>
+    <j:set var="singleSize" value="${f.length()}"/>
+    <!-- try outputting a second time -->
+    <j:file name="target/test_iso.xml" encoding="ISO-8859-1" 
+       omitXmlDeclaration="true" append="true">
+      <l>é#\ü</l></j:file>
+    <j:set var="doubleSize" value="${f.length()}"/>
+    <test:assertEquals expected="${singleSize*2}" actual="${doubleSize}"/>
+    </test:case>
 </test:suite>

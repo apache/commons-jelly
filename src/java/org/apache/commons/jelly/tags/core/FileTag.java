@@ -119,7 +119,7 @@ public class FileTag extends TagSupport {
      * Sets wether to append at the end of the file
      * (not really something you normally do with an XML file).
      */
-    public void setAppends(boolean doAppend) {
+    public void setAppend(boolean doAppend) {
         this.doAppend = doAppend;
     }
     
