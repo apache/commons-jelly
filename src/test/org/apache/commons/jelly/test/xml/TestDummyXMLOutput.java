@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestDummyXMLOutput.java,v 1.1 2002/10/14 21:31:15 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/14 21:31:15 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestDummyXMLOutput.java,v 1.2 2002/10/14 21:33:32 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/14 21:33:32 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestDummyXMLOutput.java,v 1.1 2002/10/14 21:31:15 morgand Exp $
+ * $Id: TestDummyXMLOutput.java,v 1.2 2002/10/14 21:33:32 morgand Exp $
  */
 package org.apache.commons.jelly.test.xml;
 
@@ -73,13 +73,11 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
- * Confirm that <i>new XMLOutput()</i>
- * doesn't do anything funky when it's not
- * attached to any event handlers or
- * output streams.
+ * Confirm that <i>XMLOutput.createDummyXMLOutput()</i>
+ * doesn't do anything funky.
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class TestDummyXMLOutput extends TestCase {
 
