@@ -24,7 +24,7 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.2" date="in CVS">
+    <release version="1.1.1" date="2005-01-01">
       <action dev="dion" type="fix" due-to="Stefan Bodewig">Handle null encoding in loadText tag</action>
     </release>
     <release version="1.1" date="2004-10-27">
