@@ -73,9 +73,9 @@ import org.apache.velocity.context.Context;
  * to the JellyContext.
  * 
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id: JellyContextAdapter.java,v 1.1 2003/01/07 03:33:31 dion Exp $
+ * @version $Id: JellyContextAdapter.java,v 1.2 2003/03/03 20:49:37 werken Exp $
  */
-class JellyContextAdapter implements Context
+public class JellyContextAdapter implements Context
 {
     /** Flag to indicate read-only or read-write mode */
     private boolean readOnly = true;
