@@ -15,7 +15,8 @@
 elements can be bound to a Java <i>Tag</i> which is a Java bean that performs 
 some function. Here's an example action</p>
 
-<pre>public class FooTag extends TagSupport {    
+<pre>
+public class FooTag extends TagSupport {    
     private int count;
     public void setCount(int count) {
         this.count = count;
@@ -30,7 +31,8 @@ some function. Here's an example action</p>
 
 <p>Then in a Jelly script this tag could be used as follows:-</p>
 
-<pre>&lt;f:foo count=&quot;123&quot;&gt;
+<pre>
+&lt;f:foo count=&quot;123&quot;&gt;
     something...
 &lt;/f:foo&gt;</pre>
 
