@@ -322,9 +322,15 @@ public class JellyContext {
      * Sets the Map of variables to use
      */
     public void setVariables(Map variables) {
-        // FIXME: I have seen this fail when the passed Map contains a key, value 
+        // I have seen this fail when the passed Map contains a key, value 
         // pair where the value is null
-        this.variables.putAll( variables );
+        for (Iterator iter = variables.entrySet().iterator(); iter.hasNext();) {
+            Map.Entry element = (Map.Entry) iter.next();
+            if (element.getValue() != null) {
+                this.variables.put(element.getKey(), element.getValue());
+            }
+        }
+        //this.variables.putAll( variables );
     }
 
     /**
