@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.8 2002/06/25 19:12:29 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/25 19:12:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TextScript.java,v 1.9 2002/10/12 12:26:39 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/10/12 12:26:39 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TextScript.java,v 1.8 2002/06/25 19:12:29 jstrachan Exp $
+ * $Id: TextScript.java,v 1.9 2002/10/12 12:26:39 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -70,7 +70,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>TextScript</code> outputs some static text.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class TextScript implements Script {
  
@@ -116,7 +116,7 @@ public class TextScript implements Script {
      */
     public void trimEndWhitespace() {
         int index = text.length();
-        while (--index > 0) {
+        while (--index >= 0) {
             char ch = text.charAt(index);
             if (!Character.isWhitespace(ch)) {
                 break;
