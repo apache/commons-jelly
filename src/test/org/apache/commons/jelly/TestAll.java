@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestAll.java,v 1.3 2002/04/25 18:58:47 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/04/25 18:58:47 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/Attic/TestAll.java,v 1.4 2002/05/16 18:20:35 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/16 18:20:35 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestAll.java,v 1.3 2002/04/25 18:58:47 jstrachan Exp $
+ * $Id: TestAll.java,v 1.4 2002/05/16 18:20:35 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -68,11 +68,12 @@ import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.beanshell.TestBeanShellEL;
 import org.apache.commons.jelly.define.TestDynamicTags;
+import org.apache.commons.jelly.xml.TestXMLTags;
 
 /** Entry point for all JUnit tests.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.3 $
+  * @version $Revision: 1.4 $
  */
 public class TestAll extends TestCase {
     
@@ -82,10 +83,10 @@ public class TestAll extends TestCase {
     
     public static Test suite() {
         TestSuite suite = new TestSuite();
-        suite.addTest(TestXMLTags.suite());
         suite.addTest(TestCoreTags.suite());
         suite.addTest(TestBeanShellEL.suite());
         suite.addTest(TestDynamicTags.suite());
+        suite.addTest(TestXMLTags.suite());
         return suite;
     }
     
