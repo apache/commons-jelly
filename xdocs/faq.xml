@@ -62,6 +62,11 @@
           How do I use expressions and tag attributes?
         </a>
       </li>
+      <li>
+        <a href="#cdata">
+          How do Jelly scripts handle CDATA sections?
+        </a>
+      </li>
     </ol>
     <p><strong>Building Jelly</strong></p>
     <ol>
@@ -296,6 +301,52 @@ public class FooTag extends TagSupport {
 }</pre>
 </code>
         </dd>
+      </dl>
+            <dl>
+        <dt>
+          <a name="cdata">
+            How do Jelly scripts handle CDATA sections?
+          </a>
+        </dt>
+        <dd>
+          Jelly outputs the <i>content</i> of a CDATA section directly.  You can use CDATA sections
+          to create output that otherwise cannot be described in XML.  For example, you can use
+          a CDATA section to create a DTD.  The following Jelly script:
+        </dd>
+                <dd>
+<code>
+<pre>
+&lt;?xml version="1.0"?>
+
+&lt;j:file xmlns:j="jelly:core" var="foo" escapeText="false">
+    
+    &lt;![CDATA[
+        &lt;!DOCTYPE foo [
+            &lt;!ELEMENT foo (#PCDATA)>
+        ]>
+    ]]&gt;
+    
+    &lt;foo/>
+    
+&lt;/j:file>
+</pre>
+</code>
+</dd>
+<dd>
+   will produce this output:
+        </dd>
+<dd>
+<code>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;!DOCTYPE foo [
+    &lt;!ELEMENT foo (#PCDATA)>
+]>
+
+&lt;foo/>
+</pre>
+</code>
+</dd>
       </dl>
     </section>
     <section name="Building Jelly">
