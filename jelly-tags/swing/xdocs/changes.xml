@@ -25,6 +25,8 @@
   </properties>
   <body>
     <release version="1.0-SNAPSHOT" date="in CVS">
+      <action dev="dion" type="fix">Ensure JDK 1.3 compatibility.</action>
+      <action dev="dion" type="fix" issue="JELLY-130" due-to="Hans Gilde">Handle JDK 1.4 GridbagConstraints using reflection</action>
       <action dev="dion" type="fix" issue="JELLY-122" due-to="Hans Gilde">ComponentTag should clear it's bean reference after doTag</action>
     </release>
   </body>
