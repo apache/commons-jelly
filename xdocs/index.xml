@@ -108,7 +108,7 @@ then format the results neatly as XML.
 
 <pre>
 &lt;babelfish:translate from="en" to="fr"&gt;
-  Welcome &lt;j:expr value="${user.name}"/&gt; to Jelly!
+  Welcome ${user.name} to Jelly!
 &lt;/babelfish:translate&gt;
 </pre>
 
