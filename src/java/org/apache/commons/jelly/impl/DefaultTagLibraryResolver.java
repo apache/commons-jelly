@@ -56,8 +56,10 @@
  */
 package org.apache.commons.jelly.impl;
 
-import org.apache.commons.discovery.ServiceDiscovery;
-import org.apache.commons.discovery.ServiceInfo;
+import org.apache.commons.discovery.ResourceClass;
+import org.apache.commons.discovery.ResourceClassIterator;
+import org.apache.commons.discovery.resource.ClassLoaders;
+import org.apache.commons.discovery.resource.classes.DiscoverClasses;
 
 import org.apache.commons.jelly.TagLibrary;
 
@@ -80,7 +82,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(DefaultTagLibraryResolver.class);
 
-    private ServiceDiscovery discovery;
+    private DiscoverClasses discovery;
     
     /**
      * The class loader to use for instantiating application objects.
@@ -110,7 +112,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * so that the namespace URI should be treated as just vanilla XML.
      */    
     public TagLibrary resolveTagLibrary(String uri) {
-        ServiceDiscovery discovery = getServiceDiscovery();
+        DiscoverClasses discovery = getDiscoverClasses();
         String name = uri;
         if ( uri.startsWith( "jelly:" ) ) {
             name = "jelly." + uri.substring(6);
@@ -118,27 +120,20 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         
         log.info( "Looking up service name: " + name );
         
-        ServiceInfo[] infoArray = discovery.findServices(name);
-        
-        if ( infoArray != null && infoArray.length > 0 ) {
-            for (int i = 0; i < infoArray.length; i++ ) {
-                ServiceInfo info = infoArray[i];
-                try {                
-                    Class typeClass = info.getLoader().loadClass( info.getImplName() );
-                    if ( typeClass != null ) {
-                        return newInstance(uri, typeClass);
-                    }
-                }
-                catch (Exception e) {
-                    log.error( "Could not load service: " + info.getImplName()
-                       + " with loader: " + info.getLoader() 
-                   );
+        ResourceClassIterator iter = discovery.findResourceClasses(name);
+        while (iter.hasNext()) {
+            ResourceClass resource = iter.nextResourceClass();
+            try {                
+                Class typeClass = resource.loadClass();
+                if ( typeClass != null ) {
+                    return newInstance(uri, typeClass);
                 }
             }
+            catch (Exception e) {
+                log.error( "Could not load service: " + resource );
+            }
         }
-        else {
-            log.info( "Could not find any services for name: " + name );
-        }
+        log.info( "Could not find any services for name: " + name );
         return null;
     }
     
@@ -200,22 +195,24 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
     }
 
     /**
-     * @return the ServiceDiscovery instance to use to locate services.
+     * @return the DiscoverClasses instance to use to locate services.
      *  This object is lazily created if it has not been configured.
      */
-    public ServiceDiscovery getServiceDiscovery() {
+    public DiscoverClasses getDiscoverClasses() {
         if ( discovery == null ) {
-            discovery = ServiceDiscovery.getServiceDiscovery();
+            ClassLoaders loaders = new ClassLoaders();
+            loaders.put( getClassLoader() );
+            discovery = new DiscoverClasses(loaders);
             discovery.addClassLoader( getClassLoader() );
         }
         return discovery;
     }
     
     /**
-     * Sets the fully configured ServiceDiscovery instance to be used to 
+     * Sets the fully configured DiscoverClasses instance to be used to 
      * lookup services
      */
-    public void setServiceDiscovery(ServiceDiscovery discovery) {
+    public void setDiscoverClasses(DiscoverClasses discovery) {
         this.discovery = discovery;
     }
     
