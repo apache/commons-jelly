@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.19 2002/10/14 19:17:01 morgand Exp $
- * $Revision: 1.19 $
- * $Date: 2002/10/14 19:17:01 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Jelly.java,v 1.20 2002/10/14 19:46:22 morgand Exp $
+ * $Revision: 1.20 $
+ * $Date: 2002/10/14 19:46:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Jelly.java,v 1.19 2002/10/14 19:17:01 morgand Exp $
+ * $Id: Jelly.java,v 1.20 2002/10/14 19:46:22 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -87,7 +87,7 @@ import org.apache.commons.cli.*;
  * </pre>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.19 $
+ * @version $Revision: 1.20 $
  */
 public class Jelly {
     
@@ -255,8 +255,8 @@ public class Jelly {
         
         XMLParser parser = new XMLParser();
         parser.setContext(getJellyContext());
-        parser.setDefaultNamespaceURI(defaultNamespaceURI);
-        parser.setValidating(validateXML);
+        parser.setDefaultNamespaceURI(this.defaultNamespaceURI);
+        parser.setValidating(this.validateXML);
         Script script = parser.parse(getUrl().openStream());
         script = script.compile();
         if (log.isDebugEnabled()) {

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.31 2002/10/09 21:03:08 morgand Exp $
- * $Revision: 1.31 $
- * $Date: 2002/10/09 21:03:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.32 2002/10/14 19:46:22 morgand Exp $
+ * $Revision: 1.32 $
+ * $Date: 2002/10/14 19:46:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.31 2002/10/09 21:03:08 morgand Exp $
+ * $Id: XMLParser.java,v 1.32 2002/10/14 19:46:22 morgand Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -121,7 +121,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.31 $
+ * @version $Revision: 1.32 $
  */
 public class XMLParser extends DefaultHandler {
 
@@ -213,6 +213,11 @@ public class XMLParser extends DefaultHandler {
     /** Flag to indicate if this object has been configured */
     private boolean configured;
 
+    /**
+     * when not null, set the default namespace for 
+     * unprefixed elements via the DefaultNamespaceFilter
+     * class
+     */
     private String defaultNamespaceURI = null;
 
     /**
@@ -366,7 +371,7 @@ public class XMLParser extends DefaultHandler {
      * @param namespace jelly namespace to use (e.g. 'jelly:core')
      */
     public void setDefaultNamespaceURI(String namespace) {
-        defaultNamespaceURI = namespace;
+        this.defaultNamespaceURI = namespace;
     }
 
     /**
@@ -518,8 +523,8 @@ public class XMLParser extends DefaultHandler {
     public synchronized XMLReader getXMLReader() throws SAXException {
         if (reader == null) {
             reader = getParser().getXMLReader();
-            if (defaultNamespaceURI != null) {
-                reader = new DefaultNamespaceFilter(defaultNamespaceURI,reader);
+            if (this.defaultNamespaceURI != null) {
+                reader = new DefaultNamespaceFilter(this.defaultNamespaceURI,reader);
             }
         }
         //set up the parse

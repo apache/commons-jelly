@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java,v 1.1 2002/10/09 21:03:08 morgand Exp $
- * $Revision: 1.1 $
- * $Date: 2002/10/09 21:03:08 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/DefaultNamespaceFilter.java,v 1.2 2002/10/14 19:46:22 morgand Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/10/14 19:46:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: DefaultNamespaceFilter.java,v 1.1 2002/10/09 21:03:08 morgand Exp $
+ * $Id: DefaultNamespaceFilter.java,v 1.2 2002/10/14 19:46:22 morgand Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -86,7 +86,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
      */
     public DefaultNamespaceFilter(String defaultNamespace, XMLReader reader) {
         super(reader);
-        uriDefault = defaultNamespace;
+        this.uriDefault = defaultNamespace;
     }
 
     /**
@@ -101,7 +101,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
     throws SAXException {
 
         if (uri.equals("")) {
-            super.startPrefixMapping(prefix,uriDefault);
+            super.startPrefixMapping(prefix,this.uriDefault);
         } else {
             super.startPrefixMapping(prefix,uri);
         }
@@ -123,7 +123,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
     throws SAXException {
 
         if (uri.equals("")) {
-            super.startElement(uriDefault,localName,qName,atts);
+            super.startElement(this.uriDefault,localName,qName,atts);
         } else {
             super.startElement(uri,localName,qName,atts);
         }
@@ -142,7 +142,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
     public void endElement(String namespaceURI, String localName, String qName)
     throws SAXException {
         if (namespaceURI.equals("")) {
-            super.endElement(uriDefault,localName,qName);
+            super.endElement(this.uriDefault,localName,qName);
         } else {
             super.endElement(namespaceURI,localName,qName);
         }
