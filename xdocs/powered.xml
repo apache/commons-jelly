@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<document>
+
+  <properties>
+    <title>Powered By Jelly</title>
+    <author email="jstrachan@apache.org">James Strachan</author>
+  </properties>
+
+  <body>
+    <section name="Powered By Jelly">
+      <p>
+        This page contains a list of known projects successfully using
+        Jelly.  We would be very interested if you would drop us a note
+        if you are using Jelly with your project and would like to be
+        added to this list.
+      </p>
+      <subsection name="Projects Using Jelly">
+      <table>
+        <tr><th>Project</th><th>Overview</th></tr>
+        <tr>
+          <td><a href="http://jakarta.apache.org/turbine/maven/">Maven</a></td>
+          <td>
+            A java project management and project comprehension tool.
+          </td>
+        </tr>
+      </table>
+    </subsection>
+    </section>
+  </body>
+</document>

@@ -16,6 +16,7 @@
     <menu name="Community">
       <item name="News Blog"			   href="http://blogs.werken.com/projects/jelly/"/>
       <item name="IRC"					   href="/irc.html"/>
+      <item name="Powered By"              href="/powered.html"/>
     </menu>
     <menu name="Libraries">
       <item name="JellyUnit"               href="/jellyunit.html"/>
