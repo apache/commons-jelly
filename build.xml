@@ -114,7 +114,7 @@
       <mkdir dir="${testreportdir}"></mkdir>
       <junit dir="./" failureproperty="test.failure" printSummary="yes" fork="true" haltonerror="true">
         
-        <sysproperty key="basedir" value="C:\Program Files\eclipse\workspace\jelly"></sysproperty>
+        <sysproperty key="basedir" value="C:\workspace\jelly"></sysproperty>
         <formatter type="xml"></formatter>
         <formatter usefile="true" type="plain"></formatter>
         <classpath>
@@ -231,6 +231,7 @@
     <get dest="lib/axis-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/axis/jars/axis-1.0.jar"></get>
     <get dest="lib/jaxrpc-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jaxrpc/jars/jaxrpc-1.0.jar"></get>
     <get dest="lib/saaj-1.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/saaj/jars/saaj-1.1.jar"></get>
+    <get dest="lib/xmlunit-0.8.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xmlunit/jars/xmlunit-0.8.jar"></get>
     
     <get dest="lib/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar"></get>
     <get dest="lib/ant-1.5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/ant/jars/ant-1.5.jar"></get>
