@@ -91,10 +91,11 @@ public class XMLDoclet extends Doclet {
     public XMLDoclet (RootDoc root) throws Exception {
         FileWriter writer = new FileWriter(targetFileName);
         try {
+            OutputFormat format = OutputFormat.createPrettyPrint();
+/*            
             OutputFormat format = new OutputFormat();
             format.setEncoding(encodingFormat);
             format.setIndentSize(4);
-/*            
             format.setIndenting(true);
             format.setLineWidth(4);
             format.setDoctype("-//APACHE//DTD JavaDoc V0.4//EN", "javadoc-v04draft.dtd");
@@ -603,7 +604,7 @@ public class XMLDoclet extends Doclet {
         // generate "throws" sub-element
         throwsXML(methodDoc);
 
-        cm.endElement(xmlns, localName, "field");
+        cm.endElement(xmlns, localName, "method");
     }
 
     /**
