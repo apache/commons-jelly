@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ImportTag.java,v 1.1 2002/06/05 18:03:38 werken Exp $
- * $Revision: 1.1 $
- * $Date: 2002/06/05 18:03:38 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ImportTag.java,v 1.2 2002/08/22 09:29:55 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/08/22 09:29:55 $
  *
  * ====================================================================
  *
@@ -57,21 +57,15 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ImportTag.java,v 1.1 2002/06/05 18:03:38 werken Exp $
+ * $Id: ImportTag.java,v 1.2 2002/08/22 09:29:55 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
 
 import java.net.URL;
 
-import org.apache.commons.jelly.JellyContext;
-
 import org.apache.commons.jelly.MissingAttributeException;
-
-import org.apache.commons.jelly.Script;
-
 import org.apache.commons.jelly.TagSupport;
-
 import org.apache.commons.jelly.XMLOutput;
 
 /** Imports another script.
@@ -83,59 +77,52 @@ import org.apache.commons.jelly.XMLOutput;
  *  </p>
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 
 public class ImportTag extends TagSupport {
 
     private String uri;
-
-    private boolean shouldInherit;
+    private boolean inherit;
 
     public ImportTag() {
-        this.shouldInherit = false;
-    }
-
-    public void setInherit(String inherit) {
-        if ( "true".equals( inherit ) ) {
-            this.shouldInherit = true;
-        }
-    }
-
-    public boolean getInherit() {
-        return this.shouldInherit;
     }
 
 
     // Tag interface
-
     //------------------------------------------------------------------------- 
-
     public void doTag(XMLOutput output) throws Exception {
-
         if (uri == null) {
-
             throw new MissingAttributeException( "uri" );
-
         }
 
         // we need to create a new JellyContext of the URI
-
         // take off the script name from the URL
-
-        context.runScript(uri, output, true, getInherit() );
+        context.runScript(uri, output, true, isInherit() );
     }
 
     // Properties
-
     //-------------------------------------------------------------------------                
 
-    /** Sets the URI (relative URI or absolute URL) for the script to evaluate. */
+    /**
+     * @return whether property inheritence is enabled
+     */
+    public boolean isInherit() {
+        return inherit;
+    }
 
+    /**
+     * Sets whether property inheritence is enabled or disabled
+     */
+    public void setInherit(boolean inherit) {
+        this.inherit = inherit;
+    }
+
+    /** 
+     * Sets the URI (relative URI or absolute URL) for the script to evaluate.
+     */
     public void setUri(String uri) {
-
         this.uri = uri;
-
     }
 
 }
