@@ -50,20 +50,36 @@
       <!-- don't know how to support OS-dependent jars in Maven yet -->
 
       <version>win32-2.1.0</version>
+      <properties>
+        <gump.project>eclipse</gump.project>
+        <gump.id>swt</gump.id>
+      </properties>
     </dependency>
     <!-- jface libraries -->
 
     <dependency>
       <id>eclipse+boot</id>
       <version>2.1.0</version>
+      <properties>
+        <gump.project>eclipse</gump.project>
+        <gump.id>boot</gump.id>
+      </properties>
     </dependency>
     <dependency>
       <id>eclipse+jface</id>
       <version>2.1.0</version>
+      <properties>
+        <gump.project>eclipse</gump.project>
+        <gump.id>jface</gump.id>
+      </properties>
     </dependency>
     <dependency>
       <id>eclipse+runtime</id>
       <version>2.1.0</version>
+      <properties>
+        <gump.project>eclipse</gump.project>
+        <gump.id>runtime</gump.id>
+      </properties>
     </dependency>
     <!-- END for compilation -->
     <!-- START for running demos -->

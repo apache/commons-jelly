@@ -39,25 +39,42 @@
       <id>commons-logging</id>
       <version>1.0.3</version>
     </dependency>
+    <!-- TODO: These versions probably want updating -->
     <dependency>
       <artifactId>jaxme</artifactId>
       <groupId>jaxme</groupId>
       <version>0.2</version>
+      <properties>
+        <gump.project>ws-jaxme</gump.project>
+        <gump.id>jaxme2</gump.id>
+      </properties>
     </dependency>
     <dependency>
       <artifactId>jaxme-js</artifactId>
       <groupId>jaxme</groupId>
       <version>0.2</version>
+      <properties>
+        <gump.project>ws-jaxme</gump.project>
+        <gump.id>js</gump.id>
+      </properties>
     </dependency>
     <dependency>
       <artifactId>jaxme-xs</artifactId>
       <groupId>jaxme</groupId>
       <version>0.2</version>
+      <properties>
+        <gump.project>ws-jaxme</gump.project>
+        <gump.id>xs</gump.id>
+      </properties>
     </dependency>
     <dependency>
       <artifactId>jaxme-api</artifactId>
       <groupId>jaxme</groupId>
       <version>0.2</version>
+      <properties>
+        <gump.project>ws-jaxme</gump.project>
+        <gump.id>api</gump.id>
+      </properties>
     </dependency>
     <dependency>
       <id>commons-jelly</id>

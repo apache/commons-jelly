@@ -60,6 +60,10 @@
     <dependency>
       <id>mx4j+jmx</id>
       <version>1.1.1</version>
+      <properties>
+        <gump.project>mx4j</gump.project>
+        <gump.id>mx4j-jmx</gump.id>
+      </properties>
     </dependency>
       
     <!-- END for compilation -->
