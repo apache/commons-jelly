@@ -37,6 +37,11 @@
           How do I add my own tag libraries to Jelly?
         </a>
       </li>
+      <li>
+        <a href="#tag-attributes">
+          How do I use expressions and tag attributes?
+        </a>
+      </li>
     </ol>
     <p><strong>Building Jelly</strong></p>
     <ol>
@@ -131,6 +136,80 @@
 </pre>
 </code>
 		</dd>
+      </dl>
+      
+      <dl>
+        <dt>
+          <a name="tag-attributes">
+            How do I use expressions and tag attributes?
+          </a>
+        </dt>
+        <dd>
+          Jelly uses introspection to set the properties on a Tag from the XML attribute
+          values. If the attribute value in XML uses an expression, it will be evaluated
+          and the result of the expression will be passed into your Tag's setter method.
+          For example if you had the following Tag...
+        </dd>
+        <dd>                
+<code>
+<pre>
+public class FooTag extends TagSupport {
+  private String value;
+		
+  public void setValue(String value) {
+    this.value = value;
+  
+    
+  .
+}</pre>
+</code>
+				</dd>
+        <dd>                
+        Then if you were to use it like this...	
+<code>
+<pre>
+  &lt;my:foo value="${customer.fullName}"/&gt;
+</pre>
+</code>
+        Then this would be equivalent in pseudocode to
+<code>
+<pre>
+FooTag tag = FooTag();
+...
+tag.setValue( ((Customer) context.getVariable("customer")).getFullName() );
+...
+tag.doTag(output);
+</pre>
+</code>
+			 </dd>
+        <dd>
+	        If ever you find that your Tag's bean property is not being set it could be that your Tag is
+	        not properly following the bean introspection naming conventions. 
+	        For example do you have a method called getValue() or isValue() with the wrong return type?
+	        (In this discussion substitue 'value' for the name of your own property, it doesn't have to be called 'value' :).
+	        For more details of the introspection rules, please checkout the Java Bean specification.
+			 </dd>
+        <dd>
+          It could be that you want to coerce the value of an expression to some special type.
+          For example if you want to evaluate the expression as an Iterator you can use a property
+          on your Tag of type Expression so that in your Tag you can use the Expression.evaluateAsIterator()
+          method. This is how the &lt;x:forEach&gt; tag currently is implemented for example.
+<code>
+<pre>
+public class FooTag extends TagSupport {
+  private Expression value;
+		
+  public void setValue(Expression value) {
+    this.value = value;
+  }
+    
+  public void doTag(XMLOutput output) {
+    Iterator iter = expression.evaluateAsIterator();
+    		...
+  }
+}</pre>
+</code>
+        </dd>
       </dl>
     </section>
     <section name="Building Jelly">

@@ -36,6 +36,45 @@
         Then Jelly script can be used to create the view and bind in the models.
       </p>
     </section>
+    
+    <section name="JellyRunner"> 
+      <p>
+        JellyRunner is a simple example Swing user interface written with JellySwing.
+        You can view the source to it
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/swing/run.jelly?rev=HEAD">here</a>
+      </p>
+      <p>
+        If you invoke it via the following command you will get a small Swing UI that allows you to
+        choose Jelly scripts to invoke, within the current JVM.
+      </p>
+      <source>
+	maven jelly:runner
+      </source>
+      <p>
+        This makes developing Jelly scripts and JellySwing scripts in particular, much more RAD-like.
+        You can keep JellyRunner open, edit a Jelly script and just hit the 'Run' button and the
+        script executes instantaneously, there's no waiting for a JVM to startup.
+      </p>
+    </section>
+    
+    <section name="Comparing JellySwing with Java code for Swing"> 
+      <p>
+        There's a simple demo written by Otto von Wachter which demonstrates how Jelly can be used
+        for templating HTML.
+      </p>
+      <p>
+        The demo was orignally written in
+        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/demos/HomepageBuilder.java?rev=HEAD">Java code</a>
+         
+        to implement a simple Swing UI
+        As an experiment the same Swing user interface has been written 
+       <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons-sandbox/jelly/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly?rev=HEAD">as a JellyScript</a>
+        as well.
+        While this is a fairly simple Swing UI and not a particularly great example of the power of JellySwing,
+        it does highlight the main difference between the two appraches.
+      </p>
+    </section>
+    
   </body>
 </document>
 
