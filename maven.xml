@@ -46,7 +46,7 @@
       ignoreFailures="false"/>
   </goal>
 
-	<!-- TAG DOCUMENTATION -->
+  <!-- TAG DOCUMENTATION -->
   <goal 
     name="tags:doc"
     description="Build the documentation for each tag library">
@@ -129,15 +129,15 @@
   <!-- GENERATE THE LIBRARY AND JELLYDOC DOCUMENTATION                       -->
   <!-- ===================================================================== -->
   <preGoal name="xdoc:transform">
-  	<!-- use a template to create the plugins home page
-  		 if it's an xdoc, it must be done before xdoc:transform
-  		 and should generate to ${maven.gen.docs}/libs/index.xml
-  	  -->
-  	  
-		<!-- can't pass anything into the jellydoc doclet so its hard coded to target -->  	  
-		<mkdir dir="target"/>
-		  	  
-		<mkdir dir="${maven.gen.docs}/libs/"/>
+    <!-- use a template to create the plugins home page
+       if it's an xdoc, it must be done before xdoc:transform
+       and should generate to ${maven.gen.docs}/libs/index.xml
+      -->
+      
+    <!-- can't pass anything into the jellydoc doclet so its hard coded to target -->      
+    <mkdir dir="target"/>
+          
+    <mkdir dir="${maven.gen.docs}/libs/"/>
     <j:file name="${maven.gen.docs}/libs/index.xml"
       prettyPrint="true">
       <document>
@@ -173,61 +173,61 @@
   </preGoal>
 
   <preGoal name="xdoc">
-		<maven:reactor
-			basedir="${basedir}"
-			includes="jelly-tags/*/project.xml"
-			goals="jellydoc,maven-jdepend-plugin:report,maven-javadoc-plugin:report,maven-junit-report-plugin:report,maven-changelog-plugin:report,xdoc:transform"
-			banner="Generating jellydoc for"
-			ignoreFailures="false"
-		/>
+    <maven:reactor
+      basedir="${basedir}"
+      includes="jelly-tags/*/project.xml"
+      goals="jellydoc,maven-jdepend-plugin:report,maven-javadoc-plugin:report,maven-junit-report-plugin:report,maven-changelog-plugin:report,xdoc:transform"
+      banner="Generating jellydoc for"
+      ignoreFailures="false"
+    />
 
-	<!--		
+  <!--    
         <attainGoal name="maven-checkstyle-plugin:report"/>
         <attainGoal name="maven-changelog-plugin:report"/>
         <attainGoal name="maven-developer-activity-plugin:report"/>
         <attainGoal name="maven-file-activity-plugin:report"/>
         <attainGoal name="maven-junit-report-plugin:report"/>
         <attainGoal name="maven-linkcheck-plugin:report"/>
-        <attainGoal name="maven-tasklist-plugin:report"/>		
-	-->        
+        <attainGoal name="maven-tasklist-plugin:report"/>    
+  -->        
         
-	<!--        
-		This runs out of memory - have a feeling its the velocity & xdoc plugin
-		
-		<maven:reactor
-			basedir="${basedir}"
-			includes="jelly-tags/*/project.xml"
-			goals="site"
-			banner="Generating site for"
-			ignoreFailures="false"
-		/>
-		-->
-		
-		<j:if test="${context.getVariable('maven.docs.dest') == null}">
-			<j:set var="maven.docs.dest" value="target/docs"/>
-		</j:if>
-		
-		<!-- create the parent directory for the docs -->
-		<mkdir dir="${maven.docs.dest}/libs" />
-	
-		<!-- copy them all to ${maven.docs.dest}/libs/${plugin.id}/ -->
-		<fileScanner var="pluginProjects">
-			<fileset dir="${basedir}">
-				<include name="jelly-tags/*/project.xml" />
-			</fileset>
-		</fileScanner>
-		
-		<j:forEach items="${pluginProjects.iterator()}" var="plugin">
-			<j:set var="pluginName" value="${plugin.parentFile.name}" />
-			<mkdir dir="${maven.docs.dest}/libs/${pluginName}/" />
-			<copy toDir="${maven.docs.dest}/libs/${pluginName}/">
-				<fileset dir="jelly-tags/${pluginName}/target/docs/">
-					<include name="**" />
-				</fileset>
-			</copy>
-		</j:forEach>
+  <!--        
+    This runs out of memory - have a feeling its the velocity & xdoc plugin
+    
+    <maven:reactor
+      basedir="${basedir}"
+      includes="jelly-tags/*/project.xml"
+      goals="site"
+      banner="Generating site for"
+      ignoreFailures="false"
+    />
+    -->
+    
+    <j:if test="${context.getVariable('maven.docs.dest') == null}">
+      <j:set var="maven.docs.dest" value="target/docs"/>
+    </j:if>
+    
+    <!-- create the parent directory for the docs -->
+    <mkdir dir="${maven.docs.dest}/libs" />
+  
+    <!-- copy them all to ${maven.docs.dest}/libs/${plugin.id}/ -->
+    <fileScanner var="pluginProjects">
+      <fileset dir="${basedir}">
+        <include name="jelly-tags/*/project.xml" />
+      </fileset>
+    </fileScanner>
+    
+    <j:forEach items="${pluginProjects.iterator()}" var="plugin">
+      <j:set var="pluginName" value="${plugin.parentFile.name}" />
+      <mkdir dir="${maven.docs.dest}/libs/${pluginName}/" />
+      <copy toDir="${maven.docs.dest}/libs/${pluginName}/">
+        <fileset dir="jelly-tags/${pluginName}/target/docs/">
+          <include name="**" />
+        </fileset>
+      </copy>
+    </j:forEach>
 
-		<!-- now lets implement the jellydoc for the core package -->		
+    <!-- now lets implement the jellydoc for the core package -->    
     <j:set var="maven.jellydoc.packages" value="org.apache.commons.jelly.tags.core.*"/>
     <attainGoal name="jellydoc"/>
     
@@ -238,7 +238,7 @@
 
   <!-- demo programs -->
 
-	<!-- a sample of using the command line interface to invoke Jelly -->
+  <!-- a sample of using the command line interface to invoke Jelly -->
   <goal name="demo:cmdline" prereqs="create-classpath"
     description="Demonstrates how to use the command line interface to Jelly">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
@@ -256,7 +256,7 @@
 
 
   <goal name="test:benchmark" prereqs="create-classpath"
-		description="A simple bit of Jelly script used as a benchmark to guage performance">
+    description="A simple bit of Jelly script used as a benchmark to guage performance">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/benchmark/benchmark.jelly"/>
@@ -271,7 +271,7 @@
   </goal>
 
   <goal name="demo:async"
-  	description="An example of using asynchronous invocation of goals">
+    description="An example of using asynchronous invocation of goals">
 
     <j:thread>
       <attainGoal name="demo:asyncOtherThread"/>
@@ -279,27 +279,27 @@
 
     <echo>XXXX</echo>
 
-<!-- FIXME: util now in a sep taglib		<util:sleep millis="1000"/> -->
+    <!-- FIXME: util now in a sep taglib    <util:sleep millis="1000"/> -->
   </goal>
 
   <goal name="demo:asyncOtherThread"
-  	description="A private target invoked by the async demo">
+    description="A private target invoked by the async demo">
     <echo>YYYY</echo>
   </goal>
 
-    <!--
-        || Disable some goals not currently working with CVS HEAD 
-        -->
-    <goal name="maven-license-plugin:report"/>
+  <!--
+   | Disable some goals not currently working with CVS HEAD 
+   |-->
+  <goal name="maven-license-plugin:report"/>
 
 
   <!-- define the classpath used to run examples -->
   <goal name="create-classpath" prereqs="java:compile,test:compile">
-		<path id="test.classpath">
-			<pathelement path="${maven.build.dest}"/>
-			<pathelement path="target/classes"/>
-			<pathelement path="target/test-classes"/>
-			<path refid="maven.dependency.classpath"/>
-		</path>
+    <path id="test.classpath">
+      <pathelement path="${maven.build.dest}"/>
+      <pathelement path="target/classes"/>
+      <pathelement path="target/test-classes"/>
+      <path refid="maven.dependency.classpath"/>
+    </path>
   </goal>
 </project>
