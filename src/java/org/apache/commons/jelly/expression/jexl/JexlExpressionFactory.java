@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.8 2002/06/18 18:36:42 werken Exp $
- * $Revision: 1.8 $
- * $Date: 2002/06/18 18:36:42 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.9 2002/08/12 10:28:51 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/08/12 10:28:51 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JexlExpressionFactory.java,v 1.8 2002/06/18 18:36:42 werken Exp $
+ * $Id: JexlExpressionFactory.java,v 1.9 2002/08/12 10:28:51 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression.jexl;
@@ -67,6 +67,8 @@ import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 
+//import org.apache.commons.jexl.resolver.FlatResolver;
+
 /** 
  * Represents a factory of <a href="http://jakarta.apache.org/commons/jexl.html">Jexl</a> 
  * expression which fully supports the Expression Language in JSTL and JSP.
@@ -74,7 +76,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {
@@ -85,11 +87,22 @@ public class JexlExpressionFactory implements ExpressionFactory {
     // ExpressionFactory interface
     //------------------------------------------------------------------------- 
     public Expression createExpression(final String text) throws Exception {
+/*        
+        
+        org.apache.commons.jexl.Expression expr = 
+            org.apache.commons.jexl.ExpressionFactory.createExpression(text);
+            
+        if ( isSupportAntVariables() ) {
+            expr.addPostResolver(new FlatResolver());
+        }
+        
+        return new JexlExpression( expr );
+*/        
 
         final Expression jexlExpression = new JexlExpression(
             org.apache.commons.jexl.ExpressionFactory.createExpression(text)
             );
-        
+
         if ( isSupportAntVariables() && isValidAntVariableName(text) ) {
             ExpressionSupport expr = new ExpressionSupport() {
                     public Object evaluate(JellyContext context) {
