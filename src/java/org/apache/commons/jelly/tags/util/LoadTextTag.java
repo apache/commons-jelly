@@ -74,9 +74,7 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** 
- * A tag which catches exceptions thrown by its body.
- * This allows conditional logic to be performed based on if exceptions
- * are thrown or to do some kind of custom exception logging logic.
+ * A tag which loads text from a file or URI into a Jelly variable. 
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.5 $
