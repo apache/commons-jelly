@@ -15,8 +15,9 @@
  */
 package org.apache.commons.jelly.core;
 
-import org.apache.commons.jelly.Script;
 import junit.framework.TestSuite;
+
+import org.apache.commons.jelly.Script;
 
 /**
  * Tests for UseBean tag
@@ -35,7 +36,7 @@ public class TestUseBeanTag extends BaseJellyTest {
      * Test a simple useBean tag works ok
      * @throws Exception
      */
-    public void testSimple() throws Exception {
+    public void testSimple() throws Exception{
         setUpScript("testUseBeanTag.jelly");
         Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.simple",Boolean.TRUE);
@@ -44,6 +45,21 @@ public class TestUseBeanTag extends BaseJellyTest {
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
         Customer customer = (Customer)(getJellyContext().getVariable("foo"));
         assertEquals("name not set", "testing", customer.getName());
+        assertEquals("city not set", "sydney", customer.getCity());
+    }
+    
+    /**
+     * test extension
+     */
+    public void testExtension() throws Exception {
+        setUpScript("testUseBeanTag.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("test.extension",Boolean.TRUE);
+        script.run(getJellyContext(),getXMLOutput());
+        assertNotNull(getJellyContext().getVariable("foo"));
+        assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
+        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        assertNull("name set wrongly", customer.getName());
         assertEquals("city not set", "sydney", customer.getCity());
     }
 }

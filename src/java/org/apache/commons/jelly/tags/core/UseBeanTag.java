@@ -16,13 +16,15 @@
 package org.apache.commons.jelly.tags.core;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
-
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.MapTagSupport;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BeanSource;
 
@@ -51,6 +53,12 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     /** the default class to use if no Class is specified */
     private Class defaultClass;
 
+    /**
+     * a Set of Strings of property names to ignore (remove from the
+     * Map of attributes before passing to ConvertUtils)
+     */
+    private Set ignoreProperties;
+
     public UseBeanTag() {
     }
 
@@ -74,7 +82,8 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     public void doTag(XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
         String var = (String) attributes.get( "var" );
-        Object classObject = attributes.remove( "class" );
+        Object classObject = attributes.get( "class" );
+        addIgnoreProperty("class");
         
         try {
             // this method could return null in derived classes
@@ -163,10 +172,15 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     /**
      * Sets the properties on the bean. Derived tags could implement some custom 
      * type conversion etc.
+     * <p/>
+     * This method ignores all property names in the Set returned by {@link #getIgnorePropertySet()}.
      */
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
+        Map attrsToUse = new HashMap(attributes);
+        attrsToUse.keySet().removeAll(getIgnorePropertySet());
+
         try {
-            BeanUtils.populate(bean, attributes);
+            BeanUtils.populate(bean, attrsToUse);
         } catch (IllegalAccessException e) {
             throw new JellyTagException("could not set the properties of the bean",e);
         } catch (InvocationTargetException e) {
@@ -196,5 +210,26 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      */
     protected Class getDefaultClass() {
         return defaultClass;
+    }
+
+    /** Adds a name to the Set of property names that will be skipped when setting
+     * bean properties. In other words, names added here won't be set into the bean
+     * if they're present in the attribute Map.
+     * @param name
+     */
+    protected void addIgnoreProperty(String name) {
+        getIgnorePropertySet().add(name);
+    }
+
+    /**
+     * @return the Set of property names that should be ignored when setting the
+     * properties of the bean.
+     */
+    protected Set getIgnorePropertySet() {
+        if (ignoreProperties == null) {
+            ignoreProperties = new HashSet();
+        }
+
+        return ignoreProperties;
     }
 }
