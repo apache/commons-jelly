@@ -19,7 +19,7 @@ if [ -z "$FOREHEAD_CONF" ] ; then
   FOREHEAD_CONF=${JELLY_HOME}/bin/forehead.conf 
 fi
 
-$JAVA_HOME/bin/java -classpath ${CLASSPATH}:${JELLY_HOME}/lib/forehead.jar \
+$JAVA_HOME/bin/java -classpath ${CLASSPATH}:${JELLY_HOME}/lib/forehead-1.0-beta-5.jar \
   -Dforehead.conf.file=${FOREHEAD_CONF} \
   -Dant.home=${ANT_HOME} -Djelly.home=${JELLY_HOME} \
   -Dtools.jar=${JAVA_HOME}/lib/tools.jar \
