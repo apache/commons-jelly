@@ -61,9 +61,7 @@
  */
 package org.apache.commons.jelly.tags.log;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 
 /** 

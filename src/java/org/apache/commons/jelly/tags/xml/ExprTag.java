@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.9 2002/10/30 19:16:22 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/10/30 19:16:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/xml/Attic/ExprTag.java,v 1.10 2002/12/11 12:40:56 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/12/11 12:40:56 $
  *
  * ====================================================================
  *
@@ -57,23 +57,19 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.9 2002/10/30 19:16:22 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.10 2002/12/11 12:40:56 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.jaxen.XPath;
 
 /** A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
   * in XSLT
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 public class ExprTag extends XPathTagSupport {
 

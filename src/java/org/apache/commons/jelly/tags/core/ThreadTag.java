@@ -57,11 +57,9 @@
 package org.apache.commons.jelly.tags.core;
 
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 

@@ -65,11 +65,6 @@ package org.apache.commons.jelly.tags.define;
 import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.MethodUtils;
-
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

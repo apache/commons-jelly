@@ -62,23 +62,18 @@
 
 package org.apache.commons.jelly.tags.define;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.beanutils.DynaClass;
-
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.Attribute;
 import org.apache.commons.jelly.impl.DynamicDynaBeanTag;
 import org.apache.commons.jelly.impl.TagFactory;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.Attributes;
 
 /** 

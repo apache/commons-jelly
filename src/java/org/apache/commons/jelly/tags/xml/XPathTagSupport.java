@@ -61,10 +61,7 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
 
 /** An abstract base class useful for implementation inheritence
   *

@@ -65,8 +65,6 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.mortbay.http.HttpResponse;
-
 /**
  * An abstract base tag to declare a handler for a particular request method
  * in an http context in an http server

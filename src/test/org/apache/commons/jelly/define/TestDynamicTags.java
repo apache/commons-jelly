@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.9 2002/10/30 19:16:27 jstrachan Exp $
- * $Revision: 1.9 $
- * $Date: 2002/10/30 19:16:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/define/Attic/TestDynamicTags.java,v 1.10 2002/12/11 12:41:01 jstrachan Exp $
+ * $Revision: 1.10 $
+ * $Date: 2002/12/11 12:41:01 $
  *
  * ====================================================================
  *
@@ -57,14 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestDynamicTags.java,v 1.9 2002/10/30 19:16:27 jstrachan Exp $
+ * $Id: TestDynamicTags.java,v 1.10 2002/12/11 12:41:01 jstrachan Exp $
  */
 package org.apache.commons.jelly.define;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 
 import junit.framework.Test;
@@ -73,17 +70,14 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** Tests dynamic tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.9 $
+  * @version $Revision: 1.10 $
   */
 public class TestDynamicTags extends TestCase {
 

@@ -64,9 +64,6 @@ package org.apache.commons.jelly.tags.swing.impl;
 import java.awt.Component;
 import java.awt.GridBagConstraints;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /** 
  * A simple class to represent the information for a single cell in a table
  * when using the GridBagLayout

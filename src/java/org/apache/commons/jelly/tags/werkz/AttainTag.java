@@ -58,10 +58,8 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.Goal;
 import com.werken.werkz.Session;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
 import org.apache.commons.logging.Log;
@@ -71,7 +69,7 @@ import org.apache.commons.logging.LogFactory;
  * Attains one or more goals.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class AttainTag extends WerkzTagSupport {
 

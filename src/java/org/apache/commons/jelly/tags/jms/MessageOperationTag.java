@@ -63,11 +63,9 @@ package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
 import javax.jms.JMSException;
-import javax.jms.Message;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
-
 import org.apache.commons.messenger.Messenger;
 
 /** An abstract base class for JMS Message operation tags such as send, receive or call.

@@ -76,7 +76,7 @@ public class SleepTag extends TagSupport {
     //------------------------------------------------------------------------- 
     public void doTag(final XMLOutput output) throws Exception {
         if (millis > 0) {
-            Thread.currentThread().sleep(millis);
+            Thread.sleep(millis);
         }
     }
 

@@ -61,15 +61,10 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import javax.swing.table.TableColumn;
-
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.jelly.tags.swing.model.ExpressionTableColumn;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** 
  * Creates a default TableColumnModel.

@@ -61,16 +61,11 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.LayoutManager;
 
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.swing.impl.Cell;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

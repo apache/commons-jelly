@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ChooseTag.java,v 1.7 2002/10/30 19:16:20 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/10/30 19:16:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ChooseTag.java,v 1.8 2002/12/11 12:40:54 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/12/11 12:40:54 $
  *
  * ====================================================================
  *
@@ -57,29 +57,17 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ChooseTag.java,v 1.7 2002/10/30 19:16:20 jstrachan Exp $
+ * $Id: ChooseTag.java,v 1.8 2002/12/11 12:40:54 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.ScriptBlock;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.expression.Expression;
 
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 public class ChooseTag extends TagSupport {
 

@@ -62,12 +62,10 @@
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
-import javax.jms.JMSException;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.messenger.Messenger;
 
 /** Creates a Destination object from a String name.

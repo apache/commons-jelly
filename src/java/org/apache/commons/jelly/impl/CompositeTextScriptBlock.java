@@ -61,14 +61,6 @@
  */
 package org.apache.commons.jelly.impl;
 
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
 
 /** 
  * <p><code>CompositeTextScriptBlock</code> represents a text body of a

@@ -62,14 +62,10 @@
 package org.apache.commons.jelly.tags.swing;
 
 import javax.swing.JTable;
-import javax.swing.table.TableModel;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.jelly.tags.swing.model.ExpressionTableModel;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** 
  * Creates a default TableModel using nested tableColumn tags.

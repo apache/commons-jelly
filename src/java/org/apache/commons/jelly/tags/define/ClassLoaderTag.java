@@ -62,7 +62,6 @@
 
 package org.apache.commons.jelly.tags.define;
 
-import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
 

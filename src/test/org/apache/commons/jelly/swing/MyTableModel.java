@@ -61,8 +61,7 @@
  */
 package org.apache.commons.jelly.swing;
 
-import javax.swing.*;
-import javax.swing.table.*;
+import javax.swing.table.AbstractTableModel;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestDummyXMLOutput.java,v 1.3 2002/10/30 19:16:26 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/10/30 19:16:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/test/xml/TestDummyXMLOutput.java,v 1.4 2002/12/11 12:40:58 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/12/11 12:40:58 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestDummyXMLOutput.java,v 1.3 2002/10/30 19:16:26 jstrachan Exp $
+ * $Id: TestDummyXMLOutput.java,v 1.4 2002/12/11 12:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly.test.xml;
 
@@ -65,7 +65,6 @@ import java.net.URL;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
@@ -77,7 +76,7 @@ import org.apache.commons.jelly.XMLOutput;
  * doesn't do anything funky.
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class TestDummyXMLOutput extends TestCase {
 

@@ -63,14 +63,12 @@ package org.apache.commons.jelly.tags.swing.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.TableColumnModel;
 
 import org.apache.commons.jelly.JellyContext;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** 
  * A Swing TableModel that uses a List of rows with pluggable Expressions 

@@ -61,16 +61,9 @@
  */
 package org.apache.commons.jelly.tags.jsl;
 
-import java.io.IOException;
-import java.io.Writer;
-
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.expression.ExpressionSupport;
-
 import org.dom4j.rule.Pattern;
-
 import org.jaxen.VariableContext;
 
 /** An expression which returns an XPath based Pattern (like an XSLT pattern).

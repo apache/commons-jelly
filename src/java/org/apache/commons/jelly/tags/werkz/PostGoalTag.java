@@ -58,21 +58,17 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.Goal;
-import com.werken.werkz.PostGoalCallback;
-
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.werken.werkz.Goal;
+import com.werken.werkz.PostGoalCallback;
 
 /** 
  * Implements a &lt;postGoal&gt; tag which provides a callback 
  * which is evaluated after a goal has executed.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class PostGoalTag extends CallbackTagSupport {
 

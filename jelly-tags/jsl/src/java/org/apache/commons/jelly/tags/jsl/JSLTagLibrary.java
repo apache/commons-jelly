@@ -61,27 +61,17 @@
  */
 package org.apache.commons.jelly.tags.jsl;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.tags.xml.ExprTag;
 import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
 import org.apache.commons.jelly.tags.xml.XPathExpression;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.dom4j.DocumentHelper;
 import org.dom4j.rule.Pattern;
-
 import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 import org.jaxen.dom4j.Dom4jXPath;

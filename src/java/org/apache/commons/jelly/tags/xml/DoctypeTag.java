@@ -61,13 +61,9 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.jaxen.XPath;
 
 /** 
  * A tag which outputs a DOCTYPE declaration to the current XML output pipe.

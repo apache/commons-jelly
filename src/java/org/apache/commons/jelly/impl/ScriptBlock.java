@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.8 2002/10/30 19:16:23 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/10/30 19:16:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/ScriptBlock.java,v 1.9 2002/12/11 12:40:55 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/12/11 12:40:55 $
  *
  * ====================================================================
  *
@@ -57,11 +57,10 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ScriptBlock.java,v 1.8 2002/10/30 19:16:23 jstrachan Exp $
+ * $Id: ScriptBlock.java,v 1.9 2002/12/11 12:40:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -73,7 +72,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class ScriptBlock implements Script {
 

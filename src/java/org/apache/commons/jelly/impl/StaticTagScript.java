@@ -64,17 +64,13 @@ package org.apache.commons.jelly.impl;
 import java.util.Iterator;
 import java.util.Map;
 
-import org.apache.commons.jelly.CompilableTag;
+import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.DynaTag;
-import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

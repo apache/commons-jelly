@@ -61,14 +61,7 @@
  */
 package org.apache.commons.jelly.tags.werkz;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagLibrary;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

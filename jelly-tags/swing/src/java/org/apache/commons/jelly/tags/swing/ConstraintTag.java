@@ -1,32 +1,10 @@
 package org.apache.commons.jelly.tags.swing;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.util.HashMap;
-import java.util.Map;
-
-import java.awt.Component;
-import java.awt.Container;
-
-import org.apache.commons.beanutils.ConvertUtils;
-
-import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.impl.TagFactory;
-import org.apache.commons.jelly.tags.swing.converters.DimensionConverter;
-import org.apache.commons.jelly.tags.swing.converters.PointConverter;
-
-import org.apache.commons.jelly.DynaBeanTagSupport;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.beanutils.BeanUtils;
-
+import org.apache.commons.jelly.DynaBeanTagSupport;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.TagFactory;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.Attributes;
 
 /** This class represents a layout-manager constraints as passed in

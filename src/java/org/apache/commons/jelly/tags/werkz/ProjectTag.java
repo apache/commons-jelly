@@ -58,16 +58,10 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.Project;
-
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
+
+import com.werken.werkz.Project;
 
 /** 
  * The root tag of a Project definition.

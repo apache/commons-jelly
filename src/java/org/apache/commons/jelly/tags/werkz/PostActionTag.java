@@ -58,21 +58,17 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.Goal;
-import com.werken.werkz.PostActionCallback;
-
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.werken.werkz.Goal;
+import com.werken.werkz.PostActionCallback;
 
 /** 
  * Implements a &lt;postAction&gt; tag which provides a callback 
  * which is evaluated after an action.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.4 $
  */
 public class PostActionTag extends CallbackTagSupport {
 

@@ -1,9 +1,9 @@
 package org.apache.commons.jelly.tags.quartz;
 
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/QuartzTagSupport.java,v 1.3 2002/10/23 16:35:36 jstrachan Exp $
- * $Revision: 1.3 $
- * $Date: 2002/10/23 16:35:36 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/quartz/Attic/QuartzTagSupport.java,v 1.4 2002/12/11 12:40:58 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/12/11 12:40:58 $
  *
  * ====================================================================
  *
@@ -62,10 +62,8 @@ package org.apache.commons.jelly.tags.quartz;
  */
 
 import org.apache.commons.jelly.TagSupport;
-
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.impl.StdScheduler;
 import org.quartz.impl.StdSchedulerFactory;
 
 /** Basic support for all tags requiring a Quartz scheduler.

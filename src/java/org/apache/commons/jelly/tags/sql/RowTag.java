@@ -54,8 +54,6 @@
  */
 package org.apache.commons.jelly.tags.sql;
 
-import java.util.Map;
-
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;

@@ -58,14 +58,13 @@
 
 package org.apache.commons.jelly.tags.util;
 
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
-
-import java.util.StringTokenizer;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
 public class TokenizeTag extends TagSupport
 {

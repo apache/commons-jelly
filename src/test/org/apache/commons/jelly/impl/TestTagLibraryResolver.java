@@ -66,10 +66,6 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.DefaultTagLibraryResolver;
-import org.apache.commons.jelly.impl.TagLibraryResolver;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.10 2002/10/30 19:16:20 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/10/30 19:16:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/jelly-tags/jeez/src/java/org/apache/commons/jelly/tags/jeez/Attic/JeezTagLibrary.java,v 1.11 2002/12/11 12:41:00 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/12/11 12:41:00 $
  *
  * ====================================================================
  *
@@ -57,40 +57,27 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JeezTagLibrary.java,v 1.10 2002/10/30 19:16:20 jstrachan Exp $
+ * $Id: JeezTagLibrary.java,v 1.11 2002/12/11 12:41:00 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.jeez;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-import java.util.HashSet;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.DynamicTagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
+import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
 import org.apache.commons.jelly.tags.werkz.WerkzTagLibrary;
-// import org.apache.commons.jelly.tags.core.CoreTagLibrary;
-
-import org.apache.tools.ant.Project;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.Attributes;
 
 /** Convenience taglib that puts jelly:core, jelly:werkz and jelly:ant
  *  into a single namespace.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.10 $
+ * @version $Revision: 1.11 $
  */
 public class JeezTagLibrary extends DynamicTagLibrary {
 

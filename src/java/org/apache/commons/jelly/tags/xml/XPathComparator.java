@@ -64,14 +64,10 @@ package org.apache.commons.jelly.tags.xml;
 import java.util.Comparator;
 import java.util.List;
 
-import org.dom4j.Node;
-
-import org.jaxen.XPath;
-import org.jaxen.JaxenException;
-
-import org.apache.commons.beanutils.ConvertUtils;
-
 import org.apache.commons.jelly.util.NestedRuntimeException;
+import org.dom4j.Node;
+import org.jaxen.JaxenException;
+import org.jaxen.XPath;
 
 /**
  * Compares xml nodes by extracting the value at xpath and

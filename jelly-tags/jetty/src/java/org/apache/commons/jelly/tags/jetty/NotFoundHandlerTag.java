@@ -64,10 +64,7 @@ package org.apache.commons.jelly.tags.jetty;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.handler.NotFoundHandler;
-
-import java.util.StringTokenizer;
 
 /**
  * Declare a not found resource handler for a Jetty http server

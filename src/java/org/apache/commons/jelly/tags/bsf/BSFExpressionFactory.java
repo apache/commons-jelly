@@ -61,17 +61,14 @@
  */
 package org.apache.commons.jelly.tags.bsf;
 
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.ibm.bsf.BSFEngine;
 import com.ibm.bsf.BSFException;
 import com.ibm.bsf.BSFManager;
-
-import java.io.File;
-
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** Represents a factory of BSF expressions
   *

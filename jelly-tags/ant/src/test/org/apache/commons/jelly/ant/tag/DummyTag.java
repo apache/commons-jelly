@@ -63,15 +63,12 @@ package org.apache.commons.jelly.ant.tag;
 
 import junit.framework.AssertionFailedError;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.tools.ant.types.Path;
 
 /** 

@@ -61,15 +61,9 @@
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.DynaTag;
-import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.DynamicTagLibrary;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.helpers.AttributesImpl;
 
 /** 
  * The &lt;taglib&gt; tag is used to define a new tag library

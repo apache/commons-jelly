@@ -62,7 +62,6 @@
 package org.apache.commons.jelly.tags.soap;
 
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.tags.util.TokenizeTag;
 
 /** Implements general utility tags.
  *

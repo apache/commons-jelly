@@ -61,7 +61,6 @@ package org.apache.commons.jelly.tags.util;
 import java.io.File;
 import java.net.URL;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 

@@ -61,8 +61,6 @@
  */
 package org.apache.commons.jelly.tags.junit;
 
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.tags.xml.XPathTagSupport;
 
 /** 

@@ -61,19 +61,9 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.dom4j.Element;
-import org.dom4j.Node;
 import org.dom4j.io.SAXWriter;
-
 import org.jaxen.XPath;
 
 /** 

@@ -64,20 +64,13 @@ package org.apache.commons.jelly.tags.bean;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.MethodUtils;
-
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BeanSource;
 import org.apache.commons.jelly.impl.CollectionTag;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.12 2002/10/30 19:16:23 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/10/30 19:16:23 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/StaticTag.java,v 1.13 2002/12/11 12:40:55 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/12/11 12:40:55 $
  *
  * ====================================================================
  *
@@ -57,16 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: StaticTag.java,v 1.12 2002/10/30 19:16:23 jstrachan Exp $
+ * $Id: StaticTag.java,v 1.13 2002/12/11 12:40:55 jstrachan Exp $
  */
 package org.apache.commons.jelly.impl;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.DynaTagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
-import org.xml.sax.Attributes;
 import org.xml.sax.helpers.AttributesImpl;
 
 /** 
@@ -74,7 +70,7 @@ import org.xml.sax.helpers.AttributesImpl;
  * which echos itself to XMLOutput when it is invoked.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 
 public class StaticTag extends DynaTagSupport {

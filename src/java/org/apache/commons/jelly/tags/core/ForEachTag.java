@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.18 2002/10/30 19:16:20 jstrachan Exp $
- * $Revision: 1.18 $
- * $Date: 2002/10/30 19:16:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ForEachTag.java,v 1.19 2002/12/11 12:40:54 jstrachan Exp $
+ * $Revision: 1.19 $
+ * $Date: 2002/12/11 12:40:54 $
  *
  * ====================================================================
  *
@@ -57,31 +57,25 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ForEachTag.java,v 1.18 2002/10/30 19:16:20 jstrachan Exp $
+ * $Id: ForEachTag.java,v 1.19 2002/12/11 12:40:54 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
 
-import java.io.IOException;
-import java.io.Writer;
 import java.util.Iterator;
-import java.util.List;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.impl.BreakException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.18 $
+  * @version $Revision: 1.19 $
   */
 public class ForEachTag extends TagSupport {
 

@@ -63,8 +63,6 @@ package org.apache.commons.jelly;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.Iterator;
 
 import junit.framework.Test;
@@ -72,13 +70,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.parser.XMLParser;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

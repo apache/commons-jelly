@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/OtherwiseTag.java,v 1.8 2002/10/30 19:16:20 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/10/30 19:16:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/OtherwiseTag.java,v 1.9 2002/12/11 12:40:54 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/12/11 12:40:54 $
  *
  * ====================================================================
  *
@@ -57,24 +57,18 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: OtherwiseTag.java,v 1.8 2002/10/30 19:16:20 jstrachan Exp $
+ * $Id: OtherwiseTag.java,v 1.9 2002/12/11 12:40:54 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
-import java.io.IOException;
-import java.io.Writer;
-
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.expression.Expression;
 
 /** The otherwise block of a choose/when/otherwise group of tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.8 $
+  * @version $Revision: 1.9 $
   */
 public class OtherwiseTag extends TagSupport {
 

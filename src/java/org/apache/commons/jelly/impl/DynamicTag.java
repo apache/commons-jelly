@@ -64,12 +64,10 @@ package org.apache.commons.jelly.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.DynaTagSupport;
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

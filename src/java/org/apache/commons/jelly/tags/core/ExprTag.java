@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.10 2002/10/30 19:16:20 jstrachan Exp $
- * $Revision: 1.10 $
- * $Date: 2002/10/30 19:16:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/ExprTag.java,v 1.11 2002/12/11 12:40:54 jstrachan Exp $
+ * $Revision: 1.11 $
+ * $Date: 2002/12/11 12:40:54 $
  *
  * ====================================================================
  *
@@ -57,16 +57,13 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.10 2002/10/30 19:16:20 jstrachan Exp $
+ * $Id: ExprTag.java,v 1.11 2002/12/11 12:40:54 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -74,7 +71,7 @@ import org.apache.commons.logging.LogFactory;
   *
   * @tag out
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.10 $
+  * @version $Revision: 1.11 $
   */
 public class ExprTag extends TagSupport {
 

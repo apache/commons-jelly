@@ -61,10 +61,11 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
+import java.net.URL;
+
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.LogFactory;
-
 import org.mortbay.http.HttpContext;
 import org.mortbay.http.HttpListener;
 import org.mortbay.http.HttpServer;
@@ -73,12 +74,8 @@ import org.mortbay.http.UserRealm;
 import org.mortbay.http.handler.NotFoundHandler;
 import org.mortbay.http.handler.ResourceHandler;
 import org.mortbay.util.Log;
-import org.mortbay.util.LogSink;
 import org.mortbay.util.OutputStreamLogSink;
 import org.mortbay.util.Resource;
-
-import java.net.URL;
-import java.net.MalformedURLException;
 
 /**
  * Declare an instance of a Jetty http server

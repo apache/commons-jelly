@@ -65,13 +65,12 @@ import java.awt.event.ActionEvent;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

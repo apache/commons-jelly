@@ -61,11 +61,6 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-
-import org.mortbay.http.HttpResponse;
 
 /**
  * Respond to a DELETE request to a Jetty http server

@@ -58,19 +58,15 @@
 
 package org.apache.commons.jelly.tags.util;
 
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
-
-import java.util.StringTokenizer;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Properties;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Properties;
+
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
 /**
  * A tag which loads a properties file from a given file name or URI

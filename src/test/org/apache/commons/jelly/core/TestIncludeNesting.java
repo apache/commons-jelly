@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Attic/TestIncludeNesting.java,v 1.2 2002/10/30 19:16:25 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/30 19:16:25 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/core/Attic/TestIncludeNesting.java,v 1.3 2002/12/11 12:41:00 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/12/11 12:41:00 $
  *
  * ====================================================================
  *
@@ -57,16 +57,14 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestIncludeNesting.java,v 1.2 2002/10/30 19:16:25 jstrachan Exp $
+ * $Id: TestIncludeNesting.java,v 1.3 2002/12/11 12:41:00 jstrachan Exp $
  */
 package org.apache.commons.jelly.core;
 
-import java.io.File;
 import java.net.URL;
 
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
@@ -78,7 +76,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Makes sure that nested includes work correctly
  * 
  * @author Morgan Delagrange
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class TestIncludeNesting extends TestCase {
 

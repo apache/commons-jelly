@@ -55,13 +55,14 @@
 
 package org.apache.commons.jelly.tags.sql;
 
-import java.io.*;
-import java.sql.*;
-import java.util.*;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 import javax.sql.DataSource;
 
 import org.apache.commons.jelly.tags.Resources;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

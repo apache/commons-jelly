@@ -62,7 +62,6 @@
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
-import javax.jms.JMSException;
 import javax.jms.Message;
 
 import org.apache.commons.jelly.JellyException;

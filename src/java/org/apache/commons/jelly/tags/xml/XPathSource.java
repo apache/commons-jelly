@@ -61,10 +61,6 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
 
 /** 
  * A tag which is capable of producing a source of XPath context objects

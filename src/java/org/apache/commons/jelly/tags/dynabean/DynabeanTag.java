@@ -61,24 +61,11 @@
  */
 package org.apache.commons.jelly.tags.dynabean;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.Tag;
+import org.apache.commons.beanutils.DynaBean;
+import org.apache.commons.beanutils.DynaClass;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.impl.ScriptBlock;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.expression.Expression;
-
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.beanutils.*;
 
 
 /** A tag which conditionally evaluates its body based on some condition

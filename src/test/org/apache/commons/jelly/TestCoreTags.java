@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.11 2002/10/30 19:16:30 jstrachan Exp $
- * $Revision: 1.11 $
- * $Date: 2002/10/30 19:16:30 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/test/org/apache/commons/jelly/TestCoreTags.java,v 1.12 2002/12/11 12:40:58 jstrachan Exp $
+ * $Revision: 1.12 $
+ * $Date: 2002/12/11 12:40:58 $
  *
  * ====================================================================
  *
@@ -57,13 +57,12 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TestCoreTags.java,v 1.11 2002/10/30 19:16:30 jstrachan Exp $
+ * $Id: TestCoreTags.java,v 1.12 2002/12/11 12:40:58 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.io.IOException;
 import java.io.StringWriter;
 
 import junit.framework.Test;
@@ -71,19 +70,15 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.parser.XMLParser;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** Tests the core tags
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.11 $
+  * @version $Revision: 1.12 $
   */
 public class TestCoreTags extends TestCase {
 

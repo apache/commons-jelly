@@ -215,15 +215,15 @@ public class SecurityHandlerTag extends TagSupport {
             String guarantee = data.toString(false,true).toUpperCase();
             if (guarantee==null || guarantee.length()==0 ||
                 "NONE".equals(guarantee))
-                scBase.setDataConstraint(scBase.DC_NONE);
+                scBase.setDataConstraint(SecurityConstraint.DC_NONE);
             else if ("INTEGRAL".equals(guarantee))
-                scBase.setDataConstraint(scBase.DC_INTEGRAL);
+                scBase.setDataConstraint(SecurityConstraint.DC_INTEGRAL);
             else if ("CONFIDENTIAL".equals(guarantee))
-                scBase.setDataConstraint(scBase.DC_CONFIDENTIAL);
+                scBase.setDataConstraint(SecurityConstraint.DC_CONFIDENTIAL);
             else
             {
                 Code.warning("Unknown user-data-constraint:"+guarantee);
-                scBase.setDataConstraint(scBase.DC_CONFIDENTIAL);
+                scBase.setDataConstraint(SecurityConstraint.DC_CONFIDENTIAL);
             }
         }
 

@@ -58,21 +58,17 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.Goal;
-import com.werken.werkz.PreGoalCallback;
-
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import com.werken.werkz.Goal;
+import com.werken.werkz.PreGoalCallback;
 
 /** 
  * Implements a &lt;preGoal&gt; tag which provides a callback 
  * which is evaluated before a goal.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.5 $
+ * @version $Revision: 1.6 $
  */
 public class PreGoalTag extends CallbackTagSupport {
 

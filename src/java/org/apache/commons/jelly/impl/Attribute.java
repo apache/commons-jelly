@@ -63,9 +63,6 @@ package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.expression.Expression;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /** 
  * Represents the attribute definition used by dynamic tags, such as whether the attribute is required
  * or any default values etc.

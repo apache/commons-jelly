@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionFactory.java,v 1.4 2002/10/30 19:16:18 jstrachan Exp $
- * $Revision: 1.4 $
- * $Date: 2002/10/30 19:16:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/ExpressionFactory.java,v 1.5 2002/12/11 12:41:00 jstrachan Exp $
+ * $Revision: 1.5 $
+ * $Date: 2002/12/11 12:41:00 $
  *
  * ====================================================================
  *
@@ -57,21 +57,16 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExpressionFactory.java,v 1.4 2002/10/30 19:16:18 jstrachan Exp $
+ * $Id: ExpressionFactory.java,v 1.5 2002/12/11 12:41:00 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.expression;
 
-import java.util.Iterator;
-
-import org.apache.commons.jelly.JellyContext;
-
 /** <p><code>ExpressionFactory</code> is a factory of Expression objects.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.4 $
+  * @version $Revision: 1.5 $
   */
-
 public interface ExpressionFactory {
 
     /** 

@@ -58,27 +58,23 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.Goal;
-import com.werken.werkz.Action;
-import com.werken.werkz.DefaultAction;
-import com.werken.werkz.CyclicGoalChainException;
-
-import java.util.Iterator;
-import java.util.List;
 import java.util.StringTokenizer;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.werken.werkz.Action;
+import com.werken.werkz.CyclicGoalChainException;
+import com.werken.werkz.DefaultAction;
+import com.werken.werkz.Goal;
 
 /** 
  * Implements a &lt;target&gt; tag which is similar to the Ant equivalent tag
  * but is based on the Werkz goal engine.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class GoalTag extends WerkzTagSupport {
 

@@ -61,11 +61,8 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.junit.AssertTagSupport;
-
-
 import org.dom4j.Document;
 import org.dom4j.io.SAXContentHandler;
 import org.dom4j.io.SAXReader;

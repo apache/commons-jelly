@@ -55,14 +55,11 @@
 
 package org.apache.commons.jelly.tags.sql;
 
-import java.sql.*;
-import java.util.*;
-import javax.sql.DataSource;
-import javax.naming.InitialContext;
-import javax.naming.Context;
-import javax.naming.NamingException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-import org.apache.commons.jelly.JellyContext;
+import javax.sql.DataSource;
+
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;

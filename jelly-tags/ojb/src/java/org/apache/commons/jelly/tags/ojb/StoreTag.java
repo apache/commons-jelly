@@ -54,14 +54,10 @@
  */
 package org.apache.commons.jelly.tags.ojb;
 
-import org.apache.ojb.broker.PersistenceBroker;
-import org.apache.ojb.broker.PersistenceBrokerException;
-import org.apache.ojb.broker.PersistenceBrokerFactory;
-
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.ojb.broker.PersistenceBroker;
 
 /**
  * <p>This Store tag will store the given object in ObjectBridge using

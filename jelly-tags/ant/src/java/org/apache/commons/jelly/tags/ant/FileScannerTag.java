@@ -62,10 +62,6 @@
 package org.apache.commons.jelly.tags.ant;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertingWrapDynaBean;
-import org.apache.commons.beanutils.DynaBean;
-
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;

@@ -64,10 +64,8 @@ package org.apache.commons.jelly.tags.validate;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.junit.JellyAssertionFailedError;
 
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-import org.xml.sax.helpers.AttributesImpl;
 
 /** 
  * This tag performs an assertion that the tags body contains XML

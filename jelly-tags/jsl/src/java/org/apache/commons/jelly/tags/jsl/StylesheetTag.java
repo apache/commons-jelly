@@ -57,20 +57,13 @@
  */
 package org.apache.commons.jelly.tags.jsl;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.xml.XPathSource;
 import org.apache.commons.jelly.tags.xml.XPathTagSupport;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.dom4j.Node;
-import org.dom4j.rule.Action;
 import org.dom4j.rule.Rule;
 import org.dom4j.rule.Stylesheet;
-
 import org.jaxen.XPath;
 
 

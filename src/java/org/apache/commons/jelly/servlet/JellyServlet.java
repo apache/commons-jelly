@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/servlet/JellyServlet.java,v 1.1 2002/12/09 15:18:26 jstrachan Exp $
- * $Revision: 1.1 $
- * $Date: 2002/12/09 15:18:26 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/servlet/JellyServlet.java,v 1.2 2002/12/11 12:41:02 jstrachan Exp $
+ * $Revision: 1.2 $
+ * $Date: 2002/12/11 12:41:02 $
  *
  * ====================================================================
  *
@@ -57,12 +57,11 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyServlet.java,v 1.1 2002/12/09 15:18:26 jstrachan Exp $
+ * $Id: JellyServlet.java,v 1.2 2002/12/11 12:41:02 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -83,7 +82,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Servlet for handling display of Jelly-fied XML files. Modelled after VelocityServlet.
  * 
  * @author Kelvin Tan
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class JellyServlet extends HttpServlet {
 	/**

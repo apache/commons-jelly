@@ -65,15 +65,12 @@ import java.util.Collection;
 
 import javax.xml.namespace.QName;
 
-import org.apache.commons.jelly.JellyContext;
+import org.apache.axis.client.Call;
+import org.apache.axis.client.Service;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
-
-import org.apache.commons.logging.Log;
-import org.apache.axis.client.Service;
-import org.apache.axis.client.Call;
+import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Invokes a web service

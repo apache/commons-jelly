@@ -61,7 +61,6 @@
  */
 package org.apache.commons.jelly.tags.beanshell;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 

@@ -66,17 +66,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
-
 import org.apache.commons.jelly.DynaBeanTagSupport;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.impl.BeanSource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

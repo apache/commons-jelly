@@ -61,15 +61,12 @@
  */
 package org.apache.commons.jelly.tags.validate;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.iso_relax.verifier.Verifier;
 import org.iso_relax.verifier.VerifierFilter;
 import org.iso_relax.verifier.VerifierHandler;
-
 import org.xml.sax.ContentHandler;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SwitchTag.java,v 1.2 2002/10/30 19:16:20 jstrachan Exp $
- * $Revision: 1.2 $
- * $Date: 2002/10/30 19:16:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/SwitchTag.java,v 1.3 2002/12/11 12:40:54 jstrachan Exp $
+ * $Revision: 1.3 $
+ * $Date: 2002/12/11 12:40:54 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: SwitchTag.java,v 1.2 2002/10/30 19:16:20 jstrachan Exp $
+ * $Id: SwitchTag.java,v 1.3 2002/12/11 12:40:54 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.core;
 
@@ -66,7 +66,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
-import bsh.This;
 
 /** 
  * Executes the child &lt;case&gt; tag whose value equals my on attribute.
@@ -77,7 +76,7 @@ import bsh.This;
  * @see DefaultTag
  * 
  * @author Rodney Waldhoff
- * @version $Revision: 1.2 $ $Date: 2002/10/30 19:16:20 $
+ * @version $Revision: 1.3 $ $Date: 2002/12/11 12:40:54 $
  */
 public class SwitchTag extends TagSupport {
 

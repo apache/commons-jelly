@@ -55,16 +55,7 @@
  */
 package org.apache.commons.jelly.tags.interaction;
 
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Iterator;
-import java.util.List;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
 
 /**
   * A TagLibrary to interact with the user.

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.12 2002/10/30 19:16:29 jstrachan Exp $
- * $Revision: 1.12 $
- * $Date: 2002/10/30 19:16:29 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/define/Attic/InvokeBodyTag.java,v 1.13 2002/12/11 12:40:57 jstrachan Exp $
+ * $Revision: 1.13 $
+ * $Date: 2002/12/11 12:40:57 $
  *
  * ====================================================================
  *
@@ -57,18 +57,16 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: InvokeBodyTag.java,v 1.12 2002/10/30 19:16:29 jstrachan Exp $
+ * $Id: InvokeBodyTag.java,v 1.13 2002/12/11 12:40:57 jstrachan Exp $
  */
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.DynamicTag;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -78,7 +76,7 @@ import org.apache.commons.logging.LogFactory;
  * the tag is invoked.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.12 $
+ * @version $Revision: 1.13 $
  */
 public class InvokeBodyTag extends TagSupport {
 

@@ -62,12 +62,7 @@
 package org.apache.commons.jelly.jetty;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Iterator;
-import java.util.List;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -75,16 +70,9 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.parser.XMLParser;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.dom4j.Document;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Node;
 
 /** Tests the parser, the engine and the XML tags
   *

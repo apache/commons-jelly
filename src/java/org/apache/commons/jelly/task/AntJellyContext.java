@@ -63,15 +63,12 @@
 package org.apache.commons.jelly.task;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.tools.ant.Project;
 
 /** <p><code>AntJellyContext</code> represents the Jelly context from inside Ant.</p>

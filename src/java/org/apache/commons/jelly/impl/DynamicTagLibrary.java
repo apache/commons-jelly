@@ -64,11 +64,9 @@ package org.apache.commons.jelly.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
-
 import org.xml.sax.Attributes;
 
 /** 
