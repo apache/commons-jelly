@@ -24,7 +24,7 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision: 1.9 $ $Date: 2004/10/26 23:54:37 $
+ * @version $Revision: 1.9 $ $Date$
  */
 public class TestSwitchTag extends BaseJellyTest {
 
@@ -182,6 +182,14 @@ public class TestSwitchTag extends BaseJellyTest {
         } catch(JellyException e) {
             // expected
         }
+    }
+
+    public void testSeveralCall() throws Exception {
+        setUpScript("testSeveralSwitchCall.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("var","foo");
+        script.run(getJellyContext(),getXMLOutput());        
+        assertEquals("defaultdefault",getJellyContext().getVariable("res"));
     }
 
 }

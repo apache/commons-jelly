@@ -1,0 +1,15 @@
+<j:jelly xmlns:j="jelly:core">
+	<j:forEach var="var" items="a,b">
+		<j:switch on="${var}">
+			<j:case value="unencountered1">
+				<j:set var="res" value="1"/>
+			</j:case>
+			<j:case value="unencountered2">
+				<j:set var="res" value="2"/>
+			</j:case>			
+			<j:default>
+				<j:set var="res" value="${res}default"/>			
+			</j:default>
+		</j:switch>
+	</j:forEach>		
+</j:jelly>

@@ -31,7 +31,7 @@ import org.apache.commons.jelly.expression.Expression;
  * @see DefaultTag
  *
  * @author Rodney Waldhoff
- * @version $Revision: 1.7 $ $Date: 2004/09/09 12:27:53 $
+ * @version $Revision: 1.7 $ $Date$
  */
 public class SwitchTag extends TagSupport {
 
@@ -52,6 +52,10 @@ public class SwitchTag extends TagSupport {
     }
 
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+        this.defaultEncountered = false;
+        this.someCaseMatched = false;
+        this.fallingThru = false;
+                
         if(null == on) {
             throw new MissingAttributeException("on");
         } else {
