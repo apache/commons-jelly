@@ -368,10 +368,6 @@ public class JellyContext {
         if (isExportLibraries() && parent != null) {
             parent.registerTagLibrary( namespaceURI, taglib );
         }
-        
-        if (isExportLibraries() && parent != null) {
-            parent.registerTagLibrary( namespaceURI, taglib );
-        }
     }
 
     /** Registers the given tag library class name against the given namespace URI.
@@ -892,6 +888,33 @@ public class JellyContext {
      */
     protected JellyContext createChildContext() {
         return new JellyContext(this);
+    }
+
+    /**
+     * Change the parent context to the one provided
+     * @param context the new parent context
+     */
+    protected void setParent(JellyContext context)
+    {
+        parent = context;
+        this.variables.put("parentScope", parent.variables);
+        // need to re-export tag libraries to the new parent
+        if (isExportLibraries() && parent != null) {
+            for (Iterator keys = taglibs.keySet().iterator(); keys.hasNext();)
+            {
+                String namespaceURI = (String) keys.next();
+                Object tagLibOrClassName = taglibs.get(namespaceURI);
+                if (tagLibOrClassName instanceof TagLibrary)
+                {
+                    parent.registerTagLibrary( namespaceURI, (TagLibrary) tagLibOrClassName );
+                }
+                else
+                {
+                    parent.registerTagLibrary( namespaceURI, (String) tagLibOrClassName );
+                }
+            }
+        }
+
     }
 
 }
