@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [
+  <!-- see file for description -->
+  <!ENTITY commonDeps SYSTEM "file:../../commonDependencies.ent">
+]>
+<project>
+  <extend>../tag-project.xml</extend>
+  <id>commons-jelly-tags-bean</id>
+  <name>commons-jelly-tags-bean</name>
+
+  <package>org.apache.commons.jelly.tags.bean</package>
+
+  <description>
+  	 The Jelly Bean Tag Library
+  </description>
+  <shortDescription>Commons Jelly Bean Tag Library</shortDescription>
+  
+  <url>http://jakarta.apache.org/commons/sandbox/jelly/tags/bean/</url>
+
+  <siteDirectory>/www/jakarta.apache.org/commons/sandbox/jelly/bean/</siteDirectory>
+  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons-sandbox/jelly/tags/bean</distributionDirectory>
+  <repository>
+    <connection>scm:cvs:pserver:anoncvs@cvs.apache.org:/home/cvspublic:jakarta-commons-sandbox/jelly/jelly-tags/bean/</connection>
+    <url>http://cvs.apache.org/viewcvs/jakarta-commons-sandbox/jelly/jelly-tags/bean/</url>
+  </repository>
+  
+  <dependencies>
+  
+    &commonDeps;
+  
+    <!-- START for compilation -->
+  
+    <dependency>
+      <id>commons-jelly</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+      
+    <!-- END for compilation -->
+    
+    <!-- below for testing, pulled in by ant taglib -->
+
+    <dependency>
+      <id>commons-jelly+tags-ant</id>
+      <version>SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+      <id>ant</id>
+      <version>1.5.1</version>
+    </dependency>
+    
+    <dependency>
+      <id>ant+optional</id>
+      <version>1.5.1</version>
+    </dependency>
+    
+    <dependency>
+      <id>commons-grant</id>
+      <version>1.0-beta-4</version>
+    </dependency>
+
+    
+  </dependencies>
+  
+</project>
