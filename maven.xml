@@ -1,7 +1,7 @@
-<project default="maven:jar" xmlns:j="jelly:core">
+<project default="java:jar" xmlns:j="jelly:core">
 
   <!-- runs the XML doclet -->	
-  <goal name="xml-doclet" prereqs="maven:compile">
+  <goal name="xml-doclet" prereqs="java:compile">
     <path id="doclet.classpath">
 		<pathelement path="${maven.build.dest}"/>
 		<path refid="maven.dependency.classpath"/>
@@ -16,7 +16,7 @@
   </goal>
 
   <!-- runs the Tag doclet -->	
-  <goal name="tag-doclet" prereqs="maven:compile">
+  <goal name="tag-doclet" prereqs="java:compile">
     <path id="doclet.classpath">
       <pathelement path="target/classes"/>
       <pathelement path="${maven.build.dest}"/>

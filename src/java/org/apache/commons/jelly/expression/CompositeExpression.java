@@ -110,48 +110,189 @@ public class CompositeExpression extends ExpressionSupport {
      *  from the ExpressionFactory
      */
     public static Expression parse(String text, ExpressionFactory factory) throws Exception {
-        int length = text.length();
+
+        int len = text.length();
+
         int startIndex = text.indexOf( "${" );
-        if (startIndex < 0 ) {
+
+        if ( startIndex < 0) {
             return new ConstantExpression(text);
         }
+
         int endIndex = text.indexOf( "}", startIndex+2 );
+
         if ( endIndex < 0 ) {
             throw new JellyException( "Missing '}' character at the end of expression: " + text );
         }
-        if ( startIndex == 0 && endIndex == length - 1 ) {
+        if ( startIndex == 0 && endIndex == len - 1 ) {
             return factory.createExpression(text.substring(2, endIndex));
         }
-        else {
-            CompositeExpression answer = new CompositeExpression();
-            if ( startIndex > 0 ) {
-                String prefix = text.substring(0, startIndex);
-                answer.addTextExpression(prefix);
-            }
-            String middle = text.substring(startIndex+2, endIndex);
-            answer.addExpression(factory.createExpression(middle));
-            
-            // now lets iterate through the rest of the string.                    
-            while (++endIndex < length) {
-                startIndex = text.indexOf( "${", endIndex );
-                if ( startIndex < 0 ) {
-                    String postfix = text.substring(endIndex);
-                    answer.addTextExpression(postfix);
+
+        CompositeExpression answer = new CompositeExpression();
+
+        int cur = 0;
+        char c = 0;
+
+        StringBuffer chars = new StringBuffer();
+        StringBuffer expr  = new StringBuffer();
+
+      MAIN:
+        while ( cur < len )
+        {
+            c = text.charAt( cur );
+
+            switch ( c )
+            {
+                case('$'):
+                {
+                    if ( cur+1<len )
+                    {
+                        ++cur;
+                        c = text.charAt( cur );
+
+                        switch ( c )
+                        {
+                            case('$'):
+                            {
+                                chars.append( c );
+                                break;
+                            }
+                            case('{'):
+                            {
+                                if ( chars.length() > 0 )
+                                {
+                                    answer.addTextExpression( chars.toString() );
+                                    chars.delete(0, chars.length() );
+                                }
+
+                                if (cur+1<len)
+                                {
+                                    ++cur;
+
+                                    while (cur<len)
+                                    {
+                                        c = text.charAt(cur);
+                                        {
+                                            switch ( c )
+                                            {
+                                                case('"'):
+                                                {
+                                                    expr.append( c );
+                                                    ++cur;
+
+                                                  DOUBLE_QUOTE:
+                                                    while(cur<len)
+                                                    {
+                                                        c = text.charAt(cur);
+
+                                                        boolean escape = false;
+
+                                                        switch ( c )
+                                                        {
+                                                            case('\\'):
+                                                            {
+                                                                escape = true;
+                                                                ++cur;
+                                                                expr.append(c);
+                                                                break;
+                                                            }
+                                                            case('"'):
+                                                            {
+                                                                ++cur;
+                                                                expr.append(c);
+                                                                break DOUBLE_QUOTE;
+                                                            }
+                                                            default:
+                                                            {
+                                                                escape=false;
+                                                                ++cur;
+                                                                expr.append(c);
+                                                            }
+                                                        }
+                                                    }
+                                                    break;
+                                                }
+                                                case('\''):
+                                                {
+                                                    expr.append( c );
+                                                    ++cur;
+
+                                                  SINGLE_QUOTE:
+                                                    while(cur<len)
+                                                    {
+                                                        c = text.charAt(cur);
+
+                                                        boolean escape = false;
+
+                                                        switch ( c )
+                                                        {
+                                                            case('\\'):
+                                                            {
+                                                                escape = true;
+                                                                ++cur;
+                                                                expr.append(c);
+                                                                break;
+                                                            }
+                                                            case('\''):
+                                                            {
+                                                                ++cur;
+                                                                expr.append(c);
+                                                                break SINGLE_QUOTE;
+                                                            }
+                                                            default:
+                                                            {
+                                                                escape=false;
+                                                                ++cur;
+                                                                expr.append(c);
+                                                            }
+                                                        }
+                                                    }
+                                                    break;
+                                                }
+                                                case('}'):
+                                                {
+                                                    answer.addExpression(factory.createExpression(expr.toString()));
+                                                    expr.delete(0, expr.length());
+                                                    ++cur;
+                                                    continue MAIN;
+                                                }
+                                                default:
+                                                {
+                                                    expr.append( c );
+                                                    ++cur;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                break;
+                            }
+                            default:
+                            {
+                                chars.append(c);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        chars.append(c);
+                    }
                     break;
                 }
-                // add text in between expresssions
-                if (startIndex > endIndex ) {
-                    answer.addTextExpression(text.substring(endIndex, startIndex));
+                default:
+                {
+                    chars.append( c );
                 }
-                endIndex = text.indexOf( "}", startIndex+2 );
-                if ( endIndex < 0 ) {
-                    throw new JellyException( "Missing '}' character at the end of expression: " + text );
-                }
-                middle = text.substring(startIndex+2, endIndex);
-                answer.addExpression(factory.createExpression(middle));
             }
-            return answer;
+            ++cur;
         }
+
+        if ( chars.length() > 0 )
+        {
+            answer.addTextExpression( chars.toString() );
+        }
+
+        return answer;
     }
 
     // Properties
