@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.11 2003/01/24 06:41:22 morgand Exp $
- * $Revision: 1.11 $
- * $Date: 2003/01/24 06:41:22 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Tag.java,v 1.12 2003/01/24 19:03:24 morgand Exp $
+ * $Revision: 1.12 $
+ * $Date: 2003/01/24 19:03:24 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Tag.java,v 1.11 2003/01/24 06:41:22 morgand Exp $
+ * $Id: Tag.java,v 1.12 2003/01/24 19:03:24 morgand Exp $
  */
 
 package org.apache.commons.jelly;
@@ -71,7 +71,7 @@ package org.apache.commons.jelly;
  * in JSP 1.x.(</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.11 $
+ * @version $Revision: 1.12 $
  */
 public interface Tag {
 
@@ -113,6 +113,6 @@ public interface Tag {
     /**
      * A helper method to invoke this tags body
      */
-    public void invokeBody(XMLOutput output) throws JellyException;
+    public void invokeBody(XMLOutput output) throws JellyTagException;
     
 }

@@ -68,7 +68,7 @@ package org.apache.commons.jelly;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.2 $
  */
-public class MissingAttributeException extends JellyException {
+public class MissingAttributeException extends JellyTagException {
 
     private String missingAttribute;
     

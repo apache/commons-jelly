@@ -63,6 +63,7 @@
 package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 
 /** 
  * <p><code>BreakException</code> is used to terminate loops such as 
@@ -72,7 +73,7 @@ import org.apache.commons.jelly.JellyException;
  * @version $Revision: 1.9 $
  */
 
-public class BreakException extends JellyException {
+public class BreakException extends JellyTagException {
     
     public BreakException() {
         super("Break exception, terminating the parent loop");

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.34 2003/01/24 10:04:32 morgand Exp $
- * $Revision: 1.34 $
- * $Date: 2003/01/24 10:04:32 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.35 2003/01/24 19:03:24 morgand Exp $
+ * $Revision: 1.35 $
+ * $Date: 2003/01/24 19:03:24 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.34 2003/01/24 10:04:32 morgand Exp $
+ * $Id: TagScript.java,v 1.35 2003/01/24 19:03:24 morgand Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -74,6 +74,7 @@ import org.apache.commons.beanutils.DynaProperty;
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.LocationAware;
 import org.apache.commons.jelly.NamespaceAwareTag;
@@ -96,7 +97,7 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.34 $
+ * @version $Revision: 1.35 $
  */
 public class TagScript implements Script {
 
@@ -219,7 +220,7 @@ public class TagScript implements Script {
     //-------------------------------------------------------------------------                
 
     /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws JellyException {
+    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         if ( ! context.isCacheTags() ) {
             clearTag();
         }
@@ -277,6 +278,9 @@ public class TagScript implements Script {
         
             tag.doTag(output);
         } 
+        catch (JellyTagException e) {
+            handleException(e);
+        }
         catch (JellyException e) {
             handleException(e);
         }
@@ -605,13 +609,13 @@ public class TagScript implements Script {
             reason, cause, fileName, elementName, columnNumber, lineNumber
         );
     }
-    
+
     /**
      * A helper method to handle this Jelly exception.
      * This method adorns the JellyException with location information
      * such as adding line number information etc.
      */
-    protected void handleException(JellyException e) throws JellyException {
+    protected void handleException(JellyTagException e) throws JellyTagException {
         if (log.isTraceEnabled()) {
             log.trace( "Caught exception: " + e, e );
         }
@@ -619,6 +623,21 @@ public class TagScript implements Script {
         applyLocation(e);
         
         throw e;
+    }
+    
+    /**
+     * A helper method to handle this Jelly exception.
+     * This method adorns the JellyException with location information
+     * such as adding line number information etc.
+     */
+    protected void handleException(JellyException e) throws JellyTagException {
+        if (log.isTraceEnabled()) {
+            log.trace( "Caught exception: " + e, e );
+        }
+
+        applyLocation(e);
+        
+        throw new JellyTagException(e);
     }
     
     protected void applyLocation(LocationAware locationAware) {
@@ -639,7 +658,7 @@ public class TagScript implements Script {
      * This method will rethrow the exception, wrapped in a JellyException
      * while adding line number information etc.
      */
-    protected void handleException(Exception e) throws JellyException {
+    protected void handleException(Exception e) throws JellyTagException {
         if (log.isTraceEnabled()) {
             log.trace( "Caught exception: " + e, e );
         }
@@ -650,18 +669,17 @@ public class TagScript implements Script {
 
         if ( e instanceof JellyException ) {
             e.fillInStackTrace();
-            throw (JellyException) e;
         }
 
         if ( e instanceof InvocationTargetException) {
-            throw new JellyException( ((InvocationTargetException)e).getTargetException(),
+            throw new JellyTagException( ((InvocationTargetException)e).getTargetException(),
                                       fileName,
                                       elementName,
                                       columnNumber,
                                       lineNumber );
         }
 
-        throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);
+        throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
     }
     
     /**
@@ -671,7 +689,7 @@ public class TagScript implements Script {
      *
      * Is this method wise?
      */
-    protected void handleException(Error e) throws Error, JellyException {
+    protected void handleException(Error e) throws Error, JellyTagException {
         if (log.isTraceEnabled()) {
             log.trace( "Caught exception: " + e, e );
         }
@@ -680,6 +698,6 @@ public class TagScript implements Script {
             applyLocation((LocationAware) e);
         }
 
-        throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);
+        throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
     }
 }

@@ -67,6 +67,7 @@ import java.util.Map;
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
@@ -100,22 +101,27 @@ public class StaticTagScript extends TagScript {
 
     // Script interface
     //-------------------------------------------------------------------------                
-    public void run(JellyContext context, XMLOutput output) throws JellyException {
+    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
 
         try {
             startNamespacePrefixes(output);
         } catch (SAXException e) {
-            throw new JellyException("could not start namespace prefixes",e);
+            throw new JellyTagException("could not start namespace prefixes",e);
         }
             
-        Tag tag = getTag();                
+        Tag tag = null;
+        try {
+            tag = getTag();                
         
-        // lets see if we have a dynamic tag
-        if (tag instanceof StaticTag) {
-            tag = findDynamicTag(context, (StaticTag) tag);
-        }            
+            // lets see if we have a dynamic tag
+            if (tag instanceof StaticTag) {
+                tag = findDynamicTag(context, (StaticTag) tag);
+            }            
         
-        setTag(tag);
+            setTag(tag);
+        } catch (JellyException e) {
+            throw new JellyTagException(e);
+        }
         
         try {        
             if ( tag == null ) {
@@ -136,7 +142,10 @@ public class StaticTagScript extends TagScript {
             }
         
             tag.doTag(output);
-        } 
+        }
+        catch (JellyTagException e) {
+            handleException(e);
+        }
         catch (JellyException e) {
             handleException(e);
         }
@@ -147,7 +156,7 @@ public class StaticTagScript extends TagScript {
         try {
             endNamespacePrefixes(output);
         } catch (SAXException e) {
-            throw new JellyException("could not end namespace prefixes",e);
+            throw new JellyTagException("could not end namespace prefixes",e);
         }
     }
 
