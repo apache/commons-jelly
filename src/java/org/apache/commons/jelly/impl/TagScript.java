@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.15 2002/07/15 11:22:27 jstrachan Exp $
- * $Revision: 1.15 $
- * $Date: 2002/07/15 11:22:27 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/TagScript.java,v 1.16 2002/07/15 16:18:15 werken Exp $
+ * $Revision: 1.16 $
+ * $Date: 2002/07/15 16:18:15 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: TagScript.java,v 1.15 2002/07/15 11:22:27 jstrachan Exp $
+ * $Id: TagScript.java,v 1.16 2002/07/15 16:18:15 werken Exp $
  */
 package org.apache.commons.jelly.impl;
 
@@ -65,6 +65,7 @@ import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,7 +95,7 @@ import org.xml.sax.SAXException;
  * script that evaluates a custom tag.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.15 $
+ * @version $Revision: 1.16 $
  */
 public abstract class TagScript implements Script {
 
@@ -292,6 +293,22 @@ public abstract class TagScript implements Script {
      */
     protected void handleException(Exception e) throws Exception {
         log.error( "Caught exception: " + e, e );
+
+        if ( e instanceof JellyException )
+        {
+            e.fillInStackTrace();
+            throw e;
+        }
+
+        if ( e instanceof InvocationTargetException)
+        {
+            throw new JellyException( ((InvocationTargetException)e).getTargetException(),
+                                      fileName,
+                                      elementName,
+                                      columnNumber,
+                                      lineNumber );
+        }
+
         throw new JellyException(e, fileName, elementName, columnNumber, lineNumber);            
     }
     
@@ -308,6 +325,22 @@ public abstract class TagScript implements Script {
      * Creates a new Jelly exception, adorning it with location information
      */
     protected JellyException createJellyException(String reason, Exception cause) {
+        if ( cause instanceof JellyException )
+        {
+            return (JellyException) cause;
+        }
+
+        if ( cause instanceof InvocationTargetException)
+        {
+            return new JellyException( 
+                reason,
+                ((InvocationTargetException)cause).getTargetException(),
+                fileName,
+                elementName,
+                columnNumber,
+                lineNumber);
+        }
+
         return new JellyException( 
             reason, cause, fileName, elementName, columnNumber, lineNumber
         );

@@ -61,6 +61,7 @@ package org.apache.commons.jelly.tags.werkz;
 import com.werken.werkz.Goal;
 import com.werken.werkz.Session;
 import com.werken.werkz.Project;
+import com.werken.werkz.UnattainableGoalException;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -72,7 +73,7 @@ import org.apache.commons.logging.LogFactory;
  * Attains one or more goals.
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision: 1.4 $
+ * @version $Revision: 1.5 $
  */
 public class AttainGoalTag extends WerkzTagSupport {
 
@@ -109,8 +110,32 @@ public class AttainGoalTag extends WerkzTagSupport {
 
         invokeBody(output);
 
-        project.attainGoal( getName(),
-                            session );
+        try
+        {
+            project.attainGoal( getName(),
+                                session );
+        }
+        catch (UnattainableGoalException e)
+        {
+            Throwable root = e.getRootCause();
+
+            if ( root != null )
+            {
+                if ( root instanceof JellyException )
+                {
+                    throw (JellyException) root;
+                }
+                if ( root instanceof UnattainableGoalException )
+                {
+                    throw e;
+                }
+            }
+            else
+            {
+                e.fillInStackTrace();
+                throw e;
+            }
+        }
     }
     
     // Properties

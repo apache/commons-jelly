@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.8 2002/07/09 21:13:07 werken Exp $
- * $Revision: 1.8 $
- * $Date: 2002/07/09 21:13:07 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/JellyException.java,v 1.9 2002/07/15 16:18:15 werken Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/07/15 16:18:15 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: JellyException.java,v 1.8 2002/07/09 21:13:07 werken Exp $
+ * $Id: JellyException.java,v 1.9 2002/07/15 16:18:15 werken Exp $
  */
 
 package org.apache.commons.jelly;
@@ -69,7 +69,7 @@ import java.io.PrintWriter;
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 
 public class JellyException extends Exception {
@@ -111,7 +111,7 @@ public class JellyException extends Exception {
     }
     
     public JellyException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
-        super(reason);
+        super( (reason==null?cause.getClass().getName():reason) );
         this.cause = cause;
         this.fileName = fileName;
         this.elementName = elementName;
@@ -215,4 +215,14 @@ public class JellyException extends Exception {
             cause.printStackTrace(s);
         }
     }
+
+    /*
+    public void printStackTrace() {
+        super.printStackTrace();
+        if ( cause != null ) {
+            System.err.println("Root cause");
+            cause.printStackTrace();
+        }
+    }
+    */
 }
