@@ -78,7 +78,7 @@ import org.apache.commons.logging.LogFactory;
  * but is based on the Werkz goal engine.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.2 $
+ * @version $Revision: 1.3 $
  */
 public class GoalTag extends WerkzTagSupport {
 
@@ -89,6 +89,8 @@ public class GoalTag extends WerkzTagSupport {
     private String name;
 
     private String prereqs;
+
+    private String description;
     
     public GoalTag() {
     }
@@ -108,6 +110,7 @@ public class GoalTag extends WerkzTagSupport {
         Goal goal = getProject().getGoal( getName(),
                                           true );
 
+        goal.setDescription( this.description );
         addPrereqs( goal );
 
         Action action = new DefaultAction() {
@@ -144,6 +147,10 @@ public class GoalTag extends WerkzTagSupport {
 
     public String getPrereqs() {
         return this.prereqs;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
         
 
