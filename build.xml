@@ -185,6 +185,8 @@
 	  <path id="test.classpath">
 	    <pathelement path="${maven.build.dest}"/>
         <path refid="maven.dependency.classpath"/>
+        <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
+        <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
 	  </path>
 	  
       <taskdef
