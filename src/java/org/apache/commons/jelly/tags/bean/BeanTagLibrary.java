@@ -68,7 +68,6 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.tags.core.UseBeanTag;
 
 import org.xml.sax.Attributes;
 
@@ -135,7 +134,7 @@ public class BeanTagLibrary extends TagLibrary {
         // is the name bound to a specific class
         Class beanType = getBeanType(name, attributes);
         if (beanType != null) {
-            return new UseBeanTag(beanType);
+            return new BeanTag(beanType, name);
         }
         
         // its a property tag

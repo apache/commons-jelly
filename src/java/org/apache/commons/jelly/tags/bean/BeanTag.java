@@ -63,6 +63,7 @@
 package org.apache.commons.jelly.tags.bean;
 
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,20 +74,22 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.impl.BeanSource;
+import org.apache.commons.jelly.impl.CollectionTag;
+import org.apache.commons.jelly.tags.core.UseBeanTag;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 
 /** 
- * Creates a nested property via calling a beans createFoo() method then
- * either calling the setFoo(value) or addFoo(value) methods in a similar way
- * to how Ant tags construct themselves.
+ * Creates a bean for the given tag which is then either output as a variable
+ * or can be added to a parent tag.
  * 
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision: 1.1 $
  */
-public class BeanPropertyTag extends BeanTag {
+public class BeanTag extends UseBeanTag {
 
     /** empty arguments constant */
     private static final Object[] EMPTY_ARGS = {};
@@ -95,56 +98,105 @@ public class BeanPropertyTag extends BeanTag {
     private static final Class[] EMPTY_ARG_TYPES = {};
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(BeanPropertyTag.class);
+    private static final Log log = LogFactory.getLog(BeanTag.class);
 
 
-    /** the name of the create method */
-    private String createMethodName;
+    /** the name of the property to create */
+    private String tagName;
+
+    /** the name of the adder method */
+    private String addMethodName;
 
     
-    public BeanPropertyTag(String tagName) {
-        super(Object.class, tagName);
-
+    public BeanTag(Class defaultClass, String tagName) {
+        super(defaultClass);
+        this.tagName = tagName;
+        
         if (tagName.length() > 0) {
-            createMethodName = "create" 
+            addMethodName = "add" 
                 + tagName.substring(0,1).toUpperCase() 
                 + tagName.substring(1);
         }
     }
-    
+
     /**
-     * Creates a new instance by calling a create method on the parent bean
+     * @return the local name of the XML tag to which this tag is bound
      */
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws Exception {
-        Object parentObject = getParentObject();
-        if (parentObject != null) {
-            // now lets try call the create method...
-            Class parentClass = parentObject.getClass();
-            Method method = findCreateMethod(parentClass);
-            if (method != null) {
-                try {
-                    return method.invoke(parentObject, EMPTY_ARGS);
+    public String getTagName() {
+        return tagName;
+    }
+
+    /**
+     * Output the tag as a named variable. If the parent bean has an adder or setter
+     * method then invoke that to register this bean with its parent.
+     */
+    protected void processBean(String var, Object bean) throws Exception {
+        if (var != null) {
+            context.setVariable(var, bean);
+        }
+        
+        // now lets try set the parent property via calling the adder or the setter method
+        if (bean != null) {
+            Object parentObject = getParentObject();
+            if (parentObject != null) {
+                if (parentObject instanceof Collection) {
+                    Collection collection = (Collection) parentObject;
+                    collection.add(bean);
                 }
-                catch (Exception e) {
-                    throw new JellyException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
+                else {
+                    // lets see if there's a setter method...
+                    Method method = findAddMethod(parentObject.getClass(), bean.getClass());
+                    if (method != null) {
+                        Object[] args = { bean };
+                        try {
+                            method.invoke(parentObject, args);
+                        }
+                        catch (Exception e) {
+                            throw new JellyException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
+                        }
+                    }
+                    else {
+                        BeanUtils.setProperty(parentObject, tagName, bean);
+                    }
+                }
+                
+            }
+            else {
+                // lets try find a parent List to add this bean to
+                CollectionTag tag = (CollectionTag) findAncestorWithClass(CollectionTag.class);
+                if (tag != null) {
+                    tag.addItem(bean);
+                }
+                else {
+                    log.warn( "Could not add bean to parent for bean: " + bean );
                 }
             }
         }
-        else {
-            throw new JellyException( "The " + getTagName() + " tag must be nested within a tag which maps to a bean property" );
-        }
-        return null;
+            
     }
-    
+
     /**
-     * Finds the Method to create a new property object
+     * Finds the Method to add the new bean
      */
-    protected Method findCreateMethod(Class theClass) {
-        if (createMethodName == null) {
+    protected Method findAddMethod(Class beanClass, Class valueClass) {
+        if (addMethodName == null) {
             return null;
         }
+        Class[] argTypes = { valueClass };
         return MethodUtils.getAccessibleMethod(
-            theClass, createMethodName, EMPTY_ARG_TYPES
+            beanClass, addMethodName, argTypes
         );
-    }    
+    }
+        
+        
+    /**
+     * @return the parent bean object
+     */
+    protected Object getParentObject() throws Exception {
+        BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
+        if (tag != null) {
+            return tag.getBean();
+        }
+        return null;
+    }        
 }

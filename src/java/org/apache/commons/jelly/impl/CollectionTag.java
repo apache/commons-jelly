@@ -1,5 +1,8 @@
 /*
- * 
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/core/IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
+ * $Revision: 1.6 $
+ * $Date: 2002/05/17 15:18:08 $
+ *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
@@ -53,78 +56,22 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
+ * 
+ * $Id: IfTag.java,v 1.6 2002/05/17 15:18:08 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.core;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.impl.CollectionTag;
+package org.apache.commons.jelly.impl;
 
 /** 
- * A tag which creates a List implementation and optionally 
- * adds all of the elements identified by the items attribute.
- * The exact implementation of List can be specified via the 
- * class attribute
- * </pre>
- * 
+ * A tag which is capable of consuming objects, such as a &lt;useList&gt; tag
+ * such that nested objects will be added to the parent tag.
+ *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.3 $
+ * @version $Revision: 1.6 $
  */
-public class UseListTag extends UseBeanTag implements CollectionTag {
+public interface CollectionTag {
 
-    private Expression items;
-    
-    public UseListTag(){
-    }
-
-    public List getList() {
-        return (List) getBean();
-    }
-    
-
-    // CollectionTag interface
-    //-------------------------------------------------------------------------                    
-    public void addItem(Object value) {
-        getList().add(value);
-    }
-    
-    // DynaTag interface
-    //-------------------------------------------------------------------------                    
-    public Class getAttributeType(String name) throws Exception {
-        if (name.equals("items")) {
-            return Expression.class;
-        }
-        return super.getAttributeType(name);
-    }
-
-
-    // Implementation methods
-    //-------------------------------------------------------------------------                    
-    
-    protected void setBeanProperties(Object bean, Map attributes) throws Exception {
-        items = (Expression) attributes.remove("items");
-        super.setBeanProperties(bean, attributes);
-    }
-    
-    protected void processBean(String var, Object bean) throws Exception {
-        super.processBean(var, bean);
-        
-        List list = getList();
-
-        // if the items variable is specified lets append all the items
-        if (items != null) {
-            Iterator iter = items.evaluateAsIterator(context);
-            while (iter.hasNext()) {
-                list.add( iter.next() );
-            }
-        }
-    }
-    
-    protected Class getDefaultClass() {
-        return ArrayList.class;
-    }
+    /** 
+     * @return adds an item to the tags collection
+     */
+    public void addItem(Object value);
 }
