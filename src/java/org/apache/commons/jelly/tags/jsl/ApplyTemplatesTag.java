@@ -1,13 +1,10 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/16 16:29:55 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +26,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,30 +53,70 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
+ *
  */
-package org.apache.commons.jelly.tags.xml;
+package org.apache.commons.jelly.tags.jsl;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
-/** An abstract base class useful for implementation inheritence
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
-  */
-public abstract class XPathTagSupport extends TagSupport {
+import org.dom4j.rule.Stylesheet;
 
-    // Implementation methods
-    //-------------------------------------------------------------------------                
-    protected Object getXPathContext() {
-        XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );    
-        if ( tag != null ) {
-            return tag.getXPathSource();
+import org.jaxen.XPath;
+
+/** 
+ * Implements the apply templates function in the stylesheet, similar to the XSLT equivalent.
+ * a JSP include.
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.8 $
+ */
+public class ApplyTemplatesTag extends JSLTagSupport {
+
+    /** Holds value of property mode. */
+    private String mode;    
+
+    /** Holds the XPath object */
+    private XPath select;
+    
+
+    public ApplyTemplatesTag() {
+    }
+
+    // Tag interface
+    //------------------------------------------------------------------------- 
+    /** By default just evaluate the body */
+    public void doTag(XMLOutput output) throws Exception {
+        Stylesheet stylesheet = getStylesheet();        
+        if ( stylesheet == null ) {
+            throw new JellyException( 
+                "<applyTemplates> tag must be inside a <stylesheet> tag"
+            );
         }
-        return null;
+        Object context = getXPathContext();
+        if ( select != null ) {
+            stylesheet.applyTemplates( context, select );
+        }
+        else {
+            stylesheet.applyTemplates( context );
+        }
+        
+        // #### should support MODE!!!
+        
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------                
+
+    public void setSelect( XPath select ) {
+        this.select = select;
+    }
+    
+    /** Setter for property mode.
+     * @param mode New value of property mode.
+     */
+    public void setMode(String mode) {
+        this.mode = mode;
     }    
 }

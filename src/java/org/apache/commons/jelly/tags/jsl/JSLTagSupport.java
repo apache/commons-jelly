@@ -1,13 +1,10 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/16 16:29:55 $
  *
  * ====================================================================
  *
  * The Apache Software License, Version 1.1
  *
- * Copyright (c) 1999-2002 The Apache Software Foundation.  All rights
+ * Copyright (c) 1999 The Apache Software Foundation.  All rights
  * reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +26,7 @@
  *    Alternately, this acknowlegement may appear in the software itself,
  *    if and wherever such third-party acknowlegements normally appear.
  *
- * 4. The names "The Jakarta Project", "Commons", and "Apache Software
+ * 4. The names "The Jakarta Project", "Tomcat", and "Apache Software
  *    Foundation" must not be used to endorse or promote products derived
  *    from this software without prior written permission. For written
  *    permission, please contact apache@apache.org.
@@ -56,30 +53,44 @@
  * individuals on behalf of the Apache Software Foundation.  For more
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
- * 
- * $Id: ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
+ *
  */
-package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
+package org.apache.commons.jelly.tags.jsl;
 
-/** An abstract base class useful for implementation inheritence
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
-  */
-public abstract class XPathTagSupport extends TagSupport {
+import org.dom4j.rule.Stylesheet;
 
+import org.apache.commons.jelly.tags.xml.XPathTagSupport;
+
+
+/** 
+ * A common base class useful for implementation inheritence
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.8 $
+ */
+public abstract class JSLTagSupport extends XPathTagSupport {
+    
+    public JSLTagSupport() {
+    }
+
+    
+    // Helper methods
+    //-------------------------------------------------------------------------                
+
+    public Stylesheet getStylesheet() {
+        StylesheetTag tag  = (StylesheetTag) findAncestorWithClass( 
+            this, StylesheetTag.class 
+        );
+        if ( tag != null ) {
+            return tag.getStylesheet();
+        }
+        else {
+            return null;
+        }
+    }
+
+    
     // Implementation methods
     //-------------------------------------------------------------------------                
-    protected Object getXPathContext() {
-        XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );    
-        if ( tag != null ) {
-            return tag.getXPathSource();
-        }
-        return null;
-    }    
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.6 2002/05/17 15:18:12 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/17 15:18:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/TagSupport.java,v 1.7 2002/05/25 18:27:21 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/05/25 18:27:21 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: TagSupport.java,v 1.6 2002/05/17 15:18:12 jstrachan Exp $
+ * $Id: TagSupport.java,v 1.7 2002/05/25 18:27:21 jstrachan Exp $
  */
 package org.apache.commons.jelly;
 
@@ -68,7 +68,7 @@ import java.io.Writer;
   * inherit from if developing your own tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 
 public abstract class TagSupport implements Tag {
@@ -128,11 +128,6 @@ public abstract class TagSupport implements Tag {
     /** Sets the context in which the tag will be run */
     public void setContext(JellyContext context) {
         this.context = context;
-    }
-    
-    /** By default just evaluate the body */
-    public void doTag(XMLOutput output) throws Exception {
-        getBody().run(context, output);
     }
     
     // Implementation methods

@@ -71,15 +71,8 @@ import org.apache.commons.jelly.XMLOutput;
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision: 1.5 $
   */
-public abstract class XPathTagSupport extends TagSupport {
+public interface XPathSource {
 
-    // Implementation methods
-    //-------------------------------------------------------------------------                
-    protected Object getXPathContext() {
-        XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );    
-        if ( tag != null ) {
-            return tag.getXPathSource();
-        }
-        return null;
-    }    
+    public Object getXPathSource();
+    
 }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.6 2002/05/23 23:35:20 jstrachan Exp $
- * $Revision: 1.6 $
- * $Date: 2002/05/23 23:35:20 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/impl/Attic/BeanTagScript.java,v 1.7 2002/05/25 18:27:22 jstrachan Exp $
+ * $Revision: 1.7 $
+ * $Date: 2002/05/25 18:27:22 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: BeanTagScript.java,v 1.6 2002/05/23 23:35:20 jstrachan Exp $
+ * $Id: BeanTagScript.java,v 1.7 2002/05/25 18:27:22 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.impl;
@@ -91,7 +91,7 @@ import org.apache.commons.logging.LogFactory;
 /** <p><code>TagScript</code> evaluates a custom tag.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
+  * @version $Revision: 1.7 $
   */
 
 public class BeanTagScript extends TagScript {
@@ -207,10 +207,12 @@ public class BeanTagScript extends TagScript {
             // convert value to correct type
             if (value != null) {
                 value = convertType(value, type);
-            }
-            
-            // ### should check types are valid before we invoke...
-            
+
+                Class theClass = value.getClass();
+                if ( ! type.isAssignableFrom( theClass ) ) {
+                    log.warn( "Cannot call method: " + method.getName() + " as I cannot convert: " + value + " of type: " + theClass.getName() + " into type: " + type.getName() );
+                }
+            }            
             Object[] arguments = { value };
             method.invoke(tag, arguments);
         }

@@ -1,7 +1,7 @@
 /*
- * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
- * $Revision: 1.5 $
- * $Date: 2002/05/16 16:29:55 $
+ * $Header: /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/xml/XPathExpression.java,v 1.4 2002/05/17 15:18:13 jstrachan Exp $
+ * $Revision: 1.4 $
+ * $Date: 2002/05/17 15:18:13 $
  *
  * ====================================================================
  *
@@ -57,29 +57,57 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: ExprTag.java,v 1.5 2002/05/16 16:29:55 jstrachan Exp $
+ * $Id: XPathExpression.java,v 1.4 2002/05/17 15:18:13 jstrachan Exp $
  */
-package org.apache.commons.jelly.tags.xml;
+package org.apache.commons.jelly.tags.jsl;
+
+import java.io.IOException;
+import java.io.Writer;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.expression.ExpressionSupport;
 
-/** An abstract base class useful for implementation inheritence
+import org.dom4j.rule.Pattern;
+
+import org.jaxen.VariableContext;
+
+/** An expression which returns an XPath based Pattern (like an XSLT pattern).
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.5 $
+  * @version $Revision: 1.4 $
   */
-public abstract class XPathTagSupport extends TagSupport {
-
-    // Implementation methods
-    //-------------------------------------------------------------------------                
-    protected Object getXPathContext() {
-        XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );    
-        if ( tag != null ) {
-            return tag.getXPathSource();
-        }
-        return null;
-    }    
+public class XPathPatternExpression extends ExpressionSupport implements VariableContext {
+    
+    private Pattern pattern;
+    private JellyContext context;
+    
+    public XPathPatternExpression() {
+    }
+    public XPathPatternExpression(Pattern pattern) {
+        this.pattern = pattern;
+    }
+    
+    // Expression interface
+    //------------------------------------------------------------------------- 
+    public Object evaluate(JellyContext context) {
+        this.context = context;
+        //pattern.setVariableContext(this);
+        return pattern;
+    }
+    
+    // VariableContext interface
+    //------------------------------------------------------------------------- 
+    public Object getVariableValue(
+        String namespaceURI,
+        String prefix,
+        String localName) {
+            
+        Object value = context.getVariable(localName);
+        
+        //log.info( "Looking up XPath variable of name: " + localName + " value is: " + value );            
+        
+        return value;
+    }
 }
