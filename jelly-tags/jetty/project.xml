@@ -252,7 +252,7 @@
 
     <!-- for testing -->
     <dependency>
-      <id>commons-jelly-tags-http</id>
+      <id>commons-jelly+tags-http</id>
       <version>SNAPSHOT</version>
     </dependency>
     
