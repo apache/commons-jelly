@@ -62,10 +62,14 @@
 package org.apache.commons.jelly.tags.define;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Iterator;
+import java.util.HashMap;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
+
+import org.apache.commons.collections.BeanMap;
 
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyContext;
@@ -121,8 +125,39 @@ public class BeanTag extends DynaBeanTagSupport {
         
         // now, I may invoke the 'execute' method if I have one
         if ( method != null ) {
-            method.invoke( bean, emptyArgs );
+            try
+            {
+                method.invoke( bean, emptyArgs );
+            }
+            catch (IllegalAccessException e)
+            {
+                methodInvocationError(bean, method, e);
+            }
+            catch (IllegalArgumentException e)
+            {
+                methodInvocationError(bean, method, e);
+            }
+            catch (InvocationTargetException e)
+            {
+                methodInvocationError(bean, method, e);
+            }
         }
+    }
+    
+    private void methodInvocationError(Object bean, Method method, Exception e) throws Exception {
+        log.error("Could not invoke " + method, e);
+        BeanMap beanMap = new BeanMap(bean);
+        
+        log.error("Bean properties:");
+        for (Iterator i = beanMap.keySet().iterator(); i.hasNext();)
+        {
+            String property = (String) i.next();
+            Object value = beanMap.get(property);
+            log.error(property + " -> " + value);
+        }
+        
+        log.error(beanMap);
+        throw e;
     }
     
     // Properties
