@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.7 2002/08/01 09:53:18 jstrachan Exp $
- * $Revision: 1.7 $
- * $Date: 2002/08/01 09:53:18 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/core/IncludeTag.java,v 1.8 2002/08/23 10:29:18 jstrachan Exp $
+ * $Revision: 1.8 $
+ * $Date: 2002/08/23 10:29:18 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: IncludeTag.java,v 1.7 2002/08/01 09:53:18 jstrachan Exp $
+ * $Id: IncludeTag.java,v 1.8 2002/08/23 10:29:18 jstrachan Exp $
  */
 
 package org.apache.commons.jelly.tags.core;
@@ -73,7 +73,7 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.7 $
+  * @version $Revision: 1.8 $
   */
 
 public class IncludeTag extends TagSupport {
@@ -100,11 +100,11 @@ public class IncludeTag extends TagSupport {
         }
     }
 
-    public boolean getInherit() {
+    public boolean isInherit() {
         return this.shouldInherit;
     }
 
-    public boolean getExport() {
+    public boolean isExport() {
         return this.shouldExport;
     }
 
@@ -124,7 +124,7 @@ public class IncludeTag extends TagSupport {
 
         // take off the script name from the URL
 
-        context.runScript(uri, output, getExport(), getInherit() );
+        context.runScript(uri, output, isExport(), isInherit() );
     }
 
     // Properties

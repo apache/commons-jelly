@@ -99,11 +99,14 @@ public class JellyContext {
     private JellyContext parent;
 
     /** Do we inherit variables from parent context? */
-    private boolean shouldInherit = false;
+    private boolean inherit = false;
 
     /** Do we export our variables to parent context? */
-    private boolean shouldExport  = false;
-    
+    private boolean export  = false;
+
+    /** Should we export tag libraries to our parents context */
+    private boolean exportLibraries = true;
+        
     /** Should we cache Tag instances, per thread, to reduce object contruction overhead? */
     private boolean cacheTags = false;
     
@@ -169,22 +172,6 @@ public class JellyContext {
         return parent;
     }
 
-    public void setExport(boolean shouldExport) {
-        this.shouldExport = shouldExport;
-    }
-
-    public boolean getExport() {
-        return this.shouldExport;
-    }
-
-    public void setInherit(boolean shouldInherit) {
-        this.shouldInherit = shouldInherit;
-    }
-
-    public boolean getInherit() {
-        return this.shouldInherit;
-    }
-
     /**
      * @return the scope of the given name, such as the 'parent' scope.
      * If Jelly is used in a Servlet situation then 'request', 'session' and 'application' are other names 
@@ -229,7 +216,7 @@ public class JellyContext {
 
         if ( value == null 
              &&
-             getInherit() ) {
+             isInherit() ) {
             value = getParent().findVariable( name );
         }
 
@@ -254,7 +241,7 @@ public class JellyContext {
 
     /** Sets the value of the given variable name */
     public void setVariable(String name, Object value) {
-        if ( getExport() ) {
+        if ( isExport() ) {
             getParent().setVariable( name, value );
             return;
         }
@@ -360,6 +347,10 @@ public class JellyContext {
             log.debug("Registering tag library to: " + namespaceURI + " taglib: " + className);
         }
         taglibs.put(namespaceURI, className);
+        
+        if (isExportLibraries() && parent != null) {
+            parent.registerTagLibrary( namespaceURI, className );
+        }
     }
 
     public boolean isTagLibraryRegistered(String namespaceURI) {
@@ -643,6 +634,46 @@ public class JellyContext {
         this.cacheTags = cacheTags;
     }
     
+    /**
+     * Returns whether we export tag libraries to our parents context
+     * @return boolean
+     */
+    public boolean isExportLibraries() {
+        return exportLibraries;
+    }
+
+    /**
+     * Sets whether we export tag libraries to our parents context
+     * @param exportLibraries The exportLibraries to set
+     */
+    public void setExportLibraries(boolean exportLibraries) {
+        this.exportLibraries = exportLibraries;
+    }
+    
+
+    /**
+     * Sets whether we should export variable definitions to our parent context
+     */
+    public void setExport(boolean export) {
+        this.export = export;
+    }
+
+    public boolean isExport() {
+        return this.export;
+    }
+
+    /**
+     * Sets whether we should inherit variables from our parent context
+     */
+    public void setInherit(boolean inherit) {
+        this.inherit = inherit;
+    }
+
+    public boolean isInherit() {
+        return this.inherit;
+    }
+
+
     /**
      * Return the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:

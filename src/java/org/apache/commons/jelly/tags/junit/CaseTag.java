@@ -97,6 +97,10 @@ public class CaseTag extends TagSupport {
                 // will have its own variable scopes
                 JellyContext newContext = new JellyContext( context );
                 
+                // disable inheritence of variables and tag libraries
+                newContext.setExportLibraries(false);
+                newContext.setExport(false);
+                
                 // invoke the test case
                 getBody().run(newContext, output);
             }
