@@ -59,7 +59,6 @@
 package org.apache.commons.jelly.tags.werkz;
 
 import com.werken.werkz.DefaultGoal;
-import com.werken.werkz.Werkz;
 
 import java.util.Iterator;
 import java.util.List;

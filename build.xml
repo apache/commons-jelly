@@ -14,6 +14,14 @@
   <!-- Set default values for the build -->
   <property file="project.properties" />
   
+  <path id="test.classpath">
+    <pathelement path="${maven.build.dest}"/>
+    <pathelement path="${basedir}"/>
+    <path refid="maven.dependency.classpath"/>
+    <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
+    <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
+  </path>
+
   <!-- maven:start -->
   
   <!-- ================================================================== -->
@@ -181,13 +189,16 @@
 	</target>
 	
 	<target name="compile" depends="maven:compile, maven:jar-resources">
-	
+
+        <path refid="test.classpath"/>
+<!--	
 	  <path id="test.classpath">
 	    <pathelement path="${maven.build.dest}"/>
         <path refid="maven.dependency.classpath"/>
         <pathelement location="${lib.repo}/xmlParserAPIs-2.0.0.jar"/>
         <pathelement location="${lib.repo}/xercesImpl-2.0.0.jar"/>
 	  </path>
+-->
 	  
       <taskdef
         name="jelly"
@@ -324,7 +335,22 @@
 	
    </target>
 
-   <target name="demo.werkz" depends="compile" 
+   <target name="demo.werkz2">
+     <property name="maven.core.callback.post-compile.buildFile" value="build.xml"/>
+     <property name="maven.core.callback.post-compile.buildTarget" value="demo.werkz2.callback"/>
+     <maven-ant antfile="${maven.home}/plugins/core/build.xml" target="compile"/>
+   </target>
+
+   <target name="demo.werkz2.callback">
+    <java classname="org.apache.commons.jelly.Jelly" fork="yes">
+      <classpath refid="test.classpath"/>
+      <arg value="src/test/org/apache/commons/jelly/werkz/example.jelly"/> 
+      <arg value="compile"/> 
+      <arg value="test"/> 
+    </java>
+   </target>
+
+   <target name="demo.werkz" depends="maven:compile" 
       description="Runs a Werkz sample">
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>

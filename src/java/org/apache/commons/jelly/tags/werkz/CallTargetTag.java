@@ -94,7 +94,9 @@ public class CallTargetTag extends WerkzTagSupport {
         log.debug( "Trying to invoke target: " + name );
         
         // attain the goal and throw up any exception to be caught by parent tags        
-        getGoal(name).attain();
+        // getGoal(name).attain();
+
+        getProject().attainGoal(name);
     }
 
     

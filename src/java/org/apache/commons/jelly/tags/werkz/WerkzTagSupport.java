@@ -59,7 +59,7 @@
 package org.apache.commons.jelly.tags.werkz;
 
 import com.werken.werkz.Goal;
-import com.werken.werkz.Werkz;
+import com.werken.werkz.Project;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagSupport;
@@ -84,7 +84,7 @@ public abstract class WerkzTagSupport extends TagSupport {
      *  throws a JellyExceptoin if the goal could not be found
      */
     protected Goal getGoal(String name) throws JellyException {
-        Werkz project = getProject();
+        Project project = getProject();
         if ( project == null ) {
             throw new JellyException( "Must use this tag inside a <maven:project> tag" );
         }
@@ -98,12 +98,12 @@ public abstract class WerkzTagSupport extends TagSupport {
     /**
      * @return the goal manager instance 
      */
-    protected Werkz getProject() {
+    protected Project getProject() {
         ProjectTag tag = (ProjectTag) findAncestorWithClass(ProjectTag.class);
         if ( tag != null) {
             return tag.getProject();
         }
-        return (Werkz) context.getVariable( "org.apache.commons.jelly.werkz.Project" );
+        return (Project) context.getVariable( "org.apache.commons.jelly.werkz.Project" );
     }
     
     

@@ -59,7 +59,7 @@
 package org.apache.commons.jelly.tags.werkz;
 
 import com.werken.werkz.Goal;
-import com.werken.werkz.PreGoalCallback;
+import com.werken.werkz.PostGoalCallback;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
@@ -90,8 +90,8 @@ public class PostTargetTag extends CallbackTagSupport {
     public void doTag(final XMLOutput output) throws Exception {
         
         getGoal(getName()).addPostGoalCallback(
-            new PreGoalCallback() {
-                public void firePreGoal(Goal goal) throws Exception {
+            new PostGoalCallback() {
+                public void firePostGoal(Goal goal) throws Exception {
                     // lets run the body
                     log.info( "Running post target: " + getName() );
                     getBody().run( context, output);                                        

@@ -61,7 +61,13 @@
       <name>Geir Magnusson Jr.</name>
       <id>geirm</id>
       <email>geirm@adeptra.com</email>
-      <organization>Adeptra , Inc.</organization>
+      <organization>Adeptra, Inc.</organization>
+    </developer>
+    <developer>
+      <name>Bob McWhirter</name>
+      <id>werken</id>
+      <email>bob@eng.werken.com</email>
+      <organization>The Werken Company</organization>
     </developer>
     
     <developer>
@@ -77,6 +83,12 @@
   </developers>
 
   <dependencies>
+<!--
+    <dependency>
+      <id>junit</id>
+      <version>3.7</version>
+    </dependency>
+-->
     <dependency>
       <name>commons-logging</name>
       <type>required</type>

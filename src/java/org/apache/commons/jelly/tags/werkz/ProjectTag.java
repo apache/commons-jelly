@@ -58,7 +58,7 @@
 
 package org.apache.commons.jelly.tags.werkz;
 
-import com.werken.werkz.Werkz;
+import com.werken.werkz.Project;
 
 import java.util.Iterator;
 import java.util.List;
@@ -77,7 +77,7 @@ import org.apache.commons.jelly.XMLOutput;
 public class ProjectTag extends TagSupport {
 
     /** the project */
-    private Werkz project = new Werkz();
+    private Project project = new Project();
         
     public ProjectTag() {
     }
@@ -86,7 +86,7 @@ public class ProjectTag extends TagSupport {
     /**
      * @return the project instance 
      */
-    public Werkz getProject() {
+    public Project getProject() {
         return project;
     }
     
@@ -99,7 +99,7 @@ public class ProjectTag extends TagSupport {
      * then run all the current targets
      */
     public void doTag(XMLOutput output) throws Exception {
-        project.clear();
+        // project.clear();
 
         context.setVariable( "org.apache.commons.jelly.werkz.Project", project );
         
