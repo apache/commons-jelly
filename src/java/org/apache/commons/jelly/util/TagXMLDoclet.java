@@ -92,15 +92,18 @@ public class TagXMLDoclet extends Doclet {
     private Attributes emptyAtts = new AttributesImpl();
 
     public TagXMLDoclet (RootDoc root) throws Exception {
-        FileWriter writer = new FileWriter(targetFileName);
+        FileOutputStream writer = new FileOutputStream(targetFileName);
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        XMLWriter xmlWriter = new XMLWriter(writer, format);
         try {
-            OutputFormat format = OutputFormat.createPrettyPrint();
-            XMLWriter xmlWriter = new XMLWriter(writer, format);
             cm = xmlWriter;
+            cm.startDocument();
             javadocXML(root);
-            writer.close();
-        } catch (IOException e) {
-            writer.close();
+            cm.endDocument();
+            xmlWriter.close();
+        } 
+        catch (IOException e) {
+            xmlWriter.close();
             throw e;
         }
     }

@@ -89,25 +89,18 @@ public class XMLDoclet extends Doclet {
     private Attributes emptyAtts = new AttributesImpl();
 
     public XMLDoclet (RootDoc root) throws Exception {
-        FileWriter writer = new FileWriter(targetFileName);
+        FileOutputStream writer = new FileOutputStream(targetFileName);
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        XMLWriter xmlWriter = new XMLWriter(writer, format);
         try {
-            OutputFormat format = OutputFormat.createPrettyPrint();
-/*            
-            OutputFormat format = new OutputFormat();
-            format.setEncoding(encodingFormat);
-            format.setIndentSize(4);
-            format.setIndenting(true);
-            format.setLineWidth(4);
-            format.setDoctype("-//APACHE//DTD JavaDoc V0.4//EN", "javadoc-v04draft.dtd");
-            XMLSerializer serializer = new XMLSerializer(writer, format);
-            cm = serializer.asContentHandler();
-*/            
-            XMLWriter xmlWriter = new XMLWriter(writer, format);
             cm = xmlWriter;
+            cm.startDocument();
             javadocXML(root);
-            writer.close();
-        } catch (IOException e) {
-            writer.close();
+            cm.endDocument();
+            xmlWriter.close();
+        } 
+        catch (IOException e) {
+            xmlWriter.close();
             throw e;
         }
     }
