@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
+
+  <shell text="TableTree Demo" var="shell" style="border, close, min, max, resize, title">
+  	
+  	<gridLayout/>
+
+		<tableTree toolTipText="This is a table tree!" style="multi, full_selection">
+			
+			<gridData style="fill_both"/>
+			
+			<!-- we'd normally use some Java bean model to implement the next bit -->
+			<tableTreeItem var="row">
+					${row.setText('A')}
+					${row.setText(0, 'James')}
+					${row.setText(1, '33')}
+				<tableTreeItem>
+					${row.setText('B')}
+					${row.setText(0, 'Child')}
+					${row.setText(1, '2')}
+				</tableTreeItem>
+				
+				<tableTreeItem>
+					${row.setText(0, 'Child-nosettext')}
+					${row.setText(1, '2')}
+				</tableTreeItem>
+				
+				<tableTreeItem var="row">
+					${row.setText('C')}
+					${row.setText(0, 'Bob')}
+					${row.setText(1, '30')}
+
+					<tableTreeItem var="row">
+						${row.setText('C')}
+					</tableTreeItem>
+
+				</tableTreeItem>
+			</tableTreeItem>
+							
+		</tableTree>
+  </shell>
+
+	${shell.open()}
+</j:jelly>

@@ -64,6 +64,7 @@ package org.apache.commons.jelly.tags.swt;
 import java.lang.reflect.Field;
 import java.util.StringTokenizer;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -124,11 +125,16 @@ public class SwtHelper extends UseBeanTag {
      * valid style
      */
     public static int getStyleCode(Class constantClass,String text) throws Exception {
-        Field field = constantClass.getField(text);
-        if (field == null) {
-            log.warn( "Unknown style code: " + text +" will be ignored");
-            return 0;
+        try {
+            Field field = constantClass.getField(text);
+            if (field == null) {
+                log.warn( "Unknown style code: " + text +" will be ignored");
+                return 0;
+            }
+            return field.getInt(null);
         }
-        return field.getInt(null);
+        catch (Exception e) {
+            throw new JellyException("The value: " + text + " is not understood", e);
+        }
     }
 }

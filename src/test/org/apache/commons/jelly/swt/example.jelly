@@ -56,9 +56,19 @@
 		</table>
 
   	<toolBar style="vertical">
-  		<toolItem text="ToolBar Item" toolTipText="I am a ToolBar Item that you can click">
+  		<toolItem text="Click Me" toolTipText="I am a ToolBar Item that you can click">
   			<onEvent type="Selection">
   				<log:info>Clicked button with event ${event} and text field contains ${textField.text}</log:info>
+  			</onEvent>
+			</toolItem>
+  		<toolItem text="Tree" toolTipText="Starts the Tree demo">
+  			<onEvent type="Selection">
+  				<j:include uri="tree.jelly"/>
+  			</onEvent>
+			</toolItem>
+  		<toolItem text="TableTree" toolTipText="Starts the TableTree demo">
+  			<onEvent type="Selection">
+  				<j:include uri="tableTree.jelly"/>
   			</onEvent>
 			</toolItem>
   	</toolBar>

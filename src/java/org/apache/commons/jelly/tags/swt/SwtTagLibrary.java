@@ -66,6 +66,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowData;
 import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.custom.*;
 import org.eclipse.swt.widgets.*;
 
 import org.apache.commons.jelly.Tag;
@@ -124,6 +125,10 @@ public class SwtTagLibrary extends TagLibrary {
         registerWidgetTag( "tracker", Tracker.class );
         registerWidgetTag( "tree", Tree.class );
         registerWidgetTag( "treeItem", TreeItem.class );
+
+        // custom widgets
+        registerWidgetTag( "tableTree", TableTree.class );
+        registerWidgetTag( "tableTreeItem", TableTreeItem.class );
 
         // layouts        
         registerLayoutTag("fillLayout", FillLayout.class);

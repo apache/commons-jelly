@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns="jelly:swt" xmlns:log="jelly:log">
+
+  <shell text="Tree Demo" var="shell" style="border, close, min, max, resize, title">
+  	
+  	<gridLayout/>
+
+		<tree toolTipText="This is a tree!" style="multi">
+			
+			<gridData style="fill_both"/>
+			
+			<!-- we'd normally use some Java bean model to implement the next bit -->
+			<treeItem text="A">
+				<treeItem text="A/A"/>
+				<treeItem text="A/B"/>
+				<treeItem text="A/C"/>
+			</treeItem>
+			<treeItem text="B">
+				<treeItem text="B/A"/>
+				<treeItem text="B/B"/>
+				<treeItem text="B/C"/>
+			</treeItem>
+							
+			<menu style="pop_up">
+				<menuItem text="do something!">
+					<onEvent type="Selection">
+						<log:info>Clicked on ${event}</log:info>
+					</onEvent>
+				</menuItem>
+			</menu>							
+		</tree>
+  </shell>
+
+	${shell.pack()}
+	${shell.open()}
+</j:jelly>

@@ -1,5 +1,5 @@
 /*
- * /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/tags/swt/Attic/WidgetTag.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
+ * /home/cvs/jakarta-commons-sandbox/jelly/src/java/org/apache/commons/jelly/tags/swt/WidgetTag.java,v 1.1 2002/12/18 15:27:49 jstrachan Exp
  * 1.1
  * 2002/12/18 15:27:49
  *
@@ -178,8 +178,10 @@ public class WidgetTag extends UseBeanTag {
                     Constructor constructor = constructors[i];
                     Class[] types = constructor.getParameterTypes();
                     if (types.length == 2 && types[1].isAssignableFrom(int.class)) {
-                        Object[] arguments = { parent, new Integer(style)};
-                        return constructor.newInstance(arguments);
+                        if (types[0].isAssignableFrom(parent.getClass())) {
+                            Object[] arguments = { parent, new Integer(style)};
+                            return constructor.newInstance(arguments);
+                        }
                     }
                 }
             }
