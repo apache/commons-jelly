@@ -1,7 +1,7 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.8 2002/04/24 11:59:12 jstrachan Exp $
- * $Revision: 1.8 $
- * $Date: 2002/04/24 11:59:12 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/parser/XMLParser.java,v 1.9 2002/04/24 13:03:03 jstrachan Exp $
+ * $Revision: 1.9 $
+ * $Date: 2002/04/24 13:03:03 $
  *
  * ====================================================================
  *
@@ -57,7 +57,7 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  *
- * $Id: XMLParser.java,v 1.8 2002/04/24 11:59:12 jstrachan Exp $
+ * $Id: XMLParser.java,v 1.9 2002/04/24 13:03:03 jstrachan Exp $
  */
 package org.apache.commons.jelly.parser;
 
@@ -94,7 +94,7 @@ import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
+import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
 import org.apache.commons.jelly.tags.core.CoreTagLibrary;
 import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
 
@@ -117,7 +117,7 @@ import org.xml.sax.XMLReader;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision: 1.8 $
+ * @version $Revision: 1.9 $
  */
 public class XMLParser extends DefaultHandler {
     
@@ -1054,7 +1054,7 @@ public class XMLParser extends DefaultHandler {
     }
         
     protected ExpressionFactory createExpressionFactory() {
-        return new BeanShellExpressionFactory();
+        return new JexlExpressionFactory();
     }
     
     

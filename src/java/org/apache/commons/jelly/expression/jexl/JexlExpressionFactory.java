@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.6 2002/04/24 13:03:03 jstrachan Exp $
- * $Revision: 1.6 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpressionFactory.java,v 1.1 2002/04/24 13:03:03 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/04/24 13:03:03 $
  *
  * ====================================================================
@@ -57,70 +57,27 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.6 2002/04/24 13:03:03 jstrachan Exp $
+ * $Id: JexlExpressionFactory.java,v 1.1 2002/04/24 13:03:03 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.expression.jexl;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
 
-/** <p><code>Context</code> represents the Jelly context.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
-  */
-public class Context {
+/** 
+ * Represents a factory of <a href="http://jakarta.apache.org/commons/jexl.html">Jexl</a> 
+ * expression which fully supports the Expression Language in JSTL and JSP.
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
+ */
+public class JexlExpressionFactory implements ExpressionFactory {
 
-    /** synchronized access to the variables in scope */
-    private Map variables = new Hashtable();
-
-    public Context() {
-    }
-    
-    public Context(Map variables) {
-        this.variables.putAll( variables );
-    }
-    
-    /** @return the value of the given variable name */
-    public Object getVariable( String name ) {
-        return variables.get( name );
-    }
-    
-    /** Sets the value of the given variable name */
-    public void setVariable( String name, Object value ) {
-        if ( value == null ) {
-            variables.remove( name );
-        }
-        else {
-            variables.put( name, value );
-        }
-    }    
-
-    /** Removes the given variable */
-    public void removeVariable( String name ) {
-        variables.remove( name );
-    }
-    
-    /** 
-     * @return an Iterator over the current variable names in this
-     * context 
-     */
-    public Iterator getVariableNames() {
-        return variables.keySet().iterator();
-    }
-    
-    /**
-     * @return the Map of variables in this scope
-     */
-    public Map getVariables() {
-        return variables;
-    }
-    
-    /**
-     * Sets the Map of variables to use
-     */
-    public void setVariables(Map variables) {
-        this.variables = variables;
+    // ExpressionFactory interface
+    //------------------------------------------------------------------------- 
+    public Expression createExpression(String text) throws Exception {
+        return new JexlExpression(
+            org.apache.commons.jexl.ExpressionFactory.createExpression( text )
+        );
     }
 }

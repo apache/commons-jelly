@@ -1,6 +1,6 @@
 /*
- * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/Attic/Context.java,v 1.6 2002/04/24 13:03:03 jstrachan Exp $
- * $Revision: 1.6 $
+ * $Header: /home/jerenkrantz/tmp/commons/commons-convert/cvs/home/cvs/jakarta-commons//jelly/src/java/org/apache/commons/jelly/expression/jexl/JexlExpression.java,v 1.1 2002/04/24 13:03:03 jstrachan Exp $
+ * $Revision: 1.1 $
  * $Date: 2002/04/24 13:03:03 $
  *
  * ====================================================================
@@ -57,70 +57,58 @@
  * information on the Apache Software Foundation, please see
  * <http://www.apache.org/>.
  * 
- * $Id: Context.java,v 1.6 2002/04/24 13:03:03 jstrachan Exp $
+ * $Id: JexlExpression.java,v 1.1 2002/04/24 13:03:03 jstrachan Exp $
  */
-package org.apache.commons.jelly;
+package org.apache.commons.jelly.expression.jexl;
 
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map;
+import org.apache.commons.jelly.Context;
+import org.apache.commons.jelly.expression.ExpressionSupport;
 
-/** <p><code>Context</code> represents the Jelly context.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision: 1.6 $
-  */
-public class Context {
+import org.apache.commons.jexl.Expression;
+import org.apache.commons.jexl.JexlContext;
+import org.apache.commons.jexl.context.HashMapContext;
 
-    /** synchronized access to the variables in scope */
-    private Map variables = new Hashtable();
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-    public Context() {
-    }
+
+/** 
+ * Represents a <a href="http://jakarta.apache.org/commons/jexl.html">Jexl</a> 
+ * expression which fully supports the Expression Language in JSTL and JSP 
+ * along with some extra features like object method invocation.
+ *
+ * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+ * @version $Revision: 1.1 $
+ */
+public class JexlExpression extends ExpressionSupport {
+
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog( JexlExpression.class );
+
+    /** The Jexl expression object */
+    private Expression expression;
     
-    public Context(Map variables) {
-        this.variables.putAll( variables );
+    public JexlExpression(Expression expression) {
+        this.expression = expression;
     }
-    
-    /** @return the value of the given variable name */
-    public Object getVariable( String name ) {
-        return variables.get( name );
-    }
-    
-    /** Sets the value of the given variable name */
-    public void setVariable( String name, Object value ) {
-        if ( value == null ) {
-            variables.remove( name );
+
+    // Expression interface
+    //------------------------------------------------------------------------- 
+    public Object evaluate(Context context) {
+        try {
+            // ##### this sucks - avoid doing a copy by value ASAP
+            HashMapContext jexlContext = new HashMapContext();
+            jexlContext.putAll( context.getVariables() );
+            
+            if ( log.isDebugEnabled() ) {            
+                log.debug( "Evaluating EL: " + expression );
+            }
+            
+            return expression.evaluate( jexlContext );
         }
-        else {
-            variables.put( name, value );
+        catch (Exception e) {
+            log.warn( "Caught exception evaluating: " + expression + ". Reason: " + e, e );
+            return null;
         }
-    }    
-
-    /** Removes the given variable */
-    public void removeVariable( String name ) {
-        variables.remove( name );
-    }
-    
-    /** 
-     * @return an Iterator over the current variable names in this
-     * context 
-     */
-    public Iterator getVariableNames() {
-        return variables.keySet().iterator();
-    }
-    
-    /**
-     * @return the Map of variables in this scope
-     */
-    public Map getVariables() {
-        return variables;
-    }
-    
-    /**
-     * Sets the Map of variables to use
-     */
-    public void setVariables(Map variables) {
-        this.variables = variables;
     }
 }

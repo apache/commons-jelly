@@ -3,7 +3,7 @@
 
 <!--
         "Jelly" component of the Jakarta Commons Subproject
-        $Id: build.xml,v 1.10 2002/04/24 11:59:12 jstrachan Exp $
+        $Id: build.xml,v 1.11 2002/04/24 13:03:03 jstrachan Exp $
 -->
 
 
@@ -24,10 +24,12 @@
   <property name="junit.home"              value="/usr/local/junit3.7"/>
   <property name="bsf.home"                value="/usr/local/bsf"/>
   <property name="commons.home"            value="../../jakarta-commons"/>
+  <property name="sandbox.home"            value=".."/>
   <property name="beanutils.home"          value="${commons.home}/beanutils"/>
   <property name="collections.home"        value="${commons.home}/collections"/>
   <property name="logging.home"            value="${commons.home}/logging"/>
   <property name="digester.home"           value="${commons.home}/digester"/>
+  <property name="jexl.home"               value="${sandbox.home}/jexl"/>
 
 
 <!-- ========== Derived Values ============================================ -->
@@ -49,6 +51,7 @@
   <property name="commons-logging.jar"     value="${logging.home}/dist/commons-logging.jar"/>
   <property name="commons-digester.api"    value="${digester.home}/dist/docs/api"/>
   <property name="commons-digester.jar"    value="${digester.home}/dist/commons-digester.jar"/>
+  <property name="commons-jexl.jar"        value="${jexl.home}/dist/commons-jexl.jar"/>
   
 
 <!-- ========== Component Declarations ==================================== -->
@@ -100,16 +103,19 @@
     <pathelement location="${jaxp.jaxp.jar}"/>
     <pathelement location="${jaxp.parser.jar}"/>
     <pathelement location="${dom4j.jar}"/>
-    <pathelement location="${bsf.jar}"/>
-    <pathelement location="${pnuts.jar}"/>
-    <pathelement location="${rhino.jar}"/>
-    <pathelement location="${tools.jar}"/>
-    <pathelement location="${beanshell.jar}"/>
+    <pathelement location="${jexl.jar}"/>
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
     <pathelement location="${commons-digester.jar}"/>
     <pathelement location="${junit.jar}"/>
+    
+    <!-- optional JARs -->
+    <pathelement location="${beanshell.jar}"/>
+    <pathelement location="${bsf.jar}"/>
+    <pathelement location="${pnuts.jar}"/>
+    <pathelement location="${rhino.jar}"/>
+    <pathelement location="${tools.jar}"/>
   </path>
 
 
@@ -120,19 +126,23 @@
   <path id="test.classpath">
     <pathelement location="${build.home}/classes"/>
     <pathelement location="${build.home}/tests"/>
-    <pathelement location="${junit.jar}"/>
+    <pathelement location="${build.home}/classes"/>
     <pathelement location="${jaxp.jaxp.jar}"/>
     <pathelement location="${jaxp.parser.jar}"/>
     <pathelement location="${dom4j.jar}"/>
-    <pathelement location="${bsf.jar}"/>
-    <pathelement location="${pnuts.jar}"/>
-    <pathelement location="${rhino.jar}"/>
-    <pathelement location="${tools.jar}"/>
-    <pathelement location="${beanshell.jar}"/>
+    <pathelement location="${jexl.jar}"/>
     <pathelement location="${commons-beanutils.jar}"/>
     <pathelement location="${commons-collections.jar}"/>
     <pathelement location="${commons-logging.jar}"/>
     <pathelement location="${commons-digester.jar}"/>
+    <pathelement location="${junit.jar}"/>
+    
+    <!-- optional JARs -->
+    <pathelement location="${beanshell.jar}"/>
+    <pathelement location="${bsf.jar}"/>
+    <pathelement location="${pnuts.jar}"/>
+    <pathelement location="${rhino.jar}"/>
+    <pathelement location="${tools.jar}"/>
   </path>
 
   <!-- Should all tests fail if one does? -->
@@ -343,7 +353,6 @@
     <java classname="org.apache.commons.jelly.Jelly" fork="yes">
       <classpath refid="test.classpath"/>
       <arg value="src/test/org/apache/commons/jelly/hello_world.jelly"/> 
-      <sysproperty key="org.apache.commons.logging.simplelog.defaultlog" value="debug"/>
     </java>
    </target>
 
