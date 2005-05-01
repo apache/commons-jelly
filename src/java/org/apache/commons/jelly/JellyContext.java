@@ -92,20 +92,6 @@ public class JellyContext {
     /** Should we export tag libraries to our parents context */
     private boolean exportLibraries = true;
 
-    /** Maps a Thread to its local Script data cache. It's 
-     * like a ThreadLocal, but it reclaims memory better
-     * when the JellyCointext goes out of scope.
-     * This isn't a ThreadLocal because of the typical usage scenario of
-     * JellyContext. ThreadLocal is meant to be sued as a static variable,
-     * we were using it as a local variable.
-     * {@link #setThreadLocalScriptData(Script,Object)}
-      */
-    private Map threadLocalScriptData = Collections.synchronizedMap(new WeakHashMap());
-    // THINKME: Script objects are like Object (for equals and hashCode) I think.
-    //          It should be asy to optimize hash-map distribution, e.g. by
-    //          shifting the hashcode return value (presuming Object.hashcode()
-    //          is something like an address)
-
     /**
      * Create a new context with the currentURL set to the rootURL
      */
@@ -390,91 +376,18 @@ public class JellyContext {
         return createChildContext();
     }
     
-
-    /** Gets the Script data item that may have previously been stored
-     * by the script, in this context, for the current thread.
-     *  
-     * @return the tag associated with the current context and thread
-      */
-    public Object getThreadScriptData(Script script) {
-        if( script == null )
-            return null;
-        Tag tag = (Tag) getThreadScriptDataMap().get(script);
-		if( tag == null && getParent() != null) {
-			return getParent().getThreadScriptData(script);
-		} else {
-			return tag;
-		}
-    }
-	
-	/** Gets a per-thread (thread local) Map of data for use by
-     * Scripts.
-     * @return the thread local Map of Script data */
-	public Map getThreadScriptDataMap() {
-        Map rv;
-        Thread t = Thread.currentThread();
-        Map data = (Map) threadLocalScriptData.get(t);
-        if (data == null) {
-            rv = new HashMap();
-            threadLocalScriptData.put(t, rv);
-        } else {
-            rv = data;
-        }
-		return rv;
-	}
-    
-    /** Stores an object that lasts for the life of this context
-     * and is local to the current thread. This method is
-     * mainly intended to store Tag instances. However, any
-     * Script that wants to cache data can use this
-     * method.
-      */
-    public void setThreadScriptData(Script script, Object data) {
-        getThreadScriptDataMap().put(script,data);
-    }
-    
-    /** Clears variables set by Tags (basically, variables set in a Jelly script)
-     * and data stored by {@link Script} instances.
+    /** Clears variables set by Tags.
      * @see #clearVariables()
-     * @see #clearThreadScriptData()
-     * @see #clearScriptData()
       */
     public void clear() {
-        clearScriptData();
         clearVariables();
     }
     
     /** Clears variables set by Tags (variables set while running a Jelly script)
      * @see #clear()
-     * @see #clearThreadScriptData()
-     * @see #clearScriptData()
      */
-    public void clearVariables() {
+    protected void clearVariables() {
         variables.clear();
-    }
-    
-    /** Clears data cached by {@link Script} instances, 
-     * for this context, <strong>for the current thread</strong>.
-     * The data cleared could be cached Tag instances or other data
-     * saved by Script classes.
-     * @see #clear()
-     * @see #clearVariables()
-     * @see #clearScriptData()
-     */
-    public void clearThreadScriptData() {
-        getThreadScriptDataMap().clear();
-    }
-    
-    /** Clears data cached by {@link Script} instances, 
-     * for this context, <strong>for all threads</strong>. 
-     * The data cleared could be cached Tag instances or other data
-     * saved by Script classes.
-     * @see #clear()
-     * @see #clearThreadScriptData()
-     * @see #clearVariables()
-     */
-    public void clearScriptData() {
-        threadLocalScriptData.clear();
     }
     
     /** Registers the given tag library against the given namespace URI.

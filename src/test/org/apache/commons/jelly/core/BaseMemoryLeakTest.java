@@ -130,7 +130,6 @@ public class BaseMemoryLeakTest extends TestCase {
                 rt.runFinalization();
                 rt.gc();
                 long middle = rt.totalMemory() - rt.freeMemory();
-                log.info("TagHolderMap has " + jc.getThreadScriptDataMap().size() + " entries.");
                 log.info("Memory test after " + i + " runs: "
                         + (middle - start));
             }

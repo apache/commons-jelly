@@ -19,9 +19,11 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -104,6 +106,10 @@ public class TagScript implements Script {
     
     /** the url of the script when parsed */
     private URL scriptURL = null;
+    
+    /** A synchronized WeakHashMap from the current Thread (key) to a Tag object (value).
+     */
+    private Map threadLocalTagCache = Collections.synchronizedMap(new WeakHashMap());
 
     /**
      * @return a new TagScript based on whether
@@ -286,11 +292,12 @@ public class TagScript implements Script {
      * @return the tag to be evaluated, creating it lazily if required.
      */
     public Tag getTag(JellyContext context) throws JellyException {
-        Tag tag = (Tag) context.getThreadScriptData(this);
+        Thread t = Thread.currentThread();
+        Tag tag = (Tag) threadLocalTagCache.get(t);
         if ( tag == null ) {
             tag = createTag();
             if ( tag != null ) {
-                context.setThreadScriptData(this,tag);
+                threadLocalTagCache.put(t,tag);
                 configureTag(tag,context);
             }
         }
@@ -514,7 +521,8 @@ public class TagScript implements Script {
      * when a StaticTag is switched with a DynamicTag
      */
     protected void setTag(Tag tag, JellyContext context) {
-        context.setThreadScriptData(this,tag);
+        Thread t = Thread.currentThread();
+        threadLocalTagCache.put(t,tag);
     }
 
     /**
