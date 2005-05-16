@@ -16,6 +16,7 @@
 
 package org.apache.commons.jelly.tags.ant;
 
+import java.io.PrintStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,6 +35,7 @@ import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.DemuxOutputStream;
 import org.apache.tools.ant.IntrospectionHelper;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
@@ -182,7 +184,19 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
                 // now we're ready to invoke the task
                 // XXX: should we call execute() or perform()?
-                task.perform();
+                // according to org.apache.tools.ant.Main, redirect stdout and stderr
+                PrintStream initialOut = System.out;
+                PrintStream initialErr = System.err;
+                PrintStream newOut = new PrintStream(new DemuxOutputStream(project, false));
+                PrintStream newErr = new PrintStream(new DemuxOutputStream(project, true));
+                try {
+                    System.setOut(newOut);
+                    System.setErr(newErr);
+                    task.perform();
+                } finally {
+                    System.setOut(initialOut);
+                    System.setErr(initialErr);
+                }
             }
         }
 
