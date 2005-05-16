@@ -56,7 +56,7 @@
   <description>Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
   <url>http://jakarta.apache.org/commons/jelly/</url>
   <issueTrackingUrl>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10012</issueTrackingUrl>
-  <siteAddress>jakarta.apache.org</siteAddress>
+  <siteAddress>cvs.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
   <repository>
