@@ -39,7 +39,7 @@
   <url>http://jakarta.apache.org/commons/jelly/libs/${pom.id.substring(33)}/index.html</url>
   <issueTrackingUrl>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10012</issueTrackingUrl>
   
-  <siteAddress>jakarta.apache.org</siteAddress>
+  <siteAddress>cvs.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/jelly/libs/${pom.id.substring(33)}/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/jelly-tags/${pom.id.substring(33)}/</distributionDirectory>
   
