@@ -58,6 +58,7 @@
   <issueTrackingUrl>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10012</issueTrackingUrl>
   <siteAddress>cvs.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
+  <distributionSite>cvs.apache.org</distributionSite>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
   <repository>
     <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk</connection>
