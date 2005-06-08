@@ -24,7 +24,9 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.1-SNAPSHOT" date="in CVS">
+    <release version="1.1" date="2005-06-08">
+      <action dev="brett" type="add">Incorporate commons-grant</action>
+      <action dev="brett" type="update">Upgrade to Ant 1.6.5</action>
       <action dev="dion" type="fix" issue="JELLY-209" due-to="Cyrille Le Clerc">Ant tags did not redirect stderr/out to project.</action>
       <action dev="dion" type="fix">Upgrade dependencies to stop failing tests</action>
     </release>
