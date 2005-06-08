@@ -260,7 +260,7 @@
     
     <dependency>
       <id>commons-jelly</id>
-      <version>SNAPSHOT</version>
+      <version>1.0-RC2</version>
     </dependency>
     
     <dependency>

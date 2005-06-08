@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Copyright 2002,2004 The Apache Software Foundation.
   
@@ -20,7 +21,7 @@
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <artifactId>commons-jelly</artifactId>
-  <currentVersion>1.0-RC2-SNAPSHOT</currentVersion>
+  <currentVersion>1.0-RC2</currentVersion>
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://jakarta.apache.org</url>
@@ -58,6 +59,7 @@
   <issueTrackingUrl>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10012</issueTrackingUrl>
   <siteAddress>cvs.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
+  <distributionSite>cvs.apache.org</distributionSite>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
   <repository>
     <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk</connection>
@@ -93,6 +95,11 @@
       <id>1.0-RC1</id>
       <name>1.0-RC1</name>
       <tag>COMMONS_JELLY-1_0_RC1</tag>
+    </version>
+    <version>
+      <id>1.0-RC2</id>
+      <name>1.0-RC2</name>
+      <tag>commons-jelly-1.0-RC2</tag>
     </version>
   </versions>
   <branches/>
@@ -300,6 +307,7 @@
   </contributors>
   <dependencies>
     <!-- for servlet support -->
+
     <dependency>
       <id>servletapi</id>
       <version>2.3</version>
@@ -307,14 +315,14 @@
         <gump.project>jakarta-servletapi-5-servlet</gump.project>
       </properties>
     </dependency>
-
     <!-- for command line interface support -->
+
     <dependency>
       <id>commons-cli</id>
       <version>1.0</version>
     </dependency>
-
     <!-- this is brought in by the commons-cli dependency -->
+
     <dependency>
       <id>commons-lang</id>
       <version>2.0</version>
@@ -326,15 +334,15 @@
       <id>commons-discovery</id>
       <version>20030211.213356</version>
     </dependency>
-
     <!-- for the jelly startup scripts -->
+
     <dependency>
       <id>forehead</id>
       <version>1.0-beta-5</version>
       <url>http://forehead.werken.com/</url>
     </dependency>
-
     <!-- for the jstl interfaces -->
+
     <dependency>
       <groupId>jstl</groupId>
       <artifactId>jstl</artifactId>
