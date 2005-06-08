@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
   Copyright 2002-2004 The Apache Software Foundation
 
@@ -14,41 +15,39 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-xml</id>
   <name>commons-jelly-tags-xml</name>
-  <currentVersion>1.1-SNAPSHOT</currentVersion>
-
+  <currentVersion>1.1</currentVersion>
   <package>org.apache.commons.jelly.tags.xml</package>
-
-  <description>
-       The Jelly XML Tag Library
-  </description>
+  <description>The Jelly XML Tag Library</description>
   <shortDescription>Commons Jelly XML Tag Library</shortDescription>
-  
   <versions>
     <version>
       <id>1.0</id>
       <name>1.0</name>
       <tag>COMMONS_JELLY_XML-1_0</tag>
     </version>
+    <version>
+      <id>1.1</id>
+      <name>1.1</name>
+      <tag>commons-jelly-tags-xml-1.1</tag>
+    </version>
   </versions>
-    
   <dependencies>
     <!-- run time / in testing-->
+
     <dependency>
       <id>xalan</id>
       <version>2.3.1</version>
     </dependency>
-
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/libs/junit/</url>
     </dependency>
-
   </dependencies>
-  
 </project>
