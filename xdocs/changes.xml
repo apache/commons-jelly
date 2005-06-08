@@ -24,7 +24,7 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.0-RC2" date="in CVS">
+    <release version="1.0-RC2" date="2005-06-08">
       <action dev="brett" type="fix" due-to="Hans Gilde">Improve tag caching to improve memory consumption</action>
       <action dev="dion" type="fix" issue="JELLY-196">SwitchTag can not be reused if default encountered.</action>
       <action dev="polx" type="add" issue="JELLY-191">FileTag now allows appending to the file.</action>
