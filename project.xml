@@ -21,7 +21,7 @@
   <pomVersion>3</pomVersion>
   <name>commons-jelly</name>
   <artifactId>commons-jelly</artifactId>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
+  <currentVersion>1.0</currentVersion>
   <organization>
     <name>Apache Software Foundation</name>
     <url>http://jakarta.apache.org</url>
@@ -95,6 +95,11 @@
       <id>1.0-RC1</id>
       <name>1.0-RC1</name>
       <tag>COMMONS_JELLY-1_0_RC1</tag>
+    </version>
+    <version>
+      <id>1.0</id>
+      <name>1.0</name>
+      <tag>commons-jelly-1.0</tag>
     </version>
   </versions>
   <branches/>
