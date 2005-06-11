@@ -14,7 +14,7 @@
   limitations under the License.
 -->
 
-<project default="jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util">
+<project default="jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util" xmlns:ant="jelly:ant" xmlns:u="jelly:util">
 
   <!-- ================================================================== -->
   <!-- START : C O M M O N S - B U I L D                                  -->
@@ -57,36 +57,90 @@
   </postGoal>
   
   <!-- create the lib and bin directories in the binary distro -->
-  <preGoal name="dist:build">
-    <echo>About to create lib and bin directories in ${maven.dist.assembly.dir}</echo>
+  <postGoal name="dist:prepare-bin-filesystem">
+    <echo>About to create lib and bin directories in ${maven.dist.bin.assembly.dir}</echo>
 
-    <mkdir dir="${maven.dist.assembly.dir}/bin"/>
-    <mkdir dir="${maven.dist.assembly.dir}/lib"/>
-    <mkdir dir="${maven.dist.assembly.dir}/custom"/>
+    <mkdir dir="${maven.dist.bin.assembly.dir}/bin"/>
+    <mkdir dir="${maven.dist.bin.assembly.dir}/lib"/>
+    <mkdir dir="${maven.dist.bin.assembly.dir}/custom"/>
 
-    <copy todir="${maven.dist.assembly.dir}/bin">
+    <copy todir="${maven.dist.bin.assembly.dir}/bin">
       <fileset dir="src/bin"/>
     </copy>
 
-    <chmod file="${maven.dist.assembly.dir}/bin/jelly" perm="ugo+rx" />
+    <chmod file="${maven.dist.bin.assembly.dir}/bin/jelly" perm="ugo+rx" />
 
     <j:forEach var="dep" items="${pom.dependencies}">
       <j:choose>
         <j:when test="${dep.id == 'forehead'}">
-          <copy tofile="${maven.dist.assembly.dir}/lib/forehead.jar"
+          <copy tofile="${maven.dist.bin.assembly.dir}/lib/forehead.jar"
               file="${maven.repo.local}/${dep.artifactDirectory}/${dep.type}s/${dep.artifact}"/>
         </j:when>
         <j:otherwise>
-          <copy todir="${maven.dist.assembly.dir}/lib"
+          <copy todir="${maven.dist.bin.assembly.dir}/lib"
               file="${maven.repo.local}/${dep.artifactDirectory}/${dep.type}s/${dep.artifact}"/>
         </j:otherwise>
       </j:choose>
     </j:forEach>
 
     <!-- put a copy of Jelly's jar there too -->
-    <copy todir="${maven.dist.assembly.dir}/lib"
-            file="${maven.build.dir}/${maven.final.name}.jar"/>
-  </preGoal>
+    <copy todir="${maven.dist.bin.assembly.dir}/lib"
+          file="${maven.build.dir}/${maven.final.name}.jar"/>
+    <delete file="${maven.dist.bin.assembly.dir}/${maven.final.name}.jar" />
+
+    <!-- Grab some taglibs -->
+    <maven:reactor
+      includes="bean/project.xml,define/project.xml,dynabean/project.xml,interaction/project.xml,junit/project.xml,swing/project.xml,util/project.xml,fmt/project.xml,log/project.xml,xml/project.xml"
+      basedir="${basedir}/jelly-tags"
+      postProcessing="true"
+      collectOnly="true"
+      banner="Gathering"
+    />
+    <j:forEach var="reactorProject" items="${reactorProjects}">
+      <j:set var="version" value="${reactorProject.versions[size(reactorProject.versions)-1]}" />
+      <j:if test="${version.tag == 'HEAD'}">
+        <j:set var="version" value="${reactorProject.versions[size(reactorProject.versions)-2]}" />
+      </j:if>
+      <j:if test="${empty(version)}">
+        <ant:fail>WARNING: no version for ${reactorProject}</ant:fail>
+      </j:if>
+
+      <u:file var="localFile" name="${maven.repo.local}/${reactorProject.groupId}/jars/${reactorProject.artifactId}-${version}.jar" />
+      <j:if test="${!localFile.exists()}">
+        <ant:mkdir dir="${localFile.parent}" />
+        <j:set var="repoList">${maven.repo.remote}</j:set>
+        <u:tokenize var="repos" delim=",">${repoList.trim()}</u:tokenize>
+  
+        <j:forEach var="repo" items="${repos}">
+          <j:set var="remoteFile" value="${repo}/${reactorProject.groupId}/jars/${reactorProject.artifactId}-${version}.jar" />
+          <echo>Downloading ${remoteFile}</echo>
+          <j:catch var="ex">
+            <j:invokeStatic var="dummy" method="getFile"
+              className="org.apache.maven.util.HttpUtils">
+              <j:arg type="java.lang.String" value="${remoteFile}" />
+              <j:arg type="java.io.File" value="${localFile}"/>
+              <j:arg type="boolean" value="false"/>
+              <j:arg type="boolean" value="true"/>
+              <j:arg type="java.lang.String" value="${maven.proxy.host}" />
+              <j:arg type="java.lang.String" value="${maven.proxy.port}" />
+              <j:arg type="java.lang.String" value="${maven.proxy.username}" />
+              <j:arg type="java.lang.String" value="${maven.proxy.password}" />
+              <j:arg type="boolean" value="false"/>
+            </j:invokeStatic>
+          </j:catch>
+          <j:break test="${localFile.exists()}"/>
+        </j:forEach>
+  
+        <j:set var="downloaded" value="${localFile.exists()}"/>
+        <j:if test="${!downloaded}">
+          <ant:fail message="Unable to find tag library" />
+        </j:if>
+      </j:if>
+  
+      <echo>Installing tag library from ${localFile}</echo>
+      <ant:copy file="${localFile}" todir="${maven.dist.bin.assembly.dir}/lib" />
+    </j:forEach>
+  </postGoal>
 
   <!-- TAG LIBS BUILD -->
   <goal 
@@ -155,7 +209,7 @@
     <mkdir dir="${maven.dist.install.dir}"/>
 
     <copy todir="${maven.dist.install.dir}">
-      <fileset dir="${maven.dist.assembly.dir}"/>
+      <fileset dir="${maven.dist.bin.assembly.dir}"/>
     </copy>
 
     <chmod file="${maven.dist.install.dir}/bin/jelly" perm="ugo+rx" />
