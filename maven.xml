@@ -88,6 +88,9 @@
         <ant:include name="RELEASE-NOTES.txt" />
       </ant:fileset>
     </ant:copy>
+    <ant:copy todir="${maven.dist.src.assembly.dir}/xdocs">
+      <ant:fileset dir="xdocs"/>
+    </ant:copy>
   </postGoal>
   
   <!-- create the lib and bin directories in the binary distro -->
