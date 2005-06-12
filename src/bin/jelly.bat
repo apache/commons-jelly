@@ -15,7 +15,21 @@
 @REM limitations under the License.
 @REM
 
+if "%JELLY_HOME%"=="" goto jelly_home_err
+goto run
+
+:jelly_home_err
+if "%OS%"=="Windows_NT" SET JELLY_HOME=%~dps0\..
+if "%JELLY_HOME%"=="" goto jelly_home_err2
+goto run
+
+:jelly_home_err2
+echo JELLY_HOME must be specified
+goto end
+
+:run
 if "%FOREHEAD_CONF%"=="" set FOREHEAD_CONF=%JELLY_HOME%\bin\forehead.conf
 
 "%JAVA_HOME%"\bin\java -classpath "%CLASSPATH%;%JELLY_HOME%\lib\forehead-1.0-beta-5.jar" "-Dforehead.conf.file=%FOREHEAD_CONF%" "-Djelly.home=%JELLY_HOME%" "-Dtools.jar=%JAVA_HOME%\lib\tools.jar" %JELLY_OPTS% com.werken.forehead.Forehead %*
 
+:end

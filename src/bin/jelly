@@ -15,11 +15,21 @@
 #  limitations under the License.
 #
 
+if [ -z "$JELLY_HOME" ]; then
+  JELLY_HOME=`dirname $0`/..
+fi
+
+if [ -z "$CLASSPATH" ]; then
+  CLASSPATH=${JELLY_HOME}/lib/forehead-1.0-beta-5.jar
+else
+  CLASSPATH=${CLASSPATH}:${JELLY_HOME}/lib/forehead-1.0-beta-5.jar
+fi
+
 if [ -z "$FOREHEAD_CONF" ] ; then
   FOREHEAD_CONF=${JELLY_HOME}/bin/forehead.conf 
 fi
 
-$JAVA_HOME/bin/java -classpath ${CLASSPATH}:${JELLY_HOME}/lib/forehead-1.0-beta-5.jar \
+$JAVA_HOME/bin/java -classpath ${CLASSPATH} \
   -Dforehead.conf.file=${FOREHEAD_CONF} \
   -Djelly.home=${JELLY_HOME} \
   -Dtools.jar=${JAVA_HOME}/lib/tools.jar \
