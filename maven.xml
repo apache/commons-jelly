@@ -61,6 +61,7 @@
       <ant:fileset dir=".">
         <ant:include name="parent-project.xml" />
         <ant:include name="NOTICE.txt" />
+        <ant:include name="RELEASE-NOTES.txt" />
       </ant:fileset>
     </ant:copy>
   </postGoal>
@@ -76,6 +77,7 @@
     <copy todir="${maven.dist.bin.assembly.dir}">
       <fileset dir=".">
         <ant:include name="NOTICE.txt" />
+        <ant:include name="RELEASE-NOTES.txt" />
       </fileset>
     </copy>
 
