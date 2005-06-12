@@ -56,6 +56,30 @@
       >${now}</j:file>
   </postGoal>
 
+  <!-- Ripped from dist plugin. The dist plugin is notoriously inflexible -->
+  <goal
+    name="dist:build-bin"
+    prereqs="dist:build-setup,dist:prepare-bin-filesystem"
+    description="Build the binary distribution.">
+
+    <!-- Create a tar.gz file -->
+    <ant:tar compression="gzip" longfile="gnu" tarfile="${maven.dist.dir}/${maven.final.name}.tar.gz">
+      <ant:tarfileset dir="${maven.dist.bin.archive.dir}">
+        <ant:exclude name="bin/jelly" />
+      </ant:tarfileset>
+      <ant:tarfileset dir="${maven.dist.bin.archive.dir}" mode="755">
+        <ant:include name="bin/jelly" />
+      </ant:tarfileset>
+    </ant:tar>
+
+    <ant:fixcrlf srcdir="${maven.dist.bin.archive.dir}" eol="crlf" includes="*.txt" />
+
+    <!-- Create a zip file -->
+    <ant:zip zipfile="${maven.dist.dir}/${maven.final.name}.zip">
+      <ant:zipfileset dir="${maven.dist.bin.archive.dir}"/>
+    </ant:zip>
+  </goal>
+
   <postGoal name="dist:prepare-src-filesystem">
     <ant:copy todir="${maven.dist.src.assembly.dir}">
       <ant:fileset dir=".">
@@ -86,6 +110,9 @@
     </copy>
 
     <chmod file="${maven.dist.bin.assembly.dir}/bin/jelly" perm="ugo+rx" />
+
+    <ant:fixcrlf srcdir="${maven.dist.bin.archive.dir}" eol="crlf" includes="bin/jelly.bat" />
+    <ant:fixcrlf srcdir="${maven.dist.bin.archive.dir}" eol="lf" includes="bin/jelly" />
 
     <j:forEach var="dep" items="${pom.dependencies}">
       <j:choose>
