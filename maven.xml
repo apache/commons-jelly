@@ -107,6 +107,8 @@
         <ant:include name="RELEASE-NOTES.txt" />
       </fileset>
     </copy>
+    <copy file="README-binary-dist.txt" overwrite="true"
+      tofile="${maven.dist.bin.assembly.dir}/README.txt"/>
 
     <copy todir="${maven.dist.bin.assembly.dir}/bin">
       <fileset dir="src/bin"/>
@@ -528,7 +530,7 @@
         
       <j:forEach var="reactorProject" items="${reactorProjects}">
         <j:forEach var="dep" items="${reactorProject.dependencies}">
-          <j:if test="${dep.artifactId eq 'commons-jelly'}">${dep.setVersion("SNAPSHOT")}</j:if>
+          <j:if test="${dep.groupId eq 'commons-jelly'}">${dep.setVersion("SNAPSHOT")}</j:if>
           ${deps.add(dep)}
         </j:forEach>
       </j:forEach>
@@ -562,7 +564,9 @@
         <jar destfile="${fatJarPath}" update="yes">
           <manifest><attribute name="Main-Class" value="org.apache.commons.jelly.Jelly"/></manifest>
           <j:forEach var="dep" items="${deps}">
-            <zipfileset src="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}" />
+            <zipfileset src="${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}">
+              <exclude name="META-INF/*"/>
+              </zipfileset>
             <echo>Adding jar ${maven.repo.local}/${dep.groupId}/${dep.type}s/${dep.artifact}.</echo>
           </j:forEach>
         </jar>

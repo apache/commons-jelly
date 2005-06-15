@@ -34,5 +34,5 @@ $JAVA_HOME/bin/java -classpath ${CLASSPATH} \
   -Djelly.home=${JELLY_HOME} \
   -Dtools.jar=${JAVA_HOME}/lib/tools.jar \
   ${JELLY_OPTS} \
-  com.werken.forehead.Forehead $*
+  com.werken.forehead.Forehead "$@"
 
