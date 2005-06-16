@@ -116,8 +116,8 @@
 
     <chmod file="${maven.dist.bin.assembly.dir}/bin/jelly" perm="ugo+rx" />
 
-    <ant:fixcrlf srcdir="${maven.dist.bin.archive.dir}" eol="crlf" includes="bin/jelly.bat" />
-    <ant:fixcrlf srcdir="${maven.dist.bin.archive.dir}" eol="lf" includes="bin/jelly" />
+    <ant:fixcrlf srcdir="${maven.dist.bin.assembly.dir}" eol="crlf" includes="bin/jelly.bat" />
+    <ant:fixcrlf srcdir="${maven.dist.bin.assembly.dir}" eol="lf" includes="bin/jelly" />
 
     <j:forEach var="dep" items="${pom.dependencies}">
       <j:choose>
