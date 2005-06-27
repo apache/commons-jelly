@@ -24,7 +24,6 @@ import junit.framework.TestSuite;
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
@@ -70,7 +69,7 @@ public class TestNonexistentTags extends TestCase {
     public void testNonexistentTags() throws Exception {
         setUp("nonexistentTags1.jelly");
         try {
-            Script script = jelly.compileScript();
+            jelly.compileScript();
             fail("Scripts should throw JellyException when it declares a nonexistent tag.");
         } catch (JellyException e) {
         }
