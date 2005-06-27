@@ -139,10 +139,9 @@ public class TestIncludeTag extends TestCase {
         public TagLibrary getTagLibrary(String namespaceURI)  {
             if (namespaceURI.equals("jelly:core")) {
                 return super.getTagLibrary(namespaceURI);
-            } else {
-                throw new NoClassDefFoundError("Unexpected tag library uri: " +
-                                                   namespaceURI);
             }
+            throw new NoClassDefFoundError("Unexpected tag library uri: " +
+                                               namespaceURI);
         }
 
     }
