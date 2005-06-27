@@ -87,7 +87,7 @@ public class TestXMLValidation extends TestCase {
         setUp("invalidScript1.jelly");
         jelly.setValidateXML(true);
         try {
-            Script script = jelly.compileScript();
+            jelly.compileScript();
             fail("Invalid scripts should throw JellyException on parse");
         } catch (JellyException e) {
         }
