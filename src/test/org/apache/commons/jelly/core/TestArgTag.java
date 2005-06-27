@@ -112,7 +112,7 @@ public class TestArgTag extends BaseJellyTest {
         argTag.setValue("17");
         argTag.doTag(getXMLOutput());
         assertEquals(Integer.TYPE,parentTag.getType(0));
-        assertEquals(new Integer((int)17),parentTag.getValue(0));
+        assertEquals(new Integer(17),parentTag.getValue(0));
     }
 
     public void testToIntFromNumber() throws Exception {
@@ -120,7 +120,7 @@ public class TestArgTag extends BaseJellyTest {
         argTag.setValue(new Double(17.3d));
         argTag.doTag(getXMLOutput());
         assertEquals(Integer.TYPE,parentTag.getType(0));
-        assertEquals(new Integer((int)17),parentTag.getValue(0));
+        assertEquals(new Integer(17),parentTag.getValue(0));
     }
 
     public void testToFloatFromString() throws Exception {
@@ -144,7 +144,7 @@ public class TestArgTag extends BaseJellyTest {
         argTag.setValue("17");
         argTag.doTag(getXMLOutput());
         assertEquals(Long.TYPE,parentTag.getType(0));
-        assertEquals(new Long((int)17),parentTag.getValue(0));
+        assertEquals(new Long(17),parentTag.getValue(0));
     }
 
     public void testToLongFromNumber() throws Exception {
@@ -152,7 +152,7 @@ public class TestArgTag extends BaseJellyTest {
         argTag.setValue(new Double(17.3d));
         argTag.doTag(getXMLOutput());
         assertEquals(Long.TYPE,parentTag.getType(0));
-        assertEquals(new Long((long)17),parentTag.getValue(0));
+        assertEquals(new Long(17),parentTag.getValue(0));
     }
 
     public void testToDoubleFromString() throws Exception {
@@ -160,7 +160,7 @@ public class TestArgTag extends BaseJellyTest {
         argTag.setValue("17.3");
         argTag.doTag(getXMLOutput());
         assertEquals(Double.TYPE,parentTag.getType(0));
-        assertEquals(new Double((double)17.3),parentTag.getValue(0));
+        assertEquals(new Double(17.3),parentTag.getValue(0));
     }
 
     public void testToDoubleFromNumber() throws Exception {
@@ -168,7 +168,7 @@ public class TestArgTag extends BaseJellyTest {
         argTag.setValue(new Long(17L));
         argTag.doTag(getXMLOutput());
         assertEquals(Double.TYPE,parentTag.getType(0));
-        assertEquals(new Double((double)17),parentTag.getValue(0));
+        assertEquals(new Double(17),parentTag.getValue(0));
     }
 
     public void testToPrimitiveFromNull() throws Exception {
