@@ -57,7 +57,6 @@ public class TestCoreTags extends TestCase {
         Script script = parser.parse(in);
         script = script.compile();
         log.debug("Found: " + script);
-        assertTrue("Parsed a Script", script instanceof Script);
         String[] args = { "one", "two", "three" };
         JellyContext context = new JellyContext();
         context.setVariable("args", args);
