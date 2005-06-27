@@ -43,7 +43,7 @@ public class DummyTag extends TagSupport {
             log.debug("********Executing DummyTag Body*********");
         if (m_classToBeLoaded != null) {
             try {
-                Class clazz = ClassLoaderUtils.loadClass(m_classToBeLoaded, getClass());
+                ClassLoaderUtils.loadClass(m_classToBeLoaded, getClass());
                 if (log.isDebugEnabled())
                     log.debug("Class[" + m_classToBeLoaded + "] FOUND");
             }
