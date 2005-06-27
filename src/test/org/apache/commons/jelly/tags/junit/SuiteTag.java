@@ -107,8 +107,6 @@ public class SuiteTag extends TagSupport {
         if ( name == null ) {
             return new TestSuite();
         }
-        else {
-            return new TestSuite(name);
-        }
+        return new TestSuite(name);
     }
 }
