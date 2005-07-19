@@ -55,7 +55,7 @@ public class TestFileTag extends BaseJellyTest
 
         //FIXME This doesn't take into account attribute ordering
         assertEquals("fully qualified attributes not passed",
-                "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"></html>",
+                "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\"></html>",
                 data);
     }
 

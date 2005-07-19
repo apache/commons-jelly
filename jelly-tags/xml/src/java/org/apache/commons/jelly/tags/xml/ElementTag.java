@@ -15,14 +15,13 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
-
-import java.io.IOException;
 
 /** A tag to produce an XML element which can contain other attributes
   * or elements like the <code>&lt;xsl:element&gt;</code> tag.
@@ -32,16 +31,16 @@ import java.io.IOException;
   */
 public class ElementTag extends TagSupport {
 
-    /** The namespace URI */
+    /** The namespace URI. */
     private String namespace;
 
-    /** The qualified name */
+    /** The qualified name. */
     private String name;
 
-    /** The XML Attributes */
+    /** The XML Attributes. */
     private AttributesImpl attributes = new AttributesImpl();
 
-    /** flag set if attributes are output */
+    /** flag set if attributes are output. */
     private boolean outputAttributes;
 
     public ElementTag() {
@@ -52,11 +51,12 @@ public class ElementTag extends TagSupport {
      *
      * @param name of the attribute
      * @param value of the attribute
-     * @throws JellyException if the start element has already been output.
+     * @param uri namespace of the attribute
+     * @throws JellyTagException if the start element has already been output.
      *   Attributes must be set on the outer element before any content
      *   (child elements or text) is output
      */
-    public void setAttributeValue( String name, String value ) throws JellyTagException {
+    public void setAttributeValue(String name, String value, String uri) throws JellyTagException {
         if (outputAttributes) {
             throw new JellyTagException(
                 "Cannot set the value of attribute: "
@@ -67,13 +67,22 @@ public class ElementTag extends TagSupport {
         // ### we'll assume that all attributes are in no namespace!
         // ### this is severely limiting!
         // ### we should be namespace aware
-        int index = attributes.getIndex("", name);
+        // NAMESPACE FIXED:
+        int idx = name.indexOf(':');
+        final String localName = (idx >= 0)
+            ? name.substring(idx + 1)
+            : name;
+        final String nsUri = (uri != null)
+            ? uri
+            : "";
+
+        int index = attributes.getIndex(nsUri, localName);
         if (index >= 0) {
             attributes.removeAttribute(index);
         }
         // treat null values as no attribute
         if (value != null) {
-            attributes.addAttribute("", name, name, "CDATA", value);
+            attributes.addAttribute(nsUri, localName, name, "CDATA", value);
         }
     }
 
@@ -107,22 +116,21 @@ public class ElementTag extends TagSupport {
                 super.endElement(uri, localName, qName);
             }
 
-            public void characters(char ch[], int start, int length) throws SAXException {
+            public void characters(char[] ch, int start, int length) throws SAXException {
                 initialize();
                 super.characters(ch, start, length);
             }
 
-            public void ignorableWhitespace(char ch[], int start, int length)
+            public void ignorableWhitespace(char[] ch, int start, int length)
                 throws SAXException {
                 initialize();
                 super.ignorableWhitespace(ch, start, length);
             }
 
             public void objectData(Object object)
-                throws SAXException
-            {
+                throws SAXException {
                 initialize();
-                super.objectData( object );
+                super.objectData(object);
             }
 
             public void processingInstruction(String target, String data)
@@ -133,7 +141,7 @@ public class ElementTag extends TagSupport {
 
             /**
              * Ensure that the outer start element is generated
-             * before any content is output
+             * before any content is output.
              */
             protected void initialize() throws SAXException {
                 if (!outputAttributes) {

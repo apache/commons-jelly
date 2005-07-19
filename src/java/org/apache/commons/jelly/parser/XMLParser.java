@@ -1066,7 +1066,12 @@ public class XMLParser extends DefaultHandler {
                         attributeValue, getExpressionFactory()
                     );
                 String attrQName = list.getQName(i);
-                script.addAttribute(attrQName, expression);
+                int p = attrQName.indexOf(':');
+                String prefix = p>=0 ?
+                        attrQName.substring(0,p):
+                        "";
+                script.addAttribute(list.getLocalName(i),
+                        prefix, list.getURI(i), expression);
             }
             return script;
         }

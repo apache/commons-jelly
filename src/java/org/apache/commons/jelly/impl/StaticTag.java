@@ -69,6 +69,15 @@ public class StaticTag extends DynaTagSupport {
         }
     }
 
+    public void setAttribute(String name, String prefix, String nsURI, Object value) {
+        if(value==null)
+            return;
+        if(prefix!=null && prefix.length()>0)
+            attributes.addAttribute(nsURI,name,prefix+":"+name,"CDATA",value.toString());
+        else
+            attributes.addAttribute("",name,name,"CDATA",value.toString());
+    }
+
     // DynaTag interface
     //-------------------------------------------------------------------------
     public void setAttribute(String name, Object value) throws JellyTagException {

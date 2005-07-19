@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+    <x:element name="test-node">
+        <x:attribute URI="http://apache/testNS" name="test:abc" trim="true">testValue</x:attribute>
+        <x:attribute URI="http://apache/anotherNS" name="test:abc2" trim="true">testValue</x:attribute>
+    </x:element>
+</j:jelly>
+

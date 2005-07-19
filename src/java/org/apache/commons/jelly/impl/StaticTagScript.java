@@ -86,7 +86,10 @@ public class StaticTagScript extends TagScript {
             for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 String name = (String) entry.getKey();
-                Expression expression = (Expression) entry.getValue();
+                if(name.indexOf(':')!=-1)
+                    name = name.substring(name.indexOf(':')+1);
+                ExpressionAttribute expat = (ExpressionAttribute) entry.getValue();
+                Expression expression = expat.exp;
 
                 Object value = null;
 
@@ -96,7 +99,10 @@ public class StaticTagScript extends TagScript {
                     value = expression.evaluate(context);
                 }
 
-                dynaTag.setAttribute(name, value);
+                if(expat.prefix!=null || expat.prefix.length()>0 && tag instanceof StaticTag)
+                    ((StaticTag) dynaTag).setAttribute(name,expat.prefix, expat.nsURI,value);
+                else
+                    dynaTag.setAttribute(name, value);
             }
 
             tag.doTag(output);

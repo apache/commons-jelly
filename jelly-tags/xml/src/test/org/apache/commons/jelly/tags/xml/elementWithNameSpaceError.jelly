@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+    <x:element URI="http://schemas.xmlsoap.org/soap/envelope/" name="env:Envelope">
+        <x:attribute name="env:encodingStyle" trim="true">
+            http://schemas.xmlsoap.org/soap/encoding/
+        </x:attribute>
+    </x:element>
+</j:jelly>
+

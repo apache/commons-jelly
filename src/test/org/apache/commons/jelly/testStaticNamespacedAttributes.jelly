@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<j:jelly xmlns:j="jelly:core">
+	<blip xmlns:blop="blop" blop:x="blip"/>
+</j:jelly>

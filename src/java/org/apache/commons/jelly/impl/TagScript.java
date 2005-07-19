@@ -170,7 +170,19 @@ public class TagScript implements Script {
         if (log.isDebugEnabled()) {
             log.debug("adding attribute name: " + name + " expression: " + expression);
         }
-        attributes.put(name, expression);
+        attributes.put(name, new ExpressionAttribute(name,expression));
+    }
+
+    /** Add an initialization attribute for the tag.
+     * This method must be called after the setTag() method
+     */
+    public void addAttribute(String name, String prefix, String nsURI, Expression expression) {
+        if (log.isDebugEnabled()) {
+            log.debug("adding attribute name: " + name + " expression: " + expression);
+        }
+        if(name.indexOf(':')==-1)
+            name = prefix + ':' + name;
+        attributes.put(name, new ExpressionAttribute(name,prefix,nsURI,expression));
     }
 
     /**
@@ -206,7 +218,7 @@ public class TagScript implements Script {
                 for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
                     Map.Entry entry = (Map.Entry) iter.next();
                     String name = (String) entry.getKey();
-                    Expression expression = (Expression) entry.getValue();
+                    Expression expression = ((ExpressionAttribute) entry.getValue()).exp;
 
                     Class type = dynaTag.getAttributeType(name);
                     Object value = null;
@@ -225,7 +237,7 @@ public class TagScript implements Script {
                 for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
                     Map.Entry entry = (Map.Entry) iter.next();
                     String name = (String) entry.getKey();
-                    Expression expression = (Expression) entry.getValue();
+                    Expression expression = ((ExpressionAttribute) entry.getValue()).exp;
 
                     DynaProperty property = dynaBean.getDynaClass().getDynaProperty(name);
                     if (property == null) {
@@ -689,4 +701,22 @@ public class TagScript implements Script {
 
         throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
     }
+}
+
+
+class ExpressionAttribute {
+    public ExpressionAttribute(String name, Expression exp) {
+        this(name,"","",exp);
+    }
+    public ExpressionAttribute(String name, String prefix, String nsURI, Expression exp) {
+        this.name = name;
+        this.prefix = prefix;
+        this.nsURI = nsURI;
+        this.exp = exp;
+    }
+
+    String name;
+    String prefix;
+    String nsURI;
+    Expression exp;
 }

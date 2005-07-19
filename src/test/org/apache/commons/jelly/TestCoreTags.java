@@ -105,4 +105,24 @@ public class TestCoreTags extends TestCase {
         textScript.trimStartWhitespace();
         assertEquals("foo", textScript.getText());
     }
+
+
+    public void testStaticNamespacedAttributes() throws Exception {
+        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/testStaticNamespacedAttributes.jelly");
+        XMLParser parser = new XMLParser();
+        Script script = parser.parse(in);
+        script = script.compile();
+        log.debug("Found: " + script);
+        JellyContext context = new JellyContext();
+        StringWriter buffer = new StringWriter();
+        script.run(context, XMLOutput.createXMLOutput(buffer));
+        String text = buffer.toString().trim();
+        if (log.isDebugEnabled()) {
+            log.debug("Evaluated script as...");
+            log.debug(text);
+        }
+        assertEquals("Should produces the correct output",
+                "<blip xmlns:blop=\"blop\" blop:x=\"blip\"></blip>",
+                text);
+    }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
+    <x:element name="test-node">
+        <x:attribute URI="http://apache/testNS" name="test:abc" trim="true">testValue</x:attribute>
+        <!-- attributes without ':' should not have namespace -->
+        <x:attribute URI="http://apache/testNS" name="abc2" trim="true">testValue</x:attribute>
+        <x:attribute name="abc3" trim="true">testValue</x:attribute>
+
+        <x:element name="test-sub-node">
+            <x:attribute URI="http://apache/testNS" name="test:abc" trim="true">testValue</x:attribute>
+            <x:attribute URI="http://apache/testNS" name="test2:abc2" trim="true">testValue</x:attribute>
+            <x:attribute URI="http://apache/anotherNS" name="test3:abc3" trim="true">testValue</x:attribute>
+        </x:element>
+    </x:element>
+</j:jelly>
+

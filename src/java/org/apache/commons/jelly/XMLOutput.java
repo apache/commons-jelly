@@ -20,6 +20,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -44,29 +49,35 @@ import org.xml.sax.helpers.DefaultHandler;
 public class XMLOutput implements ContentHandler, LexicalHandler {
 
     protected static final String[] LEXICAL_HANDLER_NAMES =
-        {
-            "http://xml.org/sax/properties/lexical-handler",
-            "http://xml.org/sax/handlers/LexicalHandler" };
+     {
+        "http://xml.org/sax/properties/lexical-handler",
+        "http://xml.org/sax/handlers/LexicalHandler" };
 
-    /** empty attributes */
+    /** Empty attributes. */
     private static final Attributes EMPTY_ATTRIBUTES = new AttributesImpl();
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(XMLOutput.class);
 
-    /** the default for escaping of text */
+    /** the default for escaping of text. */
     private static final boolean DEFAULT_ESCAPE_TEXT = false;
 
-    /** The SAX ContentHandler that output goes to */
+    /** The SAX ContentHandler that output goes to. */
     private ContentHandler contentHandler;
 
-    /** The SAX LexicalHandler that output goes to */
+    /** The SAX LexicalHandler that output goes to. */
     private LexicalHandler lexicalHandler;
 
+    /** Stack of kown namespaces. */
+    private NamespaceStack namespaceStack = new NamespaceStack();
 
     public XMLOutput() {
     }
 
+    /** The XML-output will relay the SAX events to the indicated
+     * contentHandler.
+     * @param contentHandler
+     */
     public XMLOutput(ContentHandler contentHandler) {
         this.contentHandler = contentHandler;
         // often classes will implement LexicalHandler as well
@@ -75,6 +86,11 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         }
     }
 
+    /** The XML-output will relay the SAX events to the indicated
+     * content-handler lexical-handler.
+     * @param contentHandler
+     * @param lexicalHandler
+     */
     public XMLOutput(
         ContentHandler contentHandler,
         LexicalHandler lexicalHandler) {
@@ -92,16 +108,25 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     /**
-     * Provides a useful hook that implementations can use to close the
-     * underlying OutputStream or Writer
+     * Provides a useful hook that implementations
+     * can use to close the
+     * underlying OutputStream or Writer.
+     *
+     * @throws IOException
      */
     public void close() throws IOException {
     }
 
+    /** Flushes the underlying stream if {@link XMLWriter}
+     * or {@link XMLOutput}.
+     *
+     * @throws IOException
+     */
     public void flush() throws IOException {
-        if( contentHandler instanceof XMLWriter )
-        {
+        if (contentHandler instanceof XMLWriter) {
             ((XMLWriter)contentHandler).flush();
+        } else if (contentHandler instanceof XMLOutput) {
+            ((XMLOutput)contentHandler).flush();
         }
     }
 
@@ -109,7 +134,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     //-------------------------------------------------------------------------
 
     /**
-     * Creates an XMLOutput from an existing SAX XMLReader
+     * Creates an XMLOutput from an existing SAX XMLReader.
      */
     public static XMLOutput createXMLOutput(XMLReader xmlReader) {
         XMLOutput output = new XMLOutput(xmlReader.getContentHandler());
@@ -122,10 +147,11 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
                     output.setLexicalHandler((LexicalHandler) value);
                     break;
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 // ignore any unsupported-operation exceptions
-                if (log.isDebugEnabled()) log.debug("error setting lexical handler properties", e);
+                if (log.isDebugEnabled()) {
+                    log.debug("error setting lexical handler properties", e);
+                }
             }
         }
         return output;
@@ -145,10 +171,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *
      * @param writer is the writer to output to
      * @param escapeText is whether or not text output will be escaped. This must be true
-     * if the underlying output is XML or could be false if the underlying output is textual.
+     *   if the underlying output is XML or could be false if the underlying output is textual.
      */
-    public static XMLOutput createXMLOutput(Writer writer, boolean escapeText)
-    {
+    public static XMLOutput createXMLOutput(Writer writer, boolean escapeText) {
         XMLWriter xmlWriter = new XMLWriter(writer);
         xmlWriter.setEscapeText(escapeText);
         return createXMLOutput(xmlWriter);
@@ -169,8 +194,11 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param out is the output stream to write
      * @param escapeText is whether or not text output will be escaped. This must be true
      * if the underlying output is XML or could be false if the underlying output is textual.
+     * @throws UnsupportedEncodingException if the underlying write could not
+     *   be created.
      */
-    public static XMLOutput createXMLOutput(OutputStream out, boolean escapeText) throws UnsupportedEncodingException {
+    public static XMLOutput createXMLOutput(OutputStream out, boolean escapeText)
+            throws UnsupportedEncodingException {
         XMLWriter xmlWriter = new XMLWriter(out);
         xmlWriter.setEscapeText(escapeText);
         return createXMLOutput(xmlWriter);
@@ -193,7 +221,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /**
      * Outputs the given String as a piece of valid text in the
      * XML event stream.
-     * Any special XML characters should be properly escaped.
+     * Any special XML characters should come out properly escaped.
      */
     public void write(String text) throws SAXException {
         char[] ch = text.toCharArray();
@@ -212,7 +240,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     /**
-     * Outputs a comment to the XML stream
+     * Outputs a comment to the XML stream.
      */
     public void writeComment(String text) throws SAXException {
         char[] ch = text.toCharArray();
@@ -220,21 +248,24 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     /**
-     * Helper method for outputting a start element event for an element in no namespace
+     * Helper method for outputting a start element event
+     * for an element in no namespace.
      */
     public void startElement(String localName) throws SAXException {
         startElement("", localName, localName, EMPTY_ATTRIBUTES);
     }
 
     /**
-     * Helper method for outputting a start element event for an element in no namespace
+     * Helper method for outputting a start element event
+     * for an element in no namespace.
      */
     public void startElement(String localName, Attributes attributes) throws SAXException {
         startElement("", localName, localName, attributes);
     }
 
     /**
-     * Helper method for outputting an end element event for an element in no namespace
+     * Helper method for outputting an end element event
+     * for an element in no namespace.
      */
     public void endElement(String localName) throws SAXException {
         endElement("", localName, localName);
@@ -344,7 +375,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #startElement
      */
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
-        contentHandler.startPrefixMapping(prefix, uri);
+        namespaceStack.pushNamespace(prefix, uri);
+        // contentHandler.startPrefixMapping(prefix, uri) will be called if needed
+        // in pushNamespace
     }
 
     /**
@@ -364,7 +397,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #endElement
      */
     public void endPrefixMapping(String prefix) throws SAXException {
-        contentHandler.endPrefixMapping(prefix);
+        namespaceStack.popNamespace(prefix);
+        // End prefix mapping was already called after endElement
+        // contentHandler.endPrefixMapping(prefix);
     }
 
     /**
@@ -435,7 +470,28 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         String qName,
         Attributes atts)
         throws SAXException {
+
+        int idx = qName.indexOf(':');
+        String attNsPrefix = "";
+        if (idx >= 0) {
+            attNsPrefix = qName.substring(0, idx);
+        }
+        namespaceStack.pushNamespace(attNsPrefix, uri);
+        for (int i = 0; i < atts.getLength(); i++) {
+            String attQName = atts.getQName(i);
+            // An attribute only has an namespace if has a prefix
+            // If not, stays in namespace of containing node
+            idx = attQName.indexOf(':');
+            if (idx >= 0) {
+                attNsPrefix = attQName.substring(0, idx);
+                String attUri = atts.getURI(i);
+                namespaceStack.pushNamespace(attNsPrefix, attUri);
+            }
+        }
+
         contentHandler.startElement(uri, localName, qName, atts);
+        // Inform namespaceStack of a new depth
+        namespaceStack.increaseLevel();
     }
 
     /**
@@ -462,6 +518,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     public void endElement(String uri, String localName, String qName)
         throws SAXException {
         contentHandler.endElement(uri, localName, qName);
+        // Inform namespaceStack to return to previous depth
+        namespaceStack.decreaseLevel();
+        namespaceStack.popNamespaces();
     }
 
     /**
@@ -507,7 +566,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #ignorableWhitespace
      * @see org.xml.sax.Locator
      */
-    public void characters(char ch[], int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) throws SAXException {
         contentHandler.characters(ch, start, length);
     }
 
@@ -535,7 +594,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *            wrapping another exception.
      * @see #characters
      */
-    public void ignorableWhitespace(char ch[], int start, int length)
+    public void ignorableWhitespace(char[] ch, int start, int length)
         throws SAXException {
         contentHandler.ignorableWhitespace(ch, start, length);
     }
@@ -855,4 +914,127 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         return answer;
     }
 
+    private final class NamespaceStack {
+        /** A list of maps: Each map contains prefix->uri mapping */
+        private List nsStack;
+
+        private NamespaceStack() {
+            this.nsStack = new ArrayList();
+            this.nsStack.add(new HashMap());
+        }
+
+        private boolean isRootNodeDefaultNs(String prefix, String uri) {
+            return ("".equals(prefix) && "".equals(uri) && nsStack.size() == 1);
+        }
+
+        public void pushNamespace(String prefix, String uri) throws SAXException {
+            Map prefixUriMap;
+
+            if (prefix == null) {
+                prefix = "";
+            }
+            if (uri == null) {
+                uri = "";
+            }
+
+            if ("xml".equals(prefix)) {
+                // We should ignore setting 'xml' prefix
+                // As declared in java of ContentHandler#startPrefixMapping
+                return;
+            }
+
+
+            // Lets find out if we already declared this same prefix,
+            // if not declare in current depth map (the first of list)
+            // and call contentHandler.startPrefixMapping(prefix, uri);
+            boolean isNew = true;
+            for (Iterator iter = nsStack.iterator(); iter.hasNext();) {
+                prefixUriMap = (Map) iter.next();
+                if (prefixUriMap.containsKey(prefix)) {
+                    if (uri.equals(prefixUriMap.get(prefix))) {
+                        // Its an active namespace already
+                        // System.out.println(">>>"+XMLOutput.this.hashCode()+">NamespaceStack.pushNamespace() IS NOT NEW prefix="+prefix+",uri="+uri);
+                        isNew = false;
+                    }
+                    // We found it in stack
+                    // If it was exacly the same, we won't bother
+                    break;
+                }
+            }
+
+            if (isNew) {
+                // not declared sometime before
+                prefixUriMap = (Map) nsStack.get(0); // Current depth map
+                // Sanity check: Don't let two prefixes for diferent uris in
+                // same depth
+                if (prefixUriMap.containsKey(prefix)) {
+                    if (!uri.equals(prefixUriMap.get(prefix))) {
+                        throw new SAXException("Cannot set same prefix to diferent URI in same node: trying to add prefix \""
+                                + prefix + "\" for uri \""+uri+"\" whereas the declared ones are " + prefixUriMap);
+                    }
+                } else {
+                    prefixUriMap.put(prefix, uri);
+
+                    // To avoid setting xmlns="" for top node (not very nice :D)
+                    // We need to especificaly check this condition
+                    if (!isRootNodeDefaultNs(prefix, uri)) {
+//                        System.out.println(">>>"+XMLOutput.this.hashCode()+">NamespaceStack.pushNamespace() prefix="+prefix+",uri="+uri);
+                        contentHandler.startPrefixMapping(prefix, uri);
+                    }
+                }
+            }
+        }
+
+        public void popNamespaces() throws SAXException {
+            Map prefixUriMap = (Map)nsStack.get(0);
+            for (Iterator iter = prefixUriMap.keySet().iterator();iter.hasNext();) {
+                String prefix = (String)iter.next();
+                String uri = (String) prefixUriMap.get(prefix);
+                iter.remove();
+
+                // If we havent called startPrefixMapping for root node if we wanted to avoid xmlns=""
+                // We aren't going to call endPrefixMapping neither
+                if (!isRootNodeDefaultNs(prefix, uri)) {
+//                    System.out.println(">>>"+XMLOutput.this.hashCode()+">NamespaceStack.popNamespaces() prefix="+prefix);
+                    contentHandler.endPrefixMapping(prefix);
+                }
+            }
+        }
+
+        public void popNamespace(String prefix) throws SAXException {
+            Map prefixUriMap = (Map)nsStack.get(0);
+
+            if (prefix == null) {
+                prefix = "";
+            }
+
+            if ("xml".equals(prefix)) {
+                // We should ignore setting 'xml' prefix
+                // As declared in java of ContentHandler#startPrefixMapping
+                return;
+            }
+
+            if (prefixUriMap.containsKey(prefix)) {
+                String uri = (String) prefixUriMap.get(prefix);
+                prefixUriMap.remove(prefix);
+                // If we havent called startPrefixMapping for root node if we wanted to avoid xmlns=""
+                // We aren't going to call endPrefixMapping neither
+                if (!isRootNodeDefaultNs(prefix, uri)) {
+//                    System.out.println(">>>"+XMLOutput.this.hashCode()+">NamespaceStack.popNamespace() prefix="+prefix);
+                    contentHandler.endPrefixMapping(prefix);
+                }
+            }/* else {
+                improper nesting ? or already removed in popNamespaces
+            }
+            */
+        }
+
+        public void decreaseLevel() {
+            nsStack.remove(0);
+        }
+
+        public void increaseLevel() {
+            nsStack.add(0, new HashMap());
+        }
+    }
 }

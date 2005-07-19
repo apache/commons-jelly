@@ -53,6 +53,7 @@ public class XMLTagLibrary extends TagLibrary {
         registerTag("expr", ExprTag.class);
         registerTag("element", ElementTag.class);
         registerTag("attribute", AttributeTag.class);
+        registerTag("replaceNamespace", ReplaceNamespaceTag.class);
         registerTag("copy", CopyTag.class);
         registerTag("copyOf", CopyOfTag.class);
         registerTag("comment", CommentTag.class);

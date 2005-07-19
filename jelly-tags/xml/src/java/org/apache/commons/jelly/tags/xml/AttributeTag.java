@@ -26,6 +26,8 @@ import org.apache.commons.jelly.XMLOutput;
   * @version $Revision$
   */
 public class AttributeTag extends TagSupport {
+     /** The namespace URI. */
+    private String namespace;
 
     /** the name of the attribute. */
     private String name;
@@ -38,10 +40,11 @@ public class AttributeTag extends TagSupport {
     //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
         ElementTag tag = (ElementTag) findAncestorWithClass( ElementTag.class );
-        if ( tag == null ) {
-            throw new JellyTagException( "<attribute> tag must be enclosed inside an <element> tag" );
+        if (tag == null) {
+            throw new JellyTagException(
+                    "<attribute> tag must be enclosed inside an <element> tag" );
         }
-        tag.setAttributeValue( getName(), getBodyText( false ) );
+        tag.setAttributeValue(getName(), getBodyText(false), getURI());
     }
 
     // Properties
@@ -53,10 +56,25 @@ public class AttributeTag extends TagSupport {
     public String getName() {
         return name;
     }
+
     /**
-     * Sets the name of the attribute
+     * Sets the name of the attribute.
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the namespace URI of the element
+     */
+    public String getURI() {
+        return namespace;
+    }
+
+    /**
+     * Sets the namespace URI of the element
+     */
+    public void setURI(String namespace) {
+        this.namespace = namespace;
     }
 }
