@@ -56,7 +56,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-ant</artifactId>
-      <version>1.0</version>
+      <version>1.1</version>
       <properties>
         <classloader>root.maven</classloader>
       </properties>
@@ -82,22 +82,24 @@
 
     <dependency>
       <id>ant</id>
-      <version>1.5.3-1</version>
+      <version>1.6.5</version>
     </dependency>
     
-    <dependency>
-      <id>ant+optional</id>
-      <version>1.5.3-1</version>
+    <dependency><groupId>ant</groupId>
+      <artifactId>ant-launcher</artifactId>
+      <version>1.6.5</version>
+      <properties>
+        <gump.project>ant</gump.project>
+      </properties>
+    </dependency>
+    <dependency><groupId>ant</groupId>
+      <artifactId>ant-junit</artifactId>
+      <version>1.6.5</version>
       <properties>
         <gump.project>ant</gump.project>
       </properties>
     </dependency>
     
-    <dependency>
-      <id>commons-grant</id>
-      <version>1.0-beta-4</version>
-    </dependency>
-
     
     <!-- START for running demos -->
 
