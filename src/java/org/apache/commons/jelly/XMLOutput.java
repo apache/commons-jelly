@@ -397,7 +397,6 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #endElement
      */
     public void endPrefixMapping(String prefix) throws SAXException {
-        namespaceStack.popNamespace(prefix);
         // End prefix mapping was already called after endElement
         // contentHandler.endPrefixMapping(prefix);
     }
