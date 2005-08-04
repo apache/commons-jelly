@@ -20,17 +20,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.WeakHashMap;
 
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -92,6 +90,9 @@ public class JellyContext {
     /** Should we export tag libraries to our parents context */
     private boolean exportLibraries = true;
 
+    /** Should we cache Tag instances, per thread, to reduce object contruction overhead? */
+    private boolean cacheTags = false;
+
     /**
      * Create a new context with the currentURL set to the rootURL
      */
@@ -132,6 +133,7 @@ public class JellyContext {
         this.rootURL = parent.rootURL;
         this.currentURL = parent.currentURL;
         this.variables.put("parentScope", parent.variables);
+        this.cacheTags = parent.cacheTags;
         init();
     }
 
@@ -799,6 +801,30 @@ public class JellyContext {
      */
     public void setCurrentURL(URL currentURL) {
         this.currentURL = currentURL;
+    }
+
+    /**
+     * Returns whether caching of Tag instances, per thread, is enabled.
+     * Caching Tags can boost performance, on some JVMs, by reducing the cost of
+     * object construction when running Jelly inside a multi-threaded application server
+     * such as a Servlet engine.
+     *
+     * @return whether caching of Tag instances is enabled.
+     */
+    public boolean isCacheTags() {
+        return cacheTags;
+    }
+
+    /**
+     * Sets whether caching of Tag instances, per thread, is enabled.
+     * Caching Tags can boost performance, on some JVMs, by reducing the cost of
+     * object construction when running Jelly inside a multi-threaded application server
+     * such as a Servlet engine.
+     *
+     * @param cacheTags Whether caching should be enabled or disabled.
+     */
+    public void setCacheTags(boolean cacheTags) {
+        this.cacheTags = cacheTags;
     }
 
     /**

@@ -41,7 +41,7 @@ import org.xml.sax.SAXException;
  * @author Hans Gilde
  *  
  */
-public class BaseMemoryLeakTest extends TestCase {
+public abstract class BaseMemoryLeakTest extends TestCase {
     private final static Log log = LogFactory.getLog(BaseMemoryLeakTest.class);
 
     /**

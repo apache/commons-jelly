@@ -24,6 +24,9 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+    <release version="1.1-dev">
+      <action dev="proyal" type="fix">Restored JellyContext.isCacheTags and its behavior for backwards compatibility</action>
+    </release>
     <release version="1.0" date="2005-06-12">
       <action dev="brett" type="fix" due-to="Hans Gilde">Improve tag caching to improve memory consumption</action>
       <action dev="dion" type="fix" issue="JELLY-196">SwitchTag can not be reused if default encountered.</action>

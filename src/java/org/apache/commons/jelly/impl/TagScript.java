@@ -203,6 +203,9 @@ public class TagScript implements Script {
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         URL rootURL = context.getRootURL();
         URL currentURL = context.getCurrentURL();
+        if ( ! context.isCacheTags() ) {
+            clearTag();
+        }
         try {
             Tag tag = getTag(context);
             if ( tag == null ) {
@@ -527,6 +530,13 @@ public class TagScript implements Script {
         }
     }
 
+    /**
+     * Flushes the current cached tag so that it will be created, lazily, next invocation
+     */
+    protected void clearTag() {
+        Thread t = Thread.currentThread();
+        threadLocalTagCache.put(t,null);
+    }
 
     /**
      * Allows the script to set the tag instance to be used, such as in a StaticTagScript
