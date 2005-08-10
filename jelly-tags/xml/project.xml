@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-xml</id>
   <name>commons-jelly-tags-xml</name>
-  <currentVersion>1.2-dev</currentVersion>
+  <currentVersion>1.2-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.xml</package>
   <description>The Jelly XML Tag Library</description>
   <shortDescription>Commons Jelly XML Tag Library</shortDescription>
