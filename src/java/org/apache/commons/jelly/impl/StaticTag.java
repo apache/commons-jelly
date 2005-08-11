@@ -66,6 +66,8 @@ public class StaticTag extends DynaTagSupport {
             output.endElement(uri, localName, qname);
         } catch (SAXException e) {
             throw new JellyTagException(e);
+        } finally {
+            attributes.clear();
         }
     }
 
