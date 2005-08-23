@@ -15,10 +15,6 @@
  */
 package org.apache.commons.jelly.impl;
 
-import java.net.URL;
-import java.util.Iterator;
-import java.util.Map;
-
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -28,6 +24,10 @@ import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 import org.xml.sax.SAXException;
+
+import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * <p><code>StaticTagScript</code> is a script that evaluates a StaticTag, a piece of static XML
@@ -57,7 +57,7 @@ public class StaticTagScript extends TagScript {
             throw new JellyTagException("could not start namespace prefixes",e);
         }
 
-        Tag tag = null;
+        Tag tag;
         try {
             tag = getTag(context);
 
@@ -91,7 +91,7 @@ public class StaticTagScript extends TagScript {
                 ExpressionAttribute expat = (ExpressionAttribute) entry.getValue();
                 Expression expression = expat.exp;
 
-                Object value = null;
+                Object value;
 
                 if ( Expression.class.isAssignableFrom( dynaTag.getAttributeType(name) ) ) {
                     value = expression;
@@ -99,10 +99,14 @@ public class StaticTagScript extends TagScript {
                     value = expression.evaluate(context);
                 }
 
-                if(expat.prefix!=null || expat.prefix.length()>0 && tag instanceof StaticTag)
+                if( expat.prefix != null && expat.prefix.length() > 0 && tag instanceof StaticTag )
+                {
                     ((StaticTag) dynaTag).setAttribute(name,expat.prefix, expat.nsURI,value);
+                }
                 else
+                {
                     dynaTag.setAttribute(name, value);
+                }
             }
 
             tag.doTag(output);
