@@ -20,23 +20,50 @@ import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
+import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JPopupMenu;
+import javax.swing.JProgressBar;
+import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JToggleButton;
+import javax.swing.JToolBar;
+import javax.swing.JTree;
 
 import org.apache.commons.beanutils.ConvertUtils;
-
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TagFactory;
+import org.apache.commons.jelly.impl.TagScript;
+import org.apache.commons.jelly.tags.swing.converters.ColorConverter;
 import org.apache.commons.jelly.tags.swing.converters.DimensionConverter;
 import org.apache.commons.jelly.tags.swing.converters.PointConverter;
-import org.apache.commons.jelly.tags.swing.converters.ColorConverter;
-import org.apache.commons.jelly.tags.swing.converters.DebugGraphicsConverter;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.Attributes;
 
 /**
@@ -96,6 +123,9 @@ public class SwingTagLibrary extends TagLibrary {
         // BorderLayout
         registerTag( "borderLayout", BorderLayoutTag.class );
         registerTag( "borderAlign", BorderAlignTag.class );
+        
+        //CardLayout
+        registerTag( "cardLayout", CardLayoutTag.class);
 
         // Dialog
         registerTag( "dialog", DialogTag.class );
