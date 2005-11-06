@@ -66,8 +66,47 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
 
-/**
- * A Jelly custom tag library that allows Ant tasks to be called from inside Jelly.
+/** The Swing tag library. <p/>
+ * In addition to the tag descriptions in the tag doc, implements
+ * the following basic components:
+ * <ul>
+ * <li>button - JButton
+        <li>checkBox - JCheckBox
+<li>checkBoxMenuItem - JCheckBoxMenuItem
+<li>comboBox - JComboBox
+<li>desktopPane - JDesktopPane
+<li>editorPane - JEditorPane
+<li>fileChooser - JFileChooser
+<li>frame - JFrame
+<li>internalFrame - JInternalFrame
+<li>label - JLabel
+<li>list - JList
+<li>menu - JMenu
+<li>menuBar - JMenuBar
+<li>menuItem - JMenuItem
+<li>panel - JPanel
+<li>passwordField - JPasswordField
+<li>popupMenu - JPopupMenu
+<li>progressBar - JProgressBar
+<li>radioButton - JRadioButton
+<li>radioButtonMenuItem - JRadioButtonMenuItem
+<li>optionPane - JOptionPane
+<li>scrollPane - JScrollPane
+<li>separator - JSeparator
+
+<li>splitPane - JSplitPane
+<li>hbox" - Box.createHorizontalBox()
+<li>vbox - Box.createVerticalBox()
+
+<li>tabbedPane - JTabbedPane
+<li>table - JTable
+<li>textArea - JTextArea
+<li>textField - JTextField
+<li>toggleButton - JToggleButton
+<li>tree - JTree
+<li>toolBar - JToolBar
+
+ * </ul>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
