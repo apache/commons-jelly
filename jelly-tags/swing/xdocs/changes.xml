@@ -26,7 +26,7 @@
   <body>
     <release version="1.1-SNAPSHOT" date="in CVS">
       <action dev="dion" type="fix" issue="JELLY-10" due-to="Hans Gilde">JellySwing should be strict on the attribute names it uses.</action>
-      <action dev="hgilde" type="add" issue="JELLY-222">Add </action>
+      <action dev="hgilde" type="add" issue="JELLY-222">Add CardLayout tag</action>
     </release>
     
     <release version="1.0" date="2004-09-12">
