@@ -43,6 +43,11 @@
           Why is this called Jelly?
         </a>
       </li>
+      <li>
+        <a href="#jira">
+          How do I report a bug or request a feature?
+        </a>
+      </li>
     </ol>
     <p><strong>Using Jelly</strong></p>
     <ol>
@@ -126,7 +131,17 @@
         </dd>
       </dl>
 
-
+      <dl>
+        <dt>
+          <a name="jira">
+            How do I report a bug or request a feature?
+          </a>
+        </dt>
+        <dd>
+          Use the Jelly JIRA page: <a href="http://issues.apache.org/jira/browse/JELLY">http://issues.apache.org/jira/browse/JELLY</a>
+        </dd>
+      </dl>
+      
     </section>
     <section name="Using Jelly">
       <dl>
