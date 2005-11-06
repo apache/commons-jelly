@@ -154,6 +154,11 @@ public class TestSwingTags extends BaseJellyTest {
         }
         fail("Should have thrown an exception due to an invalid bean property.");
     }
+    
+    public void testActionTagIsNotExecutedImmediately() throws Exception {
+        if (!isAWTAvailable()) return;
+        runSwingScript("test.actionTagImmediateExecution");
+    }
 
     protected void runSwingScript(String testName) throws Exception {
         setUpScript("swingTags.jelly");

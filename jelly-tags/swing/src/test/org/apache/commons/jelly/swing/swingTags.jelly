@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <j:jelly 
     xmlns:j="jelly:core" 
-    xmlns="jelly:swing">
+    xmlns="jelly:swing"
+    xmlns:test="jelly:junit">
 	
     <!--for the basic component assembly-->
     <j:if test="${test.simple}">
@@ -72,6 +73,19 @@
     <j:if test="${test.invalidProperty}">
         <frame name="frame" var="frame" size="100,100" location="200,200" foo="bar">
             <panel name="panel">
+            </panel>
+        </frame>
+    </j:if>
+    
+    <!--Ensures that an action tag's contents aren't executed immediately-->
+    <j:if test="${test.actionTagImmediateExecution}">
+        <frame name="frame" var="frame">
+            <panel name="panel">
+                <button>
+                    <action name="Test">
+                        <test:fail>Action tag was executed immediately.</test:fail>
+                    </action>
+                </button>
             </panel>
         </frame>
     </j:if>
