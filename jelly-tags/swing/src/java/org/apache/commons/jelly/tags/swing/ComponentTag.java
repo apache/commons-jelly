@@ -184,24 +184,6 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 	public void setTagName(String name) {
 		this.tagName = name;
 	}
-	
-	/** Runs the body of this script again after clearing the content
-	 * of this component.
-	 * This is useful to use jelly-logic and "re-populate" a part of the user-interface
-	 * after having updated a model part (e.g. an XML-document).
-	 * @throws JellyTagException if anything
-	 */
-	public void rerun() throws JellyTagException {
-		Component comp = getComponent();
-		if(comp instanceof java.awt.Container) {
-			((java.awt.Container) comp).removeAll();
-		}
-		this.doTag(currentOutput,false);
-		if ( comp instanceof javax.swing.JComponent ) {
-			((javax.swing.JComponent) comp).revalidate();
-		}
-	}
-	
 
     /**
      * Adds a WindowListener to this component
@@ -441,13 +423,8 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     public void doTag(XMLOutput output) throws JellyTagException {
-        this.doTag(output,true);
-    }
-    
-    public void doTag(XMLOutput output, boolean resetBean) throws JellyTagException {
-        if(resetBean) clearBean();
         super.doTag(output);
-        //clearBean();
+        clearBean();
     }
 
     /** Sets the bean to null, to prevent it from
