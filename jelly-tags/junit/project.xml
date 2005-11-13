@@ -18,7 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-junit</id>
   <name>commons-jelly-tags-junit</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
 
   <package>org.apache.commons.jelly.tags.junit</package>
 
