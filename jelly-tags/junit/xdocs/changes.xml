@@ -24,6 +24,9 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+    <release version="1.0.1-SNAPSHOT" date="in SVN">
+      <action dev="dion" type="add">Added AssertFileExists tag</action>
+    </release>
     <release version="1.0" date="2004-09-10">
       <action dev="dion" type="add">Initial Release</action>
     </release>
