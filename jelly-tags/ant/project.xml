@@ -25,7 +25,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-ant</id>
   <name>commons-jelly-tags-ant</name>
-  <currentVersion>1.1</currentVersion>
+  <currentVersion>1.1.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.ant</package>
   <description>This is a Jelly interface for Ant.</description>
   <shortDescription>Commons Jelly Ant Tag Library</shortDescription>
