@@ -22,33 +22,32 @@
     <test:assert test="${2 == 2}">This should never fail</test:assert>
     
     <j:catch var="ex">
-            <test:assert test="${2 != 2}">This should always fail</test:assert>
-        </j:catch>        
+      <test:assert test="${2 != 2}">This should always fail</test:assert>
+    </j:catch>        
     
-        <test:assert test="${ex != null}">We should have created an exception</test:assert>
+    <test:assert test="${ex != null}">We should have created an exception</test:assert>
     
-        The exception was: ${ex.message}    
+    The exception was: ${ex.message}    
     
   </test:case>
 
 
   <test:case name="failTests">
   
-        <j:catch var="ex">
-            <test:fail>This should always fail</test:fail>
-        </j:catch>        
+    <j:catch var="ex">
+      <test:fail>This should always fail</test:fail>
+    </j:catch>        
         
-        <test:assert test="${ex != null}">We should have created an exception</test:assert>
+    <test:assert test="${ex != null}">We should have created an exception</test:assert>
         
-        The exception was: ${ex.message}    
+    The exception was: ${ex.message}    
     
     <j:catch var="ex">
-          <test:fail message="This should always fail"/>
-        </j:catch>        
+      <test:fail message="This should always fail"/>
+    </j:catch>        
     
-        <test:assert test="${ex != null}">We should have created an exception</test:assert>
-        
-        The exception was: ${ex.message}    
+    <test:assert test="${ex != null}">We should have created an exception</test:assert>      
+    The exception was: ${ex.message}    
   </test:case>
 
     
@@ -60,11 +59,11 @@
     
     <j:catch var="ex">
       <test:assertEquals actual="${foo}" expected="def">This should always fail</test:assertEquals>
-        </j:catch>        
+    </j:catch>        
         
-        <test:assert test="${ex != null}">We should have created an exception</test:assert>
+    <test:assert test="${ex != null}">We should have created an exception</test:assert>
         
-        The exception was: ${ex.message}    
+    The exception was: ${ex.message}    
   </test:case>
 
 
@@ -88,10 +87,10 @@
 
     <!-- test using undefined class -->
     <test:assertThrows expected="java.lang.ClassNotFoundException">
-            <test:assertThrows expected="foo.bar.Baz">
-                <test:fail message="This should always fail"/>
-            </test:assertThrows>
-        </test:assertThrows>
+      <test:assertThrows expected="foo.bar.Baz">
+        <test:fail message="This should always fail"/>
+      </test:assertThrows>
+    </test:assertThrows>
 
     <!-- test using other exception class -->
     <j:catch var="ex">
@@ -100,7 +99,7 @@
       </test:assertThrows>
     </j:catch>
     
-        <test:assert test="${ex != null}">We should have created an exception</test:assert>
+    <test:assert test="${ex != null}">We should have created an exception</test:assert>
 
     <!-- test with no exception from body -->
     <j:catch var="ex">
@@ -108,7 +107,7 @@
       </test:assertThrows>
     </j:catch>
     
-        <test:assert test="${ex != null}">assertThrows should fail when nothing is thrown from within it</test:assert>
+    <test:assert test="${ex != null}">assertThrows should fail when nothing is thrown from within it</test:assert>
         
     <test:assert test="${ex.message.endsWith('No exception was thrown.')}"/>
 
