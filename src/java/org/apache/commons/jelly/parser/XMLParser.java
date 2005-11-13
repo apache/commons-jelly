@@ -592,6 +592,7 @@ public class XMLParser extends DefaultHandler {
             // otherwise pass the text to the current body
             TagScript newTagScript = createTag(namespaceURI, localName, list);
             if (newTagScript == null) {
+                //TODO createStaticTag should always return a tag (or throw an exception
                 newTagScript = createStaticTag(namespaceURI, localName, qName, list);
             }
             tagScript = newTagScript;
@@ -617,19 +618,8 @@ public class XMLParser extends DefaultHandler {
                 tagScript.setTagBody(script);
             }
             else {
-                // XXXX: might wanna handle empty elements later...
-                textBuffer.append("<");
-                textBuffer.append(qName);
-                int size = list.getLength();
-                for (int i = 0; i < size; i++) {
-                    textBuffer.append(" ");
-                    textBuffer.append(list.getQName(i));
-                    textBuffer.append("=");
-                    textBuffer.append("\"");
-                    textBuffer.append(list.getValue(i));
-                    textBuffer.append("\"");
-                }
-                textBuffer.append(">");
+                //this should never happen because of createStaticTag
+                throw new SAXException("Failed to create script for tag.");
             }
         }
         catch (SAXException e) {
@@ -680,9 +670,8 @@ public class XMLParser extends DefaultHandler {
                 script = (ScriptBlock) scriptStack.pop();
             }
             else {
-                textBuffer.append("</");
-                textBuffer.append(qName);
-                textBuffer.append(">");
+                //this should never happen, because there would at least be a static tag
+                throw new SAXException("While parsing, the tag stack has become corrupt.");
             }
 
             // now lets set the parent tag variable
@@ -1048,7 +1037,6 @@ public class XMLParser extends DefaultHandler {
         Attributes list)
         throws SAXException {
         try {
-            StaticTag tag = new StaticTag( namespaceURI, localName, qName );
             StaticTagScript script = new StaticTagScript(
                 new TagFactory() {
                     public Tag createTag(String name, Attributes attributes) {
