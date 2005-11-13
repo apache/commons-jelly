@@ -15,6 +15,8 @@
  */
 package org.apache.commons.jelly.impl;
 
+import java.net.URL;
+
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -22,12 +24,11 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
-import java.net.URL;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * <p><code>StaticTagScript</code> is a script that evaluates a StaticTag, a piece of static XML
@@ -81,32 +82,48 @@ public class StaticTagScript extends TagScript {
             setContextURLs(context);
 
             DynaTag dynaTag = (DynaTag) tag;
-
-            // ### probably compiling this to 2 arrays might be quicker and smaller
-            for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                String name = (String) entry.getKey();
-                if(name.indexOf(':')!=-1)
-                    name = name.substring(name.indexOf(':')+1);
-                ExpressionAttribute expat = (ExpressionAttribute) entry.getValue();
-                Expression expression = expat.exp;
-
+            
+            Attributes attrs = getSaxAttributes();
+            
+            for (int i=0;i<attrs.getLength(); i++) {
+                
+                String xmlValue = attrs.getValue(i);
+                
+                String xmlName = attrs.getQName(i);
+                String name;
+                String prefix = null;
+                
+                int indexOfColon = xmlName.indexOf(':');
+                if(indexOfColon!=-1) {
+                    name = xmlName.substring(indexOfColon+1);
+                    prefix = xmlName.substring(0, indexOfColon);
+                } else {
+                    name = xmlName;
+                }
+                
+                //FIXME Currently creates a new ExpressionFactory each time, this is terrible.
+                //TODO this parsing must be factored out to the compile stage
+                Expression expression = CompositeExpression.parse(
+                        xmlValue, new JexlExpressionFactory()
+                    );
+                
                 Object value;
-
+                
                 if ( Expression.class.isAssignableFrom( dynaTag.getAttributeType(name) ) ) {
                     value = expression;
                 } else {
                     value = expression.evaluate(context);
                 }
-
-                if( expat.prefix != null && expat.prefix.length() > 0 && tag instanceof StaticTag )
+                
+                if( prefix != null && tag instanceof StaticTag )
                 {
-                    ((StaticTag) dynaTag).setAttribute(name,expat.prefix, expat.nsURI,value);
+                    ((StaticTag) dynaTag).setAttribute(name, prefix, attrs.getURI(i),value);
                 }
                 else
                 {
                     dynaTag.setAttribute(name, value);
                 }
+                
             }
 
             tag.doTag(output);
@@ -115,6 +132,8 @@ public class StaticTagScript extends TagScript {
             handleException(e);
         }
         catch (RuntimeException e) {
+            handleException(e);
+        } catch (JellyException e) {
             handleException(e);
         } finally {
             context.setCurrentURL(currentURL);

@@ -1045,25 +1045,13 @@ public class XMLParser extends DefaultHandler {
                 }
             );
             configureTagScript(script);
-
-            // now iterate through through the expressions
-            int size = list.getLength();
-            for (int i = 0; i < size; i++) {
-                String attributeValue = list.getValue(i);
-                Expression expression = CompositeExpression.parse(
-                        attributeValue, getExpressionFactory()
-                    );
-                String attrQName = list.getQName(i);
-                int p = attrQName.indexOf(':');
-                String prefix = p>=0 ?
-                        attrQName.substring(0,p):
-                        "";
-                script.addAttribute(list.getLocalName(i),
-                        prefix, list.getURI(i), expression);
-            }
+            
+            //clone the attributes to keep them around after this parse
+            script.setSaxAttributes(new AttributesImpl(list));
+            
             return script;
         }
-        catch (Exception e) {
+        catch (RuntimeException e) {
             log.warn(
                 "Could not create static tag for URI: "
                     + namespaceURI
