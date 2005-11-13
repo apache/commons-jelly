@@ -535,7 +535,7 @@ public class TagScript implements Script {
      */
     protected void clearTag() {
         Thread t = Thread.currentThread();
-        threadLocalTagCache.put(t,null);
+        threadLocalTagCache.remove(t);
     }
 
     /**
