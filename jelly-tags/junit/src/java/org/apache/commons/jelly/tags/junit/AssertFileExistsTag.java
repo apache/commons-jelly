@@ -40,6 +40,11 @@ public class AssertFileExistsTag extends AssertTagSupport
 	public void doTag(XMLOutput output) throws JellyTagException
     {
         String message = getBodyText();
+        if (message == null || message.length() == 0)
+        {
+            message = "File does not exist."
+        }
+
         
         if (file == null)
         {
