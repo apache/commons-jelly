@@ -128,11 +128,11 @@
   </test:case>
 -->
 
-  <test:case>
-    <test:assertFileExists file="${basedir}/project.xml"/>
+  <test:case name="assertFileExists">
+    <test:assertFileExists file="${basedir}/project.xml">Project file not found</test:assertFileExists>
 
     <test:assertThrows var="ex">
-      <test:assertFileExists file="${basedir}/dummydummy"/>
+      <test:assertFileExists file="${basedir}/dummydummy">Bad file</test:assertFileExists>
     </test:assertThrows>
     <test:assert test="${ex != null}">No exception thrown for bad file</test:assert>
   </test:case>
