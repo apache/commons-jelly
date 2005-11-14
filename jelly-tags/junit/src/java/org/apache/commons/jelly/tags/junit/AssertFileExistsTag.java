@@ -42,7 +42,7 @@ public class AssertFileExistsTag extends AssertTagSupport
         String message = getBodyText();
         if (message == null || message.length() == 0)
         {
-            message = "File does not exist."
+            message = "File does not exist.";
         }
 
         
