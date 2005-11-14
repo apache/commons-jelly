@@ -20,6 +20,7 @@ import java.io.File;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.tags.junit.FailTag;
 
 /**
  * Checks that a file exists, and if not, then the test will fail.
@@ -45,8 +46,19 @@ public class AssertFileExistsTag extends AssertTagSupport
         {
             fail(message, "file given is null");
         }
+        else
+        {
+            if (!file.exists())
+            {
+                fail(message);
+            }
+        }
 	}
     
+    /**
+     * The file to be tested. If this file exists, the test will pass.
+     * @param aFile the file to test.
+     */
     public void setFile(File aFile)
     {
         file = aFile;
