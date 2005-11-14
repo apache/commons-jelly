@@ -25,7 +25,7 @@ import org.apache.commons.jelly.expression.Expression;
  * Checks that a file cant be found.
  *
  * @author <a href="mailto:dion@apache.org">Dion Gillard</a>
- * @version $Revision: 344020 $
+ * @version $Revision$
  */
 public class AssertFileNotFoundTag extends AssertTagSupport
 {
