@@ -43,6 +43,7 @@ public class JUnitTagLibrary extends TagLibrary {
         registerTag("assert", AssertTag.class);
         registerTag("assertEquals", AssertEqualsTag.class);
         registerTag("assertFileExists", AssertFileExistsTag.class);
+        registerTag("assertFileNotFound", AssertFileNotFoundTag.class);
         registerTag("assertThrows", AssertThrowsTag.class);
         registerTag("fail", FailTag.class);
         registerTag("run", RunTag.class );

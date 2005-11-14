@@ -137,4 +137,13 @@
     <test:assert test="${ex != null}">No exception thrown for bad file</test:assert>
   </test:case>
 
+
+  <test:case name="assertFileNotFound">
+    <test:assertFileNotFound file="${basedir}/dummydummy">Dummy file found</test:assertFileNotFound>
+
+    <test:assertThrows var="ex">
+      <test:assertFileNotFound file="${basedir}/project.xml">Bad file</test:assertFileNotFound>
+    </test:assertThrows>
+    <test:assert test="${ex != null}">No exception thrown for file that exists</test:assert>
+  </test:case>
 </test:suite>
