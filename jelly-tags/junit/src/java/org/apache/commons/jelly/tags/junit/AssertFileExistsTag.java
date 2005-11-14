@@ -20,7 +20,6 @@ import java.io.File;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.tags.junit.FailTag;
 
 /**
  * Checks that a file exists, and if not, then the test will fail.
