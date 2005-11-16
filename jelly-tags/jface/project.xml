@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-jface</id>
   <name>commons-jelly-tags-jface</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.jface</package>
   <description>This is a Jelly interface for jface.</description>
   <shortDescription>Commons Jelly jface Tag Library</shortDescription>
