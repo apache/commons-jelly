@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-jetty</id>
   <name>commons-jelly-tags-jetty</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.jetty</package>
   <description>These are Jelly tags that can set up an in-process web server.</description>
   <shortDescription>Commons Jelly Jetty Tag Library</shortDescription>
