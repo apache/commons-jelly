@@ -18,7 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-quartz</id>
   <name>commons-jelly-tags-quartz</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.quartz</package>
 
   <description>
