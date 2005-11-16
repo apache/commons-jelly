@@ -18,7 +18,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-dynabean</id>
   <name>commons-jelly-tags-dynabean</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
 
   <package>org.apache.commons.jelly.tags.dynabean</package>
 
