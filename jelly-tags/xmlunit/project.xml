@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-xmlunit</id>
   <name>commons-jelly-tags-xmlunit</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.xmlunit</package>
   <description>This is a Jelly interface for unit testing XML applications.</description>
   <shortDescription>Commons Jelly XMLUnit Tag Library</shortDescription>
