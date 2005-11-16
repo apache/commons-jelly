@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-validate</id>
   <name>commons-jelly-tags-validate</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.validate</package>
   <description>This is a Jelly interface for XML validation.</description>
   <shortDescription>Commons Jelly Validate Tag Library</shortDescription>
