@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <id>commons-jelly-tags-html</id>
   <name>commons-jelly-tags-html</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.html</package>
   <description>These Jelly tags can scrub commons errors in HTML syntax.</description>
   <shortDescription>Commons Jelly HTML Tag Library</shortDescription>
