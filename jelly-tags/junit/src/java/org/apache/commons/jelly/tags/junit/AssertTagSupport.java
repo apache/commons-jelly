@@ -117,4 +117,243 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertFalse(DEFAULT_MESSAGE, actual);
     }
+    
+    /**
+     * Fail if !expected.equals(actual). If expected is null, actual must be.
+     * @param message failure message.
+     * @param expected expected value.
+     * @param actual actual value to compare against expected.
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertEquals(String message, Object expected, Object actual)
+        throws JellyAssertionFailedError
+    {
+        if (expected == null)
+        {
+            assertTrue(message, actual == null);
+        }
+        else
+        {
+            assertTrue(message, expected.equals(actual));
+        }
+    }
+
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(Object expected, Object actual)
+    throws JellyAssertionFailedError
+    {
+        assertEquals(DEFAULT_MESSAGE, expected, actual);
+    }
+    
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(String message, boolean expected, boolean actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(boolean expected, boolean actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+    
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(String message, byte expected, byte actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(byte expected, byte actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(String message, char expected, char actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(char expected, char actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(String message, double expected, double actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(double expected, double actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(String message, float expected, float actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(float expected, float actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(String message, int expected, int actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(int expected, int actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(String message, long expected, long actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(long expected, long actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(String message, short expected, short actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(short expected, short actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+
+    /**
+     * Fail if actual is not null
+     * @param message failure message
+     * @param actual value to check
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertNull(String message, Object actual)
+    {
+        assertTrue(message, actual == null);
+    }
+    /**
+     * @see assertNull(String, Object)
+     */
+    protected void assertNull(Object actual)
+    {
+        assertNull(DEFAULT_MESSAGE, actual);
+    }
+
+    /**
+     * Fail if actual is null
+     * @param message failure message
+     * @param actual value to check
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertNotNull(String message, Object actual)
+    {
+        assertTrue(message, actual != null);
+    }
+    /**
+     * @see assertNotNull(String, Object)
+     */
+    protected void assertNotNull(Object actual)
+    {
+        assertNotNull(DEFAULT_MESSAGE, actual);
+    }
+
+    /**
+     * Fail if expected != actual. If expected is null, actual must not be.
+     * @param message failure message.
+     * @param expected expected value.
+     * @param actual actual value to compare against expected.
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertSame(String message, Object expected, Object actual)
+        throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertSame(String, Object, Object)
+     */
+    protected void assertSame(Object expected, Object actual)
+    throws JellyAssertionFailedError
+    
+    {
+        assertSame(DEFAULT_MESSAGE, expected, actual);
+    }
+
+    /**
+     * Fail if expected == actual. If expected is null, actual must be.
+     * @param message failure message.
+     * @param expected expected value.
+     * @param actual actual value to compare against expected.
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertNotSame(String message, Object expected, Object actual)
+        throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected != actual);
+    }
+    /**
+     * @see #assertNotSame(String, Object, Object)
+     */
+    protected void assertNotSame(Object expected, Object actual)
+    throws JellyAssertionFailedError
+    
+    {
+        assertNotSame(DEFAULT_MESSAGE, expected, actual);
+    }
 }

@@ -53,10 +53,7 @@ public class AssertFileExistsTag extends AssertTagSupport
         }
         else
         {
-            if (!file.exists())
-            {
-                fail(message);
-            }
+            assertTrue(message, file.exists());
         }
 	}
     

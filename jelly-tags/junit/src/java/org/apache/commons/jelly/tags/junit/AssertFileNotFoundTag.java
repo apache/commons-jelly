@@ -53,10 +53,7 @@ public class AssertFileNotFoundTag extends AssertTagSupport
         }
         else
         {
-            if (file.exists())
-            {
-                fail(message);
-            }
+            assertFalse(message, file.exists());
         }
     }
     

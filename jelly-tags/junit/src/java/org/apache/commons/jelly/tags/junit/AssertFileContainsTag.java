@@ -79,10 +79,7 @@ public class AssertFileContainsTag extends AssertTagSupport
                         }
                     }
                     br.close();
-                    if (!found)
-                    {
-                        fail(message);
-                    }
+                    assertTrue(message, found);
                 }
                 catch (IOException fnfe)
                 {
