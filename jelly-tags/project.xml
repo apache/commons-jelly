@@ -17,9 +17,10 @@
 
 <project>
   <pomVersion>3</pomVersion>
-  <id>commons-jelly-tags</id>
+  <groupId>commons-jelly</groupId>
+  <artifactId>commons-jelly-tags</artifactId>
   <name>Jelly Library Master Maven POM</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
 
   <organization>
     <name>Apache Software Foundation</name>
@@ -72,16 +73,15 @@
       </includes>
     </unitTest>
 
-    <!-- Integration unit test classes -->
-    <integrationUnitTestPatterns></integrationUnitTestPatterns>
-    
     <resources>
-      <includes>
-        <include>**/*.properties</include>
-      </includes>
+      <resource>
+        <directory>${basedir}</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
     </resources>
     
-    <jars></jars>
   </build>
 
 </project>
