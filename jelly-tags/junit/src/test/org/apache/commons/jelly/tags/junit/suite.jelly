@@ -146,4 +146,16 @@
     </test:assertThrows>
     <test:assert test="${ex != null}">No exception thrown for file that exists</test:assert>
   </test:case>
+  
+  <test:case name="assertFileContains">
+    <!--  check that the pom contains a name element -->
+    <test:assertFileContains file="${basedir}/project.xml" match="&lt;name&gt;commons-jelly-tags-junit">Couldn't find name in pom</test:assertFileContains>
+    
+    <test:assertThrows var="ex" expected="org.apache.commons.jelly.tags.junit.JellyAssertionFailedError">
+      <test:assertFileContains file="${basedir}/project.xml" match="DUMMY">Bad contents</test:assertFileContains>
+    </test:assertThrows>
+    
+    message=${ex.message}
+    <test:assert test="${ex != null and ex.message != null}"/>
+  </test:case>
 </test:suite>

@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0.1-SNAPSHOT" date="in SVN">
+      <action dev="dion" type="add">Added assertFileContains tag</action>
       <action dev="dion" type="add">Added assertFileNotFound tag</action>
       <action dev="dion" type="add">Added assertFileExists tag</action>
     </release>
