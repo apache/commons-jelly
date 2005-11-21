@@ -26,6 +26,9 @@ import org.apache.commons.jelly.xpath.XPathTagSupport;
  */
 public abstract class AssertTagSupport extends XPathTagSupport {
 
+    /** the default message to display if none is given */
+    private static String DEFAULT_MESSAGE = "assertion failed";
+    
     public AssertTagSupport() {
     }
 
@@ -34,13 +37,23 @@ public abstract class AssertTagSupport extends XPathTagSupport {
 
     /**
      * Produces a failure assertion with the given message
+     * @throws JellyAssertionFailedError to signify failure
      */
     protected void fail(String message) throws JellyAssertionFailedError {
         throw new JellyAssertionFailedError(message);
     }
 
     /**
+     * Produces a failure assertion with a default message
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void fail() throws JellyAssertionFailedError {
+        throw new JellyAssertionFailedError(DEFAULT_MESSAGE);
+    }
+
+    /**
      * Produces a failure assertion with the given message and added detail.
+     * @throws JellyAssertionFailedError to signify failure
      */
     protected void fail(String message, String detail) throws JellyAssertionFailedError {
         if (message == null || message.length() == 0) {
@@ -53,6 +66,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
 
     /**
      * Produces a failure if the actual value was not equal to the expected value
+     * @throws JellyAssertionFailedError if expected != actual.
      */
     protected void failNotEquals(String message, Object expected, Object actual, String expressions) throws JellyAssertionFailedError {
         String formatted= "";
@@ -61,5 +75,46 @@ public abstract class AssertTagSupport extends XPathTagSupport {
         }
         fail(formatted + "expected:[" + expected + "] but was:[" + actual + "]" + expressions);
     }
+    
+    /**
+     * Fail if actual is not true
+     * @param message failure message
+     * @param actual value to test
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertTrue(String message, boolean actual) throws JellyAssertionFailedError
+    {
+        if (!actual) fail(message);
+    }
+    
+    /**
+     * Fail if actual is not true
+     * @param actual value to test
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertTrue(boolean actual) throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, actual);
+    }
 
+    /**
+     * Fail if actual is true
+     * @param message failure message
+     * @param actual value to test
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertFalse(String message, boolean actual) throws JellyAssertionFailedError
+    {
+        if (actual) fail(message);
+    }
+    
+    /**
+     * Fail if actual is true
+     * @param actual value to test
+     * @throws JellyAssertionFailedError to signify failure
+     */
+    protected void assertFalse(boolean actual) throws JellyAssertionFailedError
+    {
+        assertFalse(DEFAULT_MESSAGE, actual);
+    }
 }
