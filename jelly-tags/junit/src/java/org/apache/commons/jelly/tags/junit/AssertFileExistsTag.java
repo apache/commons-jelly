@@ -18,6 +18,7 @@ package org.apache.commons.jelly.tags.junit;
 import java.io.File;
 
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
@@ -48,7 +49,7 @@ public class AssertFileExistsTag extends AssertTagSupport
         
         if (file == null)
         {
-            fail(message, "file given is null");
+            throw new MissingAttributeException("file");
         }
         else
         {
