@@ -155,7 +155,6 @@
       <test:assertFileContains file="${basedir}/project.xml" match="DUMMY">Bad contents</test:assertFileContains>
     </test:assertThrows>
     
-    message=${ex.message}
     <test:assert test="${ex != null and ex.message != null}"/>
   </test:case>
 </test:suite>
