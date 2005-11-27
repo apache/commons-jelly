@@ -23,7 +23,7 @@
   -->
 
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-ant</id>
+  <artifactId>commons-jelly-tags-ant</artifactId>
   <name>commons-jelly-tags-ant</name>
   <currentVersion>1.1.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.ant</package>
@@ -45,7 +45,8 @@
     <!-- START for compilation -->
 
     <dependency>
-      <id>ant</id>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
       <version>1.6.5</version>
     </dependency>
     <dependency>
@@ -66,17 +67,24 @@
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/libs/junit/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-util</artifactId>
       <version>1.1.1</version>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     <!-- END for testing -->
     <!-- START for running demos -->
 
     <dependency>
-      <id>commons-cli</id>
+      <groupId>commons-cli</groupId>
+      <artifactId>commons-cli</artifactId>
       <version>1.0</version>
     </dependency>
     <!-- END for running demos -->
