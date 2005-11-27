@@ -101,12 +101,12 @@
     <mkdir dir="${classesdir}/META-INF">
     </mkdir>
     <copy todir="${classesdir}/META-INF">
-      <fileset dir="${basedir}/C:/source/jakarta/jakarta-commons/all/jelly/jelly-tags">
+      <fileset dir="${basedir}/../../">
         <include name="NOTICE.txt">
         </include>
       </fileset>
     </copy>
-    <copy todir="${classesdir}/META-INF" file="${basedir}/C:/source/jakarta/jakarta-commons/all/jelly/LICENSE.txt">
+    <copy todir="${classesdir}/META-INF" file="${basedir}/../../LICENSE.txt">
     </copy>
   </target>
   <target name="jar" description="o Create the jar" depends="compile,test">
