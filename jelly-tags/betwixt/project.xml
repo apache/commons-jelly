@@ -16,7 +16,7 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-betwixt</id>
+  <artifactId>commons-jelly-tags-betwixt</artifactId>
   <name>commons-jelly-tags-betwixt</name>
   <currentVersion>1.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.betwixt</package>
@@ -38,13 +38,15 @@
 
     <!-- START for compilation -->
     <dependency>
-      <id>commons-betwixt</id>
+      <groupId>commons-betwixt</groupId>
+      <artifactId>commons-betwixt</artifactId>
       <version>0.6</version>
       <url>http://jakarta.apache.org/commons/betwixt/</url>
     </dependency>
     
     <dependency>
-      <id>commons-digester</id>
+      <groupId>commons-digester</groupId>
+      <artifactId>commons-digester</artifactId>
       <version>1.6</version>
       <url>http://jakarta.apache.org/commons/digester/</url>
     </dependency>
@@ -58,6 +60,9 @@
       <artifactId>commons-jelly-tags-log</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
       
     <dependency>
@@ -65,6 +70,9 @@
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
 
     <!-- END for test -->

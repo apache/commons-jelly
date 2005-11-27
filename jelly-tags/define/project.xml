@@ -16,9 +16,9 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-define</id>
+  <artifactId>commons-jelly-tags-define</artifactId>
   <name>commons-jelly-tags-define</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
 
   <package>org.apache.commons.jelly.tags.define</package>
 
@@ -44,6 +44,9 @@
       <artifactId>commons-jelly-tags-dynabean</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/dynabean/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
 
     <dependency>
@@ -51,6 +54,9 @@
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
 
     <dependency>
@@ -58,6 +64,9 @@
       <artifactId>commons-jelly-tags-log</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
       
     <dependency>
@@ -65,6 +74,9 @@
       <artifactId>commons-jelly-tags-xml</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/xml/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
       
       
@@ -73,7 +85,8 @@
     <!-- START for running demos -->
 
     <dependency>
-      <id>commons-cli</id>
+      <groupId>commons-cli</groupId>
+      <artifactId>commons-cli</artifactId>
       <version>1.0</version>
     </dependency>
     

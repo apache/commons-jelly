@@ -16,7 +16,7 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-bsf</id>
+  <artifactId>commons-jelly-tags-bsf</artifactId>
   <name>commons-jelly-tags-bsf</name>
   <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.bsf</package>
@@ -40,7 +40,8 @@
   
     <!-- START for compilation -->
     <dependency>
-      <id>bsf</id>
+      <groupId>bsf</groupId>
+      <artifactId>bsf</artifactId>
       <version>2.3.0</version>
       <url>http://jakarta.apache.org/bsf</url>
       <properties>
