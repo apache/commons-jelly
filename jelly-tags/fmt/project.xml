@@ -16,7 +16,7 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-fmt</id>
+  <artifactId>commons-jelly-tags-fmt</artifactId>
   <groupId>commons-jelly</groupId>
   <name>commons-jelly-tags-fmt</name>
   <currentVersion>1.1-SNAPSHOT</currentVersion>
@@ -43,31 +43,30 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-ant</artifactId>
       <version>1.1</version>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     
     <dependency>
-      <id>ant</id>
-      <version>1.6.2</version>
+      <groupId>ant</groupId>
+      <artifactId>ant</artifactId>
+      <version>1.6.5</version>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     
-    <dependency>
-      <groupId>commons-jelly</groupId>
-      <artifactId>commons-jelly-tags-beanshell</artifactId>
-      <version>1.0</version>
-    </dependency>
-
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
 
-    <dependency>
-      <id>bsh</id>
-      <version>1.2-b3</version>
-    </dependency>
-    
   </dependencies>
   
 </project>

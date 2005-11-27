@@ -17,7 +17,6 @@
 <test:suite xmlns:j="jelly:core" 
             xmlns:fmt="jelly:fmt"
             xmlns:m="jelly:ant"
-            xmlns:b="jelly:beanshell" 
             xmlns:test="jelly:junit" 
             xmlns:log="jelly:log">
 
