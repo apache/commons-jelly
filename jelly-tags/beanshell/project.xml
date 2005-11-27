@@ -16,7 +16,7 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-beanshell</id>
+  <artifactId>commons-jelly-tags-beanshell</artifactId>
   <name>commons-jelly-tags-beanshell</name>
   <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.beanshell</package>
@@ -40,7 +40,8 @@
   
     <!-- START for compilation -->
     <dependency>
-      <id>bsh</id>
+      <artifactId>bsh</artifactId>
+      <groupId>bsh</groupId>
       <version>1.2-b3</version>
     </dependency>
     
@@ -51,6 +52,9 @@
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/libs/junit/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
 
     <!-- END for testing -->
