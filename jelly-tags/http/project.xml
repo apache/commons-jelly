@@ -18,7 +18,7 @@
 
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-http</id>
+  <artifactId>commons-jelly-tags-http</artifactId>
   <currentVersion>1.1-SNAPSHOT</currentVersion>
   <name>commons-jelly-tags-http</name>
   <package>org.apache.commons.jelly.tags.http</package>
@@ -33,16 +33,20 @@
   </versions>
   <dependencies>
     <dependency>
-      <id>commons-httpclient</id>
-      <version>2.0</version>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>3.0-rc4</version>
     </dependency>
+    
     <!--  testing -->
-
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-define</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/define/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
   </dependencies>
 </project>
