@@ -16,7 +16,7 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-antlr</id>
+  <artifactId>commons-jelly-tags-antlr</artifactId>
   <name>commons-jelly-tags-antlr</name>
   <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.antlr</package>
@@ -38,7 +38,8 @@
 
     <!-- START for compilation -->
     <dependency>
-      <id>antlr</id>
+      <artifactId>antlr</artifactId>
+      <groupId>antlr</groupId>
       <version>2.7.1</version>
       <jar>antlrall-2.7.1.jar</jar>
     </dependency>
