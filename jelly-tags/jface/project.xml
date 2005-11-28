@@ -18,7 +18,7 @@
 
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-jface</id>
+  <artifactId>commons-jelly-tags-jface</artifactId>
   <name>commons-jelly-tags-jface</name>
   <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.jface</package>
@@ -42,7 +42,8 @@
     <!-- swt library -->
 
     <dependency>
-      <id>swt</id>
+      <groupId>swt</groupId>
+      <artifactId>swt</artifactId>
       <!-- don't know how to support OS-dependent jars in Maven yet -->
 
       <version>win32-2.1.0</version>
@@ -54,7 +55,8 @@
     <!-- jface libraries -->
 
     <dependency>
-      <id>eclipse+boot</id>
+      <groupId>eclipse</groupId>
+      <artifactId>eclipse-boot</artifactId>
       <version>2.1.0</version>
       <properties>
         <gump.project>eclipse</gump.project>
@@ -62,7 +64,8 @@
       </properties>
     </dependency>
     <dependency>
-      <id>eclipse+jface</id>
+      <groupId>eclipse</groupId>
+      <artifactId>eclipse-jface</artifactId>
       <version>2.1.0</version>
       <properties>
         <gump.project>eclipse</gump.project>
@@ -70,7 +73,8 @@
       </properties>
     </dependency>
     <dependency>
-      <id>eclipse+runtime</id>
+      <groupId>eclipse</groupId>
+      <artifactId>eclipse-runtime</artifactId>
       <version>2.1.0</version>
       <properties>
         <gump.project>eclipse</gump.project>
@@ -81,7 +85,8 @@
     <!-- START for running demos -->
 
     <dependency>
-      <id>commons-cli</id>
+      <groupId>commons-cli</groupId>
+      <artifactId>commons-cli</artifactId>
       <version>1.0</version>
     </dependency>
     <dependency>
