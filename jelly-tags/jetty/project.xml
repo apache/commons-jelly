@@ -18,7 +18,7 @@
 
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-jetty</id>
+  <artifactId>commons-jelly-tags-jetty</artifactId>
   <name>commons-jelly-tags-jetty</name>
   <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.jetty</package>
@@ -38,14 +38,17 @@
 
     <!-- http taglib -->
     <dependency>
-      <id>commons-httpclient</id>
-      <version>2.0</version>
-      <properties>
+      <groupId>commons-httpclient</groupId>
+      <artifactId>commons-httpclient</artifactId>
+      <version>3.0-rc4</version>
+      <!-- replace below once we work out what the 3.0 stuff is in Gump
+      properties>
         <gump.project>commons-httpclient-2.0-branch</gump.project>
-      </properties>
+      </properties-->
     </dependency>
     <dependency>
-      <id>jetty</id>
+      <groupId>jetty</groupId>
+      <artifactId>jetty</artifactId>
       <version>4.2.3</version>
       <properties>
         <gump.project>jetty4</gump.project>
@@ -54,31 +57,43 @@
     <!-- END for compilation -->
 
     <!-- for testing -->
-
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-http</artifactId>
       <version>1.0</version>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     <!-- PL: Commented out as it might be this is part of JDK 1.4...
     <dependency>
-      <id>jsse</id>
+      <groupId>jsse</groupId>
+      <artifactId>jsse</artifactId>
       <version>1.0.3</version>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
 
     <dependency>
-      <id>jsse+jnet</id>
+      <groupId>jsse</groupId>
+      <artifactId>jsse-jnet</artifactId>
       <version>1.0.3</version>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency> -->
     <!-- END for testing -->
+    
     <!-- for runtime -->
-
     <dependency>
-      <id>servletapi</id>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
       <version>2.2</version>
       <url>http://jakarta.apache.org/tomcat/</url>
       <properties>
         <gump.project>jakarta-servletapi-5-servlet</gump.project>
+        <scope>provided</scope>
       </properties>
     </dependency>
     <!-- END for runtime -->
