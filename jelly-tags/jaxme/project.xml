@@ -19,9 +19,9 @@
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
   <pomVersion>3</pomVersion>
-  <id>commons-jelly-tags-jaxme</id>
+  <artifactId>commons-jelly-tags-jaxme</artifactId>
   <name>commons-jelly-tags-jaxme</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <inceptionYear>2004</inceptionYear>
   <package>org.apache.commons.jelly.tags.jaxme</package>
   <logo/>
@@ -36,7 +36,8 @@
   </versions>
   <dependencies>
     <dependency>
-      <id>commons-logging</id>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
       <version>1.0.3</version>
     </dependency>
     <!-- TODO: These versions probably want updating -->
