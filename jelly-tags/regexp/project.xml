@@ -16,7 +16,7 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-regexp</id>
+  <artifactId>commons-jelly-tags-regexp</artifactId>
   <name>commons-jelly-tags-regexp</name>
   <currentVersion>1.0</currentVersion>
   <package>org.apache.commons.jelly.tags.regexp</package>
