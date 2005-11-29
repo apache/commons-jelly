@@ -16,7 +16,7 @@
 -->
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-ojb</id>
+  <artifactId>commons-jelly-tags-ojb</artifactId>
   <name>commons-jelly-tags-ojb</name>
   <currentVersion>1.0</currentVersion>
 
@@ -39,7 +39,8 @@
     
     <!-- ojb taglib -->
     <dependency>
-      <id>ojb</id>
+      <groupId>ojb</groupId>
+      <artifactId>ojb</artifactId>
       <version>0.9.6</version>
       <properties>
         <gump.project>db-ojb-from-packages</gump.project>
@@ -47,7 +48,8 @@
     </dependency>
     
     <dependency>
-      <id>commons-lang</id>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
       <version>1.0</version>
     </dependency>
     
