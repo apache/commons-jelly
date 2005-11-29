@@ -20,7 +20,7 @@
     not run this script outside of the base directory
   -->
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-memory</id>
+  <artifactId>commons-jelly-tags-memory</artifactId>
   <name>commons-jelly-tags-memory</name>
   <currentVersion>1.0-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.memory</package>
