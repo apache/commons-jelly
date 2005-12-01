@@ -18,7 +18,7 @@
 
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-xmlunit</id>
+  <artifactId>commons-jelly-tags-xmlunit</artifactId>
   <name>commons-jelly-tags-xmlunit</name>
   <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.xmlunit</package>
@@ -34,13 +34,15 @@
   <dependencies>
     <!-- START for compilation -->
     <dependency>
-      <id>xmlunit</id>
+      <groupId>xmlunit</groupId>
+      <artifactId>xmlunit</artifactId>
       <version>0.8</version>
     </dependency>
     <!-- for some reason I had to add this in or the 1.3.1 compiler barfed -->
 
     <dependency>
-      <id>junit</id>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
       <version>3.8.1</version>
     </dependency>
     <!-- END for compilation -->
@@ -51,16 +53,26 @@
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-xml</artifactId>
       <version>1.0</version>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     <dependency>
-      <id>xalan</id>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
       <version>2.3.1</version>
       <url>http://xml.apache.org/xalan-j/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     <!-- END for testing -->
 

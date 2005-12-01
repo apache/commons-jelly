@@ -18,7 +18,7 @@
 
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-xml</id>
+  <artifactId>commons-jelly-tags-xml</artifactId>
   <name>commons-jelly-tags-xml</name>
   <currentVersion>1.2-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.xml</package>
@@ -38,14 +38,16 @@
   </versions>
   <dependencies>
     <dependency>
-      <id>commons-jelly</id>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly</artifactId>
       <version>SNAPSHOT</version>
     </dependency>
     
     <!-- run time / in testing-->
 
     <dependency>
-      <id>xalan</id>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
       <version>2.3.1</version>
     </dependency>
     <dependency>
@@ -53,6 +55,9 @@
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/libs/junit/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
   </dependencies>
 </project>
