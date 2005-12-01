@@ -18,7 +18,7 @@
 
 <project>
   <extend>${basedir}/../tag-project.xml</extend>
-  <id>commons-jelly-tags-util</id>
+  <artifactId>commons-jelly-tags-util</artifactId>
   <name>commons-jelly-tags-util</name>
   <currentVersion>1.1.2-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.util</package>
@@ -44,7 +44,8 @@
   <dependencies>
     <!-- START for compilation -->
     <dependency>
-      <id>commons-lang</id>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
       <version>2.0</version>
     </dependency>
     <dependency>
@@ -61,6 +62,9 @@
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
       <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+      <properties>
+        <scope>test</scope>
+      </properties>
     </dependency>
     <!-- END for test -->
 
