@@ -63,6 +63,13 @@
       </properties>
     </dependency>
       
+    <!-- For jelly-tags-interaction 1.1-SNAPSHOT in gump. ugh -->
+    <dependency>
+      <groupId>jline</groupId>
+      <artifactId>jline</artifactId>
+      <version>0.9.0</version>
+    </dependency>
+      
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
