@@ -24,6 +24,10 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+    <release version="1.1.2-SNAPSHOT" date="on CVS">
+      <action dev="dion" type="fix" dev="felipeal" issue="JELLY-203">Fixed test case packages</action>
+      <action dev="dion" type="fix" dev="felipeal" issue="JELLY-205">loadText tag was adding a new line to files that does not ends with one</action>
+    </release>
     <release version="1.1.1" date="2005-01-01">
       <action dev="dion" type="fix" due-to="Stefan Bodewig">Handle null encoding in loadText tag</action>
     </release>

@@ -15,10 +15,8 @@
  */
 package org.apache.commons.jelly.tags.util;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.FileInputStream;
@@ -179,19 +177,17 @@ public class LoadTextTag extends TagSupport {
     protected String loadText(Reader reader) throws IOException {
         StringBuffer buffer = new StringBuffer();
 
-        // @todo its probably more efficient to use a fixed char[] buffer instead
         try {
-            BufferedReader bufferedReader = new BufferedReader(reader);
-            while (true) {
-                String line = bufferedReader.readLine();
-                if (line == null) {
-                    break;
-                }
-                else {
-                    buffer.append(line);
-                    buffer.append('\n');
-                }
-            }
+            char[] charBuffer = new char[ 4096 ];
+            int read;
+            
+            do {
+            	read = reader.read( charBuffer );
+            	if ( read > 0 ) {
+            		buffer.append( charBuffer, 0, read );
+            	}
+            } while ( read > 0);
+            
             return buffer.toString();
         }
         finally {

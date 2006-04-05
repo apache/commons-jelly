@@ -191,9 +191,9 @@
   <test:case name="testSortBean">
     <j:new var="testCollection" className="java.util.ArrayList"/>
 
-    <j:useBean var="cust1" class="org.apache.commons.jelly.util.Customer" city="Sydney" location="Australia" name="Fred Nerk"/>
-    <j:useBean var="cust2" class="org.apache.commons.jelly.util.Customer" city="Melbourne" location="Australia" name="Joe Nerk"/>
-    <j:useBean var="cust3" class="org.apache.commons.jelly.util.Customer" city="San Francisco" location="U.S.A." name="Colette Cool"/>
+    <j:useBean var="cust1" class="org.apache.commons.jelly.tags.util.Customer" city="Sydney" location="Australia" name="Fred Nerk"/>
+    <j:useBean var="cust2" class="org.apache.commons.jelly.tags.util.Customer" city="Melbourne" location="Australia" name="Joe Nerk"/>
+    <j:useBean var="cust3" class="org.apache.commons.jelly.tags.util.Customer" city="San Francisco" location="U.S.A." name="Colette Cool"/>
     <j:mute>
     	${testCollection.add(cust1)}
     	${testCollection.add(cust2)}
@@ -214,5 +214,47 @@
   
   </test:case>
 
+  <test:case name="testLoadTextTag">
+      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText1.txt" 
+        var="oneLineNewLine" />
+      <test:assertEquals expected="6" actual="${oneLineNewLine.length().toString()}">
+      Wrong size of loaded text (one line with newline)!
+      </test:assertEquals>
+      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText2.txt" 
+        var="oneLineNoNewLine" />
+      <test:assertEquals expected="5" actual="${oneLineNoNewLine.length().toString()}">
+      Wrong size of loaded text (one line without newline)!
+      </test:assertEquals>
+      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText3.txt" 
+        var="twoLinesNewLine" />
+      <test:assertEquals expected="11" actual="${twoLinesNewLine.length().toString()}">
+      Wrong size of loaded text (two lines with newline)!
+      </test:assertEquals>
+      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText4.txt" 
+        var="twoLinesNoNewLine" />
+      <test:assertEquals expected="10" actual="${twoLinesNoNewLine.length().toString()}">
+      Wrong size of loaded text (two lines without newline)!
+      </test:assertEquals>
+      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText5.txt" 
+        var="emptyNewLine" />
+      <test:assertEquals expected="1" actual="${emptyNewLine.length().toString()}">
+      Wrong size of loaded text (empty line with newline)!
+      </test:assertEquals>
+      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText6.txt" 
+        var="emptyNoNewLine" />
+      <test:assertEquals expected="0" actual="${emptyNoNewLine.length().toString()}">
+      Wrong size of loaded text (empty lines without newline)!
+      </test:assertEquals>
+      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText7.txt" 
+        var="bigFileNewLine" />
+      <test:assertEquals expected="10000" actual="${bigFileNewLine.length().toString()}">
+      Wrong size of loaded text (big file with newline)!
+      </test:assertEquals>
+      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText8.txt" 
+        var="bigFileNoNewLine" />
+      <test:assertEquals expected="9999" actual="${bigFileNoNewLine.length().toString()}">
+      Wrong size of loaded text (big file without newline)!
+      </test:assertEquals>
+  </test:case>
     
 </test:suite>
