@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.0.1-SNAPSHOT" date="in SVN">
+      <action dev="felipeal" type="fix" issue="JELLY-204">Better error messages when assertEquals fails</action>
       <action dev="dion" type="update">Added various assert protected methods to AssertTagSupport</action>
       <action dev="dion" type="add">Added assertFileContains tag</action>
       <action dev="dion" type="add">Added assertFileNotFound tag</action>

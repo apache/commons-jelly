@@ -47,10 +47,10 @@ public class AssertEqualsTag extends AssertTagSupport {
             return;
         }
 
-        String expressions = "\nExpected expression: "
-            + expected.getExpressionText()
-            + "\nActual expression: "
-            + actual.getExpressionText();
+        String expressions = "\nExpected expression: ("
+            + expected.getExpressionText() + ")=(" + expectedValue + ")"
+            + "\nActual expression: ("
+            + actual.getExpressionText() + ")=(" + actualValue + ")";
 
         failNotEquals(message, expectedValue, actualValue, expressions);
     }
