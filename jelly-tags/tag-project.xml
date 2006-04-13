@@ -107,6 +107,16 @@
       <id>rdonkin</id>
       <email>rdonkin@apache.org</email>
     </developer>
+    <developer>
+      <name>Felipe Leme</name>
+      <id>felipeal</id>
+      <email>jelly@felipeal.net</email>
+      <organization>Falcon Informatica</organization>
+      <timezone>-3</timezone>
+      <roles>
+        <role>itch-scratcher Jakarta PMC</role>
+      </roles>
+    </developer>
   </developers>
 
   <contributors>
