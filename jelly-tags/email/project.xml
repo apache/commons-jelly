@@ -37,6 +37,7 @@
   <dependencies>
 
     <!-- START for run time -->
+<!-- uncomment these to use Sun's API instead of Geronimo
     <dependency>
       <groupId>jaf</groupId>
       <version>1.0.2</version>
@@ -57,7 +58,21 @@
         <gump.id>javamail</gump.id>
       </properties>
     </dependency>
+-->
+<!-- comment these to use Sun's API instead of Geronimo -->
+    <dependency>
+      <groupId>geronimo-spec</groupId>
+      <artifactId>geronimo-spec-javamail</artifactId>
+      <version>1.3.1-rc5</version>
+    </dependency>
+    <dependency>
+      <groupId>geronimo-spec</groupId>
+      <artifactId>geronimo-spec-activation</artifactId>
+      <version>1.0.2-rc4</version>
+    </dependency>
+
     <!-- END for run time -->
+
 
     
   </dependencies>
