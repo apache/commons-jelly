@@ -44,11 +44,19 @@
       <version>1.0-dev-8</version>
     </dependency>
     
+<!-- uncomment these to use Sun's API instead of Geronimo
     <dependency>
       <groupId>jms</groupId>
       <artifactId>jms</artifactId>
       <version>1.0.2b</version>
       <url>http://java.sun.com/products/jms/</url>
+    </dependency>
+-->
+<!-- comment these to use Sun's API instead of Geronimo -->
+    <dependency>
+      <groupId>geronimo-spec</groupId>
+      <artifactId>geronimo-spec-jms</artifactId>
+      <version>1.0-M1</version>
     </dependency>
  
   </dependencies>
