@@ -25,6 +25,7 @@
   </properties>
   <body>
     <release version="1.1-SNAPSHOT" date="in CVS">
+      <action dev="felipeal" type="update">Replaced Sun's jars (jaxrpc and saaj) for Geronimo's equivalents.</action>
       <action dev="dion" type="add" issue="JELLY-60" due-to="Dan Diephouse">add invoke raw tag</action>
     </release>
     <release version="1.0" date="2004-09-12">
