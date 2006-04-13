@@ -98,5 +98,12 @@
     </dependency>
     <!-- END for runtime -->
 
+<!-- PS (felipeal: I'm not sure if dependency below is runtime or test only -->
+    <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+      <version>1.3</version>
+    </dependency>
+
   </dependencies>
 </project>
