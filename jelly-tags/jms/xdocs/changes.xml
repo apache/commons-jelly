@@ -25,7 +25,7 @@
   </properties>
   <body>
     <release version="SNAPSHOT" date="On CVS">
-      <action dev="felipeal" type="update">Replaced Sun's jars (javamail and jaf) for Geronimo's equivalents.</action>
+      <action dev="felipeal" type="update">Replaced a Sun (jms) for Geronimo's equivalent.</action>
     </release>
     <release version="1.0" date="2004-09-12">
     </release>
