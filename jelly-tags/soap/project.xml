@@ -86,11 +86,21 @@
       <groupId>geronimo-spec</groupId>
       <artifactId>geronimo-spec-saaj</artifactId>
       <version>1.1-rc4</version>
+      <!-- Temporary until geronimo is under gump -->
+      <properties>
+        <gump.project>ws-axis</gump.project>
+        <gump.id>axis-saaj</gump.id>
+      </properties>
     </dependency>
     <dependency>
       <groupId>geronimo-spec</groupId>
       <artifactId>geronimo-spec-jaxrpc</artifactId>
       <version>1.1-rc4</version>
+      <!-- Temporary until geronimo is under gump -->
+      <properties>
+        <gump.project>ws-axis</gump.project>
+        <gump.id>axis-jaxrpc</gump.id>
+      </properties>
     </dependency>
 
 		

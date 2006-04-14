@@ -103,6 +103,9 @@
       <groupId>commons-codec</groupId>
       <artifactId>commons-codec</artifactId>
       <version>1.3</version>
+      <properties>
+        <gump.project>commons-codec</gump.project>
+      </properties>
     </dependency>
 
   </dependencies>

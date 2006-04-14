@@ -56,6 +56,9 @@
     <dependency>
       <groupId>geronimo-spec</groupId>
       <artifactId>geronimo-spec-jms</artifactId>
+      <properties>
+        <gump.project>geronimo-spec-jms</gump.project>
+      </properties>
       <version>1.0-M1</version>
     </dependency>
  
