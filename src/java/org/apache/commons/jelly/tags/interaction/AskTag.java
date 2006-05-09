@@ -19,6 +19,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import jline.ConsoleReader;
 import jline.History;
 import jline.SimpleCompletor;
@@ -35,12 +38,11 @@ import org.apache.commons.logging.LogFactory;
   * 
   * @author <a href="mailto:smor@hasgard.net">Stéphane Mor </a>
    */
-public class AskTag extends TagSupport
-{
+public class AskTag extends TagSupport {
 
     private static Log logger = LogFactory.getLog(AskTag.class);
 
-    /** The question to ask to the user */
+    /** The question to ask to the user. */
     private String question;
 
     /**
@@ -49,14 +51,20 @@ public class AskTag extends TagSupport
      */
     private String answer = "interact.answer";
 
-    /** The default value, if the user doesn't answer */
+    /** The default value, if the user doesn't answer. */
     private String defaultInput;
 
     /** The user's input */
     private String input = "";
 
-    /** The prompt to display before the user input */
+    /** The prompt to display before the user input. */
     private String prompt = ">";
+
+    /** A list of predefined commands for tab completion. */
+    private List completor;
+    
+    /** Whether to complete with previous completions as well. */
+    private boolean useHistoryCompletor = true;
 
     private static History consoleHistory = new History();
 
@@ -72,8 +80,8 @@ public class AskTag extends TagSupport
     }
 
     /**
-     * Sets the name of the variable that will hold the answer This defaults to
-     * "interact.answer".
+     * Sets the name of the variable that will hold the answer. 
+     * This defaults to "interact.answer".
      * 
      * @param answer
      *            the name of the variable that will hold the answer
@@ -86,7 +94,7 @@ public class AskTag extends TagSupport
      * Sets the default answer to the question. If it is present, it will appear
      * inside [].
      * 
-     * @param default
+     * @param defaultInput
      *            the default answer to the question
      */
     public void setDefault(String defaultInput) {
@@ -96,7 +104,7 @@ public class AskTag extends TagSupport
     /**
      * Sets the prompt that will be displayed before the user's input.
      * 
-     * @param promt
+     * @param prompt
      *            the prompt that will be displayed before the user's input.
      */
     public void setPrompt(String prompt) {
@@ -104,7 +112,26 @@ public class AskTag extends TagSupport
     }
 
     /**
-     * Perform functionality provided by the tag
+     * Sets the list of predefined commands.
+     * 
+     * @param list
+     *            the list of commands used for tab completion.
+     */
+    public void setCompletor(List list) {
+        this.completor = list;
+    }
+    
+    /**
+     * Whether the completion should also happen on previously
+     * entered lines (default true).
+     * @param should whether it should
+     */
+    public void setUseHistoryCompletor(boolean should) {
+        this.useHistoryCompletor = should;
+    }
+
+    /**
+     * Perform functionality provided by the tag.
      * 
      * @param output
      *            the place to write output
@@ -145,10 +172,15 @@ public class AskTag extends TagSupport
                 consoleReader.setBellEnabled(false);
 
                 // add old commands as tab completion history
-                String[] oldCommands = new String[consoleHistory
-                        .getHistoryList().size()];
-                consoleHistory.getHistoryList().toArray(oldCommands);
-                consoleReader.addCompletor(new SimpleCompletor(oldCommands));
+                ArrayList oldCommandsAsList = useHistoryCompletor ?
+                    new ArrayList(consoleHistory.getHistoryList()) : new ArrayList(0);
+                // add predefined commands if given
+                if (completor != null && !completor.isEmpty()) {
+                    oldCommandsAsList.addAll(completor);
+                }
+                String[] oldCommands = new String[oldCommandsAsList.size()];
+                oldCommandsAsList.toArray(oldCommands);
+                consoleReader.addCompletor (new SimpleCompletor (oldCommands));
 
                 // read the input!
                 input = consoleReader.readLine();
