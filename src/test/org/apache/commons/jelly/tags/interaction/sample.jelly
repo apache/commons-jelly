@@ -24,7 +24,7 @@
       ${x.add('Pascal')}${x.add('Einstein')}</j:mute>
     
     <j:while test='${true}'>
-      <interaction:ask question="Name a physicist before the 20th century : " answer="answer"
+      <interaction:ask question="Name a physicist born before the 20th century : " answer="answer"
         completor="${x}"/>
 Your answer was: ${answer}
       <j:choose>
