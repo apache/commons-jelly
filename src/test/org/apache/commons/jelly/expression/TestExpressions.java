@@ -69,6 +69,17 @@ public class TestExpressions extends TestCase {
         assertExpression("ham and ${maven.home.foo} pizza", "ham and cheese pizza");
         assertExpression("${maven.home.foo.length()}", new Integer(6));
     }
+    
+    /** tests that $${xx} is output as ${xx}. This trick is ued
+        by several plugins to generate other jelly files or ant files.
+        The maven ant plugin is one of them. */
+    public void testExpressionsEvalOutput() throws Exception {
+        String expressionText = "ham and $${maven.home.foo} pizza";
+        Expression expression = CompositeExpression.parse(expressionText, factory);
+        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
+        String value = (String) expression.evaluate(context);
+        assertEquals("$${xx} should output ${xx}","ham and ${maven.home.foo} pizza",value);
+    }
 
     public void testNotConditions() throws Exception {
         context.setVariable("a", Boolean.TRUE);
