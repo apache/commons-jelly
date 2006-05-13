@@ -192,7 +192,9 @@ public class ParseTag extends TagSupport {
         }
 
         try {
-            getXMLReader().parse( new InputSource( new StringReader( text ) ) );
+            XMLReader xmlReader = getXMLReader();
+            xmlReader.setContentHandler(getJellyParser());
+            xmlReader.parse( new InputSource( new StringReader( text ) ) );
         }
         catch (Exception e) {
             throw new JellyTagException(e);
