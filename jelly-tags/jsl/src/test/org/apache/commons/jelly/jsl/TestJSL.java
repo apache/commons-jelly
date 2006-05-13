@@ -62,7 +62,6 @@ public class TestJSL extends TestCase {
         Document document = runScript( "src/test/org/apache/commons/jelly/jsl/example.jelly" );
         Element small = (Element) document.selectSingleNode("/html/body/small");
 
-        new org.dom4j.io.XMLWriter(new java.io.FileOutputStream("file.xml")).write(document);
         //assertTrue( "<small> starts with 'James Elson'", small.getText().trim().startsWith("James Elson") );
         assertEquals( "I am a title!", small.valueOf( "h2" ).trim() );
         assertEquals( "Twas a dark, rainy night...", small.valueOf( "small" ).trim() );
