@@ -129,7 +129,8 @@
                     
                     <test:assert xpath="a[@x = '1']"/>
                     
-                    <test:assert xpath="@id = $i"/>
+										<j:set var="i" value="${i.toString()}"/>
+										<test:assert xpath="@id = $i"/>
                     
                     <jsl:applyTemplates/>
                 </jsl:template>
