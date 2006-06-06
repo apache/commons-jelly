@@ -36,7 +36,7 @@
   <shortDescription>Commons Jelly Tag Library</shortDescription>
   
   <url>http://jakarta.apache.org/commons/jelly/libs/${pom.id.substring(33)}/index.html</url>
-  <issueTrackingUrl>http://issues.apache.org/jira/secure/BrowseProject.jspa?id=10012</issueTrackingUrl>
+  <issueTrackingUrl>http://issues.apache.org/jira/browse/JELLY</issueTrackingUrl>
   
   <siteAddress>cvs.apache.org</siteAddress>
   <siteDirectory>/www/jakarta.apache.org/commons/jelly/libs/${pom.id.substring(33)}/</siteDirectory>
@@ -286,7 +286,7 @@
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
-      <version>1.5</version>
+      <version>1.6.1</version>
     </dependency>
 
     <dependency>
