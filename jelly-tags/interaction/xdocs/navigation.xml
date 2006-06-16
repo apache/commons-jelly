@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project name="Interaction Tag Library">
+<project name="Jelly Interaction Tag Library">
 
   <title>Interaction Tag Library</title>
   
@@ -22,6 +22,7 @@
     <menu name="Interaction Tag Library">
       <item name="Overview"                href="/index.html"/>
       <item name="Tags"                    href="/tags.html"/>
+      <item name="Changes"                    href="/changes-report.html"/>
     </menu>
   </body>
 </project>
