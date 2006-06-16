@@ -26,10 +26,10 @@ import jline.ConsoleReader;
 import jline.History;
 import jline.SimpleCompletor;
 
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
   /**
   * Jelly Tag that asks the user a question, and puts his answer into a variable,
@@ -41,6 +41,9 @@ import org.apache.commons.logging.LogFactory;
 public class AskTag extends TagSupport {
 
     private static Log logger = LogFactory.getLog(AskTag.class);
+
+    /** The history of previous user-inputs.*/
+    private static History consoleHistory = new History();
 
     /** The question to ask to the user. */
     private String question;
@@ -54,9 +57,6 @@ public class AskTag extends TagSupport {
     /** The default value, if the user doesn't answer. */
     private String defaultInput;
 
-    /** The user's input */
-    private String input = "";
-
     /** The prompt to display before the user input. */
     private String prompt = ">";
 
@@ -66,7 +66,6 @@ public class AskTag extends TagSupport {
     /** Whether to complete with previous completions as well. */
     private boolean useHistoryCompletor = true;
 
-    private static History consoleHistory = new History();
 
     /**
      * Sets the question to ask to the user. If a "default" attribute is
@@ -149,6 +148,7 @@ public class AskTag extends TagSupport {
         }
 
         ConsoleReader consoleReader;
+        String input = null;
 
         try {
             consoleReader = new ConsoleReader();
@@ -157,9 +157,6 @@ public class AskTag extends TagSupport {
             consoleReader = null;
         }
 
-        String disableJlineProp = System.getProperty("ask.jline.disable");
-        boolean disableJline = (disableJlineProp != null && disableJlineProp
-                .equals("true"));
 
         try {
             if (consoleReader != null
@@ -172,8 +169,8 @@ public class AskTag extends TagSupport {
                 consoleReader.setBellEnabled(false);
 
                 // add old commands as tab completion history
-                ArrayList oldCommandsAsList = useHistoryCompletor ?
-                    new ArrayList(consoleHistory.getHistoryList()) : new ArrayList(0);
+                List oldCommandsAsList = useHistoryCompletor
+                    ? new ArrayList(consoleHistory.getHistoryList()) : new ArrayList(0);
                 // add predefined commands if given
                 if (completor != null && !completor.isEmpty()) {
                     oldCommandsAsList.addAll(completor);
