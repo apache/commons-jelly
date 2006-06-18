@@ -19,4 +19,9 @@
   <postGoal name="xdoc:register-reports">
     <attainGoal name="maven-linkcheck-plugin:deregister"/>  
   </postGoal>
+	
+	<preGoal name="jar:jar">
+		<copy todir="target/classes" file="../../NOTICE.txt"/>
+		<copy todir="target/classes" file="../../LICENSE.txt"/>
+	</preGoal>
 </project>
