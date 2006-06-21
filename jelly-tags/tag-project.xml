@@ -117,6 +117,13 @@
         <role>itch-scratcher Jakarta PMC</role>
       </roles>
     </developer>
+    <developer>
+      <name>Paul Libbrecht</name>
+      <email>paul@activemath.org</email>
+      <roles>
+          <role>Developer</role>
+      </roles>
+    </developer>    
   </developers>
 
   <contributors>
@@ -172,13 +179,6 @@
           <role>Developer</role>
       </roles>
     </contributor>
-    <contributor>
-      <name>Paul Libbrecht</name>
-      <email>paul@activemath.org</email>
-      <roles>
-          <role>Developer</role>
-      </roles>
-    </contributor>    
     <contributor>
       <name>Jim Birchfield</name>
       <email>jim.birchfield@genscape.com</email>
