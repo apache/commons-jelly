@@ -30,7 +30,7 @@
     <dependency>
       <groupId>commons-jexl</groupId>
       <artifactId>commons-jexl</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     
     <dependency>
