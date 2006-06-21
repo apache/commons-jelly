@@ -20,7 +20,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <artifactId>commons-jelly-tags-interaction</artifactId>
   <name>commons-jelly-tags-interaction</name>
-  <currentVersion>1.1-RC1</currentVersion>
+  <currentVersion>1.1</currentVersion>
   <package>org.apache.commons.jelly.tags.interaction</package>
   <description>This is a Jelly interface to the user.</description>
   <shortDescription>Commons Jelly Interaction Tag Library</shortDescription>
