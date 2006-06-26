@@ -53,7 +53,10 @@ public class AntJellyContext extends JellyContext {
         }
 
         if ( log.isDebugEnabled() ) {
-            log.debug( "Looking up variable: " + name + " answer: " + answer );
+            String answerString = null;
+            try { answerString = answer.toString(); } catch(Exception ex) {}
+            if(answerString==null && answer!=null) answerString = " of class " + answer.getClass();
+            log.debug( "Looking up variable: " + name + " answer: " + answerString );
         }
 
         return answer;

@@ -245,7 +245,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                     try {
                         if (log.isDebugEnabled()) {
                             log.debug("About to set the: " + tagName
-                                + " property on: " + parentObject + " to value: "
+                                + " property on: " + safeToString(parentObject) + " to value: "
                                 + nested + " with type: " + nested.getClass()
                             );
                         }
@@ -263,7 +263,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                         BeanUtils.setProperty( parentObject, tagName, nested );
                     }
                     catch (Exception e) {
-                        log.debug("Caught exception trying to set property: " + tagName + " on: " + parentObject);
+                        log.debug("Caught exception trying to set property: " + tagName + " on: " + safeToString(parentObject));
                     }
                 }
             }
@@ -351,7 +351,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     public void setBeanProperty(Object object, String name, Object value) throws JellyTagException {
         if ( log.isDebugEnabled() ) {
-            log.debug( "Setting bean property on: "+  object + " name: " + name + " value: " + value );
+            log.debug( "Setting bean property on: "+  safeToString(object )+ " name: " + name + " value: " + safeToString(value));
         }
 
         IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
@@ -394,7 +394,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         if ( object != null ) {
             IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
 
-            if ( ih != null ) {
+            if ( ih != null && ! (object instanceof AntTag)) {
                 try {
                     dataType = ih.createElement( getAntProject(), object, name.toLowerCase() );
                 } catch (BuildException be) {
@@ -450,7 +450,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
             else {
                 dataType = createDataType(ctor, new Object[] { getAntProject() }, name, "an Ant project");
             }
-            if (dataType != null) {
+            if (dataType != null && dataType instanceof DataType) {
                 ((DataType)dataType).setProject( getAntProject() );
             }
         }
@@ -557,6 +557,17 @@ public class AntTag extends MapTagSupport implements TaskSource {
             tag = tag.getParent();
         }
         return null;
+    }
+
+    private String safeToString(Object o) {
+        if(o==null) return "null";
+        String r = null;
+        try {
+            r = o.toString();
+        } catch(Exception ex) {}
+        if(r == null)
+            r = "(object of class " + o.getClass() + ")";
+        return r;
     }
 
 }
