@@ -147,8 +147,7 @@ public class JellyException extends Exception implements LocationAware {
     public String getMessage() {
         if (fileName == null && lineNumber == -1 && columnNumber == -1 && elementName == null) {
             return getReason();
-        }
-        else {
+        } else {
             return fileName + ":" + lineNumber + ":" + columnNumber + ": <" + elementName + "> " + getReason();
         }
     }
