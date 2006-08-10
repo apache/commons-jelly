@@ -13,7 +13,7 @@
     <description xml:lang="en">Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
     <repository>
       <SVNRepository>
-        <browse rdf:resource="http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/jelly/trunk"/>
+        <browse rdf:resource="http://svn.apache.org/viewvc/jakarta/commons/proper/jelly/trunk"/>
         <location rdf:resource="http://svn.apache.org/repos/asf/jakarta/commons/proper/jelly"/>
       </SVNRepository>
     </repository>
