@@ -64,7 +64,7 @@
   <repository>
     <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk</connection>
     <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/jelly/trunk</url>
+    <url>http://svn.apache.org/viewvc/jakarta/commons/proper/jelly/trunk</url>
   </repository>
   <mailingLists>
     <mailingList>
