@@ -26,6 +26,7 @@
   </properties>
   <body>
     <release version="1.0.1--dev">
+      <action dev="bodewig" type="update">Adapted to API changes in XMLUnit 1.1-dev</action>
       <action dev="bodewig" type="update">Moved to XMLUnit 1.0</action>
     </release>
     <release version="1.0" date="2004-09-12"></release>

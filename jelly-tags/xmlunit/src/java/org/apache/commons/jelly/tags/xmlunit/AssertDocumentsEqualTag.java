@@ -18,7 +18,6 @@
 package org.apache.commons.jelly.tags.xmlunit;
 
 import java.io.IOException;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
@@ -81,13 +80,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
                     expectedDocument.asXML(),
                     actualDocument.asXML());
             }
-            catch (SAXException e) {
-                throw new JellyTagException(e);
-            }
-            catch (IOException e) {
-                throw new JellyTagException(e);
-            }
-            catch (ParserConfigurationException e) {
+            catch (Throwable e) {
                 throw new JellyTagException(e);
             }
 
