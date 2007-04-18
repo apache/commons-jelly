@@ -76,7 +76,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
 
             Diff delta = null;
             try {
-                delta = XMLUnit.compare(
+                delta = new Diff(
                     expectedDocument.asXML(),
                     actualDocument.asXML());
             }
