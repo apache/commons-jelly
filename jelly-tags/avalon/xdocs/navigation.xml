@@ -15,6 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!DOCTYPE org.apache.commons.menus SYSTEM 'http://jakarta.apache.org/commons/build/maven-build.dtd'>
 <project name="Avalon Integration">
 
   <title>Avalon Integration</title>
@@ -23,5 +24,6 @@
     <menu name="Avalon Integration">
       <item name="Overview"                href="/index.html"/>
     </menu>
+    &commons;
   </body>
 </project>

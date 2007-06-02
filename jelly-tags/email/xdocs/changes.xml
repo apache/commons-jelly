@@ -25,7 +25,7 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="SNAPSHOT" date="On CVS">
+    <release version="1.0.1-SNAPSHOT" date="On CVS">
       <action dev="felipeal" type="update">Replaced Sun's jars (javamail and jaf) for Geronimo's equivalents.</action>
     </release>
     <release version="1.0" date="2004-09-11">

@@ -33,6 +33,10 @@
         <!--  insert hans or other list here -->
         Please select a tag on the navigation list for more information about that tag.
       </p>
+      <p>
+        <strong>Note</strong>: the list of documented tags is currently still incomplete,
+        please refer to the individual <a href="../libs/">tag libs</a> sites.
+      </p>
     </section>
   </body>
 </document>

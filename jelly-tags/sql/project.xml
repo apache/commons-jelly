@@ -39,12 +39,14 @@
   <dependencies>
     <!-- START for compilation -->
     <!-- unneeded at least for java 1.4 -->
+    <!--
     <dependency>
       <groupId>jdbc</groupId>
       <artifactId>jdbc</artifactId>
       <version>2.0</version>
-      <!-- this is jdbc2_0-stdext.jar -->
     </dependency>
+    -->
+      <!-- this is jdbc2_0-stdext.jar -->
     
     <!-- END for compilation -->
     

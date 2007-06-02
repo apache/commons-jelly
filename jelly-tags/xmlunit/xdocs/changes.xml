@@ -25,7 +25,7 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.0.1--dev">
+    <release version="1.0.1-SNAPSHOT" date="in SVN">
       <action dev="bodewig" type="update">Adapted to API changes in XMLUnit 1.1-dev</action>
       <action dev="bodewig" type="update">Moved to XMLUnit 1.0</action>
     </release>

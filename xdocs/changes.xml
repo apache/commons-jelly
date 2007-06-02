@@ -25,7 +25,7 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.1-dev">
+    <release version="1.1-SNAPSHOT" date="in SVN">
       <action dev="proyal" type="fix">Restored JellyContext.isCacheTags and its behavior for backwards compatibility</action>
       <action dev="polx"   type="fix">Moved to dom4j 1.6.1 and jaxen 1.1-beta-8</action>
     </release>

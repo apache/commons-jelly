@@ -41,7 +41,7 @@
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly</artifactId>
-      <version>SNAPSHOT</version>
+      <version>1.0</version>
     </dependency>
     
     <!-- run time / in testing-->

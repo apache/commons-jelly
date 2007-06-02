@@ -15,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE org.apache.commons.menus SYSTEM '../../commons-build/menus/menus.dtd'>
+<!DOCTYPE org.apache.commons.menus SYSTEM 'http://jakarta.apache.org/commons/build/maven-build.dtd'>
 <project name="Jelly">
 
   <title>Jelly</title>
@@ -36,6 +36,7 @@
 	        <item name="ant:setProperty"             href="/tag-reference/ant_setProperty.html"/>
 	        <item name="antlr:antlr"                 href="/tag-reference/antlr_antlr.html"/>
 	        <item name="antlr:grammar"               href="/tag-reference/antlr_grammar.html"/>
+            <!--
 	        <item name="bean:bean"                   href="/tag-reference/example.html"/>
 	        <item name="bean:beanProperty"           href="/tag-reference/example.html"/>
 	        <item name="bean:beandef"                href="/tag-reference/example.html"/>
@@ -234,40 +235,44 @@
 	        <item name="xmlunit:actual"                   href="/tag-reference/example.html"/>
 	        <item name="xmlunit:assertDocumentsEqual"                   href="/tag-reference/example.html"/>
 	        <item name="xmlunit:expected"                   href="/tag-reference/example.html"/>
+            -->
 	      </item>
-	      <item name="Ant" href="/tag-reference/ant.html"/>
-	      <item name="Antlr" href="/tag-reference/antlr.html"/>
-	      <item name="Bean" href="/tag-reference/bean.html"/>
-	      <item name="BeanShell" href="/tag-reference/beanshell.html"/>
-	      <item name="Betwixt" href="/tag-reference/betwixt.html"/>
-	      <item name="BSF" href="/tag-reference/bsf.html"/>
-	      <item name="Define" href="/tag-reference/define.html"/>
-	      <item name="DynaBean" href="/tag-reference/dynabean.html"/>
-	      <item name="Email" href="/tag-reference/email.html"/>
-	      <item name="Format" href="/tag-reference/fmt.html"/>
-	      <item name="HTML" href="/tag-reference/html.html"/>
-	      <item name="HTTP" href="/tag-reference/http.html"/>
-	      <item name="Interaction" href="/tag-reference/interaction.html"/>
-	      <item name="JaxMe" href="/tag-reference/jaxme.html"/>
-	      <item name="Jetty" href="/tag-reference/jetty.html"/>
-	      <item name="JFace" href="/tag-reference/jface.html"/>
-	      <item name="JMS" href="/tag-reference/jms.html"/>
-	      <item name="JMX" href="/tag-reference/jmx.html"/>
-	      <item name="JUnit" href="/tag-reference/junit.html"/>
-	      <item name="Log" href="/tag-reference/log.html"/>
-	      <item name="OJB" href="/tag-reference/ojb.html"/>
-	      <item name="Quartz" href="/tag-reference/quartz.html"/>
-	      <item name="Regexp" href="/tag-reference/regexp.html"/>
-	      <item name="SOAP" href="/tag-reference/soap.html"/>
-	      <item name="SQL" href="/tag-reference/sql.html"/>
-	      <item name="Swing" href="/tag-reference/swing.html"/>
-	      <item name="SWT" href="/tag-reference/swt.html"/>
-	      <item name="Threads" href="/tag-reference/threads.html"/>
-	      <item name="Utility" href="/tag-reference/util.html"/>
-	      <item name="Validate" href="/tag-reference/validate.html"/>
-	      <item name="Velocity" href="/tag-reference/velocity.html"/>
-	      <item name="XML" href="/tag-reference/xml.html"/>
-	      <item name="XMLUnit" href="/tag-reference/xmlunit.html"/>
+	      <item name="Ant"          href="/libs/ant/"/>
+	      <item name="Antlr"        href="/libs/antlr/"/>
+          <item name="Avalon"       href="/libs/avalon/"/>
+	      <item name="Bean"         href="/libs/bean/"/>
+	      <item name="BeanShell"    href="/libs/beanshell/"/>
+	      <item name="Betwixt"      href="/libs/betwixt/"/>
+	      <item name="BSF"          href="/libs/bsf/"/>
+	      <item name="Define"       href="/libs/define/"/>
+	      <item name="DynaBean"     href="/libs/dynabean/"/>
+	      <item name="Email"        href="/libs/email/"/>
+	      <item name="Format"       href="/libs/fmt/"/>
+	      <item name="HTML"         href="/libs/html/"/>
+	      <item name="HTTP"         href="/libs/http/"/>
+	      <item name="Interaction"  href="/libs/interaction/"/>
+	      <item name="JaxMe"        href="/libs/jaxme/"/>
+	      <item name="Jetty"        href="/libs/jetty/"/>
+	      <item name="JFace"        href="/libs/jface/"/>
+	      <item name="JMS"          href="/libs/jms/"/>
+	      <item name="JMX"          href="/libs/jmx/"/>
+          <item name="JSL"          href="/libs/jsl/"/>
+	      <item name="JUnit"        href="/libs/junit/"/>
+	      <item name="Log"          href="/libs/log/"/>
+          <item name="Memory"       href="/libs/memory/"/>
+	      <item name="OJB"          href="/libs/ojb/"/>
+	      <item name="Quartz"       href="/libs/quartz/"/>
+	      <item name="Regexp"       href="/libs/regexp/"/>
+	      <item name="SOAP"         href="/libs/soap/"/>
+	      <item name="SQL"          href="/libs/sql/"/>
+	      <item name="Swing"        href="/libs/swing/"/>
+	      <item name="SWT"          href="/libs/swt/"/>
+	      <item name="Threads"      href="/libs/threads/"/>
+	      <item name="Utility"      href="/libs/util/"/>
+	      <item name="Validate"     href="/libs/validate/"/>
+	      <item name="Velocity"     href="/libs/velocity/"/>
+	      <item name="XML"          href="/libs/xml/"/>
+	      <item name="XMLUnit"      href="/libs/xmlunit/"/>
       </item>
     </menu>
     <menu name="Community">
@@ -284,6 +289,6 @@
       <item name="Core Tags"               href="/tags.html"/>
       <item name="Tag Libraries"           href="/libs/index.html"/>
     </menu>
-    &common-menus;
+    &commons;
   </body>
 </project>

@@ -17,37 +17,6 @@
 
 <project default="jar" xmlns:j="jelly:core" xmlns:maven="jelly:maven" xmlns:util="jelly:util" xmlns:ant="jelly:ant" xmlns:u="jelly:util">
 
-  <!-- ================================================================== -->
-  <!-- START : C O M M O N S - B U I L D                                  -->
-  <!-- ================================================================== -->
-  <!-- Required: Look and Feel for documentation within distributions     -->
-  <!-- ================================================================== -->
-  <postGoal name="xdoc:copy-resources">
-    <!-- check commons-build is available before using -->
-    <j:set var="commonsBuildStyle" value="${basedir}/../commons-build/xdocs/style" />
-    <util:available file="${commonsBuildStyle}">
-      <copy todir="${basedir}/target/docs/style/" failonerror="false">
-        <fileset dir="${commonsBuildStyle}">
-            <include name='**/*'/>
-            <exclude name='**/CVS/**'/>
-        </fileset>
-      </copy>
-    </util:available>
-    <!-- check commons-build is available for a taglib before using -->
-    <j:set var="commonsBuildStyle" value="${basedir}/../.././commons-build/xdocs/style" />
-    <util:available file="${commonsBuildStyle}">
-      <copy todir="${basedir}/target/docs/style/" failonerror="false">
-        <fileset dir="${commonsBuildStyle}">
-            <include name='**/*'/>
-            <exclude name='**/CVS/**'/>
-        </fileset>
-      </copy>
-    </util:available>
-  </postGoal>
-    <!-- ================================================================== -->
-  <!-- END: C O M M O N S - B U I L D                                     -->
-  <!-- ================================================================== -->
-
   <!-- build the timestamp after compiling -->
   <postGoal name="java:jar-resources">
     <j:file name="${maven.build.dest}/org/apache/commons/jelly/jelly-version.txt" omitXmlDeclaration="true"
@@ -285,6 +254,22 @@
     </echo>
   </goal>
 
+  <goal name="build-all-sites" description="Create the web site for all tag libraries and for the root site">
+    <!-- Build root site -->
+    <attainGoal name="multiproject:site"/>
+    <!-- We use independent navigation so we manually generate all taglib sites -->
+    <j:set var="goal" value="site"/>
+    <attainGoal name="multiproject:goal"/>
+  </goal>
+
+  <goal name="deploy-all-sites" description="Deploy the web site for all tag libraries and for the root site">
+    <maven:get var="method" plugin="maven-site-plugin" property="maven.site.deploy.method"/>
+    <!--Deploy the root site -->
+    <attainGoal name="site:${method}deploy"/>
+    <!-- Deploy all taglib sites -->
+    <j:set var="goal" value="site:${method}deploy"/>
+    <attainGoal name="multiproject:goal"/>
+  </goal>
 
   <!-- ===================================================================== -->
   <!-- GENERATE THE TAG-LIBRARY LIST                       -->
@@ -307,7 +292,7 @@
             <p>
               The following libraries are available for Jelly as part of the standard distribution.
               Other libraries are maintained elsewhere - please see the 
-              <a href="../poweredby.html">powered by</a> page for more details.
+              <a href="../powered.html">powered by</a> page for more details.
             </p>
             <ul>
               <fileScanner var="pluginProjects">
@@ -328,89 +313,7 @@
       </document>
     </j:file>
 
-    <!-- now lets implement the jellydoc for the core package -->    
-    <j:set var="maven.jellydoc.packages" value="org.apache.commons.jelly.tags.core.*"/>
-    <attainGoal name="jellydoc"/>
   </preGoal>
-
-  <preGoal name="xdoc">
-
-    <j:if test="${!empty(fullSite)}">
-      <echo>Building site for Jelly and all taglibs</echo>
-      <sleep seconds="5" />
-      <!--        
-      This runs out of memory - have a feeling its the velocity & xdoc plugin
-      -->
-      <!-- <maven:reactor
-        basedir="${basedir}"
-        includes="jelly-tags/*/project.xml"
-        goals="site"
-        banner="Generating site for"
-        ignoreFailures="false"
-      />-->
-      <!-- PL: instead... invoke maven from the command-line directly for
-       each directory in jelly-tags. -->
-      <attainGoal name="tags:build-site-individually"/>
-        
-      <!-- then copy all the results to docs/libs -->
-      <j:if test="${context.getVariable('maven.docs.dest') == null}">
-        <j:set var="maven.docs.dest" value="target/docs"/>
-      </j:if>
-    
-      <!-- create the parent directory for the docs -->
-      <mkdir dir="${maven.docs.dest}/libs" />
-    
-      <!-- copy them all to ${maven.docs.dest}/libs/${plugin.id}/ -->
-      <j:forEach items="${pluginProjects.iterator()}" var="plugin">
-        <j:set var="pluginName" value="${plugin.parentFile.name}" />
-        <mkdir dir="${maven.docs.dest}/libs/${pluginName}/" />
-        <copy toDir="${maven.docs.dest}/libs/${pluginName}/">
-          <fileset dir="jelly-tags/${pluginName}/target/docs/">
-            <include name="**" />
-          </fileset>
-        </copy>
-      </j:forEach>
-    </j:if>
-  </preGoal>
-
-  <goal name="tags:build-site-individually">
-
-    <fileScanner var="taglibProjects">
-      <fileset dir="${basedir}">
-        <include name="jelly-tags/*/project.xml" />
-      </fileset>
-    </fileScanner>
-            
-    <j:choose>
-      <j:when test="${systemScope['os.name'].startsWith('Windows')}">
-        <j:set var="mavenCmd" value="${maven.home}/bin/maven.bat"/>
-      </j:when>
-      <j:otherwise>
-        <j:set var="mavenCmd" value="${maven.home}/bin/maven"/>
-      </j:otherwise>
-    </j:choose>
-        
-    <j:forEach items="${taglibProjects.iterator()}" var="taglib">
-      <j:set var="tlName" value="${taglib.parentFile.name}" />
-      <echo>Processing tag-library ${tlName}.</echo>
-      <j:set var="dir" value="${basedir}/jelly-tags/${tlName}"/>
-      <j:set var="testVar" value="siteIsBuilt${tlName}"/>
-      <uptodate property="${testVar}">
-        <srcfiles dir="${dir}" excludes="target/**/*"/>
-        <mapper type="merge" to="${dir}/target/docs/index.html"/>
-      </uptodate>
-      <echo>Tag-library ${tlname}'s site is up-to-date ? "${context.getVariable(testVar)}"</echo>
-      <j:if test="${!context.getVariable(testVar)}">
-        <echo>Building tag-library ${tlname}'s site.</echo>
-
-        <exec executable="${mavenCmd}" failonerror="true" dir="${dir}">
-          <arg value="site"/>
-        </exec>
-      </j:if>
-    </j:forEach>
-        
-  </goal>
-
 
   <!-- demo programs -->
 

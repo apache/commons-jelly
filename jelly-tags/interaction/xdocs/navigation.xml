@@ -15,6 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
+<!DOCTYPE org.apache.commons.menus SYSTEM 'http://jakarta.apache.org/commons/build/maven-build.dtd'>
 <project name="Jelly Interaction Tag Library">
 
   <title>Interaction Tag Library</title>
@@ -25,5 +26,6 @@
       <item name="Tags"                    href="/tags.html"/>
       <item name="Changes"                    href="/changes-report.html"/>
     </menu>
+    &commons;
   </body>
 </project>

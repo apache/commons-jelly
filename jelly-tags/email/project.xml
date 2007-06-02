@@ -19,7 +19,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <artifactId>commons-jelly-tags-email</artifactId>
   <name>commons-jelly-tags-email</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
   <package>org.apache.commons.jelly.tags.email</package>
 
   <description>
