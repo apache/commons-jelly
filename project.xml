@@ -25,11 +25,11 @@
   <currentVersion>1.1-SNAPSHOT</currentVersion>
   <organization>
     <name>The Apache Software Foundation</name>
-    <url>http://jakarta.apache.org</url>
-    <logo>http://jakarta.apache.org/images/original-jakarta-logo.gif</logo>
+    <url>http://commons.apache.org/</url>
+    <logo>http://commons.apache.org/images/logo.png</logo>
   </organization>
   <logo>/images/logo.jpg</logo>
-  <gumpRepositoryId>jakarta</gumpRepositoryId>
+  <gumpRepositoryId>commons</gumpRepositoryId>
   <inceptionYear>2002</inceptionYear>
   <package>org.apache.commons.jelly</package>
   <packageGroups>
@@ -56,29 +56,29 @@
   </packageGroups>
   <shortDescription>Commons Jelly</shortDescription>
   <description>Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
-  <url>http://jakarta.apache.org/commons/jelly/</url>
+  <url>http://commons.apache.org/jelly/</url>
   <issueTrackingUrl>http://issues.apache.org/jira/browse/JELLY</issueTrackingUrl>
   <siteAddress>people.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/commons/${pom.artifactId.substring(8)}/</siteDirectory>
+  <siteDirectory>/www/commons.apache.org/${pom.artifactId.substring(8)}/</siteDirectory>
   <distributionSite>people.apache.org</distributionSite>
-  <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/${pom.artifactId.substring(8)}/</distributionDirectory>
+  <distributionDirectory>/www/people.apache.org/builds/commons/${pom.artifactId.substring(8)}/</distributionDirectory>
   <repository>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/jakarta/commons/proper/jelly/trunk/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/jelly/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/proper/jelly/trunk/</url>
   </repository>
   <mailingLists>
     <mailingList>
       <name>Commons Dev List</name>
-      <subscribe>commons-dev-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-dev-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/jakarta-commons-dev/</archive>
+      <subscribe>dev-subscribe@commons.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@commons.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/commons-dev/</archive>
     </mailingList>
     <mailingList>
       <name>Commons User List</name>
-      <subscribe>commons-user-subscribe@jakarta.apache.org</subscribe>
-      <unsubscribe>commons-user-unsubscribe@jakarta.apache.org</unsubscribe>
-      <archive>http://mail-archives.apache.org/mod_mbox/jakarta-commons-user/</archive>
+      <subscribe>user-subscribe@commons.apache.org</subscribe>
+      <unsubscribe>user-unsubscribe@commons.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/commons-user/</archive>
     </mailingList>
   </mailingLists>
   <versions>
@@ -368,7 +368,7 @@
     </dependency>
   </dependencies>
   <build>
-    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
+    <nagEmailAddress>dev@commons.apache.org</nagEmailAddress>
     <sourceDirectory>${basedir}/src/java</sourceDirectory>
     <resources>
       <resource>
