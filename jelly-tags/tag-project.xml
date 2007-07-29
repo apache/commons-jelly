@@ -307,7 +307,7 @@
   </dependencies>
   
   <build>
-    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
+    <nagEmailAddress>dev@commons.apache.org</nagEmailAddress>
     <sourceDirectory>src/java</sourceDirectory>
     <unitTestSourceDirectory>src/test</unitTestSourceDirectory>
 

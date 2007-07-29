@@ -61,7 +61,7 @@
   </mailingLists>
 
   <build>
-    <nagEmailAddress>commons-dev@jakarta.apache.org</nagEmailAddress>
+    <nagEmailAddress>dev@commons.apache.org</nagEmailAddress>
     <sourceDirectory>${basedir}/src/java</sourceDirectory>
     <unitTestSourceDirectory>${basedir}/src/test</unitTestSourceDirectory>
     <integrationUnitTestSourceDirectory/>
