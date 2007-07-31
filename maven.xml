@@ -495,7 +495,7 @@
       <attainGoal name="gump:multiproject" />
       <!-- note: the current gump project, resulting of this, needs to be 
           checked in in the Gump svn at:
-            https://svn.apache.org/repos/asf/gump/metadata/project/jakarta-commons-jelly.xml
+            https://svn.apache.org/repos/asf/gump/metadata/project/commons-jelly.xml
           (opened to ASF committers)
         -->
     </goal>

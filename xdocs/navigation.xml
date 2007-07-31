@@ -28,7 +28,7 @@
       <item name="Tutorial"                href="/tutorial.html"/>
       <item name="Detail"                  href="/overview.html"/>
       <item name="JellyDoc"                  href="/jellydoc.html"/>
-      <item name="Download"                href="http://jakarta.apache.org/site/downloads/downloads_commons-jelly.cgi" />
+      <item name="Download"                href="http://commons.apache.org/downloads/download_jelly.cgi" />
       <item name="Tag Reference" href="/tag-reference/index.html" collapse="true">
         <item name="All tags" href="/tag-reference/all.html" collapse="true">
 	        <item name="ant:ant"                     href="/tag-reference/ant_ant.html"/>

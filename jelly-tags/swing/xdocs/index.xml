@@ -37,7 +37,7 @@
       </p>
       <p>
         There is an example JellySwing script
-        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/swing/src/test/org/apache/commons/jelly/swing/example.jelly?rev=HEAD">here</a>
+        <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/swing/example.jelly?view=markup">here</a>
       </p>
       <p>
         To try running the example type the following command then you should see a full Swing user interface 
@@ -56,7 +56,7 @@
       <p>
         JellyRunner is a simple example Swing user interface written with JellySwing.
         You can view the source to it
-        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/swing/src/test/org/apache/commons/jelly/swing/run.jelly?rev=HEAD">here</a>
+        <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/swing/run.jelly?view=markup">here</a>
       </p>
       <p>
         If you invoke it via the following command you will get a small Swing UI that allows you to
@@ -77,11 +77,11 @@
       </p>
       <p>
         The demo was orignally written in
-        <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/HomepageBuilder.java?rev=HEAD">Java code</a>
+        <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/HomepageBuilder.java?view=markup">Java code</a>
          
         to implement a simple Swing UI
         As an experiment the same Swing user interface has been written 
-       <a href="http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly?rev=HEAD">as a JellyScript</a>
+       <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly?view=markup">as a JellyScript</a>
         as well.
         While this is a fairly simple Swing UI and not a particularly great example of the power of JellySwing,
         it does highlight the main difference between the two appraches.
