@@ -67,7 +67,7 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/libs/junit/</url>
+      <url>http://commons.apache.org/jelly/libs/junit/</url>
       <properties>
         <scope>test</scope>
       </properties>

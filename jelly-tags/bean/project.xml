@@ -43,14 +43,14 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-log</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/libs/log/</url>
+      <url>http://commons.apache.org/jelly/libs/log/</url>
     </dependency>
       
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/libs/junit/</url>
+      <url>http://commons.apache.org/jelly/libs/junit/</url>
     </dependency>
 
     <!-- END for test -->

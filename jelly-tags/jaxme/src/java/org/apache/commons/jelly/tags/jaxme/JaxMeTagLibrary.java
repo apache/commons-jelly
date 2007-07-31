@@ -24,7 +24,7 @@ import org.apache.commons.jelly.TagLibrary;
  * The marshalling and unmarshalling tags should work with any JAXB implementation.
  * The generation tag is JaxMe specific.
  *
- * @author <a href="mailto:commons-dev at jakarta.apache.org">Jakarta Commons Development Team</a>
+ * @author <a href="mailto:commons-dev at jakarta.apache.org">Apache Commons Development Team</a>
  * @version $Revision$
  */
 public class JaxMeTagLibrary extends TagLibrary {

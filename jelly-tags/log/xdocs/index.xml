@@ -26,7 +26,7 @@
     <section name="Overview">
       <p>
         Custom tags for generating textual logging information using
-          <a href="http://jakarta.apache.org/commons/logging/index.html">commons-logging</a> 
+          <a href="http://commons.apache.org/logging/index.html">commons-logging</a> 
           which will use either log4j, logkit or JDK1.4 logging
           depending on the classpath and configuration.
       </p>

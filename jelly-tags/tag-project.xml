@@ -36,17 +36,17 @@
   </description>
   <shortDescription>Commons Jelly Tag Library</shortDescription>
   
-  <url>http://jakarta.apache.org/commons/jelly/libs/${pom.artifactId.substring(19)}/</url>
+  <url>http://commons.apache.org/jelly/libs/${pom.artifactId.substring(19)}/</url>
   <issueTrackingUrl>http://issues.apache.org/jira/browse/JELLY</issueTrackingUrl>
   
   <siteAddress>people.apache.org</siteAddress>
-  <siteDirectory>/www/jakarta.apache.org/commons/jelly/libs/${pom.artifactId.substring(19)}/</siteDirectory>
+  <siteDirectory>/www/commons.apache.org/jelly/libs/${pom.artifactId.substring(19)}/</siteDirectory>
   <distributionDirectory>/www/jakarta.apache.org/builds/jakarta-commons/jelly/jelly-tags/${pom.artifactId.substring(19)}/</distributionDirectory>
   
   <repository>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/jakarta/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</developerConnection>
-    <url>http://svn.apache.org/viewcvs.cgi/jakarta/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/${pom.artifactId.substring(19)}</url>
   </repository>
   
   

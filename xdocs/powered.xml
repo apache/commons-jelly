@@ -54,7 +54,7 @@
           </td>
         </tr>
         <tr>
-          <td><a href="http://jakarta.apache.org/commons/latka/">Latka</a></td>
+          <td><a href="http://commons.apache.org/latka/">Latka</a></td>
           <td>
             A functional (end-to-end) testing tool implemented in Java, and using an XML syntax to 
             define a series of HTTP (or HTTPS) requests and a set of validations used to verify that 

@@ -47,7 +47,7 @@ Maven or inside a Servlet, Web Service, JMS MessageListener or embedded directly
 
 <p>
 Jelly has native support for a Velocity-like expression language called
-<a href="http://jakarta.apache.org/commons/jexl/">Jexl</a> 
+<a href="http://commons.apache.org/jexl/">Jexl</a> 
 which is a superset of the JSP, JSTL and JSF expression languages
 as  well as support for other pluggable expression languages like XPath via 
 <a href="http://jaxen.org">Jaxen</a>, JavaScript, beanshell and Jython.

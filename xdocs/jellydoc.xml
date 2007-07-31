@@ -19,7 +19,7 @@
 <document>
   <properties>
     <title>A Guide To JellyDoc</title>
-    <author email="dev@commons.apache.org">Jakarta Commons Development Team</author>
+    <author email="dev@commons.apache.org">Apache Commons Development Team</author>
   </properties>
 
     <body>
@@ -28,7 +28,7 @@
                 <p>
 <strong>JellyDoc</strong> generates documentation for <strong>Jelly</strong> 
 tag libraries from their javadoc. An example of JellyDoc generated content can be viewed 
-<a href='http://jakarta.apache.org/commons/jelly/libs/betwixt/tags.html'>here</a>.
+<a href='http://commons.apache.org/jelly/libs/betwixt/tags.html'>here</a>.
             </p>
         </subsection>
             <subsection name='So What Is The Document?'>
@@ -36,11 +36,11 @@ tag libraries from their javadoc. An example of JellyDoc generated content can b
 This document is a brief (and non-normative) 
 guide written by developers using JellyDoc to document their tag libraries and is
 aimed at helping developers use JellyDoc. Please help to improve this resource
-by <a href='http://jakarta.apache.org/commons/patches.html'>contributing patches</a>.
+by <a href='http://commons.apache.org/patches.html'>contributing patches</a>.
             </p>
                 <p>
 <strong>Note</strong> that this document is based on the maven build script used by
-the Jakarta Commons Jelly build. Details may vary for other builds.
+the Apache Commons Jelly build. Details may vary for other builds.
             </p>
         </subsection>
     </section>

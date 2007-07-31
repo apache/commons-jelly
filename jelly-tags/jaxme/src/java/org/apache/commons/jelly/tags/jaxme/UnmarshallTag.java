@@ -45,7 +45,7 @@ import org.xml.sax.SAXException;
  * </p>
  *
  * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
- * @author <a href="mailto:commons-dev at jakarta.apache.org">Jakarta Commons Development Team</a>
+ * @author <a href="mailto:commons-dev at jakarta.apache.org">Apache Commons Development Team</a>
  * @version $Revision$
  */
 public class UnmarshallTag extends TagSupport {

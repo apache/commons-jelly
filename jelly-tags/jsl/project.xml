@@ -46,7 +46,7 @@
       <properties>
         <classloader>root.maven</classloader>
       </properties>
-      <url>http://jakarta.apache.org/commons/jelly/tags/xml/</url>
+      <url>http://commons.apache.org/jelly/tags/xml/</url>
     </dependency>
     
       
@@ -61,14 +61,14 @@
       <properties>
         <classloader>root.maven</classloader>
       </properties>
-      <url>http://jakarta.apache.org/commons/jelly/tags/ant/</url>
+      <url>http://commons.apache.org/jelly/tags/ant/</url>
     </dependency>
 
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+      <url>http://commons.apache.org/jelly/tags/junit/</url>
     </dependency>
 
     <dependency>
@@ -78,7 +78,7 @@
       <properties>
         <classloader>root.maven</classloader>
       </properties>
-      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
+      <url>http://commons.apache.org/jelly/tags/log/</url>
     </dependency>
 
     <dependency>

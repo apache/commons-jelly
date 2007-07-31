@@ -26,7 +26,7 @@
   <description>
        The Jelly JMX Tag Library is a Jelly library for instantiating and
        configuring Java Beans and MBeans and registering them with a 
-       JMX Server in a similar way to the Ant tasks in Jakarta Commons Modeler.
+       JMX Server in a similar way to the Ant tasks in Apache Commons Modeler.
   </description>
   
   <shortDescription>Commons Jelly JMX Tag Library</shortDescription>
@@ -46,7 +46,7 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-bean</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/tags/bean/</url>
+      <url>http://commons.apache.org/jelly/tags/bean/</url>
     </dependency>
       
     <dependency>
@@ -67,7 +67,7 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-log</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
+      <url>http://commons.apache.org/jelly/tags/log/</url>
       <properties>
         <scope>test</scope>
       </properties>
@@ -77,7 +77,7 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+      <url>http://commons.apache.org/jelly/tags/junit/</url>
       <properties>
         <scope>test</scope>
       </properties>

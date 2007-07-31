@@ -18,7 +18,7 @@ Jelly
 
 Welcome to Jakarta commons Jelly.
 The home page of the project is at 
-    http://jakarta.apache.org/commons/jelly
+    http://commons.apache.org/jelly
 
 This binary distribution allows you to run jelly out of
 the box. It is enough to have the java and jelly (or jelly.bat) 
@@ -44,7 +44,7 @@ the project info section of the documentation).
 Please refer to the shipped documentation (in the docs directory) and the 
 project website for documentation for each tag-libraries and for example.
 
-Jakarta Commons Jelly is an open-source project of the Apache Software Foundation
+Apache Commons Jelly is an open-source project of the Apache Software Foundation
 which relies on feedback of its users on both the issue tracking and the 
 mailing-lists. We look forward to hear from you!
 

@@ -15,15 +15,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<!DOCTYPE org.apache.commons.menus SYSTEM 'http://jakarta.apache.org/commons/build/maven-build.dtd'>
+<!DOCTYPE org.apache.commons.menus SYSTEM 'http://commons.apache.org/build/maven-build.dtd'>
 <project name="JellyMBean">
 
   <title>JellyMBean</title>
 
   <body>
     <links>
-      <item name="Jelly"               href="http://jakarta.apache.org/commons/jelly/"/>
-      <item name="Commons Modeler"     href="http://jakarta.apache.org/commons/modeler/"/>
+      <item name="Jelly"               href="http://commons.apache.org/jelly/"/>
+      <item name="Commons Modeler"     href="http://commons.apache.org/modeler/"/>
       <item name="JBoss"               href="http://jboss.org/"/>
       <item name="mx4j"                href="http://mx4j.sourceforge.net/"/>
     </links>

@@ -48,7 +48,7 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-define</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/tags/define/</url>
+      <url>http://commons.apache.org/jelly/tags/define/</url>
       <properties>
         <classloader>root.maven</classloader>
       </properties>
@@ -58,7 +58,7 @@
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-interaction</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/tags/interaction/</url>
+      <url>http://commons.apache.org/jelly/tags/interaction/</url>
       <properties>
         <classloader>root.maven</classloader>
       </properties>
@@ -78,14 +78,14 @@
       <properties>
         <classloader>root.maven</classloader>
       </properties>
-      <url>http://jakarta.apache.org/commons/jelly/tags/junit/</url>
+      <url>http://commons.apache.org/jelly/tags/junit/</url>
     </dependency>
 
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-log</artifactId>
       <version>1.0</version>
-      <url>http://jakarta.apache.org/commons/jelly/tags/log/</url>
+      <url>http://commons.apache.org/jelly/tags/log/</url>
       <properties>
         <classloader>root.maven</classloader>
       </properties>

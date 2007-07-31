@@ -26,7 +26,7 @@
     <section name="Overview">
       <p>
         A tag library for turning XML into beans or beans into XML using the
-        <a href="http://jakarta.apache.org/commons/jelly/libs/betwixt/tags.html">Betwixt</a> library.
+        <a href="http://commons.apache.org/jelly/libs/betwixt/tags.html">Betwixt</a> library.
         See the <a href="tags.html">tags</a> for more information.
       </p>
     </section>
