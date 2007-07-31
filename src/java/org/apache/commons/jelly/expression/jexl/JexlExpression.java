@@ -31,7 +31,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Represents a <a href="http://commons.apache.org/jexl.html">Jexl</a>
+ * Represents a <a href="http://commons.apache.org/jexl/">Jexl</a>
  * expression which fully supports the Expression Language in JSTL and JSP
  * along with some extra features like object method invocation.
  *
