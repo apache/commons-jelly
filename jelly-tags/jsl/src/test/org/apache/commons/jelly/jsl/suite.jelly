@@ -43,7 +43,8 @@
                         <h>
                             <j:set var="full"><x:expr select="$doc/document/properties/title"/></j:set>
                             <j:set var="short"><x:expr select="./properties/title" /></j:set>
-                            <m:echo>full=${full},short=${short}</m:echo>
+                            <m:echo>file=${file}</m:echo>
+                            <m:echo>full=${full} short=${short}</m:echo>
                             <test:assert test="${full == short}">All iterations should succeed</test:assert>
                         </h>
                     </jsl:template>
