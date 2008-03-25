@@ -1173,7 +1173,9 @@ public class XMLParser extends DefaultHandler {
      */
     protected SAXException createSAXException(String message, Exception e) {
         log.warn("Underlying exception: " + e);
-        e.printStackTrace();
+        if (e != null) {
+            e.printStackTrace();
+        }
         if (locator != null) {
             String error =
                 "Error at ("
