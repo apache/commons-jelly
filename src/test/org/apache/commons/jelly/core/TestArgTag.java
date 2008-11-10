@@ -196,6 +196,24 @@ public class TestArgTag extends BaseJellyTest {
             assertNull(parentTag.getValue(i));
         }
     }
+    
+   
+    public void testToObjectArray() throws Exception {
+        argTag.setType(Object[].class.getName());
+        argTag.setValue(new Object[] {"testObjectArray"});
+        argTag.doTag(getXMLOutput());
+        assertEquals(Object[].class,parentTag.getType(0));
+        assertEquals("testObjectArray",((Object[]) parentTag.getValue(0))[0]);
+    }
+
+    public void testToObjectArrayClass() throws Exception {
+        argTag.setType(Class.class.getName());
+        argTag.setValue(Object[].class.getName());
+        argTag.doTag(getXMLOutput());
+        assertEquals(Class.class,parentTag.getType(0));
+        assertEquals(Object[].class,parentTag.getValue(0));
+    }
+
 
     private MockArgTagParent parentTag = null;
     private ArgTag argTag = null;

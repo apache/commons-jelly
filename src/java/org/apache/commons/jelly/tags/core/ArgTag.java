@@ -99,7 +99,9 @@ public class ArgTag extends BaseClassLoaderTag {
             assertNotNull(value);
         } else if(null != typeString) {
             try {
-              klass = getClassLoader().loadClass(typeString);
+              // klass = getClassLoader().loadClass(typeString);
+              // JELLY-274: rather use the three args static class-load-method
+              klass = Class.forName(typeString, false, getClassLoader());
             } catch (ClassNotFoundException e) {
                 throw new JellyTagException(e);
             }
@@ -113,7 +115,9 @@ public class ArgTag extends BaseClassLoaderTag {
             if (klass.equals(Class.class))
             {
                 try {
-                    value = getClassLoader().loadClass((String) value);
+                    //value = getClassLoader().loadClass((String) value);
+                    // JELLY-274: rather use three-args class.forName
+                    value = Class.forName((String) value, false, getClassLoader());
                 } catch (ClassNotFoundException e) {
                     throw new JellyTagException(e);
                 }
