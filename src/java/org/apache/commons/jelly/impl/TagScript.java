@@ -40,6 +40,7 @@ import org.apache.commons.jelly.LocationAware;
 import org.apache.commons.jelly.NamespaceAwareTag;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
@@ -92,6 +93,9 @@ public class TagScript implements Script {
 
     /** the column number of the tag */
     private int columnNumber = -1;
+    
+    /** the TagLibrary that we belong to */
+    private TagLibrary tagLibrary;
 
     /** the factory of Tag instances */
     private TagFactory tagFactory;
@@ -337,6 +341,20 @@ public class TagScript implements Script {
     }
 
     /**
+	 * @return the tagLibrary
+	 */
+	public TagLibrary getTagLibrary() {
+		return tagLibrary;
+	}
+
+	/**
+	 * @param tagLibrary the tagLibrary to set
+	 */
+	public void setTagLibrary(TagLibrary tagLibrary) {
+		this.tagLibrary = tagLibrary;
+	}
+
+	/**
      * Returns the parent.
      * @return TagScript
      */
@@ -512,6 +530,7 @@ public class TagScript implements Script {
      * Compiles a newly created tag if required, sets its parent and body.
      */
     protected void configureTag(Tag tag, JellyContext context) throws JellyException {
+    	tag.setTagLibrary(tagLibrary);
         if (tag instanceof CompilableTag) {
             ((CompilableTag) tag).compile();
         }

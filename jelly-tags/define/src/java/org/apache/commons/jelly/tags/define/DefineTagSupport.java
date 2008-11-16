@@ -36,11 +36,11 @@ public abstract class DefineTagSupport extends TagSupport {
      * @return the current dynamic tag library instance or throws a JellyException
      * if one is not available
      */
-    protected DynamicTagLibrary getTagLibrary() throws JellyTagException {
+    public DynamicTagLibrary getTagLibrary() {
         TaglibTag tag
             = (TaglibTag) findAncestorWithClass(TaglibTag.class);
         if ( tag == null ) {
-            throw new JellyTagException( "<define:tag> must be inside <define:taglib>" );
+            throw new IllegalArgumentException( "<define:tag> must be inside <define:taglib>" );
         }
         return tag.getTagLibrary();
     }

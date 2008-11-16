@@ -394,6 +394,12 @@
       </includes>
       <excludes>
         <exclude>**/TestCoreMemoryLeak.java</exclude>
+        <exclude>**/TestNamespacePrefixes.java</exclude>
+        <exclude>**/TestNestedExceptions.java</exclude>
+        <exclude>**/TestUnknownTags.java</exclude>
+        <exclude>**/TestCustomExpressionFactory.java</exclude>
+        
+        
       </excludes>
       <resources>
         <resource>

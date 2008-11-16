@@ -93,6 +93,14 @@ public class JellyContext {
 
     /** Should we cache Tag instances, per thread, to reduce object contruction overhead? */
     private boolean cacheTags = false;
+    
+    /**
+     * True if exceptions should be suppressed; introduced in 1.1 beta and immediately deprecated
+     * because future versions will _never_ suppress exceptions (required here for backwards
+     * compatibility)
+	 * @deprected after v1.1, exceptions will never be suppressed
+     */
+    private boolean suppressExpressionExceptions;
 
     /**
      * Create a new context with the currentURL set to the rootURL
@@ -135,6 +143,7 @@ public class JellyContext {
         this.currentURL = parent.currentURL;
         this.variables.put("parentScope", parent.variables);
         this.cacheTags = parent.cacheTags;
+        this.suppressExpressionExceptions = parent.suppressExpressionExceptions;
         init();
     }
 
@@ -1002,5 +1011,21 @@ public class JellyContext {
         }
 
     }
+
+	/**
+	 * @return the suppressExpressionExceptions
+	 * @deprected after v1.1, exceptions will never be suppressed
+	 */
+	public boolean isSuppressExpressionExceptions() {
+		return suppressExpressionExceptions;
+	}
+
+	/**
+	 * @param suppressExpressionExceptions the suppressExpressionExceptions to set
+	 * @deprected after v1.1, exceptions will never be suppressed
+	 */
+	public void setSuppressExpressionExceptions(boolean suppressExpressionExceptions) {
+		this.suppressExpressionExceptions = suppressExpressionExceptions;
+	}
 
 }

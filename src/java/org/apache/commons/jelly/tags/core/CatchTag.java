@@ -30,6 +30,20 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class CatchTag extends TagSupport {
 
+    /**
+     * Exception class list separated by ";"
+     */
+	private String exceptions;
+	
+	/**
+	 * 
+	 */
+	private Class[] exceptionArray;
+	/**
+	 * Var to store cause exception class
+	 */
+	private String cause;
+	
     private String var;
 
     public CatchTag() {
@@ -38,16 +52,49 @@ public class CatchTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     public void doTag(XMLOutput output) throws JellyTagException {
+
+        /**
+         * Buid exception set
+         */
+		if ( exceptionArray == null ) {
+			try {
+			    buildExceptionArray();
+			} catch (ClassNotFoundException e) {
+				throw new JellyTagException(e);
+			}
+		}
+		
         if (var != null) {
             context.removeVariable(var);
         }
+        
+	    if ( cause != null ) {
+	        context.removeVariable(cause);
+	    }
         try {
             invokeBody(output);
         }
-        catch (Throwable t) {
+        catch (Throwable t) {        	
             if (var != null) {
                 context.setVariable(var, t);
             }
+            
+    		Throwable c = getRealException(t); 
+    		
+		    if ( cause != null ) {
+		        context.setVariable( cause, c );
+		    }
+		    
+            if ( exceptionArray != null ) {
+
+
+        	    /**
+        	     * if exception is not expected throw exception 
+        	     */    		    
+        		if ( ! isExpected(c)) {
+        			throw new JellyTagException(t);
+        		}        		
+        	}            
         }
     }
 
@@ -61,5 +108,91 @@ public class CatchTag extends TagSupport {
      */
     public void setVar(String var) {
         this.var = var;
+    }
+    
+    /**
+     * Dissect Exception stack to get the real exception throughout the JellyTagException wrapping
+     * @param t
+     * @return the first exception in stack that's not a JellyTagException
+     */
+    protected Throwable getRealException(Throwable t) {
+        Throwable c = t.getCause();
+        Throwable realException = null; 
+        
+        if ( c != null ) {
+            if ( c instanceof JellyTagException ) {
+                realException = getRealException(c);
+                
+                if ( realException == null ) {
+                    realException = c;
+                }
+                
+            } else {
+                realException = c;
+            }
+        }
+        return realException;
+    }
+
+	
+	/**
+	 * Build exception classe set
+	 * @throws ClassNotFoundException
+	 * 
+	 */
+	private void buildExceptionArray() throws ClassNotFoundException {
+		if ( exceptions != null ) {
+		    String[] strings = exceptions.split(";");
+		    
+			if ( exceptionArray == null ) {
+			    
+				int size = ( strings.length > 0) ? strings.length : 1 ;
+				exceptionArray = new Class[size];
+				
+				for ( int i = 0; i < strings.length; i ++) {
+					Class clazz = Class.forName(strings[i]);
+					exceptionArray[i] = clazz;
+				}				
+			}
+		}
+	}	
+
+	/**
+	 * @return Returns the exceptions.
+	 */
+	public String getExceptions() {
+		return exceptions;
+	}
+	/**
+	 * @param exceptions The exceptions to set. Must be separated by ";"
+	 */
+	public void setExceptions(String exceptionList) {
+		this.exceptions = exceptionList;
+	}
+    
+    /**
+     * @param cause The cause to set.
+     */
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
+    
+    /**
+     * 
+     * @param t
+     * @return true if t is expected
+     */
+    public boolean isExpected(Throwable t) {
+        if( exceptionArray == null ) {
+            return true;
+        }
+        Class clazz = null;
+        for ( int i = 0; i < exceptionArray.length; i ++ ) {
+            clazz = exceptionArray[i];
+            if ( clazz.isAssignableFrom(t.getClass())){
+                return true;
+            }
+        }
+        return false;
     }
 }

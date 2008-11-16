@@ -17,6 +17,7 @@
 package org.apache.commons.jelly.expression;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyTagException;
 
 /** <p><code>ConstantExpression</code> represents a constant expression.</p>
   *
@@ -55,7 +56,7 @@ public class ConstantExpression extends ExpressionSupport {
       * @param context evaluate expression against this context
       * @return current value of <code>value</code> property
       */
-    public Object evaluate(JellyContext context) {
+    public Object evaluate(JellyContext context) throws JellyTagException {
         return value;
     }
 

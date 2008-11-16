@@ -19,6 +19,7 @@ package org.apache.commons.jelly.expression.jexl;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.jelly.expression.ExpressionFactory;
@@ -119,7 +120,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
             this.text = text;
         }
 
-        public Object evaluate(JellyContext context) {
+        public Object evaluate(JellyContext context) throws JellyTagException {
             Object answer = jexlExpression.evaluate(context);
 
             if ( answer == null ) {

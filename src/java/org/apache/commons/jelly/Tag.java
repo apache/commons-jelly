@@ -39,6 +39,19 @@ public interface Tag {
      * Sets the parent of this tag
      */
     public void setParent(Tag parent);
+    
+    /**
+     * Returns the TagLibrary - will be null if this is an unrecognised tag 
+     * (ie a StaticTag) 
+     * @return
+     */
+    public TagLibrary getTagLibrary();
+    
+    /**
+     * Sets the tag library
+     * @param tagLibrary
+     */
+    public void setTagLibrary(TagLibrary tagLibrary);
 
     /**
      * @return the body of the tag

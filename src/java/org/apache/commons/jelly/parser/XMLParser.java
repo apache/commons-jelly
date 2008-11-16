@@ -430,8 +430,35 @@ public class XMLParser extends DefaultHandler {
         this.log = log;
     }
 
-    /** @return the expression factory used to evaluate tag attributes */
-    public ExpressionFactory getExpressionFactory() {
+    /**
+     * Locates an expression factory by looking at the TagLibrary for the specified
+     * tag and falling back by creating one.  If the current tag is a StaticTag (IE
+     * has no TagLibrary) then continues up the stack looking for a valid one.
+     * @param tagScript
+     * @return the expression factory used to evaluate tag attributes
+     */
+    public ExpressionFactory getExpressionFactory(TagScript tagScript) {
+    	// Check the tag library
+    	TagLibrary tagLibrary = null;
+    	if (tagScript != null)
+    		tagLibrary = tagScript.getTagLibrary();
+    	
+    	// If the tagScript is a StaticTag, then go up the stack looking for a
+    	//	tagScript that belongs to a real TagLibrary
+    	if (tagLibrary == null && tagScript instanceof StaticTagScript)
+    		for (int i = tagScriptStack.size() - 1; i > -1; i--) {
+    			TagScript script = (TagScript)tagScriptStack.get(i);
+    			tagLibrary = script.getTagLibrary();
+    			if (tagLibrary != null)
+    				break;
+    			if (!(script instanceof StaticTagScript))
+    				break;
+    		}
+    	if (tagLibrary != null) {
+    		ExpressionFactory factory = tagLibrary.getExpressionFactory();
+    		if (factory != null)
+    			return factory;
+    	}
         if (expressionFactory == null) {
             expressionFactory = createExpressionFactory();
         }
@@ -441,6 +468,30 @@ public class XMLParser extends DefaultHandler {
     /** Sets the expression factory used to evaluate tag attributes */
     public void setExpressionFactory(ExpressionFactory expressionFactory) {
         this.expressionFactory = expressionFactory;
+    }
+    
+    /**
+     * Called to create an instance of the ExpressionFactory (@see getExpressionFactory)
+     * @return
+     */
+    protected ExpressionFactory createExpressionFactory() {
+        return new JexlExpressionFactory();
+    }
+
+    /**
+     * Creates an expression, using the ExpressionFactory returned by getExpressionFactory();
+     * the default implementation defers to the TagLibrary to create the Expression 
+     * @param attributeName
+     * @param value
+     * @return
+     * @throws JellyException
+     */
+    public Expression createExpression(TagScript script, String attributeName, String value) throws JellyException {
+    	ExpressionFactory factory = getExpressionFactory(script);
+    	TagLibrary tagLibrary = script.getTagLibrary();
+    	if (tagLibrary != null)
+    		return tagLibrary.createExpression(factory, script, attributeName, value);
+       	return CompositeExpression.parse(value, factory);
     }
 
     /**
@@ -603,7 +654,8 @@ public class XMLParser extends DefaultHandler {
                     tagScript.setLocator(locator);
                 }
                 // sets the file name element names
-                tagScript.setFileName(fileName);
+                if (fileName != null)
+                	tagScript.setFileName(fileName);
                 tagScript.setElementName(qName);
                 tagScript.setLocalName(localName);
 
@@ -1004,7 +1056,7 @@ public class XMLParser extends DefaultHandler {
             if (taglib != null) {
                 TagScript script = taglib.createTagScript(localName, list);
                 if ( script != null ) {
-                    configureTagScript(script);
+                    configureTagScript(taglib, script);
 
                     // clone the attributes to keep them around after this parse
                     script.setSaxAttributes(new AttributesImpl(list));
@@ -1013,19 +1065,28 @@ public class XMLParser extends DefaultHandler {
                     int size = list.getLength();
                     for (int i = 0; i < size; i++) {
                         String attributeName = list.getLocalName(i);
+                        // Fix for JELLY-184 where the xmlns attributes have a blank name and cause
+                        //	an exception later on
+                        if (attributeName.length() == 0)
+                        	continue;
                         String attributeValue = list.getValue(i);
                         Expression expression =
-                            taglib.createExpression(
-                                getExpressionFactory(),
-                                script,
+                            createExpression(script,
                                 attributeName,
                                 attributeValue);
+//                        Expression expression =
+//                            taglib.createExpression(
+//                                getExpressionFactory(),
+//                                script,
+//                                attributeName,
+//                                attributeValue);
                         if (expression == null) {
                             expression = createConstantExpression(localName, attributeName, attributeValue);
                         }
                         script.addAttribute(attributeName, expression);
                     }
-                }
+                } else if (!taglib.isAllowUnknownTags())
+                    throw new JellyException("Unrecognised tag called " + localName + " in TagLibrary " + namespaceURI);
                 return script;
             }
             return null;
@@ -1049,7 +1110,7 @@ public class XMLParser extends DefaultHandler {
         Attributes list)
         throws SAXException {
         try {
-            StaticTag tag = new StaticTag( namespaceURI, localName, qName );
+            //StaticTag tag = new StaticTag( namespaceURI, localName, qName );
             StaticTagScript script = new StaticTagScript(
                 new TagFactory() {
                     public Tag createTag(String name, Attributes attributes) {
@@ -1063,9 +1124,10 @@ public class XMLParser extends DefaultHandler {
             int size = list.getLength();
             for (int i = 0; i < size; i++) {
                 String attributeValue = list.getValue(i);
-                Expression expression = CompositeExpression.parse(
-                        attributeValue, getExpressionFactory()
-                    );
+                Expression expression = createExpression(script, null, attributeValue);
+//                Expression expression = CompositeExpression.parse(
+//                        attributeValue, getExpressionFactory()
+//                    );
                 String attrQName = list.getQName(i);
                 int p = attrQName.indexOf(':');
                 String prefix = p>=0 ?
@@ -1087,16 +1149,27 @@ public class XMLParser extends DefaultHandler {
         }
     }
 
+    /**
+     * Configure a newly created TagScript instance before any Expressions are created;
+     * see configureTagScript(TagScript) for StaticTags
+     * @param tagLibrary the TagLibrary that created the TagScript
+     * @param aTagScript the TagScript that's just been created
+     */
+    protected void configureTagScript(TagLibrary tagLibrary,  TagScript aTagScript) {
+        // Set the TagLibrary that created the script
+        aTagScript.setTagLibrary(tagLibrary);
+        
+        configureTagScript(aTagScript);
+    }
 
     /**
      * Configure a newly created TagScript instance before any Expressions are created
-     *
      * @param aTagScript
      */
     protected void configureTagScript(TagScript aTagScript) {
         // set parent relationship...
         aTagScript.setParent(this.tagScript);
-
+        
         // set the namespace Map
         if ( elementNamespaces != null ) {
             aTagScript.setTagNamespacesMap( elementNamespaces );
@@ -1106,12 +1179,10 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Adds the text to the current script block parsing any embedded
-     * expressions inot ExpressionScript objects.
+     * expressions into ExpressionScript objects.
      */
     protected void addTextScript(String text) throws JellyException {
-        Expression expression =
-            CompositeExpression.parse(text, getExpressionFactory());
-
+    	Expression expression = createExpression(tagScript, "", text);
         addExpressionScript(script, expression);
     }
 
@@ -1150,10 +1221,6 @@ public class XMLParser extends DefaultHandler {
         String attributeName,
         String attributeValue)  {
         return new ConstantExpression(attributeValue);
-    }
-
-    protected ExpressionFactory createExpressionFactory() {
-        return new JexlExpressionFactory();
     }
 
     /**

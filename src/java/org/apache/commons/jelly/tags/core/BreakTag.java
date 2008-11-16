@@ -16,6 +16,7 @@
  */
 package org.apache.commons.jelly.tags.core;
 
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.BreakException;
@@ -45,7 +46,7 @@ public class BreakTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
-    public void doTag(XMLOutput output) throws BreakException {
+    public void doTag(XMLOutput output) throws BreakException, JellyTagException {
         boolean broken = false;
         if (test == null || test.evaluateAsBoolean(context)) {
             broken = true;

@@ -16,6 +16,7 @@
  */
 package org.apache.commons.jelly.test;
 
+import java.io.StringWriter;
 import java.net.URL;
 
 import junit.framework.TestCase;
@@ -38,7 +39,9 @@ public abstract class BaseJellyTest extends TestCase {
         super.setUp();
         jelly = new Jelly();
         context = new JellyContext();
-        xmlOutput = XMLOutput.createDummyXMLOutput();
+        jelly.setJellyContext(context);
+        strOutput = new StringWriter();
+        xmlOutput = XMLOutput.createXMLOutput(strOutput);
     }
 
     protected void setUpScript(String scriptname) throws Exception {
@@ -69,9 +72,13 @@ public abstract class BaseJellyTest extends TestCase {
     protected XMLOutput getXMLOutput() {
         return xmlOutput;
     }
+    
+    protected StringWriter getStringOutput() {
+    	return strOutput;
+    }
 
     private Jelly jelly = null;
     private JellyContext context = null;
     private XMLOutput xmlOutput = null;
-
+    private StringWriter strOutput;
 }

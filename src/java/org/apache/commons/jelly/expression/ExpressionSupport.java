@@ -28,6 +28,8 @@ import org.apache.commons.collections.iterators.EnumerationIterator;
 import org.apache.commons.collections.iterators.SingletonIterator;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.lang.StringUtils;
 
 /** <p><code>ExpressionSupport</code>
@@ -43,7 +45,7 @@ public abstract class ExpressionSupport implements Expression {
     protected static final Iterator EMPTY_ITERATOR = Collections.EMPTY_LIST.iterator();
 
     // inherit javadoc from interface
-    public String evaluateAsString(JellyContext context) {
+    public String evaluateAsString(JellyContext context) throws JellyTagException {
         Object value = evaluateRecurse(context);
         // sometimes when Jelly is used inside Maven the value
         // of an expression can actually be an expression.
@@ -58,7 +60,7 @@ public abstract class ExpressionSupport implements Expression {
 
 
     // inherit javadoc from interface
-    public Object evaluateRecurse(JellyContext context) {
+    public Object evaluateRecurse(JellyContext context) throws JellyTagException {
         Object value = evaluate(context);
         if (value instanceof Expression) {
             Expression expression = (Expression) value;
@@ -68,7 +70,7 @@ public abstract class ExpressionSupport implements Expression {
     }
 
     // inherit javadoc from interface
-    public boolean evaluateAsBoolean(JellyContext context) {
+    public boolean evaluateAsBoolean(JellyContext context) throws JellyTagException {
         Object value = evaluateRecurse(context);
         if ( value instanceof Boolean ) {
             Boolean b = (Boolean) value;
@@ -91,7 +93,7 @@ public abstract class ExpressionSupport implements Expression {
     }
 
     // inherit javadoc from interface
-    public Iterator evaluateAsIterator(JellyContext context) {
+    public Iterator evaluateAsIterator(JellyContext context) throws JellyTagException {
         Object value = evaluateRecurse(context);
         if ( value == null ) {
             return EMPTY_ITERATOR;

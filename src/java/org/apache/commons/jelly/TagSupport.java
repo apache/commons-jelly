@@ -34,6 +34,9 @@ public abstract class TagSupport implements Tag {
 
     /** the parent of this tag */
     protected Tag parent;
+    
+    /** the TagLibrary which defines this tag */
+    protected TagLibrary tagLibrary;
 
     /** the body of the tag */
     protected Script body;
@@ -153,7 +156,25 @@ public abstract class TagSupport implements Tag {
         this.parent = parent;
     }
 
-    /** @return the body of the tag */
+    /* (non-Javadoc)
+	 * @see org.apache.commons.jelly.Tag#getTagLibrary()
+	 */
+	@Override
+	public TagLibrary getTagLibrary() {
+		return tagLibrary;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.apache.commons.jelly.Tag#setTagLibrary(org.apache.commons.jelly.TagLibrary)
+	 */
+	@Override
+	public void setTagLibrary(TagLibrary tagLibrary) {
+		if (this.tagLibrary != null && tagLibrary != this.tagLibrary)
+			throw new IllegalArgumentException("Cannot setTagLibrary once set");
+		this.tagLibrary = tagLibrary;
+	}
+
+	/** @return the body of the tag */
     public Script getBody() {
         if (! hasTrimmed) {
             hasTrimmed = true;

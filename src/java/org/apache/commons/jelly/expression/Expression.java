@@ -19,6 +19,7 @@ package org.apache.commons.jelly.expression;
 import java.util.Iterator;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyTagException;
 
 /** <p><code>Expression</code> represents an arbitrary expression using some pluggable
   * expression language.</p>
@@ -36,26 +37,27 @@ public interface Expression {
     /**
      * Evaluates the expression with the given context
      * and returns the result
+     * @throws JellyTagException 
      */
-    public Object evaluate(JellyContext context);
+    public Object evaluate(JellyContext context) throws JellyTagException;
 
     /**
      * Evaluates the expression with the given context
      * coercing the result to be a String.
      */
-    public String evaluateAsString(JellyContext context);
+    public String evaluateAsString(JellyContext context) throws JellyTagException;
 
     /**
      * Evaluates the expression with the given context
      * coercing the result to be a boolean.
      */
-    public boolean evaluateAsBoolean(JellyContext context);
+    public boolean evaluateAsBoolean(JellyContext context) throws JellyTagException;
 
     /**
      * Evaluates the expression with the given context
      * coercing the result to be an Iterator.
      */
-    public Iterator evaluateAsIterator(JellyContext context);
+    public Iterator evaluateAsIterator(JellyContext context) throws JellyTagException;
 
     /**
      * This method evaluates the expression until a value (a non-Expression) object
@@ -73,5 +75,5 @@ public interface Expression {
      * So using this method, nested expressions can be evaluated to the
      * actual underlying value object.
      */
-    public Object evaluateRecurse(JellyContext context);
+    public Object evaluateRecurse(JellyContext context) throws JellyTagException;
 }

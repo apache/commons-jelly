@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.jelly.impl.TagScript;
@@ -71,7 +72,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         return this.text;
     }
 
-    public Object evaluate(JellyContext context) {
+    public Object evaluate(JellyContext context) throws JellyTagException {
         this.context = context;
 
         try
@@ -90,8 +91,10 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         }
         catch (JaxenException e)
         {
-            log.error( "Error constructing xpath",
-                       e );
+            if (context.isSuppressExpressionExceptions())
+                log.error("Error constructing xpath", e);
+            else
+            	throw new JellyTagException(e.getMessage(), e);
         }
 
         return null;

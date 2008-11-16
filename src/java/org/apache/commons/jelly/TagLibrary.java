@@ -40,7 +40,8 @@ import org.xml.sax.Attributes;
   */
 
 public abstract class TagLibrary {
-
+	
+	private boolean allowUnknownTags = true;
     private Map tags = new HashMap();
 
     static {
@@ -64,10 +65,22 @@ public abstract class TagLibrary {
         );
     }
 
+    /**
+	 * Default Constructor
+	 */
     public TagLibrary() {
     }
 
-    /** Creates a new script to execute the given tag name and attributes */
+    /**
+     * Constructor
+	 * @param allowUnknownTags whether unknown tags are allowed or an exception is raised
+	 */
+	public TagLibrary(boolean allowUnknownTags) {
+		super();
+		this.allowUnknownTags = allowUnknownTags;
+	}
+
+	/** Creates a new script to execute the given tag name and attributes */
     public TagScript createTagScript(String name, Attributes attributes)
         throws JellyException {
 
@@ -80,7 +93,6 @@ public abstract class TagLibrary {
             return new TagScript( (TagFactory) value );
         }
         return null;
-
     }
 
     /** Creates a new Tag for the given tag name and attributes */
@@ -102,7 +114,7 @@ public abstract class TagLibrary {
             TagFactory factory = (TagFactory) value;
             return factory.createTag(name, attributes);
         }
-        return null;
+    	return null;
     }
 
     /** Allows taglibs to use their own expression evaluation mechanism */
@@ -144,12 +156,26 @@ public abstract class TagLibrary {
     }
 
     /** Allows derived tag libraries to use their own factory */
-    protected ExpressionFactory getExpressionFactory() {
+    public ExpressionFactory getExpressionFactory() {
         return null;
     }
 
     protected Map getTagClasses() {
         return tags;
     }
+
+	/**
+	 * @return the allowUnknownTags
+	 */
+	public boolean isAllowUnknownTags() {
+		return allowUnknownTags;
+	}
+
+	/**
+	 * @param allowUnknownTags the allowUnknownTags to set
+	 */
+	public void setAllowUnknownTags(boolean allowUnknownTags) {
+		this.allowUnknownTags = allowUnknownTags;
+	}
 
 }

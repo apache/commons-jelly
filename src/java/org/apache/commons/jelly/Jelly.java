@@ -217,6 +217,15 @@ public class Jelly {
         }
         return context;
     }
+    
+    /**
+     * Allows the Jelly context to be explicitly set; note that it is the caller's
+     * responsibility to make sure that the URLs etc are properly configured
+     * @param context
+     */
+    public void setJellyContext(JellyContext context) {
+    	this.context = context;
+    }
 
 
     /**

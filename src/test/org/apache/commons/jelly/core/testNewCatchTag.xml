@@ -1,0 +1,134 @@
+<test:suite 
+    xmlns:j="jelly:core" 
+    xmlns:test="jelly:junit">
+    <!--
+    	@author Marc Dexet marc.dexet#dsi.cnrs.fr
+    	@date 2004.11.18
+    	Test use org.apache.commons.jelly.core.ModularExceptionBean bean
+    	Set an expection and this bean will throw it with  'public void throwIt(String message) throws Throwable;' 
+    	
+    	Improvements :
+    	1. Set a list of expected exceptions as java try catch usual block
+    	2. Dissect Exception stack to get the real exception throughout the JellyTagException wrapping with 'cause' var
+    -->
+    
+    <!-- 
+    	Check regression with former tag 
+    -->
+    <test:case name="testCompatibilityWithFormerCatch">
+    	
+    	<j:new var="guiltyBean" className="org.apache.commons.jelly.core.ModularExceptionBean"/>
+    	<j:setProperties object="${guiltyBean}" exception="java.lang.NullPointerException"/>
+    	
+    	<j:catch var="e">
+    		<j:invoke on="${guiltyBean}" method="throwIt">
+    			<j:arg value="always catched"/>
+    		</j:invoke>
+			<test:fail>Exception not catched </test:fail>
+    	</j:catch>
+    	<test:assert test="${! empty(e)}"/>
+    </test:case>
+    
+
+	<!--    
+		Test with expected exception is catched by catchTag.
+		Note the cause using
+	-->
+    <test:case name="testExpectedException_1">
+    	<j:new var="guiltyBean" className="org.apache.commons.jelly.core.ModularExceptionBean"/>
+    	<j:setProperties object="${guiltyBean}" exception="java.lang.NullPointerException"/>
+    	
+    	<j:catch var="e" 
+    		exceptions="java.lang.NoClassDefFoundError;java.lang.NullPointerException"
+    		cause="cause">
+    		
+    		<j:invoke on="${guiltyBean}" method="throwIt">
+    			<j:arg value="always catched"/>
+    		</j:invoke>
+			<test:fail>Exception not catched </test:fail>
+    	</j:catch>
+    	
+    	<test:assert test="${! empty(e)}"/>
+    	<test:assert test="${cause.class.name == 'java.lang.NullPointerException'}">${cause}</test:assert>
+
+    </test:case>   
+    
+	<!--    
+		Test with exception class parenthood.
+		In this example, expected exception is "java.lang.IndexOutOfBoundsException"; 
+		thrown exception is "java.lang.ArrayIndexOutOfBoundsException" that's is a first exception extension.
+		in java, "java.lang.ArrayIndexOutOfBoundsException" will be catched in tryCatch block 
+		try {
+			// throw "ArrayIndexOutOfBoundsException"
+		} catch ( IndexOutOfBoundsException e } {
+			// catch "ArrayIndexOutOfBoundsException"
+		}
+		
+	-->
+    <test:case name="testExpectedExceptionParenthood">
+    	<j:new var="guiltyBean" className="org.apache.commons.jelly.core.ModularExceptionBean"/>
+    	<j:setProperties object="${guiltyBean}" exception="java.lang.ArrayIndexOutOfBoundsException"/>
+    	
+    	<j:catch var="e" 
+    		exceptions="java.lang.IndexOutOfBoundsException"
+    		cause="cause">
+    		
+    		<j:invoke on="${guiltyBean}" method="throwIt">
+    			<j:arg value="parent hood"/>
+    		</j:invoke>
+			<test:fail>Exception not catched </test:fail>
+    	</j:catch>
+    	
+    	<test:assert test="${! empty(e)}"/>
+    	<test:assert test="${cause.class.name == 'java.lang.ArrayIndexOutOfBoundsException'}">${cause}</test:assert>
+
+    </test:case>     
+    
+    
+    <!-- 
+    	Test unexpected exception it thrown to upper catch
+    -->
+    <test:case name="testExpectedException_throw_upper">
+    	<j:new var="guiltyBean" className="org.apache.commons.jelly.core.ModularExceptionBean"/>
+    	<j:setProperties object="${guiltyBean}" exception="java.io.FileNotFoundException"/>
+    	
+    	<j:catch var="upper">
+	    	<j:catch var="e" 
+	    		exceptionList="java.lang.NoClassDefFoundError;java.lang.NullPointerException">
+	    		
+	    		<j:invoke on="${guiltyBean}" method="throwIt">
+	    			<j:arg value="always catched"/>
+	    		</j:invoke>
+				<test:fail>Exception not catched </test:fail>
+	    	</j:catch>
+    		<test:fail>Upper has not catched exception</test:fail>
+    	</j:catch>
+    </test:case>    
+    
+    
+    <!--
+    	Test nested catch tag
+    -->
+    <test:case name="testNestedExpectedException">
+    	<j:new var="guiltyBean" className="org.apache.commons.jelly.core.ModularExceptionBean"/>
+    	<j:setProperties object="${guiltyBean}" exception="java.lang.ArithmeticException"/>
+    	
+    	<!-- top catch -->
+    	<j:catch var="e" exceptions="java.lang.ArithmeticException">
+    		<!-- upper catch -->
+    		<j:catch var="e" exceptions="java.io.FileNotFoundException;java.lang.NoSuchFieldException" >
+    			<!-- lower catch -->
+		    	<j:catch var="e" exceptions="java.lang.NoClassDefFoundError;java.lang.NullPointerException">
+		    		<j:invoke on="${guiltyBean}" method="throwIt">
+		    			<j:arg value="always catched"/>
+		    		</j:invoke>
+					<test:fail>Exception not catched ${e}</test:fail>
+		    	</j:catch>
+	    		<test:fail>Upper has not catched exception ${e}</test:fail>
+    		</j:catch>
+    		<test:fail>top has not catched exception? ${e}</test:fail>
+    	</j:catch>
+    </test:case>     
+     
+    
+</test:suite>

@@ -22,6 +22,8 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
 
 /**
@@ -34,6 +36,17 @@ public class TestExpressions extends TestCase {
 
     protected JellyContext context = new JellyContext();
     protected ExpressionFactory factory = new JexlExpressionFactory();
+
+    private static final class TestException extends Exception {
+		public TestException() {
+			super("Test Exception");
+		}
+    }
+    public static final class TestHelper {
+    	public Object throwAnException() throws TestException {
+    		throw new TestException();
+    	}
+    }
 
     public static void main(String[] args) {
         TestRunner.run(suite());
@@ -59,6 +72,27 @@ public class TestExpressions extends TestCase {
         assertExpression("${topping}y", "cheesey");
         assertExpression("A ${topping} ${type} pizza", "A cheese deepPan pizza");
         assertExpression("${topping}-${type}", "cheese-deepPan");
+        assertExpression("$type${topping}", "$typecheese");
+        assertExpression("$type$topping", "$type$topping");
+        assertExpression("type$$topping$", "type$$topping$");
+        assertExpressionNotExpressionText("$${topping}", "${topping}");
+        assertExpressionNotExpressionText("$$type$${topping}$$", "$$type${topping}$$");
+
+        try {
+        	assertExpression("${ some junk !< 4}", true);
+        	assertTrue("An illegal expression was allowed", false);
+        }catch(JellyException e) {
+        	// Nothing, the test passed
+        }
+        context.setVariable("test", new TestHelper());
+        try {
+        	assertExpression("${test.throwAnException()}", true);
+        	assertTrue("An exception was suppressed while processing the JEXL script", false);
+        }catch(JellyTagException e) {
+        	if (!(e.getCause() instanceof TestException))
+            	throw e;
+        	// Nothing, the test passed
+        }
     }
 
     public void testAntExpresssions() throws Exception {
@@ -138,4 +172,13 @@ public class TestExpressions extends TestCase {
         String text = expression.getExpressionText();
         assertEquals( "Wrong textual representation for expression text: ", expressionText, text);
     }
+
+    protected void assertExpressionNotExpressionText(String expressionText, Object expectedValue) throws Exception {
+        Expression expression = CompositeExpression.parse(expressionText, factory);
+        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
+        Object value = expression.evaluate(context);
+        assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
+    }
+
+
 }

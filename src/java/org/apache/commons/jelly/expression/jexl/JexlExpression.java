@@ -22,6 +22,8 @@ import java.util.Set;
 import java.util.Collection;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 
 import org.apache.commons.jexl.Expression;
@@ -61,7 +63,7 @@ public class JexlExpression extends ExpressionSupport {
         return "${" + expression.getExpression() + "}";
     }
 
-    public Object evaluate(JellyContext context) {
+    public Object evaluate(JellyContext context) throws JellyTagException {
         try {
             JexlContext jexlContext = new JellyJexlContext( context );
             if (log.isDebugEnabled()) {
@@ -76,8 +78,16 @@ public class JexlExpression extends ExpressionSupport {
             return value;
         }
         catch (Exception e) {
-            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
-            return null;
+        	if (context.isSuppressExpressionExceptions()) {
+	            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
+	            return null;
+        	} else {
+        		if (e instanceof RuntimeException)
+        			throw (RuntimeException)e;
+        		if (e instanceof JellyTagException)
+        			throw (JellyTagException)e;
+        		throw new JellyTagException(e.getMessage(), e);
+        	}
         }
     }
 }
