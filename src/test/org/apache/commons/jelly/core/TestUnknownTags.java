@@ -16,17 +16,12 @@
  */
 package org.apache.commons.jelly.core;
 
-import java.io.StringWriter;
-
 import junit.framework.TestSuite;
 
+import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.test.BaseJellyTest;
-import org.dom4j.io.HTMLWriter;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.XMLWriter;
-import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * Tests for exceptions being raised when an unknown tag is encountered - new
@@ -46,8 +41,17 @@ public class TestUnknownTags extends BaseJellyTest {
 
 	public void testUnknownTags() throws Exception {
 		setUpScript("testUnknownTags.xml");
-		Script script = getJelly().compileScript();
-		script.run(getJellyContext(), getXMLOutput());
-		System.out.println(getStringOutput());
+		try {
+			Script script = getJelly().compileScript();
+			script.run(getJellyContext(), getXMLOutput());
+			System.out.println(getStringOutput());
+		}catch(JellyException e) {
+			if (e.getCause() instanceof SAXParseException) {
+				Throwable cause = e.getCause();
+				if (cause.getMessage().indexOf("Unrecognised tag called tag-that-does-not-exist in TagLibrary jelly:test") > -1)
+					return;
+			}
+			throw e;
+		}
 	}
 }

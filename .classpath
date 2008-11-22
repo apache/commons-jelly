@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src/java"/>
-	<classpathentry output="target/test-classes" kind="src" path="src/test"/>
+	<classpathentry kind="src" output="target/test-classes" path="src/test"/>
+	<classpathentry kind="src" path="jelly-tags/define/src/java"/>
+	<classpathentry kind="src" path="jelly-tags/define/src/test"/>
+	<classpathentry kind="src" path="jelly-tags/log/src/java"/>
+	<classpathentry kind="src" path="jelly-tags/log/src/test"/>
+	<classpathentry kind="src" path="jelly-tags/util/src/java"/>
+	<classpathentry kind="src" path="jelly-tags/util/src/test"/>
+	<classpathentry kind="src" path="jelly-tags/xml/src/java"/>
+	<classpathentry kind="src" path="jelly-tags/xml/src/test"/>
 	<classpathentry kind="var" path="MAVEN_REPO/junit/jars/junit-3.8.1.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-jexl/jars/commons-jexl-1.0.jar"/>
@@ -9,8 +17,6 @@
 	<classpathentry kind="var" path="MAVEN_REPO/commons-beanutils/jars/commons-beanutils-1.6.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-collections/jars/commons-collections-2.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-logging/jars/commons-logging-1.0.3.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/dom4j/jars/dom4j-1.5.jar"/>
-	<classpathentry kind="var" path="MAVEN_REPO/jaxen/jars/jaxen-1.1-beta-2.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/xerces/jars/xerces-2.2.1.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/servletapi/jars/servletapi-2.3.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/commons-cli/jars/commons-cli-1.0.jar"/>
@@ -18,5 +24,7 @@
 	<classpathentry kind="var" path="MAVEN_REPO/commons-discovery/jars/commons-discovery-20030211.213356.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/forehead/jars/forehead-1.0-beta-5.jar"/>
 	<classpathentry kind="var" path="MAVEN_REPO/jstl/jars/jstl-1.0.6.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/dom4j/jars/dom4j-1.5.2.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPO/jaxen/jars/jaxen-1.1-beta-9.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

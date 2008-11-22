@@ -159,7 +159,6 @@ public abstract class TagSupport implements Tag {
     /* (non-Javadoc)
 	 * @see org.apache.commons.jelly.Tag#getTagLibrary()
 	 */
-	@Override
 	public TagLibrary getTagLibrary() {
 		return tagLibrary;
 	}
@@ -167,7 +166,6 @@ public abstract class TagSupport implements Tag {
 	/* (non-Javadoc)
 	 * @see org.apache.commons.jelly.Tag#setTagLibrary(org.apache.commons.jelly.TagLibrary)
 	 */
-	@Override
 	public void setTagLibrary(TagLibrary tagLibrary) {
 		if (this.tagLibrary != null && tagLibrary != this.tagLibrary)
 			throw new IllegalArgumentException("Cannot setTagLibrary once set");

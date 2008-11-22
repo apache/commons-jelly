@@ -306,6 +306,30 @@
         <role>Developer</role>
       </roles>
     </contributor>
+    <contributor>
+      <name>John Spackman</name>
+      <email>john.spackman@zenesis.com</email>
+      <organization>Zenesis Limited</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>John Spackman</name>
+      <email>john.spackman@zenesis.com</email>
+      <organization>Zenesis Limited</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>John Spackman</name>
+      <email>john.spackman@zenesis.com</email>
+      <organization>Zenesis Limited</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
   </contributors>
   <dependencies>
     <!-- for servlet support -->
@@ -395,9 +419,11 @@
       <excludes>
         <exclude>**/TestCoreMemoryLeak.java</exclude>
         <exclude>**/TestNamespacePrefixes.java</exclude>
-        <exclude>**/TestNestedExceptions.java</exclude>
         <exclude>**/TestUnknownTags.java</exclude>
         <exclude>**/TestCustomExpressionFactory.java</exclude>
+		  <!--
+		  -->
+        <exclude>**/TestNestedExceptions.java</exclude>
         
         
       </excludes>

@@ -10,19 +10,26 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TJTagLibrary;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
-public class TestCustomExpressionFactory extends TestCase {
+public class TestCustomExpressionFactory extends BaseJellyTest {
 	
 	private static final String EXPECTED = "id=1; attr=${TEST FACTORY:  1 + 2 }; text=${TEST FACTORY:  'hello' + \" world\" }\n" + 
-				"id=2; attr=${TEST FACTORY:  2 + 3 }; text=<sometag xmlns=\"jelly:test\">${TEST FACTORY:  'goodbye cruel' + \" world\" }</sometag>\n";
+				"id=2; attr=${TEST FACTORY:  2 + 3 }; text=<sometag>${TEST FACTORY:  'goodbye cruel' + \" world\" }</sometag>\n";
 
 	public TestCustomExpressionFactory() {
 		super("TestCustomExpressionFactory");
 	}
 	
 	public void testCustomFactory() throws Exception {
+		setUpScript("jelly1.xml");
+		Script script = getJelly().compileScript();
+		script.run(getJellyContext(), getXMLOutput());
+
+		/*
 		JellyContext ctx = new JellyContext();
 		ctx.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
 		
@@ -34,7 +41,8 @@ public class TestCustomExpressionFactory extends TestCase {
 		XMLOutput output = XMLOutput.createXMLOutput(strWriter);
 		ctx.runScript(file, output);
 		
-		String str = strWriter.toString();
+		*/
+		String str = getStringOutput().toString();
 		System.out.println(str);
 		assertEquals(str, EXPECTED); 
 	}

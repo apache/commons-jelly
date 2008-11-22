@@ -168,6 +168,8 @@
           </include>
           <exclude name="**/TestCoreMemoryLeak.java">
           </exclude>
+          <exclude name="**/TestNestedExceptions.java">
+          </exclude>
         </fileset>
       </batchtest>
     </junit>
@@ -411,7 +413,10 @@
     <get dest="${libdir}/xerces/jars/xerces-2.2.1.jar" usetimestamp="true" ignoreerrors="true" src="${xerces.jar}">
     </get>
   </target>
+	<!--
   <target name="get-deps" unless="noget" depends="get-dep-servletapi.jar,get-dep-commons-cli.jar,get-dep-commons-lang.jar,get-dep-commons-discovery.jar,get-dep-forehead.jar,get-dep-jstl.jar,get-dep-junit.jar,get-dep-commons-jexl.jar,get-dep-xml-apis.jar,get-dep-commons-beanutils.jar,get-dep-commons-collections.jar,get-dep-commons-logging.jar,get-dep-dom4j.jar,get-dep-jaxen.jar,get-dep-xerces.jar">
+		-->
+  <target name="get-deps" unless="noget">
   </target>
   <target name="setProxy" if="useProxy" depends="init">
     <!--Proxy settings works only with a JDK 1.2 and higher.-->

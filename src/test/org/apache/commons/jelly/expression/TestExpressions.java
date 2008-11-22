@@ -79,14 +79,14 @@ public class TestExpressions extends TestCase {
         assertExpressionNotExpressionText("$$type$${topping}$$", "$$type${topping}$$");
 
         try {
-        	assertExpression("${ some junk !< 4}", true);
+        	assertExpression("${ some junk !< 4}", Boolean.TRUE);
         	assertTrue("An illegal expression was allowed", false);
         }catch(JellyException e) {
         	// Nothing, the test passed
         }
         context.setVariable("test", new TestHelper());
         try {
-        	assertExpression("${test.throwAnException()}", true);
+        	assertExpression("${test.throwAnException()}", Boolean.TRUE);
         	assertTrue("An exception was suppressed while processing the JEXL script", false);
         }catch(JellyTagException e) {
         	if (!(e.getCause() instanceof TestException))

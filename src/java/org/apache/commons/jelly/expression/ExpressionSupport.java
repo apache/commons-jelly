@@ -28,7 +28,6 @@ import org.apache.commons.collections.iterators.EnumerationIterator;
 import org.apache.commons.collections.iterators.SingletonIterator;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.lang.StringUtils;
 

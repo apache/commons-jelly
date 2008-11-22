@@ -22,7 +22,6 @@ import java.util.Set;
 import java.util.Collection;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 
