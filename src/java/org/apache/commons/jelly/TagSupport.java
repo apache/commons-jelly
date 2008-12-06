@@ -157,18 +157,18 @@ public abstract class TagSupport implements Tag {
     }
 
     /* (non-Javadoc)
-	 * @see org.apache.commons.jelly.Tag#getTagLibrary()
+	 * @see org.apache.commons.jelly.Tag#getTagLib()
 	 */
-	public TagLibrary getTagLibrary() {
+	public TagLibrary getTagLib() {
 		return tagLibrary;
 	}
 
 	/* (non-Javadoc)
-	 * @see org.apache.commons.jelly.Tag#setTagLibrary(org.apache.commons.jelly.TagLibrary)
+	 * @see org.apache.commons.jelly.Tag#setTagLib(org.apache.commons.jelly.TagLibrary)
 	 */
-	public void setTagLibrary(TagLibrary tagLibrary) {
+	public void setTagLib(TagLibrary tagLibrary) {
 		if (this.tagLibrary != null && tagLibrary != this.tagLibrary)
-			throw new IllegalArgumentException("Cannot setTagLibrary once set");
+			throw new IllegalArgumentException("Cannot setTagLib once set");
 		this.tagLibrary = tagLibrary;
 	}
 

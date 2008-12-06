@@ -9,10 +9,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.TJTagLibrary;
-import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.*;
 import org.apache.commons.jelly.test.BaseJellyTest;
 
 public class TestCustomExpressionFactory extends BaseJellyTest {
@@ -24,6 +21,11 @@ public class TestCustomExpressionFactory extends BaseJellyTest {
 		super("TestCustomExpressionFactory");
 	}
 	
+    protected void addCustomTagLib(JellyContext context) {
+        context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
+    }
+
+
 	public void testCustomFactory() throws Exception {
 		setUpScript("jelly1.xml");
 		Script script = getJelly().compileScript();

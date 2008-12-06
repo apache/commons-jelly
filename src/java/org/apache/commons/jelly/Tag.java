@@ -45,13 +45,13 @@ public interface Tag {
      * (ie a StaticTag) 
      * @return
      */
-    public TagLibrary getTagLibrary();
+    public TagLibrary getTagLib();
     
     /**
      * Sets the tag library
      * @param tagLibrary
      */
-    public void setTagLibrary(TagLibrary tagLibrary);
+    public void setTagLib(TagLibrary tagLibrary);
 
     /**
      * @return the body of the tag

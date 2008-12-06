@@ -530,7 +530,7 @@ public class TagScript implements Script {
      * Compiles a newly created tag if required, sets its parent and body.
      */
     protected void configureTag(Tag tag, JellyContext context) throws JellyException {
-    	tag.setTagLibrary(tagLibrary);
+    	tag.setTagLib(tagLibrary);
         if (tag instanceof CompilableTag) {
             ((CompilableTag) tag).compile();
         }

@@ -39,9 +39,13 @@ public abstract class BaseJellyTest extends TestCase {
         super.setUp();
         jelly = new Jelly();
         context = new JellyContext();
+        addCustomTagLib(context);
         jelly.setJellyContext(context);
         strOutput = new StringWriter();
         xmlOutput = XMLOutput.createXMLOutput(strOutput);
+    }
+
+    protected void addCustomTagLib(JellyContext context) {
     }
 
     protected void setUpScript(String scriptname) throws Exception {

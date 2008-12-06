@@ -27,6 +27,7 @@ import junit.framework.TestSuite;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.TJTagLibrary;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.jelly.test.BaseJellyTest;
 import org.xml.sax.InputSource;
@@ -47,6 +48,12 @@ public class TestNamespacePrefixes extends BaseJellyTest {
 	public static TestSuite suite() throws Exception {
 		return new TestSuite(TestNamespacePrefixes.class);
 	}
+
+    protected void addCustomTagLib(JellyContext context) {
+        context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
+    }
+
+    
 
 	public void testNamespacePrefixes() throws Exception {
 		SAXParserFactory pf = SAXParserFactory.newInstance();
