@@ -88,7 +88,7 @@ public class TestExpressions extends TestCase {
         try {
         	assertExpression("${test.throwAnException()}", Boolean.TRUE);
         	assertTrue("An exception was suppressed while processing the JEXL script", false);
-        }catch(JellyTagException e) {
+        }catch(IllegalStateException e) {
         	if (!(e.getCause() instanceof TestException))
             	throw e;
         	// Nothing, the test passed

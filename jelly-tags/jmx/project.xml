@@ -19,7 +19,7 @@
   <extend>${basedir}/../tag-project.xml</extend>
   <artifactId>commons-jelly-tags-jmx</artifactId>
   <name>commons-jelly-tags-jmx</name>
-  <currentVersion>1.0</currentVersion>
+  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
 
   <package>org.apache.commons.jelly.tags.jmx</package>
 

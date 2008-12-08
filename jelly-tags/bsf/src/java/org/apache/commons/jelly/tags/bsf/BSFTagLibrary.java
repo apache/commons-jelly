@@ -57,11 +57,6 @@ public class BSFTagLibrary extends CoreTagLibrary {
         expressionFactory.setLanguage(language);
     }
 
-    /** Allows derived tag libraries to use their own factory */
-    protected ExpressionFactory getExpressionFactory() {
-        return expressionFactory;
-    }
-
     protected BSFEngine getBSFEngine() throws BSFException {
         return expressionFactory.getBSFEngine();
     }

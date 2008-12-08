@@ -254,12 +254,12 @@ public class CompositeExpression extends ExpressionSupport {
 
 
     // inherit javadoc from interface
-    public Object evaluate(JellyContext context) throws JellyTagException {
+    public Object evaluate(JellyContext context) {
         return evaluateAsString(context);
     }
 
     // inherit javadoc from interface
-    public String evaluateAsString(JellyContext context) throws JellyTagException {
+    public String evaluateAsString(JellyContext context) {
         StringBuffer buffer = new StringBuffer();
         for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
             Expression expression = (Expression) iter.next();
@@ -273,7 +273,7 @@ public class CompositeExpression extends ExpressionSupport {
     }
 
     // inherit javadoc from interface
-    public Iterator evaluateAsIterator(JellyContext context) throws JellyTagException {
+    public Iterator evaluateAsIterator(JellyContext context) {
         String value = evaluateAsString(context);
         if ( value == null ) {
             return Collections.EMPTY_LIST.iterator();

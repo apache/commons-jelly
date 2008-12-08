@@ -35,9 +35,9 @@ public class TestModularExceptionBean extends TestCase {
         // TODO Auto-generated constructor stub
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         junit.swingui.TestRunner.run(TestModularExceptionBean.class);
-    }
+    }*/
 
     public final void testThrowIt() {
 

@@ -33,9 +33,4 @@ public class BeanShellTagLibrary extends CoreTagLibrary {
         registerTag("script", ScriptTag.class);
     }
 
-    /** Allows derived tag libraries to use their own factory */
-    protected ExpressionFactory getExpressionFactory() {
-        return expressionFactory;
-    }
-
 }

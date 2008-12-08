@@ -120,7 +120,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
             this.text = text;
         }
 
-        public Object evaluate(JellyContext context) throws JellyTagException {
+        public Object evaluate(JellyContext context) {
             Object answer = jexlExpression.evaluate(context);
 
             if ( answer == null ) {

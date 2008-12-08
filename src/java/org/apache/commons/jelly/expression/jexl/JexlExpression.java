@@ -62,7 +62,7 @@ public class JexlExpression extends ExpressionSupport {
         return "${" + expression.getExpression() + "}";
     }
 
-    public Object evaluate(JellyContext context) throws JellyTagException {
+    public Object evaluate(JellyContext context) {
         try {
             JexlContext jexlContext = new JellyJexlContext( context );
             if (log.isDebugEnabled()) {
@@ -83,9 +83,9 @@ public class JexlExpression extends ExpressionSupport {
         	} else {
         		if (e instanceof RuntimeException)
         			throw (RuntimeException)e;
-        		if (e instanceof JellyTagException)
-        			throw (JellyTagException)e;
-        		throw new JellyTagException(e.getMessage(), e);
+        		if (e instanceof IllegalStateException)
+        			throw (IllegalStateException )e;
+        		throw new IllegalStateException(e.getMessage(), e);
         	}
         }
     }

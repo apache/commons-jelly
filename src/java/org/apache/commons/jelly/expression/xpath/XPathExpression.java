@@ -72,7 +72,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         return this.text;
     }
 
-    public Object evaluate(JellyContext context) throws JellyTagException {
+    public Object evaluate(JellyContext context) {
         this.context = context;
 
         try
@@ -94,7 +94,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
             if (context.isSuppressExpressionExceptions())
                 log.error("Error constructing xpath", e);
             else
-            	throw new JellyTagException(e.getMessage(), e);
+            	throw new IllegalStateException (e.getMessage(), e);
         }
 
         return null;
