@@ -60,6 +60,14 @@ public class DataSourceWrapper implements DataSource {
         this.jdbcURL = jdbcURL;
     }
 
+    public <T> T unwrap(Class<T> tClass) throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
+
+    public boolean isWrapperFor(Class<?> aClass) throws SQLException {
+        return false;
+    }
+
     public void setUserName(String userName) {
         this.userName = userName;
     }
