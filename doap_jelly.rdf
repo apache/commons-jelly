@@ -18,11 +18,11 @@
       </SVNRepository>
     </repository>
     <release>
-      <revision>
+      <Version>
         <name>commons-jelly</name>
         <created>2005-06-16</created>
-        <version>1.0</version>
-      </revision>
+        <revision>1.0</revision>
+      </Version>
     </release>
     <mailing-list rdf:resource="http://commons.apache.org/mail-lists.html"/>
   </Project>
