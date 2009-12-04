@@ -104,16 +104,9 @@
     <plugins>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
-        <dependencies>
-          <dependency>
-            <groupId>commons-jelly</groupId>
-            <artifactId>commons-jelly</artifactId>
-            <version>${project.version}</version>
-          </dependency>
-        </dependencies>
         <configuration>
           <descriptors>
-            <descriptor>jelly-assembly.xml</descriptor>
+            <descriptor>../jelly-tags-assembly.xml</descriptor>
           </descriptors>
           <tarLongFileMode>gnu</tarLongFileMode>
         </configuration>

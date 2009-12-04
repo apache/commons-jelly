@@ -140,7 +140,7 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
           <descriptors>
-            <descriptor>src/main/resources/assemblies/jelly-assembly.xml</descriptor>
+            <descriptor>src/assembly/dist.xml</descriptor>
           </descriptors>
           <tarLongFileMode>gnu</tarLongFileMode>
         </configuration>
