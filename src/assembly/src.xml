@@ -1,0 +1,728 @@
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<assembly>
+    <id>src</id>
+    <formats>
+        <format>tar.gz</format>
+        <format>zip</format>
+    </formats>
+    <fileSets>
+        <fileSet>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>build.properties.sample</include>
+                <include>build.xml</include>
+                <include>LICENSE.txt</include>
+                <include>maven.xml</include>
+                <include>NOTICE.txt</include>
+                <include>parent-project.xml</include>
+                <include>pom.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>README.txt</include>
+                <include>README-binary-dist.txt</include>
+                <include>RELEASE-NOTES.txt</include>
+                <include>short-license.txt</include>
+            </includes>
+        </fileSet>
+
+        <fileSet>
+            <directory>src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>xdocs</directory>
+        </fileSet>
+
+        <!-- jelly -->
+        <fileSet>
+            <directory>jelly</directory>
+            <includes>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly/src</directory>
+        </fileSet>
+
+        <!-- jelly-tags -->
+        <fileSet>
+            <directory>jelly-tags</directory>
+            <includes>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>tag-checkstyle.xml</include>
+                <include>tag-navigation.xml</include>
+                <include>tag-project.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/ant/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/ant/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:ant -->
+        <fileSet>
+            <directory>jelly-tags/ant</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/ant/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/ant/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:antlr -->
+        <fileSet>
+            <directory>jelly-tags/antlr</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/antlr/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/antlr/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:avalon -->
+        <fileSet>
+            <directory>jelly-tags/avalon</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/avalon/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/avalon/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:bean -->
+        <fileSet>
+            <directory>jelly-tags/bean</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/bean/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/bean/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:beanshell -->
+        <fileSet>
+            <directory>jelly-tags/beanshell</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/beanshell/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/beanshell/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:betwixt -->
+        <fileSet>
+            <directory>jelly-tags/betwixt</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/betwixt/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/betwixt/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:bsf -->
+        <fileSet>
+            <directory>jelly-tags/bsf</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/bsf/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/bsf/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:define -->
+        <fileSet>
+            <directory>jelly-tags/define</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/define/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/define/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:dynabean -->
+        <fileSet>
+            <directory>jelly-tags/dynabean</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/dynabean/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/dynabean/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:email -->
+        <fileSet>
+            <directory>jelly-tags/email</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/email/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/email/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:fmt -->
+        <fileSet>
+            <directory>jelly-tags/fmt</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/fmt/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/fmt/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:html -->
+        <fileSet>
+            <directory>jelly-tags/html</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/html/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/html/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:http -->
+        <fileSet>
+            <directory>jelly-tags/http</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/http/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/http/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:interaction -->
+        <fileSet>
+            <directory>jelly-tags/interaction</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/interaction/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/interaction/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:jaxme -->
+        <fileSet>
+            <directory>jelly-tags/jaxme</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jaxme/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jaxme/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:jetty -->
+        <fileSet>
+            <directory>jelly-tags/jetty</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jetty/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jetty/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:jface -->
+        <fileSet>
+            <directory>jelly-tags/jface</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jface/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jface/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:jms -->
+        <fileSet>
+            <directory>jelly-tags/jms</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jms/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jms/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:jmx -->
+        <fileSet>
+            <directory>jelly-tags/jmx</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jmx/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jmx/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:jsl -->
+        <fileSet>
+            <directory>jelly-tags/jsl</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jsl/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/jsl/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:junit -->
+        <fileSet>
+            <directory>jelly-tags/junit</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/junit/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/junit/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:log -->
+        <fileSet>
+            <directory>jelly-tags/log</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/log/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/log/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:memory -->
+        <fileSet>
+            <directory>jelly-tags/memory</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/memory/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/memory/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:ojb -->
+        <fileSet>
+            <directory>jelly-tags/ojb</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/ojb/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/ojb/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:quartz -->
+        <fileSet>
+            <directory>jelly-tags/quartz</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/quartz/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/quartz/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:regexp -->
+        <fileSet>
+            <directory>jelly-tags/regexp</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/regexp/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/regexp/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:soap -->
+        <fileSet>
+            <directory>jelly-tags/soap</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/soap/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/soap/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:sql -->
+        <fileSet>
+            <directory>jelly-tags/sql</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/sql/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/sql/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:swing -->
+        <fileSet>
+            <directory>jelly-tags/swing</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/swing/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/swing/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:swt -->
+        <fileSet>
+            <directory>jelly-tags/swt</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/swt/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/swt/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:threads -->
+        <fileSet>
+            <directory>jelly-tags/threads</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/threads/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/threads/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:util -->
+        <fileSet>
+            <directory>jelly-tags/util</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/util/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/util/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:validate -->
+        <fileSet>
+            <directory>jelly-tags/validate</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/validate/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/validate/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:velocity -->
+        <fileSet>
+            <directory>jelly-tags/velocity</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/velocity/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/velocity/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:xml -->
+        <fileSet>
+            <directory>jelly-tags/xml</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/xml/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/xml/xdocs</directory>
+        </fileSet>
+
+        <!-- jelly-tags:xmlunit -->
+        <fileSet>
+            <directory>jelly-tags/xmlunit</directory>
+            <includes>
+                <include>build.xml</include>
+                <include>maven.xml</include>
+                <include>project.properties</include>
+                <include>project.xml</include>
+                <include>pom.xml</include>
+            </includes>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/xmlunit/src</directory>
+        </fileSet>
+        <fileSet>
+            <directory>jelly-tags/xmlunit/xdocs</directory>
+        </fileSet>
+    </fileSets>
+</assembly>
