@@ -45,7 +45,7 @@
   </dependencies>
 
   <properties>
-    <commons.componentid>jelly-tags-ant</commons.componentid>
+    <commons.componentid>jelly-tags-util</commons.componentid>
   </properties>
 
   <build>
