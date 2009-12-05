@@ -48,6 +48,16 @@
     <module>jelly-tags/junit</module>
     <module>jelly-tags/util</module>
     <module>jelly-tags/ant</module>
+    <module>jelly-tags/antlr</module>
+    <module>jelly-tags/avalon</module>
+    <module>jelly-tags/bean</module>
+    <module>jelly-tags/beanshell</module>
+    <module>jelly-tags/betwixt</module>
+    <module>jelly-tags/bsf</module>
+    <module>jelly-tags/define</module>
+    <module>jelly-tags/dynabean</module>
+    <module>jelly-tags/log</module>
+    <module>jelly-tags/xml</module>
   </modules>
 
   <properties>
