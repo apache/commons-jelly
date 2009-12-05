@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>commons-jelly</groupId>
+    <artifactId>commons-jelly-parent</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>commons-jelly-tags-jaxme</artifactId>
+  <name>commons-jelly-tags-jaxme</name>
+  <inceptionYear>2004</inceptionYear>
+  <description>JaxMe Tag Library. Apache JaxMe is an open source generative xml-object binder. Tags are provided that generate java objects from schema using JaxMe and that will marshall and unmarshall any JAXB complient implementations.</description>
+
+  <dependencies>
+    <dependency>
+      <groupId>commons-jelly</groupId>
+      <artifactId>commons-jelly</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+    </dependency>
+    <!-- TODO: These versions probably want updating -->
+    <dependency>
+      <artifactId>jaxme</artifactId>
+      <groupId>jaxme</groupId>
+      <version>0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxme-js</artifactId>
+      <groupId>jaxme</groupId>
+      <version>0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxme-xs</artifactId>
+      <groupId>jaxme</groupId>
+      <version>0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>jaxme-api</artifactId>
+      <groupId>jaxme</groupId>
+      <version>0.2</version>
+    </dependency>
+    <dependency>
+      <artifactId>commons-jelly-tags-junit</artifactId>
+      <groupId>commons-jelly</groupId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <artifactId>commons-jelly-tags-xmlunit</artifactId>
+      <groupId>commons-jelly</groupId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>commons-jelly-tags-xml</artifactId>
+      <groupId>commons-jelly</groupId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <artifactId>xmlunit</artifactId>
+      <groupId>xmlunit</groupId>
+      <version>0.8</version>
+    </dependency>
+  </dependencies>
+
+  <properties>
+    <commons.componentid>jelly-tags-jaxme</commons.componentid>
+  </properties>
+
+  <build>
+    <sourceDirectory>src/java</sourceDirectory>
+    <testSourceDirectory>src/test</testSourceDirectory>
+
+    <resources>
+      <resource>
+        <directory>../..</directory>
+        <targetPath>META-INF</targetPath>
+        <includes>
+          <include>NOTICE.txt</include>
+          <include>LICENSE.txt</include>
+        </includes>
+      </resource>
+    </resources>
+
+    <testResources>
+      <testResource>
+        <directory>src/test</directory>
+        <includes>
+          <include>**/*.jelly</include>
+          <include>**/*.properties</include>
+          <include>**/*.xml</include>
+        </includes>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <descriptors>
+            <descriptor>../jelly-tags-assembly.xml</descriptor>
+          </descriptors>
+          <tarLongFileMode>gnu</tarLongFileMode>
+        </configuration>
+      </plugin>
+    </plugins>
+
+  </build>
+</project>

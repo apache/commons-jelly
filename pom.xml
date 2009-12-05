@@ -45,8 +45,6 @@
 
   <modules>
     <module>jelly</module>
-    <module>jelly-tags/junit</module>
-    <module>jelly-tags/util</module>
     <module>jelly-tags/ant</module>
     <module>jelly-tags/antlr</module>
     <module>jelly-tags/avalon</module>
@@ -56,8 +54,33 @@
     <module>jelly-tags/bsf</module>
     <module>jelly-tags/define</module>
     <module>jelly-tags/dynabean</module>
+    <module>jelly-tags/email</module>
+    <module>jelly-tags/fmt</module>
+    <module>jelly-tags/html</module>
+    <module>jelly-tags/http</module>
+    <module>jelly-tags/interaction</module>
+    <module>jelly-tags/jaxme</module>
+    <module>jelly-tags/jetty</module>
+    <module>jelly-tags/jface</module>
+    <module>jelly-tags/jms</module>
+    <module>jelly-tags/jmx</module>
+    <module>jelly-tags/jsl</module>
+    <module>jelly-tags/junit</module>
     <module>jelly-tags/log</module>
+    <module>jelly-tags/memory</module>
+    <module>jelly-tags/ojb</module>
+    <module>jelly-tags/quartz</module>
+    <module>jelly-tags/regexp</module>
+    <module>jelly-tags/soap</module>
+    <module>jelly-tags/sql</module>
+    <module>jelly-tags/swing</module>
+    <module>jelly-tags/swt</module>
+    <module>jelly-tags/threads</module>
+    <module>jelly-tags/util</module>
+    <module>jelly-tags/validate</module>
+    <module>jelly-tags/velocity</module>
     <module>jelly-tags/xml</module>
+    <module>jelly-tags/xmlunit</module>
   </modules>
 
   <properties>
