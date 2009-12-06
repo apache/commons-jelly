@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+<!-- 
+/*
+ * Copyright 2001-2004 The Apache Software Foundation.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ -->
+
+<j:jelly 
+  xmlns:j="jelly:core" 
+  xmlns:x="jelly:xml" 
+  xmlns:jsl="jelly:jsl">
+
+<j:new var="file" className="java.io.File">
+  <j:arg value="${maven.build.dir}/taglib.xml"/>
+</j:new>
+
+<x:parse var="doc" xml="${file}"/>
+<x:set var="libraries" select="$doc/tags/library"/>      
+
+<!-- lets create a JSL stylesheet that we'll use later -->
+<jsl:stylesheet var="docStylesheet">
+
+  <!-- don't output <doc> element but output its contents -->
+  <jsl:template match="doc">
+    <jsl:applyTemplates/>  
+  </jsl:template>
+
+  <!-- ignore javadoc tags-->
+  <jsl:template match="authortag"/>
+  <jsl:template match="versiontag"/>
+  <jsl:template match="tagtag"/>
+  <jsl:template match="paramtag"/>
+  <jsl:template match="requiredtag"/>
+  <jsl:template match="seetag"/>
+
+  <!-- let other text and elements pass through via default rules-->
+  <jsl:template match="*" trim="false">
+    <jsl:copy>
+      <jsl:applyTemplates/>
+    </jsl:copy>
+  </jsl:template>
+  
+  <jsl:template match="@*"/>
+</jsl:stylesheet>
+
+<document>
+
+    <properties>
+      <title>Tag Documentation</title>
+    </properties>
+
+  <body>
+    <section name="Tag Documentation">
+
+    <p>
+        [<a href="#Tag Libraries">tag libraries</a>]
+        [<a href="#Tags">tags</a>]
+      </p>
+      <p>
+        The following document contains a summary of all the
+        <a href="http://jakarta.apache.org/commons/jelly/">Jelly</a> tag libraries.
+      </p>
+      
+    </section>
+
+    <section name="Tag Libraries">
+    <p>
+        [<a href="#Tag Libraries">tag libraries</a>]
+        [<a href="#Tags">tags</a>]
+      </p>
+      
+      <table>
+  <tr>
+      <th>Library</th>
+      <th>Description</th>
+    </tr>
+    <x:forEach select="$libraries" sort="@uri">
+    <x:set var="uri" select="string(@uri)"/>
+    <tr>
+      <td><a href="#${uri}">${uri}</a></td>
+      <td>
+          <jsl:style stylesheet="${docStylesheet}" select="doc"/>
+    </td>
+    </tr>
+    </x:forEach>
+    </table>
+
+    
+    <x:forEach select="$libraries" sort="@uri">
+    <x:set var="name" select="string(@uri)"/>
+    <x:set var="prefix" select="string(@prefix)"/>
+  
+    <subsection name="${name}">
+    <p>
+    <jsl:style stylesheet="${docStylesheet}" select="doc"/>
+    </p>
+      
+    <table>
+    <tr>
+      <th>Tag Name</th>
+      <th>Description</th>
+    </tr>
+    
+    <x:forEach select="tag" sort="@name">
+    <x:set var="tagName" select="string(@name)"/>
+    <x:set var="doc" select="doc"/>
+  <tr>
+      <td><a href="#${prefix}:${tagName}">${tagName}</a></td>
+        <td>        
+          <jsl:style stylesheet="${docStylesheet}" select="$doc"/>
+    </td>
+  </tr>
+    </x:forEach>
+    </table>
+    </subsection>
+    
+    </x:forEach>
+    
+    </section>
+      
+            
+
+  <section name="Tags">  
+       <p>
+        [<a href="#Tag Libraries">tag libraries</a>]
+        [<a href="#Tags">tags</a>]
+      </p>
+    
+    <x:forEach select="$libraries" sort="@uri">
+    <x:set var="prefix" select="string(@prefix)"/>
+      <x:forEach select="tag" var="tag" sort="@name">
+      <x:set var="tagName" select="string(@name)"/>
+
+      <subsection name="${prefix}:${tagName}">
+      <p>
+        <jsl:style stylesheet="${docStylesheet}" select="$tag/doc"/>
+      </p>
+        
+      <table>
+      <tr>
+        <th>Attribute Name</th>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+      
+      <x:forEach var="attr" select="$tag/attribute" sort="@name">
+    <tr>
+        <td><x:expr select="$attr/@name"/></td>
+        <td><x:expr select="$attr/@type"/></td>
+          <td>        
+            <jsl:style stylesheet="${docStylesheet}" select="$attr/doc"/>
+      </td>
+    </tr>
+      </x:forEach>
+      </table>
+      </subsection>
+    
+    
+    
+      </x:forEach>
+    </x:forEach>
+    </section>
+  
+  </body>
+</document>
+
+</j:jelly>
+
+
