@@ -90,6 +90,7 @@
     <commons.release.version>1.0</commons.release.version>
     <commons.jira.id>JELLY</commons.jira.id>
     <commons.jira.pid>10012</commons.jira.pid>
+    <jelly.doc.location>${basedir}/xdocs</jelly.doc.location>
   </properties>
 
   <developers>
@@ -436,4 +437,82 @@
     </plugins>
   </build>
 
+  <!--
+     - Profile to generate Tag documentation for Jelly Tag Library
+     -
+     - Run "mvn -Ptagdoc generate-sources"
+    -->
+  <profiles>
+    <profile>
+      <id>tagdoc</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-antrun-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>javadoc.resources</id>
+                <phase>generate-sources</phase>
+                <goals>
+                  <goal>run</goal>
+                </goals>
+                <configuration>
+                  <tasks>
+
+                    <!-- Generate Tag Doc -->
+                    <javadoc sourcepath="${project.build.sourceDirectory}" 
+                             classpathref="maven.compile.classpath"
+                             docletpathref="maven.plugin.classpath">
+                        <doclet name="org.apache.commons.jellydoc.TagXMLDoclet">
+                            <param name="-d" value="${project.build.directory}"/>
+                        </doclet>
+                    </javadoc>
+
+                    <!-- load jelly script & copy to "target" directory -->
+                    <loadresource property="jelly.script">
+                        <javaresource name="commons-jellydoc.jelly"/>
+                    </loadresource>
+                    <echo message="${jelly.script}" file="${project.build.directory}/commons-jellydoc.jelly" append="false" />
+
+                    <!-- Run Jelly script to generate doc -->
+                    <java classname="org.apache.commons.jelly.Jelly">
+                        <arg value="${project.build.directory}/commons-jellydoc.jelly"/>
+                        <arg value="-Dmaven.build.dir=${project.build.directory}"/>
+                        <arg value="-o"/>
+                        <arg value="${jelly.doc.location}/${commons.componentid}.xml"/>
+                        <classpath refid="maven.plugin.classpath"/>
+                    </java>
+
+                  </tasks>
+                </configuration>
+              </execution>
+            </executions>
+            <dependencies>
+              <dependency>
+                <groupId>commons-jelly</groupId>
+                <artifactId>commons-jellydoc</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>commons-jelly</groupId>
+                <artifactId>commons-jelly</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>commons-jelly</groupId>
+                <artifactId>commons-jelly-tags-xml</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+              <dependency>
+                <groupId>commons-jelly</groupId>
+                <artifactId>commons-jelly-tags-jsl</artifactId>
+                <version>${project.version}</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
