@@ -23,7 +23,7 @@ import org.apache.commons.jelly.impl.BreakException;
 import org.apache.commons.jelly.expression.Expression;
 
 /**
- * A tag which terminates the execution of the current &lt;forEach&gt; or &lg;while&gt;
+ * A tag which terminates the execution of the current &lt;forEach&gt; or &lt;while&gt;
  * loop. This tag can take an optional boolean test attribute which if its true
  * then the break occurs otherwise the loop continues processing.
  *
