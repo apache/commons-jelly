@@ -55,8 +55,7 @@
 
   <build>
     <sourceDirectory>src/java</sourceDirectory>
-    <!-- comment out test source until tests stop failing -->
-    <!--testSourceDirectory>src/test</testSourceDirectory-->
+    <testSourceDirectory>src/test</testSourceDirectory>
 
     <resources>
       <resource>
@@ -77,6 +76,10 @@
           <include>**/*.properties</include>
           <include>**/*.xml</include>
         </includes>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+        <targetPath>resources</targetPath>
       </testResource>
     </testResources>
 
