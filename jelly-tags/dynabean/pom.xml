@@ -52,6 +52,7 @@
   
   <properties>
     <commons.componentid>jelly-tags-dynabean</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

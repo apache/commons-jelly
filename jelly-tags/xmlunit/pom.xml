@@ -66,6 +66,7 @@
 
   <properties>
     <commons.componentid>jelly-tags-xmlunit</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

@@ -73,6 +73,7 @@
 
   <properties>
     <commons.componentid>jelly-tags-ant</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

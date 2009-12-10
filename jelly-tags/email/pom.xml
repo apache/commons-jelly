@@ -70,6 +70,7 @@
   
   <properties>
     <commons.componentid>jelly-tags-email</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

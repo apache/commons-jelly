@@ -31,6 +31,8 @@
   </description>
   <properties>
       <commons.componentid>jelly-core</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
+    <jelly.doc.location>src/site/xdoc</jelly.doc.location>
   </properties>
 
   <dependencies>

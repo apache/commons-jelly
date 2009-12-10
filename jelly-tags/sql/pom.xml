@@ -82,6 +82,7 @@
     <maven.compile.source>1.5</maven.compile.source>
     <maven.compile.target>1.5</maven.compile.target>
     <commons.componentid>jelly-tags-sql</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

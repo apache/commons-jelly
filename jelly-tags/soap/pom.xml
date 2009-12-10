@@ -110,6 +110,7 @@
   
   <properties>
     <commons.componentid>jelly-tags-soap</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

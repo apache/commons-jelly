@@ -1,0 +1,302 @@
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+<project name="Jelly Tag XDOC Generation" default="generate-xdoc" basedir=".">
+  
+  <property name="download.repo"           value="http://repo1.maven.org/maven2"/>
+  <property name="download.lib.dir"        value="lib"/>
+
+  <!-- Dependency versions -->
+  <property name="beanutils.version"       value="1.8.2"/>
+  <property name="cli.version"             value="1.0"/>
+  <property name="collections.version"     value="3.2.1"/>
+  <property name="discovery.version"       value="0.2"/>
+  <property name="lang.version"            value="2.0"/>
+  <property name="jelly.version"           value="1.0"/>
+  <property name="jelly-tags-jsl.version"  value="1.0"/>
+  <property name="jelly-tags-xml.version"  value="1.1"/>
+  <property name="jexl.version"            value="1.1"/>
+  <property name="logging.version"         value="1.1.1"/>
+  <property name="jaxen.version"           value="1.1-beta-8"/>
+  <property name="dom4j.version"           value="1.6.1"/>
+  <property name="jdom.version"            value="1.0"/>
+  <property name="xmlParserAPIs.version"   value="2.6.2"/>
+  <property name="xercesImpl.version"      value="${xmlParserAPIs.version}"/>
+  <property name="xom.version"             value="1.0b3"/>
+
+  <!-- Dependency jars -->
+  <property name="beanutils.jar"           value="${download.lib.dir}/commons-beanutils-${beanutils.version}.jar"/>
+  <property name="cli.jar"                 value="${download.lib.dir}/commons-cli-${cli.version}.jar"/>
+  <property name="collections.jar"         value="${download.lib.dir}/commons-collections-${collections.version}.jar"/>
+  <property name="discovery.jar"           value="${download.lib.dir}/commons-discovery-${discovery.version}.jar"/>
+  <property name="lang.jar"                value="${download.lib.dir}/commons-lang-${lang.version}.jar"/>
+  <property name="jelly.jar"               value="${download.lib.dir}/commons-jelly-${jelly.version}.jar"/>
+  <property name="jelly-tags-jsl.jar"      value="${download.lib.dir}/commons-jelly-tags-jsl-${jelly-tags-jsl.version}.jar"/>
+  <property name="jelly-tags-xml.jar"      value="${download.lib.dir}/commons-jelly-tags-xml-${jelly-tags-xml.version}.jar"/>
+  <property name="jexl.jar"                value="${download.lib.dir}/commons-jexl-${jexl.version}.jar"/>
+  <property name="logging.jar"             value="${download.lib.dir}/commons-logging-${logging.version}.jar"/>
+  <property name="jaxen.jar"               value="${download.lib.dir}/jaxen-${jaxen.version}.jar"/>
+  <property name="dom4j.jar"               value="${download.lib.dir}/dom4j-${dom4j.version}.jar"/>
+  <property name="jdom.jar"                value="${download.lib.dir}/jdom-${jdom.version}.jar"/>
+  <property name="xmlParserAPIs.jar"       value="${download.lib.dir}/xmlParserAPIs-${xmlParserAPIs.version}.jar"/>
+  <property name="xercesImpl.jar"          value="${download.lib.dir}/xercesImpl-${xercesImpl.version}.jar"/>
+  <property name="xom.jar"                 value="${download.lib.dir}/xom-${xom.version}.jar"/>
+
+  <!-- Jelly Classpath -->
+  <path id="jelly.classpath">
+    <pathelement location="${beanutils.jar}"/>
+    <pathelement location="${cli.jar}"/>
+    <pathelement location="${collections.jar}"/>
+    <pathelement location="${discovery.jar}"/>
+    <pathelement location="${lang.jar}"/>
+    <pathelement location="${jelly.jar}"/>
+    <pathelement location="${jelly-tags-jsl.jar}"/>
+    <pathelement location="${jelly-tags-xml.jar}"/>
+    <pathelement location="${jexl.jar}"/>
+    <pathelement location="${logging.jar}"/>
+    <pathelement location="${jaxen.jar}"/>
+    <pathelement location="${dom4j.jar}"/>
+    <pathelement location="${jdom.jar}"/>
+    <pathelement location="${xmlParserAPIs.jar}"/>
+    <pathelement location="${xercesImpl.jar}"/>
+  </path>
+
+  <target name="generate-xdoc" description="Jelly Tag xdoc geneneration" depends="download">
+
+      <antcall target="generate-xdoc-internal">
+          <param name="tag.id"   value="core"/>
+          <param name="tag.dir"  value="jelly"/>
+          <param name="xdoc.dir" value="src/site/xdoc"/>
+      </antcall>
+
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="ant"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="antlr"/></antcall>
+       <!--antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="avalon"/></antcall-->
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="bean"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="beanshell"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="betwixt"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="bsf"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="define"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="dynabean"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="email"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="fmt"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="html"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="http"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="interaction"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="jaxme"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="jetty"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="jface"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="jms"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="jmx"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="jsl"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="junit"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="log"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="memory"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="ojb"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="quartz"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="regexp"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="soap"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="sql"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="swing"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="swt"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="threads"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="util"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="validate"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="velocity"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="xml"/></antcall>
+       <antcall target="generate-xdoc-jelly-tags"><param name="tag.id" value="xmlunit"/></antcall>
+  </target>
+
+  <target name="generate-xdoc-jelly-tags">
+
+      <antcall target="generate-xdoc-internal">
+          <param name="tag.dir"  value="jelly-tags/${tag.id}"/>
+          <param name="xdoc.dir" value="xdocs"/>
+      </antcall>
+
+  </target>
+
+  <target name="generate-xdoc-internal">
+
+      <echo message="Generating ${tag.dir}/${xdoc.dir}/${tag.id}-taglib.xml"/>
+
+      <!-- Run Jelly script to generate doc -->
+      <java classname="org.apache.commons.jelly.Jelly">
+        <arg value="${basedir}/src/site/resources/commons-jellydoc.jelly"/>
+        <arg value="-o"/>
+        <arg value="${tag.dir}/${xdoc.dir}/${tag.id}-taglib.xml"/>
+        <arg value="-Dinput.file=${tag.dir}/target/taglib.xml"/>
+        <classpath refid="jelly.classpath"/>
+      </java>
+
+  </target>
+
+<!-- ========== Download Dependencies =========================================== -->
+    <target name="download" description="Download Dependencies"
+           depends="check-availability" unless="skip.download">
+        <echo message="doing download-dependencies..." />
+        <antcall target="download-beanutils" />
+        <antcall target="download-cli" />
+        <antcall target="download-collections" />
+        <antcall target="download-discovery" />
+        <antcall target="download-lang" />
+        <antcall target="download-jelly" />
+        <antcall target="download-jelly-tags-jsl" />
+        <antcall target="download-jelly-tags-xml" />
+        <antcall target="download-jexl" />
+        <antcall target="download-logging" />
+        <antcall target="download-jaxen" />
+        <antcall target="download-dom4j" />
+        <antcall target="download-jdom" />
+        <antcall target="download-xmlParserAPIs" />
+        <antcall target="download-xercesImpl" />
+        <antcall target="download-xom" />
+    </target>
+
+    <!-- Check if jars have already been downloaded -->
+    <target name="check-availability">
+        <echo message="doing check-availability..." />
+        <mkdir dir="${download.lib.dir}" />
+        <available file="${beanutils.jar}"      property="beanutils.found"/> 
+        <available file="${cli.jar}"            property="cli.found"/> 
+        <available file="${collections.jar}"    property="collections.found"/> 
+        <available file="${discovery.jar}"      property="discovery.found"/> 
+        <available file="${lang.jar}"           property="lang.found"/> 
+        <available file="${jelly.jar}"          property="jelly.found"/> 
+        <available file="${jelly-tags-jsl.jar}" property="jelly-tags-jsl.found"/> 
+        <available file="${jelly-tags-xml.jar}" property="jelly-tags-xml.found"/> 
+        <available file="${jexl.jar}"           property="jexl.found"/> 
+        <available file="${logging.jar}"        property="logging.found"/> 
+        <available file="${jaxen.jar}"          property="jaxen.found"/> 
+        <available file="${dom4j.jar}"          property="dom4j.found"/> 
+        <available file="${jdom.jar}"           property="jdom.found"/> 
+        <available file="${xmlParserAPIs.jar}"  property="xmlParserAPIs.found"/> 
+        <available file="${xercesImpl.jar}"     property="xercesImpl.found"/> 
+        <available file="${xom.jar}"            property="xom.found"/> 
+    </target>
+
+    <target name="download-beanutils" unless="beanutils.found">
+        <echo message="Downloading beanutils ${beanutils.version} ..."/>
+        <get dest="${beanutils.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-beanutils/commons-beanutils/${beanutils.version}/commons-beanutils-${beanutils.version}.jar"/>
+    </target>
+
+    <target name="download-cli" unless="cli.found">
+        <echo message="Downloading cli ${cli.version} ..."/>
+        <get dest="${cli.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-cli/commons-cli/${cli.version}/commons-cli-${cli.version}.jar"/>
+    </target>
+
+    <target name="download-collections" unless="collections.found">
+        <echo message="Downloading collections ${collections.version} ..."/>
+        <get dest="${collections.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-collections/commons-collections/${collections.version}/commons-collections-${collections.version}.jar"/>
+    </target>
+
+    <target name="download-discovery" unless="discovery.found">
+        <echo message="Downloading discovery ${discovery.version} ..."/>
+        <get dest="${discovery.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-discovery/commons-discovery/${discovery.version}/commons-discovery-${discovery.version}.jar"/>
+    </target>
+
+    <target name="download-lang" unless="lang.found">
+        <echo message="Downloading lang ${lang.version} ..."/>
+        <get dest="${lang.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-lang/commons-lang/${lang.version}/commons-lang-${lang.version}.jar"/>
+    </target>
+
+    <target name="download-jelly" unless="jelly.found">
+        <echo message="Downloading jelly ${jelly.version} ..."/>
+        <get dest="${jelly.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-jelly/commons-jelly/${jelly.version}/commons-jelly-${jelly.version}.jar"/>
+    </target>
+
+    <target name="download-jelly-tags-jsl" unless="jelly-tags-jsl.found">
+        <echo message="Downloading jelly-tags-jsl ${jelly-tags-jsl.version} ..."/>
+        <get dest="${jelly-tags-jsl.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-jelly/commons-jelly-tags-jsl/${jelly-tags-jsl.version}/commons-jelly-tags-jsl-${jelly-tags-jsl.version}.jar"/>
+    </target>
+
+    <target name="download-jelly-tags-xml" unless="jelly-tags-xml.found">
+        <echo message="Downloading jelly-tags-xml ${jelly-tags-xml.version} ..."/>
+        <get dest="${jelly-tags-xml.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-jelly/commons-jelly-tags-xml/${jelly-tags-xml.version}/commons-jelly-tags-xml-${jelly-tags-xml.version}.jar"/>
+    </target>
+    <target name="download-jexl" unless="jexl.found">
+        <echo message="Downloading jexl ${jexl.version} ..."/>
+        <get dest="${jexl.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-jexl/commons-jexl/${jexl.version}/commons-jexl-${jexl.version}.jar"/>
+    </target>
+
+    <target name="download-logging" unless="logging.found">
+        <echo message="Downloading logging ${logging.version} ..."/>
+        <get dest="${logging.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/commons-logging/commons-logging/${logging.version}/commons-logging-${logging.version}.jar"/>
+    </target>
+
+    <target name="download-jaxen" unless="jaxen.found">
+        <echo message="Downloading jaxen ${jaxen.version} ..."/>
+        <get dest="${jaxen.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/jaxen/jaxen/${jaxen.version}/jaxen-${jaxen.version}.jar"/>
+    </target>
+
+    <target name="download-dom4j" unless="dom4j.found">
+        <echo message="Downloading dom4j ${dom4j.version} ..."/>
+        <get dest="${dom4j.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/dom4j/dom4j/${dom4j.version}/dom4j-${dom4j.version}.jar"/>
+    </target>
+
+    <target name="download-jdom" unless="jdom.found">
+        <echo message="Downloading jdom ${jdom.version} ..."/>
+        <get dest="${jdom.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/jdom/jdom/${jdom.version}/jdom-${jdom.version}.jar"/>
+    </target>
+
+    <target name="download-xmlParserAPIs" unless="xmlParserAPIs.found">
+        <echo message="Downloading xmlParserAPIs ${xmlParserAPIs.version} ..."/>
+        <get dest="${xmlParserAPIs.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/xerces/xmlParserAPIs/${xmlParserAPIs.version}/xmlParserAPIs-${xmlParserAPIs.version}.jar"/>
+    </target>
+
+    <target name="download-xercesImpl" unless="xercesImpl.found">
+        <echo message="Downloading xercesImpl ${xercesImpl.version} ..."/>
+        <get dest="${xercesImpl.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/xerces/xercesImpl/${xercesImpl.version}/xercesImpl-${xercesImpl.version}.jar"/>
+    </target>
+
+    <target name="download-xom" unless="xom.found">
+        <echo message="Downloading xom ${xom.version} ..."/>
+        <get dest="${xom.jar}"
+            usetimestamp="true" ignoreerrors="true"
+            src="${download.repo}/xom/xom/${xom.version}/xom-${xom.version}.jar"/>
+    </target>
+
+</project>

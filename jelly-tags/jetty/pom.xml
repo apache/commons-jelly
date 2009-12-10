@@ -92,6 +92,7 @@
   </dependencies>
   <properties>
     <commons.componentid>jelly-tags-jetty</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

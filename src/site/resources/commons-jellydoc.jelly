@@ -23,7 +23,7 @@
   xmlns:jsl="jelly:jsl">
 
 <j:new var="file" className="java.io.File">
-  <j:arg value="${maven.build.dir}/taglib.xml"/>
+  <j:arg value="${input.file}"/>
 </j:new>
 
 <x:parse var="doc" xml="${file}"/>
@@ -70,7 +70,7 @@
       </p>
       <p>
         The following document contains a summary of all the
-        <a href="http://jakarta.apache.org/commons/jelly/">Jelly</a> tag libraries.
+        <a href="http://commons.apache.org/commons/jelly/">Jelly</a> tag libraries.
       </p>
       
     </section>

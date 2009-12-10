@@ -57,6 +57,7 @@
 
   <properties>
     <commons.componentid>jelly-tags-interaction</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

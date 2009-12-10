@@ -64,6 +64,7 @@
   
   <properties>
     <commons.componentid>jelly-tags-fmt</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

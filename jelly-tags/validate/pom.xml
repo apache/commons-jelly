@@ -80,6 +80,7 @@
 
   <properties>
     <commons.componentid>jelly-tags-validate</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>

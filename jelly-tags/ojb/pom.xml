@@ -53,6 +53,7 @@
   
   <properties>
     <commons.componentid>jelly-tags-ojb</commons.componentid>
+    <jelly.tag.doclet>true</jelly.tag.doclet>
   </properties>
 
   <build>
