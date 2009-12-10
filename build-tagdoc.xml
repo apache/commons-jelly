@@ -14,6 +14,46 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
+<!--
+   Generate Jelly Tag Documentation
+   ================================
+
+   This ant build file is the second part of the process to generate
+   the Jelly Tag documentation.
+
+   The old Maven 1.x build used the maven-jellydoc-plugin to generate the
+   Jelly Tag documentation:
+
+   http://maven.apache.org/maven-1.x/plugins/jellydoc/
+
+   The components of that plugin have been used to provide a
+   mechanism to be continue to generate that documentation
+   with a Maven 2 build for Commons Jelly.
+
+   1) Generate Tag XML using jellydoc Doclet
+   -----------------------------------------
+   The first step in (re-)generating the taglib documentation is
+   to run the JavaDoc Doclet from the maven-jellydoc-plugin
+   which can be done using "doclet" profile in Jelly's parent
+   pom as follows:
+
+       mvn -Pdoclet generate-sources
+
+   This generates a "taglib.xml" file in the "target" folder of
+   each module containing tags.
+
+   2) Generate Tag XDOCS using Jelly script
+   ----------------------------------------
+   The second step is to use Jelly to convert the generated "taglib.xml"
+   files into XDOCS using a Jelly script (copied from maven-jellydoc-plugin).
+
+   This ant build file does that and can be run using the following command:
+
+       ant -f build-tagdoc.xml
+
+   (note: Jelly and its dependencies are automatically downloaded)
+
+-->
 <project name="Jelly Tag XDOC Generation" default="generate-xdoc" basedir=".">
   
   <property name="download.repo"           value="http://repo1.maven.org/maven2"/>
