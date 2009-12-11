@@ -52,6 +52,9 @@
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>1.0</version>
+      <properties>
+        <gump.project>commons-lang-2.x</gump.project>
+      </properties>
     </dependency>
     
   </dependencies>
