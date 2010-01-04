@@ -30,9 +30,9 @@
 
 <p>
 The easiest way to get started with Jelly is to try out the <a href="tutorial.html">tutorials</a>.    
-Before you try out any of the tutorials, you'll need to install Maven first.
+Before you try out any of the tutorials, you may need to install Maven-1.1 first.
 For more details on how to install Maven please refer to the 
-<a href="http://maven.apache.org/">Maven documentation</a>
+<a href="http://maven.apache.org/maven-1.x/">Maven documentation</a>
 </p>
 
 <p>

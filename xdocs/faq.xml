@@ -87,6 +87,11 @@
           How do Jelly scripts handle CDATA sections?
         </a>
       </li>
+      <li>
+        <a href="#escapingJexl">
+          How does one write ${a.variable} to the output?
+        </a>
+      </li>
     </ol>
     <p><strong>Building Jelly</strong></p>
     <ol>
@@ -359,18 +364,21 @@ public class FooTag extends TagSupport {
 &lt;/j:file>
 </source>
 </dd>
-<dd>
-   will produce this output:
+        <dt>
+          <a name="escapingJexl">
+          How does one write ${a.variable} to the output?
+          </a>
+        </dt>
+        <dd>
+          Use the double-dollar as in
         </dd>
-<dd>
-<source>
-&lt;?xml version="1.0" encoding="UTF-8"?>
-&lt;!DOCTYPE foo [
-    &lt;!ELEMENT foo (#PCDATA)>
-]>
+                <dd>
 
-&lt;foo/>
-</source>
+<source>
+<![CDATA[<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core">
+  This is $${escaped}
+</j:jelly>]]></source>
 </dd>
       </dl>
     </section>

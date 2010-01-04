@@ -25,6 +25,12 @@
 
 <body>
 
+<section name="Warning: low development activity">
+<p>Please note that Commons Jelly is enduring a phase 
+ with low activity of its developers.
+  </p>
+</section>
+
 <section name="Jelly : Executable XML">
 
 <p><em>Jelly</em> is a tool for turning XML into executable code.
