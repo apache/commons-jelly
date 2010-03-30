@@ -7,7 +7,7 @@
     <category rdf:resource="http://projects.apache.org/category/library"/>
     <license rdf:resource="http://usefulinc.com/doap/licenses/asl20"/>
     <bug-database rdf:resource="http://issues.apache.org/jira/browse/JELLY"/>
-    <download-page rdf:resource="http://jakarta.apache.org/site/downloads/downloads_commons-jelly.cgi"/>
+    <download-page rdf:resource="http://commons.apache.org/jelly/download_jelly.cgi"/>
     <asfext:pmc rdf:resource="http://commons.apache.org/"/>
     <shortdesc xml:lang="en">Commons Jelly</shortdesc>
     <description xml:lang="en">Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
