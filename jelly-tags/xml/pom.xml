@@ -79,11 +79,8 @@
           <include>**/*.jelly</include>
           <include>**/*.properties</include>
           <include>**/*.xml</include>
+          <include>**/*.xsl</include>
         </includes>
-      </testResource>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <targetPath>resources</targetPath>
       </testResource>
     </testResources>
 
