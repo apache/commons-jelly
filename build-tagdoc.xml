@@ -31,7 +31,7 @@
    with a Maven 2 build for Commons Jelly.
 
    1) Generate Tag XML using jellydoc Doclet
-   -----------------------------------------
+   *****************************************
    The first step in (re-)generating the taglib documentation is
    to run the JavaDoc Doclet from the maven-jellydoc-plugin
    which can be done using "doclet" profile in Jelly's parent
@@ -43,7 +43,7 @@
    each module containing tags.
 
    2) Generate Tag XDOCS using Jelly script
-   ----------------------------------------
+   ****************************************
    The second step is to use Jelly to convert the generated "taglib.xml"
    files into XDOCS using a Jelly script (copied from maven-jellydoc-plugin).
 
@@ -52,6 +52,9 @@
        ant -f build-tagdoc.xml
 
    (note: Jelly and its dependencies are automatically downloaded)
+
+   If you get an "OutOfMemoryError: PermGen space" then try setting
+   ANT_OPTS to -XX:MaxPermSize=128M
 
 -->
 <project name="Jelly Tag XDOC Generation" default="generate-xdoc" basedir=".">
