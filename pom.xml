@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <parent>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-parent</artifactId>
+    <version>28</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>commons-jelly</groupId>
+  <artifactId>commons-jelly</artifactId>
+  <version>1.1-SNAPSHOT</version>
+  <name>commons-jelly</name>
+  <description>Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
+  <url>http://commons.apache.org/jelly/</url>
+  <inceptionYear>2002</inceptionYear>
+  <organization>
+    <name>The Apache Software Foundation</name>
+    <url>http://commons.apache.org/</url>
+  </organization>
+  <mailingLists>
+    <mailingList>
+      <name>Commons Dev List</name>
+      <subscribe>dev-subscribe@commons.apache.org</subscribe>
+      <unsubscribe>dev-unsubscribe@commons.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/commons-dev/</archive>
+    </mailingList>
+    <mailingList>
+      <name>Commons User List</name>
+      <subscribe>user-subscribe@commons.apache.org</subscribe>
+      <unsubscribe>user-unsubscribe@commons.apache.org</unsubscribe>
+      <archive>http://mail-archives.apache.org/mod_mbox/commons-user/</archive>
+    </mailingList>
+  </mailingLists>
+  <developers>
+    <developer>
+      <id>jstrachan</id>
+      <name>James Strachan</name>
+      <email>jstrachan@apache.org</email>
+      <organization>SpiritSoft, Inc.</organization>
+    </developer>
+    <developer>
+      <id>geirm</id>
+      <name>Geir Magnusson Jr.</name>
+      <email>geirm@adeptra.com</email>
+      <organization>Adeptra, Inc.</organization>
+    </developer>
+    <developer>
+      <id>werken</id>
+      <name>Bob McWhirter</name>
+      <email>bob@eng.werken.com</email>
+      <organization>The Werken Company</organization>
+    </developer>
+    <developer>
+      <id>dion</id>
+      <name>dIon Gillard</name>
+      <email>dion@multitask.com.au</email>
+      <organization>Multitask Consulting</organization>
+      <roles>
+        <role>Interested party</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>morgand</id>
+      <name>Morgan Delagrange</name>
+      <email>morgand@apache.org</email>
+    </developer>
+    <developer>
+      <id>rwaldhoff</id>
+      <name>Rodney Waldhoff</name>
+      <email>rwaldhoff@apache.org</email>
+    </developer>
+    <developer>
+      <id>proyal</id>
+      <name>Peter Royal</name>
+      <email>proyal@apache.org</email>
+    </developer>
+    <developer>
+      <id>mvdb</id>
+      <name>Martin van den Bemt</name>
+      <email>martin@mvdb.net</email>
+    </developer>
+    <developer>
+      <id>polx</id>
+      <name>Paul Libbrecht</name>
+      <email>paul@activemath.org</email>
+    </developer>
+    <developer>
+      <id>rdonkin</id>
+      <name>Robert Burrell Donkin</name>
+      <email>rdonkin@apache.org</email>
+    </developer>
+    <developer>
+      <id>dfs</id>
+      <name>Daniel F. Savarese</name>
+      <email>dfs -> apache.org</email>
+    </developer>
+    <developer>
+      <id>brett</id>
+      <name>Brett Porter</name>
+      <email>brett@apache.org</email>
+    </developer>
+    <developer>
+      <id>hgilde</id>
+      <name>Hans Gilde</name>
+      <email>hgilde@apache.org</email>
+    </developer>
+  </developers>
+  <contributors>
+    <contributor>
+      <name>Erik Fransen</name>
+      <email>erik167@xs4all.nl</email>
+      <roles>
+        <role>Logo designer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Calvin Yu</name>
+    </contributor>
+    <contributor>
+      <name>Stephen Haberman</name>
+      <email>stephenh@chase3000.com</email>
+    </contributor>
+    <contributor>
+      <name>Vinay Chandran</name>
+      <email>sahilvinay@yahoo.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Theo Niemeijer</name>
+    </contributor>
+    <contributor>
+      <name>Joe Walnes</name>
+      <email>joew@thoughtworks.com</email>
+      <organization>ThoughtWorks, Inc.</organization>
+      <roles>
+        <role>Inventor of Mock Tags</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Otto von Wachter</name>
+      <email>vonwao@yahoo.com</email>
+      <organization></organization>
+      <roles>
+        <role>Author of the tutorials</role>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Robert Leftwich</name>
+      <email>robert@leftwich.info</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Jim Birchfield</name>
+      <email>jim.birchfield@genscape.com</email>
+      <organization>Genscape, Inc.</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Jason Horman</name>
+      <email>jhorman@musicmatch.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Tim Anderson</name>
+      <email>tima@intalio.com</email>
+      <organization>Intalio, Inc.</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Theo Niemeijer</name>
+      <email>theo.niemeijer@getthere.nl</email>
+      <organization></organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>J. Matthew Pryor</name>
+      <email>matthew_pryor@versata.com</email>
+      <organization></organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Knut Wannheden</name>
+      <email></email>
+      <organization></organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Kelvin Tan</name>
+      <email></email>
+      <organization></organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Todd Jonker</name>
+      <email></email>
+      <organization></organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Christiaan ten Klooster</name>
+      <email></email>
+      <organization></organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>Pete Kazmier</name>
+      <email>kaz@apache.org</email>
+      <organization></organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>John Spackman</name>
+      <email>john.spackman@zenesis.com</email>
+      <organization>Zenesis Limited</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>John Spackman</name>
+      <email>john.spackman@zenesis.com</email>
+      <organization>Zenesis Limited</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+    <contributor>
+      <name>John Spackman</name>
+      <email>john.spackman@zenesis.com</email>
+      <organization>Zenesis Limited</organization>
+      <roles>
+        <role>Developer</role>
+      </roles>
+    </contributor>
+  </contributors>
+  <issueManagement>
+    <url>http://issues.apache.org/jira/browse/JELLY</url>
+  </issueManagement>
+  <scm>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/jelly/trunk/</developerConnection>
+    <url>http://svn.apache.org/viewvc/commons/proper/jelly/trunk/</url>
+  </scm>
+  <ciManagement>
+    <notifiers>
+      <notifier>
+        <configuration>
+          <address>dev@commons.apache.org</address>
+        </configuration>
+      </notifier>
+    </notifiers>
+  </ciManagement>
+  <build>
+    <sourceDirectory>${basedir}/src/java</sourceDirectory>
+    <testSourceDirectory>${basedir}/src/test</testSourceDirectory>
+    <resources>
+      <resource>
+        <targetPath>META-INF</targetPath>
+        <directory>${basedir}</directory>
+        <includes>
+          <include>NOTICE.txt</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/java</directory>
+        <includes>
+          <include>**/*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test</directory>
+        <includes>
+          <include>META-INF/services/*</include>
+          <include>**/*.jelly</include>
+          <include>**/*.xml</include>
+          <include>**/*.xsl</include>
+          <include>**/*.rng</include>
+          <include>**/*.dtd</include>
+          <include>**/*.properties</include>
+          <include>**/*.html</include>
+        </includes>
+      </testResource>
+    </testResources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <debug>true</debug>
+          <optimize>false</optimize>
+          <showDeprecation>true</showDeprecation>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
+              <X-Compile-Source-JDK>${maven.compile.source}</X-Compile-Source-JDK>
+              <X-Compile-Target-JDK>${maven.compile.target}</X-Compile-Target-JDK>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-site-plugin</artifactId>
+        <configuration>
+          <moduleExcludes>
+            <xdoc>navigation.xml,changes.xml</xdoc>
+          </moduleExcludes>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <useFile>false</useFile>
+          <excludes>
+            <exclude>**/TestCoreMemoryLeak.java</exclude>
+            <exclude>**/TestNestedExceptions.java</exclude>
+          </excludes>
+          <includes>
+            <include>**/Test*.java</include>
+          </includes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <distributionManagement>
+    <repository>
+      <id>default</id>
+      <name>Default Repository</name>
+      <url>people.apache.org//www/people.apache.org/builds/commons/${pom.artifactId.substring(8)}/</url>
+    </repository>
+    <site>
+      <id>default</id>
+      <name>Default Site</name>
+      <url>scp://people.apache.org/www/commons.apache.org/${pom.artifactId.substring(8)}/</url>
+    </site>
+  </distributionManagement>
+  <dependencies>
+    <dependency>
+      <groupId>servletapi</groupId>
+      <artifactId>servletapi</artifactId>
+      <version>2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-cli</groupId>
+      <artifactId>commons-cli</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-discovery</groupId>
+      <artifactId>commons-discovery</artifactId>
+      <version>20030211.213356</version>
+    </dependency>
+    <dependency>
+      <groupId>forehead</groupId>
+      <artifactId>forehead</artifactId>
+      <version>1.0-beta-5</version>
+    </dependency>
+    <dependency>
+      <groupId>jstl</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.0.6</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+    </dependency>
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-beanutils</groupId>
+      <artifactId>commons-beanutils</artifactId>
+      <version>1.6</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-collections</groupId>
+      <artifactId>commons-collections</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-jexl</groupId>
+      <artifactId>commons-jexl</artifactId>
+      <version>1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>jaxen</groupId>
+      <artifactId>jaxen</artifactId>
+      <version>1.1-beta-8</version>
+    </dependency>
+    <dependency>
+      <groupId>xerces</groupId>
+      <artifactId>xerces</artifactId>
+      <version>2.2.1</version>
+    </dependency>
+  </dependencies>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-changes-plugin</artifactId>
+        <configuration>
+          <issueLinkTemplate>http://issues.apache.org/jira/browse/%ISSUE%</issueLinkTemplate>
+          <xmlPath>${basedir}/xdocs/changes.xml</xmlPath>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>changes-report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+      <plugin>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <configuration>
+          <configLocation>jelly-tags/tag-checkstyle.xml</configLocation>
+          <headerLocation>${basedir}/short-license.txt</headerLocation>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jellydoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-multichanges-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-multiproject-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>taglist-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </reporting>
+</project>
