@@ -369,8 +369,8 @@
   </distributionManagement>
   <dependencies>
     <dependency>
-      <groupId>servletapi</groupId>
-      <artifactId>servletapi</artifactId>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
       <version>2.3</version>
     </dependency>
     <dependency>
@@ -394,7 +394,7 @@
       <version>1.0-beta-5</version>
     </dependency>
     <dependency>
-      <groupId>jstl</groupId>
+      <groupId>javax.servlet</groupId>
       <artifactId>jstl</artifactId>
       <version>1.0.6</version>
     </dependency>
@@ -430,7 +430,7 @@
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
-      <artifactId>xerces</artifactId>
+      <artifactId>xercesImpl</artifactId>
       <version>2.2.1</version>
     </dependency>
   </dependencies>
