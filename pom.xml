@@ -10,8 +10,8 @@
   <groupId>commons-jelly</groupId>
   <artifactId>commons-jelly</artifactId>
   <version>1.1-SNAPSHOT</version>
-  <name>commons-jelly</name>
-  <description>Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
+  <name>Apache Commons Jelly</name>
+  <description>Apache Commons Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
   <url>http://commons.apache.org/jelly/</url>
   <inceptionYear>2002</inceptionYear>
   <organization>
