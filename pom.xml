@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-parent</artifactId>
-    <version>28</version>
+    <version>35</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-jelly</groupId>
@@ -326,8 +326,8 @@
           <archive>
             <manifestEntries>
               <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
-              <X-Compile-Source-JDK>${maven.compile.source}</X-Compile-Source-JDK>
-              <X-Compile-Target-JDK>${maven.compile.target}</X-Compile-Target-JDK>
+              <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
+              <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
             </manifestEntries>
           </archive>
         </configuration>
