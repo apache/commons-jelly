@@ -41,7 +41,7 @@ public interface Tag {
     public void setParent(Tag parent);
     
     /**
-     * Returns the TagLibrary - will be null if this is an unrecognised tag 
+     * Returns the TagLibrary - will be null if this is an unrecognized tag 
      * (ie a StaticTag) 
      * @return
      */

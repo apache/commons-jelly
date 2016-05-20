@@ -1086,7 +1086,7 @@ public class XMLParser extends DefaultHandler {
                         script.addAttribute(attributeName, expression);
                     }
                 } else if (!taglib.isAllowUnknownTags())
-                    throw new JellyException("Unrecognised tag called " + localName + " in TagLibrary " + namespaceURI);
+                    throw new JellyException("Unrecognized tag called " + localName + " in TagLibrary " + namespaceURI);
                 return script;
             }
             return null;
