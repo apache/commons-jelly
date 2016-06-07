@@ -155,7 +155,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * </p>
      *
      * @param config The configuration
-     * @exception ConfigurationException
+     * @throws ConfigurationException
      */
     public void configure( Configuration config ) throws ConfigurationException {
         if( m_configured )

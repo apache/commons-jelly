@@ -414,7 +414,7 @@ public class Channel implements Serializable {
      * @param encoding The character encoding to declare, or <code>null</code>
      *  for no declaration
      *
-     * @exception UnsupportedEncodingException if the named encoding
+     * @throws UnsupportedEncodingException if the named encoding
      *  is not supported
      */
     public void render(OutputStream stream, String encoding)

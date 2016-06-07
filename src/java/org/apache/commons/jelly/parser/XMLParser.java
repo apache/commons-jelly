@@ -214,8 +214,8 @@ public class XMLParser extends DefaultHandler {
      *
      * @param file File containing the XML data to be parsed
      *
-     * @exception IOException if an input/output error occurs
-     * @exception SAXException if a parsing exception occurs
+     * @throws IOException if an input/output error occurs
+     * @throws SAXException if a parsing exception occurs
      */
     public Script parse(File file) throws IOException, SAXException {
         return parse(file.toURL());
@@ -227,8 +227,8 @@ public class XMLParser extends DefaultHandler {
      *
      * @param url URL containing the XML data to be parsed
      *
-     * @exception IOException if an input/output error occurs
-     * @exception SAXException if a parsing exception occurs
+     * @throws IOException if an input/output error occurs
+     * @throws SAXException if a parsing exception occurs
      */
     public Script parse(URL url) throws IOException, SAXException {
         ensureConfigured();
@@ -246,8 +246,8 @@ public class XMLParser extends DefaultHandler {
      *
      * @param input Input source containing the XML data to be parsed
      *
-     * @exception IOException if an input/output error occurs
-     * @exception SAXException if a parsing exception occurs
+     * @throws IOException if an input/output error occurs
+     * @throws SAXException if a parsing exception occurs
      */
     public Script parse(InputSource input) throws IOException, SAXException {
         ensureConfigured();
@@ -265,9 +265,9 @@ public class XMLParser extends DefaultHandler {
      *
      * @param input  Input stream containing the XML data to be parsed
      * @return
-     * @exception IOException
+     * @throws IOException
      *                   if an input/output error occurs
-     * @exception SAXException
+     * @throws SAXException
      *                   if a parsing exception occurs
      */
     public Script parse(InputStream input) throws IOException, SAXException {
@@ -286,9 +286,9 @@ public class XMLParser extends DefaultHandler {
      *
      * @param reader Reader containing the XML data to be parsed
      * @return
-     * @exception IOException
+     * @throws IOException
      *                   if an input/output error occurs
-     * @exception SAXException
+     * @throws SAXException
      *                   if a parsing exception occurs
      */
     public Script parse(Reader reader) throws IOException, SAXException {
@@ -304,8 +304,8 @@ public class XMLParser extends DefaultHandler {
      *
      * @param uri URI containing the XML data to be parsed
      *
-     * @exception IOException if an input/output error occurs
-     * @exception SAXException if a parsing exception occurs
+     * @throws IOException if an input/output error occurs
+     * @throws SAXException if a parsing exception occurs
      */
     public Script parse(String uri) throws IOException, SAXException {
         ensureConfigured();
@@ -541,7 +541,7 @@ public class XMLParser extends DefaultHandler {
     /**
      * Return the XMLReader to be used for parsing the input document.
      *
-     * @exception SAXException if no XMLReader can be instantiated
+     * @throws SAXException if no XMLReader can be instantiated
      */
     public synchronized XMLReader getXMLReader() throws SAXException {
         if (reader == null) {
@@ -594,7 +594,7 @@ public class XMLParser extends DefaultHandler {
     /**
      * Process notification of the beginning of the document being reached.
      *
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void startDocument() throws SAXException {
         script = new ScriptBlock();
@@ -607,7 +607,7 @@ public class XMLParser extends DefaultHandler {
     /**
      * Process notification of the end of the document being reached.
      *
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void endDocument() throws SAXException {
         textBuffer = null;
@@ -625,7 +625,7 @@ public class XMLParser extends DefaultHandler {
      *   string if qualified names are not available.\
      * @param list The attributes attached to the element. If there are
      *   no attributes, it shall be an empty Attributes object.
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void startElement(
         String namespaceURI,
@@ -702,7 +702,7 @@ public class XMLParser extends DefaultHandler {
      * @param start Starting offset into the buffer
      * @param length Number of characters from the buffer
      *
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void characters(char buffer[], int start, int length)
         throws SAXException {
@@ -719,7 +719,7 @@ public class XMLParser extends DefaultHandler {
      *   string if Namespace processing is not being performed.
      * @param qName The qualified XML 1.0 name (with prefix), or the
      *   empty string if qualified names are not available.
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void endElement(String namespaceURI, String localName, String qName)
         throws SAXException {
@@ -757,7 +757,7 @@ public class XMLParser extends DefaultHandler {
      * @param prefix Prefix that is being declared
      * @param namespaceURI Corresponding namespace URI being mapped to
      *
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void startPrefixMapping(String prefix, String namespaceURI)
         throws SAXException {
@@ -780,7 +780,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param prefix Prefix that is going out of scope
      *
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void endPrefixMapping(String prefix) throws SAXException {
         // Deregister this prefix mapping
@@ -807,7 +807,7 @@ public class XMLParser extends DefaultHandler {
      * @param start Starting offset into the buffer
      * @param len Number of characters from the buffer
      *
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void ignorableWhitespace(char buffer[], int start, int len)
         throws SAXException {
@@ -820,7 +820,7 @@ public class XMLParser extends DefaultHandler {
      * @param target The processing instruction target
      * @param data The processing instruction data (if any)
      *
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void processingInstruction(String target, String data)
         throws SAXException {
@@ -841,7 +841,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param name Name of the skipped entity
      *
-     * @exception SAXException if a parsing error is to be reported
+     * @throws SAXException if a parsing error is to be reported
      */
     public void skippedEntity(String name) throws SAXException {
         ; // No processing required
@@ -886,7 +886,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param exception The error information
      *
-     * @exception SAXException if a parsing exception occurs
+     * @throws SAXException if a parsing exception occurs
      */
     public void error(SAXParseException exception) throws SAXException {
         log.error(
@@ -910,7 +910,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param exception The fatal error information
      *
-     * @exception SAXException if a parsing exception occurs
+     * @throws SAXException if a parsing exception occurs
      */
     public void fatalError(SAXParseException exception) throws SAXException {
         log.error(
@@ -936,7 +936,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param exception The warning information
      *
-     * @exception SAXException if a parsing exception occurs
+     * @throws SAXException if a parsing exception occurs
      */
     public void warning(SAXParseException exception) throws SAXException {
         log.error(

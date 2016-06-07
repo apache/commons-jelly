@@ -48,7 +48,7 @@ public class ResultImpl implements Result {
      * row
      * @param startRow, beginning row to be cached
      * @param maxRows, query maximum rows limit
-     * @exception if a database error occurs
+     * @throws if a database error occurs
      */
     public ResultImpl(ResultSet rs, int startRow, int maxRows)
         throws SQLException {

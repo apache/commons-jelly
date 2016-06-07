@@ -61,7 +61,7 @@ public class CommandLineParser {
      * the give Jelly instance.
      *
      * @param args   options from the command line
-     * @exception JellyException
+     * @throws JellyException
      *                   if the command line could not be parsed
      */
     public void invokeCommandLineJelly(String[] args) throws JellyException {

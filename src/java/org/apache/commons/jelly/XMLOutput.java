@@ -312,7 +312,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * other event callbacks (except for {@link #setDocumentLocator
      * setDocumentLocator}).</p>
      *
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      * @see #endDocument
      */
@@ -329,7 +329,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * (because of an unrecoverable error) or reached the end of
      * input.</p>
      *
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      * @see #startDocument
      */
@@ -370,7 +370,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *  An empty string is used for the default element namespace,
      *  which has no prefix.
      * @param uri The Namespace URI the prefix is mapped to.
-     * @exception org.xml.sax.SAXException The client may throw
+     * @throws org.xml.sax.SAXException The client may throw
      *            an exception during processing.
      * @see #endPrefixMapping
      * @see #startElement
@@ -392,7 +392,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *
      * @param prefix The prefix that was being mapped.
      *  This is the empty string when a default mapping scope ends.
-     * @exception org.xml.sax.SAXException The client may throw
+     * @throws org.xml.sax.SAXException The client may throw
      *            an exception during processing.
      * @see #startPrefixMapping
      * @see #endElement
@@ -459,7 +459,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param atts The attributes attached to the element.  If
      *        there are no attributes, it shall be an empty
      *        Attributes object.
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      * @see #endElement
      * @see org.xml.sax.Attributes
@@ -512,7 +512,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *        performed.
      * @param qName The qualified XML 1.0 name (with prefix), or the
      *        empty string if qualified names are not available.
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      */
     public void endElement(String uri, String localName, String qName)
@@ -561,7 +561,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param ch The characters from the XML document.
      * @param start The start position in the array.
      * @param length The number of characters to read from the array.
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      * @see #ignorableWhitespace
      * @see org.xml.sax.Locator
@@ -590,7 +590,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param ch The characters from the XML document.
      * @param start The start position in the array.
      * @param length The number of characters to read from the array.
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      * @see #characters
      */
@@ -618,7 +618,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param data The processing instruction data, or null if
      *        none was supplied.  The data does not include any
      *        whitespace separating it from the target.
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      */
     public void processingInstruction(String target, String data)
@@ -648,7 +648,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *        parameter entity, the name will begin with '%', and if
      *        it is the external DTD subset, it will be the string
      *        "[dtd]".
-     * @exception org.xml.sax.SAXException Any SAX exception, possibly
+     * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      */
     public void skippedEntity(String name) throws SAXException {
@@ -692,7 +692,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *        external DTD subset, or null if none was declared.
      *        (Note that this is not resolved against the document
      *        base URI.)
-     * @exception SAXException The application may raise an
+     * @throws SAXException The application may raise an
      *            exception.
      * @see #endDTD
      * @see #startEntity
@@ -711,7 +711,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * DOCTYPE declaration; if the document has no DOCTYPE declaration,
      * this method will not be invoked.</p>
      *
-     * @exception SAXException The application may raise an exception.
+     * @throws SAXException The application may raise an exception.
      * @see #startDTD
      */
     public void endDTD() throws SAXException {
@@ -764,7 +764,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param name The name of the entity.  If it is a parameter
      *        entity, the name will begin with '%', and if it is the
      *        external DTD subset, it will be "[dtd]".
-     * @exception SAXException The application may raise an exception.
+     * @throws SAXException The application may raise an exception.
      * @see #endEntity
      * @see org.xml.sax.ext.DeclHandler#internalEntityDecl
      * @see org.xml.sax.ext.DeclHandler#externalEntityDecl
@@ -779,7 +779,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * Report the end of an entity.
      *
      * @param name The name of the entity that is ending.
-     * @exception SAXException The application may raise an exception.
+     * @throws SAXException The application may raise an exception.
      * @see #startEntity
      */
     public void endEntity(String name) throws SAXException {
@@ -796,7 +796,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * characters} event; this event is intended only to report
      * the boundary.</p>
      *
-     * @exception SAXException The application may raise an exception.
+     * @throws SAXException The application may raise an exception.
      * @see #endCDATA
      */
     public void startCDATA() throws SAXException {
@@ -808,7 +808,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /**
      * Report the end of a CDATA section.
      *
-     * @exception SAXException The application may raise an exception.
+     * @throws SAXException The application may raise an exception.
      * @see #startCDATA
      */
     public void endCDATA() throws SAXException {
@@ -829,7 +829,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param ch An array holding the characters in the comment.
      * @param start The starting position in the array.
      * @param length The number of characters to use from the array.
-     * @exception SAXException The application may raise an exception.
+     * @throws SAXException The application may raise an exception.
      */
     public void comment(char ch[], int start, int length) throws SAXException {
         if (lexicalHandler != null) {
@@ -843,7 +843,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
       * pass data to their parent.
       * 
       * @param object the data to pass
-      * @exception SAXException The application may raise an exception.
+      * @throws SAXException The application may raise an exception.
       */
     public void objectData(Object object) throws SAXException {
         if(contentHandler instanceof XMLOutput)

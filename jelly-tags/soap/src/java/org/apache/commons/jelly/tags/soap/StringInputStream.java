@@ -51,7 +51,7 @@ public class StringInputStream
      *
      * @return the value of the next character in the StringReader
      *
-     * @exception IOException if the original StringReader fails to be read
+     * @throws IOException if the original StringReader fails to be read
      */
     public int read() throws IOException
     {
@@ -61,7 +61,7 @@ public class StringInputStream
     /**
      * Closes the Stringreader.
      *
-     * @exception IOException if the original StringReader fails to be closed
+     * @throws IOException if the original StringReader fails to be closed
      */
     public void close() throws IOException
     {
@@ -89,7 +89,7 @@ public class StringInputStream
     /**
      * Resets the StringReader.
      *
-     * @exception IOException if the StringReader fails to be reset
+     * @throws IOException if the StringReader fails to be reset
      */
     public synchronized void reset() throws IOException
     {
