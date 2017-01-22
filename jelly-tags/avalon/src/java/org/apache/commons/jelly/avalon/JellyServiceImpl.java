@@ -188,7 +188,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
                     }
                 }
 
-                // All atempts failed...
+                // All attempts failed...
                 if( url == null )
                     throw new ConfigurationException( "Could not find script [" + scriptName + "]" );
 
