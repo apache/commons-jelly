@@ -66,7 +66,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new ConstraintTag ( this );
             }
-        } // class ConstatnStringFactory
+        } // class ConstantStringFactory
 
         // we could be able to make factories that create their tags in parametrized
         // subclasses of the tag depending on the name and attributes
