@@ -91,7 +91,7 @@ public class JellyContext {
     /** Should we export tag libraries to our parents context */
     private boolean exportLibraries = true;
 
-    /** Should we cache Tag instances, per thread, to reduce object contruction overhead? */
+    /** Should we cache Tag instances, per thread, to reduce object construction overhead? */
     private boolean cacheTags = false;
     
     /**
