@@ -487,7 +487,7 @@ public class TransformTag extends ParseTag {
         }
 
         /**
-         * Helper method to determin if nested body needs to be parsed by (an
+         * Helper method to determine if nested body needs to be parsed by (an
          * xml parser, i.e. its only text) to generate SAX events or not
          *
          * @return True if tag body should be parsed or false if invoked only
