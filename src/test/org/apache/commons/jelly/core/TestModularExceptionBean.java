@@ -45,7 +45,7 @@ public class TestModularExceptionBean extends TestCase {
         bean.setException(NullPointerException.class.getName());
         try {
             bean.throwIt("myTest");
-            fail("Exception must be cacthed");
+            fail("Exception must be caught");
         } catch ( NullPointerException e) {
             
         } catch (Throwable e) {
