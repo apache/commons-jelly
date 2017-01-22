@@ -34,7 +34,7 @@ import org.xml.sax.Attributes;
     *    with {@link #getConstraintObject}.
     *    Probably a shorter java-source is do-able.
     *    <p>
-    *    TODO: this class should probably be extended with special treatment for dimensios
+    *    TODO: this class should probably be extended with special treatment for dimensions
     *    using the converter package.
     */
 public class ConstraintTag extends DynaBeanTagSupport {
