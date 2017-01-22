@@ -303,7 +303,7 @@ public class TestXMLTags extends TestCase {
         // using an absolute URI like /src/test/org/apache/foo.xml
         context.setRootURL(new File(".").toURL());
 
-        // cature the output
+        // capture the output
         StringWriter buffer = new StringWriter();
         XMLOutput output = XMLOutput.createXMLOutput(buffer);
 
