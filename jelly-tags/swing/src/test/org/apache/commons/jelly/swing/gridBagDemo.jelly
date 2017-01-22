@@ -27,7 +27,7 @@
                 - an insets tag (CVS ?)
                 - some Font support (CVS ?)
                 - incorporate CollapsablePanel
-                - dragable Label with subclass ItemTitleLabel
+                - draggable Label with subclass ItemTitleLabel
                 - CollapsablePanel implementing DropTarget (or approacher at least)
                 - adding relations
                 - DC pane (later with inheritance)
