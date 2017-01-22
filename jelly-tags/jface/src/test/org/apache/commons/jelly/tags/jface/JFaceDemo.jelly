@@ -39,7 +39,7 @@
         <fillLayout type="vertical"/>    
     
         <label text="A big red label 1" background="204, 0, 0"/>
-        <label text="I can barelly read this ;-(" foreground="#f2f2f2" />
+        <label text="I can barely read this ;-(" foreground="#f2f2f2" />
         <label text="It sure looks like the dutch flag ;-)" foreground="#ffffff" background="0, 0, 153" />        
     
   </applicationWindow>
