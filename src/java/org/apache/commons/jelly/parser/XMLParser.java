@@ -202,7 +202,7 @@ public class XMLParser extends DefaultHandler {
      * allows XMLParser to be used in environments which are unfriendly to
      * JAXP1.1 (such as WebLogic 6.0).  Note that if you use this option you
      * have to configure namespace and validation support yourself, as these
-     * properties only affect the SAXParser and emtpy constructor.
+     * properties only affect the SAXParser and empty constructor.
      */
     public XMLParser(XMLReader reader) {
         this.reader = reader;
