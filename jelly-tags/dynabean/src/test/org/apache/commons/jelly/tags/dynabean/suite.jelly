@@ -68,7 +68,7 @@
     <test:assertEquals expected="London" actual="${customer.address.city}"/>
     <test:assertEquals expected="Downing Street" actual="${customer.address.street}"/>
     
-    <!-- #### JellyUnit needs to support type cooercion for this to work...
+    <!-- #### JellyUnit needs to support type coercion for this to work...
     <test:assertEquals expected="10" actual="${customer.address.housenumber}"/>
     -->
     
