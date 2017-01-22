@@ -109,7 +109,7 @@ public class TestXMLTags extends TestCase {
             evaluteScriptAsText(testBaseDir + "/elementWithNameSpaceError.jelly");
             Assert.fail("We should have bailed out with an JellyException");
         } catch (JellyException jex) {
-            assertTrue(jex.getReason().startsWith("Cannot set same prefix to diferent URI in same node"));
+            assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
         }
     }
 
@@ -156,7 +156,7 @@ public class TestXMLTags extends TestCase {
             evaluteScriptAsText(testBaseDir + "/attributeNameSpaceDuplicatedNS.jelly");
             Assert.fail("We should have bailed out with an JellyException");
         } catch (JellyException jex) {
-            assertTrue(jex.getReason().startsWith("Cannot set same prefix to diferent URI in same node"));
+            assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
         }
     }
 

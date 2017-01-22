@@ -965,11 +965,11 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
             if (isNew) {
                 // not declared sometime before
                 prefixUriMap = (Map) nsStack.get(0); // Current depth map
-                // Sanity check: Don't let two prefixes for diferent uris in
+                // Sanity check: Don't let two prefixes for different uris in
                 // same depth
                 if (prefixUriMap.containsKey(prefix)) {
                     if (!uri.equals(prefixUriMap.get(prefix))) {
-                        throw new SAXException("Cannot set same prefix to diferent URI in same node: trying to add prefix \""
+                        throw new SAXException("Cannot set same prefix to different URI in same node: trying to add prefix \""
                                 + prefix + "\" for uri \""+uri+"\" whereas the declared ones are " + prefixUriMap);
                     }
                 } else {
