@@ -36,7 +36,7 @@ package javax.servlet.jsp.jstl.sql;
  * is the responsibility of the tag handler implementing this
  * interface</p>
  *
- * <p>The <code>SQLExcecutionTag</code> interface is exposed in order
+ * <p>The <code>SQLExecutionTag</code> interface is exposed in order
  * to support custom parameter actions which may retrieve their
  * parameters from any source and process them before substituting
  * them for a parameter marker in the sQL statement of the
