@@ -52,15 +52,15 @@ public class CompositeExpression extends ExpressionSupport {
     }
 
     /**
-     * Parses the given String to be either a ConstantExpresssion, an Expression denoted as
-     * "${foo}" or some String with embedded expresssions such as "abc${something}def${else}xyz"
+     * Parses the given String to be either a ConstantExpression, an Expression denoted as
+     * "${foo}" or some String with embedded expressions such as "abc${something}def${else}xyz"
      * which results in a CompositeExpression being returned.
      *
      * @param text is the String to parse into expressions
-     * @param factory is the Factory of Expression objects used to create expresssions for the contents
+     * @param factory is the Factory of Expression objects used to create expressions for the contents
      *  of the String "foo" inside expressions such as "${foo}"
      *
-     * @return the Expresssion for the given String.
+     * @return the Expression for the given String.
      * @throws JellyException if the text is invalid (such as missing '}' character).
      * @throws JellyException if there was some problem creating the underlying Expression object
      *  from the ExpressionFactory

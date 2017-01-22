@@ -60,7 +60,7 @@ public class TestExpressions extends TestCase {
         super(testName);
     }
 
-    public void testExpresssions() throws Exception {
+    public void testExpressions() throws Exception {
         context.setVariable("topping", "cheese");
         context.setVariable("type", "deepPan");
 
@@ -95,7 +95,7 @@ public class TestExpressions extends TestCase {
         }
     }
 
-    public void testAntExpresssions() throws Exception {
+    public void testAntExpressions() throws Exception {
         context.setVariable("maven.home.foo", "cheese");
 
         assertExpression("${maven.home.foo}", "cheese");

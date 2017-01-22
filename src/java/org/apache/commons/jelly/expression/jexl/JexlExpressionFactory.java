@@ -38,7 +38,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
 
 public class JexlExpressionFactory implements ExpressionFactory {
 
-    /** whether we should allow Ant-style expresssions, using dots as part of variable name */
+    /** whether we should allow Ant-style expressions, using dots as part of variable name */
     private boolean supportAntVariables = true;
 
     // ExpressionFactory interface
@@ -76,7 +76,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
     //-------------------------------------------------------------------------
 
     /**
-     * @return whether we should allow Ant-style expresssions, using dots as
+     * @return whether we should allow Ant-style expressions, using dots as
      * part of variable name
      */
     public boolean isSupportAntVariables() {
@@ -84,7 +84,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
     }
 
     /**
-     * Sets whether we should allow Ant-style expresssions, using dots as
+     * Sets whether we should allow Ant-style expressions, using dots as
      * part of variable name
      */
     public void setSupportAntVariables(boolean supportAntVariables) {
