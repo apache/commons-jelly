@@ -957,7 +957,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
                         isNew = false;
                     }
                     // We found it in stack
-                    // If it was exacly the same, we won't bother
+                    // If it was exactly the same, we won't bother
                     break;
                 }
             }
