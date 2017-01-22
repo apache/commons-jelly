@@ -55,7 +55,7 @@ public class GrantProject extends Project {
      *  Immediately after initialization, a <code>GrantProject</code>
      *  delegates <b>all</b> calls to the normal ant <code>Project</code>
      *  super class.   Only after installing delegators will custom
-     *  behavious be acheived.
+     *  behavious be achieved.
      *  </p>
      */
     public GrantProject() {
