@@ -89,7 +89,7 @@
        <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly">as a JellyScript</a>
         as well.
         While this is a fairly simple Swing UI and not a particularly great example of the power of JellySwing,
-        it does highlight the main difference between the two appraches.
+        it does highlight the main difference between the two approaches.
       </p>
     </section>
     
