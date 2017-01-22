@@ -136,7 +136,7 @@ public class CatchTag extends TagSupport {
 
 	
 	/**
-	 * Build exception classe set
+	 * Build exception classes set
 	 * @throws ClassNotFoundException
 	 * 
 	 */
