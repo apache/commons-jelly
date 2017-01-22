@@ -42,7 +42,7 @@
             automatically download the jar and its dependencies from some local/remote repository.
         </li>
         <li>Maybe add a Scope class to make it easier to plugin custom scopes such as 
-            request, session, applicaiton, initParams, params, transation etc.
+            request, session, application, initParams, params, transation etc.
             In a workflow setting this could also include transient and persistent scopes
         </li>
         <li>Write a JellyServlet so that Jelly can be used as a page templating system.
