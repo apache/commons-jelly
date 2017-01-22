@@ -976,7 +976,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
                     prefixUriMap.put(prefix, uri);
 
                     // To avoid setting xmlns="" for top node (not very nice :D)
-                    // We need to especificaly check this condition
+                    // We need to specifically check this condition
                     if (!isRootNodeDefaultNs(prefix, uri)) {
 //                        System.out.println(">>>"+XMLOutput.this.hashCode()+">NamespaceStack.pushNamespace() prefix="+prefix+",uri="+uri);
                         contentHandler.startPrefixMapping(prefix, uri);
