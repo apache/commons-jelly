@@ -1033,7 +1033,7 @@ public class XMLParser extends DefaultHandler {
             if (taglib == null) {
                 if (namespaceURI != null && namespaceURI.startsWith("jelly:")) {
                     String uri = namespaceURI.substring(6);
-                    // try to find the class on the claspath
+                    // try to find the class on the classpath
                     try {
                         Class taglibClass = getClassLoader().loadClass(uri);
                         taglib = (TagLibrary) taglibClass.newInstance();
