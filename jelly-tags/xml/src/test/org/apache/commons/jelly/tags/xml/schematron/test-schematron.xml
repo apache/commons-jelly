@@ -61,7 +61,7 @@
 
              <sch:pattern name="Adminstration Checks" id="admin">
 
-                <sch:p>Adminstrative constraints which are <sch:emph>always</sch:emph> applied</sch:p>
+                <sch:p>Administrative constraints which are <sch:emph>always</sch:emph> applied</sch:p>
 
                 <sch:rule context="house">
                    <sch:assert test="address">A house must have an address</sch:assert>
