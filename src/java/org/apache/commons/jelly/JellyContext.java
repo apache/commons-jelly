@@ -98,7 +98,7 @@ public class JellyContext {
      * True if exceptions should be suppressed; introduced in 1.1 beta and immediately deprecated
      * because future versions will _never_ suppress exceptions (required here for backwards
      * compatibility)
-	 * @deprected after v1.1, exceptions will never be suppressed
+	 * @deprecated after v1.1, exceptions will never be suppressed
      */
     private boolean suppressExpressionExceptions;
 
@@ -1014,7 +1014,7 @@ public class JellyContext {
 
 	/**
 	 * @return the suppressExpressionExceptions
-	 * @deprected after v1.1, exceptions will never be suppressed
+	 * @deprecated after v1.1, exceptions will never be suppressed
 	 */
 	public boolean isSuppressExpressionExceptions() {
 		return suppressExpressionExceptions;
@@ -1022,7 +1022,7 @@ public class JellyContext {
 
 	/**
 	 * @param suppressExpressionExceptions the suppressExpressionExceptions to set
-	 * @deprected after v1.1, exceptions will never be suppressed
+	 * @deprecated after v1.1, exceptions will never be suppressed
 	 */
 	public void setSuppressExpressionExceptions(boolean suppressExpressionExceptions) {
 		this.suppressExpressionExceptions = suppressExpressionExceptions;
