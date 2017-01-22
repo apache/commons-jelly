@@ -90,7 +90,7 @@ public class CaseTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Strategy method to find the corrent TestSuite to add a new Test case to
+     * Strategy method to find the current TestSuite to add a new Test case to
      */
     protected TestSuite getSuite() {
         SuiteTag tag = (SuiteTag) findAncestorWithClass( SuiteTag.class );
