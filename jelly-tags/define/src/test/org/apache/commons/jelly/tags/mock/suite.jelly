@@ -25,7 +25,7 @@
 
         <!-- lets create the Mock Tags to simulate the database and the web service -->
         
-    <!-- note that the mock library will only be in effiect in this JellyContext. 
+    <!-- note that the mock library will only be in efficient in this JellyContext. 
         || Each test:case has its own context
       -->
         <j:set var="foodKind" value="pizza"/>
