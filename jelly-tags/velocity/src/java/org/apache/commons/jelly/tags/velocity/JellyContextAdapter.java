@@ -44,7 +44,7 @@ public class JellyContextAdapter implements Context
     /** The JellyContext being adapted */
     private JellyContext jellyContext;
 
-    /** The store for Velocity in the event the adpater is read-only */
+    /** The store for Velocity in the event the adapter is read-only */
     private HashMap privateContext = new HashMap();
 
     /**
@@ -75,7 +75,7 @@ public class JellyContextAdapter implements Context
     /**
      * Tests if the adapter is read-only.
      *
-     * @return <tt>true</tt> if the adpater is read-only; otherwise
+     * @return <tt>true</tt> if the adapter is read-only; otherwise
      * returns <tt>false</tt>.
      */
     public boolean isReadOnly()
