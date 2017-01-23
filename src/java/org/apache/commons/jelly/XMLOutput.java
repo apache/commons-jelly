@@ -69,7 +69,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /** The SAX LexicalHandler that output goes to. */
     private LexicalHandler lexicalHandler;
 
-    /** Stack of kown namespaces. */
+    /** Stack of known namespaces. */
     private NamespaceStack namespaceStack = new NamespaceStack();
 
     public XMLOutput() {
