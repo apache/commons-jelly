@@ -24,7 +24,7 @@ import javax.servlet.jsp.jstl.sql.Result;
 /**
  * <p>This class creates a cached version of a <tt>ResultSet</tt>.
  * It's represented as a <tt>Result</tt> implementation, capable of
- * returing an array of <tt>Row</tt> objects containing a <tt>Column</tt>
+ * returning an array of <tt>Row</tt> objects containing a <tt>Column</tt>
  * instance for each column in the row.</p>
  *
  * <p>Note -- this is a private copy for the RI to avoid making the
