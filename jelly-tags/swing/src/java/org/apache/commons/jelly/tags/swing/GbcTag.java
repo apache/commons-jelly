@@ -76,7 +76,7 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
         tag.addLayoutComponent(component, getConstraints());
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

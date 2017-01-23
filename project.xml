@@ -50,7 +50,7 @@
       <packages>org.apache.commons.jelly.impl,org.apache.commons.jelly.tags,org.apache.commons.jelly.expression</packages>
     </packageGroup>
     <packageGroup>
-      <title>Tag Implementations</title>
+      <title>Tag Implementstions</title>
       <packages>org.apache.commons.jelly.tags.*</packages>
     </packageGroup>
   </packageGroups>

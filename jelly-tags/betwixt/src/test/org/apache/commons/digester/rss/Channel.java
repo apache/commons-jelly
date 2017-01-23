@@ -28,7 +28,7 @@ import java.util.ArrayList;
 
 
 /**
- * <p>Implementation object representing a <strong>channel</strong> in the
+ * <p>Implementstion object representing a <strong>channel</strong> in the
  * <em>Rich Site Summary</em> DTD, version 0.91.  This class may be subclassed
  * to further specialize its behavior.</p>
  */

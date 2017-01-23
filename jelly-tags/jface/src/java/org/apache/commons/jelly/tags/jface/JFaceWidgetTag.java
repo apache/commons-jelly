@@ -27,7 +27,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 
 /**
- * Implementation of SWT WidgetTag
+ * Implementstion of SWT WidgetTag
  *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */

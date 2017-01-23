@@ -201,7 +201,7 @@ public class SwingTagLibrary extends TagLibrary {
         return (Factory) getFactoryMap().get(elementName);
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

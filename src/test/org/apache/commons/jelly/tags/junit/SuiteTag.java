@@ -98,7 +98,7 @@ public class SuiteTag extends TagSupport {
         this.name = name;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

@@ -952,7 +952,7 @@ public class XMLParser extends DefaultHandler {
         }
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     /**
      * If this object has not been configured then register the default

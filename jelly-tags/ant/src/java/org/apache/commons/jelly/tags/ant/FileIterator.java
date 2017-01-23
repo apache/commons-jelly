@@ -101,7 +101,7 @@ public class FileIterator implements Iterator {
         throw new UnsupportedOperationException();
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

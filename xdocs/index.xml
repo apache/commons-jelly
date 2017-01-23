@@ -283,7 +283,7 @@ to provide more flexible and powerful build mechanism while still preserving inv
   <ul>
     <li><a href="http://java.sun.com/products/jsp/jstl/1.1/docs/tlddocs/index.html">JSTL Tag reference</a></li>
     <li><a href="http://java.sun.com/products/jsp/jstl/1.1/docs/api/index.html">JSTL API</a></li>
-    <li><a href="http://jakarta.apache.org/taglibs/doc/standard-doc/intro.html">Apache JSTL Implementation</a></li>
+    <li><a href="http://jakarta.apache.org/taglibs/doc/standard-doc/intro.html">Apache JSTL Implementstion</a></li>
   </ul>
 </section>
 

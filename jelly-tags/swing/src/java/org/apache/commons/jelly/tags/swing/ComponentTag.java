@@ -288,7 +288,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     }
 
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

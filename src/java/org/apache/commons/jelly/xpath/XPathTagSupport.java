@@ -25,7 +25,7 @@ import org.apache.commons.jelly.TagSupport;
   */
 public abstract class XPathTagSupport extends TagSupport {
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     protected Object getXPathContext() {
         XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );

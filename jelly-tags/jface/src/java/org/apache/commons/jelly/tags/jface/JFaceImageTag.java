@@ -26,7 +26,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Widget;
 
 /**
- * Implementation of SWT ImageTag
+ * Implementstion of SWT ImageTag
  *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */

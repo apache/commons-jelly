@@ -181,7 +181,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         this.discovery = discovery;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

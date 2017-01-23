@@ -86,7 +86,7 @@ public class CaseTag extends TagSupport {
         this.name = name;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

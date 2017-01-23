@@ -122,7 +122,7 @@ public class AntJellyContext extends JellyContext {
     }
 
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

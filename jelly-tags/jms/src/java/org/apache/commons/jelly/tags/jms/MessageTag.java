@@ -143,7 +143,7 @@ public class MessageTag extends TagSupport {
         }
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     protected Messenger findConnection() throws JellyTagException {
         ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );

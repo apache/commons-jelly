@@ -32,7 +32,7 @@
       
     <section name="Core tasks"> 
       <ul>
-        <li>Implementa a META-INF/services mechanism for mapping Jelly libraries to namespace URIs
+        <li>Implements a META-INF/services mechanism for mapping Jelly libraries to namespace URIs
             in a similar way to how the commons-discovery and JAXP libraries work.
             This would allow Jelly libraries to be distributed in a self contained JAR then just put
             on the classpath and they'd be usable.                

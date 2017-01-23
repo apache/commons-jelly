@@ -154,7 +154,7 @@ public class ValidateTag extends TagSupport {
         this.var = var;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

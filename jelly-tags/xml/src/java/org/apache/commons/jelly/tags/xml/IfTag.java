@@ -63,7 +63,7 @@ public class IfTag extends XPathTagSupport {
         this.select = select;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     protected Object getXPathContext() {
         ForEachTag tag = (ForEachTag) findAncestorWithClass( ForEachTag.class );

@@ -38,9 +38,9 @@
           <attribute name="Specification-Title" value="Some Title"/>
           <attribute name="Specification-Version" value="1.1"/>
           <attribute name="Specification-Vendor" value="Apache"/>
-          <attribute name="Implementation-Title" value="Some implementation title"/>
-          <attribute name="Implementation-Version" value="1.1"/>
-          <attribute name="Implementation-Vendor" value="Apache"/>
+          <attribute name="Implementstion-Title" value="Some implementation title"/>
+          <attribute name="Implementstion-Version" value="1.1"/>
+          <attribute name="Implementstion-Vendor" value="Apache"/>
         </section>
       </manifest>
     </jar>

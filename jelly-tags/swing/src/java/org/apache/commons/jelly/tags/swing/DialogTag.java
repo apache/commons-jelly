@@ -45,7 +45,7 @@ public class DialogTag extends UseBeanTag implements ContainerTag {
         super(JDialog.class);
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

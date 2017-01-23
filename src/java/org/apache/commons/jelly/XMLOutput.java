@@ -898,7 +898,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         this.lexicalHandler = lexicalHandler;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     /**
      * Factory method to create a new XMLOutput from an XMLWriter

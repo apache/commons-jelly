@@ -116,7 +116,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
         }
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**
