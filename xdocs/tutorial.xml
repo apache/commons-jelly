@@ -272,7 +272,7 @@ The Jelly template looks like this:
 </source>
 
 <p>
-As you can see, it's pretty straighforward to call a Jelly script programatically. First you need a context to run the script in. You can think of the context as the "environment" in which the script runs. The script can use and modify variables in the context however it wishes. Then you need an XML output stream where the output of the script will be sent. In some cases, like this one, the XML output is the essential product of the script. In other cases, it may just be a "byproduct" of running the script, used for logging, etc. This is the case when you are running a maven build, for example.
+As you can see, it's pretty straighforward to call a Jelly script programmatically. First you need a context to run the script in. You can think of the context as the "environment" in which the script runs. The script can use and modify variables in the context however it wishes. Then you need an XML output stream where the output of the script will be sent. In some cases, like this one, the XML output is the essential product of the script. In other cases, it may just be a "byproduct" of running the script, used for logging, etc. This is the case when you are running a maven build, for example.
 </p>
 
 <p>

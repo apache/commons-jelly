@@ -120,7 +120,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     //-------------------------------------------------------------------------
 
     /**
-     * Allow derived classes to programatically set the bean
+     * Allow derived classes to programmatically set the bean
      */
     protected void setBean(Object bean) {
         this.bean = bean;
