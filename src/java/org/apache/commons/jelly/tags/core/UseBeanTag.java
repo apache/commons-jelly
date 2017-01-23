@@ -153,7 +153,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     /**
      * Loads the given class using the default class loading mechanism
      * which is to try use the current Thread's context class loader first
-     * otherise use the class loader which loaded this class.
+     * otherwise use the class loader which loaded this class.
      */
     protected Class loadClass(String className) throws ClassNotFoundException {
         return ClassLoaderUtils.loadClass(className, getClass());
