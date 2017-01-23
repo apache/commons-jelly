@@ -44,7 +44,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
                         is cloned then attributes are set
                         This tag should also support the attributes such as fill=BOTH
                         and anchor=NORTHEAST...
-                        Wooops... need to define setters ?? let's see if BeanUtils does it on public vars
+                        Whoops... need to define setters ?? let's see if BeanUtils does it on public vars
                         And... have an insets?? A child ?
     */
 
