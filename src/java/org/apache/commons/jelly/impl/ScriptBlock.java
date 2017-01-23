@@ -61,7 +61,7 @@ public class ScriptBlock implements Script {
 
     /**
      * Gets the child scripts that make up this block. This list is live
-     * so that it can be modified if requried
+     * so that it can be modified if required
      */
     public List getScriptList() {
         return list;
