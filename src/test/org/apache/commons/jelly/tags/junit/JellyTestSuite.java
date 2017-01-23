@@ -44,7 +44,7 @@ public abstract class JellyTestSuite {
      * <code>
      * createTestSuite( Foo.class, "suite.jelly" );
      * </code>
-     * which would loaad the 'suite.jelly script from the same package as the Foo
+     * which would load the 'suite.jelly script from the same package as the Foo
      * class on the classpath.
      *
      * @param testClass is the test class used to load the script via the classpath
