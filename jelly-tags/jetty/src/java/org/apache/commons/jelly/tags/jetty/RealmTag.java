@@ -46,7 +46,7 @@ public class RealmTag extends TagSupport {
 
     /**
      * Perform the tag functionality. In this case, add a realm with the
-     * specified name using the specified config (preperties) file to the
+     * specified name using the specified config (properties) file to the
      * parent server,
      *
      * @param xmlOutput where to send output
