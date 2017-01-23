@@ -25,7 +25,7 @@ import java.util.Map;
  * <p><code>MapTag</code> is a DynaTag implementation which uses a Map
  * to store its attribute values in. Derived tags can then process this
  * Map, change values, add or remove attributes or perform some other form
- * of processsing pretty easily.
+ * of processing pretty easily.
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
