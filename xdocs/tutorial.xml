@@ -290,7 +290,7 @@ With the <a href="libs/jsl/tags.html">JSL tag library</a>, you can transform XML
 </p>
 
 <p>
-To run the demo type "maven demo:jsl" (View the <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/jsl/src/test/org/apache/commons/jelly/jsl/example.jelly">demo source</a>). The demo transforms the demo source into HTML and ouputs it to the command line, like this:
+To run the demo type "maven demo:jsl" (View the <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/jsl/src/test/org/apache/commons/jelly/jsl/example.jelly">demo source</a>). The demo transforms the demo source into HTML and outputs it to the command line, like this:
 </p>
 
 <source>
