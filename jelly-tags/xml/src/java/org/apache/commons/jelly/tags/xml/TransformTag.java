@@ -82,7 +82,7 @@ public class TransformTag extends ParseTag {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TransformTag.class);
 
-    /** Propert name for lexical handler */
+    /** Property name for lexical handler */
     private static final String LEXICAL_HANDLER_PROPERTY =
         "http://xml.org/sax/properties/lexical-handler";
 
