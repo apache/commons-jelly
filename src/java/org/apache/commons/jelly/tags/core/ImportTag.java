@@ -93,14 +93,14 @@ public class ImportTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return whether property inheritence is enabled
+     * @return whether property inheritance is enabled
      */
     public boolean isInherit() {
         return inherit;
     }
 
     /**
-     * Sets whether property inheritence is enabled or disabled
+     * Sets whether property inheritance is enabled or disabled
      */
     public void setInherit(boolean inherit) {
         this.inherit = inherit;
