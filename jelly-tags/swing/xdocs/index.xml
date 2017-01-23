@@ -76,7 +76,7 @@
         for templating HTML.
       </p>
       <p>
-        The demo was orignally written in
+        The demo was originally written in
         <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/HomepageBuilder.java?view=markup">Java code</a>
          
         to implement a simple Swing UI
