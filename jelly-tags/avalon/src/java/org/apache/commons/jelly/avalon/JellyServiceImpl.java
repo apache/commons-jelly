@@ -150,7 +150,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * &lt;/jelly&gt;<br />
      * </p>
      * <p>
-     *   Where each &lt;script&gt; element defines a seperate script. The validate attribute
+     *   Where each &lt;script&gt; element defines a separate script. The validate attribute
      *   on the url tag is optional and defaults to false.
      * </p>
      *
