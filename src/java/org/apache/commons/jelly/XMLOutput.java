@@ -837,7 +837,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         }
     }
     
-    /** Pass data through the pipline.
+    /** Pass data through the pipeline.
       * By default, this call is ignored.
       * Subclasses are invited to use this as a way for children tags to
       * pass data to their parent.
