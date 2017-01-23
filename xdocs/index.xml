@@ -39,7 +39,7 @@ Jelly can be used as a more flexible and powerful front end
 to <a href="http://jakarta.apache.org/ant/">Ant</a> 
 such as in the <a href="http://maven.apache.org/">Maven</a>
 project, as a testing framework such as <a href="jellyunit.html">JellyUnit</a>, 
-in an intergration or workflow
+in an integration or workflow
 system such as <a href="http://werkflow.werken.com/">werkflow</a> 
 or as a page templating system inside engines like 
 <a href="http://cocoon.apache.org/">Cocoon</a>.
