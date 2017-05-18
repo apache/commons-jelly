@@ -38,14 +38,14 @@ public class TestExpressions extends TestCase {
     protected ExpressionFactory factory = new JexlExpressionFactory();
 
     private static final class TestException extends Exception {
-		public TestException() {
-			super("Test Exception");
-		}
+        public TestException() {
+            super("Test Exception");
+        }
     }
     public static final class TestHelper {
-    	public Object throwAnException() throws TestException {
-    		throw new TestException();
-    	}
+        public Object throwAnException() throws TestException {
+            throw new TestException();
+        }
     }
 
     public static void main(String[] args) {
@@ -79,19 +79,19 @@ public class TestExpressions extends TestCase {
         assertExpressionNotExpressionText("$$type$${topping}$$", "$$type${topping}$$");
 
         try {
-        	assertExpression("${ some junk !< 4}", Boolean.TRUE);
-        	assertTrue("An illegal expression was allowed", false);
+            assertExpression("${ some junk !< 4}", Boolean.TRUE);
+            assertTrue("An illegal expression was allowed", false);
         }catch(JellyException e) {
-        	// Nothing, the test passed
+            // Nothing, the test passed
         }
         context.setVariable("test", new TestHelper());
         try {
-        	assertExpression("${test.throwAnException()}", Boolean.TRUE);
-        	assertTrue("An exception was suppressed while processing the JEXL script", false);
+            assertExpression("${test.throwAnException()}", Boolean.TRUE);
+            assertTrue("An exception was suppressed while processing the JEXL script", false);
         }catch(IllegalStateException e) {
-        	if (!(e.getCause() instanceof TestException))
-            	throw e;
-        	// Nothing, the test passed
+            if (!(e.getCause() instanceof TestException))
+                throw e;
+            // Nothing, the test passed
         }
     }
 
