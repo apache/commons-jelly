@@ -37,7 +37,7 @@ public class TestExpressions extends TestCase {
     protected JellyContext context = new JellyContext();
     protected ExpressionFactory factory = new JexlExpressionFactory();
 
-    private static final class TestException extends Exception {
+    public static final class TestException extends Exception {
         public TestException() {
             super("Test Exception");
         }
@@ -46,14 +46,6 @@ public class TestExpressions extends TestCase {
         public Object throwAnException() throws TestException {
             throw new TestException();
         }
-    }
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        return new TestSuite(TestExpressions.class);
     }
 
     public TestExpressions(String testName) {
