@@ -23,7 +23,7 @@ import java.util.Iterator;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
 
-/** Implementation of a Commons Grant <code>propsHandler</code>
+/** Implementstion of a Commons Grant <code>propsHandler</code>
  *  to resolve through Jelly's context.
  *
  *  @author <a href="mailto:bob@eng.werken.com">Bob McWhirter</a>

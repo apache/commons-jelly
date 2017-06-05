@@ -27,7 +27,7 @@ public class MissingAttributeException extends JellyTagException {
 
     private String missingAttribute;
     
-    // ### we may wish to implement a localized messag for this error
+    // ### we may wish to implement a localized message for this error
         
     public MissingAttributeException(String missingAttribute) {
         super( "You must define an attribute called '" + missingAttribute + "' for this tag." );

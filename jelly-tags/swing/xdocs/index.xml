@@ -31,7 +31,7 @@
         of your front end and allowing you to bind to Java code for the business objects and models. 
       </p>
       <p>
-        This mechanism uses seperation of concerns and MVC ideas from web applications, allowing the rendering
+        This mechanism uses separation of concerns and MVC ideas from web applications, allowing the rendering
         of your Swing front end to be easily transformed (since its XML) into different styles while leaving your
         model and business objects untouched. It also allows different views to be constructed independently of your models.
       </p>
@@ -76,7 +76,7 @@
         for templating HTML.
       </p>
       <p>
-        The demo was orignally written in
+        The demo was originally written in
         <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/HomepageBuilder.java?view=markup">Java code</a>
          
         to implement a simple Swing UI
@@ -84,7 +84,7 @@
        <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly?view=markup">as a JellyScript</a>
         as well.
         While this is a fairly simple Swing UI and not a particularly great example of the power of JellySwing,
-        it does highlight the main difference between the two appraches.
+        it does highlight the main difference between the two approaches.
       </p>
     </section>
     

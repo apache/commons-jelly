@@ -32,7 +32,7 @@
       
     <section name="Core tasks"> 
       <ul>
-        <li>Implementa a META-INF/services mechanism for mapping Jelly libraries to namespace URIs
+        <li>Implements a META-INF/services mechanism for mapping Jelly libraries to namespace URIs
             in a similar way to how the commons-discovery and JAXP libraries work.
             This would allow Jelly libraries to be distributed in a self contained JAR then just put
             on the classpath and they'd be usable.                
@@ -42,7 +42,7 @@
             automatically download the jar and its dependencies from some local/remote repository.
         </li>
         <li>Maybe add a Scope class to make it easier to plugin custom scopes such as 
-            request, session, applicaiton, initParams, params, transation etc.
+            request, session, application, initParams, params, transaction etc.
             In a workflow setting this could also include transient and persistent scopes
         </li>
         <li>Write a JellyServlet so that Jelly can be used as a page templating system.
@@ -90,7 +90,7 @@
             Also we could consider using class names or XSD type names to do conversions of values, maybe using
             the ConvertUtils class in beanutils.
         </li>
-        <li>conside a tag library which implements the <a href="http://stx.gingerall.cz/stx/index.html">STX</a>
+        <li>consider a tag library which implements the <a href="http://stx.gingerall.cz/stx/index.html">STX</a>
             specification for the SAX based transformation of XML. This is kinda like XPath and XSLT but is based
             purely on a SAX stream. Maybe we could wrap <a href="http://www.obqo.de/joost">Joost</a>
             in a Jelly tag library

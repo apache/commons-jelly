@@ -249,7 +249,7 @@ public class Jelly {
         this.validateXML = validate;
     }
     
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------                
     /**
      * @return the URL for the relative file name or absolute URL 

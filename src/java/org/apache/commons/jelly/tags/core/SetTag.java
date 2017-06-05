@@ -129,7 +129,7 @@ public class SetTag extends TagSupport {
     }
 
     /**
-     * Sets the default value to be used if the value exprsesion results
+     * Sets the default value to be used if the value expression results
      * in a null value or blank String
      */
     public void setDefaultValue(Expression defaultValue) {
@@ -164,7 +164,7 @@ public class SetTag extends TagSupport {
     }
 
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     protected void setPropertyValue( Object target, String property, Object value ) {
         try {

@@ -27,7 +27,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-/** Implementation of a quart <code>Job</code> to execute jellyscript.
+/** Implementstion of a quart <code>Job</code> to execute jellyscript.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */

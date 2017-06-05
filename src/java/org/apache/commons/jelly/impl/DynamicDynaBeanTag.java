@@ -31,7 +31,7 @@ import org.apache.commons.jelly.expression.Expression;
 /**
  * This tag is bound onto a {@link DynaClass} instance.
  * When the tag is invoked a {@link DynaBean will be created using the tags attributes.
- * So this class is like a {@link DynaBean} implemenation of {@link DynamicBeanTag}
+ * So this class is like a {@link DynaBean} implementation of {@link DynamicBeanTag}
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$

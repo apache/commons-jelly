@@ -77,7 +77,7 @@ public abstract class BorderTagSupport extends TagSupport {
         this.var = var;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

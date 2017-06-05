@@ -32,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * This class represents a {@link GridBagConstraints} constraints as passed in
  * the second argument of {@link Container#add(Component,Object)}.
- * It supports inheritence between such tags in the following fashion:
+ * It supports inheritance between such tags in the following fashion:
  * <ul>
  *     <li>either using a <code>basedOn</code> attribute which is
  *         supposed to provide a reference to another {@link GbcTag}.</li>
@@ -76,7 +76,7 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
         tag.addLayoutComponent(component, getConstraints());
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

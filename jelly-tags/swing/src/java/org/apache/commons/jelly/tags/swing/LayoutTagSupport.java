@@ -79,7 +79,7 @@ public abstract class LayoutTagSupport extends TagSupport {
         this.var = var;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

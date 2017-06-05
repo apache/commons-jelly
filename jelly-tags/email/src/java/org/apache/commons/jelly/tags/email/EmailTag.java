@@ -94,14 +94,14 @@ public class EmailTag extends TagSupport {
     }
 
     /**
-     * ";" seperated list of people to send to
+     * ";" separated list of people to send to
      */
     public void setTo(Expression to) {
         this.to = to;
     }
 
     /**
-     * ";" seperated list of people to cc
+     * ";" separated list of people to cc
      */
     public void setCC(Expression cc) {
         this.cc = cc;

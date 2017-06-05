@@ -72,7 +72,7 @@
 
     <!-- test using var attribute -->
     <test:assertThrows var="ex">
-      <test:fail message="This exeption should be exported"/>
+      <test:fail message="This exception should be exported"/>
     </test:assertThrows>
     <test:assert test="${ex != null}">No exception exported</test:assert>
 

@@ -200,7 +200,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
     /**
      * Report the state of the bean when method invocation fails
      * so that the user can determine any problems that might
-     * be occuring while using dynamic jelly beans.
+     * be occurring while using dynamic jelly beans.
      *
      * @param bean Bean on which <code>method</code was invoked
      * @param method Method that was invoked

@@ -27,7 +27,7 @@ import org.apache.commons.logging.LogFactory;
 
 
 /**
- * <p><code>DefaultTagLibraryResolver</code> is a default implemenation
+ * <p><code>DefaultTagLibraryResolver</code> is a default implementation
  * which attempts to interpret the URI as a String called 'jelly:className'
  * and class load the given Java class. Otherwise META-INF/services/jelly/uri
  * is searched for on the thread context's class path and, if found, that
@@ -181,7 +181,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         this.discovery = discovery;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

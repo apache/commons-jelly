@@ -91,7 +91,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
         }
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /** Factory method */

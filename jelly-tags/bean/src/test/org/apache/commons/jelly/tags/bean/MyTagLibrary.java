@@ -50,7 +50,7 @@ public class MyTagLibrary extends TagLibrary {
         return new TagScript( factory );
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

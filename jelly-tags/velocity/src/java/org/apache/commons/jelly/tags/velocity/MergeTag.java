@@ -135,11 +135,11 @@ public class MergeTag extends VelocityTagSupport
 
     /**
      * Sets the read-only flag for this adapter which prevents
-     * modifications in the Velocity context from propogating to the
+     * modifications in the Velocity context from propagating to the
      * JellyContext.
      *
      * @param readOnly <tt>true</tt> prevents modifications from
-     * propogating (the default), or <tt>false</tt> which permits
+     * propagating (the default), or <tt>false</tt> which permits
      * modifications.
      */
     public void setReadOnly( boolean readOnly )
@@ -170,7 +170,7 @@ public class MergeTag extends VelocityTagSupport
         this.inputEncoding = encoding;
     }
 
-    // -- Implementation ----------------------------------------------------
+    // -- Implementstion ----------------------------------------------------
 
     /**
      * Merges the Velocity template with the Jelly context.

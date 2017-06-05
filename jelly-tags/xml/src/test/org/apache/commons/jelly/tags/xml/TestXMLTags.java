@@ -96,7 +96,7 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testElementWithNameSpace() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir + "/elementWithNameSpace.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/elementWithNameSpace.jelly");
         assertEquals("Should produce the correct output",
                 "<env:Envelope "+
                 "xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\" "+
@@ -106,17 +106,17 @@ public class TestXMLTags extends TestCase {
 
     public void testElementWithNameSpaceError() throws Exception {
         try {
-            evaluteScriptAsText(testBaseDir + "/elementWithNameSpaceError.jelly");
+            evaluateScriptAsText(testBaseDir + "/elementWithNameSpaceError.jelly");
             Assert.fail("We should have bailed out with an JellyException");
         } catch (JellyException jex) {
-            assertTrue(jex.getReason().startsWith("Cannot set same prefix to diferent URI in same node"));
+            assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
         }
     }
 
     public void testNamespaceReplace() throws Exception {
         // For this test when we not set "ns" var with expected namespace, it
         // is expected to repeat the same two times
-        String text = evaluteScriptAsText(testBaseDir + "/namespaceReplace.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly");
         String repeatingText = "<test-subnode attr=\"test\"><test-anotherSubNode></test-anotherSubNode><test-anotherSubNodeAgain xmlns:other=\"\" other:abc=\"testValue\"></test-anotherSubNodeAgain></test-subnode>";
         assertEquals("Should produce the correct output",
                 "<test-node xmlns:test=\"http://apache/testNS\" test:abc=\"testValue\">"+
@@ -126,7 +126,7 @@ public class TestXMLTags extends TestCase {
         Map ctxVars = new HashMap();
         ctxVars.put("ns", "http://java/ns");
 
-        text = evaluteScriptAsText(testBaseDir + "/namespaceReplace.jelly", ctxVars);
+        text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly", ctxVars);
 
         String firstTrunk =
         "<test-subnode xmlns=\"\" attr=\"test\">" +
@@ -153,15 +153,15 @@ public class TestXMLTags extends TestCase {
 
     public void testAttributeNameSpaceDuplicatedNS() throws Exception {
         try {
-            evaluteScriptAsText(testBaseDir + "/attributeNameSpaceDuplicatedNS.jelly");
+            evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDuplicatedNS.jelly");
             Assert.fail("We should have bailed out with an JellyException");
         } catch (JellyException jex) {
-            assertTrue(jex.getReason().startsWith("Cannot set same prefix to diferent URI in same node"));
+            assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
         }
     }
 
     public void testAttributeNameSpace() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir + "/attributeNameSpace.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpace.jelly");
         System.out.println(text);
         assertEquals("Should produce the correct output",
                 "<top-node xmlns=\"abc\">"+
@@ -174,7 +174,7 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testAttributeNameSpaceDefaultNS() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir + "/attributeNameSpaceDefaultNS.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDefaultNS.jelly");
         System.out.println(text);
         assertEquals("Should produce the correct output",
                 "<top-node>"+
@@ -187,7 +187,7 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testAttributeNameSpaceWithInnerElements() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir + "/attributeNameSpaceWithInnerElements.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceWithInnerElements.jelly");
         assertEquals("Should produce the correct output",
                 "<test-node xmlns:test=\"http://apache/testNS\" test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
                 "<test-sub-node xmlns:test2=\"http://apache/testNS\" xmlns:test3=\"http://apache/anotherNS\" test:abc=\"testValue\" test2:abc2=\"testValue\" test3:abc3=\"testValue\">"+
@@ -197,51 +197,51 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testTransform() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir + "/transformExample.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/transformExample.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformAllInLine() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir + "/transformExampleAllInLine.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/transformExampleAllInLine.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformParams() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir + "/transformParamExample.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/transformParamExample.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformParamsInLine() throws Exception {
 
-        String text = evaluteScriptAsText(testBaseDir + "/transformParamExample2.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/transformParamExample2.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformSAXOutput() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir + "/transformExampleSAXOutput.jelly");
+        String text = evaluateScriptAsText(testBaseDir + "/transformExampleSAXOutput.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformSAXOutputNestedTransforms() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir +
+        String text = evaluateScriptAsText(testBaseDir +
             "/transformExampleSAXOutputNestedTransforms.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformSchematron() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir +
+        String text = evaluateScriptAsText(testBaseDir +
             "/schematron/transformSchematronExample.jelly");
         assertEquals("Should produce the correct output", "Report count=1:assert count=2", text);
     }
 
     public void testTransformXmlVar() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir +
+        String text = evaluateScriptAsText(testBaseDir +
             "/transformExampleXmlVar.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testDoctype() throws Exception {
-        String text = evaluteScriptAsText(testBaseDir +
+        String text = evaluateScriptAsText(testBaseDir +
             "/testDoctype.jelly");
         assertEquals("Should produce the correct output", "<!DOCTYPE foo PUBLIC \"publicID\" \"foo.dtd\">\n<foo></foo>", text);
     }
@@ -280,15 +280,15 @@ public class TestXMLTags extends TestCase {
      * Evaluates the script by the given file name and
      * returns the whitespace trimmed output as text
      */
-    protected String evaluteScriptAsText(String fileName) throws Exception {
-        return evaluteScriptAsText(fileName, null);
+    protected String evaluateScriptAsText(String fileName) throws Exception {
+        return evaluateScriptAsText(fileName, null);
     }
 
     /**
      * Evaluates the script by the given file name and
      * returns the whitespace trimmed output as text
      */
-    protected String evaluteScriptAsText(String fileName, Map ctxVars) throws Exception {
+    protected String evaluateScriptAsText(String fileName, Map ctxVars) throws Exception {
         JellyContext context = new JellyContext();
         if (ctxVars != null) {
             Set keys = ctxVars.keySet();
@@ -303,7 +303,7 @@ public class TestXMLTags extends TestCase {
         // using an absolute URI like /src/test/org/apache/foo.xml
         context.setRootURL(new File(".").toURL());
 
-        // cature the output
+        // capture the output
         StringWriter buffer = new StringWriter();
         XMLOutput output = XMLOutput.createXMLOutput(buffer);
 
@@ -316,7 +316,7 @@ public class TestXMLTags extends TestCase {
         return text;
     }
 
-    protected String evaluteScriptAsTextUsingSaxContentHandler(String fileName, Map ctxVars) throws Exception {
+    protected String evaluateScriptAsTextUsingSaxContentHandler(String fileName, Map ctxVars) throws Exception {
         org.dom4j.io.OutputFormat outputFormat = new org.dom4j.io.OutputFormat();
         outputFormat.setSuppressDeclaration(true);
         outputFormat.setNewlines(false);

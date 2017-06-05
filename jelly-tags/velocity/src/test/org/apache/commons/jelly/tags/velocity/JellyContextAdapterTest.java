@@ -86,7 +86,7 @@ public class JellyContextAdapterTest extends TestCase
 
     /**
      * Test that items can be added and retrieved from a read-write
-     * adpater.  Also verify the key/value pair was actually inserted
+     * adapter.  Also verify the key/value pair was actually inserted
      * into the JellyContext.
      */
     public void testReadWritePut()

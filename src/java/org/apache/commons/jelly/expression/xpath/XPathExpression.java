@@ -114,7 +114,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         return value;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

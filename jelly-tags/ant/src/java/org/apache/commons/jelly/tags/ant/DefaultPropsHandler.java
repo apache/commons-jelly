@@ -46,7 +46,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /** A history of the properties marked as user properties. */
     protected Map userProperties = new HashMap();
 
-    /** A history of the properties makred as inherited properties. */
+    /** A history of the properties marked as inherited properties. */
     protected Map inheritedProperties = new HashMap();
     
     /** Initializes hte object with a blank set of properties.

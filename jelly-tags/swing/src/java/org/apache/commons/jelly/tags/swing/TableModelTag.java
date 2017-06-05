@@ -35,7 +35,7 @@ public class TableModelTag extends UseBeanTag {
     }
 
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);

@@ -27,7 +27,7 @@
   </properties>
   <body>
     <release version="1.1" date="2006-06-22">
-      <action dev="polx" type="add" issue="JELLY-229" due-to="Lukas Theussl">Enhanced the usage of AskTag with a custom completion list, upgraded depdendency to JLine 0.9.5.</action>
+      <action dev="polx" type="add" issue="JELLY-229" due-to="Lukas Theussl">Enhanced the usage of AskTag with a custom completion list, upgraded dependency to JLine 0.9.5.</action>
       <action dev="polx" type="add" issue="JELLY-175" due-to="Ryan Christianson">AskTag now uses JLine which allows history, auto-completion, and edition of answers.</action>
     </release>
     <release version="1.0" date="2004-09-12"></release>

@@ -69,8 +69,8 @@ public class TestEmbedded extends TestCase
         embedded.setOutputStream(baos);
         boolean status = embedded.execute();
         //executed properly without script errors
-        assertTrue("Emebedded execution failed", status);
-        //check that the output  confirms the exepected
+        assertTrue("Embedded execution failed", status);
+        //check that the output  confirms the expected
         assertEquals("jelly-test-case", new String(baos.toByteArray()));
         //test generation of error
         embedded.setScript(jellyScript + "obnoxious-part");

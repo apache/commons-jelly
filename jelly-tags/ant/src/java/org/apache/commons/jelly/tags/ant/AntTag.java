@@ -163,7 +163,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
                 // now lets set any attributes of this tag...
                 setBeanProperties();
 
-                // now lets set the addText() of the body content, if its applicaable
+                // now lets set the addText() of the body content, if its applicable
                 Method method = MethodUtils.getAccessibleMethod( task.getClass(),
                                                                  "addText",
                                                                  addTaskParamTypes );
@@ -314,7 +314,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         return project;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

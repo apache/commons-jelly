@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Control;
 public class WizardPageTag extends UseBeanTag {
 
     /**
-     * Implementation of a WizardPage
+     * Implementstion of a WizardPage
      * method createControl is called on Dialog.open()
      */
     public class WizardPageImpl extends WizardPage {

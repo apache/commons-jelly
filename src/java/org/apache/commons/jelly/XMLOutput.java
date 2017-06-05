@@ -69,7 +69,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /** The SAX LexicalHandler that output goes to. */
     private LexicalHandler lexicalHandler;
 
-    /** Stack of kown namespaces. */
+    /** Stack of known namespaces. */
     private NamespaceStack namespaceStack = new NamespaceStack();
 
     public XMLOutput() {
@@ -837,7 +837,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         }
     }
     
-    /** Pass data through the pipline.
+    /** Pass data through the pipeline.
       * By default, this call is ignored.
       * Subclasses are invited to use this as a way for children tags to
       * pass data to their parent.
@@ -898,7 +898,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         this.lexicalHandler = lexicalHandler;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     /**
      * Factory method to create a new XMLOutput from an XMLWriter
@@ -957,7 +957,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
                         isNew = false;
                     }
                     // We found it in stack
-                    // If it was exacly the same, we won't bother
+                    // If it was exactly the same, we won't bother
                     break;
                 }
             }
@@ -965,18 +965,18 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
             if (isNew) {
                 // not declared sometime before
                 prefixUriMap = (Map) nsStack.get(0); // Current depth map
-                // Sanity check: Don't let two prefixes for diferent uris in
+                // Sanity check: Don't let two prefixes for different uris in
                 // same depth
                 if (prefixUriMap.containsKey(prefix)) {
                     if (!uri.equals(prefixUriMap.get(prefix))) {
-                        throw new SAXException("Cannot set same prefix to diferent URI in same node: trying to add prefix \""
+                        throw new SAXException("Cannot set same prefix to different URI in same node: trying to add prefix \""
                                 + prefix + "\" for uri \""+uri+"\" whereas the declared ones are " + prefixUriMap);
                     }
                 } else {
                     prefixUriMap.put(prefix, uri);
 
                     // To avoid setting xmlns="" for top node (not very nice :D)
-                    // We need to especificaly check this condition
+                    // We need to specifically check this condition
                     if (!isRootNodeDefaultNs(prefix, uri)) {
 //                        System.out.println(">>>"+XMLOutput.this.hashCode()+">NamespaceStack.pushNamespace() prefix="+prefix+",uri="+uri);
                         contentHandler.startPrefixMapping(prefix, uri);

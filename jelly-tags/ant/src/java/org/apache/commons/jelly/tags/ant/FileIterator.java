@@ -26,7 +26,7 @@ import org.apache.tools.ant.types.FileSet;
 
 /**
  * <p><code>FileIterator</code> is an iterator over a
- * over a number of files from a colleciton of FileSet instances.
+ * over a number of files from a collection of FileSet instances.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
@@ -101,7 +101,7 @@ public class FileIterator implements Iterator {
         throw new UnsupportedOperationException();
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

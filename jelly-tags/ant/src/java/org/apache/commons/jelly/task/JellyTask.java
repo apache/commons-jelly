@@ -69,7 +69,7 @@ public class JellyTask extends Task {
     //-------------------------------------------------------------------------
 
     /**
-     * Excutes the Jelly script
+     * Executes the Jelly script
      */
     public void execute() throws BuildException {
         try {
@@ -174,7 +174,7 @@ public class JellyTask extends Task {
         return context;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

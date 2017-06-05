@@ -124,7 +124,7 @@ Tests for Cookie tag
             <parameter name="target" value="registration"/>
         </post>
         SC: ${ph.getResponseHeader("Set-Cookie")}
-        <!-- show how to dump cookie name/value pairse -->
+        <!-- show how to dump cookie name/value pairs -->
         <j:forEach items='${ph.getResponseHeader("Set-Cookie").values}'
             var="element" indexVar="i">
             element[${i}] = ${element}

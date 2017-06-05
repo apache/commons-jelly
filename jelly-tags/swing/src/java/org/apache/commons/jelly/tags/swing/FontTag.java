@@ -91,7 +91,7 @@ public class FontTag extends MapTagSupport {
     }
 
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

@@ -18,14 +18,14 @@ package org.apache.commons.jelly.xpath;
 
 import org.apache.commons.jelly.TagSupport;
 
-/** An abstract base class useful for implementation inheritence
+/** An abstract base class useful for implementation inheritance
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision$
   */
 public abstract class XPathTagSupport extends TagSupport {
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     protected Object getXPathContext() {
         XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );

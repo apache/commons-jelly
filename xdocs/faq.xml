@@ -178,7 +178,7 @@ context.runScript( "foo.jelly", output );</source>
                     </a>
         </dt>
         <dd>
-            When you build a binary disitribution of Jelly, 
+            When you build a binary distribution of Jelly, 
             there is a jelly script which works on Windows and Unixes to run Jelly.
             You can create a binary distribution of Jelly via
             <code>

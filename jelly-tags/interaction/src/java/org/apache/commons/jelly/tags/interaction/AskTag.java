@@ -163,7 +163,7 @@ public class AskTag extends TagSupport {
             if (consoleReader != null
                     && consoleReader.getTerminal().isSupported()) {
 
-                // resue the static history, so our commands are remeberered
+                // resue the static history, so our commands are remembered
                 consoleReader.setHistory(consoleHistory);
 
                 // hate the bell!

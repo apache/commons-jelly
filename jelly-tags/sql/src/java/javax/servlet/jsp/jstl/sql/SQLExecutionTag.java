@@ -24,7 +24,7 @@ package javax.servlet.jsp.jstl.sql;
  * <p>This interface is implemented by both &lt;sql:query&gt; and
  * &lt;sql:update&gt;. Its <code>addSQLParameter()</code> method
  * is called by nested parameter actions (such as &lt;sql:param&gt;)
- * to substitue <code>PreparedStatement<code> parameter values for
+ * to substitute <code>PreparedStatement<code> parameter values for
  * "?" parameter markers in the SQL statement of the enclosing
  * <code>SQLExecutionTag</code> action.</p>
  *
@@ -36,7 +36,7 @@ package javax.servlet.jsp.jstl.sql;
  * is the responsibility of the tag handler implementing this
  * interface</p>
  *
- * <p>The <code>SQLExcecutionTag</code> interface is exposed in order
+ * <p>The <code>SQLExecutionTag</code> interface is exposed in order
  * to support custom parameter actions which may retrieve their
  * parameters from any source and process them before substituting
  * them for a parameter marker in the sQL statement of the

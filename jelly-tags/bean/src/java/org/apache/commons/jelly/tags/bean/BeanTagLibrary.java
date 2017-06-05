@@ -99,7 +99,7 @@ public class BeanTagLibrary extends TagLibrary {
         return new TagScript( createTagFactory(name, attributes) );
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

@@ -38,7 +38,7 @@ public class JellyThread extends Thread {
     RunnableStatus status = new RunnableStatus();
 
     public JellyThread() {
-        // aquire my still running lock immediately
+        // acquire my still running lock immediately
         while (true) {
             try {
                 runningMutex.acquire();
@@ -104,7 +104,7 @@ public class JellyThread extends Thread {
             throw new RuntimeException("This method should be called from a different thread than itself");
         }
 
-        // wait until the calling thread can aquire the lock
+        // wait until the calling thread can acquire the lock
         while (true) {
             try {
                 if (howLong == -1) {

@@ -52,7 +52,7 @@ public class CaseTag extends TagSupport {
                 // will have its own variable scopes
                 JellyContext newContext = new JellyContext( context );
 
-                // disable inheritence of variables and tag libraries
+                // disable inheritance of variables and tag libraries
                 newContext.setExportLibraries(false);
                 newContext.setExport(false);
 
@@ -86,11 +86,11 @@ public class CaseTag extends TagSupport {
         this.name = name;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**
-     * Strategy method to find the corrent TestSuite to add a new Test case to
+     * Strategy method to find the current TestSuite to add a new Test case to
      */
     protected TestSuite getSuite() {
         SuiteTag tag = (SuiteTag) findAncestorWithClass( SuiteTag.class );

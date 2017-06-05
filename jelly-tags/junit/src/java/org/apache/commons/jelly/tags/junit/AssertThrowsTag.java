@@ -117,7 +117,7 @@ public class AssertThrowsTag extends AssertTagSupport {
         return ClassLoaderUtils.getClassLoader(classLoader, getContext().getUseContextClassLoader(), getClass());
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

@@ -20,7 +20,7 @@ import org.apache.commons.jelly.xpath.XPathTagSupport;
 
 /**
  * The abstract base class of any assertion tag which is
- * useful for implementation inheritence.
+ * useful for implementation inheritance.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
@@ -33,7 +33,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     public AssertTagSupport() {
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**

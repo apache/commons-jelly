@@ -82,7 +82,7 @@ public class TransformTag extends ParseTag {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TransformTag.class);
 
-    /** Propert name for lexical handler */
+    /** Property name for lexical handler */
     private static final String LEXICAL_HANDLER_PROPERTY =
         "http://xml.org/sax/properties/lexical-handler";
 
@@ -192,7 +192,7 @@ public class TransformTag extends ParseTag {
         this.transformerHandler.getTransformer().setParameter(name, value);
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
 
     /**
@@ -487,7 +487,7 @@ public class TransformTag extends ParseTag {
         }
 
         /**
-         * Helper method to determin if nested body needs to be parsed by (an
+         * Helper method to determine if nested body needs to be parsed by (an
          * xml parser, i.e. its only text) to generate SAX events or not
          *
          * @return True if tag body should be parsed or false if invoked only

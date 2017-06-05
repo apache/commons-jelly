@@ -66,7 +66,7 @@ public class ApplicationWindowTag extends UseBeanTag {
 
         super.doTag(output);
 
-        // set Title of aaplicationWindow
+        // set Title of applicationWindow
         Object title = attributes.remove("title");
         if (title != null) {
             getWindow().getShell().setText((String)title);

@@ -63,7 +63,7 @@ public class BSFExpression extends ExpressionSupport {
     }
 
     public Object evaluate(JellyContext context) {
-        // XXXX: unfortunately we must sychronize evaluations
+        // XXXX: unfortunately we must synchronize evaluations
         // so that we can swizzle in the context.
         // maybe we could create an expression from a context
         // (and so create a BSFManager for a context)

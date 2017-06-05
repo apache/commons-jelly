@@ -27,7 +27,7 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
-  * A tag which calls a method in an object instantied by core:new
+  * A tag which calls a method in an object instantiated by core:new
   *
   *
   * @author Rodney Waldhoff

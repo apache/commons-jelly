@@ -118,7 +118,7 @@ public class WizardDialogTag extends UseBeanTag {
             if (script instanceof Script) {
                 performCancel = (Script) getAttributes().get("performCancel");
             } else {
-                throw new JellyTagException("Attributevalue " + script + " must be a Script");
+                throw new JellyTagException("AttributeValue " + script + " must be a Script");
             }
         }
 
@@ -127,7 +127,7 @@ public class WizardDialogTag extends UseBeanTag {
             if (script instanceof Script) {
                 performFinish = (Script) getAttributes().get("performFinish");
             } else {
-                throw new JellyTagException("Attributevalue " + script + " must be a Script");
+                throw new JellyTagException("AttributeValue " + script + " must be a Script");
             }
         }
 

@@ -134,7 +134,7 @@ public class TemplateTag extends TagSupport implements XPathSource {
     }
 
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     protected Rule createRule(StylesheetTag tag, XMLOutput output) {
         return new Rule( match, createAction(tag, output) );

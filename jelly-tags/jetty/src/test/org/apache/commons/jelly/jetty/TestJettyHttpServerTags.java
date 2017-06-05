@@ -52,7 +52,7 @@ public class TestJettyHttpServerTags extends TestCase {
     }
 
     public void testDefaultServer() throws Exception {
-        String text = evaluteScriptAsText(
+        String text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/defaultServer.jelly"
         );
         assertEquals("Produces the correct output", "It works!", text);
@@ -64,7 +64,7 @@ public class TestJettyHttpServerTags extends TestCase {
             logFile.delete();
         }
         assertTrue("Logfile does not exist", !logFile.exists());
-        String text = evaluteScriptAsText(
+        String text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/jettyLogFile.jelly"
         );
         assertEquals("Produces the correct output", "It works!", text);
@@ -72,45 +72,45 @@ public class TestJettyHttpServerTags extends TestCase {
     }
 
     public void testSocketListener() throws Exception {
-        String text = evaluteScriptAsText(
+        String text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/socketListener.jelly"
         );
         assertEquals("Produces the correct output", "It works!", text);
     }
 
     public void testHttpContext() throws Exception {
-        String text = evaluteScriptAsText(
+        String text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/httpContext.jelly"
         );
         assertEquals("Produces the correct output", "It works!", text);
     }
 
     public void testResourceHandler() throws Exception {
-        String text = evaluteScriptAsText(
+        String text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/resourceHandler.jelly"
         );
         assertEquals("Produces the correct output", "It works!", text);
     }
 
     public void testSecurityHandler() throws Exception {
-        String text = evaluteScriptAsText(
+        String text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/securityHandlerForbidden.jelly"
         );
         assertEquals("Forbidden test produces the correct output", "It works!", text);
 
-        text = evaluteScriptAsText(
+        text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/securityHandlerUnauthorized.jelly"
         );
         assertEquals("Unauthorized produces the correct output", "It works!", text);
     }
 
     public void testJellyResourceHandler() throws Exception {
-        String text = evaluteScriptAsText(
+        String text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/jellyResourceHandler.jelly"
         );
         assertEquals("jellyResourceHandler produces the correct output", "It works!", text);
 
-        text = evaluteScriptAsText(
+        text = evaluateScriptAsText(
             "src/test/org/apache/commons/jelly/jetty/jellyResourceHandlerRequestBody.jelly"
         );
         assertEquals("jellyResourceHandlerRequestBody produces the correct output", "It works!", text);
@@ -120,14 +120,14 @@ public class TestJettyHttpServerTags extends TestCase {
      * Evaluates the script by the given file name and
      * returns the whitespace trimmed output as text
      */
-    protected String evaluteScriptAsText(String fileName) throws Exception {
+    protected String evaluateScriptAsText(String fileName) throws Exception {
         JellyContext context = new JellyContext();
 
         // allow scripts to refer to any resource inside this project
         // using an absolute URI like /src/test/org/apache/foo.xml
         context.setRootURL(new File(".").toURL());
 
-        // cature the output
+        // capture the output
         StringWriter buffer = new StringWriter();
         XMLOutput output = XMLOutput.createXMLOutput(buffer);
 

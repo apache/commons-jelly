@@ -69,7 +69,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
         this.var = var;
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     /**
      * Either defines a variable or adds the current component to the parent

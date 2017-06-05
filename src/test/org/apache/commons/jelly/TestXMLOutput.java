@@ -61,10 +61,10 @@ public class TestXMLOutput extends BaseJellyTest {
         
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         
-        XMLOutput ouput = XMLOutput.createXMLOutput(bos);
+        XMLOutput output = XMLOutput.createXMLOutput(bos);
         
-        script.run(getJellyContext(),ouput);
-        ouput.flush();
+        script.run(getJellyContext(),output);
+        output.flush();
         assertEquals("<html></html>",bos.toString());
     }
     
@@ -73,10 +73,10 @@ public class TestXMLOutput extends BaseJellyTest {
         Script script = getJelly().compileScript();
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        XMLOutput ouput = XMLOutput.createXMLOutput(bos);
+        XMLOutput output = XMLOutput.createXMLOutput(bos);
 
-        script.run(getJellyContext(),ouput);
-        ouput.flush();
+        script.run(getJellyContext(),output);
+        output.flush();
         assertEquals("[string]",bos.toString().trim());
 	}
 }

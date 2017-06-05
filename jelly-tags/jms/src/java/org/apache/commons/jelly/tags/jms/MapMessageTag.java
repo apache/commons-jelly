@@ -67,7 +67,7 @@ public class MapMessageTag extends MessageTag {
         }
     }
 
-    // Implementation methods
+    // Implementstion methods
     //-------------------------------------------------------------------------
     protected Message createMessage() throws JellyTagException {
         try {

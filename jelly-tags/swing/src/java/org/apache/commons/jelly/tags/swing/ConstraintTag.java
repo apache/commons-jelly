@@ -34,7 +34,7 @@ import org.xml.sax.Attributes;
     *    with {@link #getConstraintObject}.
     *    Probably a shorter java-source is do-able.
     *    <p>
-    *    TODO: this class should probably be extended with special treatment for dimensios
+    *    TODO: this class should probably be extended with special treatment for dimensions
     *    using the converter package.
     */
 public class ConstraintTag extends DynaBeanTagSupport {
@@ -44,7 +44,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
                         is cloned then attributes are set
                         This tag should also support the attributes such as fill=BOTH
                         and anchor=NORTHEAST...
-                        Wooops... need to define setters ?? let's see if BeanUtils does it on public vars
+                        Whoops... need to define setters ?? let's see if BeanUtils does it on public vars
                         And... have an insets?? A child ?
     */
 
@@ -66,7 +66,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new ConstraintTag ( this );
             }
-        } // class ConstatnStringFactory
+        } // class ConstantStringFactory
 
         // we could be able to make factories that create their tags in parametrized
         // subclasses of the tag depending on the name and attributes
