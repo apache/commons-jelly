@@ -113,7 +113,7 @@ public class RegisterTag extends TagSupport implements CollectionTag {
         this.server = server;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

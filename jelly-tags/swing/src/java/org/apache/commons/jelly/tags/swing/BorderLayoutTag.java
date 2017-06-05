@@ -72,7 +72,7 @@ public class BorderLayoutTag extends LayoutTagSupport {
         this.vgap = vgap;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

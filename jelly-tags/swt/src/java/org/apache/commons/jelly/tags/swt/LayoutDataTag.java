@@ -43,7 +43,7 @@ public class LayoutDataTag extends LayoutTagSupport {
         super(layoutDataClass);
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

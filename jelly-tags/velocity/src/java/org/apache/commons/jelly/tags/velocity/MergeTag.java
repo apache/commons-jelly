@@ -170,7 +170,7 @@ public class MergeTag extends VelocityTagSupport
         this.inputEncoding = encoding;
     }
 
-    // -- Implementstion ----------------------------------------------------
+    // -- Implementation ----------------------------------------------------
 
     /**
      * Merges the Velocity template with the Jelly context.

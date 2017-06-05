@@ -153,7 +153,7 @@ public class WindowListenerTag extends TagSupport {
 
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
     protected void invokeScript(XMLOutput output, WindowEvent event, Script script) {
         if ( var != null ) {

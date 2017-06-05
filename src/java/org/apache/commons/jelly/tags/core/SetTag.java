@@ -164,7 +164,7 @@ public class SetTag extends TagSupport {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
     protected void setPropertyValue( Object target, String property, Object value ) {
         try {

@@ -83,7 +83,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
         this.subject = subject;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

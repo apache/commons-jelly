@@ -929,7 +929,7 @@ public class JellyContext {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
     /**
      * @return a new relative URL from the given root and with the addition of the

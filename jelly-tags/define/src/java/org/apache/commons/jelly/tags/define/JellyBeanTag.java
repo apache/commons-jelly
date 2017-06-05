@@ -69,7 +69,7 @@ public class JellyBeanTag extends BeanTag {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     protected Method getInvokeMethod( Class theClass ) {

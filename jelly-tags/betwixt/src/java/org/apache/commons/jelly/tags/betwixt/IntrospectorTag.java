@@ -143,7 +143,7 @@ public class IntrospectorTag extends TagSupport {
         this.var = var;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

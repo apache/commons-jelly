@@ -113,7 +113,7 @@ public class WidgetTag extends UseBeanTag {
         clearBean();
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

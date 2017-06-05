@@ -208,7 +208,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

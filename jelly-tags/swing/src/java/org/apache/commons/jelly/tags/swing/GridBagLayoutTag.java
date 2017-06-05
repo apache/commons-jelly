@@ -36,7 +36,7 @@ public class GridBagLayoutTag extends LayoutTagSupport {
     public GridBagLayoutTag() {
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

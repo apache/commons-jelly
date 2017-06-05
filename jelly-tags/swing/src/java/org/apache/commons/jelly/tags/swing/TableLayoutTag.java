@@ -63,7 +63,7 @@ public class TableLayoutTag extends LayoutTagSupport {
         super.doTag(output);
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
 

@@ -94,7 +94,7 @@ public class StyleTag extends XPathTagSupport {
         this.select = select;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /** @return the source on which the stylesheet should run

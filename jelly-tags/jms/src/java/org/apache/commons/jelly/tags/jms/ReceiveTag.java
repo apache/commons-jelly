@@ -108,7 +108,7 @@ public class ReceiveTag extends MessageOperationTag {
         this.timeout = timeout;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

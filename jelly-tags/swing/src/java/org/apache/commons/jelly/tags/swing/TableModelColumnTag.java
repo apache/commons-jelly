@@ -40,7 +40,7 @@ public class TableModelColumnTag extends UseBeanTag {
         return super.getAttributeType(name);
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
     protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);

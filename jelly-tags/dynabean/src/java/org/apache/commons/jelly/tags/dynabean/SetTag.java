@@ -139,7 +139,7 @@ public class SetTag extends TagSupport {
         this.property = property;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
     protected void setPropertyValue( Object target, String property, Object value ) {
         try {

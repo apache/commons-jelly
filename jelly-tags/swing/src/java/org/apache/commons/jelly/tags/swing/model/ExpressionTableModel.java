@@ -146,7 +146,7 @@ public class ExpressionTableModel extends AbstractTableModel {
         this.context = context;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
     protected static class MyTableColumnModel extends DefaultTableColumnModel {
         public List getColumnList() {

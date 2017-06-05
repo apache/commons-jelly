@@ -62,7 +62,7 @@ public class AssertValidTag extends ValidateTag {
         super.doTag(output);
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

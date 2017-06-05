@@ -78,7 +78,7 @@ public class ClassLoaderTag extends BeanTag {
         this.url = url;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {

@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
 
 /**
- * Implementstion of SWT LayoutDataTag
+ * Implementation of SWT LayoutDataTag
  *  
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a> 
  */

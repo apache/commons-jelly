@@ -101,7 +101,7 @@ public class TitledBorderTag extends BorderTagSupport {
 
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

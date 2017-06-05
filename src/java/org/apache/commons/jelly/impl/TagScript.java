@@ -511,7 +511,7 @@ public class TagScript implements Script {
         return namespaceContext;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

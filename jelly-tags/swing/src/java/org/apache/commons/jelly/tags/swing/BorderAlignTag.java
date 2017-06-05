@@ -72,7 +72,7 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
         this.align = align;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     protected Object getConstraints() {

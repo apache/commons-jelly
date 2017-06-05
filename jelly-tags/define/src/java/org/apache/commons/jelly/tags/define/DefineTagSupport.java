@@ -29,7 +29,7 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
  */
 public abstract class DefineTagSupport extends TagSupport {
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

@@ -174,7 +174,7 @@ public class JellyTask extends Task {
         return context;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

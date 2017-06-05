@@ -45,7 +45,7 @@ public class TextMessageTag extends MessageTag {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
     protected Message createMessage() throws JellyTagException {
         String value = (text != null) ? text : getBodyText();

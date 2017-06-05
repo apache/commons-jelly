@@ -72,7 +72,7 @@ public class SetPropertiesTag extends MapTagSupport  {
         setBeanProperties(bean, attributes);
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

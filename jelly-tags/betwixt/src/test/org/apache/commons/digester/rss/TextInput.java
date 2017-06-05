@@ -23,7 +23,7 @@ import java.io.Serializable;
 
 
 /**
- * <p>Implementstion object representing a <strong>textinput</strong> in the
+ * <p>Implementation object representing a <strong>textinput</strong> in the
  * <em>Rich Site Summary</em> DTD, version 0.91.  This class may be subclassed
  * to further specialize its behavior.</p>
  */

@@ -169,7 +169,7 @@ public class LoadTextTag extends TagSupport {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

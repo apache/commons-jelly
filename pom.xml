@@ -355,7 +355,7 @@
         <configuration>
           <archive>
             <manifestEntries>
-              <Implementstion-Vendor-Id>org.apache</Implementstion-Vendor-Id>
+              <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
               <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
               <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
             </manifestEntries>

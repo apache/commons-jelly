@@ -146,7 +146,7 @@ public class BeandefTag extends TagSupport {
         this.methodName = methodName;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
     protected Method getInvokeMethod(Class theClass) {
         if (methodName != null) {

@@ -42,7 +42,7 @@ import org.eclipse.swt.widgets.Composite;
 public class PreferencePageTag extends TagSupport {
 
     /**
-     * Implementstion of a FieldEditorPreferencePage
+     * Implementation of a FieldEditorPreferencePage
      * method createFieldEditors is called on Dialog.open()
      */
     public class PreferencePageImpl extends FieldEditorPreferencePage {

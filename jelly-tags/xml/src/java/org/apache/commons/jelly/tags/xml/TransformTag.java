@@ -192,7 +192,7 @@ public class TransformTag extends ParseTag {
         this.transformerHandler.getTransformer().setParameter(name, value);
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

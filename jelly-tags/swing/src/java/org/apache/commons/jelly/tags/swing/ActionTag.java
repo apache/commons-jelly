@@ -60,7 +60,7 @@ public class ActionTag extends UseBeanTag {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
 

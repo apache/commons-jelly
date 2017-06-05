@@ -47,7 +47,7 @@ public class DialogTag extends WidgetTag {
         super(widgetClass);
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

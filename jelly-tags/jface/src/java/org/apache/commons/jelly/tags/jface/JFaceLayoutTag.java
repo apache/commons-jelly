@@ -25,7 +25,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Widget;
 
 /**
- * Implementstion of SWT LayoutTag
+ * Implementation of SWT LayoutTag
  *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */

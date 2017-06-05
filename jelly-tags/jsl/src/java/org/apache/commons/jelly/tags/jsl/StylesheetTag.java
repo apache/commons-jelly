@@ -166,7 +166,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
         this.select = select;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /** @return the source on which the stylesheet should run

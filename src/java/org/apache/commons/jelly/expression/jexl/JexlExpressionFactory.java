@@ -91,7 +91,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
         this.supportAntVariables = supportAntVariables;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

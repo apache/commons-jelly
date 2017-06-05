@@ -63,7 +63,7 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {

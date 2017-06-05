@@ -75,7 +75,7 @@ public class TestConverters extends TestCase {
         assertPoint(" 0  ,  200  ", new Point(0, 200));
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     protected void assertPoint(String expression, Point expected) throws Exception {

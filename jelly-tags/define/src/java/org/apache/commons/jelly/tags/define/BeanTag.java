@@ -162,7 +162,7 @@ public class BeanTag extends DefineTagSupport {
     }
 
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

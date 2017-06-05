@@ -314,7 +314,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         return project;
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**

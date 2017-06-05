@@ -170,7 +170,7 @@ public class TransactionTag extends TagSupport {
     }
 
     //*********************************************************************
-    // Implementstion methods methods
+    // Implementation methods methods
 
     /**
      * Restores the <code>Connection</code> to its initial state and

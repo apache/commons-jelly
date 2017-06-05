@@ -45,7 +45,7 @@ public class MenuTag extends WidgetTag {
         super(Menu.class, style);
     }
 
-    // Implementstion methods
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
