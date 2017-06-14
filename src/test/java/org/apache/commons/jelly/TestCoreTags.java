@@ -53,7 +53,7 @@ public class TestCoreTags extends TestCase {
     }
 
     public void testArgs() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/test_args.jelly");
+        InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/test_args.jelly");
         XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
@@ -109,7 +109,7 @@ public class TestCoreTags extends TestCase {
 
 
     public void testStaticNamespacedAttributes() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/testStaticNamespacedAttributes.jelly");
+        InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/testStaticNamespacedAttributes.jelly");
         XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();

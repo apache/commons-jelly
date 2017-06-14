@@ -45,7 +45,7 @@ public class TestCData extends TestCase {
      */
     public void testCData() throws Exception {
         Jelly jelly = new Jelly();
-        jelly.setScript("file:src/test/org/apache/commons/jelly/test/xml/testCData.jelly");
+        jelly.setScript("file:src/test/resources/org/apache/commons/jelly/test/xml/testCData.jelly");
         Script script = jelly.compileScript();
         JellyContext context = new JellyContext();
         script.run(context, XMLOutput.createDummyXMLOutput());

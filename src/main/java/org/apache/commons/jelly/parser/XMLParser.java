@@ -995,7 +995,7 @@ public class XMLParser extends DefaultHandler {
 
             InputStream in = null;
             URL url =
-                getClassLoader().getResource("src/main/resources/org/apache/commons/jelly/jelly.properties");
+                getClassLoader().getResource("org/apache/commons/jelly/jelly.properties");
             if (url != null) {
                 log.debug("Loading Jelly default tag libraries from: " + url);
                 try {

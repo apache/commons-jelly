@@ -114,7 +114,7 @@ public class TestIncludeTag extends TestCase {
      */
     public void testFileInclude() throws Exception {
         // testing outermost
-        setUpFromURL(new URL("file:src/test/org/apache/commons/jelly/core/a.jelly"));
+        setUpFromURL(new URL("file:src/test/resources/org/apache/commons/jelly/core/a.jelly"));
         Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have set 'c' variable to 'true'",
