@@ -442,7 +442,7 @@ public class XMLParser extends DefaultHandler {
     	TagLibrary tagLibrary = null;
     	if (tagScript != null)
     		tagLibrary = tagScript.getTagLibrary();
-    	
+
     	// If the tagScript is a StaticTag, then go up the stack looking for a
     	//	tagScript that belongs to a real TagLibrary
     	if (tagLibrary == null && tagScript instanceof StaticTagScript)
@@ -469,7 +469,7 @@ public class XMLParser extends DefaultHandler {
     public void setExpressionFactory(ExpressionFactory expressionFactory) {
         this.expressionFactory = expressionFactory;
     }
-    
+
     /**
      * Called to create an instance of the ExpressionFactory (@see getExpressionFactory)
      * @return
@@ -480,7 +480,7 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Creates an expression, using the ExpressionFactory returned by getExpressionFactory();
-     * the default implementation defers to the TagLibrary to create the Expression 
+     * the default implementation defers to the TagLibrary to create the Expression
      * @param attributeName
      * @param value
      * @return
@@ -995,7 +995,7 @@ public class XMLParser extends DefaultHandler {
 
             InputStream in = null;
             URL url =
-                getClassLoader().getResource("org/apache/commons/jelly/jelly.properties");
+                getClassLoader().getResource("src/main/resources/org/apache/commons/jelly/jelly.properties");
             if (url != null) {
                 log.debug("Loading Jelly default tag libraries from: " + url);
                 try {
@@ -1158,7 +1158,7 @@ public class XMLParser extends DefaultHandler {
     protected void configureTagScript(TagLibrary tagLibrary,  TagScript aTagScript) {
         // Set the TagLibrary that created the script
         aTagScript.setTagLibrary(tagLibrary);
-        
+
         configureTagScript(aTagScript);
     }
 
@@ -1169,7 +1169,7 @@ public class XMLParser extends DefaultHandler {
     protected void configureTagScript(TagScript aTagScript) {
         // set parent relationship...
         aTagScript.setParent(this.tagScript);
-        
+
         // set the namespace Map
         if ( elementNamespaces != null ) {
             aTagScript.setTagNamespacesMap( elementNamespaces );

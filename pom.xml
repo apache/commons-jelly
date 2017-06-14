@@ -307,8 +307,7 @@
     </notifiers>
   </ciManagement>
   <build>
-    <testSourceDirectory>${basedir}/src/test</testSourceDirectory>
-    <resources>
+<!--    <resources>
       <resource>
         <targetPath>META-INF</targetPath>
         <directory>${basedir}</directory>
@@ -322,8 +321,8 @@
           <include>**/*.properties</include>
         </includes>
       </resource>
-    </resources>
-    <testResources>
+    </resources> -->
+<!--    <testResources>
       <testResource>
         <directory>src/test</directory>
         <includes>
@@ -337,7 +336,7 @@
           <include>**/*.html</include>
         </includes>
       </testResource>
-    </testResources>
+    </testResources> -->
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
