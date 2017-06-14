@@ -307,7 +307,6 @@
     </notifiers>
   </ciManagement>
   <build>
-    <sourceDirectory>${basedir}/src/java</sourceDirectory>
     <testSourceDirectory>${basedir}/src/test</testSourceDirectory>
     <resources>
       <resource>
