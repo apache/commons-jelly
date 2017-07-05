@@ -6,65 +6,65 @@
   The ASF licenses this file to You under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with
   the License.  You may obtain a copy of the License at
-  
+
        http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<test:suite xmlns:j="jelly:core" 
+<test:suite xmlns:j="jelly:core"
   xmlns:test="jelly:junit">
 
   <test:case name="assertTests">
-  
+
     <test:assert test="${2 == 2}">This should never fail</test:assert>
-    
+
     <j:catch var="ex">
       <test:assert test="${2 != 2}">This should always fail</test:assert>
-    </j:catch>        
-    
+    </j:catch>
+
     <test:assert test="${ex != null}">We should have created an exception</test:assert>
-    
-    The exception was: ${ex.message}    
-    
+
+    The exception was: ${ex.message}
+
   </test:case>
 
 
   <test:case name="failTests">
-  
+
     <j:catch var="ex">
       <test:fail>This should always fail</test:fail>
-    </j:catch>        
-        
+    </j:catch>
+
     <test:assert test="${ex != null}">We should have created an exception</test:assert>
-        
-    The exception was: ${ex.message}    
-    
+
+    The exception was: ${ex.message}
+
     <j:catch var="ex">
       <test:fail message="This should always fail"/>
-    </j:catch>        
-    
-    <test:assert test="${ex != null}">We should have created an exception</test:assert>      
-    The exception was: ${ex.message}    
+    </j:catch>
+
+    <test:assert test="${ex != null}">We should have created an exception</test:assert>
+    The exception was: ${ex.message}
   </test:case>
 
-    
+
   <test:case name="assertEqualTests">
-  
+
     <j:set var="foo" value="abc"/>
-    
+
     <test:assertEquals actual="${foo}" expected="abc">This should never fail</test:assertEquals>
-    
+
     <j:catch var="ex">
       <test:assertEquals actual="${foo}" expected="def">This should always fail</test:assertEquals>
-    </j:catch>        
-        
+    </j:catch>
+
     <test:assert test="${ex != null}">We should have created an exception</test:assert>
-        
-    The exception was: ${ex.message}    
+
+    The exception was: ${ex.message}
   </test:case>
 
 
@@ -99,7 +99,7 @@
         <test:fail message="This should always fail"/>
       </test:assertThrows>
     </j:catch>
-    
+
     <test:assert test="${ex != null}">We should have created an exception</test:assert>
 
     <!-- test with no exception from body -->
@@ -107,9 +107,9 @@
       <test:assertThrows>
       </test:assertThrows>
     </j:catch>
-    
+
     <test:assert test="${ex != null}">assertThrows should fail when nothing is thrown from within it</test:assert>
-        
+
     <test:assert test="${ex.message.endsWith('No exception was thrown.')}"/>
 
     <test:assertEquals actual="${ex.elementName}" expected="test:assertThrows"/>
@@ -119,18 +119,18 @@
   </test:case>
 
 <!--
-    
+
     #### uncomment when assertEquals supports type conversions
-    
+
   <test:case name="assertEqualsConversion">
-  
+
         <test:assertEquals expected="${4}" actual="${2+2}"/>
 
   </test:case>
 -->
 
   <test:case name="assertFileExists">
-    <test:assertFileExists file="${basedir}/project.xml">Project file not found</test:assertFileExists>
+    <test:assertFileExists file="${basedir}/pom.xml">Project file not found</test:assertFileExists>
 
     <test:assertThrows var="ex">
       <test:assertFileExists file="${basedir}/dummydummy">Bad file</test:assertFileExists>
@@ -143,19 +143,19 @@
     <test:assertFileNotFound file="${basedir}/dummydummy">Dummy file found</test:assertFileNotFound>
 
     <test:assertThrows var="ex">
-      <test:assertFileNotFound file="${basedir}/project.xml">Bad file</test:assertFileNotFound>
+      <test:assertFileNotFound file="${basedir}/pom.xml">Bad file</test:assertFileNotFound>
     </test:assertThrows>
     <test:assert test="${ex != null}">No exception thrown for file that exists</test:assert>
   </test:case>
-  
+
   <test:case name="assertFileContains">
     <!--  check that the pom contains a name element -->
-    <test:assertFileContains file="${basedir}/project.xml" match="&lt;name&gt;commons-jelly-tags-junit">Couldn't find name in pom</test:assertFileContains>
-    
+    <test:assertFileContains file="${basedir}/pom.xml" match="&lt;name&gt;commons-jelly-tags-junit">Couldn't find name in pom</test:assertFileContains>
+
     <test:assertThrows var="ex" expected="org.apache.commons.jelly.tags.junit.JellyAssertionFailedError">
-      <test:assertFileContains file="${basedir}/project.xml" match="DUMMY">Bad contents</test:assertFileContains>
+      <test:assertFileContains file="${basedir}/pom.xml" match="DUMMY">Bad contents</test:assertFileContains>
     </test:assertThrows>
-    
+
     <test:assert test="${ex != null and ex.message != null}"/>
   </test:case>
 </test:suite>

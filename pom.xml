@@ -16,6 +16,7 @@
 
   <modules>
     <module>core</module>
+    <module>jelly-tags</module>
   </modules>
 
   <url>http://commons.apache.org/proper/commons-jelly/</url>
