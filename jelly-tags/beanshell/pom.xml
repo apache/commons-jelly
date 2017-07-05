@@ -15,51 +15,39 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project>
-  <extend>${basedir}/../tag-project.xml</extend>
-  <artifactId>commons-jelly-tags-beanshell</artifactId>
-  <name>commons-jelly-tags-beanshell</name>
-  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
-  <package>org.apache.commons.jelly.tags.beanshell</package>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>commons-jelly</groupId>
+    <artifactId>commons-jelly-tags</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
 
-  <description>
-      This is a Jelly interface for BeanShell.
-  </description>
-  <shortDescription>Commons Jelly BeanShell Tag Library</shortDescription>
-  
-  <versions>
-    <version>
-      <id>1.0</id>
-      <name>1.0</name>
-      <tag>COMMONS_JELLY_BEANSHELL-1_0</tag>
-    </version>
-  </versions>
-    
+  <artifactId>commons-jelly-tags-beanshell</artifactId>
+  <packaging>jar</packaging>
+  <name>commons-jelly-tags-beanshell</name>
+  <description>This is a Jelly interface for BeanShell.</description>
+
   <dependencies>
-  
-    
-  
     <!-- START for compilation -->
     <dependency>
       <artifactId>bsh</artifactId>
       <groupId>bsh</groupId>
       <version>2.0b1</version>
     </dependency>
-    
-    <!-- START for testing -->
+
+    <!-- END for compilation -->
+
+    <!-- START for test -->
 
     <dependency>
       <groupId>commons-jelly</groupId>
       <artifactId>commons-jelly-tags-junit</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
-      <url>http://commons.apache.org/jelly/libs/junit/</url>
-      <properties>
-        <scope>test</scope>
-      </properties>
+      <version>${project.version}</version>
+      <scope>test</scope>
     </dependency>
 
-    <!-- END for testing -->
-
+    <!-- END for test -->
   </dependencies>
-  
 </project>
