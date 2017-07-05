@@ -15,6 +15,7 @@
 
   <modules>
     <module>junit</module>
+    <module>util</module>
   </modules>
 
   <build>

@@ -15,43 +15,43 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<test:suite 
-    xmlns:j="jelly:core" 
-    xmlns:util="jelly:util" 
+<test:suite
+    xmlns:j="jelly:core"
+    xmlns:util="jelly:util"
     xmlns:test="jelly:junit">
 
   <test:case name="testTokenize">
-    
+
         <util:tokenize var="tokens" delim=",">Test1,Test2,Test3,Test4</util:tokenize>
 
-        <j:set var="s" value="${size(tokens)}"/>        
+        <j:set var="s" value="${size(tokens)}"/>
         <test:assert test="${s == 4}"/>
         <test:assert test="${size(tokens) == 4}"/>
 
-<!--        
-        <j:set var="s" value="${tokens.size()}"/>        
+<!--
+        <j:set var="s" value="${tokens.size()}"/>
         <test:assert test="${s == 4}"/>
-        
+
         <test:assert test="${tokens.size() == 4}"/>
 -->
 
-            
+
         <test:assertEquals expected="Test1" actual="${tokens[0]}"/>
         <test:assertEquals expected="Test2" actual="${tokens[1]}"/>
         <test:assertEquals expected="Test3" actual="${tokens[2]}"/>
         <test:assertEquals expected="Test4" actual="${tokens[3]}"/>
-        
+
         <test:assertEquals expected="Test4" actual="${tokens[s - 1]}"/>
         <test:assertEquals expected="Test4" actual="${tokens[size(tokens) - 1]}"/>
-        
-<!--        
+
+<!--
         <test:assertEquals expected="Test4" actual="${tokens.get(size(tokens) - 1)}"/>
-        
-        
+
+
         <test:assertEquals expected="Test4" actual="${tokens[tokens.size() - 1]}"/>
         <test:assertEquals expected="Test4" actual="${tokens.get(tokens.size() - 1)}"/>
--->        
-        
+-->
+
   </test:case>
 
   <test:case name="testFileExists">
@@ -60,59 +60,59 @@
       <j:if test="${empty base.dir}">
           <j:set var="base.dir" value="."/>
       </j:if>
-        
+
       <j:set var="flag" value="not found"/>
 
-      <util:available file="${base.dir}/project.xml">
+      <util:available file="${base.dir}/pom.xml">
           <j:set var="flag" value="found"/>
       </util:available>
 
-        
+
       <test:assertEquals expected="found" actual="${flag}">
-          Should have found the file via the file $${base.dir}/project.xml with base.dir=${base.dir}
+          Should have found the file via the file $${base.dir}/pom.xml with base.dir=${base.dir}
       </test:assertEquals>
-        
+
       <util:available file="${base.dir}/doesNotExist.xml">
           <test:fail>The file ${base.dir}/doesNotExist.xml should not exist</test:fail>
       </util:available>
-        
+
   </test:case>
-    
+
   <test:case name="testURIExists">
 
       <j:set var="flag" value="not found"/>
 
         <!-- use relative URIs-->
-        
+
       <util:available uri="dummy.xml">
           <j:set var="flag" value="found"/>
       </util:available>
-        
+
       <test:assertEquals expected="found" actual="${flag}">
         Should have found the file via the URI dummy.xml
       </test:assertEquals>
-        
+
       <util:available uri="doesNotExist.xml">
 
           <test:fail>The URI doesNotExist.xml should not exist!</test:fail>
       </util:available>
-        
+
   </test:case>
-  
+
   <test:case name="testReplace">
-    
+
     <util:replace oldChar="\" newChar="/" var="testString">A\B</util:replace>
     <test:assertEquals expected="A/B" actual="${testString}">
       Should have replaced a back slash with a forward one
     </test:assertEquals>
 
-    
+
     <j:set var="testString2"><util:replace oldChar="\" newChar="/">A\B</util:replace></j:set>
     <test:assertEquals expected="A/B" actual="${testString2}">
       Should have replaced a back slash with a forward one
       and placed the result into output
     </test:assertEquals>
-    
+
     <util:replace oldChar="/" newChar="\" value="${testString}" var="testString3" />
     <test:assertEquals expected="A\B" actual="${testString3}">
       Should have replaced a slash with a back slash from a variable
@@ -134,47 +134,47 @@
   </test:case>
 
   <test:case name="testProperties">
-      
+
       <util:properties uri="foo.properties"/>
-      
+
       <test:assertEquals expected="ABC" actual="${foo}"/>
-    
-  </test:case>
-    
-  <test:case name="testPropertiesVar">
-      
-      <util:properties uri="foo.properties" var="props"/>
-      
-      <test:assertEquals expected="ABC" actual="${props.foo}"/>
-    
-      Loaded properties value ${props}
-    
+
   </test:case>
 
-  
+  <test:case name="testPropertiesVar">
+
+      <util:properties uri="foo.properties" var="props"/>
+
+      <test:assertEquals expected="ABC" actual="${props.foo}"/>
+
+      Loaded properties value ${props}
+
+  </test:case>
+
+
   <test:case name="testPropertiesAreNotLocked">
-      <j:set var="filename" value="${basedir}/target/test-classes/org/apache/commons/jelly/tags/util/deletable.properties"/>
-      
+      <j:set var="filename" value="target/test-classes/org/apache/commons/jelly/tags/util/deletable.properties"/>
+
       <util:properties file="${filename}"/>
-      
+
       <j:new var="f" className="java.io.File">
         <j:arg type="java.lang.String" value="${filename}"/>
-      </j:new>        
+      </j:new>
       <j:mute>
         ${f.delete()}
       </j:mute>
-    
+
       <test:assertEquals expected="${false}" actual="${f.exists()}" >The file ${name} should no longer exist</test:assertEquals>
 
   </test:case>
-    
+
 
   <test:case name="testFileTag">
-      <util:file name="${basedir}/src/test/org/apache/commons/jelly/tags/util/suite.jelly" 
+      <util:file name="${basedir}/src/test/org/apache/commons/jelly/tags/util/suite.jelly"
         var="suite" />
       <test:assert test="${suite != null}" >The suite should exist</test:assert>
   </test:case>
-  
+
   <test:case name="testSortBasic">
     <j:new var="testCollection" className="java.util.ArrayList"/>
     <j:mute>
@@ -188,7 +188,7 @@
     <test:assertEquals expected="Jelly" actual="${sorted[1]}"/>
     <test:assertEquals expected="World" actual="${sorted[2]}"/>
   </test:case>
-  
+
   <test:case name="testSortBean">
     <j:new var="testCollection" className="java.util.ArrayList"/>
 
@@ -212,50 +212,61 @@
     <test:assertEquals expected="Australia" actual="${sortedByLocation[0].location}"/>
     <test:assertEquals expected="Australia" actual="${sortedByLocation[1].location}"/>
     <test:assertEquals expected="U.S.A." actual="${sortedByLocation[2].location}"/>
-  
+
   </test:case>
 
   <test:case name="testLoadTextTag">
-      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText1.txt" 
+      <!-- To deal with different line ending styles -->
+      <j:set var="nl" value="&#10;"/>
+      <j:set var="crlf" value="&#13;&#10;"/>
+
+      <util:loadText file="target/test-classes/org/apache/commons/jelly/tags/util/loadText1.txt"
         var="oneLineNewLine" />
-      <test:assertEquals expected="6" actual="${oneLineNewLine.length().toString()}">
+      <test:assertEquals expected="6"
+        actual="${oneLineNewLine.replace(crlf, nl).length().toString()}">
       Wrong size of loaded text (one line with newline)!
       </test:assertEquals>
-      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText2.txt" 
+      <util:loadText file="target/test-classes/org/apache/commons/jelly/tags/util/loadText2.txt"
         var="oneLineNoNewLine" />
-      <test:assertEquals expected="5" actual="${oneLineNoNewLine.length().toString()}">
+      <test:assertEquals expected="5"
+        actual="${oneLineNoNewLine.replace(crlf, nl).length().toString()}">
       Wrong size of loaded text (one line without newline)!
       </test:assertEquals>
-      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText3.txt" 
+      <util:loadText file="target/test-classes/org/apache/commons/jelly/tags/util/loadText3.txt"
         var="twoLinesNewLine" />
-      <test:assertEquals expected="11" actual="${twoLinesNewLine.length().toString()}">
+      <test:assertEquals expected="11"
+        actual="${twoLinesNewLine.replace(crlf, nl).length().toString()}">
       Wrong size of loaded text (two lines with newline)!
       </test:assertEquals>
-      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText4.txt" 
+      <util:loadText file="target/test-classes/org/apache/commons/jelly/tags/util/loadText4.txt"
         var="twoLinesNoNewLine" />
-      <test:assertEquals expected="10" actual="${twoLinesNoNewLine.length().toString()}">
+      <test:assertEquals expected="10"
+        actual="${twoLinesNoNewLine.replace(crlf, nl).length().toString()}">
       Wrong size of loaded text (two lines without newline)!
       </test:assertEquals>
-      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText5.txt" 
+      <util:loadText file="target/test-classes/org/apache/commons/jelly/tags/util/loadText5.txt"
         var="emptyNewLine" />
-      <test:assertEquals expected="1" actual="${emptyNewLine.length().toString()}">
+      <test:assertEquals expected="1"
+        actual="${emptyNewLine.replace(crlf, nl).length().toString()}">
       Wrong size of loaded text (empty line with newline)!
       </test:assertEquals>
-      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText6.txt" 
+      <util:loadText file="target/test-classes/org/apache/commons/jelly/tags/util/loadText6.txt"
         var="emptyNoNewLine" />
       <test:assertEquals expected="0" actual="${emptyNoNewLine.length().toString()}">
       Wrong size of loaded text (empty lines without newline)!
       </test:assertEquals>
-      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText7.txt" 
+      <util:loadText file="target/test-classes/org/apache/commons/jelly/tags/util/loadText7.txt"
         var="bigFileNewLine" />
-      <test:assertEquals expected="10000" actual="${bigFileNewLine.length().toString()}">
+      <test:assertEquals expected="10000"
+        actual="${bigFileNewLine.replace(crlf, nl).length().toString()}">
       Wrong size of loaded text (big file with newline)!
       </test:assertEquals>
-      <util:loadText file="${basedir}/src/test/org/apache/commons/jelly/tags/util/loadText8.txt" 
+      <util:loadText file="target/test-classes/org/apache/commons/jelly/tags/util/loadText8.txt"
         var="bigFileNoNewLine" />
-      <test:assertEquals expected="9999" actual="${bigFileNoNewLine.length().toString()}">
+      <test:assertEquals expected="9999"
+        actual="${bigFileNoNewLine.replace(crlf, nl).length().toString()}">
       Wrong size of loaded text (big file without newline)!
       </test:assertEquals>
   </test:case>
-    
+
 </test:suite>
