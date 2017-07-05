@@ -14,6 +14,7 @@
   <description>Parent pom for tag library projects.</description>
 
   <modules>
+    <module>ant</module>
     <module>junit</module>
     <module>util</module>
   </modules>

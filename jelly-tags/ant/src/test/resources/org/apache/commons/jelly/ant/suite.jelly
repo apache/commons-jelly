@@ -6,19 +6,19 @@
   The ASF licenses this file to You under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with
   the License.  You may obtain a copy of the License at
-  
+
        http://www.apache.org/licenses/LICENSE-2.0
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<test:suite 
-    xmlns:j="jelly:core" 
-    xmlns:test="jelly:junit" 
-    xmlns:util="jelly:util" 
+<test:suite
+    xmlns:j="jelly:core"
+    xmlns:test="jelly:junit"
+    xmlns:util="jelly:util"
     xmlns="jelly:ant">
 
   <j:set var="dir" value="target/test-classes/org/apache/commons/jelly/ant"/>
@@ -35,7 +35,7 @@
 </test:case>
 
 <test:case name="readWrite">
-  
+
   <j:set var="foo1" value="bar1"/>
 
   <property name="foo1.1" value="${foo1}"/>
@@ -49,7 +49,7 @@
 
 <test:case name="writeIn">
 
-  <ant 
+  <ant
     dir="${dir}"
     target="writeFoo3Bar3"
   />
@@ -67,7 +67,7 @@
 
   <j:set var="foo4" value="bar4"/>
 
-  <ant 
+  <ant
     dir="${dir}"
     target="readWriteFoo4.1Foo4"
   />
@@ -101,42 +101,42 @@
 
 <test:case name="copy">
 
-    <mkdir dir="${basedir}/target/tmp/ant-tests"/>
-    
+    <mkdir dir="target/tmp/ant-tests"/>
+
   <copy
       overwrite="true"
-    file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
-    tofile="${basedir}/target/tmp/ant-tests/output.txt">
+    file="target/test-classes/org/apache/commons/jelly/ant/sample.txt"
+    tofile="target/tmp/ant-tests/output.txt">
     <filterset>
       <filter token="foo" value="bar"/>
     </filterset>
   </copy>
-  
+
   <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
   <delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
-  
+
   <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
 
 </test:case>
 
 <test:case name="copyWithReference">
 
-    <mkdir dir="${basedir}/target/tmp/ant-tests"/>
+    <mkdir dir="target/tmp/ant-tests"/>
 
     <filterset id="myFilter">
         <filter token="foo" value="bar"/>
     </filterset>
-    
+
   <copy
       overwrite="true"
-    file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
-    tofile="${basedir}/target/tmp/ant-tests/output.txt">
+    file="target/test-classes/org/apache/commons/jelly/ant/sample.txt"
+    tofile="target/tmp/ant-tests/output.txt">
     <filterset refid="myFilter"/>
   </copy>
-  
-  <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
-  <delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
-  
+
+  <util:loadText var="text" file="target/tmp/ant-tests/output.txt"/>
+  <delete file="target/tmp/ant-tests/output.txt"/>
+
   <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
 
 </test:case>
@@ -144,23 +144,23 @@
 
 <test:case name="parallelCopy">
 
-    <mkdir dir="${basedir}/target/tmp/ant-tests"/>
-    
+    <mkdir dir="target/tmp/ant-tests"/>
+
     <parallel>
         <copy
             overwrite="true"
-            file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
-            tofile="${basedir}/target/tmp/ant-tests/output.txt">
+            file="target/test-classes/org/apache/commons/jelly/ant/sample.txt"
+            tofile="target/tmp/ant-tests/output.txt">
             <filterset>
                 <filter token="foo" value="bar"/>
             </filterset>
         </copy>
         <echo>Performing copy in parallel</echo>
     </parallel>
-  
+
   <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
   <delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
-  
+
   <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
 
 </test:case>
@@ -176,16 +176,16 @@
     <parallel>
         <copy
             overwrite="true"
-            file="${basedir}/src/test/org/apache/commons/jelly/ant/sample.txt"
+            file="${basedir}/target/test-classes/org/apache/commons/jelly/ant/sample.txt"
             tofile="${basedir}/target/tmp/ant-tests/output.txt">
             <filterset refid="myFilter"/>
         </copy>
         <echo>Performing copy in parallel</echo>
-    </parallel>    
-  
+    </parallel>
+
   <util:loadText var="text" file="${basedir}/target/tmp/ant-tests/output.txt"/>
   <delete file="${basedir}/target/tmp/ant-tests/output.txt"/>
-  
+
   <test:assertEquals expected="hello bar how are you?" actual="${text.trim()}"/>
 
 </test:case>
@@ -199,18 +199,18 @@
     <echo>
         <setProperty name="message" value="${foo}"/>
   </echo>
-  
+
     <echo>
         <setProperty name="message" value="${bar}" default="the default also worked"/>
   </echo>
 
-    <!-- haven't thought of a neat way to test this yet... -->  
+    <!-- haven't thought of a neat way to test this yet... -->
 </test:case>
 
 <test:case name="nestedTask">
 
     <j:include uri="task/example.jelly"/>
-    
+
 </test:case>
 
 <test:case name="setProperty">
@@ -223,15 +223,15 @@
     <nested>
         <setProperty name="force" value="true"/>
     </nested>
-    
+
     <j:catch var="ex">
         <nested>
             <setProperty name="force" value="false"/>
         </nested>
-    </j:catch>        
-    
+    </j:catch>
+
     <test:assert test="${ex != null}">We should have created an exception</test:assert>
-    
+
 </test:case>
 
 </test:suite>
