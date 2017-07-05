@@ -25,6 +25,7 @@
     <module>dynabean</module>
     <module>email</module>
     <module>fmt</module>
+    <module>html</module>
     <module>jsl</module>
     <module>junit</module>
     <module>log</module>
