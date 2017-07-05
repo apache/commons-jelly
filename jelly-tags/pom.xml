@@ -21,6 +21,7 @@
     <module>beanshell</module>
     <module>betwixt</module>
     <module>bsf</module>
+    <module>dynabean</module>
     <module>junit</module>
     <module>log</module>
     <module>util</module>
