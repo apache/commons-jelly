@@ -61,7 +61,7 @@ public class TestParser extends TestCase {
      * relationships
      */
     public void testParser() throws Exception {
-        InputStream in = new FileInputStream("src/test/org/apache/commons/jelly/tags/xml/example2.jelly");
+        InputStream in = new FileInputStream("target/test-classes/org/apache/commons/jelly/tags/xml/example2.jelly");
         XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();

@@ -34,7 +34,7 @@ import junit.framework.TestCase;
  * Test that compiled scripts can access resources
  */
 public class TestImport extends TestCase {
-    
+
     private String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         + "<html xmlns=\"http://www.w3.org/TR/xhtml1/strict\" "
         + "xmlns=\"http://www.w3.org/TR/xhtml1/strict\">"
@@ -43,10 +43,10 @@ public class TestImport extends TestCase {
     public TestImport(String name) {
         super(name);
     }
-    
+
     public void testImportResources() throws JellyException, UnsupportedEncodingException, IOException {
         JellyContext context = new JellyContext();
-        URL url = TestImport.class.getResource("/resources/import.jelly");
+        URL url = TestImport.class.getResource("/import.jelly");
         StringWriter writer = new StringWriter();
         XMLOutput out = XMLOutput.createXMLOutput(writer);
 //         this works because of the created child context that has knowledge
@@ -58,7 +58,7 @@ public class TestImport extends TestCase {
 
     public void testImportResourcesCompiled() throws JellyException, UnsupportedEncodingException, IOException {
         JellyContext context = new JellyContext();
-        URL url = TestImport.class.getResource("/resources/import.jelly");
+        URL url = TestImport.class.getResource("/import.jelly");
         StringWriter writer = new StringWriter();
         XMLOutput out = XMLOutput.createXMLOutput(writer);
         Script script = context.compileScript(url);
@@ -69,7 +69,7 @@ public class TestImport extends TestCase {
 
     public void testImportResourcesFromUncompiledScript() throws JellyException, UnsupportedEncodingException, IOException, SAXException {
         JellyContext context = new JellyContext();
-        URL url = TestImport.class.getResource("/resources/import.jelly");
+        URL url = TestImport.class.getResource("/import.jelly");
         StringWriter writer = new StringWriter();
         XMLOutput out = XMLOutput.createXMLOutput(writer);
         Script script = new XMLParser().parse(url);

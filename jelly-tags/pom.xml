@@ -25,6 +25,7 @@
     <module>junit</module>
     <module>log</module>
     <module>util</module>
+    <module>xml</module>
   </modules>
 
   <build>

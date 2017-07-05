@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import junit.framework.Assert;
 import junit.framework.Test;
@@ -56,7 +58,10 @@ public class TestXMLTags extends TestCase {
     private static final Log log = LogFactory.getLog(TestXMLTags.class);
 
     /** basedir for test source */
-    private static final String testBaseDir ="src/test/org/apache/commons/jelly/tags/xml";
+    private static final String testBaseDir ="target/test-classes/org/apache/commons/jelly/tags/xml";
+
+    /** Regular expression for multiple namespace attributes. */
+    private static final String REG_NS = "( xmlns(:(\\w)+)?=\".+\")+";
 
     public static void main(String[] args) {
         TestRunner.run(suite());
@@ -64,6 +69,54 @@ public class TestXMLTags extends TestCase {
 
     public static Test suite() {
         return new TestSuite(TestXMLTags.class);
+    }
+
+    /**
+     * Returns a matcher for a namespace XML fragment.
+     * @param s the fragment to be checked
+     * @param pre the part before the namespace expression
+     * @param post the part after the namespace expression
+     * @return the matcher
+     */
+    private static Matcher matcherForNamespaceFragment(String s, String pre, String post) {
+        Pattern pattern = Pattern.compile(Pattern.quote(pre) + REG_NS + Pattern.quote(post));
+        return pattern.matcher(s);
+    }
+
+    /**
+     * Checks an XML fragment with a namespace expression. Namespaces are
+     * generated in arbitrary order. Therefore, they cannot be checked
+     * directly.
+     * @param s the fragment to be checked
+     * @param pre the part before the namespace expression
+     * @param post the part after the namespace expression
+     * @return the extracted namespace expression
+     */
+    private static String checkNamespaceFragment(String s, String pre, String post) {
+        Matcher matcher = matcherForNamespaceFragment(s, pre, post);
+        assertTrue("Pattern '" + pre + REG_NS + post + "' does not match " + s,
+                matcher.matches());
+        return matcher.group(1);
+    }
+
+    /**
+     * Tries to find a fragment with the specified namespaces in the given
+     * string.
+     * @param s the string
+     * @param pre the part before the namespace expression
+     * @param post the part after the namespace expression
+     * @param ns the namespaces to be matched in the fragment
+     */
+    private static void findNamespaceFragment(String s, String pre, String post,
+                                                String... ns) {
+        Matcher matcher = matcherForNamespaceFragment(s, pre, post);
+        assertTrue("Pattern '" + pre + REG_NS + post + "' does not match " + s,
+                matcher.find());
+        String match = matcher.group(1);
+        for (String namespace : ns) {
+            assertTrue("Namespace '" + namespace + "' not found in '" + match + "':",
+                    match.contains(namespace));
+        }
     }
 
     public TestXMLTags(String testName) {
@@ -128,27 +181,16 @@ public class TestXMLTags extends TestCase {
 
         text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly", ctxVars);
 
-        String firstTrunk =
-        "<test-subnode xmlns=\"\" attr=\"test\">" +
-        "<test-anotherSubNode>" +
-        "</test-anotherSubNode>" +
-        "<test-anotherSubNodeAgain xmlns:other=\"http://java/ns\" xmlns=\"http://java/ns\" other:abc=\"testValue\">" +
-        "</test-anotherSubNodeAgain>" +
-        "</test-subnode>";
-
-        String secondTrunk =
-            "<test-subnode attr=\"test\">" +
-            "<test-anotherSubNode>" +
-            "</test-anotherSubNode>" +
-            "<test-anotherSubNodeAgain xmlns:other=\"http://java/ns\" other:abc=\"testValue\">" +
-            "</test-anotherSubNodeAgain>" +
-            "</test-subnode>";
-
-        System.out.println("TestXMLTags.testNamespaceReplace() text="+text);
-        assertEquals("Should produce the correct output",
-                "<test-node xmlns:test=\"http://apache/testNS\" xmlns=\"http://java/ns\" test:abc=\"testValue\">"+
-                firstTrunk + secondTrunk +
-                "</test-node>", text);
+        findNamespaceFragment(text,
+                "<test-subnode xmlns=\"\" attr=\"test\">"
+                        + "<test-anotherSubNode>" + "</test-anotherSubNode>"
+                        + "<test-anotherSubNodeAgain",
+                " other:abc=\"testValue\">" + "</test-anotherSubNodeAgain>"
+                        + "</test-subnode>" + "<test-subnode attr=\"test\">"
+                        + "<test-anotherSubNode>" + "</test-anotherSubNode>"
+                        + "<test-anotherSubNodeAgain xmlns:other=\"http://java/ns\" other:abc=\"testValue\">"
+                        + "</test-anotherSubNodeAgain>" + "</test-subnode>",
+                "xmlns:other=\"http://java/ns\"", "xmlns=\"http://java/ns\"");
     }
 
     public void testAttributeNameSpaceDuplicatedNS() throws Exception {
@@ -163,27 +205,29 @@ public class TestXMLTags extends TestCase {
     public void testAttributeNameSpace() throws Exception {
         String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpace.jelly");
         System.out.println(text);
-        assertEquals("Should produce the correct output",
-                "<top-node xmlns=\"abc\">"+
-                "<test-node xmlns:test=\"http://apache/testNS\" xmlns=\"http://apache/trueNS\" test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
-                "<test:test-subnode><node-at-same-ns-as-top xmlns=\"abc\">"+
-                "</node-at-same-ns-as-top>"+
-                "</test:test-subnode>"+
-                "</test-node>"+
-                "</top-node>", text);
+        String ns = checkNamespaceFragment(text, "<top-node xmlns=\"abc\"><test-node",
+                " test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
+                        "<test:test-subnode><node-at-same-ns-as-top xmlns=\"abc\">"+
+                        "</node-at-same-ns-as-top>"+
+                        "</test:test-subnode>"+
+                        "</test-node>"+
+                        "</top-node>");
+        assertTrue(ns.contains("xmlns:test=\"http://apache/testNS\""));
+        assertTrue(ns.contains("xmlns=\"http://apache/trueNS\""));
     }
 
     public void testAttributeNameSpaceDefaultNS() throws Exception {
         String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDefaultNS.jelly");
         System.out.println(text);
-        assertEquals("Should produce the correct output",
-                "<top-node>"+
-                "<test-node xmlns:test=\"http://apache/testNS\" xmlns=\"http://apache/trueNS\" test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
-                "<test:test-subnode><node-at-same-ns-as-top xmlns=\"\">"+
-                "</node-at-same-ns-as-top>"+
-                "</test:test-subnode>"+
-                "</test-node>"+
-                "</top-node>", text);
+        String ns = checkNamespaceFragment(text, "<top-node><test-node",
+                " test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">" +
+                        "<test:test-subnode><node-at-same-ns-as-top xmlns=\"\">"+
+                        "</node-at-same-ns-as-top>"+
+                        "</test:test-subnode>"+
+                        "</test-node>"+
+                        "</top-node>");
+        assertTrue(ns.contains("xmlns:test=\"http://apache/testNS\""));
+        assertTrue(ns.contains("xmlns=\"http://apache/trueNS\""));
     }
 
     public void testAttributeNameSpaceWithInnerElements() throws Exception {
