@@ -19,6 +19,7 @@
     <module>avalon</module>
     <module>bean</module>
     <module>beanshell</module>
+    <module>betwixt</module>
     <module>junit</module>
     <module>log</module>
     <module>util</module>
