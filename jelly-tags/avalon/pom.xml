@@ -15,48 +15,39 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project>
-  <extend>${basedir}/../tag-project.xml</extend>
-  <artifactId>commons-jelly-tags-avalon</artifactId>
-  <name>commons-jelly-tags-avalon</name>
-  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
-  <package>org.apache.commons.jelly.avalon</package>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>commons-jelly</groupId>
+    <artifactId>commons-jelly-tags</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
 
-  <description>
-        This is a Jelly library for Avalon
-  </description>
-  <shortDescription>This is a Jelly library for Avalon</shortDescription>
-  
-  <versions>
-    <version>
-      <id>1.0</id>
-      <name>1.0</name>
-      <tag>COMMONS_JELLY_AVALON-1_0</tag>
-    </version>
-  </versions>
+  <artifactId>commons-jelly-tags-avalon</artifactId>
+  <packaging>jar</packaging>
+  <name>commons-jelly-tags-avalon</name>
+  <description>This is a Jelly library for Avalon.</description>
 
   <dependencies>
-
     <!-- START for compilation -->
-  
     <dependency>
-      <artifactId>avalon-framework</artifactId>
       <groupId>avalon-framework</groupId>
+      <artifactId>avalon-framework</artifactId>
       <version>4.1.3</version>
-      <properties>
-        <gump.project>avalon-framework-api</gump.project>
-      </properties>
     </dependency>
-  
-    <!-- START for running demos -->
+
+    <!-- END for compilation -->
+
+    <!-- Start for running demos -->
 
     <dependency>
       <artifactId>commons-cli</artifactId>
       <groupId>commons-cli</groupId>
       <version>1.0</version>
+      <scope>provided</scope>
     </dependency>
-        
+
     <!-- END for running demos -->
   </dependencies>
-  
 </project>
