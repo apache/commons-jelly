@@ -17,6 +17,7 @@
     <module>ant</module>
     <module>antlr</module>
     <module>avalon</module>
+    <module>bean</module>
     <module>junit</module>
     <module>log</module>
     <module>util</module>
