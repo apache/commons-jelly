@@ -15,6 +15,7 @@
 
   <modules>
     <module>ant</module>
+    <module>antlr</module>
     <module>junit</module>
     <module>util</module>
   </modules>

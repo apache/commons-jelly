@@ -15,38 +15,28 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project>
-  <extend>${basedir}/../tag-project.xml</extend>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>commons-jelly</groupId>
+    <artifactId>commons-jelly-tags</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
+
   <artifactId>commons-jelly-tags-antlr</artifactId>
+  <packaging>jar</packaging>
   <name>commons-jelly-tags-antlr</name>
-  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
-  <package>org.apache.commons.jelly.tags.antlr</package>
+  <description>This is a Jelly interface for Antlr.</description>
 
-  <description>
-      This is a Jelly interface for Antlr.
-  </description>
-  <shortDescription>Commons Jelly Antlr Tag Library</shortDescription>
-  
-  <versions>
-    <version>
-      <id>1.0</id>
-      <name>1.0</name>
-      <tag>COMMONS_JELLY_ANTLR-1_0</tag>
-    </version>
-  </versions>
-    
   <dependencies>
-
     <!-- START for compilation -->
     <dependency>
-      <artifactId>antlr</artifactId>
       <groupId>antlr</groupId>
+      <artifactId>antlr</artifactId>
       <version>2.7.1</version>
-      <jar>antlrall-2.7.1.jar</jar>
     </dependency>
-    
+
     <!-- END for compilation -->
-    
   </dependencies>
-  
 </project>
