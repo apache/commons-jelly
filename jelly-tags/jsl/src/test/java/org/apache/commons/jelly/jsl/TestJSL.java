@@ -60,7 +60,7 @@ public class TestJSL extends TestCase {
     }
 
     public void testExample1() throws Exception {
-        Document document = runScript( "src/test/org/apache/commons/jelly/jsl/example.jelly" );
+        Document document = runScript( "target/test-classes/org/apache/commons/jelly/jsl/example.jelly" );
         Element small = (Element) document.selectSingleNode("/html/body/small");
 
         //assertTrue( "<small> starts with 'James Elson'", small.getText().trim().startsWith("James Elson") );
