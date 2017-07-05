@@ -15,29 +15,22 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project>
-  <extend>${basedir}/../tag-project.xml</extend>
-  <artifactId>commons-jelly-tags-email</artifactId>
-  <name>commons-jelly-tags-email</name>
-  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
-  <package>org.apache.commons.jelly.tags.email</package>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>commons-jelly</groupId>
+    <artifactId>commons-jelly-tags</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
 
-  <description>
-      This is a Jelly interface for Email
-  </description>
-  <shortDescription>Commons Jelly e-mail Tag Library</shortDescription>
-  
-  <versions>
-    <version>
-      <id>1.0</id>
-      <name>1.0</name>
-      <tag>COMMONS_JELLY_EMAIL-1_0</tag>
-    </version>
-  </versions>
+  <artifactId>commons-jelly-tags-email</artifactId>
+  <packaging>jar</packaging>
+  <name>commons-jelly-tags-email</name>
+  <description>This is a Jelly interface for Email.</description>
 
   <dependencies>
-
-    <!-- START for run time -->
+    <!-- START for compilation -->
 <!-- uncomment these to use Sun's API instead of Geronimo
     <dependency>
       <groupId>jaf</groupId>
@@ -65,24 +58,13 @@
       <groupId>geronimo-spec</groupId>
       <artifactId>geronimo-spec-javamail</artifactId>
       <version>1.3.1-rc5</version>
-      <!-- Temporary until geronimo is under gump -->
-      <properties>
-        <gump.project>javamail</gump.project>
-        <gump.id>javamail</gump.id>
-      </properties>    </dependency>
+    </dependency>
     <dependency>
       <groupId>geronimo-spec</groupId>
       <artifactId>geronimo-spec-activation</artifactId>
       <version>1.0.2-rc4</version>
-       <!-- Temporary until geronimo is under gump -->
-      <properties>
-        <gump.project>jaf</gump.project>
-      </properties>    </dependency>
+     </dependency>
 
-    <!-- END for run time -->
-
-
-    
+    <!-- END for compilation -->
   </dependencies>
-  
 </project>

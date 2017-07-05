@@ -23,6 +23,7 @@
     <module>bsf</module>
     <module>define</module>
     <module>dynabean</module>
+    <module>email</module>
     <module>junit</module>
     <module>log</module>
     <module>util</module>
