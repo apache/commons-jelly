@@ -59,7 +59,7 @@ public class TestDynamicTags extends TestCase {
         output = XMLOutput.createXMLOutput(buffer);
 
         //runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
-        runScript("src/test/org/apache/commons/jelly/tags/define/example.jelly");
+        runScript("target/test-classes/org/apache/commons/jelly/tags/define/example.jelly");
 
         log.info("The output was as follows");
         log.info(buffer.toString());
