@@ -8,10 +8,16 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>commons-jelly</groupId>
-  <artifactId>commons-jelly</artifactId>
+  <artifactId>commons-jelly-parent</artifactId>
   <version>1.1-SNAPSHOT</version>
-  <name>Apache Commons Jelly</name>
-  <description>Apache Commons Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.</description>
+  <packaging>pom</packaging>
+  <name>Apache Commons Jelly Parent</name>
+  <description>Parent pom for Apache Commons Jelly</description>
+
+  <modules>
+    <module>core</module>
+  </modules>
+
   <url>http://commons.apache.org/proper/commons-jelly/</url>
   <inceptionYear>2002</inceptionYear>
   <organization>
@@ -307,78 +313,39 @@
     </notifiers>
   </ciManagement>
   <build>
-<!--    <resources>
-      <resource>
-        <targetPath>META-INF</targetPath>
-        <directory>${basedir}</directory>
-        <includes>
-          <include>NOTICE.txt</include>
-        </includes>
-      </resource>
-      <resource>
-        <directory>${basedir}/src/java</directory>
-        <includes>
-          <include>**/*.properties</include>
-        </includes>
-      </resource>
-    </resources> -->
-<!--    <testResources>
-      <testResource>
-        <directory>src/test</directory>
-        <includes>
-          <include>META-INF/services/*</include>
-          <include>**/*.jelly</include>
-          <include>**/*.xml</include>
-          <include>**/*.xsl</include>
-          <include>**/*.rng</include>
-          <include>**/*.dtd</include>
-          <include>**/*.properties</include>
-          <include>**/*.html</include>
-        </includes>
-      </testResource>
-    </testResources> -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <debug>true</debug>
+            <optimize>false</optimize>
+            <showDeprecation>true</showDeprecation>
+            <source>1.5</source>
+            <target>1.5</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <configuration>
+            <archive>
+              <manifestEntries>
+                <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
+                <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
+                <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
+              </manifestEntries>
+            </archive>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <debug>true</debug>
-          <optimize>false</optimize>
-          <showDeprecation>true</showDeprecation>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-jar-plugin</artifactId>
-        <configuration>
-          <archive>
-            <manifestEntries>
-              <Implementation-Vendor-Id>org.apache</Implementation-Vendor-Id>
-              <X-Compile-Source-JDK>${maven.compiler.source}</X-Compile-Source-JDK>
-              <X-Compile-Target-JDK>${maven.compiler.target}</X-Compile-Target-JDK>
-            </manifestEntries>
-          </archive>
-        </configuration>
-      </plugin>
       <plugin>
         <artifactId>maven-site-plugin</artifactId>
         <configuration>
           <moduleExcludes>
             <xdoc>navigation.xml,changes.xml</xdoc>
           </moduleExcludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <useFile>false</useFile>
-          <excludes>
-            <exclude>**/TestCoreMemoryLeak.java</exclude>
-            <exclude>**/TestNestedExceptions.java</exclude>
-          </excludes>
-          <includes>
-            <include>**/Test*.java</include>
-          </includes>
         </configuration>
       </plugin>
     </plugins>
