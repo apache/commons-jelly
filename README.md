@@ -43,10 +43,7 @@
 Apache Commons Jelly
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-jelly.svg?branch=master)](https://travis-ci.org/apache/commons-jelly)
-[![Coverage Status](https://coveralls.io/repos/apache/commons-jelly/badge.svg?branch=master)](https://coveralls.io/r/apache/commons-jelly)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/commons-jelly/commons-jelly/badge.svg)](https://maven-badges.herokuapp.com/maven-central/commons-jelly/commons-jelly/)
-[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+[![Build Status](https://travis-ci.org/apache/commons-jelly.svg?branch=trunk)](https://travis-ci.org/apache/commons-jelly)
 
 Apache Commons Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.
 
