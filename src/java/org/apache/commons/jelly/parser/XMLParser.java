@@ -100,6 +100,9 @@ public class XMLParser extends DefaultHandler {
     /** The current text buffer where non-custom tags get written */
     private StringBuffer textBuffer;
 
+    /** Do we allow our doctype definitions to call out to external entities? */
+    private boolean allowDtdToCallExternalEntities = false;
+
     /**
      * The class loader to use for instantiating application objects.
      * If not specified, the context class loader, or the class loader
@@ -183,6 +186,21 @@ public class XMLParser extends DefaultHandler {
      * Construct a new XMLParser with default properties.
      */
     public XMLParser() {
+    }
+
+    /**
+     * Construct a new XMLParser, with the boolean
+     * allowDtdToCallExternalEntities being passed in. If this is set to false,
+     * the XMLParser will be created with:
+     * XMLReader spf = XMLReaderFactory.createXMLReader();
+     * spf.setFeature("http://xml.org/sax/features/external-general-entities", false);
+     * spf.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+     * spf.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd",false);
+     * as given by
+     * https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet#XMLReader
+     */
+    public XMLParser(boolean allowDtdToCallExternalEntities) {
+        this.allowDtdToCallExternalEntities = allowDtdToCallExternalEntities;
     }
 
     /**
@@ -494,6 +512,11 @@ public class XMLParser extends DefaultHandler {
     public synchronized XMLReader getXMLReader() throws SAXException {
         if (reader == null) {
             reader = getParser().getXMLReader();
+            if (!allowDtdToCallExternalEntities) {
+                reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                reader.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                reader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            }
             if (this.defaultNamespaceURI != null) {
                 reader = new DefaultNamespaceFilter(this.defaultNamespaceURI,reader);
             }

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<!DOCTYPE r [
+        <!ELEMENT r ANY >
+        <!ENTITY sp SYSTEM "http://127.0.0.1:4444/">
+        ]>
+<r>&sp;</r>
+<j:jelly trim="false" xmlns:j="jelly:core"
+         xmlns:x="jelly:xml"
+         xmlns:html="jelly:html">
+</j:jelly>

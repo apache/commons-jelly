@@ -26,7 +26,7 @@
   </property>
   <property name="javadocdir" value="${basedir}/dist/docs/api">
   </property>
-  <property name="final.name" value="commons-jelly-1.0">
+  <property name="final.name" value="commons-jelly-1.0.1">
   </property>
   <property name="proxy.host" value="">
   </property>
