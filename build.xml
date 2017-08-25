@@ -130,7 +130,8 @@
     <delete dir="${distdir}">
     </delete>
   </target>
-  <target name="dist" description="o Create a distribution" depends="jar, javadoc">
+  <target name="dist" description="o Create a distribution" depends="jar, javadoc,
+  sources-jar, test-sources-jar, javadoc-jar, tests-jar">
     <mkdir dir="dist">
     </mkdir>
     <copy todir="dist">
@@ -230,6 +231,26 @@
         </path>
       </classpath>
     </javadoc>
+  </target>
+  <target name="javadoc-jar" description="o Generate javadoc-jar" depends="javadoc">
+    <jar destfile="${defaulttargetdir}/${final.name}-javadoc.jar">
+      <fileset dir="${distdir}/docs" includes="**/**"/>
+    </jar>
+  </target>
+  <target name="sources-jar" description="o Generate sources-jar" depends="compile">
+    <jar destfile="${defaulttargetdir}/${final.name}-sources.jar">
+      <fileset dir="${basedir}/src/java" includes="**/**"/>
+    </jar>
+  </target>
+  <target name="tests-jar" description="o Generate tests-jar" depends="compile-tests">
+    <jar destfile="${defaulttargetdir}/${final.name}-tests.jar">
+      <fileset dir="${defaulttargetdir}/test-classes" includes="**/**"/>
+    </jar>
+  </target>
+  <target name="test-sources-jar" description="o Generate test-sources-jar" depends="compile">
+    <jar destfile="${defaulttargetdir}/${final.name}-test-sources.jar">
+      <fileset dir="${basedir}/src/test" includes="**/**"/>
+    </jar>
   </target>
   <target name="get-dep-servletapi.jar" description="o Download the dependency : servletapi.jar" unless="servletapi.jar" depends="init,setProxy,noProxy,get-custom-dep-servletapi.jar">
     <mkdir dir="${libdir}/servletapi/jars/">
