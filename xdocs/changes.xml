@@ -24,7 +24,7 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
-    <release version="1.0.1" date="tbd">
+    <release version="1.0.1" date="2017-08-28">
       <action dev="chtompki" type="fix" issue="JELLY-293">Accommodate toggling off DTD external entities.</action>
     </release>
     <release version="1.0" date="2005-06-12">

@@ -1,4 +1,4 @@
-The Jakarta Commons Jelly team is pleased to announce the commons-jelly 1.0 release! 
+The Jakarta Commons Jelly team is pleased to announce the commons-jelly 1.0.1 release!
 
 http://jakarta.apache.org/commons/jelly/
 
@@ -9,9 +9,8 @@ powerful scripting engine.
 This is the first stable release of Jelly. It can be used as a standalone application
 to run scripts, or incorporated into your Java applications.
 
-Notable changes since the 1.0-RC1 release:
-- Internal caching was changed to remove a memory leak
-- Jelly is now distributed as an application with its dependencies and main tag libraries
+Notable changes since the 1.0 release:
+- JELLY-293: Accommodate toggling off DTD external entities.
 
 Have fun!
 -The Jelly team
