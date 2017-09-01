@@ -142,6 +142,11 @@
       <name>Hans Gilde</name>
       <email>hgilde@apache.org</email>
     </developer>
+    <developer>
+      <id>chtompki</id>
+      <name>Rob Tompkins</name>
+      <email>chtompki@apache.org</email>
+    </developer>
   </developers>
   <contributors>
     <contributor>
