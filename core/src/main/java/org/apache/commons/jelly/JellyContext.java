@@ -50,6 +50,9 @@ public class JellyContext {
     /** Default for export of variables **/
     private static final boolean DEFAULT_EXPORT = false;
 
+    /** Default for DTD calling out to external entities. */
+    private static final boolean DEFAULT_ALLOW_DTD_CALLS_TO_EXTERNAL_ENTITIES = false;
+
     /** String used to denote a script can't be parsed */
     private static final String BAD_PARSE = "Could not parse Jelly script";
 
@@ -87,6 +90,9 @@ public class JellyContext {
 
     /** Do we export our variables to parent context? */
     private boolean export  = JellyContext.DEFAULT_EXPORT;
+
+    /** Do we allow our doctype definitions to call out to external entities? */
+    private boolean allowDtdToCallExternalEntities = JellyContext.DEFAULT_ALLOW_DTD_CALLS_TO_EXTERNAL_ENTITIES;
 
     /** Should we export tag libraries to our parents context */
     private boolean exportLibraries = true;
@@ -576,7 +582,7 @@ public class JellyContext {
      * is created - such as to overload what the default ExpressionFactory should be.
      */
     protected XMLParser createXMLParser() {
-        return new XMLParser();
+        return new XMLParser(allowDtdToCallExternalEntities);
     }
 
     /**
@@ -880,6 +886,20 @@ public class JellyContext {
      */
     public boolean isInherit() {
         return this.inherit;
+    }
+
+    /**
+     * Sets whether we should allow our doctype definitions to call out to external entities.
+     */
+    public void setAllowDtdToCallExternalEntities(boolean allowDtdToCallExternalEntities) {
+        this.allowDtdToCallExternalEntities = allowDtdToCallExternalEntities;
+    }
+
+    /**
+     * @return whether we should allow our doctype definitions to call out to external entities.
+     */
+    public boolean isAllowDtdToCallExternalEntities() {
+        return this.allowDtdToCallExternalEntities;
     }
 
 
