@@ -1,6 +1,6 @@
-The Jakarta Commons Jelly team is pleased to announce the commons-jelly 1.0.1 release!
+The Apache Commons Jelly team is pleased to announce the commons-jelly 1.0.1 release!
 
-http://jakarta.apache.org/commons/jelly/
+http://commons.apache.org/jelly/
 
 Jelly is a Java and XML based scripting engine. Jelly combines the best ideas 
 from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet 
@@ -13,5 +13,5 @@ Notable changes since the 1.0 release:
 - JELLY-293: Accommodate toggling off DTD external entities.
 
 Have fun!
--The Jelly team
+-The Apache Commons team
       
