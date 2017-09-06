@@ -37,7 +37,7 @@
   <property name="proxy.password" value="">
   </property>
   <path id="build.classpath">
-    <pathelement location="${libdir}/servletapi/jars/servletapi-2.3.jar">
+    <pathelement location="${libdir}/servlet-api/jars/servlet-api-2.3.jar">
     </pathelement>
     <pathelement location="${libdir}/commons-cli/jars/commons-cli-1.0.jar">
     </pathelement>
@@ -68,6 +68,40 @@
     <pathelement location="${libdir}/xerces/jars/xerces-2.2.1.jar">
     </pathelement>
   </path>
+  <fileset id="sources" dir="${basedir}">
+    <include name="BUILDING.md" />
+    <include name="CONTRIBUTING.md" />
+    <include name="Dockerfile" />
+    <include name="KEYS" />
+    <include name="LICENSE.txt" />
+    <include name="NOTICE.txt" />
+    <include name="README-binary-dist.txt" />
+    <include name="README.txt" />
+    <include name="RELEASE-NOTES.txt" />
+    <include name="build.properties.sample" />
+    <include name="build.xml" />
+    <include name="docker/**" />
+    <include name="jelly-tags/**" />
+    <include name="maven.xml" />
+    <include name="parent-project.xml" />
+    <include name="pom.xml" />
+    <include name="project.properties" />
+    <include name="project.xml" />
+    <include name="short-license.txt" />
+    <include name="src/**" />
+    <include name="xdocs/**" />
+  </fileset>
+  <fileset id="binaries" dir="dist">
+    <include name="${final.name}.jar"/>
+    <include name="${final.name}-javadoc.jar"/>
+    <include name="${final.name}-sources.jar"/>
+    <include name="${final.name}-test-sources.jar"/>
+    <include name="${final.name}-tests.jar"/>
+    <include name="LICENSE.txt"/>
+    <include name="NOTICE.txt"/>
+    <include name="RELEASE-NOTES.txt" />
+    <include name="docs/**" />
+  </fileset>
   <target name="init" description="o Initializes some properties">
     <mkdir dir="${libdir}">
     </mkdir>
@@ -137,9 +171,24 @@
     <copy todir="dist">
       <fileset dir="${defaulttargetdir}" includes="*.jar">
       </fileset>
-      <fileset dir="${basedir}" includes="LICENSE*, README*">
+      <fileset dir="${basedir}" includes="LICENSE*, README*, RELEASE*, NOTICE*">
       </fileset>
     </copy>
+    <copy file="pom.xml" tofile="dist/${final.name}.pom" />
+    <mkdir dir="dist/sources"/>
+    <copy todir="dist/sources">
+      <fileset refid="sources"/>
+    </copy>
+    <mkdir dir="dist/binaries"/>
+    <copy todir="dist/binaries">
+      <fileset refid="binaries"/>
+    </copy>
+    <zip destfile="dist/${final.name}-bin.zip" basedir="dist/binaries"/>
+    <tar destfile="dist/${final.name}-bin.tar.gz" basedir="dist/binaries" compression="gzip" />
+    <zip destfile="dist/${final.name}-src.zip" basedir="dist/sources"/>
+    <tar destfile="dist/${final.name}-src.tar.gz" basedir="dist/sources" compression="gzip"/>
+    <delete dir="dist/sources" />
+    <delete dir="dist/binaries" />
   </target>
   <target name="test" description="o Run the test cases" if="test.failure" depends="internal-test">
     <fail message="There were test failures.">
@@ -252,22 +301,22 @@
       <fileset dir="${basedir}/src/test" includes="**/**"/>
     </jar>
   </target>
-  <target name="get-dep-servletapi.jar" description="o Download the dependency : servletapi.jar" unless="servletapi.jar" depends="init,setProxy,noProxy,get-custom-dep-servletapi.jar">
-    <mkdir dir="${libdir}/servletapi/jars/">
+  <target name="get-dep-servletapi.jar" description="o Download the dependency : servlet-api.jar" unless="servlet-api.jar" depends="init,setProxy,noProxy,get-custom-dep-servletapi.jar">
+    <mkdir dir="${libdir}/servlet-api/jars/">
     </mkdir>
-    <get dest="${libdir}/servletapi/jars/servletapi-2.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/servletapi/jars/servletapi-2.3.jar">
+    <get dest="${libdir}/servlet-api/jars/servlet-api-2.3.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=javax/servlet/servlet-api/2.3/servlet-api-2.3.jar">
     </get>
   </target>
-  <target name="get-custom-dep-servletapi.jar" if="servletapi.jar" depends="init,setProxy,noProxy">
-    <mkdir dir="${libdir}/servletapi/jars/">
+  <target name="get-custom-dep-servletapi.jar" if="servlet-api.jar" depends="init,setProxy,noProxy">
+    <mkdir dir="${libdir}/servlet-api/jars/">
     </mkdir>
-    <get dest="${libdir}/servletapi/jars/servletapi-2.3.jar" usetimestamp="true" ignoreerrors="true" src="${servletapi.jar}">
+    <get dest="${libdir}/servlet-api/jars/servlet-api-2.3.jar" usetimestamp="true" ignoreerrors="true" src="${servletapi.jar}">
     </get>
   </target>
   <target name="get-dep-commons-cli.jar" description="o Download the dependency : commons-cli.jar" unless="commons-cli.jar" depends="init,setProxy,noProxy,get-custom-dep-commons-cli.jar">
     <mkdir dir="${libdir}/commons-cli/jars/">
     </mkdir>
-    <get dest="${libdir}/commons-cli/jars/commons-cli-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-cli/jars/commons-cli-1.0.jar">
+    <get dest="${libdir}/commons-cli/jars/commons-cli-1.0.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=commons-cli/commons-cli/1.0/commons-cli-1.0.jar">
     </get>
   </target>
   <target name="get-custom-dep-commons-cli.jar" if="commons-cli.jar" depends="init,setProxy,noProxy">
@@ -279,7 +328,7 @@
   <target name="get-dep-commons-lang.jar" description="o Download the dependency : commons-lang.jar" unless="commons-lang.jar" depends="init,setProxy,noProxy,get-custom-dep-commons-lang.jar">
     <mkdir dir="${libdir}/commons-lang/jars/">
     </mkdir>
-    <get dest="${libdir}/commons-lang/jars/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-lang/jars/commons-lang-2.0.jar">
+    <get dest="${libdir}/commons-lang/jars/commons-lang-2.0.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=commons-lang/commons-lang/2.0/commons-lang-2.0.jar">
     </get>
   </target>
   <target name="get-custom-dep-commons-lang.jar" if="commons-lang.jar" depends="init,setProxy,noProxy">
@@ -291,7 +340,7 @@
   <target name="get-dep-commons-discovery.jar" description="o Download the dependency : commons-discovery.jar" unless="commons-discovery.jar" depends="init,setProxy,noProxy,get-custom-dep-commons-discovery.jar">
     <mkdir dir="${libdir}/commons-discovery/jars/">
     </mkdir>
-    <get dest="${libdir}/commons-discovery/jars/commons-discovery-20030211.213356.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-discovery/jars/commons-discovery-20030211.213356.jar">
+    <get dest="${libdir}/commons-discovery/jars/commons-discovery-20030211.213356.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=commons-discovery/commons-discovery/20030211.213356/commons-discovery-20030211.213356.jar">
     </get>
   </target>
   <target name="get-custom-dep-commons-discovery.jar" if="commons-discovery.jar" depends="init,setProxy,noProxy">
@@ -303,7 +352,7 @@
   <target name="get-dep-forehead.jar" description="o Download the dependency : forehead.jar" unless="forehead.jar" depends="init,setProxy,noProxy,get-custom-dep-forehead.jar">
     <mkdir dir="${libdir}/forehead/jars/">
     </mkdir>
-    <get dest="${libdir}/forehead/jars/forehead-1.0-beta-5.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/forehead/jars/forehead-1.0-beta-5.jar">
+    <get dest="${libdir}/forehead/jars/forehead-1.0-beta-5.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=forehead/forehead/1.0-beta-5/forehead-1.0-beta-5.jar">
     </get>
   </target>
   <target name="get-custom-dep-forehead.jar" if="forehead.jar" depends="init,setProxy,noProxy">
@@ -315,7 +364,7 @@
   <target name="get-dep-jstl.jar" description="o Download the dependency : jstl.jar" unless="jstl.jar" depends="init,setProxy,noProxy,get-custom-dep-jstl.jar">
     <mkdir dir="${libdir}/jstl/jars/">
     </mkdir>
-    <get dest="${libdir}/jstl/jars/jstl-1.0.6.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jstl/jars/jstl-1.0.6.jar">
+    <get dest="${libdir}/jstl/jars/jstl-1.0.6.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=javax/servlet/jstl/1.0.6/jstl-1.0.6.jar">
     </get>
   </target>
   <target name="get-custom-dep-jstl.jar" if="jstl.jar" depends="init,setProxy,noProxy">
@@ -327,7 +376,7 @@
   <target name="get-dep-junit.jar" description="o Download the dependency : junit.jar" unless="junit.jar" depends="init,setProxy,noProxy,get-custom-dep-junit.jar">
     <mkdir dir="${libdir}/junit/jars/">
     </mkdir>
-    <get dest="${libdir}/junit/jars/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/junit/jars/junit-3.8.1.jar">
+    <get dest="${libdir}/junit/jars/junit-3.8.1.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=junit/junit/3.8.1/junit-3.8.1.jar">
     </get>
   </target>
   <target name="get-custom-dep-junit.jar" if="junit.jar" depends="init,setProxy,noProxy">
@@ -339,7 +388,7 @@
   <target name="get-dep-commons-jexl.jar" description="o Download the dependency : commons-jexl.jar" unless="commons-jexl.jar" depends="init,setProxy,noProxy,get-custom-dep-commons-jexl.jar">
     <mkdir dir="${libdir}/commons-jexl/jars/">
     </mkdir>
-    <get dest="${libdir}/commons-jexl/jars/commons-jexl-1.0.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-jexl/jars/commons-jexl-1.0.jar">
+    <get dest="${libdir}/commons-jexl/jars/commons-jexl-1.0.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=commons-jexl/commons-jexl/1.0/commons-jexl-1.0.jar">
     </get>
   </target>
   <target name="get-custom-dep-commons-jexl.jar" if="commons-jexl.jar" depends="init,setProxy,noProxy">
@@ -351,7 +400,7 @@
   <target name="get-dep-xml-apis.jar" description="o Download the dependency : xml-apis.jar" unless="xml-apis.jar" depends="init,setProxy,noProxy,get-custom-dep-xml-apis.jar">
     <mkdir dir="${libdir}/xml-apis/jars/">
     </mkdir>
-    <get dest="${libdir}/xml-apis/jars/xml-apis-1.0.b2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xml-apis/jars/xml-apis-1.0.b2.jar">
+    <get dest="${libdir}/xml-apis/jars/xml-apis-1.0.b2.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar">
     </get>
   </target>
   <target name="get-custom-dep-xml-apis.jar" if="xml-apis.jar" depends="init,setProxy,noProxy">
@@ -363,7 +412,7 @@
   <target name="get-dep-commons-beanutils.jar" description="o Download the dependency : commons-beanutils.jar" unless="commons-beanutils.jar" depends="init,setProxy,noProxy,get-custom-dep-commons-beanutils.jar">
     <mkdir dir="${libdir}/commons-beanutils/jars/">
     </mkdir>
-    <get dest="${libdir}/commons-beanutils/jars/commons-beanutils-1.6.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-beanutils/jars/commons-beanutils-1.6.jar">
+    <get dest="${libdir}/commons-beanutils/jars/commons-beanutils-1.6.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=commons-beanutils/commons-beanutils/1.6/commons-beanutils-1.6.jar">
     </get>
   </target>
   <target name="get-custom-dep-commons-beanutils.jar" if="commons-beanutils.jar" depends="init,setProxy,noProxy">
@@ -375,7 +424,7 @@
   <target name="get-dep-commons-collections.jar" description="o Download the dependency : commons-collections.jar" unless="commons-collections.jar" depends="init,setProxy,noProxy,get-custom-dep-commons-collections.jar">
     <mkdir dir="${libdir}/commons-collections/jars/">
     </mkdir>
-    <get dest="${libdir}/commons-collections/jars/commons-collections-2.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-collections/jars/commons-collections-2.1.jar">
+    <get dest="${libdir}/commons-collections/jars/commons-collections-2.1.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=commons-collections/commons-collections/2.1/commons-collections-2.1.jar">
     </get>
   </target>
   <target name="get-custom-dep-commons-collections.jar" if="commons-collections.jar" depends="init,setProxy,noProxy">
@@ -387,7 +436,7 @@
   <target name="get-dep-commons-logging.jar" description="o Download the dependency : commons-logging.jar" unless="commons-logging.jar" depends="init,setProxy,noProxy,get-custom-dep-commons-logging.jar">
     <mkdir dir="${libdir}/commons-logging/jars/">
     </mkdir>
-    <get dest="${libdir}/commons-logging/jars/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/commons-logging/jars/commons-logging-1.0.3.jar">
+    <get dest="${libdir}/commons-logging/jars/commons-logging-1.0.3.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=commons-logging/commons-logging/1.0.3/commons-logging-1.0.3.jar">
     </get>
   </target>
   <target name="get-custom-dep-commons-logging.jar" if="commons-logging.jar" depends="init,setProxy,noProxy">
@@ -399,7 +448,7 @@
   <target name="get-dep-dom4j.jar" description="o Download the dependency : dom4j.jar" unless="dom4j.jar" depends="init,setProxy,noProxy,get-custom-dep-dom4j.jar">
     <mkdir dir="${libdir}/dom4j/jars/">
     </mkdir>
-    <get dest="${libdir}/dom4j/jars/dom4j-1.5.2.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/dom4j/jars/dom4j-1.5.2.jar">
+    <get dest="${libdir}/dom4j/jars/dom4j-1.5.2.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=dom4j/dom4j/1.5.2/dom4j-1.5.2.jar">
     </get>
   </target>
   <target name="get-custom-dep-dom4j.jar" if="dom4j.jar" depends="init,setProxy,noProxy">
@@ -411,7 +460,7 @@
   <target name="get-dep-jaxen.jar" description="o Download the dependency : jaxen.jar" unless="jaxen.jar" depends="init,setProxy,noProxy,get-custom-dep-jaxen.jar">
     <mkdir dir="${libdir}/jaxen/jars/">
     </mkdir>
-    <get dest="${libdir}/jaxen/jars/jaxen-1.1-beta-4.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/jaxen/jars/jaxen-1.1-beta-4.jar">
+    <get dest="${libdir}/jaxen/jars/jaxen-1.1-beta-4.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=jaxen/jaxen/1.1-beta-4/jaxen-1.1-beta-4.jar">
     </get>
   </target>
   <target name="get-custom-dep-jaxen.jar" if="jaxen.jar" depends="init,setProxy,noProxy">
@@ -423,7 +472,7 @@
   <target name="get-dep-xerces.jar" description="o Download the dependency : xerces.jar" unless="xerces.jar" depends="init,setProxy,noProxy,get-custom-dep-xerces.jar">
     <mkdir dir="${libdir}/xerces/jars/">
     </mkdir>
-    <get dest="${libdir}/xerces/jars/xerces-2.2.1.jar" usetimestamp="true" ignoreerrors="true" src="http://www.ibiblio.org/maven/xerces/jars/xerces-2.2.1.jar">
+    <get dest="${libdir}/xerces/jars/xerces-2.2.1.jar" usetimestamp="true" ignoreerrors="true" src="https://search.maven.org/remotecontent?filepath=xerces/xercesImpl/2.2.1/xercesImpl-2.2.1.jar">
     </get>
   </target>
   <target name="get-custom-dep-xerces.jar" if="xerces.jar" depends="init,setProxy,noProxy">
