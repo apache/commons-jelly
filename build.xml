@@ -99,6 +99,7 @@
     <include name="${final.name}-tests.jar"/>
     <include name="LICENSE.txt"/>
     <include name="NOTICE.txt"/>
+    <include name="README-binary-dist.txt" />
     <include name="RELEASE-NOTES.txt" />
     <include name="docs/**" />
   </fileset>
@@ -175,12 +176,12 @@
       </fileset>
     </copy>
     <copy file="pom.xml" tofile="dist/${final.name}.pom" />
-    <mkdir dir="dist/sources"/>
-    <copy todir="dist/sources">
+    <mkdir dir="dist/sources/${final.name}-src"/>
+    <copy todir="dist/sources/${final.name}-src">
       <fileset refid="sources"/>
     </copy>
-    <mkdir dir="dist/binaries"/>
-    <copy todir="dist/binaries">
+    <mkdir dir="dist/binaries/${final.name}"/>
+    <copy todir="dist/binaries/${final.name}">
       <fileset refid="binaries"/>
     </copy>
     <zip destfile="dist/${final.name}-bin.zip" basedir="dist/binaries"/>

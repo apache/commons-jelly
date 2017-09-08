@@ -1,4 +1,4 @@
-  Copyright 2002,2004 The Apache Software Foundation.
+  Copyright 2001-2017 The Apache Software Foundation.
   
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -15,19 +15,11 @@
 Jelly
 =====
 
-The primary build tool for this project is Maven. 
-So all you should need to do is install Maven and just type
-
-	maven
-
-Some common maven goals for building and testing this project are
-
-	clean    : cleans up the build so new builds will start from fresh
-	test     : just run the unit tests
-	jar      : compiles, runs unit tests and if they work build the jar
-	javadoc  : creates the javadoc
-	site     : build the complete documentation with reports, javadoc etc
-	dist     : creates a distribution
+The primary build tool for this project is Ant due to the need for
+flexibility in building elderly projects. More specifically, we have
+focused on building with Ant 1.6, and Java 1.5. For help with building
+the project see the BUILDING.md, as we have supplied the mechanics for
+using docker to build the project due to its antiquity.
 
 
 Jelly contains a number of individual tag libraries which can be built 
@@ -35,11 +27,12 @@ by themselves by changing to the directory jelly-tags/foo and performing the
 above commands to build the library you're interested in.
 
 			
-For more help using Maven please go to
+For more help using Docker, please go to
 
-  http://maven.apache.org
+  https://www.docker.com/
 
-Maven also supports the auto-generation of Ant build files so
-you may also be able to use Ant to build the code.
+For more help using Ant, please go to
+
+  http://ant.apache.org
 
 Enjoy!

@@ -365,15 +365,15 @@
   </organization>
   <build>
     <sourceDirectory>
-      c:\home\Brett\cvs\apache\jakarta-commons\jelly/src/java
+      ${project.basedir}/src/java
     </sourceDirectory>
     <testSourceDirectory>
-      c:\home\Brett\cvs\apache\jakarta-commons\jelly/src/test
+      ${project.basedir}/src/test
     </testSourceDirectory>
     <resources>
       <resource>
         <targetPath>META-INF</targetPath>
-        <directory>c:\home\Brett\cvs\apache\jakarta-commons\jelly</directory>
+        <directory>${project.basedir}</directory>
         <includes>
           <include>NOTICE.txt</include>
         </includes>
@@ -381,7 +381,7 @@
       <resource>
         <targetPath/>
         <directory>
-          c:\home\Brett\cvs\apache\jakarta-commons\jelly/src/java
+          ${project.basedir}/src/java
         </directory>
         <includes>
           <include>**/*.properties</include>
