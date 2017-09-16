@@ -32,6 +32,7 @@
     <module>jetty</module>
     <module>jface</module>
     <module>jms</module>
+    <module>jmx</module>
     <module>jsl</module>
     <module>junit</module>
     <module>log</module>
