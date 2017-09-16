@@ -41,6 +41,7 @@
     <module>quartz</module>
     <module>regexp</module>
     <module>soap</module>
+    <module>sql</module>
     <module>swt</module>
     <module>util</module>
     <module>xml</module>
