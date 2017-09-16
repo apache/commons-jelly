@@ -38,6 +38,7 @@
     <module>log</module>
     <module>memory</module>
     <module>ojb</module>
+    <module>quartz</module>
     <module>swt</module>
     <module>util</module>
     <module>xml</module>
