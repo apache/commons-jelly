@@ -44,6 +44,7 @@
     <module>sql</module>
     <module>swing</module>
     <module>swt</module>
+    <module>threads</module>
     <module>util</module>
     <module>xml</module>
     <module>xmlunit</module>
