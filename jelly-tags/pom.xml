@@ -28,6 +28,7 @@
     <module>html</module>
     <module>http</module>
     <module>interaction</module>
+    <module>jaxme</module>
     <module>jsl</module>
     <module>junit</module>
     <module>log</module>
