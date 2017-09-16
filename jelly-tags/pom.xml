@@ -46,6 +46,7 @@
     <module>swt</module>
     <module>threads</module>
     <module>util</module>
+    <module>validate</module>
     <module>xml</module>
     <module>xmlunit</module>
   </modules>
