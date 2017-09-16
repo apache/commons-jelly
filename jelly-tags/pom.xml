@@ -33,6 +33,7 @@
     <module>log</module>
     <module>util</module>
     <module>xml</module>
+    <module>xmlunit</module>
   </modules>
 
   <build>
