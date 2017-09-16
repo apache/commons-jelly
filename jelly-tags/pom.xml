@@ -26,6 +26,7 @@
     <module>email</module>
     <module>fmt</module>
     <module>html</module>
+    <module>http</module>
     <module>jsl</module>
     <module>junit</module>
     <module>log</module>
