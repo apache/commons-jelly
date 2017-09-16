@@ -45,14 +45,14 @@
     </mkdir>
     <javac destdir="${classesdir}" deprecation="true" debug="true" optimize="false" excludes="**/package.html">
       <src>
-        <pathelement location="src/java">
+        <pathelement location="src/main/java">
         </pathelement>
       </src>
       <classpath refid="build.classpath">
       </classpath>
     </javac>
     <copy todir="${classesdir}">
-      <fileset dir="src/java">
+      <fileset dir="src/main/java">
         <include name="**/*.properties">
         </include>
       </fileset>

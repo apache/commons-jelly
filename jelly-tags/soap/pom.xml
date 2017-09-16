@@ -1,4 +1,4 @@
-<?xml version="1.0" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -6,46 +6,35 @@
   The ASF licenses this file to You under the Apache License, Version 2.0
   (the "License"); you may not use this file except in compliance with
   the License.  You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project>
-  <extend>${basedir}/../tag-project.xml</extend>
-  <artifactId>commons-jelly-tags-soap</artifactId>
-  <name>commons-jelly-tags-soap</name>
-  <currentVersion>1.1-SNAPSHOT</currentVersion>
-  <package>org.apache.commons.jelly.tags.soap</package>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>commons-jelly</groupId>
+    <artifactId>commons-jelly-tags</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
 
-  <description>
-      This is a Jelly interface for SOAP.
-  </description>
-  <shortDescription>Commons Jelly SOAP Tag Library</shortDescription>
-  
-  <versions>
-    <version>
-      <id>1.0</id>
-      <name>1.0</name>
-      <tag>COMMONS-JELLY-SOAP-1_0</tag>
-    </version>
-  </versions>
+  <artifactId>commons-jelly-tags-soap</artifactId>
+  <packaging>jar</packaging>
+  <name>commons-jelly-tags-soap</name>
+  <description>This is a Jelly interface for SOAP.</description>
 
   <dependencies>
-
     <!-- START for compilation -->
     <dependency>
       <groupId>axis</groupId>
       <artifactId>axis</artifactId>
       <version>1.0</version>
-      <properties>
-        <gump.project>ws-axis</gump.project>
-        <gump.id>axis</gump.id>
-      </properties>
     </dependency>
 
     <dependency>
@@ -61,10 +50,6 @@
       <artifactId>jaxrpc-api</artifactId>
       <version>1.1-FCS</version>
       <url>http://java.sun.com/webservices/webservicespack.html</url>
-      <properties>
-        <gump.project>ws-axis</gump.project>
-        <gump.id>axis-jaxrpc</gump.id>
-      </properties>
     </dependency>
     -->    
 
@@ -75,10 +60,6 @@
       <artifactId>saaj-api</artifactId>
       <version>1.2-FCS</version>
       <url>http://java.sun.com/webservices/webservicespack.html</url>
-      <properties>
-        <gump.project>ws-axis</gump.project>
-        <gump.id>axis-saaj</gump.id>
-      </properties>
     </dependency>
     -->    
 
@@ -87,21 +68,11 @@
       <groupId>geronimo-spec</groupId>
       <artifactId>geronimo-spec-saaj</artifactId>
       <version>1.1-rc4</version>
-      <!-- Temporary until geronimo is under gump -->
-      <properties>
-        <gump.project>ws-axis</gump.project>
-        <gump.id>axis-saaj</gump.id>
-      </properties>
     </dependency>
     <dependency>
       <groupId>geronimo-spec</groupId>
       <artifactId>geronimo-spec-jaxrpc</artifactId>
       <version>1.1-rc4</version>
-      <!-- Temporary until geronimo is under gump -->
-      <properties>
-        <gump.project>ws-axis</gump.project>
-        <gump.id>axis-jaxrpc</gump.id>
-      </properties>
     </dependency>
 
 		
@@ -109,35 +80,24 @@
       <groupId>jaxme</groupId>
       <artifactId>jaxme-api</artifactId>
       <version>0.3</version>
-      <properties>
-        <gump.project>ws-jaxme</gump.project>
-        <gump.id>api</gump.id>
-      </properties>
     </dependency>
 
-    <!-- START for running demos -->
+    <!-- END for compilation -->
+
+    <!-- Start for running demos -->
 
     <dependency>
-      <groupId>commons-cli</groupId>
       <artifactId>commons-cli</artifactId>
+      <groupId>commons-cli</groupId>
       <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>commons-discovery</groupId>
-      <artifactId>commons-discovery</artifactId>
-      <version>20030211.213356</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>servletapi</groupId>
       <artifactId>servletapi</artifactId>
       <version>2.3</version>
-      <url>http://java.sun.com/products/servlets/</url>
-      <properties>
-        <gump.project>jakarta-servletapi-5-servlet</gump.project>
-      </properties>
     </dependency>
-        
+
     <!-- END for running demos -->
   </dependencies>
-  
 </project>
