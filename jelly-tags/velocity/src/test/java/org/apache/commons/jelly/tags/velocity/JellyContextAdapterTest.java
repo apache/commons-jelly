@@ -17,15 +17,15 @@ package org.apache.commons.jelly.tags.velocity;
  * limitations under the License.
  */
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.jelly.JellyContext;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.collections.CollectionUtils;
 
 /**
  * Unit test for <code>JellyContextAdapter</code>.

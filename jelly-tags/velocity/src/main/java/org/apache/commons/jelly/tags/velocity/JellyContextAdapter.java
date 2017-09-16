@@ -17,9 +17,9 @@ package org.apache.commons.jelly.tags.velocity;
  * limitations under the License.
  */
 
-import java.util.Set;
-import java.util.HashSet;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.velocity.context.Context;

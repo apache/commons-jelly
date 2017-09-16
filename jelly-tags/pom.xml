@@ -47,6 +47,7 @@
     <module>threads</module>
     <module>util</module>
     <module>validate</module>
+    <module>velocity</module>
     <module>xml</module>
     <module>xmlunit</module>
   </modules>
