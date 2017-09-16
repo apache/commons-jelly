@@ -42,6 +42,7 @@
     <module>regexp</module>
     <module>soap</module>
     <module>sql</module>
+    <module>swing</module>
     <module>swt</module>
     <module>util</module>
     <module>xml</module>
