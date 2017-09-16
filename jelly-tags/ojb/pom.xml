@@ -15,48 +15,35 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project>
-  <extend>${basedir}/../tag-project.xml</extend>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>commons-jelly</groupId>
+    <artifactId>commons-jelly-tags</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
+
   <artifactId>commons-jelly-tags-ojb</artifactId>
-  <name>commons-jelly-tags-ojb</name>
-  <currentVersion>1.0.1-SNAPSHOT</currentVersion>
-
-  <package>org.apache.commons.jelly.tags.ojb</package>
-
+  <packaging>jar</packaging>
+  <name>commons-jelly-tags-obj</name>
   <description>
-       A variety of tags for working with the  ObjectBridge persistence engine 
+       A variety of tags for working with the  ObjectBridge persistence engine.
   </description>
-  <shortDescription>Commons Jelly OjB Tag Library</shortDescription>
-  
-  <versions>
-    <version>
-      <id>1.0</id>
-      <name>1.0</name>
-      <tag>COMMONS-JELLY-OJB-1_0</tag>
-    </version>
-  </versions>
-  
+
   <dependencies>
-    
-    <!-- ojb taglib -->
+    <!-- START for compilation -->
     <dependency>
       <groupId>ojb</groupId>
       <artifactId>ojb</artifactId>
       <version>0.9.6</version>
-      <properties>
-        <gump.project>db-ojb-from-packages</gump.project>
-      </properties>
     </dependency>
-    
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
       <version>1.0</version>
-      <properties>
-        <gump.project>commons-lang-2.x</gump.project>
-      </properties>
     </dependency>
-    
+
+    <!-- END for compilation -->
   </dependencies>
-  
 </project>

@@ -37,6 +37,7 @@
     <module>junit</module>
     <module>log</module>
     <module>memory</module>
+    <module>ojb</module>
     <module>swt</module>
     <module>util</module>
     <module>xml</module>
