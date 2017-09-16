@@ -27,6 +27,7 @@
     <module>fmt</module>
     <module>html</module>
     <module>http</module>
+    <module>interaction</module>
     <module>jsl</module>
     <module>junit</module>
     <module>log</module>
