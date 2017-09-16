@@ -36,6 +36,7 @@
     <module>jsl</module>
     <module>junit</module>
     <module>log</module>
+    <module>memory</module>
     <module>swt</module>
     <module>util</module>
     <module>xml</module>

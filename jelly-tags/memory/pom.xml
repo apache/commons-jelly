@@ -15,23 +15,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project>
-  <!--
-    BRITTLE! must include ${basedir} location or Maven will
-    not run this script outside of the base directory
-  -->
-  <extend>${basedir}/../tag-project.xml</extend>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>commons-jelly</groupId>
+    <artifactId>commons-jelly-tags</artifactId>
+    <version>1.1-SNAPSHOT</version>
+  </parent>
+
   <artifactId>commons-jelly-tags-memory</artifactId>
+  <packaging>jar</packaging>
   <name>commons-jelly-tags-memory</name>
-  <currentVersion>1.0-SNAPSHOT</currentVersion>
-  <package>org.apache.commons.jelly.tags.memory</package>
-
   <description>
-      This is a Jelly interface for Runtime's memory functions.
+       This is a Jelly interface for Runtime's memory functions.
   </description>
-  <shortDescription>Commons Jelly Memory Tag Library</shortDescription>
-  
-  <versions>
-  </versions>
-
 </project>
