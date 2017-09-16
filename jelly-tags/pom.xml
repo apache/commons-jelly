@@ -30,6 +30,7 @@
     <module>interaction</module>
     <module>jaxme</module>
     <module>jetty</module>
+    <module>jface</module>
     <module>jsl</module>
     <module>junit</module>
     <module>log</module>
