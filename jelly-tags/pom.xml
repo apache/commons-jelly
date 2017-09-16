@@ -39,6 +39,7 @@
     <module>memory</module>
     <module>ojb</module>
     <module>quartz</module>
+    <module>regexp</module>
     <module>swt</module>
     <module>util</module>
     <module>xml</module>
