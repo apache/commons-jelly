@@ -428,6 +428,11 @@
             <exclude>jdk-1_5_0_22-linux-amd64.bin</exclude>
             <exclude>jelly-tags/ant/src/test/org/apache/commons/jelly/ant/sample.txt</exclude>
             <exclude>jelly-tags/xml/src/test/org/apache/commons/jelly/tags/xml/schematron/skeleton1-5.xsl</exclude>
+            <exclude>jelly-tags/html/src/test/org/apache/commons/jelly/html/textScript.txt</exclude>
+            <exclude>jelly-tags/jetty/src/test/org/apache/commons/jelly/jetty/docRoot/contextTest/contextTest.txt</exclude>
+            <exclude>jelly-tags/jetty/src/test/org/apache/commons/jelly/jetty/docRoot/resourceHandlerTest/resourceHandlerTest.txt</exclude>
+            <exclude>jelly-tags/jetty/src/test/org/apache/commons/jelly/jetty/docRoot/test1.txt</exclude>
+            <exclude>src/test/META-INF/services/jelly.test-library</exclude>
           </excludes>
         </configuration>
       </plugin>
