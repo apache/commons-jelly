@@ -427,6 +427,7 @@
             <exclude>docker/answer.txt</exclude>
             <exclude>jdk-1_5_0_22-linux-amd64.bin</exclude>
             <exclude>jelly-tags/ant/src/test/org/apache/commons/jelly/ant/sample.txt</exclude>
+            <exclude>jelly-tags/xml/src/test/org/apache/commons/jelly/tags/xml/schematron/skeleton1-5.xsl</exclude>
           </excludes>
         </configuration>
       </plugin>
