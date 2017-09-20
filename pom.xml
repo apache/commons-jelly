@@ -417,6 +417,19 @@
           </excludes>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <version>0.12</version>
+        <configuration>
+          <excludes>
+            <exclude>dist/**</exclude>
+            <exclude>docker/answer.txt</exclude>
+            <exclude>jdk-1_5_0_22-linux-amd64.bin</exclude>
+            <exclude>jelly-tags/ant/src/test/org/apache/commons/jelly/ant/sample.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <dependencies>
