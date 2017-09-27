@@ -29,7 +29,7 @@
       <action dev="proyal" type="fix">Restored JellyContext.isCacheTags and its behavior for backwards compatibility</action>
       <action dev="polx"   type="fix">Moved to dom4j 1.6.1 and jaxen 1.1-beta-8</action>
     </release>
-    <release version="1.0.1" date="TBD">
+    <release version="1.0.1" date="2017-09-25">
       <action dev="chtompki" type="fix" issue="JELLY-293">Accommodate toggling off DTD external entities.</action>
     </release>
     <release version="1.0" date="2005-06-12">

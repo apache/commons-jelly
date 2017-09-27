@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<document>
+
+  <properties>
+    <title>Security Reports</title>
+    <author email="dev@commons.apache.org">Apache Commons Development Team</author>
+  </properties>
+
+  <body>
+
+    <section name="Apache Commons Jelly Security Vulnerabilities">
+      <p>
+        This page lists all security vulnerabilities fixed in released versions of Apache Commons Jelly. Each
+        vulnerability is given a security impact rating by the development team - please note that this rating may
+        vary from platform to platform. We also list the versions of Commons Jelly the flaw is known to affect,
+        and where a flaw has not been verified list the version with a question mark.
+      </p>
+      <p>
+        Please note that binary patches are never provided. If you need to apply a source code patch, use the
+        building instructions for the Commons Jelly version that you are using.
+      </p>
+      <p>
+        If you need help on building Commons Jelly or other help on following the instructions to mitigate the
+        known vulnerabilities listed here, please send your questions to the public
+        <a href="http://commons.apache.org/mail-lists.html">Commons Users mailing list</a>.
+      </p>
+      <p>
+        If you have encountered an unlisted security vulnerability or other unexpected behaviour that has security
+        impact, or if the descriptions here are incomplete, please report them privately to the Apache Security Team.
+        Thank you.
+      </p>
+      <p>
+        For information about reporting or asking questions about security problems, please see the
+        <a href="http://commons.apache.org/security.html">security page of the Apache Commons project</a>.
+      </p>
+    </section>
+
+    <section name="Fixed in Apache Commons Jelly 1.0.1">
+      <p>
+        <strong><em>CVE-2017-12621.</em></strong> Apache Commons Jelly connects to url with certain custom doctype definitions.
+      </p>
+      <p>
+        <strong>Severity:</strong> Medium
+      </p>
+      <p>
+        <strong>Vendor:</strong>
+        The Apache Software Foundation
+      </p>
+      <p>
+        <strong>Versions Affected:</strong>
+        commons-jelly-1.0 (core), namely commons-jelly-1.0.jar
+      </p>
+      <p>
+        <strong>Description:</strong>
+        During jelly (xml) file parsing with xerces, if a custom doctype entity is declared with a “SYSTEM” entity with a url and that entity is used in the body of the jelly file, during parser instantiation the parser will attempt to connect to said url. This could be a cross site scripting concern. The Open Web Application Security Project suggests that the fix be https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet#XMLReader
+      </p>
+      <p>
+        <strong>Mitigation:</strong>
+        1.0 users should migrate to 1.0.1.
+      </p>
+      <p>
+        <strong>Credit:</strong>
+        This was discovered by Luca Carettoni of Doyensec.
+      </p>
+      <p>
+        <strong>Example:</strong>
+      </p>
+      <em>example.jelly</em>
+      <div class="source"><pre>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE r [
+    &lt;!ELEMENT r ANY &gt;
+    &lt;!ENTITY sp SYSTEM "http://127.0.0.1:4444/"&gt;
+    ]&gt;
+&lt;r&gt;&sp;&lt;/r&gt;
+&lt;j:jelly trim="false" xmlns:j="jelly:core"
+    xmlns:x="jelly:xml"
+    xmlns:html="jelly:html"&gt;
+&lt;/j:jelly&gt;</pre></div>
+
+      <em>ExampleParser.java</em>
+      <div class="source"><pre>public class ExampleParser {
+    public static void main(String[] args) throws JellyException, IOException,
+                  NoSuchMethodException, IllegalAccessException,IllegalArgumentException,
+                  InvocationTargetException {
+        JellyContext context = new JellyContext();
+        context.runScript("example.jelly", null);
+    }
+}</pre></div>
+    </section>
+
+
+  </body>
+
+</document>

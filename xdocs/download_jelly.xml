@@ -95,6 +95,36 @@ limitations under the License.
       </p>
     </subsection>
     </section>
+    <section name="Commons Jelly 1.0.1 ">
+      <subsection name="Binaries">
+        <table>
+          <tr>
+            <td><a href="[preferred]/commons/jelly/binaries/commons-jelly-1.0.1.tar.gz">commons-jelly-1.0.1.tar.gz</a></td>
+            <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.tar.gz.md5">md5</a></td>
+            <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.tar.gz.asc">pgp</a></td>
+          </tr>
+          <tr>
+            <td><a href="[preferred]/commons/jelly/binaries/commons-jelly-1.0.1.zip">commons-jelly-1.0.1.zip</a></td>
+            <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.zip.md5">md5</a></td>
+            <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.zip.asc">pgp</a></td>
+          </tr>
+        </table>
+      </subsection>
+      <subsection name="Source">
+        <table>
+          <tr>
+            <td><a href="[preferred]/commons/jelly/source/commons-jelly-1.0-src.tar.gz">commons-jelly-1.0-src.tar.gz</a></td>
+            <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.md5">md5</a></td>
+            <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.asc">pgp</a></td>
+          </tr>
+          <tr>
+            <td><a href="[preferred]/commons/jelly/source/commons-jelly-1.0-src.zip">commons-jelly-1.0-src.zip</a></td>
+            <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.md5">md5</a></td>
+            <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.asc">pgp</a></td>
+          </tr>
+        </table>
+      </subsection>
+    </section>
     <section name="Commons Jelly 1.0 ">
       <subsection name="Binaries">
         <table>
