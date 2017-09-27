@@ -64,7 +64,7 @@ Alternatively you can pull it from the central Maven repositories:
 <dependency>
   <groupId>commons-jelly</groupId>
   <artifactId>commons-jelly</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
