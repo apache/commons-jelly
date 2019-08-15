@@ -321,9 +321,9 @@
     <url>http://issues.apache.org/jira/browse/JELLY</url>
   </issueManagement>
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/commons/proper/jelly/trunk/</developerConnection>
-    <url>http://svn.apache.org/viewvc/commons/proper/jelly/trunk/</url>
+    <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-jelly</connection>
+    <developerConnection>git:svn:https://gitbox.apache.org/repos/asf/commons-jelly</developerConnection>
+    <url>https://gitbox.apache.org/repos/asf/commons-jelly</url>
   </scm>
   <ciManagement>
     <notifiers>
