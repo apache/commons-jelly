@@ -471,7 +471,7 @@
         <artifactId>maven-checkstyle-plugin</artifactId>
         <configuration>
           <configLocation>jelly-tags/tag-checkstyle.xml</configLocation>
-          <headerLocation>${basedir}/short-license.txt</headerLocation>
+          <headerLocation>${basedir}/checkstyle-header.txt</headerLocation>
         </configuration>
       </plugin>
       <plugin>
