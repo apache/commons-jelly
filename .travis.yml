@@ -18,6 +18,9 @@ sudo: false
 
 dist: trusty
 
+env:
+  - DISPLAY=:0.0
+
 jdk:
   - openjdk7
   - oraclejdk8
