@@ -18,13 +18,14 @@ sudo: false
 
 dist: trusty
 
-env:
-  global:
-    - DISPLAY=:0.0
-
 jdk:
   - openjdk7
   - oraclejdk8
+
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - sleep 3 # give xvfb some time to start
 
 after_success:
   - mvn clean cobertura:cobertura coveralls:report
