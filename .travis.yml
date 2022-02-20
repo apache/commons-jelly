@@ -19,7 +19,8 @@ sudo: false
 dist: trusty
 
 env:
-  - DISPLAY=:0.0
+  global:
+    - DISPLAY=:0.0
 
 jdk:
   - openjdk7
