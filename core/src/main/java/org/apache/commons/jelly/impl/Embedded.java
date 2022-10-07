@@ -234,7 +234,7 @@ public class Embedded {
     public boolean execute() {
         if (log.isDebugEnabled())
             log.debug("Starting Execution");
-        //If script has not been compiled then return the errorMsg that occured during compilation
+        //If script has not been compiled then return the errorMsg that occurred during compilation
         if (!m_scriptCompiled) {
             if (log.isErrorEnabled())
                 log.error(m_scriptCompilationException.getMessage());
