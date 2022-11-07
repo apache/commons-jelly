@@ -27,7 +27,7 @@ import org.apache.commons.jelly.XMLOutput;
  *
  *  <p>
  *  By default, the imported script does not have access to
- *  the parent script's variable context.  This behaviour
+ *  the parent script's variable context.  This behavior
  *  may be modified using the <code>inherit</code> attribute.
  *  </p>
  *

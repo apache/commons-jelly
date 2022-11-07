@@ -28,7 +28,7 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.types.Path;
 
 /**
- * A mock tag which is used for testing the Ant nested properties behaviour
+ * A mock tag which is used for testing the Ant nested properties behavior
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$

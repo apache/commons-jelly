@@ -205,7 +205,7 @@ public class SwingTagLibrary extends TagLibrary {
     //-------------------------------------------------------------------------
 
     /**
-     * Strategy method allowing derived classes to change the registration behaviour
+     * Strategy method allowing derived classes to change the registration behavior
      */
     protected void registerFactories() {
         registerBeanFactory( "button", JButton.class );

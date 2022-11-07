@@ -87,7 +87,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     //-------------------------------------------------------------------------
 
     /**
-     * Strategy Method allowing derived classes to change this behaviour
+     * Strategy Method allowing derived classes to change this behavior
      */
     protected Messenger findConnection() throws JellyTagException, JMSException {
         ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
@@ -98,7 +98,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     }
 
     /**
-     * Strategy Method allowing derived classes to change this behaviour
+     * Strategy Method allowing derived classes to change this behavior
      */
     protected Destination findDestination(String subject) throws JellyTagException, JMSException {
         return getConnection().getDestination(subject);
