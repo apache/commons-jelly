@@ -35,7 +35,7 @@ import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
- * Servlet for handling display of Jelly-fied XML files. Modelled after VelocityServlet.
+ * Servlet for handling display of Jelly-fied XML files. Modeled after VelocityServlet.
  *
  * @author Kelvin Tan
  * @version $Revision$
