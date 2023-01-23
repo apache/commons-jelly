@@ -50,7 +50,7 @@
     <section name="Examples"> 
       <p>
         There is a simple example JellyUnit script
-        <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/jelly-tags/junit/src/test/org/apache/commons/jelly/tags/junit/suite.jelly">here</a>
+        <a href="https://svn.apache.org/repos/asf/commons/_moved_to_git/jelly/tags/COMMONS_JELLY_JUNIT-1_0/jelly-tags/junit/src/test/org/apache/commons/jelly/tags/junit/suite.jelly">here</a>
       </p>
       <p>
         An example demonstrating the use of the <a href="libs/betwixt/tags.html">Betwixt</a> library is 
