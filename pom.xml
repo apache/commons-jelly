@@ -343,8 +343,8 @@
             <debug>true</debug>
             <optimize>false</optimize>
             <showDeprecation>true</showDeprecation>
-            <source>1.5</source>
-            <target>1.5</target>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.source}</target>
           </configuration>
         </plugin>
         <plugin>
