@@ -105,7 +105,7 @@ application using a rich set of functions and beans exposed via jelly tags.
 
 <p>
 To run the swing demo, go to directory jelly-tags/swing and  type "maven demo:swing"
-(View the <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/swing/example.jelly">demo script</a>). You should see a window open with
+(View the <a href="https://github.com/apache/commons-jelly/blob/master/jelly-tags/swing/src/test/resources/org/apache/commons/jelly/swing/example.jelly">demo script</a>). You should see a window open with
 some swing components. You can test the actions by selecting a menu item or
 pressing the button. The actions in this demo simply output a message to the
 console. A more practical action could be to invoke a bean, call a script
@@ -113,7 +113,7 @@ that opens another window, etc.
 </p>
 
 <p>
-If you look at the <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/swing/example.jelly">jelly code for this demo</a>, you will see
+If you look at the <a href="https://github.com/apache/commons-jelly/blob/master/jelly-tags/swing/src/test/resources/org/apache/commons/jelly/swing/example.jelly">jelly code for this demo</a>, you will see
 that building a UI is pretty simple. For example, a menu bar is simply:
 </p>
 
@@ -169,7 +169,7 @@ To start the JellyRunner type "maven jelly:runner" (View the <a href="jelly-tags
 <subsection name="Homepage Builder (JellySwing Edition)">
 
 <p>
-This is a good chance to use the Jelly Runner. Find HomepageBuilder.jelly, which is located in /src/test/org/apache/commons/jelly/demos/ (View the <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/homepageBuilder.jelly">demo source</a>).
+This is a good chance to use the Jelly Runner. Find HomepageBuilder.jelly, which is located in /src/test/resouces/org/apache/commons/jelly/demos/ (View the <a href="https://github.com/apache/commons-jelly/blob/master/jelly-tags/swing/src/test/resources/org/apache/commons/jelly/demos/homepageBuilder.jelly">demo source</a>).
 </p>
 
 <p>
@@ -219,7 +219,7 @@ When you run the program, it will open a window where you can choose a template,
 </p>
 
 <p>
-To run the demo type "maven demo:embed" (View the <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/swing/src/test/org/apache/commons/jelly/demos/HomepageBuilder.java">demo source</a>).
+To run the demo type "maven demo:embed" (View the <a href="https://github.com/apache/commons-jelly/blob/master/jelly-tags/swing/src/test/java/org/apache/commons/jelly/demos/HomepageBuilder.java">demo source</a>).
 </p>
 
 <p>
@@ -290,7 +290,7 @@ With the <a href="libs/jsl/tags.html">JSL tag library</a>, you can transform XML
 </p>
 
 <p>
-To run the demo type "maven demo:jsl" (View the <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/jsl/src/test/org/apache/commons/jelly/jsl/example.jelly">demo source</a>). The demo transforms the demo source into HTML and outputs it to the command line, like this:
+To run the demo type "maven demo:jsl" (View the <a href="https://github.com/apache/commons-jelly/blob/master/jelly-tags/jsl/src/test/resources/org/apache/commons/jelly/jsl/example.jelly">demo source</a>). The demo transforms the demo source into HTML and outputs it to the command line, like this:
 </p>
 
 <source>
@@ -330,7 +330,7 @@ This demo demonstrates the use the handy parse tag in the <A HREF="libs/html/tag
 </p>
 
 <p>
-To run the demo type "maven demo:html" (View the <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/html/src/test/org/apache/commons/jelly/html/example.jelly">demo source</a>).
+To run the demo type "maven demo:html" (View the <a href="https://github.com/apache/commons-jelly/blob/master/jelly-tags/html/src/test/resources/org/apache/commons/jelly/html/example.jelly">demo source</a>).
 </p>
 
 <p>

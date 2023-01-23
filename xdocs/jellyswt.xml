@@ -37,7 +37,7 @@
       </p>
       <p>
         There is an example JellySWT script
-        <a href="http://svn.apache.org/repos/asf/commons/proper/jelly/trunk/jelly-tags/jelly-tags/swt/src/test/org/apache/commons/jelly/tags/swt/example.jelly">here</a>
+        <a href="https://github.com/apache/commons-jelly/blob/master/jelly-tags/swt/src/test/resources/org/apache/commons/jelly/tags/swt/example.jelly">here</a>
       </p>
       <p>
         To try running the example, cd into the <i>[jelly-home]/jelly-tags/swt</i> directory 
