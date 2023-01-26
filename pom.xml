@@ -322,7 +322,7 @@
   </issueManagement>
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-jelly</connection>
-    <developerConnection>git:svn:https://gitbox.apache.org/repos/asf/commons-jelly</developerConnection>
+    <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-jelly</developerConnection>
     <url>https://gitbox.apache.org/repos/asf/commons-jelly</url>
   </scm>
   <ciManagement>
