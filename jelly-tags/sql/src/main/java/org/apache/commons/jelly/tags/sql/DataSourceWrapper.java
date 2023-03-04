@@ -21,6 +21,8 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.SQLFeatureNotSupportedException;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
@@ -139,6 +141,11 @@ public class DataSourceWrapper implements DataSource {
      */
     public synchronized void setLogWriter(PrintWriter out) throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
+
+    @Override
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException();
     }
 
 }
