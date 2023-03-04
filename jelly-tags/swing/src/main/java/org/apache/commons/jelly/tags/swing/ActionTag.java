@@ -173,7 +173,7 @@ public class ActionTag extends UseBeanTag {
         if ( Character.isUpperCase( ch ) ) {
             return text;
         }
-        StringBuffer buffer = new StringBuffer(text.length());
+        StringBuilder buffer = new StringBuilder(text.length());
         buffer.append( Character.toUpperCase( ch ) );
         buffer.append( text.substring(1) );
         return buffer.toString();

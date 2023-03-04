@@ -153,7 +153,7 @@ public class SetTag extends XPathTagSupport {
         
         // finally convert the result to a concatenated string if delimiter is defined
         if(delimiter != null && value instanceof List) {
-            StringBuffer buff = new StringBuffer();
+            StringBuilder buff = new StringBuilder();
             for(Iterator it = ((List) value).iterator(); it.hasNext(); ) {
                 Object v = it.next();
                 if (v instanceof Node) {
@@ -220,7 +220,7 @@ public class SetTag extends XPathTagSupport {
     }
 
     private String joinDelimitedElements( final List values ) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         int sz = values.size();
         for (int i = 0; i < sz; i++) {
             String s = (String)values.get(i); 

@@ -78,7 +78,7 @@ public abstract class VelocityTagSupport extends TagSupport
      */
     private String keyName( String basedir )
     {
-        return new StringBuffer()
+        return new StringBuilder()
             .append( VELOCITY_ENGINE_VAR_NAME )
             .append( '.' )
             .append( basedir )

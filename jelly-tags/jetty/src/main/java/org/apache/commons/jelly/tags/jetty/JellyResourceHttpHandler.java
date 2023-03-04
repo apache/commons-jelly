@@ -17,25 +17,22 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.XMLOutput;
-
-import org.mortbay.http.HttpException;
-import org.mortbay.http.HttpRequest;
-import org.mortbay.http.HttpResponse;
-import org.mortbay.http.handler.AbstractHttpHandler;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.StringBuffer;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.mortbay.http.HttpException;
+import org.mortbay.http.HttpRequest;
+import org.mortbay.http.HttpResponse;
+import org.mortbay.http.handler.AbstractHttpHandler;
 
 /**
  * The actual http handler implementation for an http context in an http server
@@ -130,7 +127,7 @@ class JellyResourceHttpHandler extends AbstractHttpHandler {
         InputStream is = request.getInputStream();
         InputStreamReader isr = new InputStreamReader(is);
         BufferedReader br = new BufferedReader(isr);
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         char[] buffer = new char[1024];
         int len;
 

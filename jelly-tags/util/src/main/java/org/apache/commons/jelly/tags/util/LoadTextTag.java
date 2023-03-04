@@ -176,7 +176,7 @@ public class LoadTextTag extends TagSupport {
      * Loads all the text from the given Reader
      */
     protected String loadText(Reader reader) throws IOException {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         try {
             char[] charBuffer = new char[ 4096 ];

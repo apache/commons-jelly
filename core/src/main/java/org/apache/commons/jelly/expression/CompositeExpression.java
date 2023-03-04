@@ -89,8 +89,8 @@ public class CompositeExpression extends ExpressionSupport {
         int cur = 0;
         char c = 0;
 
-        StringBuffer chars = new StringBuffer();
-        StringBuffer expr  = new StringBuffer();
+        StringBuilder chars = new StringBuilder();
+        StringBuilder expr  = new StringBuilder();
 
       MAIN:
         while ( cur < len ) {
@@ -244,7 +244,7 @@ public class CompositeExpression extends ExpressionSupport {
     //-------------------------------------------------------------------------
 
     public String getExpressionText() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
             Expression expression = (Expression) iter.next();
             buffer.append( expression.getExpressionText() );
@@ -260,7 +260,7 @@ public class CompositeExpression extends ExpressionSupport {
 
     // inherit javadoc from interface
     public String evaluateAsString(JellyContext context) {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
             Expression expression = (Expression) iter.next();
             String value = expression.evaluateAsString(context);
