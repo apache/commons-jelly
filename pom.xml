@@ -59,8 +59,8 @@
   <properties>
     <project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>1.7</maven.compiler.source>
-    <maven.compiler.target>1.7</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <!--
        This is also  used to generate download_xxx file name.
        To override this when generating the download page:
@@ -71,7 +71,7 @@
     <commons.componentid>jelly</commons.componentid>
     <!-- Current 3.x release series -->
     <commons.release.version>1.1</commons.release.version>
-    <commons.release.desc>(Java 7.0+)</commons.release.desc>
+    <commons.release.desc>(Java 8)</commons.release.desc>
     <commons.jira.id>JELLY</commons.jira.id>
     <commons.jira.pid>10012</commons.jira.pid>
 
@@ -335,7 +335,8 @@
     </notifiers>
   </ciManagement>
   <build>
-    <pluginManagement>
+	<defaultGoal>clean verify</defaultGoal>
+	<pluginManagement>
       <plugins>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
