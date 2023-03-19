@@ -106,7 +106,7 @@ public class JettyHttpServerTag extends TagSupport {
      * creating defaults if it doesn't
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
