@@ -22,9 +22,11 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * &lt;tag&gt; is used to define a new tag
  * using a Jelly script to implement the behavior of the tag.
+ * <p>
  * Parameters can be passed into the new tag using normal XML attribute
  * notations. Inside the body of the tag definition, the attributes can
- * be accessed as normal Jelly variables.</p>
+ * be accessed as normal Jelly variables.
+ * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
