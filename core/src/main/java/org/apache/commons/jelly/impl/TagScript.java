@@ -58,7 +58,6 @@ import org.xml.sax.SAXException;
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class TagScript implements Script {
 

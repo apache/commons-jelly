@@ -24,7 +24,6 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * @author <a href="mailto:benanderson@benanderson.us">Ben Anderson</a>
- * @version $Revision$
  */
 public class TestForEachTag extends BaseJellyTest
 {

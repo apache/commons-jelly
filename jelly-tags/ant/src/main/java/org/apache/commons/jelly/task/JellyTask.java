@@ -42,7 +42,6 @@ import org.xml.sax.SAXException;
  * run a given Jelly script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 
 public class JellyTask extends Task {

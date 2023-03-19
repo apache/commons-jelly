@@ -22,7 +22,6 @@ import org.apache.commons.jelly.JellyTagException;
  * A tag which is associated with a JavaBean, such as a {@link DynamicBeanTag}
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public interface BeanSource {
 

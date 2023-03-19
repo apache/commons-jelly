@@ -28,7 +28,6 @@ import org.apache.commons.logging.LogFactory;
  * Represents a column in an ExpressionTable
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ExpressionTableColumn extends TableColumn {
 

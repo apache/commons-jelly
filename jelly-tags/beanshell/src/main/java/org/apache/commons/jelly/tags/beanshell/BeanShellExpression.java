@@ -26,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
 /** Represents a <a href="http://www.beanshell.org">beanshell</a> expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class BeanShellExpression extends ExpressionSupport {
 

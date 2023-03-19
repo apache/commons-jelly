@@ -35,7 +35,6 @@ import org.apache.commons.logging.LogFactory;
  * as variables and will allow the template to invoke its instance body.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class DynamicTag extends DynaTagSupport {
 

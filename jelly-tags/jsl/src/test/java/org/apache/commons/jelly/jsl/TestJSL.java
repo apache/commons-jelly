@@ -40,7 +40,6 @@ import org.dom4j.io.SAXContentHandler;
  * if we had the junit tag library!
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class TestJSL extends TestCase {
 

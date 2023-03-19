@@ -21,7 +21,6 @@ package org.apache.commons.jelly.tags.jetty;
  * Respond to a POST request to a Jetty http server
  *
  * @author  rtl
- * @version $Id$
  */
 public class PostRequestTag extends AbstractMethodHandlerTag {
 

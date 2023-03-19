@@ -23,7 +23,6 @@ package org.apache.commons.jelly;
  * is used which can aid debugging and tracing.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 
 public interface LocationAware {

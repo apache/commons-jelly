@@ -29,7 +29,6 @@ import org.apache.commons.jelly.XMLOutput;
  * iterate over fileSets
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class FileScannerTag extends TagSupport implements TaskSource {
 

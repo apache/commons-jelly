@@ -33,7 +33,6 @@ import org.apache.commons.jelly.XMLOutput;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Christian Sell
- * @version $Revision$
  */
 public class BeanPropertyTag extends BeanTag {
 

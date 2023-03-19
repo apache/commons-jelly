@@ -36,7 +36,6 @@ import org.xml.sax.helpers.AttributesImpl;
  * The error messages are output as XML events so that they can be styled by the parent tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ValidateTag extends TagSupport {
 

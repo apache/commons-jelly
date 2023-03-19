@@ -25,7 +25,6 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author Rodney Waldhoff
- * @version $Revision$ $Date$
  */
 public class TestSwitchTag extends BaseJellyTest {
 

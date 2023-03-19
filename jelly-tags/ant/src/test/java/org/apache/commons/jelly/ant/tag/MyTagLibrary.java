@@ -25,7 +25,6 @@ import org.apache.commons.jelly.TagLibrary;
  * code for simplicity
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class MyTagLibrary extends TagLibrary {
 

@@ -24,7 +24,6 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision$
  */
 public class TestInvokeStaticTag extends BaseJellyTest {
 

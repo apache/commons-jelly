@@ -43,7 +43,6 @@ import java.util.ListIterator;
   * used from the other xml library functions.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class SetTag extends XPathTagSupport {
 

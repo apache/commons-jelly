@@ -37,7 +37,6 @@ import org.apache.commons.logging.LogFactory;
  * A tag which loads text from a file or URI into a Jelly variable.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class LoadTextTag extends TagSupport {
 

@@ -32,7 +32,6 @@ import org.dom4j.rule.Rule;
  * This tag represents a declarative matching rule, similar to the template tag in XSLT.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class TemplateTag extends TagSupport implements XPathSource {
 

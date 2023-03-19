@@ -24,7 +24,6 @@ import java.util.List;
  * A sample bean that we can construct via Jelly tags
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class Customer {
 

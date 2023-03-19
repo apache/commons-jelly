@@ -22,7 +22,6 @@ package org.apache.commons.jelly.xpath;
  * such as &lt;x:forEach&gt;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public interface XPathSource {
 

@@ -24,7 +24,6 @@ import java.awt.GridBagConstraints;
  * when using the GridBagLayout
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class Cell {
     private GridBagConstraints constraints;

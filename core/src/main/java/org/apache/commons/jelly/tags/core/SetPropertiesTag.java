@@ -43,7 +43,6 @@ import org.apache.commons.jelly.impl.BeanSource;
  * logic.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class SetPropertiesTag extends MapTagSupport  {
 

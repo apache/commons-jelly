@@ -26,7 +26,6 @@ import org.apache.ojb.broker.PersistenceBroker;
  * the given broker or it will use the parent broker tags broker instance.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class StoreTag extends TagSupport {
 

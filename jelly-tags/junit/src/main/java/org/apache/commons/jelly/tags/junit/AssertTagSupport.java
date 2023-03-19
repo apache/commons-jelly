@@ -23,7 +23,6 @@ import org.apache.commons.jelly.xpath.XPathTagSupport;
  * useful for implementation inheritance.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public abstract class AssertTagSupport extends XPathTagSupport {
 

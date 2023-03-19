@@ -30,7 +30,6 @@ import org.apache.commons.jelly.XMLOutput;
  * Checks that a file exists, and if not, then the test will fail.
  *
  * @author <a href="mailto:dion@apache.org">Dion Gillard</a>
- * @version $Revision$
  */
 public class AssertFileContainsTag extends AssertTagSupport
 {

@@ -28,7 +28,6 @@ import org.apache.commons.jelly.expression.Expression;
  * then the break occurs otherwise the loop continues processing.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class BreakTag extends TagSupport {
 

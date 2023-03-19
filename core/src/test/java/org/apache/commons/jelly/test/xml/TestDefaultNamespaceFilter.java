@@ -31,7 +31,6 @@ import org.apache.commons.jelly.XMLOutput;
  * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class TestDefaultNamespaceFilter extends TestCase {
 

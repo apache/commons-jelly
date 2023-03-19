@@ -29,7 +29,6 @@ import org.apache.commons.jelly.XMLOutput;
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ScriptTag extends TagSupport {
 

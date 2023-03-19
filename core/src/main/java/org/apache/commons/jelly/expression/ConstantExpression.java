@@ -23,7 +23,6 @@ import org.apache.commons.jelly.JellyContext;
   * <p> In other words, {@link #evaluate} returns a value independent of the context. </p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class ConstantExpression extends ExpressionSupport {
 

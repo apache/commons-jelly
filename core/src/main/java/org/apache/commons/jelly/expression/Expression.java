@@ -24,7 +24,6 @@ import org.apache.commons.jelly.JellyContext;
   * expression language.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public interface Expression {
 

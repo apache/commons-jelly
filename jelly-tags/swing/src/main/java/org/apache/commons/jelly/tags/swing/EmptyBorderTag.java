@@ -31,7 +31,6 @@ import org.apache.commons.logging.LogFactory;
  * or will be set on the parent widget's border property
  *
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision$
  */
 public class EmptyBorderTag extends BorderTagSupport {
 

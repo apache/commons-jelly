@@ -22,7 +22,6 @@ import org.apache.commons.jelly.JellyTagException;
  * A tag which provides an Ant Task object on which to set Ant DataTypes or create nested types
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public interface TaskSource {
 

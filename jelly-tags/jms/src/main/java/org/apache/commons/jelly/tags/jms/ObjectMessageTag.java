@@ -26,7 +26,6 @@ import org.apache.commons.jelly.JellyTagException;
 /** Creates a JMS ObjectMessage
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class ObjectMessageTag extends MessageTag {
 

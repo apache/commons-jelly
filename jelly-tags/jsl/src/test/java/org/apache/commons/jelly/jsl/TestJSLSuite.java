@@ -25,7 +25,6 @@ import org.apache.commons.jelly.tags.junit.JellyTestSuite;
  * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
  * @author <a href="mailto:dion@apache.org">dIon Gillard</a>
- * @version $Revision$
  */
 public class TestJSLSuite extends JellyTestSuite {
 

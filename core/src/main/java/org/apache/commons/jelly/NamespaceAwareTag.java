@@ -28,7 +28,6 @@ import java.util.Map;
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 
 public interface NamespaceAwareTag extends Tag {

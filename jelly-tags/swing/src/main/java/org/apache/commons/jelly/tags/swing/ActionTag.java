@@ -38,7 +38,6 @@ import org.apache.commons.logging.LogFactory;
  * otherwise the action is added to the parent JellySwing widget.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ActionTag extends UseBeanTag {
 

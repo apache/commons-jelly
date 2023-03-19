@@ -38,7 +38,6 @@ import org.mortbay.http.handler.AbstractHttpHandler;
  * The actual http handler implementation for an http context in an http server
  *
  * @author  rtl
- * @version $Id$
  */
 class JellyResourceHttpHandler extends AbstractHttpHandler {
 

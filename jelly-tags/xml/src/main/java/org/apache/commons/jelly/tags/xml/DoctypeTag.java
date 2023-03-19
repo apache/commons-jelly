@@ -29,7 +29,6 @@ import org.xml.sax.SAXException;
  * it should occur before any element content.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class DoctypeTag extends XPathTagSupport {
 

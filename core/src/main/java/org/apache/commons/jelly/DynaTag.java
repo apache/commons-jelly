@@ -29,7 +29,6 @@ package org.apache.commons.jelly;
  * one or two special attributes are used, all others pass through.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 
 public interface DynaTag extends Tag {

@@ -28,7 +28,6 @@ import org.apache.commons.jelly.TagLibrary;
  * {@link TaglibTag Taglib tag} and {@link TagTag Tag tag}.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class DefineTagLibrary extends TagLibrary {
 

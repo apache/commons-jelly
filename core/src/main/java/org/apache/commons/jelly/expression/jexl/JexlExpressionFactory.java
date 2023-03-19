@@ -33,7 +33,6 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
  * names, where '.' is used inside variable names.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {

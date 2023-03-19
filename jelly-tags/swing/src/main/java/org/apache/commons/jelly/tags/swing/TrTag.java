@@ -34,7 +34,6 @@ import org.apache.commons.logging.LogFactory;
  * &lt;tr&gt; HTML tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class TrTag extends TagSupport {
 

@@ -26,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
  * A Layout tag which uses nested &lt;gbc&gt; tags to implement a GridBagLayout
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class GridBagLayoutTag extends LayoutTagSupport {
 

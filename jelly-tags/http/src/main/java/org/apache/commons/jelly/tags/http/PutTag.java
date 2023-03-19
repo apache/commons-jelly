@@ -26,7 +26,6 @@ import org.apache.commons.httpclient.methods.PutMethod;
  * An HTTP PUT.
  *
  * @author  dion
- * @version $Id$
  */
 public class PutTag extends HttpTagSupport {
 

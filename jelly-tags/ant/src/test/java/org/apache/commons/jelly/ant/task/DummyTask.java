@@ -70,7 +70,6 @@ i
  * A sample Task to test out the Ant introspection logic
  *
  * @author Aslak Hellesøy (aslak.hellesoy@bekk.no)
- * @version $Revision$
  */
 public class DummyTask extends Task {
     private int i = 0;

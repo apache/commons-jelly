@@ -30,7 +30,6 @@ import org.dom4j.rule.Stylesheet;
  * that adds some Jelly specific features.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class JellyStylesheet extends Stylesheet {
 

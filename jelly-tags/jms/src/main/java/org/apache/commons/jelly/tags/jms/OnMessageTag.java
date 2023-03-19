@@ -35,7 +35,6 @@ import org.apache.commons.logging.LogFactory;
  * variable name, but can be overloaded by the var attribute.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class OnMessageTag extends TagSupport {
 

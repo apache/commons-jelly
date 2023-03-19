@@ -25,7 +25,6 @@ package org.apache.commons.jelly;
  * so multi threading is not a concern for Tag developers.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public interface Script {
 

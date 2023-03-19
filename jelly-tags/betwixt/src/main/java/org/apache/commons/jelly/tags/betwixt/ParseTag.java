@@ -43,7 +43,6 @@ import org.xml.sax.SAXException;
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ParseTag extends TagSupport {
 

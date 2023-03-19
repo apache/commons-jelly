@@ -33,7 +33,6 @@ import org.jaxen.XPath;
  * XSLT stylesheet but can use Jelly tags inside it
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class StylesheetTag extends XPathTagSupport implements XPathSource {
 

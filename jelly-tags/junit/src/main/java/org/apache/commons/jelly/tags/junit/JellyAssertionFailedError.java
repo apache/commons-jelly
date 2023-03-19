@@ -30,7 +30,6 @@ import org.apache.commons.jelly.LocationAware;
  * details of where in the JellyUnit test case that the failure occurred.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 
 public class JellyAssertionFailedError extends AssertionFailedError implements LocationAware {

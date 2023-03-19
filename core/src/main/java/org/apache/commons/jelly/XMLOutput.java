@@ -44,7 +44,6 @@ import org.xml.sax.helpers.DefaultHandler;
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {

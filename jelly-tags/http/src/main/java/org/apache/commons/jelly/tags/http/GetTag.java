@@ -26,7 +26,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
  * A http get tag
  *
  * @author  dion
- * @version $Id$
  */
 public class GetTag extends HttpTagSupport {
 

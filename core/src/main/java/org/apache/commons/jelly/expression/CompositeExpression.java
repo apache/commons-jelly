@@ -32,7 +32,6 @@ import org.apache.commons.jelly.JellyTagException;
  * Expression objects which are concatenated into a single String.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class CompositeExpression extends ExpressionSupport {
 

@@ -39,7 +39,6 @@ import org.xml.sax.SAXException;
  * so that it can be used by a &lt;validate&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class VerifierTag extends TagSupport {
 

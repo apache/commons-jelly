@@ -25,7 +25,6 @@ import org.apache.commons.jelly.tags.regexp.MatchTag;
 * in strings.</p>
 *
 * @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
-* @version $Revision$
 */
 public class MatchTagTest extends TestCase {
 

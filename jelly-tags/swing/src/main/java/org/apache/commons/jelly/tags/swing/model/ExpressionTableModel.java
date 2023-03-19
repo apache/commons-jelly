@@ -30,7 +30,6 @@ import org.apache.commons.jelly.JellyContext;
  * to evaluate the value of the cells
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ExpressionTableModel extends AbstractTableModel {
 

@@ -42,7 +42,6 @@ import java.util.Iterator;
  * Declare a security handler for a Jetty http server
  *
  * @author  rtl
- * @version $Id$
  */
 public class SecurityHandlerTag extends TagSupport {
 

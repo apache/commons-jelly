@@ -44,7 +44,6 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
   * </ul>
   *
   * @author robert@bull-enterprises.com Robert McIntosh
-  * @version $Revision$
   */
 public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 

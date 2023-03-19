@@ -22,7 +22,6 @@ import org.apache.commons.jelly.TagLibrary;
  * A Jelly custom tag library that performs memory related tasks.
  *
  * @author <a href="mailto:brett@apache.org">Brett Porter</a>
- * @version $Revision$
  */
 public class MemoryTagLibrary extends TagLibrary {
     public MemoryTagLibrary() {

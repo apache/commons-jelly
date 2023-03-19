@@ -33,7 +33,6 @@ import org.apache.commons.jelly.XMLOutput;
  * reject iff jelly.setValidateXML(true)
  *
  * @author Morgan Delagrange
- * @version $Revision$
  */
 public class TestXMLValidation extends TestCase {
 

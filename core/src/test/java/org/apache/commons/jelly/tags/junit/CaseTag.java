@@ -29,7 +29,6 @@ import org.apache.commons.jelly.XMLOutput;
  * JUnit's TestCase class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class CaseTag extends TagSupport {
 

@@ -27,7 +27,6 @@ import org.jaxen.XPath;
  * Evaluates the XPath expression to be a boolean and only evaluates the body
  * if the expression is true.
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class IfTag extends XPathTagSupport {
 

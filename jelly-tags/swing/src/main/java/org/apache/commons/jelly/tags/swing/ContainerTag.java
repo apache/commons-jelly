@@ -26,7 +26,6 @@ import java.awt.Component;
  * nested child component tags.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public interface ContainerTag {
 

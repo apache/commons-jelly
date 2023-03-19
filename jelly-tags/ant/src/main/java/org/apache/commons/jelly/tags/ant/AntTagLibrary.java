@@ -37,7 +37,6 @@ import org.xml.sax.Attributes;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision$
  */
 public class AntTagLibrary extends TagLibrary {
 

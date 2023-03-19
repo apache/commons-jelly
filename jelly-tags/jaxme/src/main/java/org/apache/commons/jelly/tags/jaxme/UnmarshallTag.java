@@ -45,7 +45,6 @@ import org.xml.sax.SAXException;
  * </p>
  *
  * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
- * @version $Revision$
  */
 public class UnmarshallTag extends TagSupport {
        

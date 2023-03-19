@@ -30,7 +30,6 @@ import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
  * Tests the use of Expression parsing
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class TestExpressions extends TestCase {
 

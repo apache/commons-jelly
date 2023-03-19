@@ -33,7 +33,6 @@ import java.util.TimeZone;
  * tag in JSTL.
  *
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- * @version $Revision$
  *
  * task decide how to implement setResponseLocale
  */

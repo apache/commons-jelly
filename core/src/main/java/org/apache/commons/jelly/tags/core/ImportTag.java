@@ -32,7 +32,6 @@ import org.apache.commons.jelly.XMLOutput;
  *  </p>
  *
  * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @version $Revision$
  */
 
 public class ImportTag extends TagSupport {

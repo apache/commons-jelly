@@ -29,7 +29,6 @@ import org.apache.commons.logging.LogFactory;
  * An abstract base class for creating a TestSuite via a Jelly script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public abstract class JellyTestSuite {
 

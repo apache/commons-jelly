@@ -26,7 +26,6 @@ import org.apache.commons.beanutils.Converter;
  * A Converter that turns Strings into JMX ObjectName objects
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ObjectNameConverter implements Converter {
 

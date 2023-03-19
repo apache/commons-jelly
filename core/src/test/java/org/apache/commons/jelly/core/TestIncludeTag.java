@@ -31,7 +31,6 @@ import org.apache.commons.jelly.XMLOutput;
  * Makes sure that nested includes work correctly
  *
  * @author Morgan Delagrange
- * @version $Revision$
  */
 public class TestIncludeTag extends TestCase {
 

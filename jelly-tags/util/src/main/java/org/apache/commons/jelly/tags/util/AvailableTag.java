@@ -33,7 +33,6 @@ import org.apache.commons.jelly.XMLOutput;
  * URI from the current Jelly script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class AvailableTag extends TagSupport {
 

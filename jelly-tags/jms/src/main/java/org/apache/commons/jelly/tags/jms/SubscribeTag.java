@@ -31,7 +31,6 @@ import org.apache.commons.logging.LogFactory;
  * its parent (so a special tag could construct a MessageListener object and register it with this tag).
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
 

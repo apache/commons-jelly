@@ -27,7 +27,6 @@ import org.xml.sax.SAXException;
  * contents of its body.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class CommentTag extends XPathTagSupport {
 

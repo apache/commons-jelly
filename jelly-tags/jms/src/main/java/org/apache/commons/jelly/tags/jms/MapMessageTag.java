@@ -28,7 +28,6 @@ import org.apache.commons.jelly.JellyTagException;
 /** Creates a JMS MapMessage
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class MapMessageTag extends MessageTag {
 

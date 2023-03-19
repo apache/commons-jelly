@@ -38,7 +38,6 @@ import org.apache.commons.jelly.XMLOutput;
  * implementation.
  *
  * @author Rodney Waldhoff
- * @version $Revision$
  */
 public class ArgTag extends BaseClassLoaderTag {
 

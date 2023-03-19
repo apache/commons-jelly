@@ -26,7 +26,6 @@ import org.apache.commons.logging.LogFactory;
   * register objects
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class JellyContextRegistry extends ObjectRegistry {
 

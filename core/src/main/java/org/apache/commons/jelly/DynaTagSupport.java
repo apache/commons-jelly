@@ -23,7 +23,6 @@ package org.apache.commons.jelly;
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 
 public abstract class DynaTagSupport extends TagSupport implements DynaTag {

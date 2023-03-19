@@ -31,7 +31,6 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author <a href="mailto:eric@ericalexander.net">Eric Alexander</a>
  * @author dIon Gillard
- * @version $Revision$
  */
 public class WhileTag extends TagSupport {
 

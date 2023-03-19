@@ -23,7 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 /** Sets a parameter in the parent transform tag
   *
   * @author Robert Leftwich
-  * @version $Revision$
   */
 public class ParamTag extends TagSupport {
 

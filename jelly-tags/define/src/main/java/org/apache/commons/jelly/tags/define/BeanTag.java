@@ -40,7 +40,6 @@ import org.xml.sax.Attributes;
  * the tag set the bean properties..
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class BeanTag extends DefineTagSupport {
 

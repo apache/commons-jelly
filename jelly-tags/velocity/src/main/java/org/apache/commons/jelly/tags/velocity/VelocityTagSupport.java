@@ -29,7 +29,6 @@ import org.apache.velocity.app.VelocityEngine;
  * loader of an already init'd VelocityEngine).
  *
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id$
  */
 public abstract class VelocityTagSupport extends TagSupport
 {

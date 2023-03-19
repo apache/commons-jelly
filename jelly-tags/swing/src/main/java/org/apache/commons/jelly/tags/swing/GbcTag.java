@@ -51,7 +51,6 @@ import org.apache.commons.lang.StringUtils;
  * using the converter package.
  *
  * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
- * @version $Revision$
  */
 public class GbcTag extends UseBeanTag implements ContainerTag {
 

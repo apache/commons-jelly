@@ -26,7 +26,6 @@ import org.apache.commons.jelly.tags.swing.model.ExpressionTableModel;
  * Creates a default TableModel using nested tableColumn tags.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class TableModelTag extends UseBeanTag {
 

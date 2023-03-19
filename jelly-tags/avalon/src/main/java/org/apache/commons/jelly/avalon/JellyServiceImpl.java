@@ -44,7 +44,6 @@ import org.apache.commons.jelly.XMLOutput;
  * as by a URL.
  *
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
- * @version $Revision$
  */
 public class JellyServiceImpl implements JellyService, Configurable {
 

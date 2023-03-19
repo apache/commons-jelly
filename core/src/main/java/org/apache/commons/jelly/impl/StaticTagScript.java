@@ -37,7 +37,6 @@ import java.util.Map;
  * a new dynamic tag has not been generated.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class StaticTagScript extends TagScript {
 

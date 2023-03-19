@@ -31,7 +31,6 @@ import org.jaxen.XPath;
  * created via an &lt;stylesheet&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class StyleTag extends XPathTagSupport {
 

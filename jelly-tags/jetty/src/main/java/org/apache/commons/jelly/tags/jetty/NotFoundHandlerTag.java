@@ -26,7 +26,6 @@ import org.mortbay.http.handler.NotFoundHandler;
  * Declare a not found resource handler for a Jetty http server
  *
  * @author  rtl
- * @version $Id$
  */
 public class NotFoundHandlerTag extends TagSupport {
 

@@ -25,7 +25,6 @@ import org.apache.commons.logging.LogFactory;
  * A sample table model
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class MyTableModel extends AbstractTableModel {
 

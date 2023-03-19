@@ -25,7 +25,6 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag to hold request headers
  *
  * @author  dion
- * @version $Id$
  */
 public class HeaderTag extends TagSupport {
     /** parameter name */

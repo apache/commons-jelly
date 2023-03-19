@@ -33,7 +33,6 @@ import org.apache.commons.jelly.XMLOutput;
  * The base tag for all http requests
  *
  * @author  dion
- * @version $Id$
  */
 public abstract class HttpTagSupport extends TagSupport {
 

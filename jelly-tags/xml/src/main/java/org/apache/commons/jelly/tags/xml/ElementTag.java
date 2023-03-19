@@ -28,7 +28,6 @@ import org.xml.sax.helpers.AttributesImpl;
   * or elements like the <code>&lt;xsl:element&gt;</code> tag.
   *
   * @author James Strachan
-  * @version $Revision$
   */
 public class ElementTag extends TagSupport {
 

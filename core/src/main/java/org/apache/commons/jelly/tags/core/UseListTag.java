@@ -34,7 +34,6 @@ import org.apache.commons.jelly.impl.CollectionTag;
  * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class UseListTag extends UseBeanTag implements CollectionTag {
 

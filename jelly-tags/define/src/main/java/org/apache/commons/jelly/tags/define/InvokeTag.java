@@ -30,7 +30,6 @@ import org.apache.commons.logging.LogFactory;
  * as variables that can later be invoked by this &lt;invoke&gt; tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class InvokeTag extends TagSupport {
 

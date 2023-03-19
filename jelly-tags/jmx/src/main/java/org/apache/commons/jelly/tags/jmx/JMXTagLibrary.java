@@ -29,7 +29,6 @@ import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
  * and invoking JMX operations is also supported.
  *
  * @author
- * @version $Revision$
  */
 public class JMXTagLibrary extends BeanTagLibrary {
 

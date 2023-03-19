@@ -26,7 +26,6 @@ import org.apache.commons.httpclient.methods.DeleteMethod;
  * A http delete tag
  *
  * @author  dion
- * @version $Id$
  */
 public class DeleteTag extends HttpTagSupport {
 

@@ -30,7 +30,6 @@ import org.xml.sax.Attributes;
  * beandef&gt; tag
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class MyTagLibrary extends TagLibrary {
 

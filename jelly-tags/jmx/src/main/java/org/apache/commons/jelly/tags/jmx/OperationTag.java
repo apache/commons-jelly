@@ -34,7 +34,6 @@ import org.apache.commons.logging.LogFactory;
  * Registers a JavaBean or JMX MBean with a server..
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class OperationTag extends TagSupport implements CollectionTag {
 

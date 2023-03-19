@@ -28,7 +28,6 @@ import org.xml.sax.SAXException;
   * in XSLT
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class ExprTag extends XPathTagSupport {
 

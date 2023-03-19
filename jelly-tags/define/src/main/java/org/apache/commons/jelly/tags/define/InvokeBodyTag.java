@@ -31,7 +31,6 @@ import org.apache.commons.logging.LogFactory;
  * the tag is invoked.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class InvokeBodyTag extends TagSupport {
 

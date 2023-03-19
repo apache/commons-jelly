@@ -31,7 +31,6 @@ import org.apache.commons.logging.LogFactory;
  * a reusable variable that can be attached to multiple widgets.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class FontTag extends MapTagSupport {
 

@@ -35,7 +35,6 @@ import org.apache.commons.logging.LogFactory;
  * or will be set on the parent widget's border property
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class TitledBorderTag extends BorderTagSupport {
 

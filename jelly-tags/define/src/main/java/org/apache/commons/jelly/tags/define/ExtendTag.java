@@ -26,7 +26,6 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
  * dynamic tag library.
  *
  * @author <a href="mailto:tima@intalio.com">Tim Anderson</a>
- * @version $Revision$
  * @see SuperTag
  */
 public class ExtendTag extends DefineTagSupport {

@@ -44,7 +44,6 @@ import org.apache.commons.jelly.XMLOutput;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author Morgan Delagrange
- * @version $Revision$
  */
 public class CommandLineParser {
 

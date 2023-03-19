@@ -29,7 +29,6 @@ import org.apache.commons.jelly.XMLOutput;
 /** <p><code>ScriptBlock</code> a block of scripts.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class ScriptBlock implements Script {
 

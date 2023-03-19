@@ -70,7 +70,6 @@ import org.xml.sax.helpers.AttributesImpl;
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class XMLParser extends DefaultHandler {
 

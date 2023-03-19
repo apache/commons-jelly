@@ -29,7 +29,6 @@ import org.jaxen.XPath;
  * a JSP include.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ApplyTemplatesTag extends TagSupport {
 

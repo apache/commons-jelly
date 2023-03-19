@@ -23,7 +23,6 @@ import org.apache.commons.jelly.JellyTagException;
  * such that nested objects will be added to the parent tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public interface CollectionTag {
 

@@ -26,7 +26,6 @@ import org.xml.sax.Attributes;
  * which creates new instances of a given class.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class DefaultTagFactory implements TagFactory {
 

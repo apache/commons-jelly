@@ -30,7 +30,6 @@ import org.apache.commons.logging.LogFactory;
  * and either export them as variables or set them on parent widgets.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public abstract class LayoutTagSupport extends TagSupport {
 

@@ -37,7 +37,6 @@ import org.apache.commons.lang.StringUtils;
   * typesafe evaluation methods.</p>
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public abstract class ExpressionSupport implements Expression {
 

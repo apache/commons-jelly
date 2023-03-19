@@ -28,7 +28,6 @@ import org.xml.sax.SAXException;
  * <p><code>ExpressionScript</code> outputs the value of an expression as text.</p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class ExpressionScript implements Script {
 

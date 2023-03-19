@@ -23,7 +23,6 @@ import org.apache.commons.jelly.expression.Expression;
  * or any default values etc.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @version $Revision$
  */
 public class Attribute {
 

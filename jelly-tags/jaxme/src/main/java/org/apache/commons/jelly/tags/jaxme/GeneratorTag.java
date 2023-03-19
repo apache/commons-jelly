@@ -37,7 +37,6 @@ import org.apache.ws.jaxme.js.JavaSourceFactory;
  * using JaxMe.
  *
  * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
- * @version $Revision$
  */
 public class GeneratorTag extends TagSupport {
         

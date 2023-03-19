@@ -36,7 +36,6 @@ import java.util.Properties;
  * implementation of <code>PropsHandler</code>.
  * 
  *  @author <a href="mailto:stephenh@chase3000.com">Stephen Haberman</a>
- *  @version $Revision$
  */
 public class DefaultPropsHandler implements PropsHandler {
 

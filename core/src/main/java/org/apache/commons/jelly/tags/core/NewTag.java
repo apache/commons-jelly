@@ -28,7 +28,6 @@ import org.apache.commons.jelly.XMLOutput;
 /** A tag which creates a new object of the given type
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
 

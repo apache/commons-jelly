@@ -35,7 +35,6 @@ import org.apache.velocity.exception.ResourceNotFoundException;
  * JellyContext or in a specified file.
  *
  * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
- * @version $Id$
  */
 public class MergeTag extends VelocityTagSupport
 {

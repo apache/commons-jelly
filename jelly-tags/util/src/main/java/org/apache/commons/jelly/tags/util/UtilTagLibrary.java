@@ -21,7 +21,6 @@ import org.apache.commons.jelly.TagLibrary;
 /** Implements general utility tags.
  *
  *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- *  @version $Revision$
  */
 public class UtilTagLibrary extends TagLibrary {
 

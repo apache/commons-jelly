@@ -27,7 +27,6 @@ import org.apache.ojb.broker.PersistenceBrokerFactory;
  * a simple DataSource for prototyping.</p>
  *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
  */
 public class BrokerTag extends TagSupport {
 

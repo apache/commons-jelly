@@ -32,7 +32,6 @@ import org.jaxen.JaxenException;
 /** A tag which performs an iteration over the results of an XPath expression
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @version $Revision$
   */
 public class ForEachTag extends XPathTagSupport implements XPathSource {
 
