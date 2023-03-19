@@ -220,8 +220,8 @@ public class FormatDateTag extends TagSupport {
         this.type = type;
     }
 
-    /** Setter for property dataStyle.
-     * @param dataStyle New value of property dataStyle.
+    /** Setter for property dateStyle.
+     * @param dateStyle New value of property dateStyle.
      *
      */
     public void setDateStyle(Expression dateStyle) {
