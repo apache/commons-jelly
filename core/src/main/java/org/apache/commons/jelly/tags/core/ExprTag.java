@@ -24,7 +24,7 @@ import org.xml.sax.SAXException;
 
 /** A tag which evaluates an expression
   *
-  * @tag out
+  * tag out
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   * @version $Revision$
   */
