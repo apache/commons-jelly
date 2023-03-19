@@ -79,7 +79,7 @@ public abstract class BaseClassLoaderTag extends TagSupport {
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.
      *
-     * @param boolean determines whether to use JellyContext ClassLoader.
+     * @param use determines whether to use JellyContext ClassLoader.
      */
     public void setUseContextClassLoader(boolean use) {
         useContextClassLoader = use;
