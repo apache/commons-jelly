@@ -36,7 +36,7 @@ import java.util.MissingResourceException;
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  *
- * @task decide how to implement setResponseLocale
+ * task decide how to implement setResponseLocale
  */
 public class MessageTag extends TagSupport {
 
