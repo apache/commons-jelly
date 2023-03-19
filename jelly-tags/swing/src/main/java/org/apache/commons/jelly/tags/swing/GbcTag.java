@@ -17,6 +17,7 @@
 package org.apache.commons.jelly.tags.swing;
 
 import java.awt.Component;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.Map;
