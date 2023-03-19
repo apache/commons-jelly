@@ -149,7 +149,7 @@ public class BundleTag extends TagSupport {
      * <tt>org.apache.commons.jelly.tags.fmt.fallbackLocale</tt> configuration
      * setting) and the available locales, for the given base name.
      *
-     * @param pageContext Page in which the resource bundle with the
+     * @param jellyContext Page in which the resource bundle with the
      * given base name is requested
      * @param basename Resource bundle base name
      *
@@ -157,7 +157,7 @@ public class BundleTag extends TagSupport {
      * given base name and the locale that led to the resource bundle match,
      * or the empty localization context if no resource bundle match was found
      */
-    public static LocalizationContext getLocalizationContext(JellyContext jc,
+    public static LocalizationContext getLocalizationContext(JellyContext jellyContext,
     String basename) {
         LocalizationContext locCtxt = null;
         ResourceBundle bundle = null;
@@ -169,14 +169,14 @@ public class BundleTag extends TagSupport {
 
         // Try preferred locales
         Locale pref = null; {
-            Object tmp = jc.getVariable(Config.FMT_LOCALE);
+            Object tmp = jellyContext.getVariable(Config.FMT_LOCALE);
             if (tmp != null && tmp instanceof Locale) {
                 pref = (Locale) tmp;
             }
         }
         if (pref != null) {
             // Preferred locale is application-based
-            bundle = findMatch(basename, pref, jc.getClassLoader());
+            bundle = findMatch(basename, pref, jellyContext.getClassLoader());
             if (bundle != null) {
                 locCtxt = new LocalizationContext(bundle, pref);
             }
@@ -185,13 +185,13 @@ public class BundleTag extends TagSupport {
         if (locCtxt == null) {
             // No match found with preferred locales, try using fallback locale
             {
-                Object tmp = jc.getVariable(Config.FMT_FALLBACK_LOCALE);
+                Object tmp = jellyContext.getVariable(Config.FMT_FALLBACK_LOCALE);
                 if (tmp != null && tmp instanceof Locale) {
                     pref = (Locale) tmp;
                 }
             }
             if (pref != null) {
-                bundle = findMatch(basename, pref, jc.getClassLoader());
+                bundle = findMatch(basename, pref, jellyContext.getClassLoader());
                 if (bundle != null) {
                     locCtxt = new LocalizationContext(bundle, pref);
                 }
@@ -202,7 +202,7 @@ public class BundleTag extends TagSupport {
             // try using the root resource bundle with the given basename
             try {
                 bundle = ResourceBundle.getBundle(basename, EMPTY_LOCALE,
-                jc.getClassLoader());
+                jellyContext.getClassLoader());
                 if (bundle != null) {
                     locCtxt = new LocalizationContext(bundle, null);
                 }
