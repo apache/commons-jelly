@@ -25,38 +25,40 @@ import javax.swing.ButtonGroup;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
-/** Implements a ButtonGroup. This tag acts like a Swing component
+/** Implements a ButtonGroup.
+ * <p> 
+ * This tag acts like a Swing component
  * except that adding a component other than an AbstractButton, will be passed
  * through to the parent tag. This is meant to make the
  * buttonGroup easier to use like this:
- * <pre>
- * &lt;panel&gt;
- *  &lt;buttonGroup&gt;
- *      &lt;panel&gt;
- *          &lt;radioButton/&gt;
- *      &lt;/panel&gt;
- *      &lt;panel&gt;
- *          &lt;radioButton/&gt;
- *      &lt;/panel&gt;
- *  &lt;/buttonGroup&gt;
- * &lt;/panel&gt;
+ * </p> 
+ * <pre>{@code
+ * <panel>
+ *  <buttonGroup>
+ *      <panel>
+ *          <radioButton/>
+ *      </panel>
+ *      <panel>
+ *          <radioButton/>
+ *      </panel>
+ *  </buttonGroup>
+ * </panel>
  * </pre>
  *
  * <p> Note that the following construct will silently fail, and shame on s/he who even tried it:
  * <pre>
-  * &lt;panel&gt;
- *  &lt;buttonGroup&gt;
- *      &lt;font .../&gt;
- *      &lt;panel&gt;
- *          &lt;radioButton/&gt;
- *      &lt;/panel&gt;
- *      &lt;panel&gt;
- *          &lt;radioButton/&gt;
- *      &lt;/panel&gt;
- *  &lt;/buttonGroup&gt;
- * &lt;/panel&gt;
- * </pre>
- * </p>
+  * <panel>
+ *  <buttonGroup>
+ *      <font .../>
+ *      <panel>
+ *          <radioButton/>
+ *      </panel>
+ *      <panel>
+ *          <radioButton/>
+ *      </panel>
+ *  </buttonGroup>
+ * </panel>
+ * }</pre>
  *
  * @author Hans Gilde
  *
