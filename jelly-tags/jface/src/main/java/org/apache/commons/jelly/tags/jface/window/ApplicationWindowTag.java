@@ -39,7 +39,7 @@ public class ApplicationWindowTag extends UseBeanTag {
     private int style = SWT.NULL;
 
     /**
-     * @param widgetClass
+     * @param tagClass
      */
     public ApplicationWindowTag(Class tagClass) {
         super(tagClass);
