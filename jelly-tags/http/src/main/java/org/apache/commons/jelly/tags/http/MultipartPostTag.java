@@ -59,10 +59,10 @@ public class MultipartPostTag extends PostTag {
     }
 
     /**
-     * Return a {@link HttpUrlMethod method} to be used for multi-part post'ing
+     * Return a {@link HttpMethod method} to be used for multi-part post'ing
      *
      * @return a HttpUrlMethod implementation
-     * @throws MalformedURLException when the {@link getUrl() url} or
+     * @throws MalformedURLException when the {@link #getUri() URI} or
      * {@link #getPath() path} is invalid
      */
     protected HttpMethod getHttpMethod() throws MalformedURLException {
@@ -75,11 +75,10 @@ public class MultipartPostTag extends PostTag {
     /**
      * Add a part to the message
      *
-     * @param name the parameter name
-     * @param value the parameter value
+     * @param part the part
      */
-    public void addPart(Part p) {
-        _parts.add(p);
+    public void addPart(Part part) {
+        _parts.add(part);
     }
 
     /**
@@ -87,7 +86,7 @@ public class MultipartPostTag extends PostTag {
      *
      * This method basically
      * It <strong>must</strong> be called after
-     *  {@link getHttpUrlMethod}
+     *  {@link #getHttpMethod()}
      */
     protected void setParameters(HttpMethod method) {
         for (int index = 0; index < _parts.size(); index++) {
