@@ -31,9 +31,9 @@ public class ApplicationWindowImpl extends ApplicationWindow {
     /**
      * @param shell
      */
-    public ApplicationWindowImpl(Shell parentShell) {
+    public ApplicationWindowImpl(Shell shell) {
 
-        super(parentShell);
+        super(shell);
 
         // default at all
         addMenuBar();
