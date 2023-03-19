@@ -227,9 +227,7 @@ public class Embedded {
     }
 
     /**
-     * Execute the jelly script and capture the errors (ifany)within.
-     *
-     * @throws JellyException
+     * Execute the jelly script and capture the errors (ifany) within.
      */
     public boolean execute() {
         if (log.isDebugEnabled())
