@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyTagException;
@@ -30,7 +31,7 @@ import org.apache.commons.jelly.expression.Expression;
 
 /**
  * This tag is bound onto a {@link DynaClass} instance.
- * When the tag is invoked a {@link DynaBean will be created using the tags attributes.
+ * When the tag is invoked a {@link DynaBean} will be created using the tags attributes.
  * So this class is like a {@link DynaBean} implementation of {@link DynamicBeanTag}
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
