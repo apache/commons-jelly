@@ -64,9 +64,11 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
 
     /**
      * Adds a child component to this parent
+     * <p>
+     * TODO constraints looks like it's ignored
+     * </p>
      * @param component the child to add
      * @param constraints the constraints to use
-     * @TODO constraints looks like it's ignored
      */
     public void addChild(Component component, Object constraints) throws JellyTagException {
         GridBagLayoutTag tag = (GridBagLayoutTag) findAncestorWithClass( GridBagLayoutTag.class );
