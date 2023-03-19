@@ -28,7 +28,7 @@ import org.apache.commons.jelly.expression.Expression;
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  *
- * @task handle body content trimming
+ * task handle body content trimming
  */
 public class ParamTag extends TagSupport {
 

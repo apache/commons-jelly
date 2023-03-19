@@ -35,7 +35,7 @@ import java.util.TimeZone;
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version $Revision$
  *
- * @task decide how to implement setResponseLocale
+ * task decide how to implement setResponseLocale
  */
 public class TimeZoneTag extends TagSupport {
 
