@@ -115,8 +115,9 @@ public class ValidateTag extends TagSupport {
 
     /**
      * Sets the schema Verifier that this tag will use to verify its body
-     *
-     * @jelly:required
+     * <p>
+     * required
+     * </p>
      */
     public void setVerifier(Verifier verifier) {
         this.verifier = verifier;
