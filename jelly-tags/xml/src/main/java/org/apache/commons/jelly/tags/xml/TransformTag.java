@@ -110,7 +110,7 @@ public class TransformTag extends ParseTag {
      * Process this tag instance
      *
      * @param output The pipeline for xml events
-     * @throws Exception - when required attributes are missing
+     * @throws MissingAttributeException Thrown when required attributes are missing
      */
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
@@ -172,7 +172,7 @@ public class TransformTag extends ParseTag {
      * Gets the source of the XSL which is either a String URI, Reader or
      * InputStream
      *
-     * @returns xslt    The source of the xslt
+     * @return The source of the xslt
      */
     public Object getXslt() {
         return this.xslt;
