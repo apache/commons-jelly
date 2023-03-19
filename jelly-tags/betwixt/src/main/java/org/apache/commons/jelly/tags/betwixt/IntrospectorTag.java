@@ -34,7 +34,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Creates a Betwixt XMLIntrospector instance that can be used by the other Betwixt tags.</p>
+ * Creates a Betwixt XMLIntrospector instance that can be used by the other Betwixt tags.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
