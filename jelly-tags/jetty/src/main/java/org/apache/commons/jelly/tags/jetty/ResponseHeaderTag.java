@@ -81,7 +81,7 @@ public class ResponseHeaderTag extends TagSupport {
     /**
      * Setter for property context path.
      *
-     * @param path New value of property context path.
+     * @param name New value of property context path.
      */
     public void setName(String name) {
         _name = name;
