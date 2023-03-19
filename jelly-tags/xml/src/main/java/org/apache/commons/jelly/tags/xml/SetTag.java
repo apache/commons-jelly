@@ -271,9 +271,13 @@ public class SetTag extends XPathTagSupport {
         It then guarantees that the result is of type
         {@link org.dom4j.Node} thereby making sure that, for example,
         when an element is selected, one can directly call such methods
-        as setAttribute.<br/>
+        as setAttribute.
+        <p>
         If set to false, guarantees that a list is returned.
+        </p>
+        <p>
         If set to false, guarantees that a list is returned.
+        </p>
         */
     public void setSingle(boolean single) {
         this.single = new Boolean(single);
