@@ -24,7 +24,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 
 /**
- * A http post
+ * An HTTP POST.
  *
  * @author  dion
  */
