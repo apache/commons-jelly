@@ -52,7 +52,7 @@ public class JoinTag extends UseThreadTag {
     }
 
     /**
-     * How long should the join wait. If <= 0 the join waits until the
+     * How long should the join wait. If &lt;= 0 the join waits until the
      * thread is dead.
      * @param timeout in millis
      */
