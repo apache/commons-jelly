@@ -67,9 +67,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.Attributes;
 
-/** The Swing tag library. <p/>
+/** The Swing tag library.
+ * <p>
  * In addition to the tag descriptions in the tag doc, implements
  * the following basic components:
+ * </p>
  * <ul>
  * <li>button - JButton
         <li>checkBox - JCheckBox
@@ -106,7 +108,6 @@ import org.xml.sax.Attributes;
 <li>toggleButton - JToggleButton
 <li>tree - JTree
 <li>toolBar - JToolBar
-
  * </ul>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
