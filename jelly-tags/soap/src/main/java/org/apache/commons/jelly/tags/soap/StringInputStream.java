@@ -23,7 +23,7 @@ import java.io.StringReader;
 
 /**
  * Wraps a String as an InputStream. Note that data will be lost for
- * characters not in ISO Latin 1, as a simple char->byte mapping is assumed.
+ * characters not in ISO Latin 1, as a simple char to byte mapping is assumed.
  *
  * @author <a href="mailto:umagesh@apache.org">Magesh Umasankar</a>
  */
