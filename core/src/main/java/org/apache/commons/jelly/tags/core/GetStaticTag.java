@@ -26,7 +26,9 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
 
 /**
  * A tag which can retrieve the value of a static field of a given class.
- * The following attributes are required:<br />
+ * <p>
+ * The following attributes are required:
+ * </p>
  * <ul>
  *   <li>var - The variable to which to assign the resulting value.</li>
  *   <li>field - The name of the static field to retrieve.</li>
@@ -68,7 +70,7 @@ public class GetStaticTag extends TagSupport {
     /**
      * Sets the name of the field to retrieve.
      *
-     * @param method The method name
+     * @param field The method name
      */
 
     public void setField(String field) {
