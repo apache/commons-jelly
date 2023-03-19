@@ -23,7 +23,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 
 
 /**
- * A http put
+ * An HTTP PUT.
  *
  * @author  dion
  * @version $Id$
@@ -41,7 +41,7 @@ public class PutTag extends HttpTagSupport {
      * Return a {@link HttpMethod method} to be used for put'ing
      *
      * @return a HttpMethod implementation
-     * @throws MalformedURLException when the {@link getUrl() url} or
+     * @throws MalformedURLException when the {@link #getUri() URI} or
      * {@link #getPath() path} is invalid
      */
     protected HttpMethod getHttpMethod() throws MalformedURLException {
