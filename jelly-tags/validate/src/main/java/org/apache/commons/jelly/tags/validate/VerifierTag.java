@@ -119,8 +119,9 @@ public class VerifierTag extends TagSupport {
 
     /**
      * Sets the name of the variable that will be set to the new Verifier
-     *
-     * @jelly:required
+     * <p>
+     * jelly:required
+     * </p>
      */
     public void setVar(String var) {
         this.var = var;
@@ -129,8 +130,9 @@ public class VerifierTag extends TagSupport {
     /**
      * Sets the URI of the schema file to parse. If no URI and no file is
      * specified then the body of this tag is used as the source of the schema
-     *
-     * @jelly:optional
+     * <p>
+     * jelly:optional
+     * </p>
      */
     public void setUri(String uri) {
         this.uri = uri;
@@ -139,8 +141,9 @@ public class VerifierTag extends TagSupport {
     /**
      * Sets the {@link File} of the schema to parse. If no URI and no file is
      * specified then the body of this tag is used as the source of the schema
-     *
-     * @jelly:optional
+     * <p>
+     * jelly:optional
+     * </p>
      */
     public void setFile(File aFile) {
         file = aFile;
@@ -148,8 +151,9 @@ public class VerifierTag extends TagSupport {
 
     /**
      * Sets the system ID used when parsing the schema
-     *
-     * @jelly:optional
+     * <p>
+     * jelly:optional
+     * </p>
      */
     public void setSystemId(String systemId) {
         this.systemId = systemId;
@@ -158,8 +162,9 @@ public class VerifierTag extends TagSupport {
     /**
      * Sets the factory used to create new schema verifier objects.
      * If none is provided then the default MSV factory is used.
-     *
-     * @jelly:optional
+     * <p>
+     * jelly:optional
+     * </p>
      */
     public void setFactory(VerifierFactory factory) {
         this.factory = factory;
