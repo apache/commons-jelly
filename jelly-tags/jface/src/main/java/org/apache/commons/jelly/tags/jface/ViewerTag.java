@@ -37,14 +37,14 @@ public class ViewerTag extends WidgetTag {
     private int style = SWT.NULL;
 
     /**
-     * @param widgetClass
+     * @param tagClass
      */
     public ViewerTag(Class tagClass) {
         super(tagClass);
     }
 
     /**
-     * @param widgetClass
+     * @param tagClass
      * @param style
      */
     public ViewerTag(Class tagClass, int style) {
