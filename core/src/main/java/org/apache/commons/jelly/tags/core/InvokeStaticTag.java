@@ -35,7 +35,8 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
   * arguments using the {@link ArgTag}.
   * </p>
   * <p>
-  *  The following attributes are required:<br />
+  * The following attributes are required:
+  * </p>
   * <ul>
   *   <li>var - The variable to assign the return of the method call to</li>
   *   <li>method - The name of the static method to invoke</li>
@@ -85,7 +86,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
     /**
      * Sets the name of the method to invoke
      *
-     * @param method The method name
+     * @param methodName The method name
      */
     public void setMethod(String methodName) {
         this.methodName = methodName;
