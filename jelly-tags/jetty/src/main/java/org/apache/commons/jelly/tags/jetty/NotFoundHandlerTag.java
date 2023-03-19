@@ -39,7 +39,7 @@ public class NotFoundHandlerTag extends TagSupport {
      * to the parent context, setting the allowed methods if required
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
