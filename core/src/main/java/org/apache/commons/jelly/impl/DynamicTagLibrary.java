@@ -107,10 +107,10 @@ public class DynamicTagLibrary extends TagLibrary {
 
     /**
      * Returns the tag library instance which contains the named tag.
-     * <p/>
+     * <p>
      * If the tag is not registered within this library, the set of
      * parent libraries will be searched.
-     *
+     * </p>
      * @param name The tag name
      * @return The tag library containing the named tag, or <code>null</code>
      *         if the tag is not registered.
