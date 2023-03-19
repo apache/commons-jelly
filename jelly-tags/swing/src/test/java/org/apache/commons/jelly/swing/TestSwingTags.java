@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -32,12 +33,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.test.BaseJellyTest;
+
+import junit.framework.TestSuite;
 
 /** Tests many swing tags for basic functionality.
  * @author Hans Gilde
@@ -53,7 +54,8 @@ public class TestSwingTags extends BaseJellyTest {
     }
 
     public static TestSuite suite() throws Exception {
-        return new TestSuite(TestSwingTags.class);
+        // TODO Replace with JUnit 4/5 assumption
+        return GraphicsEnvironment.isHeadless() ? new TestSuite() : new TestSuite(TestSwingTags.class);
     }
 
     /** Tests some basic Swing tag functions like creating components
