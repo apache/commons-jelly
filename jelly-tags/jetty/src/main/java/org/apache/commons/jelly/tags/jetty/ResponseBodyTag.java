@@ -38,7 +38,7 @@ public class ResponseBodyTag extends TagSupport {
      * http response found in the jelly context
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
