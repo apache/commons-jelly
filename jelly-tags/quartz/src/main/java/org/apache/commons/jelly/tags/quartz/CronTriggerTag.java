@@ -164,7 +164,8 @@ public class CronTriggerTag extends QuartzTagSupport
      *
      *  @param output Output sink.
      *
-     *  @throws Exception If an error occurs.
+     *  @throws MissingAttributeException If an error occurs.
+     *  @throws JellyTagException If an error occurs.
      */
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException
     {
