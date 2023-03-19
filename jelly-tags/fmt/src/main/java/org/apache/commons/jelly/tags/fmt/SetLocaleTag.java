@@ -30,7 +30,7 @@ import java.util.Locale;
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.2
  *
- * @task decide how to implement setResponseLocale
+ * task decide how to implement setResponseLocale
  */
 public class SetLocaleTag extends TagSupport {
 
