@@ -915,7 +915,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     private final class NamespaceStack {
-        /** A list of maps: Each map contains prefix->uri mapping */
+        /** A list of maps: Each map contains prefix to uri mapping */
         private List nsStack;
 
         private NamespaceStack() {
