@@ -95,7 +95,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * {@link HttpMethod url method} implementation
      *
      * @return a HttpUrlMethod implementation
-     * @throws MalformedURLException when the {@link getUrl() url} or
+     * @throws MalformedURLException when the {@link #getUri() uri} or
      * {@link #getPath() path} is invalid
      */
     protected abstract HttpMethod getHttpMethod()
@@ -170,11 +170,10 @@ public abstract class HttpTagSupport extends TagSupport {
     /**
      * Set the current parameters on the url method ready for processing
      *
-     * @param method the {@link HttpUrlMethod method} to configure
-     * @throws MalformedURLException when {@link #getHttpUrlMethod()} does
+     * @param method the {@link HttpMethod method} to configure
+     * @throws MalformedURLException Never thrown here but can be from a subclass.
      */
-    protected void setParameters(HttpMethod method) throws
-    MalformedURLException {
+    protected void setParameters(HttpMethod method) throws MalformedURLException {
         if (getParameters().size() > 0) {
             NameValuePair[] parameters = (NameValuePair[]) getParameters().
                 toArray(new NameValuePair[0]);
