@@ -23,10 +23,10 @@ import org.apache.commons.jelly.TagLibrary;
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.2
  *
- * @task implement &lt;fmt:formatNumber&gt;
- * @task implement &lt;fmt:parseNumber&gt;
- * @task implement &lt;fmt:parseDate&gt;
- * @task decide how to support &lt;fmt:requestEncoding&gt;
+ * task implement &lt;fmt:formatNumber&gt;
+ * task implement &lt;fmt:parseNumber&gt;
+ * task implement &lt;fmt:parseDate&gt;
+ * task decide how to support &lt;fmt:requestEncoding&gt;
  */
 public class FmtTagLibrary extends TagLibrary {
 
