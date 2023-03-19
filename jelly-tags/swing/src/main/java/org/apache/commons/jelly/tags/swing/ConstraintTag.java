@@ -16,6 +16,8 @@
 */
 package org.apache.commons.jelly.tags.swing;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -33,9 +35,11 @@ import org.xml.sax.Attributes;
     *    In essence, it looks really like nothing else than a bean-class...
     *    with {@link #getConstraintObject}.
     *    Probably a shorter java-source is do-able.
+    *    </p>
     *    <p>
     *    TODO: this class should probably be extended with special treatment for dimensions
     *    using the converter package.
+    *    </p>
     */
 public class ConstraintTag extends DynaBeanTagSupport {
 
