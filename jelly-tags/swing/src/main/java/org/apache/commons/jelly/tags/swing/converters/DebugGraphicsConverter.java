@@ -49,7 +49,7 @@ public class DebugGraphicsConverter implements Converter {
     
     /** This is not part of the converter interface, it's for use by
      * classes that don't use DebugGraphicsConverter through BeanUtils.
-     * @param from
+     * @param value
      * @return
      */
     public Object convert(Object value) {
