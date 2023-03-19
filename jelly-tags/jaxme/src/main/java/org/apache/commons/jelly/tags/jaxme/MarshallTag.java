@@ -38,7 +38,6 @@ import org.xml.sax.SAXException;
  * tags.</p>
  *
  * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
- * @author <a href="mailto:dev at commons.apache.org">Apache Commons Development Team</a>
  * @version $Revision$
  */
 public class MarshallTag extends TagSupport {
