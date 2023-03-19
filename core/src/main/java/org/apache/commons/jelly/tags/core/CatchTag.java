@@ -164,7 +164,7 @@ public class CatchTag extends TagSupport {
 		return exceptions;
 	}
 	/**
-	 * @param exceptions The exceptions to set. Must be separated by ";"
+	 * @param exceptionList The exceptions to set. Must be separated by ";"
 	 */
 	public void setExceptions(String exceptionList) {
 		this.exceptions = exceptionList;
