@@ -49,7 +49,7 @@ public class SocketListenerTag extends TagSupport {
      * for the specified host and port to the parent server,
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
