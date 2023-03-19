@@ -178,8 +178,9 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     /**
      * Sets the properties on the bean. Derived tags could implement some custom
      * type conversion etc.
-     * <p/>
+     * <p>
      * This method ignores all property names in the Set returned by {@link #getIgnorePropertySet()}.
+     * </p>
      */
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         Map attrsToUse = new HashMap(attributes);
@@ -198,7 +199,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
 
     /**
      * If {@link #isIgnoreUnknownProperties()} returns true, make sure that
-     * every non-ignored ({@see #addIgnoreProperty(String)}) property
+     * every non-ignored ({@link #addIgnoreProperty(String)}) property
      * matches a writable property on the target bean.
      * @param bean the bean to validate
      * @param attributes the list of properties to validate
@@ -262,7 +263,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     }
 
     /**
-     * @see {@link #setIgnoreUnknownProperties(boolean)}
+     * @see #setIgnoreUnknownProperties(boolean)
      * @return
      */
     public boolean isIgnoreUnknownProperties() {
@@ -275,7 +276,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * bean property, should it throw an exception?
      * @param ignoreUnknownProperties Sets {@link #ignoreUnknownProperties}.
      */
-    public void setIgnoreUnknownProperties(boolean ignoreUnknownProps) {
-        this.ignoreUnknownProperties = ignoreUnknownProps;
+    public void setIgnoreUnknownProperties(boolean ignoreUnknownProperties) {
+        this.ignoreUnknownProperties = ignoreUnknownProperties;
     }
 }
