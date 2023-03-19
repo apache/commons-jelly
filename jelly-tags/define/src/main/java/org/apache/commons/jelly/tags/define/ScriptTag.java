@@ -22,8 +22,11 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * &lt;script&gt; tag is used to assign a Script object
- * to a variable. The script can then be called whenever the user wishes
- * maybe from inside an expression or more typically via the &lt;invoke&gt; tag.</p>
+ * to a variable.
+ * <p> 
+ * The script can then be called whenever the user wishes
+ * maybe from inside an expression or more typically via the &lt;invoke&gt; tag.
+ * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
