@@ -51,7 +51,7 @@ public class WhileTag extends TagSupport {
      * Tag interface
      * @param output destination for xml output
      * @throws MissingAttributeException when the test attribute is missing
-     * @throws Exception for anything else
+     * @throws RuntimeException for anything else
      */
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (test != null) {
