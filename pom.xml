@@ -335,7 +335,7 @@
     </notifiers>
   </ciManagement>
   <build>
-	<defaultGoal>clean verify</defaultGoal>
+	<defaultGoal>clean verify javadoc:javadoc</defaultGoal>
 	<pluginManagement>
       <plugins>
         <plugin>
