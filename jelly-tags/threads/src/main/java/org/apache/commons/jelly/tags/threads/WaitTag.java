@@ -27,7 +27,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 
 public class WaitTag extends UseMutexTag {
-    /** How long should the wait last. If <=0 it lasts until a notify. */
+    /** How long should the wait last. If &lt;=0 it lasts until a notify. */
     private long timeout = -1;
 
     /** Start waiting */
