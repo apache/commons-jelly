@@ -63,14 +63,14 @@ public class TitledBorderTag extends BorderTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the color of the title for this border. Can be set via a nested <color> tag.
+     * Sets the color of the title for this border. Can be set via a nested {@code <color>} tag.
      */
     public void setColor(Color color) {
         this.color = color;
     }
 
     /**
-     * Sets the Font to be used by the title. Can be set via a nested <font> tag.
+     * Sets the Font to be used by the title. Can be set via a nested {@code <font>} tag.
      */
     public void setFont(Font font) {
         this.font = font;
