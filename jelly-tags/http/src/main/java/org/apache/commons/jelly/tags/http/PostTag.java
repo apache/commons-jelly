@@ -38,10 +38,10 @@ public class PostTag extends HttpTagSupport {
     }
 
     /**
-     * Return a {@link HttpUrlMethod method} to be used for post'ing
+     * Return a {@link HttpMethod method} to be used for post'ing
      *
      * @return a HttpUrlMethod implementation
-     * @throws MalformedURLException when the {@link getUrl() url} or
+     * @throws MalformedURLException when the {@link #getUri() URI} or
      * {@link #getPath() path} is invalid
      */
     protected HttpMethod getHttpMethod() throws MalformedURLException {
@@ -52,10 +52,10 @@ public class PostTag extends HttpTagSupport {
     }
 
     /**
-     * Set the current parameters on the url method ready for processing
+     * Set the current parameters on the URL method ready for processing
      *
      * This method <strong>must</strong> be called after
-     *  {@link getHttpUrlMethod}
+     *  {@link #getHttpMethod()}
      */
     protected void setParameters(HttpMethod method) {
         NameValuePair nvp = null;
