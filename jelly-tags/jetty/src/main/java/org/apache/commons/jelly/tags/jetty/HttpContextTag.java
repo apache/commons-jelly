@@ -176,9 +176,9 @@ public class HttpContextTag extends TagSupport {
     }
 
     /**
-     * Setter for property context path.
+     * Setter for realm name.
      *
-     * @param path New resourceBase of property context path.
+     * @param realmName New realm name.
      */
     public void setRealmName(String realmName) {
         _realmName = realmName;
