@@ -28,8 +28,10 @@ import org.apache.commons.logging.LogFactory;
 /**
  * This tag is bound onto a Java Bean class. When the tag is invoked a bean will be created
  * using the tags attributes.
+ * <p>
  * The bean may also have an invoke method called invoke(), run(), execute() or some such method
- * which will be invoked after the bean has been configured.</p>
+ * which will be invoked after the bean has been configured.
+ * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @author <a href="mailto:jason@zenplex.com">Jason van Zyl</a>
