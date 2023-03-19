@@ -176,11 +176,11 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 	private XMLOutput currentOutput = null;
 	
 	/** Puts this tag into the context under the given name
-	 * allowing later calls to {@link #rerun()}.
+	 * allowing later calls to rerun().
 	 * For example, it makes sense to use ${myTag.rerun()} as a child
 	 * of an <code>action</code> element.
 	 *
-	 * @param the name to be used
+	 * @param name name to be used
 	 */
 	public void setTagName(String name) {
 		this.tagName = name;
