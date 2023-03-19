@@ -45,7 +45,7 @@ public class WaitTag extends UseMutexTag {
     }
 
     /**
-     * Set how long the wait should last. If <= 0 the wait will last
+     * Set how long the wait should last. If &lt;= 0 the wait will last
      * until a notify occurs.
      * @param timeout in millis
      */
