@@ -59,14 +59,14 @@ public class JellyServiceImpl implements JellyService, Configurable {
     }
 
     /**
-     * @see org.apache.commons.jelly.avalon.JellyService.runNamedScript(String, Map)
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map)
      */
     public Map runNamedScript( String name, Map params ) throws Exception {
         return runNamedScript(name, params, createXMLOutput());
     }
 
     /**
-     * @see org.apache.commons.jelly.avalon.JellyService.runNamedScript(String, Map, XMLOutput)
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, XMLOutput)
      */
     public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception {
         if( !m_scripts.containsKey( name ) )
@@ -82,7 +82,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
     }
 
      /**
-     * @see org.apache.commons.jelly.avalon.JellyService.runNamedScript(String, Map, OutputStream)
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, OutputStream)
      */
     public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception {
         XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
@@ -92,7 +92,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
     }
 
      /**
-     * @see org.apache.commons.jelly.avalon.JellyService.runScript(String, Map, XMLOutput)
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, XMLOutput)
      */
     public Map runScript( String url, Map params, XMLOutput output ) throws Exception {
         URL actualUrl = null;
@@ -114,7 +114,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
     }
 
      /**
-     * @see org.apache.commons.jelly.avalon.JellyService.runScript(String, Map, OutputStream)
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, OutputStream)
      */
     public Map runScript( String url, Map params, OutputStream out ) throws Exception {
         XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
@@ -124,7 +124,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
     }
 
      /**
-     * @see org.apache.commons.jelly.avalon.JellyService.runScript(String, Map)
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map)
      */
     public Map runScript( String url, Map params ) throws Exception {
         return runScript(url, params, createXMLOutput());
@@ -141,14 +141,14 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * <p>
      * The configuration looks like:
      * </p>
-     * <p>
-     * &lt;jelly&gt;<br />
-     * &nbsp;&nbsp;&lt;script&gt;<br />
-     * &nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;script name&lt;/name&gt;<br />
-     * &nbsp;&nbsp;&nbsp;&nbsp;&lt;url validate="false"&gt;url to script file&lt;/url&gt;<br />
-     * &nbsp;&nbsp;&lt;/script&gt;<br />
-     * &lt;/jelly&gt;<br />
-     * </p>
+     * <pre>
+     * &lt;jelly&gt;
+     * &nbsp;&nbsp;&lt;script&gt;
+     * &nbsp;&nbsp;&nbsp;&nbsp;&lt;name&gt;script name&lt;/name&gt;
+     * &nbsp;&nbsp;&nbsp;&nbsp;&lt;url validate="false"&gt;url to script file&lt;/url&gt;
+     * &nbsp;&nbsp;&lt;/script&gt;
+     * &lt;/jelly&gt;
+     * </pre>
      * <p>
      *   Where each &lt;script&gt; element defines a separate script. The validate attribute
      *   on the url tag is optional and defaults to false.
