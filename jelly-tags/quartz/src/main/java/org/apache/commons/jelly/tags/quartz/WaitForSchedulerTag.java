@@ -53,7 +53,7 @@ public class WaitForSchedulerTag extends QuartzTagSupport
      *
      *  @param output Output sink.
      *
-     *  @throws Exception If an error occurs.
+     *  @throws JellyTagException If an error occurs.
      */
     public void doTag(XMLOutput output) throws JellyTagException
     {
