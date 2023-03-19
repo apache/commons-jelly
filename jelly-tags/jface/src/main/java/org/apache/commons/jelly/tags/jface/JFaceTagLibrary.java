@@ -123,7 +123,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
      * Register a widget tag for the given name
      *
      * @param name
-     * @param widgetClass
+     * @param theClass
      * @param style
      */
     protected void registerViewerTag(String name, final Class theClass, final int style) {
@@ -141,8 +141,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
      * Register a widget tag for the given name
      *
      * @param name
-     * @param widgetClass
-     * @param style
+     * @param theClass
      */
     protected void registerWindowTag(String name, final Class theClass) {
         registerTagFactory(name, new TagFactory() {
