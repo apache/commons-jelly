@@ -39,7 +39,7 @@ abstract public class AbstractMethodHandlerTag extends TagSupport {
      * processing an http request
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         JellyResourceHandlerTag parentTag =
