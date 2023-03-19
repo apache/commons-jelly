@@ -61,8 +61,8 @@ public class SecurityHandlerTag extends TagSupport {
      * to the parent context, setting the authentication method if required
      * The security constraints should be specified as the body of this tag
      * using the same format as a web.xml file wrapped in a single
-     * <constraints> tag to allow parsing of a well-formed snippet, e.g.
-     *
+     * {@code <constraints>} tag to allow parsing of a well-formed snippet, e.g.
+     * <pre>{@code
      * <constraints>
      *   <security-constraint>
      *    <web-resource-collection>
@@ -89,9 +89,9 @@ public class SecurityHandlerTag extends TagSupport {
      *   </login-config>
      *
      * </constraints>
-     *
+     * }</pre>
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
