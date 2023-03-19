@@ -34,13 +34,13 @@ public class ResultSupport {
     /**
      * Returns an array of Row objects.
      *
-     * @param ResultSet the ResultSet object
+     * @param resultSet the ResultSet object
      *
      * @return the <code>Result</code> object of the result
      */
-    public static Result toResult(ResultSet rs) {
+    public static Result toResult(ResultSet resultSet) {
         try {
-            return new ResultImpl(rs, -1, -1);
+            return new ResultImpl(resultSet, -1, -1);
         } catch (SQLException ex) {
             return null;
         }
@@ -49,14 +49,14 @@ public class ResultSupport {
     /**
      * Returns the Result object of the cached ResultSet limited by maxRows
      *
-     * @param ResultSet the ResultSet object
+     * @param resultSet the ResultSet object
      * @param maxRows the maximum number of rows
      *
      * @return the <code>Result</code> object of the result limited by maxRows
      */
-    public static Result toResult(ResultSet rs, int maxRows) {
+    public static Result toResult(ResultSet resultSet, int maxRows) {
         try {
-            return new ResultImpl(rs, -1, maxRows);
+            return new ResultImpl(resultSet, -1, maxRows);
         } catch (SQLException ex) {
             return null;
         }
