@@ -41,7 +41,7 @@ public class ParameterTag extends TagSupport {
      * Perform the tag functionality. In this case, simply evaluate the body.
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         HttpTagSupport http = (HttpTagSupport) findAncestorWithClass(
