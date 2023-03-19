@@ -62,7 +62,7 @@ public class HttpContextTag extends TagSupport {
      * and resource base before adding the context to the parent server
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
@@ -100,10 +100,10 @@ public class HttpContextTag extends TagSupport {
     /**
      * Add an http handler to the context instance
      *
-     * @param handler the handler to add
+     * @param httpHandler the handler to add
      */
-    public void addHandler(HttpHandler httHandler) {
-        _context.addHandler(httHandler);
+    public void addHandler(HttpHandler httpHandler) {
+        _context.addHandler(httpHandler);
     }
 
     /**
@@ -142,7 +142,7 @@ public class HttpContextTag extends TagSupport {
     /**
      * Setter for property context path.
      *
-     * @param path New resourceBase of property context path.
+     * @param contextPath New resourceBase of property context path.
      */
     public void setContextPath(String contextPath) {
         _contextPath = contextPath;
