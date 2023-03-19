@@ -50,7 +50,7 @@ public class TableLayoutTag extends LayoutTagSupport {
     }
 
     /**
-     * Creates a new row index for child <tr> tags
+     * Creates a new row index for child {@code <tr>} tags
      */
     public int nextRowIndex() {
         return rowCount++;
