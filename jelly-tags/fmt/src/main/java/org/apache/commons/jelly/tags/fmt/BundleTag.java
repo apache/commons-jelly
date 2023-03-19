@@ -33,7 +33,7 @@ import java.util.MissingResourceException;
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  *
- * @todo decide how to implement setResponseLocale
+ * TODO decide how to implement setResponseLocale
  */
 public class BundleTag extends TagSupport {
 
