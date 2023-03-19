@@ -114,8 +114,6 @@ public class CronTriggerTag extends QuartzTagSupport
     }
 
     /** Retrieve the cron time spec.
-     *
-     *  @param spec The cron time spec.
      */
     public String getSpec()
     {
