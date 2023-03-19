@@ -24,7 +24,7 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
 /**
  * The &lt;taglib&gt; tag is used to define a new tag library
  * using a Jelly script. The tag library is identified by its
- * {@link #getURI() URI}.
+ * {@link #getUri() URI}.
  *
  * The tags for a taglib are declared using the {@link TagTag}.
  *
