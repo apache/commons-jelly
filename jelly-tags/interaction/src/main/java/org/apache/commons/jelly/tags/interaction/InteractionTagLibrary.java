@@ -20,7 +20,7 @@ import org.apache.commons.jelly.TagLibrary;
 
 /**
   * A TagLibrary to interact with the user.
-  * @author <a href="mailto:smor@hasgard.net">Stéphane MOR</a>
+  * @author <a href="mailto:smor@hasgard.net">St?phane MOR</a>
   */
 public class InteractionTagLibrary extends TagLibrary {
 
