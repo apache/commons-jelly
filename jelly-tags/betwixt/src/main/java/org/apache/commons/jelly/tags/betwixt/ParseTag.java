@@ -36,8 +36,11 @@ import org.xml.sax.SAXException;
 
 /**
  * Parses some XML specified via the given URI (which can be relative or an absolute URL) and outputs the
- * parsed object. Typically this tag is customized by setting the introspector attribute or nesting a child
- * introspector tag inside it.</p>
+ * parsed object.
+ * <p> 
+ * Typically this tag is customized by setting the introspector attribute or nesting a child
+ * introspector tag inside it.
+ * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
