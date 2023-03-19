@@ -28,9 +28,10 @@ import org.apache.commons.jelly.impl.CollectionTag;
 /**
  * A tag which creates a List implementation and optionally
  * adds all of the elements identified by the items attribute.
+ * <p>
  * The exact implementation of List can be specified via the
  * class attribute
- * </pre>
+ * </p>
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version $Revision$
