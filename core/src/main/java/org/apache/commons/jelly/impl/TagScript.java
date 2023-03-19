@@ -69,7 +69,7 @@ public class TagScript implements Script {
     /** The attribute expressions that are created */
     protected Map attributes = new Hashtable();
 
-    /** the optional namespaces Map of prefix -> URI of this single Tag */
+    /** the optional namespaces Map of prefix to URI of this single Tag */
     private Map tagNamespacesMap;
 
     /**
