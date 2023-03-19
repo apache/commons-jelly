@@ -55,7 +55,7 @@ public class PartTag extends TagSupport {
      * in the &lt;mppost&gt; tag above me
      *
      * @param xmlOutput where to send output
-     * @throws Exception when an error occurs
+     * @throws JellyTagException when an error occurs
      */
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         MultipartPostTag http = (MultipartPostTag) findAncestorWithClass(MultipartPostTag.class);
@@ -115,7 +115,7 @@ public class PartTag extends TagSupport {
     /**
      * Setter for property contentType.
      *
-     * @param value New value of contentType.
+     * @param contentType New value of contentType.
      */
     public void setContentType(String contentType) {
         _contentType = contentType;
