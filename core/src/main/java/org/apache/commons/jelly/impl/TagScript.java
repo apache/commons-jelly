@@ -73,7 +73,7 @@ public class TagScript implements Script {
     private Map tagNamespacesMap;
 
     /**
-     * The optional namespace context mapping all prefixes -> URIs in scope
+     * The optional namespace context mapping all prefixes to URIs in scope
      * at the point this tag is used.
      * This Map is only created lazily if it is required by the NamespaceAwareTag.
      */
