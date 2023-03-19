@@ -147,7 +147,7 @@ public class TagScript implements Script {
     }
 
     /**
-     * Sets the optional namespaces prefix -> URI map of
+     * Sets the optional namespaces prefix to URI map of
      * the namespaces attached to this Tag
      */
     public void setTagNamespacesMap(Map tagNamespacesMap) {
