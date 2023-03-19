@@ -116,7 +116,7 @@ public class ValidateTag extends TagSupport {
     /**
      * Sets the schema Verifier that this tag will use to verify its body
      * <p>
-     * required
+     * jelly:required
      * </p>
      */
     public void setVerifier(Verifier verifier) {
@@ -139,7 +139,9 @@ public class ValidateTag extends TagSupport {
      * If no ErrorHandler is specified then this tag will just output the
      * error messages as XML events
      *
-     * @jelly:optional
+     * <p>
+     * jelly:optional
+     * </p>
      */
     public void setErrorHandler(ErrorHandler errorHandler) {
         this.errorHandler = errorHandler;
@@ -149,7 +151,9 @@ public class ValidateTag extends TagSupport {
      * Sets the name of the variable that will contain a boolean flag for whether or
      * not the XML is valid.
      *
-     * @jelly:optional
+     * <p>
+     * jelly:optional
+     * </p>
      */
     public void setVar(String var) {
         this.var = var;
