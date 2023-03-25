@@ -66,4 +66,17 @@
 
     <!-- END for testing -->
   </dependencies>
+  <build>
+	<plugins>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>src/test/resources/org/apache/commons/jelly/ant/sample.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

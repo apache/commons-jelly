@@ -67,4 +67,19 @@
 
     <!-- END for testing -->
   </dependencies>
+  <build>
+	<plugins>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>src/test/resources/org/apache/commons/jelly/jetty/docRoot/contextTest/contextTest.txt</exclude>
+            <exclude>src/test/resources/org/apache/commons/jelly/jetty/docRoot/resourceHandlerTest/resourceHandlerTest.txt</exclude>
+            <exclude>src/test/resources/org/apache/commons/jelly/jetty/docRoot/test1.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

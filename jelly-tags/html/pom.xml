@@ -81,4 +81,17 @@
 
     <!-- END for testing -->
   </dependencies>
+  <build>
+	<plugins>
+      <plugin>
+        <groupId>org.apache.rat</groupId>
+        <artifactId>apache-rat-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>src/test/resources/org/apache/commons/jelly/html/textScript.txt</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
