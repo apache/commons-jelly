@@ -34,7 +34,6 @@ import java.util.SortedMap;
  * </ul>
  *
  * @author Justyna Horwat
- *
  */
 public interface Result {
 

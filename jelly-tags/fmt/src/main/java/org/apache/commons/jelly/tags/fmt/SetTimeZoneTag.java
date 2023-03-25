@@ -27,7 +27,6 @@ import java.util.TimeZone;
  * Support for tag handlers for &lt;setTimeZone&gt;, the time zone setting
  * tag in JSTL.
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- *
  */
 public class SetTimeZoneTag extends TagSupport {
 

@@ -40,7 +40,6 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
  * &lt;j:getStatic var="closeOperation" className="javax.swing.JFrame"
  *              field="EXIT_ON_CLOSE"/&gt;
  * </pre>
- *
  */
 
 public class GetStaticTag extends TagSupport {

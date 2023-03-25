@@ -23,7 +23,6 @@ import org.apache.commons.jelly.TagLibrary;
  * using the <a href='http://ws.apache.org/jaxme'>Apache JaxMe</a> implementation.
  * The marshalling and unmarshalling tags should work with any JAXB implementation.
  * The generation tag is JaxMe specific.
- *
  */
 public class JaxMeTagLibrary extends TagLibrary {
         

@@ -26,7 +26,6 @@ import java.sql.SQLException;
  *
  *
  * @author Justyna Horwat
- *
  */
 public class ResultSupport {
 

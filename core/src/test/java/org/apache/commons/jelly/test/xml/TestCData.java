@@ -30,7 +30,6 @@ import org.xml.sax.SAXException;
 
 /**
  * @author mdelagrange
- *
  */
 public class TestCData extends TestCase {
 

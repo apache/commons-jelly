@@ -28,7 +28,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * This Tag creates a result set object based on its body content via child row tags.
  * This tag is useful for unit testing with Mock Tags to simulate the results returned by databases.
- *
  */
 public class ResultSetTag extends TagSupport {
 

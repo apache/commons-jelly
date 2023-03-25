@@ -23,7 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * Adds a new row to a parent &lt;resultSet&gt; Tag.
  * This tag is useful for unit testing with Mock Tags to simulate the results returned by databases.
- *
  */
 public class RowTag extends MapTagSupport {
 

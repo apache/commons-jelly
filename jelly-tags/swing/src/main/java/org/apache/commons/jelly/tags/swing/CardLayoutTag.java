@@ -1,6 +1,5 @@
 /*
  * Created on Nov 6, 2005
- *
  */
 package org.apache.commons.jelly.tags.swing;
 
@@ -12,7 +11,6 @@ import java.awt.LayoutManager;
  * in that context attribute, for later use.
  * 
  * @author Hans Gilde
- *
  */
 public class CardLayoutTag extends LayoutTagSupport {
     private int hgap;

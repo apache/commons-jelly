@@ -23,7 +23,6 @@ import org.apache.commons.jelly.impl.TextScript;
 
 /** Contains static methods to help tag developers.
  * @author Hans Gilde
- *
  */
 public class TagUtils {
     private TagUtils() {

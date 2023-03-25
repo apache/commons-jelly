@@ -24,7 +24,6 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**
  * @author Hans Gilde
- *
  */
 public class TestXMLOutput extends BaseJellyTest {
 

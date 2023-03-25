@@ -28,7 +28,6 @@ import org.eclipse.swt.widgets.Widget;
  * This tag creates an SWT dialog.
  *
  * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
- *
  */
 public class DialogTag extends WidgetTag {
 

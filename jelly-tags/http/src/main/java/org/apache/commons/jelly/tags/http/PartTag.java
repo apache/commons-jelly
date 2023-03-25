@@ -24,7 +24,6 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 
 /**
  * A tag to hold a part of a multiPartPost
- *
  */
 public class PartTag extends TagSupport {
     /** parameter name */
