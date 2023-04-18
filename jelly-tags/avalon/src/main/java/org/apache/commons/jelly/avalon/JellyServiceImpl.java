@@ -98,7 +98,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
         try {
            actualUrl = new URL( url );
         }
-        catch( MalformedURLException x ) {
+        catch ( MalformedURLException x ) {
             throw new JellyException( "Could not find script at URL [" + url + "]: " +
                                         x.getMessage(), x );
         }
@@ -181,7 +181,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
                     try {
                         url = new URL( scriptName );
                     }
-                    catch( MalformedURLException mfue ) {
+                    catch ( MalformedURLException mfue ) {
                       // Last try, via classloader
                       url = getClass().getResource( scriptName );
                     }
@@ -200,7 +200,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
 
                 m_scripts.put( name, script );
             }
-            catch( Throwable t ) {
+            catch ( Throwable t ) {
                 throw new ConfigurationException( "Could not load script [" + name + "]: " + t.getMessage() );
             }
         }

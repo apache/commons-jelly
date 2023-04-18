@@ -52,11 +52,15 @@ public class AntJellyContext extends JellyContext {
             answer = project.getProperty(name);
         }
 
-        if ( log.isDebugEnabled() ) {
+        if (log.isDebugEnabled()) {
             String answerString = null;
-            try { answerString = answer.toString(); } catch(Exception ex) {}
-            if(answerString==null && answer!=null) answerString = " of class " + answer.getClass();
-            log.debug( "Looking up variable: " + name + " answer: " + answerString );
+            try {
+                answerString = answer.toString();
+            } catch (Exception ex) {
+            }
+            if (answerString == null && answer != null)
+                answerString = " of class " + answer.getClass();
+            log.debug("Looking up variable: " + name + " answer: " + answerString);
         }
 
         return answer;

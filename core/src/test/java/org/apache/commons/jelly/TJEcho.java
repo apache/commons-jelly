@@ -36,7 +36,7 @@ public class TJEcho extends TagSupport {
 		String str = "id=" + id + "; attr=" + attr + "; text=" + text + "\n";
 		try {
 			output.characters(str.toCharArray(), 0, str.length());
-		}catch(SAXException e) {
+		}catch (SAXException e) {
 			throw new JellyTagException();
 		}
 	}

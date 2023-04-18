@@ -73,7 +73,7 @@ public class TestGetStaticTag extends BaseJellyTest {
 
         try {
             script.run( getJellyContext(), getXMLOutput() );
-        } catch(JellyTagException jte) {
+        } catch (JellyTagException jte) {
             return;
         }
 

@@ -110,7 +110,7 @@ public class GetStaticTag extends TagSupport {
 
             context.setVariable(var, result);
 
-        } catch(Throwable t) {
+        } catch (Throwable t) {
             throw
                 new JellyTagException("Could not access " + className + "." +
                                       var + ".  Original exception message: " +

@@ -170,7 +170,7 @@ public class ArgTag extends BaseClassLoaderTag {
             } else {
                 try {
                     return converter.convert(klass,value);
-                } catch(ConversionException e) {
+                } catch (ConversionException e) {
                     throw new JellyTagException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")",e);
                 }
             }

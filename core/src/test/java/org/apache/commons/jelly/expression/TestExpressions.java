@@ -72,14 +72,14 @@ public class TestExpressions extends TestCase {
         try {
             assertExpression("${ some junk !< 4}", Boolean.TRUE);
             assertTrue("An illegal expression was allowed", false);
-        }catch(JellyException e) {
+        }catch (JellyException e) {
             // Nothing, the test passed
         }
         context.setVariable("test", new TestHelper());
         try {
             assertExpression("${test.throwAnException()}", Boolean.TRUE);
             assertTrue("An exception was suppressed while processing the JEXL script", false);
-        }catch(IllegalStateException e) {
+        }catch (IllegalStateException e) {
             if (!(e.getCause() instanceof TestException))
                 throw e;
             // Nothing, the test passed

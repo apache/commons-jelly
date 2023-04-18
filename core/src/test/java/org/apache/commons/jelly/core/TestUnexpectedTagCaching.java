@@ -102,7 +102,7 @@ public class TestUnexpectedTagCaching extends TestCase
             {
                 output.write( getStrings().toString() );
             }
-            catch( SAXException e )
+            catch ( SAXException e )
             {
                 throw new JellyTagException( "Unable to write message", e );
             }

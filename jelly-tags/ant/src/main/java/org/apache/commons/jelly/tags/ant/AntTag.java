@@ -565,7 +565,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         String r = null;
         try {
             r = o.toString();
-        } catch(Exception ex) {}
+        } catch (Exception ex) {}
         if(r == null)
             r = "(object of class " + o.getClass() + ")";
         return r;

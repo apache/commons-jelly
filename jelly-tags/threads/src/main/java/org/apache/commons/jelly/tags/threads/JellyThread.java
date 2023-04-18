@@ -70,12 +70,12 @@ public class JellyThread extends Thread {
             // as long as there were no runtime exceptions set SUCCESS
             status.set(RunnableStatus.SUCCESS);
 
-        } catch(RequirementException e) {
+        } catch (RequirementException e) {
 
             status.set(RunnableStatus.AVOIDED);
             log.warn("Thread \"" + getName() + "\" avoided, " + e.getMessage());
 
-        } catch(TimeoutException e) {
+        } catch (TimeoutException e) {
 
             status.set(RunnableStatus.AVOIDED);
             log.warn("Thread \"" + getName() + "\" avoided, " + e.getMessage());

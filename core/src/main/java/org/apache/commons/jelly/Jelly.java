@@ -121,9 +121,12 @@ public class Jelly {
                 w.write((char) r);
             }
             return w.toString();
-        } catch(Exception ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
-            try { in.close(); } catch(Exception e) {}
+            try {
+                in.close();
+            } catch (Exception e) {
+            }
             throw new IllegalStateException("Resource \"" + name + "\" not found.");
         }
     }

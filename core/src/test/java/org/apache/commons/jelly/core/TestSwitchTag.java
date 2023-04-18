@@ -119,7 +119,7 @@ public class TestSwitchTag extends BaseJellyTest {
         try {
             script.run(getJellyContext(),getXMLOutput());
             fail("Expected MissingAttributeException");
-        } catch(MissingAttributeException e) {
+        } catch (MissingAttributeException e) {
             // expected
         }
     }
@@ -131,7 +131,7 @@ public class TestSwitchTag extends BaseJellyTest {
         try {
             script.run(getJellyContext(),getXMLOutput());
             fail("Expected JellyException");
-        } catch(JellyException e) {
+        } catch (JellyException e) {
             // expected
         }
     }
@@ -143,7 +143,7 @@ public class TestSwitchTag extends BaseJellyTest {
         try {
             script.run(getJellyContext(),getXMLOutput());
             fail("Expected JellyException");
-        } catch(JellyException e) {
+        } catch (JellyException e) {
             // expected
         }
     }
@@ -155,7 +155,7 @@ public class TestSwitchTag extends BaseJellyTest {
         try {
             script.run(getJellyContext(),getXMLOutput());
             fail("Expected MissingAttributeException");
-        } catch(MissingAttributeException e) {
+        } catch (MissingAttributeException e) {
             // expected
         }
     }
@@ -167,7 +167,7 @@ public class TestSwitchTag extends BaseJellyTest {
         try {
             script.run(getJellyContext(),getXMLOutput());
             fail("Expected JellyException");
-        } catch(JellyException e) {
+        } catch (JellyException e) {
             // expected
         }
     }
@@ -179,7 +179,7 @@ public class TestSwitchTag extends BaseJellyTest {
         try {
             script.run(getJellyContext(),getXMLOutput());
             fail("Expected JellyException");
-        } catch(JellyException e) {
+        } catch (JellyException e) {
             // expected
         }
     }

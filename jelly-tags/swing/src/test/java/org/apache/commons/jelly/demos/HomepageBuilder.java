@@ -190,7 +190,7 @@ public class HomepageBuilder extends JPanel {
           htmlPane.setEditable(false);
           frame.setContentPane(new JScrollPane(htmlPane));
 
-        } catch(Exception ioe) {
+        } catch (Exception ioe) {
           System.err.println("Error displaying page");
         }
 
