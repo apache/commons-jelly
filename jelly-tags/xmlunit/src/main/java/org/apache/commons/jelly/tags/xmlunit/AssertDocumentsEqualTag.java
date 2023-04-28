@@ -42,8 +42,8 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
     /**
      * Controls whether whitespace differences are reported as differences.
      *
-     * Defaults to <code>false</code>, so if <code>trim</code> is set to
-     * <code>false</code> whitespace differences are detected.
+     * Defaults to {@code false}, so if <code>trim</code> is set to
+     * {@code false} whitespace differences are detected.
      */
     private boolean ignoreWhitespace = false;
 
@@ -109,7 +109,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
 
     /**
      * Controls whether whitespace differences should be interpreted as
-     * differences or not.  The default is <code>false</code>.  Note that the
+     * differences or not.  The default is {@code false}.  Note that the
      * use of the <code>trim</code> attribute is crucial here.
      */
     public void setIgnoreWhitespace(boolean ignoreWhitespace) {

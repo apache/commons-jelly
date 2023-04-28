@@ -113,7 +113,7 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Do we want to use the Context ClassLoader when loading classes
-     * for instantiating new objects?  Default is <code>false</code>.
+     * for instantiating new objects?  Default is {@code false}.
      */
     protected boolean useContextClassLoader = false;
 
