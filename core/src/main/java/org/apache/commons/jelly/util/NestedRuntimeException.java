@@ -17,15 +17,12 @@
 
 package org.apache.commons.jelly.util;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
-
 /**
  * A {@link RuntimeException} which is nested to preserve stack traces.
- *
+ * <p>
  * This class allows the following code to be written to convert a regular
  * Exception into a {@link RuntimeException} without losing the stack trace.
- *
+ * </p>
  * <pre>
  *    try {
  *        ...
@@ -33,8 +30,6 @@ import java.io.PrintWriter;
  *        throw new RuntimeException(e);
  *    }
  * </pre>
- *
- * @author James Strachan
  * @deprecated Use {@link RuntimeException}.
  */
 @Deprecated
