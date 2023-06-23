@@ -49,7 +49,7 @@ The <action> type attribute can be add,update,fix,remove.
     <release version="1.1.0" date="YYYY-MM-DD" description="Java 8 required.">
       <!-- ADD -->
       <!-- FIX -->
-      <action type="fix" due-to="ggregory">Deprecate NestedRuntimeException for RuntimeException.</action>
+      <action type="fix" due-to="ggregory">Throw specialized RuntimeExceptions instead of plain RuntimeExceptions.</action>
       <action type="fix" due-to="ggregory">Deprecate NestedRuntimeException for RuntimeException.</action>
       <!-- UPDATE -->
       <action type="update" due-to="ggregory">Bump Java from 7 to 8.</action>
