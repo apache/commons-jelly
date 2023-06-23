@@ -35,15 +35,10 @@ import java.io.PrintWriter;
  * </pre>
  *
  * @author James Strachan
+ * @deprecated Use {@link RuntimeException}.
  */
-
+@Deprecated
 public class NestedRuntimeException extends RuntimeException {
-
-    /**
-     * Holds the reference to the exception or error that caused
-     * this exception to be thrown.
-     */
-    private Throwable cause = null;
 
     /**
      * Constructs a new <code>NestedRuntimeException</code> with specified
@@ -53,8 +48,7 @@ public class NestedRuntimeException extends RuntimeException {
      * thrown
      */
     public NestedRuntimeException(Throwable cause) {
-        super(cause.getMessage());
-        this.cause = cause;
+        super(cause);
     }
 
     /**
@@ -66,24 +60,7 @@ public class NestedRuntimeException extends RuntimeException {
      * thrown
      */
     public NestedRuntimeException(String msg, Throwable cause) {
-        super(msg);
-        this.cause = cause;
-    }
-
-    public Throwable getCause() {
-        return cause;
-    }
-
-    public void printStackTrace() {
-        cause.printStackTrace();
-    }
-
-    public void printStackTrace(PrintStream out) {
-        cause.printStackTrace(out);
-    }
-
-    public void printStackTrace(PrintWriter out) {
-        cause.printStackTrace(out);
+        super(msg, cause);
     }
 
 }
