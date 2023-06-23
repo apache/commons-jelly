@@ -101,7 +101,7 @@ public class JellyThread extends Thread {
      */
     public void waitUntilDone(long howLong) throws TimeoutException {
         if (Thread.currentThread() == this) {
-            throw new RuntimeException("This method should be called from a different thread than itself");
+            throw new IllegalStateException("This method should be called from a different thread than itself");
         }
 
         // wait until the calling thread can acquire the lock

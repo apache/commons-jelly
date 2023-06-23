@@ -20,6 +20,7 @@ package org.apache.commons.jelly.tags.soap;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.io.UncheckedIOException;
 
 /**
  * Wraps a String as an InputStream. Note that data will be lost for
@@ -82,7 +83,7 @@ public class StringInputStream
         }
         catch ( IOException ioe )
         {
-            throw new RuntimeException( ioe.getMessage() );
+            throw new UncheckedIOException( ioe.getMessage(), ioe );
         }
     }
 
