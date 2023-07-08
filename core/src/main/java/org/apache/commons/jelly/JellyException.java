@@ -65,7 +65,7 @@ public class JellyException extends Exception implements LocationAware {
     }
     
     public JellyException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
-        super( (reason==null?cause.getClass().getName():reason) );
+        super( (reason == null ? cause.getClass().getName() : reason) );
         this.cause = cause;
         this.fileName = fileName;
         this.elementName = elementName;
