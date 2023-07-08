@@ -143,7 +143,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
         }
         catch (InvocationTargetException e) {
             if(null != exceptionVar) {
-                context.setVariable(exceptionVar,e.getTargetException());
+                context.setVariable(exceptionVar, e.getTargetException());
             } else {
                 throw new JellyTagException("method " + methodName +
                     " threw exception: "+ e.getTargetException().getMessage(),

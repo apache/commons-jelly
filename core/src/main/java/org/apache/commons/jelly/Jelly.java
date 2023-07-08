@@ -137,18 +137,18 @@ public class Jelly {
      * Compiles the script
      */
     public Script compileScript() throws JellyException {
-        if (! loadedProperties) {
+        if (!loadedProperties) {
             loadedProperties = true;
             loadJellyProperties();
         }
-        
+
         XMLParser parser = new XMLParser();
         try {
             parser.setContext(getJellyContext());
         } catch (MalformedURLException e) {
             throw new JellyException(e.toString());
         }
-        
+
         Script script = null;
         try {
             parser.setDefaultNamespaceURI(this.defaultNamespaceURI);
@@ -156,14 +156,14 @@ public class Jelly {
             script = parser.parse(getUrl());
             script = script.compile();
             if (log.isDebugEnabled()) {
-               log.debug("Compiled script: " + getUrl());
+                log.debug("Compiled script: " + getUrl());
             }
         } catch (IOException e) {
-            throw new JellyException("could not parse Jelly script",e);
+            throw new JellyException("could not parse Jelly script", e);
         } catch (SAXException e) {
-            throw new JellyException("could not parse Jelly script",e);
+            throw new JellyException("could not parse Jelly script", e);
         }
-        
+
         return script;
     }
 

@@ -184,9 +184,9 @@ public class JellyContext {
      * making the System Properties available as <code>systemScope</code>
      */
     private void init() {
-        variables.put("context",this);
+        variables.put("context", this);
         try {
-            variables.put("systemScope", System.getProperties() );
+            variables.put("systemScope", System.getProperties());
         } catch (SecurityException e) {
             log.debug("security exception accessing system properties", e);
         }

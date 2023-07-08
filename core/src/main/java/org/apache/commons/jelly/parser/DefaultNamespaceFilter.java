@@ -56,9 +56,9 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
     throws SAXException {
 
         if (uri.equals("")) {
-            super.startPrefixMapping(prefix,this.uriDefault);
+            super.startPrefixMapping(prefix, this.uriDefault);
         } else {
-            super.startPrefixMapping(prefix,uri);
+            super.startPrefixMapping(prefix, uri);
         }
     }
 
@@ -75,12 +75,12 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
                              java.lang.String localName,
                              java.lang.String qName,
                              Attributes atts)
-    throws SAXException {
+            throws SAXException {
 
         if (uri.equals("")) {
-            super.startElement(this.uriDefault,localName,qName,atts);
+            super.startElement(this.uriDefault, localName, qName, atts);
         } else {
-            super.startElement(uri,localName,qName,atts);
+            super.startElement(uri, localName, qName, atts);
         }
 
     }
@@ -95,11 +95,11 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
      * @throws SAXException
      */
     public void endElement(String namespaceURI, String localName, String qName)
-    throws SAXException {
+            throws SAXException {
         if (namespaceURI.equals("")) {
-            super.endElement(this.uriDefault,localName,qName);
+            super.endElement(this.uriDefault, localName, qName);
         } else {
-            super.endElement(namespaceURI,localName,qName);
+            super.endElement(namespaceURI, localName, qName);
         }
     }
 }

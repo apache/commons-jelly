@@ -49,17 +49,14 @@ public abstract class BaseJellyTest extends TestCase {
 
     protected void setUpScript(String scriptname) throws Exception {
         URL url = this.getClass().getResource(scriptname);
-        if(null == url) {
-            throw new Exception(
-                "Could not find Jelly script: " + scriptname
-                + " in package of class: " + getClass().getName()
-            );
+        if (null == url) {
+            throw new Exception("Could not find Jelly script: " + scriptname + " in package of class: " + getClass().getName());
         }
         jelly.setUrl(url);
 
         String exturl = url.toExternalForm();
         int lastSlash = exturl.lastIndexOf("/");
-        String extBase = exturl.substring(0,lastSlash+1);
+        String extBase = exturl.substring(0, lastSlash + 1);
         URL baseurl = new URL(extBase);
         context.setCurrentURL(baseurl);
     }

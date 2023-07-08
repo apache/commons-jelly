@@ -190,9 +190,9 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
         try {
             BeanUtils.populate(bean, attrsToUse);
         } catch (IllegalAccessException e) {
-            throw new JellyTagException("could not set the properties of the bean",e);
+            throw new JellyTagException("could not set the properties of the bean", e);
         } catch (InvocationTargetException e) {
-            throw new JellyTagException("could not set the properties of the bean",e);
+            throw new JellyTagException("could not set the properties of the bean", e);
         }
     }
 

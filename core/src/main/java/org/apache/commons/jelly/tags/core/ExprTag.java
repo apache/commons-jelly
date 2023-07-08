@@ -46,7 +46,7 @@ public class ExprTag extends TagSupport {
                     output.write(text);
                 }
                 catch (SAXException e) {
-                    throw new JellyTagException("could not write the XMLOutput",e);
+                    throw new JellyTagException("could not write the XMLOutput", e);
                 }
             }
         }

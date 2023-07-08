@@ -80,8 +80,8 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
                 object = theClass.newInstance();
             } else {
                 Object[] values = paramValues.toArray();
-                Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
-                object = ConstructorUtils.invokeConstructor(theClass,values,types);
+                Class[] types = (Class[]) (paramTypes.toArray(new Class[paramTypes.size()]));
+                object = ConstructorUtils.invokeConstructor(theClass, values, types);
                 paramTypes.clear();
                 paramValues.clear();
             }

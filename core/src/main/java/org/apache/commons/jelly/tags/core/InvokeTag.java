@@ -94,7 +94,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
 
         Object result = null;
         try {
-            result = MethodUtils.invokeMethod(onInstance,methodName,values,types);
+            result = MethodUtils.invokeMethod(onInstance, methodName, values, types);
         }
         catch (NoSuchMethodException e) {
             throw new JellyTagException(e);
@@ -106,9 +106,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
             if(null != exceptionVar) {
                 context.setVariable(exceptionVar,e.getTargetException());
             } else {
-                throw new JellyTagException("method " + methodName +
-                    " threw exception: "+ e.getTargetException().getMessage(),
-                    e.getTargetException() );
+                throw new JellyTagException("method " + methodName + " threw exception: " + e.getTargetException().getMessage(), e.getTargetException());
             }
         }
         finally {

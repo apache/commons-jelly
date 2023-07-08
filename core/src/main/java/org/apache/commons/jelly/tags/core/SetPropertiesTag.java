@@ -82,9 +82,9 @@ public class SetPropertiesTag extends MapTagSupport  {
         try {
             BeanUtils.populate(bean, attributes);
         } catch (IllegalAccessException e) {
-            throw new JellyTagException("could not set the properties on a bean",e);
+            throw new JellyTagException("could not set the properties on a bean", e);
         } catch (InvocationTargetException e) {
-            throw new JellyTagException("could not set the properties on a bean",e);
+            throw new JellyTagException("could not set the properties on a bean", e);
         }
     }
 }

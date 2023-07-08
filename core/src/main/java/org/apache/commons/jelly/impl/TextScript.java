@@ -78,8 +78,8 @@ public class TextScript implements Script {
             }
         }
         index++;
-        if ( index < text.length() ) {
-            this.text = text.substring(0,index);
+        if (index < text.length()) {
+            this.text = text.substring(0, index);
         }
     }
 
@@ -101,11 +101,11 @@ public class TextScript implements Script {
 
     /** Evaluates the body of a tag */
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
-        if ( text != null ) {
+        if (text != null) {
             try {
-              output.write(text);
+                output.write(text);
             } catch (SAXException e) {
-                throw new JellyTagException("could not write to XMLOutput",e);
+                throw new JellyTagException("could not write to XMLOutput", e);
             }
         }
     }

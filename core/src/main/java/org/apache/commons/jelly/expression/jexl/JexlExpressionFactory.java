@@ -66,7 +66,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
         }
 
         if ( isSupportAntVariables() && isValidAntVariableName(text) ) {
-            return new ExpressionSupportLocal(jexlExpression,text);
+            return new ExpressionSupportLocal(jexlExpression, text);
         }
         return jexlExpression;
     }

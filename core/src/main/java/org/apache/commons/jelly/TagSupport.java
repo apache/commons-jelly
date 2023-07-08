@@ -221,7 +221,7 @@ public abstract class TagSupport implements Tag {
      * @see #findAncestorWithClass(Collection)
      */
     protected Tag findAncestorWithClass(Class[] parentClasses) {
-        return findAncestorWithClass(getParent(),parentClasses);
+        return findAncestorWithClass(getParent(), parentClasses);
     }
 
     /**
@@ -229,7 +229,7 @@ public abstract class TagSupport implements Tag {
      * @return the tag of the given type or null if it could not be found
      */
     protected Tag findAncestorWithClass(Collection parentClasses) {
-        return findAncestorWithClass(getParent(),parentClasses);
+        return findAncestorWithClass(getParent(), parentClasses);
     }
 
     /**

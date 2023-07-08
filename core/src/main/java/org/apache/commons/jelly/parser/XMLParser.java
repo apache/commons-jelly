@@ -569,7 +569,7 @@ public class XMLParser extends DefaultHandler {
                 reader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
             }
             if (this.defaultNamespaceURI != null) {
-                reader = new DefaultNamespaceFilter(this.defaultNamespaceURI,reader);
+                reader = new DefaultNamespaceFilter(this.defaultNamespaceURI, reader);
             }
         }
         //set up the parse
@@ -1090,13 +1090,13 @@ public class XMLParser extends DefaultHandler {
                         throw createSAXException("Could not load class: " + uri + " so taglib instantiation failed", e);
                     }
                     catch (IllegalAccessException e) {
-                        throw createSAXException("Constructor for class is not accessible: " + uri + " so taglib instantiation failed",e);
+                        throw createSAXException("Constructor for class is not accessible: " + uri + " so taglib instantiation failed", e);
                     }
                     catch (InstantiationException e) {
-                        throw createSAXException("Class could not be instantiated: " + uri + " so taglib instantiation failed",e);
+                        throw createSAXException("Class could not be instantiated: " + uri + " so taglib instantiation failed", e);
                     }
                     catch (ClassCastException e) {
-                        throw createSAXException("Class is not a TagLibrary: " + uri + " so taglib instantiation failed",e);
+                        throw createSAXException("Class is not a TagLibrary: " + uri + " so taglib instantiation failed", e);
                     }
                 }
             }
@@ -1178,7 +1178,7 @@ public class XMLParser extends DefaultHandler {
                 String attrQName = list.getQName(i);
                 int p = attrQName.indexOf(':');
                 String prefix = p>=0 ?
-                        attrQName.substring(0,p):
+                        attrQName.substring(0, p):
                         "";
                 script.addAttribute(list.getLocalName(i),
                         prefix, list.getURI(i), expression);

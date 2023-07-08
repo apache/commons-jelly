@@ -158,14 +158,13 @@ public class CommandLineParser {
         cmdLineOptions = new Options();
         cmdLineOptions.addOption("o", true, "Output file");
         cmdLineOptions.addOption("script", true, "Jelly script to run");
-        cmdLineOptions.addOption("h","help", false, "Give this help message");
-        cmdLineOptions.addOption("v","version", false, "prints Jelly's version and exits");
+        cmdLineOptions.addOption("h", "help", false, "Give this help message");
+        cmdLineOptions.addOption("v", "version", false, "prints Jelly's version and exits");
         cmdLineOptions.addOption("script", true, "Jelly script to run");
         cmdLineOptions.addOption("awt", false, "Wether to run in the AWT thread.");
         cmdLineOptions.addOption("swing", false, "Synonym of \"-awt\".");
-        List builtinOptionNames = Arrays.asList(new String[]{
-            "-o","-script","-h","--help","-v","--version","-awt","-swing"});
-        
+        List builtinOptionNames = Arrays.asList(new String[] { "-o", "-script", "-h", "--help", "-v", "--version", "-awt", "-swing" });
+
         // -D options will be added to the system properties
         Properties sysProps = System.getProperties();
 
@@ -173,7 +172,7 @@ public class CommandLineParser {
         // before passing it to the CLI parser
         ArrayList filteredArgList = new ArrayList();
 
-        for (int i=0;i<args.length;i++) {
+        for (int i = 0; i < args.length; i++) {
             String arg = args[i];
 
             // if this is a -D property parse it and add it to the system properties.
@@ -181,9 +180,9 @@ public class CommandLineParser {
             if (arg.startsWith("-D") && (arg.length() > 2)) {
                 arg = arg.substring(2);
                 int ePos = arg.indexOf("=");
-                if(ePos==-1 || ePos==0 || ePos==arg.length()-1)
+                if (ePos == -1 || ePos == 0 || ePos == arg.length() - 1)
                     System.err.println("Invalid system property: \"" + arg + "\".");
-                sysProps.setProperty(arg.substring(0,ePos), arg.substring(ePos+1));
+                sysProps.setProperty(arg.substring(0, ePos), arg.substring(ePos + 1));
             } else {
                 // add this to the filtered list of arguments
                 filteredArgList.add(arg);

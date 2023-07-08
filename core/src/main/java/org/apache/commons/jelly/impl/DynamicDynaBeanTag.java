@@ -65,11 +65,11 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
     public void beforeSetAttributes() throws JellyTagException {
         // create a new dynabean before the attributes are set
         try {
-            setDynaBean( beanClass.newInstance() );
+            setDynaBean(beanClass.newInstance());
         } catch (IllegalAccessException e) {
-            throw new JellyTagException("Could not instantiate dynabean",e);
+            throw new JellyTagException("Could not instantiate dynabean", e);
         } catch (InstantiationException e) {
-            throw new JellyTagException("Could not instantiate dynabean",e);
+            throw new JellyTagException("Could not instantiate dynabean", e);
         }
 
         setAttributesSet.clear();

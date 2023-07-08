@@ -84,7 +84,7 @@ public class ImportTag extends TagSupport {
             }
         }
         catch (JellyException e) {
-            throw new JellyTagException("could not import script",e);
+            throw new JellyTagException("could not import script", e);
         }
     }
 

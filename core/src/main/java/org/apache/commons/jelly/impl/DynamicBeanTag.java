@@ -95,11 +95,11 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         // create a new dynabean before the attributes are set
         try {
             bean = beanClass.newInstance();
-            setDynaBean( new ConvertingWrapDynaBean( bean ) );
+            setDynaBean(new ConvertingWrapDynaBean(bean));
         } catch (InstantiationException e) {
-            throw new JellyTagException("Could not instantiate dynabean",e);
+            throw new JellyTagException("Could not instantiate dynabean", e);
         } catch (IllegalAccessException e) {
-            throw new JellyTagException("Could not instantiate dynabean",e);
+            throw new JellyTagException("Could not instantiate dynabean", e);
         }
 
         setAttributesSet.clear();

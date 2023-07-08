@@ -54,7 +54,7 @@ public class StaticTagScript extends TagScript {
         try {
             startNamespacePrefixes(output);
         } catch (SAXException e) {
-            throw new JellyTagException("could not start namespace prefixes",e);
+            throw new JellyTagException("could not start namespace prefixes", e);
         }
 
         Tag tag;
@@ -66,7 +66,7 @@ public class StaticTagScript extends TagScript {
                 tag = findDynamicTag(context, (StaticTag) tag);
             }
 
-            setTag(tag,context);
+            setTag(tag, context);
         } catch (JellyException e) {
             throw new JellyTagException(e);
         }
@@ -74,7 +74,7 @@ public class StaticTagScript extends TagScript {
         URL rootURL = context.getRootURL();
         URL currentURL = context.getCurrentURL();
         try {
-            if ( tag == null ) {
+            if (tag == null) {
                 return;
             }
             tag.setContext(context);
@@ -86,35 +86,30 @@ public class StaticTagScript extends TagScript {
             for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
                 Map.Entry entry = (Map.Entry) iter.next();
                 String name = (String) entry.getKey();
-                if(name.indexOf(':')!=-1)
-                    name = name.substring(name.indexOf(':')+1);
+                if (name.indexOf(':') != -1)
+                    name = name.substring(name.indexOf(':') + 1);
                 ExpressionAttribute expat = (ExpressionAttribute) entry.getValue();
                 Expression expression = expat.exp;
 
                 Object value;
 
-                if ( Expression.class.isAssignableFrom( dynaTag.getAttributeType(name) ) ) {
+                if (Expression.class.isAssignableFrom(dynaTag.getAttributeType(name))) {
                     value = expression;
                 } else {
                     value = expression.evaluate(context);
                 }
 
-                if( expat.prefix != null && expat.prefix.length() > 0 && tag instanceof StaticTag )
-                {
-                    ((StaticTag) dynaTag).setAttribute(name,expat.prefix, expat.nsURI,value);
-                }
-                else
-                {
+                if (expat.prefix != null && expat.prefix.length() > 0 && tag instanceof StaticTag) {
+                    ((StaticTag) dynaTag).setAttribute(name, expat.prefix, expat.nsURI, value);
+                } else {
                     dynaTag.setAttribute(name, value);
                 }
             }
 
             tag.doTag(output);
-        }
-        catch (JellyTagException e) {
+        } catch (JellyTagException e) {
             handleException(e);
-        }
-        catch (RuntimeException e) {
+        } catch (RuntimeException e) {
             handleException(e);
         } finally {
             context.setCurrentURL(currentURL);
@@ -124,7 +119,7 @@ public class StaticTagScript extends TagScript {
         try {
             endNamespacePrefixes(output);
         } catch (SAXException e) {
-            throw new JellyTagException("could not end namespace prefixes",e);
+            throw new JellyTagException("could not end namespace prefixes", e);
         }
     }
 

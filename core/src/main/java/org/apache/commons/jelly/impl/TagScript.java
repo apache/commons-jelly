@@ -174,7 +174,7 @@ public class TagScript implements Script {
         if (log.isDebugEnabled()) {
             log.debug("adding attribute name: " + name + " expression: " + expression);
         }
-        attributes.put(name, new ExpressionAttribute(name,expression));
+        attributes.put(name, new ExpressionAttribute(name, expression));
     }
 
     /** Add an initialization attribute for the tag.
@@ -184,9 +184,9 @@ public class TagScript implements Script {
         if (log.isDebugEnabled()) {
             log.debug("adding attribute name: " + name + " expression: " + expression);
         }
-        if(name.indexOf(':')==-1)
+        if (name.indexOf(':') == -1)
             name = prefix + ':' + name;
-        attributes.put(name, new ExpressionAttribute(name,prefix,nsURI,expression));
+        attributes.put(name, new ExpressionAttribute(name, prefix, nsURI, expression));
     }
 
     /**
@@ -313,11 +313,11 @@ public class TagScript implements Script {
     public Tag getTag(JellyContext context) throws JellyException {
         Thread t = Thread.currentThread();
         Tag tag = (Tag) threadLocalTagCache.get(t);
-        if ( tag == null ) {
+        if (tag == null) {
             tag = createTag();
-            if ( tag != null ) {
-                threadLocalTagCache.put(t,tag);
-                configureTag(tag,context);
+            if (tag != null) {
+                threadLocalTagCache.put(t, tag);
+                configureTag(tag, context);
             }
         }
         return tag;
@@ -554,7 +554,7 @@ public class TagScript implements Script {
      */
     protected void clearTag() {
         Thread t = Thread.currentThread();
-        threadLocalTagCache.put(t,null);
+        threadLocalTagCache.put(t, null);
     }
 
     /**
@@ -563,7 +563,7 @@ public class TagScript implements Script {
      */
     protected void setTag(Tag tag, JellyContext context) {
         Thread t = Thread.currentThread();
-        threadLocalTagCache.put(t,tag);
+        threadLocalTagCache.put(t, tag);
     }
 
     /**
@@ -735,7 +735,7 @@ public class TagScript implements Script {
 
 class ExpressionAttribute {
     public ExpressionAttribute(String name, Expression exp) {
-        this(name,"","",exp);
+        this(name, "", "", exp);
     }
     public ExpressionAttribute(String name, String prefix, String nsURI, Expression exp) {
         this.name = name;

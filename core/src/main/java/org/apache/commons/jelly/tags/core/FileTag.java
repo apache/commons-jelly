@@ -80,7 +80,7 @@ public class FileTag extends TagSupport {
         } catch (UnsupportedEncodingException e) {
             throw new JellyTagException(e);
         } catch (SAXException e) {
-            throw new JellyTagException("could not write file",e);
+            throw new JellyTagException("could not write file", e);
         }
     }
 
