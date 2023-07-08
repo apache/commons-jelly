@@ -16,15 +16,11 @@
  */
 package org.apache.commons.jelly.expression;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
+
+import junit.framework.TestCase;
 
 /**
  * Tests the use of Expression parsing

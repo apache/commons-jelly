@@ -18,8 +18,6 @@ package org.apache.commons.jelly.core;
 
 import java.io.StringWriter;
 
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.test.BaseJellyTest;
@@ -27,6 +25,8 @@ import org.dom4j.io.HTMLWriter;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.xml.sax.SAXException;
+
+import junit.framework.TestSuite;
 
 /**
  * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>

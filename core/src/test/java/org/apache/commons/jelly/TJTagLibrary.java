@@ -17,8 +17,6 @@
 
 package org.apache.commons.jelly;
 
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;

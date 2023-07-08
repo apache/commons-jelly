@@ -16,14 +16,14 @@
  */
 package org.apache.commons.jelly.core;
 
-import junit.framework.TestSuite;
-
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.TJTagLibrary;
 import org.apache.commons.jelly.test.BaseJellyTest;
 import org.xml.sax.SAXParseException;
+
+import junit.framework.TestSuite;
 
 /**
  * Tests for exceptions being raised when an unknown tag is encountered - new

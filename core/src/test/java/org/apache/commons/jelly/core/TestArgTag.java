@@ -19,8 +19,6 @@ package org.apache.commons.jelly.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
@@ -30,6 +28,8 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.core.ArgTag;
 import org.apache.commons.jelly.tags.core.ArgTagParent;
 import org.apache.commons.jelly.test.BaseJellyTest;
+
+import junit.framework.TestSuite;
 
 /**
  * @author Rodney Waldhoff

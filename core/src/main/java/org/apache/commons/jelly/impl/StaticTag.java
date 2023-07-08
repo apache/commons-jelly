@@ -19,7 +19,6 @@ package org.apache.commons.jelly.impl;
 import org.apache.commons.jelly.DynaTagSupport;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 

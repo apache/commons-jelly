@@ -18,7 +18,6 @@
 package org.apache.commons.jelly;
 
 import java.util.HashMap;
-
 import java.util.Map;
 
 /** 

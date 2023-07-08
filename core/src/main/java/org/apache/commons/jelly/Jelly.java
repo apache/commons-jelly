@@ -18,9 +18,9 @@
 package org.apache.commons.jelly;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
@@ -31,7 +31,6 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.jelly.util.CommandLineParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.SAXException;
 
 /** 

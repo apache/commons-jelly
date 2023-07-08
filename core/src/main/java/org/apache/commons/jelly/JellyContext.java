@@ -29,7 +29,6 @@ import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 

@@ -19,11 +19,11 @@ package org.apache.commons.jelly.test;
 import java.io.StringWriter;
 import java.net.URL;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
+
+import junit.framework.TestCase;
 
 /**
  * @author Rodney Waldhoff

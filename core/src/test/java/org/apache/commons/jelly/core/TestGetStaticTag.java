@@ -16,11 +16,11 @@
  */
 package org.apache.commons.jelly.core;
 
-import junit.framework.TestSuite;
-
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.test.BaseJellyTest;
+
+import junit.framework.TestSuite;
 
 /**
  */

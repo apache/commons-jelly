@@ -17,12 +17,12 @@
 
 package org.apache.commons.jelly;
 
+import org.apache.commons.jelly.impl.TextScript;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.impl.TextScript;
 
 /**
  * Tests the whitespace triming of scripts.

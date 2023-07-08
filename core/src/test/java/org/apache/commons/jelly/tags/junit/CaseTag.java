@@ -16,13 +16,13 @@
  */
 package org.apache.commons.jelly.tags.junit;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * Represents a single test case in a test suite; this tag is analagous to

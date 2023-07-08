@@ -18,8 +18,6 @@ package org.apache.commons.jelly;
 
 import java.io.ByteArrayOutputStream;
 
-import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.test.BaseJellyTest;
 
 /**

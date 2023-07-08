@@ -16,6 +16,10 @@
  */
 package org.apache.commons.jelly.impl;
 
+import java.net.URL;
+import java.util.Iterator;
+import java.util.Map;
+
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -25,10 +29,6 @@ import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 import org.xml.sax.SAXException;
-
-import java.net.URL;
-import java.util.Iterator;
-import java.util.Map;
 
 /**
  * <p><code>StaticTagScript</code> is a script that evaluates a StaticTag, a piece of static XML

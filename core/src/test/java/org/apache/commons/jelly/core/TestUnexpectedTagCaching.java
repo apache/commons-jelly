@@ -18,8 +18,8 @@ package org.apache.commons.jelly.core;
 
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
@@ -28,10 +28,10 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
-import junit.framework.TestCase;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import junit.framework.TestCase;
 
 /**
  * This test illustrates pre-1.0 Jelly behavior that did not cache tags by default. Many user tag implementations

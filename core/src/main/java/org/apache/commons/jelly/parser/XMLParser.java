@@ -17,8 +17,8 @@
 package org.apache.commons.jelly.parser;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
 import java.util.ArrayList;
@@ -32,39 +32,36 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 import org.apache.commons.collections.ArrayStack;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
-import org.apache.commons.jelly.impl.ExpressionScript;
-import org.apache.commons.jelly.impl.StaticTag;
-import org.apache.commons.jelly.impl.ScriptBlock;
-import org.apache.commons.jelly.impl.StaticTagScript;
-import org.apache.commons.jelly.impl.TagFactory;
-import org.apache.commons.jelly.impl.TagScript;
-import org.apache.commons.jelly.impl.TextScript;
-import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.ConstantExpression;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
-
+import org.apache.commons.jelly.impl.CompositeTextScriptBlock;
+import org.apache.commons.jelly.impl.ExpressionScript;
+import org.apache.commons.jelly.impl.ScriptBlock;
+import org.apache.commons.jelly.impl.StaticTag;
+import org.apache.commons.jelly.impl.StaticTagScript;
+import org.apache.commons.jelly.impl.TagFactory;
+import org.apache.commons.jelly.impl.TagScript;
+import org.apache.commons.jelly.impl.TextScript;
+import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
-import org.xml.sax.helpers.DefaultHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.AttributesImpl;
+import org.xml.sax.helpers.DefaultHandler;
 
 /** <p><code>XMLParser</code> parses the XML Jelly format.
  * The SAXParser and XMLReader portions of this code come from Digester.</p>

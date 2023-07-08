@@ -18,12 +18,12 @@ package org.apache.commons.jelly.tags.junit;
 
 import java.net.URL;
 
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import junit.framework.TestSuite;
 
 /**
  * An abstract base class for creating a TestSuite via a Jelly script.

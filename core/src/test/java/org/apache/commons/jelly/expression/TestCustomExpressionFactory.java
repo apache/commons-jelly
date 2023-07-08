@@ -17,17 +17,14 @@
 
 package org.apache.commons.jelly.expression;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.net.URL;
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.Script;
+import org.apache.commons.jelly.TJTagLibrary;
+import org.apache.commons.jelly.test.BaseJellyTest;
 
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.*;
-import org.apache.commons.jelly.test.BaseJellyTest;
 
 public class TestCustomExpressionFactory extends BaseJellyTest {
 	

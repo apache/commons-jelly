@@ -21,16 +21,15 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jaxen.JaxenException;
 import org.jaxen.SimpleNamespaceContext;
 import org.jaxen.VariableContext;
 import org.jaxen.XPath;
-import org.jaxen.JaxenException;
 import org.jaxen.dom4j.Dom4jXPath;
 
 /** An expression which returns an XPath object.

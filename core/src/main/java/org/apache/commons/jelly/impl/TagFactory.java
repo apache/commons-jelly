@@ -18,7 +18,6 @@ package org.apache.commons.jelly.impl;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Tag;
-
 import org.xml.sax.Attributes;
 
 /**

@@ -17,17 +17,14 @@
 
 package org.apache.commons.jelly.expression.jexl;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-import java.util.Collection;
 
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.ExpressionSupport;
-
 import org.apache.commons.jexl.Expression;
 import org.apache.commons.jexl.JexlContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

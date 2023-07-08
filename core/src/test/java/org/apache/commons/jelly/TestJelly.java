@@ -16,10 +16,10 @@
  */
 package org.apache.commons.jelly;
 
+import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.tags.junit.JellyTestSuite;
 
 /**
  * A helper class to run jelly test cases as part of Ant's JUnit tests

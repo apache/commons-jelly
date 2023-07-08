@@ -17,12 +17,13 @@
 
 package org.apache.commons.jelly.servlet;
 
-import org.apache.commons.jelly.JellyContext;
-
-import javax.servlet.ServletContext;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import javax.servlet.ServletContext;
+
+import org.apache.commons.jelly.JellyContext;
 
 /**
  *

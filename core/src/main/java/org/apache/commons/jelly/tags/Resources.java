@@ -17,8 +17,9 @@
 
 package org.apache.commons.jelly.tags;
 
-import java.util.*;
-import java.text.*;
+import java.text.MessageFormat;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 /**
  * <p>Provides locale-neutral access to string resources.  Only the

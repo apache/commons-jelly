@@ -16,9 +16,9 @@
  */
 package org.apache.commons.jelly;
 
-import junit.framework.TestCase;
-
 import java.net.URL;
+
+import junit.framework.TestCase;
 
 /**
  * A test class to validate doctype definitions' declaration of external

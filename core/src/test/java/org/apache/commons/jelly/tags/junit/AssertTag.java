@@ -17,10 +17,9 @@
 package org.apache.commons.jelly.tags.junit;
 
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-
 import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 

@@ -19,10 +19,9 @@ package org.apache.commons.jelly.expression.jexl;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.expression.ExpressionSupport;
 
 //import org.apache.commons.jexl.resolver.FlatResolver;
 

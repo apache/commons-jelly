@@ -19,14 +19,14 @@ package org.apache.commons.jelly.test.xml;
 import java.io.StringWriter;
 import java.net.URL;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
+
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * A test to confirm that invalid documents are

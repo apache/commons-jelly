@@ -26,16 +26,15 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.ConvertingWrapDynaBean;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaProperty;
-
 import org.apache.commons.jelly.CompilableTag;
+import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.LocationAware;
 import org.apache.commons.jelly.NamespaceAwareTag;
 import org.apache.commons.jelly.Script;
@@ -43,10 +42,8 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;

@@ -16,12 +16,12 @@
  */
 package org.apache.commons.jelly.tags.junit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Represents a collection of TestCases.. This tag is analagous to

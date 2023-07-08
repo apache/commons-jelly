@@ -20,9 +20,9 @@ package org.apache.commons.jelly.tags.junit;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import junit.framework.AssertionFailedError;
-
 import org.apache.commons.jelly.LocationAware;
+
+import junit.framework.AssertionFailedError;
 
 /**
  * <p><code>JellyAssertionFailedError</code> is

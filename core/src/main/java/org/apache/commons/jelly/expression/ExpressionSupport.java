@@ -16,8 +16,8 @@
  */
 package org.apache.commons.jelly.expression;
 
-import java.util.Collections;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -26,9 +26,7 @@ import java.util.Map;
 import org.apache.commons.collections.iterators.ArrayIterator;
 import org.apache.commons.collections.iterators.EnumerationIterator;
 import org.apache.commons.collections.iterators.SingletonIterator;
-
 import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.lang.StringUtils;
 
 /** <p><code>ExpressionSupport</code>

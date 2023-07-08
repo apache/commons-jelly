@@ -16,14 +16,12 @@
  */
 package org.apache.commons.jelly.tags.junit;
 
-import org.apache.commons.jelly.TagLibrary;
-
 import org.apache.commons.jelly.JellyException;
+import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.expression.xpath.XPathExpression;
-
+import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

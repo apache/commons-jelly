@@ -23,8 +23,6 @@ import java.net.URL;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TJTagLibrary;
@@ -32,6 +30,8 @@ import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.jelly.test.BaseJellyTest;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
+
+import junit.framework.TestSuite;
 
 /**
  * Tests for bug JELLY-184, where enabling feature

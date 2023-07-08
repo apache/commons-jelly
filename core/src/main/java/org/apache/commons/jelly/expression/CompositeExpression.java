@@ -22,10 +22,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections.iterators.SingletonIterator;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.JellyTagException;
 
 /**
  * <p><code>CompositeExpression</code> is a Composite expression made up of several

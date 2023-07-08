@@ -18,14 +18,14 @@ package org.apache.commons.jelly.core;
 
 import java.net.URL;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.XMLOutput;
+
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * Makes sure that nested includes work correctly

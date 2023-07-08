@@ -17,10 +17,6 @@
 
 package org.apache.commons.jelly;
 
-import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
 import org.xml.sax.SAXException;
 
 public class TJEcho extends TagSupport {

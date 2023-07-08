@@ -17,10 +17,10 @@
 
 package org.apache.commons.jelly.core;
 
+import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.tags.junit.JellyTestSuite;
 
 public class TestNestedExceptions extends JellyTestSuite {
 

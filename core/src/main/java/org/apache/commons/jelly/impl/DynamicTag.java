@@ -17,8 +17,8 @@
 package org.apache.commons.jelly.impl;
 
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.apache.commons.jelly.DynaTagSupport;
 import org.apache.commons.jelly.JellyContext;
