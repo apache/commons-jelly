@@ -542,7 +542,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * using two special Unicode values. Such characters are in the so-called
      * "Astral Planes", with a code point above U+FFFF.  A second case involves
      * composite characters, such as a base character combining with one or
-     * more accent characters. </p>
+     * more accent characters.</p>
      *
      * <p> Your code should not assume that algorithms using
      * <code>char</code>-at-a-time idioms will be working in character
@@ -611,7 +611,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *
      * <p>Like {@link #characters characters()}, processing instruction
      * data may have characters that need more than one <code>char</code>
-     * value. </p>
+     * value.</p>
      *
      * @param target The processing instruction target.
      * @param data The processing instruction data, or null if
