@@ -20,9 +20,9 @@ package org.apache.commons.jelly.tags.xmlunit;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
 
-public class TestJelly extends JellyTestSuite {
+public class TestJelly extends AbstractJellyTestSuite {
 
     public static void main(String[] args) throws Exception {
         TestRunner.run(suite());

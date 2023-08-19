@@ -18,7 +18,7 @@
  */
 package org.apache.commons.jelly.core;
 
-import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
 
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
@@ -28,7 +28,7 @@ import junit.textui.TestRunner;
  * @author mde
  * @version 0.0
  */
-public class TestCatchTag extends JellyTestSuite {
+public class TestCatchTag extends AbstractJellyTestSuite {
     
     public static void main( String[] args ) throws Exception {
         TestRunner.run( suite() );

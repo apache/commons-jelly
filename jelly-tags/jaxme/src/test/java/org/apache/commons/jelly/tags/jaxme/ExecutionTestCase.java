@@ -16,7 +16,7 @@
 */
 package org.apache.commons.jelly.tags.jaxme;
 
-import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
 import junit.framework.TestSuite;
 
 /**
@@ -24,7 +24,7 @@ import junit.framework.TestSuite;
  *
  * @author <a href="mailto:dev at commons.apache.org">Apache Commons Development Team</a>
  */
-public class ExecutionTestCase extends JellyTestSuite {
+public class ExecutionTestCase extends AbstractJellyTestSuite {
 
 
     public static TestSuite suite() throws Exception {

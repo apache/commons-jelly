@@ -18,22 +18,22 @@ package org.apache.commons.jelly.tags.junit;
 
 import java.net.URL;
 
+import junit.framework.TestSuite;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import junit.framework.TestSuite;
 
 /**
  * An abstract base class for creating a TestSuite via a Jelly script.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
-public abstract class JellyTestSuite {
+public abstract class AbstractJellyTestSuite {
 
     /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(JellyTestSuite.class);
+    private static final Log log = LogFactory.getLog(AbstractJellyTestSuite.class);
 
 
     /**

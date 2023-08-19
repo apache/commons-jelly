@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
-public class TestJUnit extends JellyTestSuite {
+public class TestJUnit extends AbstractJellyTestSuite {
 
     public static void main( String[] args ) throws Exception {
         TestRunner.run( suite() );

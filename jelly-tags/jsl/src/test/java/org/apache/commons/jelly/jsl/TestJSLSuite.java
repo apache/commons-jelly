@@ -19,14 +19,14 @@ package org.apache.commons.jelly.jsl;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
 
 /**
  * A helper class to run jelly test cases as part of Ant's JUnit tests
  *
  * @author <a href="mailto:dion@apache.org">dIon Gillard</a>
  */
-public class TestJSLSuite extends JellyTestSuite {
+public class TestJSLSuite extends AbstractJellyTestSuite {
 
     public static void main( String[] args ) throws Exception {
         TestRunner.run( suite() );

@@ -16,7 +16,7 @@
  */
 package org.apache.commons.jelly;
 
-import org.apache.commons.jelly.tags.junit.JellyTestSuite;
+import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
 
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
@@ -26,7 +26,7 @@ import junit.textui.TestRunner;
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
-public class TestJelly extends JellyTestSuite {
+public class TestJelly extends AbstractJellyTestSuite {
 
     public static void main( String[] args ) throws Exception {
         TestRunner.run( suite() );
