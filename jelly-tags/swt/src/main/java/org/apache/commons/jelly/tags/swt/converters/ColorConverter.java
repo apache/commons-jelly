@@ -101,6 +101,7 @@ public class ColorConverter implements Converter {
 
     // Converter interface
     //-------------------------------------------------------------------------
+    @Override
     public Object convert(Class type, Object value) {
         Object answer = null;
         if (value != null) {

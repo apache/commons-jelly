@@ -54,6 +54,7 @@ public class StringInputStream
      *
      * @throws IOException if the original StringReader fails to be read
      */
+    @Override
     public int read() throws IOException
     {
         return in.read();
@@ -64,6 +65,7 @@ public class StringInputStream
      *
      * @throws IOException if the original StringReader fails to be closed
      */
+    @Override
     public void close() throws IOException
     {
         in.close();
@@ -75,6 +77,7 @@ public class StringInputStream
      * @param limit the maximum limit of bytes that can be read before the
      *              mark position becomes invalid
      */
+    @Override
     public synchronized void mark( final int limit )
     {
         try
@@ -92,6 +95,7 @@ public class StringInputStream
      *
      * @throws IOException if the StringReader fails to be reset
      */
+    @Override
     public synchronized void reset() throws IOException
     {
         in.reset();
@@ -100,6 +104,7 @@ public class StringInputStream
     /**
      * @see InputStream#markSupported
      */
+    @Override
     public boolean markSupported()
     {
         return in.markSupported();

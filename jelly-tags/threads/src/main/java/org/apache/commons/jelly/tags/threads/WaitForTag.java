@@ -73,6 +73,7 @@ public class WaitForTag extends TagSupport {
      * @throws TimeoutException If the call to waitUntilDone(onlyWait) times out
      * @throws RequirementException If a threads status doesn't match the setStatus() value
      */
+    @Override
     public void doTag(XMLOutput output) throws TimeoutException, RequirementException, JellyTagException {
         if (thread == null && group == null) {
             throw new JellyTagException("This tag requires that you set the thread or group attribute");

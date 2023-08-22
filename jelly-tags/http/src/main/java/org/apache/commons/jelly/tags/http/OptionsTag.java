@@ -42,6 +42,7 @@ public class OptionsTag extends HttpTagSupport {
      * @return a url method for an options request
      * @throws MalformedURLException when the url is bad
      */
+    @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_optionsMethod == null) {
             _optionsMethod = new OptionsMethod(getResolvedUrl());

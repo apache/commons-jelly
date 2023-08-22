@@ -32,6 +32,7 @@ public abstract class UseMutexTag extends TagSupport {
     private Object mutex = null;
 
     /** Calls useMutex after checking to make sure that <i>setMutex</i> was called */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         // either use the set thread or search for a parent thread to use
         if (mutex == null) {

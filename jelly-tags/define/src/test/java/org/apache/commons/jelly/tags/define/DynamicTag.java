@@ -31,6 +31,7 @@ public class DynamicTag extends TagSupport
     /**
      * @see org.apache.commons.jelly.Tag#doTag(XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException
     {
         try {

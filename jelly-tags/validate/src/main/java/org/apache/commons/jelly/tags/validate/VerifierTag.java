@@ -59,6 +59,7 @@ public class VerifierTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( var == null ) {
             throw new MissingAttributeException("var");

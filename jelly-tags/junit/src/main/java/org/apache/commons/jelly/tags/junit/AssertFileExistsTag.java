@@ -38,7 +38,8 @@ public class AssertFileExistsTag extends AssertTagSupport
 	 * @param output a place to write text output
 	 * @throws JellyTagException if the file doesn't exist.
 	 */
-	public void doTag(XMLOutput output) throws JellyTagException
+	@Override
+    public void doTag(XMLOutput output) throws JellyTagException
     {
         String message = getBodyText();
         if (message == null || message.length() == 0)

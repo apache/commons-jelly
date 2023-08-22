@@ -67,6 +67,7 @@ public class DateParamTag extends TagSupport {
     //*********************************************************************
     // Tag logic
 
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         SQLExecutionTag parent =
             (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);

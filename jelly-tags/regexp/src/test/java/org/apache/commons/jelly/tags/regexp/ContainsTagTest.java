@@ -33,6 +33,7 @@ public class ContainsTagTest extends TestCase {
       super(name);
     }
 
+    @Override
     public void setUp() throws Exception
     {
     }
@@ -51,6 +52,7 @@ public class ContainsTagTest extends TestCase {
       assertEquals("TRUE", containsExpTag.getContext().getVariable("testvar").toString().toUpperCase());
     }
 
+    @Override
     public void tearDown()
     {
     }

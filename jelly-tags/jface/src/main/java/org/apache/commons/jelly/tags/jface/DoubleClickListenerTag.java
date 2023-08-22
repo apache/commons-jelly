@@ -45,6 +45,7 @@ public class DoubleClickListenerTag
     /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output)
         throws MissingAttributeException, JellyTagException {
         if (var == null) {
@@ -91,6 +92,7 @@ public class DoubleClickListenerTag
     /*
      * @see org.eclipse.jface.viewers.IDoubleClickListener#doubleClick(org.eclipse.jface.viewers.DoubleClickEvent)
      */
+    @Override
     public void doubleClick(DoubleClickEvent event) {
         try {
             context.setVariable(var, event);

@@ -43,6 +43,7 @@ public class PutTag extends HttpTagSupport {
      * @throws MalformedURLException when the {@link #getUri() URI} or
      * {@link #getPath() path} is invalid
      */
+    @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_putMethod == null) {
             _putMethod = new PutMethod(getResolvedUrl());
@@ -63,6 +64,7 @@ public class PutTag extends HttpTagSupport {
      * @param name the parameter name
      * @param value the parameter value
      */
+    @Override
     public void addParameter(String name, String value) {
         throw new IllegalArgumentException("PUT requests don't have params");
     }

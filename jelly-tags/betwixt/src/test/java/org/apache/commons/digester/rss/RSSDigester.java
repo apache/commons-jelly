@@ -148,6 +148,7 @@ public class RSSDigester extends Digester {
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
+    @Override
     public Object parse(File file) throws IOException, SAXException {
 
         configure();
@@ -166,6 +167,7 @@ public class RSSDigester extends Digester {
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
+    @Override
     public Object parse(InputSource input) throws IOException, SAXException {
 
         configure();
@@ -184,6 +186,7 @@ public class RSSDigester extends Digester {
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
+    @Override
     public Object parse(InputStream input) throws IOException, SAXException {
 
         configure();
@@ -202,6 +205,7 @@ public class RSSDigester extends Digester {
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
+    @Override
     public Object parse(String uri) throws IOException, SAXException {
 
         configure();
@@ -220,6 +224,7 @@ public class RSSDigester extends Digester {
     /**
      * Configure the parsing rules that will be used to process RSS input.
      */
+    @Override
     protected void configure() {
 
         if (configured) {

@@ -40,6 +40,7 @@ public class ReplaceNamespaceTag extends TagSupport {
 
     //  Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         final String fromURI = (fromNamespace != null) ? fromNamespace : "";
         final String toURI = (toNamespace != null) ? toNamespace : "";
@@ -47,16 +48,19 @@ public class ReplaceNamespaceTag extends TagSupport {
 
         if (!toURI.equals(fromURI)) {
             newOutput = new XMLOutput(output) {
+                @Override
                 public void startElement(String uri, String localName, String qName, Attributes atts)
                     throws SAXException {
                     super.startElement(replaceURI(uri), localName, qName, replaceURI(atts));
                 }
 
+                @Override
                 public void endElement(String uri, String localName, String qName)
                     throws SAXException {
                     super.endElement(replaceURI(uri), localName, qName);
                 }
 
+                @Override
                 public void startPrefixMapping(String prefix, String uri)
                     throws SAXException {
                     super.startPrefixMapping(prefix, replaceURI(uri));

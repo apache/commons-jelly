@@ -56,6 +56,7 @@ public class MyRunnable implements Runnable {
 
     // Runnable interface
     //-------------------------------------------------------------------------
+    @Override
     public void run() {
         log.info( "About to do something where x = " + getX() + " y = " + getY() );
         log.info( "FileSets are: " + fileSets );

@@ -44,6 +44,7 @@ public class AvailableTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         boolean available = false;
 

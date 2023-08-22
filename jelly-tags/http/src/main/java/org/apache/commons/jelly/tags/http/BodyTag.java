@@ -45,6 +45,7 @@ public class BodyTag extends TagSupport {
      * @param xmlOutput for writing output to
      * @throws JellyTagException when any error occurs
      */
+    @Override
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         HttpTagSupport httpTag = (HttpTagSupport) findAncestorWithClass(
             HttpTagSupport.class);

@@ -27,30 +27,37 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
     private java.lang.String Initials;
   
   
+    @Override
     public java.lang.String getFirst() {
       return First;
     }
   
+    @Override
     public void setFirst(java.lang.String pFirst) {
       First = pFirst;
     }
   
+    @Override
     public java.util.List getMiddle() {
       return Middle;
     }
   
+    @Override
     public java.lang.String getLast() {
       return Last;
     }
   
+    @Override
     public void setLast(java.lang.String pLast) {
       Last = pLast;
     }
   
+    @Override
     public java.lang.String getInitials() {
       return Initials;
     }
   
+    @Override
     public void setInitials(java.lang.String pInitials) {
       Initials = pInitials;
     }
@@ -62,19 +69,23 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
   private org.apache.ws.jaxme.examples.misc.address.AddressType.NameType Name;
 
 
-  public java.lang.String getId() {
+  @Override
+public java.lang.String getId() {
     return Id;
   }
 
-  public void setId(java.lang.String pId) {
+  @Override
+public void setId(java.lang.String pId) {
     Id = pId;
   }
 
-  public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName() {
+  @Override
+public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName() {
     return Name;
   }
 
-  public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType pName) {
+  @Override
+public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType pName) {
     Name = pName;
   }
 

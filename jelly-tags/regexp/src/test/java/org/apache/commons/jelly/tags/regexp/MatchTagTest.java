@@ -33,7 +33,8 @@ public class MatchTagTest extends TestCase {
     super(name);
   }
 
-  public void setUp() throws Exception
+  @Override
+public void setUp() throws Exception
   {
   }
 
@@ -51,7 +52,8 @@ public class MatchTagTest extends TestCase {
     assertEquals("TRUE", matchExpTag.getContext().getVariable("testvar").toString().toUpperCase());
   }
 
-  public void tearDown()
+  @Override
+public void tearDown()
   {
   }
 }

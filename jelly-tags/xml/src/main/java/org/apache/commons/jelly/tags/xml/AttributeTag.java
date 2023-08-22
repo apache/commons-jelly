@@ -38,6 +38,7 @@ public class AttributeTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         ElementTag tag = (ElementTag) findAncestorWithClass( ElementTag.class );
         if (tag == null) {

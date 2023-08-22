@@ -42,6 +42,7 @@ public class DeleteTag extends HttpTagSupport {
      * @return a url method for a get request
      * @throws MalformedURLException when the url is bad
      */
+    @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_deleteMethod == null) {
             _deleteMethod = new DeleteMethod(getResolvedUrl());

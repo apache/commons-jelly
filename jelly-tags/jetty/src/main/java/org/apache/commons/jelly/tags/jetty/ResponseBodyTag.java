@@ -40,6 +40,7 @@ public class ResponseBodyTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws JellyTagException when an error occurs
      */
+    @Override
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
         // get the response from the context

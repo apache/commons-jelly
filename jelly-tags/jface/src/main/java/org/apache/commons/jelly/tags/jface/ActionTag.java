@@ -39,6 +39,7 @@ public class ActionTag extends UseBeanTag {
      *  Implementing Action class
      */
     class ActionImpl extends Action {
+        @Override
         public void runWithEvent(Event event) {
             try {
                 context.setVariable(var, event);
@@ -81,6 +82,7 @@ public class ActionTag extends UseBeanTag {
     /**
       * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
       */
+    @Override
     public void doTag(XMLOutput output)
         throws MissingAttributeException, JellyTagException {
 

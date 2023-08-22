@@ -48,6 +48,7 @@ public class ApplicationWindowTag extends UseBeanTag {
     /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output)
         throws MissingAttributeException, JellyTagException {
         Map attributes = getAttributes();
@@ -83,6 +84,7 @@ public class ApplicationWindowTag extends UseBeanTag {
     /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     protected Object newInstance(
         Class theClass,
         Map attributes,

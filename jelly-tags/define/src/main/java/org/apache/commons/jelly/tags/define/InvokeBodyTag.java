@@ -42,6 +42,7 @@ public class InvokeBodyTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         // Try find find the body from the reserved 'org.apache.commons.jelly.body' variable
         Script script = (Script) context.getVariable("org.apache.commons.jelly.body");

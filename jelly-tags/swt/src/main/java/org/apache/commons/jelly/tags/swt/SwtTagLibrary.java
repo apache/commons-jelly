@@ -169,6 +169,7 @@ public class SwtTagLibrary extends TagLibrary {
                 /**
                  * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                  */
+                @Override
                 public Tag createTag(String name, Attributes attributes)
                     throws JellyException {
                     return new LayoutTag(layoutClass);
@@ -187,6 +188,7 @@ public class SwtTagLibrary extends TagLibrary {
                 /**
                  * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                  */
+                @Override
                 public Tag createTag(String name, Attributes attributes)
                     throws JellyException {
                     return new LayoutDataTag(layoutDataClass);
@@ -212,6 +214,7 @@ public class SwtTagLibrary extends TagLibrary {
                 /**
                  * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                  */
+                @Override
                 public Tag createTag(String name, Attributes attributes)
                     throws JellyException {
                     return new WidgetTag(widgetClass, style);
@@ -237,7 +240,8 @@ public class SwtTagLibrary extends TagLibrary {
                   /**
                    * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                    */
-                  public Tag createTag(String name, Attributes attributes)
+                  @Override
+                public Tag createTag(String name, Attributes attributes)
                       throws JellyException {
                       return new DialogTag(widgetClass, style);
                   }
@@ -255,6 +259,7 @@ public class SwtTagLibrary extends TagLibrary {
                 /**
                  * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
                  */
+                @Override
                 public Tag createTag(String name, Attributes attributes)
                     throws JellyException {
                     return new MenuTag(style);

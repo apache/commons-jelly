@@ -44,6 +44,7 @@ public class EmptyBorderTag extends BorderTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( left == -1) {
             throw new MissingAttributeException("left");
@@ -97,6 +98,7 @@ public class EmptyBorderTag extends BorderTagSupport {
     /**
      * Factory method to create a new EmptyBorder instance.
      */
+    @Override
     protected Border createBorder() {
         return BorderFactory.createEmptyBorder( top, left, bottom, right);
     }

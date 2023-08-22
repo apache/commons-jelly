@@ -76,6 +76,7 @@ public class GeneratorTag extends TagSupport {
         return new File(target);
     }
     
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
     
         if (schemaUrl == null) {

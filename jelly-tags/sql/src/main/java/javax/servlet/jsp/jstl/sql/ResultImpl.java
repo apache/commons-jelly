@@ -103,6 +103,7 @@ class ResultImpl implements Result {
      *
      * @return an array of Map, or null if there are no rows
      */
+    @Override
     public SortedMap[] getRows() {
         if (rowMap == null) {
             return null;
@@ -120,6 +121,7 @@ class ResultImpl implements Result {
      *
      * @return an array of Object[], or null if there are no rows
      */
+    @Override
     public Object[][] getRowsByIndex() {
         if (rowByIndex == null) {
             return null;
@@ -136,6 +138,7 @@ class ResultImpl implements Result {
      *
      * @return an array of String[]
      */
+    @Override
     public String[] getColumnNames() {
         return columnNames;
     }
@@ -146,6 +149,7 @@ class ResultImpl implements Result {
      * @return the number of cached rows, or -1 if the Result could
      *    not be initialized due to SQLExceptions
      */
+    @Override
     public int getRowCount() {
         if (rowMap == null) {
             return -1;
@@ -158,6 +162,7 @@ class ResultImpl implements Result {
      *
      * @return true if the query was limited by a MaxRows attribute
      */
+    @Override
     public boolean isLimitedByMaxRows() {
         return isLimited;
     }

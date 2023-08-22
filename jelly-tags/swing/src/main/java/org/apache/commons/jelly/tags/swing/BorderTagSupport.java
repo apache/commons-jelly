@@ -42,6 +42,7 @@ public abstract class BorderTagSupport extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
 
         Border border = createBorder();

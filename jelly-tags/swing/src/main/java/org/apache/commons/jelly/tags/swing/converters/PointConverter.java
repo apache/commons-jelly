@@ -28,6 +28,7 @@ import org.apache.commons.beanutils.Converter;
  */
 public class PointConverter implements Converter {
 
+    @Override
     public Object convert(Class type, Object value) {
         if ( value != null ) {
             String text = value.toString();

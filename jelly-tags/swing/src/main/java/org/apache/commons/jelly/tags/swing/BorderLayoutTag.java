@@ -77,6 +77,7 @@ public class BorderLayoutTag extends LayoutTagSupport {
     /**
      * Creates a BorderLayout
      */
+    @Override
     protected LayoutManager createLayoutManager() {
         return new BorderLayout(hgap, vgap);
     }

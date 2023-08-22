@@ -146,6 +146,7 @@ public class FontTag extends TagSupport {
      * @throws JellyTagException if an error occurs
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         // invoke by body just in case some nested tag configures me
         invokeBody(output);

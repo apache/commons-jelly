@@ -57,6 +57,7 @@ public class TableLayoutTag extends LayoutTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         rowCount = 0;
         super.doTag(output);
@@ -69,6 +70,7 @@ public class TableLayoutTag extends LayoutTagSupport {
     /**
      * Creates a GridBagLayout
      */
+    @Override
     protected LayoutManager createLayoutManager() {
         return new GridBagLayout();
     }

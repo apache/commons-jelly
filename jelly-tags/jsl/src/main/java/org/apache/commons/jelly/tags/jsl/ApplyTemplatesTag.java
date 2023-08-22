@@ -48,6 +48,7 @@ public class ApplyTemplatesTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     /** By default just evaluate the body */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
         if (tag == null) {

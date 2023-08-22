@@ -111,6 +111,7 @@ public class TransformTag extends ParseTag {
      * @param output The pipeline for xml events
      * @throws MissingAttributeException Thrown when required attributes are missing
      */
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (null == this.getXslt()) {
@@ -202,6 +203,7 @@ public class TransformTag extends ParseTag {
      */
     protected URIResolver createURIResolver() {
         return new URIResolver() {
+            @Override
             public Source resolve(String href, String base)
                 throws TransformerException {
 
@@ -430,6 +432,7 @@ public class TransformTag extends ParseTag {
          *             An IO exception from the parser, possibly from a byte
                        stream or character stream supplied by the application.
          */
+        @Override
         public void parse(InputSource input)
         throws IOException, SAXException
         {
@@ -451,6 +454,7 @@ public class TransformTag extends ParseTag {
          *             An IO exception from the parser, possibly from a byte
                        stream or character stream supplied by the application.
          */
+        @Override
         public void parse(String systemId)
         throws IOException, SAXException
         {
@@ -518,6 +522,7 @@ public class TransformTag extends ParseTag {
          *
          * @return the SAX ContentHandler to use to feed SAX events into
          */
+        @Override
         public ContentHandler getContentHandler() {
             return this.xmlOutput.getContentHandler();
         }
@@ -528,6 +533,7 @@ public class TransformTag extends ParseTag {
          * @param contentHandler is the ContentHandler to use.
          *      This value cannot be null.
          */
+        @Override
         public void setContentHandler(ContentHandler contentHandler) {
             this.xmlOutput.setContentHandler(contentHandler);
             // often classes will implement LexicalHandler as well
@@ -541,6 +547,7 @@ public class TransformTag extends ParseTag {
          *
          * @return the DTD Handler to use to feed SAX events into
          */
+        @Override
         public DTDHandler getDTDHandler() {
             return this.dtdHandler;
         }
@@ -550,6 +557,7 @@ public class TransformTag extends ParseTag {
          *
          * @param the DTD Handler to use to feed SAX events into
          */
+        @Override
         public void setDTDHandler(DTDHandler dtdHandler) {
             this.dtdHandler = dtdHandler;
         }
@@ -559,6 +567,7 @@ public class TransformTag extends ParseTag {
          *
          * @return the Error Handler to use to feed SAX events into
          */
+        @Override
         public ErrorHandler getErrorHandler() {
             return this.errorHandler;
         }
@@ -568,6 +577,7 @@ public class TransformTag extends ParseTag {
          *
          * @param the Error Handler to use to feed SAX events into
          */
+        @Override
         public void setErrorHandler(ErrorHandler errorHandler) {
             // save the error handler
             this.errorHandler = errorHandler;
@@ -578,6 +588,7 @@ public class TransformTag extends ParseTag {
          *
          * @return the Entity Resolver to use to feed SAX events into
          */
+        @Override
         public EntityResolver getEntityResolver() {
             return this.entityResolver;
         }
@@ -587,6 +598,7 @@ public class TransformTag extends ParseTag {
          *
          * @param the Entity Resolver to use to feed SAX events into
          */
+        @Override
         public void setEntityResolver(EntityResolver entityResolver) {
             this.entityResolver = entityResolver;
         }
@@ -602,6 +614,7 @@ public class TransformTag extends ParseTag {
          *            When the XMLReader recognizes the property name but
          *            cannot determine its value at this time.
          */
+        @Override
         public Object getProperty(String name)
         throws SAXNotRecognizedException, SAXNotSupportedException
         {
@@ -625,6 +638,7 @@ public class TransformTag extends ParseTag {
          *            When the XMLReader recognizes the property name but
          *            cannot determine its value at this time.
          */
+        @Override
         public void setProperty(String name, Object value)
         throws SAXNotRecognizedException, SAXNotSupportedException
         {
@@ -645,6 +659,7 @@ public class TransformTag extends ParseTag {
          *            When the XMLReader recognizes the feature name but
          *            cannot determine its value at this time.
          */
+        @Override
         public boolean getFeature(String name)
         throws SAXNotRecognizedException, SAXNotSupportedException
         {
@@ -663,6 +678,7 @@ public class TransformTag extends ParseTag {
          *            When the XMLReader recognizes the feature name but
          *            cannot determine its value at this time.
          */
+        @Override
         public void setFeature(String name, boolean value)
         throws SAXNotRecognizedException, SAXNotSupportedException
         {

@@ -24,6 +24,7 @@ import org.dom4j.io.SAXReader;
 
 public class ActualTag extends XMLUnitTagSupport {
 
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         Document actualDocument = parseBody();
 
@@ -33,6 +34,7 @@ public class ActualTag extends XMLUnitTagSupport {
         assertTag.setActual(actualDocument);
     }
 
+    @Override
     protected SAXReader createSAXReader() {
         return new SAXReader();
     }

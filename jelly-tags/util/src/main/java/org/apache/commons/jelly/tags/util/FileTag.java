@@ -39,6 +39,7 @@ public class FileTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         boolean available = false;
 

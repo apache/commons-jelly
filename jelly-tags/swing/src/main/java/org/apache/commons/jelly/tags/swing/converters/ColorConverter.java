@@ -39,6 +39,7 @@ public class ColorConverter implements Converter {
     private static String usageText =
         "A color is encoded as a java.awt.Color name or a #xxxxxx triple of hex-bytes.";
 
+    @Override
     public Object convert(Class type, Object value) {
         if (value != null) {
             String s = value.toString();

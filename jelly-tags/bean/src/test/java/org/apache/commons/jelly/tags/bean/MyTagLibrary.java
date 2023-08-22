@@ -39,9 +39,11 @@ public class MyTagLibrary extends TagLibrary {
 
     // TagLibrary interface
     //-------------------------------------------------------------------------
+    @Override
     public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
 
         TagFactory factory = new TagFactory() {
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return createBeanTag(name, attributes);
             }

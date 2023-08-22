@@ -52,6 +52,7 @@ public class WindowListenerTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
 
         // now lets add this action to its parent if we have one

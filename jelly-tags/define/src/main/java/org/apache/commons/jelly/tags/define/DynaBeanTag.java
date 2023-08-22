@@ -70,6 +70,7 @@ public class DynaBeanTag extends DefineTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         invokeBody(output);
 
@@ -84,6 +85,7 @@ public class DynaBeanTag extends DefineTagSupport {
         final Map beanAttributes = (attributes != null) ? attributes : EMPTY_MAP;
 
         TagFactory factory = new TagFactory() {
+            @Override
             public Tag createTag(String name, Attributes attributes) {
                 return  new DynamicDynaBeanTag(theDynaClass, beanAttributes, varAttribute);
             }

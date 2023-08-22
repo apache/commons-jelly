@@ -57,10 +57,12 @@ public class BSFExpression extends ExpressionSupport {
 
     // Expression interface
     //-------------------------------------------------------------------------
+    @Override
     public String getExpressionText() {
         return "${" + text + "}";
     }
 
+    @Override
     public Object evaluate(JellyContext context) {
         // XXXX: unfortunately we must synchronize evaluations
         // so that we can swizzle in the context.

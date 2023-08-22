@@ -66,7 +66,8 @@ public class FocusListenerTag extends TagSupport
     this.lost = lost;
   }
 
-  public void doTag(final XMLOutput output) throws JellyTagException
+  @Override
+public void doTag(final XMLOutput output) throws JellyTagException
   {
     // now lets add this action to its parent if we have one
     ComponentTag tag = (ComponentTag)findAncestorWithClass(ComponentTag.class);
@@ -74,11 +75,13 @@ public class FocusListenerTag extends TagSupport
     {
       FocusListener listener = new FocusListener()
       {
+        @Override
         public void focusGained(FocusEvent e)
         {
           invokeScript(output, e, gained);
         }
 
+        @Override
         public void focusLost(FocusEvent e)
         {
           invokeScript(output, e, lost);

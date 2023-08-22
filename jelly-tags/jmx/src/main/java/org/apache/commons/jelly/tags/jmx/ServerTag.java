@@ -45,6 +45,7 @@ public class ServerTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         // force the creation of a Server

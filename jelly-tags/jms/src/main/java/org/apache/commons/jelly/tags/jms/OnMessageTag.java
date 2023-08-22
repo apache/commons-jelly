@@ -48,6 +48,7 @@ public class OnMessageTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         ConsumerTag tag = (ConsumerTag) findAncestorWithClass(ConsumerTag.class);
         if (tag == null) {
@@ -59,6 +60,7 @@ public class OnMessageTag extends TagSupport {
         final XMLOutput childOutput = output;
 
         MessageListener listener = new MessageListener() {
+            @Override
             public void onMessage(Message message) {
                 childContext.setVariable(var, message);
                 try {

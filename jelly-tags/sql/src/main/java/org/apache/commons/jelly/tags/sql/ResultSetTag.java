@@ -43,6 +43,7 @@ public class ResultSetTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException( "var" );

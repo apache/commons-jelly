@@ -172,6 +172,7 @@ public class SwingTagLibrary extends TagLibrary {
     }
 
     /** Creates a new script to execute the given tag name and attributes */
+    @Override
     public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
         TagScript answer = super.createTagScript(name, attributes);
         if ( answer == null ) {
@@ -179,6 +180,7 @@ public class SwingTagLibrary extends TagLibrary {
             if ( factory != null ) {
                 return new TagScript(
                     new TagFactory() {
+                        @Override
                         public Tag createTag(String name, Attributes attributes) throws JellyException {
                             if ( factory instanceof TagFactory ) {
                                 return ((TagFactory) factory).createTag(name, attributes);
@@ -239,6 +241,7 @@ public class SwingTagLibrary extends TagLibrary {
         registerFactory(
             "splitPane",
             new Factory() {
+                @Override
                 public Object newInstance() {
                     JSplitPane answer = new JSplitPane();
                     answer.setLeftComponent(null);
@@ -254,6 +257,7 @@ public class SwingTagLibrary extends TagLibrary {
         registerFactory(
             "hbox",
             new Factory() {
+                @Override
                 public Object newInstance() {
                     return Box.createHorizontalBox();
                 }
@@ -262,6 +266,7 @@ public class SwingTagLibrary extends TagLibrary {
         registerFactory(
             "vbox",
             new Factory() {
+                @Override
                 public Object newInstance() {
                     return Box.createVerticalBox();
                 }

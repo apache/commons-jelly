@@ -111,6 +111,7 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
      * Called by nested parameter elements to add PreparedStatement
      * parameter values.
      */
+    @Override
     public void addSQLParameter(Object o) {
         if (parameters == null) {
             parameters = new ArrayList();

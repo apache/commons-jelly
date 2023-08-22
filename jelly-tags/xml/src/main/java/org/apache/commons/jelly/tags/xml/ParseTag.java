@@ -47,6 +47,7 @@ public class ParseTag extends ParseTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (getVar() == null) {
             throw new MissingAttributeException("The var attribute cannot be null");
@@ -85,6 +86,7 @@ public class ParseTag extends ParseTagSupport {
     /**
      * Factory method to create a new SAXReader
      */
+    @Override
     protected SAXReader createSAXReader() {
         return new SAXReader(validate);
     }

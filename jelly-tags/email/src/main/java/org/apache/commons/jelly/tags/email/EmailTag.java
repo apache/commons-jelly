@@ -143,6 +143,7 @@ public class EmailTag extends TagSupport {
     /**
      * Execute the tag
      */
+    @Override
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         Properties props = new Properties();
         props.putAll(context.getVariables());

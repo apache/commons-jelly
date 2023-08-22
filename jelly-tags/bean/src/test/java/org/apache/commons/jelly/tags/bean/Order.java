@@ -36,6 +36,7 @@ public class Order {
     public Order() {
     }
 
+    @Override
     public String toString() {
         return "Order[amount=" + amount + ";price=" + price + ";product=" + product + "]";
     }

@@ -44,6 +44,7 @@ public class AssertFileContainsTag extends AssertTagSupport
      * @param output a place to write text output
      * @throws JellyTagException if the file doesn't exist.
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException
     {
         if (match == null)

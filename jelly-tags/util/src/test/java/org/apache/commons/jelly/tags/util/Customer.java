@@ -47,6 +47,7 @@ public class Customer {
         setLocation(cust.getLocation());
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[name=" + name + ";city=" + city + "]";
     }

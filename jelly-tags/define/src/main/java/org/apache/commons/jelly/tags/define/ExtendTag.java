@@ -39,6 +39,7 @@ public class ExtendTag extends DefineTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         DynamicTagLibrary library = getTagLibrary();
         DynamicTagLibrary owner = library.find(getName());

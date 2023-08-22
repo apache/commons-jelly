@@ -45,6 +45,7 @@ public class BeanTagLibrary extends TagLibrary {
         registerTagFactory(
             "beandef",
             new TagFactory() {
+                @Override
                 public Tag createTag(String name, Attributes attributes) throws JellyException {
                     return new BeandefTag(BeanTagLibrary.this);
                 }
@@ -84,6 +85,7 @@ public class BeanTagLibrary extends TagLibrary {
 
     // TagLibrary interface
     //-------------------------------------------------------------------------
+    @Override
     public TagScript createTagScript(
         final String name, final Attributes attributes
     ) throws JellyException {
@@ -107,6 +109,7 @@ public class BeanTagLibrary extends TagLibrary {
     protected TagFactory createTagFactory(String name, Attributes attributes) throws JellyException {
 
         return new TagFactory() {
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return createBeanTag(name, attributes);
             }

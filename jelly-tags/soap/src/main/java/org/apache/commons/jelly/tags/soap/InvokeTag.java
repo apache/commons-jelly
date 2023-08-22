@@ -51,6 +51,7 @@ public class InvokeTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (endpoint == null) {
             throw new MissingAttributeException("endpoint");

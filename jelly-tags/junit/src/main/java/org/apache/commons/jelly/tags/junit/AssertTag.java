@@ -49,6 +49,7 @@ public class AssertTag extends AssertTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (test == null && xpath == null) {
             throw new MissingAttributeException( "test" );

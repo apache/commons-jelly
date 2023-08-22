@@ -51,6 +51,7 @@ public class IntrospectorTag extends TagSupport {
         // register converters to standard Strategies
         ConvertUtils.register(
             new Converter() {
+                @Override
                 public Object convert(Class type, Object value) {
                     if ( value instanceof String ) {
                         return createNameMapper((String) value);
@@ -78,6 +79,7 @@ public class IntrospectorTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if ( var == null ) {

@@ -63,6 +63,7 @@ public class HttpContextTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws JellyTagException when an error occurs
      */
+    @Override
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
 
         JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(

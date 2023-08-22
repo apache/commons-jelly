@@ -57,6 +57,7 @@ public class MessageTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if ( var == null ) {
             // expose message to parent message consumer

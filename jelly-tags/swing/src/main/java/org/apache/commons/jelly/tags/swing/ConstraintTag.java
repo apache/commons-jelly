@@ -58,6 +58,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
 
         public static class HereFactory extends BeanFactory implements TagFactory {
             public HereFactory(Class c) { super(c); }
+            @Override
             public Tag createTag(String name, Attributes attributes) {
                 return new ConstraintTag ( this );
                 // still scratching my head about "this" usage...
@@ -66,7 +67,9 @@ public class ConstraintTag extends DynaBeanTagSupport {
         public static class ConstantFactory implements TagFactory, Factory {
             public ConstantFactory(Object c) { this.constant = c;}
             private Object constant;
+            @Override
             public Object newInstance() { return constant; }
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new ConstraintTag ( this );
             }
@@ -87,6 +90,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
 
     // --------------------------------------------- ATTRIBUTES
 
+    @Override
     public void beforeSetAttributes (  ) throws JellyTagException {
         try {
             createBean(factory);
@@ -96,6 +100,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
     }
 
 
+    @Override
     public void setAttribute ( String name, Object value ) throws JellyTagException {
         // no real need for DynaBeans or ?
         if ( "var".equals(name) ) {
@@ -115,6 +120,7 @@ public class ConstraintTag extends DynaBeanTagSupport {
 // --------------------------------------------------
     /** Children invocation... just nothing...
         */
+    @Override
     public void doTag ( XMLOutput output ) throws JellyTagException {
         if ( var != null ) context.setVariable ( var, getBean() );
         invokeBody ( output );

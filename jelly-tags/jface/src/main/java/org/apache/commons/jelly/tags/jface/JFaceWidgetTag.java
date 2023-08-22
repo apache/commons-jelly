@@ -51,6 +51,7 @@ public class JFaceWidgetTag extends WidgetTag implements Tag {
     /*
      * @see org.apache.commons.jelly.tags.swt.WidgetTag#attachWidgets(java.lang.Object, org.eclipse.swt.widgets.Widget)
      */
+    @Override
     protected void attachWidgets(Object parent, Widget widget) throws JellyTagException {
         super.attachWidgets(parent, widget);
 
@@ -70,6 +71,7 @@ public class JFaceWidgetTag extends WidgetTag implements Tag {
     /*
      * @see org.apache.commons.jelly.tags.swt.WidgetTag#getParentWidget()
      */
+    @Override
     public Widget getParentWidget() {
         parent = super.getParentWidget();
 

@@ -41,6 +41,7 @@ public class JellyStylesheet extends Stylesheet {
     public JellyStylesheet() {
         setValueOfAction(
             new Action() {
+                @Override
                 public void run(Node node) throws Exception {
                     String text = node.getStringValue();
                     if ( text != null && text.length() > 0 ) {

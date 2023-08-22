@@ -32,6 +32,7 @@ public class BeanFactory implements Factory {
     /**
      * Create a new component instance
      */
+    @Override
     public Object newInstance() throws InstantiationException {
         try {
           return beanClass.newInstance();

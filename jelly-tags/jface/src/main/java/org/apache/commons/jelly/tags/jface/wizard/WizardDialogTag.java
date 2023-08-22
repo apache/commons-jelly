@@ -45,6 +45,7 @@ public class WizardDialogTag extends UseBeanTag {
             super(parentShell, newWizard);
         }
 
+        @Override
         public IWizard getWizard() {
             return super.getWizard();
         }
@@ -59,6 +60,7 @@ public class WizardDialogTag extends UseBeanTag {
             setNeedsProgressMonitor(true);
         }
 
+        @Override
         public boolean performCancel() {
             try {
                 if (performCancel != null) {
@@ -73,6 +75,7 @@ public class WizardDialogTag extends UseBeanTag {
             return true;
         }
 
+        @Override
         public boolean performFinish() {
             try {
                 if (performFinish != null) {
@@ -110,6 +113,7 @@ public class WizardDialogTag extends UseBeanTag {
     /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         super.doTag(output);
 
@@ -162,6 +166,7 @@ public class WizardDialogTag extends UseBeanTag {
     /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
         throws JellyTagException {
         Wizard wizard = new WizardImpl();

@@ -41,6 +41,7 @@ public class GridBagLayoutTag extends LayoutTagSupport {
     /**
      * Creates a GridBagLayout
      */
+    @Override
     protected LayoutManager createLayoutManager() {
         return new GridBagLayout();
     }

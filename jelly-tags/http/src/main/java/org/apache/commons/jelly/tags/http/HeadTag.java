@@ -42,6 +42,7 @@ public class HeadTag extends HttpTagSupport {
      * @return a url method for a Head request
      * @throws MalformedURLException when the url is bad
      */
+    @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_headMethod == null) {
             _headMethod = new HeadMethod(getResolvedUrl());

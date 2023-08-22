@@ -32,6 +32,7 @@ public class TableModelColumnTag extends UseBeanTag {
         return (ExpressionTableColumn) getBean();
     }
 
+    @Override
     public Class getAttributeType(String name) throws JellyTagException {
         if (name.equals("value")) {
             return Expression.class;
@@ -41,6 +42,7 @@ public class TableModelColumnTag extends UseBeanTag {
 
     // Implementation methods
     //-------------------------------------------------------------------------
+    @Override
     protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);
 
@@ -51,6 +53,7 @@ public class TableModelColumnTag extends UseBeanTag {
         tag.getTableModel().addColumn( getColumn() );
     }
 
+    @Override
     protected Class getDefaultClass() {
         return ExpressionTableColumn.class;
     }

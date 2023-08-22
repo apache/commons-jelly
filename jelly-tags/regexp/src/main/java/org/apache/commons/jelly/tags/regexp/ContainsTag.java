@@ -23,6 +23,7 @@ package org.apache.commons.jelly.tags.regexp;
  * @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
  */
 public class ContainsTag extends RegexpTag {
+    @Override
     protected boolean getResult() {
         return getPatternMatcher().contains(getText(), getPattern());
     }

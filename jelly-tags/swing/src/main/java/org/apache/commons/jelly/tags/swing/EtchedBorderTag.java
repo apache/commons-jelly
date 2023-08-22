@@ -45,6 +45,7 @@ public class EtchedBorderTag extends BorderTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( highlight != null && shadow == null ) {
             throw new MissingAttributeException("shadow must be supplied when highlight is supplied");
@@ -87,6 +88,7 @@ public class EtchedBorderTag extends BorderTagSupport {
     /**
      * Factory method to create a new EtchedBorder instance.
      */
+    @Override
     protected Border createBorder() {
         if ( etchType == -1 && shadow == null && highlight == null) {
             return BorderFactory.createEtchedBorder();

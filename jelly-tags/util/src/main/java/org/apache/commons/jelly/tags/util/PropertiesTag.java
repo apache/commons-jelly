@@ -45,6 +45,7 @@ public class PropertiesTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         if (file == null && uri == null) {
             throw new JellyTagException("This tag must define a 'file' or 'uri' attribute");

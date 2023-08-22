@@ -37,6 +37,7 @@ public class ContributionItemTag extends UseBeanTag {
     /**
       * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
       */
+    @Override
     public void doTag(XMLOutput output)
         throws MissingAttributeException, JellyTagException {
 

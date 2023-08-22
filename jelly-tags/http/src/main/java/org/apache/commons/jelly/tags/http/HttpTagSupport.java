@@ -107,6 +107,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * @param xmlOutput where to send output
      * @throws JellyTagException when an error occurs
      */
+    @Override
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         // allow nested tags first, e.g body
         invokeBody(xmlOutput);

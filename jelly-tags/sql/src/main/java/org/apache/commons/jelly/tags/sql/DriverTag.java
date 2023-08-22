@@ -71,6 +71,7 @@ public class DriverTag extends TagSupport {
     //*********************************************************************
     // Tag logic
 
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         DataSourceWrapper ds = new DataSourceWrapper();
         try {

@@ -61,6 +61,7 @@ public class TemplateTag extends TagSupport implements XPathSource {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
         if (tag == null) {
@@ -84,6 +85,7 @@ public class TemplateTag extends TagSupport implements XPathSource {
     /**
      * @return the current XPath value on which relative paths are evaluated
      */
+    @Override
     public Object getXPathSource() {
         return xpathSource;
     }
@@ -141,6 +143,7 @@ public class TemplateTag extends TagSupport implements XPathSource {
 
     protected Action createAction(final StylesheetTag tag, final XMLOutput output) {
         return new Action() {
+            @Override
             public void run(Node node) throws Exception {
 
                 // store the context for use by applyTemplates tag

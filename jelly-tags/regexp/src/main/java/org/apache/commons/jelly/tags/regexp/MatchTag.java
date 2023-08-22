@@ -22,6 +22,7 @@ package org.apache.commons.jelly.tags.regexp;
  * @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
  */
 public class MatchTag extends RegexpTag {
+    @Override
     protected boolean getResult() {
         return getPatternMatcher().matches(getText(), getPattern());
     }

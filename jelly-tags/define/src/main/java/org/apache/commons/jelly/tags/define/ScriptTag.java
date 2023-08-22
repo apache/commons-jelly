@@ -39,6 +39,7 @@ public class ScriptTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if ( var == null ) {
             throw new JellyTagException( "<define:script> must have a var attribute" );

@@ -34,6 +34,7 @@ public class AssertEqualsTag extends AssertTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         String message = getBodyText();
 

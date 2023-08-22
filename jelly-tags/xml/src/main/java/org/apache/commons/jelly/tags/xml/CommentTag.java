@@ -37,6 +37,7 @@ public class CommentTag extends XPathTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         String text = getText();
         if (text == null) {

@@ -54,6 +54,7 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if (select != null) {
             List nodes = null;
@@ -87,6 +88,7 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
      * @return the current XPath iteration value
      *  so that any other XPath aware child tags to use
      */
+    @Override
     public Object getXPathSource() {
         return iterationValue;
     }
@@ -123,6 +125,7 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     /*
      * Override superclass so method can be access by IfTag
      */
+    @Override
     protected Object getXPathContext() {
         return super.getXPathContext();
     }

@@ -50,6 +50,7 @@ public class ValidateTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( verifier == null ) {
             throw new MissingAttributeException("verifier");
@@ -81,10 +82,12 @@ public class ValidateTag extends TagSupport {
             // outputting the errors to the current output
             verifier.setErrorHandler(
                 new ErrorHandler() {
+                    @Override
                     public void error(SAXParseException exception) throws SAXException {
                         outputException(output, "error", exception);
                     }
 
+                    @Override
                     public void fatalError(SAXParseException exception) throws SAXException {
                         outputException(output, "fatalError", exception);
                     }

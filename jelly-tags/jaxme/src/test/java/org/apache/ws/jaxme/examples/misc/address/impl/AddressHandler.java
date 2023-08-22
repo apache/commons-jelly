@@ -17,7 +17,8 @@
 package org.apache.ws.jaxme.examples.misc.address.impl;
 
 public class AddressHandler extends org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeHandler implements org.apache.ws.jaxme.JMHandler {
-  protected org.apache.ws.jaxme.examples.misc.address.AddressType newResult() throws org.xml.sax.SAXException {
+  @Override
+protected org.apache.ws.jaxme.examples.misc.address.AddressType newResult() throws org.xml.sax.SAXException {
     try {
       return (org.apache.ws.jaxme.examples.misc.address.AddressType) getData().getFactory().getElement(org.apache.ws.jaxme.examples.misc.address.Address.class);
     } catch (javax.xml.bind.JAXBException _1) {

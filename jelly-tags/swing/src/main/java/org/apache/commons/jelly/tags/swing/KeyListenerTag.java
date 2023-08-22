@@ -60,7 +60,8 @@ public class KeyListenerTag extends TagSupport
     this.typed = typed;
   }
 
-  public void doTag(final XMLOutput output) throws JellyTagException
+  @Override
+public void doTag(final XMLOutput output) throws JellyTagException
   {
     // now lets add this action to its parent if we have one
     ComponentTag tag = (ComponentTag)findAncestorWithClass(ComponentTag.class);
@@ -68,16 +69,19 @@ public class KeyListenerTag extends TagSupport
     {
       KeyListener listener = new KeyListener()
       {
+        @Override
         public void keyTyped(KeyEvent e)
         {
           invokeScript(output, e, typed);
         }
 
+        @Override
         public void keyPressed(KeyEvent e)
         {
           invokeScript(output, e, pressed);
         }
 
+        @Override
         public void keyReleased(KeyEvent e)
         {
           invokeScript(output, e, released);

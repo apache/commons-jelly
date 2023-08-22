@@ -48,6 +48,7 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         // evaluate body as it may contain child tags to register a MessageListener
@@ -113,6 +114,7 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
     /**
      * Sets the JMS messageListener used to consume JMS messages on the given destination
      */
+    @Override
     public void setMessageListener(MessageListener messageListener) {
         this.messageListener = messageListener;
     }

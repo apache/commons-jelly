@@ -82,6 +82,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
 
     // ExpressionFactory interface
     //-------------------------------------------------------------------------
+    @Override
     public Expression createExpression(String text) throws JellyException {
         try {
             return new BSFExpression( text, getBSFEngine(), getBSFManager(), registry );

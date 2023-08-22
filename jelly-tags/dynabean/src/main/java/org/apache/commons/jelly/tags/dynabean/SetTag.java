@@ -56,6 +56,7 @@ public class SetTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         Object answer = null;
         if ( value != null ) {

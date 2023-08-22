@@ -49,6 +49,7 @@ public class StyleTag extends XPathTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         Stylesheet stylesheet = getStylesheet();
         if (stylesheet == null) {

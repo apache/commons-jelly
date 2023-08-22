@@ -40,6 +40,7 @@ public class ExpressionTableColumn extends TableColumn {
     public ExpressionTableColumn() {
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[value:" + value + "]";
     }

@@ -71,6 +71,7 @@ public class JellyBeanTag extends BeanTag {
     // Implementation methods
     //-------------------------------------------------------------------------
 
+    @Override
     protected Method getInvokeMethod( Class theClass ) {
         Method invokeMethod =
             MethodUtils.getAccessibleMethod(

@@ -94,6 +94,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
      * @return the current XPath iteration value
      *  so that any other XPath aware child tags to use
      */
+    @Override
     public Object getXPathSource() {
         return xpathSource;
     }
@@ -101,6 +102,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         stylesheet = createStylesheet(output);
 

@@ -66,6 +66,7 @@ public class DataSourceWrapper implements DataSource {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 
+    @Override
     public boolean isWrapperFor(Class<?> aClass) throws SQLException {
         return false;
     }
@@ -82,6 +83,7 @@ public class DataSourceWrapper implements DataSource {
      * Returns a Connection using the DriverManager and all
      * set properties.
      */
+    @Override
     public Connection getConnection() throws SQLException {
         Connection conn = null;
         if (userName != null) {
@@ -110,6 +112,7 @@ public class DataSourceWrapper implements DataSource {
      * Always throws a SQLException. Username and password are set
      * in the constructor and can not be changed.
      */
+    @Override
     public Connection getConnection(String username, String password)
         throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
@@ -118,6 +121,7 @@ public class DataSourceWrapper implements DataSource {
     /**
      * Always throws a SQLException. Not supported.
      */
+    @Override
     public int getLoginTimeout() throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
@@ -125,6 +129,7 @@ public class DataSourceWrapper implements DataSource {
     /**
      * Always throws a SQLException. Not supported.
      */
+    @Override
     public PrintWriter getLogWriter() throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
@@ -132,6 +137,7 @@ public class DataSourceWrapper implements DataSource {
     /**
      * Always throws a SQLException. Not supported.
      */
+    @Override
     public void setLoginTimeout(int seconds) throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
@@ -139,6 +145,7 @@ public class DataSourceWrapper implements DataSource {
     /**
      * Always throws a SQLException. Not supported.
      */
+    @Override
     public synchronized void setLogWriter(PrintWriter out) throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }

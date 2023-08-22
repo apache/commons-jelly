@@ -74,6 +74,7 @@ public abstract class RegexpTag extends TagSupport {
         this.scope = scope;
     }
 
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         // Check required properties
         if (getText() == null || getText().length() == 0)

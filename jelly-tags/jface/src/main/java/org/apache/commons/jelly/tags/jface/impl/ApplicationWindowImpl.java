@@ -50,6 +50,7 @@ public class ApplicationWindowImpl extends ApplicationWindow {
      * override to make public
      * @see org.eclipse.jface.window.Window#getContents()
      */
+    @Override
     public Control getContents() {
         return super.getContents();
     }

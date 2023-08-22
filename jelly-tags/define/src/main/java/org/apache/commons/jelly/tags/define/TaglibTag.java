@@ -51,6 +51,7 @@ public class TaglibTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         String uri = getUri();
         tagLibrary = new DynamicTagLibrary( uri );

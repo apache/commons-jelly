@@ -55,6 +55,7 @@ public class WaitForSchedulerTag extends QuartzTagSupport
      *
      *  @throws JellyTagException If an error occurs.
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException
     {
         try {

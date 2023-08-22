@@ -52,6 +52,7 @@ public class OnEventTag extends TagSupport implements Listener {
     /**
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException("var");
@@ -80,6 +81,7 @@ public class OnEventTag extends TagSupport implements Listener {
     /**
      * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
      */
+    @Override
     public void handleEvent(Event event) {
         try {
             context.setVariable(var, event);

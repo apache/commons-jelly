@@ -41,10 +41,12 @@ public class BeanShellExpression extends ExpressionSupport {
 
     // Expression interface
     //-------------------------------------------------------------------------
+    @Override
     public String getExpressionText() {
         return "${" + text + "}";
     }
 
+    @Override
     public Object evaluate(JellyContext context) {
         try {
             JellyInterpreter interpreter = new JellyInterpreter();

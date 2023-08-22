@@ -42,6 +42,7 @@ public class GetTag extends HttpTagSupport {
      * @return a url method for a get request
      * @throws MalformedURLException when the url is bad
      */
+    @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_getMethod == null) {
             _getMethod = new GetMethod(getResolvedUrl());

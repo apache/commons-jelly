@@ -59,6 +59,7 @@ public class ReplaceTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         // check required properties
         if (oldChar != null) {

@@ -40,6 +40,7 @@ public class SortTag extends TagSupport {
     
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         if (var == null)
         {

@@ -55,6 +55,7 @@ public class JellyContextAdapterTest extends TestCase
         return new TestSuite( JellyContextAdapterTest.class );
     }
 
+    @Override
     public void setUp()
     {
         jellyContext = new JellyContext();

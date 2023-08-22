@@ -45,6 +45,7 @@ public class SelectionChangedListenerTag
     /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output)
         throws MissingAttributeException, JellyTagException {
         if (var == null) {
@@ -89,6 +90,7 @@ public class SelectionChangedListenerTag
     /*
      * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
      */
+    @Override
     public void selectionChanged(SelectionChangedEvent event) {
         try {
             context.setVariable(var, event);

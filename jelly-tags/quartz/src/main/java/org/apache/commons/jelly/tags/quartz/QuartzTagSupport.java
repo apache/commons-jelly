@@ -63,6 +63,7 @@ public abstract class QuartzTagSupport extends TagSupport
 
             Runtime.getRuntime().addShutdownHook(
                 new Thread() {
+                    @Override
                     public void run()
                     {
                         try

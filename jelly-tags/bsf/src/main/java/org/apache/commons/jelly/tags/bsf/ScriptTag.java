@@ -54,6 +54,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         String text = getBodyText();
 
@@ -86,6 +87,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
     /**
      * @return int
      */
+    @Override
     public int getColumnNumber() {
         return columnNumber;
     }
@@ -93,6 +95,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
     /**
      * @return String
      */
+    @Override
     public String getElementName() {
         return elementName;
     }
@@ -107,6 +110,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
     /**
      * @return String
      */
+    @Override
     public String getFileName() {
         return fileName;
     }
@@ -114,6 +118,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
     /**
      * @return int
      */
+    @Override
     public int getLineNumber() {
         return lineNumber;
     }
@@ -122,6 +127,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * Sets the columnNumber.
      * @param columnNumber The columnNumber to set
      */
+    @Override
     public void setColumnNumber(int columnNumber) {
         this.columnNumber = columnNumber;
     }
@@ -130,6 +136,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * Sets the elementName.
      * @param elementName The elementName to set
      */
+    @Override
     public void setElementName(String elementName) {
         this.elementName = elementName;
     }
@@ -146,6 +153,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * Sets the fileName.
      * @param fileName The fileName to set
      */
+    @Override
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
@@ -154,6 +162,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * Sets the lineNumber.
      * @param lineNumber The lineNumber to set
      */
+    @Override
     public void setLineNumber(int lineNumber) {
         this.lineNumber = lineNumber;
     }

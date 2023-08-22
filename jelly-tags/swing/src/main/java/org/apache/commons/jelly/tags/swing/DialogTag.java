@@ -50,6 +50,7 @@ public class DialogTag extends UseBeanTag implements ContainerTag {
     /**
      * Creates a JDialog.  The constructor used depends on the value of the owner attribute.
      */
+    @Override
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
     throws JellyTagException {
         Object owner = attributes.remove( "owner" );
@@ -68,6 +69,7 @@ public class DialogTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a component to the dialog.
      */
+    @Override
     public void addChild(Component component, Object constraints) {
         Container contentPane = ((JDialog) getBean()).getContentPane();
         if (constraints != null) {

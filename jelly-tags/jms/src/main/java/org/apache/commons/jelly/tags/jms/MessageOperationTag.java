@@ -43,6 +43,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
 
     // Properties
     //-------------------------------------------------------------------------
+    @Override
     public Messenger getConnection() throws JellyTagException, JMSException {
         if ( connection == null ) {
             return findConnection();

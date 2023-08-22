@@ -41,6 +41,7 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
     private org.apache.ws.jaxme.JMHandler __handler;
   
   
+    @Override
     public void startDocument() throws org.xml.sax.SAXException {
       __level = 0;
       __state = 0;
@@ -52,6 +53,7 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
       return new org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeImpl.NameTypeImpl();
     }
   
+    @Override
     public void startElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName, org.xml.sax.Attributes pAttr) throws org.xml.sax.SAXException {
       switch (__level++) {
         case 0:
@@ -126,6 +128,7 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
       }
     }
   
+    @Override
     public void endElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName) throws org.xml.sax.SAXException {
       if (__handler == null) {
         if (__level > 1) {
@@ -170,6 +173,7 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
       }
     }
   
+    @Override
     public void characters(char[] pChars, int pOffset, int pLen) throws org.xml.sax.SAXException {
       if (__handler == null) {
         super.characters(pChars, pOffset, pLen);
@@ -202,14 +206,16 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
   private org.apache.ws.jaxme.JMHandler __handler_Name;
 
 
-  public void startDocument() throws org.xml.sax.SAXException {
+  @Override
+public void startDocument() throws org.xml.sax.SAXException {
     __level = 0;
     __state = 0;
     __state = 0;
     __handler = null;
   }
 
-  public void addAttribute(java.lang.String pURI, java.lang.String pLocalName, java.lang.String pValue) throws org.xml.sax.SAXException {
+  @Override
+public void addAttribute(java.lang.String pURI, java.lang.String pLocalName, java.lang.String pValue) throws org.xml.sax.SAXException {
     if (pURI == null) {
       pURI = "";
     }
@@ -231,7 +237,8 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
     }
   }
 
-  public void startElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName, org.xml.sax.Attributes pAttr) throws org.xml.sax.SAXException {
+  @Override
+public void startElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName, org.xml.sax.Attributes pAttr) throws org.xml.sax.SAXException {
     switch (__level++) {
       case 0:
         setResult(newResult());
@@ -267,7 +274,8 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
     }
   }
 
-  public void endElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName) throws org.xml.sax.SAXException {
+  @Override
+public void endElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName) throws org.xml.sax.SAXException {
     if (__handler == null) {
       if (__level > 1) {
         super.endElement(pNamespaceURI, pLocalName, pQName);
@@ -293,7 +301,8 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
     }
   }
 
-  public void characters(char[] pChars, int pOffset, int pLen) throws org.xml.sax.SAXException {
+  @Override
+public void characters(char[] pChars, int pOffset, int pLen) throws org.xml.sax.SAXException {
     if (__handler == null) {
       super.characters(pChars, pOffset, pLen);
     } else {
@@ -301,7 +310,8 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
     }
   }
 
-  public void init(org.apache.ws.jaxme.JMHandler.Data pData) throws javax.xml.bind.JAXBException {
+  @Override
+public void init(org.apache.ws.jaxme.JMHandler.Data pData) throws javax.xml.bind.JAXBException {
     super.init(pData);
     if (__handler_Name != null) {
       __handler_Name.init(pData);

@@ -38,10 +38,12 @@ public class XPathPatternExpression extends ExpressionSupport implements Variabl
 
     // Expression interface
     //-------------------------------------------------------------------------
+    @Override
     public String getExpressionText() {
         return text;
     }
 
+    @Override
     public Object evaluate(JellyContext context) {
         this.context = context;
         //pattern.setVariableContext(this);
@@ -50,6 +52,7 @@ public class XPathPatternExpression extends ExpressionSupport implements Variabl
 
     // VariableContext interface
     //-------------------------------------------------------------------------
+    @Override
     public Object getVariableValue(
         String namespaceURI,
         String prefix,

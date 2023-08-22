@@ -80,6 +80,7 @@ public class ClassLoaderTag extends BeanTag {
     // Implementation methods
     //-------------------------------------------------------------------------
 
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( getVar() == null ) {
             throw new MissingAttributeException( "var" );

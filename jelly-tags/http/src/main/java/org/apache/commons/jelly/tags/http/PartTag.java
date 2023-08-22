@@ -46,7 +46,8 @@ public class PartTag extends TagSupport {
         super(name, value, "utf-8");
         _contentType=contentType;
       }
-      public String getContentType() { return _contentType; }
+      @Override
+    public String getContentType() { return _contentType; }
     }
 
     /**
@@ -56,6 +57,7 @@ public class PartTag extends TagSupport {
      * @param xmlOutput where to send output
      * @throws JellyTagException when an error occurs
      */
+    @Override
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         MultipartPostTag http = (MultipartPostTag) findAncestorWithClass(MultipartPostTag.class);
         StringPart sp = new MyStringPart(getName(), getValue(), getContentType());

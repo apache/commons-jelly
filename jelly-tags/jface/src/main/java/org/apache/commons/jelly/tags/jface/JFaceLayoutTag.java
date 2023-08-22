@@ -42,6 +42,7 @@ public class JFaceLayoutTag extends LayoutTag {
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#processBean(java.lang.String, java.lang.Object)
      */
+    @Override
     protected void processBean(String var, Object bean) throws JellyTagException {
 
         Widget parent = getParentWidget();

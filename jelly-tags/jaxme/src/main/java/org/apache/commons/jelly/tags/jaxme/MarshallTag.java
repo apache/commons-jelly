@@ -66,6 +66,7 @@ public class MarshallTag extends TagSupport {
         this.object = object;
     }
     
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (packages == null) {
             throw new MissingAttributeException( "packages" );

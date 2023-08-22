@@ -88,6 +88,7 @@ public class BeanTag extends UseBeanTag {
      * Output the tag as a named variable. If the parent bean has an adder or setter
      * method then invoke that to register this bean with its parent.
      */
+    @Override
     protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);

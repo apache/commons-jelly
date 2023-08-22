@@ -36,6 +36,7 @@ public class TableModelTag extends UseBeanTag {
 
     // Implementation methods
     //-------------------------------------------------------------------------
+    @Override
     protected void processBean(String var, Object bean) throws JellyTagException {
         super.processBean(var, bean);
 
@@ -56,6 +57,7 @@ public class TableModelTag extends UseBeanTag {
         }
     }
 
+    @Override
     protected Class getDefaultClass() {
         return ExpressionTableModel.class;
     }

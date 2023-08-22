@@ -72,14 +72,17 @@ public class ExpressionTableModel extends AbstractTableModel {
 
     // TableModel interface
     //-------------------------------------------------------------------------
+    @Override
     public int getRowCount() {
         return rows.size();
     }
 
+    @Override
     public int getColumnCount() {
         return columnModel.getColumnCount();
     }
 
+    @Override
     public String getColumnName(int columnIndex) {
         String answer = null;
         if (columnIndex < 0 || columnIndex >= columnModel.getColumnCount()) {
@@ -92,6 +95,7 @@ public class ExpressionTableModel extends AbstractTableModel {
         return answer;
     }
 
+    @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Object answer = null;
         if (rowIndex < 0 || rowIndex >= rows.size()) {

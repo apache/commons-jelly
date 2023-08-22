@@ -39,6 +39,7 @@ public class Manager {
     public Manager() {
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[customers=" + customers + "]";
     }

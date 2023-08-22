@@ -33,6 +33,7 @@ public class ErrorTag extends LogTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         Log log = getLog();
         if ( log.isErrorEnabled() ) {

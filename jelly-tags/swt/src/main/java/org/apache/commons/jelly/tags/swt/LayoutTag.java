@@ -60,6 +60,7 @@ public class LayoutTag extends LayoutTagSupport {
     /**
      * Either defines a variable or adds the current component to the parent
      */
+    @Override
     protected void processBean(String var, Object bean)
         throws JellyTagException {
         super.processBean(var, bean);
@@ -78,6 +79,7 @@ public class LayoutTag extends LayoutTagSupport {
     /**
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
+    @Override
     protected Object convertValue(Object bean, String name, Object value)
         throws JellyTagException {
 

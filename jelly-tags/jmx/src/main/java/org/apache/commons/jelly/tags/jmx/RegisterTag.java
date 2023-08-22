@@ -50,6 +50,7 @@ public class RegisterTag extends TagSupport implements CollectionTag {
 
     // CollectionTag interface
     //-------------------------------------------------------------------------
+    @Override
     public void addItem(Object bean) throws JellyTagException {
         try {
             register(server, bean);
@@ -61,6 +62,7 @@ public class RegisterTag extends TagSupport implements CollectionTag {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException("name");

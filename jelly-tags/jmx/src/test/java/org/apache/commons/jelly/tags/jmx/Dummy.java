@@ -32,11 +32,13 @@ public class Dummy implements DummyMBean {
     private String name = "James";
     private int count;
 
+    @Override
     public void doSomething() {
         ++count;
         log.info("Do something! on: " + this);
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[name=" + name + "]";
     }
@@ -48,6 +50,7 @@ public class Dummy implements DummyMBean {
     /**
      * @return int
      */
+    @Override
     public int getCount() {
         return count;
     }
@@ -55,6 +58,7 @@ public class Dummy implements DummyMBean {
     /**
      * @return String
      */
+    @Override
     public String getName() {
         return name;
     }
@@ -63,6 +67,7 @@ public class Dummy implements DummyMBean {
      * Sets the count.
      * @param count The count to set
      */
+    @Override
     public void setCount(int count) {
         this.count = count;
     }
@@ -71,6 +76,7 @@ public class Dummy implements DummyMBean {
      * Sets the name.
      * @param name The name to set
      */
+    @Override
     public void setName(String name) {
         this.name = name;
     }

@@ -20,7 +20,8 @@ public class AddressImpl extends org.apache.ws.jaxme.examples.misc.address.impl.
   private final static javax.xml.namespace.QName __qName = new javax.xml.namespace.QName("http://ws.apache.org/jaxme/examples/misc/address", "Address");
 
 
-  public javax.xml.namespace.QName getQName() {
+  @Override
+public javax.xml.namespace.QName getQName() {
     return __qName;
   }
 

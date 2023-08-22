@@ -44,6 +44,7 @@ public class PostTag extends HttpTagSupport {
      * @throws MalformedURLException when the {@link #getUri() URI} or
      * {@link #getPath() path} is invalid
      */
+    @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_postMethod == null) {
             _postMethod = new PostMethod(getResolvedUrl());
@@ -57,6 +58,7 @@ public class PostTag extends HttpTagSupport {
      * This method <strong>must</strong> be called after
      *  {@link #getHttpMethod()}
      */
+    @Override
     protected void setParameters(HttpMethod method) {
         NameValuePair nvp = null;
         for (int index = 0; index < getParameters().size(); index++) {

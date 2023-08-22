@@ -69,6 +69,7 @@ public class ButtonGroupTag extends ComponentTag {
      * @throws JellyTagException
      * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
      */
+    @Override
     public void addChild(Component component, Object constraints) throws JellyTagException {
         if (component instanceof AbstractButton) {
             getButtonGroup().add((AbstractButton) component);
@@ -88,6 +89,7 @@ public class ButtonGroupTag extends ComponentTag {
     /**Creates a new buttonGroup.
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     protected Object newInstance(Class theClass, Map attributes,
             XMLOutput output) throws JellyTagException {
         return new ButtonGroup();

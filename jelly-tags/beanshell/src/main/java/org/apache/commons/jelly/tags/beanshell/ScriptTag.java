@@ -35,6 +35,7 @@ public class ScriptTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         try {
             JellyInterpreter interpreter = BeanShellExpressionFactory.getInterpreter(context);

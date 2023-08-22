@@ -42,6 +42,7 @@ public class DebugGraphicsConverter implements Converter {
     /** Part of the Converter interface.
      * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
      */
+    @Override
     public Object convert(Class type, Object value) {
         return convert(value);
     }

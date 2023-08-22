@@ -28,6 +28,7 @@ public class AddressTypeSerializer extends org.apache.ws.jaxme.impl.JMXmlSeriali
     final static javax.xml.namespace.QName __ser_Initials_qname = new javax.xml.namespace.QName("http://ws.apache.org/jaxme/examples/misc/address", "Initials");
   
   
+    @Override
     protected void marshalChilds(org.apache.ws.jaxme.JMXmlSerializer.Data pData, java.lang.Object pObject) throws org.xml.sax.SAXException {
       org.apache.ws.jaxme.examples.misc.address.AddressType.NameType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) pObject;
       java.lang.String _2 = _1.getFirst();
@@ -58,7 +59,8 @@ public class AddressTypeSerializer extends org.apache.ws.jaxme.impl.JMXmlSeriali
   final static javax.xml.namespace.QName __ser_Name_qname = new javax.xml.namespace.QName("http://ws.apache.org/jaxme/examples/misc/address", "Name");
 
 
-  protected org.xml.sax.helpers.AttributesImpl getAttributes(org.apache.ws.jaxme.JMXmlSerializer.Data pData, java.lang.Object pElement) throws org.xml.sax.SAXException {
+  @Override
+protected org.xml.sax.helpers.AttributesImpl getAttributes(org.apache.ws.jaxme.JMXmlSerializer.Data pData, java.lang.Object pElement) throws org.xml.sax.SAXException {
     org.xml.sax.helpers.AttributesImpl _1 = super.getAttributes(pData, pElement);
     org.apache.ws.jaxme.examples.misc.address.AddressType _2 = (org.apache.ws.jaxme.examples.misc.address.AddressType) pElement;
     java.lang.String _3 = _2.getId();
@@ -68,13 +70,15 @@ public class AddressTypeSerializer extends org.apache.ws.jaxme.impl.JMXmlSeriali
     return _1;
   }
 
-  public void init(org.apache.ws.jaxme.impl.JAXBContextImpl pFactory) throws javax.xml.bind.JAXBException {
+  @Override
+public void init(org.apache.ws.jaxme.impl.JAXBContextImpl pFactory) throws javax.xml.bind.JAXBException {
     super.init(pFactory);
     __ser_Name = new org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeSerializer.NameTypeSerializer();
     __ser_Name.init(pFactory);
   }
 
-  protected void marshalChilds(org.apache.ws.jaxme.JMXmlSerializer.Data pData, java.lang.Object pObject) throws org.xml.sax.SAXException {
+  @Override
+protected void marshalChilds(org.apache.ws.jaxme.JMXmlSerializer.Data pData, java.lang.Object pObject) throws org.xml.sax.SAXException {
     org.apache.ws.jaxme.examples.misc.address.AddressType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType) pObject;
     org.apache.ws.jaxme.examples.misc.address.AddressType.NameType _2 = _1.getName();
     if (_2 != null) {

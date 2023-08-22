@@ -49,6 +49,7 @@ public class DynaclassTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (name == null) {

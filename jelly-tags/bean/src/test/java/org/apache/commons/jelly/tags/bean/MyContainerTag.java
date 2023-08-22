@@ -40,6 +40,7 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         invokeBody(output);
         context.setVariable(var, list);
@@ -48,6 +49,7 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
 
     // CollectionTag interface
     //-------------------------------------------------------------------------
+    @Override
     public void addItem(Object value) {
         list.add(value);
     }

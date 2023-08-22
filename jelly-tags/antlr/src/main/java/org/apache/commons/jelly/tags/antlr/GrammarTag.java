@@ -31,6 +31,7 @@ public class GrammarTag extends TagSupport
     // Tag interface
     //-------------------------------------------------------------------------
 
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException
     {
         String grammar = getBodyText();

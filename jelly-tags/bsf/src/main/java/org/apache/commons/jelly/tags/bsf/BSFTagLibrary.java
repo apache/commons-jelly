@@ -39,6 +39,7 @@ public class BSFTagLibrary extends CoreTagLibrary {
         registerTagFactory(
             "script",
             new TagFactory() {
+                @Override
                 public Tag createTag(String name, Attributes attributes)
                     throws JellyException {
                     return createScriptTag(name, attributes);

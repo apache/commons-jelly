@@ -65,6 +65,7 @@ public class MultipartPostTag extends PostTag {
      * @throws MalformedURLException when the {@link #getUri() URI} or
      * {@link #getPath() path} is invalid
      */
+    @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_postMethod == null) {
             _postMethod = new MultipartPostMethod(getResolvedUrl());
@@ -88,6 +89,7 @@ public class MultipartPostTag extends PostTag {
      * It <strong>must</strong> be called after
      *  {@link #getHttpMethod()}
      */
+    @Override
     protected void setParameters(HttpMethod method) {
         for (int index = 0; index < _parts.size(); index++) {
             ((MultipartPostMethod) method).addPart( (Part) _parts.get(index) );

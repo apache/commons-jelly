@@ -55,6 +55,7 @@ public class ViewerTag extends WidgetTag {
     /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     protected Object newInstance(
         Class theClass,
         Map attributes,

@@ -51,6 +51,7 @@ public class TitledBorderTag extends BorderTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( title == null) {
             throw new MissingAttributeException("title");
@@ -106,6 +107,7 @@ public class TitledBorderTag extends BorderTagSupport {
     /**
      * Factory method to create a new Border instance.
      */
+    @Override
     protected Border createBorder() {
         if (border != null) {
             if (titleJustification != null && titlePosition != null) {

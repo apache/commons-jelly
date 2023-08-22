@@ -60,6 +60,7 @@ public class WidgetTag extends UseBeanTag {
         this.style = style;
     }
 
+    @Override
     public String toString() {
         return "WidgetTag[widget=" + getWidget() + "]";
     }
@@ -95,6 +96,7 @@ public class WidgetTag extends UseBeanTag {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
         Object parent = attributes.remove("parent");
@@ -119,6 +121,7 @@ public class WidgetTag extends UseBeanTag {
     /**
      * Factory method to create a new widget
      */
+    @Override
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
         throws JellyTagException {
         int style = getStyle(attributes);
@@ -137,6 +140,7 @@ public class WidgetTag extends UseBeanTag {
     /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
      */
+    @Override
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
 
         if (bean instanceof Control) {

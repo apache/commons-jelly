@@ -54,6 +54,7 @@ public class MenuTag extends WidgetTag {
      * @param parent is the parent widget which is never null
      * @param widget is the new child widget to be attached to the parent
      */
+    @Override
     protected void attachWidgets(Object parent, Widget widget) {
         Menu menu = (Menu) widget;
         if (parent instanceof Decorations) {
@@ -73,6 +74,7 @@ public class MenuTag extends WidgetTag {
     /**
      * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
      */
+    @Override
     protected Object createWidget(Class theClass, Widget parent, int style)
         throws JellyTagException {
 

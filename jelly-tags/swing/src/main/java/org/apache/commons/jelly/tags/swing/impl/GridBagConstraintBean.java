@@ -304,6 +304,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
         }
     }
 
+    @Override
     public String toString() {
         return "GridBagConstraintBean["
             + "gridx="

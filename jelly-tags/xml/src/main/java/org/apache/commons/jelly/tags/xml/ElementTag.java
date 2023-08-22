@@ -88,6 +88,7 @@ public class ElementTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         int idx = name.indexOf(':');
         final String localName = (idx >= 0)
@@ -100,6 +101,7 @@ public class ElementTag extends TagSupport {
 
             // add an initialize hook to the core content-generating methods
 
+            @Override
             public void startElement(
                 String uri,
                 String localName,
@@ -110,29 +112,34 @@ public class ElementTag extends TagSupport {
                 super.startElement(uri, localName, qName, atts);
             }
 
+            @Override
             public void endElement(String uri, String localName, String qName)
                 throws SAXException {
                 initialize();
                 super.endElement(uri, localName, qName);
             }
 
+            @Override
             public void characters(char[] ch, int start, int length) throws SAXException {
                 initialize();
                 super.characters(ch, start, length);
             }
 
+            @Override
             public void ignorableWhitespace(char[] ch, int start, int length)
                 throws SAXException {
                 initialize();
                 super.ignorableWhitespace(ch, start, length);
             }
 
+            @Override
             public void objectData(Object object)
                 throws SAXException {
                 initialize();
                 super.objectData(object);
             }
 
+            @Override
             public void processingInstruction(String target, String data)
                 throws SAXException {
                 initialize();

@@ -55,6 +55,7 @@ public class AssertThrowsTag extends AssertTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         Class throwableClass = null;
         try {

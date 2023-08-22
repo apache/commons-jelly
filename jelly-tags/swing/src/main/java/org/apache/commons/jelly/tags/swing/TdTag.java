@@ -52,6 +52,7 @@ public class TdTag extends TagSupport implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
+    @Override
     public void addChild(Component component, Object constraints) throws JellyTagException {
         // add my child component to the layout manager
         TrTag tag = (TrTag) findAncestorWithClass( TrTag.class );
@@ -64,6 +65,7 @@ public class TdTag extends TagSupport implements ContainerTag {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
     }

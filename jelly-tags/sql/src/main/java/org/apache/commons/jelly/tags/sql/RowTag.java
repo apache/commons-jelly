@@ -28,6 +28,7 @@ public class RowTag extends MapTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         ResultSetTag tag = (ResultSetTag) findAncestorWithClass( ResultSetTag.class );
         if ( tag == null ) {

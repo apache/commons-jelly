@@ -42,6 +42,7 @@ public class BrokerTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if ( var == null ) {
             var = "org.apache.commons.jelly.ojb.Broker";

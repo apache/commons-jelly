@@ -45,6 +45,7 @@ public class JSLTagLibrary extends XMLTagLibrary {
         registerTag("valueOf", ExprTag.class);
     }
 
+    @Override
     public Expression createExpression(
         ExpressionFactory factory,
         TagScript tagScript,

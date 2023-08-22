@@ -48,10 +48,12 @@ public class JellyContextRegistry extends ObjectRegistry {
 
     // ObjectRegistry interface
     //-------------------------------------------------------------------------
+    @Override
     public Object lookup(String name) {
         return context.getVariable(name);
     }
 
+    @Override
     public void register(String name, Object value) {
         context.setVariable(name, value);
     }

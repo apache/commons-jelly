@@ -82,6 +82,7 @@ public class JellyContextAdapter implements Context
         return readOnly;
     }
 
+    @Override
     public boolean containsKey( Object key )
     {
         if ( key == null )
@@ -97,6 +98,7 @@ public class JellyContextAdapter implements Context
         return jellyContext.getVariable( key.toString() ) != null ? true : false;
     }
 
+    @Override
     public Object get( String key )
     {
         if ( key == null )
@@ -112,6 +114,7 @@ public class JellyContextAdapter implements Context
         return jellyContext.getVariable( key );
     }
 
+    @Override
     public Object[] getKeys()
     {
         Set keys = jellyContext.getVariables().keySet();
@@ -126,6 +129,7 @@ public class JellyContextAdapter implements Context
         return keys.toArray();
     }
 
+    @Override
     public Object put( String key, Object value )
     {
         Object oldValue;
@@ -148,6 +152,7 @@ public class JellyContextAdapter implements Context
         return oldValue;
     }
 
+    @Override
     public Object remove( Object key )
     {
         Object oldValue;

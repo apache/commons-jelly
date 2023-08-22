@@ -57,6 +57,7 @@ public class BeanShellExpressionFactory implements ExpressionFactory {
 
     // ExpressionFactory interface
     //-------------------------------------------------------------------------
+    @Override
     public Expression createExpression(String text) throws JellyException {
         return new BeanShellExpression(text);
     }

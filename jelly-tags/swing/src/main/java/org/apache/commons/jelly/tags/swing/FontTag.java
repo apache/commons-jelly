@@ -58,6 +58,7 @@ public class FontTag extends MapTagSupport {
     }
 */
 
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
         String var = (String) attributes.remove("var");

@@ -45,6 +45,7 @@ public class CopyTag extends XPathTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         Object xpathContext = getXPathContext();
 

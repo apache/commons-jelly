@@ -74,6 +74,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     /**
      * Either defines a variable or adds the current component to the parent
      */
+    @Override
     protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
@@ -83,6 +84,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     /**
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
      */
+    @Override
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
 
         if (bean != null) {

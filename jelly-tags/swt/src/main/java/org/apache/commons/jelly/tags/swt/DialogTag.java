@@ -52,6 +52,7 @@ public class DialogTag extends WidgetTag {
     /**
      * Factory method to create a new dialog
      */
+    @Override
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
         throws JellyTagException {
         int style = getStyle(attributes);

@@ -51,6 +51,7 @@ public abstract class LayoutTagSupport extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
 
         LayoutManager layout = createLayoutManager();

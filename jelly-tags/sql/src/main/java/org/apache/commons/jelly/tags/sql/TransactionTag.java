@@ -80,6 +80,7 @@ public class TransactionTag extends TagSupport {
      * getting the <code>Connection</code> and preparing it for
      * the transaction.
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         if ((rawDataSource == null) && dataSourceSpecified) {

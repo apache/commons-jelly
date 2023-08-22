@@ -41,6 +41,7 @@ public abstract class UseThreadTag extends TagSupport {
      * The default behavior is to either use the set thread or to
      * search for a parent thread to use.
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         try {
             // either use the set thread or search for a parent thread to use

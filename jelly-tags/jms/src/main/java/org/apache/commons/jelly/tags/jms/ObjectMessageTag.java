@@ -48,6 +48,7 @@ public class ObjectMessageTag extends MessageTag {
 
     // Implementation methods
     //-------------------------------------------------------------------------
+    @Override
     protected Message createMessage() throws JellyTagException {
         Serializable value = (object != null) ? object : getBodyText();
         try {

@@ -98,6 +98,7 @@ public class HomepageBuilder extends JPanel {
 
         JButton addButton = new JButton("Add >>>");
         addButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 listModel.addElement(addField.getText());
             }
@@ -113,6 +114,7 @@ public class HomepageBuilder extends JPanel {
 
         JButton submit = new JButton("Build and preview your page!");
         submit.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 buildPage(templateList.getSelectedItem().toString(),new JellyContext());
                 showPage();

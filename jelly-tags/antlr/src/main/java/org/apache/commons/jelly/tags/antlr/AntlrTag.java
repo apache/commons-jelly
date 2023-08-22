@@ -50,6 +50,7 @@ public class AntlrTag extends TagSupport
      * Evaluate the body to register all the various goals and pre/post conditions
      * then run all the current targets
      */
+    @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException
     {
         if ( this.outputDir == null )
@@ -197,10 +198,12 @@ class NoExitSecurityManager extends SecurityManager
     {
     }
 
+    @Override
     public void checkPermission(Permission permission)
     {
     }
 
+    @Override
     public void checkExit(int status)
     {
         throw new SecurityException( "exitVM-" + status );

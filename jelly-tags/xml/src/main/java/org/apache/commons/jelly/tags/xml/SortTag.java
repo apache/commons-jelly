@@ -41,6 +41,7 @@ public class SortTag extends XPathTagSupport {
     /** Xpath comparator for sorting */
     private XPathComparator xpCmp = null;
 
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (xpCmp == null) {
             throw new MissingAttributeException( "xpCmp" );

@@ -37,6 +37,7 @@ public class SendTag extends MessageOperationTag {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         // evaluate body as it may contain a <destination> or message tag
         invokeBody(output);

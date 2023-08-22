@@ -38,6 +38,7 @@ public class DestinationTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
         if ( messengerTag == null ) {

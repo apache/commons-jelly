@@ -56,6 +56,7 @@ public class AssertValidTag extends ValidateTag {
 */
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         buffer.setLength(0);
         super.doTag(output);
@@ -69,6 +70,7 @@ public class AssertValidTag extends ValidateTag {
      * Derived classes can overload this method to do different things, such
      * as to throw assertion exceptions etc.
      */
+    @Override
     protected void handleValid(boolean valid) {
         super.handleValid(valid);
 
@@ -81,6 +83,7 @@ public class AssertValidTag extends ValidateTag {
     /**
      * Outputs the given validation exception as XML to the output
      */
+    @Override
     protected void outputException(XMLOutput output, String name, SAXParseException e) throws SAXException {
         buffer.append( name );
         buffer.append( " : line: " );

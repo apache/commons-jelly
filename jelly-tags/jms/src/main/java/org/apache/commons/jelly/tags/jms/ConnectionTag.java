@@ -41,12 +41,14 @@ public class ConnectionTag extends TagSupport implements ConnectionContext {
 
     // ConnectionContext interface
     //-------------------------------------------------------------------------
+    @Override
     public Messenger getConnection() {
         return connection;
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         try {

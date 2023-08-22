@@ -73,6 +73,7 @@ public class PreferenceDialogTag extends UseBeanTag {
     /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     protected Object newInstance(Class arg0, Map arg1, XMLOutput arg2) throws JellyTagException {
         PreferenceManager pm = new PreferenceManager();
         return new PreferenceDialog(getShell(), pm);

@@ -34,6 +34,7 @@ public class SuperTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         ExtendTag tag = (ExtendTag) findAncestorWithClass(ExtendTag.class);
         if (tag == null) {

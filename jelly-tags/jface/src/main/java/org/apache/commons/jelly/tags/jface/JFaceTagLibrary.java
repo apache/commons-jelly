@@ -102,6 +102,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new MenuManagerTag();
             }
@@ -131,6 +132,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new ViewerTag(theClass, style);
             }
@@ -148,6 +150,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new ApplicationWindowTag(theClass);
             }
@@ -162,6 +165,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new ActionTag(theClass);
             }
@@ -176,6 +180,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new ContributionItemTag(theClass);
             }
@@ -191,6 +196,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new PreferenceDialogTag(theClass);
             }
@@ -206,6 +212,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new FieldEditorTag(theClass);
             }
@@ -221,6 +228,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new WizardDialogTag(theClass);
             }
@@ -232,6 +240,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new WizardPageTag(theClass);
             }
@@ -241,6 +250,7 @@ public class JFaceTagLibrary extends SwtTagLibrary {
     /**
      * Register a widget tag for the given name
      */
+    @Override
     protected void registerWidgetTag(String name, Class widgetClass) {
         registerWidgetTag(name, widgetClass, SWT.NULL);
     }
@@ -248,11 +258,13 @@ public class JFaceTagLibrary extends SwtTagLibrary {
     /**
      * Register a widget tag for the given name
      */
+    @Override
     protected void registerWidgetTag(String name, final Class widgetClass, final int style) {
         registerTagFactory(name, new TagFactory() {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new JFaceWidgetTag(widgetClass, style);
             }
@@ -262,11 +274,13 @@ public class JFaceTagLibrary extends SwtTagLibrary {
     /**
      * Register a layout tag for the given name
      */
+    @Override
     protected void registerLayoutTag(String name, final Class layoutClass) {
         registerTagFactory(name, new TagFactory() {
             /**
              * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
              */
+            @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new JFaceLayoutTag(layoutClass);
             }

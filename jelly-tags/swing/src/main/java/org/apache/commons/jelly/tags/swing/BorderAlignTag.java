@@ -38,6 +38,7 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
+    @Override
     public void addChild(Component component, Object constraints) throws JellyTagException {
         BorderLayoutTag tag = (BorderLayoutTag) findAncestorWithClass( BorderLayoutTag.class );
         if (tag == null) {
@@ -48,6 +49,7 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
     }

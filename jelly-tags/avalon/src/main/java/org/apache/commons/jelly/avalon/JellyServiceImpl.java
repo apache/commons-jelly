@@ -60,6 +60,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
     /**
      * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map)
      */
+    @Override
     public Map runNamedScript( String name, Map params ) throws Exception {
         return runNamedScript(name, params, createXMLOutput());
     }
@@ -67,6 +68,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
     /**
      * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, XMLOutput)
      */
+    @Override
     public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception {
         if ( !m_scripts.containsKey( name ) )
             throw new JellyException( "No script exists for script name [" + name + "]" );
@@ -83,6 +85,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      /**
      * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, OutputStream)
      */
+    @Override
     public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception {
         XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
         Map answer = runNamedScript(name, params, xmlOutput);
@@ -93,6 +96,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      /**
      * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, XMLOutput)
      */
+    @Override
     public Map runScript( String url, Map params, XMLOutput output ) throws Exception {
         URL actualUrl = null;
         try {
@@ -115,6 +119,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      /**
      * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, OutputStream)
      */
+    @Override
     public Map runScript( String url, Map params, OutputStream out ) throws Exception {
         XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
         Map answer = runScript(url, params, xmlOutput);
@@ -125,6 +130,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      /**
      * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map)
      */
+    @Override
     public Map runScript( String url, Map params ) throws Exception {
         return runScript(url, params, createXMLOutput());
     }
@@ -156,6 +162,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @param config The configuration
      * @throws ConfigurationException
      */
+    @Override
     public void configure( Configuration config ) throws ConfigurationException {
         if ( m_configured )
             throw new ConfigurationException( "configure may only be executed once" );

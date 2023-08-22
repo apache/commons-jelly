@@ -43,6 +43,7 @@ public class ReceiveTag extends MessageOperationTag {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         // evaluate body as it may contain a <destination> tag
         invokeBody(output);

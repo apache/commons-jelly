@@ -80,6 +80,7 @@ class JellyResourceHttpHandler extends AbstractHttpHandler {
      * @throws HttpException when an error occurs
      * @throws IOException when an error occurs
      */
+    @Override
     public void handle(String pathInContext,
                        String pathParams,
                        HttpRequest request,

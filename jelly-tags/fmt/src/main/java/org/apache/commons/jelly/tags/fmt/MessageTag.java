@@ -65,6 +65,7 @@ public class MessageTag extends TagSupport {
         params.add(arg);
     }
 
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         Object keyInput = null;

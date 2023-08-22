@@ -52,6 +52,7 @@ public class ParseTag extends ParseTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if (getVar() == null) {
             throw new IllegalArgumentException("The var attribute cannot be null");
@@ -106,6 +107,7 @@ public class ParseTag extends ParseTagSupport {
     /**
      * Factory method to create a new SAXReader
      */
+    @Override
     protected SAXReader createSAXReader() throws SAXException {
         // installs the NeckHTML parser
         SAXParser parser = new SAXParser();

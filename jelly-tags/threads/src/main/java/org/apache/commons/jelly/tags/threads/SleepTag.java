@@ -31,6 +31,7 @@ public class SleepTag extends TagSupport {
     private long howLong = 0;
 
     /** Put the thread to sleep */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         try {
             Thread.sleep(howLong);

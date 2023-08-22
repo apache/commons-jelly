@@ -41,6 +41,7 @@ public class StoreTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if ( value == null ) {
             throw new JellyTagException( "No value is supplied!" );

@@ -94,6 +94,7 @@ public class SetDataSourceTag extends TagSupport {
     //*********************************************************************
     // Tag logic
 
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         DataSource ds = null;
 

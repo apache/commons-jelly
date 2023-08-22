@@ -83,6 +83,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
         this.factory = factory;
     }
 
+    @Override
     public String toString() {
 		Component comp = getComponent();
         String componentName = (comp!=null) ? comp.getName() : null;
@@ -234,6 +235,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a child component to this parent
      */
+    @Override
     public void addChild(Component component, Object constraints) throws JellyTagException {
         Object parent = getBean();
         if ( parent instanceof JFrame && component instanceof JMenuBar ) {
@@ -294,6 +296,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * A class may be specified otherwise the Factory will be used.
      */
+    @Override
     protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
         if (classObject == null) {
             return null;
@@ -306,6 +309,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * A class may be specified otherwise the Factory will be used.
      */
+    @Override
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
 		if (attributes.containsKey("tagName")) {
 			this.setTagName((String)attributes.get("tagName"));
@@ -332,6 +336,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Either defines a variable or adds the current component to the parent
      */
+    @Override
     protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
@@ -353,6 +358,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Handles wierd properties that don't quite match the Java Beans contract
      */
+    @Override
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
             
             Component component = getComponent();
@@ -423,6 +429,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * around for longer than they are needed.
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         super.doTag(output);
         clearBean();

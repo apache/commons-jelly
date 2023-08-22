@@ -50,6 +50,7 @@ public class MergeTag extends VelocityTagSupport
 
     // -- Tag interface -----------------------------------------------------
 
+    @Override
     public void doTag( final XMLOutput output ) throws JellyTagException
     {
         if ( basedir == null || template == null )

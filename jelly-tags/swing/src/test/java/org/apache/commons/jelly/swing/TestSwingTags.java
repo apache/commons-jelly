@@ -199,6 +199,7 @@ public class TestSwingTags extends BaseJellyTest {
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.core.BaseJellyTest#getXMLOutput()
      */
+    @Override
     protected XMLOutput getXMLOutput() {
         try {
             return XMLOutput.createXMLOutput(System.out);

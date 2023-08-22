@@ -58,6 +58,7 @@ public class JellyThread extends Thread {
     /**
      * Run the thread
      */
+    @Override
     public void run() {
         log.debug("Starting thread \"" + getName() + "\"");
 

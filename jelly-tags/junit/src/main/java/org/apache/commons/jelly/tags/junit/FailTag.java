@@ -34,6 +34,7 @@ public class FailTag extends AssertTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         String message = getMessage();
         if ( message == null ) {

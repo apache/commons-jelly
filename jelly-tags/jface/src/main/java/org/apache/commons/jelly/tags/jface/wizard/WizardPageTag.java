@@ -46,6 +46,7 @@ public class WizardPageTag extends UseBeanTag {
             super(title);
         }
 
+        @Override
         public void createControl(Composite parent) {
             // set initial parent Control to avoid a NPE during invokeBody
             setControl(parent);
@@ -88,6 +89,7 @@ public class WizardPageTag extends UseBeanTag {
     /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         // check location
         WizardDialogTag wizardTag = (WizardDialogTag) findAncestorWithClass(WizardDialogTag.class);

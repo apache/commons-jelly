@@ -59,10 +59,12 @@ public class PreferencePageTag extends TagSupport {
             }
         }
 
+        @Override
         public void addField(FieldEditor editor) {
             super.addField(editor);
         }
 
+        @Override
         protected void createFieldEditors() {
             try {
                 invokeBody(output);
@@ -71,10 +73,12 @@ public class PreferencePageTag extends TagSupport {
             }
         }
 
+        @Override
         public Composite getFieldEditorParent() {
             return super.getFieldEditorParent();
         }
 
+        @Override
         public IPreferenceStore getPreferenceStore() {
             return preferenceStore;
         }
@@ -98,6 +102,7 @@ public class PreferencePageTag extends TagSupport {
     /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         // check location
         PreferenceDialogTag dialogTag =

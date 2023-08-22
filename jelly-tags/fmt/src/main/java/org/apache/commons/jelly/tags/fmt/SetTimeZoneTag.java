@@ -44,6 +44,7 @@ public class SetTimeZoneTag extends TagSupport {
      * Evaluates this tag after all the tags properties have been initialized.
      *
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         TimeZone timeZone = null;
 

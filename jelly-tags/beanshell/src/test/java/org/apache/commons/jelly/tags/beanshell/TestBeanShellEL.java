@@ -58,6 +58,7 @@ public class TestBeanShellEL extends TestCase {
         super(testName);
     }
 
+    @Override
     public void setUp() {
         context = new JellyContext();
         context.setVariable( "foo", "abc" );

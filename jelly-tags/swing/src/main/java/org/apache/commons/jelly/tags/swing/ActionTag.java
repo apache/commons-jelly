@@ -67,6 +67,7 @@ public class ActionTag extends UseBeanTag {
      * An existing Action could be specified via the 'action' attribute or an action class
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
+    @Override
     protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
         if (classObject == null) {
             return null;
@@ -80,6 +81,7 @@ public class ActionTag extends UseBeanTag {
      * An existing Action could be specified via the 'action' attribute or an action class
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
+    @Override
     protected Object newInstance(Class theClass, Map attributes, final XMLOutput output) throws JellyTagException {
         Action action = (Action) attributes.remove( "action" );
         if ( action == null ) {
@@ -96,6 +98,7 @@ public class ActionTag extends UseBeanTag {
             }
             else {
                 action = new AbstractAction() {
+                    @Override
                     public void actionPerformed(ActionEvent event) {
                         context.setVariable( "event", event );
                         try {
@@ -111,7 +114,8 @@ public class ActionTag extends UseBeanTag {
         return action;
     }
 	
-	public void invokeBody(XMLOutput output) {
+	@Override
+    public void invokeBody(XMLOutput output) {
 		// do nothing
 	}
 
@@ -119,6 +123,7 @@ public class ActionTag extends UseBeanTag {
     /**
      * Either defines a variable or adds the current component to the parent
      */
+    @Override
     protected void processBean(String var, Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
@@ -138,6 +143,7 @@ public class ActionTag extends UseBeanTag {
     /**
      * Perform the strange setting of Action properties using its custom API
      */
+    @Override
     protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
         Action action = getAction();
 

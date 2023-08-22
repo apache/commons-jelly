@@ -44,6 +44,7 @@ public class PropertyTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag (XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         // Check that this tag is used inside the body of

@@ -59,6 +59,7 @@ public class BeanPropertyTag extends BeanTag {
     /**
      * Creates a new instance by calling a create method on the parent bean
      */
+    @Override
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
         Object parentObject = getParentObject();
         if (parentObject != null) {

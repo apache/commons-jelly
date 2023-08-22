@@ -38,6 +38,7 @@ public class IfTag extends XPathTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (select == null) {
             throw new MissingAttributeException( "select" );
@@ -64,6 +65,7 @@ public class IfTag extends XPathTagSupport {
 
     // Implementation methods
     //-------------------------------------------------------------------------
+    @Override
     protected Object getXPathContext() {
         ForEachTag tag = (ForEachTag) findAncestorWithClass( ForEachTag.class );
         if ( tag != null ) {

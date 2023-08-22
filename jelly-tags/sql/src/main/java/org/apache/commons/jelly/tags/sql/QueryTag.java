@@ -100,6 +100,7 @@ public class QueryTag extends SqlTagSupport {
      * element, or is retrieved from a JSP scope  attribute
      * named <code>javax.servlet.jstl.sql.dataSource</code>.
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         if (!maxRowsSpecified) {

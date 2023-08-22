@@ -136,6 +136,7 @@ public class AskTag extends TagSupport {
      * @param output
      *            the place to write output
      */
+    @Override
     public void doTag(XMLOutput output) {
         if (question != null) {
             if (defaultInput != null) {

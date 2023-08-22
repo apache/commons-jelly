@@ -40,6 +40,7 @@ public class GroupTag extends TagSupport {
     private List threads = new ArrayList();
 
     /** Child threads will add themselves and will then all be started together */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         invokeBody(output);
 

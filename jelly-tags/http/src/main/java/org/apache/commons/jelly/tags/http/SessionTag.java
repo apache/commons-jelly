@@ -57,6 +57,7 @@ public class SessionTag extends TagSupport {
      * @param xmlOutput to write output
      * @throws JellyTagException when any error occurs
      */
+    @Override
     public void doTag(XMLOutput xmlOutput) throws JellyTagException {
         if (_httpClient == null)
         {
