@@ -140,7 +140,7 @@ public class HomepageBuilder extends JPanel {
 //        //embedded.setScript(scriptAsInputStream);
 //
 //        boolean bStatus=embedded.execute();
-//        if(!bStatus) //if error
+//        if (!bStatus) //if error
 //        {
 //        System.out.println(embedded.getErrorMsg());
 //        }

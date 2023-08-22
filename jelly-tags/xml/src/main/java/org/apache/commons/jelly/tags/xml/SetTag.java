@@ -89,7 +89,7 @@ public class SetTag extends XPathTagSupport {
         Object xpathContext = getXPathContext();
         Object value = null;
         try {
-            if( single != null && single.booleanValue() == true ) {
+            if ( single != null && single.booleanValue() == true ) {
                 value = select.selectSingleNode(xpathContext);
             } else {
                 value = select.evaluate(xpathContext);
@@ -105,7 +105,7 @@ public class SetTag extends XPathTagSupport {
             if (xpCmp != null && (xpCmp.getXpath() != null)) {
                 Collections.sort(list, xpCmp);
             }
-            if(list.isEmpty()) {
+            if (list.isEmpty()) {
                 value = null;
             }
         }
@@ -114,7 +114,7 @@ public class SetTag extends XPathTagSupport {
         // handle single
         if (single!=null) {
             if (single.booleanValue() == true) {
-                if(value instanceof List) {
+                if (value instanceof List) {
                     List l = (List) value;
                     if (l.size() == 0)
                         value=null;
@@ -122,7 +122,7 @@ public class SetTag extends XPathTagSupport {
                         value=l.get(0);
                 }
             } else { // single == false
-                if(! (value instanceof List) ) {
+                if (! (value instanceof List) ) {
                     List l = null;
                     if (value==null) {
                         l = new ArrayList(0);
@@ -136,13 +136,13 @@ public class SetTag extends XPathTagSupport {
         }
         
         // now convert the result(s) to string if need
-        if(asString != null && asString.booleanValue()) {
-            if(value instanceof Node) {
+        if (asString != null && asString.booleanValue()) {
+            if (value instanceof Node) {
                 value = ((Node) value).getStringValue();
-            } else if(value instanceof List) {
+            } else if (value instanceof List) {
                 for(ListIterator it = ((List) value).listIterator(); it.hasNext(); ) {
                     Object v = it.next();
-                    if(v instanceof Node) {
+                    if (v instanceof Node) {
                         v = ((Node) v).getStringValue();
                         it.set(v);
                     }
@@ -151,7 +151,7 @@ public class SetTag extends XPathTagSupport {
         }
         
         // finally convert the result to a concatenated string if delimiter is defined
-        if(delimiter != null && value instanceof List) {
+        if (delimiter != null && value instanceof List) {
             StringBuilder buff = new StringBuilder();
             for(Iterator it = ((List) value).iterator(); it.hasNext(); ) {
                 Object v = it.next();
@@ -160,7 +160,7 @@ public class SetTag extends XPathTagSupport {
                 } else {
                     buff.append(v.toString());
                 }
-                if(it.hasNext()) {
+                if (it.hasNext()) {
                     buff.append(delimiter);
                 }
             }
@@ -297,7 +297,7 @@ public class SetTag extends XPathTagSupport {
       */
     public void setDelim(String delim) {
         this.delimiter = delim;
-        if( delim!=null ) {
+        if ( delim!=null ) {
             this.asString = Boolean.TRUE;
         }
     }

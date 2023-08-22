@@ -561,12 +561,12 @@ public class AntTag extends MapTagSupport implements TaskSource {
     }
 
     private String safeToString(Object o) {
-        if(o==null) return "null";
+        if (o==null) return "null";
         String r = null;
         try {
             r = o.toString();
         } catch (Exception ex) {}
-        if(r == null)
+        if (r == null)
             r = "(object of class " + o.getClass() + ")";
         return r;
     }

@@ -75,9 +75,9 @@ public class BeanPropertyTag extends BeanTag {
             }
             else {
                 Class tagClass = theClass;
-                if(tagClass == Object.class)
+                if (tagClass == Object.class)
                     tagClass = findAddMethodClass(parentClass);
-                if(tagClass == null)
+                if (tagClass == null)
                     throw new JellyTagException("unable to infer element class for tag "+getTagName());
 
                 return super.newInstance(tagClass, attributes, output) ;
@@ -97,7 +97,7 @@ public class BeanPropertyTag extends BeanTag {
         Method[] methods = parentClass.getMethods();
         for (int i = 0; i < methods.length; i++) {
             Method method = methods[i];
-            if(Modifier.isPublic(method.getModifiers())) {
+            if (Modifier.isPublic(method.getModifiers())) {
                 Class[] args = method.getParameterTypes();
                 if (method.getName().equals(addMethodName)
                       && java.lang.Void.TYPE.equals(method.getReturnType())

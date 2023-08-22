@@ -47,14 +47,14 @@ public class DefaultTag extends TagSupport {
 
     public void doTag(XMLOutput output) throws JellyTagException {
         SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
-        if(null == tag) {
+        if (null == tag) {
             throw new JellyTagException("This tag must be enclosed inside a <switch> tag" );
         }
-        if(tag.hasDefaultBeenEncountered()) {
+        if (tag.hasDefaultBeenEncountered()) {
             throw new JellyTagException("Only one <default> tag is allowed per <switch>.");
         }
         tag.defaultEncountered();
-        if(tag.isFallingThru() || (!tag.hasSomeCaseMatched())) {
+        if (tag.isFallingThru() || (!tag.hasSomeCaseMatched())) {
             tag.caseMatched();
             tag.setFallingThru(fallThru);
             invokeBody(output);

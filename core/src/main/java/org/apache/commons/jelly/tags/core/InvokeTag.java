@@ -103,7 +103,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
             throw new JellyTagException(e);
         }
         catch (InvocationTargetException e) {
-            if(null != exceptionVar) {
+            if (null != exceptionVar) {
                 context.setVariable(exceptionVar,e.getTargetException());
             } else {
                 throw new JellyTagException("method " + methodName + " threw exception: " + e.getTargetException().getMessage(), e.getTargetException());
@@ -115,10 +115,10 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
         }
 
         ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
-        if(null != parentArg) {
+        if (null != parentArg) {
             parentArg.setValue(result);
         }
-        if(null != var) {
+        if (null != var) {
             context.setVariable(var, result);
         }
     }

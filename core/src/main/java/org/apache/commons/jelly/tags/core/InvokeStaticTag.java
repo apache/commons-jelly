@@ -123,12 +123,12 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
             Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
             Method method = loadClass().getMethod( methodName, types );
             Object result = method.invoke( null, values );
-            if(null != var) {
+            if (null != var) {
                 context.setVariable(var, result);
             }
 
             ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
-            if(null != parentArg) {
+            if (null != parentArg) {
                 parentArg.setValue(result);
             }
         }
@@ -142,7 +142,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
             throw createLoadClassFailedException(e);
         }
         catch (InvocationTargetException e) {
-            if(null != exceptionVar) {
+            if (null != exceptionVar) {
                 context.setVariable(exceptionVar, e.getTargetException());
             } else {
                 throw new JellyTagException("method " + methodName +

@@ -72,31 +72,31 @@ public class ArgTag extends BaseClassLoaderTag {
         invokeBody(output);
 
         Class klass = null;
-        if("boolean".equals(typeString)) {
+        if ("boolean".equals(typeString)) {
             klass = Boolean.TYPE;
             assertNotNull(value);
-        } else if("byte".equals(typeString)) {
+        } else if ("byte".equals(typeString)) {
             klass = Byte.TYPE;
             assertNotNull(value);
-        } else if("short".equals(typeString)) {
+        } else if ("short".equals(typeString)) {
             klass = Short.TYPE;
             assertNotNull(value);
-        } else if("int".equals(typeString)) {
+        } else if ("int".equals(typeString)) {
             klass = Integer.TYPE;
             assertNotNull(value);
-        } else if("char".equals(typeString)) {
+        } else if ("char".equals(typeString)) {
             klass = Character.TYPE;
             assertNotNull(value);
-        } else if("float".equals(typeString)) {
+        } else if ("float".equals(typeString)) {
             klass = Float.TYPE;
             assertNotNull(value);
-        } else if("long".equals(typeString)) {
+        } else if ("long".equals(typeString)) {
             klass = Long.TYPE;
             assertNotNull(value);
-        } else if("double".equals(typeString)) {
+        } else if ("double".equals(typeString)) {
             klass = Double.TYPE;
             assertNotNull(value);
-        } else if(null != typeString) {
+        } else if (null != typeString) {
             try {
               // klass = getClassLoader().loadClass(typeString);
               // JELLY-274: rather use the three args static class-load-method
@@ -104,7 +104,7 @@ public class ArgTag extends BaseClassLoaderTag {
             } catch (ClassNotFoundException e) {
                 throw new JellyTagException(e);
             }
-        } else if(null == value) { // and (by construction) null == typeString
+        } else if (null == value) { // and (by construction) null == typeString
             klass = Object.class;
         } else {
             klass = value.getClass();
@@ -136,7 +136,7 @@ public class ArgTag extends BaseClassLoaderTag {
     //-------------------------------------------------------------------------
 
     private void assertNotNull(Object value) throws JellyTagException {
-        if(null == value) {
+        if (null == value) {
             throw new JellyTagException("A " + typeString + " instance cannot be null.");
         }
     }

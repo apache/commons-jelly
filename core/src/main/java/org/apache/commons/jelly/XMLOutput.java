@@ -845,10 +845,10 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
       * @throws SAXException The application may raise an exception.
       */
     public void objectData(Object object) throws SAXException {
-        if(contentHandler instanceof XMLOutput)
+        if (contentHandler instanceof XMLOutput)
             ((XMLOutput) contentHandler).objectData(object);
         else {
-            if(object!=null) {
+            if (object!=null) {
                 String output=object.toString();
                 write(output);
             } else {

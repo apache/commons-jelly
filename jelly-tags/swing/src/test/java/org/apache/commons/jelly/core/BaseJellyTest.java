@@ -42,7 +42,7 @@ public abstract class BaseJellyTest extends TestCase {
 
     protected void setUpScript(String scriptname) throws Exception {
         URL url = this.getClass().getResource(scriptname);
-        if(null == url) {
+        if (null == url) {
             throw new Exception(
                 "Could not find Jelly script: " + scriptname
                 + " in package of class: " + getClass().getName()

@@ -68,7 +68,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, XMLOutput)
      */
     public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception {
-        if( !m_scripts.containsKey( name ) )
+        if ( !m_scripts.containsKey( name ) )
             throw new JellyException( "No script exists for script name [" + name + "]" );
 
         Script script = (Script)m_scripts.get( name );
@@ -157,10 +157,10 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @throws ConfigurationException
      */
     public void configure( Configuration config ) throws ConfigurationException {
-        if( m_configured )
+        if ( m_configured )
             throw new ConfigurationException( "configure may only be executed once" );
 
-        if( !"jelly".equals( config.getName() ) )
+        if ( !"jelly".equals( config.getName() ) )
             throw new ConfigurationException( "Expected <jelly> but got " + config.getName() );
 
         // Configure named scripts
@@ -174,7 +174,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
                 // Try to load the script via file, then by URL, then by classloader
                 URL url = null;
                 File file = new File( scriptName );
-                if( file.exists() ) {
+                if ( file.exists() ) {
                     url = file.toURL();
                 }
                 else {
@@ -188,7 +188,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
                 }
 
                 // All attempts failed...
-                if( url == null )
+                if ( url == null )
                     throw new ConfigurationException( "Could not find script [" + scriptName + "]" );
 
                 // Get the script and store it

@@ -46,14 +46,14 @@ public class EtchedBorderTag extends BorderTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if( highlight != null && shadow == null ) {
+        if ( highlight != null && shadow == null ) {
             throw new MissingAttributeException("shadow must be supplied when highlight is supplied");
         }
-        if( shadow != null && highlight == null) {
+        if ( shadow != null && highlight == null) {
             throw new MissingAttributeException("highlight must be supplied when shadow is supplied");
         }
-        if( etchType != EtchedBorder.LOWERED || etchType != EtchedBorder.RAISED ) {
-            if( log.isDebugEnabled() ) log.debug( "etchType set to [" + etchType + "], which is invalid. Resetting to -1" );
+        if ( etchType != EtchedBorder.LOWERED || etchType != EtchedBorder.RAISED ) {
+            if ( log.isDebugEnabled() ) log.debug( "etchType set to [" + etchType + "], which is invalid. Resetting to -1" );
         }
         super.doTag(output);
     }
@@ -88,7 +88,7 @@ public class EtchedBorderTag extends BorderTagSupport {
      * Factory method to create a new EtchedBorder instance.
      */
     protected Border createBorder() {
-        if( etchType == -1 && shadow == null && highlight == null) {
+        if ( etchType == -1 && shadow == null && highlight == null) {
             return BorderFactory.createEtchedBorder();
         }
         else if ( highlight != null && shadow != null && etchType > -1 ) {

@@ -93,14 +93,14 @@ public class GetStaticTag extends TagSupport {
     public void doTag(XMLOutput output) throws JellyTagException {
         String message = null;
 
-        if(var == null)
+        if (var == null)
             message = "var";
-        else if(field == null)
+        else if (field == null)
             message = "field";
-        else if(className == null)
+        else if (className == null)
             message = "className";
 
-        if(message != null)
+        if (message != null)
             throw new MissingAttributeException(message);
 
         try {

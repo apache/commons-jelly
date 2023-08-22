@@ -311,7 +311,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 			this.setTagName((String)attributes.get("tagName"));
 			addIgnoreProperty("tagName");
 		}
-		if(tagName!=null) {
+	 if (tagName!=null) {
 			context.setVariable(tagName,this);
 			currentOutput = output;
 		}

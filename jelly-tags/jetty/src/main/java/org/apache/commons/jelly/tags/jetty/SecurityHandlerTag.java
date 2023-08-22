@@ -255,7 +255,7 @@ public class SecurityHandlerTag extends TagSupport {
             httpContext.setRealmName(name.toString(false,true));
 
         XmlParser.Node formConfig = node.get("form-login-config");
-        if(formConfig != null)
+        if (formConfig != null)
         {
             if (_formAuthenticator==null)
                 Code.warning("FORM Authentication miss-configured");

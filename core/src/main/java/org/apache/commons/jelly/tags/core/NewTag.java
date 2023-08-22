@@ -64,7 +64,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         ArgTag parentArg = null;
         if ( var == null ) {
             parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
-            if(null == parentArg) {
+            if (null == parentArg) {
                 throw new MissingAttributeException( "var" );
             }
         }
@@ -76,7 +76,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         try {
             Class theClass = getClassLoader().loadClass( className );
             Object object = null;
-            if(paramTypes.size() == 0) {
+            if (paramTypes.size() == 0) {
                 object = theClass.newInstance();
             } else {
                 Object[] values = paramValues.toArray();
@@ -85,7 +85,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
                 paramTypes.clear();
                 paramValues.clear();
             }
-            if(null != var) {
+            if (null != var) {
                 context.setVariable(var, object);
             } else {
                 parentArg.setValue(object);

@@ -51,7 +51,7 @@ import org.xml.sax.SAXException;
  *     // embedded.setScript(scriptAsInputStream)
  *
  *     boolean bStatus=embedded.execute();
- *     if(!bStatus) { // if error 
+ *     if (!bStatus) { // if error 
  *         String errorMsg=embedded.getErrorMsg();
  *     }
  *  </pre>

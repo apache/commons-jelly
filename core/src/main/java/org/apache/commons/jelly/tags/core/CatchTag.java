@@ -182,7 +182,7 @@ public class CatchTag extends TagSupport {
      * @return true if t is expected
      */
     public boolean isExpected(Throwable t) {
-        if( exceptionArray == null ) {
+        if ( exceptionArray == null ) {
             return true;
         }
         Class clazz = null;

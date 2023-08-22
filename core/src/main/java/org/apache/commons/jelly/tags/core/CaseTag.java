@@ -51,18 +51,18 @@ public class CaseTag extends TagSupport {
     }
 
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if(null == this.valueExpression) {
+        if (null == this.valueExpression) {
             throw new MissingAttributeException("value");
         }
         SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
-        if(null == tag) {
+        if (null == tag) {
             throw new JellyTagException("This tag must be enclosed inside a <switch> tag" );
         }
-        if(tag.hasDefaultBeenEncountered()) {
+        if (tag.hasDefaultBeenEncountered()) {
             throw new JellyTagException("<default> should be the last tag within a <switch>" );
         }
         Object value = valueExpression.evaluate(context);
-        if(tag.isFallingThru() ||
+        if (tag.isFallingThru() ||
            (null == tag.getValue() && null == value) ||
            (null != tag.getValue() && tag.getValue().equals(value))) {
             tag.caseMatched();
