@@ -44,6 +44,7 @@ public class ScriptBlock implements Script {
     /**
      * @see Object#toString()
      */
+    @Override
     public String toString() {
         return super.toString() + "[scripts=" + list + "]";
     }
@@ -68,6 +69,7 @@ public class ScriptBlock implements Script {
 
     // Script interface
     //-------------------------------------------------------------------------
+    @Override
     public Script compile() throws JellyException {
         int size = list.size();
         if (size == 1) {
@@ -83,6 +85,7 @@ public class ScriptBlock implements Script {
     }
 
     /** Evaluates the body of a tag */
+    @Override
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
 /*
         for (int i = 0, size = scripts.length; i < size; i++) {

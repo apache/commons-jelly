@@ -94,6 +94,7 @@ public class TestUnexpectedTagCaching extends TestCase
             m_strings.add( string );
         }
 
+        @Override
         public void doTag( final XMLOutput output ) throws MissingAttributeException, JellyTagException
         {
             invokeBody( output );
@@ -111,6 +112,7 @@ public class TestUnexpectedTagCaching extends TestCase
 
     public static class SetTag extends TagSupport
     {
+        @Override
         public void doTag( final XMLOutput output ) throws MissingAttributeException, JellyTagException
         {
             ( (WriteTag)getParent() ).addString( getBodyText() );

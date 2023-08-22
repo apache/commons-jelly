@@ -105,6 +105,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      * @param type The Class type of the argument
      * @param value The value of the argument
      */
+    @Override
     public void addArgument(Class type, Object value) {
         paramTypes.add(type);
         paramValues.add(value);
@@ -112,6 +113,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         try {
             if ( null == methodName) {

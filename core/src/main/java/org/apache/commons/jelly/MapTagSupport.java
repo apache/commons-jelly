@@ -36,6 +36,7 @@ public abstract class MapTagSupport extends DynaTagSupport {
 
     /** Sets an attribute value of this tag before the tag is invoked
      */
+    @Override
     public void setAttribute(String name, Object value) {
         getAttributes().put(name, value);
     }

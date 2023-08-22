@@ -128,6 +128,7 @@ public class TagScript implements Script {
         this.tagFactory = tagFactory;
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[tag=" + elementName + ";at=" + lineNumber + ":" + columnNumber + "]";
     }
@@ -135,6 +136,7 @@ public class TagScript implements Script {
     /**
      * Compiles the tags body
      */
+    @Override
     public Script compile() throws JellyException {
         if (tagBody != null) {
             tagBody = tagBody.compile();
@@ -201,6 +203,7 @@ public class TagScript implements Script {
     //-------------------------------------------------------------------------
 
     /** Evaluates the body of a tag */
+    @Override
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         URL rootURL = context.getRootURL();
         URL currentURL = context.getCurrentURL();

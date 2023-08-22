@@ -36,6 +36,7 @@ public class RemoveTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var != null) {
             context.removeVariable( var.evaluateAsString(context) );

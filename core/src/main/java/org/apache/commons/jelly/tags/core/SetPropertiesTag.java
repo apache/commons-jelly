@@ -50,6 +50,7 @@ public class SetPropertiesTag extends MapTagSupport  {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         Map attributes = getAttributes();
         Object bean = attributes.remove( "object" );

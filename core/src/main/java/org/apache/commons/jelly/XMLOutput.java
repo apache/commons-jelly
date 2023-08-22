@@ -98,6 +98,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         this.lexicalHandler = lexicalHandler;
     }
 
+    @Override
     public String toString() {
         return super.toString()
             + "[contentHandler="
@@ -300,6 +301,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *                any SAX document event.
      * @see org.xml.sax.Locator
      */
+    @Override
     public void setDocumentLocator(Locator locator) {
         contentHandler.setDocumentLocator(locator);
     }
@@ -315,6 +317,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *            wrapping another exception.
      * @see #endDocument
      */
+    @Override
     public void startDocument() throws SAXException {
         contentHandler.startDocument();
     }
@@ -332,6 +335,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *            wrapping another exception.
      * @see #startDocument
      */
+    @Override
     public void endDocument() throws SAXException {
         contentHandler.endDocument();
     }
@@ -374,6 +378,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #endPrefixMapping
      * @see #startElement
      */
+    @Override
     public void startPrefixMapping(String prefix, String uri) throws SAXException {
         namespaceStack.pushNamespace(prefix, uri);
         // contentHandler.startPrefixMapping(prefix, uri) will be called if needed
@@ -396,6 +401,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #startPrefixMapping
      * @see #endElement
      */
+    @Override
     public void endPrefixMapping(String prefix) throws SAXException {
         // End prefix mapping was already called after endElement
         // contentHandler.endPrefixMapping(prefix);
@@ -463,6 +469,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #endElement
      * @see org.xml.sax.Attributes
      */
+    @Override
     public void startElement(
         String uri,
         String localName,
@@ -514,6 +521,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      */
+    @Override
     public void endElement(String uri, String localName, String qName)
         throws SAXException {
         contentHandler.endElement(uri, localName, qName);
@@ -565,6 +573,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #ignorableWhitespace
      * @see org.xml.sax.Locator
      */
+    @Override
     public void characters(char[] ch, int start, int length) throws SAXException {
         contentHandler.characters(ch, start, length);
     }
@@ -593,6 +602,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *            wrapping another exception.
      * @see #characters
      */
+    @Override
     public void ignorableWhitespace(char[] ch, int start, int length)
         throws SAXException {
         contentHandler.ignorableWhitespace(ch, start, length);
@@ -620,6 +630,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      */
+    @Override
     public void processingInstruction(String target, String data)
         throws SAXException {
         contentHandler.processingInstruction(target, data);
@@ -650,6 +661,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @throws org.xml.sax.SAXException Any SAX exception, possibly
      *            wrapping another exception.
      */
+    @Override
     public void skippedEntity(String name) throws SAXException {
         contentHandler.skippedEntity(name);
     }
@@ -696,6 +708,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see #endDTD
      * @see #startEntity
      */
+    @Override
     public void startDTD(String name, String publicId, String systemId)
         throws SAXException {
         if (lexicalHandler != null) {
@@ -713,6 +726,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @throws SAXException The application may raise an exception.
      * @see #startDTD
      */
+    @Override
     public void endDTD() throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.endDTD();
@@ -768,6 +782,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @see org.xml.sax.ext.DeclHandler#internalEntityDecl
      * @see org.xml.sax.ext.DeclHandler#externalEntityDecl
      */
+    @Override
     public void startEntity(String name) throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.startEntity(name);
@@ -781,6 +796,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @throws SAXException The application may raise an exception.
      * @see #startEntity
      */
+    @Override
     public void endEntity(String name) throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.endEntity(name);
@@ -798,6 +814,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @throws SAXException The application may raise an exception.
      * @see #endCDATA
      */
+    @Override
     public void startCDATA() throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.startCDATA();
@@ -810,6 +827,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @throws SAXException The application may raise an exception.
      * @see #startCDATA
      */
+    @Override
     public void endCDATA() throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.endCDATA();
@@ -830,6 +848,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * @param length The number of characters to use from the array.
      * @throws SAXException The application may raise an exception.
      */
+    @Override
     public void comment(char ch[], int start, int length) throws SAXException {
         if (lexicalHandler != null) {
             lexicalHandler.comment(ch, start, length);
@@ -904,6 +923,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      */
     protected static XMLOutput createXMLOutput(final XMLWriter xmlWriter) {
         XMLOutput answer = new XMLOutput() {
+            @Override
             public void close() throws IOException {
                 xmlWriter.close();
             }

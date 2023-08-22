@@ -44,6 +44,7 @@ public class JUnitTagLibrary extends TagLibrary {
         registerTag("suite", SuiteTag.class );
     }
 
+    @Override
     public Expression createExpression(
         ExpressionFactory factory,
         TagScript tagScript,

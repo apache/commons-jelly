@@ -91,6 +91,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         this.variableNameAttribute = variableNameAttribute;
     }
 
+    @Override
     public void beforeSetAttributes() throws JellyTagException {
         // create a new dynabean before the attributes are set
         try {
@@ -105,6 +106,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         setAttributesSet.clear();
     }
 
+    @Override
     public void setAttribute(String name, Object value) throws JellyTagException {
         boolean isVariableName = false;
         if (variableNameAttribute != null ) {
@@ -133,6 +135,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         // lets find any attributes that are not set and
@@ -227,6 +230,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
     /**
      * @return the bean that has just been created
      */
+    @Override
     public Object getBean() {
         return bean;
     }

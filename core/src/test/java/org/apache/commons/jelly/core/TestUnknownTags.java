@@ -41,6 +41,7 @@ public class TestUnknownTags extends BaseJellyTest {
 		return new TestSuite(TestUnknownTags.class);
 	}
 
+    @Override
     protected void addCustomTagLib(JellyContext context) {
         context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
     }

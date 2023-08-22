@@ -35,6 +35,7 @@ public class WhenTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         ChooseTag tag = (ChooseTag) findAncestorWithClass( ChooseTag.class );
         if ( tag == null ) {

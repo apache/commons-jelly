@@ -44,6 +44,7 @@ public class TestArgTag extends BaseJellyTest {
         return new TestSuite(TestArgTag.class);
     }
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         parentTag = new MockArgTagParent();
@@ -53,6 +54,7 @@ public class TestArgTag extends BaseJellyTest {
         argTag.setBody(new MockScript());
     }
 
+    @Override
     public void tearDown() throws Exception {
         super.tearDown();
         parentTag = null;
@@ -218,11 +220,13 @@ public class TestArgTag extends BaseJellyTest {
     private ArgTag argTag = null;
 
     class MockArgTagParent extends TagSupport implements ArgTagParent {
+        @Override
         public void addArgument(Class type, Object value) {
             typeList.add(type);
             valueList.add(value);
         }
 
+        @Override
         public void doTag(XMLOutput output)  {
         }
 
@@ -239,10 +243,12 @@ public class TestArgTag extends BaseJellyTest {
     }
 
     class MockScript implements Script {
+        @Override
         public Script compile() throws JellyException {
             return this;
         }
 
+        @Override
         public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         }
     }

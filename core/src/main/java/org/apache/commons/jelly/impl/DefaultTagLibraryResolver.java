@@ -69,6 +69,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * otherwise null is returned to indicate no tag library could be found
      * so that the namespace URI should be treated as just vanilla XML.
      */
+    @Override
     public TagLibrary resolveTagLibrary(String uri) {
         DiscoverClasses discovery = getDiscoverClasses();
         String name = uri;

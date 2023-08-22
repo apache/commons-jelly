@@ -45,6 +45,7 @@ public class DefaultTag extends TagSupport {
         this.fallThru = fallThru;
     }
 
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
         if (null == tag) {

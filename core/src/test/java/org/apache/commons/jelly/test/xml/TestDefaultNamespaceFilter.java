@@ -46,6 +46,7 @@ public class TestDefaultNamespaceFilter extends TestCase {
         return new TestSuite(TestDefaultNamespaceFilter.class);
     }
 
+    @Override
     public void setUp() throws Exception {
         context = new JellyContext();
         xmlOutput = XMLOutput.createXMLOutput(new StringWriter());

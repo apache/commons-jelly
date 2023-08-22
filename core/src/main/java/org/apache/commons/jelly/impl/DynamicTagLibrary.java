@@ -45,11 +45,13 @@ public class DynamicTagLibrary extends TagLibrary {
     }
 
     /** Creates a new script to execute the given tag name and attributes */
+    @Override
     public TagScript createTagScript(final String name, final Attributes attributes)
         throws JellyException {
 
         return new TagScript(
             new TagFactory() {
+                @Override
                 public Tag createTag(String name, Attributes attributes) throws JellyException {
                     return DynamicTagLibrary.this.createTag(name, attributes);
                 }
@@ -58,6 +60,7 @@ public class DynamicTagLibrary extends TagLibrary {
     }
 
     /** Creates a new Tag for the given tag name if it exists */
+    @Override
     public Tag createTag(String name, Attributes attributes)
         throws JellyException {
 

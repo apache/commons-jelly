@@ -39,6 +39,7 @@ public class DefaultTagFactory implements TagFactory {
 
     // TagFactory interface
     //-------------------------------------------------------------------------
+    @Override
     public Tag createTag(String name, Attributes attributes) throws JellyException {
         try {
           return (Tag) tagClass.newInstance();

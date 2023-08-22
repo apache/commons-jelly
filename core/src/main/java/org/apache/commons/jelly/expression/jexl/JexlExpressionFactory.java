@@ -41,6 +41,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
 
     // ExpressionFactory interface
     //-------------------------------------------------------------------------
+    @Override
     public Expression createExpression(String text) throws JellyException {
 /*
 
@@ -118,6 +119,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
             this.text = text;
         }
 
+        @Override
         public Object evaluate(JellyContext context) {
             Object answer = jexlExpression.evaluate(context);
 
@@ -128,10 +130,12 @@ public class JexlExpressionFactory implements ExpressionFactory {
             return answer;
         }
 
+        @Override
         public String getExpressionText() {
             return "${" + text + "}";
         }
 
+        @Override
         public String toString() {
             return super.toString() + "[expression:" + text + "]";
         }

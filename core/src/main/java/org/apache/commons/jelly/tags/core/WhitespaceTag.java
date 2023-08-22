@@ -39,6 +39,7 @@ public class WhitespaceTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         if ( log.isDebugEnabled() ) {

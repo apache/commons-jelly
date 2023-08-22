@@ -60,16 +60,19 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         this.uris = createUriMap(namespaceContext);
     }
 
+    @Override
     public String toString() {
         return getExpressionText();
     }
 
     // Expression interface
     //-------------------------------------------------------------------------
+    @Override
     public String getExpressionText() {
         return this.text;
     }
 
+    @Override
     public Object evaluate(JellyContext context) {
         this.context = context;
 
@@ -100,6 +103,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
 
     // VariableContext interface
     //-------------------------------------------------------------------------
+    @Override
     public Object getVariableValue(
         String namespaceURI,
         String prefix,

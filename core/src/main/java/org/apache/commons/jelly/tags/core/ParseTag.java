@@ -67,6 +67,7 @@ public class ParseTag extends TagSupport {
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
+    @Override
     public void doTag(XMLOutput output)
         throws MissingAttributeException, JellyTagException {
 

@@ -35,10 +35,12 @@ public class TestInvokeTag extends BaseJellyTest {
         return new TestSuite(TestInvokeTag.class);
     }
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
     }
 
+    @Override
     public void tearDown() throws Exception {
         super.tearDown();
     }

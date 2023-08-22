@@ -51,6 +51,7 @@ public class RunTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         Test test = getTest();
         if ( test == null ) {
@@ -141,6 +142,7 @@ public class RunTag extends TagSupport {
      */
     protected TestListener createTestListener(final XMLOutput output) {
         return new TestListener() {
+            @Override
             public void addError(Test test, Throwable t) {
                 try {
                     output.startElement("error");
@@ -160,6 +162,7 @@ public class RunTag extends TagSupport {
                 }
             }
 
+            @Override
             public void addFailure(Test test, AssertionFailedError t) {
                 try {
                     output.startElement("failure");
@@ -179,6 +182,7 @@ public class RunTag extends TagSupport {
                 }
             }
 
+            @Override
             public void endTest(Test test) {
                 try {
                     output.endElement("test");
@@ -188,6 +192,7 @@ public class RunTag extends TagSupport {
                 }
             }
 
+            @Override
             public void startTest(Test test) {
                 try {
                     String name = test.toString();

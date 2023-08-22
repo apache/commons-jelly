@@ -50,6 +50,7 @@ public class JellyServlet extends HttpServlet {
      */
     public static final String RESPONSE = "response";
 
+    @Override
     protected void doGet(
         HttpServletRequest request,
         HttpServletResponse response)
@@ -58,6 +59,7 @@ public class JellyServlet extends HttpServlet {
         doRequest(request, response);
     }
 
+    @Override
     protected void doPost(
         HttpServletRequest request,
         HttpServletResponse response)

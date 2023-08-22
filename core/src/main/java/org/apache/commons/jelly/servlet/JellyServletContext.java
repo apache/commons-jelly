@@ -53,6 +53,7 @@ public class JellyServletContext extends JellyContext {
      * @return
      * @throws MalformedURLException
      */
+    @Override
     public URL getResource(String s) throws MalformedURLException {
         return ctx.getResource(s);
     }
@@ -62,10 +63,12 @@ public class JellyServletContext extends JellyContext {
      * @param s
      * @return
      */
+    @Override
     public InputStream getResourceAsStream(String s) {
         return ctx.getResourceAsStream(s);
     }
 
+    @Override
     protected JellyContext createChildContext()
     {
         return new JellyServletContext(this, ctx);

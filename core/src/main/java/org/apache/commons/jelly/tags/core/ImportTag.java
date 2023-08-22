@@ -68,6 +68,7 @@ public class ImportTag extends TagSupport {
      * @throws MissingAttributeException if a required attribute is missing
      * @throws JellyTagException on any other errors
      */
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (uri == null && file == null) {
             throw new MissingAttributeException( "uri" );

@@ -72,6 +72,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
         this.onInstance = instance;
     }
 
+    @Override
     public void addArgument(Class type, Object value) {
         paramTypes.add(type);
         paramValues.add(value);
@@ -79,6 +80,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( null == methodName) {
             throw new MissingAttributeException( "method" );

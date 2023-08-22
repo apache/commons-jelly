@@ -38,6 +38,7 @@ public class TextScript implements Script {
         this.text = text;
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[text=" + text + "]";
     }
@@ -94,11 +95,13 @@ public class TextScript implements Script {
 
     // Script interface
     //-------------------------------------------------------------------------
+    @Override
     public Script compile() {
         return this;
     }
 
     /** Evaluates the body of a tag */
+    @Override
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         if (text != null) {
             try {

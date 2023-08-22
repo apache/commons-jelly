@@ -21,7 +21,8 @@ public class TJTest extends TagSupport {
 	
 	public static final String TAG_NAME = "test";
 	
-	public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+	@Override
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 		invokeBody(output);
 	}
 }

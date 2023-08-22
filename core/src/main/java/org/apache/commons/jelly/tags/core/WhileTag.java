@@ -52,6 +52,7 @@ public class WhileTag extends TagSupport {
      * @throws MissingAttributeException when the test attribute is missing
      * @throws RuntimeException for anything else
      */
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (test != null) {
             try {

@@ -47,6 +47,7 @@ public abstract class TagLibrary {
 
         ConvertUtils.register(
             new Converter() {
+                @Override
                 public Object convert(Class type, Object value) {
                     if ( value instanceof File ) {
                         return (File) value;

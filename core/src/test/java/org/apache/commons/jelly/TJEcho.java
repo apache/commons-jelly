@@ -27,7 +27,8 @@ public class TJEcho extends TagSupport {
 	private String attr;
 	private String text;
 
-	public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+	@Override
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 		text = getBodyText();
 		String str = "id=" + id + "; attr=" + attr + "; text=" + text + "\n";
 		try {

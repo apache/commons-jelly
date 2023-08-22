@@ -37,6 +37,7 @@ public class CaseTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         String name = getName();
         if ( name == null ) {
@@ -46,6 +47,7 @@ public class CaseTag extends TagSupport {
         // #### we need to redirect the output to a TestListener
         // or something?
         TestCase testCase = new TestCase(name) {
+            @Override
             protected void runTest() throws Throwable {
                 // create a new child context so that each test case
                 // will have its own variable scopes

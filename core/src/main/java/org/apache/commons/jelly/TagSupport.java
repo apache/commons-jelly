@@ -146,11 +146,13 @@ public abstract class TagSupport implements Tag {
     }
 
     /** @return the parent of this tag */
+    @Override
     public Tag getParent() {
         return parent;
     }
 
     /** Sets the parent of this tag */
+    @Override
     public void setParent(Tag parent) {
         this.parent = parent;
     }
@@ -158,20 +160,23 @@ public abstract class TagSupport implements Tag {
     /* (non-Javadoc)
 	 * @see org.apache.commons.jelly.Tag#getTagLib()
 	 */
-	public TagLibrary getTagLib() {
+	@Override
+    public TagLibrary getTagLib() {
 		return tagLibrary;
 	}
 
 	/* (non-Javadoc)
 	 * @see org.apache.commons.jelly.Tag#setTagLib(org.apache.commons.jelly.TagLibrary)
 	 */
-	public void setTagLib(TagLibrary tagLibrary) {
+	@Override
+    public void setTagLib(TagLibrary tagLibrary) {
 		if (this.tagLibrary != null && tagLibrary != this.tagLibrary)
 			throw new IllegalArgumentException("Cannot setTagLib once set");
 		this.tagLibrary = tagLibrary;
 	}
 
 	/** @return the body of the tag */
+    @Override
     public Script getBody() {
         if (! hasTrimmed) {
             hasTrimmed = true;
@@ -183,17 +188,20 @@ public abstract class TagSupport implements Tag {
     }
 
     /** Sets the body of the tag */
+    @Override
     public void setBody(Script body) {
         this.body = body;
         this.hasTrimmed = false;
     }
 
     /** @return the context in which the tag will be run */
+    @Override
     public JellyContext getContext() {
         return context;
     }
 
     /** Sets the context in which the tag will be run */
+    @Override
     public void setContext(JellyContext context) throws JellyTagException {
         this.context = context;
     }
@@ -201,6 +209,7 @@ public abstract class TagSupport implements Tag {
     /**
      * Invokes the body of this tag using the given output
      */
+    @Override
     public void invokeBody(XMLOutput output) throws JellyTagException {
         getBody().run(context, output);
     }

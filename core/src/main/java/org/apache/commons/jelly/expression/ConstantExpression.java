@@ -40,10 +40,12 @@ public class ConstantExpression extends ExpressionSupport {
         this.value = value;
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[value=" + value +"]";
     }
 
+    @Override
     public String getExpressionText() {
         return value == null ? "null" : value.toString();
     }
@@ -54,6 +56,7 @@ public class ConstantExpression extends ExpressionSupport {
       * @param context evaluate expression against this context
       * @return current value of <code>value</code> property
       */
+    @Override
     public Object evaluate(JellyContext context) {
         return value;
     }

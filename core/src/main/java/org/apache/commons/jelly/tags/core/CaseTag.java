@@ -50,6 +50,7 @@ public class CaseTag extends TagSupport {
         this.fallThru = fallThru;
     }
 
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (null == this.valueExpression) {
             throw new MissingAttributeException("value");

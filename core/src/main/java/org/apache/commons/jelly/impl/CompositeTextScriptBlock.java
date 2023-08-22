@@ -42,6 +42,7 @@ public class CompositeTextScriptBlock extends ScriptBlock {
      * In this case, trim the whitespace from the start of the first element
      * and from the end of the last element.
      */
+    @Override
     public void trimWhitespace() {
         List list = getScriptList();
         int size = list.size();

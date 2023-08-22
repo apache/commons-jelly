@@ -81,6 +81,7 @@ public class JellyException extends Exception implements LocationAware {
         this.lineNumber = lineNumber;
     }
     
+    @Override
     public Throwable getCause() {
         return cause;
     }
@@ -89,6 +90,7 @@ public class JellyException extends Exception implements LocationAware {
     /** 
      * @return the line number of the tag 
      */
+    @Override
     public int getLineNumber() {
         return lineNumber;
     }
@@ -96,6 +98,7 @@ public class JellyException extends Exception implements LocationAware {
     /** 
      * Sets the line number of the tag 
      */
+    @Override
     public void setLineNumber(int lineNumber) {
         this.lineNumber = lineNumber;
     }
@@ -103,6 +106,7 @@ public class JellyException extends Exception implements LocationAware {
     /** 
      * @return the column number of the tag 
      */
+    @Override
     public int getColumnNumber() {
         return columnNumber;
     }
@@ -110,6 +114,7 @@ public class JellyException extends Exception implements LocationAware {
     /** 
      * Sets the column number of the tag 
      */
+    @Override
     public void setColumnNumber(int columnNumber) {
         this.columnNumber = columnNumber;
     }
@@ -117,6 +122,7 @@ public class JellyException extends Exception implements LocationAware {
     /** 
      * @return the Jelly file which caused the problem 
      */
+    @Override
     public String getFileName() {
         return fileName;
     }
@@ -124,6 +130,7 @@ public class JellyException extends Exception implements LocationAware {
     /** 
      * Sets the Jelly file which caused the problem 
      */
+    @Override
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
@@ -132,6 +139,7 @@ public class JellyException extends Exception implements LocationAware {
     /** 
      * @return the element name which caused the problem
      */
+    @Override
     public String getElementName() {
         return elementName;
     }
@@ -139,11 +147,13 @@ public class JellyException extends Exception implements LocationAware {
     /** 
      * Sets the element name which caused the problem
      */
+    @Override
     public void setElementName(String elementName) {
         this.elementName = elementName;
     }
     
     
+    @Override
     public String getMessage() {
         if (fileName == null && lineNumber == -1 && columnNumber == -1 && elementName == null) {
             return getReason();
@@ -157,6 +167,7 @@ public class JellyException extends Exception implements LocationAware {
     }
 
     // #### overload the printStackTrace methods...
+    @Override
     public void printStackTrace(PrintWriter s) { 
         synchronized (s) {
             super.printStackTrace(s);
@@ -167,6 +178,7 @@ public class JellyException extends Exception implements LocationAware {
         }
     }
         
+    @Override
     public void printStackTrace(PrintStream s) {
         synchronized (s) {
             super.printStackTrace(s);
@@ -177,6 +189,7 @@ public class JellyException extends Exception implements LocationAware {
         }
     }
 
+    @Override
     public void printStackTrace() {
         super.printStackTrace();
         if (cause != null) {

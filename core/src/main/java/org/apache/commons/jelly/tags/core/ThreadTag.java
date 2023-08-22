@@ -46,6 +46,7 @@ public class ThreadTag extends TagSupport  {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         if ( xmlOutput == null ) {
             // lets default to system.out
@@ -61,6 +62,7 @@ public class ThreadTag extends TagSupport  {
 
         Thread thread = new Thread(
             new Runnable() {
+                @Override
                 public void run() {
                     try {
                         getBody().run(newContext, xmlOutput);

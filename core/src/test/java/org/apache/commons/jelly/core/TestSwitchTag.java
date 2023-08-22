@@ -36,10 +36,12 @@ public class TestSwitchTag extends BaseJellyTest {
         return new TestSuite(TestSwitchTag.class);
     }
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
     }
 
+    @Override
     public void tearDown() throws Exception {
         super.tearDown();
     }

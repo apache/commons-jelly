@@ -53,6 +53,7 @@ public class FileTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         try {
             if ( name != null ) {
@@ -195,6 +196,7 @@ public class FileTag extends TagSupport {
         xmlWriter.setEscapeText(isEscapeText());
 
         XMLOutput answer = new XMLOutput() {
+            @Override
             public void close() throws IOException {
                 xmlWriter.close();
             }

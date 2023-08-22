@@ -32,6 +32,7 @@ public class ScopeTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         JellyContext newContext = context.newJellyContext();
         getBody().run(newContext, output);

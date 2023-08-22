@@ -34,6 +34,7 @@ public abstract class BaseJellyTest extends TestCase {
         super(name);
     }
 
+    @Override
     public void setUp() throws Exception {
         super.setUp();
         jelly = new Jelly();

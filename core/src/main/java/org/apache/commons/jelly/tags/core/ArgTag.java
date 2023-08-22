@@ -68,6 +68,7 @@ public class ArgTag extends BaseClassLoaderTag {
     // tag methods
     //-------------------------------------------------------------------------
 
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         invokeBody(output);
 
@@ -193,6 +194,7 @@ public class ArgTag extends BaseClassLoaderTag {
         }
         {
             Converter c = new Converter() {
+                @Override
                 public Object convert(Class klass, Object value) {
                     if (value instanceof Number) {
                         return new Byte(((Number) value).byteValue());
@@ -208,6 +210,7 @@ public class ArgTag extends BaseClassLoaderTag {
         }
         {
             Converter c = new Converter() {
+                @Override
                 public Object convert(Class klass, Object value) {
                     if (value instanceof Number) {
                         return new Short(((Number) value).shortValue());
@@ -223,6 +226,7 @@ public class ArgTag extends BaseClassLoaderTag {
         }
         {
             Converter c = new Converter() {
+                @Override
                 public Object convert(Class klass, Object value) {
                     if (value instanceof Number) {
                         return new Integer(((Number) value).intValue());
@@ -238,6 +242,7 @@ public class ArgTag extends BaseClassLoaderTag {
         }
         {
             Converter c = new Converter() {
+                @Override
                 public Object convert(Class klass, Object value) {
                     if (value instanceof Number) {
                         return new Long(((Number) value).longValue());
@@ -253,6 +258,7 @@ public class ArgTag extends BaseClassLoaderTag {
         }
         {
             Converter c = new Converter() {
+                @Override
                 public Object convert(Class klass, Object value) {
                     if (value instanceof Number) {
                         return new Float(((Number) value).floatValue());
@@ -268,6 +274,7 @@ public class ArgTag extends BaseClassLoaderTag {
         }
         {
             Converter c = new Converter() {
+                @Override
                 public Object convert(Class klass, Object value) {
                     if (value instanceof Number) {
                         return new Double(((Number) value).doubleValue());

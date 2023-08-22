@@ -41,6 +41,7 @@ public abstract class ExpressionSupport implements Expression {
     protected static final Iterator EMPTY_ITERATOR = Collections.EMPTY_LIST.iterator();
 
     // inherit javadoc from interface
+    @Override
     public String evaluateAsString(JellyContext context) {
         Object value = evaluateRecurse(context);
         // sometimes when Jelly is used inside Maven the value
@@ -56,6 +57,7 @@ public abstract class ExpressionSupport implements Expression {
 
 
     // inherit javadoc from interface
+    @Override
     public Object evaluateRecurse(JellyContext context) {
         Object value = evaluate(context);
         if (value instanceof Expression) {
@@ -66,6 +68,7 @@ public abstract class ExpressionSupport implements Expression {
     }
 
     // inherit javadoc from interface
+    @Override
     public boolean evaluateAsBoolean(JellyContext context) {
         Object value = evaluateRecurse(context);
         if ( value instanceof Boolean ) {
@@ -89,6 +92,7 @@ public abstract class ExpressionSupport implements Expression {
     }
 
     // inherit javadoc from interface
+    @Override
     public Iterator evaluateAsIterator(JellyContext context) {
         Object value = evaluateRecurse(context);
         if ( value == null ) {

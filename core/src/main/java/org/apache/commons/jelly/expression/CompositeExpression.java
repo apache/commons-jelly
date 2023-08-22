@@ -44,6 +44,7 @@ public class CompositeExpression extends ExpressionSupport {
         this.expressions = expressions;
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[expressions=" + expressions +"]";
     }
@@ -240,6 +241,7 @@ public class CompositeExpression extends ExpressionSupport {
     // Expression interface
     //-------------------------------------------------------------------------
 
+    @Override
     public String getExpressionText() {
         StringBuilder buffer = new StringBuilder();
         for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
@@ -251,11 +253,13 @@ public class CompositeExpression extends ExpressionSupport {
 
 
     // inherit javadoc from interface
+    @Override
     public Object evaluate(JellyContext context) {
         return evaluateAsString(context);
     }
 
     // inherit javadoc from interface
+    @Override
     public String evaluateAsString(JellyContext context) {
         StringBuilder buffer = new StringBuilder();
         for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
@@ -270,6 +274,7 @@ public class CompositeExpression extends ExpressionSupport {
     }
 
     // inherit javadoc from interface
+    @Override
     public Iterator evaluateAsIterator(JellyContext context) {
         String value = evaluateAsString(context);
         if ( value == null ) {

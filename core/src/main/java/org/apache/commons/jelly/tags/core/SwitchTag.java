@@ -51,6 +51,7 @@ public class SwitchTag extends TagSupport {
         this.on = on;
     }
 
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         this.defaultEncountered = false;
         this.someCaseMatched = false;

@@ -31,6 +31,7 @@ public abstract class DynaTagSupport extends TagSupport implements DynaTag {
      * @return the type of the given attribute. By default just return
      * Object.class if this is not known.
      */
+    @Override
     public Class getAttributeType(String name) throws JellyTagException {
         return Object.class;
     }

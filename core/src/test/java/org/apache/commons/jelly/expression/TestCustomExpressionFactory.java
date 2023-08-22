@@ -35,6 +35,7 @@ public class TestCustomExpressionFactory extends BaseJellyTest {
 		super("TestCustomExpressionFactory");
 	}
 	
+    @Override
     protected void addCustomTagLib(JellyContext context) {
         context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
     }

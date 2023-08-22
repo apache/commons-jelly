@@ -40,6 +40,7 @@ public class ExpressionScript implements Script {
         this.expression = expression;
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[expression=" + expression + "]";
     }
@@ -56,11 +57,13 @@ public class ExpressionScript implements Script {
 
     // Script interface
     //-------------------------------------------------------------------------
+    @Override
     public Script compile() {
         return this;
     }
 
     /** Evaluates the body of a tag */
+    @Override
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         Object result = expression.evaluate(context);
         if (result != null) {

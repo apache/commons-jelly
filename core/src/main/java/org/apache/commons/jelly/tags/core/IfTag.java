@@ -36,6 +36,7 @@ public class IfTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (test != null) {
             if (test.evaluateAsBoolean(context)) {

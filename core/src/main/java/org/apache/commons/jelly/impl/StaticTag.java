@@ -52,12 +52,14 @@ public class StaticTag extends DynaTagSupport {
         this.qname = qname;
     }
 
+    @Override
     public String toString() {
         return super.toString() + "[qname=" + qname + ";attributes=" + attributes + "]";
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         try {
             output.startElement(uri, localName, qname, attributes);
@@ -81,6 +83,7 @@ public class StaticTag extends DynaTagSupport {
 
     // DynaTag interface
     //-------------------------------------------------------------------------
+    @Override
     public void setAttribute(String name, Object value) throws JellyTagException {
         // ### we'll assume that all attributes are in no namespace!
         // ### this is severely limiting!

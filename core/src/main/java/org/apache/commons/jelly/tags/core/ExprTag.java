@@ -37,6 +37,7 @@ public class ExprTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if (value != null) {
             String text = value.evaluateAsString(context);

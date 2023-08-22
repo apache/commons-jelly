@@ -84,6 +84,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     /**
      * @return the bean that has just been created
      */
+    @Override
     public Object getBean() {
         return bean;
     }
@@ -91,6 +92,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
         String var = (String) attributes.get( "var" );

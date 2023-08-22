@@ -78,6 +78,7 @@ public class ForEachTag extends TagSupport {
     // Tag interface
 
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (log.isDebugEnabled()) {
@@ -282,48 +283,56 @@ public class ForEachTag extends TagSupport {
         /**
          * @return Returns the begin.
          */
+        @Override
         public Integer getBegin() {
             return begin;
         }
         /**
          * @return Returns the count.
          */
+        @Override
         public int getCount() {
             return count;
         }
         /**
          * @return Returns the current.
          */
+        @Override
         public Object getCurrent() {
             return current;
         }
         /**
          * @return Returns the end.
          */
+        @Override
         public Integer getEnd() {
             return end;
         }
         /**
          * @return Returns the first.
          */
+        @Override
         public boolean isFirst() {
             return first;
         }
         /**
          * @return Returns the index.
          */
+        @Override
         public int getIndex() {
             return index;
         }
         /**
          * @return Returns the last.
          */
+        @Override
         public boolean isLast() {
             return last;
         }
         /**
          * @return Returns the step.
          */
+        @Override
         public Integer getStep() {
             return step;
         }

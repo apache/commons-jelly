@@ -39,6 +39,7 @@ public class DummyTag extends TagSupport {
      * @see org.apache.commons.jelly.Tag#doTag(XMLOutput)
      * @see org.apache.commons.jelly.tags.core.JellyTag
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if (log.isDebugEnabled())
             log.debug("********Executing DummyTag Body*********");

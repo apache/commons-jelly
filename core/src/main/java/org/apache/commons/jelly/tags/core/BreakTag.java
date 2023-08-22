@@ -45,6 +45,7 @@ public class BreakTag extends TagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws BreakException, JellyTagException {
         boolean broken = false;
         if (test == null || test.evaluateAsBoolean(context)) {

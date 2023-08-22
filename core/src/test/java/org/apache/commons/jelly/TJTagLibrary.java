@@ -30,7 +30,8 @@ public class TJTagLibrary extends TagLibrary {
 		/* (non-Javadoc)
 		 * @see org.apache.commons.jelly.expression.ExpressionFactory#createExpression(java.lang.String)
 		 */
-		public Expression createExpression(String text) throws JellyException {
+		@Override
+        public Expression createExpression(String text) throws JellyException {
 			return new ConstantExpression("${TEST FACTORY: " + text + "}");
 		}
 	};
@@ -44,7 +45,8 @@ public class TJTagLibrary extends TagLibrary {
 	/* (non-Javadoc)
 	 * @see org.apache.commons.jelly.TagLibrary#getExpressionFactory()
 	 */
-	public ExpressionFactory getExpressionFactory() {
+	@Override
+    public ExpressionFactory getExpressionFactory() {
 		return TEST_FACTORY;
 	}
 	

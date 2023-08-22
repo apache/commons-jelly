@@ -50,6 +50,7 @@ public class StaticTagScript extends TagScript {
 
     // Script interface
     //-------------------------------------------------------------------------
+    @Override
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
         try {
             startNamespacePrefixes(output);

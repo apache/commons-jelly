@@ -615,6 +615,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void startDocument() throws SAXException {
         script = new ScriptBlock();
         textBuffer = new StringBuffer();
@@ -628,6 +629,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void endDocument() throws SAXException {
         textBuffer = null;
     }
@@ -671,6 +673,7 @@ public class XMLParser extends DefaultHandler {
      *   no attributes, it shall be an empty Attributes object.
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void startElement(
         String namespaceURI,
         String localName,
@@ -748,6 +751,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void characters(char buffer[], int start, int length)
         throws SAXException {
         textBuffer.append(buffer, start, length);
@@ -765,6 +769,7 @@ public class XMLParser extends DefaultHandler {
      *   empty string if qualified names are not available.
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void endElement(String namespaceURI, String localName, String qName)
         throws SAXException {
         try {
@@ -803,6 +808,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void startPrefixMapping(String prefix, String namespaceURI)
         throws SAXException {
         // Register this prefix mapping
@@ -826,6 +832,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void endPrefixMapping(String prefix) throws SAXException {
         // Deregister this prefix mapping
         ArrayStack stack = (ArrayStack) namespaces.get(prefix);
@@ -853,6 +860,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void ignorableWhitespace(char buffer[], int start, int len)
         throws SAXException {
         ; // No processing required
@@ -866,6 +874,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void processingInstruction(String target, String data)
         throws SAXException {
         ; // No processing is required
@@ -876,6 +885,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param locator The new locator
      */
+    @Override
     public void setDocumentLocator(Locator locator) {
         this.locator = locator;
     }
@@ -887,6 +897,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing error is to be reported
      */
+    @Override
     public void skippedEntity(String name) throws SAXException {
         ; // No processing required
     }
@@ -902,6 +913,7 @@ public class XMLParser extends DefaultHandler {
      * @param publicId The public identifier (if any)
      * @param systemId The system identifier (if any)
      */
+    @Override
     public void notationDecl(String name, String publicId, String systemId) {
     }
 
@@ -913,6 +925,7 @@ public class XMLParser extends DefaultHandler {
      * @param systemId The system identifier (if any)
      * @param notation The name of the associated notation
      */
+    @Override
     public void unparsedEntityDecl(
         String name,
         String publicId,
@@ -932,6 +945,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing exception occurs
      */
+    @Override
     public void error(SAXParseException exception) throws SAXException {
         log.error(
             "Parse Error at line "
@@ -956,6 +970,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing exception occurs
      */
+    @Override
     public void fatalError(SAXParseException exception) throws SAXException {
         log.error(
             "Parse Fatal Error at line "
@@ -982,6 +997,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @throws SAXException if a parsing exception occurs
      */
+    @Override
     public void warning(SAXParseException exception) throws SAXException {
         log.error(
             "Parse Warning at line "
@@ -1157,6 +1173,7 @@ public class XMLParser extends DefaultHandler {
             //StaticTag tag = new StaticTag( namespaceURI, localName, qName );
             StaticTagScript script = new StaticTagScript(
                 new TagFactory() {
+                    @Override
                     public Tag createTag(String name, Attributes attributes) {
                         return new StaticTag( namespaceURI, localName, qName );
                     }

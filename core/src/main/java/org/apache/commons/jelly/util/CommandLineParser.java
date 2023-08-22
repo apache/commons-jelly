@@ -120,7 +120,8 @@ public class CommandLineParser {
             context.setVariable("args", args);
             context.setVariable("commandLine", cmdLine);
             if (runInSwingThread) {
-                javax.swing.SwingUtilities.invokeAndWait(new Runnable() { public void run() {
+                javax.swing.SwingUtilities.invokeAndWait(new Runnable() { @Override
+                public void run() {
                     try {
                         script.run(context, output);
                     } catch (Exception ex) {
@@ -132,6 +133,7 @@ public class CommandLineParser {
 
             // now lets wait for all threads to close
             Runtime.getRuntime().addShutdownHook(new Thread() {
+                    @Override
                     public void run() {
                         try {
                             output.close();

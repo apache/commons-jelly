@@ -39,6 +39,7 @@ public class SafeContentHandler implements ContentHandler {
     /**
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void startDocument() throws SAXException {
         if (! documentStarted) {
             handler.startDocument();
@@ -49,6 +50,7 @@ public class SafeContentHandler implements ContentHandler {
     /**
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void endDocument() throws SAXException {
         if (! documentEnded) {
             handler.endDocument();
@@ -62,6 +64,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg2
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void characters(char[] arg0, int arg1, int arg2)
         throws SAXException {
         handler.characters(arg0, arg1, arg2);
@@ -73,6 +76,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg2
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void endElement(String arg0, String arg1, String arg2)
         throws SAXException {
         handler.endElement(arg0, arg1, arg2);
@@ -82,6 +86,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg0
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void endPrefixMapping(String arg0) throws SAXException {
         handler.endPrefixMapping(arg0);
     }
@@ -92,6 +97,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg2
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
         throws SAXException {
         handler.ignorableWhitespace(arg0, arg1, arg2);
@@ -102,6 +108,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg1
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void processingInstruction(String arg0, String arg1)
         throws SAXException {
         handler.processingInstruction(arg0, arg1);
@@ -110,6 +117,7 @@ public class SafeContentHandler implements ContentHandler {
     /**
      * @param arg0
      */
+    @Override
     public void setDocumentLocator(Locator arg0) {
         handler.setDocumentLocator(arg0);
     }
@@ -118,6 +126,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg0
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void skippedEntity(String arg0) throws SAXException {
         handler.skippedEntity(arg0);
     }
@@ -129,6 +138,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg3
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void startElement(
         String arg0,
         String arg1,
@@ -143,6 +153,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg1
      * @throws org.xml.sax.SAXException
      */
+    @Override
     public void startPrefixMapping(String arg0, String arg1)
         throws SAXException {
         handler.startPrefixMapping(arg0, arg1);

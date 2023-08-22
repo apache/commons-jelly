@@ -42,6 +42,7 @@ public class MuteTag extends TagSupport {
      * Invoke the body and produce no output.
      * @param output tag output, which is ignored.
      */
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         super.invokeBody(new MuteXMLOutput());
     }
@@ -58,6 +59,7 @@ public class MuteTag extends TagSupport {
         /**
          * Do nothing, not even invoke the toString!
          */
+        @Override
         public void objectData(Object o) {
         }
     } // class MuteXMLOutput

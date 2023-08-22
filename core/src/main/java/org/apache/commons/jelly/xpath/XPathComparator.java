@@ -60,6 +60,7 @@ public class XPathComparator implements Comparator {
         this.descending = descending;
     }
 
+    @Override
     public int compare(Object o1, Object o2) {
         return compare((Node)o1, (Node)o2);
     }

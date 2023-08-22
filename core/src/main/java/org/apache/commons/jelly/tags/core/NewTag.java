@@ -53,6 +53,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         this.className = className;
     }
 
+    @Override
     public void addArgument(Class type, Object value) {
         paramTypes.add(type);
         paramValues.add(value);
@@ -60,6 +61,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         ArgTag parentArg = null;
         if ( var == null ) {

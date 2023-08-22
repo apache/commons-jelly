@@ -49,6 +49,7 @@ public class TestNamespacePrefixes extends BaseJellyTest {
 		return new TestSuite(TestNamespacePrefixes.class);
 	}
 
+    @Override
     protected void addCustomTagLib(JellyContext context) {
         context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
     }

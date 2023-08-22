@@ -57,6 +57,7 @@ public class DynamicTag extends DynaTagSupport {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         if ( log.isDebugEnabled() ) {
             log.debug("Invoking dynamic tag with attributes: " + attributes);
@@ -81,6 +82,7 @@ public class DynamicTag extends DynaTagSupport {
 
     // DynaTag interface
     //-------------------------------------------------------------------------
+    @Override
     public void setAttribute(String name, Object value) {
         attributes.put(name, value);
         attributes.put(name + "Attr", value);
