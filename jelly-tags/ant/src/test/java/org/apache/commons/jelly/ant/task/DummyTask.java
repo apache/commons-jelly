@@ -76,6 +76,7 @@ public class DummyTask extends Task {
     private String[] messages = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
     private boolean force;
 
+    @Override
     public void execute() throws BuildException {
         if (!force) {
             throw new BuildException("Should have set force to be true!");

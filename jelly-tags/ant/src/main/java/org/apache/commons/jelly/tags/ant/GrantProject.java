@@ -99,10 +99,12 @@ public class GrantProject extends Project {
     //         the PropsHandler.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
+    @Override
     public String replaceProperties(String value) throws BuildException {
         return ProjectHelper.replaceProperties(this, value, getProperties());
     }
 
+    @Override
     public synchronized void setProperty(String key, String value) {
         if (this.propsHandler == null) {
             super.setProperty(key, value);
@@ -112,6 +114,7 @@ public class GrantProject extends Project {
         }
     }
 
+    @Override
     public synchronized void setUserProperty(String key, String value) {
         if (this.propsHandler == null) {
             super.setUserProperty(key, value);
@@ -121,6 +124,7 @@ public class GrantProject extends Project {
         }
     }
 
+    @Override
     public synchronized void setNewProperty(String key, String value) {
         if (this.propsHandler == null) {
             super.setNewProperty(key, value);
@@ -130,6 +134,7 @@ public class GrantProject extends Project {
         }
     }
 
+    @Override
     public void setInheritedProperty(String key, String value) {
         if (this.propsHandler == null) {
             super.setInheritedProperty(key, value);
@@ -139,6 +144,7 @@ public class GrantProject extends Project {
         }
     }
 
+    @Override
     public String getProperty(String key) {
         if (this.propsHandler == null) {
             return super.getProperty(key);
@@ -147,6 +153,7 @@ public class GrantProject extends Project {
         return this.propsHandler.getProperty(key);
     }
 
+    @Override
     public String getUserProperty(String key) {
         if (this.propsHandler == null) {
             return super.getUserProperty(key);
@@ -155,6 +162,7 @@ public class GrantProject extends Project {
         return this.propsHandler.getUserProperty(key);
     }
 
+    @Override
     public Hashtable getUserProperties() {
         if (this.propsHandler == null) {
             return super.getUserProperties();
@@ -163,6 +171,7 @@ public class GrantProject extends Project {
         return this.propsHandler.getUserProperties();
     }
 
+    @Override
     public Hashtable getProperties() {
         if (this.propsHandler == null) {
             return super.getProperties();
@@ -171,6 +180,7 @@ public class GrantProject extends Project {
         return this.propsHandler.getProperties();
     }
 
+    @Override
     public void copyUserProperties(Project other) {
         if (this.propsHandler == null) {
             super.copyUserProperties(other);
@@ -180,6 +190,7 @@ public class GrantProject extends Project {
         }
     }
 
+    @Override
     public void copyInheritedProperties(Project other) {
         if (this.propsHandler == null) {
             super.copyInheritedProperties(other);
@@ -189,6 +200,7 @@ public class GrantProject extends Project {
         }
     }
 
+    @Override
     public void setSystemProperties() {
         if (this.propsHandler == null) {
             super.setSystemProperties();
@@ -198,6 +210,7 @@ public class GrantProject extends Project {
         }
     }
 
+    @Override
     public void setJavaVersionProperty() throws BuildException {
         // Always call the super, as they do some sanity checks
         super.setJavaVersionProperty();
@@ -207,6 +220,7 @@ public class GrantProject extends Project {
         }
     }
 
+    @Override
     public void setBaseDir(File baseDir) throws BuildException {
         super.setBaseDir(baseDir);
 

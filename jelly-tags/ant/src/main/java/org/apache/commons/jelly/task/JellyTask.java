@@ -70,6 +70,7 @@ public class JellyTask extends Task {
     /**
      * Executes the Jelly script
      */
+    @Override
     public void execute() throws BuildException {
         try {
             log( "Running script: " + getUrl() );

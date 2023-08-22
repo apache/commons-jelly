@@ -66,6 +66,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#setProperty(String, String)
      */
+    @Override
     public void setProperty(String key, String value) {
         this.properties.put(key, value);
     }
@@ -73,6 +74,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#setUserProperty(String, String)
      */
+    @Override
     public void setUserProperty(String key, String value) {
         this.userProperties.put(key, value);
         this.setProperty(key, value);
@@ -81,6 +83,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#setNewProperty(String, String)
      */
+    @Override
     public void setNewProperty(String key, String value) {
         if (this.getProperty(key) == null) {
             this.setProperty(key, value);
@@ -90,6 +93,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#setInheritedProperty(String, String)
      */
+    @Override
     public void setInheritedProperty(String key, String value) {
         this.inheritedProperties.put(key, value);
         this.setUserProperty(key, value);
@@ -98,6 +102,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#setPropertyIfUndefinedByUser(String, String)
      */
+    @Override
     public void setPropertyIfUndefinedByUser(String key, String value) {
         if (!this.getUserProperties().contains(key)) {
             this.setProperty(key, value);
@@ -107,6 +112,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#getProperty(String)
      */
+    @Override
     public String getProperty(String key) {
         if (key == null) {
             return null;
@@ -117,6 +123,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#getUserProperty(String)
      */
+    @Override
     public String getUserProperty(String key) {
         if (key == null) {
             return null;
@@ -127,6 +134,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#getProperties()
      */
+    @Override
     public Hashtable getProperties() {
         return new Hashtable(this.properties);
     }
@@ -134,6 +142,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#getUserProperties()
      */
+    @Override
     public Hashtable getUserProperties() {
         return new Hashtable(this.userProperties);
     }
@@ -145,6 +154,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#copyUserProperties(Project)
      */
+    @Override
     public void copyUserProperties(Project other) {
         Hashtable userProps = this.getUserProperties();
         Hashtable inheritedProps = this.getInheritedProperties();
@@ -163,6 +173,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#copyInheritedProperties(Project)
      */
+    @Override
     public void copyInheritedProperties(Project other) {
         Hashtable inheritedProps = this.getInheritedProperties();
         
@@ -180,6 +191,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#setSystemProperties
      */
+    @Override
     public void setSystemProperties() {
         Properties systemProps = System.getProperties();
         Enumeration e = systemProps.keys();
@@ -193,6 +205,7 @@ public class DefaultPropsHandler implements PropsHandler {
     /**
      * @see PropsHandler#setJavaVersionProperty
      */
+    @Override
     public void setJavaVersionProperty() {
         String javaVersion = JavaEnvUtils.getJavaVersion();
         this.setPropertyIfUndefinedByUser("ant.java.version", javaVersion);

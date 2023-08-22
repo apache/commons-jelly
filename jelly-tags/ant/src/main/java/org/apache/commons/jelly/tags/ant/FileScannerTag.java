@@ -44,6 +44,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         fileScanner.setProject(AntTagLibrary.getProject(context));
 
@@ -62,6 +63,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
 
     // TaskSource interface
     //-------------------------------------------------------------------------
+    @Override
     public Object getTaskObject() {
         return fileScanner;
     }
@@ -69,6 +71,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     /**
      * Allows nested tags to set a property on the task object of this tag
      */
+    @Override
     public void setTaskProperty(String name, Object value) throws JellyTagException {
         try {
             BeanUtils.setProperty( fileScanner, name, value );

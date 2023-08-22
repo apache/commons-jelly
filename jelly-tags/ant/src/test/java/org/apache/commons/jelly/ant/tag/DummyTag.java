@@ -51,12 +51,14 @@ public class DummyTag extends TagSupport implements BeanSource {
 
     // BeanSource interface
     //-------------------------------------------------------------------------
+    @Override
     public Object getBean() {
         return this;
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         if (! calledSetFlag) {

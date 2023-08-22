@@ -47,6 +47,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
      *  @param name The property name.
      *  @param value The property value.
      */
+    @Override
     public void setProperty(String name, String value) {
         this.context.setVariable(name, value);
     }
@@ -57,6 +58,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
      *
      *  @return The property value.
      */
+    @Override
     public String getProperty(String name) {
         if (name == null) {
             return null;
@@ -81,6 +83,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
      *
      *  @return A <code>Hashtable</code> of all properties.
      */
+    @Override
     public Hashtable getProperties() {
         Hashtable h = new Hashtable();
         for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {

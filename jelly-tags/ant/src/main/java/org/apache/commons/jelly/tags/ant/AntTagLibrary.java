@@ -49,6 +49,7 @@ public class AntTagLibrary extends TagLibrary {
 
         ConvertUtils.register(
             new Converter() {
+                @Override
                 public Object convert(Class type, Object value) {
                     if ( value instanceof Reference ) {
                         return (Reference) value;
@@ -65,6 +66,7 @@ public class AntTagLibrary extends TagLibrary {
 
         ConvertUtils.register(
             new Converter() {
+                @Override
                 public Object convert(Class type, Object value) {
                     if ( value instanceof EnumeratedAttribute ) {
                         return (EnumeratedAttribute) value;
@@ -136,11 +138,13 @@ public class AntTagLibrary extends TagLibrary {
 
 
     /** Creates a new script to execute the given tag name and attributes */
+    @Override
     public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
         TagScript answer = createCustomTagScript(name, attributes);
         if ( answer == null ) {
             answer = new TagScript(
                 new TagFactory() {
+                    @Override
                     public Tag createTag(String name, Attributes attributes) throws JellyException {
                         return AntTagLibrary.this.createTag(name, attributes);
                     }
@@ -158,6 +162,7 @@ public class AntTagLibrary extends TagLibrary {
         if ( name.equals("fileScanner") ) {
             return new TagScript(
                 new TagFactory() {
+                    @Override
                     public Tag createTag(String name, Attributes attributes) {
                         return new FileScannerTag(new FileScanner());
                     }
@@ -167,6 +172,7 @@ public class AntTagLibrary extends TagLibrary {
         if ( name.equals("setProperty") ) {
             return new TagScript(
                 new TagFactory() {
+                    @Override
                     public Tag createTag(String name, Attributes attributes) {
                         return new SetPropertyTag();
                     }
@@ -179,6 +185,7 @@ public class AntTagLibrary extends TagLibrary {
     /**
      * A helper method which creates an AntTag instance for the given element name
      */
+    @Override
     public Tag createTag(String name, Attributes attributes) throws JellyException {
         AntTag tag = new AntTag( name );
         if ( name.equals( "echo" ) ) {

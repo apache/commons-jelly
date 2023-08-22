@@ -45,6 +45,7 @@ public class AntJellyContext extends JellyContext {
     }
 
     /** @return the value of the given variable name */
+    @Override
     public Object getVariable(String name) {
         // look in parent first
         Object answer = super.getVariable(name);
@@ -67,6 +68,7 @@ public class AntJellyContext extends JellyContext {
     }
 
     /** Sets the value of the given variable name */
+    @Override
     public void setVariable(String name, Object value) {
         if ( log.isDebugEnabled() ) {
             log.debug( "Setting variable: " + name + " to: " + value );
@@ -81,6 +83,7 @@ public class AntJellyContext extends JellyContext {
     }
 
     /** Removes the given variable */
+    @Override
     public void removeVariable(String name) {
         super.removeVariable( name );
         project.setProperty(name, null);
@@ -90,6 +93,7 @@ public class AntJellyContext extends JellyContext {
      * @return an Iterator over the current variable names in this
      * context
      */
+    @Override
     public Iterator getVariableNames() {
         return getVariables().keySet().iterator();
     }
@@ -97,6 +101,7 @@ public class AntJellyContext extends JellyContext {
     /**
      * @return the Map of variables in this scope
      */
+    @Override
     public Map getVariables() {
         // we should add all the Project's properties
         Map map = new HashMap( project.getProperties() );
@@ -110,6 +115,7 @@ public class AntJellyContext extends JellyContext {
      * Sets the Map of variables to use
      */
 
+    @Override
     public void setVariables(Map variables) {
         super.setVariables(variables);
 
@@ -131,6 +137,7 @@ public class AntJellyContext extends JellyContext {
     /**
      * Factory method to create a new child of this context
      */
+    @Override
     protected JellyContext createChildContext() {
         return new AntJellyContext(project, this);
     }

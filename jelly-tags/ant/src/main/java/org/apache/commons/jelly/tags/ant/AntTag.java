@@ -79,6 +79,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         this.tagName = tagName;
     }
 
+    @Override
     public String toString() {
         return "[AntTag: name=" + getTagName() + "]";
     }
@@ -90,6 +91,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
      *
      *  @return The object underlying this tag.
      */
+    @Override
     public Object getTaskObject() {
         return this.object;
     }
@@ -97,6 +99,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     /**
      * Allows nested tags to set a property on the task object of this tag
      */
+    @Override
     public void setTaskProperty(String name, Object value) throws JellyTagException {
         Object object = getTaskObject();
         if ( object != null ) {
@@ -106,6 +109,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     // Tag interface
     //-------------------------------------------------------------------------
+    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
 
         Project project = getAntProject();
@@ -333,6 +337,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
     }
 
+    @Override
     public void setAttribute(String name, Object value) {
         if ( value == null ) {
             // should we send in null?

@@ -73,6 +73,7 @@ public class FileIterator implements Iterator {
     //-------------------------------------------------------------------------
 
     /** @return true if there is another object that matches the given predicate */
+    @Override
     public boolean hasNext() {
         if ( nextObjectSet ) {
             return true;
@@ -83,6 +84,7 @@ public class FileIterator implements Iterator {
     }
 
     /** @return the next object which matches the given predicate */
+    @Override
     public Object next() {
         if ( !nextObjectSet ) {
             if (!setNextObject()) {
@@ -96,6 +98,7 @@ public class FileIterator implements Iterator {
     /**
      * throws UnsupportedOperationException
      */
+    @Override
     public void remove() {
         throw new UnsupportedOperationException();
     }
