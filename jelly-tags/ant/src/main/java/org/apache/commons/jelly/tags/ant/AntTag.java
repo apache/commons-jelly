@@ -504,11 +504,8 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
         Object o = null;
         try {
-            o = taskType.newInstance();
-        } catch (InstantiationException e) {
-            throw new JellyTagException(e);
-        }
-        catch (IllegalAccessException e) {
+            o = taskType.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new JellyTagException(e);
         }
 

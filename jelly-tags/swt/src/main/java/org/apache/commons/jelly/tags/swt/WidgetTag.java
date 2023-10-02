@@ -261,7 +261,7 @@ public class WidgetTag extends UseBeanTag {
                     }
                 }
             }
-            return theClass.newInstance();
+            return theClass.getConstructor().newInstance();
         } catch (NoSuchMethodException e) {
             throw new JellyTagException(e);
         } catch (InstantiationException e) {

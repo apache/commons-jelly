@@ -1096,7 +1096,7 @@ public class XMLParser extends DefaultHandler {
                     // try to find the class on the classpath
                     try {
                         Class taglibClass = getClassLoader().loadClass(uri);
-                        taglib = (TagLibrary) taglibClass.newInstance();
+                        taglib = (TagLibrary) taglibClass.getConstructor().newInstance();
                         context.registerTagLibrary(namespaceURI, taglib);
                     }
                     catch (ClassNotFoundException e) {

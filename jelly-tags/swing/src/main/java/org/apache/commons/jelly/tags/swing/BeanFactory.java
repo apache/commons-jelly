@@ -35,8 +35,8 @@ public class BeanFactory implements Factory {
     @Override
     public Object newInstance() throws InstantiationException {
         try {
-          return beanClass.newInstance();
-        } catch (IllegalAccessException e) {
+          return beanClass.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new InstantiationException(e.toString());
         }
     }

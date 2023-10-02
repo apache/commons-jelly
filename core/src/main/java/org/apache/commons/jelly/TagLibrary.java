@@ -101,10 +101,8 @@ public abstract class TagLibrary {
         if (value instanceof Class) {
             Class type = (Class) value;
             try {
-                return (Tag) type.newInstance();
-            } catch (InstantiationException e) {
-                throw new JellyException(e.toString());
-            } catch (IllegalAccessException e) {
+                return (Tag) type.getConstructor().newInstance();
+            } catch (ReflectiveOperationException e) {
                 throw new JellyException(e.toString());
             }
         }

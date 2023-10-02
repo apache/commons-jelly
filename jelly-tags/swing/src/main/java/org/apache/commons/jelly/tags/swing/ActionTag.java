@@ -88,10 +88,8 @@ public class ActionTag extends UseBeanTag {
             if (theClass != null ) {
 
                 try {
-                    return theClass.newInstance();
-                } catch (InstantiationException e) {
-                    throw new JellyTagException(e);
-                } catch (IllegalAccessException e) {
+                    return theClass.getConstructor().newInstance();
+                } catch (ReflectiveOperationException e) {
                     throw new JellyTagException(e);
                 }
 

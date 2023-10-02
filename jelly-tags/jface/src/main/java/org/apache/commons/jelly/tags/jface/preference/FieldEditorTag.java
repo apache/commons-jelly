@@ -94,7 +94,7 @@ public class FieldEditorTag extends UseBeanTag {
                 Object[] arguments = { name, labelText, parentComposite };
                 return constructor.newInstance(arguments);
             }
-            return theClass.newInstance();
+            return theClass.getConstructor().newInstance();
 
         } catch (NoSuchMethodException e) {
             throw new JellyTagException(e);

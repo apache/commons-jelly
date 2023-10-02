@@ -104,10 +104,8 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
         if (theClass != null ) {
             try {
-                return theClass.newInstance();
-            } catch (IllegalAccessException e) {
-                throw new JellyTagException(e);
-            } catch (InstantiationException e) {
+                return theClass.getConstructor().newInstance();
+            } catch (ReflectiveOperationException e) {
                 throw new JellyTagException(e);
             }
         }

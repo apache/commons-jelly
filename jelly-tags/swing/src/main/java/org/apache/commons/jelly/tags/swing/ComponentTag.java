@@ -321,13 +321,11 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 		}
         try {
             if (theClass != null ) {
-                return theClass.newInstance();
+                return theClass.getConstructor().newInstance();
             } else {
                 return factory.newInstance();
             }
-        } catch (IllegalAccessException e) {
-            throw new JellyTagException(e);
-        } catch (InstantiationException e) {
+        } catch (ReflectiveOperationException e) {
             throw new JellyTagException(e);
         }
     }

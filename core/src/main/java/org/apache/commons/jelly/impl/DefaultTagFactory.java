@@ -42,10 +42,8 @@ public class DefaultTagFactory implements TagFactory {
     @Override
     public Tag createTag(String name, Attributes attributes) throws JellyException {
         try {
-          return (Tag) tagClass.newInstance();
-        } catch (InstantiationException e) {
-            throw new JellyException(e.toString());
-        } catch (IllegalAccessException e) {
+          return (Tag) tagClass.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new JellyException(e.toString());
         }
     }

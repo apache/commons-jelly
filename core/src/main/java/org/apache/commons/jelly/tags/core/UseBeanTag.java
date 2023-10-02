@@ -168,10 +168,8 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
     throws JellyTagException {
         try {
-            return theClass.newInstance();
-        } catch (IllegalAccessException e) {
-            throw new JellyTagException(e.toString());
-        } catch (InstantiationException e) {
+            return theClass.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
             throw new JellyTagException(e.toString());
         }
     }

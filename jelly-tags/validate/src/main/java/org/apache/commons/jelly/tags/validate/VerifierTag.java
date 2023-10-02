@@ -175,12 +175,10 @@ public class VerifierTag extends TagSupport {
             try {
                 ClassLoader loader = ClassLoaderUtils.getClassLoader(null, true, getClass());
                 factory = (VerifierFactory)loader.loadClass(
-                    "com.sun.msv.verifier.jarv.TheFactoryImpl").newInstance();
+                    "com.sun.msv.verifier.jarv.TheFactoryImpl").getConstructor().newInstance();
             } catch (ClassNotFoundException e) {
                 throw new JellyTagException(e);
-            } catch (InstantiationException e) {
-                throw new JellyTagException(e);
-            } catch (IllegalAccessException e) {
+            } catch (ReflectiveOperationException e) {
                 throw new JellyTagException(e);
             }
         }

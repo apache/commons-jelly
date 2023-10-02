@@ -174,7 +174,7 @@ public class IntrospectorTag extends TagSupport {
 
             Object object = null;
             try {
-                object = theClass.newInstance();
+                object = theClass.getConstructor().newInstance();
             }
             catch (Exception e) {
                 throw new ConversionException( "Could not instantiate an instance of: " + name, e );
