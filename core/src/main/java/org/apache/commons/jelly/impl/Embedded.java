@@ -60,24 +60,24 @@ import org.xml.sax.SAXException;
  */
 public class Embedded {
     /** Jelly Engine */
-    Jelly m_jellyEngine = new Jelly();
+    Jelly jellyEngine = new Jelly();
     /** JellyContext*/
-    private JellyContext m_context = new JellyContext();
+    private JellyContext context = new JellyContext();
     /** Compiled Script Object*/
-    private Script m_script;
+    private Script script;
     /** Input script as stream*/
-    private InputStream m_inputStream;
+    private InputStream inputStream;
     /** Output Stream */
-    private OutputStream m_outputStream;
+    private OutputStream outputStream;
     /** Output(default System.out) */
-    private XMLOutput m_output =
+    private XMLOutput output =
         XMLOutput.createXMLOutput(new OutputStreamWriter(System.out));
     /** Exception thrown during compilation of script*/
-    Exception m_scriptCompilationException;
+    Exception scriptCompilationException;
     /** boolean value indicating whether the script has been successfully compiled or NOT */
-    boolean m_scriptCompiled = false;
+    boolean scriptCompiled = false;
     /** ErrorMsg*/
-    private String m_errorMsg;
+    private String errorMsg;
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(Embedded.class);
 
@@ -94,7 +94,7 @@ public class Embedded {
      * @param context
      */
     public void setContext(JellyContext context) {
-        m_context = context;
+        this.context = context;
     }
 
     /**
@@ -102,7 +102,7 @@ public class Embedded {
      * @return JellyContext
      */
     public JellyContext getContext() {
-        return m_context;
+        return context;
     }
 
     /**
@@ -111,7 +111,7 @@ public class Embedded {
      * @param value
      */
     public void setVariable(String name, Object value) {
-        m_context.setVariable(name, value);
+        context.setVariable(name, value);
     }
 
     /**
@@ -122,15 +122,15 @@ public class Embedded {
 
         try {
             URL url = resolveURL(scriptAsString);
-            m_inputStream = url.openStream();
+            inputStream = url.openStream();
         }
         catch (MalformedURLException e) {
             //Encapsulate the string within
-            m_inputStream = new ByteArrayInputStream(scriptAsString.getBytes());
+            inputStream = new ByteArrayInputStream(scriptAsString.getBytes());
         }
         catch (IOException e) {
             //Error reading from the URL
-            m_inputStream = null;
+            inputStream = null;
         }
 
         compileScriptAndKeep();
@@ -153,7 +153,7 @@ public class Embedded {
      * @param scriptAsInputStream
      */
     public void setScript(InputStream scriptAsInputStream) {
-        m_inputStream = scriptAsInputStream;
+        inputStream = scriptAsInputStream;
         compileScriptAndKeep();
     }
 
@@ -162,21 +162,21 @@ public class Embedded {
      */
     private void compileScriptAndKeep() {
         XMLParser parser = new XMLParser();
-        parser.setContext(m_context);
-        m_scriptCompiled = false;
+        parser.setContext(context);
+        scriptCompiled = false;
         try {
-            m_script = parser.parse(m_inputStream);
-            m_script = m_script.compile();
-            m_scriptCompiled = true;
+            script = parser.parse(inputStream);
+            script = script.compile();
+            scriptCompiled = true;
         }
         catch (IOException e) {
-            m_scriptCompilationException = e;
+            scriptCompilationException = e;
         }
         catch (SAXException e) {
-            m_scriptCompilationException = e;
+            scriptCompilationException = e;
         }
         catch (Exception e) {
-            m_scriptCompilationException = e;
+            scriptCompilationException = e;
         }
     }
 
@@ -185,9 +185,8 @@ public class Embedded {
      * @param outputStream
      */
     public void setOutputStream(OutputStream outputStream) {
-        m_outputStream = outputStream;
-        m_output =
-            XMLOutput.createXMLOutput(new OutputStreamWriter(m_outputStream));
+        this.outputStream = outputStream;
+        this.output = XMLOutput.createXMLOutput(new OutputStreamWriter(this.outputStream));
     }
 
     /**
@@ -196,8 +195,8 @@ public class Embedded {
      * This should be called before the parser is used.
      */
     public void registerTagLibrary(String namespaceURI, String className) {
-        if (m_context != null)
-            m_context.registerTagLibrary(namespaceURI, className);
+        if (context != null)
+            context.registerTagLibrary(namespaceURI, className);
     }
 
     /**
@@ -205,8 +204,8 @@ public class Embedded {
      * This should be called before the parser is used.
      */
     public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
-        if (m_context != null)
-            m_context.registerTagLibrary(namespaceURI, taglib);
+        if (context != null)
+            context.registerTagLibrary(namespaceURI, taglib);
     }
 
     /**
@@ -214,7 +213,7 @@ public class Embedded {
      * @return String
      */
     public String getErrorMsg() {
-        return m_errorMsg;
+        return errorMsg;
     }
 
     /**
@@ -222,7 +221,7 @@ public class Embedded {
      * @param errorMsg The errorMsg to set
      */
     private void setErrorMsg(String errorMsg) {
-        m_errorMsg = errorMsg;
+        this.errorMsg = errorMsg;
     }
 
     /**
@@ -232,22 +231,22 @@ public class Embedded {
         if (log.isDebugEnabled())
             log.debug("Starting Execution");
         //If script has not been compiled then return the errorMsg that occurredd during compilation
-        if (!m_scriptCompiled) {
+        if (!scriptCompiled) {
             if (log.isErrorEnabled())
-                log.error(m_scriptCompilationException.getMessage());
-            setErrorMsg(m_scriptCompilationException.getMessage());
+                log.error(scriptCompilationException.getMessage());
+            setErrorMsg(scriptCompilationException.getMessage());
             return false;
         }
-        if (m_inputStream == null) {
+        if (inputStream == null) {
             if (log.isErrorEnabled())
                 log.error("[Error] Input script-resource NOT accessible");
             setErrorMsg("[Error] Input script-resource NOT accessible");
             return false;
         }
         try {
-            m_script.run(m_context, m_output);
-            m_outputStream.close();
-            m_output.flush();
+            script.run(context, output);
+            outputStream.close();
+            output.flush();
         }
         catch (Exception e) {
             if (log.isErrorEnabled())
