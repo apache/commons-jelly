@@ -144,7 +144,7 @@ public class PreferencePageTag extends TagSupport {
 
     /**
      * Sets the file name.
-     * @param fileName The filename to set
+     * @param fileName The file name to set
      */
     public void setFilename(String fileName) {
         this.fileName = fileName;
