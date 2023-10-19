@@ -35,7 +35,7 @@ public class StaticTag extends DynaTagSupport {
     private String uri;
 
     /** The qualified name */
-    private String qname;
+    private String qualifiedName;
 
     /** The local name */
     private String localName;
@@ -46,15 +46,15 @@ public class StaticTag extends DynaTagSupport {
     public StaticTag() {
     }
 
-    public StaticTag(String uri, String localName, String qname) {
+    public StaticTag(String uri, String localName, String qualifiedName) {
         this.uri = uri;
         this.localName = localName;
-        this.qname = qname;
+        this.qualifiedName = qualifiedName;
     }
 
     @Override
     public String toString() {
-        return super.toString() + "[qname=" + qname + ";attributes=" + attributes + "]";
+        return super.toString() + "[qname=" + qualifiedName + ";attributes=" + attributes + "]";
     }
 
     // Tag interface
@@ -62,9 +62,9 @@ public class StaticTag extends DynaTagSupport {
     @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         try {
-            output.startElement(uri, localName, qname, attributes);
+            output.startElement(uri, localName, qualifiedName, attributes);
             invokeBody(output);
-            output.endElement(uri, localName, qname);
+            output.endElement(uri, localName, qualifiedName);
         } catch (SAXException e) {
             throw new JellyTagException(e);
         } finally {
@@ -109,17 +109,17 @@ public class StaticTag extends DynaTagSupport {
     }
 
     public String getQName() {
-        return qname;
+        return qualifiedName;
     }
 
-    public void setQName(String qname) {
-        this.qname = qname;
-        int idx = qname.indexOf(':');
+    public void setQName(String qualifiedName) {
+        this.qualifiedName = qualifiedName;
+        int idx = qualifiedName.indexOf(':');
         if (idx >= 0) {
-            this.localName = qname.substring(idx + 1);
+            this.localName = qualifiedName.substring(idx + 1);
         }
         else {
-            this.localName = qname;
+            this.localName = qualifiedName;
         }
     }
 
@@ -130,8 +130,8 @@ public class StaticTag extends DynaTagSupport {
     public void setLocalName(String localName) {
         this.localName = localName;
         // FIXME This just doesn't seem right or work...
-        if (qname == null || !qname.endsWith(localName)) {
-            localName = qname;
+        if (qualifiedName == null || !qualifiedName.endsWith(localName)) {
+            localName = qualifiedName;
         }
     }
 }
