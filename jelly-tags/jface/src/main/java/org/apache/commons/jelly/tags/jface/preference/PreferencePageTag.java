@@ -51,7 +51,7 @@ public class PreferencePageTag extends TagSupport {
         public PreferencePageImpl(String title) {
             super(title, FieldEditorPreferencePage.GRID);
             try {
-                preferenceStore = new PreferenceStore(filename);
+                preferenceStore = new PreferenceStore(fileName);
                 preferenceStore.load();
                 setPreferenceStore(preferenceStore);
             } catch (IOException e) {
@@ -88,7 +88,7 @@ public class PreferencePageTag extends TagSupport {
     private static final Log log = LogFactory.getLog(PreferencePageTag.class);
 
     /** Filename of the store */
-    private String filename;
+    private String fileName;
 
     /** Jelly XMLOutput */
     private XMLOutput output;
@@ -112,7 +112,7 @@ public class PreferencePageTag extends TagSupport {
         }
 
         // check for missing attributes
-        if (filename == null) {
+        if (fileName == null) {
             throw new MissingAttributeException("filename");
         }
         if (title == null) {
@@ -143,11 +143,11 @@ public class PreferencePageTag extends TagSupport {
     }
 
     /**
-     * Sets the filename.
-     * @param filename The filename to set
+     * Sets the file name.
+     * @param fileName The filename to set
      */
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setFilename(String fileName) {
+        this.fileName = fileName;
     }
 
     /**

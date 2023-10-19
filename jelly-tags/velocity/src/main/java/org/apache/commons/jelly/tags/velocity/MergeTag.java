@@ -122,10 +122,10 @@ public class MergeTag extends VelocityTagSupport
     }
 
     /**
-     * Sets the filename of the template used to merge with the
+     * Sets the fil ename of the template used to merge with the
      * JellyContext.
      *
-     * @param template The filename of the template to be merged.
+     * @param template The file name of the template to be merged.
      */
     public void setTemplate( String template )
     {

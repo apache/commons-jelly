@@ -68,7 +68,7 @@ public class JettyHttpServerTag extends TagSupport {
 
     // static initialisation
     {
-        // setup a log for Jetty with a default filename
+        // setup a log for Jetty with a default file name
         try {
             _logSink = new OutputStreamLogSink(DEFAULT_LOG_FILE);
             //_logSink.start();
@@ -82,10 +82,10 @@ public class JettyHttpServerTag extends TagSupport {
     /** unique identifier of the tag/ variable to store result in */
     private String _var;
 
-    /** the http server for this tag */
+    /** the HTTP server for this tag */
     private HttpServer _server;
 
-    /** filename of Jetty log file - with default */
+    /** file name of Jetty log file - with default */
     private String _logFileName = DEFAULT_LOG_FILE;
 
     /** Creates a new instance of JettyHttpServerTag */

@@ -93,7 +93,7 @@ public class JellyTask extends Task {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the script URL to use as an absolute URL or a relative filename
+     * Sets the script URL to use as an absolute URL or a relative file name
      */
     public void setScript(String script) throws MalformedURLException {
         setUrl(resolveURL(script));
