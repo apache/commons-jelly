@@ -109,11 +109,11 @@ public class DataSourceWrapper implements DataSource {
     }
 
     /**
-     * Always throws a SQLException. Username and password are set
+     * Always throws a SQLException. User name and password are set
      * in the constructor and can not be changed.
      */
     @Override
-    public Connection getConnection(String username, String password)
+    public Connection getConnection(String userName, String password)
         throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
