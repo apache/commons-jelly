@@ -41,7 +41,7 @@ public class InvokeTag extends TagSupport {
     private String endpoint = null;
     private String namespace = null;
     private String method = null;
-    private String username;
+    private String userName;
     private String password;
     private Service service;
     private Object params;
@@ -85,8 +85,8 @@ public class InvokeTag extends TagSupport {
             call.setTargetEndpointAddress(new java.net.URL(endpoint));
             call.setOperationName(new QName(namespace, method));
 
-            if ( username != null && !username.equals("") ) {
-                call.setUsername( username );
+            if ( userName != null && !userName.equals("") ) {
+                call.setUsername( userName );
                 call.setPassword( password );
             }
             
@@ -168,11 +168,11 @@ public class InvokeTag extends TagSupport {
     }
 
     /**
-     * Set the username for the SOAP call.
+     * Set the user name for the SOAP call.
      */
-    public void setUsername(String username)
+    public void setUsername(String userName)
     {
-        this.username = username;
+        this.userName = userName;
     }
 
 
