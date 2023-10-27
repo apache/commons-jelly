@@ -43,7 +43,7 @@
 Apache Commons Jelly
 ===================
 
-[![Build Status](https://travis-ci.org/apache/commons-jelly.svg?branch=trunk)](https://travis-ci.org/apache/commons-jelly)
+[![Java CI](https://github.com/apache/commons-jelly/actions/workflows/maven.yml/badge.svg)](https://github.com/apache/commons-jelly/actions/workflows/maven.yml)
 
 Apache Commons Jelly is a Java and XML based scripting engine. Jelly combines the best ideas from JSTL, Velocity, DVSL, Ant and Cocoon all together in a simple yet powerful scripting engine.
 
