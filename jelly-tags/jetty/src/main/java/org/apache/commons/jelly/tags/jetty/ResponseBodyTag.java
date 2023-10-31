@@ -27,7 +27,7 @@ import org.mortbay.http.HttpResponse;
 import org.mortbay.util.ByteArrayISO8859Writer;
 
 /**
- * Set the response body in a response handler for a Jetty http server
+ * Sets the response body in a response handler for a Jetty http server
  *
  * @author  rtl
  */

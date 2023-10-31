@@ -24,7 +24,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.mortbay.http.HttpResponse;
 
 /**
- * Set the response code in the request handler of a Jetty http server
+ * Sets the response code in the request handler of a Jetty http server
  *
  * @author  rtl
  */

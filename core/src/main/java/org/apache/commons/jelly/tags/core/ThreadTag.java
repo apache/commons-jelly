@@ -102,7 +102,7 @@ public class ThreadTag extends TagSupport  {
     }
 
     /**
-     * Set the file which is generated from the output
+     * Sets the file which is generated from the output
      * @param name The output file name
      */
     public void setFile(String name) throws IOException {

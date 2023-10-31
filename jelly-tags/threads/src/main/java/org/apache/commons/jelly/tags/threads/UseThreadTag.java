@@ -84,7 +84,7 @@ public abstract class UseThreadTag extends TagSupport {
     protected abstract void useThreadGroup(List threadGroup, XMLOutput output) throws InterruptedException ;
 
     /**
-     * Set the thread to use in some way.
+     * Sets the thread to use in some way.
      */
     public void setThread(Thread thread) {
         this.thread = thread;
@@ -98,7 +98,7 @@ public abstract class UseThreadTag extends TagSupport {
     }
 
     /**
-     * Set the thread group to "use".
+     * Sets the thread group to "use".
      * @param threadGroup The threadGroup created with the <i>group</i> tag.
      */
     public void setThreadGroup(List threadGroup) {

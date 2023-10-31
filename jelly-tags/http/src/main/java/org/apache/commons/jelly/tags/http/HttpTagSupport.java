@@ -168,7 +168,7 @@ public abstract class HttpTagSupport extends TagSupport {
     }
 
     /**
-     * Set the current parameters on the url method ready for processing
+     * Sets the current parameters on the url method ready for processing
      *
      * @param method the {@link HttpMethod method} to configure
      * @throws MalformedURLException Never thrown here but can be from a subclass.

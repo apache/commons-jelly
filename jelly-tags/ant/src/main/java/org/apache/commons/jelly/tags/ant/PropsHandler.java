@@ -42,21 +42,21 @@ import org.apache.tools.ant.Project;
  */
 public interface PropsHandler {
 
-    /** Set a property.
+    /** Sets a property.
      *
      *  @param key The property key.
      *  @param value The value.
      */
     void setProperty(String key, String value);
 
-    /** Set a user property.
+    /** Sets a user property.
      *
      *  @param key The user property key.
      *  @param value The value.
      */
     void setUserProperty(String key, String value);
 
-    /** Set a new property.
+    /** Sets a new property.
      *
      *  @param key The property key.
      *  @param value The value.
@@ -120,12 +120,12 @@ public interface PropsHandler {
      */
     void copyInheritedProperties(Project other);
     
-    /** Set the system variables for a <code>Project</code> that have
+    /** Sets the system variables for a <code>Project</code> that have
      * not already been assigned as user properties.
      */
     void setSystemProperties();
     
-    /** Set the <code>ant.java.version</code> property.
+    /** Sets the <code>ant.java.version</code> property.
      */
     void setJavaVersionProperty();    
     

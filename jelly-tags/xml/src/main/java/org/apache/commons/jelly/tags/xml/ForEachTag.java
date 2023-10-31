@@ -115,7 +115,7 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     }
 
     /**
-     * Set whether to sort ascending or descending.
+     * Sets whether to sort ascending or descending.
      */
     public void setDescending(boolean descending) {
         if (xpCmp == null) xpCmp = new XPathComparator();

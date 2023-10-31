@@ -57,7 +57,7 @@ public class JobTag extends QuartzTagSupport
     //     Instance methods
     // ------------------------------------------------------------
 
-    /** Set the name of this job.
+    /** Sets the name of this job.
      *
      *  @param name The name of this job.
      */
@@ -75,7 +75,7 @@ public class JobTag extends QuartzTagSupport
         return this.name;
     }
 
-    /** Set the group of this job.
+    /** Sets the group of this job.
      *
      *  @param group The group of this job.
      */

@@ -46,7 +46,7 @@ public class GCTag extends TagSupport {
     }
 
     /**
-     * Set the {@link Drawable} name for this {@link GC}.
+     * Sets the {@link Drawable} name for this {@link GC}.
      *
      * @param drawable a {@link GC} {@link Drawable}
      */

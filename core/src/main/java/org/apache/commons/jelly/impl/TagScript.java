@@ -292,7 +292,7 @@ public class TagScript implements Script {
     }
 
     /**
-     * Set the context's root and current URL if not present
+     * Sets the context's root and current URL if not present
      * @param context
      * @throws JellyTagException
      */

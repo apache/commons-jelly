@@ -54,7 +54,7 @@ public abstract class BaseClassLoaderTag extends TagSupport {
     }
 
     /**
-     * Set the class loader to be used for instantiating application objects
+     * Sets the class loader to be used for instantiating application objects
      * when required.
      *
      * @param classLoader The new class loader to use, or <code>null</code>

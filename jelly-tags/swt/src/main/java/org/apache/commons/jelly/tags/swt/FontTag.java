@@ -52,7 +52,7 @@ public class FontTag extends TagSupport {
     private String var;
 
     /**
-     * Set the type of this {@link Font}
+     * Sets the type of this {@link Font}
      *
      * @param type {@link Font} type name
      */
@@ -70,7 +70,7 @@ public class FontTag extends TagSupport {
     }
 
     /**
-     * Set the size of this {@link Font}
+     * Sets the size of this {@link Font}
      *
      * @param size {@link Font} size
      */
@@ -88,7 +88,7 @@ public class FontTag extends TagSupport {
     }
 
     /**
-     * Set the style of this {@link Font} (eg. bold, normal, italics)
+     * Sets the style of this {@link Font} (eg. bold, normal, italics)
      *
      * @param style the style of this {@link Font}
      */

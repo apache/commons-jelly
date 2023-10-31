@@ -106,7 +106,7 @@ public class Embedded {
     }
 
     /**
-     * Set a new variable within the context for the script to use.
+     * Sets a new variable within the context for the script to use.
      * @param name
      * @param value
      */
@@ -115,7 +115,7 @@ public class Embedded {
     }
 
     /**
-     * Set the input script
+     * Sets the input script
      * @param scriptAsString
      */
     public void setScript(String scriptAsString) {
@@ -149,7 +149,7 @@ public class Embedded {
     }
 
     /**
-     * Set the input stream
+     * Sets the input stream
      * @param scriptAsInputStream
      */
     public void setScript(InputStream scriptAsInputStream) {

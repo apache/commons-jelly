@@ -83,7 +83,7 @@ public class MultipartPostTag extends PostTag {
     }
 
     /**
-     * Set the current parameters on the url method ready for processing
+     * Sets the current parameters on the url method ready for processing
      *
      * This method basically
      * It <strong>must</strong> be called after

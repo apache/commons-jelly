@@ -302,7 +302,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
         return this.tagName;
     }
 
-    /** Set the object underlying this tag.
+    /** Sets the object underlying this tag.
      *
      *  @param object The object.
      */

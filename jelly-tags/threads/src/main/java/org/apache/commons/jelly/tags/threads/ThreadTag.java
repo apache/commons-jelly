@@ -49,7 +49,7 @@ public class ThreadTag extends TagSupport {
     private String name = null;
     /** Thread priority, defaults to Thread.NORM_PRIORITY */
     private int priority = Thread.NORM_PRIORITY;
-    /** Set if the thread should be a daemon or not */
+    /** Sets if the thread should be a daemon or not */
     private boolean daemon = false;
     /** the destination of output */
     private XMLOutput xmlOutput;
@@ -178,7 +178,7 @@ public class ThreadTag extends TagSupport {
     }
 
     /**
-     * Set the threads priority. Defaults to Thread.NORM_PRIORITY
+     * Sets the threads priority. Defaults to Thread.NORM_PRIORITY
      */
     public void setPriority(int priority) {
         this.priority = priority;
@@ -200,7 +200,7 @@ public class ThreadTag extends TagSupport {
     }
 
     /**
-     * Set the file which is generated from the output
+     * Sets the file which is generated from the output
      * @param name The output file name
      */
     public void setFile(String name) throws IOException {

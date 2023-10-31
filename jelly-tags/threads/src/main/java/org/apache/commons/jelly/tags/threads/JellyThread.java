@@ -49,7 +49,7 @@ public class JellyThread extends Thread {
     }
 
     /**
-     * Set the Runnable target that will be run
+     * Sets the Runnable target that will be run
      */
     public void setTarget(Runnable target) {
         this.target = target;

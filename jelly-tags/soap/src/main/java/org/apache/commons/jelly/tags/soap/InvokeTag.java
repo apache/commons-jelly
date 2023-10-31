@@ -160,7 +160,7 @@ public class InvokeTag extends TagSupport {
     }
 
     /**
-     * Set the password for the SOAP call.
+     * Sets the password for the SOAP call.
      */
     public void setPassword(String password)
     {
@@ -168,7 +168,7 @@ public class InvokeTag extends TagSupport {
     }
 
     /**
-     * Set the user name for the SOAP call.
+     * Sets the user name for the SOAP call.
      */
     public void setUsername(String userName)
     {

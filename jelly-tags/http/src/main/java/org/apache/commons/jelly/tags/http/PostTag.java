@@ -53,7 +53,7 @@ public class PostTag extends HttpTagSupport {
     }
 
     /**
-     * Set the current parameters on the URL method ready for processing
+     * Sets the current parameters on the URL method ready for processing
      *
      * This method <strong>must</strong> be called after
      *  {@link #getHttpMethod()}

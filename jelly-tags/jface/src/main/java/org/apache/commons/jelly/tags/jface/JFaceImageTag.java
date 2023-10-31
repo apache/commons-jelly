@@ -45,7 +45,7 @@ public class JFaceImageTag extends ImageTag {
     }
 
     /**
-     * Set default image Window
+     * Sets default image Window
      * @param window
      * @param image
      */

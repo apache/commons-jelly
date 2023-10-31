@@ -359,7 +359,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * Set the jelly namespace to use for unprefixed elements.
+     * Sets the jelly namespace to use for unprefixed elements.
      * Will be overridden by an explicit namespace in the
      * XML document.
      *
@@ -384,7 +384,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * Set the class loader to be used for instantiating application objects
+     * Sets the class loader to be used for instantiating application objects
      * when required.
      *
      * @param classLoader The new class loader to use, or <code>null</code>
@@ -422,7 +422,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * Set the error handler for this XMLParser.
+     * Sets the error handler for this XMLParser.
      *
      * @param errorHandler The new error handler
      */
@@ -438,7 +438,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * Set the current logger for this XMLParser.
+     * Sets the current logger for this XMLParser.
      */
     public void setLogger(Log log) {
         this.log = log;
@@ -586,7 +586,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * Set the validating parser flag.  This must be called before
+     * Sets the validating parser flag.  This must be called before
      * <code>parse()</code> is called the first time.
      *
      * @param validating The new validating parser flag.
@@ -881,7 +881,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * Set the document locator associated with our parser.
+     * Sets the document locator associated with our parser.
      *
      * @param locator The new locator
      */

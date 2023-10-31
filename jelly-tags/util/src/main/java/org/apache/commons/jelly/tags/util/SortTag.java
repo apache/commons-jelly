@@ -62,7 +62,7 @@ public class SortTag extends TagSupport {
     }
     
     /**
-     * Set the items to be sorted
+     * Sets the items to be sorted
      * @param newItems some collection
      */
     public void setItems(List newItems) {

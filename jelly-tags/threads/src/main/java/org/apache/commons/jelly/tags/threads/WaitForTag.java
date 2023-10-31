@@ -54,14 +54,14 @@ public class WaitForTag extends TagSupport {
     }
 
     /**
-     * Set the group of threads to wait on
+     * Sets the group of threads to wait on
      */
     public void setGroup(List group) {
         this.group = group;
     }
 
     /**
-     * Set how long to wait for the thread to finish. If waiting for a group
+     * Sets how long to wait for the thread to finish. If waiting for a group
      * this will be the time to wait for each thread in the group to finish.
      */
     public void setOnlyWait(long onlyWait) {

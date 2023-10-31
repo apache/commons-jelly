@@ -24,7 +24,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.mortbay.http.HttpResponse;
 
 /**
- * Set a response header in the request handler of a Jetty http server
+ * Sets a response header in the request handler of a Jetty http server
  *
  * @author  rtl
  */

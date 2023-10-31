@@ -42,7 +42,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
         this.context = context;
     }
 
-    /** Set an ant property.
+    /** Sets an ant property.
      *
      *  @param name The property name.
      *  @param value The property value.

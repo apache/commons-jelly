@@ -68,7 +68,7 @@ public class CronTriggerTag extends QuartzTagSupport
     // ------------------------------------------------------------
     // ------------------------------------------------------------
 
-    /** Set the name.
+    /** Sets the name.
      *
      *  @param name.
      */
@@ -86,7 +86,7 @@ public class CronTriggerTag extends QuartzTagSupport
         return this.name;
     }
 
-    /** Set the group
+    /** Sets the group
      *
      *  @param group The group
      */
@@ -104,7 +104,7 @@ public class CronTriggerTag extends QuartzTagSupport
         return this.group;
     }
 
-    /** Set the cron time spec.
+    /** Sets the cron time spec.
      *
      *  @param spec The cron time spec.
      */
@@ -120,7 +120,7 @@ public class CronTriggerTag extends QuartzTagSupport
         return this.spec;
     }
 
-    /** Set the job name.
+    /** Sets the job name.
      *
      *  @param jobName The job name.
      */
@@ -138,7 +138,7 @@ public class CronTriggerTag extends QuartzTagSupport
         return this.jobName;
     }
 
-    /** Set the job group.
+    /** Sets the job group.
      *
      *  @param jobGroup The job group.
      */

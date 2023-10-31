@@ -50,7 +50,7 @@ public abstract class UseMutexTag extends TagSupport {
         return mutex;
     }
 
-    /** Set the mutex. Any object can be used as a mutex. */
+    /** Sets the mutex. Any object can be used as a mutex. */
     public void setMutex(Object mutex) {
         this.mutex = mutex;
     }

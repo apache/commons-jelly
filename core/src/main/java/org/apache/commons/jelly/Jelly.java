@@ -230,7 +230,7 @@ public class Jelly {
 
 
     /**
-     * Set the jelly namespace to use for unprefixed elements.
+     * Sets the jelly namespace to use for unprefixed elements.
      * Will be overridden by an explicit namespace in the
      * XML document.
      * 

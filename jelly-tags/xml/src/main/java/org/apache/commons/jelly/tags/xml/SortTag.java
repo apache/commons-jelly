@@ -53,7 +53,7 @@ public class SortTag extends XPathTagSupport {
         Collections.sort(list, xpCmp);
     }
 
-    /** Set the list to sort. */
+    /** Sets the list to sort. */
     public void setList(List list) {
         this.list = list;
     }
@@ -66,7 +66,7 @@ public class SortTag extends XPathTagSupport {
     }
 
     /**
-     * Set whether to sort ascending or descending.
+     * Sets whether to sort ascending or descending.
      */
     public void setDescending(boolean descending) {
         if (xpCmp == null) xpCmp = new XPathComparator();

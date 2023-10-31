@@ -52,7 +52,7 @@ public class PutTag extends HttpTagSupport {
     }
 
     /**
-     * Set the current parameters on the url method ready for processing
+     * Sets the current parameters on the url method ready for processing
      *
      */
     protected void setParameters() {

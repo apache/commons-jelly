@@ -79,7 +79,7 @@ public class EmailTag extends TagSupport {
     private boolean encodeXML = false;
 
     /**
-     * Set the smtp server for the message. If not set the system
+     * Sets the smtp server for the message. If not set the system
      * property "mail.smtp.host" will be used.
      */
     public void setServer(Expression server) {
@@ -87,7 +87,7 @@ public class EmailTag extends TagSupport {
     }
 
     /**
-     * Set the from address for the message
+     * Sets the from address for the message
      */
     public void setFrom(Expression from) {
         this.from = from;
@@ -108,21 +108,21 @@ public class EmailTag extends TagSupport {
     }
 
     /**
-     * Set the email subject
+     * Sets the email subject
      */
     public void setSubject(Expression subject) {
         this.subject = subject;
     }
 
     /**
-     * Set the message body. This will override the Jelly tag body
+     * Sets the message body. This will override the Jelly tag body
      */
     public void setMessage(Expression message) {
         this.message = message;
     }
 
     /**
-     * Set the email attachment for the message. Only 1 attachment is supported right now
+     * Sets the email attachment for the message. Only 1 attachment is supported right now
      */
     public void setAttach(File attachment) throws FileNotFoundException {
         if (!attachment.exists()) {

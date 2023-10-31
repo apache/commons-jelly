@@ -628,7 +628,7 @@ public class TransformTag extends ParseTag {
         }
 
         /**
-         * Set the value of a property
+         * Sets the value of a property
          *
          * @param name - The property name, which is a fully-qualified URI.
          * @param value - The property value
@@ -668,7 +668,7 @@ public class TransformTag extends ParseTag {
         }
 
         /**
-         * Set the value of a feature
+         * Sets the value of a feature
          *
          * @param name - The feature name, which is a fully-qualified URI.
          * @param value - The current state of the feature (true or false)

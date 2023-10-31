@@ -66,7 +66,7 @@ public class GroupTag extends TagSupport {
         return threads;
     }
 
-    /** Set the variable name to store the thread group in */
+    /** Sets the variable name to store the thread group in */
     public void setVar(String var) {
         this.var = var;
     }
