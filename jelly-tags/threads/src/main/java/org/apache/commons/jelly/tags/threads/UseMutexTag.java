@@ -45,7 +45,7 @@ public abstract class UseMutexTag extends TagSupport {
     /** Implement this method to do something with the mutex */
     protected abstract void useMutex(Object mutex, XMLOutput output) throws JellyTagException;
 
-    /** Get the mutex */
+    /** Gets the mutex */
     public Object getMutex() {
         return mutex;
     }

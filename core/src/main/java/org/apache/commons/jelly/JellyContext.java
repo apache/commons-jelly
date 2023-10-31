@@ -262,7 +262,7 @@ public class JellyContext {
     }
 
     /**
-     * Get a system property and handle security exceptions
+     * Gets a system property and handle security exceptions
      * @param name the name of the property to retrieve
      * @return the value of the property, or null if a SecurityException occurs
      */

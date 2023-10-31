@@ -68,7 +68,7 @@ public class ClassLoaderUtils {
     }
 
     /**
-     * Get the loader for the given class. 
+     * Gets the loader for the given class. 
      * @param clazz the class to retrieve the loader for
      * @return the class loader that loaded the provided class
      */

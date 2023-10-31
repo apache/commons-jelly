@@ -91,7 +91,7 @@ public abstract class UseThreadTag extends TagSupport {
     }
 
     /**
-     * Get a reference to the thread to use
+     * Gets a reference to the thread to use
      */
     public Thread getThread() {
         return thread;
@@ -106,7 +106,7 @@ public abstract class UseThreadTag extends TagSupport {
     }
 
     /**
-     * Get the thread group
+     * Gets the thread group
      */
     public List getThreadGroup() {
         return threadGroup;

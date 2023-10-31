@@ -61,7 +61,7 @@ public class GroupTag extends TagSupport {
         threads.add(thread);
     }
 
-    /** Get the list of threads in this thread group */
+    /** Gets the list of threads in this thread group */
     public List getThreads() {
         return threads;
     }

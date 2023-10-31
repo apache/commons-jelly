@@ -170,7 +170,7 @@ public class WidgetTag extends UseBeanTag {
     }
 
     /**
-     * Get a color for the control
+     * Gets a color for the control
      * @param control
      * @param colorValue
      */

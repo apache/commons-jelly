@@ -216,7 +216,7 @@ public class ThreadTag extends TagSupport {
     }
 
     /**
-     * Get the thread instance
+     * Gets the thread instance
      * @return The thread
      */
     public Thread getThread() {

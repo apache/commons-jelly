@@ -135,7 +135,7 @@ public class PreferencePageTag extends TagSupport {
     }
 
     /**
-     * Get the PreferencePageImpl
+     * Gets the PreferencePageImpl
      * @return PreferencePageImpl
      */
     public PreferencePageImpl getPreferencePageImpl() {

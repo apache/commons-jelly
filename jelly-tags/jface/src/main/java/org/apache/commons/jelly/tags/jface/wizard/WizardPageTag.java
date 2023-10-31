@@ -123,7 +123,7 @@ public class WizardPageTag extends UseBeanTag {
     }
 
     /**
-     * Get the WizardPageImpl
+     * Gets the WizardPageImpl
      * @return WizardPageImpl
      */
     public WizardPageImpl getWizardPageImpl() {

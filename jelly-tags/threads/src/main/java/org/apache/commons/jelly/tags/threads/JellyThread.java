@@ -122,7 +122,7 @@ public class JellyThread extends Thread {
         runningMutex.release();
     }
 
-    /** Get the status of this thread */
+    /** Gets the status of this thread */
     public RunnableStatus getStatus() {
         return status;
     }
