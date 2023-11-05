@@ -142,12 +142,12 @@ public class BundleTag extends TagSupport {
      * Check if a match exists between the ordered set of preferred
      * locales and the available locales, for the given base name.
      * The set of preferred locales consists of a single locale
-     * (if the <tt>org.apache.commons.jelly.tags.fmt.locale</tt> configuration
+     * (if the <code>org.apache.commons.jelly.tags.fmt.locale</code> configuration
      * setting is present).
      *
      * <p> If no match was found in the previous step, check if a match
      * exists between the fallback locale (given by the
-     * <tt>org.apache.commons.jelly.tags.fmt.fallbackLocale</tt> configuration
+     * <code>org.apache.commons.jelly.tags.fmt.fallbackLocale</code> configuration
      * setting) and the available locales, for the given base name.
      *
      * @param jellyContext Page in which the resource bundle with the
@@ -239,7 +239,7 @@ public class BundleTag extends TagSupport {
      * @param pref the preferred locale
      * @param cl   classloader used to find resource bundle
      *
-     * @return the requested resource bundle, or <tt>null</tt> if no resource
+     * @return the requested resource bundle, or <code>null</code> if no resource
      * bundle with the given base name exists or if there is no exact- or
      * language-match between the preferred locale and the locale of
      * the bundle returned by java.util.ResourceBundle.getBundle().
