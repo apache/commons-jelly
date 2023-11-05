@@ -391,7 +391,7 @@ public class TransformTag extends ParseTag {
       *
       * @author <a href="mailto:robert@leftwich.info">Robert Leftwich</a>
       */
-    private class TagBodyXMLReader implements XMLReader {
+    private final class TagBodyXMLReader implements XMLReader {
 
         /** The tag whose body is to be read. */
         private Tag tag;
@@ -690,7 +690,7 @@ public class TransformTag extends ParseTag {
       * (i.e. The source is not actually used)
       *
       */
-    private class TagBodyInputSource extends InputSource {
+    private final class TagBodyInputSource extends InputSource {
 
         /**
          * Construct an instance of this marker class

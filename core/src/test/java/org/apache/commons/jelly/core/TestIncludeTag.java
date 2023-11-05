@@ -124,7 +124,7 @@ public class TestIncludeTag extends TestCase {
                    context.getVariable("a").equals("true"));
     }
 
-    private class CoreTaglibOnlyContext extends JellyContext {
+    private final class CoreTaglibOnlyContext extends JellyContext {
 
         /**
          * This implementations makes sure that only "jelly:core"

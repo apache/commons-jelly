@@ -109,7 +109,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
         return true;
     }
 
-    private class ExpressionSupportLocal extends ExpressionSupport {
+    private final class ExpressionSupportLocal extends ExpressionSupport {
 
         protected Expression jexlExpression = null;
         protected String text = null;

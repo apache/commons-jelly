@@ -40,7 +40,7 @@ public class PartTag extends TagSupport {
     /**
      * Extend StringPart so that I can specify the content type (ex: text/plain)
      */
-    private class MyStringPart extends StringPart {
+    private final class MyStringPart extends StringPart {
       String _contentType;
       public MyStringPart(String name, String value, String contentType) {
         super(name, value, "utf-8");
