@@ -90,7 +90,7 @@ public class JexlExpression extends ExpressionSupport {
     }
 }
 
-class JellyJexlContext implements JexlContext {
+final class JellyJexlContext implements JexlContext {
 
     private Map vars;
 
@@ -111,7 +111,7 @@ class JellyJexlContext implements JexlContext {
 }
 
 
-class JellyMap implements Map {
+final class JellyMap implements Map {
 
     private JellyContext context;
 

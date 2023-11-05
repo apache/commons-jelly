@@ -39,7 +39,7 @@ import org.mortbay.http.handler.AbstractHttpHandler;
  *
  * @author  rtl
  */
-class JellyResourceHttpHandler extends AbstractHttpHandler {
+final class JellyResourceHttpHandler extends AbstractHttpHandler {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(JellyResourceHttpHandler.class);

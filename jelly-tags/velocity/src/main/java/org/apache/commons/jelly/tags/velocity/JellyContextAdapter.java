@@ -27,7 +27,7 @@ import org.apache.velocity.context.Context;
 /**
  * Adapts a JellyContext for use as a Velocity Context.  This context
  * can be used in either read-only or read-write mode.  When used as a
- * read-only adapter, items <tt>put</tt> or <tt>remove</tt>ed from the
+ * read-only adapter, items <code>put</code> or <code>remove</code>ed from the
  * Velocity context are not permitted to propagate to the JellyContext,
  * which is the default behavior.  The adapter can also be used in a
  * read-write mode.  This permits changes made by Velocity to propagate
@@ -62,8 +62,8 @@ public class JellyContextAdapter implements Context
      * the JellyContext.  Turning the read-only flag off enables changes
      * to propagate.
      *
-     * @param readOnly If this parameter is <tt>true</tt>, the adapter
-     * becomes read-only.  Setting the parameter to <tt>false</tt> the
+     * @param readOnly If this parameter is <code>true</code>, the adapter
+     * becomes read-only.  Setting the parameter to <code>false</code> the
      * adapter becomes read-write.
      */
     public void setReadOnly(boolean readOnly)
@@ -74,8 +74,8 @@ public class JellyContextAdapter implements Context
     /**
      * Tests if the adapter is read-only.
      *
-     * @return <tt>true</tt> if the adapter is read-only; otherwise
-     * returns <tt>false</tt>.
+     * @return <code>true</code> if the adapter is read-only; otherwise
+     * returns <code>false</code>.
      */
     public boolean isReadOnly()
     {

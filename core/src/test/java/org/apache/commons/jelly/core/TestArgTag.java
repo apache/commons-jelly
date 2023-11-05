@@ -219,7 +219,7 @@ public class TestArgTag extends BaseJellyTest {
     private MockArgTagParent parentTag = null;
     private ArgTag argTag = null;
 
-    class MockArgTagParent extends TagSupport implements ArgTagParent {
+    final class MockArgTagParent extends TagSupport implements ArgTagParent {
         @Override
         public void addArgument(Class type, Object value) {
             typeList.add(type);
@@ -242,7 +242,7 @@ public class TestArgTag extends BaseJellyTest {
         private List valueList = new ArrayList();
     }
 
-    class MockScript implements Script {
+    final class MockScript implements Script {
         @Override
         public Script compile() throws JellyException {
             return this;

@@ -190,7 +190,7 @@ public class AntlrTag extends TagSupport
     }
 }
 
-class NoExitSecurityManager extends SecurityManager
+final class NoExitSecurityManager extends SecurityManager
 {
     static final NoExitSecurityManager INSTANCE = new NoExitSecurityManager();
 

@@ -38,7 +38,7 @@ public class ActionTag extends UseBeanTag {
     /**
      *  Implementing Action class
      */
-    class ActionImpl extends Action {
+    final class ActionImpl extends Action {
         @Override
         public void runWithEvent(Event event) {
             try {

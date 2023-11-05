@@ -110,7 +110,7 @@ public class SetLocaleTag extends TagSupport {
     /**
      * Parses the given locale string into its language and (optionally)
      * country components, and returns the corresponding
-     * <tt>java.util.Locale</tt> object.
+     * <code>java.util.Locale</code> object.
      *
      * If the given locale string is null or empty, the runtime's default
      * locale is returned.
@@ -118,7 +118,7 @@ public class SetLocaleTag extends TagSupport {
      * @param locale the locale string to parse
      * @param variant the variant
      *
-     * @return <tt>java.util.Locale</tt> object corresponding to the given
+     * @return <code>java.util.Locale</code> object corresponding to the given
      * locale string, or the runtime's default locale if the locale string is
      * null or empty
      *
@@ -174,7 +174,7 @@ public class SetLocaleTag extends TagSupport {
      * parameter
      *
      * @return the locale specified by the named scoped attribute or context
-     * configuration parameter, or <tt>null</tt> if no scoped attribute or
+     * configuration parameter, or <code>null</code> if no scoped attribute or
      * configuration parameter with the given name exists
      */
     static Locale getLocale(JellyContext jc, String name) {
@@ -198,9 +198,9 @@ public class SetLocaleTag extends TagSupport {
      *
      * @param jc The context containing the formatting action
      * @param fromTag The formatting action
-     * @param format <tt>true</tt> if the formatting action is of type
-     * <formatXXX> (as opposed to <parseXXX>), and <tt>false</tt> otherwise
-     * (if set to <tt>true</tt>, the formatting locale that is returned by
+     * @param format <code>true</code> if the formatting action is of type
+     * <formatXXX> (as opposed to <parseXXX>), and <code>false</code> otherwise
+     * (if set to <code>true</code>, the formatting locale that is returned by
      * this method is used to set the response locale).
      *
      * @param avail the array of available locales
@@ -279,7 +279,7 @@ public class SetLocaleTag extends TagSupport {
      * @param avail the available formatting locales
      *
      * @return Available locale that best matches the given preferred locale,
-     * or <tt>null</tt> if no match exists
+     * or <code>null</code> if no match exists
      */
     private static Locale findFormattingMatch(Locale pref, Locale[] avail) {
         Locale match = null;

@@ -733,7 +733,7 @@ public class TagScript implements Script {
 }
 
 
-class ExpressionAttribute {
+final class ExpressionAttribute {
     public ExpressionAttribute(String name, Expression exp) {
         this(name, "", "", exp);
     }

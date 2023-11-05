@@ -97,7 +97,7 @@ public class TimeZoneTag extends TagSupport {
      * the time zone is taken from the enclosing &lt;timeZone&gt; action.
      *
      * <p> Otherwise, the time zone configuration setting
-     * <tt>javax.servlet.jsp.jstl.core.Config.FMT_TIME_ZONE</tt>
+     * <code>javax.servlet.jsp.jstl.core.Config.FMT_TIME_ZONE</code>
      * is used.
      *
      * @param jc the page containing the action for which the
@@ -105,7 +105,7 @@ public class TimeZoneTag extends TagSupport {
      * @param fromTag the action for which the time zone needs to be
      * determined
      *
-     * @return the time zone, or <tt>null</tt> if the given action is not
+     * @return the time zone, or <code>null</code> if the given action is not
      * nested inside a &lt;timeZone&gt; action and no time zone configuration
      * setting exists
      */

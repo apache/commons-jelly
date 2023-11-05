@@ -73,7 +73,7 @@ public interface Result {
     /**
      * Returns true of the query was limited by a maximum row setting
      *
-     * @return <tt>true</tt> if the query was limited by a maximum
+     * @return <code>true</code> if the query was limited by a maximum
      * row setting
      */
     public boolean isLimitedByMaxRows();

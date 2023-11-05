@@ -40,7 +40,7 @@ public class WizardDialogTag extends UseBeanTag {
     /**
      * Provide a public method getWizard
      */
-    class WizardDialogImpl extends WizardDialog {
+    final class WizardDialogImpl extends WizardDialog {
         public WizardDialogImpl(Shell parentShell, IWizard newWizard) {
             super(parentShell, newWizard);
         }
@@ -54,7 +54,7 @@ public class WizardDialogTag extends UseBeanTag {
     /**
       * Provide a Wizard implementation
       */
-    class WizardImpl extends Wizard {
+    final class WizardImpl extends Wizard {
         public WizardImpl() {
             super();
             setNeedsProgressMonitor(true);

@@ -21,9 +21,9 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * <p>This class creates a cached version of a <tt>ResultSet</tt>.
- * It's represented as a <tt>Result</tt> implementation, capable of
- * returning an array of <tt>Row</tt> objects containing a <tt>Column</tt>
+ * <p>This class creates a cached version of a <code>ResultSet</code>.
+ * It's represented as a <code>Result</code> implementation, capable of
+ * returning an array of <code>Row</code> objects containing a <code>Column</code>
  * instance for each column in the row.   It is not part of the JSTL
  * API; it serves merely as a back-end to ResultSupport's static methods.
  * Thus, we scope its access to the package.
@@ -32,7 +32,7 @@ import java.util.*;
  * @author Justyna Horwat
  */
 
-class ResultImpl implements Result {
+final class ResultImpl implements Result {
     private List rowMap;
     private List rowByIndex;
     private String[] columnNames;
@@ -42,7 +42,7 @@ class ResultImpl implements Result {
      * This constructor reads the ResultSet and saves a cached
      * copy.
      *
-     * @param rs an open <tt>ResultSet</tt>, positioned before the first
+     * @param rs an open <code>ResultSet</code>, positioned before the first
      * row
      * @param startRow beginning row to be cached
      * @param maxRows query maximum rows limit
