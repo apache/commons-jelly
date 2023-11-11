@@ -29,7 +29,7 @@ import org.apache.commons.jelly.TagLibrary;
  */
 public class QuartzTagLibrary extends TagLibrary
 {
-    /** Constructs and register tags.
+    /** Constructs  and register tags.
      */
     public QuartzTagLibrary()
     {

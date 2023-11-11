@@ -49,7 +49,7 @@ public class GrantProject extends Project {
     //     Constructors
     // ------------------------------------------------------------
 
-    /** Constructs a new, empty <code>GrantProject</code>.
+    /** Constructs  a new, empty <code>GrantProject</code>.
      *
      *  <p>
      *  Immediately after initialization, a <code>GrantProject</code>
