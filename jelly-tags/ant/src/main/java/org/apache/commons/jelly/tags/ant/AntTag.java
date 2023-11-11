@@ -71,7 +71,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     protected Task task;
 
 
-    /** Construct with a project and tag name.
+    /** Constructs with a project and tag name.
      *
      *  @param tagName The name on the tag.
      */

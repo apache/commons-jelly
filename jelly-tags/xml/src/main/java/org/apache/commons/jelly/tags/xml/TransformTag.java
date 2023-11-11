@@ -409,7 +409,7 @@ public class TransformTag extends ParseTag {
         private EntityResolver entityResolver;
 
         /**
-         * Construct an XMLReader for the specified Tag
+         * Constructs an XMLReader for the specified Tag
          *
          * @param tag    The Tag to convert to an XMLReader
          */
@@ -693,7 +693,7 @@ public class TransformTag extends ParseTag {
     private final class TagBodyInputSource extends InputSource {
 
         /**
-         * Construct an instance of this marker class
+         * Constructs an instance of this marker class
          */
         public TagBodyInputSource() {
         }

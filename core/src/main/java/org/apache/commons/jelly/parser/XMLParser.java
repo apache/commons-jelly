@@ -180,13 +180,13 @@ public class XMLParser extends DefaultHandler {
     private Log log = LogFactory.getLog(XMLParser.class);
 
     /**
-     * Construct a new XMLParser with default properties.
+     * Constructs a new XMLParser with default properties.
      */
     public XMLParser() {
     }
 
     /**
-     * Construct a new XMLParser, with the boolean
+     * Constructs a new XMLParser, with the boolean
      * allowDtdToCallExternalEntities being passed in. If this is set to false,
      * the XMLParser will be created with:
      * XMLReader spf = XMLReaderFactory.createXMLReader();
@@ -201,7 +201,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * Construct a new XMLParser, allowing a SAXParser to be passed in.  This
+     * Constructs a new XMLParser, allowing a SAXParser to be passed in.  This
      * allows XMLParser to be used in environments which are unfriendly to
      * JAXP1.1 (such as WebLogic 6.0).  Thanks for the request to change go to
      * James House (james@interobjective.com).  This may help in places where
@@ -212,7 +212,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * Construct a new XMLParser, allowing an XMLReader to be passed in.  This
+     * Constructs a new XMLParser, allowing an XMLReader to be passed in.  This
      * allows XMLParser to be used in environments which are unfriendly to
      * JAXP1.1 (such as WebLogic 6.0).  Note that if you use this option you
      * have to configure namespace and validation support yourself, as these
