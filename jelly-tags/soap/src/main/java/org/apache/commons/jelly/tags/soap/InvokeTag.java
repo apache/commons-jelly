@@ -85,7 +85,7 @@ public class InvokeTag extends TagSupport {
             call.setTargetEndpointAddress(new java.net.URL(endpoint));
             call.setOperationName(new QName(namespace, method));
 
-            if ( userName != null && !userName.equals("") ) {
+            if ( userName != null && !userName.isEmpty() ) {
                 call.setUsername( userName );
                 call.setPassword( password );
             }

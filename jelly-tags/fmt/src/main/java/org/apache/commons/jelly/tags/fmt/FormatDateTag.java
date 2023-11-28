@@ -163,7 +163,7 @@ public class FormatDateTag extends TagSupport {
             // Set time zone
             TimeZone tz = null;
             if ((etimeZone instanceof String)
-            && ((String) etimeZone).equals("")) {
+            && ((String) etimeZone).isEmpty()) {
                 etimeZone = null;
             }
             if (etimeZone != null) {

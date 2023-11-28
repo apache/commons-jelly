@@ -187,7 +187,7 @@ public class AskTag extends TagSupport {
                 // trim the input for tab completion
                 input = input.trim();
 
-                if (defaultInput != null && input.trim().equals("")) {
+                if (defaultInput != null && input.trim().isEmpty()) {
                     input = defaultInput;
                 }
             } else {

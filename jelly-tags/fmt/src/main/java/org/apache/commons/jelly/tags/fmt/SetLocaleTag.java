@@ -67,7 +67,7 @@ public class SetLocaleTag extends TagSupport {
         if (valueInput == null) {
             locale = Locale.getDefault();
         } else if (valueInput instanceof String) {
-            if (((String) valueInput).trim().equals("")) {
+            if (((String) valueInput).trim().isEmpty()) {
                 locale = Locale.getDefault();
             } else {
                 locale = parseLocale((String) valueInput, (String) variantInput);

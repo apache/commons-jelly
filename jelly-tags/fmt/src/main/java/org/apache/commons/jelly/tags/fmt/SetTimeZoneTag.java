@@ -58,7 +58,7 @@ public class SetTimeZoneTag extends TagSupport {
             timeZone = TimeZone.getTimeZone("GMT");
         }
         else if (valueInput instanceof String) {
-            if (((String) valueInput).trim().equals("")) {
+            if (((String) valueInput).trim().isEmpty()) {
                 timeZone = TimeZone.getTimeZone("GMT");
             } else {
                 timeZone = TimeZone.getTimeZone((String) valueInput);

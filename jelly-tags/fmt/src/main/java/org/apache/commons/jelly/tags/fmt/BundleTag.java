@@ -163,7 +163,7 @@ public class BundleTag extends TagSupport {
         LocalizationContext locCtxt = null;
         ResourceBundle bundle = null;
 
-        if ((basename == null) || basename.equals("")) {
+        if ((basename == null) || basename.isEmpty()) {
             return new LocalizationContext();
         }
 
