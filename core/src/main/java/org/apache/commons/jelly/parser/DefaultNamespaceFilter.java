@@ -56,7 +56,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
                                    java.lang.String uri)
     throws SAXException {
 
-        if (uri.equals("")) {
+        if (uri.isEmpty()) {
             super.startPrefixMapping(prefix, this.uriDefault);
         } else {
             super.startPrefixMapping(prefix, uri);
@@ -79,7 +79,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
                              Attributes atts)
             throws SAXException {
 
-        if (uri.equals("")) {
+        if (uri.isEmpty()) {
             super.startElement(this.uriDefault, localName, qName, atts);
         } else {
             super.startElement(uri, localName, qName, atts);
@@ -99,7 +99,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
     @Override
     public void endElement(String namespaceURI, String localName, String qName)
             throws SAXException {
-        if (namespaceURI.equals("")) {
+        if (namespaceURI.isEmpty()) {
             super.endElement(this.uriDefault, localName, qName);
         } else {
             super.endElement(namespaceURI, localName, qName);
