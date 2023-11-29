@@ -117,7 +117,7 @@ public class SetTag extends XPathTagSupport {
             if (single.booleanValue() == true) {
                 if (value instanceof List) {
                     List l = (List) value;
-                    if (l.size() == 0)
+                    if (l.isEmpty())
                         value=null;
                     else
                         value=l.get(0);

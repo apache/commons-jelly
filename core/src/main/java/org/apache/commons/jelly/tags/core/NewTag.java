@@ -78,7 +78,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         try {
             Class theClass = getClassLoader().loadClass( className );
             Object object = null;
-            if (paramTypes.size() == 0) {
+            if (paramTypes.isEmpty()) {
                 object = theClass.getConstructor().newInstance();
             } else {
                 Object[] values = paramValues.toArray();
