@@ -36,10 +36,10 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class BeanPropertyTag extends BeanTag {
 
-    /** empty arguments constant */
+    /** Empty arguments constant */
     private static final Object[] EMPTY_ARGS = {};
 
-    /** empty argument types constant */
+    /** Empty argument types constant */
     private static final Class[] EMPTY_ARG_TYPES = {};
 
     /** The name of the create method */

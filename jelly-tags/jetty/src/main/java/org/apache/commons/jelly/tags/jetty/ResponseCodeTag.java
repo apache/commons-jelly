@@ -30,7 +30,7 @@ import org.mortbay.http.HttpResponse;
  */
 public class ResponseCodeTag extends TagSupport {
 
-    /** parameter value */
+    /** Parameter value */
     private int _value;
 
     /**

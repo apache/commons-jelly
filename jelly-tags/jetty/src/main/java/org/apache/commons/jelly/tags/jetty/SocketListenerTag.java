@@ -33,10 +33,10 @@ import org.mortbay.util.InetAddrPort;
  */
 public class SocketListenerTag extends TagSupport {
 
-    /** parameter port with default*/
+    /** Parameter port with default*/
     private int _port = JettyHttpServerTag.DEFAULT_PORT;
 
-    /** parameter host, with default */
+    /** Parameter host, with default */
     private String _host = JettyHttpServerTag.DEFAULT_HOST;
 
     /** Creates a new instance of SocketListenerTag */

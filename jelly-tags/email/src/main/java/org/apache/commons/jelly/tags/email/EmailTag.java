@@ -54,28 +54,28 @@ import java.io.FileNotFoundException;
 public class EmailTag extends TagSupport {
     private Log logger = LogFactory.getLog(EmailTag.class);
 
-    /** smtp server */
+    /** Smtp server */
     private Expression server       = null;
 
-    /** who to send the message as */
+    /** Who to send the message as */
     private Expression from         = null;
 
-    /** who to send to */
+    /** Who to send to */
     private Expression to           = null;
 
-    /** who to cc */
+    /** Who to cc */
     private Expression cc           = null;
 
-    /** mail subject */
+    /** Mail subject */
     private Expression subject      = null;
 
-    /** mail message */
+    /** Mail message */
     private Expression message      = null;
 
-    /** file attachment */
+    /** File attachment */
     private File attachment     = null;
 
-    /** whether we should encode the XML body as text */
+    /** Whether we should encode the XML body as text */
     private boolean encodeXML = false;
 
     /**

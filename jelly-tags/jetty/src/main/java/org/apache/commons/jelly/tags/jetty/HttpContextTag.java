@@ -38,13 +38,13 @@ import java.net.MalformedURLException;
  */
 public class HttpContextTag extends TagSupport {
 
-    /** parameter path with default*/
+    /** Parameter path with default*/
     private String _contextPath = JettyHttpServerTag.DEFAULT_CONTEXT_PATH;
 
-    /** parameter resourceBase, with default */
+    /** Parameter resourceBase, with default */
     private String _resourceBase = JettyHttpServerTag.DEFAULT_RESOURCE_BASE;
 
-    /** parameter realmName*/
+    /** Parameter realmName*/
     private String _realmName;
 
     /** The actual context this tag refers to */

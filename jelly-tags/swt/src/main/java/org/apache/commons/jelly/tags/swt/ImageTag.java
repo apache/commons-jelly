@@ -37,13 +37,13 @@ import org.eclipse.swt.widgets.Widget;
  */
 public class ImageTag extends TagSupport {
 
-    /** path to file */
+    /** Path to file */
     private String src;
 
-    /** variable name, if specified */
+    /** Variable name, if specified */
     private String var;
 
-    /** resource name, if specified */
+    /** Resource name, if specified */
     private String resource;
 
     /**

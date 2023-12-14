@@ -39,7 +39,7 @@ public class ParseTag extends ParseTagSupport {
     private Object xml;
 
     // Optional properties not defined in JSTL
-    /** whether XML validation is enabled or disabled */
+    /** Whether XML validation is enabled or disabled */
     private boolean validate;
 
     public ParseTag() {

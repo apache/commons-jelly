@@ -53,7 +53,7 @@ public class BeanTag extends UseBeanTag {
     /** The name of the adder method */
     protected String addMethodName;
 
-    /** if present this is used to call a doit method when the bean is constructed */
+    /** If present this is used to call a doit method when the bean is constructed */
     private Method invokeMethod;
 
 

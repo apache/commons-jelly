@@ -25,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ClassLoaderUtils {
 
-    /** log for debug etc output */
+    /** Log for debug etc output */
     private static final Log log = LogFactory.getLog(ClassLoaderUtils.class);
     
     /**

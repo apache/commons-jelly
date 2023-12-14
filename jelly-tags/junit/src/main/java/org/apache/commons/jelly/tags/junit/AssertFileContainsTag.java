@@ -36,7 +36,7 @@ public class AssertFileContainsTag extends AssertTagSupport
     /** The file to check */
     private File file;
     
-    /** content to match */
+    /** Content to match */
     private String match;
 
     /**

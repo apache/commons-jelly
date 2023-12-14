@@ -29,20 +29,20 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class SessionTag extends TagSupport {
 
-    /** default host for requests */
+    /** Default host for requests */
     private String _host;
-    /** default port for requests */
+    /** Default port for requests */
     private String _port;
     /** Proxy details for requests */
     private Proxy _proxy = new Proxy();
-    /** whether the default is for secure comms */
+    /** Whether the default is for secure comms */
     private boolean _secure;
     /** The browser identifier */
     private String _userAgent;
-    /** strict compliance */
+    /** Strict compliance */
     private boolean _strictMode = false;
 
-    /** http client used to store state and execute requests */
+    /** Http client used to store state and execute requests */
     private HttpClient _httpClient;
 
     /**

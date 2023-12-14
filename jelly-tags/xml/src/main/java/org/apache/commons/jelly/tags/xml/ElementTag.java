@@ -40,7 +40,7 @@ public class ElementTag extends TagSupport {
     /** The XML Attributes. */
     private AttributesImpl attributes = new AttributesImpl();
 
-    /** flag set if attributes are output. */
+    /** Flag set if attributes are output. */
     private boolean outputAttributes;
 
     public ElementTag() {

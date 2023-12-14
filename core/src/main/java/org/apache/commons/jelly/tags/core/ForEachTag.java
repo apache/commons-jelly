@@ -57,7 +57,7 @@ public class ForEachTag extends TagSupport {
      */
     private String indexVar;
     
-    /** variable to hold loop status */
+    /** Variable to hold loop status */
     private String statusVar;
 
     /** The starting index value */

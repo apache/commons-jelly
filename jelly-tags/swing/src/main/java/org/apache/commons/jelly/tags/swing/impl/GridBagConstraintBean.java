@@ -46,7 +46,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     /** Logging output */
     private static final Log LOG = LogFactory.getLog(GridBagConstraintBean.class);
 
-    /** error message */
+    /** Error message */
     private static final String ILLEGAL_ANCHOR_MSG = "Anchor must be one of  the GridBagLayout constants for the current Java version.";
 
     public GridBagConstraintBean() {

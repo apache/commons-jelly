@@ -32,7 +32,7 @@ import java.util.StringTokenizer;
  */
 public class ResourceHandlerTag extends TagSupport {
 
-    /** parameter allowed methods */
+    /** Parameter allowed methods */
     private String _allowedMethods;
 
     /** Creates a new instance of ResourceHandlerTag */

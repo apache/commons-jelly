@@ -29,13 +29,13 @@ import org.apache.commons.jelly.XMLOutput;
 
 public class SortTag extends TagSupport {
 
-    /** things to sort */
+    /** Things to sort */
     private List items;
     
     /** The variable to store the result in */
     private String var;
     
-    /** property of the beans to sort on, if any */
+    /** Property of the beans to sort on, if any */
     private String property;
     
     // Tag interface

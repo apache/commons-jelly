@@ -32,7 +32,7 @@ public class Attribute {
     /** The default value expression */
     private Expression defaultValue;
 
-    /** whether this attribute is required */
+    /** Whether this attribute is required */
     private boolean required;
 
     public Attribute() {

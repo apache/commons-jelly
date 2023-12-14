@@ -27,9 +27,9 @@ import org.apache.commons.jelly.XMLOutput;
  * @author  dion
  */
 public class HeaderTag extends TagSupport {
-    /** parameter name */
+    /** Parameter name */
     private String _name;
-    /** parameter value */
+    /** Parameter value */
     private String _value;
 
     /** Creates a new instance of HeaderTag */

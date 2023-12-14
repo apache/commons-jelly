@@ -92,7 +92,7 @@ public class TestExpressions extends TestCase {
         assertExpression("${maven.home.foo.length()}", new Integer(6));
     }
     
-    /** tests that $${xx} is output as ${xx}. This trick is ued
+    /** Tests that $${xx} is output as ${xx}. This trick is ued
         by several plugins to generate other jelly files or ant files.
         The maven ant plugin is one of them. */
     public void testExpressionsEvalOutput() throws Exception {

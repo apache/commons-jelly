@@ -49,9 +49,9 @@ public class BundleTag extends TagSupport {
 
     private Expression basename;                  // 'basename' attribute
     private Expression prefix;                    // 'prefix' attribute
-    /** evaluated basename */
+    /** Evaluated basename */
     private String ebasename;
-    /** evaluated prefix */
+    /** Evaluated prefix */
     private String eprefix;
 
 

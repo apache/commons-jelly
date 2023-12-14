@@ -77,7 +77,7 @@ public class JellyContext {
     /** Tag libraries found so far */
     private Map taglibs = new Hashtable();
 
-    /** synchronized access to the variables in scope */
+    /** Synchronized access to the variables in scope */
     private Map variables = new Hashtable();
 
     /** The parent context */

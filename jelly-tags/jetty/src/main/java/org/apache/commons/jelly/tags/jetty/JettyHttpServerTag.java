@@ -44,19 +44,19 @@ import org.mortbay.util.Resource;
  */
 public class JettyHttpServerTag extends TagSupport {
 
-    /** default port to create listeners for */
+    /** Default port to create listeners for */
     public static final int DEFAULT_PORT = 8100;
 
-    /** default host to create listeners/context for */
+    /** Default host to create listeners/context for */
     public static final String DEFAULT_HOST = "localhost";
 
-    /** default context to create context for */
+    /** Default context to create context for */
     public static final String DEFAULT_CONTEXT_PATH = "/";
 
-    /** default resource base to use for context */
+    /** Default resource base to use for context */
     public static final String DEFAULT_RESOURCE_BASE = "./docRoot";
 
-    /** default log file for Jetty */
+    /** Default log file for Jetty */
     public static final String DEFAULT_LOG_FILE = "jetty.log";
 
     /** The Log to which logging calls will be made. */
@@ -79,13 +79,13 @@ public class JettyHttpServerTag extends TagSupport {
 
     }
 
-    /** unique identifier of the tag/ variable to store result in */
+    /** Unique identifier of the tag/ variable to store result in */
     private String _var;
 
     /** The HTTP server for this tag */
     private HttpServer _server;
 
-    /** file name of Jetty log file - with default */
+    /** File name of Jetty log file - with default */
     private String _logFileName = DEFAULT_LOG_FILE;
 
     /** Creates a new instance of JettyHttpServerTag */

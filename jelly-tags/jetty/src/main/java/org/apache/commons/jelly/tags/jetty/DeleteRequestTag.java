@@ -25,7 +25,7 @@ package org.apache.commons.jelly.tags.jetty;
  */
 public class DeleteRequestTag extends AbstractMethodHandlerTag {
 
-    /** return the name of the http method handled by this tag */
+    /** Return the name of the http method handled by this tag */
     @Override
     public String getMethodHandled() {
         return "DELETE";

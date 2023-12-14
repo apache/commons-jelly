@@ -27,7 +27,7 @@ import java.util.List;
  */
 
 public class JoinTag extends UseThreadTag {
-    /** how long to wait */
+    /** How long to wait */
     private long timeout = -1;
 
     /** Perform the thread join */

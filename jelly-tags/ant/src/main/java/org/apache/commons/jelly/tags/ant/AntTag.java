@@ -58,7 +58,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     private static final Class[] addTaskParamTypes = { String.class };
 
-    /** store the name of the manifest tag for special handling */
+    /** Store the name of the manifest tag for special handling */
     private static final String ANT_MANIFEST_TAG = "manifest";
 
     /** The name of this tag. */

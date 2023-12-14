@@ -45,10 +45,10 @@ import java.util.Iterator;
  */
 public class SecurityHandlerTag extends TagSupport {
 
-    /** a form authenticator used by this tag */
+    /** A form authenticator used by this tag */
     private transient FormAuthenticator _formAuthenticator;
 
-    /** parameter authentication method, defaults to BASIC in Jetty */
+    /** Parameter authentication method, defaults to BASIC in Jetty */
     private String _authenticationMethod;
 
     /** Creates a new instance of SecurityHandlerTag */

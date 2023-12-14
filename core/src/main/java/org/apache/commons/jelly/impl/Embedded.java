@@ -74,7 +74,7 @@ public class Embedded {
         XMLOutput.createXMLOutput(new OutputStreamWriter(System.out));
     /** Exception thrown during compilation of script*/
     Exception scriptCompilationException;
-    /** boolean value indicating whether the script has been successfully compiled or NOT */
+    /** Boolean value indicating whether the script has been successfully compiled or NOT */
     boolean scriptCompiled = false;
     /** ErrorMsg*/
     private String errorMsg;

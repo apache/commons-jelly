@@ -33,10 +33,10 @@ import java.net.URL;
  */
 public class RealmTag extends TagSupport {
 
-    /** parameter name with default*/
+    /** Parameter name with default*/
     private String _name;
 
-    /** parameter config, with default */
+    /** Parameter config, with default */
     private String _config;
 
     /** Creates a new instance of RealmTag */

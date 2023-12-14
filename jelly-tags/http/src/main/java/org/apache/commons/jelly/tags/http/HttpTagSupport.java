@@ -36,7 +36,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public abstract class HttpTagSupport extends TagSupport {
 
-    /** unique identifier of the tag/ variable to store result in */
+    /** Unique identifier of the tag/ variable to store result in */
     private String _var;
 
     /**
@@ -54,11 +54,11 @@ public abstract class HttpTagSupport extends TagSupport {
      */
     private String _uri;
 
-    /** whether or not to follow redirects */
+    /** Whether or not to follow redirects */
     private boolean _followRedirects = false;
-    /** list of parameters as name value pairs */
+    /** List of parameters as name value pairs */
     private List _parameters;
-    /** list of headers as name value pairs */
+    /** List of headers as name value pairs */
     private List _requestHeaders;
     /** The header name for the user agent */
     private static final String HEADER_NAME_USER_AGENT = "User-Agent";

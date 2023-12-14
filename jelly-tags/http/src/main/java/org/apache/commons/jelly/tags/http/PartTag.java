@@ -26,11 +26,11 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
  * A tag to hold a part of a multiPartPost
  */
 public class PartTag extends TagSupport {
-    /** parameter name */
+    /** Parameter name */
     private String _name;
-    /** parameter value */
+    /** Parameter value */
     private String _value;
-    /** parameter type (like text/plain) */
+    /** Parameter type (like text/plain) */
     private String _contentType = "text/plain";
 
     /** Creates a new instance of PartTag */

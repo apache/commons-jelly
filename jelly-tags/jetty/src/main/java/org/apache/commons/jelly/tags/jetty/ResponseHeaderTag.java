@@ -30,10 +30,10 @@ import org.mortbay.http.HttpResponse;
  */
 public class ResponseHeaderTag extends TagSupport {
 
-    /** parameter name */
+    /** Parameter name */
     private String _name;
 
-    /** parameter value */
+    /** Parameter value */
     private String _value;
 
     /**

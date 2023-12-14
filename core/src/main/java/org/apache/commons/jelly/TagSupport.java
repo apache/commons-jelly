@@ -46,7 +46,7 @@ public abstract class TagSupport implements Tag {
 
     protected JellyContext context;
 
-    /** whether xml text should be escaped */
+    /** Whether xml text should be escaped */
     private boolean escapeText = true;
 
     /**

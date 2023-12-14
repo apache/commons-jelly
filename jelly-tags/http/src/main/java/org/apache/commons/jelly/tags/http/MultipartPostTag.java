@@ -50,7 +50,7 @@ public class MultipartPostTag extends PostTag {
     /** The post method */
     private MultipartPostMethod _postMethod;
 
-    /** list of parts as name value pairs */
+    /** List of parts as name value pairs */
     private List _parts;
 
     /** Creates a new instance of MppostTag */

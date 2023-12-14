@@ -56,7 +56,7 @@ public class TestXMLTags extends TestCase {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestXMLTags.class);
 
-    /** basedir for test source */
+    /** Basedir for test source */
     private static final String testBaseDir ="target/test-classes/org/apache/commons/jelly/tags/xml";
 
     /** Regular expression for multiple namespace attributes. */
