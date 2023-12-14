@@ -42,7 +42,7 @@ public class SessionTag extends TagSupport {
     /** Strict compliance */
     private boolean _strictMode = false;
 
-    /** Http client used to store state and execute requests */
+    /** HTTP client used to store state and execute requests */
     private HttpClient _httpClient;
 
     /**
