@@ -47,7 +47,7 @@ public class JellyContextAdapter implements Context
     private HashMap privateContext = new HashMap();
 
     /**
-     * Constructor.
+     * Constructs a new instance.
      *
      * @param jellyContext The JellyContext to adapt
      */
