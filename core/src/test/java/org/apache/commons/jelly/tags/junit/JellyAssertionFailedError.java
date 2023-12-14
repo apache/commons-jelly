@@ -34,19 +34,19 @@ import junit.framework.AssertionFailedError;
 
 public class JellyAssertionFailedError extends AssertionFailedError implements LocationAware {
 
-    /** the underlying cause of the exception */
+    /** The underlying cause of the exception */
     private Throwable cause;
 
-    /** the Jelly file which caused the problem */
+    /** The Jelly file which caused the problem */
     private String fileName;
 
-    /** the tag name which caused the problem */
+    /** The tag name which caused the problem */
     private String elementName;
 
-    /** the line number in the script of the error */
+    /** The line number in the script of the error */
     private int lineNumber = -1;
 
-    /** the column number in the script of the error */
+    /** The column number in the script of the error */
     private int columnNumber = -1;
 
     public JellyAssertionFailedError() {

@@ -35,7 +35,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     /** The file walker that gets created */
     private FileScanner fileScanner;
 
-    /** the variable exported */
+    /** The variable exported */
     private String var;
 
     public FileScannerTag(FileScanner fileScanner) {

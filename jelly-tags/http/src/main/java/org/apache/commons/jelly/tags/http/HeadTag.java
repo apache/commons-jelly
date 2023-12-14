@@ -29,7 +29,7 @@ import org.apache.commons.httpclient.methods.HeadMethod;
  */
 public class HeadTag extends HttpTagSupport {
 
-    /** the head method */
+    /** The head method */
     private HeadMethod _headMethod;
 
     /**

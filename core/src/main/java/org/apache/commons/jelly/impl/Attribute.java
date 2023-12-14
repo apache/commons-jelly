@@ -26,10 +26,10 @@ import org.apache.commons.jelly.expression.Expression;
  */
 public class Attribute {
 
-    /** the name of the attribute */
+    /** The name of the attribute */
     private String name;
 
-    /** the default value expression */
+    /** The default value expression */
     private Expression defaultValue;
 
     /** whether this attribute is required */

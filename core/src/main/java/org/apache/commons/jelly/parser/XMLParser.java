@@ -79,7 +79,7 @@ public class XMLParser extends DefaultHandler {
     /** JellyContext which is used to locate tag libraries*/
     private JellyContext context = new JellyContext();
 
-    /** the expression factory used to evaluate tag attributes */
+    /** The expression factory used to evaluate tag attributes */
     private ExpressionFactory expressionFactory;
 
     /** The current script block */

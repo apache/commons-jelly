@@ -71,7 +71,7 @@ public class TokenizeTag extends TagSupport
         this.var = var;
     }
 
-    /** the delimiter that separates the tokens */
+    /** The delimiter that separates the tokens */
     public void setDelim(String delim)
     {
         this.delim = delim;

@@ -51,7 +51,7 @@ public class ThreadTag extends TagSupport {
     private int priority = Thread.NORM_PRIORITY;
     /** Sets if the thread should be a daemon or not */
     private boolean daemon = false;
-    /** the destination of output */
+    /** The destination of output */
     private XMLOutput xmlOutput;
     /** Should we close the underlying output */
     private boolean closeOutput;

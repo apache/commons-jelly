@@ -59,7 +59,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(XMLOutput.class);
 
-    /** the default for escaping of text. */
+    /** The default for escaping of text. */
     private static final boolean DEFAULT_ESCAPE_TEXT = false;
 
     /** The SAX ContentHandler that output goes to. */

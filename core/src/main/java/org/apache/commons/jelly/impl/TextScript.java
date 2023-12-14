@@ -28,7 +28,7 @@ import org.xml.sax.SAXException;
   */
 public class TextScript implements Script {
 
-    /** the text output by this script */
+    /** The text output by this script */
     private String text;
 
     public TextScript() {

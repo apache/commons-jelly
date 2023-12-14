@@ -37,7 +37,7 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(SubscribeTag.class);
 
-    /** the JMS Selector for the subscription */
+    /** The JMS Selector for the subscription */
     private String selector;
 
     /** The JMS MessageListener used to create the subscription */

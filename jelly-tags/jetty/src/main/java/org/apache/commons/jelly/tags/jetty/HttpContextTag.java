@@ -47,7 +47,7 @@ public class HttpContextTag extends TagSupport {
     /** parameter realmName*/
     private String _realmName;
 
-    /** the actual context this tag refers to */
+    /** The actual context this tag refers to */
     private HttpContext _context;
 
     /** Creates a new instance of HttpContextTag */

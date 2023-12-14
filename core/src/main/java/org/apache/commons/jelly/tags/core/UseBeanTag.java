@@ -50,10 +50,10 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
  */
 public class UseBeanTag extends MapTagSupport implements BeanSource {
 
-    /** the current bean instance */
+    /** The current bean instance */
     private Object bean;
 
-    /** the default class to use if no Class is specified */
+    /** The default class to use if no Class is specified */
     private Class defaultClass;
 
     /**

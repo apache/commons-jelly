@@ -29,7 +29,7 @@ import org.apache.commons.httpclient.methods.OptionsMethod;
  */
 public class OptionsTag extends HttpTagSupport {
 
-    /** the options method */
+    /** The options method */
     private OptionsMethod _optionsMethod;
 
     /**

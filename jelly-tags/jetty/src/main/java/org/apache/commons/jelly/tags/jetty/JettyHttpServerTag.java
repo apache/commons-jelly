@@ -63,7 +63,7 @@ public class JettyHttpServerTag extends TagSupport {
     private static final org.apache.commons.logging.Log log =
         LogFactory.getLog(JettyHttpServerTag.class);
 
-    /** the log sink for the Jety server */
+    /** The log sink for the Jety server */
     private static OutputStreamLogSink _logSink;
 
     // static initialisation
@@ -82,7 +82,7 @@ public class JettyHttpServerTag extends TagSupport {
     /** unique identifier of the tag/ variable to store result in */
     private String _var;
 
-    /** the HTTP server for this tag */
+    /** The HTTP server for this tag */
     private HttpServer _server;
 
     /** file name of Jetty log file - with default */

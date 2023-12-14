@@ -30,7 +30,7 @@ import org.apache.commons.jelly.expression.Expression;
  */
 public class AssertFileExistsTag extends AssertTagSupport
 {
-	/** the file to check */
+	/** The file to check */
 	private File file;
 
 	/**

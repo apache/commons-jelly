@@ -37,7 +37,7 @@ public class SessionTag extends TagSupport {
     private Proxy _proxy = new Proxy();
     /** whether the default is for secure comms */
     private boolean _secure;
-    /** the browser identifier */
+    /** The browser identifier */
     private String _userAgent;
     /** strict compliance */
     private boolean _strictMode = false;

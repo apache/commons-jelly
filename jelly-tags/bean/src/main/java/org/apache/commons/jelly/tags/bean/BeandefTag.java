@@ -47,19 +47,19 @@ public class BeandefTag extends TagSupport {
 
     protected static final Class[] EMPTY_ARGUMENT_TYPES = {};
 
-    /** the name of the tag to create */
+    /** The name of the tag to create */
     private String name;
 
-    /** the Java class name to use for the tag */
+    /** The Java class name to use for the tag */
     private String className;
 
-    /** the name of the invoke method */
+    /** The name of the invoke method */
     private String methodName;
 
-    /** the ClassLoader used to load beans */
+    /** The ClassLoader used to load beans */
     private ClassLoader classLoader;
 
-    /** the library in which to define this new bean tag */
+    /** The library in which to define this new bean tag */
     private BeanTagLibrary library;
 
     public BeandefTag(BeanTagLibrary library) {

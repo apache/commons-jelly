@@ -65,7 +65,7 @@ public class TagScript implements Script {
     /** The attribute expressions that are created */
     protected Map attributes = new Hashtable();
 
-    /** the optional namespaces Map of prefix to URI of this single Tag */
+    /** The optional namespaces Map of prefix to URI of this single Tag */
     private Map tagNamespacesMap;
 
     /**
@@ -75,37 +75,37 @@ public class TagScript implements Script {
      */
     private Map namespaceContext;
 
-    /** the Jelly file which caused the problem */
+    /** The Jelly file which caused the problem */
     private String fileName;
 
-    /** the qualified element name which caused the problem */
+    /** The qualified element name which caused the problem */
     private String elementName;
 
-    /** the local (non-namespaced) tag name */
+    /** The local (non-namespaced) tag name */
     private String localName;
 
-    /** the line number of the tag */
+    /** The line number of the tag */
     private int lineNumber = -1;
 
-    /** the column number of the tag */
+    /** The column number of the tag */
     private int columnNumber = -1;
     
-    /** the TagLibrary that we belong to */
+    /** The TagLibrary that we belong to */
     private TagLibrary tagLibrary;
 
-    /** the factory of Tag instances */
+    /** The factory of Tag instances */
     private TagFactory tagFactory;
 
-    /** the body script used for this tag */
+    /** The body script used for this tag */
     private Script tagBody;
 
-    /** the parent TagScript */
+    /** The parent TagScript */
     private TagScript parent;
 
-    /** the SAX attributes */
+    /** The SAX attributes */
     private Attributes saxAttributes;
     
-    /** the url of the script when parsed */
+    /** The url of the script when parsed */
     private URL scriptURL = null;
     
     /** A synchronized WeakHashMap from the current Thread (key) to a Tag object (value).

@@ -31,13 +31,13 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class SuiteTag extends TagSupport {
 
-    /** the test suite this tag created */
+    /** The test suite this tag created */
     private TestSuite suite;
 
-    /** the name of the variable of the test suite */
+    /** The name of the variable of the test suite */
     private String var;
 
-    /** the name of the test suite to create */
+    /** The name of the test suite to create */
     private String name;
 
     public SuiteTag() {

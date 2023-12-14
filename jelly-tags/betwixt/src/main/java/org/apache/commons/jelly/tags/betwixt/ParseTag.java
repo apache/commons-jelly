@@ -49,7 +49,7 @@ public class ParseTag extends TagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ParseTag.class);
 
-    /** the BeanReader used to parse the XML */
+    /** The BeanReader used to parse the XML */
     private BeanReader reader = new BeanReader();
 
     private String uri;

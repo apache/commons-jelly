@@ -42,7 +42,7 @@ public class BeanPropertyTag extends BeanTag {
     /** empty argument types constant */
     private static final Class[] EMPTY_ARG_TYPES = {};
 
-    /** the name of the create method */
+    /** The name of the create method */
     private String createMethodName;
 
 

@@ -53,13 +53,13 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
     /** Empty arguments for Method.invoke() */
     private static final Object[] emptyArgs = {};
 
-    /** the bean class */
+    /** The bean class */
     private Class beanClass;
 
-    /** the current bean instance */
+    /** The current bean instance */
     private Object bean;
 
-    /** the method to invoke on the bean */
+    /** The method to invoke on the bean */
     private Method method;
 
     /**
@@ -68,13 +68,13 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
      */
     private String variableNameAttribute;
 
-    /** the current variable name that the bean should be exported as */
+    /** The current variable name that the bean should be exported as */
     private String var;
 
-    /** the set of attribute names we've already set */
+    /** The set of attribute names we've already set */
     private Set setAttributesSet = new HashSet();
 
-    /** the attribute definitions */
+    /** The attribute definitions */
     private Map attributes;
 
     /**

@@ -47,10 +47,10 @@ public class BeanTag extends UseBeanTag {
 
     protected static final Object[] EMPTY_ARGUMENTS = {};
 
-    /** the name of the property to create */
+    /** The name of the property to create */
     private String tagName;
 
-    /** the name of the adder method */
+    /** The name of the adder method */
     protected String addMethodName;
 
     /** if present this is used to call a doit method when the bean is constructed */

@@ -38,7 +38,7 @@ import org.apache.commons.jelly.expression.Expression;
  */
 public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource {
 
-    /** the bean class */
+    /** The bean class */
     private DynaClass beanClass;
 
     /**
@@ -47,13 +47,13 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
      */
     private String variableNameAttribute;
 
-    /** the current variable name that the bean should be exported as */
+    /** The current variable name that the bean should be exported as */
     private String var;
 
-    /** the set of attribute names we've already set */
+    /** The set of attribute names we've already set */
     private Set setAttributesSet = new HashSet();
 
-    /** the attribute definitions */
+    /** The attribute definitions */
     private Map attributes;
 
     public DynamicDynaBeanTag(DynaClass beanClass, Map attributes, String variableNameAttribute) {

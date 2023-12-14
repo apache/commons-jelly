@@ -31,7 +31,7 @@ import org.apache.commons.beanutils.DynaProperty;
 
 public abstract class DynaBeanTagSupport extends DynaTagSupport {
 
-    /** the DynaBean which is used to store the attributes of this tag. */
+    /** The DynaBean which is used to store the attributes of this tag. */
     private DynaBean dynaBean;
 
     public DynaBeanTagSupport() {

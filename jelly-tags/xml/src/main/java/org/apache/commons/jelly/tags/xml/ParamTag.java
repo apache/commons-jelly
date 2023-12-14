@@ -26,10 +26,10 @@ import org.apache.commons.jelly.XMLOutput;
   */
 public class ParamTag extends TagSupport {
 
-    /** the name of the attribute. */
+    /** The name of the attribute. */
     private String name;
 
-    /** the value of the attribute. */
+    /** The value of the attribute. */
     private Object value;
 
 

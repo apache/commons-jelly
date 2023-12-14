@@ -30,7 +30,7 @@ import org.xml.sax.SAXException;
  */
 public class ExpressionScript implements Script {
 
-    /** the expression evaluated as a String and output by this script */
+    /** The expression evaluated as a String and output by this script */
     private Expression expression;
 
     public ExpressionScript() {

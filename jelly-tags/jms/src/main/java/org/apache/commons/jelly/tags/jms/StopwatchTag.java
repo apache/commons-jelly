@@ -34,13 +34,13 @@ import org.apache.commons.messenger.tool.StopWatchMessageListener;
  */
 public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
 
-    /** the underlying MessageListener */
+    /** The underlying MessageListener */
     private MessageListener messageListener;
 
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog( StopwatchTag.class );
 
-    /** the message group size */
+    /** The message group size */
     private int groupSize = 1000;
 
     public StopwatchTag() {

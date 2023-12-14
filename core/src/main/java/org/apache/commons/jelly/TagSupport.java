@@ -31,13 +31,13 @@ import org.apache.commons.jelly.util.TagUtils;
 
 public abstract class TagSupport implements Tag {
 
-    /** the parent of this tag */
+    /** The parent of this tag */
     protected Tag parent;
     
-    /** the TagLibrary which defines this tag */
+    /** The TagLibrary which defines this tag */
     protected TagLibrary tagLibrary;
 
-    /** the body of the tag */
+    /** The body of the tag */
     protected Script body;
     /** The current context */
 

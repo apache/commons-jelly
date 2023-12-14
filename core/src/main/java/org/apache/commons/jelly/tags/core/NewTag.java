@@ -31,10 +31,10 @@ import org.apache.commons.jelly.XMLOutput;
   */
 public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
 
-    /** the variable exported */
+    /** The variable exported */
     private String var;
 
-    /** the class name of the object to instantiate */
+    /** The class name of the object to instantiate */
     private String className;
 
     private List paramTypes = new ArrayList();

@@ -34,16 +34,16 @@ import org.apache.commons.jelly.XMLOutput;
   */
 public class InvokeTag extends TagSupport implements ArgTagParent {
 
-    /** the variable exported */
+    /** The variable exported */
     private String var;
 
-    /** the variable where the method's exception is exported */
+    /** The variable where the method's exception is exported */
     private String exceptionVar;
 
-    /** the method to invoke */
+    /** The method to invoke */
     private String methodName;
 
-    /** the object to invoke the method on */
+    /** The object to invoke the method on */
     private Object onInstance;
 
     private List paramTypes = new ArrayList();

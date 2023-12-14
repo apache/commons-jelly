@@ -47,16 +47,16 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
   */
 public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 
-    /** the variable exported */
+    /** The variable exported */
     private String var;
 
-    /** the variable where the method's exception is exported */
+    /** The variable where the method's exception is exported */
     private String exceptionVar;
 
-    /** the method to invoke */
+    /** The method to invoke */
     private String methodName;
 
-    /** the object to invoke the method on */
+    /** The object to invoke the method on */
     private String className;
 
     private List paramTypes = new ArrayList();

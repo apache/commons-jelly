@@ -47,7 +47,7 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
  */
 public class MultipartPostTag extends PostTag {
 
-    /** the post method */
+    /** The post method */
     private MultipartPostMethod _postMethod;
 
     /** list of parts as name value pairs */

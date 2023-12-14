@@ -60,7 +60,7 @@ public abstract class HttpTagSupport extends TagSupport {
     private List _parameters;
     /** list of headers as name value pairs */
     private List _requestHeaders;
-    /** the header name for the user agent */
+    /** The header name for the user agent */
     private static final String HEADER_NAME_USER_AGENT = "User-Agent";
 
     /**

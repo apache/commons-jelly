@@ -37,7 +37,7 @@ public class FontTag extends MapTagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(FontTag.class);
 
-    /** the current font instance */
+    /** The current font instance */
     private Font font;
 
     public FontTag() {

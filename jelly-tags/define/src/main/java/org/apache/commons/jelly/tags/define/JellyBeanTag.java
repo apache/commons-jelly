@@ -40,7 +40,7 @@ public class JellyBeanTag extends BeanTag {
     /** Empty parameter types for Method lookup */
     private static final Class[] emptyParamTypes = {};
 
-    /** the name of the method to invoke on the bean */
+    /** The name of the method to invoke on the bean */
     private String method;
 
     // Properties

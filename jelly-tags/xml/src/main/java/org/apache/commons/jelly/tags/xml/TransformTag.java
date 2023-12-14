@@ -91,7 +91,7 @@ public class TransformTag extends ParseTag {
     /** The xsl transformer factory */
     private SAXTransformerFactory tf;
 
-    /** the transformer handler, doing the real work */
+    /** The transformer handler, doing the real work */
     private TransformerHandler transformerHandler;
 
     /**

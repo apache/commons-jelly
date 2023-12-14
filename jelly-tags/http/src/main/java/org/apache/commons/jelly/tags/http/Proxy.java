@@ -26,11 +26,11 @@ package org.apache.commons.jelly.tags.http;
  */
 public class Proxy {
 
-    /** the host to use as a proxy */
+    /** The host to use as a proxy */
     private String _host;
-    /** the port to send proxied requests on */
+    /** The port to send proxied requests on */
     private int _port;
-    /** the port number that represents port is unassigned */
+    /** The port number that represents port is unassigned */
     public static final int PORT_UNSPECIFIED = -1;
 
     /**

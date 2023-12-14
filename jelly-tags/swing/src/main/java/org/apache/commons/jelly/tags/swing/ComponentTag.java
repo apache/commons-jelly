@@ -73,7 +73,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      */
     private static final DebugGraphicsConverter debugGraphicsConverter = new DebugGraphicsConverter();
     
-    /** the factory of widgets */
+    /** The factory of widgets */
     private Factory factory;
 
     public ComponentTag() {

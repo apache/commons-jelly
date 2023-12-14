@@ -42,7 +42,7 @@ import org.xml.sax.SAXException;
  */
 public class VerifierTag extends TagSupport {
 
-    /** the variable name to export the Verifier as */
+    /** The variable name to export the Verifier as */
     private String var;
 
     /** The URI to load the schema from */

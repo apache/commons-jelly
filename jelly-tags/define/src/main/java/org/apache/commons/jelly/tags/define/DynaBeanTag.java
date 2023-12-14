@@ -46,16 +46,16 @@ public class DynaBeanTag extends DefineTagSupport {
     /** An empty Map as I think Collections.EMPTY_MAP is only JDK 1.3 onwards */
     private static final Map EMPTY_MAP = new HashMap();
 
-    /** the name of the tag to create */
+    /** The name of the tag to create */
     private String name;
 
-    /** the DyanClass to bind to the tag */
+    /** The DyanClass to bind to the tag */
     private DynaClass dynaClass;
 
-    /** the name of the attribute used for the variable name */
+    /** The name of the attribute used for the variable name */
     private String varAttribute = "var";
 
-    /** the attribute definitions for this dynamic tag */
+    /** The attribute definitions for this dynamic tag */
     private Map attributes;
 
     /**

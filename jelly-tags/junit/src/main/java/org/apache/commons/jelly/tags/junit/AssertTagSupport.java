@@ -26,7 +26,7 @@ import org.apache.commons.jelly.xpath.XPathTagSupport;
  */
 public abstract class AssertTagSupport extends XPathTagSupport {
 
-    /** the default message to display if none is given */
+    /** The default message to display if none is given */
     private static String DEFAULT_MESSAGE = "assertion failed";
     
     public AssertTagSupport() {

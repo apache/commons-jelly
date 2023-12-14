@@ -29,7 +29,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
  */
 public class PutTag extends HttpTagSupport {
 
-    /** the put method */
+    /** The put method */
     private PutMethod _putMethod;
 
     /** Creates a new instance of PutTag */

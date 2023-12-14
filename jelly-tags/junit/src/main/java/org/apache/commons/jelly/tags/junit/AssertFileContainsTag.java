@@ -33,7 +33,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class AssertFileContainsTag extends AssertTagSupport
 {
-    /** the file to check */
+    /** The file to check */
     private File file;
     
     /** content to match */

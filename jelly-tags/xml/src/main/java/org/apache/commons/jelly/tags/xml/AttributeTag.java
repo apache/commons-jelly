@@ -29,7 +29,7 @@ public class AttributeTag extends TagSupport {
      /** The namespace URI. */
     private String namespace;
 
-    /** the name of the attribute. */
+    /** The name of the attribute. */
     private String name;
 
 

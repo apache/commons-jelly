@@ -29,7 +29,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
  */
 public class GetTag extends HttpTagSupport {
 
-    /** the get method */
+    /** The get method */
     private GetMethod _getMethod;
 
     /**

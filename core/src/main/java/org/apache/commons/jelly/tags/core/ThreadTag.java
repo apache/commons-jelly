@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
 public class ThreadTag extends TagSupport  {
     /** Thread Name */
     private String name = null;
-    /** the destination of output */
+    /** The destination of output */
     private XMLOutput xmlOutput;
     /** Should we close the underlying output */
     private boolean closeOutput;

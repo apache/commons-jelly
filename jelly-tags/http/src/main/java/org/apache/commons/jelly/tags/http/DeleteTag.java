@@ -29,7 +29,7 @@ import org.apache.commons.httpclient.methods.DeleteMethod;
  */
 public class DeleteTag extends HttpTagSupport {
 
-    /** the delete method */
+    /** The delete method */
     private DeleteMethod _deleteMethod;
 
     /**

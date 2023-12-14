@@ -45,16 +45,16 @@ public class ReplaceTag extends TagSupport {
     /** The expression to evaluate. */
     private Expression value;
 
-    /** the old character to be replaced */
+    /** The old character to be replaced */
     private String oldChar;
 
-    /** the new character that will replace the old */
+    /** The new character that will replace the old */
     private String newChar;
 
-    /** the old string to be replace */
+    /** The old string to be replace */
     private String oldString;
 
-    /** the new string that will replace the old */
+    /** The new string that will replace the old */
     private String newString;
 
     // Tag interface

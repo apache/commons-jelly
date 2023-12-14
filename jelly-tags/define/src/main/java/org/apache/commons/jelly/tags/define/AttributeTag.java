@@ -41,7 +41,7 @@ public class AttributeTag extends TagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(AttributeTag.class);
 
-    /** the attribute definition */
+    /** The attribute definition */
     private Attribute attribute;
 
     public AttributeTag() {

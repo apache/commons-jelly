@@ -30,7 +30,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
  */
 public class PostTag extends HttpTagSupport {
 
-    /** the post method */
+    /** The post method */
     private PostMethod _postMethod;
 
     /** Creates a new instance of PostTag */

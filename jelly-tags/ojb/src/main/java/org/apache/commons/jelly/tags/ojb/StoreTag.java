@@ -29,7 +29,7 @@ import org.apache.ojb.broker.PersistenceBroker;
  */
 public class StoreTag extends TagSupport {
 
-    /** the value to persist */
+    /** The value to persist */
     private Object value;
 
     /** The persistence broker instance */
