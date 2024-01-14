@@ -26,7 +26,7 @@ import org.apache.commons.jelly.expression.ExpressionSupport;
 //import org.apache.commons.jexl.resolver.FlatResolver;
 
 /**
- * Represents a factory of <a href="http://commons.apache.org/jexl/">Jexl</a>
+ * Represents a factory of <a href="https://commons.apache.org/jexl/">Jexl</a>
  * expression which fully supports the Expression Language in JSTL and JSP.
  * In addition this ExpressionFactory can also support Ant style variable
  * names, where '.' is used inside variable names.
