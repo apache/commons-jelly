@@ -32,7 +32,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
   * Iterates over a collection, iterator or an array of objects.
-  * Uses the same syntax as the <a href="http://java.sun.com/products/jsp/jstl/">JSTL</a>
+  * Uses the same syntax as the <a href="https://java.sun.com/products/jsp/jstl/">JSTL</a>
   * <code>forEach</code> tag does.
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
