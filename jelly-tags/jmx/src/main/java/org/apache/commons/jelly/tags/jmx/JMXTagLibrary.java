@@ -33,7 +33,7 @@ import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
 public class JMXTagLibrary extends BeanTagLibrary {
 
     static {
-        // register the various beanutils Converters from Strings to various JMX types
+        // register the various BeanUtils Converters from Strings to various JMX types
         ConvertUtils.register( new ObjectNameConverter(), ObjectName.class );
     }
 

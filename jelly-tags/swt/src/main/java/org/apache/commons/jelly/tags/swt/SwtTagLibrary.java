@@ -85,7 +85,7 @@ public class SwtTagLibrary extends TagLibrary {
     private static final Log log = LogFactory.getLog(SwtTagLibrary.class);
 
     static {
-        // register the various beanutils Converters from Strings to various SWT types
+        // register the various BeanUtils Converters from Strings to various SWT types
         ConvertUtils.register( new PointConverter(), Point.class );
         ConvertUtils.register( new ColorConverter(), Color.class );
     }
