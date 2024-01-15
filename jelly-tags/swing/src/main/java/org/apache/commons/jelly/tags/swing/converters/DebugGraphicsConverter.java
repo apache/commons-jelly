@@ -59,7 +59,7 @@ public class DebugGraphicsConverter implements Converter {
                 new StringTokenizer(value.toString(), ", \t|", false);
             while (stok.hasMoreTokens()) {
                 String tok = stok.nextToken();
-                result = result | recognizeOption(tok);
+                result |= recognizeOption(tok);
             }
             return new Integer(result);
         }
