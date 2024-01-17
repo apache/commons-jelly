@@ -330,7 +330,7 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Return the currently mapped namespace URI for the specified prefix,
-     * if any; otherwise return <code>null</code>.  These mappings come and
+     * if any; otherwise return {@code null}.  These mappings come and
      * go dynamically as the document is parsed.
      *
      * @param prefix Prefix to look up
@@ -387,7 +387,7 @@ public class XMLParser extends DefaultHandler {
      * Sets the class loader to be used for instantiating application objects
      * when required.
      *
-     * @param classLoader The new class loader to use, or <code>null</code>
+     * @param classLoader The new class loader to use, or {@code null}
      *  to revert to the standard rules
      */
     public void setClassLoader(ClassLoader classLoader) {
@@ -510,7 +510,7 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Return the SAXParser we will use to parse the input stream.  If there
-     * is a problem creating the parser, return <code>null</code>.
+     * is a problem creating the parser, return {@code null}.
      */
     public SAXParser getParser() {
         // Return the parser we already created (if any)

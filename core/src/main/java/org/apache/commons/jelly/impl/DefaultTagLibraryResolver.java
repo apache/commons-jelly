@@ -134,7 +134,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * Sets the class loader to be used for instantiating application objects
      * when required.
      *
-     * @param classLoader The new class loader to use, or <code>null</code>
+     * @param classLoader The new class loader to use, or {@code null}
      *  to revert to the standard rules
      */
     public void setClassLoader(ClassLoader classLoader) {

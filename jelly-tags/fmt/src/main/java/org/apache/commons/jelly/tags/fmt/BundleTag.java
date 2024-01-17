@@ -239,7 +239,7 @@ public class BundleTag extends TagSupport {
      * @param pref the preferred locale
      * @param cl   classloader used to find resource bundle
      *
-     * @return the requested resource bundle, or <code>null</code> if no resource
+     * @return the requested resource bundle, or {@code null} if no resource
      * bundle with the given base name exists or if there is no exact- or
      * language-match between the preferred locale and the locale of
      * the bundle returned by java.util.ResourceBundle.getBundle().

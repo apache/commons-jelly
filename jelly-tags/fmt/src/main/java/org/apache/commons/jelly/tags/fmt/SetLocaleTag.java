@@ -174,7 +174,7 @@ public class SetLocaleTag extends TagSupport {
      * parameter
      *
      * @return the locale specified by the named scoped attribute or context
-     * configuration parameter, or <code>null</code> if no scoped attribute or
+     * configuration parameter, or {@code null} if no scoped attribute or
      * configuration parameter with the given name exists
      */
     static Locale getLocale(JellyContext jc, String name) {
@@ -279,7 +279,7 @@ public class SetLocaleTag extends TagSupport {
      * @param avail the available formatting locales
      *
      * @return Available locale that best matches the given preferred locale,
-     * or <code>null</code> if no match exists
+     * or {@code null} if no match exists
      */
     private static Locale findFormattingMatch(Locale pref, Locale[] avail) {
         Locale match = null;

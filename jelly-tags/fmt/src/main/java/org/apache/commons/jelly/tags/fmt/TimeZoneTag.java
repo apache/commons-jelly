@@ -105,7 +105,7 @@ public class TimeZoneTag extends TagSupport {
      * @param fromTag the action for which the time zone needs to be
      * determined
      *
-     * @return the time zone, or <code>null</code> if the given action is not
+     * @return the time zone, or {@code null} if the given action is not
      * nested inside a &lt;timeZone&gt; action and no time zone configuration
      * setting exists
      */

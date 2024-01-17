@@ -100,7 +100,7 @@ public class DynamicTagLibrary extends TagLibrary {
      *
      * @param name The tag name
      * @return The script associated with <code>name</code>, or
-     *         <code>null</code> if the tag doesn't exist or isn't a script
+     *         {@code null} if the tag doesn't exist or isn't a script
      */
     public Script getDynamicTag(String name) {
         Object result = templates.get(name);
@@ -114,7 +114,7 @@ public class DynamicTagLibrary extends TagLibrary {
      * parent libraries will be searched.
      * </p>
      * @param name The tag name
-     * @return The tag library containing the named tag, or <code>null</code>
+     * @return The tag library containing the named tag, or {@code null}
      *         if the tag is not registered.
      */
     public DynamicTagLibrary find(String name) {

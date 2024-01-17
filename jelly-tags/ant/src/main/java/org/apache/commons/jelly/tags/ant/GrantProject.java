@@ -69,7 +69,7 @@ public class GrantProject extends Project {
     /** Install a <code>PropsHandler</code> delegate.
      *
      *  @param propsHandler The <code>PropsHandler</code> to install,
-     *         or <code>null</code> to remove any currently installed
+     *         or {@code null} to remove any currently installed
      *         <code>PropsHandler</code>.
      */
     public void setPropsHandler(PropsHandler propsHandler) {
@@ -79,7 +79,7 @@ public class GrantProject extends Project {
     /** Retrieve the currently installed <code>PropsHandler</code>.
      *
      *  @return The currently installed <code>PropsHandler</code>,
-     *          or <code>null</code> if no <code>PropsHandler</code>
+     *          or {@code null} if no <code>PropsHandler</code>
      *          had yet to be installed.
      */
     public PropsHandler getPropsHandler() {

@@ -37,7 +37,7 @@ public class StringInputStream
     /**
      * Composes a stream from a String
      *
-     * @param source The string to read from. Must not be <code>null</code>.
+     * @param source The string to read from. Must not be {@code null}.
      */
     public StringInputStream( String source )
     {
