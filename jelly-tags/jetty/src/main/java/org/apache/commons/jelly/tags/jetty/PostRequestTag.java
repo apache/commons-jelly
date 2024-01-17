@@ -24,7 +24,7 @@ package org.apache.commons.jelly.tags.jetty;
  */
 public class PostRequestTag extends AbstractMethodHandlerTag {
 
-    /** Return the name of the http method handled by this tag */
+    /** Gets the name of the http method handled by this tag */
     @Override
     public String getMethodHandled() {
         return "POST";

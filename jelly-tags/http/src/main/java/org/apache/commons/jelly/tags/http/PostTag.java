@@ -38,7 +38,7 @@ public class PostTag extends HttpTagSupport {
     }
 
     /**
-     * Return a {@link HttpMethod method} to be used for post'ing
+     * Gets a {@link HttpMethod method} to be used for post'ing
      *
      * @return a HttpUrlMethod implementation
      * @throws MalformedURLException when the {@link #getUri() URI} or

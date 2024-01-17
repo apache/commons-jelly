@@ -59,7 +59,7 @@ public class MultipartPostTag extends PostTag {
     }
 
     /**
-     * Return a {@link HttpMethod method} to be used for multi-part post'ing
+     * Gets a {@link HttpMethod method} to be used for multi-part post'ing
      *
      * @return a HttpUrlMethod implementation
      * @throws MalformedURLException when the {@link #getUri() URI} or

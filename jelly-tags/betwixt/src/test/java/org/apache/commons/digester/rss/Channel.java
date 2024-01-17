@@ -296,7 +296,7 @@ public class Channel implements Serializable {
 
 
     /**
-     * Return the items for this channel.
+     * Gets the items for this channel.
      */
     public Item[] findItems() {
         synchronized (items) {
@@ -307,7 +307,7 @@ public class Channel implements Serializable {
 
 
     /**
-     * Return the items for this channel.
+     * Gets the items for this channel.
      */
     public Item[] getItems() {
         return findItems();
@@ -315,7 +315,7 @@ public class Channel implements Serializable {
 
 
     /**
-     * Return the skip days for this channel.
+     * Gets the skip days for this channel.
      */
     public String[] findSkipDays() {
         synchronized (skipDays) {
@@ -326,7 +326,7 @@ public class Channel implements Serializable {
 
 
     /**
-     * Return the skip hours for this channel.
+     * Gets the skip hours for this channel.
      */
     public String[] getSkipHours() {
         return findSkipHours();
@@ -334,7 +334,7 @@ public class Channel implements Serializable {
 
 
     /**
-     * Return the skip hours for this channel.
+     * Gets the skip hours for this channel.
      */
     public String[] findSkipHours() {
         synchronized (skipHours) {
@@ -345,7 +345,7 @@ public class Channel implements Serializable {
 
 
     /**
-     * Return the skip days for this channel.
+     * Gets the skip days for this channel.
      */
     public String[] getSkipDays() {
         return findSkipDays();

@@ -37,7 +37,7 @@ public class PutTag extends HttpTagSupport {
     }
 
     /**
-     * Return a {@link HttpMethod method} to be used for put'ing
+     * Gets a {@link HttpMethod method} to be used for put'ing
      *
      * @return a HttpMethod implementation
      * @throws MalformedURLException when the {@link #getUri() URI} or

@@ -29,7 +29,7 @@ public class ClassLoaderUtils {
     private static final Log log = LogFactory.getLog(ClassLoaderUtils.class);
     
     /**
-     * Return the class loader to be used for instantiating application objects
+     * Gets the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
      * <ul>
      * <li>The specified class loader, if any</li>
@@ -52,7 +52,7 @@ public class ClassLoaderUtils {
     }
 
     /**
-     * Return the class loader to be used for instantiating application objects
+     * Gets the class loader to be used for instantiating application objects
      * when a context class loader is not specified.  This is determined based upon the following rules:
      * <ul>
      * <li>The specified class loader, if any</li>

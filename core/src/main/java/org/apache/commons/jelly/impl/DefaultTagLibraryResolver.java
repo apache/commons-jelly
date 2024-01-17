@@ -117,7 +117,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
     //-------------------------------------------------------------------------
 
     /**
-     * Return the class loader to be used for instantiating application objects
+     * Gets the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
      * <ul>
      * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
@@ -142,7 +142,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
     }
 
     /**
-     * Return the boolean as to whether the context classloader should be used.
+     * Gets the boolean as to whether the context classloader should be used.
      */
     public boolean getUseContextClassLoader() {
         return useContextClassLoader;
