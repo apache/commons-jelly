@@ -30,20 +30,12 @@ import org.quartz.SchedulerException;
  */
 public class WaitForSchedulerTag extends QuartzTagSupport
 {
-    // ------------------------------------------------------------
-    //     Constructors
-    // ------------------------------------------------------------
-
     /** Construct.
      */
     public WaitForSchedulerTag()
     {
         // intentionally left blank.
     }
-
-    // ------------------------------------------------------------
-    //     Instance methods
-    // ------------------------------------------------------------
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //     org.apache.commons.jelly.Tag

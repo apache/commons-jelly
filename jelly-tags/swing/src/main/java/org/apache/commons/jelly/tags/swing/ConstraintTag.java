@@ -88,8 +88,6 @@ public class ConstraintTag extends DynaBeanTagSupport {
         bean = factory.newInstance();
     }
 
-    // --------------------------------------------- ATTRIBUTES
-
     @Override
     public void beforeSetAttributes (  ) throws JellyTagException {
         try {
@@ -117,7 +115,6 @@ public class ConstraintTag extends DynaBeanTagSupport {
 
         }
     }
-// --------------------------------------------------
     /** Children invocation... just nothing...
         */
     @Override
@@ -127,7 +124,6 @@ public class ConstraintTag extends DynaBeanTagSupport {
         // nothing else to do... the getConstraintObject method should have been called.
     }
 
-    // ----------------------------------------------
     public Object getBean() {
         return bean;
     }
@@ -137,4 +133,4 @@ public class ConstraintTag extends DynaBeanTagSupport {
     public Object getConstraintObject() {
         return getBean();
     }
-} // class ConstraintTag
+}

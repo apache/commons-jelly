@@ -23,10 +23,6 @@ package org.apache.commons.jelly.tags.quartz;
  */
 public abstract class TriggerTag extends QuartzTagSupport
 {
-    // ------------------------------------------------------------
-    //     Constructors
-    // ------------------------------------------------------------
-
     /** Construct.
      */
     protected TriggerTag()

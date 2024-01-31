@@ -35,10 +35,6 @@ import java.util.Date;
  */
 public class CronTriggerTag extends QuartzTagSupport
 {
-    // ------------------------------------------------------------
-    //     Instance members
-    // ------------------------------------------------------------
-
     /** Cron time spec. */
     private String spec;
 
@@ -54,19 +50,12 @@ public class CronTriggerTag extends QuartzTagSupport
     /** Job group. */
     private String jobGroup;
 
-    // ------------------------------------------------------------
-    //     COnstructors
-    // ------------------------------------------------------------
-
     /** Construct.
      */
     public CronTriggerTag()
     {
         // intentionally left blank.
     }
-
-    // ------------------------------------------------------------
-    // ------------------------------------------------------------
 
     /** Sets the name.
      *

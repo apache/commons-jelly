@@ -30,10 +30,6 @@ import java.io.Serializable;
 
 public class TextInput implements Serializable {
 
-
-    // ------------------------------------------------------------- Properties
-
-
     /**
      * The text input description (1-100 characters).
      */
@@ -88,10 +84,6 @@ public class TextInput implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-
-
-    // -------------------------------------------------------- Package Methods
-
 
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,

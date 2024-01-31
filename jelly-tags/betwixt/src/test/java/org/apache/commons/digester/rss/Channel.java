@@ -35,10 +35,6 @@ import java.util.ArrayList;
 
 public class Channel implements Serializable {
 
-
-    // ----------------------------------------------------- Instance Variables
-
-
     /**
      * The set of items associated with this Channel.
      */
@@ -55,10 +51,6 @@ public class Channel implements Serializable {
      * The set of skip hours for this channel.
      */
     protected ArrayList skipHours = new ArrayList();
-
-
-    // ------------------------------------------------------------- Properties
-
 
     /**
      * The channel copyright (1-100 characters).

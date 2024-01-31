@@ -30,10 +30,6 @@ import java.io.Serializable;
 
 public class Image implements Serializable {
 
-
-    // ------------------------------------------------------------- Properties
-
-
     /**
      * The image description (1-100 characters).
      */
@@ -116,10 +112,6 @@ public class Image implements Serializable {
     public void setWidth(int width) {
         this.width = width;
     }
-
-
-    // -------------------------------------------------------- Package Methods
-
 
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,

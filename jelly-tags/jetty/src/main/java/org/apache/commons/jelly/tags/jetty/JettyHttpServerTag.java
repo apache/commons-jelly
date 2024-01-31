@@ -196,7 +196,6 @@ public class JettyHttpServerTag extends TagSupport {
         _server.addContext(context);
     }
 
-    /* ------------------------------------------------------------ */
     /**
      * Add a user authentication realm to the server instance
      *
@@ -207,10 +206,6 @@ public class JettyHttpServerTag extends TagSupport {
     {
         return _server.addRealm(realm);
     }
-
-    //--------------------------------------------------------------------------
-    // Property accessors/mutators
-    //--------------------------------------------------------------------------
 
     /**
      * Getter for property var.

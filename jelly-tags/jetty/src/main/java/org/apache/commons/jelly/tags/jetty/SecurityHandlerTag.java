@@ -147,7 +147,7 @@ public class SecurityHandlerTag extends TagSupport {
 
     }
 
-    /* ------------------------------------------------------------
+    /*
      * This is the code from Jetty's WebApplicationContext
      * with the HttpContextTag parameter added
      *
@@ -217,7 +217,7 @@ public class SecurityHandlerTag extends TagSupport {
         }
     }
 
-    /* ------------------------------------------------------------
+    /*
      * This is the code from Jetty's WebApplicationContext
      * with the HttpContextTag parameter added
      *

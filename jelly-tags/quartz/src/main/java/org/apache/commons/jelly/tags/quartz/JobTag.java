@@ -32,19 +32,11 @@ import org.quartz.JobDataMap;
  */
 public class JobTag extends QuartzTagSupport
 {
-    // ------------------------------------------------------------
-    //     Instance members
-    // ------------------------------------------------------------
-
     /** Group of the job. */
     private String group;
 
     /** Name of the job. */
     private String name;
-
-    // ------------------------------------------------------------
-    //     Constructors
-    // ------------------------------------------------------------
 
     /** Construct.
      */
@@ -52,10 +44,6 @@ public class JobTag extends QuartzTagSupport
     {
         // intentionally left blank.
     }
-
-    // ------------------------------------------------------------
-    //     Instance methods
-    // ------------------------------------------------------------
 
     /** Sets the name of this job.
      *

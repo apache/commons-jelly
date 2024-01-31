@@ -48,8 +48,6 @@ public class MergeTag extends VelocityTagSupport
     private String outputEncoding;
     private boolean readOnly = true;
 
-    // -- Tag interface -----------------------------------------------------
-
     @Override
     public void doTag( final XMLOutput output ) throws JellyTagException
     {
@@ -84,8 +82,6 @@ public class MergeTag extends VelocityTagSupport
                     "This tag must define either 'name' or 'var'" );
         }
     }
-
-    // -- Properties --------------------------------------------------------
 
     /**
      * Sets the var used to store the results of the merge.

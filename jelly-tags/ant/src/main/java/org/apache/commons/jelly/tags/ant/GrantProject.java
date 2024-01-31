@@ -38,16 +38,8 @@ import org.apache.tools.ant.ProjectHelper;
  */
 public class GrantProject extends Project {
 
-    // ------------------------------------------------------------
-    //     Instance members
-    // ------------------------------------------------------------
-
     /** Properties delegate. */
     private PropsHandler propsHandler;
-
-    // ------------------------------------------------------------
-    //     Constructors
-    // ------------------------------------------------------------
 
     /** Constructs  a new, empty <code>GrantProject</code>.
      *
@@ -61,10 +53,6 @@ public class GrantProject extends Project {
     public GrantProject() {
         this.propsHandler = null;
     }
-
-    // ------------------------------------------------------------
-    //     Instance methods
-    // ------------------------------------------------------------
 
     /** Install a <code>PropsHandler</code> delegate.
      *

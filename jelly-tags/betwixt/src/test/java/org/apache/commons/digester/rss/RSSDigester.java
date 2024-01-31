@@ -46,14 +46,6 @@ import org.xml.sax.SAXException;
 
 public class RSSDigester extends Digester {
 
-
-    // ----------------------------------------------------------- Constructors
-
-
-
-    // ----------------------------------------------------- Instance Variables
-
-
     /**
      * Have we been configured yet?
      */
@@ -70,10 +62,6 @@ public class RSSDigester extends Digester {
         "-//Netscape Communications//DTD RSS 0.91//EN",
         "/org/apache/commons/digester/rss/rss-0.91.dtd",
     };
-
-
-    // ------------------------------------------------------------- Properties
-
 
     /**
      * The fully qualified class name of the <code>Channel</code>
@@ -134,10 +122,6 @@ public class RSSDigester extends Digester {
     public void setTextInputClass(String textInputClass) {
         this.textInputClass = textInputClass;
     }
-
-
-    // --------------------------------------------------------- Public Methods
-
 
     /**
      * Parse the content of the specified file using this Digester.  Returns
@@ -213,14 +197,6 @@ public class RSSDigester extends Digester {
 
     }
 
-
-    // -------------------------------------------------------- Package Methods
-
-
-
-    // ------------------------------------------------------ Protected Methods
-
-
     /**
      * Configure the parsing rules that will be used to process RSS input.
      */
@@ -292,10 +268,6 @@ public class RSSDigester extends Digester {
         configured = true;
 
     }
-
-
-    // ------------------------------------------------------ Test Main Program
-
 
     /**
      * Test main program that parses the channel description included in this

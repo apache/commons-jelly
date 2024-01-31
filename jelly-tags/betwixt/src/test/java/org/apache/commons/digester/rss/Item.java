@@ -30,10 +30,6 @@ import java.io.Serializable;
 
 public class Item implements Serializable {
 
-
-    // ------------------------------------------------------------- Properties
-
-
     /**
      * The item description (1-500 characters).
      */
@@ -74,10 +70,6 @@ public class Item implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-
-
-    // -------------------------------------------------------- Package Methods
-
 
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,

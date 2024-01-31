@@ -33,20 +33,12 @@ import org.quartz.JobExecutionException;
  */
 public class JellyJob implements Job
 {
-    // ------------------------------------------------------------
-    //     Constructors
-    // ------------------------------------------------------------
-
     /** Construct.
      */
     public JellyJob()
     {
         // intentionally left blank.
     }
-
-    // ------------------------------------------------------------
-    //     Instance methods
-    // ------------------------------------------------------------
 
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //     org.quartz.Job
