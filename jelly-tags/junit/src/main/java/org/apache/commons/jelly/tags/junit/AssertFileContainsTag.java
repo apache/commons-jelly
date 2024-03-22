@@ -62,42 +62,39 @@ public class AssertFileContainsTag extends AssertTagSupport
         {
             throw new MissingAttributeException("file");
         }
+        if (file.exists() && file.canRead())
+        {
+            try
+            {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                String line;
+                boolean found = false;
+                while ((line = br.readLine()) != null)
+                {
+                    if (line.contains(match))
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                br.close();
+                assertTrue(message, found);
+            }
+            catch (IOException fnfe)
+            {
+                throw new JellyTagException(fnfe);
+            }
+        }
         else
         {
-            if (file.exists() && file.canRead())
+            try
             {
-                try
-                {
-                    BufferedReader br = new BufferedReader(new FileReader(file));
-                    String line;
-                    boolean found = false;
-                    while ((line = br.readLine()) != null)
-                    {
-                        if (line.indexOf(match) != -1)
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-                    br.close();
-                    assertTrue(message, found);
-                }
-                catch (IOException fnfe)
-                {
-                    throw new JellyTagException(fnfe);
-                }
+                throw new JellyTagException("File '" + file.getCanonicalPath() 
+                    + "' can't be read.");
             }
-            else
+            catch (IOException e)
             {
-                try
-                {
-                    throw new JellyTagException("File '" + file.getCanonicalPath() 
-                        + "' can't be read.");
-                }
-                catch (IOException e)
-                {
-                    throw new JellyTagException(e);
-                }
+                throw new JellyTagException(e);
             }
         }
     }
