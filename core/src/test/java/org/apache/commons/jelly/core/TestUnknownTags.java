@@ -55,7 +55,7 @@ public class TestUnknownTags extends BaseJellyTest {
 		}catch (JellyException e) {
 			if (e.getCause() instanceof SAXParseException) {
 				Throwable cause = e.getCause();
-				if (cause.getMessage().indexOf("Unrecognized tag called tag-that-does-not-exist in TagLibrary jelly:test") > -1)
+				if (cause.getMessage().contains("Unrecognized tag called tag-that-does-not-exist in TagLibrary jelly:test"))
 					return;
 			}
 			throw e;
