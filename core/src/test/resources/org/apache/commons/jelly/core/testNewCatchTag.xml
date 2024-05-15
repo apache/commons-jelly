@@ -22,7 +22,7 @@
     	@author Marc Dexet marc.dexet#dsi.cnrs.fr
     	@date 2004.11.18
     	Test use org.apache.commons.jelly.core.ModularExceptionBean bean
-    	Set an expection and this bean will throw it with  'public void throwIt(String message) throws Throwable;' 
+    	Set an exception and this bean will throw it with 'public void throwIt(String message) throws Throwable;' 
     	
     	Improvements :
     	1. Set a list of expected exceptions as java try catch usual block
