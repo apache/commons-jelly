@@ -16,6 +16,8 @@
  */
 package org.apache.commons.jelly.expression;
 
+import java.util.Objects;
+
 import org.apache.commons.jelly.JellyContext;
 
 /** <p><code>ConstantExpression</code> represents a constant expression.</p>
@@ -47,7 +49,7 @@ public class ConstantExpression extends ExpressionSupport {
 
     @Override
     public String getExpressionText() {
-        return value == null ? "null" : value.toString();
+        return String.valueOf(value);
     }
 
     /**
