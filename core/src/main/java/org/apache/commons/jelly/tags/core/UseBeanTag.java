@@ -35,7 +35,7 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
 /**
  * A tag which instantiates an instance of the given class
  * and then sets the properties on the bean.
- * The class can be specified via a {@link java.lang.Class} instance or
+ * The class can be specified via a {@link Class} instance or
  * a String which will be used to load the class using either the current
  * thread's context class loader or the class loader used to load this
  * Jelly library.
