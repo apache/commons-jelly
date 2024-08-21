@@ -22,7 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * An abstract base class for any logging tag..
+ * An abstract base class for any logging tag.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */

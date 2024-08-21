@@ -50,7 +50,7 @@ public class RemoveTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the name of the variable which will be removed by this tag..
+     * Sets the name of the variable which will be removed by this tag.
      */
     public void setVar(Expression var) {
         this.var = var;
