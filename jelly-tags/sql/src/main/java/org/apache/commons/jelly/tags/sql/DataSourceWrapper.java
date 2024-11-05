@@ -110,7 +110,7 @@ public class DataSourceWrapper implements DataSource {
 
     /**
      * Always throws a SQLException. User name and password are set
-     * in the constructor and can not be changed.
+     * in the constructor and cannot be changed.
      */
     @Override
     public Connection getConnection(String userName, String password)
