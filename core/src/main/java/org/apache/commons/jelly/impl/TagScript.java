@@ -51,7 +51,7 @@ import org.xml.sax.SAXException;
 /**
  * <p><code>TagScript</code> is a Script that evaluates a custom tag.</p>
  *
- * <b>Note</b> that this class should be re-entrant and used
+ * <strong>Note</strong> that this class should be re-entrant and used
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>

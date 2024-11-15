@@ -39,7 +39,7 @@ package org.apache.commons.jelly.tags.threads;
  * or ordering guarantees. If you need them, consider using one of
  * the Semaphore implementations as a locking mechanism.
  * <p>
- * <b>Sample usage</b><br>
+ * <strong>Sample usage</strong><br>
  * <p>
  * Mutex can be useful in constructions that cannot be
  * expressed using java synchronized blocks because the

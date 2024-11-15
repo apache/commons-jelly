@@ -23,7 +23,7 @@ import org.xml.sax.Attributes;
 /**
  * <p><code>TagFactory</code> represents a Factory of {@link Tag} instances.</p>
  *
- * <b>Note</b> that this class should be re-entrant and used
+ * <strong>Note</strong> that this class should be re-entrant and used
  * concurrently by multiple threads.
  *
  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
