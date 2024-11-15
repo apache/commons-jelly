@@ -51,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * This tag creates a Swing component and adds it to its parent tag, optionally declaring this
- * component as a variable if the <i>var</i> attribute is specified.
+ * component as a variable if the <em>var</em> attribute is specified.
  *
  * <p>
  * This tag clears the reference to it's bean after doTag runs.

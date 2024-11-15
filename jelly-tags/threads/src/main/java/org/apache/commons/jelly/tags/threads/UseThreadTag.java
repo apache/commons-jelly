@@ -99,7 +99,7 @@ public abstract class UseThreadTag extends TagSupport {
 
     /**
      * Sets the thread group to "use".
-     * @param threadGroup The threadGroup created with the <i>group</i> tag.
+     * @param threadGroup The threadGroup created with the <em>group</em> tag.
      */
     public void setThreadGroup(List threadGroup) {
         this.threadGroup = threadGroup;
@@ -114,7 +114,7 @@ public abstract class UseThreadTag extends TagSupport {
 
     /**
      * If true the tag will search for a parent thread tag to "use" if
-     * no thread was set via <i>setThread</i>. This is <i>true</i> by default.
+     * no thread was set via <em>setThread</em>. This is <em>true</em> by default.
      */
     public void setSearchForParentThread(boolean searchForParent) {
         this.searchForParent = searchForParent;

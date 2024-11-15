@@ -27,7 +27,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Confirm that <i>XMLOutput.createDummyXMLOutput()</i>
+ * Confirm that <em>XMLOutput.createDummyXMLOutput()</em>
  * doesn't do anything funky.
  *
  * @author Morgan Delagrange
