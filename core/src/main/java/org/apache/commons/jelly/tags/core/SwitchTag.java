@@ -30,7 +30,6 @@ import org.apache.commons.jelly.expression.Expression;
  *
  * @see CaseTag
  * @see DefaultTag
- *
  * @author Rodney Waldhoff
  */
 public class SwitchTag extends TagSupport {

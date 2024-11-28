@@ -153,7 +153,6 @@ public class BundleTag extends TagSupport {
      * @param jellyContext Page in which the resource bundle with the
      * given base name is requested
      * @param basename Resource bundle base name
-     *
      * @return Localization context containing the resource bundle with the
      * given base name and the locale that led to the resource bundle match,
      * or the empty localization context if no resource bundle match was found
@@ -238,7 +237,6 @@ public class BundleTag extends TagSupport {
      * @param basename the resource bundle base name
      * @param pref the preferred locale
      * @param cl   classloader used to find resource bundle
-     *
      * @return the requested resource bundle, or {@code null} if no resource
      * bundle with the given base name exists or if there is no exact- or
      * language-match between the preferred locale and the locale of

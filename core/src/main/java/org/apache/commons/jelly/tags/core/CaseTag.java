@@ -32,7 +32,6 @@ import org.apache.commons.jelly.expression.Expression;
  * {@link SwitchTag &lt;switch&gt;} tag.
  *
  * @see SwitchTag
- *
  * @author Rodney Waldhoff
  */
 public class CaseTag extends TagSupport {

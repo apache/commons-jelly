@@ -76,7 +76,6 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
      * @param pathParams the parameters (if any) of the http request
      * @param request the actual http request
      * @param response the place for any response
-     *
      * @throws HttpException when an error occurs
      * @throws IOException when an error occurs
      */

@@ -32,7 +32,6 @@ import java.util.Locale;
  * and &lt;fmt:parseDate&gt; actions as their formatting locale.
  *
  * @see javax.servlet.jsp.jstl.fmt.LocalizationContext
- *
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  */

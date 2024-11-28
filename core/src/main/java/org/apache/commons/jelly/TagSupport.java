@@ -254,7 +254,6 @@ public abstract class TagSupport implements Tag {
      * Executes the body of the tag and returns the result as a String.
      *
      * @param shouldEscape Signal if the text should be escaped.
-     *
      * @return the text evaluation of the body
      */
     protected String getBodyText(boolean shouldEscape) throws JellyTagException {

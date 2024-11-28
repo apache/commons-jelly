@@ -51,7 +51,6 @@ public class StringInputStream
      * such input.
      *
      * @return the value of the next character in the StringReader
-     *
      * @throws IOException if the original StringReader fails to be read
      */
     @Override

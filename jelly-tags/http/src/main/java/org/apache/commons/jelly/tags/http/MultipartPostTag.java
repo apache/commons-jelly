@@ -42,7 +42,6 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
  *</pre>
  *
  * @author <a href="mailto:wkeese@yahoo.com">Bill Keese</a>
- *
  * @since ???
  */
 public class MultipartPostTag extends PostTag {

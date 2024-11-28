@@ -98,7 +98,6 @@ public class Config {
      * @param request Request object in which the configuration variable is to
      * be looked up
      * @param name Configuration variable name
-     *
      * @return The <code>java.lang.Object</code> associated with the configuration
      * variable, or null if it is not defined.
      */
@@ -116,7 +115,6 @@ public class Config {
      * @param session Session object in which the configuration variable is to
      * be looked up
      * @param name Configuration variable name
-     *
      * @return The <code>java.lang.Object</code> associated with the configuration
      * variable, or null if it is not defined.
      */
@@ -134,7 +132,6 @@ public class Config {
      * @param context Servlet context in which the configuration variable is
      * to be looked up
      * @param name Configuration variable name
-     *
      * @return The <code>java.lang.Object</code> associated with the configuration
      * variable, or null if it is not defined.
      */

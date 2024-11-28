@@ -53,7 +53,6 @@ public class JettyTagLibrary extends TagLibrary {
 
     /**
      * @see TagLibrary#getTagClasses()
-     *
      * @return a Map of tag name to tag class
      */
     @Override

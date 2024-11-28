@@ -34,7 +34,6 @@ public class ResultSupport {
      * Returns an array of Row objects.
      *
      * @param resultSet the ResultSet object
-     *
      * @return the <code>Result</code> object of the result
      */
     public static Result toResult(ResultSet resultSet) {
@@ -50,7 +49,6 @@ public class ResultSupport {
      *
      * @param resultSet the ResultSet object
      * @param maxRows the maximum number of rows
-     *
      * @return the <code>Result</code> object of the result limited by maxRows
      */
     public static Result toResult(ResultSet resultSet, int maxRows) {

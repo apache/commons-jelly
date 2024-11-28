@@ -128,7 +128,6 @@ public class RSSDigester extends Digester {
      * the root element from the object stack (which will be the Channel).
      *
      * @param file File containing the XML data to be parsed
-     *
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
@@ -147,7 +146,6 @@ public class RSSDigester extends Digester {
      * Channel).
      *
      * @param input Input source containing the XML data to be parsed
-     *
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
@@ -166,7 +164,6 @@ public class RSSDigester extends Digester {
      * the Channel).
      *
      * @param input Input stream containing the XML data to be parsed
-     *
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
@@ -185,7 +182,6 @@ public class RSSDigester extends Digester {
      * the Channel).
      *
      * @param uri URI containing the XML data to be parsed
-     *
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */

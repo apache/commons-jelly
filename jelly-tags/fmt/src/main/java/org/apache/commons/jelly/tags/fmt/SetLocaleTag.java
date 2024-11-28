@@ -117,7 +117,6 @@ public class SetLocaleTag extends TagSupport {
      *
      * @param locale the locale string to parse
      * @param variant the variant
-     *
      * @return <code>java.util.Locale</code> object corresponding to the given
      * locale string, or the runtime's default locale if the locale string is
      * null or empty
@@ -204,7 +203,6 @@ public class SetLocaleTag extends TagSupport {
      * this method is used to set the response locale).
      *
      * @param avail the array of available locales
-     *
      * @return the formatting locale to use
      */
     static Locale getFormattingLocale(JellyContext jc,
@@ -277,7 +275,6 @@ public class SetLocaleTag extends TagSupport {
      *
      * @param pref the preferred locale
      * @param avail the available formatting locales
-     *
      * @return Available locale that best matches the given preferred locale,
      * or {@code null} if no match exists
      */
