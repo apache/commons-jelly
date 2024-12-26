@@ -29,7 +29,6 @@ import java.sql.SQLException;
  */
 public class ResultSupport {
 
-
     /**
      * Returns an array of Row objects.
      *

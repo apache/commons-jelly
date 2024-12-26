@@ -47,7 +47,6 @@ public class StaticTagScript extends TagScript {
         super(tagFactory);
     }
 
-
     // Script interface
     //-------------------------------------------------------------------------
     @Override

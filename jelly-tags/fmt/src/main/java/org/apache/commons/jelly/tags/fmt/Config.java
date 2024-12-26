@@ -19,7 +19,6 @@ package org.apache.commons.jelly.tags.fmt;
 
 import org.apache.commons.jelly.JellyContext;
 
-
 /**
  * Class supporting access to configuration data.
  * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
@@ -55,7 +54,6 @@ public class Config {
      */
     public static final String FMT_TIME_ZONE
     = "org.apache.commons.jelly.tags.fmt.timeZone";
-
 
     /**
      * Looks up a configuration variable in the given scope.

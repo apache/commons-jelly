@@ -70,7 +70,6 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      */
     private boolean ignoreUnknownProperties = false;
 
-
     public UseBeanTag() {
     }
 
@@ -88,7 +87,6 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     public Object getBean() {
         return bean;
     }
-
 
     // Tag interface
     //-------------------------------------------------------------------------

@@ -87,7 +87,6 @@ public class SetTag extends TagSupport {
 
         if ( var != null ) {
 
-
             if ( scope != null ) {
                 context.setVariable(var, scope, answer);
             }

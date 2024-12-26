@@ -34,7 +34,6 @@ public class PropertyTag extends TagSupport {
     /** Stores the value of the property */
     private Object value;
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -54,7 +53,6 @@ public class PropertyTag extends TagSupport {
             tag.addProperty(name, getBodyText());
         }
     }
-
 
     // Properties
     //-------------------------------------------------------------------------

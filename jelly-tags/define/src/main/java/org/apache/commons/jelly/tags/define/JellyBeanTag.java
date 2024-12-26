@@ -24,7 +24,6 @@ import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * Binds a Java bean to the given named Jelly tag so that the attributes of
  * the tag set the bean properties. After the body of this tag is invoked
@@ -66,7 +65,6 @@ public class JellyBeanTag extends BeanTag {
     public void setMethod(String method) {
         this.method = method;
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

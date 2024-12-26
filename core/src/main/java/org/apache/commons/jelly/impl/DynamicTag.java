@@ -54,7 +54,6 @@ public class DynamicTag extends DynaTagSupport {
         this.template = template;
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override

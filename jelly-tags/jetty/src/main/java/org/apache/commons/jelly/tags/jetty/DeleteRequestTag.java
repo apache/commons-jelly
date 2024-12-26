@@ -17,7 +17,6 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
-
 /**
  * Respond to a DELETE request to a Jetty http server
  *

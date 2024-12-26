@@ -71,7 +71,6 @@ public class TransactionTag extends TagSupport {
         this.dataSourceSpecified = true;
     }
 
-
     //*********************************************************************
     // Tag logic
 

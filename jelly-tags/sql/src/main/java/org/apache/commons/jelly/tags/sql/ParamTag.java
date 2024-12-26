@@ -33,7 +33,6 @@ import org.apache.commons.jelly.tags.Resources;
 public class ParamTag extends TagSupport {
     protected Object value;
 
-
     public void setValue(Object value) {
         this.value = value;
     }

@@ -36,7 +36,6 @@ public class MyTagLibrary extends TagLibrary {
     public MyTagLibrary() {
     }
 
-
     // TagLibrary interface
     //-------------------------------------------------------------------------
     @Override

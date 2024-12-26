@@ -30,7 +30,6 @@ import org.dom4j.io.SAXReader;
 
 import org.xml.sax.SAXException;
 
-
 /** A tag which parses some HTML and defines a variable with the parsed Document.
   * The HTML can either be specified as its body or can be passed in via the
   * html property which can be a Reader, InputStream, URL or String URI.
@@ -99,7 +98,6 @@ public class ParseTag extends ParseTagSupport {
     public void setElement(String element) {
         this.element = element;
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

@@ -71,7 +71,6 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
         return cause;
     }
 
-
     /**
      * @return the line number of the tag
      */
@@ -120,7 +119,6 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
         this.fileName = fileName;
     }
 
-
     /**
      * @return the element name which caused the problem
      */
@@ -136,7 +134,6 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     public void setElementName(String elementName) {
         this.elementName = elementName;
     }
-
 
     @Override
     public String getMessage() {

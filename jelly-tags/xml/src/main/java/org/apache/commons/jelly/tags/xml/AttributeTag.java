@@ -32,7 +32,6 @@ public class AttributeTag extends TagSupport {
     /** The name of the attribute. */
     private String name;
 
-
     public AttributeTag() {
     }
 

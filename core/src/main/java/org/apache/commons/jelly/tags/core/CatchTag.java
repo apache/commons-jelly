@@ -87,7 +87,6 @@ public class CatchTag extends TagSupport {
 		    
             if ( exceptionArray != null ) {
 
-
         	    /**
         	     * if exception is not expected throw exception 
         	     */    		    

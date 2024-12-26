@@ -46,7 +46,6 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
         return (List) getBean();
     }
 
-
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
@@ -63,7 +62,6 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
         }
         return super.getAttributeType(name);
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

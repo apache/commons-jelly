@@ -168,7 +168,6 @@ public class LoadTextTag extends TagSupport {
         return encoding;
     }
 
-
     // Implementation methods
     //-------------------------------------------------------------------------
 

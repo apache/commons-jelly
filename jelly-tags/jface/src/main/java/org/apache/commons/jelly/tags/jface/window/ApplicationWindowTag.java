@@ -94,7 +94,6 @@ public class ApplicationWindowTag extends UseBeanTag {
         return new ApplicationWindowImpl(parent);
     }
 
-
     /**
      * @return the visible window, if there is one.
      */

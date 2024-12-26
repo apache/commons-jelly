@@ -188,5 +188,4 @@ public class VerifierTag extends TagSupport {
     // Implementation methods
     //-------------------------------------------------------------------------
 
-
 }

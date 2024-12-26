@@ -37,7 +37,6 @@ public class StyleTag extends XPathTagSupport {
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(StyleTag.class);
 
-
     /** Holds the stylesheet which will be applied to the source context. */
     private Stylesheet stylesheet;
 
@@ -73,7 +72,6 @@ public class StyleTag extends XPathTagSupport {
             throw new JellyTagException(e);
         }
     }
-
 
     // Properties
     //-------------------------------------------------------------------------

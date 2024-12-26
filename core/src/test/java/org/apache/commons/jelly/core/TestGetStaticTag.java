@@ -31,11 +31,9 @@ public class TestGetStaticTag extends BaseJellyTest {
         super(name);
     }
 
-
     public static TestSuite suite() throws Exception {
         return new TestSuite(TestGetStaticTag.class);
     }
-
 
     /**
      * Retrieves Integer.MAX_VALUE using tag and verifies against direct
@@ -56,8 +54,6 @@ public class TestGetStaticTag extends BaseJellyTest {
         assertEquals( new Integer(java.lang.Integer.MAX_VALUE),
                       getJellyContext().getVariable("value" ) );
     }
-
-
 
     /**
      * Retrieves a non-existent field and verifies exception is thrown.

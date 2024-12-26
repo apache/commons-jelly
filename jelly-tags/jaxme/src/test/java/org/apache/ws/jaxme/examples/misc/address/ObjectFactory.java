@@ -21,7 +21,6 @@ public class ObjectFactory {
 
   private java.util.Map properties;
 
-
   public ObjectFactory() throws javax.xml.bind.JAXBException {
     jaxbContext = (org.apache.ws.jaxme.impl.JAXBContextImpl) javax.xml.bind.JAXBContext.newInstance("org.apache.ws.jaxme.examples.misc.address");
   }

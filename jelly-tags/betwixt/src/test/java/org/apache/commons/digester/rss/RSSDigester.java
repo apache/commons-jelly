@@ -15,9 +15,7 @@
  * limitations under the License.
  */ 
 
-
 package org.apache.commons.digester.rss;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +26,6 @@ import org.apache.commons.digester.Digester;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
 
 /**
  * <p>Implementation of <strong>org.apache.commons.digester.Digester</strong>
@@ -50,7 +47,6 @@ public class RSSDigester extends Digester {
      * Have we been configured yet?
      */
     protected boolean configured = false;
-
 
     /**
      * The set of public identifiers, and corresponding resource names,
@@ -77,7 +73,6 @@ public class RSSDigester extends Digester {
         this.channelClass = channelClass;
     }
 
-
     /**
      * The fully qualified class name of the <code>Image</code>
      * implementation class.
@@ -92,7 +87,6 @@ public class RSSDigester extends Digester {
         this.imageClass = imageClass;
     }
 
-
     /**
      * The fully qualified class name of the <code>Item</code>
      * implementation class.
@@ -106,7 +100,6 @@ public class RSSDigester extends Digester {
     public void setItemClass(String itemClass) {
         this.itemClass = itemClass;
     }
-
 
     /**
      * The fully qualified class name of the <code>TextInput</code>
@@ -139,7 +132,6 @@ public class RSSDigester extends Digester {
 
     }
 
-
     /**
      * Parse the content of the specified input source using this Digester.
      * Returns the root element from the object stack (which will be the
@@ -157,7 +149,6 @@ public class RSSDigester extends Digester {
 
     }
 
-
     /**
      * Parse the content of the specified input stream using this Digester.
      * Returns the root element from the object stack (which will be
@@ -174,7 +165,6 @@ public class RSSDigester extends Digester {
         return (super.parse(input));
 
     }
-
 
     /**
      * Parse the content of the specified URI using this Digester.
@@ -295,6 +285,5 @@ public class RSSDigester extends Digester {
         }
 
     }
-
 
 }

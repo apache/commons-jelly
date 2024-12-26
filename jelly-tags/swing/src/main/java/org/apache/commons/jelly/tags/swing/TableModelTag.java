@@ -33,7 +33,6 @@ public class TableModelTag extends UseBeanTag {
         return (ExpressionTableModel) getBean();
     }
 
-
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override

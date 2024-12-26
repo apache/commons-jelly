@@ -129,5 +129,4 @@ public class TestInvokeTag extends BaseJellyTest {
         assertEquals( exceptionMessage, jellyException.getCause().getMessage() );
     }
 
-
 }

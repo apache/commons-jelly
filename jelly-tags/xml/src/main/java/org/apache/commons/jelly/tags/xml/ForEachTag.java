@@ -48,7 +48,6 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     /** The current iteration value */
     private Object iterationValue;
 
-
     public ForEachTag() {
     }
 

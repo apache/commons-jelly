@@ -69,7 +69,6 @@ public class ExpressionTableModel extends AbstractTableModel {
         columnModel.removeColumn(column);
     }
 
-
     // TableModel interface
     //-------------------------------------------------------------------------
     @Override
@@ -112,10 +111,8 @@ public class ExpressionTableModel extends AbstractTableModel {
         return column.evaluateValue(this, row, rowIndex, columnIndex);
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
-
 
     /**
      * Returns the list of rows.
@@ -156,6 +153,5 @@ public class ExpressionTableModel extends AbstractTableModel {
             return tableColumns;
         }
     };
-
 
 }

@@ -135,10 +135,8 @@ public class JellyServiceImpl implements JellyService, Configurable {
         return runScript(url, params, createXMLOutput());
     }
 
-
     // Configurable interface
     //-------------------------------------------------------------------------
-
 
     /**
      * <p>Configures the Jelly Service with named scripts.</p>
@@ -212,7 +210,6 @@ public class JellyServiceImpl implements JellyService, Configurable {
             }
         }
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

@@ -68,7 +68,6 @@ public class TestJSL extends TestCase {
         assertEquals( "dfjsdfjsdf", small.valueOf( "p" ).trim() );
     }
 
-
     protected Document runScript(String fileName) throws Exception {
         InputStream in = new FileInputStream(fileName);
         XMLParser parser = new XMLParser();

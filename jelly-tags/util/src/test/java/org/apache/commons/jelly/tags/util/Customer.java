@@ -16,7 +16,6 @@
  */
 package org.apache.commons.jelly.tags.util;
 
-
 /**
  * A sample bean that we can construct via Jelly tags
  *
@@ -27,7 +26,6 @@ public class Customer {
     private String name;
     private String city;
     private String location;
-
 
     public Customer() {
     }

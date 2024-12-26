@@ -37,12 +37,10 @@ import java.util.MissingResourceException;
  */
 public class BundleTag extends TagSupport {
 
-
     //*********************************************************************
     // Private constants
 
     private static final Locale EMPTY_LOCALE = new Locale("", "");
-
 
     //*********************************************************************
     // Protected state
@@ -54,12 +52,10 @@ public class BundleTag extends TagSupport {
     /** Evaluated prefix */
     private String eprefix;
 
-
     //*********************************************************************
     // Private state
 
     private LocalizationContext locCtxt;
-
 
     //*********************************************************************
     // Constructor and initialization
@@ -77,7 +73,6 @@ public class BundleTag extends TagSupport {
     public String getPrefixAsString() {
         return eprefix;
     }
-
 
     //*********************************************************************
     // Tag logic
@@ -107,7 +102,6 @@ public class BundleTag extends TagSupport {
         this.locCtxt = this.getLocalizationContext(context, ebasename);
         invokeBody(output);
     }
-
 
     //*********************************************************************
     // Public utility methods
@@ -166,7 +160,6 @@ public class BundleTag extends TagSupport {
             return new LocalizationContext();
         }
 
-
         // Try preferred locales
         Locale pref = null; {
             Object tmp = jellyContext.getVariable(Config.FMT_LOCALE);
@@ -224,8 +217,6 @@ public class BundleTag extends TagSupport {
 
         return locCtxt;
     }
-
-
 
     /*
      * Gets the resource bundle with the given base name and preferred locale.

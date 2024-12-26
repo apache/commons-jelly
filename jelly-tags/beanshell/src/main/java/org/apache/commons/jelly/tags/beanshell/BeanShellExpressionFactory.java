@@ -54,7 +54,6 @@ public class BeanShellExpressionFactory implements ExpressionFactory {
 */
     }
 
-
     // ExpressionFactory interface
     //-------------------------------------------------------------------------
     @Override

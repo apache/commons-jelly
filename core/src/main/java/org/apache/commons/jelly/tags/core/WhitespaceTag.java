@@ -22,7 +22,6 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * A simple tag used to preserve whitespace inside its body
  *

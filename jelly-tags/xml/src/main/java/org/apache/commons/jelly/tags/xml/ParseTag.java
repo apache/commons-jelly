@@ -79,7 +79,6 @@ public class ParseTag extends ParseTagSupport {
         this.validate = validate;
     }
 
-
     // Implementation methods
     //-------------------------------------------------------------------------
 

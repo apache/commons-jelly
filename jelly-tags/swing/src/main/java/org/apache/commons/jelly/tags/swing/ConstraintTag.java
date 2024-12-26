@@ -79,7 +79,6 @@ public class ConstraintTag extends DynaBeanTagSupport {
         // subclasses of the tag depending on the name and attributes
         // it would useful, for example, to make a cardLayout's <card name="">
 
-
     public ConstraintTag (Factory factory) {
         this.factory = factory;
     }
@@ -96,7 +95,6 @@ public class ConstraintTag extends DynaBeanTagSupport {
             throw new JellyTagException(e.toString());
         }
     }
-
 
     @Override
     public void setAttribute ( String name, Object value ) throws JellyTagException {

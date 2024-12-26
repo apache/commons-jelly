@@ -15,12 +15,10 @@
  * limitations under the License.
  */ 
 
-
 package org.apache.commons.digester.rss;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
-
 
 /**
  * <p>Implementation object representing an <strong>item</strong> in the
@@ -43,7 +41,6 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-
     /**
      * The item link (1-500 characters).
      */
@@ -56,7 +53,6 @@ public class Item implements Serializable {
     public void setLink(String link) {
         this.link = link;
     }
-
 
     /**
      * The item title (1-100 characters).
@@ -98,6 +94,5 @@ public class Item implements Serializable {
         writer.println("    </item>");
 
     }
-
 
 }

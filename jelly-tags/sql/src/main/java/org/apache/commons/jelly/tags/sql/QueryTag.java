@@ -31,7 +31,6 @@ import org.apache.commons.jelly.tags.Resources;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * <p>Tag handler for &lt;Query&gt; in JSTL.
  *

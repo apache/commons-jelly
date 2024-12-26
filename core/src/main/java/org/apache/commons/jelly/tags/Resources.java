@@ -53,7 +53,6 @@ public class Resources {
     private static ResourceBundle rb =
     ResourceBundle.getBundle(RESOURCE_LOCATION);
 
-
     //*********************************************************************
     // Public static methods
 

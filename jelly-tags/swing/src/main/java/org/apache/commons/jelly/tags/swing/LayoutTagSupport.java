@@ -48,7 +48,6 @@ public abstract class LayoutTagSupport extends TagSupport {
         getComponentTag().addChild(component, constraints);
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -68,7 +67,6 @@ public abstract class LayoutTagSupport extends TagSupport {
 
     // Properties
     //-------------------------------------------------------------------------
-
 
     /**
      * Sets the name of the variable to use to expose the new LayoutManager object.

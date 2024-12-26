@@ -113,7 +113,6 @@ final class ResultImpl implements Result {
         return (SortedMap []) rowMap.toArray(new SortedMap[0]);
     }
 
-
     /**
      * Returns an array of Object[] objects. The first index
      * designates the Row, the second the Column. The array

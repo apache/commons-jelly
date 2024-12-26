@@ -68,7 +68,6 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
 
   private org.apache.ws.jaxme.examples.misc.address.AddressType.NameType Name;
 
-
   @Override
 public java.lang.String getId() {
     return Id;

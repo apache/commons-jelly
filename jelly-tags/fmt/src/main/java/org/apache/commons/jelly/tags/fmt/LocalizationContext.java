@@ -19,7 +19,6 @@ package org.apache.commons.jelly.tags.fmt;
 import java.util.ResourceBundle;
 import java.util.Locale;
 
-
 /**
  * Class representing an I18N localization context.
  *

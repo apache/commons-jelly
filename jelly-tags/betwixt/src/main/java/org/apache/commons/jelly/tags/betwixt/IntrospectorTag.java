@@ -72,8 +72,6 @@ public class IntrospectorTag extends TagSupport {
         );
     }
 
-
-
     public IntrospectorTag() {
     }
 
@@ -133,7 +131,6 @@ public class IntrospectorTag extends TagSupport {
     public void setAttributeNameMapper(NameMapper nameMapper) {
         getIntrospector().setAttributeNameMapper(nameMapper);
     }
-
 
     /**
      * Sets the variable name to output the new XMLIntrospector to.

@@ -268,6 +268,4 @@ public class SwtTagLibrary extends TagLibrary {
         );
     }
 
-
-
 }

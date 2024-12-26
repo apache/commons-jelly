@@ -22,7 +22,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
-
 /**
  * Executes the child &lt;case&gt; tag whose value equals my on attribute.
  * Executes a child &lt;default&gt; tag when present and no &lt;case&gt; tag has

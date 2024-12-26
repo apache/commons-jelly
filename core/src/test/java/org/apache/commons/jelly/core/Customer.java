@@ -32,7 +32,6 @@ public class Customer {
     private String location;
     private List orders = new ArrayList();
 
-
     public Customer() {
     }
 
@@ -134,6 +133,5 @@ public class Customer {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }

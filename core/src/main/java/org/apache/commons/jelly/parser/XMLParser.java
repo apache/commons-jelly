@@ -75,7 +75,6 @@ public class XMLParser extends DefaultHandler {
      */
     private static Properties jellyProperties;
 
-
     /** JellyContext which is used to locate tag libraries*/
     private JellyContext context = new JellyContext();
 
@@ -591,7 +590,6 @@ public class XMLParser extends DefaultHandler {
         this.validating = validating;
     }
 
-
     /**
      * Returns the script that has just been created if this class is used
      * as a SAX ContentHandler and passed into some XML processor or parser.
@@ -602,7 +600,6 @@ public class XMLParser extends DefaultHandler {
     public ScriptBlock getScript() {
         return script;
     }
-
 
     // ContentHandler interface
     //-------------------------------------------------------------------------
@@ -892,7 +889,6 @@ public class XMLParser extends DefaultHandler {
         ; // No processing required
     }
 
-
     // DTDHandler interface
     //-------------------------------------------------------------------------
 
@@ -922,7 +918,6 @@ public class XMLParser extends DefaultHandler {
         String systemId,
         String notation) {
     }
-
 
     // ErrorHandler interface
     //-------------------------------------------------------------------------
@@ -1031,7 +1026,6 @@ public class XMLParser extends DefaultHandler {
             }
         }
     }
-
 
     /**
      * A helper method which loads the static Jelly properties once on startup
@@ -1146,7 +1140,6 @@ public class XMLParser extends DefaultHandler {
         }
     }
 
-
     /**
      * Factory method to create a static Tag that represents some static content.
      */
@@ -1233,7 +1226,6 @@ public class XMLParser extends DefaultHandler {
     	Expression expression = createExpression(tagScript, "", text);
         addExpressionScript(script, expression);
     }
-
 
     /**
      * Adds the given Expression object to the current Script.

@@ -251,7 +251,6 @@ public class CompositeExpression extends ExpressionSupport {
         return buffer.toString();
     }
 
-
     // inherit javadoc from interface
     @Override
     public Object evaluate(JellyContext context) {

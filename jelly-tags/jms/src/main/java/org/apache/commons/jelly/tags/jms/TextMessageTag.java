@@ -43,7 +43,6 @@ public class TextMessageTag extends MessageTag {
         this.text = text;
     }
 
-
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override

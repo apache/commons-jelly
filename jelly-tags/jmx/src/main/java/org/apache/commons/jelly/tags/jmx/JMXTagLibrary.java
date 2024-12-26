@@ -22,7 +22,6 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.jelly.tags.bean.BeanTag;
 import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
 
-
 /**
  * A Tag library for creating an instantiating Java Beans and MBeans
  * and registering them with JMX. Support for setting JMX attributes

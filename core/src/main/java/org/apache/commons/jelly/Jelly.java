@@ -228,7 +228,6 @@ public class Jelly {
     	this.context = context;
     }
 
-
     /**
      * Sets the jelly namespace to use for unprefixed elements.
      * Will be overridden by an explicit namespace in the

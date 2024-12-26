@@ -102,7 +102,6 @@ public class FileTag extends TagSupport {
         this.omitXmlDeclaration = omitXmlDeclaration;
     }
 
-
     /**
      * Sets the output mode, whether XML or HTML
      */

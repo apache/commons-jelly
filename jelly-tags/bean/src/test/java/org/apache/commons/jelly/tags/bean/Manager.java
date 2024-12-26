@@ -53,7 +53,6 @@ public class Manager {
         log.info("Invoked the run() method with customers: " + customers);
     }
 
-
     public List getCustomers() {
         return customers;
     }

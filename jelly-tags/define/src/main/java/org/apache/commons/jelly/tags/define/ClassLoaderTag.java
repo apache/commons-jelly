@@ -28,7 +28,6 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * Creates a new <code>URLClassLoader</code> to dynamically
  * load tags froms.

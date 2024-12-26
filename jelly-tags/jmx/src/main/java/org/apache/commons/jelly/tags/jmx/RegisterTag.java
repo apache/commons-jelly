@@ -47,7 +47,6 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     public RegisterTag() {
     }
 
-
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
@@ -77,10 +76,8 @@ public class RegisterTag extends TagSupport implements CollectionTag {
         invokeBody(output);
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
-
 
     /**
      * @return ObjectName

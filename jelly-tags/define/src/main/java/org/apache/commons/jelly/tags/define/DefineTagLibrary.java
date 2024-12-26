@@ -18,7 +18,6 @@ package org.apache.commons.jelly.tags.define;
 
 import org.apache.commons.jelly.TagLibrary;
 
-
 /**
  * This is a tag library that allows you to define new tag libraries at run time.
  * Thus tag libraries and tags can be easily implemented in Jelly rather than

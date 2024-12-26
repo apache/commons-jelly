@@ -15,7 +15,6 @@
  * limitations under the License.
  */ 
 
-
 package org.apache.commons.digester.rss;
 
 import java.io.OutputStream;
@@ -25,7 +24,6 @@ import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.ArrayList;
-
 
 /**
  * <p>Implementation object representing a <strong>channel</strong> in the
@@ -40,12 +38,10 @@ public class Channel implements Serializable {
      */
     protected ArrayList items = new ArrayList();
 
-
     /**
      * The set of skip days for this channel.
      */
     protected ArrayList skipDays = new ArrayList();
-
 
     /**
      * The set of skip hours for this channel.
@@ -65,7 +61,6 @@ public class Channel implements Serializable {
         this.copyright = copyright;
     }
 
-
     /**
      * The channel description (1-500 characters).
      */
@@ -78,7 +73,6 @@ public class Channel implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
 
     /**
      * The channel description file URL (1-500 characters).
@@ -93,7 +87,6 @@ public class Channel implements Serializable {
         this.docs = docs;
     }
 
-
     /**
      * The image describing this channel.
      */
@@ -106,7 +99,6 @@ public class Channel implements Serializable {
     public void setImage(Image image) {
         this.image = image;
     }
-
 
     /**
      * The channel language (2-5 characters).
@@ -121,7 +113,6 @@ public class Channel implements Serializable {
         this.language = language;
     }
 
-
     /**
      * The channel last build date (1-100 characters).
      */
@@ -134,7 +125,6 @@ public class Channel implements Serializable {
     public void setLastBuildDate(String lastBuildDate) {
         this.lastBuildDate = lastBuildDate;
     }
-
 
     /**
      * The channel link (1-500 characters).
@@ -149,7 +139,6 @@ public class Channel implements Serializable {
         this.link = link;
     }
 
-
     /**
      * The managing editor (1-100 characters).
      */
@@ -162,7 +151,6 @@ public class Channel implements Serializable {
     public void setManagingEditor(String managingEditor) {
         this.managingEditor = managingEditor;
     }
-
 
     /**
      * The channel publication date (1-100 characters).
@@ -177,7 +165,6 @@ public class Channel implements Serializable {
         this.pubDate = pubDate;
     }
 
-
     /**
      * The channel rating (20-500 characters).
      */
@@ -190,7 +177,6 @@ public class Channel implements Serializable {
     public void setRating(String rating) {
         this.rating = rating;
     }
-
 
     /**
      * The text input description for this channel.
@@ -205,7 +191,6 @@ public class Channel implements Serializable {
         this.textInput = textInput;
     }
 
-
     /**
      * The channel title (1-100 characters).
      */
@@ -218,7 +203,6 @@ public class Channel implements Serializable {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     /**
      * The RSS specification version number used to create this Channel.
@@ -233,7 +217,6 @@ public class Channel implements Serializable {
         this.version = version;
     }
 
-
     /**
      * The webmaster email address (1-100 characters).
      */
@@ -247,9 +230,7 @@ public class Channel implements Serializable {
         this.webMaster = webMaster;
     }
 
-
     // --------------------------------------------------------- Public Methods
-
 
     /**
      * Add an additional item.
@@ -262,7 +243,6 @@ public class Channel implements Serializable {
         }
     }
 
-
     /**
      * Add an additional skip day name.
      *
@@ -273,7 +253,6 @@ public class Channel implements Serializable {
             skipDays.add(skipDay);
         }
     }
-
 
     /**
      * Add an additional skip hour name.
@@ -286,7 +265,6 @@ public class Channel implements Serializable {
         }
     }
 
-
     /**
      * Gets the items for this channel.
      */
@@ -297,14 +275,12 @@ public class Channel implements Serializable {
         }
     }
 
-
     /**
      * Gets the items for this channel.
      */
     public Item[] getItems() {
         return findItems();
     }
-
 
     /**
      * Gets the skip days for this channel.
@@ -316,14 +292,12 @@ public class Channel implements Serializable {
         }
     }
 
-
     /**
      * Gets the skip hours for this channel.
      */
     public String[] getSkipHours() {
         return findSkipHours();
     }
-
 
     /**
      * Gets the skip hours for this channel.
@@ -335,14 +309,12 @@ public class Channel implements Serializable {
         }
     }
 
-
     /**
      * Gets the skip days for this channel.
      */
     public String[] getSkipDays() {
         return findSkipDays();
     }
-
 
     /**
      * Remove an item for this channel.
@@ -355,7 +327,6 @@ public class Channel implements Serializable {
         }
     }
 
-
     /**
      * Remove a skip day for this channel.
      *
@@ -367,7 +338,6 @@ public class Channel implements Serializable {
         }
     }
 
-
     /**
      * Remove a skip hour for this channel.
      *
@@ -378,7 +348,6 @@ public class Channel implements Serializable {
             skipHours.remove(skipHour);
         }
     }
-
 
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,
@@ -396,7 +365,6 @@ public class Channel implements Serializable {
         }
 
     }
-
 
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,
@@ -423,7 +391,6 @@ public class Channel implements Serializable {
 
     }
 
-
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,
      * to the specified writer, with no indication of character encoding.
@@ -435,7 +402,6 @@ public class Channel implements Serializable {
         render(writer, null);
 
     }
-
 
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,
@@ -453,7 +419,6 @@ public class Channel implements Serializable {
 
     }
 
-
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,
      * to the specified writer, with no indication of character encoding.
@@ -465,7 +430,6 @@ public class Channel implements Serializable {
         render(writer, null);
 
     }
-
 
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,
@@ -524,7 +488,6 @@ public class Channel implements Serializable {
             writer.print(copyright);
             writer.print("</copyright>");
         }
-
 
         if (pubDate != null) {
             writer.print("    <pubDate>");
@@ -603,6 +566,5 @@ public class Channel implements Serializable {
         writer.println("</rss>");
 
     }
-
 
 }

@@ -64,7 +64,6 @@ public class SetPropertyTag extends TagSupport {
         }
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 

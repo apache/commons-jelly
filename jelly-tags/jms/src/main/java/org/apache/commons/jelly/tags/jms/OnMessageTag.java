@@ -76,7 +76,6 @@ public class OnMessageTag extends TagSupport {
         tag.setMessageListener(listener);
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 

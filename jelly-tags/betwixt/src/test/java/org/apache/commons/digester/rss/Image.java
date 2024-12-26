@@ -15,12 +15,10 @@
  * limitations under the License.
  */ 
 
-
 package org.apache.commons.digester.rss;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
-
 
 /**
  * <p>Implementation object representing an <strong>image</strong> in the
@@ -43,7 +41,6 @@ public class Image implements Serializable {
         this.description = description;
     }
 
-
     /**
      * The image height in pixels (1-400).
      */
@@ -56,7 +53,6 @@ public class Image implements Serializable {
     public void setHeight(int height) {
         this.height = height;
     }
-
 
     /**
      * The image link (1-500 characters).
@@ -71,7 +67,6 @@ public class Image implements Serializable {
         this.link = link;
     }
 
-
     /**
      * The image alternate text (1-100 characters).
      */
@@ -85,7 +80,6 @@ public class Image implements Serializable {
         this.title = title;
     }
 
-
     /**
      * The image location URL (1-500 characters).
      */
@@ -98,7 +92,6 @@ public class Image implements Serializable {
     public void setURL(String url) {
         this.url = url;
     }
-
 
     /**
      * The image width in pixels (1-400).
@@ -154,6 +147,5 @@ public class Image implements Serializable {
         writer.println("    </image>");
 
     }
-
 
 }

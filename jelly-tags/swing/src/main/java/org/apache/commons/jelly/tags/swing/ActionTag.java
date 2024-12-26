@@ -47,7 +47,6 @@ public class ActionTag extends UseBeanTag {
     public ActionTag() {
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 
@@ -58,10 +57,8 @@ public class ActionTag extends UseBeanTag {
         return (Action) getBean();
     }
 
-
     // Implementation methods
     //-------------------------------------------------------------------------
-
 
     /**
      * An existing Action could be specified via the 'action' attribute or an action class
@@ -117,7 +114,6 @@ public class ActionTag extends UseBeanTag {
 		// do nothing
 	}
 
-
     /**
      * Either defines a variable or adds the current component to the parent
      */
@@ -136,7 +132,6 @@ public class ActionTag extends UseBeanTag {
             }
         }
     }
-
 
     /**
      * Perform the strange setting of Action properties using its custom API
@@ -169,7 +164,6 @@ public class ActionTag extends UseBeanTag {
             action.putValue( name, value );
         }
     }
-
 
     protected String capitalize(String text) {
         char ch = text.charAt(0);

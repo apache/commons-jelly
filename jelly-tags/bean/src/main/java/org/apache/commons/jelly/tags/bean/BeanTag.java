@@ -31,7 +31,6 @@ import org.apache.commons.jelly.tags.core.UseBeanTag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * Creates a bean for the given tag which is then either output as a variable
  * or can be added to a parent tag.
@@ -55,7 +54,6 @@ public class BeanTag extends UseBeanTag {
 
     /** If present this is used to call a doit method when the bean is constructed */
     private Method invokeMethod;
-
 
     public BeanTag() {
         this(null, "bean", null);
@@ -179,7 +177,6 @@ public class BeanTag extends UseBeanTag {
             beanClass, addMethodName, argTypes
         );
     }
-
 
     /**
      * @return the parent bean object

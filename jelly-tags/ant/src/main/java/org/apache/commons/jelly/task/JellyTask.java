@@ -202,7 +202,6 @@ public class JellyTask extends Task {
         return script;
     }
 
-
     /**
      * @return the URL for the relative file name or absolute URL
      */

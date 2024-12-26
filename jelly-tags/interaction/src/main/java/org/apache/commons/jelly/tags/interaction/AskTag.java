@@ -67,7 +67,6 @@ public class AskTag extends TagSupport {
     /** Whether to complete with previous completions as well. */
     private boolean useHistoryCompletor = true;
 
-
     /**
      * Sets the question to ask to the user. If a "default" attribute is
      * present, it will appear inside [].
@@ -158,7 +157,6 @@ public class AskTag extends TagSupport {
             logger.warn("couldnt create console reader", e);
             consoleReader = null;
         }
-
 
         try {
             if (consoleReader != null

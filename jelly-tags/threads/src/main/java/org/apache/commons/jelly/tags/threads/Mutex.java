@@ -146,7 +146,6 @@ public class Mutex {
         notify();
     }
 
-
     public boolean attempt(long msecs) throws InterruptedException {
         if (Thread.interrupted()) throw new InterruptedException();
         synchronized (this) {

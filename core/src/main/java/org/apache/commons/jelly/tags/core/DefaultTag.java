@@ -20,7 +20,6 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-
 /**
  * A tag which conditionally evaluates its body if
  * none of its preceeding sibling {@link CaseTag &lt;case&gt;}

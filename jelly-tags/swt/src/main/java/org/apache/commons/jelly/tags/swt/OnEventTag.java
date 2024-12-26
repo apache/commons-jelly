@@ -66,7 +66,6 @@ public class OnEventTag extends TagSupport implements Listener {
             throw new JellyTagException("This tag must be nested within a widget tag");
         }
 
-
         int eventType = getEventType(type);
         if (eventType == 0) {
             throw new JellyTagException("No event type specified, could not understand: " + type);

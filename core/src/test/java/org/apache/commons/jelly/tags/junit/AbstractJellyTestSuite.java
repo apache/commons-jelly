@@ -35,7 +35,6 @@ public abstract class AbstractJellyTestSuite {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(AbstractJellyTestSuite.class);
 
-
     /**
      * Helper method to create a test suite from a file name on the class path
      * in the package of the given class.

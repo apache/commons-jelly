@@ -51,7 +51,6 @@ public class MockLog implements Log {
         this.lastThrowable = null;
     }
 
-
     // Log interface
     //-------------------------------------------------------------------------
 

@@ -60,7 +60,6 @@ public class HomepageBuilder extends JPanel {
     JList interestList;
     DefaultListModel listModel;
 
-
     public HomepageBuilder() {
 
         System.out.println("Starting Homepage Builder");
@@ -111,7 +110,6 @@ public class HomepageBuilder extends JPanel {
         listModel.addElement("Eating jelly");
         interestList = new JList(listModel);
 
-
         JButton submit = new JButton("Build and preview your page!");
         submit.addActionListener(new ActionListener() {
             @Override
@@ -150,7 +148,6 @@ public class HomepageBuilder extends JPanel {
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
-
 
         try {
 
@@ -212,7 +209,6 @@ public class HomepageBuilder extends JPanel {
          }
          return new URL(name);
      }
-
 
     public static void main(String s[]) {
         JFrame frame = new JFrame("Homepage Builder");

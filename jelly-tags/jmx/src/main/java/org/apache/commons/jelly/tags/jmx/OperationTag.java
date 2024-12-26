@@ -48,7 +48,6 @@ public class OperationTag extends TagSupport implements CollectionTag {
     public OperationTag() {
     }
 
-
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
@@ -89,11 +88,8 @@ public class OperationTag extends TagSupport implements CollectionTag {
         }
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
-
-
 
     /**
      * @return Object

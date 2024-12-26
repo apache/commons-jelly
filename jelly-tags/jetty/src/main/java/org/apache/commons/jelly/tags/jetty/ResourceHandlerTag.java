@@ -90,5 +90,4 @@ public class ResourceHandlerTag extends TagSupport {
         _allowedMethods = allowedMethods;
     }
 
-
 }

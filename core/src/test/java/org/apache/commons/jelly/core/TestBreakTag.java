@@ -82,5 +82,4 @@ public class TestBreakTag extends BaseJellyTest
         assertEquals("varNotBroken", "false", varNotBroken);
     }
 
-
 }

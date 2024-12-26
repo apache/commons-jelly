@@ -43,7 +43,6 @@ public class Dummy implements DummyMBean {
         return super.toString() + "[name=" + name + "]";
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 
@@ -80,6 +79,5 @@ public class Dummy implements DummyMBean {
     public void setName(String name) {
         this.name = name;
     }
-
 
 }

@@ -76,4 +76,3 @@ public class JFaceLayoutTag extends LayoutTag {
     }
 }
 
-

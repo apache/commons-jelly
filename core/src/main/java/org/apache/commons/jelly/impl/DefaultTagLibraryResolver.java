@@ -25,7 +25,6 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * <p><code>DefaultTagLibraryResolver</code> is a default implementation
  * which attempts to interpret the URI as a String called 'jelly:className'
@@ -56,10 +55,8 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      */
     private boolean useContextClassLoader = false;
 
-
     public DefaultTagLibraryResolver() {
     }
-
 
     // TagLibraryResolver interface
     //-------------------------------------------------------------------------
@@ -84,8 +81,6 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
 
         DiscoverClass discover = new DiscoverClass(loaders);
         Class implClass = discover.find(TestInterface2.class);
-
-
 
         TagLibrary answer = null;
         try {
@@ -200,7 +195,6 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         }
         return null;
     }
-
 
     /**
      * Creates a new instance of the given TagLibrary class or

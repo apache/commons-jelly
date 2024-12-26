@@ -107,7 +107,6 @@ public class InvokeTag extends TagSupport {
         }
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
     /**
@@ -174,7 +173,6 @@ public class InvokeTag extends TagSupport {
     {
         this.userName = userName;
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

@@ -119,7 +119,6 @@ public class ParseTag extends TagSupport {
         this.text = text;
     }
 
-
     /** @return the XMLReader used for parsing, creating one lazily if need be  */
     public XMLReader getXMLReader() throws ParserConfigurationException, SAXException {
         if (xmlReader == null) {
@@ -132,7 +131,6 @@ public class ParseTag extends TagSupport {
     public void setXMLReader(XMLReader xmlReader) {
         this.xmlReader = xmlReader;
     }
-
 
     /**
      * @return XMLParser
@@ -152,7 +150,6 @@ public class ParseTag extends TagSupport {
         this.jellyParser = jellyParser;
     }
 
-
     // Implementation methods
     //-------------------------------------------------------------------------
 
@@ -165,7 +162,6 @@ public class ParseTag extends TagSupport {
         SAXParser parser = factory.newSAXParser();
         return parser.getXMLReader();
     }
-
 
     /**
      * Parses the body of this tag and returns the parsed document

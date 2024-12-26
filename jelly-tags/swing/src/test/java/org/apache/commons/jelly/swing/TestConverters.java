@@ -59,7 +59,6 @@ public class TestConverters extends TestCase {
         super(testName);
     }
 
-
     public void testDimensions() throws Exception {
         assertDimension("100, 200", new Dimension(100, 200));
         assertDimension("100", new Dimension(100, 0));

@@ -21,7 +21,6 @@ import java.net.MalformedURLException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 
-
 /**
  * An HTTP PUT.
  *

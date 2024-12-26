@@ -79,7 +79,6 @@ public class MessageTag extends TagSupport {
             keyInput = getBodyText();
         }
 
-
         if ((keyInput == null) || keyInput.equals("")) {
             try {
                 output.write("??????");
@@ -142,7 +141,6 @@ public class MessageTag extends TagSupport {
                 }
             }
         }
-
 
         if (scope != null) {
             if (var != null) {

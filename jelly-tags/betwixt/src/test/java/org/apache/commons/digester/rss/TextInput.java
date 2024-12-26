@@ -15,12 +15,10 @@
  * limitations under the License.
  */ 
 
-
 package org.apache.commons.digester.rss;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
-
 
 /**
  * <p>Implementation object representing a <strong>textinput</strong> in the
@@ -43,7 +41,6 @@ public class TextInput implements Serializable {
         this.description = description;
     }
 
-
     /**
      * The text input link (1-500 characters).
      */
@@ -57,7 +54,6 @@ public class TextInput implements Serializable {
         this.link = link;
     }
 
-
     /**
      * The text input field name (1-100 characters).
      */
@@ -70,7 +66,6 @@ public class TextInput implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
 
     /**
      * The text input submit button label (1-100 characters).
@@ -114,6 +109,5 @@ public class TextInput implements Serializable {
         writer.println("    </textinput>");
 
     }
-
 
 }

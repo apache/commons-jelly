@@ -123,8 +123,6 @@ public class RunTag extends TagSupport {
         this.listener = listener;
     }
 
-
-
     // Implementation methods
     //-------------------------------------------------------------------------
 

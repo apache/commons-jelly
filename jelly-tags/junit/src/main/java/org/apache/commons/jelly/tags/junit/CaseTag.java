@@ -34,7 +34,6 @@ public class CaseTag extends TagSupport {
 
     private String name;
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override

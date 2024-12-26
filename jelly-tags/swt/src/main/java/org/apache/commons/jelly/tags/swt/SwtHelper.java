@@ -35,7 +35,6 @@ public class SwtHelper extends UseBeanTag {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(SwtHelper.class);
 
-
     /**
      * Parses the comma delimited String of style codes which are or'd
      * together. The given class describes the integer static constants

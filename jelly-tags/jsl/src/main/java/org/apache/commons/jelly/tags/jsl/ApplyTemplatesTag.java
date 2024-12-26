@@ -41,7 +41,6 @@ public class ApplyTemplatesTag extends TagSupport {
     /** Holds the XPath object */
     private XPath select;
 
-
     public ApplyTemplatesTag() {
     }
 

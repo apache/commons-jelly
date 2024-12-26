@@ -55,7 +55,6 @@ public abstract class ExpressionSupport implements Expression {
         return null;
     }
 
-
     // inherit javadoc from interface
     @Override
     public Object evaluateRecurse(JellyContext context) {

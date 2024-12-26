@@ -41,7 +41,6 @@ public class TimeZoneTag extends TagSupport {
     private TimeZone timeZone;
     private Expression value;                    // 'value' attribute
 
-
     //*********************************************************************
     // Constructor and initialization
 
@@ -54,7 +53,6 @@ public class TimeZoneTag extends TagSupport {
     public TimeZone getTimeZone() {
         return timeZone;
     }
-
 
     //*********************************************************************
     // Tag logic
@@ -85,7 +83,6 @@ public class TimeZoneTag extends TagSupport {
 
         invokeBody(output);
     }
-
 
     //*********************************************************************
     // Package-scoped utility methods

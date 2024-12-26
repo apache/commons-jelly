@@ -262,7 +262,6 @@ public abstract class TagSupport implements Tag {
         return writer.toString();
     }
 
-
     /**
      * Find all text nodes inside the top level of this body and
      * if they are just whitespace then remove them

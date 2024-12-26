@@ -34,7 +34,6 @@ public class AssertValidTag extends ValidateTag {
 
     private StringBuffer buffer = new StringBuffer();
 
-
 /*
     public AssertValidTag() {
         setErrorHandler(

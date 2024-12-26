@@ -55,7 +55,6 @@ public class ServerTag extends TagSupport {
         invokeBody(output);
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
     /**
@@ -75,8 +74,6 @@ public class ServerTag extends TagSupport {
     public void setServer(MBeanServer server) {
         this.server = server;
     }
-
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

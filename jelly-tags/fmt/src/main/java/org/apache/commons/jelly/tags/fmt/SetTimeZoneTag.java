@@ -53,7 +53,6 @@ public class SetTimeZoneTag extends TagSupport {
             valueInput = this.value.evaluate(context);
         }
 
-
         if (valueInput == null) {
             timeZone = TimeZone.getTimeZone("GMT");
         }

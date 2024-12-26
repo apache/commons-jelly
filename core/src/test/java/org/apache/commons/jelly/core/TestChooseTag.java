@@ -51,6 +51,4 @@ public class TestChooseTag extends BaseJellyTest
         assertEquals("result.false", "BC", resultFalse);
     }
 
-
-
 }

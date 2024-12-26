@@ -83,7 +83,6 @@ public class TestDynaBeans extends TestCase {
         return new BasicDynaClass("TestDynaClass", null, properties);
     }
 
-
     protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
         Expression expression = CompositeExpression.parse(expressionText, factory);
         assertTrue( "Created a valid expression for: " + expressionText, expression != null );

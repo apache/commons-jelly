@@ -138,7 +138,6 @@ public class DynamicTagLibrary extends TagLibrary {
         this.uri = uri;
     }
 
-
     /**
      * Returns the parent library which will be used to resolve unknown tags.
      * @return TagLibrary

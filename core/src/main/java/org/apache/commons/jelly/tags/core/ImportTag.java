@@ -59,7 +59,6 @@ public class ImportTag extends TagSupport {
     public ImportTag() {
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     /**
@@ -112,7 +111,6 @@ public class ImportTag extends TagSupport {
     public void setUri(String uri) {
         this.uri = uri;
     }
-
 
     /**
      * Sets the file for the script to evaluate.

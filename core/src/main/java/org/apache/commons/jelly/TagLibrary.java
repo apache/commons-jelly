@@ -133,7 +133,6 @@ public abstract class TagLibrary {
         return new ConstantExpression(attributeValue);
     }
 
-
     // Implementation methods
     //-------------------------------------------------------------------------
 

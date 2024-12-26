@@ -62,14 +62,12 @@ public class TdTag extends TagSupport implements ContainerTag {
         tag.addCell(component, createConstraints());
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
     }
-
 
     // Properties
     //-------------------------------------------------------------------------
@@ -87,7 +85,6 @@ public class TdTag extends TagSupport implements ContainerTag {
     public void setValign(String valign) {
         this.valign = valign;
     }
-
 
     /**
      * Sets the number of columns that this cell should span. The default value is 1
@@ -132,7 +129,6 @@ public class TdTag extends TagSupport implements ContainerTag {
     public void setRowfill(boolean rowfill) {
         this.rowfill = rowfill;
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

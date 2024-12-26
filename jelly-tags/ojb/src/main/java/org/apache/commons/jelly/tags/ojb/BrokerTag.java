@@ -39,7 +39,6 @@ public class BrokerTag extends TagSupport {
     public BrokerTag() {
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override

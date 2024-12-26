@@ -23,7 +23,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 
-
 /**
  * A tag which can retrieve the value of a static field of a given class.
  * <p>
@@ -53,7 +52,6 @@ public class GetStaticTag extends TagSupport {
     /** The name of the class containing the static field. */
     private String className;
 
-
     /**
      * Sets the name of the variable exported by this tag.
      *
@@ -63,7 +61,6 @@ public class GetStaticTag extends TagSupport {
     public void setVar(String var) {
         this.var = var;
     }
-
 
     /**
      * Sets the name of the field to retrieve.
@@ -75,7 +72,6 @@ public class GetStaticTag extends TagSupport {
         this.field = field;
     }
 
-
     /**
      * Sets the fully qualified name of the class containing the static field.
      *
@@ -85,7 +81,6 @@ public class GetStaticTag extends TagSupport {
     public void setClassName(String className) {
         this.className = className;
     }
-
 
     // Tag interface
     //------------------------------------------------------------------------
@@ -120,7 +115,6 @@ public class GetStaticTag extends TagSupport {
     }
 
 }
-
 
 /* Emacs configuration
  * Local variables:        **

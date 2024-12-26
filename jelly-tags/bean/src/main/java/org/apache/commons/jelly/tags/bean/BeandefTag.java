@@ -30,7 +30,6 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /**
  * Binds a Java bean to the given named Jelly tag so that the attributes of
  * the tag set the bean properties.
@@ -95,7 +94,6 @@ public class BeandefTag extends TagSupport {
         // @todo should we allow the variable name to be specified?
         library.registerBean(name, theClass, invokeMethod);
     }
-
 
     // Properties
     //-------------------------------------------------------------------------

@@ -42,7 +42,6 @@ public class MyRunnable implements Runnable {
     public MyRunnable() {
     }
 
-
     // Adder methods
     //-------------------------------------------------------------------------
     /*
@@ -61,7 +60,6 @@ public class MyRunnable implements Runnable {
         log.info( "About to do something where x = " + getX() + " y = " + getY() );
         log.info( "FileSets are: " + fileSets );
     }
-
 
     // Properties
     //-------------------------------------------------------------------------

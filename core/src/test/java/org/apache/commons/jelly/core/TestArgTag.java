@@ -215,7 +215,6 @@ public class TestArgTag extends BaseJellyTest {
         assertEquals(Object[].class,parentTag.getValue(0));
     }
 
-
     private MockArgTagParent parentTag = null;
     private ArgTag argTag = null;
 

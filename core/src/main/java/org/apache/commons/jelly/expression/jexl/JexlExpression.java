@@ -110,7 +110,6 @@ final class JellyJexlContext implements JexlContext {
     }
 }
 
-
 final class JellyMap implements Map {
 
     private JellyContext context;

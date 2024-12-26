@@ -46,7 +46,6 @@ public class AntTagLibrary extends TagLibrary {
 
         // register standard converters for Ant types
 
-
         ConvertUtils.register(
             new Converter() {
                 @Override
@@ -83,7 +82,6 @@ public class AntTagLibrary extends TagLibrary {
             FormatterElement.TypeAttribute.class
             );
     }
-
 
     /**
      * A helper method which will attempt to find a project in the current context
@@ -135,7 +133,6 @@ public class AntTagLibrary extends TagLibrary {
 
         return project;
     }
-
 
     /** Creates a new script to execute the given tag name and attributes */
     @Override
@@ -193,6 +190,5 @@ public class AntTagLibrary extends TagLibrary {
         }
         return tag;
     }
-
 
 }

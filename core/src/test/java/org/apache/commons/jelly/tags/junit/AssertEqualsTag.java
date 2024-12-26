@@ -31,7 +31,6 @@ public class AssertEqualsTag extends AssertTagSupport {
     private Expression actual;
     private Expression expected;
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override

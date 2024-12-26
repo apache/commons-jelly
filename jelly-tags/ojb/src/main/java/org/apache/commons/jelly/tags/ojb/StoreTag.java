@@ -38,7 +38,6 @@ public class StoreTag extends TagSupport {
     public StoreTag() {
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override

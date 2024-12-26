@@ -48,7 +48,6 @@ public class DefaultTagFactory implements TagFactory {
         }
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 

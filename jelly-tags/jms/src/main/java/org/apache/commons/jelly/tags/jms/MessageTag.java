@@ -104,7 +104,6 @@ public class MessageTag extends TagSupport {
         return message;
     }
 
-
     // JMS related properties
 
     /**

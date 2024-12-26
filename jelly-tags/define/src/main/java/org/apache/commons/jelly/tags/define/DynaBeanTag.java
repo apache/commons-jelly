@@ -96,7 +96,6 @@ public class DynaBeanTag extends DefineTagSupport {
         attributes = null;
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 

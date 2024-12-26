@@ -56,7 +56,6 @@ public abstract class ParseTagSupport extends TagSupport {
     public ParseTagSupport() {
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
     /** The variable name that will be used for the Document variable created
@@ -87,7 +86,6 @@ public abstract class ParseTagSupport extends TagSupport {
         this.text = text;
     }
 
-
     /** @return the SAXReader used for parsing, creating one lazily if need be  */
     public SAXReader getSAXReader() throws SAXException {
         if (saxReader == null) {
@@ -101,7 +99,6 @@ public abstract class ParseTagSupport extends TagSupport {
         this.saxReader = saxReader;
     }
 
-
     // Implementation methods
     //-------------------------------------------------------------------------
 
@@ -109,7 +106,6 @@ public abstract class ParseTagSupport extends TagSupport {
      * Factory method to create a new SAXReader
      */
     protected abstract SAXReader createSAXReader() throws SAXException;
-
 
     /**
      * Parses the body of this tag and returns the parsed document
@@ -153,7 +149,6 @@ public abstract class ParseTagSupport extends TagSupport {
     protected Document parse(Object source) throws JellyTagException {
         // #### we should allow parsing to output XML events to
         // the output if no var is specified
-
 
         try {
             if (source instanceof String) {

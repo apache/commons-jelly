@@ -205,7 +205,6 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
 
   private org.apache.ws.jaxme.JMHandler __handler_Name;
 
-
   @Override
 public void startDocument() throws org.xml.sax.SAXException {
     __level = 0;

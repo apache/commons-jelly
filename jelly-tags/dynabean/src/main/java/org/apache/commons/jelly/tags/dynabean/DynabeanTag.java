@@ -23,7 +23,6 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-
 /** A tag which conditionally evaluates its body based on some condition
   *
   * @author Theo Niemeijer
@@ -82,6 +81,5 @@ public class DynabeanTag extends TagSupport {
     public void setVar(String var) {
         this.var = var;
     }
-
 
 }

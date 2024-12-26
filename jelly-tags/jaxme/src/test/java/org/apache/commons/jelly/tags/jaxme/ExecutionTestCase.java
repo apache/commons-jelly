@@ -26,7 +26,6 @@ import junit.framework.TestSuite;
  */
 public class ExecutionTestCase extends AbstractJellyTestSuite {
 
-
     public static TestSuite suite() throws Exception {
         return createTestSuite(ExecutionTestCase.class, "suite.jelly");
     }

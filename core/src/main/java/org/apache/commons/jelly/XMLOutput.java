@@ -272,7 +272,6 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         endElement("", localName, localName);
     }
 
-
     // ContentHandler interface
     //-------------------------------------------------------------------------
 
@@ -666,7 +665,6 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         contentHandler.skippedEntity(name);
     }
 
-
     // Lexical Handler interface
     //-------------------------------------------------------------------------
 
@@ -961,7 +959,6 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
                 // As declared in java of ContentHandler#startPrefixMapping
                 return;
             }
-
 
             // Lets find out if we already declared this same prefix,
             // if not declare in current depth map (the first of list)

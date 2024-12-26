@@ -30,7 +30,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-
 /**
  * Support for tag handlers for &lt;formatDate&gt;, the date and time formatting
  * tag in JSTL.

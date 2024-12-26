@@ -42,7 +42,6 @@ public class AntlrTag extends TagSupport
         this.grammars = new ArrayList( 1 );
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
 

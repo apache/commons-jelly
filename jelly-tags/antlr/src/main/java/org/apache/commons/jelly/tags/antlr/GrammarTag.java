@@ -27,7 +27,6 @@ public class GrammarTag extends TagSupport
     {
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
 

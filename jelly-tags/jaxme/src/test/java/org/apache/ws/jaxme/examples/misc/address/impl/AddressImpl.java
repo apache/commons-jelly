@@ -19,7 +19,6 @@ package org.apache.ws.jaxme.examples.misc.address.impl;
 public class AddressImpl extends org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.address.Address , org.apache.ws.jaxme.JMElement {
   private final static javax.xml.namespace.QName __qName = new javax.xml.namespace.QName("http://ws.apache.org/jaxme/examples/misc/address", "Address");
 
-
   @Override
 public javax.xml.namespace.QName getQName() {
     return __qName;

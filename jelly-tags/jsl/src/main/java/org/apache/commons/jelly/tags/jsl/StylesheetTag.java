@@ -27,7 +27,6 @@ import org.dom4j.rule.Stylesheet;
 import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
-
 /**
  * This tag implements a JSL stylesheet which is similar to an
  * XSLT stylesheet but can use Jelly tags inside it
@@ -38,7 +37,6 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(StylesheetTag.class);
-
 
     /** Holds the stylesheet which will be applied to the source context. */
     private Stylesheet stylesheet;
@@ -57,7 +55,6 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
     public StylesheetTag() {
     }
-
 
     /**
      * @return the XMLOutput from the stylesheet if available
@@ -99,7 +96,6 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
         return xpathSource;
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -131,7 +127,6 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
         }
     }
-
 
     // Properties
     //-------------------------------------------------------------------------
@@ -179,7 +174,6 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
         }
         return source;
     }
-
 
     /**
      * Factory method to create a new stylesheet

@@ -16,7 +16,6 @@
  */
 package org.apache.commons.jelly.xpath;
 
-
 /**
  * A tag which is capable of producing a source of XPath context objects
  * such as &lt;x:forEach&gt;

@@ -70,7 +70,6 @@ public class DestinationTag extends TagSupport {
         }
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 

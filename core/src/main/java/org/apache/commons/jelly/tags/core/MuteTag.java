@@ -21,7 +21,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.xml.sax.helpers.DefaultHandler;
 
-
 /** A tag which executes its body but passing no output.
  *  <p>
  * Using this tag will still take the time to perform toString on each object

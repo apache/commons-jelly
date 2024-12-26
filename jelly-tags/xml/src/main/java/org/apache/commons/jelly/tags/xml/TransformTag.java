@@ -379,7 +379,6 @@ public class TransformTag extends ParseTag {
                         script.run(context, output);
                     }
 
-
                 }
             }
         }

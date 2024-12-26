@@ -33,7 +33,6 @@ public class MapEntryTag extends TagSupport {
     /** Stores the value of the map entry */
     private Object value;
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override

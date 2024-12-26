@@ -133,7 +133,6 @@ public class JellyContext {
         init();
     }
 
-
     /**
      * Create a new context with the given parent context.
      * The parent's rootURL and currentURL are set on the child, and the parent's variables are
@@ -238,7 +237,6 @@ public class JellyContext {
         return answer;
     }
 
-
     /** @return the value of the given variable name */
     public Object getVariable(String name) {
         Object value = variables.get(name);
@@ -289,8 +287,6 @@ public class JellyContext {
         }
         return null;
     }
-
-
 
     /** Sets the value of the named variable */
     public void setVariable(String name, Object value) {
@@ -776,7 +772,6 @@ public class JellyContext {
         }
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 
@@ -797,7 +792,6 @@ public class JellyContext {
     public void setRootURL(URL rootURL) {
         this.rootURL = rootURL;
     }
-
 
     /**
      * @return the current URL context of the current script that is executing.
@@ -857,7 +851,6 @@ public class JellyContext {
         this.exportLibraries = exportLibraries;
     }
 
-
     /**
      * Sets whether we should export variable definitions to our parent context
      */
@@ -899,7 +892,6 @@ public class JellyContext {
     public boolean isAllowDtdToCallExternalEntities() {
         return this.allowDtdToCallExternalEntities;
     }
-
 
     /**
      * Gets the class loader to be used for instantiating application objects
@@ -945,7 +937,6 @@ public class JellyContext {
     public void setUseContextClassLoader(boolean use) {
         useContextClassLoader = use;
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

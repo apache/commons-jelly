@@ -34,7 +34,6 @@ public class MyTableModel extends AbstractTableModel {
     public MyTableModel() {
     }
 
-
     final String[] columnNames = {
         "First Name",
         "Last Name",
@@ -135,6 +134,5 @@ public class MyTableModel extends AbstractTableModel {
             fireTableCellUpdated(row, col);
         }
     }
-
 
 }

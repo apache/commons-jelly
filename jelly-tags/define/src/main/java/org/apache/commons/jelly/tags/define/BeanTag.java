@@ -118,7 +118,6 @@ public class BeanTag extends DefineTagSupport {
         attributes = null;
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
 
@@ -161,7 +160,6 @@ public class BeanTag extends DefineTagSupport {
     public void setVarAttribute(String varAttribute) {
         this.varAttribute = varAttribute;
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

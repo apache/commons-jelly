@@ -40,7 +40,6 @@ public class TestCustomExpressionFactory extends BaseJellyTest {
         context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
     }
 
-
 	public void testCustomFactory() throws Exception {
 		setUpScript("jelly1.xml");
 		Script script = getJelly().compileScript();

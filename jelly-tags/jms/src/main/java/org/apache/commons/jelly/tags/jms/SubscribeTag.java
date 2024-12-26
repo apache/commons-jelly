@@ -62,7 +62,6 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
         // clear the listener for the next tag invocation, if caching is employed
         setMessageListener(null);
 
-
         Destination destination = null;
         try {
             destination = getDestination();
@@ -104,7 +103,6 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
         this.selector = selector;
     }
 
-
     /**
      * Returns the messageListener.
      * @return MessageListener
@@ -112,7 +110,6 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
     public MessageListener getMessageListener() {
         return messageListener;
     }
-
 
     /**
      * Sets the JMS messageListener used ot consume JMS messages on the given destination

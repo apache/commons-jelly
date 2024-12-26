@@ -67,7 +67,6 @@ public abstract class BorderTagSupport extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-
     /**
      * Sets the name of the variable to use to expose the new Border object.
      * If this attribute is not set then the parent widget tag will have its

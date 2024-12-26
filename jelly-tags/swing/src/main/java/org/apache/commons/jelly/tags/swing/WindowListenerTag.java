@@ -94,7 +94,6 @@ public class WindowListenerTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-
     /**
      * Sets the name of the variable to use to expose the Event object
      */
@@ -150,8 +149,6 @@ public class WindowListenerTag extends TagSupport {
     public void setOpened(Script opened) {
         this.opened = opened;
     }
-
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

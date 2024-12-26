@@ -51,7 +51,6 @@ public class TestExpressions extends TestCase {
         context.setVariable("topping", "cheese");
         context.setVariable("type", "deepPan");
 
-
         assertExpression("foo", "foo");
         assertExpression("${topping}", "cheese");
         assertExpression("some${topping}", "somecheese");
@@ -166,6 +165,5 @@ public class TestExpressions extends TestCase {
         Object value = expression.evaluate(context);
         assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
     }
-
 
 }

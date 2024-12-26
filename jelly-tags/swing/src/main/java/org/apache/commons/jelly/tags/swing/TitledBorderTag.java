@@ -48,7 +48,6 @@ public class TitledBorderTag extends BorderTagSupport {
     private Font font;
     private Color color;
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -98,8 +97,6 @@ public class TitledBorderTag extends BorderTagSupport {
     public void setTitlePosition(String titlePosition) {
         this.titlePosition = titlePosition;
     }
-
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

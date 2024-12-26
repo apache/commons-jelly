@@ -60,7 +60,6 @@ public class ParseTag extends TagSupport {
     private boolean useContextClassLoader;
     private ClassLoader classLoader;
 
-
     public ParseTag() {
     }
 
@@ -177,7 +176,6 @@ public class ParseTag extends TagSupport {
         this.path = path;
     }
 
-
     /**
      * Sets whether or not the current threads's context class loader
      * should be used to load the bean classes or not.
@@ -197,7 +195,6 @@ public class ParseTag extends TagSupport {
     public void setClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

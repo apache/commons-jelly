@@ -103,7 +103,6 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
         this.sql = sql;
     }
 
-
     //*********************************************************************
     // Public utility methods
 

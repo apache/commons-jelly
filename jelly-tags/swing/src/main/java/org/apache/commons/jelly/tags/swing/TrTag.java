@@ -55,7 +55,6 @@ public class TrTag extends TagSupport {
         cells.add(new Cell(constraints, component));
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override

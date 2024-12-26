@@ -66,7 +66,6 @@ public class TableLayoutTag extends LayoutTagSupport {
     // Implementation methods
     //-------------------------------------------------------------------------
 
-
     /**
      * Creates a GridBagLayout
      */

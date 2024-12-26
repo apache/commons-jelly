@@ -45,7 +45,6 @@ public class BeanPropertyTag extends BeanTag {
     /** The name of the create method */
     private String createMethodName;
 
-
     public BeanPropertyTag(String tagName) {
         super(Object.class, tagName);
 

@@ -31,7 +31,6 @@ public class Customer {
     private String location;
     private List orders = new ArrayList();
 
-
     public Customer() {
     }
 

@@ -53,7 +53,6 @@ public class FailTag extends AssertTagSupport {
         return message;
     }
 
-
     /**
      * Sets the failure message. If this attribute is not specified then the
      * body of this tag will be used instead.

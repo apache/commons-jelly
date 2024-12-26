@@ -38,7 +38,6 @@ public class TemplateTag extends TagSupport implements XPathSource {
     /** The Log to which logging calls will be made. */
     private Log log = LogFactory.getLog(TemplateTag.class);
 
-
     /** Holds value of property name. */
     private String name;
 
@@ -54,10 +53,8 @@ public class TemplateTag extends TagSupport implements XPathSource {
     /** The source XPath context for any child tags */
     private Object xpathSource;
 
-
     public TemplateTag() {
     }
-
 
     // Tag interface
     //-------------------------------------------------------------------------
@@ -89,7 +86,6 @@ public class TemplateTag extends TagSupport implements XPathSource {
     public Object getXPathSource() {
         return xpathSource;
     }
-
 
     // Properties
     //-------------------------------------------------------------------------
@@ -126,14 +122,12 @@ public class TemplateTag extends TagSupport implements XPathSource {
         this.name = name;
     }
 
-
     /** Sets the mode.
      * @param mode New value of property mode.
      */
     public void setMode(String mode) {
         this.mode = mode;
     }
-
 
     // Implementation methods
     //-------------------------------------------------------------------------

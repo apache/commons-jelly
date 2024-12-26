@@ -106,7 +106,6 @@ public class TestCoreTags extends TestCase {
         assertEquals("foo", textScript.getText());
     }
 
-
     public void testStaticNamespacedAttributes() throws Exception {
         InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/testStaticNamespacedAttributes.jelly");
         XMLParser parser = new XMLParser();

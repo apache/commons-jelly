@@ -58,7 +58,6 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
         return (GridBagConstraints) getBean();
     }
 
-
     // ContainerTag interface
     //-------------------------------------------------------------------------
 
@@ -122,7 +121,6 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
         Object insetString = attributes.get("insets");
         if (insetString instanceof String) {
             attributes.remove("insets");
-
 
             String[] parts = StringUtils.split((String) insetString, ",");
 

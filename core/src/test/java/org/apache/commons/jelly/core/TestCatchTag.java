@@ -41,5 +41,4 @@ public class TestCatchTag extends AbstractJellyTestSuite {
     }
     
 
-
 }

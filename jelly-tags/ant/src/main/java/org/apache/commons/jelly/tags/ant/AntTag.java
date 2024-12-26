@@ -70,7 +70,6 @@ public class AntTag extends MapTagSupport implements TaskSource {
     /** Task, if this tag represents a task. */
     protected Task task;
 
-
     /** Constructs  with a project and tag name.
      *
      *  @param tagName The name on the tag.
@@ -295,7 +294,6 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
     }
 
-
     // Properties
     //-------------------------------------------------------------------------
     public String getTagName() {
@@ -390,7 +388,6 @@ public class AntTag extends MapTagSupport implements TaskSource {
             }
         }
     }
-
 
     /**
      * Creates a nested object of the given object with the specified name

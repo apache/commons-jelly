@@ -295,5 +295,4 @@ public class SecurityHandlerTag extends TagSupport {
         _authenticationMethod = authenticationMethod;
     }
 
-
 }

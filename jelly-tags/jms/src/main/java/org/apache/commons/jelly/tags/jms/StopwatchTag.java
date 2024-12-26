@@ -89,7 +89,6 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
         this.groupSize = groupSize;
     }
 
-
     /**
      * @return the logger to which statistic messages will be sent
      */

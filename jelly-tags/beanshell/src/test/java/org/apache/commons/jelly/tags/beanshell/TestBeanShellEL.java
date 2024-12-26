@@ -29,7 +29,6 @@ import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-
 /** Tests the BeanShell EL
   *
   * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
@@ -44,7 +43,6 @@ public class TestBeanShellEL extends TestCase {
 
     /** The factory of Expression objects */
     protected ExpressionFactory factory;
-
 
     public static void main( String[] args ) {
         TestRunner.run( suite() );

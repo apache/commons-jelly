@@ -35,7 +35,6 @@ public class TokenizeTag extends TagSupport
     {
     }
 
-
     // Tag interface
     //-------------------------------------------------------------------------
 

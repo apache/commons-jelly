@@ -61,7 +61,6 @@ public class TagScript implements Script {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TagScript.class);
 
-
     /** The attribute expressions that are created */
     protected Map attributes = new Hashtable();
 
@@ -164,7 +163,6 @@ public class TagScript implements Script {
         setLineNumber( locator.getLineNumber() );
         setColumnNumber( locator.getColumnNumber() );
     }
-
 
     /** Add an initialization attribute for the tag.
      * This method must be called after the setTag() method
@@ -405,7 +403,6 @@ public class TagScript implements Script {
         }
     }
 
-
     /**
      * @return the element name which caused the problem
      */
@@ -478,7 +475,6 @@ public class TagScript implements Script {
     public void setLocalName(String localName) {
         this.localName = localName;
     }
-
 
     /**
      * Returns the namespace context of this tag. This is all the prefixes
@@ -731,7 +727,6 @@ public class TagScript implements Script {
         throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
     }
 }
-
 
 final class ExpressionAttribute {
     public ExpressionAttribute(String name, Expression exp) {
