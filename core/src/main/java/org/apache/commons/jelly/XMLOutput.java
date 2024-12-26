@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -891,10 +892,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      *      This value cannot be null.
      */
     public void setContentHandler(ContentHandler contentHandler) {
-        if (contentHandler == null) {
-            throw new NullPointerException("ContentHandler cannot be null!");
-        }
-        this.contentHandler = contentHandler;
+        this.contentHandler = Objects.requireNonNull(contentHandler, "contentHandler");
     }
 
     /**
