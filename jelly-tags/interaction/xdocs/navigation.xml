@@ -24,7 +24,7 @@
     <menu name="Interaction Tag Library">
       <item name="Overview"                href="/index.html"/>
       <item name="Tags"                    href="/tags.html"/>
-      <item name="Changes"                    href="/changes-report.html"/>
+      <item name="Changes"                    href="/changes.html"/>
     </menu>
     &commons;
   </body>
