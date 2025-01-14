@@ -82,7 +82,7 @@
     <dependency>
       <artifactId>xmlunit</artifactId>
       <groupId>xmlunit</groupId>
-      <version>0.8</version>
+      <version>1.6</version>
       <scope>test</scope>
     </dependency>
 
