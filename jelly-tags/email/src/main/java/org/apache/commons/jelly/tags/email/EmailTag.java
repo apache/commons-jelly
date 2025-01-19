@@ -48,7 +48,6 @@ import java.io.FileNotFoundException;
  *
  * @author  Jason Horman
  * @author  <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- * @version  $Id$
  */
 
 public class EmailTag extends TagSupport {
