@@ -66,7 +66,7 @@ public class JettyHttpServerTag extends TagSupport {
     /** The log sink for the Jety server */
     private static OutputStreamLogSink _logSink;
 
-    // static initialisation
+    // static initialization
     {
         // setup a log for Jetty with a default file name
         try {
