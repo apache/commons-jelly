@@ -277,7 +277,7 @@ public class ArgTag extends BaseClassLoaderTag {
                 @Override
                 public Object convert(Class klass, Object value) {
                     if (value instanceof Number) {
-                        return new Double(((Number) value).doubleValue());
+                        return Double.valueOf(((Number) value).doubleValue());
                     } else {
                         return inner.convert(klass, value);
                     }
