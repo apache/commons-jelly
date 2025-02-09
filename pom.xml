@@ -342,7 +342,6 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <debug>true</debug>
-            <optimize>false</optimize>
             <showDeprecation>true</showDeprecation>
             <source>${maven.compiler.source}</source>
             <target>${maven.compiler.source}</target>
