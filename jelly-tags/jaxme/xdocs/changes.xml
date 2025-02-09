@@ -27,6 +27,9 @@
     <author email="dion@apache.org">dIon Gillard</author>
   </properties>
   <body>
+    <release version="1.0.1-SNAPSHOT" date="in SVN">
+      <action dev="sebb" type="fix">Add test dependency on xml-apis to fix missing class org.w3c.dom.ElementTraversal</action>
+    </release>
     <release version="1.0" date="2004-09-11">
     </release>
   </body>
