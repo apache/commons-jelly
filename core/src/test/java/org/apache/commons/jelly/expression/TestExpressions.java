@@ -88,7 +88,7 @@ public class TestExpressions extends TestCase {
         assertExpression("${maven.some.madeup.name}", null);
         assertExpression("cheese ${maven.some.madeup.name}pizza", "cheese pizza");
         assertExpression("ham and ${maven.home.foo} pizza", "ham and cheese pizza");
-        assertExpression("${maven.home.foo.length()}", new Integer(6));
+        assertExpression("${maven.home.foo.length()}", Integer.valueOf(6));
     }
     
     /** Tests that $${xx} is output as ${xx}. This trick is ued

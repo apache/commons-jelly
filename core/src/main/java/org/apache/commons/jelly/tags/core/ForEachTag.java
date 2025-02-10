@@ -103,9 +103,9 @@ public class ForEachTag extends TagSupport {
                 if (statusVar != null)
                 {
                     // set up statii as required by JSTL
-                    Integer statusBegin = (begin == 0) ? null : new Integer(begin);
-                    Integer statusEnd = (end == Integer.MAX_VALUE) ? null : new Integer(end);
-                    Integer statusStep = (step == 1) ? null : new Integer(step);
+                    Integer statusBegin = (begin == 0) ? null : Integer.valueOf(begin);
+                    Integer statusEnd = (end == Integer.MAX_VALUE) ? null : Integer.valueOf(end);
+                    Integer statusStep = (step == 1) ? null : Integer.valueOf(step);
                     status = new LoopStatus(statusBegin, statusEnd, statusStep);
                     context.setVariable(statusVar, status);
                 }
@@ -118,7 +118,7 @@ public class ForEachTag extends TagSupport {
                         context.setVariable(var, value);
                     }
                     if (indexVar != null) {
-                        context.setVariable(indexVar, new Integer(index));
+                        context.setVariable(indexVar, Integer.valueOf(index));
                     }
                     // set the status var up
                     if (statusVar != null) {
@@ -166,9 +166,9 @@ public class ForEachTag extends TagSupport {
                     if (statusVar != null)
                     {
                         // set up statii as required by JSTL
-                        Integer statusBegin = new Integer(begin);
-                        Integer statusEnd = new Integer(end);
-                        Integer statusStep = new Integer(step);
+                        Integer statusBegin = Integer.valueOf(begin);
+                        Integer statusEnd = Integer.valueOf(end);
+                        Integer statusStep = Integer.valueOf(step);
                         status = new LoopStatus(statusBegin, statusEnd, statusStep);
                         context.setVariable(statusVar, status);
                     }
@@ -176,7 +176,7 @@ public class ForEachTag extends TagSupport {
                     int count = 0;
                     for (index = begin; index <= end; index += step ) {
 
-                        Object value = new Integer(index);
+                        Object value = Integer.valueOf(index);
                         if (varName != null) {
                             context.setVariable(varName, value);
                         }

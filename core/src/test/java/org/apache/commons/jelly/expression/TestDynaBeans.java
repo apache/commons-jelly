@@ -57,12 +57,12 @@ public class TestDynaBeans extends TestCase {
         DynaClass dynaClass = createDynaClass();
         DynaBean dynaBean = dynaClass.newInstance();
         dynaBean.set( "stringProperty", "foo" );
-        dynaBean.set( "intProperty", new Integer(24) );
+        dynaBean.set( "intProperty", Integer.valueOf(24) );
 
         context.setVariable("dbean", dynaBean);
 
         assertExpression("${dbean.stringProperty}", "foo");
-        assertExpression("${dbean.intProperty}", new Integer(24));
+        assertExpression("${dbean.intProperty}", Integer.valueOf(24));
     }
 
     protected DynaClass createDynaClass() {

@@ -51,7 +51,7 @@ public class TestGetStaticTag extends BaseJellyTest {
 
         script.run( getJellyContext(), getXMLOutput() );
 
-        assertEquals( new Integer(java.lang.Integer.MAX_VALUE),
+        assertEquals( Integer.valueOf(java.lang.Integer.MAX_VALUE),
                       getJellyContext().getVariable("value" ) );
     }
 
