@@ -281,56 +281,56 @@ public class ForEachTag extends TagSupport {
             this.step = step;
         }
         /**
-         * @return Returns the begin.
+         * @return the begin.
          */
         @Override
         public Integer getBegin() {
             return begin;
         }
         /**
-         * @return Returns the count.
+         * @return the count.
          */
         @Override
         public int getCount() {
             return count;
         }
         /**
-         * @return Returns the current.
+         * @return the current.
          */
         @Override
         public Object getCurrent() {
             return current;
         }
         /**
-         * @return Returns the end.
+         * @return the end.
          */
         @Override
         public Integer getEnd() {
             return end;
         }
         /**
-         * @return Returns the first.
+         * @return the first.
          */
         @Override
         public boolean isFirst() {
             return first;
         }
         /**
-         * @return Returns the index.
+         * @return the index.
          */
         @Override
         public int getIndex() {
             return index;
         }
         /**
-         * @return Returns the last.
+         * @return the last.
          */
         @Override
         public boolean isLast() {
             return last;
         }
         /**
-         * @return Returns the step.
+         * @return the step.
          */
         @Override
         public Integer getStep() {

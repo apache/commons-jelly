@@ -157,7 +157,7 @@ public class CatchTag extends TagSupport {
 	}	
 
 	/**
-	 * @return Returns the exceptions.
+	 * @return the exceptions.
 	 */
 	public String getExceptions() {
 		return exceptions;

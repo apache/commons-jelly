@@ -57,7 +57,7 @@ public class ModularExceptionBean {
     
     
     /**
-     * @return Returns the exception.
+     * @return the exception.
      */
     public String getException() {
         return exception;
