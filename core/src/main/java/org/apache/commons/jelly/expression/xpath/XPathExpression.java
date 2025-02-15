@@ -95,7 +95,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
             if (context.isSuppressExpressionExceptions())
                 log.error("Error constructing xpath", e);
             else
-            	throw (IllegalStateException)new IllegalStateException (e.getMessage()).initCause(e);
+            	throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
         }
 
         return null;
