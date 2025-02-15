@@ -84,7 +84,7 @@ public class JexlExpression extends ExpressionSupport {
         			throw (RuntimeException)e;
         		if (e instanceof IllegalStateException)
         			throw (IllegalStateException )e;
-            	throw (IllegalStateException)new IllegalStateException (e.getMessage()).initCause(e);
+            	throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
         	}
         }
     }
