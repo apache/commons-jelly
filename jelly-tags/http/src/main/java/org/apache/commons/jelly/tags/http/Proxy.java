@@ -41,7 +41,7 @@ public class Proxy {
     }
 
     /**
-     * Create a proxy given a host name and port number .
+     * Create a proxy given a host name and port number.
      *
      * @param host the host name of the proxy to be used.
      * @param port the port to send proxied requests on.
