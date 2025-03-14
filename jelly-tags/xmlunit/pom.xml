@@ -61,7 +61,7 @@
     <dependency>
       <groupId>xml-apis</groupId>
       <artifactId>xml-apis</artifactId>
-      <!-- N.B. the latest version (2.0.2) does not have the required class:
+      <!-- The latest version (2.0.2) does not have the required class:
            org.w3c.dom.ElementTraversal 
       -->
       <version>1.4.01</version>
