@@ -28,8 +28,6 @@ import org.apache.commons.jelly.XMLOutput;
  * The properties are added to the properties array
  * of the parent context, and will be used to
  * create the DynaClass object
- *
- * @author Theo Niemeijer
  * @version 1.0
  */
 public class PropertyTag extends TagSupport {

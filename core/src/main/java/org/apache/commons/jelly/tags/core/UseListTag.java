@@ -32,8 +32,6 @@ import org.apache.commons.jelly.impl.CollectionTag;
  * The exact implementation of List can be specified via the
  * class attribute
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class UseListTag extends UseBeanTag implements CollectionTag {
 

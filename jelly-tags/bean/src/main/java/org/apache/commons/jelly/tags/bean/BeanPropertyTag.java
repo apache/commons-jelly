@@ -30,9 +30,6 @@ import org.apache.commons.jelly.XMLOutput;
  * Creates a nested property via calling a beans createFoo() method then
  * either calling the setFoo(value) or addFoo(value) methods in a similar way
  * to how Ant tags construct themselves.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author Christian Sell
  */
 public class BeanPropertyTag extends BeanTag {
 

@@ -32,8 +32,6 @@ import org.apache.commons.logging.LogFactory;
  * Represents a <a href="https://commons.apache.org/jexl/">Jexl</a>
  * expression which fully supports the Expression Language in JSTL and JSP
  * along with some extra features like object method invocation.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public class JexlExpression extends ExpressionSupport {

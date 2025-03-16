@@ -25,9 +25,6 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Class to create a {@link Color} instance within Jelly SWT.
- *
- * @author <a href="mailto:crafterm@apache.org">Marcus Crafter</a>
- * @author Written with much help thanks to the ImageTag class
  */
 public class ColorTag extends TagSupport {
 

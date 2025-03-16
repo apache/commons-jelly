@@ -28,8 +28,7 @@ import org.xml.sax.SAXException;
 
 import junit.framework.TestCase;
 
-/**
- * @author mdelagrange
+/*
  */
 public class TestCData extends TestCase {
 

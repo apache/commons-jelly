@@ -109,9 +109,6 @@ import org.xml.sax.Attributes;
 <li>tree - JTree
 <li>toolBar - JToolBar
  * </ul>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public class SwingTagLibrary extends TagLibrary {
 

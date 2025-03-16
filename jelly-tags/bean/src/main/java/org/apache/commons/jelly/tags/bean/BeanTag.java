@@ -34,9 +34,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Creates a bean for the given tag which is then either output as a variable
  * or can be added to a parent tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author Christian Sell
  * @version   $Revision$
  */
 public class BeanTag extends UseBeanTag {

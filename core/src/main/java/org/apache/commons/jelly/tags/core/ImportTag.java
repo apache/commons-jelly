@@ -30,8 +30,6 @@ import org.apache.commons.jelly.XMLOutput;
  *  the parent script's variable context.  This behavior
  *  may be modified using the <code>inherit</code> attribute.
  *  </p>
- *
- * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 
 public class ImportTag extends TagSupport {

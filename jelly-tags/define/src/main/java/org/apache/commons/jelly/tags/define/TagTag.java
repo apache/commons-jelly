@@ -27,8 +27,6 @@ import org.apache.commons.jelly.XMLOutput;
  * notations. Inside the body of the tag definition, the attributes can
  * be accessed as normal Jelly variables.
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TagTag extends DefineTagSupport {
 

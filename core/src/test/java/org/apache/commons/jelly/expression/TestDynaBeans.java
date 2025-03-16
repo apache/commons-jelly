@@ -33,8 +33,6 @@ import junit.textui.TestRunner;
 
 /**
  * Tests the use of Expression parsing
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TestDynaBeans extends TestCase {
 

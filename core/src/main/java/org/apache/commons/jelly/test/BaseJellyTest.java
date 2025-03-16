@@ -25,8 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
 
 import junit.framework.TestCase;
 
-/**
- * @author Rodney Waldhoff
+/*
  */
 public abstract class BaseJellyTest extends TestCase {
 

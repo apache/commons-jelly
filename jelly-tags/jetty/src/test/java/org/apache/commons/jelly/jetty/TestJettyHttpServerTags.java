@@ -31,8 +31,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** Tests the parser, the engine and the XML tags
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class TestJettyHttpServerTags extends TestCase {
 

@@ -22,8 +22,6 @@ import org.apache.commons.jelly.JellyContext;
 
 /** <p><code>Expression</code> represents an arbitrary expression using some pluggable
   * expression language.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public interface Expression {
 

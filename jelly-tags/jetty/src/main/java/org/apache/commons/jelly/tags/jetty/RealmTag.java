@@ -28,8 +28,6 @@ import java.net.URL;
 
 /**
  * Declare a user realm for a Jetty http server
- *
- * @author  rtl
  */
 public class RealmTag extends TagSupport {
 

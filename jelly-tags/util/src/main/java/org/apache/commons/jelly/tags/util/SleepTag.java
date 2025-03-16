@@ -22,8 +22,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 /**
  * A tag which sleeps for a given amount of time.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class SleepTag extends TagSupport {
     private long millis;

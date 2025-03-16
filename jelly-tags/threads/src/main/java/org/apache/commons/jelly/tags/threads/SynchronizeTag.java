@@ -24,8 +24,6 @@ import org.apache.commons.jelly.XMLOutput;
  * Synchronize a block inside of a thread using the passed in mutex. The
  * mutex object passed in does not have to have been created using the
  * mutex tag, it can be any object at all.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class SynchronizeTag extends UseMutexTag {

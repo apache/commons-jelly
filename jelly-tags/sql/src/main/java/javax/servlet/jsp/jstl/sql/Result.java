@@ -32,8 +32,6 @@ import java.util.SortedMap;
  * <li> indication whether result returned is a complete set or
  *      a subset limited by a maximum row setting
  * </ul>
- *
- * @author Justyna Horwat
  */
 public interface Result {
 

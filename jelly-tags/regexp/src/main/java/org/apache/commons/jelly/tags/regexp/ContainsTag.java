@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.regexp;
 
 /**
  * This tag checks whether a regexp contains a string.
- *
- * @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
  */
 public class ContainsTag extends RegexpTag {
     @Override

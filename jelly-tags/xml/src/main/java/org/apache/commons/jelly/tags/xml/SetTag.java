@@ -41,8 +41,6 @@ import java.util.ListIterator;
   * (for example {@link org.dom4j.Element} or {@link org.dom4j.Attribute}).
   * Thus, the variable created from xml:set can be
   * used from the other xml library functions.
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class SetTag extends XPathTagSupport {
 

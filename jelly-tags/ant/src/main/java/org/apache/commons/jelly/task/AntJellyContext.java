@@ -27,8 +27,6 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.Project;
 
 /** <p><code>AntJellyContext</code> represents the Jelly context from inside Ant.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 
 public class AntJellyContext extends JellyContext {

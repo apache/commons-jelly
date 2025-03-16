@@ -27,8 +27,6 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Creates a new Layout implementations and adds it to the parent Widget.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
 public class LayoutTag extends LayoutTagSupport {

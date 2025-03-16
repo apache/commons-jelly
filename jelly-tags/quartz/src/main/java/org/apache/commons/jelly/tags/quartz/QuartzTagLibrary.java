@@ -24,8 +24,6 @@ import org.apache.commons.jelly.TagLibrary;
  *  <p>
  *  <a href="http://quartz.sf.net/">quartz @ sourceforge</a>
  *  </p>
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public class QuartzTagLibrary extends TagLibrary
 {

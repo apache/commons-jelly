@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.antlr;
 import org.apache.commons.jelly.TagLibrary;
 
 /** Implements tags that are useful for working with ANTLR.
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public class AntlrTagLibrary extends TagLibrary
 {

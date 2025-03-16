@@ -28,8 +28,6 @@ import org.xml.sax.Attributes;
  * A normal tag library which will use a BeanTag to create beans but this tag
  * library does not derive from BeanTagLibrary and so does not have a &lt;
  * beandef&gt; tag
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class MyTagLibrary extends TagLibrary {
 

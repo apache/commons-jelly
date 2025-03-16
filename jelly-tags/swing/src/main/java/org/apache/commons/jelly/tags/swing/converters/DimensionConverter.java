@@ -23,8 +23,6 @@ import org.apache.commons.beanutils.Converter;
 
 /**
  * A Converter that turns Strings in the form "width, height" into Dimension objects
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DimensionConverter implements Converter {
 

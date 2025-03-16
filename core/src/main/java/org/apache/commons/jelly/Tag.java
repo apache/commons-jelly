@@ -24,8 +24,6 @@ package org.apache.commons.jelly;
  * A Tag is created per custom tag in a script, per invocation.
  * So there is no need to worry about pooling errors like those caused
  * in JSP 1.x.(</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public interface Tag {
 

@@ -24,9 +24,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * A tag which invokes a BeanShell script.
- *
- * @author Jason Horman
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ScriptTag extends TagSupport {
 

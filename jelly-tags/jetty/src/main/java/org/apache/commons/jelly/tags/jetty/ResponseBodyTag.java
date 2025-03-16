@@ -28,8 +28,6 @@ import org.mortbay.util.ByteArrayISO8859Writer;
 
 /**
  * Sets the response body in a response handler for a Jetty http server
- *
- * @author  rtl
  */
 public class ResponseBodyTag extends TagSupport {
 

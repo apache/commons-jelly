@@ -25,8 +25,6 @@ import org.mortbay.http.HttpResponse;
 
 /**
  * Sets the response code in the request handler of a Jetty http server
- *
- * @author  rtl
  */
 public class ResponseCodeTag extends TagSupport {
 

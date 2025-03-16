@@ -30,8 +30,6 @@ import org.eclipse.swt.widgets.Control;
 
 /**
  *  This Tag creates a JFace WizardPage
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class WizardPageTag extends UseBeanTag {
 

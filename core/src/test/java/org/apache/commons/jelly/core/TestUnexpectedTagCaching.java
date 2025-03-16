@@ -37,8 +37,6 @@ import junit.framework.TestCase;
  * This test illustrates pre-1.0 Jelly behavior that did not cache tags by default. Many user tag implementations
  * will assume that they are at an initialized state when doTag() is called, rather than still being "dirty" from a
  * prior run.
- *
- * @author <a href="mailto:proyal@apache.org">peter royal</a>
  */
 public class TestUnexpectedTagCaching extends TestCase
 {

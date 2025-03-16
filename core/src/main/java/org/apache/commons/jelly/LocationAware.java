@@ -21,8 +21,6 @@ package org.apache.commons.jelly;
  * <p><code>LocationAware</code> represents a Tag or Exception which is location aware.
  * That is to say it is capable of recording where in a Jelly script a tag or exception
  * is used which can aid debugging and tracing.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public interface LocationAware {

@@ -26,8 +26,6 @@ import javax.servlet.ServletContext;
 import org.apache.commons.jelly.JellyContext;
 
 /**
- *
- * @author <a href="mailto:kelvint@apache.org">Kelvin Tan</a>
  * @version 1.1
  */
 public class JellyServletContext extends JellyContext {

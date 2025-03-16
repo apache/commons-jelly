@@ -24,8 +24,6 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
 /**
  * &lt;extend&gt; is used to extend a dynamic tag defined in an inherited
  * dynamic tag library.
- *
- * @author <a href="mailto:tima@intalio.com">Tim Anderson</a>
  * @see SuperTag
  */
 public class ExtendTag extends DefineTagSupport {

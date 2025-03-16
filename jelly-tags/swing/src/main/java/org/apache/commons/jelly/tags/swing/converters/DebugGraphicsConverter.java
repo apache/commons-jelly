@@ -25,8 +25,6 @@ import org.apache.commons.beanutils.ConvertUtils;
 /**
  * A Converter that turns Strings in one of the constants of
  *    {@link DebugGraphics} to their appropriate integer constant.
- *
- * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
  */
 public class DebugGraphicsConverter implements Converter {
 

@@ -32,8 +32,6 @@ import org.apache.commons.jelly.impl.TagScript;
 import org.xml.sax.Attributes;
 
 /** <p><code>Taglib</code> represents the metadata for a Jelly custom tag library.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 
 public abstract class TagLibrary {

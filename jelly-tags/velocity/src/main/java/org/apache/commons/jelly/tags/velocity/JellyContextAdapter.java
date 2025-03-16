@@ -32,8 +32,6 @@ import org.apache.velocity.context.Context;
  * which is the default behavior.  The adapter can also be used in a
  * read-write mode.  This permits changes made by Velocity to propagate
  * to the JellyContext.
- *
- * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
  */
 public class JellyContextAdapter implements Context
 {

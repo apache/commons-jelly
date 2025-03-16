@@ -30,8 +30,6 @@ import org.eclipse.swt.widgets.Event;
 
 /**
  * This tag creates an JFace Action
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class ActionTag extends UseBeanTag {
 

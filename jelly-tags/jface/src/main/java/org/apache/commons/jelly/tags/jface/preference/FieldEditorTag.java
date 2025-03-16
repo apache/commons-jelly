@@ -29,8 +29,6 @@ import org.eclipse.swt.widgets.Composite;
 
 /**
  * This Tag creates a JFace FieldEditor
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class FieldEditorTag extends UseBeanTag {
 

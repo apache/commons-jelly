@@ -35,8 +35,6 @@ import org.xml.sax.Attributes;
 /**
  * Binds a Java bean to the given named Jelly tag so that the attributes of
  * the tag set the bean properties.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DynaBeanTag extends DefineTagSupport {
 

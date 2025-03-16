@@ -21,8 +21,6 @@ import org.apache.commons.jelly.JellyTagException;
 /**
  * A tag which is capable of consuming objects, such as a &lt;useList&gt; tag
  * such that nested objects will be added to the parent tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public interface CollectionTag {
 

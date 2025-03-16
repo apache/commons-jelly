@@ -26,8 +26,6 @@ import org.apache.commons.jelly.tags.Resources;
 /**
  * <p>Tag handler for &lt;Param&gt; in JSTL, used to set
  * parameter values for a SQL statement.</p>
- *
- * @author Hans Bergsten
  */
 
 public class ParamTag extends TagSupport {

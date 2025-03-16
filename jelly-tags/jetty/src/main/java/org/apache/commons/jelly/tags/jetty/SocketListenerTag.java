@@ -28,8 +28,6 @@ import org.mortbay.util.InetAddrPort;
 
 /**
  * Declare a socket listener for a Jetty http server
- *
- * @author  rtl
  */
 public class SocketListenerTag extends TagSupport {
 

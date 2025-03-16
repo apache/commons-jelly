@@ -22,8 +22,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** Adds a map entry to the outer Map Message tag
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class MapEntryTag extends TagSupport {
 

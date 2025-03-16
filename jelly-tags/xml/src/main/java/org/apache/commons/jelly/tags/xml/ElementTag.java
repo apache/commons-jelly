@@ -26,8 +26,6 @@ import org.xml.sax.helpers.AttributesImpl;
 
 /** A tag to produce an XML element which can contain other attributes
   * or elements like the <code>&lt;xsl:element&gt;</code> tag.
-  *
-  * @author James Strachan
   */
 public class ElementTag extends TagSupport {
 

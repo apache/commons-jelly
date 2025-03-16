@@ -25,8 +25,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Simple Test Tag
- *
- * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
  */
 public class DummyTag extends TagSupport {
     /** The Log to which logging calls will be made. */

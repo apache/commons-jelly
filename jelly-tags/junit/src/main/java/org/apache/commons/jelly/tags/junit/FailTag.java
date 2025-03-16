@@ -22,8 +22,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * This tag causes a failure message. The message can either
  * be specified in the tags body or via the message attribute.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class FailTag extends AssertTagSupport {
 

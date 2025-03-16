@@ -27,8 +27,6 @@ import org.jaxen.XPath;
 /**
  * Compares xml nodes by extracting the value at xpath and
  * comparing it.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class XPathComparator implements Comparator {

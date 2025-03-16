@@ -25,8 +25,6 @@ import org.eclipse.jface.action.IContributionManager;
 
 /**
  * This tag creates an JFace ContributionItem
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class ContributionItemTag extends UseBeanTag {
 

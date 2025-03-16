@@ -25,8 +25,6 @@ import org.xml.sax.helpers.AttributesImpl;
 /**
  * <p><code>StaticTag</code> represents a static XML element
  * which echos itself to XMLOutput when it is invoked.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public class StaticTag extends DynaTagSupport {

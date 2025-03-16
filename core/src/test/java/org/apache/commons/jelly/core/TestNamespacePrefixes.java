@@ -36,8 +36,7 @@ import junit.framework.TestSuite;
 /**
  * Tests for bug JELLY-184, where enabling feature
  * "http://xml.org/sax/features/namespace-prefixes" breaks Jelly.
- * 
- * @author <a href="mailto:john.spackman@zenesis.net">John Spackman</a>
+ *
  */
 public class TestNamespacePrefixes extends BaseJellyTest {
 

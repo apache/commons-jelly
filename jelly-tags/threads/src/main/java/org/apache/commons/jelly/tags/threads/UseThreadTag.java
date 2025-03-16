@@ -25,8 +25,6 @@ import java.util.List;
 
 /**
  * Base class for tags that will "use" threads.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public abstract class UseThreadTag extends TagSupport {

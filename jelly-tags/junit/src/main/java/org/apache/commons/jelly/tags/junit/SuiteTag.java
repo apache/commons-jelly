@@ -26,8 +26,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * Represents a collection of TestCases.. This tag is analagous to
  * JUnit's TestSuite class.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class SuiteTag extends TagSupport {
 

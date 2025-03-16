@@ -27,8 +27,6 @@ package org.apache.commons.jelly;
  * This kind of tag can be extremely useful when making HTML-like tags which
  * generally output all the attributes which are used in the markup, except
  * one or two special attributes are used, all others pass through.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public interface DynaTag extends Tag {

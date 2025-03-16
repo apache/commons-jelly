@@ -24,8 +24,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * A simple tag used to preserve whitespace inside its body
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class WhitespaceTag extends TagSupport {
 

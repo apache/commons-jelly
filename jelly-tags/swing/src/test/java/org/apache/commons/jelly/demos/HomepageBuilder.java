@@ -47,8 +47,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * A sample Swing program that demonstrates the use of Jelly as a templating mechanism
- *
- * @author Otto von Wachter
  */
 public class HomepageBuilder extends JPanel {
 

@@ -24,8 +24,6 @@ import org.apache.ojb.broker.PersistenceBroker;
 /**
  * <p>This Store tag will store the given object in ObjectBridge using
  * the given broker or it will use the parent broker tags broker instance.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class StoreTag extends TagSupport {
 

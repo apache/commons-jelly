@@ -33,8 +33,6 @@ import org.xml.sax.SAXException;
 /** A tag which parses some HTML and defines a variable with the parsed Document.
   * The HTML can either be specified as its body or can be passed in via the
   * html property which can be a Reader, InputStream, URL or String URI.
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class ParseTag extends ParseTagSupport {
 

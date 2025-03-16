@@ -28,8 +28,6 @@ import org.dom4j.rule.Stylesheet;
 /**
  * This class is a specialization of the Stylesheet from dom4j's rule engine
  * that adds some Jelly specific features.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class JellyStylesheet extends Stylesheet {
 

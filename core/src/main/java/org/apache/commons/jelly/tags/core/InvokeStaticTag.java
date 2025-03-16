@@ -42,8 +42,6 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
   *   <li>method - The name of the static method to invoke</li>
   *   <li>className - The name of the class containing the static method</li>
   * </ul>
-  *
-  * @author robert@bull-enterprises.com Robert McIntosh
   */
 public class InvokeStaticTag extends TagSupport implements ArgTagParent {
 

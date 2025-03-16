@@ -42,8 +42,6 @@ import org.apache.commons.jelly.XMLOutput;
  * An Avalon based service for executing Jelly scripts. The
  * service allows executing a script based on a name as well
  * as by a URL.
- *
- * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
  */
 public class JellyServiceImpl implements JellyService, Configurable {
 

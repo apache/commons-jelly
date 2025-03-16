@@ -31,8 +31,6 @@ import org.apache.commons.beanutils.Converter;
  *    TODO: provide support of ARGB colors as well.<br>
  * Future: provide support for color-spaces, indexed colors...
  *        (in particular theme-based colors)
- *
- * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
  */
 public class ColorConverter implements Converter {
 

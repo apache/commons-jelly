@@ -29,8 +29,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
   * A tag which calls a method in an object instantiated by core:new
   *
-  *
-  * @author Rodney Waldhoff
   */
 public class InvokeTag extends TagSupport implements ArgTagParent {
 

@@ -22,8 +22,6 @@ import java.util.List;
 
 /**
  * A thread join waits until a thread or threadGroup is complete.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class JoinTag extends UseThreadTag {

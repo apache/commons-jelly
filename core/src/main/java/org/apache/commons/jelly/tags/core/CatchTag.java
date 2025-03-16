@@ -24,8 +24,6 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag which catches exceptions thrown by its body.
  * This allows conditional logic to be performed based on if exceptions
  * are thrown or to do some kind of custom exception logging logic.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class CatchTag extends TagSupport {
 

@@ -28,8 +28,6 @@ import org.apache.commons.logging.LogFactory;
  * The &lt;invoke&gt; tag will invoke a given Script instance.
  * It can be used with the &lt;script&gt; tag which defines scripts
  * as variables that can later be invoked by this &lt;invoke&gt; tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class InvokeTag extends TagSupport {
 

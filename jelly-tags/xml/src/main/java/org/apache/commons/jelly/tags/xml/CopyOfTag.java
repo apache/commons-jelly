@@ -30,8 +30,6 @@ import org.jaxen.XPath;
 import org.xml.sax.SAXException;
 
 /** A tag which performs a copy-of operation like the XSLT tag
-  *
-  * @author James Strachan
   */
 public class CopyOfTag extends XPathTagSupport {
 

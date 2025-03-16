@@ -36,8 +36,6 @@ import org.xml.sax.SAXException;
  * <p>
  * The result is placed into the processed content for further processing by enclosing 
  * tags.</p>
- *
- * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
  */
 public class MarshallTag extends TagSupport {
         

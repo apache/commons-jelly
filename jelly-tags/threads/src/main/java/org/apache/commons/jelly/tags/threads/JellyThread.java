@@ -21,8 +21,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * Adds some functionality to the jdk thread class.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class JellyThread extends Thread {

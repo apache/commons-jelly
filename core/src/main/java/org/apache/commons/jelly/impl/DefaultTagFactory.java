@@ -23,8 +23,6 @@ import org.xml.sax.Attributes;
 /**
  * <p><code>DefaultTagFactory</code> a default implementation of TagFactory
  * which creates new instances of a given class.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DefaultTagFactory implements TagFactory {
 

@@ -32,8 +32,6 @@ import java.util.TimeZone;
  * Support for tag handlers for &lt;timeZone&gt;, the time zone loading
  * tag in JSTL.
  *
- * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
- *
  * task decide how to implement setResponseLocale
  */
 public class TimeZoneTag extends TagSupport {

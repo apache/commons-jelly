@@ -27,8 +27,6 @@ import org.quartz.JobDetail;
 import org.quartz.JobDataMap;
 
 /** Defines a schedulable job.
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public class JobTag extends QuartzTagSupport
 {

@@ -26,8 +26,6 @@ import org.xml.sax.SAXException;
 
 /** A tag which performs a string XPath expression; similar to &lt;xsl:value-of&gt;
   * in XSLT
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class ExprTag extends XPathTagSupport {
 

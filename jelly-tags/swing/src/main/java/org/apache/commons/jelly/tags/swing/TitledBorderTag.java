@@ -33,8 +33,6 @@ import org.apache.commons.logging.LogFactory;
  * Creates a titled border.
  * The border will either be exported as a variable defined by the 'var' attribute
  * or will be set on the parent widget's border property
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TitledBorderTag extends BorderTagSupport {
 

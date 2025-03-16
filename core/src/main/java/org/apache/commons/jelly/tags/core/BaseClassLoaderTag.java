@@ -20,9 +20,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 
 /** Abstract base tag providing {@link ClassLoader} support.
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
-  * @author Rodney Waldhoff
   */
 public abstract class BaseClassLoaderTag extends TagSupport {
     /**

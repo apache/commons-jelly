@@ -25,8 +25,6 @@ import org.apache.commons.jelly.util.TagUtils;
 
 /** <p><code>TagSupport</code> an abstract base class which is useful to
   * inherit from if developing your own tag.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 
 public abstract class TagSupport implements Tag {

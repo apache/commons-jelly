@@ -24,8 +24,6 @@ import org.xml.sax.SAXException;
 /**
  * Ensures that only one start and end document event is passed onto the underlying
  * ContentHandler. This object can only be used once and then discarded.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class SafeContentHandler implements ContentHandler {
     private ContentHandler handler;

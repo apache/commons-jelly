@@ -28,8 +28,6 @@ import org.xml.sax.Attributes;
 /**
  * <p><code>DynamicTagLibrary</code> represents a TagLibrary which
  * gets created by running a Jelly script.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DynamicTagLibrary extends TagLibrary {
 

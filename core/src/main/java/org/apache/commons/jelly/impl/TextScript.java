@@ -23,8 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 import org.xml.sax.SAXException;
 
 /** <p><code>TextScript</code> outputs some static text.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class TextScript implements Script {
 

@@ -24,8 +24,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * A resource handler that uses Jelly scripts to provide resources
  * to a context in a Jetty http server
- *
- * @author  rtl
  */
 public class JellyResourceHandlerTag extends TagSupport {
 

@@ -34,8 +34,6 @@ import org.xml.sax.helpers.AttributesImpl;
  * validate against DTDs, XML Schema, RelaxNG, Relax or TREX.
  * Any JARV compliant Verifier could be used.
  * The error messages are output as XML events so that they can be styled by the parent tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ValidateTag extends TagSupport {
 

@@ -36,8 +36,6 @@ import org.xml.sax.SAXException;
 /**
  * A tag that pipes its body to a file denoted by the name attribute or to an in memory String
  * which is then output to a variable denoted by the var variable.
- *
- * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
  */
 public class FileTag extends TagSupport {
     private boolean doAppend = false;

@@ -30,8 +30,6 @@ import org.apache.commons.jelly.impl.DynamicTagLibrary;
  *
  * You can 'inherit' tags from a previously defined taglib, as well,
  * allowing runtime extension of tag libraries
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TaglibTag extends TagSupport {
 

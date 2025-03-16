@@ -32,8 +32,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Represents a tabular row inside a &lt;tableLayout&gt; tag which mimicks the
  * &lt;tr&gt; HTML tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TrTag extends TagSupport {
 

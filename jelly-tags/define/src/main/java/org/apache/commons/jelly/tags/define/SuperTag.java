@@ -23,8 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * &lt;super&gt; tag is used to invoke a parent tag implementation, when
  * a tag extends an existing tag
- *
- * @author <a href="mailto:tima@intalio.com">Tim Anderson</a>
  * @see ExtendTag
  */
 public class SuperTag extends TagSupport {

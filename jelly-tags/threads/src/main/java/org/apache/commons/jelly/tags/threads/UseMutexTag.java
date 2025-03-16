@@ -23,8 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Base class for tags that will "use" mutexes.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public abstract class UseMutexTag extends TagSupport {

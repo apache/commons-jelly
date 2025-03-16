@@ -41,8 +41,6 @@ import org.xml.sax.SAXException;
  * <pre>
  * jelly [scriptFile] [-script scriptFile -o outputFile -Dsysprop=syspropval]
  * </pre>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class Jelly {
     

@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.regexp;
 
 import org.apache.commons.jelly.TagLibrary;
 /** Implements regexp tags.
- *
- *  @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
  */
 public class RegexpTagLibrary extends TagLibrary {
     

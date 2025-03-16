@@ -25,8 +25,6 @@ import org.xml.sax.helpers.XMLFilterImpl;
  * XMLFilter that can provide a default namespace when
  * one has not been declared by the XML document.  Note:
  * this class does not address the namespace of attributes.
- *
- * @author Morgan Delagrange
  */
 public class DefaultNamespaceFilter extends XMLFilterImpl {
 

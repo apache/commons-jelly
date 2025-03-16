@@ -23,8 +23,6 @@ import org.apache.commons.jelly.tags.swing.model.ExpressionTableColumn;
 
 /**
  * Creates a default TableColumnModel.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TableModelColumnTag extends UseBeanTag {
 

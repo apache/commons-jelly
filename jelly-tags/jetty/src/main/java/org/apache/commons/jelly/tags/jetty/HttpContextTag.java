@@ -33,8 +33,6 @@ import java.net.MalformedURLException;
 
 /**
  * Declare a context for a Jetty http server
- *
- * @author  rtl
  */
 public class HttpContextTag extends TagSupport {
 

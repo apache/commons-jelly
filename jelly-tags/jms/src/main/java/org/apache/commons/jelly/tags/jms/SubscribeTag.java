@@ -29,8 +29,6 @@ import org.apache.commons.logging.LogFactory;
  * Performs a subscription to some JMS connection to a destination maybe with a selector.
  * A JMS MessageListener can be specified, or a special child tag can explicitly set it on
  * its parent (so a special tag could construct a MessageListener object and register it with this tag).
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
 

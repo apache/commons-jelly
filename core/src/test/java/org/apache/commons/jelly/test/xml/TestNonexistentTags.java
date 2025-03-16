@@ -30,8 +30,6 @@ import junit.framework.TestSuite;
 /**
  * A test to confirm that Jelly scripts fail to parse if they declare tags
  * that do not exist
- *
- * @author Morgan Delagrange
  */
 public class TestNonexistentTags extends TestCase {
      Jelly jelly = null;

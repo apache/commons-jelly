@@ -24,8 +24,6 @@ import org.apache.commons.jelly.tags.core.UseBeanTag;
  * we implement the BeanSource interface, and that the bean returned from the
  * getBean() method supplies the appropriate create[nested tag name] and/or
  * add[nested tag name] methods.
- *
- * @author Christian Sell
  * @version CustomerTag.java,v 1.1 2003/01/21 15:16:32 jstrachan Exp
  */
 public class CustomerTag extends UseBeanTag {

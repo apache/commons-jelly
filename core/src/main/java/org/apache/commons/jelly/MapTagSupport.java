@@ -26,8 +26,6 @@ import java.util.Map;
  * Map, change values, add or remove attributes or perform some other form
  * of processing pretty easily.
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public abstract class MapTagSupport extends DynaTagSupport {

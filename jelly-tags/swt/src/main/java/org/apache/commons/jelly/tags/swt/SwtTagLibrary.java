@@ -75,8 +75,6 @@ import org.xml.sax.Attributes;
 
 /**
  * A Jelly custom tag library that creates SWT user interfaces
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
 public class SwtTagLibrary extends TagLibrary {

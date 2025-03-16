@@ -45,8 +45,6 @@ import org.xml.sax.Attributes;
 /**
  * A Jelly custom tag library that creates JFace user interfaces
  * This taglib extends the SWT tag lib
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class JFaceTagLibrary extends SwtTagLibrary {
 

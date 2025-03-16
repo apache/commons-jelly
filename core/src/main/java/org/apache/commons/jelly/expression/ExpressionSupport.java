@@ -33,8 +33,6 @@ import org.apache.commons.lang.StringUtils;
   * an abstract base class for Expression implementations
   * which provides default implementations of some of the
   * typesafe evaluation methods.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public abstract class ExpressionSupport implements Expression {
 

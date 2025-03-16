@@ -34,8 +34,7 @@ import java.util.Properties;
  * implement <code>setProperty</code>, <code>getProperty</code>,
  * and <code>getProperties</code> to provide a complete
  * implementation of <code>PropsHandler</code>.
- * 
- *  @author <a href="mailto:stephenh@chase3000.com">Stephen Haberman</a>
+ *
  */
 public class DefaultPropsHandler implements PropsHandler {
 

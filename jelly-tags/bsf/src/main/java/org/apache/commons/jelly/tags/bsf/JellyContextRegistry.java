@@ -24,8 +24,6 @@ import org.apache.commons.logging.LogFactory;
 
 /** A BSF ObjectRegistry which uses the Context to find and
   * register objects
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class JellyContextRegistry extends ObjectRegistry {
 

@@ -21,8 +21,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** A tag which conditionally evaluates its body based on some condition
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class ChooseTag extends TagSupport {
 

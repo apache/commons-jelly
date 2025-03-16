@@ -24,8 +24,7 @@ import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
 
-/**
- * @author Rodney Waldhoff
+/*
  */
 public abstract class BaseJellyTest extends TestCase {
 

@@ -41,8 +41,6 @@ package javax.servlet.jsp.jstl.sql;
  * parameters from any source and process them before substituting
  * them for a parameter marker in the sQL statement of the
  * enclosing <code>SQLExecutionTag</code> action</p>
- *
- * @author Justyna Horwat
  */
 public interface SQLExecutionTag {
 

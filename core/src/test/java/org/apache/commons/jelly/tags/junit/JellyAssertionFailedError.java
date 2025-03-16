@@ -28,8 +28,6 @@ import junit.framework.AssertionFailedError;
  * <p><code>JellyAssertionFailedError</code> is
  * a JUnit AssertionFailedError which is LocationAware so that it can include
  * details of where in the JellyUnit test case that the failure occurred.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public class JellyAssertionFailedError extends AssertionFailedError implements LocationAware {

@@ -43,8 +43,6 @@ import org.xml.sax.SAXException;
  * This tag unmarshalls the xml content contained 
  * into the JaxMe generated java objects in the packages specified.
  * </p>
- *
- * @author <a href="mailto:joe@ispsoft.de">Jochen Wiedmann</a>
  */
 public class UnmarshallTag extends TagSupport {
        

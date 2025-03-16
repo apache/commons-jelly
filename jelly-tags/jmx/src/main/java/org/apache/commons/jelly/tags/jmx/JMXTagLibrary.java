@@ -26,8 +26,6 @@ import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
  * A Tag library for creating an instantiating Java Beans and MBeans
  * and registering them with JMX. Support for setting JMX attributes
  * and invoking JMX operations is also supported.
- *
- * @author
  */
 public class JMXTagLibrary extends BeanTagLibrary {
 

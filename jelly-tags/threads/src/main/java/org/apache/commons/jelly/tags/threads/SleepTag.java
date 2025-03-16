@@ -22,8 +22,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Puts the current thread to sleep for some amount of time.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class SleepTag extends TagSupport {

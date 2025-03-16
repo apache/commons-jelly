@@ -21,8 +21,6 @@ import org.apache.commons.jelly.TagLibrary;
 /**
  * A Jelly custom tag library that uses the Betwixt project to parse XML and turn it into beans or
  * turn beans into XML
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class BetwixtTagLibrary extends TagLibrary {
 

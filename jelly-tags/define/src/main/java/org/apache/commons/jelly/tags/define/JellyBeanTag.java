@@ -28,8 +28,6 @@ import org.apache.commons.logging.LogFactory;
  * Binds a Java bean to the given named Jelly tag so that the attributes of
  * the tag set the bean properties. After the body of this tag is invoked
  * then the beans invoke() method will be called, if the bean has one.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class JellyBeanTag extends BeanTag {
 

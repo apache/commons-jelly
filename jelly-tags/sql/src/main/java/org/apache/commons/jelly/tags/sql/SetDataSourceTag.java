@@ -29,9 +29,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * <p>Tag handler for &lt;SetDataSource&gt; in JSTL, used to create
  * a simple DataSource for prototyping.</p>
- *
- * @author Hans Bergsten
- * @author Justyna Horwat
  */
 public class SetDataSourceTag extends TagSupport {
 

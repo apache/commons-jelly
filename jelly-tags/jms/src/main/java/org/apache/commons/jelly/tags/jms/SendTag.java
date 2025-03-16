@@ -24,8 +24,6 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
 /** Sends a JMS message to some destination.
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class SendTag extends MessageOperationTag {
 

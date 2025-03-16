@@ -31,8 +31,6 @@ import junit.framework.TestSuite;
 /**
  * A test to confirm that invalid documents are
  * reject iff jelly.setValidateXML(true)
- *
- * @author Morgan Delagrange
  */
 public class TestXMLValidation extends TestCase {
 

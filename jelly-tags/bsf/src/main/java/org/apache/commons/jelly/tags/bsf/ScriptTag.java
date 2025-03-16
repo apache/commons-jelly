@@ -32,8 +32,6 @@ import org.apache.bsf.BSFException;
 
 /**
  * A tag which evaluates its body using the current scripting language
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ScriptTag extends TagSupport implements LocationAware {
 

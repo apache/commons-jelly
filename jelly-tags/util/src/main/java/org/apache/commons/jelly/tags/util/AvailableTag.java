@@ -31,8 +31,6 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag which evaluates its body if the given file is available.
  * The file can be specified via a File object or via a relative or absolute
  * URI from the current Jelly script.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class AvailableTag extends TagSupport {
 

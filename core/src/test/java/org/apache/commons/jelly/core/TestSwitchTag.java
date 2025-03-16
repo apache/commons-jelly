@@ -23,8 +23,7 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 import junit.framework.TestSuite;
 
-/**
- * @author Rodney Waldhoff
+/*
  */
 public class TestSwitchTag extends BaseJellyTest {
 

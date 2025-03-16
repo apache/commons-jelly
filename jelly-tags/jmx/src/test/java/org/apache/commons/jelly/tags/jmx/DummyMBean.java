@@ -18,7 +18,6 @@ package org.apache.commons.jelly.tags.jmx;
 
 /**
  * A dummy MBean interface
- * @author James Strachan
  */
 public interface DummyMBean {
     int getCount();

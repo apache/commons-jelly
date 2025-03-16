@@ -22,8 +22,6 @@ import org.apache.commons.jelly.JellyTagException;
 /**
  * <p><code>BreakException</code> is used to terminate loops such as
  * &lt;forEach&gt; and &lt;while&gt; tags.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public class BreakException extends JellyTagException {

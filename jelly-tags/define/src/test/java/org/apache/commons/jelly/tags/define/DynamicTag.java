@@ -22,8 +22,7 @@ import org.apache.commons.jelly.XMLOutput;
 
 import org.xml.sax.SAXException;
 
-/**
- * @author stephen
+/*
  */
 public class DynamicTag extends TagSupport
 {

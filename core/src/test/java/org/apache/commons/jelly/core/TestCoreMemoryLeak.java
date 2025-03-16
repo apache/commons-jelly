@@ -17,7 +17,6 @@
 package org.apache.commons.jelly.core;
 
 /** Tests for basic memory leaking in core tags. Runs a few test scripts many times.
- * @author Hans Gilde
  */
 public class TestCoreMemoryLeak extends BaseMemoryLeakTest {
 

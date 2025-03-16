@@ -35,8 +35,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
-/**
- * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
+/*
  *
  * <p><code>Embedded</code> provides easy means to embed JellyEngine
  * and use Jelly scripts within an application</p>
@@ -55,8 +54,6 @@ import org.xml.sax.SAXException;
  *         String errorMsg=embedded.getErrorMsg();
  *     }
  *  </pre>
- *
- * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
  */
 public class Embedded {
     /** Jelly Engine */

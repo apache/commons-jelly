@@ -27,8 +27,6 @@ import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
 
 /** Represents a factory of BSF expressions
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class BSFExpressionFactory implements ExpressionFactory {
 

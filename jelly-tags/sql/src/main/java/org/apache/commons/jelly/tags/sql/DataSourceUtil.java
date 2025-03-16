@@ -34,8 +34,6 @@ import org.apache.commons.logging.LogFactory;
  * <code>DriverManager</code> class.
  *
  * TO DO: need to cache DataSource
- *
- * @author Justyna Horwat
  */
 public class DataSourceUtil {
 

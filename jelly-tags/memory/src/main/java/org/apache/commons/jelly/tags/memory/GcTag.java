@@ -23,8 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Tag to invoke garbage collection.
- *
- * @author <a href="mailto:brett@apache.org">Brett Porter</a>
  */
 public class GcTag extends TagSupport {
 

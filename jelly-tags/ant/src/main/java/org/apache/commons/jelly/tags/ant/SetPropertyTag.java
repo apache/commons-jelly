@@ -29,8 +29,6 @@ import org.apache.commons.logging.LogFactory;
  * Tag which sets an attribute on the parent Ant Task if the given value is not null.
  * This can be useful when setting parameters on Ant tasks, only if they have been specified
  * via some well defined property, otherwise allowing the inbuilt default to be used.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class SetPropertyTag extends TagSupport {
 

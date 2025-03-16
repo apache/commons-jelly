@@ -32,8 +32,6 @@ import org.xml.sax.SAXException;
 /**
  * A tag that replaces occurrences of a character or string in its body or
  * (or value) and places the result into the context
- *
- * @author dion
  */
 public class ReplaceTag extends TagSupport {
     /** The Log to which logging calls will be made. */

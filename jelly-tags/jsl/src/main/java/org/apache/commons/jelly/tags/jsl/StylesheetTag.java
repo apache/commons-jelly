@@ -30,8 +30,6 @@ import org.jaxen.XPath;
 /**
  * This tag implements a JSL stylesheet which is similar to an
  * XSLT stylesheet but can use Jelly tags inside it
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class StylesheetTag extends XPathTagSupport implements XPathSource {
 

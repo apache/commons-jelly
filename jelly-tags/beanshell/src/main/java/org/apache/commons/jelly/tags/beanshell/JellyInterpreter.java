@@ -27,8 +27,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** Integrates BeanShell's interpreter with Jelly's JellyContext
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class JellyInterpreter extends Interpreter {
 

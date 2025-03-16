@@ -23,8 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * A tag to hold parameters
- *
- * @author  dion
  */
 public class ParameterTag extends TagSupport {
     /** Parameter name */

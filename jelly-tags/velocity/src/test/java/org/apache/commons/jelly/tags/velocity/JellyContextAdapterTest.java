@@ -29,8 +29,6 @@ import junit.framework.TestSuite;
 
 /**
  * Unit test for <code>JellyContextAdapter</code>.
- *
- * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
  */
 public class JellyContextAdapterTest extends TestCase
 {

@@ -22,8 +22,7 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 import junit.framework.TestSuite;
 
-/**
- * @author Rodney Waldhoff
+/*
  */
 public class TestInvokeTag extends BaseJellyTest {
 

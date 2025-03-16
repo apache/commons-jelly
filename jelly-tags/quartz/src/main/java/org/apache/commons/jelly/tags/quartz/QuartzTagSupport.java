@@ -23,8 +23,6 @@ import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
 /** Basic support for all tags requiring a Quartz scheduler.
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public abstract class QuartzTagSupport extends TagSupport
 {

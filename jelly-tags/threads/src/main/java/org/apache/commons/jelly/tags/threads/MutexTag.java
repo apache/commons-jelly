@@ -23,8 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Creates a mutex object and stores it in a variable
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class MutexTag extends TagSupport {

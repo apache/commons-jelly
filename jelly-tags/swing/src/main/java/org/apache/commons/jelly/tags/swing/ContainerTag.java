@@ -24,8 +24,6 @@ import java.awt.Component;
  * An interface which represents a Tag which is capable of containing AWT Components.
  * So tags such as ContainerTag and LayoutTagSupport implement this interface as they can have
  * nested child component tags.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public interface ContainerTag {
 

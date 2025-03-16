@@ -24,8 +24,6 @@ import org.apache.commons.httpclient.methods.OptionsMethod;
 
 /**
  * A http get tag
- *
- * @author  dion
  */
 public class OptionsTag extends HttpTagSupport {
 

@@ -27,8 +27,6 @@ import org.xml.sax.SAXParseException;
  * This tag performs an assertion that the tags body contains XML
  * which matches a givem schema validation. This tag is used with
  * JellyUnit to implement an assertion.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class AssertValidTag extends ValidateTag {
 

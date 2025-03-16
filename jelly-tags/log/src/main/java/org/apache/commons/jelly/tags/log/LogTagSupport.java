@@ -23,8 +23,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * An abstract base class for any logging tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public abstract class LogTagSupport extends TagSupport {
 

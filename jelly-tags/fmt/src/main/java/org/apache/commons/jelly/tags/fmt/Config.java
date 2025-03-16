@@ -21,7 +21,6 @@ import org.apache.commons.jelly.JellyContext;
 
 /**
  * Class supporting access to configuration data.
- * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  */
 public class Config {

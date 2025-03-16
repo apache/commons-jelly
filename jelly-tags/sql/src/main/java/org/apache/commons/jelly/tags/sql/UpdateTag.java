@@ -30,9 +30,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>Tag handler for &lt;Update&gt; in JSTL.
- *
- * @author Hans Bergsten
- * @author Justyna Horwat
  */
 
 public class UpdateTag extends SqlTagSupport {

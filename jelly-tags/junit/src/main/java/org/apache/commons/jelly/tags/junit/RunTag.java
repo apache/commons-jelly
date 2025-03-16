@@ -37,8 +37,6 @@ import org.xml.sax.helpers.AttributesImpl;
  * This tag will run the given Test which could be an individual TestCase or a TestSuite.
  * The TestResult can be specified to capture the output, otherwise the results are output
  * as XML so that they can be formatted in some custom manner.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class RunTag extends TagSupport {
 

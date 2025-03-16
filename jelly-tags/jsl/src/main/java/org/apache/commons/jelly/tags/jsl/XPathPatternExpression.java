@@ -22,8 +22,6 @@ import org.dom4j.rule.Pattern;
 import org.jaxen.VariableContext;
 
 /** An expression which returns an XPath based Pattern (like an XSLT pattern).
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class XPathPatternExpression extends ExpressionSupport implements VariableContext {
 

@@ -41,8 +41,6 @@ import org.xml.sax.SAXException;
  * Typically this tag is customized by setting the introspector attribute or nesting a child
  * introspector tag inside it.
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ParseTag extends TagSupport {
 

@@ -28,8 +28,6 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Implementation of SWT WidgetTag
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class JFaceWidgetTag extends WidgetTag implements Tag {
 

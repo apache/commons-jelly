@@ -32,8 +32,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Creates a Swing Dialog.  A JDialog needs to have it's owner set in the constructor,
  * which is why this class is needed instead of just using a BeanFactory.
- *
- * @author Dave Pekarek Krohn
  */
 public class DialogTag extends UseBeanTag implements ContainerTag {
 

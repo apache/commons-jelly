@@ -27,8 +27,6 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * This tag creates an SWT Menu
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
 public class MenuTag extends WidgetTag {

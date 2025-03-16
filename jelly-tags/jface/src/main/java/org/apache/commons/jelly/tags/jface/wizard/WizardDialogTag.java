@@ -32,8 +32,6 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  *  This Tag creates a JFace WizardDialog
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class WizardDialogTag extends UseBeanTag {
 

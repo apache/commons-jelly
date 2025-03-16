@@ -21,8 +21,6 @@ import org.apache.commons.jelly.expression.Expression;
 /**
  * Represents the attribute definition used by dynamic tags, such as whether the attribute is required
  * or any default values etc.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class Attribute {
 

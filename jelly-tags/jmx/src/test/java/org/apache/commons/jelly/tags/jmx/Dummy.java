@@ -21,8 +21,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * A dummy MBean used for the demo
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class Dummy implements DummyMBean {
 

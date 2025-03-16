@@ -24,8 +24,6 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 /**
  * An HTTP POST.
- *
- * @author  dion
  */
 public class PostTag extends HttpTagSupport {
 

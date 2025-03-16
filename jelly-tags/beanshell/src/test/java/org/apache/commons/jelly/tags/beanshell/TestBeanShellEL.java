@@ -30,8 +30,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** Tests the BeanShell EL
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class TestBeanShellEL extends TestCase {
 

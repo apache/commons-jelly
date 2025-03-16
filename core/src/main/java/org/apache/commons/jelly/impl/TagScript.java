@@ -53,8 +53,6 @@ import org.xml.sax.SAXException;
  *
  * <strong>Note</strong> that this class should be re-entrant and used
  * concurrently by multiple threads.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TagScript implements Script {
 

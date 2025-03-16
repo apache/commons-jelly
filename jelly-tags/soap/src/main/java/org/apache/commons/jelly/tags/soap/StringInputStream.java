@@ -25,8 +25,6 @@ import java.io.UncheckedIOException;
 /**
  * Wraps a String as an InputStream. Note that data will be lost for
  * characters not in ISO Latin 1, as a simple char to byte mapping is assumed.
- *
- * @author <a href="mailto:umagesh@apache.org">Magesh Umasankar</a>
  */
 public class StringInputStream
     extends InputStream

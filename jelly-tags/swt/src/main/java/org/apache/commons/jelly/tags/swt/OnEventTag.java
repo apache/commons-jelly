@@ -30,8 +30,6 @@ import org.eclipse.swt.widgets.Widget;
 /**
  * A tag which implements a Listener to allow events to be processed by
  * Jelly scripts
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
 public class OnEventTag extends TagSupport implements Listener {

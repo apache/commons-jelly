@@ -29,8 +29,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Creates an Font and attaches it to the parent component or exports the font as
  * a reusable variable that can be attached to multiple widgets.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class FontTag extends MapTagSupport {
 

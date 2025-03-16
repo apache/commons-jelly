@@ -26,8 +26,6 @@ import junit.textui.TestRunner;
 
 /**
  * Tests the whitespace triming of scripts.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TestTrim extends TestCase {
 

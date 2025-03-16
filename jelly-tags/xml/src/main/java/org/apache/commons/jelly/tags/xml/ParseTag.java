@@ -27,8 +27,6 @@ import org.dom4j.io.SAXReader;
 /** A tag which parses some XML and defines a variable with the parsed Document.
   * The XML can either be specified as its body or can be passed in via the
   * xml property which can be a Reader, InputStream, URL or String URI.
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class ParseTag extends ParseTagSupport {
 

@@ -73,8 +73,6 @@ import org.xml.sax.helpers.XMLReaderFactory;
   *
   * The XSL can be passed in via the
   * xslt property which can be a Reader, InputStream, URL or String URI.
-  *
-  * @author Robert Leftwich
   */
 public class TransformTag extends ParseTag {
 
@@ -387,8 +385,6 @@ public class TransformTag extends ParseTag {
     
     /** A helper class that converts a transform tag body to an XMLReader
       * to hide the details of where the input for the transform is obtained
-      *
-      * @author <a href="mailto:robert@leftwich.info">Robert Leftwich</a>
       */
     private final class TagBodyXMLReader implements XMLReader {
 

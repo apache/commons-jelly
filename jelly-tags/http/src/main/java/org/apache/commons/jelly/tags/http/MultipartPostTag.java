@@ -40,8 +40,6 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
  *       &lt;part name="data"  type="text/plain"&gt;This is the second part of the message&lt;/part&gt;
  *   &lt;/mppost&gt;
  *</pre>
- *
- * @author <a href="mailto:wkeese@yahoo.com">Bill Keese</a>
  * @since ???
  */
 public class MultipartPostTag extends PostTag {

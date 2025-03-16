@@ -30,8 +30,6 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Creates a LayoutData object and sets it on the parent Widget.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
 public class LayoutDataTag extends LayoutTagSupport {

@@ -65,8 +65,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /** <p><code>XMLParser</code> parses the XML Jelly format.
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class XMLParser extends DefaultHandler {
 

@@ -24,8 +24,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * A http session. This is the container for data shared across requests
- *
- * @author dion
  */
 public class SessionTag extends TagSupport {
 

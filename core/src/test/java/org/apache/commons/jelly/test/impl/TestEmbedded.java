@@ -32,8 +32,6 @@ import junit.textui.TestRunner;
 
 /**
  *  Unit case  of Embedded
- *
- * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
  */
 public class TestEmbedded extends TestCase
 {

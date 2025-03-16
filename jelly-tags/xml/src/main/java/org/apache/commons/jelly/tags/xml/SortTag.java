@@ -29,8 +29,6 @@ import java.util.List;
 import java.util.Collections;
 
 /** A tag that can sort a list of xml nodes via an xpath expression.
-  *
-  * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
   */
 
 public class SortTag extends XPathTagSupport {

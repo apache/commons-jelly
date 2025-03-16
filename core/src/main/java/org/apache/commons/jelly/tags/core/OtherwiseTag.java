@@ -21,8 +21,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** The otherwise block of a choose/when/otherwise group of tags
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class OtherwiseTag extends TagSupport {
 

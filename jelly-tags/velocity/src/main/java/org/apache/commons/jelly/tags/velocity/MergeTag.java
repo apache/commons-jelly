@@ -33,8 +33,6 @@ import org.apache.velocity.exception.ResourceNotFoundException;
  * A tag that uses Velocity to render a specified template with the
  * JellyContext storing the results in either a variable in the
  * JellyContext or in a specified file.
- *
- * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
  */
 public class MergeTag extends VelocityTagSupport
 {

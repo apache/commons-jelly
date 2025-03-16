@@ -26,8 +26,6 @@ import org.xml.sax.helpers.DefaultHandler;
  * Using this tag will still take the time to perform toString on each object
  * returned to the output (but this toString value is discarded.
  * A future version should go more internally so that this is avoided.
- *
- * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
   */
 public class MuteTag extends TagSupport {
 

@@ -23,8 +23,6 @@ import org.apache.commons.jelly.TagLibrary;
 
 /**
  * A set of jelly tags for instantiating a Jetty HTTP server
- *
- * @author rtl
  */
 public class JettyTagLibrary extends TagLibrary {
 

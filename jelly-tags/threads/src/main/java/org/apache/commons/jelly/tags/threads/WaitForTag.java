@@ -27,8 +27,6 @@ import java.util.List;
  * This tag creates a dependency on another thread. If onlyWait is set
  * a {@link TimeoutException} can be thrown. If status is set a {@link RequirementException}
  * can be thrown.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class WaitForTag extends TagSupport {

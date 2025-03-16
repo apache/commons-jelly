@@ -29,8 +29,6 @@ import org.apache.commons.logging.LogFactory;
  * &lt;invokeBody&gt; tag is used inside a &lt;tag&gt; tag
  * (i.e. the definition of a dynamic tag) to invoke the tags body when
  * the tag is invoked.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class InvokeBodyTag extends TagSupport {
 

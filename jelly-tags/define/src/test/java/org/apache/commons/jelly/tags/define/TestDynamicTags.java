@@ -30,8 +30,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** Tests dynamic tags
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class TestDynamicTags extends TestCase {
 

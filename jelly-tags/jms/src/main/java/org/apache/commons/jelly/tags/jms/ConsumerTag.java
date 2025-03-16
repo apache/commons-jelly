@@ -23,8 +23,6 @@ import javax.jms.MessageListener;
  * By default this is the &lt;subscribe&gt; tag but other tags could
  * implement this interface to enabled things like Message pipelining,
  * transactional message consumer tags, stopwatch wrappers etc.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public interface ConsumerTag {
 

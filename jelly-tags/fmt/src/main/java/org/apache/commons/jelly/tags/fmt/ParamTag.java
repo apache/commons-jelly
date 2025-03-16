@@ -25,7 +25,6 @@ import org.apache.commons.jelly.expression.Expression;
 /**
  * Support for tag handlers for &lt;param&gt;, the parameter setting
  * tag in JSTL.
- * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  *
  * task handle body content trimming

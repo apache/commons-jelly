@@ -25,7 +25,6 @@ import org.xml.sax.SAXException;
 /** A tag which evaluates an expression
   *
   * tag out
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class ExprTag extends TagSupport {
 

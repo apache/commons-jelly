@@ -32,9 +32,6 @@ import org.apache.commons.logging.LogFactory;
  * The bean may also have an invoke method called invoke(), run(), execute() or some such method
  * which will be invoked after the bean has been configured.
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author <a href="mailto:jason@zenplex.com">Jason van Zyl</a>
  */
 public class AttributeTag extends TagSupport {
 

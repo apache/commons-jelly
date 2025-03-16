@@ -29,8 +29,6 @@ import junit.framework.TestSuite;
 
 /**
  * Makes sure that nested includes work correctly
- *
- * @author Morgan Delagrange
  */
 public class TestIncludeTag extends TestCase {
 

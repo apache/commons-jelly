@@ -21,8 +21,6 @@ import junit.framework.TestSuite;
 
 /**
  *
- *
- * @author <a href="mailto:dev at commons.apache.org">Apache Commons Development Team</a>
  */
 public class ExecutionTestCase extends AbstractJellyTestSuite {
 

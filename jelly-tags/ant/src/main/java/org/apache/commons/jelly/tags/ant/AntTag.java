@@ -48,9 +48,6 @@ import org.apache.tools.ant.types.DataType;
 /**
  * Tag supporting ant's Tasks as well as
  * dynamic runtime behavior for 'unknown' tags.
- *
- * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class AntTag extends MapTagSupport implements TaskSource {
 

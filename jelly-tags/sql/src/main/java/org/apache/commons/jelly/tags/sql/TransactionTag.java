@@ -29,8 +29,6 @@ import org.apache.commons.jelly.tags.Resources;
 
 /**
  * <p>Tag handler for &lt;Transaction&gt; in JSTL.
- *
- * @author Hans Bergsten
  */
 
 public class TransactionTag extends TagSupport {

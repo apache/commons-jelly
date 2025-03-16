@@ -33,8 +33,6 @@ import org.apache.tools.ant.ProjectHelper;
  *  <ul>
  *    <li>Properties</li>
  *  </ul>
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public class GrantProject extends Project {
 

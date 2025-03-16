@@ -31,8 +31,6 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * This creates an image on the parent Widget.
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  * @version CVS ImageTag.java,v 1.5 2004/09/07 02:41:40 dion Exp
  */
 public class ImageTag extends TagSupport {

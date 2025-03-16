@@ -24,8 +24,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * An abstract base tag to declare a handler for a particular request method
  * in an http context in an http server
- *
- * @author  rtl
  */
 abstract public class AbstractMethodHandlerTag extends TagSupport {
 

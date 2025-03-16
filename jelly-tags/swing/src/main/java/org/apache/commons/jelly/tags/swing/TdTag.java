@@ -28,8 +28,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Represents a tabular cell inside a &lt;tl&gt; tag inside a &lt;tableLayout&gt;
  * tag which mimicks the &lt;td&gt; HTML tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TdTag extends TagSupport implements ContainerTag {
 

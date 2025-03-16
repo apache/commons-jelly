@@ -18,8 +18,7 @@ package org.apache.commons.jelly.core.extension;
 
 import org.apache.commons.jelly.tags.core.UseBeanTag;
 
-/**
- * @author Hans Gilde
+/*
  */
 public class UseBeanIgnoreBadProps extends UseBeanTag {
     public UseBeanIgnoreBadProps() {

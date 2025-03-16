@@ -23,8 +23,6 @@ import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
  * This could be created via Jelly script, or could load the mapping of
  * tag names to bean classes from properties file etc  but is implemented in Java
  * code for simplicity
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.2
  */
 public class MyBeanTagLibrary extends BeanTagLibrary {

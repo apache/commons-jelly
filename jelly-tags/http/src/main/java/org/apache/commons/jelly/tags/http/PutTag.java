@@ -23,8 +23,6 @@ import org.apache.commons.httpclient.methods.PutMethod;
 
 /**
  * An HTTP PUT.
- *
- * @author  dion
  */
 public class PutTag extends HttpTagSupport {
 

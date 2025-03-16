@@ -23,8 +23,6 @@ import java.util.List;
 
 /**
  * Interrupts a thread or thread group.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class InterruptTag extends UseThreadTag {

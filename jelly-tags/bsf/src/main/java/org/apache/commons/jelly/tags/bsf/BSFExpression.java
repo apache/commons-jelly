@@ -28,8 +28,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** Represents a BSF expression
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class BSFExpression extends ExpressionSupport {
 

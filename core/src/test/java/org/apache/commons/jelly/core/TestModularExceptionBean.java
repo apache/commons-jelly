@@ -22,7 +22,6 @@ import junit.framework.TestCase;
 
 /**
  * TODO Do documentation.
- * @author mde
  * @version 0.0
  */
 public class TestModularExceptionBean extends TestCase {

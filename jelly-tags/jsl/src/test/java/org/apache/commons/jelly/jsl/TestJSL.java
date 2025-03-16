@@ -38,8 +38,6 @@ import org.dom4j.io.SAXContentHandler;
  * Tests the JSL tags.
  * Note this test harness could be written in Jelly script
  * if we had the junit tag library!
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TestJSL extends TestCase {
 

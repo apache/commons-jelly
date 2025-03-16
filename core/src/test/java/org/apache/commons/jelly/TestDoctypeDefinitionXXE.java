@@ -24,8 +24,6 @@ import junit.framework.TestCase;
  * A test class to validate doctype definitions' declaration of external
  * calls using custom xml tags. Specifically we test some changes in {@link JellyContext}
  * along with {@link org.apache.commons.jelly.parser.XMLParser}.
- *
- * @author chotmpki
  */
 public class TestDoctypeDefinitionXXE extends TestCase
 {

@@ -27,8 +27,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * An abstract base class used for concrete border tags which create new Border implementations
  * and sets then on parent widgets and optionally export them as variables.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public abstract class BorderTagSupport extends TagSupport {
 

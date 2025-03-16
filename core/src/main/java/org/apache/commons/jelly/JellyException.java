@@ -22,8 +22,6 @@ import java.io.PrintWriter;
 
 /** 
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public class JellyException extends Exception implements LocationAware {

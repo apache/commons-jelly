@@ -23,8 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Tag supporting displaying free memory.
- *
- * @author <a href="mailto:brett@apache.org">Brett Porter</a>
  */
 public class FreeMemoryTag extends TagSupport {
 

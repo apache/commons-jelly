@@ -24,8 +24,6 @@ import java.sql.SQLException;
  * <p>This class represents the conversion of a ResultSet to
  * a Result object.</p>
  *
- *
- * @author Justyna Horwat
  */
 public class ResultSupport {
 

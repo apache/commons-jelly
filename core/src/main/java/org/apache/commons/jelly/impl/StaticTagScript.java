@@ -35,8 +35,6 @@ import org.xml.sax.SAXException;
  * though its attributes or element content may contain dynamic expressions.
  * The first time this tag evaluates, it may have become a dynamic tag, so it will check that
  * a new dynamic tag has not been generated.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class StaticTagScript extends TagScript {
 

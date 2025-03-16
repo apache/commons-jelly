@@ -25,8 +25,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Represents a layout of a child component within its parent &lt;borderLayout&gt; layout.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class BorderAlignTag extends TagSupport implements ContainerTag {
 

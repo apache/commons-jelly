@@ -41,9 +41,6 @@ import org.apache.commons.jelly.XMLOutput;
  * Using a separate class allows us to run Jelly without
  * CLI in the classpath when the command line interface
  * is not in use.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author Morgan Delagrange
  */
 public class CommandLineParser {
 

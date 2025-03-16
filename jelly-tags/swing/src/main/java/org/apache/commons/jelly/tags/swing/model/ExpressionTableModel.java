@@ -28,8 +28,6 @@ import org.apache.commons.jelly.JellyContext;
 /**
  * A Swing TableModel that uses a List of rows with pluggable Expressions
  * to evaluate the value of the cells
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ExpressionTableModel extends AbstractTableModel {
 

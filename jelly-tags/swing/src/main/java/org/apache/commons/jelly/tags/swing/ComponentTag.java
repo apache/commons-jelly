@@ -58,8 +58,6 @@ import org.apache.commons.logging.LogFactory;
  * during execution but should not hold a reference to this
  * tag after their doTag completes.
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ComponentTag extends UseBeanTag implements ContainerTag {
 

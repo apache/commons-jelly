@@ -24,8 +24,6 @@ import org.apache.commons.httpclient.methods.HeadMethod;
 
 /**
  * A http get tag
- *
- * @author  dion
  */
 public class HeadTag extends HttpTagSupport {
 

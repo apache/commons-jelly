@@ -34,9 +34,6 @@ import org.xml.sax.Attributes;
 
 /**
  * A Jelly custom tag library that allows Ant tasks to be called from inside Jelly.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public class AntTagLibrary extends TagLibrary {
 

@@ -17,7 +17,6 @@
 package org.apache.commons.jelly.tags.core;
 
 /** Interface for classes that support {@link ArgTag} children.
-  * @author Rodney Waldhoff
   */
 public interface ArgTagParent {
     public void addArgument(Class type, Object value);

@@ -23,8 +23,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** Defines a property on an outer JMS Message tag
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class PropertyTag extends TagSupport {
 

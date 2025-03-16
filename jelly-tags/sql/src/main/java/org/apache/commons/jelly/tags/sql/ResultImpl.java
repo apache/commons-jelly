@@ -29,9 +29,6 @@ import javax.servlet.jsp.jstl.sql.Result;
  *
  * <p>Note -- this is a private copy for the RI to avoid making the
  * corresponding class in javax.servlet.* public.</p>
- *
- * @author Hans Bergsten
- * @author Justyna Horwat
  */
 
 public class ResultImpl implements Result {

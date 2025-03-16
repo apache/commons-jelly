@@ -29,8 +29,6 @@ import java.util.List;
  * All of the threads in a thread group are started at the same time, not as they
  * are defined. Use this in conjunction with other tags like join to manipulate
  * a group of threads.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class GroupTag extends TagSupport {

@@ -36,8 +36,7 @@ import org.apache.commons.jelly.XMLOutput;
   * Jelly Tag that asks the user a question, and puts his answer into a variable,
   * with the attribute "answer". This variable may be reused further as any other
   * Jelly variable.
-  * 
-  * @author <a href="mailto:smor@hasgard.net">Stéphane Mor </a>
+  *
    */
 public class AskTag extends TagSupport {
 

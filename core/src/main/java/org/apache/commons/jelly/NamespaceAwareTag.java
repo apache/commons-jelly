@@ -26,8 +26,6 @@ import java.util.Map;
  * Map keyed on the namespace prefixes and the values are the namespace URIs
  * in scope in the tags element.
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public interface NamespaceAwareTag extends Tag {

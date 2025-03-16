@@ -27,8 +27,6 @@ import org.apache.velocity.app.VelocityEngine;
  * directory specified, a new VelocityEngine instance is stored in the
  * context (as the author hasn't figured out how to change the resource
  * loader of an already init'd VelocityEngine).
- *
- * @author <a href="mailto:pete-apache-dev@kazmier.com">Pete Kazmier</a>
  */
 public abstract class VelocityTagSupport extends TagSupport
 {

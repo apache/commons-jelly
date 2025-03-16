@@ -26,8 +26,6 @@ import org.apache.commons.jelly.impl.BreakException;
  * A tag which terminates the execution of the current &lt;forEach&gt; or &lt;while&gt;
  * loop. This tag can take an optional boolean test attribute which if its true
  * then the break occurs otherwise the loop continues processing.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class BreakTag extends TagSupport {
 

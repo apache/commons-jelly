@@ -21,8 +21,7 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 import junit.framework.TestSuite;
 
-/**
- * @author <a href="mailto:bwalding@apache.org">Ben Walding</a>
+/*
  */
 public class TestChooseTag extends BaseJellyTest
 {

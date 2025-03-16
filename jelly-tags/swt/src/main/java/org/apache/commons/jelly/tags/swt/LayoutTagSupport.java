@@ -31,8 +31,6 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * An abstract base class for Layout or LayoutData tags.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
 public abstract class LayoutTagSupport extends UseBeanTag {

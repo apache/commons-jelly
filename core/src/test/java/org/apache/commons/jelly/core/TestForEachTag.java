@@ -22,8 +22,7 @@ import org.apache.commons.lang.StringUtils;
 
 import junit.framework.TestSuite;
 
-/**
- * @author <a href="mailto:benanderson@benanderson.us">Ben Anderson</a>
+/*
  */
 public class TestForEachTag extends BaseJellyTest
 {

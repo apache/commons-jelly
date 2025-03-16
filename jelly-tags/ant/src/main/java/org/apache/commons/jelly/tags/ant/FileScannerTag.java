@@ -27,8 +27,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * A tag which creates a new FileScanner bean instance that can be used to
  * iterate over fileSets
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class FileScannerTag extends TagSupport implements TaskSource {
 

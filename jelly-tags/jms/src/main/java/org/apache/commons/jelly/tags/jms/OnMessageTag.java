@@ -33,8 +33,6 @@ import org.apache.commons.logging.LogFactory;
  * tag's body whenever a JMS Message is received. The JMS Message
  * will be available via a variable, which defaults to the 'message'
  * variable name, but can be overloaded by the var attribute.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class OnMessageTag extends TagSupport {
 

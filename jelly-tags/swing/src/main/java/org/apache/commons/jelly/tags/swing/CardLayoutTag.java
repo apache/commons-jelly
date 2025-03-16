@@ -23,8 +23,7 @@ import java.awt.LayoutManager;
 /** Implements CardLayout. Takes parameters hgap, vgap per the class. You can
  * set the "var" attribute of this tag, this will store the layout manager
  * in that context attribute, for later use.
- * 
- * @author Hans Gilde
+ *
  */
 public class CardLayoutTag extends LayoutTagSupport {
     private int hgap;

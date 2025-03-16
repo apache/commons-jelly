@@ -20,8 +20,6 @@ import org.apache.commons.jelly.TagLibrary;
 
 /**
  * Test taglibrary
- *
- * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
  */
 public class DummyTagLibrary extends TagLibrary {
     public DummyTagLibrary() {

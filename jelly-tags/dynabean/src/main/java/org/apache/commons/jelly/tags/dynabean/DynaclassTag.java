@@ -31,8 +31,6 @@ import org.apache.commons.jelly.XMLOutput;
  * The DynaClass object is placed by name in the context,
  * so that a DynaBean tag can use it by name to instantiate
  * a DynaBean object
- *
- * @author Theo Niemeijer
  * @version 1.0
  */
 public class DynaclassTag extends TagSupport {

@@ -21,8 +21,6 @@ package org.apache.commons.jelly.tags.http;
  * A class that holds proxy details for a session.
  * At the moment this is a placeholder for two simple properties that may
  * get added to as time goes by
- *
- * @author  dion
  */
 public class Proxy {
 

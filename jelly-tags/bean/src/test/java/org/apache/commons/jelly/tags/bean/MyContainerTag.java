@@ -26,8 +26,6 @@ import org.apache.commons.jelly.impl.CollectionTag;
 
 /**
  * A simple tag which demonstrates how to process beans generically.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version  $Revision$
  */
 public class MyContainerTag extends TagSupport implements CollectionTag {

@@ -28,8 +28,6 @@ import org.xml.sax.SAXException;
 /**
  * A tag which performs a copy operation like the XSLT tag,
  * performing a shallow copy of the element and its attributes but no content.
- *
- * @author James Strachan
  */
 public class CopyTag extends XPathTagSupport {
 

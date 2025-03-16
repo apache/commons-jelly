@@ -37,8 +37,6 @@ import java.util.ResourceBundle;
  * </pre>
  *
  * <p>... and so on.</p>
- *
- * @author Shawn Bayern
  */
 public class Resources {
 

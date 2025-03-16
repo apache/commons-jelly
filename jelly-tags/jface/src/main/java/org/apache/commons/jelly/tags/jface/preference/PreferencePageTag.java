@@ -36,8 +36,6 @@ import org.eclipse.swt.widgets.Composite;
  * This Tag creates a JFace PreferencePage
  *
  * Provides a concrete preference store implementation based on an internal java.util.Properties object
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class PreferencePageTag extends TagSupport {
 

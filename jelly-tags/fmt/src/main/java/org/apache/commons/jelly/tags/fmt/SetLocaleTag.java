@@ -27,7 +27,6 @@ import java.util.Locale;
 /**
  * Support for tag handlers for &lt;setLocale&gt;, the locale setting
  * tag in JSTL.
- * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.2
  *
  * task decide how to implement setResponseLocale

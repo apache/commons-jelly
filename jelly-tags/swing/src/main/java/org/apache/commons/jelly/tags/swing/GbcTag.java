@@ -49,8 +49,6 @@ import org.apache.commons.lang.StringUtils;
  * <p>
  * TODO: this class should probably be extended with special treatment for dimensions
  * using the converter package.
- *
- * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
  */
 public class GbcTag extends UseBeanTag implements ContainerTag {
 

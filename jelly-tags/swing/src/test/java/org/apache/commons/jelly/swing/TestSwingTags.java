@@ -41,7 +41,6 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 import junit.framework.TestSuite;
 
 /** Tests many swing tags for basic functionality.
- * @author Hans Gilde
  */
 public class TestSwingTags extends BaseJellyTest {
 

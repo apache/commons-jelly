@@ -28,8 +28,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** A tag that spawns the contained script in a separate thread
-  *
-  * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
   */
 public class ThreadTag extends TagSupport  {
     /** Thread Name */

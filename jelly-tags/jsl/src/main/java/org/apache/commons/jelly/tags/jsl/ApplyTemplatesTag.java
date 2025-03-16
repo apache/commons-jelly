@@ -27,8 +27,6 @@ import org.jaxen.XPath;
 /**
  * Implements the apply templates function in the stylesheet, similar to the XSLT equivalent.
  * a JSP include.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ApplyTemplatesTag extends TagSupport {
 

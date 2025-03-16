@@ -18,8 +18,6 @@
 package org.apache.commons.jelly;
 
 /** <p><code>Compilable</code> represents a Tag that is compilable.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 
 public interface CompilableTag {

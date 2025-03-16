@@ -26,8 +26,6 @@ import org.eclipse.swt.widgets.Widget;
 
 /**
  * Implementation of SWT LayoutTag
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class JFaceLayoutTag extends LayoutTag {
 

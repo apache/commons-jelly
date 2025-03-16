@@ -38,8 +38,6 @@ import org.xml.sax.XMLReader;
 /**
  * Parses the output of this tags body or of a given String as a Jelly script
  * then either outputting the Script as a variable or executing the script.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ParseTag extends TagSupport {
 

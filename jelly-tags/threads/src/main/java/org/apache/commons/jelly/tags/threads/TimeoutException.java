@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.threads;
 /**
  * Can be thrown when the {@link WaitForTag} tries to wait for another
  * thread to finish.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class TimeoutException extends RuntimeException {

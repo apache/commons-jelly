@@ -33,9 +33,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * <p>Tag handler for &lt;Query&gt; in JSTL.
- *
- * @author Hans Bergsten
- * @author Justyna Horwat
  */
 
 public class QueryTag extends SqlTagSupport {

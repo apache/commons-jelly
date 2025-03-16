@@ -21,8 +21,6 @@ import org.apache.commons.jelly.TagLibrary;
 
 /**
  * Thread related tags
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class ThreadsTagLibrary extends TagLibrary {

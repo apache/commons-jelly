@@ -23,8 +23,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** The root Jelly tag which should be evaluated first
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class JellyTag extends TagSupport {
 

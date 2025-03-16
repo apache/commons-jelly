@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.jetty;
 
 /**
  * Respond to a GET request to a Jetty http server
- *
- * @author  rtl
  */
 public class GetRequestTag extends AbstractMethodHandlerTag {
 

@@ -21,8 +21,6 @@ import org.apache.commons.logging.Log;
 /**
  * A Mock Object useful for unit testing of commons-logging. (Maybe this should
  * be contributed back to commons-logging?)
- *
- * @author James Strachan
  * @version 1.1 2003/01/22 10:22:30
  */
 public class MockLog implements Log {

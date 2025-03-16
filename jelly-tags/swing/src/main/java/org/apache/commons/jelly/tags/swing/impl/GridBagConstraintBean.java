@@ -27,8 +27,6 @@ import org.apache.commons.logging.LogFactory;
  * This class is a simple "bean-wrapper" for the {@link GridBagConstraints} class
  * which also tracks wether values are set allowing inheritance
  *    (using {@link setBasedOn}.
- *
- * @author <a href="mailto:paul@activemath.org">Paul Libbrecht</a>
  */
 public class GridBagConstraintBean extends GridBagConstraints {
 

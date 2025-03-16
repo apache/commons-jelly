@@ -31,8 +31,6 @@ import org.apache.commons.logging.LogFactory;
  * and class load the given Java class. Otherwise META-INF/services/jelly/uri
  * is searched for on the thread context's class path and, if found, that
  * class will be loaded.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DefaultTagLibraryResolver implements TagLibraryResolver {
 

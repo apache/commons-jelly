@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.soap;
 import org.apache.commons.jelly.TagLibrary;
 
 /** Implements general utility tags.
- *
- *  @author <a href="mailto:jim@bnainc.net">jim birchfield</a>
  */
 public class SoapTagLibrary extends TagLibrary {
     public SoapTagLibrary() {

@@ -25,8 +25,6 @@ import org.mortbay.http.HttpResponse;
 
 /**
  * Sets a response header in the request handler of a Jetty http server
- *
- * @author  rtl
  */
 public class ResponseHeaderTag extends TagSupport {
 

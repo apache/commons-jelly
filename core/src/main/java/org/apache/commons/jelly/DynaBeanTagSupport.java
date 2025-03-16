@@ -25,8 +25,6 @@ import org.apache.commons.beanutils.DynaProperty;
  * to store its attribute values in. Derived tags can then process this
  * DynaBean in any way it wishes.
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public abstract class DynaBeanTagSupport extends DynaTagSupport {

@@ -40,8 +40,6 @@ import org.xml.sax.SAXException;
 /**
  * <p><code>JellyTask</code> is an Ant task which will
  * run a given Jelly script.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public class JellyTask extends Task {

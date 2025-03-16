@@ -18,8 +18,6 @@ package org.apache.commons.jelly.tags.quartz;
  */
 
 /** Abstract base for all triggers.
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public abstract class TriggerTag extends QuartzTagSupport
 {

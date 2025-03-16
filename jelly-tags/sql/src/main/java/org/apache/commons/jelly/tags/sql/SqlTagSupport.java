@@ -32,10 +32,7 @@ import org.apache.commons.jelly.tags.Resources;
 
 /**
  * <p>Abstract base class for any SQL related tag in JSTL.
- *
- * @author Hans Bergsten
- * @author Justyna Horwat
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
+
  */
 
 public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTag {

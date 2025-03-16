@@ -30,8 +30,6 @@ import org.apache.commons.logging.LogFactory;
  * Creates a WindowListener which is attached to its parent window control which will invoke
  * named Jelly scripts as window events are fired, or will invoke its body if there is no script
  * specified for the named event type.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class WindowListenerTag extends TagSupport {
 

@@ -38,9 +38,6 @@ import org.eclipse.swt.widgets.Widget;
 /**
  * This tag creates an SWT widget based on the parent tag, optionally declaring
  * this widget as a variable if the <em>var</em> attribute is specified.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  * @version 1.1
  */
 public class WidgetTag extends UseBeanTag {

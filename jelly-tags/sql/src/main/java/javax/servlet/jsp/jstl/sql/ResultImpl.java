@@ -27,9 +27,6 @@ import java.util.*;
  * instance for each column in the row.   It is not part of the JSTL
  * API; it serves merely as a back-end to ResultSupport's static methods.
  * Thus, we scope its access to the package.
- *
- * @author Hans Bergsten
- * @author Justyna Horwat
  */
 
 final class ResultImpl implements Result {

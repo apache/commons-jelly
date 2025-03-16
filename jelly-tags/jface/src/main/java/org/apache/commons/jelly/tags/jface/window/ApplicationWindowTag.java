@@ -30,8 +30,6 @@ import org.eclipse.swt.widgets.Shell;
 
 /**
  * This tag creates an JFace ApplicationWindow
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class ApplicationWindowTag extends UseBeanTag {
 

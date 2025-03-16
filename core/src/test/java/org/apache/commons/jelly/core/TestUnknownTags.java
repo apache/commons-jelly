@@ -28,8 +28,7 @@ import junit.framework.TestSuite;
 /**
  * Tests for exceptions being raised when an unknown tag is encountered - new
  * code added in response to JELLY-13
- * 
- * @author <a href="mailto:john.spackman@zenesis.com">John Spackman</a>
+ *
  */
 public class TestUnknownTags extends BaseJellyTest {
 

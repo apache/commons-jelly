@@ -40,8 +40,6 @@ import org.apache.commons.jelly.impl.BeanSource;
  * This tag can also be nested inside a bean tag such as the &lt;useBean&gt; tag
  * or a JellySwing tag to set one or more properties, maybe inside some conditional
  * logic.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class SetPropertiesTag extends MapTagSupport  {
 

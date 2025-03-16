@@ -25,8 +25,6 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag which creates a new child variable scope for its body.
  * So any variables defined within its body will no longer be in scope
  * after this tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ScopeTag extends TagSupport {
 

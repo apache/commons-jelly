@@ -23,8 +23,6 @@ import org.apache.commons.jelly.JellyContext;
 /** <p><code>ConstantExpression</code> represents a constant expression.</p>
   *
   * <p>In other words, {@link #evaluate} returns a value independent of the context.</p>
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class ConstantExpression extends ExpressionSupport {
 

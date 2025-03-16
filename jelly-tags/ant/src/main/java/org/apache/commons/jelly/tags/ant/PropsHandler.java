@@ -36,9 +36,6 @@ import org.apache.tools.ant.Project;
  *  @see org.apache.commons.jelly.tags.ant.GrantProject#copyInheritedProperties
  *  @see org.apache.commons.jelly.tags.ant.GrantProject#setSystemProperties
  *  @see org.apache.commons.jelly.tags.ant.GrantProject#setJavaVersionProperty
- *
- *  @author <a href="mailto:bob@eng.werken.com">Bob McWhirter</a>
- *  @author <a href="mailto:stephenh@chase3000.com">Stephen Haberman</a>
  */
 public interface PropsHandler {
 

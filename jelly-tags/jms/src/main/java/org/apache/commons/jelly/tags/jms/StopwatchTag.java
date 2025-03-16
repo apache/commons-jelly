@@ -29,8 +29,6 @@ import org.apache.commons.messenger.tool.StopWatchMessageListener;
 /**
  * This tag can be used to measure the amount of time it takes to process JMS messages.
  * This tag can be wrapped around any custom JMS tag which consumes JMS messages.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
 

@@ -34,8 +34,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * <p>A simple <code>DataSource</code> wrapper for the standard
  * <code>DriverManager</code> class.
- *
- * @author Hans Bergsten
  */
 public class DataSourceWrapper implements DataSource {
 

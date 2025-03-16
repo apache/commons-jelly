@@ -29,8 +29,6 @@ import org.eclipse.jface.viewers.Viewer;
 
 /**
  * This tag adds a listener for double-clicks in this viewer.
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class DoubleClickListenerTag
     extends TagSupport

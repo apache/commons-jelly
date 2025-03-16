@@ -23,8 +23,6 @@ import org.apache.commons.jelly.tags.regexp.ContainsTag;
 
 /*** <p><code>ContainsTagTest</code> a class that is useful to perform regexp matches
 * in strings.</p>
-*
-* @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
 */
 public class ContainsTagTest extends TestCase {
 

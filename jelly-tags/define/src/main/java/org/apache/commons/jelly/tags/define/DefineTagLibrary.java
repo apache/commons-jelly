@@ -25,8 +25,6 @@ import org.apache.commons.jelly.TagLibrary;
  *
  * Please see the individual tag classes for more information, particularly
  * {@link TaglibTag Taglib tag} and {@link TagTag Tag tag}.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DefineTagLibrary extends TagLibrary {
 

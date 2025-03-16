@@ -30,8 +30,6 @@ import org.jaxen.XPath;
 import org.jaxen.JaxenException;
 
 /** A tag which performs an iteration over the results of an XPath expression
-  *
-  * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
   */
 public class ForEachTag extends XPathTagSupport implements XPathSource {
 

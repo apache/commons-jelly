@@ -59,8 +59,6 @@ import org.apache.commons.jelly.XMLOutput;
  *  </buttonGroup>
  * </panel>
  * }</pre>
- *
- * @author Hans Gilde
  */
 public class ButtonGroupTag extends ComponentTag {
 

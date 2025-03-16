@@ -23,8 +23,6 @@ package org.apache.commons.jelly;
  * implementations of Scripts. However Tags are only used in a single thread
  * (each thread will have create its own Tags for the Script it is running)
  * so multi threading is not a concern for Tag developers.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public interface Script {
 

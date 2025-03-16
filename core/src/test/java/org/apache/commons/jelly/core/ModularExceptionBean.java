@@ -22,7 +22,6 @@ import java.lang.reflect.Constructor;
 
 /**
  * TODO Do documentation.
- * @author mde
  * @version 0.0
  */
 public class ModularExceptionBean {

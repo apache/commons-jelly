@@ -28,9 +28,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * A tag which performs an iteration while the result of an expression is true.
- *
- * @author <a href="mailto:eric@ericalexander.net">Eric Alexander</a>
- * @author dIon Gillard
  */
 public class WhileTag extends TagSupport {
 

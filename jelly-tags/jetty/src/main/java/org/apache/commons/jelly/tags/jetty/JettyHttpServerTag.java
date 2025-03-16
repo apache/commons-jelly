@@ -39,8 +39,6 @@ import org.mortbay.util.Resource;
 
 /**
  * Declare an instance of a Jetty http server
- *
- * @author  rtl
  */
 public class JettyHttpServerTag extends TagSupport {
 

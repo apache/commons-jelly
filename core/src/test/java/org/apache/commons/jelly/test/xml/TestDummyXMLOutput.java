@@ -29,8 +29,6 @@ import junit.framework.TestSuite;
 /**
  * Confirm that <em>XMLOutput.createDummyXMLOutput()</em>
  * doesn't do anything funky.
- *
- * @author Morgan Delagrange
  */
 public class TestDummyXMLOutput extends TestCase {
 

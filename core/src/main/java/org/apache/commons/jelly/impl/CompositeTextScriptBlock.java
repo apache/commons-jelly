@@ -24,8 +24,6 @@ import org.apache.commons.jelly.Script;
  * <p><code>CompositeTextScriptBlock</code> represents a text body of a
  * a tag which contains expressions, so that whitespace trimming
  * can be handled differently.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class CompositeTextScriptBlock extends ScriptBlock {
 

@@ -31,8 +31,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Creates a new <code>URLClassLoader</code> to dynamically
  * load tags froms.
- *
- * @author <a href="mailto:stephenh@chase3000.com">Stephen Haberman</a>
  */
 public class ClassLoaderTag extends BeanTag {
 

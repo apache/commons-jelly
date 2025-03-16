@@ -29,8 +29,6 @@ import org.apache.commons.logging.LogFactory;
  * Creates an empty border.
  * The border will either be exported as a variable defined by the 'var' attribute
  * or will be set on the parent widget's border property
- *
- * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
  */
 public class EmptyBorderTag extends BorderTagSupport {
 

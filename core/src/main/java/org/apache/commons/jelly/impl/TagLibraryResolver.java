@@ -21,8 +21,6 @@ import org.apache.commons.jelly.TagLibrary;
 /**
  * <p><code>TagLibraryResolver</code> represents an object capable of
  * resolving a URI to a TagLibrary instance.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public interface TagLibraryResolver {
 

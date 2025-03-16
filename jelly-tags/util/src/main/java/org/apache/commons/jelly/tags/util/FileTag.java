@@ -26,8 +26,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * A tag which creates a {@link File} from a given name.
- *
- * @author <a href="mailto:dion@apache.org">dIon Gillard</a>
  */
 public class FileTag extends TagSupport {
 

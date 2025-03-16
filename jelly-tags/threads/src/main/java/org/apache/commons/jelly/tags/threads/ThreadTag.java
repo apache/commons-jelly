@@ -32,9 +32,6 @@ import java.io.UnsupportedEncodingException;
 /**
  * A tag that spawns the contained script in a separate thread.  A thread
  * can wait on another thread or another thread group to finish before starting.
- *
- * @author <a href="mailto:vinayc@apache.org">Vinay Chandran</a>
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 public class ThreadTag extends TagSupport {
     /** The Log to which logging calls will be made. */

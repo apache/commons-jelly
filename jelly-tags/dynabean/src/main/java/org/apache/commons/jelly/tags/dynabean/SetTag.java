@@ -27,8 +27,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /** A tag which sets a variable from the result of an expression
-  *
- * @author Theo Niemeijer
  * @version 1.0
   */
 public class SetTag extends TagSupport {

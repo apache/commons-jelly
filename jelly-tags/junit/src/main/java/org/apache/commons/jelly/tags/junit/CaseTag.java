@@ -27,8 +27,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * Represents a single test case in a test suite; this tag is analagous to
  * JUnit's TestCase class.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class CaseTag extends TagSupport {
 

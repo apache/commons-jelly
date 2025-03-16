@@ -25,8 +25,6 @@ import org.xml.sax.SAXException;
 /**
  * A tag which outputs a comment to the underlying XMLOutput based on the
  * contents of its body.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class CommentTag extends XPathTagSupport {
 

@@ -23,8 +23,6 @@ import org.apache.commons.logging.Log;
 /**
  * A tag which generates DEBUG level logging statement using
  * the given category name.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DebugTag extends LogTagSupport {
 

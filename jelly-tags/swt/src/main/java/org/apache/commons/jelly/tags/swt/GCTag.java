@@ -24,8 +24,6 @@ import org.eclipse.swt.graphics.GC;
 
 /**
  * Class to create a {@link GC} instance within Jelly SWT.
- *
- * @author <a href="mailto:crafterm@apache.org">Marcus Crafter</a>
  */
 public class GCTag extends TagSupport {
 

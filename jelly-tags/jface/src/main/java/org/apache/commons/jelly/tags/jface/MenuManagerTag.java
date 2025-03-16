@@ -29,8 +29,6 @@ import org.eclipse.jface.window.Window;
 
 /**
  * This tag creates an JFace MenuManager
- *
- * @author <a href="mailto:ckl@dacelo.nl">Christiaan ten Klooster</a>
  */
 public class MenuManagerTag extends UseBeanTag {
 

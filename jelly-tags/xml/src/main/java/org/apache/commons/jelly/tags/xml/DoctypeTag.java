@@ -27,8 +27,6 @@ import org.xml.sax.SAXException;
  * A tag which outputs a DOCTYPE declaration to the current XML output pipe.
  * Note that there should only be a single DOCTYPE declaration in any XML stream and
  * it should occur before any element content.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DoctypeTag extends XPathTagSupport {
 

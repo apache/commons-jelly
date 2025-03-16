@@ -23,8 +23,6 @@ import org.apache.commons.jelly.TagLibrary;
  * This could be created via Jelly script, or could load the mapping of
  * tag names to bean classes from properties file etc  but is implemented in Java
  * code for simplicity
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class MyTagLibrary extends TagLibrary {
 

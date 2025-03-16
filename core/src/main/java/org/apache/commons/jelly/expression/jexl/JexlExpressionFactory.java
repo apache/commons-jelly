@@ -30,8 +30,6 @@ import org.apache.commons.jelly.expression.ExpressionSupport;
  * expression which fully supports the Expression Language in JSTL and JSP.
  * In addition this ExpressionFactory can also support Ant style variable
  * names, where '.' is used inside variable names.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public class JexlExpressionFactory implements ExpressionFactory {

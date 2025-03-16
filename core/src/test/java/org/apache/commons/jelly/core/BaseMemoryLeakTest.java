@@ -38,8 +38,7 @@ import junit.framework.TestCase;
  * <p>
  * To use it, extend it. Use the {@link runScriptManyTimes(String, int)}
  * method in your unit tests.
- * 
- * @author Hans Gilde
+ *
  *  
  */
 public abstract class BaseMemoryLeakTest extends TestCase {

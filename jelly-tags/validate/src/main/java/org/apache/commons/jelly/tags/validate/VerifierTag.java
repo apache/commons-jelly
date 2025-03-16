@@ -37,8 +37,6 @@ import org.xml.sax.SAXException;
 /**
  * This tag creates a new Verifier of a schema as a variable
  * so that it can be used by a &lt;validate&gt; tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class VerifierTag extends TagSupport {
 

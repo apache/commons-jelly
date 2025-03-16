@@ -45,8 +45,6 @@ import org.apache.commons.jelly.util.ClassLoaderUtils;
  * &lt;j:useBean var="person" class="com.acme.Person" name="James" location="${loc}"/&gt;
  * &lt;j:useBean var="order" class="${orderClass}" amount="12" price="123.456"/&gt;
  * </pre>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class UseBeanTag extends MapTagSupport implements BeanSource {
 

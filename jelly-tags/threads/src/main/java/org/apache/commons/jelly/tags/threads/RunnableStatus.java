@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.threads;
 
 /**
  * Represents the status of {@link JellyThread}.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class RunnableStatus {

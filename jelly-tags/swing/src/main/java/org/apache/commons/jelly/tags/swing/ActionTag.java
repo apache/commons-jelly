@@ -36,8 +36,6 @@ import org.apache.commons.logging.LogFactory;
  * Creates a Swing Action which on invocation will execute the body of this tag.
  * The Action is then output as a variable for reuse if the 'var' attribute is specified
  * otherwise the action is added to the parent JellySwing widget.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class ActionTag extends UseBeanTag {
 

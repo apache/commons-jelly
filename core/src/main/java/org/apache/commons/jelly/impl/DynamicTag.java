@@ -33,8 +33,6 @@ import org.apache.commons.logging.LogFactory;
  * inside a Jelly script as a Jelly template and will invoke a
  * given script, passing in its instantiation attributes
  * as variables and will allow the template to invoke its instance body.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class DynamicTag extends DynaTagSupport {
 

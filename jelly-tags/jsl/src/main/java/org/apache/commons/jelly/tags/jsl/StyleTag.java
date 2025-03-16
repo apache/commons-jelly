@@ -29,8 +29,6 @@ import org.jaxen.XPath;
 /**
  * This tag performs a JSL stylesheet which was previously
  * created via an &lt;stylesheet&gt; tag.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class StyleTag extends XPathTagSupport {
 

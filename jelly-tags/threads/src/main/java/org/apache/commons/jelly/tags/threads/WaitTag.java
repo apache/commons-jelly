@@ -22,8 +22,6 @@ import org.apache.commons.jelly.XMLOutput;
 
 /**
  * This calls mutex.wait() on the mutex passed in via the "mutex" attribute.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class WaitTag extends UseMutexTag {

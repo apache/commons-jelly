@@ -21,8 +21,6 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 
 /**
- *
- * @author <a href="proyal@apache.org">peter royal</a>
  */
 public class TestJellyContext extends TestCase
 {

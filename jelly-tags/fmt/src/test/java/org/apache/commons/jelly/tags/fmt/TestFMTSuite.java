@@ -23,8 +23,6 @@ import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
 
 /**
  * A helper class to run jelly test cases as part of Ant's JUnit tests
- *
- * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  */
 public class TestFMTSuite extends AbstractJellyTestSuite {

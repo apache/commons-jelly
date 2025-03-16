@@ -23,8 +23,6 @@ import org.apache.commons.jelly.tags.regexp.MatchTag;
 
 /*** <p><code>MatchTagTest</code> a class that is useful to perform regexp matches
 * in strings.</p>
-*
-* @author <a href="mailto:christian@inx-soft.com">Christian Amor Kvalheim</a>
 */
 public class MatchTagTest extends TestCase {
 

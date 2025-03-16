@@ -24,8 +24,6 @@ import org.eclipse.swt.graphics.Point;
 
 /**
  * A Converter that turns Strings in the form "x, y" into Point objects
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class PointConverter implements Converter {
 

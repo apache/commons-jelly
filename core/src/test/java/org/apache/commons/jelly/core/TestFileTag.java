@@ -28,8 +28,7 @@ import org.xml.sax.SAXException;
 
 import junit.framework.TestSuite;
 
-/**
- * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
+/*
  */
 public class TestFileTag extends BaseJellyTest
 {

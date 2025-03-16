@@ -22,8 +22,7 @@ import org.apache.commons.jelly.test.BaseJellyTest;
 
 import junit.framework.TestSuite;
 
-/**
- * @author <a href="mailto:robert@bull-enterprises.com">Robert McIntosh</a>
+/*
  */
 public class TestInvokeStaticTag extends BaseJellyTest {
 

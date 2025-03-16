@@ -21,8 +21,6 @@ package org.apache.commons.jelly;
  * <p><code>DynaTagSupport</code> is an abstract base class
  * for any DynaTag implementation to derive from.
  * </p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 
 public abstract class DynaTagSupport extends TagSupport implements DynaTag {

@@ -23,8 +23,6 @@ import org.apache.commons.jelly.expression.Expression;
 /**
  * Compares an actual object against an expected object and if they are different
  * then the test will fail.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class AssertEqualsTag extends AssertTagSupport {
 

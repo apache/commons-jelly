@@ -22,8 +22,6 @@ import java.awt.GridBagConstraints;
 /**
  * A simple class to represent the information for a single cell in a table
  * when using the GridBagLayout
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class Cell {
     private GridBagConstraints constraints;

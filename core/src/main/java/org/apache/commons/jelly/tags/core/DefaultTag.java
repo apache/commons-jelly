@@ -29,7 +29,6 @@ import org.apache.commons.jelly.XMLOutput;
  * {@link SwitchTag &lt;switch&gt;} tag.
  *
  * @see SwitchTag
- * @author Rodney Waldhoff
  */
 public class DefaultTag extends TagSupport {
 

@@ -24,8 +24,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * A sample bean that we can construct via Jelly tags
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class Manager {
 

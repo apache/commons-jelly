@@ -24,8 +24,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * <p>Tag handler for &lt;Driver&gt; in JSTL, used to create
  * a simple DataSource for prototyping.</p>
- *
- * @author Hans Bergsten
  */
 public class DriverTag extends TagSupport {
     private static final String DRIVER_CLASS_NAME =

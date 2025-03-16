@@ -45,9 +45,6 @@ import java.io.FileNotFoundException;
 /**
  * Basic tag for sending an email. Supports one attachment, multiple to addresses delimited by ";",
  * multiple cc addresses, etc.
- *
- * @author  Jason Horman
- * @author  <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  */
 
 public class EmailTag extends TagSupport {

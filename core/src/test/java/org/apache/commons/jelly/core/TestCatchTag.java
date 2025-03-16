@@ -25,7 +25,6 @@ import junit.textui.TestRunner;
 
 /**
  * New Catch improvement test suite
- * @author mde
  * @version 0.0
  */
 public class TestCatchTag extends AbstractJellyTestSuite {

@@ -28,8 +28,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * An abstract base class used for concrete layout tags which create new LayoutManager implementations
  * and either export them as variables or set them on parent widgets.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public abstract class LayoutTagSupport extends TagSupport {
 

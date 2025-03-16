@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.jetty;
 
 /**
  * Respond to a PUT request to a Jetty http server
- *
- * @author  rtl
  */
 /** A tag for the http PUT method */
 public class PutRequestTag extends AbstractMethodHandlerTag {

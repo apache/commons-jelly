@@ -26,8 +26,6 @@ import org.apache.commons.logging.LogFactory;
 
 /**
  * A helper class for working with SWT.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  * @version 1.1
  */
 public class SwtHelper extends UseBeanTag {

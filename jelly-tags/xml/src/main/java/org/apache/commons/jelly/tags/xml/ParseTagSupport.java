@@ -36,8 +36,6 @@ import org.xml.sax.SAXException;
 
 /**
  * An abstract base class for any tag which parsers its body as XML.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public abstract class ParseTagSupport extends TagSupport {
 

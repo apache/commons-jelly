@@ -24,8 +24,6 @@ import junit.framework.TestCase;
 
 /**
  * Tests the use of Expression parsing
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TestExpressions extends TestCase {
 

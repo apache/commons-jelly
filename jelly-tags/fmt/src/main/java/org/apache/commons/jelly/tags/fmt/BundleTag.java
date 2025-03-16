@@ -29,8 +29,6 @@ import java.util.MissingResourceException;
 /**
  * Support for tag handlers for &lt;bundle&gt;, the resource bundle loading
  * tag in JSTL.
- *
- * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  *
  * TODO decide how to implement setResponseLocale

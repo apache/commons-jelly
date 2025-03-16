@@ -30,8 +30,6 @@ import org.quartz.SchedulerException;
 import java.util.Date;
 
 /** Define a trigger using a cron time spec.
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public class CronTriggerTag extends QuartzTagSupport
 {

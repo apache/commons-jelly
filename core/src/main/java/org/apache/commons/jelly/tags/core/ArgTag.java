@@ -36,8 +36,6 @@ import org.apache.commons.jelly.XMLOutput;
  * An argument to a {@link NewTag} or {@link InvokeTag}.
  * This tag MUST be enclosed within an {@link ArgTagParent}
  * implementation.
- *
- * @author Rodney Waldhoff
  */
 public class ArgTag extends BaseClassLoaderTag {
 

@@ -23,8 +23,6 @@ import org.apache.commons.logging.Log;
 /**
  * A tag which generates TRACE level logging statement using
  * the given category name.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class TraceTag extends LogTagSupport {
 

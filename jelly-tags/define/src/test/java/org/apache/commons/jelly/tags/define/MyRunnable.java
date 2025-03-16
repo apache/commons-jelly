@@ -27,8 +27,6 @@ import org.apache.commons.logging.LogFactory;
 /**
  * An example Runnable bean that is framework neutral and just performs
  * some useful function.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class MyRunnable implements Runnable {
 

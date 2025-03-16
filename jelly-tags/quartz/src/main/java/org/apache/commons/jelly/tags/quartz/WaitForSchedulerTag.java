@@ -25,8 +25,6 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 
 /** Block and wait for the Quartz scheduler to shutdown.
- *
- *  @author <a href="mailto:bob@eng.werken.com">bob mcwhirter</a>
  */
 public class WaitForSchedulerTag extends QuartzTagSupport
 {

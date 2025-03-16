@@ -28,8 +28,6 @@ import org.apache.commons.jelly.JellyException;
 /**
  * <p><code>CompositeExpression</code> is a Composite expression made up of several
  * Expression objects which are concatenated into a single String.</p>
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class CompositeExpression extends ExpressionSupport {
 

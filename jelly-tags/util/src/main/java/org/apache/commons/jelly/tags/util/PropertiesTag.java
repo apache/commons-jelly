@@ -32,8 +32,6 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * A tag which loads a properties file from a given file name or URI
  * which are loaded into the current context.
- *
- * @author Jim Birchfield
  */
 public class PropertiesTag extends TagSupport {
     private String file;

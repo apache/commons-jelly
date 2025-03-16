@@ -33,7 +33,6 @@ import java.util.MissingResourceException;
 /**
  * Support for tag handlers for &lt;message&gt;, the lookup up
  * localized message tag in JSTL.
- * @author <a href="mailto:willievu@yahoo.com">Willie Vu</a>
  * @version 1.1
  *
  * task decide how to implement setResponseLocale

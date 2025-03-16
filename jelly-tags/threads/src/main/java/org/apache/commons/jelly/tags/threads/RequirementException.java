@@ -19,8 +19,6 @@ package org.apache.commons.jelly.tags.threads;
 
 /**
  * Thrown by the {@link WaitForTag} when a requirement is not met.
- *
- * @author <a href="mailto:jason@jhorman.org">Jason Horman</a>
  */
 
 public class RequirementException extends RuntimeException {

@@ -30,8 +30,6 @@ import org.jaxen.XPath;
 /**
  * Performs an assertion that a given boolean expression, or XPath expression is
  * true. If the expression returns false then this test fails.
- *
- * @author <a href="mailto:jstrachan@apache.org">James Strachan</a>
  */
 public class AssertTag extends AssertTagSupport {
 
