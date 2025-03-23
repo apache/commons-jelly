@@ -120,8 +120,9 @@ public class AskTag extends TagSupport {
     }
     
     /**
-     * Whether the completion should also happen on previously
+     * Sets whether the completion should also happen on previously
      * entered lines (default true).
+     *
      * @param should whether it should
      */
     public void setUseHistoryCompletor(boolean should) {
