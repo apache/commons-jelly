@@ -57,6 +57,7 @@ The <action> type attribute can be add,update,fix,remove.
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-beanutils:commons-beanutils from a mix of 1.6 and 1.7.0 to 1.10.1.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump xmlunit:xmlunit from a mix of 0.8 and 1.0 to 1.6.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory. Dependabot">Bump commons-cli:commons-cli from 1.0 to 1.9.0 #24.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-lang:commons-lang 2.0 to org.apache.commons:commons-lang3 3.17.0.</action>
     </release>
   </body>
 </document>

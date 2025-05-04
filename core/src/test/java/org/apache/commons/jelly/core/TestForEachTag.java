@@ -18,7 +18,7 @@ package org.apache.commons.jelly.core;
 
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.test.BaseJellyTest;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import junit.framework.TestSuite;
 
