@@ -18,7 +18,7 @@ package org.apache.commons.jelly.tags.jmx;
 
 import javax.management.ObjectName;
 
-import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils2.ConvertUtils;
 import org.apache.commons.jelly.tags.bean.BeanTag;
 import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
 

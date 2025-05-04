@@ -19,7 +19,7 @@ package org.apache.commons.jelly.tags.swing.converters;
 import java.awt.Point;
 import java.util.StringTokenizer;
 
-import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils2.Converter;
 
 /**
  * A Converter that turns Strings in the form "x, y" into Point objects

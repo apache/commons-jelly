@@ -20,7 +20,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils2.BeanUtils;
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;

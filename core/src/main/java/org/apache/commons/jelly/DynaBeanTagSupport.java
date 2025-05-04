@@ -17,8 +17,8 @@
 
 package org.apache.commons.jelly;
 
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaProperty;
+import org.apache.commons.beanutils2.DynaBean;
+import org.apache.commons.beanutils2.DynaProperty;
 
 /** 
  * <p><code>DynaBeanTag</code> is a DynaTag implementation which uses a DynaBean

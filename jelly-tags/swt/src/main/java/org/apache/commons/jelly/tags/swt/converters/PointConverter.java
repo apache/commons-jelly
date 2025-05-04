@@ -18,7 +18,7 @@ package org.apache.commons.jelly.tags.swt.converters;
 
 import java.util.StringTokenizer;
 
-import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils2.Converter;
 
 import org.eclipse.swt.graphics.Point;
 

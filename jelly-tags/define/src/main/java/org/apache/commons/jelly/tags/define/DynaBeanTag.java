@@ -20,7 +20,7 @@ package org.apache.commons.jelly.tags.define;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.beanutils.DynaClass;
+import org.apache.commons.beanutils2.DynaClass;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.Tag;

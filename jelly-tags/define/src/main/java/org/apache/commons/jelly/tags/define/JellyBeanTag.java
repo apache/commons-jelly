@@ -19,7 +19,7 @@ package org.apache.commons.jelly.tags.define;
 
 import java.lang.reflect.Method;
 
-import org.apache.commons.beanutils.MethodUtils;
+import org.apache.commons.beanutils2.MethodUtils;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

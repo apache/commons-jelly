@@ -16,9 +16,9 @@
  */
 package org.apache.commons.jelly.tags.betwixt;
 
-import org.apache.commons.beanutils.ConversionException;
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils2.ConversionException;
+import org.apache.commons.beanutils2.ConvertUtils;
+import org.apache.commons.beanutils2.Converter;
 
 import org.apache.commons.betwixt.XMLIntrospector;
 import org.apache.commons.betwixt.strategy.CapitalizeNameMapper;

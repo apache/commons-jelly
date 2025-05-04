@@ -51,7 +51,7 @@
 
   <dynabean:dynaclass var="CustomerType" name="CustomerDynaClass"> 
       <dynabean:property name="name" type="String" />
-      <dynabean:property name="address" type="org.apache.commons.beanutils.DynaBean"/>
+      <dynabean:property name="address" type="org.apache.commons.beanutils2.DynaBean"/>
   </dynabean:dynaclass>
 
 

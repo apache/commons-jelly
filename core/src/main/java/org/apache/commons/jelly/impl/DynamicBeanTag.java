@@ -23,8 +23,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.beanutils.ConvertingWrapDynaBean;
-import org.apache.commons.collections.BeanMap;
+import org.apache.commons.beanutils2.ConvertingWrapDynaBean;
+import org.apache.commons.beanutils2.BeanMap;
 import org.apache.commons.jelly.DynaBeanTagSupport;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;

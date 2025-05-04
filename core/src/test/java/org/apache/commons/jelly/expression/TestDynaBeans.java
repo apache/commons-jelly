@@ -19,10 +19,10 @@ package org.apache.commons.jelly.expression;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.beanutils.BasicDynaClass;
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaClass;
-import org.apache.commons.beanutils.DynaProperty;
+import org.apache.commons.beanutils2.BasicDynaClass;
+import org.apache.commons.beanutils2.DynaBean;
+import org.apache.commons.beanutils2.DynaClass;
+import org.apache.commons.beanutils2.DynaProperty;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
 

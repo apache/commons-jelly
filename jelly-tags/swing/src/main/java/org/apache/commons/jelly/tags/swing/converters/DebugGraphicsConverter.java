@@ -19,8 +19,8 @@ package org.apache.commons.jelly.tags.swing.converters;
 import javax.swing.DebugGraphics;
 import java.util.StringTokenizer;
 
-import org.apache.commons.beanutils.Converter;
-import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils2.Converter;
+import org.apache.commons.beanutils2.ConvertUtils;
 
 /**
  * A Converter that turns Strings in one of the constants of
@@ -38,7 +38,7 @@ public class DebugGraphicsConverter implements Converter {
     }
 
     /** Part of the Converter interface.
-     * @see org.apache.commons.beanutils.Converter#convert(java.lang.Class, java.lang.Object)
+     * @see org.apache.commons.beanutils2.Converter#convert(java.lang.Class, java.lang.Object)
      */
     @Override
     public Object convert(Class type, Object value) {

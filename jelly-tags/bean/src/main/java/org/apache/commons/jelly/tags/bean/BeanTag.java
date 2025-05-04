@@ -21,8 +21,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.MethodUtils;
+import org.apache.commons.beanutils2.BeanUtils;
+import org.apache.commons.beanutils2.MethodUtils;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.impl.BeanSource;

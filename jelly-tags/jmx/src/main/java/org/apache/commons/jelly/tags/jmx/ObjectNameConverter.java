@@ -19,8 +19,8 @@ package org.apache.commons.jelly.tags.jmx;
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
 
-import org.apache.commons.beanutils.ConversionException;
-import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils2.ConversionException;
+import org.apache.commons.beanutils2.Converter;
 
 /**
  * A Converter that turns Strings into JMX ObjectName objects

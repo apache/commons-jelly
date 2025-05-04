@@ -21,7 +21,7 @@ import java.awt.SystemColor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import org.apache.commons.beanutils.Converter;
+import org.apache.commons.beanutils2.Converter;
 
 /**
  * A Converter that turns Strings in the form "#uuuuuu" (as RGB triple)

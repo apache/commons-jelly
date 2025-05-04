@@ -18,9 +18,9 @@ package org.apache.commons.jelly.tags.dynabean;
 
 import java.util.ArrayList;
 
-import org.apache.commons.beanutils.BasicDynaClass;
-import org.apache.commons.beanutils.DynaClass;
-import org.apache.commons.beanutils.DynaProperty;
+import org.apache.commons.beanutils2.BasicDynaClass;
+import org.apache.commons.beanutils2.DynaClass;
+import org.apache.commons.beanutils2.DynaProperty;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;

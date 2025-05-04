@@ -26,10 +26,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.ConvertingWrapDynaBean;
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaProperty;
+import org.apache.commons.beanutils2.ConvertUtils;
+import org.apache.commons.beanutils2.ConvertingWrapDynaBean;
+import org.apache.commons.beanutils2.DynaBean;
+import org.apache.commons.beanutils2.DynaProperty;
 import org.apache.commons.jelly.CompilableTag;
 import org.apache.commons.jelly.DynaTag;
 import org.apache.commons.jelly.JellyContext;

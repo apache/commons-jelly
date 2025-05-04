@@ -19,16 +19,16 @@ package org.apache.commons.jelly.tags.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.beanutils.ConversionException;
-import org.apache.commons.beanutils.Converter;
-import org.apache.commons.beanutils.converters.BooleanConverter;
-import org.apache.commons.beanutils.converters.ByteConverter;
-import org.apache.commons.beanutils.converters.CharacterConverter;
-import org.apache.commons.beanutils.converters.DoubleConverter;
-import org.apache.commons.beanutils.converters.FloatConverter;
-import org.apache.commons.beanutils.converters.IntegerConverter;
-import org.apache.commons.beanutils.converters.LongConverter;
-import org.apache.commons.beanutils.converters.ShortConverter;
+import org.apache.commons.beanutils2.ConversionException;
+import org.apache.commons.beanutils2.Converter;
+import org.apache.commons.beanutils2.converters.BooleanConverter;
+import org.apache.commons.beanutils2.converters.ByteConverter;
+import org.apache.commons.beanutils2.converters.CharacterConverter;
+import org.apache.commons.beanutils2.converters.DoubleConverter;
+import org.apache.commons.beanutils2.converters.FloatConverter;
+import org.apache.commons.beanutils2.converters.IntegerConverter;
+import org.apache.commons.beanutils2.converters.LongConverter;
+import org.apache.commons.beanutils2.converters.ShortConverter;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
