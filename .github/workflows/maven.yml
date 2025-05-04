@@ -22,32 +22,16 @@ permissions:
 
 jobs:
   build:
-    runs-on: ${{ matrix.os }}
-    timeout-minutes: 7
+
+    runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-        java: [ 8 ]
-        os: [ ubuntu-latest ]
+        java: [ 8, 11, 17, 21, 24 ]
         experimental: [false]
         include:
-          - java: 8
-            os: macos-13
-            experimental: false
-          - java: 8
-            os: windows-latest
-            experimental: false
-          - java: 17
-            os: ubuntu-latest
-            experimental: true
-          - java: 21
-            os: ubuntu-latest
-            experimental: true
-          - java: 24
-            os: ubuntu-latest
-            experimental: true
-          - java: 25-ea
-            experimental: true
+            - java: 25-ea
+              experimental: true
 
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
