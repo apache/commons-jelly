@@ -28,7 +28,7 @@ import org.jaxen.JaxenException;
 import java.util.List;
 import java.util.Collections;
 
-/** A tag that can sort a list of xml nodes via an xpath expression.
+/** A tag that can sort a list of XML nodes via an xpath expression.
   */
 
 public class SortTag extends XPathTagSupport {

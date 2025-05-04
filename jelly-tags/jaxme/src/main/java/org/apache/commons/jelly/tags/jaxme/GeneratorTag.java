@@ -33,7 +33,7 @@ import org.apache.ws.jaxme.js.JavaSourceFactory;
 
 /** 
  * Generates java objects using JaxMe.
- * This object can be marshalled into xml and the results unmarshalled 
+ * This object can be marshalled into XML and the results unmarshalled 
  * using JaxMe.
  */
 public class GeneratorTag extends TagSupport {

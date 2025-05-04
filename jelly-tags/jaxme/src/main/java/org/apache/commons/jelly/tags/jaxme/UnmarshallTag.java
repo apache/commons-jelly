@@ -38,9 +38,9 @@ import org.apache.ws.jaxme.generator.impl.GeneratorImpl;
 import org.xml.sax.SAXException;
 
 /** 
- * <p>Unmarshalls xml documents into java objects.</p>
+ * <p>Unmarshalls XML documents into java objects.</p>
  * <p>
- * This tag unmarshalls the xml content contained 
+ * This tag unmarshalls the XML content contained 
  * into the JaxMe generated java objects in the packages specified.
  * </p>
  */
@@ -54,7 +54,7 @@ public class UnmarshallTag extends TagSupport {
     }
     
     /**
-     * Defines the generated objects to which the xml should be unmarshalled. 
+     * Defines the generated objects to which the XML should be unmarshalled. 
      */
     public void setPackages(String packages) {
         this.packages = packages;

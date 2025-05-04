@@ -149,10 +149,10 @@ public class SecurityHandlerTag extends TagSupport {
      * This is the code from Jetty's WebApplicationContext
      * with the HttpContextTag parameter added
      *
-     * Process a parsed xml node to setup the security constraints
+     * Process a parsed XML node to setup the security constraints
      * for an http server
      *
-     * @param node the parsed xml starting node of the constraints
+     * @param node the parsed XML starting node of the constraints
      * @param httpContext the tag to add the security constraint to
     */
     protected void initSecurityConstraint(XmlParser.Node node,
@@ -220,10 +220,10 @@ public class SecurityHandlerTag extends TagSupport {
      * with the HttpContextTag parameter added
      *
      *
-     * Process a parsed xml node to setup the authenticator and realm
+     * Process a parsed XML node to setup the authenticator and realm
      * for an http server
      *
-     * @param node the parsed xml starting node of the login configuration
+     * @param node the parsed XML starting node of the login configuration
      * @param httpContext the tag to add the authenticator and realm to
     */
     protected void initLoginConfig(XmlParser.Node node,

@@ -58,7 +58,7 @@ public class MarshallTag extends TagSupport {
     }
     
     /** 
-     * Defines the object to be unmarshalled into xml by specifying a jelly variable name.
+     * Defines the object to be unmarshalled into XML by specifying a jelly variable name.
      */
     public void setObject(Object object) {
         this.object = object;

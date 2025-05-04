@@ -26,14 +26,14 @@ import org.dom4j.io.SAXReader;
 
 /** A tag which parses some XML and defines a variable with the parsed Document.
   * The XML can either be specified as its body or can be passed in via the
-  * xml property which can be a Reader, InputStream, URL or String URI.
+  * XML property which can be a Reader, InputStream, URL or String URI.
   */
 public class ParseTag extends ParseTagSupport {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ParseTag.class);
 
-    /** The xml to parse, either a String URI, a Reader or InputStream */
+    /** The XML to parse, either a String URI, a Reader or InputStream */
     private Object xml;
 
     // Optional properties not defined in JSTL

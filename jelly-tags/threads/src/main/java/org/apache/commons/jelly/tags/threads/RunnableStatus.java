@@ -96,7 +96,7 @@ public class RunnableStatus {
 
     /**
      * Used to get the status code from a string representation. Mainly used for
-     * xml parsing.
+     * XML parsing.
      * @param status The status string rep.
      * @return The status enum value
      */

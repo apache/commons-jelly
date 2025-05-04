@@ -69,7 +69,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
 /** A tag which parses some XML, applies an xslt transform to it
   * and defines a variable with the transformed Document.
   * The XML can either be specified as its body or can be passed in via the
-  * xml property which can be a Reader, InputStream, URL or String URI.
+  * XML property which can be a Reader, InputStream, URL or String URI.
   *
   * The XSL can be passed in via the
   * xslt property which can be a Reader, InputStream, URL or String URI.
@@ -106,7 +106,7 @@ public class TransformTag extends ParseTag {
     /**
      * Process this tag instance
      *
-     * @param output The pipeline for xml events
+     * @param output The pipeline for XML events
      * @throws MissingAttributeException Thrown when required attributes are missing
      */
     @Override
@@ -240,7 +240,7 @@ public class TransformTag extends ParseTag {
     /**
      * Factory method to create a new XMLReader for this tag
      * so that the input of the XSLT transform comes from
-     * either the xml var, the nested tag or the tag body.
+     * either the XML var, the nested tag or the tag body.
      *
      * @return XMLReader for the transform input
      * @throws SAXException
@@ -250,7 +250,7 @@ public class TransformTag extends ParseTag {
     protected XMLReader createXMLReader() throws SAXException {
         XMLReader xmlReader = null;
         Object xmlReaderSourceObj = this.getXml();
-        // if no xml source specified then get from body
+        // if no XML source specified then get from body
         // otherwise convert it to a SAX source
         if (null == xmlReaderSourceObj) {
             xmlReader = new TagBodyXMLReader(this);
@@ -263,16 +263,16 @@ public class TransformTag extends ParseTag {
     }
 
     /**
-     * Helper method to get the appropriate xml input source
+     * Helper method to get the appropriate XML input source
      * so that the input of the XSLT transform comes from
-     * either the xml var, the nested tag or the tag body.
+     * either the XML var, the nested tag or the tag body.
      *
      * @return InputSource for the transform input
      */
     protected InputSource getXMLInputSource() {
         InputSource xmlInputSource = null;
         Object xmlInputSourceObj = this.getXml();
-        // if no xml source specified then get from tag body
+        // if no XML source specified then get from tag body
         // otherwise convert it to an input source
         if (null == xmlInputSourceObj) {
             xmlInputSource = new TagBodyInputSource();
@@ -303,7 +303,7 @@ public class TransformTag extends ParseTag {
     }
 
     /**
-     * Helper method to get an xml input source for the supplied object
+     * Helper method to get an XML input source for the supplied object
      *
      * @return InputSource for the object or null
      */
@@ -485,7 +485,7 @@ public class TransformTag extends ParseTag {
 
         /**
          * Helper method to determine if nested body needs to be parsed by (an
-         * xml parser, i.e. its only text) to generate SAX events or not
+         * XML parser, i.e. its only text) to generate SAX events or not
          *
          * @return True if tag body should be parsed or false if invoked only
          * @throws JellyTagException
