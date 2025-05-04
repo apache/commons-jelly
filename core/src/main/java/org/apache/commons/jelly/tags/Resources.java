@@ -54,32 +54,32 @@ public class Resources {
     //*********************************************************************
     // Public static methods
 
-    /** Retrieves a message with no arguments. */
+    /** Gets a message with no arguments. */
     public static String getMessage(String name)
         throws MissingResourceException {
     return rb.getString(name);
     }
 
-    /** Retrieves a message with arbitrarily many arguments. */
+    /** Gets a message with arbitrarily many arguments. */
     public static String getMessage(String name, Object[] a)
         throws MissingResourceException {
     String res = rb.getString(name);
     return MessageFormat.format(res, a);
     }
 
-    /** Retrieves a message with one argument. */
+    /** Gets a message with one argument. */
     public static String getMessage(String name, Object a1)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1 });
     }
 
-    /** Retrieves a message with two arguments. */
+    /** Gets a message with two arguments. */
     public static String getMessage(String name, Object a1, Object a2)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1, a2 });
     }
 
-    /** Retrieves a message with three arguments. */
+    /** Gets a message with three arguments. */
     public static String getMessage(String name,
                     Object a1,
                     Object a2,
@@ -88,7 +88,7 @@ public class Resources {
     return getMessage(name, new Object[] { a1, a2, a3 });
     }
 
-    /** Retrieves a message with four arguments. */
+    /** Gets a message with four arguments. */
     public static String getMessage(String name,
                     Object a1,
                     Object a2,
@@ -98,7 +98,7 @@ public class Resources {
     return getMessage(name, new Object[] { a1, a2, a3, a4 });
     }
 
-    /** Retrieves a message with five arguments. */
+    /** Gets a message with five arguments. */
     public static String getMessage(String name,
                     Object a1,
                     Object a2,
@@ -109,7 +109,7 @@ public class Resources {
     return getMessage(name, new Object[] { a1, a2, a3, a4, a5 });
     }
 
-    /** Retrieves a message with six arguments. */
+    /** Gets a message with six arguments. */
     public static String getMessage(String name,
                     Object a1,
                     Object a2,
