@@ -70,15 +70,6 @@ public class SessionTag extends TagSupport {
     }
 
     /**
-     * Getter for property host.
-     *
-     * @return Value of property host.
-     */
-    public String getHost() {
-        return _host;
-    }
-
-    /**
      * Getter for property httpClient.
      *
      * @return Value of property httpClient.
@@ -86,47 +77,15 @@ public class SessionTag extends TagSupport {
     public HttpClient getHttpClient() {
         return _httpClient;
     }
-    /** Getter for property port.
-     * @return Value of property port.
-     */
-    public String getPort() {
-        return _port;
-    }
 
     /**
-     * Getter for property proxy.
+     * Setter for property httpClient.
      *
-     * @return Value of property proxy.
+     * @param httpClient New value of property httpClient.
      */
-    public Proxy getProxy() {
-        return _proxy;
+    public void setHttpClient(HttpClient httpClient) {
+        _httpClient = httpClient;
     }
-
-    /**
-     * Helper method for proxy host property
-     *
-     * @return the {@link #getProxy() proxy's} host property
-     */
-    public String getProxyHost() {
-        return getProxy().getHost();
-    }
-
-    /**
-     * Helper method for proxy <code>port</code> property
-     *
-     * @return the {@link #getProxy() proxy's} port property
-     */
-    public int getProxyPort() {
-        return getProxy().getPort();
-    }
-
-    /** Getter for property userAgent.
-     * @return Value of property userAgent.
-     */
-    public String getUserAgent() {
-        return _userAgent;
-    }
-
     /**
      * Tests whether the {@link #getProxy() proxy} is ready for use
      *
@@ -138,53 +97,12 @@ public class SessionTag extends TagSupport {
     }
 
     /**
-     * Getter for property secure.
+     * Helper method for proxy host property
      *
-     * @return Value of property secure.
+     * @return the {@link #getProxy() proxy's} host property
      */
-    public boolean isSecure() {
-        return _secure;
-    }
-
-    /** Getter for property strictMode.
-     * @return Value of property strictMode.
-     */
-    public boolean isStrictMode() {
-        return _strictMode;
-    }
-
-    /**
-     * Setter for property host.
-     *
-     * @param host New value of property host.
-     */
-    public void setHost(String host) {
-        _host = host;
-    }
-
-    /**
-     * Setter for property httpClient.
-     *
-     * @param httpClient New value of property httpClient.
-     */
-    public void setHttpClient(HttpClient httpClient) {
-        _httpClient = httpClient;
-    }
-
-    /** Setter for property port.
-     * @param port New value of property port.
-     */
-    public void setPort(String port) {
-        _port = port;
-    }
-
-    /**
-     * Setter for property proxy.
-     *
-     * @param proxy New value of property proxy.
-     */
-    public void setProxy(Proxy proxy) {
-        _proxy = proxy;
+    public String getProxyHost() {
+        return getProxy().getHost();
     }
 
     /**
@@ -199,10 +117,78 @@ public class SessionTag extends TagSupport {
     /**
      * Helper method for proxy <code>port</code> property
      *
+     * @return the {@link #getProxy() proxy's} port property
+     */
+    public int getProxyPort() {
+        return getProxy().getPort();
+    }
+
+    /**
+     * Helper method for proxy <code>port</code> property
+     *
      * @param port the {@link #getProxy() proxy's} port property
      */
     public void setProxyPort(int port) {
         getProxy().setPort(port);
+    }
+
+    /**
+     * Getter for property host.
+     *
+     * @return Value of property host.
+     */
+    public String getHost() {
+        return _host;
+    }
+
+    /**
+     * Setter for property host.
+     *
+     * @param host New value of property host.
+     */
+    public void setHost(String host) {
+        _host = host;
+    }
+
+    /** Getter for property port.
+     * @return Value of property port.
+     */
+    public String getPort() {
+        return _port;
+    }
+
+    /** Setter for property port.
+     * @param port New value of property port.
+     */
+    public void setPort(String port) {
+        _port = port;
+    }
+
+    /**
+     * Getter for property proxy.
+     *
+     * @return Value of property proxy.
+     */
+    public Proxy getProxy() {
+        return _proxy;
+    }
+
+    /**
+     * Setter for property proxy.
+     *
+     * @param proxy New value of property proxy.
+     */
+    public void setProxy(Proxy proxy) {
+        _proxy = proxy;
+    }
+
+    /**
+     * Getter for property secure.
+     *
+     * @return Value of property secure.
+     */
+    public boolean isSecure() {
+        return _secure;
     }
 
     /**
@@ -214,11 +200,11 @@ public class SessionTag extends TagSupport {
         _secure = secure;
     }
 
-    /** Setter for property strictMode.
-     * @param strictMode New value of property strictMode.
+    /** Getter for property userAgent.
+     * @return Value of property userAgent.
      */
-    public void setStrictMode(boolean strictMode) {
-        _strictMode = strictMode;
+    public String getUserAgent() {
+        return _userAgent;
     }
 
     /** Setter for property userAgent.
@@ -226,6 +212,20 @@ public class SessionTag extends TagSupport {
      */
     public void setUserAgent(String userAgent) {
         _userAgent = userAgent;
+    }
+
+    /** Getter for property strictMode.
+     * @return Value of property strictMode.
+     */
+    public boolean isStrictMode() {
+        return _strictMode;
+    }
+
+    /** Setter for property strictMode.
+     * @param strictMode New value of property strictMode.
+     */
+    public void setStrictMode(boolean strictMode) {
+        _strictMode = strictMode;
     }
 
 }

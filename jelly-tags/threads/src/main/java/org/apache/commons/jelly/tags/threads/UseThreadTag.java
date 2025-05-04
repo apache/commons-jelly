@@ -75,11 +75,32 @@ public abstract class UseThreadTag extends TagSupport {
         }
     }
 
+    /** Implement this method to do something with the thread */
+    protected abstract void useThread(Thread thread, XMLOutput output) throws InterruptedException ;
+
+    /** Implement this method to do something with the threadGroup */
+    protected abstract void useThreadGroup(List threadGroup, XMLOutput output) throws InterruptedException ;
+
+    /**
+     * Sets the thread to use in some way.
+     */
+    public void setThread(Thread thread) {
+        this.thread = thread;
+    }
+
     /**
      * Gets a reference to the thread to use
      */
     public Thread getThread() {
         return thread;
+    }
+
+    /**
+     * Sets the thread group to "use".
+     * @param threadGroup The threadGroup created with the <em>group</em> tag.
+     */
+    public void setThreadGroup(List threadGroup) {
+        this.threadGroup = threadGroup;
     }
 
     /**
@@ -96,25 +117,4 @@ public abstract class UseThreadTag extends TagSupport {
     public void setSearchForParentThread(boolean searchForParent) {
         this.searchForParent = searchForParent;
     }
-
-    /**
-     * Sets the thread to use in some way.
-     */
-    public void setThread(Thread thread) {
-        this.thread = thread;
-    }
-
-    /**
-     * Sets the thread group to "use".
-     * @param threadGroup The threadGroup created with the <em>group</em> tag.
-     */
-    public void setThreadGroup(List threadGroup) {
-        this.threadGroup = threadGroup;
-    }
-
-    /** Implement this method to do something with the thread */
-    protected abstract void useThread(Thread thread, XMLOutput output) throws InterruptedException ;
-
-    /** Implement this method to do something with the threadGroup */
-    protected abstract void useThreadGroup(List threadGroup, XMLOutput output) throws InterruptedException ;
 }

@@ -33,53 +33,77 @@ public class Image implements Serializable {
      */
     protected String description = null;
 
+    public String getDescription() {
+        return (this.description);
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     /**
      * The image height in pixels (1-400).
      */
     protected int height = 31;
+
+    public int getHeight() {
+        return (this.height);
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
 
     /**
      * The image link (1-500 characters).
      */
     protected String link = null;
 
+    public String getLink() {
+        return (this.link);
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     /**
      * The image alternate text (1-100 characters).
      */
     protected String title = null;
+
+    public String getTitle() {
+        return (this.title);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     /**
      * The image location URL (1-500 characters).
      */
     protected String url = null;
 
+    public String getURL() {
+        return (this.url);
+    }
+
+    public void setURL(String url) {
+        this.url = url;
+    }
+
     /**
      * The image width in pixels (1-400).
      */
     protected int width = 31;
 
-    public String getDescription() {
-        return (this.description);
-    }
-
-    public int getHeight() {
-        return (this.height);
-    }
-
-    public String getLink() {
-        return (this.link);
-    }
-
-    public String getTitle() {
-        return (this.title);
-    }
-
-    public String getURL() {
-        return (this.url);
-    }
-
     public int getWidth() {
         return (this.width);
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
     }
 
     /**
@@ -122,30 +146,6 @@ public class Image implements Serializable {
 
         writer.println("    </image>");
 
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setURL(String url) {
-        this.url = url;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
     }
 
 }

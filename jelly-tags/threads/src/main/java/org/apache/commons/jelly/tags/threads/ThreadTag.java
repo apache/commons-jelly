@@ -156,11 +156,29 @@ public class ThreadTag extends TagSupport {
     }
 
     /**
-     * Gets the thread instance
-     * @return The thread
+     * Sets the variable name to export, optional
+     * @param var The variable name
      */
-    public Thread getThread() {
-        return thread;
+    public void setVar(String var) {
+        this.var = var;
+        if (name == null) {
+            name = var;
+        }
+    }
+
+    /**
+     * Sets the name of the thread.
+     * @param name The name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets the threads priority. Defaults to Thread.NORM_PRIORITY
+     */
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     /**
@@ -168,6 +186,14 @@ public class ThreadTag extends TagSupport {
      */
     public void setDaemon(boolean daemon) {
         this.daemon = daemon;
+    }
+
+    /**
+     * Sets the destination of output
+     */
+    public void setXmlOutput(XMLOutput xmlOutput) {
+        this.closeOutput = false;
+        this.xmlOutput = xmlOutput;
     }
 
     /**
@@ -180,14 +206,6 @@ public class ThreadTag extends TagSupport {
     }
 
     /**
-     * Sets the name of the thread.
-     * @param name The name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Should a new context be created for this thread?
      */
     public void setNewContext(boolean newContext) {
@@ -195,28 +213,10 @@ public class ThreadTag extends TagSupport {
     }
 
     /**
-     * Sets the threads priority. Defaults to Thread.NORM_PRIORITY
+     * Gets the thread instance
+     * @return The thread
      */
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    /**
-     * Sets the variable name to export, optional
-     * @param var The variable name
-     */
-    public void setVar(String var) {
-        this.var = var;
-        if (name == null) {
-            name = var;
-        }
-    }
-
-    /**
-     * Sets the destination of output
-     */
-    public void setXmlOutput(XMLOutput xmlOutput) {
-        this.closeOutput = false;
-        this.xmlOutput = xmlOutput;
+    public Thread getThread() {
+        return thread;
     }
 }

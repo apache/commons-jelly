@@ -41,17 +41,6 @@ public class ServerTag extends TagSupport {
     public ServerTag() {
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    /**
-     * Factory method to lazily create an MBeanServer if none is supplied
-     *
-     * @return MBeanServer
-     */
-    protected MBeanServer createServer() {
-        return MBeanServerFactory.newMBeanServer();
-    }
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -82,6 +71,17 @@ public class ServerTag extends TagSupport {
      */
     public void setServer(MBeanServer server) {
         this.server = server;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    /**
+     * Factory method to lazily create an MBeanServer if none is supplied
+     *
+     * @return MBeanServer
+     */
+    protected MBeanServer createServer() {
+        return MBeanServerFactory.newMBeanServer();
     }
 
 }

@@ -60,6 +60,26 @@ public class TestXMLTags extends TestCase {
     /** Regular expression for multiple namespace attributes. */
     private static final String REG_NS = "( xmlns(:(\\w)+)?=\".+\")+";
 
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
+
+    public static Test suite() {
+        return new TestSuite(TestXMLTags.class);
+    }
+
+    /**
+     * Returns a matcher for a namespace XML fragment.
+     * @param s the fragment to be checked
+     * @param pre the part before the namespace expression
+     * @param post the part after the namespace expression
+     * @return the matcher
+     */
+    private static Matcher matcherForNamespaceFragment(String s, String pre, String post) {
+        Pattern pattern = Pattern.compile(Pattern.quote(pre) + REG_NS + Pattern.quote(post));
+        return pattern.matcher(s);
+    }
+
     /**
      * Checks an XML fragment with a namespace expression. Namespaces are
      * generated in arbitrary order. Therefore, they cannot be checked
@@ -96,28 +116,205 @@ public class TestXMLTags extends TestCase {
         }
     }
 
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    /**
-     * Returns a matcher for a namespace XML fragment.
-     * @param s the fragment to be checked
-     * @param pre the part before the namespace expression
-     * @param post the part after the namespace expression
-     * @return the matcher
-     */
-    private static Matcher matcherForNamespaceFragment(String s, String pre, String post) {
-        Pattern pattern = Pattern.compile(Pattern.quote(pre) + REG_NS + Pattern.quote(post));
-        return pattern.matcher(s);
-    }
-
-    public static Test suite() {
-        return new TestSuite(TestXMLTags.class);
-    }
-
     public TestXMLTags(String testName) {
         super(testName);
+    }
+
+    public void testUnitTests() throws Exception {
+        runUnitTest( testBaseDir + "/testForEach.jelly" );
+    }
+
+    public void testExpressions() throws Exception {
+        runUnitTest( testBaseDir + "/testExpressions.jelly");
+    }
+
+    public void testParse() throws Exception {
+        InputStream in = new FileInputStream(testBaseDir + "/example.jelly");
+        XMLParser parser = new XMLParser();
+        Script script = parser.parse(in);
+        script = script.compile();
+        log.debug("Found: " + script);
+        assertTrue("Parsed a Script", script instanceof Script);
+        StringWriter buffer = new StringWriter();
+        script.run(parser.getContext(), XMLOutput.createXMLOutput(buffer));
+        String text = buffer.toString().trim();
+        if (log.isDebugEnabled()) {
+            log.debug("Evaluated script as...");
+            log.debug(text);
+        }
+        assertEquals("Should produce the correct output", "It works!", text);
+    }
+
+    public void testElementWithNameSpace() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir + "/elementWithNameSpace.jelly");
+        assertEquals("Should produce the correct output",
+                "<env:Envelope "+
+                "xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\" "+
+                "env:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"+
+                "</env:Envelope>", text);
+    }
+
+    public void testElementWithNameSpaceError() throws Exception {
+        try {
+            evaluateScriptAsText(testBaseDir + "/elementWithNameSpaceError.jelly");
+            Assert.fail("We should have bailed out with an JellyException");
+        } catch (JellyException jex) {
+            assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
+        }
+    }
+
+    public void testNamespaceReplace() throws Exception {
+        // For this test when we not set "ns" var with expected namespace, it
+        // is expected to repeat the same two times
+        String text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly");
+        String repeatingText = "<test-subnode attr=\"test\"><test-anotherSubNode></test-anotherSubNode><test-anotherSubNodeAgain xmlns:other=\"\" other:abc=\"testValue\"></test-anotherSubNodeAgain></test-subnode>";
+        assertEquals("Should produce the correct output",
+                "<test-node xmlns:test=\"http://apache/testNS\" test:abc=\"testValue\">"+
+                repeatingText + repeatingText +
+                "</test-node>", text);
+
+        Map ctxVars = new HashMap();
+        ctxVars.put("ns", "http://java/ns");
+
+        text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly", ctxVars);
+
+        findNamespaceFragment(text,
+                "<test-subnode xmlns=\"\" attr=\"test\">"
+                        + "<test-anotherSubNode>" + "</test-anotherSubNode>"
+                        + "<test-anotherSubNodeAgain",
+                " other:abc=\"testValue\">" + "</test-anotherSubNodeAgain>"
+                        + "</test-subnode>" + "<test-subnode attr=\"test\">"
+                        + "<test-anotherSubNode>" + "</test-anotherSubNode>"
+                        + "<test-anotherSubNodeAgain xmlns:other=\"http://java/ns\" other:abc=\"testValue\">"
+                        + "</test-anotherSubNodeAgain>" + "</test-subnode>",
+                "xmlns:other=\"http://java/ns\"", "xmlns=\"http://java/ns\"");
+    }
+
+    public void testAttributeNameSpaceDuplicatedNS() throws Exception {
+        try {
+            evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDuplicatedNS.jelly");
+            Assert.fail("We should have bailed out with an JellyException");
+        } catch (JellyException jex) {
+            assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
+        }
+    }
+
+    public void testAttributeNameSpace() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpace.jelly");
+        System.out.println(text);
+        String ns = checkNamespaceFragment(text, "<top-node xmlns=\"abc\"><test-node",
+                " test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
+                        "<test:test-subnode><node-at-same-ns-as-top xmlns=\"abc\">"+
+                        "</node-at-same-ns-as-top>"+
+                        "</test:test-subnode>"+
+                        "</test-node>"+
+                        "</top-node>");
+        assertTrue(ns.contains("xmlns:test=\"http://apache/testNS\""));
+        assertTrue(ns.contains("xmlns=\"http://apache/trueNS\""));
+    }
+
+    public void testAttributeNameSpaceDefaultNS() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDefaultNS.jelly");
+        System.out.println(text);
+        String ns = checkNamespaceFragment(text, "<top-node><test-node",
+                " test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">" +
+                        "<test:test-subnode><node-at-same-ns-as-top xmlns=\"\">"+
+                        "</node-at-same-ns-as-top>"+
+                        "</test:test-subnode>"+
+                        "</test-node>"+
+                        "</top-node>");
+        assertTrue(ns.contains("xmlns:test=\"http://apache/testNS\""));
+        assertTrue(ns.contains("xmlns=\"http://apache/trueNS\""));
+    }
+
+    public void testAttributeNameSpaceWithInnerElements() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceWithInnerElements.jelly");
+        assertEquals("Should produce the correct output",
+                "<test-node xmlns:test=\"http://apache/testNS\" test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
+                "<test-sub-node xmlns:test2=\"http://apache/testNS\" xmlns:test3=\"http://apache/anotherNS\" test:abc=\"testValue\" test2:abc2=\"testValue\" test3:abc3=\"testValue\">"+
+                "</test-sub-node>"+
+                "</test-node>"
+                , text);
+    }
+
+    public void testTransform() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir + "/transformExample.jelly");
+        assertEquals("Should produce the correct output", "It works!", text);
+    }
+
+    public void testTransformAllInLine() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir + "/transformExampleAllInLine.jelly");
+        assertEquals("Should produce the correct output", "It works!", text);
+    }
+
+    public void testTransformParams() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir + "/transformParamExample.jelly");
+        assertEquals("Should produce the correct output", "It works!", text);
+    }
+
+    public void testTransformParamsInLine() throws Exception {
+
+        String text = evaluateScriptAsText(testBaseDir + "/transformParamExample2.jelly");
+        assertEquals("Should produce the correct output", "It works!", text);
+    }
+
+    public void testTransformSAXOutput() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir + "/transformExampleSAXOutput.jelly");
+        assertEquals("Should produce the correct output", "It works!", text);
+    }
+
+    public void testTransformSAXOutputNestedTransforms() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir +
+            "/transformExampleSAXOutputNestedTransforms.jelly");
+        assertEquals("Should produce the correct output", "It works!", text);
+    }
+
+    public void testTransformSchematron() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir +
+            "/schematron/transformSchematronExample.jelly");
+        assertEquals("Should produce the correct output", "Report count=1:assert count=2", text);
+    }
+
+    public void testTransformXmlVar() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir +
+            "/transformExampleXmlVar.jelly");
+        assertEquals("Should produce the correct output", "It works!", text);
+    }
+
+    public void testDoctype() throws Exception {
+        String text = evaluateScriptAsText(testBaseDir +
+            "/testDoctype.jelly");
+        assertEquals("Should produce the correct output", "<!DOCTYPE foo PUBLIC \"publicID\" \"foo.dtd\">\n<foo></foo>", text);
+    }
+
+    public void runUnitTest(String name) throws Exception {
+        Document document = parseUnitTest(name);
+
+        List failures = document.selectNodes( "/*/fail" );
+        for ( Iterator iter = failures.iterator(); iter.hasNext(); ) {
+            Node node = (Node) iter.next();
+            fail( node.getStringValue() );
+        }
+    }
+
+    public Document parseUnitTest(String name) throws Exception {
+        // parse script
+        InputStream in = new FileInputStream(name);
+        XMLParser parser = new XMLParser();
+        Script script = parser.parse(in);
+        script = script.compile();
+        assertTrue("Parsed a Script", script instanceof Script);
+        StringWriter buffer = new StringWriter();
+        script.run(parser.getContext(), XMLOutput.createXMLOutput(buffer));
+
+        String text = buffer.toString().trim();
+        if (log.isDebugEnabled()) {
+            log.debug("Evaluated script as...");
+            log.debug(text);
+        }
+
+        // now lets parse the output
+        return DocumentHelper.parseText( text );
     }
 
     /**
@@ -202,203 +399,6 @@ public class TestXMLTags extends TestCase {
             log.debug(text);
         }
         return text;
-    }
-
-    public Document parseUnitTest(String name) throws Exception {
-        // parse script
-        InputStream in = new FileInputStream(name);
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-        assertTrue("Parsed a Script", script instanceof Script);
-        StringWriter buffer = new StringWriter();
-        script.run(parser.getContext(), XMLOutput.createXMLOutput(buffer));
-
-        String text = buffer.toString().trim();
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluated script as...");
-            log.debug(text);
-        }
-
-        // now lets parse the output
-        return DocumentHelper.parseText( text );
-    }
-
-    public void runUnitTest(String name) throws Exception {
-        Document document = parseUnitTest(name);
-
-        List failures = document.selectNodes( "/*/fail" );
-        for ( Iterator iter = failures.iterator(); iter.hasNext(); ) {
-            Node node = (Node) iter.next();
-            fail( node.getStringValue() );
-        }
-    }
-
-    public void testAttributeNameSpace() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpace.jelly");
-        System.out.println(text);
-        String ns = checkNamespaceFragment(text, "<top-node xmlns=\"abc\"><test-node",
-                " test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
-                        "<test:test-subnode><node-at-same-ns-as-top xmlns=\"abc\">"+
-                        "</node-at-same-ns-as-top>"+
-                        "</test:test-subnode>"+
-                        "</test-node>"+
-                        "</top-node>");
-        assertTrue(ns.contains("xmlns:test=\"http://apache/testNS\""));
-        assertTrue(ns.contains("xmlns=\"http://apache/trueNS\""));
-    }
-
-    public void testAttributeNameSpaceDefaultNS() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDefaultNS.jelly");
-        System.out.println(text);
-        String ns = checkNamespaceFragment(text, "<top-node><test-node",
-                " test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">" +
-                        "<test:test-subnode><node-at-same-ns-as-top xmlns=\"\">"+
-                        "</node-at-same-ns-as-top>"+
-                        "</test:test-subnode>"+
-                        "</test-node>"+
-                        "</top-node>");
-        assertTrue(ns.contains("xmlns:test=\"http://apache/testNS\""));
-        assertTrue(ns.contains("xmlns=\"http://apache/trueNS\""));
-    }
-
-    public void testAttributeNameSpaceDuplicatedNS() throws Exception {
-        try {
-            evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDuplicatedNS.jelly");
-            Assert.fail("We should have bailed out with an JellyException");
-        } catch (JellyException jex) {
-            assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
-        }
-    }
-
-    public void testAttributeNameSpaceWithInnerElements() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceWithInnerElements.jelly");
-        assertEquals("Should produce the correct output",
-                "<test-node xmlns:test=\"http://apache/testNS\" test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
-                "<test-sub-node xmlns:test2=\"http://apache/testNS\" xmlns:test3=\"http://apache/anotherNS\" test:abc=\"testValue\" test2:abc2=\"testValue\" test3:abc3=\"testValue\">"+
-                "</test-sub-node>"+
-                "</test-node>"
-                , text);
-    }
-
-    public void testDoctype() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir +
-            "/testDoctype.jelly");
-        assertEquals("Should produce the correct output", "<!DOCTYPE foo PUBLIC \"publicID\" \"foo.dtd\">\n<foo></foo>", text);
-    }
-
-    public void testElementWithNameSpace() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/elementWithNameSpace.jelly");
-        assertEquals("Should produce the correct output",
-                "<env:Envelope "+
-                "xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\" "+
-                "env:encodingStyle=\"http://schemas.xmlsoap.org/soap/encoding/\">"+
-                "</env:Envelope>", text);
-    }
-
-    public void testElementWithNameSpaceError() throws Exception {
-        try {
-            evaluateScriptAsText(testBaseDir + "/elementWithNameSpaceError.jelly");
-            Assert.fail("We should have bailed out with an JellyException");
-        } catch (JellyException jex) {
-            assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
-        }
-    }
-
-    public void testExpressions() throws Exception {
-        runUnitTest( testBaseDir + "/testExpressions.jelly");
-    }
-
-    public void testNamespaceReplace() throws Exception {
-        // For this test when we not set "ns" var with expected namespace, it
-        // is expected to repeat the same two times
-        String text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly");
-        String repeatingText = "<test-subnode attr=\"test\"><test-anotherSubNode></test-anotherSubNode><test-anotherSubNodeAgain xmlns:other=\"\" other:abc=\"testValue\"></test-anotherSubNodeAgain></test-subnode>";
-        assertEquals("Should produce the correct output",
-                "<test-node xmlns:test=\"http://apache/testNS\" test:abc=\"testValue\">"+
-                repeatingText + repeatingText +
-                "</test-node>", text);
-
-        Map ctxVars = new HashMap();
-        ctxVars.put("ns", "http://java/ns");
-
-        text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly", ctxVars);
-
-        findNamespaceFragment(text,
-                "<test-subnode xmlns=\"\" attr=\"test\">"
-                        + "<test-anotherSubNode>" + "</test-anotherSubNode>"
-                        + "<test-anotherSubNodeAgain",
-                " other:abc=\"testValue\">" + "</test-anotherSubNodeAgain>"
-                        + "</test-subnode>" + "<test-subnode attr=\"test\">"
-                        + "<test-anotherSubNode>" + "</test-anotherSubNode>"
-                        + "<test-anotherSubNodeAgain xmlns:other=\"http://java/ns\" other:abc=\"testValue\">"
-                        + "</test-anotherSubNodeAgain>" + "</test-subnode>",
-                "xmlns:other=\"http://java/ns\"", "xmlns=\"http://java/ns\"");
-    }
-
-    public void testParse() throws Exception {
-        InputStream in = new FileInputStream(testBaseDir + "/example.jelly");
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-        log.debug("Found: " + script);
-        assertTrue("Parsed a Script", script instanceof Script);
-        StringWriter buffer = new StringWriter();
-        script.run(parser.getContext(), XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluated script as...");
-            log.debug(text);
-        }
-        assertEquals("Should produce the correct output", "It works!", text);
-    }
-
-    public void testTransform() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/transformExample.jelly");
-        assertEquals("Should produce the correct output", "It works!", text);
-    }
-
-    public void testTransformAllInLine() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/transformExampleAllInLine.jelly");
-        assertEquals("Should produce the correct output", "It works!", text);
-    }
-
-    public void testTransformParams() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/transformParamExample.jelly");
-        assertEquals("Should produce the correct output", "It works!", text);
-    }
-
-    public void testTransformParamsInLine() throws Exception {
-
-        String text = evaluateScriptAsText(testBaseDir + "/transformParamExample2.jelly");
-        assertEquals("Should produce the correct output", "It works!", text);
-    }
-
-    public void testTransformSAXOutput() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/transformExampleSAXOutput.jelly");
-        assertEquals("Should produce the correct output", "It works!", text);
-    }
-
-    public void testTransformSAXOutputNestedTransforms() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir +
-            "/transformExampleSAXOutputNestedTransforms.jelly");
-        assertEquals("Should produce the correct output", "It works!", text);
-    }
-
-    public void testTransformSchematron() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir +
-            "/schematron/transformSchematronExample.jelly");
-        assertEquals("Should produce the correct output", "Report count=1:assert count=2", text);
-    }
-
-    public void testTransformXmlVar() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir +
-            "/transformExampleXmlVar.jelly");
-        assertEquals("Should produce the correct output", "It works!", text);
-    }
-
-    public void testUnitTests() throws Exception {
-        runUnitTest( testBaseDir + "/testForEach.jelly" );
     }
 
 }

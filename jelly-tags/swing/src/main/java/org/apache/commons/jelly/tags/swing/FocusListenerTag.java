@@ -42,6 +42,30 @@ public class FocusListenerTag extends TagSupport
     super();
   }
 
+  /**
+  * @param var
+  */
+  public void setVar(String var)
+  {
+    this.var = var;
+  }
+
+  /**
+   * @param gained
+   */
+  public void setGained(Script gained)
+  {
+    this.gained = gained;
+  }
+
+  /**
+   * @param lost
+   */
+  public void setLost(Script lost)
+  {
+    this.lost = lost;
+  }
+
   @Override
 public void doTag(final XMLOutput output) throws JellyTagException
   {
@@ -91,30 +115,6 @@ public void doTag(final XMLOutput output) throws JellyTagException
     {
       log.error("Caught exception processing window event: " + event, e);
     }
-  }
-
-  /**
-   * @param gained
-   */
-  public void setGained(Script gained)
-  {
-    this.gained = gained;
-  }
-
-  /**
-   * @param lost
-   */
-  public void setLost(Script lost)
-  {
-    this.lost = lost;
-  }
-
-  /**
-  * @param var
-  */
-  public void setVar(String var)
-  {
-    this.var = var;
   }
 
 }

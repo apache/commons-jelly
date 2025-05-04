@@ -81,14 +81,14 @@ public class ApplyTemplatesTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
+    public void setSelect( XPath select ) {
+        this.select = select;
+    }
+
     /** Sets the mode.
      * @param mode New value of property mode.
      */
     public void setMode(String mode) {
         this.mode = mode;
-    }
-
-    public void setSelect( XPath select ) {
-        this.select = select;
     }
 }

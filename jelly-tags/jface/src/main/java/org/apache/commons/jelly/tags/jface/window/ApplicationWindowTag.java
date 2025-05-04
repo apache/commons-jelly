@@ -79,17 +79,6 @@ public class ApplicationWindowTag extends UseBeanTag {
         }
     }
 
-    /**
-     * @return the visible window, if there is one.
-     */
-    public Window getWindow() {
-        Object bean = getBean();
-        if (bean instanceof Window) {
-            return (Window) bean;
-        }
-        return null;
-    }
-
     /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
@@ -101,6 +90,17 @@ public class ApplicationWindowTag extends UseBeanTag {
         throws JellyTagException {
 
         return new ApplicationWindowImpl(parent);
+    }
+
+    /**
+     * @return the visible window, if there is one.
+     */
+    public Window getWindow() {
+        Object bean = getBean();
+        if (bean instanceof Window) {
+            return (Window) bean;
+        }
+        return null;
     }
 
 }

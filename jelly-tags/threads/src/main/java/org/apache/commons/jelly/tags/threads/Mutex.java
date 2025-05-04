@@ -141,6 +141,11 @@ public class Mutex {
         }
     }
 
+    public synchronized void release() {
+        inuse_ = false;
+        notify();
+    }
+
     public boolean attempt(long msecs) throws InterruptedException {
         if (Thread.interrupted()) throw new InterruptedException();
         synchronized (this) {
@@ -170,11 +175,6 @@ public class Mutex {
                 }
             }
         }
-    }
-
-    public synchronized void release() {
-        inuse_ = false;
-        notify();
     }
 
 }

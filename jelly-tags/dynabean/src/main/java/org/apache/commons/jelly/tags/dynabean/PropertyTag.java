@@ -112,13 +112,6 @@ public class PropertyTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Returns the Class for this property
-     */
-    public Class getPropertyClass() {
-        return propertyClass;
-    }
-
-    /**
      * Sets the name of this property
      */
     public void setName(String name) {
@@ -126,17 +119,24 @@ public class PropertyTag extends TagSupport {
     }
 
     /**
-     * Sets the Class instance for this property
-     */
-    public void setPropertyClass(Class propertyClass) {
-        this.propertyClass = propertyClass;
-    }
-
-    /**
      * Sets the type name of this property
      */
     public void setType(String type) {
         this.type = type;
+    }
+
+    /**
+     * Returns the Class for this property
+     */
+    public Class getPropertyClass() {
+        return propertyClass;
+    }
+
+    /**
+     * Sets the Class instance for this property
+     */
+    public void setPropertyClass(Class propertyClass) {
+        this.propertyClass = propertyClass;
     }
 
 }

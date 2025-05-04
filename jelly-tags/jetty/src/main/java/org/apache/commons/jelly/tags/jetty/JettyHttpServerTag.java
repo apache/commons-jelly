@@ -98,35 +98,6 @@ public class JettyHttpServerTag extends TagSupport {
     }
 
     /**
-     * Add an http context to the server instance
-     *
-     * @param context the context to add
-     */
-    public void addContext(HttpContext context) {
-        _server.addContext(context);
-    }
-
-    /**
-     * Add an http listener to the server instance
-     *
-     * @param listener the listener to add
-     */
-    public void addListener(HttpListener listener) {
-        _server.addListener(listener);
-    }
-
-    /**
-     * Add a user authentication realm to the server instance
-     *
-     * @param realm the realm to add
-     * @return the realm added
-     */
-    public UserRealm addRealm(UserRealm realm)
-    {
-        return _server.addRealm(realm);
-    }
-
-    /**
      * Perform the tag functionality. In this case, create an http server after
      * making sure that it has at least one context and associated http handler,
      * creating defaults if it doesn't
@@ -206,12 +177,32 @@ public class JettyHttpServerTag extends TagSupport {
     }
 
     /**
-     * Getter for property logFileName.
+     * Add an http listener to the server instance
      *
-     * @return Value of property logFileName.
+     * @param listener the listener to add
      */
-    public String getLogFileName() {
-        return _logFileName;
+    public void addListener(HttpListener listener) {
+        _server.addListener(listener);
+    }
+
+    /**
+     * Add an http context to the server instance
+     *
+     * @param context the context to add
+     */
+    public void addContext(HttpContext context) {
+        _server.addContext(context);
+    }
+
+    /**
+     * Add a user authentication realm to the server instance
+     *
+     * @param realm the realm to add
+     * @return the realm added
+     */
+    public UserRealm addRealm(UserRealm realm)
+    {
+        return _server.addRealm(realm);
     }
 
     /**
@@ -224,21 +215,30 @@ public class JettyHttpServerTag extends TagSupport {
     }
 
     /**
-     * Setter for property logFileName.
-     *
-     * @param logFileName New value of property logFileName.
-     */
-    public void setLogFileName(String logFileName) {
-        _logFileName = logFileName;
-    }
-
-    /**
      * Setter for property var.
      *
      * @param var New value of property var.
      */
     public void setVar(String var) {
         _var = var;
+    }
+
+    /**
+     * Getter for property logFileName.
+     *
+     * @return Value of property logFileName.
+     */
+    public String getLogFileName() {
+        return _logFileName;
+    }
+
+    /**
+     * Setter for property logFileName.
+     *
+     * @param logFileName New value of property logFileName.
+     */
+    public void setLogFileName(String logFileName) {
+        _logFileName = logFileName;
     }
 
 }

@@ -28,27 +28,10 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public abstract class BaseJellyTest extends TestCase {
 
-    private Jelly jelly = null;
-
-    private JellyContext context = null;
-
-    private XMLOutput xmlOutput = null;
-
     public BaseJellyTest(String name) {
         super(name);
     }
 
-    protected Jelly getJelly() {
-        return jelly;
-    }
-
-    protected JellyContext getJellyContext() {
-        return context;
-    }
-
-    protected XMLOutput getXMLOutput() {
-        return xmlOutput;
-    }
     @Override
     public void setUp() throws Exception {
         super.setUp();
@@ -56,6 +39,7 @@ public abstract class BaseJellyTest extends TestCase {
         context = new JellyContext();
         xmlOutput = XMLOutput.createDummyXMLOutput();
     }
+
     protected void setUpScript(String scriptname) throws Exception {
         URL url = this.getClass().getResource(scriptname);
         if (null == url) {
@@ -72,5 +56,21 @@ public abstract class BaseJellyTest extends TestCase {
         URL baseurl = new URL(extBase);
         context.setCurrentURL(baseurl);
     }
+
+    protected Jelly getJelly() {
+        return jelly;
+    }
+
+    protected JellyContext getJellyContext() {
+        return context;
+    }
+
+    protected XMLOutput getXMLOutput() {
+        return xmlOutput;
+    }
+
+    private Jelly jelly = null;
+    private JellyContext context = null;
+    private XMLOutput xmlOutput = null;
 
 }

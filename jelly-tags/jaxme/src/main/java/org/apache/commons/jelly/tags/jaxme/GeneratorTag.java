@@ -41,6 +41,39 @@ public class GeneratorTag extends TagSupport {
     private String schemaUrl;
     private String target;
     
+    public String getSchemaUrl() {
+        return schemaUrl;
+    }
+        
+    /**
+     * Defines the schema against which the java object representations
+     * should be generated.
+     */
+    public void setSchemaUrl(String schemaUrl) {
+        this.schemaUrl = schemaUrl;
+    }
+    
+    public String getTarget() {
+        return target;
+    }
+    
+    /**
+     * Defines the target directory into which 
+     * the generated objects will be placed.
+     */
+    public void setTarget(String target) {
+        this.target = target;
+    }
+    
+        
+    private File getSchemaFile() throws JellyTagException {
+        return new File(schemaUrl);
+    }
+    
+    private File getTargetDirectory() throws JellyTagException {
+        return new File(target);
+    }
+    
     @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
     
@@ -71,38 +104,5 @@ public class GeneratorTag extends TagSupport {
         {
             throw new JellyTagException(e);
         }
-    }
-        
-    private File getSchemaFile() throws JellyTagException {
-        return new File(schemaUrl);
-    }
-    
-    public String getSchemaUrl() {
-        return schemaUrl;
-    }
-    
-    public String getTarget() {
-        return target;
-    }
-    
-        
-    private File getTargetDirectory() throws JellyTagException {
-        return new File(target);
-    }
-    
-    /**
-     * Defines the schema against which the java object representations
-     * should be generated.
-     */
-    public void setSchemaUrl(String schemaUrl) {
-        this.schemaUrl = schemaUrl;
-    }
-    
-    /**
-     * Defines the target directory into which 
-     * the generated objects will be placed.
-     */
-    public void setTarget(String target) {
-        this.target = target;
     }
 }

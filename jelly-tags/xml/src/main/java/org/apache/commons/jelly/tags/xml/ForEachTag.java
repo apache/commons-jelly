@@ -81,14 +81,6 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     // XPathSource interface
     //-------------------------------------------------------------------------
 
-    /*
-     * Override superclass so method can be access by IfTag
-     */
-    @Override
-    protected Object getXPathContext() {
-        return super.getXPathContext();
-    }
-
     /**
      * @return the current XPath iteration value
      *  so that any other XPath aware child tags to use
@@ -96,14 +88,6 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     @Override
     public Object getXPathSource() {
         return iterationValue;
-    }
-
-    /**
-     * Sets whether to sort ascending or descending.
-     */
-    public void setDescending(boolean descending) {
-        if (xpCmp == null) xpCmp = new XPathComparator();
-        xpCmp.setDescending(descending);
     }
 
     // Properties
@@ -114,6 +98,12 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
         this.select = select;
     }
 
+    /** Sets the variable name to export for the item being iterated over
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
     /** Sets the xpath expression to use to sort selected nodes.
      */
     public void setSort(XPath sortXPath) throws JaxenException {
@@ -121,10 +111,20 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
         xpCmp.setXpath(sortXPath);
     }
 
-    /** Sets the variable name to export for the item being iterated over
+    /**
+     * Sets whether to sort ascending or descending.
      */
-    public void setVar(String var) {
-        this.var = var;
+    public void setDescending(boolean descending) {
+        if (xpCmp == null) xpCmp = new XPathComparator();
+        xpCmp.setDescending(descending);
+    }
+
+    /*
+     * Override superclass so method can be access by IfTag
+     */
+    @Override
+    protected Object getXPathContext() {
+        return super.getXPathContext();
     }
 
 }

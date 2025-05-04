@@ -51,16 +51,6 @@ public class MyRunnable implements Runnable {
     }
     */
 
-    // Properties
-    //-------------------------------------------------------------------------
-    public int getX() {
-        return x;
-    }
-
-    public String getY() {
-        return y;
-    }
-
     // Runnable interface
     //-------------------------------------------------------------------------
     @Override
@@ -69,8 +59,18 @@ public class MyRunnable implements Runnable {
         log.info( "FileSets are: " + fileSets );
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
+    public int getX() {
+        return x;
+    }
+
     public void setX(int x) {
         this.x = x;
+    }
+
+    public String getY() {
+        return y;
     }
 
     public void setY(String y) {

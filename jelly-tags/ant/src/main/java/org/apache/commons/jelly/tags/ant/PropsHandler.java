@@ -39,56 +39,19 @@ import org.apache.tools.ant.Project;
  */
 public interface PropsHandler {
 
-    /** Copy all of the inherited properties to the other <code>Project</code>.
-     * 
-     * @param other The <code>Project</code> to copy the properties to.
-     */
-    void copyInheritedProperties(Project other);
-
-    /** Copy all of the user properties to the other <code>Project</code>.
-     * 
-     * @param other The <code>Project</code> to copy the properties to.
-     */
-    void copyUserProperties(Project other);
-
-    /** Retrieve a <code>Hashtable</code> of all properties.
-     *
-     *  @return A <code>Hashtable</code> of all properties.
-     */
-    Hashtable getProperties();
-
-    /** Retrieve a property.
+    /** Sets a property.
      *
      *  @param key The property key.
-     *
-     *  @return The value.
+     *  @param value The value.
      */
-    String getProperty(String key);
-    
-    /** Retrieve a <code>Hashtable</code> of all user properties.
-     *
-     *  @return A <code>Hashtable</code> of all user properties.
-     */
-    Hashtable getUserProperties();
+    void setProperty(String key, String value);
 
-    /** Retrieve a user property.
-     *
-     *  @param key The user property key.
-     *
-     *  @return The value.
-     */
-    String getUserProperty(String key);
-
-    /** Sets an inherited property.
+    /** Sets a user property.
      *
      *  @param key The user property key.
      *  @param value The value.
      */
-    void setInheritedProperty(String key, String value);
-
-    /** Sets the <code>ant.java.version</code> property.
-     */
-    void setJavaVersionProperty();
+    void setUserProperty(String key, String value);
 
     /** Sets a new property.
      *
@@ -96,13 +59,13 @@ public interface PropsHandler {
      *  @param value The value.
      */
     void setNewProperty(String key, String value);
-    
-    /** Sets a property.
+
+    /** Sets an inherited property.
      *
-     *  @param key The property key.
+     *  @param key The user property key.
      *  @param value The value.
      */
-    void setProperty(String key, String value);
+    void setInheritedProperty(String key, String value);
     
     /** Sets a property that is not a user property.
      * 
@@ -113,18 +76,55 @@ public interface PropsHandler {
      * @param value The value.
      */
     void setPropertyIfUndefinedByUser(String key, String value);
+
+    /** Retrieve a property.
+     *
+     *  @param key The property key.
+     *
+     *  @return The value.
+     */
+    String getProperty(String key);
+
+    /** Retrieve a user property.
+     *
+     *  @param key The user property key.
+     *
+     *  @return The value.
+     */
+    String getUserProperty(String key);
+
+    /** Retrieve a <code>Hashtable</code> of all properties.
+     *
+     *  @return A <code>Hashtable</code> of all properties.
+     */
+    Hashtable getProperties();
+
+    /** Retrieve a <code>Hashtable</code> of all user properties.
+     *
+     *  @return A <code>Hashtable</code> of all user properties.
+     */
+    Hashtable getUserProperties();
+    
+    /** Copy all of the user properties to the other <code>Project</code>.
+     * 
+     * @param other The <code>Project</code> to copy the properties to.
+     */
+    void copyUserProperties(Project other);
+    
+    /** Copy all of the inherited properties to the other <code>Project</code>.
+     * 
+     * @param other The <code>Project</code> to copy the properties to.
+     */
+    void copyInheritedProperties(Project other);
     
     /** Sets the system variables for a <code>Project</code> that have
      * not already been assigned as user properties.
      */
     void setSystemProperties();
     
-    /** Sets a user property.
-     *
-     *  @param key The user property key.
-     *  @param value The value.
+    /** Sets the <code>ant.java.version</code> property.
      */
-    void setUserProperty(String key, String value);    
+    void setJavaVersionProperty();    
     
     
 }

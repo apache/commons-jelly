@@ -34,6 +34,23 @@ public class MyTagLibrary extends TagLibrary {
     public MyTagLibrary() {
     }
 
+    // TagLibrary interface
+    //-------------------------------------------------------------------------
+    @Override
+    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
+
+        TagFactory factory = new TagFactory() {
+            @Override
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return createBeanTag(name, attributes);
+            }
+        };
+        return new TagScript( factory );
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     /**
      * Factory method to create a Tag for the given tag and attributes. If this
      * tag matches a root bean, then a BeanTag will be created, otherwise a
@@ -48,23 +65,6 @@ public class MyTagLibrary extends TagLibrary {
 
         // its a property tag
         return new BeanPropertyTag(name);
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    // TagLibrary interface
-    //-------------------------------------------------------------------------
-    @Override
-    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
-
-        TagFactory factory = new TagFactory() {
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return createBeanTag(name, attributes);
-            }
-        };
-        return new TagScript( factory );
     }
 
     /**

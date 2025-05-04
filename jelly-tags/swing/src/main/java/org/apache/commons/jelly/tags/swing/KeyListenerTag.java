@@ -40,6 +40,26 @@ public class KeyListenerTag extends TagSupport
     super();
   }
 
+  public void setVar(String var)
+  {
+    this.var = var;
+  }
+
+  public void setPressed(Script pressed)
+  {
+    this.pressed = pressed;
+  }
+
+  public void setReleased(Script released)
+  {
+    this.released = released;
+  }
+
+  public void setTyped(Script typed)
+  {
+    this.typed = typed;
+  }
+
   @Override
 public void doTag(final XMLOutput output) throws JellyTagException
   {
@@ -50,6 +70,12 @@ public void doTag(final XMLOutput output) throws JellyTagException
       KeyListener listener = new KeyListener()
       {
         @Override
+        public void keyTyped(KeyEvent e)
+        {
+          invokeScript(output, e, typed);
+        }
+
+        @Override
         public void keyPressed(KeyEvent e)
         {
           invokeScript(output, e, pressed);
@@ -59,12 +85,6 @@ public void doTag(final XMLOutput output) throws JellyTagException
         public void keyReleased(KeyEvent e)
         {
           invokeScript(output, e, released);
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e)
-        {
-          invokeScript(output, e, typed);
         }
       };
       tag.addKeyListener(listener);
@@ -95,26 +115,6 @@ public void doTag(final XMLOutput output) throws JellyTagException
     {
       log.error("Caught exception processing window event: " + event, e);
     }
-  }
-
-  public void setPressed(Script pressed)
-  {
-    this.pressed = pressed;
-  }
-
-  public void setReleased(Script released)
-  {
-    this.released = released;
-  }
-
-  public void setTyped(Script typed)
-  {
-    this.typed = typed;
-  }
-
-  public void setVar(String var)
-  {
-    this.var = var;
   }
 
 }

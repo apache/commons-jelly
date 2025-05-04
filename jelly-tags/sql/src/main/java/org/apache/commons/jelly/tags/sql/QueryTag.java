@@ -64,6 +64,26 @@ public class QueryTag extends SqlTagSupport {
     // Accessor methods
 
     /**
+     * The index of the first row returned can be
+     * specified using startRow.
+     */
+    public void setStartRow(int startRow) {
+        this.startRow = startRow;
+    }
+
+    /**
+     * Query result can be limited by specifying
+     * the maximum number of rows returned.
+     */
+    public void setMaxRows(int maxRows) {
+        this.maxRows = maxRows;
+        this.maxRowsSpecified = true;
+    }
+
+    //*********************************************************************
+    // Tag logic
+
+    /**
      * <p>Execute the SQL statement, set either through the <code>sql</code>
      * attribute or as the body, and save the result as a variable
      * named by the <code>var</code> attribute in the scope specified
@@ -199,25 +219,5 @@ public class QueryTag extends SqlTagSupport {
             }
             clearParameters();
         }
-    }
-
-    /**
-     * Query result can be limited by specifying
-     * the maximum number of rows returned.
-     */
-    public void setMaxRows(int maxRows) {
-        this.maxRows = maxRows;
-        this.maxRowsSpecified = true;
-    }
-
-    //*********************************************************************
-    // Tag logic
-
-    /**
-     * The index of the first row returned can be
-     * specified using startRow.
-     */
-    public void setStartRow(int startRow) {
-        this.startRow = startRow;
     }
 }

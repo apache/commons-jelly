@@ -20,11 +20,11 @@ package org.apache.commons.jelly.tags.jmx;
  * A dummy MBean interface
  */
 public interface DummyMBean {
-    void doSomething();
     int getCount();
     String getName();
     void setCount(int count);
-
     void setName(String name);
+
+    void doSomething();
 
 }

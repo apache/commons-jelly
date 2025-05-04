@@ -54,6 +54,21 @@ public class TestParser extends TestCase {
     }
 
     /**
+     * Tests that parsing an example script correctly creates the parent
+     * relationships
+     */
+    public void testParser() throws Exception {
+        InputStream in = new FileInputStream("target/test-classes/org/apache/commons/jelly/tags/xml/example2.jelly");
+        XMLParser parser = new XMLParser();
+        Script script = parser.parse(in);
+        script = script.compile();
+
+        log.debug("Found: " + script);
+
+        assertTagsHaveParent( script, null, null );
+    }
+
+    /**
      * Tests that the Tag in the TagScript has the given parent and then
      * recurse to check its children has the correct parent and so forth.
      */
@@ -74,20 +89,5 @@ public class TestParser extends TestCase {
                 assertTagsHaveParent( (Script) iter.next(), parent, context );
             }
         }
-    }
-
-    /**
-     * Tests that parsing an example script correctly creates the parent
-     * relationships
-     */
-    public void testParser() throws Exception {
-        InputStream in = new FileInputStream("target/test-classes/org/apache/commons/jelly/tags/xml/example2.jelly");
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-
-        log.debug("Found: " + script);
-
-        assertTagsHaveParent( script, null, null );
     }
 }

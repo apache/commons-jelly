@@ -57,6 +57,11 @@ public class IfTag extends XPathTagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
+    /** Sets the XPath expression to evaluate. */
+    public void setSelect(XPath select) {
+        this.select = select;
+    }
+
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override
@@ -66,11 +71,6 @@ public class IfTag extends XPathTagSupport {
             return tag.getXPathContext();
         }
         return null;
-    }
-
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
-        this.select = select;
     }
 
 }

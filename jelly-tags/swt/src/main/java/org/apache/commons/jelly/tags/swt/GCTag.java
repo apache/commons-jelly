@@ -34,6 +34,45 @@ public class GCTag extends TagSupport {
     private String var;
 
     /**
+     * Obtain the {@link Drawable} name for this {@link GC}.
+     *
+     * @return a {@link GC} {@link Drawable}
+     */
+    public Drawable getDrawable() {
+        return this.drawable;
+    }
+
+    /**
+     * Sets the {@link Drawable} name for this {@link GC}.
+     *
+     * @param drawable a {@link GC} {@link Drawable}
+     */
+    public void setDrawable(final Drawable drawable) {
+        this.drawable = drawable;
+    }
+
+    /**
+     * Sets the variable name.
+     *
+     * @param var the variable name of this {@link GC} instance
+     */
+    public void setVar(final String var) {
+        this.var = var;
+    }
+
+    /**
+     * Obtain the variable name.
+     *
+     * @return the variable name of this {@link GC} instance
+     */
+    public String getVar() {
+        return this.var;
+    }
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+
+    /**
      * Creates a {@link GC} instance and stores it in the Context under a
      * particular variable name. Note, {@link GC} objects can only be created on
      * {@link Drawable} objects.
@@ -62,44 +101,5 @@ public class GCTag extends TagSupport {
 
         // store the GC in the context
         context.setVariable(var, new GC(drawable));
-    }
-
-    /**
-     * Obtain the {@link Drawable} name for this {@link GC}.
-     *
-     * @return a {@link GC} {@link Drawable}
-     */
-    public Drawable getDrawable() {
-        return this.drawable;
-    }
-
-    /**
-     * Obtain the variable name.
-     *
-     * @return the variable name of this {@link GC} instance
-     */
-    public String getVar() {
-        return this.var;
-    }
-
-    /**
-     * Sets the {@link Drawable} name for this {@link GC}.
-     *
-     * @param drawable a {@link GC} {@link Drawable}
-     */
-    public void setDrawable(final Drawable drawable) {
-        this.drawable = drawable;
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the variable name.
-     *
-     * @param var the variable name of this {@link GC} instance
-     */
-    public void setVar(final String var) {
-        this.var = var;
     }
 }

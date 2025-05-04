@@ -74,6 +74,17 @@ public class SelectionChangedListenerTag
         return var;
     }
 
+    /**
+     * Sets the var.
+     * @param var The var to set
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    //  Listener interface
+    //-------------------------------------------------------------------------
+
     /*
      * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
      */
@@ -87,17 +98,6 @@ public class SelectionChangedListenerTag
                 "Caught exception: " + e + " while processing event: " + event,
                 e);
         }
-    }
-
-    //  Listener interface
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the var.
-     * @param var The var to set
-     */
-    public void setVar(String var) {
-        this.var = var;
     }
 
 }

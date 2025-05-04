@@ -39,6 +39,14 @@ public class InvokeTag extends TagSupport {
     public InvokeTag() {
     }
 
+    /**
+     * Sets the Script to be invoked by this tag, which typically has been previously
+     * defined by the use of the &lt;script&gt; tag.
+     */
+    public void setScript(Script script) {
+        this.script = script;
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -47,13 +55,5 @@ public class InvokeTag extends TagSupport {
             throw new MissingAttributeException("script");
         }
         script.run(context, output);
-    }
-
-    /**
-     * Sets the Script to be invoked by this tag, which typically has been previously
-     * defined by the use of the &lt;script&gt; tag.
-     */
-    public void setScript(Script script) {
-        this.script = script;
     }
 }

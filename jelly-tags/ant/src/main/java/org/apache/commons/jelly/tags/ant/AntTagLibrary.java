@@ -81,6 +81,30 @@ public class AntTagLibrary extends TagLibrary {
     }
 
     /**
+     * A helper method which will attempt to find a project in the current context
+     * or install one if need be.
+     *
+     * #### this method could move to an AntUtils class.
+     */
+    public static Project getProject(JellyContext context) {
+        Project project = (Project) context.findVariable( PROJECT_CONTEXT_HANDLE );
+        if ( project == null ) {
+            project = createProject(context);
+            context.setVariable( PROJECT_CONTEXT_HANDLE , project );
+        }
+        return project;
+    }
+
+    /**
+     * Sets the Ant Project to be used for this JellyContext.
+     *
+     * #### this method could move to an AntUtils class.
+     */
+    public static void setProject(JellyContext context, Project project) {
+        context.setVariable( PROJECT_CONTEXT_HANDLE, project );
+    }
+
+    /**
      * A helper method to create a new project
      *
      * #### this method could move to an AntUtils class.
@@ -107,28 +131,21 @@ public class AntTagLibrary extends TagLibrary {
         return project;
     }
 
-    /**
-     * A helper method which will attempt to find a project in the current context
-     * or install one if need be.
-     *
-     * #### this method could move to an AntUtils class.
-     */
-    public static Project getProject(JellyContext context) {
-        Project project = (Project) context.findVariable( PROJECT_CONTEXT_HANDLE );
-        if ( project == null ) {
-            project = createProject(context);
-            context.setVariable( PROJECT_CONTEXT_HANDLE , project );
+    /** Creates a new script to execute the given tag name and attributes */
+    @Override
+    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
+        TagScript answer = createCustomTagScript(name, attributes);
+        if ( answer == null ) {
+            answer = new TagScript(
+                new TagFactory() {
+                    @Override
+                    public Tag createTag(String name, Attributes attributes) throws JellyException {
+                        return AntTagLibrary.this.createTag(name, attributes);
+                    }
+                }
+            );
         }
-        return project;
-    }
-
-    /**
-     * Sets the Ant Project to be used for this JellyContext.
-     *
-     * #### this method could move to an AntUtils class.
-     */
-    public static void setProject(JellyContext context, Project project) {
-        context.setVariable( PROJECT_CONTEXT_HANDLE, project );
+        return answer;
     }
 
     /**
@@ -169,23 +186,6 @@ public class AntTagLibrary extends TagLibrary {
             tag.setTrim(false);
         }
         return tag;
-    }
-
-    /** Creates a new script to execute the given tag name and attributes */
-    @Override
-    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
-        TagScript answer = createCustomTagScript(name, attributes);
-        if ( answer == null ) {
-            answer = new TagScript(
-                new TagFactory() {
-                    @Override
-                    public Tag createTag(String name, Attributes attributes) throws JellyException {
-                        return AntTagLibrary.this.createTag(name, attributes);
-                    }
-                }
-            );
-        }
-        return answer;
     }
 
 }

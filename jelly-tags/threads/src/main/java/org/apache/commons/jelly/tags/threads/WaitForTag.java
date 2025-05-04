@@ -36,6 +36,37 @@ public class WaitForTag extends TagSupport {
     private long onlyWait = -1;
 
     /**
+     * Wait for a specific status. "SUCCESS", "FAILURE", "TIMED_OUT", or "AVOIDED". If
+     * waiting on a thread group each thread in the group will have to have this status
+     * set.
+     */
+    public void setStatus(String status) {
+        this.status = RunnableStatus.getStatusCode(status);
+    }
+
+    /**
+     * Which thread will this tag check the status of
+     */
+    public void setThread(JellyThread thread) {
+        this.thread = thread;
+    }
+
+    /**
+     * Sets the group of threads to wait on
+     */
+    public void setGroup(List group) {
+        this.group = group;
+    }
+
+    /**
+     * Sets how long to wait for the thread to finish. If waiting for a group
+     * this will be the time to wait for each thread in the group to finish.
+     */
+    public void setOnlyWait(long onlyWait) {
+        this.onlyWait = onlyWait;
+    }
+
+    /**
      * Check the requirements
      * @throws TimeoutException If the call to waitUntilDone(onlyWait) times out
      * @throws RequirementException If a threads status doesn't match the setStatus() value
@@ -68,36 +99,5 @@ public class WaitForTag extends TagSupport {
                 }
             }
         }
-    }
-
-    /**
-     * Sets the group of threads to wait on
-     */
-    public void setGroup(List group) {
-        this.group = group;
-    }
-
-    /**
-     * Sets how long to wait for the thread to finish. If waiting for a group
-     * this will be the time to wait for each thread in the group to finish.
-     */
-    public void setOnlyWait(long onlyWait) {
-        this.onlyWait = onlyWait;
-    }
-
-    /**
-     * Wait for a specific status. "SUCCESS", "FAILURE", "TIMED_OUT", or "AVOIDED". If
-     * waiting on a thread group each thread in the group will have to have this status
-     * set.
-     */
-    public void setStatus(String status) {
-        this.status = RunnableStatus.getStatusCode(status);
-    }
-
-    /**
-     * Which thread will this tag check the status of
-     */
-    public void setThread(JellyThread thread) {
-        this.thread = thread;
     }
 }

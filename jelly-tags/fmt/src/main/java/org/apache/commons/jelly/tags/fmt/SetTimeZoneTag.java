@@ -73,15 +73,15 @@ public class SetTimeZoneTag extends TagSupport {
         }
     }
 
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
-
     public void setValue(Expression value) {
         this.value = value;
     }
 
     public void setVar(String var) {
         this.var = var;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 }

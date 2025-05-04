@@ -95,6 +95,13 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
     //-------------------------------------------------------------------------
 
     /**
+     * Sets the optional JMS Message selector for the subscription
+     */
+    public void setSelector(String selector) {
+        this.selector = selector;
+    }
+
+    /**
      * Returns the messageListener.
      * @return MessageListener
      */
@@ -108,13 +115,6 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
     @Override
     public void setMessageListener(MessageListener messageListener) {
         this.messageListener = messageListener;
-    }
-
-    /**
-     * Sets the optional JMS Message selector for the subscription
-     */
-    public void setSelector(String selector) {
-        this.selector = selector;
     }
 
 }

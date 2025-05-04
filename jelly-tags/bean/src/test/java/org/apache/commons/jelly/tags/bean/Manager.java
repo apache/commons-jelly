@@ -37,23 +37,9 @@ public class Manager {
     public Manager() {
     }
 
-    public void addCustomer(Customer customer) {
-        customers.add(customer);
-    }
-
-    public List getCustomers() {
-        return customers;
-    }
-
-    /**
-     * @return boolean
-     */
-    public boolean isInvoked() {
-        return invoked;
-    }
-
-    public void removeCustomer(Customer customer) {
-        customers.remove(customer);
+    @Override
+    public String toString() {
+        return super.toString() + "[customers=" + customers + "]";
     }
 
     /**
@@ -65,17 +51,31 @@ public class Manager {
         log.info("Invoked the run() method with customers: " + customers);
     }
 
+    public List getCustomers() {
+        return customers;
+    }
+
+    public void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
+    public void removeCustomer(Customer customer) {
+        customers.remove(customer);
+    }
+
+    /**
+     * @return boolean
+     */
+    public boolean isInvoked() {
+        return invoked;
+    }
+
     /**
      * Sets the invoked.
      * @param invoked The invoked to set
      */
     public void setInvoked(boolean invoked) {
         this.invoked = invoked;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "[customers=" + customers + "]";
     }
 
 }

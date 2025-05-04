@@ -38,6 +38,11 @@ public class ExpressionTableColumn extends TableColumn {
     public ExpressionTableColumn() {
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "[value:" + value + "]";
+    }
+
     /**
      * Evaluates the value of a cell
      */
@@ -63,6 +68,9 @@ public class ExpressionTableColumn extends TableColumn {
         }
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
+
     /**
      * Returns the column type.
      * @return Class
@@ -70,9 +78,6 @@ public class ExpressionTableColumn extends TableColumn {
     public Class getType() {
         return type;
     }
-
-    // Properties
-    //-------------------------------------------------------------------------
 
     /**
      * Returns the expression used to extract the value.
@@ -96,11 +101,6 @@ public class ExpressionTableColumn extends TableColumn {
      */
     public void setValue(Expression value) {
         this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "[value:" + value + "]";
     }
 
 }

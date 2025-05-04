@@ -50,19 +50,6 @@ public class LocalizationContext {
     }
 
     /**
-     * Constructs an I18N localization context from the given resource bundle.
-     *
-     * <p> The localization context's locale is taken from the given
-     * resource bundle.
-     *
-     * @param bundle The resource bundle
-     */
-    public LocalizationContext(ResourceBundle bundle) {
-        this.bundle = bundle;
-        this.locale = bundle.getLocale();
-    }
-
-    /**
      * Constructs an I18N localization context from the given resource bundle
      * and locale.
      *
@@ -78,14 +65,16 @@ public class LocalizationContext {
     }
 
     /**
-     * Gets the locale of this I18N localization context.
+     * Constructs an I18N localization context from the given resource bundle.
      *
-     * @return The locale of this I18N localization context, or null if this
-     * I18N localization context is empty, or its resource bundle is a
-     * (locale-less) root resource bundle.
+     * <p> The localization context's locale is taken from the given
+     * resource bundle.
+     *
+     * @param bundle The resource bundle
      */
-    public Locale getLocale() {
-        return locale;
+    public LocalizationContext(ResourceBundle bundle) {
+        this.bundle = bundle;
+        this.locale = bundle.getLocale();
     }
 
     /**
@@ -96,5 +85,16 @@ public class LocalizationContext {
      */
     public ResourceBundle getResourceBundle() {
         return bundle;
+    }
+
+    /**
+     * Gets the locale of this I18N localization context.
+     *
+     * @return The locale of this I18N localization context, or null if this
+     * I18N localization context is empty, or its resource bundle is a
+     * (locale-less) root resource bundle.
+     */
+    public Locale getLocale() {
+        return locale;
     }
 }

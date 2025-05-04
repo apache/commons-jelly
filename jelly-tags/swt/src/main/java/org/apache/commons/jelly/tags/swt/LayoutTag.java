@@ -42,25 +42,6 @@ public class LayoutTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
-     */
-    @Override
-    protected Object convertValue(Object bean, String name, Object value)
-        throws JellyTagException {
-
-        if (bean instanceof FillLayout
-            && name.equals("type")
-            && value instanceof String) {
-            int style = SwtHelper.parseStyle(SWT.class, (String) value);
-            return new Integer(style);
-        }
-        return super.convertValue(bean, name, value);
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
      * @return the Layout if there is one otherwise null
      */
     public Layout getLayout() {
@@ -70,6 +51,9 @@ public class LayoutTag extends LayoutTagSupport {
         }
         return null;
     }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
 
     /**
      * Either defines a variable or adds the current component to the parent
@@ -88,6 +72,22 @@ public class LayoutTag extends LayoutTagSupport {
         } else {
             throw new JellyTagException("This tag must be nested within a composite widget tag");
         }
+    }
+
+    /**
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     */
+    @Override
+    protected Object convertValue(Object bean, String name, Object value)
+        throws JellyTagException {
+
+        if (bean instanceof FillLayout
+            && name.equals("type")
+            && value instanceof String) {
+            int style = SwtHelper.parseStyle(SWT.class, (String) value);
+            return new Integer(style);
+        }
+        return super.convertValue(bean, name, value);
     }
 
 }

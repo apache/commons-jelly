@@ -45,20 +45,21 @@ public class LayoutDataTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     * Either defines a variable or adds the current component to the parent
      */
     @Override
-    protected Object convertValue(Object bean, String name, Object value)
+    protected void processBean(String var, Object bean)
         throws JellyTagException {
+        super.processBean(var, bean);
 
-        if (bean instanceof GridData) {
-            if (name.endsWith("Alignment") && value instanceof String) {
-                int style =
-                    SwtHelper.parseStyle(bean.getClass(), (String) value);
-                return new Integer(style);
-            }
+        Widget parent = getParentWidget();
+
+        if (parent instanceof Control) {
+            Control control = (Control) parent;
+            control.setLayoutData(getBean());
+        } else {
+            throw new JellyTagException("This tag must be nested within a control widget tag");
         }
-        return super.convertValue(bean, name, value);
     }
 
     /**
@@ -98,21 +99,20 @@ public class LayoutDataTag extends LayoutTagSupport {
     }
 
     /**
-     * Either defines a variable or adds the current component to the parent
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     @Override
-    protected void processBean(String var, Object bean)
+    protected Object convertValue(Object bean, String name, Object value)
         throws JellyTagException {
-        super.processBean(var, bean);
 
-        Widget parent = getParentWidget();
-
-        if (parent instanceof Control) {
-            Control control = (Control) parent;
-            control.setLayoutData(getBean());
-        } else {
-            throw new JellyTagException("This tag must be nested within a control widget tag");
+        if (bean instanceof GridData) {
+            if (name.endsWith("Alignment") && value instanceof String) {
+                int style =
+                    SwtHelper.parseStyle(bean.getClass(), (String) value);
+                return new Integer(style);
+            }
         }
+        return super.convertValue(bean, name, value);
     }
 
 }

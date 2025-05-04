@@ -52,28 +52,28 @@ public class ConstraintTag extends DynaBeanTagSupport {
                         And... have an insets?? A child ?
     */
 
-    public static class ConstantFactory implements TagFactory, Factory {
-        private Object constant;
-        public ConstantFactory(Object c) { this.constant = c;}
-        @Override
-        public Tag createTag(String name, Attributes attributes) throws JellyException {
-            return new ConstraintTag ( this );
-        }
-        @Override
-        public Object newInstance() { return constant; }
-    } // class ConstantStringFactory
-    public static class HereFactory extends BeanFactory implements TagFactory {
-        public HereFactory(Class c) { super(c); }
-        @Override
-        public Tag createTag(String name, Attributes attributes) {
-            return new ConstraintTag ( this );
-            // still scratching my head about "this" usage...
-        }
-    } // class HereFactory
     protected Factory factory;
+    protected String var = null;
+    protected Object bean = null;
 
-        protected String var = null;
-        protected Object bean = null;
+        public static class HereFactory extends BeanFactory implements TagFactory {
+            public HereFactory(Class c) { super(c); }
+            @Override
+            public Tag createTag(String name, Attributes attributes) {
+                return new ConstraintTag ( this );
+                // still scratching my head about "this" usage...
+            }
+        } // class HereFactory
+        public static class ConstantFactory implements TagFactory, Factory {
+            public ConstantFactory(Object c) { this.constant = c;}
+            private Object constant;
+            @Override
+            public Object newInstance() { return constant; }
+            @Override
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new ConstraintTag ( this );
+            }
+        } // class ConstantStringFactory
 
         // we could be able to make factories that create their tags in parametrized
         // subclasses of the tag depending on the name and attributes
@@ -83,6 +83,10 @@ public class ConstraintTag extends DynaBeanTagSupport {
         this.factory = factory;
     }
 
+    protected void createBean ( Factory factory ) throws InstantiationException {
+        bean = factory.newInstance();
+    }
+
     @Override
     public void beforeSetAttributes (  ) throws JellyTagException {
         try {
@@ -90,28 +94,6 @@ public class ConstraintTag extends DynaBeanTagSupport {
         } catch (InstantiationException e) {
             throw new JellyTagException(e.toString());
         }
-    }
-
-    protected void createBean ( Factory factory ) throws InstantiationException {
-        bean = factory.newInstance();
-    }
-
-    /** Children invocation... just nothing...
-        */
-    @Override
-    public void doTag ( XMLOutput output ) throws JellyTagException {
-        if ( var != null ) context.setVariable ( var, getBean() );
-        invokeBody ( output );
-        // nothing else to do... the getConstraintObject method should have been called.
-    }
-    public Object getBean() {
-        return bean;
-    }
-
-    /** Returns the attached constraint object.
-        */
-    public Object getConstraintObject() {
-        return getBean();
     }
 
     @Override
@@ -130,5 +112,23 @@ public class ConstraintTag extends DynaBeanTagSupport {
             }
 
         }
+    }
+    /** Children invocation... just nothing...
+        */
+    @Override
+    public void doTag ( XMLOutput output ) throws JellyTagException {
+        if ( var != null ) context.setVariable ( var, getBean() );
+        invokeBody ( output );
+        // nothing else to do... the getConstraintObject method should have been called.
+    }
+
+    public Object getBean() {
+        return bean;
+    }
+
+    /** Returns the attached constraint object.
+        */
+    public Object getConstraintObject() {
+        return getBean();
     }
 }

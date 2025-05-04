@@ -34,17 +34,6 @@ public class PutTag extends HttpTagSupport {
     }
 
     /**
-     * Fail as PUT requests don't have parameters
-     *
-     * @param name the parameter name
-     * @param value the parameter value
-     */
-    @Override
-    public void addParameter(String name, String value) {
-        throw new IllegalArgumentException("PUT requests don't have params");
-    }
-
-    /**
      * Gets a {@link HttpMethod method} to be used for put'ing
      *
      * @return a HttpMethod implementation
@@ -64,6 +53,17 @@ public class PutTag extends HttpTagSupport {
      *
      */
     protected void setParameters() {
+    }
+
+    /**
+     * Fail as PUT requests don't have parameters
+     *
+     * @param name the parameter name
+     * @param value the parameter value
+     */
+    @Override
+    public void addParameter(String name, String value) {
+        throw new IllegalArgumentException("PUT requests don't have params");
     }
 
 }

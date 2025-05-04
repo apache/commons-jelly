@@ -36,6 +36,13 @@ public class BeanShellExpression extends ExpressionSupport {
         this.text = text;
     }
 
+    // Expression interface
+    //-------------------------------------------------------------------------
+    @Override
+    public String getExpressionText() {
+        return "${" + text + "}";
+    }
+
     @Override
     public Object evaluate(JellyContext context) {
         try {
@@ -52,12 +59,5 @@ public class BeanShellExpression extends ExpressionSupport {
             log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
             return null;
         }
-    }
-
-    // Expression interface
-    //-------------------------------------------------------------------------
-    @Override
-    public String getExpressionText() {
-        return "${" + text + "}";
     }
 }

@@ -38,17 +38,25 @@ public class JellyInterpreter extends Interpreter {
     public JellyInterpreter() {
     }
 
-    /**
-     * Converts variables to a beanshell allowable format or hides names that
-     * can't be converted, by returning null.
-     * For now lets just turn '.' into '_'
-     */
-    protected String convertVariableName(String name) {
-        return name.replace('.', '_');
-    }
-
     public JellyContext getJellyContext() {
         return context;
+    }
+
+    public void setJellyContext(JellyContext context) throws EvalError {
+        this.context = context;
+
+        // now pass in all the variables
+        for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            Object value = context.getVariable(name);
+            name = convertVariableName(name);
+            if (name != null) {
+                set( name, value );
+            }
+        }
+
+        // lets pass in the Jelly context
+        set( "context", context );
     }
 
 /*
@@ -68,20 +76,12 @@ public class JellyInterpreter extends Interpreter {
     }
 */
 
-    public void setJellyContext(JellyContext context) throws EvalError {
-        this.context = context;
-
-        // now pass in all the variables
-        for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
-            String name = (String) iter.next();
-            Object value = context.getVariable(name);
-            name = convertVariableName(name);
-            if (name != null) {
-                set( name, value );
-            }
-        }
-
-        // lets pass in the Jelly context
-        set( "context", context );
+    /**
+     * Converts variables to a beanshell allowable format or hides names that
+     * can't be converted, by returning null.
+     * For now lets just turn '.' into '_'
+     */
+    protected String convertVariableName(String name) {
+        return name.replace('.', '_');
     }
 }

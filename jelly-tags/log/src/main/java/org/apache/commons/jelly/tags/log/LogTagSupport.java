@@ -48,6 +48,18 @@ public abstract class LogTagSupport extends TagSupport {
     }
 
     /**
+     * Sets the name of the logger to use
+     */
+    public void setName(String name) {
+        setLog( LogFactory.getLog(name) );
+    }
+
+    /** Sets the Log instance to use for logging. */
+    public void setLog(Log log) {
+        this.log = log;
+    }
+
+    /**
      * Returns whether the body of this tag will be XML encoded or not.
      */
     public boolean isEncode() {
@@ -60,18 +72,6 @@ public abstract class LogTagSupport extends TagSupport {
      */
     public void setEncode(boolean encode) {
         this.encode = encode;
-    }
-
-    /** Sets the Log instance to use for logging. */
-    public void setLog(Log log) {
-        this.log = log;
-    }
-
-    /**
-     * Sets the name of the logger to use
-     */
-    public void setName(String name) {
-        setLog( LogFactory.getLog(name) );
     }
 
 }

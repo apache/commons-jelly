@@ -45,13 +45,6 @@ public class DynaclassTag extends TagSupport {
     public DynaclassTag() {
     }
 
-    protected void addDynaProperty(DynaProperty prop) {
-        propList.add(prop);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -88,9 +81,8 @@ public class DynaclassTag extends TagSupport {
         context.setVariable(getVar(), dynaClass);
     }
 
-    public String getVar() {
-        return var;
-    }
+    // Properties
+    //-------------------------------------------------------------------------
 
     /**
      * Sets the name of the new DynaClass
@@ -99,10 +91,18 @@ public class DynaclassTag extends TagSupport {
         this.name = name;
     }
 
+    public String getVar() {
+        return var;
+    }
+
     /**
      * Sets the name of the variable to export the DynaClass instance
      */
     public void setVar(String var) {
         this.var = var;
+    }
+
+    protected void addDynaProperty(DynaProperty prop) {
+        propList.add(prop);
     }
 }

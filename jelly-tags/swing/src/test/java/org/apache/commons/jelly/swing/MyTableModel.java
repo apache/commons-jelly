@@ -29,6 +29,9 @@ public class MyTableModel extends AbstractTableModel {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(MyTableModel.class);
 
+    public MyTableModel() {
+    }
+
     final String[] columnNames = {
         "First Name",
         "Last Name",
@@ -36,7 +39,6 @@ public class MyTableModel extends AbstractTableModel {
         "# of Years",
         "Vegetarian"
     };
-
     final Object[][] data = {
         {"Mary", "Campione",
          "Snowboarding", new Integer(5), new Boolean(false)},
@@ -49,7 +51,25 @@ public class MyTableModel extends AbstractTableModel {
         {"Angela", "Lih",
          "Teaching high school", new Integer(4), new Boolean(false)}
         };
-    public MyTableModel() {
+
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    @Override
+    public int getRowCount() {
+        return data.length;
+    }
+
+    @Override
+    public String getColumnName(int col) {
+        return columnNames[col];
+    }
+
+    @Override
+    public Object getValueAt(int row, int col) {
+        return data[row][col];
     }
 
     /*
@@ -61,26 +81,6 @@ public class MyTableModel extends AbstractTableModel {
     @Override
     public Class getColumnClass(int c) {
         return getValueAt(0, c).getClass();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-
-    @Override
-    public int getRowCount() {
-        return data.length;
-    }
-
-    @Override
-    public Object getValueAt(int row, int col) {
-        return data[row][col];
     }
 
     /*

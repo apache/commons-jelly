@@ -65,14 +65,21 @@ public class TaglibTag extends TagSupport {
         tagLibrary = null;
     }
 
-    public DynamicTagLibrary getTagLibrary() {
-        return tagLibrary;
-    }
-
     // Properties
     //-------------------------------------------------------------------------
     public String getUri() {
         return uri;
+    }
+
+    /**
+     * Sets the namespace URI to register this new dynamic tag library with
+     */
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public DynamicTagLibrary getTagLibrary() {
+        return tagLibrary;
     }
 
     /**
@@ -95,13 +102,6 @@ public class TaglibTag extends TagSupport {
      */
     public void setInherit(boolean inherit) {
         this.inherit = inherit;
-    }
-
-    /**
-     * Sets the namespace URI to register this new dynamic tag library with
-     */
-    public void setUri(String uri) {
-        this.uri = uri;
     }
 
 }

@@ -36,20 +36,6 @@ import java.util.SortedMap;
 public interface Result {
 
     /**
-     * Returns an array of column names.
-     *
-     * @return the column names as an array of <code>String</code> objects
-     */
-    public String[] getColumnNames();
-
-    /**
-     * Returns the number of rows in the cached ResultSet
-     *
-     * @return the number of rows in the result
-     */
-    public int getRowCount();
-
-    /**
      * Returns an array of SortedMap objects. Column name is used as the key
      * for the column value. SortedMap must use the CASE_INSENSITIVE_ORDER
      * Comparator so that the key is the case insensitive representation
@@ -67,6 +53,20 @@ public interface Result {
      * @return the result rows as an array of <code>Object[]</code> objects
      */
     public Object[][] getRowsByIndex();
+
+    /**
+     * Returns an array of column names.
+     *
+     * @return the column names as an array of <code>String</code> objects
+     */
+    public String[] getColumnNames();
+
+    /**
+     * Returns the number of rows in the cached ResultSet
+     *
+     * @return the number of rows in the result
+     */
+    public int getRowCount();
 
     /**
      * Returns true of the query was limited by a maximum row setting

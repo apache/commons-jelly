@@ -100,15 +100,6 @@ public class ReplaceTag extends TagSupport {
     }
 
     /**
-     * Returns the newString that will be replaced.
-     * @return String
-     */
-    public String getNew()
-    {
-        return newString;
-    }
-
-    /**
      * Returns the newChar used in replacing. Should only be a single
      * character.
      * @return String
@@ -119,15 +110,6 @@ public class ReplaceTag extends TagSupport {
     }
 
     /**
-     * Returns the oldString that will be replaced.
-     * @return String
-     */
-    public String getOld()
-    {
-        return oldString;
-    }
-
-    /**
      * Returns the oldChar that will be replaced. Should only be a single
      * character.
      * @return String
@@ -135,6 +117,24 @@ public class ReplaceTag extends TagSupport {
     public String getOldChar()
     {
         return oldChar;
+    }
+
+    /**
+     * Returns the newString that will be replaced.
+     * @return String
+     */
+    public String getNew()
+    {
+        return newString;
+    }
+
+    /**
+     * Returns the oldString that will be replaced.
+     * @return String
+     */
+    public String getOld()
+    {
+        return oldString;
     }
 
     /**
@@ -156,15 +156,6 @@ public class ReplaceTag extends TagSupport {
     }
 
     /**
-     * Sets the newString.
-     * @param newString The newString to set
-     */
-    public void setNew(String newString)
-    {
-        this.newString = newString;
-    }
-
-    /**
      * Sets the newChar.
      * @param newChar The newChar to set
      */
@@ -174,21 +165,30 @@ public class ReplaceTag extends TagSupport {
     }
 
     /**
-     * Sets the oldString.
-     * @param oldString The oldString to set
-     */
-    public void setOld(String oldString)
-    {
-        this.oldString = oldString;
-    }
-
-    /**
      * Sets the oldChar.
      * @param oldChar The oldChar to set
      */
     public void setOldChar(String oldChar)
     {
         this.oldChar = oldChar;
+    }
+
+    /**
+     * Sets the newString.
+     * @param newString The newString to set
+     */
+    public void setNew(String newString)
+    {
+        this.newString = newString;
+    }
+
+    /**
+     * Sets the oldString.
+     * @param oldString The oldString to set
+     */
+    public void setOld(String oldString)
+    {
+        this.oldString = oldString;
     }
 
     /**

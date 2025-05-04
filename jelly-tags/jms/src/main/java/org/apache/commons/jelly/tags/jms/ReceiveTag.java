@@ -80,10 +80,6 @@ public class ReceiveTag extends MessageOperationTag {
         onMessage( message );
     }
 
-    public long getTimeout() {
-        return timeout;
-    }
-
     // Properties
     //-------------------------------------------------------------------------
     public String getVar() {
@@ -91,16 +87,15 @@ public class ReceiveTag extends MessageOperationTag {
     }
 
     /**
-     * A strategy method which processes the incoming message, allowing derived classes
-     * to implement different processing methods
+     * Sets the variable name to create for the received message, which will be null if no
+     * message could be returned in the given time period.
      */
-    protected void onMessage( Message message ) {
-        if ( message != null ) {
-            context.setVariable( var, message );
-        }
-        else {
-            context.removeVariable( var );
-        }
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    public long getTimeout() {
+        return timeout;
     }
 
     /**
@@ -115,10 +110,15 @@ public class ReceiveTag extends MessageOperationTag {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the variable name to create for the received message, which will be null if no
-     * message could be returned in the given time period.
+     * A strategy method which processes the incoming message, allowing derived classes
+     * to implement different processing methods
      */
-    public void setVar(String var) {
-        this.var = var;
+    protected void onMessage( Message message ) {
+        if ( message != null ) {
+            context.setVariable( var, message );
+        }
+        else {
+            context.removeVariable( var );
+        }
     }
 }

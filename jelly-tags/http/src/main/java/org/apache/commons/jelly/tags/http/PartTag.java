@@ -26,6 +26,17 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
  * A tag to hold a part of a multiPartPost
  */
 public class PartTag extends TagSupport {
+    /** Parameter name */
+    private String _name;
+    /** Parameter value */
+    private String _value;
+    /** Parameter type (like text/plain) */
+    private String _contentType = "text/plain";
+
+    /** Creates a new instance of PartTag */
+    public PartTag() {
+    }
+
     /**
      * Extend StringPart so that I can specify the content type (ex: text/plain)
      */
@@ -37,17 +48,6 @@ public class PartTag extends TagSupport {
       }
       @Override
     public String getContentType() { return _contentType; }
-    }
-    /** Parameter name */
-    private String _name;
-    /** Parameter value */
-    private String _value;
-
-    /** Parameter type (like text/plain) */
-    private String _contentType = "text/plain";
-
-    /** Creates a new instance of PartTag */
-    public PartTag() {
     }
 
     /**
@@ -65,15 +65,6 @@ public class PartTag extends TagSupport {
         invokeBody(xmlOutput);
     }
 
-    /**
-     * Getter for property contentType.
-     *
-     * @return Value of contentType.
-     */
-    public String getContentType() {
-        return _contentType;
-    }
-
     //--------------------------------------------------------------------------
     // Property accessors/mutators
     //--------------------------------------------------------------------------
@@ -87,24 +78,6 @@ public class PartTag extends TagSupport {
     }
 
     /**
-     * Getter for property value.
-     *
-     * @return Value of property value.
-     */
-    public String getValue() {
-        return _value;
-    }
-
-    /**
-     * Setter for property contentType.
-     *
-     * @param contentType New value of contentType.
-     */
-    public void setContentType(String contentType) {
-        _contentType = contentType;
-    }
-
-    /**
      * Setter for property name.
      *
      * @param name New value of property name.
@@ -114,12 +87,39 @@ public class PartTag extends TagSupport {
     }
 
     /**
+     * Getter for property value.
+     *
+     * @return Value of property value.
+     */
+    public String getValue() {
+        return _value;
+    }
+
+    /**
      * Setter for property value.
      *
      * @param value New value of property value.
      */
     public void setValue(String value) {
         _value = value;
+    }
+
+    /**
+     * Getter for property contentType.
+     *
+     * @return Value of contentType.
+     */
+    public String getContentType() {
+        return _contentType;
+    }
+
+    /**
+     * Setter for property contentType.
+     *
+     * @param contentType New value of contentType.
+     */
+    public void setContentType(String contentType) {
+        _contentType = contentType;
     }
 
 }

@@ -43,14 +43,6 @@ public class ParseTag extends ParseTagSupport {
     public ParseTag() {
     }
 
-    /**
-     * Factory method to create a new SAXReader
-     */
-    @Override
-    protected SAXReader createSAXReader() {
-        return new SAXReader(validate);
-    }
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -63,16 +55,37 @@ public class ParseTag extends ParseTagSupport {
         context.setVariable(getVar(), document);
     }
 
-    /** @return whether XML validation is enabled or disabled */
-    public boolean getValidate() {
-        return validate;
-    }
-
     // Properties
     //-------------------------------------------------------------------------
     /** Gets the source of the XML which is either a String URI, Reader or InputStream */
     public Object getXml() {
         return this.xml;
+    }
+
+    /** Sets the source of the XML which is either a String URI, a File, Reader or InputStream */
+    public void setXml(Object xml) {
+        this.xml = xml;
+    }
+
+    /** @return whether XML validation is enabled or disabled */
+    public boolean getValidate() {
+        return validate;
+    }
+
+    /** Sets whether XML validation is enabled or disabled */
+    public void setValidate(boolean validate) {
+        this.validate = validate;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Factory method to create a new SAXReader
+     */
+    @Override
+    protected SAXReader createSAXReader() {
+        return new SAXReader(validate);
     }
 
     protected Document getXmlDocument(XMLOutput output) throws JellyTagException {
@@ -93,19 +106,6 @@ public class ParseTag extends ParseTagSupport {
         }
 
         return document;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /** Sets whether XML validation is enabled or disabled */
-    public void setValidate(boolean validate) {
-        this.validate = validate;
-    }
-
-    /** Sets the source of the XML which is either a String URI, a File, Reader or InputStream */
-    public void setXml(Object xml) {
-        this.xml = xml;
     }
 
 }

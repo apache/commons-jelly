@@ -33,8 +33,12 @@ import org.apache.commons.logging.LogFactory;
   */
 public class TestDynamicTags extends TestCase {
 
+    JellyContext context = new JellyContext();
+    XMLOutput output;
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestDynamicTags.class);
+
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
@@ -43,16 +47,19 @@ public class TestDynamicTags extends TestCase {
         return new TestSuite(TestDynamicTags.class);
     }
 
-    JellyContext context = new JellyContext();
-
-    XMLOutput output;
-
     public TestDynamicTags(String testName) {
         super(testName);
     }
 
-    protected void runScript(String name) throws Exception {
-        context.runScript(new File(name), output);
+    public void testParse() throws Exception {
+        StringWriter buffer = new StringWriter();
+        output = XMLOutput.createXMLOutput(buffer);
+
+        //runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
+        runScript("target/test-classes/org/apache/commons/jelly/tags/define/example.jelly");
+
+        log.info("The output was as follows");
+        log.info(buffer.toString());
     }
 
     public void testJellyBean() throws Exception {
@@ -66,14 +73,7 @@ public class TestDynamicTags extends TestCase {
         log.info(buffer.toString());
     }
 
-    public void testParse() throws Exception {
-        StringWriter buffer = new StringWriter();
-        output = XMLOutput.createXMLOutput(buffer);
-
-        //runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
-        runScript("target/test-classes/org/apache/commons/jelly/tags/define/example.jelly");
-
-        log.info("The output was as follows");
-        log.info(buffer.toString());
+    protected void runScript(String name) throws Exception {
+        context.runScript(new File(name), output);
     }
 }

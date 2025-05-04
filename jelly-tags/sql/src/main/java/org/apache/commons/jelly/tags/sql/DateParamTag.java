@@ -54,6 +54,35 @@ public class DateParamTag extends TagSupport {
     //*********************************************************************
     // Properties
 
+    public void setValue(Date value) {
+        this.value = value;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    //*********************************************************************
+    // Tag logic
+
+    @Override
+    public void doTag(XMLOutput output) throws JellyTagException {
+        SQLExecutionTag parent =
+            (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
+        if (parent == null) {
+            throw new JellyTagException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
+        }
+
+        if (value != null) {
+            convertValue();
+        }
+
+        parent.addSQLParameter(value);
+    }
+
+    //*********************************************************************
+    // Private utility methods
+
     private void convertValue() throws JellyTagException {
 
         if ((type == null) || (type.equalsIgnoreCase(TIMESTAMP_TYPE))) {
@@ -75,34 +104,5 @@ public class DateParamTag extends TagSupport {
             throw new JellyTagException(
                 Resources.getMessage("SQL_DATE_PARAM_INVALID_TYPE", type));
         }
-    }
-
-    @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        SQLExecutionTag parent =
-            (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
-        if (parent == null) {
-            throw new JellyTagException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
-        }
-
-        if (value != null) {
-            convertValue();
-        }
-
-        parent.addSQLParameter(value);
-    }
-
-    //*********************************************************************
-    // Tag logic
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    //*********************************************************************
-    // Private utility methods
-
-    public void setValue(Date value) {
-        this.value = value;
     }
 }

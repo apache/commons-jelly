@@ -26,21 +26,16 @@ import org.apache.commons.jelly.tags.swing.model.ExpressionTableColumn;
  */
 public class TableModelColumnTag extends UseBeanTag {
 
+    public ExpressionTableColumn getColumn() {
+        return (ExpressionTableColumn) getBean();
+    }
+
     @Override
     public Class getAttributeType(String name) throws JellyTagException {
         if (name.equals("value")) {
             return Expression.class;
         }
         return super.getAttributeType(name);
-    }
-
-    public ExpressionTableColumn getColumn() {
-        return (ExpressionTableColumn) getBean();
-    }
-
-    @Override
-    protected Class getDefaultClass() {
-        return ExpressionTableColumn.class;
     }
 
     // Implementation methods
@@ -54,6 +49,11 @@ public class TableModelColumnTag extends UseBeanTag {
             throw new JellyTagException( "This tag must be nested within a <tableModel> tag" );
         }
         tag.getTableModel().addColumn( getColumn() );
+    }
+
+    @Override
+    protected Class getDefaultClass() {
+        return ExpressionTableColumn.class;
     }
 }
 

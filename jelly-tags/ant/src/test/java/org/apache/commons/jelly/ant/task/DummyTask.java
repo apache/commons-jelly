@@ -70,38 +70,9 @@ i
  * A sample Task to test out the Ant introspection logic
  */
 public class DummyTask extends Task {
-    public static class Thingy {
-    }
     private int i = 0;
     private String[] messages = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
-
     private boolean force;
-
-    public void addConfiguredDong(Thingy thingy) {
-        System.out.println("addConfiguredDong: " + messages[i++]);
-    }
-
-    public void addConfiguredTillYouDrop(Thingy thingy) {
-        System.out.println("addConfiguredTillYouDrop: " + messages[i++]);
-    }
-
-    public void addDang(Thingy thingy) {
-        System.out.println("addDang: " + messages[i++]);
-    }
-
-    public void addWontStop(Thingy thingy) {
-        System.out.println("addWontStop: " + messages[i++]);
-    }
-
-    public Thingy createDing() {
-        System.out.println("createDing: " + messages[i++]);
-        return new Thingy();
-    }
-
-    public Thingy createHipHop() {
-        System.out.println("createHipHop: " + messages[i++]);
-        return new Thingy();
-    }
 
     @Override
     public void execute() throws BuildException {
@@ -110,11 +81,40 @@ public class DummyTask extends Task {
         }
     }
 
+    public Thingy createDing() {
+        System.out.println("createDing: " + messages[i++]);
+        return new Thingy();
+    }
+
+    public void addDang(Thingy thingy) {
+        System.out.println("addDang: " + messages[i++]);
+    }
+
+    public void addConfiguredDong(Thingy thingy) {
+        System.out.println("addConfiguredDong: " + messages[i++]);
+    }
+
+    public Thingy createHipHop() {
+        System.out.println("createHipHop: " + messages[i++]);
+        return new Thingy();
+    }
+
+    public void addWontStop(Thingy thingy) {
+        System.out.println("addWontStop: " + messages[i++]);
+    }
+
+    public void addConfiguredTillYouDrop(Thingy thingy) {
+        System.out.println("addConfiguredTillYouDrop: " + messages[i++]);
+    }
+
     public boolean isForce() {
         return force;
     }
 
     public void setForce(boolean force) {
         this.force = force;
+    }
+
+    public static class Thingy {
     }
 }

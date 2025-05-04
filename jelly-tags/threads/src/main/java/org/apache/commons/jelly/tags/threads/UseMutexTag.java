@@ -40,6 +40,9 @@ public abstract class UseMutexTag extends TagSupport {
         useMutex(mutex, output);
     }
 
+    /** Implement this method to do something with the mutex */
+    protected abstract void useMutex(Object mutex, XMLOutput output) throws JellyTagException;
+
     /** Gets the mutex */
     public Object getMutex() {
         return mutex;
@@ -49,7 +52,4 @@ public abstract class UseMutexTag extends TagSupport {
     public void setMutex(Object mutex) {
         this.mutex = mutex;
     }
-
-    /** Implement this method to do something with the mutex */
-    protected abstract void useMutex(Object mutex, XMLOutput output) throws JellyTagException;
 }

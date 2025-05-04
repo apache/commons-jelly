@@ -54,6 +54,43 @@ public class SetDataSourceTag extends TagSupport {
     //*********************************************************************
     // Accessor methods
 
+    /**
+     * Sets the scope of the variable to hold the
+     * result.
+     *
+     */
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    public void setDataSource(Object dataSource) {
+        this.dataSource = dataSource;
+        this.dataSourceSpecified = true;
+    }
+
+    public void setDriver(String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
+
+    public void setUrl(String jdbcURL) {
+        this.jdbcURL = jdbcURL;
+    }
+
+    public void setUser(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    //*********************************************************************
+    // Tag logic
+
     @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         DataSource ds = null;
@@ -90,42 +127,5 @@ public class SetDataSourceTag extends TagSupport {
         else {
             context.setVariable("org.apache.commons.jelly.sql.DataSource", ds);
         }
-    }
-
-    public void setDataSource(Object dataSource) {
-        this.dataSource = dataSource;
-        this.dataSourceSpecified = true;
-    }
-
-    public void setDriver(String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    /**
-     * Sets the scope of the variable to hold the
-     * result.
-     *
-     */
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
-
-    public void setUrl(String jdbcURL) {
-        this.jdbcURL = jdbcURL;
-    }
-
-    public void setUser(String userName) {
-        this.userName = userName;
-    }
-
-    //*********************************************************************
-    // Tag logic
-
-    public void setVar(String var) {
-        this.var = var;
     }
 }

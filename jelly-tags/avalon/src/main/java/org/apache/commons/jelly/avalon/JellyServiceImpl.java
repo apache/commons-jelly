@@ -56,6 +56,87 @@ public class JellyServiceImpl implements JellyService, Configurable {
     }
 
     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map)
+     */
+    @Override
+    public Map runNamedScript( String name, Map params ) throws Exception {
+        return runNamedScript(name, params, createXMLOutput());
+    }
+
+    /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, XMLOutput)
+     */
+    @Override
+    public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception {
+        if ( !m_scripts.containsKey( name ) )
+            throw new JellyException( "No script exists for script name [" + name + "]" );
+
+        Script script = (Script)m_scripts.get( name );
+        JellyContext context = createJellyContext();
+
+        context.setVariables( params );
+
+        script.run( context, output );
+        return context.getVariables();
+    }
+
+     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, OutputStream)
+     */
+    @Override
+    public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception {
+        XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
+        Map answer = runNamedScript(name, params, xmlOutput);
+        xmlOutput.flush();
+        return answer;
+    }
+
+     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, XMLOutput)
+     */
+    @Override
+    public Map runScript( String url, Map params, XMLOutput output ) throws Exception {
+        URL actualUrl = null;
+        try {
+           actualUrl = new URL( url );
+        }
+        catch ( MalformedURLException x ) {
+            throw new JellyException( "Could not find script at URL [" + url + "]: " +
+                                        x.getMessage(), x );
+        }
+
+        // Set up the context
+        JellyContext context = createJellyContext();
+        context.setVariables( params );
+
+        // Run the script
+        context.runScript(url, output);
+        return context.getVariables();
+    }
+
+     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, OutputStream)
+     */
+    @Override
+    public Map runScript( String url, Map params, OutputStream out ) throws Exception {
+        XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
+        Map answer = runScript(url, params, xmlOutput);
+        xmlOutput.flush();
+        return answer;
+    }
+
+     /**
+     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map)
+     */
+    @Override
+    public Map runScript( String url, Map params ) throws Exception {
+        return runScript(url, params, createXMLOutput());
+    }
+
+    // Configurable interface
+    //-------------------------------------------------------------------------
+
+    /**
      * <p>Configures the Jelly Service with named scripts.</p>
      *
      * <p>
@@ -128,6 +209,9 @@ public class JellyServiceImpl implements JellyService, Configurable {
         }
     }
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     /**
      * Factory method to create a new JellyContext instance. Derived classes
      * could overload this method to provide a custom JellyContext instance.
@@ -136,7 +220,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
         return new JellyContext();
     }
 
-     /**
+    /**
      * Factory method to create a new XMLOutput to give to scripts as they run.
      * Derived classes could overload this method, such as to pipe output to
      * some log file etc.
@@ -144,90 +228,6 @@ public class JellyServiceImpl implements JellyService, Configurable {
     protected XMLOutput createXMLOutput() {
         // output will just be ignored
         return new XMLOutput();
-    }
-
-     /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map)
-     */
-    @Override
-    public Map runNamedScript( String name, Map params ) throws Exception {
-        return runNamedScript(name, params, createXMLOutput());
-    }
-
-     /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, OutputStream)
-     */
-    @Override
-    public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception {
-        XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
-        Map answer = runNamedScript(name, params, xmlOutput);
-        xmlOutput.flush();
-        return answer;
-    }
-
-     /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, XMLOutput)
-     */
-    @Override
-    public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception {
-        if ( !m_scripts.containsKey( name ) )
-            throw new JellyException( "No script exists for script name [" + name + "]" );
-
-        Script script = (Script)m_scripts.get( name );
-        JellyContext context = createJellyContext();
-
-        context.setVariables( params );
-
-        script.run( context, output );
-        return context.getVariables();
-    }
-
-    // Configurable interface
-    //-------------------------------------------------------------------------
-
-    /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map)
-     */
-    @Override
-    public Map runScript( String url, Map params ) throws Exception {
-        return runScript(url, params, createXMLOutput());
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, OutputStream)
-     */
-    @Override
-    public Map runScript( String url, Map params, OutputStream out ) throws Exception {
-        XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
-        Map answer = runScript(url, params, xmlOutput);
-        xmlOutput.flush();
-        return answer;
-    }
-
-    /**
-     * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, XMLOutput)
-     */
-    @Override
-    public Map runScript( String url, Map params, XMLOutput output ) throws Exception {
-        URL actualUrl = null;
-        try {
-           actualUrl = new URL( url );
-        }
-        catch ( MalformedURLException x ) {
-            throw new JellyException( "Could not find script at URL [" + url + "]: " +
-                                        x.getMessage(), x );
-        }
-
-        // Set up the context
-        JellyContext context = createJellyContext();
-        context.setVariables( params );
-
-        // Run the script
-        context.runScript(url, output);
-        return context.getVariables();
     }
 
 }

@@ -76,140 +76,32 @@ public class AntTag extends MapTagSupport implements TaskSource {
         this.tagName = tagName;
     }
 
-    /**
-     * @return an object create with the given constructor and args.
-     * @param ctor a constructor to use creating the object
-     * @param args the arguments to pass to the constructor
-     * @param name the name of the data type being created
-     * @param argDescription a human readable description of the args passed
-     */
-    private Object createDataType(Constructor ctor, Object[] args, String name, String argDescription) {
-        try {
-            Object datatype = ctor.newInstance(args);
-            return datatype;
-        } catch (InstantiationException ie) {
-            log.error("datatype '" + name + "' couldn't be created with " + argDescription, ie);
-        } catch (IllegalAccessException iae) {
-            log.error("datatype '" + name + "' couldn't be created with " + argDescription, iae);
-        } catch (InvocationTargetException ite) {
-            log.error("datatype '" + name + "' couldn't be created with " + argDescription, ite);
-        }
-        return null;
+    @Override
+    public String toString() {
+        return "[AntTag: name=" + getTagName() + "]";
     }
 
     // TaskSource interface
     //-------------------------------------------------------------------------
 
-    public Object createDataType(String name) {
-
-        Object dataType = null;
-
-        Class type = (Class) getAntProject().getDataTypeDefinitions().get(name);
-
-        if ( type != null ) {
-
-            Constructor ctor = null;
-            boolean noArg = false;
-
-            // DataType can have a "no arg" constructor or take a single
-            // Project argument.
-            try {
-                ctor = type.getConstructor(new Class[0]);
-                noArg = true;
-            }
-            catch (NoSuchMethodException nse) {
-                try {
-                    ctor = type.getConstructor(new Class[] { Project.class });
-                    noArg = false;
-                } catch (NoSuchMethodException nsme) {
-                    log.info("datatype '" + name
-                        + "' didn't have a constructor with an Ant Project", nsme);
-                }
-            }
-
-            if (noArg) {
-                dataType = createDataType(ctor, new Object[0], name, "no-arg constructor");
-            }
-            else {
-                dataType = createDataType(ctor, new Object[] { getAntProject() }, name, "an Ant project");
-            }
-            if (dataType != null && dataType instanceof DataType) {
-                ((DataType)dataType).setProject( getAntProject() );
-            }
-        }
-
-        return dataType;
+    /** Retrieve the general object underlying this tag.
+     *
+     *  @return The object underlying this tag.
+     */
+    @Override
+    public Object getTaskObject() {
+        return this.object;
     }
 
     /**
-     * Creates a nested object of the given object with the specified name
+     * Allows nested tags to set a property on the task object of this tag
      */
-    public Object createNestedObject(Object object, String name) {
-        Object dataType = null;
+    @Override
+    public void setTaskProperty(String name, Object value) throws JellyTagException {
+        Object object = getTaskObject();
         if ( object != null ) {
-            IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
-
-            if ( ih != null && ! (object instanceof AntTag)) {
-                try {
-                    dataType = ih.createElement( getAntProject(), object, name.toLowerCase() );
-                } catch (BuildException be) {
-                    if (object instanceof Tag)
-                    {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Failed attempt to create an ant datatype for a jelly tag", be);
-                        }
-                    } else {
-                        log.error(be);
-                    }
-                }
-            }
+            setBeanProperty( object, name, value );
         }
-
-        if ( dataType == null ) {
-            dataType = createDataType( name );
-        }
-
-        return dataType;
-    }
-
-    /**
-     * @param taskName
-     * @return
-     * @throws JellyTagException
-     */
-    public Task createTask(String taskName) throws JellyTagException {
-        return createTask( taskName,
-                           (Class) getAntProject().getTaskDefinitions().get( taskName ) );
-    }
-
-    public Task createTask(String taskName,
-                           Class taskType) throws JellyTagException {
-
-        if (taskType == null) {
-            return null;
-        }
-
-        Object o = null;
-        try {
-            o = taskType.getConstructor().newInstance();
-        } catch (ReflectiveOperationException e) {
-            throw new JellyTagException(e);
-        }
-
-        Task task = null;
-        if ( o instanceof Task ) {
-            task = (Task) o;
-        }
-        else {
-            TaskAdapter taskA=new TaskAdapter();
-            taskA.setProxy( o );
-            task=taskA;
-        }
-
-        task.setProject(getAntProject());
-        task.setTaskName(taskName);
-
-        return task;
     }
 
     // Tag interface
@@ -400,74 +292,41 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
     }
 
-    /**
-     * Attempts to look up in the parent hierarchy for a tag that implements the
-     * TaskSource interface, which returns an Ant Task object or that implements
-     * BeanSource interface which creates a bean,
-     * or will return the parent tag, which is also a bean.
-     */
-    protected Object findBeanAncestor() throws JellyTagException {
-        Tag tag = getParent();
-        while (tag != null) {
-            if (tag instanceof BeanSource) {
-                BeanSource beanSource = (BeanSource) tag;
-                return beanSource.getBean();
-            }
-            if (tag instanceof TaskSource) {
-                TaskSource taskSource = (TaskSource) tag;
-                return taskSource.getTaskObject();
-            }
-            tag = tag.getParent();
-        }
-        return getParent();
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Walks the hierarchy until it finds a parent TaskSource and returns its source or returns null
-     */
-    protected Object findParentTaskObject() throws JellyTagException {
-        Tag tag = getParent();
-        while (tag != null) {
-            if (tag instanceof TaskSource) {
-                TaskSource source = (TaskSource) tag;
-                return source.getTaskObject();
-            }
-            tag = tag.getParent();
-        }
-        return null;
-    }
-
-    public Project getAntProject() {
-        return Objects.requireNonNull(AntTagLibrary.getProject(context), "No Ant Project object is available");
-    }
-
     // Properties
     //-------------------------------------------------------------------------
     public String getTagName() {
         return this.tagName;
     }
 
-    /** Retrieve the general object underlying this tag.
+    /** Sets the object underlying this tag.
      *
-     *  @return The object underlying this tag.
+     *  @param object The object.
      */
-    @Override
-    public Object getTaskObject() {
-        return this.object;
+    public void setObject(Object object) {
+        this.object = object;
     }
 
-    private String safeToString(Object o) {
-        if (o==null) return "null";
-        String r = null;
-        try {
-            r = o.toString();
-        } catch (Exception ex) {}
-        if (r == null)
-            r = "(object of class " + o.getClass() + ")";
-        return r;
+    public Project getAntProject() {
+        return Objects.requireNonNull(AntTagLibrary.getProject(context), "No Ant Project object is available");
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the properties on the Ant task
+     */
+    public void setBeanProperties() throws JellyTagException {
+        Object object = getTaskObject();
+        if ( object != null ) {
+            Map map = getAttributes();
+            for ( Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
+                Map.Entry entry = (Map.Entry) iter.next();
+                String name = (String) entry.getKey();
+                Object value = entry.getValue();
+                setBeanProperty( object, name, value );
+            }
+        }
     }
 
     @Override
@@ -484,22 +343,6 @@ public class AntTag extends MapTagSupport implements TaskSource {
             else
             {
                 super.setAttribute( name, value.toString() );
-            }
-        }
-    }
-
-    /**
-     * Sets the properties on the Ant task
-     */
-    public void setBeanProperties() throws JellyTagException {
-        Object object = getTaskObject();
-        if ( object != null ) {
-            Map map = getAttributes();
-            for ( Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                String name = (String) entry.getKey();
-                Object value = entry.getValue();
-                setBeanProperty( object, name, value );
             }
         }
     }
@@ -540,28 +383,185 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
     }
 
-    /** Sets the object underlying this tag.
-     *
-     *  @param object The object.
+    /**
+     * Creates a nested object of the given object with the specified name
      */
-    public void setObject(Object object) {
-        this.object = object;
+    public Object createNestedObject(Object object, String name) {
+        Object dataType = null;
+        if ( object != null ) {
+            IntrospectionHelper ih = IntrospectionHelper.getHelper( object.getClass() );
+
+            if ( ih != null && ! (object instanceof AntTag)) {
+                try {
+                    dataType = ih.createElement( getAntProject(), object, name.toLowerCase() );
+                } catch (BuildException be) {
+                    if (object instanceof Tag)
+                    {
+                        if (log.isDebugEnabled()) {
+                            log.debug("Failed attempt to create an ant datatype for a jelly tag", be);
+                        }
+                    } else {
+                        log.error(be);
+                    }
+                }
+            }
+        }
+
+        if ( dataType == null ) {
+            dataType = createDataType( name );
+        }
+
+        return dataType;
+    }
+
+    public Object createDataType(String name) {
+
+        Object dataType = null;
+
+        Class type = (Class) getAntProject().getDataTypeDefinitions().get(name);
+
+        if ( type != null ) {
+
+            Constructor ctor = null;
+            boolean noArg = false;
+
+            // DataType can have a "no arg" constructor or take a single
+            // Project argument.
+            try {
+                ctor = type.getConstructor(new Class[0]);
+                noArg = true;
+            }
+            catch (NoSuchMethodException nse) {
+                try {
+                    ctor = type.getConstructor(new Class[] { Project.class });
+                    noArg = false;
+                } catch (NoSuchMethodException nsme) {
+                    log.info("datatype '" + name
+                        + "' didn't have a constructor with an Ant Project", nsme);
+                }
+            }
+
+            if (noArg) {
+                dataType = createDataType(ctor, new Object[0], name, "no-arg constructor");
+            }
+            else {
+                dataType = createDataType(ctor, new Object[] { getAntProject() }, name, "an Ant project");
+            }
+            if (dataType != null && dataType instanceof DataType) {
+                ((DataType)dataType).setProject( getAntProject() );
+            }
+        }
+
+        return dataType;
     }
 
     /**
-     * Allows nested tags to set a property on the task object of this tag
+     * @return an object create with the given constructor and args.
+     * @param ctor a constructor to use creating the object
+     * @param args the arguments to pass to the constructor
+     * @param name the name of the data type being created
+     * @param argDescription a human readable description of the args passed
      */
-    @Override
-    public void setTaskProperty(String name, Object value) throws JellyTagException {
-        Object object = getTaskObject();
-        if ( object != null ) {
-            setBeanProperty( object, name, value );
+    private Object createDataType(Constructor ctor, Object[] args, String name, String argDescription) {
+        try {
+            Object datatype = ctor.newInstance(args);
+            return datatype;
+        } catch (InstantiationException ie) {
+            log.error("datatype '" + name + "' couldn't be created with " + argDescription, ie);
+        } catch (IllegalAccessException iae) {
+            log.error("datatype '" + name + "' couldn't be created with " + argDescription, iae);
+        } catch (InvocationTargetException ite) {
+            log.error("datatype '" + name + "' couldn't be created with " + argDescription, ite);
         }
+        return null;
     }
 
-    @Override
-    public String toString() {
-        return "[AntTag: name=" + getTagName() + "]";
+    /**
+     * @param taskName
+     * @return
+     * @throws JellyTagException
+     */
+    public Task createTask(String taskName) throws JellyTagException {
+        return createTask( taskName,
+                           (Class) getAntProject().getTaskDefinitions().get( taskName ) );
+    }
+
+    public Task createTask(String taskName,
+                           Class taskType) throws JellyTagException {
+
+        if (taskType == null) {
+            return null;
+        }
+
+        Object o = null;
+        try {
+            o = taskType.getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            throw new JellyTagException(e);
+        }
+
+        Task task = null;
+        if ( o instanceof Task ) {
+            task = (Task) o;
+        }
+        else {
+            TaskAdapter taskA=new TaskAdapter();
+            taskA.setProxy( o );
+            task=taskA;
+        }
+
+        task.setProject(getAntProject());
+        task.setTaskName(taskName);
+
+        return task;
+    }
+
+    /**
+     * Attempts to look up in the parent hierarchy for a tag that implements the
+     * TaskSource interface, which returns an Ant Task object or that implements
+     * BeanSource interface which creates a bean,
+     * or will return the parent tag, which is also a bean.
+     */
+    protected Object findBeanAncestor() throws JellyTagException {
+        Tag tag = getParent();
+        while (tag != null) {
+            if (tag instanceof BeanSource) {
+                BeanSource beanSource = (BeanSource) tag;
+                return beanSource.getBean();
+            }
+            if (tag instanceof TaskSource) {
+                TaskSource taskSource = (TaskSource) tag;
+                return taskSource.getTaskObject();
+            }
+            tag = tag.getParent();
+        }
+        return getParent();
+    }
+
+    /**
+     * Walks the hierarchy until it finds a parent TaskSource and returns its source or returns null
+     */
+    protected Object findParentTaskObject() throws JellyTagException {
+        Tag tag = getParent();
+        while (tag != null) {
+            if (tag instanceof TaskSource) {
+                TaskSource source = (TaskSource) tag;
+                return source.getTaskObject();
+            }
+            tag = tag.getParent();
+        }
+        return null;
+    }
+
+    private String safeToString(Object o) {
+        if (o==null) return "null";
+        String r = null;
+        try {
+            r = o.toString();
+        } catch (Exception ex) {}
+        if (r == null)
+            r = "(object of class " + o.getClass() + ")";
+        return r;
     }
 
 }

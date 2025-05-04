@@ -74,18 +74,15 @@ public class StyleTag extends XPathTagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** @return the source on which the stylesheet should run
-     */
-    protected Object getSource() throws JaxenException {
-        Object source = getXPathContext();
-        if ( select != null ) {
-            return select.evaluate(source);
-        }
-        return source;
-    }
-
     public Stylesheet getStylesheet() {
         return stylesheet;
+    }
+
+    /**
+     * Sets the stylesheet to use to style this tags body
+     */
+    public void setStylesheet(Stylesheet stylesheet) {
+        this.stylesheet = stylesheet;
     }
 
     /** Sets the XPath expression to evaluate. */
@@ -96,10 +93,13 @@ public class StyleTag extends XPathTagSupport {
     // Implementation methods
     //-------------------------------------------------------------------------
 
-    /**
-     * Sets the stylesheet to use to style this tags body
+    /** @return the source on which the stylesheet should run
      */
-    public void setStylesheet(Stylesheet stylesheet) {
-        this.stylesheet = stylesheet;
+    protected Object getSource() throws JaxenException {
+        Object source = getXPathContext();
+        if ( select != null ) {
+            return select.evaluate(source);
+        }
+        return source;
     }
 }

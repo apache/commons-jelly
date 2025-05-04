@@ -45,17 +45,6 @@ public class MapMessageTag extends MessageTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    @Override
-    protected Message createMessage() throws JellyTagException {
-        try {
-            return getConnection().createMapMessage();
-        } catch (JMSException e) {
-            throw new JellyTagException(e);
-        }
-    }
-
     /**
      * Sets the Map of entries to be used for this Map Message
      */
@@ -72,6 +61,17 @@ public class MapMessageTag extends MessageTag {
             catch (JMSException e) {
                 throw new JellyTagException(e);
             }
+        }
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    @Override
+    protected Message createMessage() throws JellyTagException {
+        try {
+            return getConnection().createMapMessage();
+        } catch (JMSException e) {
+            throw new JellyTagException(e);
         }
     }
 }

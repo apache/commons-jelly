@@ -67,15 +67,6 @@ public class SocketListenerTag extends TagSupport {
         invokeBody(xmlOutput);
     }
 
-    /**
-     * Getter for property host.
-     *
-     * @return value of property host.
-     */
-    public String getHost() {
-        return _host;
-    }
-
     //--------------------------------------------------------------------------
     // Property accessors/mutators
     //--------------------------------------------------------------------------
@@ -89,21 +80,30 @@ public class SocketListenerTag extends TagSupport {
     }
 
     /**
-     * Setter for property host.
-     *
-     * @param host New value of property host.
-     */
-    public void setHost(String host) {
-        _host = host;
-    }
-
-    /**
      * Setter for property port.
      *
      * @param port New value of property port.
      */
     public void setPort(int port) {
         _port = port;
+    }
+
+    /**
+     * Getter for property host.
+     *
+     * @return value of property host.
+     */
+    public String getHost() {
+        return _host;
+    }
+
+    /**
+     * Setter for property host.
+     *
+     * @param host New value of property host.
+     */
+    public void setHost(String host) {
+        _host = host;
     }
 
 }

@@ -56,17 +56,17 @@ public class AttributeTag extends TagSupport {
     }
 
     /**
-     * @return the namespace URI of the element
-     */
-    public String getURI() {
-        return namespace;
-    }
-
-    /**
      * Sets the name of the attribute.
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the namespace URI of the element
+     */
+    public String getURI() {
+        return namespace;
     }
 
     /**

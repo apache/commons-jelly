@@ -61,24 +61,12 @@ public class TransactionTag extends TagSupport {
     }
 
     /**
-     * Restores the <code>Connection</code> to its initial state and
-     * closes it.
+     * Sets the SQL DataSource. DataSource can be
+     * a String or a DataSource object.
      */
-    protected void doFinally() {
-        if (conn != null) {
-            try {
-                if ((isolation != Connection.TRANSACTION_NONE)
-                    && (isolation != origIsolation)) {
-                    conn.setTransactionIsolation(origIsolation);
-                }
-                conn.setAutoCommit(true);
-                conn.close();
-            }
-            catch (SQLException e) {
-                // Not much we can do
-            }
-        }
-        conn = null;
+    public void setDataSource(Object dataSource) {
+        this.rawDataSource = dataSource;
+        this.dataSourceSpecified = true;
     }
 
     //*********************************************************************
@@ -150,26 +138,6 @@ public class TransactionTag extends TagSupport {
     // Public utility methods
 
     /**
-     * Called by nested parameter elements to get a reference to
-     * the Connection.
-     */
-    public Connection getSharedConnection() {
-        return conn;
-    }
-
-    /**
-     * Sets the SQL DataSource. DataSource can be
-     * a String or a DataSource object.
-     */
-    public void setDataSource(Object dataSource) {
-        this.rawDataSource = dataSource;
-        this.dataSourceSpecified = true;
-    }
-
-    //*********************************************************************
-    // Implementation methods methods
-
-    /**
      * Sets the transaction isolation level.
      */
     public void setIsolation(String iso) throws JellyTagException {
@@ -189,6 +157,38 @@ public class TransactionTag extends TagSupport {
         else {
             throw new JellyTagException(Resources.getMessage("TRANSACTION_INVALID_ISOLATION"));
         }
+    }
+
+    /**
+     * Called by nested parameter elements to get a reference to
+     * the Connection.
+     */
+    public Connection getSharedConnection() {
+        return conn;
+    }
+
+    //*********************************************************************
+    // Implementation methods methods
+
+    /**
+     * Restores the <code>Connection</code> to its initial state and
+     * closes it.
+     */
+    protected void doFinally() {
+        if (conn != null) {
+            try {
+                if ((isolation != Connection.TRANSACTION_NONE)
+                    && (isolation != origIsolation)) {
+                    conn.setTransactionIsolation(origIsolation);
+                }
+                conn.setAutoCommit(true);
+                conn.close();
+            }
+            catch (SQLException e) {
+                // Not much we can do
+            }
+        }
+        conn = null;
     }
 
 }

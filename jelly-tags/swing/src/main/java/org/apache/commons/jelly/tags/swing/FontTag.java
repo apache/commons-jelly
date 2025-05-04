@@ -56,20 +56,6 @@ public class FontTag extends MapTagSupport {
     }
 */
 
-    /**
-     * Factory method to create a new Font based on the given properties
-     */
-    protected Font createFont(Map map) {
-        log.info( "Creating font from properties: " + map );
-        Font font = new Font(map);
-        //Font font = Font.getFont(map);
-        log.info( "Created font: " + font );
-        return font;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         Map attributes = getAttributes();
@@ -92,13 +78,27 @@ public class FontTag extends MapTagSupport {
         }
     }
 
-    // Implementation methods
+    // Properties
     //-------------------------------------------------------------------------
 
     /**
      * @return the Font object for this tag
      */
     public Font getFont() {
+        return font;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Factory method to create a new Font based on the given properties
+     */
+    protected Font createFont(Map map) {
+        log.info( "Creating font from properties: " + map );
+        Font font = new Font(map);
+        //Font font = Font.getFont(map);
+        log.info( "Created font: " + font );
         return font;
     }
 }

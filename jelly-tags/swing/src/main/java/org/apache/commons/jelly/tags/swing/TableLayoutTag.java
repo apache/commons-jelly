@@ -47,11 +47,10 @@ public class TableLayoutTag extends LayoutTagSupport {
     }
 
     /**
-     * Creates a GridBagLayout
+     * Creates a new row index for child {@code <tr>} tags
      */
-    @Override
-    protected LayoutManager createLayoutManager() {
-        return new GridBagLayout();
+    public int nextRowIndex() {
+        return rowCount++;
     }
 
     // Tag interface
@@ -66,9 +65,10 @@ public class TableLayoutTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Creates a new row index for child {@code <tr>} tags
+     * Creates a GridBagLayout
      */
-    public int nextRowIndex() {
-        return rowCount++;
+    @Override
+    protected LayoutManager createLayoutManager() {
+        return new GridBagLayout();
     }
 }

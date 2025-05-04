@@ -43,19 +43,6 @@ public class JellyBeanTag extends BeanTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    @Override
-    protected Method getInvokeMethod( Class theClass ) {
-        Method invokeMethod =
-            MethodUtils.getAccessibleMethod(
-                theClass,
-                getMethod(),
-                emptyParamTypes);
-
-        if ( invokeMethod == null ) {
-        }
-        return invokeMethod;
-    }
-
     /**
      * @return the method name to use, which defaults to 'run' for Runnable
      * objects
@@ -67,9 +54,6 @@ public class JellyBeanTag extends BeanTag {
         return method;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     /**
      * Sets the name of the method to invoke on the bean.
      * This defaults to "run" so that Runnable objects can be
@@ -78,5 +62,21 @@ public class JellyBeanTag extends BeanTag {
      */
     public void setMethod(String method) {
         this.method = method;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    @Override
+    protected Method getInvokeMethod( Class theClass ) {
+        Method invokeMethod =
+            MethodUtils.getAccessibleMethod(
+                theClass,
+                getMethod(),
+                emptyParamTypes);
+
+        if ( invokeMethod == null ) {
+        }
+        return invokeMethod;
     }
 }

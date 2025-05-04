@@ -53,14 +53,6 @@ public class MockLog implements Log {
     //-------------------------------------------------------------------------
 
     /**
-     * @see org.apache.commons.logging.Log#debug(java.lang.Object)
-     */
-    @Override
-    public void debug(Object message) {
-        this.debug = message;
-    }
-
-    /**
      * @see org.apache.commons.logging.Log#debug(java.lang.Object, java.lang.Throwable)
      */
     @Override
@@ -70,11 +62,11 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#error(java.lang.Object)
+     * @see org.apache.commons.logging.Log#debug(java.lang.Object)
      */
     @Override
-    public void error(Object message) {
-        this.error = message;
+    public void debug(Object message) {
+        this.debug = message;
     }
 
     /**
@@ -87,11 +79,11 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#fatal(java.lang.Object)
+     * @see org.apache.commons.logging.Log#error(java.lang.Object)
      */
     @Override
-    public void fatal(Object message) {
-        this.fatal = message;
+    public void error(Object message) {
+        this.error = message;
     }
 
     /**
@@ -104,12 +96,109 @@ public class MockLog implements Log {
     }
 
     /**
-     * Returns the debug.
-     * @return Object
+     * @see org.apache.commons.logging.Log#fatal(java.lang.Object)
      */
-    public Object getDebug() {
-        return debug;
+    @Override
+    public void fatal(Object message) {
+        this.fatal = message;
     }
+
+    /**
+     * @see org.apache.commons.logging.Log#info(java.lang.Object, java.lang.Throwable)
+     */
+    @Override
+    public void info(Object message, Throwable exception) {
+        this.info = message;
+        this.lastThrowable = exception;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#info(java.lang.Object)
+     */
+    @Override
+    public void info(Object message) {
+        this.info = message;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#isDebugEnabled()
+     */
+    @Override
+    public boolean isDebugEnabled() {
+        return true;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#isErrorEnabled()
+     */
+    @Override
+    public boolean isErrorEnabled() {
+        return true;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#isFatalEnabled()
+     */
+    @Override
+    public boolean isFatalEnabled() {
+        return true;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#isInfoEnabled()
+     */
+    @Override
+    public boolean isInfoEnabled() {
+        return true;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#isTraceEnabled()
+     */
+    @Override
+    public boolean isTraceEnabled() {
+        return true;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#isWarnEnabled()
+     */
+    @Override
+    public boolean isWarnEnabled() {
+        return true;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#trace(java.lang.Object, java.lang.Throwable)
+     */
+    public void trace(Object message, Throwable exception) {
+        this.trace = message;
+        this.lastThrowable = exception;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#trace(java.lang.Object)
+     */
+    public void trace(Object message) {
+        this.trace = message;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#warn(java.lang.Object, java.lang.Throwable)
+     */
+    public void warn(Object message, Throwable exception) {
+        this.warn = message;
+    }
+
+    /**
+     * @see org.apache.commons.logging.Log#warn(java.lang.Object)
+     */
+    public void warn(Object message) {
+        this.warn = message;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
 
     /**
      * Returns the error.
@@ -144,14 +233,6 @@ public class MockLog implements Log {
     }
 
     /**
-     * Returns the trace.
-     * @return Object
-     */
-    public Object getTrace() {
-        return trace;
-    }
-
-    /**
      * Returns the warn.
      * @return Object
      */
@@ -160,100 +241,19 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#info(java.lang.Object)
+     * Returns the trace.
+     * @return Object
      */
-    @Override
-    public void info(Object message) {
-        this.info = message;
+    public Object getTrace() {
+        return trace;
     }
 
     /**
-     * @see org.apache.commons.logging.Log#info(java.lang.Object, java.lang.Throwable)
+     * Returns the debug.
+     * @return Object
      */
-    @Override
-    public void info(Object message, Throwable exception) {
-        this.info = message;
-        this.lastThrowable = exception;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#isDebugEnabled()
-     */
-    @Override
-    public boolean isDebugEnabled() {
-        return true;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#isErrorEnabled()
-     */
-    @Override
-    public boolean isErrorEnabled() {
-        return true;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#isFatalEnabled()
-     */
-    @Override
-    public boolean isFatalEnabled() {
-        return true;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * @see org.apache.commons.logging.Log#isInfoEnabled()
-     */
-    @Override
-    public boolean isInfoEnabled() {
-        return true;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#isTraceEnabled()
-     */
-    @Override
-    public boolean isTraceEnabled() {
-        return true;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#isWarnEnabled()
-     */
-    @Override
-    public boolean isWarnEnabled() {
-        return true;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#trace(java.lang.Object)
-     */
-    public void trace(Object message) {
-        this.trace = message;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#trace(java.lang.Object, java.lang.Throwable)
-     */
-    public void trace(Object message, Throwable exception) {
-        this.trace = message;
-        this.lastThrowable = exception;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#warn(java.lang.Object)
-     */
-    public void warn(Object message) {
-        this.warn = message;
-    }
-
-    /**
-     * @see org.apache.commons.logging.Log#warn(java.lang.Object, java.lang.Throwable)
-     */
-    public void warn(Object message, Throwable exception) {
-        this.warn = message;
+    public Object getDebug() {
+        return debug;
     }
 
 }

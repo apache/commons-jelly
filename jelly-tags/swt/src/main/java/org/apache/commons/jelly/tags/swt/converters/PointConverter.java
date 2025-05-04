@@ -33,21 +33,6 @@ public class PointConverter implements Converter {
         return instance;
     }
 
-    // Converter interface
-    //-------------------------------------------------------------------------
-    @Override
-    public Object convert(Class type, Object value) {
-        Object answer = null;
-        if ( value != null ) {
-            String text = value.toString();
-            answer = parse(text);
-        }
-
-        System.out.println("Converting value: " + value + " into: " + answer);
-
-        return answer;
-    }
-
     /**
      * Parsers a String in the form "x, y" into an SWT Point class
      * @param text
@@ -64,6 +49,21 @@ public class PointConverter implements Converter {
             y = parseNumber( items.nextToken() );
         }
         return new Point( x, y );
+    }
+
+    // Converter interface
+    //-------------------------------------------------------------------------
+    @Override
+    public Object convert(Class type, Object value) {
+        Object answer = null;
+        if ( value != null ) {
+            String text = value.toString();
+            answer = parse(text);
+        }
+
+        System.out.println("Converting value: " + value + " into: " + answer);
+
+        return answer;
     }
 
     protected int parseNumber(String text) {

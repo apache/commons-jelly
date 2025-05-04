@@ -53,70 +53,184 @@ public class Channel implements Serializable {
      */
     protected String copyright = null;
 
+    public String getCopyright() {
+        return (this.copyright);
+    }
+
+    public void setCopyright(String copyright) {
+        this.copyright = copyright;
+    }
+
     /**
      * The channel description (1-500 characters).
      */
     protected String description = null;
+
+    public String getDescription() {
+        return (this.description);
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     /**
      * The channel description file URL (1-500 characters).
      */
     protected String docs = null;
 
+    public String getDocs() {
+        return (this.docs);
+    }
+
+    public void setDocs(String docs) {
+        this.docs = docs;
+    }
+
     /**
      * The image describing this channel.
      */
     protected Image image = null;
+
+    public Image getImage() {
+        return (this.image);
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 
     /**
      * The channel language (2-5 characters).
      */
     protected String language = null;
 
+    public String getLanguage() {
+        return (this.language);
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
     /**
      * The channel last build date (1-100 characters).
      */
     protected String lastBuildDate = null;
+
+    public String getLastBuildDate() {
+        return (this.lastBuildDate);
+    }
+
+    public void setLastBuildDate(String lastBuildDate) {
+        this.lastBuildDate = lastBuildDate;
+    }
 
     /**
      * The channel link (1-500 characters).
      */
     protected String link = null;
 
+    public String getLink() {
+        return (this.link);
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
     /**
      * The managing editor (1-100 characters).
      */
     protected String managingEditor = null;
+
+    public String getManagingEditor() {
+        return (this.managingEditor);
+    }
+
+    public void setManagingEditor(String managingEditor) {
+        this.managingEditor = managingEditor;
+    }
 
     /**
      * The channel publication date (1-100 characters).
      */
     protected String pubDate = null;
 
+    public String getPubDate() {
+        return (this.pubDate);
+    }
+
+    public void setPubDate(String pubDate) {
+        this.pubDate = pubDate;
+    }
+
     /**
      * The channel rating (20-500 characters).
      */
     protected String rating = null;
+
+    public String getRating() {
+        return (this.rating);
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
 
     /**
      * The text input description for this channel.
      */
     protected TextInput textInput = null;
 
+    public TextInput getTextInput() {
+        return (this.textInput);
+    }
+
+    public void setTextInput(TextInput textInput) {
+        this.textInput = textInput;
+    }
+
     /**
      * The channel title (1-100 characters).
      */
     protected String title = null;
+
+    public String getTitle() {
+        return (this.title);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     /**
      * The RSS specification version number used to create this Channel.
      */
     protected double version = 0.91;
 
+    public double getVersion() {
+        return (this.version);
+    }
+
+    public void setVersion(double version) {
+        this.version = version;
+    }
+
     /**
      * The webmaster email address (1-100 characters).
      */
     protected String webMaster = null;
+
+    public String getWebMaster() {
+        return (this.webMaster);
+    }
+
+    public void setWebMaster(String webMaster) {
+        this.webMaster = webMaster;
+    }
+
+    // --------------------------------------------------------- Public Methods
 
     /**
      * Add an additional item.
@@ -162,6 +276,13 @@ public class Channel implements Serializable {
     }
 
     /**
+     * Gets the items for this channel.
+     */
+    public Item[] getItems() {
+        return findItems();
+    }
+
+    /**
      * Gets the skip days for this channel.
      */
     public String[] findSkipDays() {
@@ -174,6 +295,13 @@ public class Channel implements Serializable {
     /**
      * Gets the skip hours for this channel.
      */
+    public String[] getSkipHours() {
+        return findSkipHours();
+    }
+
+    /**
+     * Gets the skip hours for this channel.
+     */
     public String[] findSkipHours() {
         synchronized (skipHours) {
             String skipHours[] = new String[this.skipHours.size()];
@@ -181,81 +309,11 @@ public class Channel implements Serializable {
         }
     }
 
-    public String getCopyright() {
-        return (this.copyright);
-    }
-
-    public String getDescription() {
-        return (this.description);
-    }
-
-    public String getDocs() {
-        return (this.docs);
-    }
-
-    public Image getImage() {
-        return (this.image);
-    }
-
-    /**
-     * Gets the items for this channel.
-     */
-    public Item[] getItems() {
-        return findItems();
-    }
-
-    public String getLanguage() {
-        return (this.language);
-    }
-
-    public String getLastBuildDate() {
-        return (this.lastBuildDate);
-    }
-
-    public String getLink() {
-        return (this.link);
-    }
-
-    public String getManagingEditor() {
-        return (this.managingEditor);
-    }
-
-    public String getPubDate() {
-        return (this.pubDate);
-    }
-
-    public String getRating() {
-        return (this.rating);
-    }
-
     /**
      * Gets the skip days for this channel.
      */
     public String[] getSkipDays() {
         return findSkipDays();
-    }
-
-    /**
-     * Gets the skip hours for this channel.
-     */
-    public String[] getSkipHours() {
-        return findSkipHours();
-    }
-
-    public TextInput getTextInput() {
-        return (this.textInput);
-    }
-
-    public String getTitle() {
-        return (this.title);
-    }
-
-    public double getVersion() {
-        return (this.version);
-    }
-
-    public String getWebMaster() {
-        return (this.webMaster);
     }
 
     /**
@@ -333,7 +391,33 @@ public class Channel implements Serializable {
 
     }
 
-    // --------------------------------------------------------- Public Methods
+    /**
+     * Render this channel as XML conforming to the RSS 0.91 specification,
+     * to the specified writer, with no indication of character encoding.
+     *
+     * @param writer The writer to render output to
+     */
+    public void render(Writer writer) {
+
+        render(writer, null);
+
+    }
+
+    /**
+     * Render this channel as XML conforming to the RSS 0.91 specification,
+     * to the specified writer, indicating the specified character encoding.
+     *
+     * @param writer The writer to render output to
+     * @param encoding The character encoding to declare, or {@code null}
+     *  for no declaration
+     */
+    public void render(Writer writer, String encoding) {
+
+        PrintWriter pw = new PrintWriter(writer);
+        render(pw, encoding);
+        pw.flush();
+
+    }
 
     /**
      * Render this channel as XML conforming to the RSS 0.91 specification,
@@ -481,90 +565,6 @@ public class Channel implements Serializable {
 
         writer.println("</rss>");
 
-    }
-
-    /**
-     * Render this channel as XML conforming to the RSS 0.91 specification,
-     * to the specified writer, with no indication of character encoding.
-     *
-     * @param writer The writer to render output to
-     */
-    public void render(Writer writer) {
-
-        render(writer, null);
-
-    }
-
-    /**
-     * Render this channel as XML conforming to the RSS 0.91 specification,
-     * to the specified writer, indicating the specified character encoding.
-     *
-     * @param writer The writer to render output to
-     * @param encoding The character encoding to declare, or {@code null}
-     *  for no declaration
-     */
-    public void render(Writer writer, String encoding) {
-
-        PrintWriter pw = new PrintWriter(writer);
-        render(pw, encoding);
-        pw.flush();
-
-    }
-
-    public void setCopyright(String copyright) {
-        this.copyright = copyright;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDocs(String docs) {
-        this.docs = docs;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public void setLastBuildDate(String lastBuildDate) {
-        this.lastBuildDate = lastBuildDate;
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
-    public void setManagingEditor(String managingEditor) {
-        this.managingEditor = managingEditor;
-    }
-
-    public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
-    }
-
-    public void setRating(String rating) {
-        this.rating = rating;
-    }
-
-    public void setTextInput(TextInput textInput) {
-        this.textInput = textInput;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setVersion(double version) {
-        this.version = version;
-    }
-
-    public void setWebMaster(String webMaster) {
-        this.webMaster = webMaster;
     }
 
 }

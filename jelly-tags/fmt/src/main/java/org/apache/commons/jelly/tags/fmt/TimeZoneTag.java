@@ -36,6 +36,55 @@ import java.util.TimeZone;
  */
 public class TimeZoneTag extends TagSupport {
 
+    private TimeZone timeZone;
+    private Expression value;                    // 'value' attribute
+
+    //*********************************************************************
+    // Constructor and initialization
+
+    public TimeZoneTag() {
+    }
+
+    //*********************************************************************
+    // Collaboration with subtags
+
+    public TimeZone getTimeZone() {
+        return timeZone;
+    }
+
+    //*********************************************************************
+    // Tag logic
+
+    /**
+     * Evaluates this tag after all the tags properties have been initialized.
+     *
+     */
+    @Override
+    public void doTag(XMLOutput output) throws JellyTagException {
+        Object valueInput = null;
+        if (this.value != null) {
+            valueInput = this.value.evaluate(context);
+        }
+
+        if (valueInput == null) {
+            timeZone = TimeZone.getTimeZone("GMT");
+        }
+        else if (valueInput instanceof String) {
+            if (((String) valueInput).trim().isEmpty()) {
+                timeZone = TimeZone.getTimeZone("GMT");
+            } else {
+                timeZone = TimeZone.getTimeZone((String) valueInput);
+            }
+        } else {
+            timeZone = (TimeZone) valueInput;
+        }
+
+        invokeBody(output);
+    }
+
+    //*********************************************************************
+    // Package-scoped utility methods
+
     /*
      * Determines and returns the time zone to be used by the given action.
      *
@@ -76,55 +125,6 @@ public class TimeZoneTag extends TagSupport {
         }
 
         return tz;
-    }
-    private TimeZone timeZone;
-
-    //*********************************************************************
-    // Constructor and initialization
-
-    private Expression value;                    // 'value' attribute
-
-    //*********************************************************************
-    // Collaboration with subtags
-
-    public TimeZoneTag() {
-    }
-
-    //*********************************************************************
-    // Tag logic
-
-    /**
-     * Evaluates this tag after all the tags properties have been initialized.
-     *
-     */
-    @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Object valueInput = null;
-        if (this.value != null) {
-            valueInput = this.value.evaluate(context);
-        }
-
-        if (valueInput == null) {
-            timeZone = TimeZone.getTimeZone("GMT");
-        }
-        else if (valueInput instanceof String) {
-            if (((String) valueInput).trim().isEmpty()) {
-                timeZone = TimeZone.getTimeZone("GMT");
-            } else {
-                timeZone = TimeZone.getTimeZone((String) valueInput);
-            }
-        } else {
-            timeZone = (TimeZone) valueInput;
-        }
-
-        invokeBody(output);
-    }
-
-    //*********************************************************************
-    // Package-scoped utility methods
-
-    public TimeZone getTimeZone() {
-        return timeZone;
     }
 
     /** Setter for property value.

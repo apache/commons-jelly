@@ -54,9 +54,9 @@ public class AddressTypeSerializer extends org.apache.ws.jaxme.impl.JMXmlSeriali
   
   }
 
-  final static javax.xml.namespace.QName __ser_Name_qname = new javax.xml.namespace.QName("http://ws.apache.org/jaxme/examples/misc/address", "Name");
-
   private org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeSerializer.NameTypeSerializer serName;
+
+  final static javax.xml.namespace.QName __ser_Name_qname = new javax.xml.namespace.QName("http://ws.apache.org/jaxme/examples/misc/address", "Name");
 
   @Override
 protected org.xml.sax.helpers.AttributesImpl getAttributes(org.apache.ws.jaxme.JMXmlSerializer.Data data, java.lang.Object rlement) throws org.xml.sax.SAXException {

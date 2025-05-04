@@ -127,12 +127,6 @@ public class ParseTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the ClassLoader to be used to load bean classes.
-     */
-    protected ClassLoader getClassLoader() {
-        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
-    }
-    /**
      * @return the introspector to be used, lazily creating one if required.
      */
     public XMLIntrospector getIntrospector() {
@@ -141,23 +135,34 @@ public class ParseTag extends TagSupport {
         }
         return introspector;
     }
-
-    /**
-     * Sets the ClassLoader to be used to load bean classes from.
-     * If this is not specified then either the ClassLoader used to load this tag library
-     * is used or, if the 'useContextClassLoader' property is true, then the
-     * current threads context class loader is used instead.
-     */
-    public void setClassLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
-
     /**
      * Sets the Betwixt XMLIntrospector instance used to define the metadata for how a
      * bean should appear as XML.
      */
     public void setIntrospector(XMLIntrospector introspector) {
         this.introspector = introspector;
+    }
+
+    /**
+     * Sets the URI from which XML is parsed. This can be relative to this Jelly script, use
+     * an absolute URI or a full URL
+     */
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    /**
+     * Sets the variable name to output with the result of the XML parse.
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    /**
+     * Sets the name of the root class to use for parsing the XML
+     */
+    public void setRootClass(String rootClass) {
+        this.rootClass = rootClass;
     }
 
     /**
@@ -170,21 +175,6 @@ public class ParseTag extends TagSupport {
     }
 
     /**
-     * Sets the name of the root class to use for parsing the XML
-     */
-    public void setRootClass(String rootClass) {
-        this.rootClass = rootClass;
-    }
-
-    /**
-     * Sets the URI from which XML is parsed. This can be relative to this Jelly script, use
-     * an absolute URI or a full URL
-     */
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    /**
      * Sets whether or not the current threads's context class loader
      * should be used to load the bean classes or not.
      * This can be useful if running inside a web application or inside some
@@ -194,13 +184,23 @@ public class ParseTag extends TagSupport {
         this.useContextClassLoader = useContextClassLoader;
     }
 
+    /**
+     * Sets the ClassLoader to be used to load bean classes from.
+     * If this is not specified then either the ClassLoader used to load this tag library
+     * is used or, if the 'useContextClassLoader' property is true, then the
+     * current threads context class loader is used instead.
+     */
+    public void setClassLoader(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the variable name to output with the result of the XML parse.
+     * @return the ClassLoader to be used to load bean classes.
      */
-    public void setVar(String var) {
-        this.var = var;
+    protected ClassLoader getClassLoader() {
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
     }
 }

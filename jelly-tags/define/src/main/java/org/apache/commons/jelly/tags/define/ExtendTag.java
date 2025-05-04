@@ -72,17 +72,17 @@ public class ExtendTag extends DefineTagSupport {
     }
 
     /**
-     * Returns the parent implementation of this tag
-     */
-    public Script getSuperScript() {
-        return superScript;
-    }
-
-    /**
      * Sets the name of the tag to create
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Returns the parent implementation of this tag
+     */
+    public Script getSuperScript() {
+        return superScript;
     }
 }
 

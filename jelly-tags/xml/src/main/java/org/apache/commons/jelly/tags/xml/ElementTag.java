@@ -44,110 +44,6 @@ public class ElementTag extends TagSupport {
     public ElementTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        int idx = name.indexOf(':');
-        final String localName = (idx >= 0)
-            ? name.substring(idx + 1)
-            : name;
-
-        outputAttributes = false;
-
-        XMLOutput newOutput = new XMLOutput(output) {
-
-            // add an initialize hook to the core content-generating methods
-
-            @Override
-            public void characters(char[] ch, int start, int length) throws SAXException {
-                initialize();
-                super.characters(ch, start, length);
-            }
-
-            @Override
-            public void endElement(String uri, String localName, String qName)
-                throws SAXException {
-                initialize();
-                super.endElement(uri, localName, qName);
-            }
-
-            @Override
-            public void ignorableWhitespace(char[] ch, int start, int length)
-                throws SAXException {
-                initialize();
-                super.ignorableWhitespace(ch, start, length);
-            }
-
-            /**
-             * Ensure that the outer start element is generated
-             * before any content is output.
-             */
-            protected void initialize() throws SAXException {
-                if (!outputAttributes) {
-                    super.startElement(namespace, localName, name, attributes);
-                    outputAttributes = true;
-                }
-            }
-
-            @Override
-            public void objectData(Object object)
-                throws SAXException {
-                initialize();
-                super.objectData(object);
-            }
-
-            @Override
-            public void processingInstruction(String target, String data)
-                throws SAXException {
-                initialize();
-                super.processingInstruction(target, data);
-            }
-
-            @Override
-            public void startElement(
-                String uri,
-                String localName,
-                String qName,
-                Attributes atts)
-                throws SAXException {
-                initialize();
-                super.startElement(uri, localName, qName, atts);
-            }
-        };
-
-        invokeBody(newOutput);
-
-        try {
-            if (!outputAttributes) {
-                output.startElement(namespace, localName, name, attributes);
-                outputAttributes = true;
-            }
-
-            output.endElement(namespace, localName, name);
-            attributes.clear();
-        } catch (SAXException e) {
-            throw new JellyTagException(e);
-        }
-    }
-
-    /**
-     * @return the qualified name of the element
-     */
-    public String getName() {
-        return name;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the namespace URI of the element
-     */
-    public String getURI() {
-        return namespace;
-    }
-
     /**
      * Sets the attribute of the given name to the specified value.
      *
@@ -188,11 +84,115 @@ public class ElementTag extends TagSupport {
         }
     }
 
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(XMLOutput output) throws JellyTagException {
+        int idx = name.indexOf(':');
+        final String localName = (idx >= 0)
+            ? name.substring(idx + 1)
+            : name;
+
+        outputAttributes = false;
+
+        XMLOutput newOutput = new XMLOutput(output) {
+
+            // add an initialize hook to the core content-generating methods
+
+            @Override
+            public void startElement(
+                String uri,
+                String localName,
+                String qName,
+                Attributes atts)
+                throws SAXException {
+                initialize();
+                super.startElement(uri, localName, qName, atts);
+            }
+
+            @Override
+            public void endElement(String uri, String localName, String qName)
+                throws SAXException {
+                initialize();
+                super.endElement(uri, localName, qName);
+            }
+
+            @Override
+            public void characters(char[] ch, int start, int length) throws SAXException {
+                initialize();
+                super.characters(ch, start, length);
+            }
+
+            @Override
+            public void ignorableWhitespace(char[] ch, int start, int length)
+                throws SAXException {
+                initialize();
+                super.ignorableWhitespace(ch, start, length);
+            }
+
+            @Override
+            public void objectData(Object object)
+                throws SAXException {
+                initialize();
+                super.objectData(object);
+            }
+
+            @Override
+            public void processingInstruction(String target, String data)
+                throws SAXException {
+                initialize();
+                super.processingInstruction(target, data);
+            }
+
+            /**
+             * Ensure that the outer start element is generated
+             * before any content is output.
+             */
+            protected void initialize() throws SAXException {
+                if (!outputAttributes) {
+                    super.startElement(namespace, localName, name, attributes);
+                    outputAttributes = true;
+                }
+            }
+        };
+
+        invokeBody(newOutput);
+
+        try {
+            if (!outputAttributes) {
+                output.startElement(namespace, localName, name, attributes);
+                outputAttributes = true;
+            }
+
+            output.endElement(namespace, localName, name);
+            attributes.clear();
+        } catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /**
+     * @return the qualified name of the element
+     */
+    public String getName() {
+        return name;
+    }
+
     /**
      * Sets the qualified name of the element
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return the namespace URI of the element
+     */
+    public String getURI() {
+        return namespace;
     }
 
     /**

@@ -33,6 +33,14 @@ public class TextMessageTag extends MessageTag {
     // Properties
     //-------------------------------------------------------------------------
 
+    /**
+     * Sets the body of the message, a String. If this value is not set or
+     * the value is null then the content of the tag will be used instead.
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override
@@ -43,13 +51,5 @@ public class TextMessageTag extends MessageTag {
         } catch (JMSException e) {
             throw new JellyTagException(e);
         }
-    }
-
-    /**
-     * Sets the body of the message, a String. If this value is not set or
-     * the value is null then the content of the tag will be used instead.
-     */
-    public void setText(String text) {
-        this.text = text;
     }
 }

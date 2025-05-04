@@ -48,11 +48,6 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
     private boolean ignoreWhitespace = false;
 
     @Override
-    protected SAXReader createSAXReader() {
-        return new SAXReader();
-    }
-
-    @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         invokeBody(output);
 
@@ -120,6 +115,11 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
      */
     public void setIgnoreWhitespace(boolean ignoreWhitespace) {
         this.ignoreWhitespace = ignoreWhitespace;
+    }
+
+    @Override
+    protected SAXReader createSAXReader() {
+        return new SAXReader();
     }
 
 }

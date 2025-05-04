@@ -36,11 +36,6 @@ public void setUp() throws Exception
   {
   }
 
-  @Override
-public void tearDown()
-  {
-  }
-
   public void testDoTag() throws Exception
   {
     MatchTag matchExpTag = new MatchTag();
@@ -53,5 +48,10 @@ public void tearDown()
     matchExpTag.doTag(xmlOutput);
 
     assertEquals("TRUE", matchExpTag.getContext().getVariable("testvar").toString().toUpperCase());
+  }
+
+  @Override
+public void tearDown()
+  {
   }
 }

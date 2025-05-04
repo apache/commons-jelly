@@ -27,11 +27,6 @@ import org.apache.commons.jelly.tags.swing.model.ExpressionTableModel;
  */
 public class TableModelTag extends UseBeanTag {
 
-    @Override
-    protected Class getDefaultClass() {
-        return ExpressionTableModel.class;
-    }
-
     public ExpressionTableModel getTableModel() {
         return (ExpressionTableModel) getBean();
     }
@@ -57,6 +52,11 @@ public class TableModelTag extends UseBeanTag {
         else {
             throw new JellyTagException( "This tag must be nested within a JellySwing <table> tag" );
         }
+    }
+
+    @Override
+    protected Class getDefaultClass() {
+        return ExpressionTableModel.class;
     }
 }
 

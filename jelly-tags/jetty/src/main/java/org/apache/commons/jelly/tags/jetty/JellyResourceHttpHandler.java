@@ -57,24 +57,14 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
         _xmlOutput = xmlOutput;
     }
 
-    public String getRequestBody(HttpRequest request) throws IOException {
-
-        // read the body as a string from the input stream
-        InputStream is = request.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
-        StringBuilder sb = new StringBuilder();
-        char[] buffer = new char[1024];
-        int len;
-
-        while ((len = isr.read(buffer, 0, 1024)) != -1)
-          sb.append(buffer, 0, len);
-
-        if (sb.length() > 0)
-          return sb.toString();
-        else
-          return null;
-
+    /*
+     * register this tag as the handler for the specified method
+     *
+     * @param tag the tag to be registered
+     * @param method the name of the http method which this tag processes
+     */
+    public void registerTag(Tag tag, String method){
+        _tagMap.put(method.toLowerCase(), tag);
     }
 
     /*
@@ -128,14 +118,24 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
         return;
     }
 
-    /*
-     * register this tag as the handler for the specified method
-     *
-     * @param tag the tag to be registered
-     * @param method the name of the http method which this tag processes
-     */
-    public void registerTag(Tag tag, String method){
-        _tagMap.put(method.toLowerCase(), tag);
+    public String getRequestBody(HttpRequest request) throws IOException {
+
+        // read the body as a string from the input stream
+        InputStream is = request.getInputStream();
+        InputStreamReader isr = new InputStreamReader(is);
+        BufferedReader br = new BufferedReader(isr);
+        StringBuilder sb = new StringBuilder();
+        char[] buffer = new char[1024];
+        int len;
+
+        while ((len = isr.read(buffer, 0, 1024)) != -1)
+          sb.append(buffer, 0, len);
+
+        if (sb.length() > 0)
+          return sb.toString();
+        else
+          return null;
+
     }
 }
 

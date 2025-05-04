@@ -36,6 +36,14 @@ public class Dummy implements DummyMBean {
         log.info("Do something! on: " + this);
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + "[name=" + name + "]";
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     /**
      * @return int
      */
@@ -43,9 +51,6 @@ public class Dummy implements DummyMBean {
     public int getCount() {
         return count;
     }
-
-    // Properties
-    //-------------------------------------------------------------------------
 
     /**
      * @return String
@@ -71,11 +76,6 @@ public class Dummy implements DummyMBean {
     @Override
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "[name=" + name + "]";
     }
 
 }

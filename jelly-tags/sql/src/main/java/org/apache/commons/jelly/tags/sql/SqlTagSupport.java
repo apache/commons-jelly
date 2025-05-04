@@ -66,6 +66,44 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
     // Accessor methods
 
     /**
+     * Sets the name of the variable to hold the
+     * result.
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    /**
+     * Sets the scope of the variable to hold the
+     * result.
+     */
+    public void setScope(String scopeName) {
+        this.scope = scopeName;
+    }
+
+    /**
+     * Sets the SQL DataSource. DataSource can be
+     * a String or a DataSource object.
+     */
+    public void setDataSource(Object dataSource) {
+        this.rawDataSource = dataSource;
+        this.dataSourceSpecified = true;
+    }
+
+    /**
+     * Sets the SQL statement to use for the
+     * query. The statement may contain parameter markers
+     * (question marks, ?). If so, the parameter values must
+     * be set using nested value elements.
+     */
+    public void setSql(String sql) {
+        this.sql = sql;
+    }
+
+    //*********************************************************************
+    // Public utility methods
+
+    /**
      * Called by nested parameter elements to add PreparedStatement
      * parameter values.
      */
@@ -75,6 +113,16 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
             parameters = new ArrayList();
         }
         parameters.add(o);
+    }
+
+    //*********************************************************************
+    // Protected utility methods
+
+    /**
+     * @return true if there are SQL parameters
+     */
+    protected boolean hasParameters() {
+        return parameters != null && parameters.size() > 0;
     }
 
     protected void clearParameters() {
@@ -112,28 +160,6 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
         return conn;
     }
 
-    /**
-     * @return true if there are SQL parameters
-     */
-    protected boolean hasParameters() {
-        return parameters != null && parameters.size() > 0;
-    }
-
-    //*********************************************************************
-    // Public utility methods
-
-    /**
-     * Sets the SQL DataSource. DataSource can be
-     * a String or a DataSource object.
-     */
-    public void setDataSource(Object dataSource) {
-        this.rawDataSource = dataSource;
-        this.dataSourceSpecified = true;
-    }
-
-    //*********************************************************************
-    // Protected utility methods
-
     protected void setParameters(PreparedStatement ps)
         throws SQLException {
         if (parameters != null) {
@@ -142,31 +168,5 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
                 ps.setObject(i + 1, parameters.get(i));
             }
         }
-    }
-
-    /**
-     * Sets the scope of the variable to hold the
-     * result.
-     */
-    public void setScope(String scopeName) {
-        this.scope = scopeName;
-    }
-
-    /**
-     * Sets the SQL statement to use for the
-     * query. The statement may contain parameter markers
-     * (question marks, ?). If so, the parameter values must
-     * be set using nested value elements.
-     */
-    public void setSql(String sql) {
-        this.sql = sql;
-    }
-
-    /**
-     * Sets the name of the variable to hold the
-     * result.
-     */
-    public void setVar(String var) {
-        this.var = var;
     }
 }

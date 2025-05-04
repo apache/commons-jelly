@@ -164,14 +164,6 @@ public class MessageTag extends TagSupport {
         }
     }
 
-    /** Setter for property bundle.
-     * @param bundle New value of property bundle.
-     *
-     */
-    public void setBundle(Expression bundle) {
-        this.bundle = bundle;
-    }
-
     /** Setter for property key.
      * @param key New value of property key.
      *
@@ -180,12 +172,12 @@ public class MessageTag extends TagSupport {
         this.key = key;
     }
 
-    /** Setter for property scope.
-     * @param scope New value of property scope.
+    /** Setter for property bundle.
+     * @param bundle New value of property bundle.
      *
      */
-    public void setScope(String scope) {
-        this.scope = scope;
+    public void setBundle(Expression bundle) {
+        this.bundle = bundle;
     }
 
     /** Setter for property var.
@@ -194,6 +186,14 @@ public class MessageTag extends TagSupport {
      */
     public void setVar(String var) {
         this.var = var;
+    }
+
+    /** Setter for property scope.
+     * @param scope New value of property scope.
+     *
+     */
+    public void setScope(String scope) {
+        this.scope = scope;
     }
 
 }

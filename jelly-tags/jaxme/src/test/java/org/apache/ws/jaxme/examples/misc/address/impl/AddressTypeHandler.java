@@ -42,68 +42,14 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
   
   
     @Override
-    public void characters(char[] chars, int offset, int len) throws org.xml.sax.SAXException {
-      if (handler == null) {
-        super.characters(chars, offset, len);
-      } else {
-        handler.characters(chars, offset, len);
-      }
-    }
-  
-    @Override
-    public void endElement(String namespaceURI, String localName, String qName) throws org.xml.sax.SAXException {
-      if (handler == null) {
-        if (level > 1) {
-          super.endElement(namespaceURI, localName, qName);
-        }
-      } else {
-        handler.endElement(namespaceURI, localName, qName);
-      }
-      switch (--level) {
-        case 0:
-          break;
-        case 1:
-          org.apache.ws.jaxme.examples.misc.address.AddressType.NameType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) getResult();
-          switch (state) {
-            case 3:
-              if (handler != null) {
-                handler.endDocument();
-              }
-              _1.setFirst(((java.lang.String) handler.getResult()));
-              break;
-            case 4:
-              if (handler != null) {
-                handler.endDocument();
-              }
-              _1.getMiddle().add(handler.getResult());
-              break;
-            case 5:
-              if (handler != null) {
-                handler.endDocument();
-              }
-              _1.setLast(((java.lang.String) handler.getResult()));
-              break;
-            case 6:
-              if (handler != null) {
-                handler.endDocument();
-              }
-              _1.setInitials(((java.lang.String) handler.getResult()));
-              break;
-            default:
-              throw new java.lang.IllegalStateException("Illegal state: " + state);
-          }
-      }
-    }
-  
-    protected org.apache.ws.jaxme.examples.misc.address.AddressType.NameType newResult() throws org.xml.sax.SAXException {
-      return new org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeImpl.NameTypeImpl();
-    }
-  
-    @Override
     public void startDocument() throws org.xml.sax.SAXException {
       level = 0;
       state = 0;
       handler = null;
+    }
+  
+    protected org.apache.ws.jaxme.examples.misc.address.AddressType.NameType newResult() throws org.xml.sax.SAXException {
+      return new org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeImpl.NameTypeImpl();
     }
   
     @Override
@@ -181,6 +127,60 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
       }
     }
   
+    @Override
+    public void endElement(String namespaceURI, String localName, String qName) throws org.xml.sax.SAXException {
+      if (handler == null) {
+        if (level > 1) {
+          super.endElement(namespaceURI, localName, qName);
+        }
+      } else {
+        handler.endElement(namespaceURI, localName, qName);
+      }
+      switch (--level) {
+        case 0:
+          break;
+        case 1:
+          org.apache.ws.jaxme.examples.misc.address.AddressType.NameType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) getResult();
+          switch (state) {
+            case 3:
+              if (handler != null) {
+                handler.endDocument();
+              }
+              _1.setFirst(((java.lang.String) handler.getResult()));
+              break;
+            case 4:
+              if (handler != null) {
+                handler.endDocument();
+              }
+              _1.getMiddle().add(handler.getResult());
+              break;
+            case 5:
+              if (handler != null) {
+                handler.endDocument();
+              }
+              _1.setLast(((java.lang.String) handler.getResult()));
+              break;
+            case 6:
+              if (handler != null) {
+                handler.endDocument();
+              }
+              _1.setInitials(((java.lang.String) handler.getResult()));
+              break;
+            default:
+              throw new java.lang.IllegalStateException("Illegal state: " + state);
+          }
+      }
+    }
+  
+    @Override
+    public void characters(char[] chars, int offset, int len) throws org.xml.sax.SAXException {
+      if (handler == null) {
+        super.characters(chars, offset, len);
+      } else {
+        handler.characters(chars, offset, len);
+      }
+    }
+  
   }
 
   /** The current level of nested elements. 0, if outside the root element.
@@ -205,6 +205,13 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
   private org.apache.ws.jaxme.JMHandler handlerName;
 
   @Override
+public void startDocument() throws org.xml.sax.SAXException {
+    level = 0;
+    state = 0;
+    handler = null;
+  }
+
+  @Override
 public void addAttribute(String uri, String localName, String value) throws org.xml.sax.SAXException {
     if (uri == null) {
       uri = "";
@@ -219,75 +226,12 @@ public void addAttribute(String uri, String localName, String value) throws org.
     super.addAttribute(uri, localName, value);
   }
 
-  @Override
-public void characters(char[] buffer, int offset, int length) throws org.xml.sax.SAXException {
-    if (handler == null) {
-      super.characters(buffer, offset, length);
-    } else {
-      handler.characters(buffer, offset, length);
-    }
-  }
-
-  @Override
-public void endElement(String namespaceURI, String localName, String qName) throws org.xml.sax.SAXException {
-    if (handler == null) {
-      if (level > 1) {
-        super.endElement(namespaceURI, localName, qName);
-      }
-    } else {
-      handler.endElement(namespaceURI, localName, qName);
-    }
-    switch (--level) {
-      case 0:
-        break;
-      case 1:
-        org.apache.ws.jaxme.examples.misc.address.AddressType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType) getResult();
-        switch (state) {
-          case 3:
-            if (handler != null) {
-              handler.endDocument();
-            }
-            _1.setName(((org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) handler.getResult()));
-            break;
-          default:
-            throw new java.lang.IllegalStateException("Illegal state: " + state);
-        }
-    }
-  }
-
-  protected org.apache.ws.jaxme.JMHandler getHandlerForName() throws org.xml.sax.SAXException {
-    if (handlerName == null) {
-      try {
-        handlerName = new org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeHandler.NameTypeHandler();
-        handlerName.init(getData());
-      } catch (javax.xml.bind.JAXBException _1) {
-        throw new org.xml.sax.SAXException(_1);
-      }
-    }
-    return handlerName;
-  }
-
-  @Override
-public void init(org.apache.ws.jaxme.JMHandler.Data data) throws javax.xml.bind.JAXBException {
-    super.init(data);
-    if (handlerName != null) {
-      handlerName.init(data);
-    }
-  }
-
   protected org.apache.ws.jaxme.examples.misc.address.AddressType newResult() throws org.xml.sax.SAXException {
     try {
       return (org.apache.ws.jaxme.examples.misc.address.AddressType) getData().getFactory().getElement(org.apache.ws.jaxme.examples.misc.address.AddressType.class);
     } catch (javax.xml.bind.JAXBException _1) {
       throw new org.xml.sax.SAXException(_1);
     }
-  }
-
-  @Override
-public void startDocument() throws org.xml.sax.SAXException {
-    level = 0;
-    state = 0;
-    handler = null;
   }
 
   @Override
@@ -325,6 +269,62 @@ public void startElement(String namespaceURI, String localName, String qName, or
           handler.startElement(namespaceURI, localName, qName, attr);
         }
     }
+  }
+
+  @Override
+public void endElement(String namespaceURI, String localName, String qName) throws org.xml.sax.SAXException {
+    if (handler == null) {
+      if (level > 1) {
+        super.endElement(namespaceURI, localName, qName);
+      }
+    } else {
+      handler.endElement(namespaceURI, localName, qName);
+    }
+    switch (--level) {
+      case 0:
+        break;
+      case 1:
+        org.apache.ws.jaxme.examples.misc.address.AddressType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType) getResult();
+        switch (state) {
+          case 3:
+            if (handler != null) {
+              handler.endDocument();
+            }
+            _1.setName(((org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) handler.getResult()));
+            break;
+          default:
+            throw new java.lang.IllegalStateException("Illegal state: " + state);
+        }
+    }
+  }
+
+  @Override
+public void characters(char[] buffer, int offset, int length) throws org.xml.sax.SAXException {
+    if (handler == null) {
+      super.characters(buffer, offset, length);
+    } else {
+      handler.characters(buffer, offset, length);
+    }
+  }
+
+  @Override
+public void init(org.apache.ws.jaxme.JMHandler.Data data) throws javax.xml.bind.JAXBException {
+    super.init(data);
+    if (handlerName != null) {
+      handlerName.init(data);
+    }
+  }
+
+  protected org.apache.ws.jaxme.JMHandler getHandlerForName() throws org.xml.sax.SAXException {
+    if (handlerName == null) {
+      try {
+        handlerName = new org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeHandler.NameTypeHandler();
+        handlerName.init(getData());
+      } catch (javax.xml.bind.JAXBException _1) {
+        throw new org.xml.sax.SAXException(_1);
+      }
+    }
+    return handlerName;
   }
 
 }

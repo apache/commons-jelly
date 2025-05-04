@@ -63,6 +63,17 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
         return align;
     }
 
+    /**
+     * Sets the alignment of the child component which is a case insensitive value
+     * of {NORTH, SOUTH, EAST, WEST, CENTER} which defaults to CENTER
+     */
+    public void setAlign(String align) {
+        this.align = align;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     protected Object getConstraints() {
         if ("north".equalsIgnoreCase(align)) {
             return BorderLayout.NORTH;
@@ -80,17 +91,6 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
             // default to CENTER
             return BorderLayout.CENTER;
         }
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the alignment of the child component which is a case insensitive value
-     * of {NORTH, SOUTH, EAST, WEST, CENTER} which defaults to CENTER
-     */
-    public void setAlign(String align) {
-        this.align = align;
     }
 }
 

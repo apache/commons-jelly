@@ -44,15 +44,38 @@ public class BSFExpressionFactory implements ExpressionFactory {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** Factory method */
-    protected BSFEngine createBSFEngine() throws BSFException {
-        return getBSFManager().loadScriptingEngine( getLanguage() );
+    /** @return the BSF language to be used */
+    public String getLanguage() {
+        return language;
     }
 
-    /** Factory method */
-    protected BSFManager createBSFManager() {
-        BSFManager answer = new BSFManager();
-        return answer;
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    /** @return the BSF Engine to be used by this expression factory */
+    public BSFEngine getBSFEngine() throws BSFException {
+        if ( engine == null ) {
+            engine = createBSFEngine();
+        }
+        return engine;
+    }
+
+    public void setBSFEngine(BSFEngine engine) {
+        this.engine = engine;
+    }
+
+    public BSFManager getBSFManager() {
+        if ( manager == null ) {
+            manager = createBSFManager();
+            manager.setObjectRegistry( registry );
+        }
+        return manager;
+    }
+
+    public void setBSFManager(BSFManager manager) {
+        this.manager = manager;
+        manager.setObjectRegistry( registry );
     }
 
     // ExpressionFactory interface
@@ -66,40 +89,17 @@ public class BSFExpressionFactory implements ExpressionFactory {
         }
     }
 
-    /** @return the BSF Engine to be used by this expression factory */
-    public BSFEngine getBSFEngine() throws BSFException {
-        if ( engine == null ) {
-            engine = createBSFEngine();
-        }
-        return engine;
-    }
-
-    public BSFManager getBSFManager() {
-        if ( manager == null ) {
-            manager = createBSFManager();
-            manager.setObjectRegistry( registry );
-        }
-        return manager;
-    }
-
-    /** @return the BSF language to be used */
-    public String getLanguage() {
-        return language;
-    }
-
-    public void setBSFEngine(BSFEngine engine) {
-        this.engine = engine;
-    }
-
     // Implementation methods
     //-------------------------------------------------------------------------
 
-    public void setBSFManager(BSFManager manager) {
-        this.manager = manager;
-        manager.setObjectRegistry( registry );
+    /** Factory method */
+    protected BSFEngine createBSFEngine() throws BSFException {
+        return getBSFManager().loadScriptingEngine( getLanguage() );
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    /** Factory method */
+    protected BSFManager createBSFManager() {
+        BSFManager answer = new BSFManager();
+        return answer;
     }
 }

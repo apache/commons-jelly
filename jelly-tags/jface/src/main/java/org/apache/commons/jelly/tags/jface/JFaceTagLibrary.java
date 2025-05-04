@@ -92,68 +92,6 @@ public class JFaceTagLibrary extends SwtTagLibrary {
     }
 
     /**
-     * Register an action tag for the given name
-     */
-    protected void registerActionTag(String name, final Class theClass) {
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return new ActionTag(theClass);
-            }
-        });
-    }
-
-    /**
-       * Register a contribution item tag for the given name
-       */
-    protected void registerContributionItemTag(String name, final Class theClass) {
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return new ContributionItemTag(theClass);
-            }
-        });
-    }
-
-    /**
-     * @param name
-     * @param theClass
-     */
-    protected void registerFieldEditorTag(String name, final Class theClass) {
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return new FieldEditorTag(theClass);
-            }
-        });
-    }
-
-    /**
-     * Register a layout tag for the given name
-     */
-    @Override
-    protected void registerLayoutTag(String name, final Class layoutClass) {
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return new JFaceLayoutTag(layoutClass);
-            }
-        });
-    }
-
-    /**
      * @param string
      * @param class1
      */
@@ -168,22 +106,6 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             }
         });
 
-    }
-
-    /**
-     * @param name
-     * @param theClass
-     */
-    protected void registerPreferenceDialogTag(String name, final Class theClass) {
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return new PreferenceDialogTag(theClass);
-            }
-        });
     }
 
     /**
@@ -217,30 +139,6 @@ public class JFaceTagLibrary extends SwtTagLibrary {
 
     /**
      * Register a widget tag for the given name
-     */
-    @Override
-    protected void registerWidgetTag(String name, Class widgetClass) {
-        registerWidgetTag(name, widgetClass, SWT.NULL);
-    }
-
-    /**
-     * Register a widget tag for the given name
-     */
-    @Override
-    protected void registerWidgetTag(String name, final Class widgetClass, final int style) {
-        registerTagFactory(name, new TagFactory() {
-            /**
-             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-             */
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return new JFaceWidgetTag(widgetClass, style);
-            }
-        });
-    }
-
-    /**
-     * Register a widget tag for the given name
      *
      * @param name
      * @param theClass
@@ -253,6 +151,68 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new ApplicationWindowTag(theClass);
+            }
+        });
+    }
+
+    /**
+     * Register an action tag for the given name
+     */
+    protected void registerActionTag(String name, final Class theClass) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            @Override
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new ActionTag(theClass);
+            }
+        });
+    }
+
+    /**
+       * Register a contribution item tag for the given name
+       */
+    protected void registerContributionItemTag(String name, final Class theClass) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            @Override
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new ContributionItemTag(theClass);
+            }
+        });
+    }
+
+    /**
+     * @param name
+     * @param theClass
+     */
+    protected void registerPreferenceDialogTag(String name, final Class theClass) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            @Override
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new PreferenceDialogTag(theClass);
+            }
+        });
+    }
+
+    /**
+     * @param name
+     * @param theClass
+     */
+    protected void registerFieldEditorTag(String name, final Class theClass) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            @Override
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new FieldEditorTag(theClass);
             }
         });
     }
@@ -281,6 +241,46 @@ public class JFaceTagLibrary extends SwtTagLibrary {
             @Override
             public Tag createTag(String name, Attributes attributes) throws JellyException {
                 return new WizardPageTag(theClass);
+            }
+        });
+    }
+
+    /**
+     * Register a widget tag for the given name
+     */
+    @Override
+    protected void registerWidgetTag(String name, Class widgetClass) {
+        registerWidgetTag(name, widgetClass, SWT.NULL);
+    }
+
+    /**
+     * Register a widget tag for the given name
+     */
+    @Override
+    protected void registerWidgetTag(String name, final Class widgetClass, final int style) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            @Override
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new JFaceWidgetTag(widgetClass, style);
+            }
+        });
+    }
+
+    /**
+     * Register a layout tag for the given name
+     */
+    @Override
+    protected void registerLayoutTag(String name, final Class layoutClass) {
+        registerTagFactory(name, new TagFactory() {
+            /**
+             * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
+             */
+            @Override
+            public Tag createTag(String name, Attributes attributes) throws JellyException {
+                return new JFaceLayoutTag(layoutClass);
             }
         });
     }

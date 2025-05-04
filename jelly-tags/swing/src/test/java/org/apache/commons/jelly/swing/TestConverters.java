@@ -39,6 +39,12 @@ public class TestConverters extends TestCase {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestConverters.class);
 
+    /** Delta used to compare doubles */
+    double delta = 0.0000001;
+
+    // force the Swing converters to be loaded
+    SwingTagLibrary dummy = new SwingTagLibrary();
+
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
@@ -47,28 +53,26 @@ public class TestConverters extends TestCase {
         return new TestSuite(TestConverters.class);
     }
 
-    /** Delta used to compare doubles */
-    double delta = 0.0000001;
-
-    // force the Swing converters to be loaded
-    SwingTagLibrary dummy = new SwingTagLibrary();
-
     public TestConverters(String testName) {
         super(testName);
     }
 
-    protected void assertDimension(String expression, Dimension expected) throws Exception {
-        Object answer = ConvertUtils.convert(expression, Dimension.class );
-
-        assertTrue( "Returned type: "+  answer.getClass() + " is-a Dimension", answer instanceof Dimension );
-
-        Dimension value = (Dimension) answer;
-
-        assertEquals( "width", expected.getWidth(), value.getWidth(), delta );
-        assertEquals( "height", expected.getHeight(), value.getHeight(), delta );
-
-        assertEquals( expected, value );
+    public void testDimensions() throws Exception {
+        assertDimension("100, 200", new Dimension(100, 200));
+        assertDimension("100", new Dimension(100, 0));
+        assertDimension(" 100  ,  200  ", new Dimension(100, 200));
+        assertDimension(" 0  ,  200  ", new Dimension(0, 200));
     }
+
+    public void testPoints() throws Exception {
+        assertPoint("100, 200", new Point(100, 200));
+        assertPoint("100", new Point(100, 0));
+        assertPoint(" 100  ,  200  ", new Point(100, 200));
+        assertPoint(" 0  ,  200  ", new Point(0, 200));
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
 
     protected void assertPoint(String expression, Point expected) throws Exception {
         Object answer = ConvertUtils.convert(expression, Point.class );
@@ -83,20 +87,16 @@ public class TestConverters extends TestCase {
         assertEquals( expected, value );
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
+    protected void assertDimension(String expression, Dimension expected) throws Exception {
+        Object answer = ConvertUtils.convert(expression, Dimension.class );
 
-    public void testDimensions() throws Exception {
-        assertDimension("100, 200", new Dimension(100, 200));
-        assertDimension("100", new Dimension(100, 0));
-        assertDimension(" 100  ,  200  ", new Dimension(100, 200));
-        assertDimension(" 0  ,  200  ", new Dimension(0, 200));
-    }
+        assertTrue( "Returned type: "+  answer.getClass() + " is-a Dimension", answer instanceof Dimension );
 
-    public void testPoints() throws Exception {
-        assertPoint("100, 200", new Point(100, 200));
-        assertPoint("100", new Point(100, 0));
-        assertPoint(" 100  ,  200  ", new Point(100, 200));
-        assertPoint(" 0  ,  200  ", new Point(0, 200));
+        Dimension value = (Dimension) answer;
+
+        assertEquals( "width", expected.getWidth(), value.getWidth(), delta );
+        assertEquals( "height", expected.getHeight(), value.getHeight(), delta );
+
+        assertEquals( expected, value );
     }
 }

@@ -37,11 +37,6 @@ public class GroupTag extends TagSupport {
     /** The thread list */
     private List threads = new ArrayList();
 
-    /** Add a thread to the thread group list */
-    public void addThread(Thread thread) {
-        threads.add(thread);
-    }
-
     /** Child threads will add themselves and will then all be started together */
     @Override
     public void doTag(XMLOutput output) throws JellyTagException {
@@ -57,6 +52,11 @@ public class GroupTag extends TagSupport {
             Thread thread = (Thread) threads.get(i);
             thread.start();
         }
+    }
+
+    /** Add a thread to the thread group list */
+    public void addThread(Thread thread) {
+        threads.add(thread);
     }
 
     /** Gets the list of threads in this thread group */

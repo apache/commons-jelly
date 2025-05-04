@@ -38,14 +38,6 @@ public abstract class BorderTagSupport extends TagSupport {
     public BorderTagSupport() {
     }
 
-    /**
-     * Factory method to create a new Border instance.
-     */
-    protected abstract Border createBorder();
-
-    // Properties
-    //-------------------------------------------------------------------------
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -70,7 +62,7 @@ public abstract class BorderTagSupport extends TagSupport {
         }
     }
 
-    // Implementation methods
+    // Properties
     //-------------------------------------------------------------------------
 
     /**
@@ -81,4 +73,12 @@ public abstract class BorderTagSupport extends TagSupport {
     public void setVar(String var) {
         this.var = var;
     }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Factory method to create a new Border instance.
+     */
+    protected abstract Border createBorder();
 }

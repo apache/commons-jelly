@@ -29,6 +29,71 @@ public class RunnableStatus {
     public static final int TIMED_OUT = 4;
     public static final int KILLED = 5;
 
+    private int status = NONE;
+
+    /** On a status change to FAILURE an exception can be set */
+    private Exception exception = null;
+
+    public RunnableStatus() {
+
+    }
+
+    public RunnableStatus(int status) {
+        set(status);
+    }
+
+    public synchronized void set(int status) {
+        set(status, null);
+    }
+
+    public synchronized void set(int status, Exception e) {
+        // this check is important since I may call setStatus(BLAH) again
+        // to trigger the callback
+        if (this.status != status) {
+            this.status = status;
+
+            // store the exception if one was set
+            if (e != null)
+                this.exception = e;
+        }
+    }
+
+    public synchronized int get() {
+        return status;
+    }
+
+    public synchronized boolean isSuccess() {
+        return (status == SUCCESS);
+    }
+
+    public synchronized boolean isFailure() {
+        return (status == FAILURE);
+    }
+
+    public synchronized boolean isAvoided() {
+        return (status == AVOIDED);
+    }
+
+    public synchronized boolean isTimedOut() {
+        return (status == TIMED_OUT);
+    }
+
+    public synchronized boolean isKilled() {
+        return (status == KILLED);
+    }
+
+    public synchronized Exception getException() {
+        return exception;
+    }
+
+    public synchronized boolean equals(RunnableStatus status) {
+        return status.get() == this.status;
+    }
+
+    public synchronized boolean equals(int status) {
+        return this.status == status;
+    }
+
     /**
      * Used to get the status code from a string representation. Mainly used for
      * XML parsing.
@@ -83,71 +148,6 @@ public class RunnableStatus {
             return true;
         } else {
             return false;
-        }
-    }
-
-    private int status = NONE;
-
-    /** On a status change to FAILURE an exception can be set */
-    private Exception exception = null;
-
-    public RunnableStatus() {
-
-    }
-
-    public RunnableStatus(int status) {
-        set(status);
-    }
-
-    public synchronized boolean equals(int status) {
-        return this.status == status;
-    }
-
-    public synchronized boolean equals(RunnableStatus status) {
-        return status.get() == this.status;
-    }
-
-    public synchronized int get() {
-        return status;
-    }
-
-    public synchronized Exception getException() {
-        return exception;
-    }
-
-    public synchronized boolean isAvoided() {
-        return (status == AVOIDED);
-    }
-
-    public synchronized boolean isFailure() {
-        return (status == FAILURE);
-    }
-
-    public synchronized boolean isKilled() {
-        return (status == KILLED);
-    }
-
-    public synchronized boolean isSuccess() {
-        return (status == SUCCESS);
-    }
-
-    public synchronized boolean isTimedOut() {
-        return (status == TIMED_OUT);
-    }
-
-    public synchronized void set(int status) {
-        set(status, null);
-    }
-
-    public synchronized void set(int status, Exception e) {
-        // this check is important since I may call setStatus(BLAH) again
-        // to trigger the callback
-        if (this.status != status) {
-            this.status = status;
-
-            // store the exception if one was set
-            if (e != null)
-                this.exception = e;
         }
     }
 

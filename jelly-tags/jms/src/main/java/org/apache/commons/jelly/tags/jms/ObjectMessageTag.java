@@ -35,6 +35,15 @@ public class ObjectMessageTag extends MessageTag {
     // Properties
     //-------------------------------------------------------------------------
 
+    /**
+     * Sets the body of the message, a serializable java object.
+     * If this value is not set or the value is null then the content
+     * of the tag will be used instead.
+     */
+    public void setObject(Serializable object) {
+        this.object = object;
+    }
+
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override
@@ -46,14 +55,5 @@ public class ObjectMessageTag extends MessageTag {
         catch (JMSException e) {
             throw new JellyTagException(e);
         }
-    }
-
-    /**
-     * Sets the body of the message, a serializable java object.
-     * If this value is not set or the value is null then the content
-     * of the tag will be used instead.
-     */
-    public void setObject(Serializable object) {
-        this.object = object;
     }
 }

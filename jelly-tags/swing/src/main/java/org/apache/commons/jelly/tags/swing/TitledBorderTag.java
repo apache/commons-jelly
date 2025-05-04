@@ -46,59 +46,58 @@ public class TitledBorderTag extends BorderTagSupport {
     private Font font;
     private Color color;
 
-    /**
-     * @return the enumeration for the title justification
-     */
-    protected int asTitleJustification(String text) {
-        if (text.equalsIgnoreCase("LEFT")) {
-            return TitledBorder.LEFT;
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if ( title == null) {
+            throw new MissingAttributeException("title");
         }
-        else if (text.equalsIgnoreCase("CENTER")) {
-            return TitledBorder.CENTER;
-        }
-        else if (text.equalsIgnoreCase("RIGHT")) {
-            return TitledBorder.RIGHT;
-        }
-        else if (text.equalsIgnoreCase("LEADING")) {
-            return TitledBorder.LEADING;
-        }
-        else if (text.equalsIgnoreCase("TRAILING")) {
-            return TitledBorder.TRAILING;
-        }
-        else {
-            return TitledBorder.DEFAULT_JUSTIFICATION;
-        }
+        super.doTag(output);
     }
 
     // Properties
     //-------------------------------------------------------------------------
 
     /**
-     * @return the enumeration for the title position
+     * Sets the color of the title for this border. Can be set via a nested {@code <color>} tag.
      */
-    protected int asTitlePosition(String text) {
-        if (text.equalsIgnoreCase("ABOVE_TOP")) {
-            return TitledBorder.ABOVE_TOP;
-        }
-        else if (text.equalsIgnoreCase("TOP")) {
-            return TitledBorder.TOP;
-        }
-        else if (text.equalsIgnoreCase("BELOW_TOP")) {
-            return TitledBorder.BELOW_TOP;
-        }
-        else if (text.equalsIgnoreCase("ABOVE_BOTTOM")) {
-            return TitledBorder.ABOVE_BOTTOM;
-        }
-        else if (text.equalsIgnoreCase("BOTTOM")) {
-            return TitledBorder.BOTTOM;
-        }
-        else if (text.equalsIgnoreCase("BELOW_BOTTOM")) {
-            return TitledBorder.BELOW_BOTTOM;
-        }
-        else {
-            return TitledBorder.DEFAULT_POSITION;
-        }
+    public void setColor(Color color) {
+        this.color = color;
     }
+
+    /**
+     * Sets the Font to be used by the title. Can be set via a nested {@code <font>} tag.
+     */
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
+    /**
+     * Sets the title text for this border.
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * Sets the justification of the title. The String is case insensitive.
+     * Possible values are {LEFT, CENTER, RIGHT, LEADING, TRAILING}
+     */
+    public void setTitleJustification(String titleJustification) {
+        this.titleJustification = titleJustification;
+    }
+
+    /**
+     * Sets the position of the title. The String is case insensitive.
+     * Possible values are {ABOVE_TOP, TOP, BELOW_TOP, ABOVE_BOTTOM, BOTTOM, BELOW_BOTTOM}
+     */
+    public void setTitlePosition(String titlePosition) {
+        this.titlePosition = titlePosition;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
 
     /**
      * Factory method to create a new Border instance.
@@ -125,53 +124,54 @@ public class TitledBorderTag extends BorderTagSupport {
         return BorderFactory.createTitledBorder(title);
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( title == null) {
-            throw new MissingAttributeException("title");
+    /**
+     * @return the enumeration for the title justification
+     */
+    protected int asTitleJustification(String text) {
+        if (text.equalsIgnoreCase("LEFT")) {
+            return TitledBorder.LEFT;
         }
-        super.doTag(output);
+        else if (text.equalsIgnoreCase("CENTER")) {
+            return TitledBorder.CENTER;
+        }
+        else if (text.equalsIgnoreCase("RIGHT")) {
+            return TitledBorder.RIGHT;
+        }
+        else if (text.equalsIgnoreCase("LEADING")) {
+            return TitledBorder.LEADING;
+        }
+        else if (text.equalsIgnoreCase("TRAILING")) {
+            return TitledBorder.TRAILING;
+        }
+        else {
+            return TitledBorder.DEFAULT_JUSTIFICATION;
+        }
     }
 
     /**
-     * Sets the color of the title for this border. Can be set via a nested {@code <color>} tag.
+     * @return the enumeration for the title position
      */
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    /**
-     * Sets the Font to be used by the title. Can be set via a nested {@code <font>} tag.
-     */
-    public void setFont(Font font) {
-        this.font = font;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the title text for this border.
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     * Sets the justification of the title. The String is case insensitive.
-     * Possible values are {LEFT, CENTER, RIGHT, LEADING, TRAILING}
-     */
-    public void setTitleJustification(String titleJustification) {
-        this.titleJustification = titleJustification;
-    }
-
-    /**
-     * Sets the position of the title. The String is case insensitive.
-     * Possible values are {ABOVE_TOP, TOP, BELOW_TOP, ABOVE_BOTTOM, BOTTOM, BELOW_BOTTOM}
-     */
-    public void setTitlePosition(String titlePosition) {
-        this.titlePosition = titlePosition;
+    protected int asTitlePosition(String text) {
+        if (text.equalsIgnoreCase("ABOVE_TOP")) {
+            return TitledBorder.ABOVE_TOP;
+        }
+        else if (text.equalsIgnoreCase("TOP")) {
+            return TitledBorder.TOP;
+        }
+        else if (text.equalsIgnoreCase("BELOW_TOP")) {
+            return TitledBorder.BELOW_TOP;
+        }
+        else if (text.equalsIgnoreCase("ABOVE_BOTTOM")) {
+            return TitledBorder.ABOVE_BOTTOM;
+        }
+        else if (text.equalsIgnoreCase("BOTTOM")) {
+            return TitledBorder.BOTTOM;
+        }
+        else if (text.equalsIgnoreCase("BELOW_BOTTOM")) {
+            return TitledBorder.BELOW_BOTTOM;
+        }
+        else {
+            return TitledBorder.DEFAULT_POSITION;
+        }
     }
 }
