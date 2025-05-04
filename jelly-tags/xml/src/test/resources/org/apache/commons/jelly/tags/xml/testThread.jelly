@@ -16,7 +16,7 @@
   limitations under the License.
 -->
 <!--
- ! FIXME: move to xml taglib
+ ! FIXME: move to XML taglib
  !-->
 <j:jelly trim="false" xmlns:j="jelly:core" xmlns:x="jelly:xml">
 

@@ -157,7 +157,7 @@
   </test:case>
 
   <!--
-    test case to test that the xml output for a stylesheet template is
+    test case to test that the XML output for a stylesheet template is
     'remembered' when using applyTemplates
    -->
   <test:case name="testXMLContextKept" xmlns="dummy">
