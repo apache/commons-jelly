@@ -58,7 +58,7 @@ To see a list of the Jelly demos that you can run, type "maven -g" in the
 Jelly root directory (there should be a project.xml file there). Among the
 other maven goals, you will see the the demos available under the "demo"
 goal (incidentally, Maven is a project automation tool that uses Jelly as
-its xml processing engine, and Jelly in turn uses Maven as its build tool.
+its XML processing engine, and Jelly in turn uses Maven as its build tool.
 Neat!)
 </p>
 
