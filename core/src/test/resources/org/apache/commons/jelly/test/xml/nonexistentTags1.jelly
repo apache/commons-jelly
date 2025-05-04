@@ -20,7 +20,7 @@
   
   <j:set var="foo" value="bar"/>
   
-  <!-- should fail, because xml tags are not in the classpath -->
+  <!-- should fail, because XML tags are not in the classpath -->
   <x:parse var="foo" xml="nonexistentTags1.jelly"/>
   
 </j:jelly>

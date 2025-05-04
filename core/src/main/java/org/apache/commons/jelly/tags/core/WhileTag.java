@@ -45,7 +45,7 @@ public class WhileTag extends TagSupport {
 
     /**
      * Tag interface
-     * @param output destination for xml output
+     * @param output destination for XML output
      * @throws MissingAttributeException when the test attribute is missing
      * @throws RuntimeException for anything else
      */

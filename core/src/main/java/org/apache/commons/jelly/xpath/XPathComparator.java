@@ -25,7 +25,7 @@ import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
 /**
- * Compares xml nodes by extracting the value at xpath and
+ * Compares XML nodes by extracting the value at xpath and
  * comparing it.
  */
 

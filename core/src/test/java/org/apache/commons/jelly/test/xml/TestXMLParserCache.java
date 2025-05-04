@@ -73,7 +73,7 @@ public class TestXMLParserCache extends TestCase {
         assertTrue("should have set 'foo' variable to 'bar'",
                    context.getVariable("foo").equals("bar"));
 
-        // if I enable xml validation, the script should fail
+        // if I enable XML validation, the script should fail
         // despite the cache
         jelly.setValidateXML(true);
         try {
