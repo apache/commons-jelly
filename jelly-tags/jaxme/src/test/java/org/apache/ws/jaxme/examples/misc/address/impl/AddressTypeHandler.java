@@ -21,7 +21,7 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
     /** The current level of nested elements. 0, if outside the root element.
      * 
      */
-    private int __level;
+    private int level;
   
     /** The current state. The following values are valid states:
      *  0 = Before parsing the element
@@ -33,20 +33,19 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
      *  6 = While parsing the child element {http://ws.apache.org/jaxme/examples/misc/address}Initials
      * 
      */
-    private int __state;
+    private int state;
   
     /** The current handler for parsing child elements or simple content.
      * 
      */
-    private org.apache.ws.jaxme.JMHandler __handler;
+    private org.apache.ws.jaxme.JMHandler handler;
   
   
     @Override
     public void startDocument() throws org.xml.sax.SAXException {
-      __level = 0;
-      __state = 0;
-      __state = 0;
-      __handler = null;
+      level = 0;
+      state = 0;
+      handler = null;
     }
   
     protected org.apache.ws.jaxme.examples.misc.address.AddressType.NameType newResult() throws org.xml.sax.SAXException {
@@ -54,131 +53,131 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
     }
   
     @Override
-    public void startElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName, org.xml.sax.Attributes pAttr) throws org.xml.sax.SAXException {
-      switch (__level++) {
+    public void startElement(String namespaceURI, String localName, String qName, org.xml.sax.Attributes attr) throws org.xml.sax.SAXException {
+      switch (level++) {
         case 0:
           setResult(newResult());
-          if (pAttr != null) {
-            for (int _1 = 0;  _1 < pAttr.getLength();  _1++) {
-              super.addAttribute(pAttr.getURI(_1), pAttr.getLocalName(_1), pAttr.getValue(_1));
+          if (attr != null) {
+            for (int _1 = 0;  _1 < attr.getLength();  _1++) {
+              super.addAttribute(attr.getURI(_1), attr.getLocalName(_1), attr.getValue(_1));
             }
           }
           break;
         case 1:
-          if ("http://ws.apache.org/jaxme/examples/misc/address".equals(pNamespaceURI)) {
-            if ("First".equals(pLocalName)) {
-              switch (__state) {
+          if ("http://ws.apache.org/jaxme/examples/misc/address".equals(namespaceURI)) {
+            if ("First".equals(localName)) {
+              switch (state) {
                 case 0:
-                  __state = 3;
-                  __handler = getData().getAtomicHandler();
-                  __handler.startDocument();
-                  __handler.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+                  state = 3;
+                  handler = getData().getAtomicHandler();
+                  handler.startDocument();
+                  handler.startElement(namespaceURI, localName, qName, attr);
                   break;
                 default:
-                  validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + pQName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
+                  validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + qName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
                   break;
               }
-            } else if ("Middle".equals(pLocalName)) {
-              switch (__state) {
+            } else if ("Middle".equals(localName)) {
+              switch (state) {
                 case 3:
                 case 4:
-                  __state = 4;
-                  __handler = getData().getAtomicHandler();
-                  __handler.startDocument();
-                  __handler.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+                  state = 4;
+                  handler = getData().getAtomicHandler();
+                  handler.startDocument();
+                  handler.startElement(namespaceURI, localName, qName, attr);
                   break;
                 default:
-                  validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + pQName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
+                  validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + qName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
                   break;
               }
-            } else if ("Last".equals(pLocalName)) {
-              switch (__state) {
+            } else if ("Last".equals(localName)) {
+              switch (state) {
                 case 3:
                 case 4:
-                  __state = 5;
-                  __handler = getData().getAtomicHandler();
-                  __handler.startDocument();
-                  __handler.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+                  state = 5;
+                  handler = getData().getAtomicHandler();
+                  handler.startDocument();
+                  handler.startElement(namespaceURI, localName, qName, attr);
                   break;
                 default:
-                  validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + pQName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
+                  validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + qName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
                   break;
               }
-            } else if ("Initials".equals(pLocalName)) {
-              switch (__state) {
+            } else if ("Initials".equals(localName)) {
+              switch (state) {
                 case 5:
-                  __state = 6;
-                  __handler = getData().getAtomicHandler();
-                  __handler.startDocument();
-                  __handler.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+                  state = 6;
+                  handler = getData().getAtomicHandler();
+                  handler.startDocument();
+                  handler.startElement(namespaceURI, localName, qName, attr);
                   break;
                 default:
-                  validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + pQName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
+                  validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + qName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
                   break;
               }
             }
           }
           break;
         default:
-          if (__handler == null) {
-            super.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+          if (handler == null) {
+            super.startElement(namespaceURI, localName, qName, attr);
           } else {
-            __handler.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+            handler.startElement(namespaceURI, localName, qName, attr);
           }
       }
     }
   
     @Override
-    public void endElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName) throws org.xml.sax.SAXException {
-      if (__handler == null) {
-        if (__level > 1) {
-          super.endElement(pNamespaceURI, pLocalName, pQName);
+    public void endElement(String namespaceURI, String localName, String qName) throws org.xml.sax.SAXException {
+      if (handler == null) {
+        if (level > 1) {
+          super.endElement(namespaceURI, localName, qName);
         }
       } else {
-        __handler.endElement(pNamespaceURI, pLocalName, pQName);
+        handler.endElement(namespaceURI, localName, qName);
       }
-      switch (--__level) {
+      switch (--level) {
         case 0:
           break;
         case 1:
           org.apache.ws.jaxme.examples.misc.address.AddressType.NameType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) getResult();
-          switch (__state) {
+          switch (state) {
             case 3:
-              if (__handler != null) {
-                __handler.endDocument();
+              if (handler != null) {
+                handler.endDocument();
               }
-              _1.setFirst(((java.lang.String) __handler.getResult()));
+              _1.setFirst(((java.lang.String) handler.getResult()));
               break;
             case 4:
-              if (__handler != null) {
-                __handler.endDocument();
+              if (handler != null) {
+                handler.endDocument();
               }
-              _1.getMiddle().add(__handler.getResult());
+              _1.getMiddle().add(handler.getResult());
               break;
             case 5:
-              if (__handler != null) {
-                __handler.endDocument();
+              if (handler != null) {
+                handler.endDocument();
               }
-              _1.setLast(((java.lang.String) __handler.getResult()));
+              _1.setLast(((java.lang.String) handler.getResult()));
               break;
             case 6:
-              if (__handler != null) {
-                __handler.endDocument();
+              if (handler != null) {
+                handler.endDocument();
               }
-              _1.setInitials(((java.lang.String) __handler.getResult()));
+              _1.setInitials(((java.lang.String) handler.getResult()));
               break;
             default:
-              throw new java.lang.IllegalStateException("Illegal state: " + __state);
+              throw new java.lang.IllegalStateException("Illegal state: " + state);
           }
       }
     }
   
     @Override
-    public void characters(char[] pChars, int pOffset, int pLen) throws org.xml.sax.SAXException {
-      if (__handler == null) {
-        super.characters(pChars, pOffset, pLen);
+    public void characters(char[] chars, int offset, int len) throws org.xml.sax.SAXException {
+      if (handler == null) {
+        super.characters(chars, offset, len);
       } else {
-        __handler.characters(pChars, pOffset, pLen);
+        handler.characters(chars, offset, len);
       }
     }
   
@@ -187,7 +186,7 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
   /** The current level of nested elements. 0, if outside the root element.
    * 
    */
-  private int __level;
+  private int level;
 
   /** The current state. The following values are valid states:
    *  0 = Before parsing the element
@@ -196,36 +195,35 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
    *  3 = While parsing the child element {http://ws.apache.org/jaxme/examples/misc/address}Name
    * 
    */
-  private int __state;
+  private int state;
 
   /** The current handler for parsing child elements or simple content.
    * 
    */
-  private org.apache.ws.jaxme.JMHandler __handler;
+  private org.apache.ws.jaxme.JMHandler handler;
 
-  private org.apache.ws.jaxme.JMHandler __handler_Name;
+  private org.apache.ws.jaxme.JMHandler handlerName;
 
   @Override
 public void startDocument() throws org.xml.sax.SAXException {
-    __level = 0;
-    __state = 0;
-    __state = 0;
-    __handler = null;
+    level = 0;
+    state = 0;
+    handler = null;
   }
 
   @Override
-public void addAttribute(java.lang.String pURI, java.lang.String pLocalName, java.lang.String pValue) throws org.xml.sax.SAXException {
-    if (pURI == null) {
-      pURI = "";
+public void addAttribute(String uri, String localName, String value) throws org.xml.sax.SAXException {
+    if (uri == null) {
+      uri = "";
     }
     org.apache.ws.jaxme.examples.misc.address.AddressType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType) getResult();
-    if ("".equals(pURI)) {
-      if ("id".equals(pLocalName)) {
-        _1.setId(pValue);
+    if ("".equals(uri)) {
+      if ("id".equals(localName)) {
+        _1.setId(value);
         return;
       }
     }
-    super.addAttribute(pURI, pLocalName, pValue);
+    super.addAttribute(uri, localName, value);
   }
 
   protected org.apache.ws.jaxme.examples.misc.address.AddressType newResult() throws org.xml.sax.SAXException {
@@ -237,96 +235,96 @@ public void addAttribute(java.lang.String pURI, java.lang.String pLocalName, jav
   }
 
   @Override
-public void startElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName, org.xml.sax.Attributes pAttr) throws org.xml.sax.SAXException {
-    switch (__level++) {
+public void startElement(String namespaceURI, String localName, String qName, org.xml.sax.Attributes attr) throws org.xml.sax.SAXException {
+    switch (level++) {
       case 0:
         setResult(newResult());
-        if (pAttr != null) {
-          for (int _1 = 0;  _1 < pAttr.getLength();  _1++) {
-            addAttribute(pAttr.getURI(_1), pAttr.getLocalName(_1), pAttr.getValue(_1));
+        if (attr != null) {
+          for (int _1 = 0;  _1 < attr.getLength();  _1++) {
+            addAttribute(attr.getURI(_1), attr.getLocalName(_1), attr.getValue(_1));
           }
         }
         break;
       case 1:
-        if ("http://ws.apache.org/jaxme/examples/misc/address".equals(pNamespaceURI)) {
-          if ("Name".equals(pLocalName)) {
-            switch (__state) {
+        if ("http://ws.apache.org/jaxme/examples/misc/address".equals(namespaceURI)) {
+          if ("Name".equals(localName)) {
+            switch (state) {
               case 0:
-                __state = 3;
-                __handler = getHandlerForName();
-                __handler.startDocument();
-                __handler.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+                state = 3;
+                handler = getHandlerForName();
+                handler.startDocument();
+                handler.startElement(namespaceURI, localName, qName, attr);
                 break;
               default:
-                validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + pQName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
+                validationEvent(javax.xml.bind.ValidationEvent.WARNING, "The element " + qName + " was unexpected at this place.", org.apache.ws.jaxme.ValidationEvents.EVENT_UNEXPECTED_CHILD_STATE);
                 break;
             }
           }
         }
         break;
       default:
-        if (__handler == null) {
-          super.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+        if (handler == null) {
+          super.startElement(namespaceURI, localName, qName, attr);
         } else {
-          __handler.startElement(pNamespaceURI, pLocalName, pQName, pAttr);
+          handler.startElement(namespaceURI, localName, qName, attr);
         }
     }
   }
 
   @Override
-public void endElement(java.lang.String pNamespaceURI, java.lang.String pLocalName, java.lang.String pQName) throws org.xml.sax.SAXException {
-    if (__handler == null) {
-      if (__level > 1) {
-        super.endElement(pNamespaceURI, pLocalName, pQName);
+public void endElement(String namespaceURI, String localName, String qName) throws org.xml.sax.SAXException {
+    if (handler == null) {
+      if (level > 1) {
+        super.endElement(namespaceURI, localName, qName);
       }
     } else {
-      __handler.endElement(pNamespaceURI, pLocalName, pQName);
+      handler.endElement(namespaceURI, localName, qName);
     }
-    switch (--__level) {
+    switch (--level) {
       case 0:
         break;
       case 1:
         org.apache.ws.jaxme.examples.misc.address.AddressType _1 = (org.apache.ws.jaxme.examples.misc.address.AddressType) getResult();
-        switch (__state) {
+        switch (state) {
           case 3:
-            if (__handler != null) {
-              __handler.endDocument();
+            if (handler != null) {
+              handler.endDocument();
             }
-            _1.setName(((org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) __handler.getResult()));
+            _1.setName(((org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) handler.getResult()));
             break;
           default:
-            throw new java.lang.IllegalStateException("Illegal state: " + __state);
+            throw new java.lang.IllegalStateException("Illegal state: " + state);
         }
     }
   }
 
   @Override
-public void characters(char[] pChars, int pOffset, int pLen) throws org.xml.sax.SAXException {
-    if (__handler == null) {
-      super.characters(pChars, pOffset, pLen);
+public void characters(char[] buffer, int offset, int length) throws org.xml.sax.SAXException {
+    if (handler == null) {
+      super.characters(buffer, offset, length);
     } else {
-      __handler.characters(pChars, pOffset, pLen);
+      handler.characters(buffer, offset, length);
     }
   }
 
   @Override
-public void init(org.apache.ws.jaxme.JMHandler.Data pData) throws javax.xml.bind.JAXBException {
-    super.init(pData);
-    if (__handler_Name != null) {
-      __handler_Name.init(pData);
+public void init(org.apache.ws.jaxme.JMHandler.Data data) throws javax.xml.bind.JAXBException {
+    super.init(data);
+    if (handlerName != null) {
+      handlerName.init(data);
     }
   }
 
   protected org.apache.ws.jaxme.JMHandler getHandlerForName() throws org.xml.sax.SAXException {
-    if (__handler_Name == null) {
+    if (handlerName == null) {
       try {
-        __handler_Name = new org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeHandler.NameTypeHandler();
-        __handler_Name.init(getData());
+        handlerName = new org.apache.ws.jaxme.examples.misc.address.impl.AddressTypeHandler.NameTypeHandler();
+        handlerName.init(getData());
       } catch (javax.xml.bind.JAXBException _1) {
         throw new org.xml.sax.SAXException(_1);
       }
     }
-    return __handler_Name;
+    return handlerName;
   }
 
 }

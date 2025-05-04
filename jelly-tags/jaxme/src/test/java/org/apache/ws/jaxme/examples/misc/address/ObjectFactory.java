@@ -14,41 +14,41 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+
 package org.apache.ws.jaxme.examples.misc.address;
 
 public class ObjectFactory {
-  private org.apache.ws.jaxme.impl.JAXBContextImpl jaxbContext;
 
-  private java.util.Map properties;
+    private org.apache.ws.jaxme.impl.JAXBContextImpl jaxbContext;
+    private java.util.Map properties;
 
-  public ObjectFactory() throws javax.xml.bind.JAXBException {
-    jaxbContext = (org.apache.ws.jaxme.impl.JAXBContextImpl) javax.xml.bind.JAXBContext.newInstance("org.apache.ws.jaxme.examples.misc.address");
-  }
-
-  public java.lang.Object newInstance(java.lang.Class pElementInterface) throws javax.xml.bind.JAXBException {
-    return jaxbContext.getElement(pElementInterface);
-  }
-
-  public java.lang.Object getProperty(java.lang.String pName) {
-    if (properties == null) {
-      return null;
+    public ObjectFactory() throws javax.xml.bind.JAXBException {
+        jaxbContext = (org.apache.ws.jaxme.impl.JAXBContextImpl) javax.xml.bind.JAXBContext.newInstance("org.apache.ws.jaxme.examples.misc.address");
     }
-    return properties.get(pName);
-  }
 
-  public void setProperty(java.lang.String pName, java.lang.Object pValue) {
-    if (properties == null) {
-      properties = new java.util.HashMap();
+    public java.lang.Object newInstance(Class elementInterface) throws javax.xml.bind.JAXBException {
+        return jaxbContext.getElement(elementInterface);
     }
-    properties.put(pName, pValue);
-  }
 
-  public org.apache.ws.jaxme.examples.misc.address.Address createAddress() throws javax.xml.bind.JAXBException {
-    return (org.apache.ws.jaxme.examples.misc.address.Address) newInstance(org.apache.ws.jaxme.examples.misc.address.Address.class);
-  }
+    public java.lang.Object getProperty(String name) {
+        if (properties == null) {
+            return null;
+        }
+        return properties.get(name);
+    }
 
-  public org.apache.ws.jaxme.examples.misc.address.AddressType createAddressType() throws javax.xml.bind.JAXBException {
-    return (org.apache.ws.jaxme.examples.misc.address.AddressType) newInstance(org.apache.ws.jaxme.examples.misc.address.AddressType.class);
-  }
+    public void setProperty(String name, Object value) {
+        if (properties == null) {
+            properties = new java.util.HashMap();
+        }
+        properties.put(name, value);
+    }
 
+    public org.apache.ws.jaxme.examples.misc.address.Address createAddress() throws javax.xml.bind.JAXBException {
+        return (org.apache.ws.jaxme.examples.misc.address.Address) newInstance(org.apache.ws.jaxme.examples.misc.address.Address.class);
+    }
+
+    public org.apache.ws.jaxme.examples.misc.address.AddressType createAddressType() throws javax.xml.bind.JAXBException {
+        return (org.apache.ws.jaxme.examples.misc.address.AddressType) newInstance(org.apache.ws.jaxme.examples.misc.address.AddressType.class);
+    }
 }

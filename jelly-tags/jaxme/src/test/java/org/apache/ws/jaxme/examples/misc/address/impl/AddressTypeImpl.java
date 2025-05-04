@@ -14,78 +14,74 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+
 package org.apache.ws.jaxme.examples.misc.address.impl;
 
 public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.address.AddressType {
-  public static class NameTypeImpl implements org.apache.ws.jaxme.examples.misc.address.AddressType.NameType {
-    private java.lang.String First;
-  
-    private java.util.List Middle = new java.util.ArrayList();
-  
-    private java.lang.String Last;
-  
-    private java.lang.String Initials;
-  
-  
-    @Override
-    public java.lang.String getFirst() {
-      return First;
-    }
-  
-    @Override
-    public void setFirst(java.lang.String pFirst) {
-      First = pFirst;
-    }
-  
-    @Override
-    public java.util.List getMiddle() {
-      return Middle;
-    }
-  
-    @Override
-    public java.lang.String getLast() {
-      return Last;
-    }
-  
-    @Override
-    public void setLast(java.lang.String pLast) {
-      Last = pLast;
-    }
-  
-    @Override
-    public java.lang.String getInitials() {
-      return Initials;
-    }
-  
-    @Override
-    public void setInitials(java.lang.String pInitials) {
-      Initials = pInitials;
-    }
-  
-  }
 
-  private java.lang.String Id;
+    public static class NameTypeImpl implements org.apache.ws.jaxme.examples.misc.address.AddressType.NameType {
 
-  private org.apache.ws.jaxme.examples.misc.address.AddressType.NameType Name;
+        private String first;
+        private java.util.List middle = new java.util.ArrayList();
+        private String last;
+        private String initials;
 
-  @Override
-public java.lang.String getId() {
-    return Id;
-  }
+        @Override
+        public String getFirst() {
+            return first;
+        }
 
-  @Override
-public void setId(java.lang.String pId) {
-    Id = pId;
-  }
+        @Override
+        public void setFirst(String first) {
+            this.first = first;
+        }
 
-  @Override
-public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName() {
-    return Name;
-  }
+        @Override
+        public java.util.List getMiddle() {
+            return middle;
+        }
 
-  @Override
-public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType pName) {
-    Name = pName;
-  }
+        @Override
+        public String getLast() {
+            return last;
+        }
 
+        @Override
+        public void setLast(String last) {
+            this.last = last;
+        }
+
+        @Override
+        public String getInitials() {
+            return initials;
+        }
+
+        @Override
+        public void setInitials(String initials) {
+            this.initials = initials;
+        }
+    }
+
+    private String id;
+    private org.apache.ws.jaxme.examples.misc.address.AddressType.NameType name;
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName() {
+        return name;
+    }
+
+    @Override
+    public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType name) {
+        this.name = name;
+    }
 }

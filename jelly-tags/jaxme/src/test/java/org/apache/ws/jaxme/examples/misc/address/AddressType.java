@@ -14,35 +14,33 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 */
+
 package org.apache.ws.jaxme.examples.misc.address;
 
 public interface AddressType {
-  public interface NameType {
-    
-  
-  
-    public java.lang.String getFirst();
-  
-    public void setFirst(java.lang.String pFirst);
-  
-    public java.util.List getMiddle();
-  
-    public java.lang.String getLast();
-  
-    public void setLast(java.lang.String pLast);
-  
-    public java.lang.String getInitials();
-  
-    public void setInitials(java.lang.String pInitials);
-  
-  }
 
-  public java.lang.String getId();
+    public interface NameType {
 
-  public void setId(java.lang.String pId);
+        public String getFirst();
 
-  public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName();
+        public void setFirst(String first);
 
-  public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType pName);
+        public java.util.List getMiddle();
 
+        public String getLast();
+
+        public void setLast(String last);
+
+        public String getInitials();
+
+        public void setInitials(String initials);
+    }
+
+    public String getId();
+
+    public void setId(String id);
+
+    public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName();
+
+    public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType name);
 }
