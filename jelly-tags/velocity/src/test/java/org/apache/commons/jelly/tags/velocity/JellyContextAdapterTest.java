@@ -20,7 +20,7 @@ package org.apache.commons.jelly.tags.velocity;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.jelly.JellyContext;
 
 import junit.framework.Test;

@@ -23,9 +23,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections.iterators.ArrayIterator;
-import org.apache.commons.collections.iterators.EnumerationIterator;
-import org.apache.commons.collections.iterators.SingletonIterator;
+import org.apache.commons.collections4.iterators.ArrayIterator;
+import org.apache.commons.collections4.iterators.EnumerationIterator;
+import org.apache.commons.collections4.iterators.SingletonIterator;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.lang3.StringUtils;
 

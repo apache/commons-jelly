@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.URL;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.HashMap;
@@ -31,7 +32,6 @@ import java.util.Properties;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import org.apache.commons.collections.ArrayStack;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
@@ -86,7 +86,7 @@ public class XMLParser extends DefaultHandler {
     private TagScript tagScript;
 
     /** The stack of body scripts. */
-    private ArrayStack scriptStack = new ArrayStack();
+    private ArrayDeque scriptStack = new ArrayDeque();
 
     /** The stack of tagScripts - use ArrayList as it allows null. */
     private ArrayList tagScriptStack = new ArrayList();
@@ -329,7 +329,7 @@ public class XMLParser extends DefaultHandler {
      * @param prefix Prefix to look up
      */
     public String findNamespaceURI(String prefix) {
-        ArrayStack stack = (ArrayStack) namespaces.get(prefix);
+        ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
         if (stack == null) {
             return (null);
         }
@@ -801,9 +801,9 @@ public class XMLParser extends DefaultHandler {
     public void startPrefixMapping(String prefix, String namespaceURI)
         throws SAXException {
         // Register this prefix mapping
-        ArrayStack stack = (ArrayStack) namespaces.get(prefix);
+        ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
         if (stack == null) {
-            stack = new ArrayStack();
+            stack = new ArrayDeque();
             namespaces.put(prefix, stack);
         }
         stack.push(namespaceURI);
@@ -823,13 +823,13 @@ public class XMLParser extends DefaultHandler {
     @Override
     public void endPrefixMapping(String prefix) throws SAXException {
         // Deregister this prefix mapping
-        ArrayStack stack = (ArrayStack) namespaces.get(prefix);
+        ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
         if (stack == null) {
             return;
         }
         try {
             stack.pop();
-            if (stack.empty()) {
+            if (stack.isEmpty()) {
                 namespaces.remove(prefix);
             }
         }
