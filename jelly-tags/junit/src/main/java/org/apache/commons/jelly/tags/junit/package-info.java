@@ -26,10 +26,9 @@
  * <p>
  * The &lt;run&gt; tag can be used to run a given Test, TestCase or TestSuite
  * </p>
- *
  * <p>
- * There is an example of these tags in action <a href=
- * "http://cvs.apache.org/viewcvs.cgi/jakarta-commons/jelly/jelly-tags/junit/src/test/org/apache/commons/jelly/tags/junit/suite.jelly?rev=HEAD&content-type=text/vnd.viewcvs-markup">here</a>
+ * There is an example of these tags in action
+ * <a href= "https://github.com/apache/commons-jelly/blob/master/jelly-tags/junit/src/test/resources/org/apache/commons/jelly/tags/junit/suite.jelly">here</a>
  * </p>
  */
 package org.apache.commons.jelly.tags.junit;
