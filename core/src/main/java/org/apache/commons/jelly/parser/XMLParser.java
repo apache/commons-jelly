@@ -482,7 +482,8 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Called to create an instance of the ExpressionFactory (@see getExpressionFactory)
-     * @return
+     *
+     * @return A new JexlExpressionFactory.
      */
     protected ExpressionFactory createExpressionFactory() {
         return new JexlExpressionFactory();
