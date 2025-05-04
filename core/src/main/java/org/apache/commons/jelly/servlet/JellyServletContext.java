@@ -35,40 +35,40 @@ public class JellyServletContext extends JellyContext {
     public JellyServletContext() {
     }
 
-    public JellyServletContext(ServletContext ctx) {
-        super();
+    public JellyServletContext(final ServletContext ctx) {
         this.ctx = ctx;
     }
 
-    public JellyServletContext(JellyContext parent, ServletContext ctx) {
+    public JellyServletContext(final JellyContext parent, final ServletContext ctx) {
         super(parent);
         this.ctx = ctx;
     }
 
     /**
      * Allow access of relative URIs when performing &lt;j:include&gt;.
+     *
      * @param s
-     * @return
+     * @return The {@code InputStream} returned to the servlet, or {@code null} if no resource exists at the specified path
      * @throws MalformedURLException
      */
     @Override
-    public URL getResource(String s) throws MalformedURLException {
+    public URL getResource(final String s) throws MalformedURLException {
         return ctx.getResource(s);
     }
 
     /**
      * Allow access of relative URIs when performing &lt;j:include&gt;.
+     *
      * @param s
-     * @return
+     * @return The {@code InputStream} returned to the servlet, or {@code null} if no resource exists at the specified path.
      */
     @Override
-    public InputStream getResourceAsStream(String s) {
+    public InputStream getResourceAsStream(final String s) {
         return ctx.getResourceAsStream(s);
     }
 
     @Override
-    protected JellyContext createChildContext()
-    {
+    protected JellyContext createChildContext() {
         return new JellyServletContext(this, ctx);
     }
 }

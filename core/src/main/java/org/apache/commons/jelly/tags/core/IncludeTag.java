@@ -25,14 +25,13 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
-/** A tag which conditionally evaluates its body based on some condition
-  */
-
+/**
+ * A tag which conditionally evaluates its body based on some condition
+ */
 public class IncludeTag extends TagSupport {
 
     private String uri;
     private File file;
-
     private boolean shouldExport;
     private boolean shouldInherit;
 
@@ -41,7 +40,7 @@ public class IncludeTag extends TagSupport {
         this.shouldInherit = true;
     }
 
-    public void setInherit(String inherit) {
+    public void setInherit(final String inherit) {
         if ("true".equals(inherit)) {
             this.shouldInherit = true;
         } else {
@@ -49,7 +48,7 @@ public class IncludeTag extends TagSupport {
         }
     }
 
-    public void setExport(String export) {
+    public void setExport(final String export) {
         if ("true".equals(export)) {
             this.shouldExport = true;
         } else {
@@ -66,30 +65,28 @@ public class IncludeTag extends TagSupport {
     }
 
     /**
-     * @return
+     * Gets the file.
+     *
+     * @return the file.
      */
     public File getFile() {
         return file;
     }
 
     /**
-     * Sets the file to be included which is either an absolute file or a file
-     * relative to the current directory
+     * Sets the file to be included which is either an absolute file or a file relative to the current directory
+     *
+     * @param file A file..
      */
-    public void setFile(File file) {
+    public void setFile(final File file) {
         this.file = file;
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output)
-        throws MissingAttributeException, JellyTagException {
-
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (uri == null && file == null) {
             throw new MissingAttributeException("uri");
         }
-
         // we need to create a new JellyContext of the URI
         // take off the script name from the URL
         String text = null;
@@ -97,21 +94,17 @@ public class IncludeTag extends TagSupport {
             if (uri != null) {
                 text = uri;
                 context.runScript(uri, output, isExport(), isInherit());
-            }
-            else {
+            } else {
                 text = file.toString();
                 context.runScript(file, output, isExport(), isInherit());
             }
-        }
-        catch (JellyException e) {
+        } catch (final JellyException e) {
             throw new JellyTagException("could not include jelly script: " + text + ". Reason: " + e, e);
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the URI (relative URI or absolute URL) for the script to evaluate. */
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 }

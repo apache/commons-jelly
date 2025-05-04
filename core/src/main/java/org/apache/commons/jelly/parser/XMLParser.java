@@ -224,6 +224,7 @@ public class XMLParser extends DefaultHandler {
      * the root element from the object stack (if any).
      *
      * @param file File containing the XML data to be parsed
+     * @return The script.
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
@@ -236,6 +237,7 @@ public class XMLParser extends DefaultHandler {
      * the root element from the object stack (if any).
      *
      * @param url URL containing the XML data to be parsed
+     * @return The script.
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
@@ -254,6 +256,7 @@ public class XMLParser extends DefaultHandler {
      * Returns the root element from the object stack (if any).
      *
      * @param input Input source containing the XML data to be parsed
+     * @return The script.
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
@@ -272,7 +275,7 @@ public class XMLParser extends DefaultHandler {
      * to resolve any relative paths inside a DTD.)
      *
      * @param input  Input stream containing the XML data to be parsed
-     * @return
+     * @return The script.
      * @throws IOException
      *                   if an input/output error occurs
      * @throws SAXException
@@ -293,7 +296,7 @@ public class XMLParser extends DefaultHandler {
      * to resolve any relative paths inside a DTD.)
      *
      * @param reader Reader containing the XML data to be parsed
-     * @return
+     * @return The script.
      * @throws IOException
      *                   if an input/output error occurs
      * @throws SAXException
@@ -311,6 +314,7 @@ public class XMLParser extends DefaultHandler {
      * Returns the root element from the object stack (if any).
      *
      * @param uri URI containing the XML data to be parsed
+     * @return The script.
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
@@ -327,6 +331,7 @@ public class XMLParser extends DefaultHandler {
      * go dynamically as the document is parsed.
      *
      * @param prefix Prefix to look up
+     * @return The matching prefix.
      */
     public String findNamespaceURI(String prefix) {
         ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
@@ -341,8 +346,6 @@ public class XMLParser extends DefaultHandler {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     public JellyContext getContext() {
         return context;
     }
@@ -490,7 +493,7 @@ public class XMLParser extends DefaultHandler {
      * the default implementation defers to the TagLibrary to create the Expression
      * @param attributeName
      * @param value
-     * @return
+     * @return The parsed exception.
      * @throws JellyException
      */
     public Expression createExpression(TagScript script, String attributeName, String value) throws JellyException {
@@ -850,7 +853,7 @@ public class XMLParser extends DefaultHandler {
     @Override
     public void ignorableWhitespace(char buffer[], int start, int len)
         throws SAXException {
-        ; // No processing required
+        // No processing required
     }
 
     /**
@@ -863,7 +866,7 @@ public class XMLParser extends DefaultHandler {
     @Override
     public void processingInstruction(String target, String data)
         throws SAXException {
-        ; // No processing is required
+        // No processing is required
     }
 
     /**
@@ -884,11 +887,8 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void skippedEntity(String name) throws SAXException {
-        ; // No processing required
+        // No processing required
     }
-
-    // DTDHandler interface
-    //-------------------------------------------------------------------------
 
     /**
      * Receive notification of a notation declaration event.
@@ -916,9 +916,6 @@ public class XMLParser extends DefaultHandler {
         String systemId,
         String notation) {
     }
-
-    // ErrorHandler interface
-    //-------------------------------------------------------------------------
 
     /**
      * Forward notification of a parsing error to the application supplied

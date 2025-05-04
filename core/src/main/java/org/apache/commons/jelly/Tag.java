@@ -18,66 +18,81 @@
 package org.apache.commons.jelly;
 
 /**
- * <p><code>Tag</code> represents a Jelly custom tag.
- * A Tag is only ever used by a single thread so that Tag developers do not
- * need to concern themselves with mutli-threading issues when writing a Tag.
- * A Tag is created per custom tag in a script, per invocation.
- * So there is no need to worry about pooling errors like those caused
- * in JSP 1.x.(</p>
+ * <code>Tag</code> represents a Jelly custom tag. A Tag is only ever used by a single thread so that Tag developers do not need to concern themselves with
+ * mutli-threading issues when writing a Tag. A Tag is created per custom tag in a script, per invocation. So there is no need to worry about pooling errors
+ * like those caused in JSP 1.x.(
  */
 public interface Tag {
 
     /**
-     * @return the parent of this tag
+     * Gets the parent of this tag.
+     *
+     * @return the parent of this tag.
      */
     public Tag getParent();
 
     /**
-     * Sets the parent of this tag
+     * Sets the parent of this tag.
+     *
+     * @param parent the parent of this tag.
      */
     public void setParent(Tag parent);
-    
+
     /**
-     * Returns the TagLibrary - will be null if this is an unrecognized tag 
-     * (ie a StaticTag) 
-     * @return
+     * Gets the TagLibrary, null if this is an unrecognized tag (ie a StaticTag)
+     *
+     * @return the TagLibrary.
      */
     public TagLibrary getTagLib();
-    
+
     /**
-     * Sets the tag library
-     * @param tagLibrary
+     * Sets the tag library.
+     *
+     * @param tagLibrary the tag library.
      */
     public void setTagLib(TagLibrary tagLibrary);
 
     /**
-     * @return the body of the tag
+     * @return the body of the tag.
      */
     public Script getBody();
 
     /**
-     * Sets the body of the tag
+     * Sets the body of the tag.
+     *
+     * @param body the body of the tag.
      */
     public void setBody(Script body);
 
     /**
-     * Gets the context in which the tag will be run
+     * Gets the context in which the tag will be run.
+     *
+     * @return the context in which the tag will be run
      */
     public JellyContext getContext();
 
     /**
-     * Sets the context in which the tag will be run
+     * Sets the context in which the tag will be run.
+     *
+     * @param context the context in which the tag will be run.
+     * @throws JellyTagException Thrown on error.
      */
     public void setContext(JellyContext context) throws JellyTagException;
 
     /**
      * Evaluates this tag after all the tags properties have been initialized.
+     *
+     * @param output output stream.
+     * @throws MissingAttributeException Thrown on error.
+     * @throws JellyTagException Thrown on error.
      */
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
 
     /**
      * A helper method to invoke this tags body
+     *
+     * @param output XML output stream.
+     * @throws JellyTagException Thrown on error.
      */
     public void invokeBody(XMLOutput output) throws JellyTagException;
-
 }

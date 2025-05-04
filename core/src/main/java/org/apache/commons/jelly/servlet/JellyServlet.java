@@ -90,7 +90,7 @@ public class JellyServlet extends HttpServlet {
      * See org.apache.velocity.servlet.VelocityServlet#createContext
      * @param req
      * @param res
-     * @return
+     * @return a new context.
      */
     protected JellyContext createContext(
         HttpServletRequest req,
@@ -113,7 +113,7 @@ public class JellyServlet extends HttpServlet {
      *
      * See org.apache.velocity.servlet.VelocityServlet#getTemplate
      * @param req
-     * @return
+     * @return a URL.
      * @throws MalformedURLException
      */
     protected URL getScript(HttpServletRequest req)
