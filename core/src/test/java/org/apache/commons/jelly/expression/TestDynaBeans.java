@@ -36,31 +36,27 @@ import junit.textui.TestRunner;
  */
 public class TestDynaBeans extends TestCase {
 
-    protected JellyContext context = new JellyContext();
-    protected ExpressionFactory factory = new JexlExpressionFactory();
-
     public static void main(String[] args) {
         TestRunner.run(suite());
     }
-
     public static Test suite() {
         return new TestSuite(TestDynaBeans.class);
     }
+
+    protected JellyContext context = new JellyContext();
+
+    protected ExpressionFactory factory = new JexlExpressionFactory();
 
     public TestDynaBeans(String testName) {
         super(testName);
     }
 
-    public void testDynaBeans() throws Exception {
-        DynaClass dynaClass = createDynaClass();
-        DynaBean dynaBean = dynaClass.newInstance();
-        dynaBean.set( "stringProperty", "foo" );
-        dynaBean.set( "intProperty", Integer.valueOf(24) );
-
-        context.setVariable("dbean", dynaBean);
-
-        assertExpression("${dbean.stringProperty}", "foo");
-        assertExpression("${dbean.intProperty}", Integer.valueOf(24));
+    protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
+        Expression expression = CompositeExpression.parse(expressionText, factory);
+        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
+        Object value = expression.evaluate(context);
+        //assertEquals( "Expression for: " + expressionText + " is: " + expression, expectedValue, value );
+        assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
     }
 
     protected DynaClass createDynaClass() {
@@ -81,11 +77,15 @@ public class TestDynaBeans extends TestCase {
         return new BasicDynaClass("TestDynaClass", null, properties);
     }
 
-    protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
-        Expression expression = CompositeExpression.parse(expressionText, factory);
-        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
-        Object value = expression.evaluate(context);
-        //assertEquals( "Expression for: " + expressionText + " is: " + expression, expectedValue, value );
-        assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
+    public void testDynaBeans() throws Exception {
+        DynaClass dynaClass = createDynaClass();
+        DynaBean dynaBean = dynaClass.newInstance();
+        dynaBean.set( "stringProperty", "foo" );
+        dynaBean.set( "intProperty", Integer.valueOf(24) );
+
+        context.setVariable("dbean", dynaBean);
+
+        assertExpression("${dbean.stringProperty}", "foo");
+        assertExpression("${dbean.intProperty}", Integer.valueOf(24));
     }
 }

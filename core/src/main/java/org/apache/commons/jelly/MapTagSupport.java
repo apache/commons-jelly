@@ -32,11 +32,13 @@ public abstract class MapTagSupport extends DynaTagSupport {
 
     private Map map;
 
-    /** Sets an attribute value of this tag before the tag is invoked
+    /**
+     * A Factory Method which allows derived tags to overload the Map
+     * implementation used by this tag
      */
-    @Override
-    public void setAttribute(String name, Object value) {
-        getAttributes().put(name, value);
+
+    protected Map createAttributes() {
+        return new HashMap();
     }
 
     /** 
@@ -49,13 +51,11 @@ public abstract class MapTagSupport extends DynaTagSupport {
         }
         return map;
     }
-    /**
-     * A Factory Method which allows derived tags to overload the Map
-     * implementation used by this tag
+    /** Sets an attribute value of this tag before the tag is invoked
      */
-
-    protected Map createAttributes() {
-        return new HashMap();
+    @Override
+    public void setAttribute(String name, Object value) {
+        getAttributes().put(name, value);
     }
 
 }

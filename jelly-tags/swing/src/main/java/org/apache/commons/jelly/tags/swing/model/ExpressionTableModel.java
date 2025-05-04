@@ -31,11 +31,31 @@ import org.apache.commons.jelly.JellyContext;
  */
 public class ExpressionTableModel extends AbstractTableModel {
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    protected static class MyTableColumnModel extends DefaultTableColumnModel {
+        public List getColumnList() {
+            return tableColumns;
+        }
+    }
     private JellyContext context;
     private List rows = new ArrayList();
+
     private MyTableColumnModel columnModel = new MyTableColumnModel();
 
     public ExpressionTableModel() {
+    }
+
+    /**
+     * Adds a new column definition to the table
+     */
+    public void addColumn(ExpressionTableColumn column) {
+        columnModel.addColumn(column);
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columnModel.getColumnCount();
     }
 
     /**
@@ -53,32 +73,6 @@ public class ExpressionTableModel extends AbstractTableModel {
         return columnModel;
     }
 
-    /**
-     * Adds a new column definition to the table
-     */
-    public void addColumn(ExpressionTableColumn column) {
-        columnModel.addColumn(column);
-    }
-
-    /**
-     * Removes a column definition from the table
-     */
-    public void removeColumn(ExpressionTableColumn column) {
-        columnModel.removeColumn(column);
-    }
-
-    // TableModel interface
-    //-------------------------------------------------------------------------
-    @Override
-    public int getRowCount() {
-        return rows.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return columnModel.getColumnCount();
-    }
-
     @Override
     public String getColumnName(int columnIndex) {
         String answer = null;
@@ -90,6 +84,32 @@ public class ExpressionTableModel extends AbstractTableModel {
             return value.toString();
         }
         return answer;
+    }
+
+    /**
+     * Returns the context.
+     * @return JellyContext
+     */
+    public JellyContext getContext() {
+        return context;
+    }
+
+    // TableModel interface
+    //-------------------------------------------------------------------------
+    @Override
+    public int getRowCount() {
+        return rows.size();
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /**
+     * Returns the list of rows.
+     * @return List
+     */
+    public List getRows() {
+        return rows;
     }
 
     @Override
@@ -109,31 +129,11 @@ public class ExpressionTableModel extends AbstractTableModel {
         return column.evaluateValue(this, row, rowIndex, columnIndex);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
     /**
-     * Returns the list of rows.
-     * @return List
+     * Removes a column definition from the table
      */
-    public List getRows() {
-        return rows;
-    }
-
-    /**
-     * Sets the list of rows.
-     * @param rows The rows to set
-     */
-    public void setRows(List rows) {
-        this.rows = rows;
-    }
-
-    /**
-     * Returns the context.
-     * @return JellyContext
-     */
-    public JellyContext getContext() {
-        return context;
+    public void removeColumn(ExpressionTableColumn column) {
+        columnModel.removeColumn(column);
     }
 
     /**
@@ -144,12 +144,12 @@ public class ExpressionTableModel extends AbstractTableModel {
         this.context = context;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected static class MyTableColumnModel extends DefaultTableColumnModel {
-        public List getColumnList() {
-            return tableColumns;
-        }
+    /**
+     * Sets the list of rows.
+     * @param rows The rows to set
+     */
+    public void setRows(List rows) {
+        this.rows = rows;
     };
 
 }

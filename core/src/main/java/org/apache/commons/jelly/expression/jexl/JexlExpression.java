@@ -28,66 +28,6 @@ import org.apache.commons.jexl.JexlContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/**
- * Represents a <a href="https://commons.apache.org/jexl/">Jexl</a>
- * expression which fully supports the Expression Language in JSTL and JSP
- * along with some extra features like object method invocation.
- */
-
-public class JexlExpression extends ExpressionSupport {
-
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(JexlExpression.class);
-
-    /** The Jexl expression object */
-    private Expression expression;
-
-    public JexlExpression(Expression expression) {
-        this.expression = expression;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "[" + expression.getExpression() + "]";
-    }
-
-    // Expression interface
-    //-------------------------------------------------------------------------
-    @Override
-    public String getExpressionText() {
-        return "${" + expression.getExpression() + "}";
-    }
-
-    @Override
-    public Object evaluate(JellyContext context) {
-        try {
-            JexlContext jexlContext = new JellyJexlContext( context );
-            if (log.isDebugEnabled()) {
-                log.debug("Evaluating EL: " + expression.getExpression());
-            }
-            Object value = expression.evaluate(jexlContext);
-
-            if (log.isDebugEnabled()) {
-                log.debug("value of expression: " + value);
-            }
-
-            return value;
-        }
-        catch (Exception e) {
-        	if (context.isSuppressExpressionExceptions()) {
-	            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
-	            return null;
-        	} else {
-        		if (e instanceof RuntimeException)
-        			throw (RuntimeException)e;
-        		if (e instanceof IllegalStateException)
-        			throw (IllegalStateException )e;
-            	throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
-        	}
-        }
-    }
-}
-
 final class JellyJexlContext implements JexlContext {
 
     private Map vars;
@@ -97,14 +37,14 @@ final class JellyJexlContext implements JexlContext {
     }
 
     @Override
-    public void setVars(Map vars) {
-        this.vars.clear();
-        this.vars.putAll( vars );
+    public Map getVars() {
+        return this.vars;
     }
 
     @Override
-    public Map getVars() {
-        return this.vars;
+    public void setVars(Map vars) {
+        this.vars.clear();
+        this.vars.putAll( vars );
     }
 }
 
@@ -114,11 +54,6 @@ final class JellyMap implements Map {
 
     JellyMap(JellyContext context) {
         this.context = context;
-    }
-
-    @Override
-    public Object get(Object key) {
-        return context.getVariable( (String) key );
     }
 
     @Override
@@ -139,6 +74,11 @@ final class JellyMap implements Map {
     @Override
     public Set entrySet() {
         return null;
+    }
+
+    @Override
+    public Object get(Object key) {
+        return context.getVariable( (String) key );
     }
 
     @Override
@@ -174,5 +114,65 @@ final class JellyMap implements Map {
     @Override
     public Collection values() {
         return null;
+    }
+}
+
+/**
+ * Represents a <a href="https://commons.apache.org/jexl/">Jexl</a>
+ * expression which fully supports the Expression Language in JSTL and JSP
+ * along with some extra features like object method invocation.
+ */
+
+public class JexlExpression extends ExpressionSupport {
+
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(JexlExpression.class);
+
+    /** The Jexl expression object */
+    private Expression expression;
+
+    public JexlExpression(Expression expression) {
+        this.expression = expression;
+    }
+
+    @Override
+    public Object evaluate(JellyContext context) {
+        try {
+            JexlContext jexlContext = new JellyJexlContext( context );
+            if (log.isDebugEnabled()) {
+                log.debug("Evaluating EL: " + expression.getExpression());
+            }
+            Object value = expression.evaluate(jexlContext);
+
+            if (log.isDebugEnabled()) {
+                log.debug("value of expression: " + value);
+            }
+
+            return value;
+        }
+        catch (Exception e) {
+        	if (context.isSuppressExpressionExceptions()) {
+	            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
+	            return null;
+        	} else {
+        		if (e instanceof RuntimeException)
+        			throw (RuntimeException)e;
+        		if (e instanceof IllegalStateException)
+        			throw (IllegalStateException )e;
+            	throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
+        	}
+        }
+    }
+
+    // Expression interface
+    //-------------------------------------------------------------------------
+    @Override
+    public String getExpressionText() {
+        return "${" + expression.getExpression() + "}";
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[" + expression.getExpression() + "]";
     }
 }

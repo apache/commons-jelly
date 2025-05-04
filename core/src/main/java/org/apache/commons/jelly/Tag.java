@@ -25,18 +25,32 @@ package org.apache.commons.jelly;
 public interface Tag {
 
     /**
+     * Evaluates this tag after all the tags properties have been initialized.
+     *
+     * @param output output stream.
+     * @throws MissingAttributeException Thrown on error.
+     * @throws JellyTagException Thrown on error.
+     */
+    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
+
+    /**
+     * @return the body of the tag.
+     */
+    public Script getBody();
+
+    /**
+     * Gets the context in which the tag will be run.
+     *
+     * @return the context in which the tag will be run
+     */
+    public JellyContext getContext();
+
+    /**
      * Gets the parent of this tag.
      *
      * @return the parent of this tag.
      */
     public Tag getParent();
-
-    /**
-     * Sets the parent of this tag.
-     *
-     * @param parent the parent of this tag.
-     */
-    public void setParent(Tag parent);
 
     /**
      * Gets the TagLibrary, null if this is an unrecognized tag (ie a StaticTag)
@@ -46,16 +60,12 @@ public interface Tag {
     public TagLibrary getTagLib();
 
     /**
-     * Sets the tag library.
+     * A helper method to invoke this tags body
      *
-     * @param tagLibrary the tag library.
+     * @param output XML output stream.
+     * @throws JellyTagException Thrown on error.
      */
-    public void setTagLib(TagLibrary tagLibrary);
-
-    /**
-     * @return the body of the tag.
-     */
-    public Script getBody();
+    public void invokeBody(XMLOutput output) throws JellyTagException;
 
     /**
      * Sets the body of the tag.
@@ -63,13 +73,6 @@ public interface Tag {
      * @param body the body of the tag.
      */
     public void setBody(Script body);
-
-    /**
-     * Gets the context in which the tag will be run.
-     *
-     * @return the context in which the tag will be run
-     */
-    public JellyContext getContext();
 
     /**
      * Sets the context in which the tag will be run.
@@ -80,19 +83,16 @@ public interface Tag {
     public void setContext(JellyContext context) throws JellyTagException;
 
     /**
-     * Evaluates this tag after all the tags properties have been initialized.
+     * Sets the parent of this tag.
      *
-     * @param output output stream.
-     * @throws MissingAttributeException Thrown on error.
-     * @throws JellyTagException Thrown on error.
+     * @param parent the parent of this tag.
      */
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
+    public void setParent(Tag parent);
 
     /**
-     * A helper method to invoke this tags body
+     * Sets the tag library.
      *
-     * @param output XML output stream.
-     * @throws JellyTagException Thrown on error.
+     * @param tagLibrary the tag library.
      */
-    public void invokeBody(XMLOutput output) throws JellyTagException;
+    public void setTagLib(TagLibrary tagLibrary);
 }

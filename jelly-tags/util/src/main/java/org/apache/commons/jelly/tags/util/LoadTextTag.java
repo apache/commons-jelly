@@ -105,12 +105,11 @@ public class LoadTextTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * Sets the name of the variable which will be exported with the text value of the
-     * given file.
-     */
-    public void setVar(String var) {
-        this.var = var;
+    /** Returns the encoding set.
+    * @return the encoding set with {@link #setEncoding(String)}
+      */
+    public String getEncoding() {
+        return encoding;
     }
     /**
      * Returns the file.
@@ -135,39 +134,6 @@ public class LoadTextTag extends TagSupport {
     public String getVar() {
         return var;
     }
-
-    /**
-     * Sets the file to be parsed as text
-     */
-    public void setFile(File file) {
-        this.file = file;
-    }
-
-    /**
-     * Sets the encoding to use to read the file
-     */
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
-    }
-
-    /**
-     * Sets the uri to be parsed as text.
-     * This can be an absolute URL or a relative or absolute URI
-     * from this Jelly script or the root context.
-     */
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    /** Returns the encoding set.
-    * @return the encoding set with {@link #setEncoding(String)}
-      */
-    public String getEncoding() {
-        return encoding;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /**
      * Loads all the text from the given Reader
@@ -196,5 +162,39 @@ public class LoadTextTag extends TagSupport {
                 log.error( "Caught exception closing Reader: " + e, e);
             }
         }
+    }
+
+    /**
+     * Sets the encoding to use to read the file
+     */
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    /**
+     * Sets the file to be parsed as text
+     */
+    public void setFile(File file) {
+        this.file = file;
+    }
+
+    /**
+     * Sets the uri to be parsed as text.
+     * This can be an absolute URL or a relative or absolute URI
+     * from this Jelly script or the root context.
+     */
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the name of the variable which will be exported with the text value of the
+     * given file.
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 }

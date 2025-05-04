@@ -26,14 +26,14 @@ import junit.framework.TestSuite;
 public class TestChooseTag extends BaseJellyTest
 {
 
-    public TestChooseTag(String name)
-    {
-        super(name);
-    }
-
     public static TestSuite suite() throws Exception
     {
         return new TestSuite(TestChooseTag.class);
+    }
+
+    public TestChooseTag(String name)
+    {
+        super(name);
     }
 
     public void testSimpleFileTag() throws Exception

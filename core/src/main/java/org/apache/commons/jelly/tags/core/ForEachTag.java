@@ -37,6 +37,113 @@ import org.apache.commons.logging.LogFactory;
   */
 public class ForEachTag extends TagSupport {
 
+    /**
+     * Holds the status of the loop. 
+     */
+    public static final class LoopStatus implements LoopTagStatus
+    {
+        private Integer begin;
+        private int count;
+        private Object current;
+        private Integer end;
+        private int index;
+        private Integer step;
+        private boolean first;
+        private boolean last;
+        
+        public LoopStatus(Integer begin, Integer end, Integer step) {
+            this.begin = begin;
+            this.end = end;
+            this.step = step;
+        }
+        /**
+         * @return the begin.
+         */
+        @Override
+        public Integer getBegin() {
+            return begin;
+        }
+        /**
+         * @return the count.
+         */
+        @Override
+        public int getCount() {
+            return count;
+        }
+        /**
+         * @return the current.
+         */
+        @Override
+        public Object getCurrent() {
+            return current;
+        }
+        /**
+         * @return the end.
+         */
+        @Override
+        public Integer getEnd() {
+            return end;
+        }
+        /**
+         * @return the index.
+         */
+        @Override
+        public int getIndex() {
+            return index;
+        }
+        /**
+         * @return the step.
+         */
+        @Override
+        public Integer getStep() {
+            return step;
+        }
+        /**
+         * @return the first.
+         */
+        @Override
+        public boolean isFirst() {
+            return first;
+        }
+        /**
+         * @return the last.
+         */
+        @Override
+        public boolean isLast() {
+            return last;
+        }
+        /**
+         * @param count The count to set.
+         */
+        public void setCount(int count) {
+            this.count = count;
+        }
+        /**
+         * @param current The current to set.
+         */
+        public void setCurrent(Object current) {
+            this.current = current;
+        }
+        /**
+         * @param first The first to set.
+         */
+        public void setFirst(boolean first) {
+            this.first = first;
+        }
+        /**
+         * @param index The index to set.
+         */
+        public void setIndex(int index) {
+            this.index = index;
+        }
+        /**
+         * @param last The last to set.
+         */
+        public void setLast(boolean last) {
+            this.last = last;
+        }
+    }
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ForEachTag.class);
 
@@ -48,13 +155,13 @@ public class ForEachTag extends TagSupport {
      * as the given variable name.
      */
     private String var;
-
+    
     /**
      * If specified then the current index counter will be defined
      * as the given variable name.
      */
     private String indexVar;
-    
+
     /** Variable to hold loop status */
     private String statusVar;
 
@@ -70,10 +177,13 @@ public class ForEachTag extends TagSupport {
     /** The iteration index */
     private int index;
 
+    // Tag interface
+
     public ForEachTag() {
     }
 
-    // Tag interface
+    // Properties
+    //-------------------------------------------------------------------------
 
     //-------------------------------------------------------------------------
     @Override
@@ -199,30 +309,6 @@ public class ForEachTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the expression used to iterate over.
-     * This expression could resolve to an Iterator, Collection, Map, Array,
-     * Enumeration or comma separated String.
-     */
-    public void setItems(Expression items) {
-        this.items = items;
-    }
-
-    /** Sets the variable name to export for the item being iterated over
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /** Sets the variable name to export the current index counter to
-     */
-    public void setIndexVar(String indexVar) {
-        this.indexVar = indexVar;
-    }
-
     /** Sets the starting index value
      */
     public void setBegin(int begin) {
@@ -235,12 +321,33 @@ public class ForEachTag extends TagSupport {
         this.end = end;
     }
 
+    /** Sets the variable name to export the current index counter to
+     */
+    public void setIndexVar(String indexVar) {
+        this.indexVar = indexVar;
+    }
+
+    /**
+     * Sets the expression used to iterate over.
+     * This expression could resolve to an Iterator, Collection, Map, Array,
+     * Enumeration or comma separated String.
+     */
+    public void setItems(Expression items) {
+        this.items = items;
+    }
+
     /** Sets the index increment step
      */
     public void setStep(int step) {
         this.step = step;
     }
 
+    /** Sets the variable name to export for the item being iterated over
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+    
     /**
      * Sets the variable name to export the current status to.
      * The status is an implementation of the JSTL LoopTagStatus interface that provides
@@ -257,112 +364,5 @@ public class ForEachTag extends TagSupport {
      */
     public void setVarStatus(String var) {
         this.statusVar = var;
-    }
-    
-    /**
-     * Holds the status of the loop. 
-     */
-    public static final class LoopStatus implements LoopTagStatus
-    {
-        private Integer begin;
-        private int count;
-        private Object current;
-        private Integer end;
-        private int index;
-        private Integer step;
-        private boolean first;
-        private boolean last;
-        
-        public LoopStatus(Integer begin, Integer end, Integer step) {
-            this.begin = begin;
-            this.end = end;
-            this.step = step;
-        }
-        /**
-         * @return the begin.
-         */
-        @Override
-        public Integer getBegin() {
-            return begin;
-        }
-        /**
-         * @return the count.
-         */
-        @Override
-        public int getCount() {
-            return count;
-        }
-        /**
-         * @return the current.
-         */
-        @Override
-        public Object getCurrent() {
-            return current;
-        }
-        /**
-         * @return the end.
-         */
-        @Override
-        public Integer getEnd() {
-            return end;
-        }
-        /**
-         * @return the first.
-         */
-        @Override
-        public boolean isFirst() {
-            return first;
-        }
-        /**
-         * @return the index.
-         */
-        @Override
-        public int getIndex() {
-            return index;
-        }
-        /**
-         * @return the last.
-         */
-        @Override
-        public boolean isLast() {
-            return last;
-        }
-        /**
-         * @return the step.
-         */
-        @Override
-        public Integer getStep() {
-            return step;
-        }
-        /**
-         * @param count The count to set.
-         */
-        public void setCount(int count) {
-            this.count = count;
-        }
-        /**
-         * @param current The current to set.
-         */
-        public void setCurrent(Object current) {
-            this.current = current;
-        }
-        /**
-         * @param first The first to set.
-         */
-        public void setFirst(boolean first) {
-            this.first = first;
-        }
-        /**
-         * @param last The last to set.
-         */
-        public void setLast(boolean last) {
-            this.last = last;
-        }
-        /**
-         * @param index The index to set.
-         */
-        public void setIndex(int index) {
-            this.index = index;
-        }
     }
 }

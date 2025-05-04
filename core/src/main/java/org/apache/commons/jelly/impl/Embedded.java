@@ -56,6 +56,8 @@ import org.xml.sax.SAXException;
  *  </pre>
  */
 public class Embedded {
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(Embedded.class);
     /** Jelly Engine */
     Jelly jellyEngine = new Jelly();
     /** JellyContext*/
@@ -75,8 +77,6 @@ public class Embedded {
     boolean scriptCompiled = false;
     /** ErrorMsg*/
     private String errorMsg;
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(Embedded.class);
 
     /**
      * Default Constructor
@@ -84,74 +84,6 @@ public class Embedded {
      */
     public Embedded() {
         //m_context.setClassLoader(new TagLibraryClassLoader(m_context));
-    }
-
-    /**
-     * Method setContext.
-     * @param context
-     */
-    public void setContext(JellyContext context) {
-        this.context = context;
-    }
-
-    /**
-     * Method getContext.
-     * @return JellyContext
-     */
-    public JellyContext getContext() {
-        return context;
-    }
-
-    /**
-     * Sets a new variable within the context for the script to use.
-     * @param name
-     * @param value
-     */
-    public void setVariable(String name, Object value) {
-        context.setVariable(name, value);
-    }
-
-    /**
-     * Sets the input script
-     * @param scriptAsString
-     */
-    public void setScript(String scriptAsString) {
-
-        try {
-            URL url = resolveURL(scriptAsString);
-            inputStream = url.openStream();
-        }
-        catch (MalformedURLException e) {
-            //Encapsulate the string within
-            inputStream = new ByteArrayInputStream(scriptAsString.getBytes());
-        }
-        catch (IOException e) {
-            //Error reading from the URL
-            inputStream = null;
-        }
-
-        compileScriptAndKeep();
-
-    }
-
-    /**
-     * @return the URL for the relative file name or absolute URL
-     */
-    private URL resolveURL(String name) throws MalformedURLException {
-        File file = new File(name);
-        if (file.exists()) {
-            return file.toURL();
-        }
-        return new URL(name);
-    }
-
-    /**
-     * Sets the input stream
-     * @param scriptAsInputStream
-     */
-    public void setScript(InputStream scriptAsInputStream) {
-        inputStream = scriptAsInputStream;
-        compileScriptAndKeep();
     }
 
     /**
@@ -175,50 +107,6 @@ public class Embedded {
         catch (Exception e) {
             scriptCompilationException = e;
         }
-    }
-
-    /**
-     * Method setOutputStream.
-     * @param outputStream
-     */
-    public void setOutputStream(OutputStream outputStream) {
-        this.outputStream = outputStream;
-        this.output = XMLOutput.createXMLOutput(new OutputStreamWriter(this.outputStream));
-    }
-
-    /**
-     * Registers the given tag library class name against the given namespace URI.
-     * The class will be loaded via the given ClassLoader
-     * This should be called before the parser is used.
-     */
-    public void registerTagLibrary(String namespaceURI, String className) {
-        if (context != null)
-            context.registerTagLibrary(namespaceURI, className);
-    }
-
-    /**
-     * Registers the given tag library against the given namespace URI.
-     * This should be called before the parser is used.
-     */
-    public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
-        if (context != null)
-            context.registerTagLibrary(namespaceURI, taglib);
-    }
-
-    /**
-     * Returns the errorMsg.
-     * @return String
-     */
-    public String getErrorMsg() {
-        return errorMsg;
-    }
-
-    /**
-     * Sets the errorMsg.
-     * @param errorMsg The errorMsg to set
-     */
-    private void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
     }
 
     /**
@@ -254,6 +142,118 @@ public class Embedded {
         if (log.isDebugEnabled())
             log.debug("Done Executing");
         return true;
+    }
+
+    /**
+     * Method getContext.
+     * @return JellyContext
+     */
+    public JellyContext getContext() {
+        return context;
+    }
+
+    /**
+     * Returns the errorMsg.
+     * @return String
+     */
+    public String getErrorMsg() {
+        return errorMsg;
+    }
+
+    /**
+     * Registers the given tag library class name against the given namespace URI.
+     * The class will be loaded via the given ClassLoader
+     * This should be called before the parser is used.
+     */
+    public void registerTagLibrary(String namespaceURI, String className) {
+        if (context != null)
+            context.registerTagLibrary(namespaceURI, className);
+    }
+
+    /**
+     * Registers the given tag library against the given namespace URI.
+     * This should be called before the parser is used.
+     */
+    public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
+        if (context != null)
+            context.registerTagLibrary(namespaceURI, taglib);
+    }
+
+    /**
+     * @return the URL for the relative file name or absolute URL
+     */
+    private URL resolveURL(String name) throws MalformedURLException {
+        File file = new File(name);
+        if (file.exists()) {
+            return file.toURL();
+        }
+        return new URL(name);
+    }
+
+    /**
+     * Method setContext.
+     * @param context
+     */
+    public void setContext(JellyContext context) {
+        this.context = context;
+    }
+
+    /**
+     * Sets the errorMsg.
+     * @param errorMsg The errorMsg to set
+     */
+    private void setErrorMsg(String errorMsg) {
+        this.errorMsg = errorMsg;
+    }
+
+    /**
+     * Method setOutputStream.
+     * @param outputStream
+     */
+    public void setOutputStream(OutputStream outputStream) {
+        this.outputStream = outputStream;
+        this.output = XMLOutput.createXMLOutput(new OutputStreamWriter(this.outputStream));
+    }
+
+    /**
+     * Sets the input stream
+     * @param scriptAsInputStream
+     */
+    public void setScript(InputStream scriptAsInputStream) {
+        inputStream = scriptAsInputStream;
+        compileScriptAndKeep();
+    }
+
+    /**
+     * Sets the input script
+     * @param scriptAsString
+     */
+    public void setScript(String scriptAsString) {
+
+        try {
+            URL url = resolveURL(scriptAsString);
+            inputStream = url.openStream();
+        }
+        catch (MalformedURLException e) {
+            //Encapsulate the string within
+            inputStream = new ByteArrayInputStream(scriptAsString.getBytes());
+        }
+        catch (IOException e) {
+            //Error reading from the URL
+            inputStream = null;
+        }
+
+        compileScriptAndKeep();
+
+    }
+
+    /**
+     * Sets a new variable within the context for the script to use.
+     * @param name
+     * @param value
+     */
+    public void setVariable(String name, Object value) {
+        context.setVariable(name, value);
     }
 
 }

@@ -41,6 +41,56 @@ public class DriverTag extends TagSupport {
     //*********************************************************************
     // Accessor methods
 
+    @Override
+    public void doTag(XMLOutput output) throws JellyTagException {
+        DataSourceWrapper ds = new DataSourceWrapper();
+        try {
+            ds.setDriverClassName(getDriverClassName());
+        }
+        catch (Exception e) {
+            throw new JellyTagException("Invalid driver class name: " + e.getMessage());
+        }
+        ds.setJdbcURL(getJdbcURL());
+        ds.setUserName(getUserName());
+        ds.setPassword(getPassword());
+        context.setVariable(var, ds);
+    }
+
+    private String getDriverClassName() {
+        if (driverClassName != null) {
+            return driverClassName;
+        }
+        return getInitParameter(DRIVER_CLASS_NAME);
+    }
+
+    protected String getInitParameter(String key) {
+        return "";
+    }
+
+    private String getJdbcURL() {
+        if (jdbcURL != null) {
+            return jdbcURL;
+        }
+        return getInitParameter(JDBC_URL);
+    }
+
+    private String getPassword() {
+        return getInitParameter(PASSWORD);
+    }
+
+    //*********************************************************************
+    // Tag logic
+
+    private String getUserName() {
+        if (userName != null) {
+            return userName;
+        }
+        return getInitParameter(USER_NAME);
+    }
+
+    //*********************************************************************
+    // Private utility methods
+
     public void setDriver(String driverClassName) {
         this.driverClassName = driverClassName;
     }
@@ -64,55 +114,5 @@ public class DriverTag extends TagSupport {
 
     public void setVar(String var) {
         this.var = var;
-    }
-
-    //*********************************************************************
-    // Tag logic
-
-    @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        DataSourceWrapper ds = new DataSourceWrapper();
-        try {
-            ds.setDriverClassName(getDriverClassName());
-        }
-        catch (Exception e) {
-            throw new JellyTagException("Invalid driver class name: " + e.getMessage());
-        }
-        ds.setJdbcURL(getJdbcURL());
-        ds.setUserName(getUserName());
-        ds.setPassword(getPassword());
-        context.setVariable(var, ds);
-    }
-
-    //*********************************************************************
-    // Private utility methods
-
-    private String getDriverClassName() {
-        if (driverClassName != null) {
-            return driverClassName;
-        }
-        return getInitParameter(DRIVER_CLASS_NAME);
-    }
-
-    private String getJdbcURL() {
-        if (jdbcURL != null) {
-            return jdbcURL;
-        }
-        return getInitParameter(JDBC_URL);
-    }
-
-    private String getUserName() {
-        if (userName != null) {
-            return userName;
-        }
-        return getInitParameter(USER_NAME);
-    }
-
-    private String getPassword() {
-        return getInitParameter(PASSWORD);
-    }
-
-    protected String getInitParameter(String key) {
-        return "";
     }
 }

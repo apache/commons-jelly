@@ -32,16 +32,16 @@ import junit.framework.TestSuite;
  * that do not exist
  */
 public class TestNonexistentTags extends TestCase {
-     Jelly jelly = null;
+     public static TestSuite suite() throws Exception {
+        return new TestSuite(TestNonexistentTags.class);
+    }
+    Jelly jelly = null;
     JellyContext context = null;
+
     XMLOutput xmlOutput = null;
 
     public TestNonexistentTags(String name) {
         super(name);
-    }
-
-    public static TestSuite suite() throws Exception {
-        return new TestSuite(TestNonexistentTags.class);
     }
 
     public void setUp(String scriptName) throws Exception {

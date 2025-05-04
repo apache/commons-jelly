@@ -45,19 +45,19 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
     /**
      * All incoming empty URIs will be remapped to the default.
      *
-     * @param prefix incoming prefix
-     * @param uri    URI to check and potentially replace
+     * @param namespaceURI
+     *                  URI to check and potentially replace
+     * @param localName
+     * @param qName
      * @throws SAXException
      */
     @Override
-    public void startPrefixMapping(java.lang.String prefix,
-                                   java.lang.String uri)
-    throws SAXException {
-
-        if (uri.isEmpty()) {
-            super.startPrefixMapping(prefix, this.uriDefault);
+    public void endElement(String namespaceURI, String localName, String qName)
+            throws SAXException {
+        if (namespaceURI.isEmpty()) {
+            super.endElement(this.uriDefault, localName, qName);
         } else {
-            super.startPrefixMapping(prefix, uri);
+            super.endElement(namespaceURI, localName, qName);
         }
     }
 
@@ -88,19 +88,19 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
     /**
      * All incoming empty URIs will be remapped to the default.
      *
-     * @param namespaceURI
-     *                  URI to check and potentially replace
-     * @param localName
-     * @param qName
+     * @param prefix incoming prefix
+     * @param uri    URI to check and potentially replace
      * @throws SAXException
      */
     @Override
-    public void endElement(String namespaceURI, String localName, String qName)
-            throws SAXException {
-        if (namespaceURI.isEmpty()) {
-            super.endElement(this.uriDefault, localName, qName);
+    public void startPrefixMapping(java.lang.String prefix,
+                                   java.lang.String uri)
+    throws SAXException {
+
+        if (uri.isEmpty()) {
+            super.startPrefixMapping(prefix, this.uriDefault);
         } else {
-            super.endElement(namespaceURI, localName, qName);
+            super.startPrefixMapping(prefix, uri);
         }
     }
 }

@@ -29,24 +29,6 @@ import org.apache.commons.jelly.util.TagUtils;
 
 public abstract class TagSupport implements Tag {
 
-    /** The parent of this tag */
-    protected Tag parent;
-    
-    /** The TagLibrary which defines this tag */
-    protected TagLibrary tagLibrary;
-
-    /** The body of the tag */
-    protected Script body;
-    /** The current context */
-
-    protected Boolean shouldTrim;
-    protected boolean hasTrimmed;
-
-    protected JellyContext context;
-
-    /** Whether XML text should be escaped */
-    private boolean escapeText = true;
-
     /**
      * Searches up the parent hierarchy from the given tag
      * for a Tag of the given type
@@ -66,6 +48,19 @@ public abstract class TagSupport implements Tag {
             from = from.getParent();
         }
         return null;
+    }
+    
+    /**
+     * Searches up the parent hierarchy from the given tag
+     * for a Tag matching one or more of given types.
+     *
+     * @param from the tag to start searching from
+     * @param tagClasses an array of types that might match
+     * @return the tag of the given type or null if it could not be found
+     * @see #findAncestorWithClass(Tag,Collection)
+     */
+    public static Tag findAncestorWithClass(Tag from, Class[] tagClasses) {
+        return findAncestorWithClass(from,Arrays.asList(tagClasses));
     }
 
     /**
@@ -88,128 +83,30 @@ public abstract class TagSupport implements Tag {
         }
         return null;
     }
+    /** The parent of this tag */
+    protected Tag parent;
+    /** The TagLibrary which defines this tag */
+    protected TagLibrary tagLibrary;
 
-    /**
-     * Searches up the parent hierarchy from the given tag
-     * for a Tag matching one or more of given types.
-     *
-     * @param from the tag to start searching from
-     * @param tagClasses an array of types that might match
-     * @return the tag of the given type or null if it could not be found
-     * @see #findAncestorWithClass(Tag,Collection)
-     */
-    public static Tag findAncestorWithClass(Tag from, Class[] tagClasses) {
-        return findAncestorWithClass(from,Arrays.asList(tagClasses));
-    }
+    /** The body of the tag */
+    protected Script body;
+
+    /** The current context */
+
+    protected Boolean shouldTrim;
+
+    protected boolean hasTrimmed;
+
+    protected JellyContext context;
+
+    /** Whether XML text should be escaped */
+    private boolean escapeText = true;
 
     public TagSupport() {
     }
 
     public TagSupport(boolean shouldTrim) {
         setTrim( shouldTrim );
-    }
-
-    /**
-     * Sets whether whitespace inside this tag should be trimmed or not.
-     * Defaults to true so whitespace is trimmed
-     */
-    public void setTrim(boolean shouldTrim) {
-        if ( shouldTrim ) {
-            this.shouldTrim = Boolean.TRUE;
-        }
-        else {
-            this.shouldTrim = Boolean.FALSE;
-        }
-    }
-
-    public boolean isTrim() {
-        if ( this.shouldTrim == null ) {
-            Tag parent = getParent();
-            if ( parent == null ) {
-                return true;
-            }
-            else {
-                if ( parent instanceof TagSupport ) {
-                    TagSupport parentSupport = (TagSupport) parent;
-
-                    this.shouldTrim = ( parentSupport.isTrim() ? Boolean.TRUE : Boolean.FALSE );
-                }
-                else {
-                    this.shouldTrim = Boolean.TRUE;
-                }
-            }
-        }
-
-        return this.shouldTrim.booleanValue();
-    }
-
-    /** @return the parent of this tag */
-    @Override
-    public Tag getParent() {
-        return parent;
-    }
-
-    /** Sets the parent of this tag */
-    @Override
-    public void setParent(Tag parent) {
-        this.parent = parent;
-    }
-
-    /* (non-Javadoc)
-	 * @see org.apache.commons.jelly.Tag#getTagLib()
-	 */
-	@Override
-    public TagLibrary getTagLib() {
-		return tagLibrary;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.apache.commons.jelly.Tag#setTagLib(org.apache.commons.jelly.TagLibrary)
-	 */
-	@Override
-    public void setTagLib(TagLibrary tagLibrary) {
-		if (this.tagLibrary != null && tagLibrary != this.tagLibrary)
-			throw new IllegalArgumentException("Cannot setTagLib once set");
-		this.tagLibrary = tagLibrary;
-	}
-
-	/** @return the body of the tag */
-    @Override
-    public Script getBody() {
-        if (! hasTrimmed) {
-            hasTrimmed = true;
-            if (isTrim()) {
-                trimBody();
-            }
-        }
-        return body;
-    }
-
-    /** Sets the body of the tag */
-    @Override
-    public void setBody(Script body) {
-        this.body = body;
-        this.hasTrimmed = false;
-    }
-
-    /** @return the context in which the tag will be run */
-    @Override
-    public JellyContext getContext() {
-        return context;
-    }
-
-    /** Sets the context in which the tag will be run */
-    @Override
-    public void setContext(JellyContext context) throws JellyTagException {
-        this.context = context;
-    }
-
-    /**
-     * Invokes the body of this tag using the given output
-     */
-    @Override
-    public void invokeBody(XMLOutput output) throws JellyTagException {
-        getBody().run(context, output);
     }
 
     // Implementation methods
@@ -239,6 +136,18 @@ public abstract class TagSupport implements Tag {
         return findAncestorWithClass(getParent(), parentClasses);
     }
 
+    /** @return the body of the tag */
+    @Override
+    public Script getBody() {
+        if (! hasTrimmed) {
+            hasTrimmed = true;
+            if (isTrim()) {
+                trimBody();
+            }
+        }
+        return body;
+    }
+
     /**
      * Executes the body of the tag and returns the result as a String.
      *
@@ -248,7 +157,7 @@ public abstract class TagSupport implements Tag {
         return getBodyText(escapeText);
     }
 
-    /**
+	/**
      * Executes the body of the tag and returns the result as a String.
      *
      * @param shouldEscape Signal if the text should be escaped.
@@ -260,12 +169,32 @@ public abstract class TagSupport implements Tag {
         return writer.toString();
     }
 
+	/** @return the context in which the tag will be run */
+    @Override
+    public JellyContext getContext() {
+        return context;
+    }
+
+    /** @return the parent of this tag */
+    @Override
+    public Tag getParent() {
+        return parent;
+    }
+
+    /* (non-Javadoc)
+	 * @see org.apache.commons.jelly.Tag#getTagLib()
+	 */
+	@Override
+    public TagLibrary getTagLib() {
+		return tagLibrary;
+	}
+
     /**
-     * Find all text nodes inside the top level of this body and
-     * if they are just whitespace then remove them
+     * Invokes the body of this tag using the given output
      */
-    protected void trimBody() {
-        TagUtils.trimScript(body);
+    @Override
+    public void invokeBody(XMLOutput output) throws JellyTagException {
+        getBody().run(context, output);
     }
 
     /**
@@ -275,11 +204,82 @@ public abstract class TagSupport implements Tag {
         return escapeText;
     }
 
+    public boolean isTrim() {
+        if ( this.shouldTrim == null ) {
+            Tag parent = getParent();
+            if ( parent == null ) {
+                return true;
+            }
+            else {
+                if ( parent instanceof TagSupport ) {
+                    TagSupport parentSupport = (TagSupport) parent;
+
+                    this.shouldTrim = ( parentSupport.isTrim() ? Boolean.TRUE : Boolean.FALSE );
+                }
+                else {
+                    this.shouldTrim = Boolean.TRUE;
+                }
+            }
+        }
+
+        return this.shouldTrim.booleanValue();
+    }
+
+    /** Sets the body of the tag */
+    @Override
+    public void setBody(Script body) {
+        this.body = body;
+        this.hasTrimmed = false;
+    }
+
+    /** Sets the context in which the tag will be run */
+    @Override
+    public void setContext(JellyContext context) throws JellyTagException {
+        this.context = context;
+    }
+
     /**
      * Sets whether the body of the tag should be escaped as text (so that &lt; and &gt; are
      * escaped as &amp;lt; and &amp;gt;), which is the default or leave the text as XML.
      */
     public void setEscapeText(boolean escapeText) {
         this.escapeText = escapeText;
+    }
+
+    /** Sets the parent of this tag */
+    @Override
+    public void setParent(Tag parent) {
+        this.parent = parent;
+    }
+
+    /* (non-Javadoc)
+	 * @see org.apache.commons.jelly.Tag#setTagLib(org.apache.commons.jelly.TagLibrary)
+	 */
+	@Override
+    public void setTagLib(TagLibrary tagLibrary) {
+		if (this.tagLibrary != null && tagLibrary != this.tagLibrary)
+			throw new IllegalArgumentException("Cannot setTagLib once set");
+		this.tagLibrary = tagLibrary;
+	}
+
+    /**
+     * Sets whether whitespace inside this tag should be trimmed or not.
+     * Defaults to true so whitespace is trimmed
+     */
+    public void setTrim(boolean shouldTrim) {
+        if ( shouldTrim ) {
+            this.shouldTrim = Boolean.TRUE;
+        }
+        else {
+            this.shouldTrim = Boolean.FALSE;
+        }
+    }
+
+    /**
+     * Find all text nodes inside the top level of this body and
+     * if they are just whitespace then remove them
+     */
+    protected void trimBody() {
+        TagUtils.trimScript(body);
     }
 }

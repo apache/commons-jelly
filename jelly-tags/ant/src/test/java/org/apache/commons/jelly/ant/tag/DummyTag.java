@@ -47,11 +47,12 @@ public class DummyTag extends TagSupport implements BeanSource {
     public DummyTag() {
     }
 
-    // BeanSource interface
+    // Ant Task-like nested property methods
     //-------------------------------------------------------------------------
-    @Override
-    public Object getBean() {
-        return this;
+    public Path createClasspath() {
+        log.info("called createClasspath()");
+        calledCreatepath = true;
+        return new Path( AntTagLibrary.getProject(context) );
     }
 
     // Tag interface
@@ -82,12 +83,11 @@ public class DummyTag extends TagSupport implements BeanSource {
         }
     }
 
-    // Ant Task-like nested property methods
+    // BeanSource interface
     //-------------------------------------------------------------------------
-    public Path createClasspath() {
-        log.info("called createClasspath()");
-        calledCreatepath = true;
-        return new Path( AntTagLibrary.getProject(context) );
+    @Override
+    public Object getBean() {
+        return this;
     }
 
     public void setClasspath(Path classpath) {

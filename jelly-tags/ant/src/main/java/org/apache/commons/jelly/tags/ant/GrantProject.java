@@ -52,24 +52,24 @@ public class GrantProject extends Project {
         this.propsHandler = null;
     }
 
-    /** Install a <code>PropsHandler</code> delegate.
-     *
-     *  @param propsHandler The <code>PropsHandler</code> to install,
-     *         or {@code null} to remove any currently installed
-     *         <code>PropsHandler</code>.
-     */
-    public void setPropsHandler(PropsHandler propsHandler) {
-        this.propsHandler = propsHandler;
+    @Override
+    public void copyInheritedProperties(Project other) {
+        if (this.propsHandler == null) {
+            super.copyInheritedProperties(other);
+        }
+        else {
+            this.propsHandler.copyInheritedProperties(other);
+        }
     }
 
-    /** Retrieve the currently installed <code>PropsHandler</code>.
-     *
-     *  @return The currently installed <code>PropsHandler</code>,
-     *          or {@code null} if no <code>PropsHandler</code>
-     *          had yet to be installed.
-     */
-    public PropsHandler getPropsHandler() {
-        return this.propsHandler;
+    @Override
+    public void copyUserProperties(Project other) {
+        if (this.propsHandler == null) {
+            super.copyUserProperties(other);
+        }
+        else {
+            this.propsHandler.copyUserProperties(other);
+        }
     }
 
     // ------------------------------------------------------------
@@ -86,37 +86,64 @@ public class GrantProject extends Project {
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
     @Override
+    public Hashtable getProperties() {
+        if (this.propsHandler == null) {
+            return super.getProperties();
+        }
+
+        return this.propsHandler.getProperties();
+    }
+
+    @Override
+    public String getProperty(String key) {
+        if (this.propsHandler == null) {
+            return super.getProperty(key);
+        }
+
+        return this.propsHandler.getProperty(key);
+    }
+
+    /** Retrieve the currently installed <code>PropsHandler</code>.
+     *
+     *  @return The currently installed <code>PropsHandler</code>,
+     *          or {@code null} if no <code>PropsHandler</code>
+     *          had yet to be installed.
+     */
+    public PropsHandler getPropsHandler() {
+        return this.propsHandler;
+    }
+
+    @Override
+    public Hashtable getUserProperties() {
+        if (this.propsHandler == null) {
+            return super.getUserProperties();
+        }
+
+        return this.propsHandler.getUserProperties();
+    }
+
+    @Override
+    public String getUserProperty(String key) {
+        if (this.propsHandler == null) {
+            return super.getUserProperty(key);
+        }
+
+        return this.propsHandler.getUserProperty(key);
+    }
+
+    @Override
     public String replaceProperties(String value) throws BuildException {
         return ProjectHelper.replaceProperties(this, value, getProperties());
     }
 
     @Override
-    public synchronized void setProperty(String key, String value) {
-        if (this.propsHandler == null) {
-            super.setProperty(key, value);
-        }
-        else {
-            this.propsHandler.setProperty(key, value);
-        }
-    }
+    public void setBaseDir(File baseDir) throws BuildException {
+        super.setBaseDir(baseDir);
 
-    @Override
-    public synchronized void setUserProperty(String key, String value) {
-        if (this.propsHandler == null) {
-            super.setUserProperty(key, value);
-        }
-        else {
-            this.propsHandler.setUserProperty(key, value);
-        }
-    }
-
-    @Override
-    public synchronized void setNewProperty(String key, String value) {
-        if (this.propsHandler == null) {
-            super.setNewProperty(key, value);
-        }
-        else {
-            this.propsHandler.setNewProperty(key, value);
+        if (this.propsHandler != null) {
+            this.propsHandler.setPropertyIfUndefinedByUser(
+                "basedir",
+                baseDir.getPath());
         }
     }
 
@@ -131,59 +158,43 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public String getProperty(String key) {
-        if (this.propsHandler == null) {
-            return super.getProperty(key);
-        }
+    public void setJavaVersionProperty() throws BuildException {
+        // Always call the super, as they do some sanity checks
+        super.setJavaVersionProperty();
 
-        return this.propsHandler.getProperty(key);
+        if (this.propsHandler != null) {
+            this.propsHandler.setJavaVersionProperty();
+        }
     }
 
     @Override
-    public String getUserProperty(String key) {
+    public synchronized void setNewProperty(String key, String value) {
         if (this.propsHandler == null) {
-            return super.getUserProperty(key);
-        }
-
-        return this.propsHandler.getUserProperty(key);
-    }
-
-    @Override
-    public Hashtable getUserProperties() {
-        if (this.propsHandler == null) {
-            return super.getUserProperties();
-        }
-
-        return this.propsHandler.getUserProperties();
-    }
-
-    @Override
-    public Hashtable getProperties() {
-        if (this.propsHandler == null) {
-            return super.getProperties();
-        }
-
-        return this.propsHandler.getProperties();
-    }
-
-    @Override
-    public void copyUserProperties(Project other) {
-        if (this.propsHandler == null) {
-            super.copyUserProperties(other);
+            super.setNewProperty(key, value);
         }
         else {
-            this.propsHandler.copyUserProperties(other);
+            this.propsHandler.setNewProperty(key, value);
         }
     }
 
     @Override
-    public void copyInheritedProperties(Project other) {
+    public synchronized void setProperty(String key, String value) {
         if (this.propsHandler == null) {
-            super.copyInheritedProperties(other);
+            super.setProperty(key, value);
         }
         else {
-            this.propsHandler.copyInheritedProperties(other);
+            this.propsHandler.setProperty(key, value);
         }
+    }
+
+    /** Install a <code>PropsHandler</code> delegate.
+     *
+     *  @param propsHandler The <code>PropsHandler</code> to install,
+     *         or {@code null} to remove any currently installed
+     *         <code>PropsHandler</code>.
+     */
+    public void setPropsHandler(PropsHandler propsHandler) {
+        this.propsHandler = propsHandler;
     }
 
     @Override
@@ -197,23 +208,12 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public void setJavaVersionProperty() throws BuildException {
-        // Always call the super, as they do some sanity checks
-        super.setJavaVersionProperty();
-
-        if (this.propsHandler != null) {
-            this.propsHandler.setJavaVersionProperty();
+    public synchronized void setUserProperty(String key, String value) {
+        if (this.propsHandler == null) {
+            super.setUserProperty(key, value);
         }
-    }
-
-    @Override
-    public void setBaseDir(File baseDir) throws BuildException {
-        super.setBaseDir(baseDir);
-
-        if (this.propsHandler != null) {
-            this.propsHandler.setPropertyIfUndefinedByUser(
-                "basedir",
-                baseDir.getPath());
+        else {
+            this.propsHandler.setUserProperty(key, value);
         }
     }
 }

@@ -39,20 +39,12 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
         this.dynaBean = dynaBean;
     }
      
-    /** Sets the context in which the tag will be run. */
-    @Override
-    public void setContext(JellyContext context) throws JellyTagException {
-        this.context = context;
-        beforeSetAttributes();
+    /**
+     * Callback to allow processing to occur before the attributes are about to be set
+     */
+    public void beforeSetAttributes() throws JellyTagException {
     }
     
-    /** Sets an attribute value of this tag before the tag is invoked
-     */
-    @Override
-    public void setAttribute(String name, Object value) throws JellyTagException {
-        getDynaBean().set(name, value);
-    }
-
     /**
      * @return the type of the given attribute. By default just return
      * Object.class if this is not known.
@@ -65,7 +57,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
         }
         return Object.class;
     }
-    
+
     /** 
      * @return the DynaBean which is used to store the
      *  attributes of this tag
@@ -74,18 +66,26 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
         return dynaBean;
     }
     
+    /** Sets an attribute value of this tag before the tag is invoked
+     */
+    @Override
+    public void setAttribute(String name, Object value) throws JellyTagException {
+        getDynaBean().set(name, value);
+    }
+    
+    /** Sets the context in which the tag will be run. */
+    @Override
+    public void setContext(JellyContext context) throws JellyTagException {
+        this.context = context;
+        beforeSetAttributes();
+    }
+
     /**
      * Sets the DynaBean which is used to store the
      *  attributes of this tag
      */
     public void setDynaBean(DynaBean dynaBean) {
         this.dynaBean = dynaBean;
-    }
-
-    /**
-     * Callback to allow processing to occur before the attributes are about to be set
-     */
-    public void beforeSetAttributes() throws JellyTagException {
     }
     
 }

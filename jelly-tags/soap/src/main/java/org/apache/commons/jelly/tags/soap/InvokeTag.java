@@ -47,6 +47,13 @@ public class InvokeTag extends TagSupport {
     public InvokeTag() {
     }
 
+    /**
+     * Factory method to create a new default Service instance
+     */
+    protected Service createService() {
+        return new Service();
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -105,24 +112,23 @@ public class InvokeTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
-     * Sets the end point to which the invocation will occur
+     * Performs any type coercion on the given parameters to form an Object[]
+     * or returns null if no parameter has been specified
      */
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    /**
-     * Sets the namespace of the operation
-     */
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
+    protected Object[] getParamArray() {
+        if (params == null) {
+            return null;
+        }
+        if (params instanceof Object[]) {
+            return (Object[]) params;
+        }
+        if (params instanceof Collection) {
+            Collection coll = (Collection) params;
+            return coll.toArray();
+        }
+        // lets just wrap the current object inside an array
+        return new Object[] { params };
     }
 
     /**
@@ -133,19 +139,24 @@ public class InvokeTag extends TagSupport {
         return service;
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
     /**
-     * Sets the service to be used by this invocation.
-     * If none is specified then a default is used.
+     * Sets the end point to which the invocation will occur
      */
-    public void setService(Service service) {
-        this.service = service;
+    public void setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 
     /**
-     * Sets the name of the variable to output the results of the SOAP call to.
+     * Sets the namespace of the operation
      */
-    public void setVar(String var) {
-        this.var = var;
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
     }
 
     /**
@@ -165,6 +176,17 @@ public class InvokeTag extends TagSupport {
     }
 
     /**
+     * Sets the service to be used by this invocation.
+     * If none is specified then a default is used.
+     */
+    public void setService(Service service) {
+        this.service = service;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
      * Sets the user name for the SOAP call.
      */
     public void setUsername(String userName)
@@ -172,32 +194,10 @@ public class InvokeTag extends TagSupport {
         this.userName = userName;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     /**
-     * Factory method to create a new default Service instance
+     * Sets the name of the variable to output the results of the SOAP call to.
      */
-    protected Service createService() {
-        return new Service();
-    }
-
-    /**
-     * Performs any type coercion on the given parameters to form an Object[]
-     * or returns null if no parameter has been specified
-     */
-    protected Object[] getParamArray() {
-        if (params == null) {
-            return null;
-        }
-        if (params instanceof Object[]) {
-            return (Object[]) params;
-        }
-        if (params instanceof Collection) {
-            Collection coll = (Collection) params;
-            return coll.toArray();
-        }
-        // lets just wrap the current object inside an array
-        return new Object[] { params };
+    public void setVar(String var) {
+        this.var = var;
     }
 }

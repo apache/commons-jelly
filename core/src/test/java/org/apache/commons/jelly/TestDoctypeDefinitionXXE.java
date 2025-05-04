@@ -32,25 +32,6 @@ public class TestDoctypeDefinitionXXE extends TestCase
         super( s );
     }
 
-    public void testDoctypeDefinitionXXEDefaultMode() throws JellyException
-    {
-        JellyContext context = new JellyContext();
-        URL url = this.getClass().getResource("doctypeDefinitionXXE.jelly");
-        try
-        {
-            context.runScript(url, null);
-        } catch (JellyException e) {
-            Throwable cause = e.getCause();
-            if (cause instanceof java.net.ConnectException) {
-                fail("doctypeDefinitionXXE.jelly attempted to connect to http://127.0.0.1:4444");
-            } else if (cause instanceof org.xml.sax.SAXParseException) {
-                // Success.
-            } else {
-                fail("Unknown exception: " + e.getMessage());
-            }
-        }
-    }
-
     public void testDoctypeDefinitionXXEAllowDTDCalls() throws JellyException
     {
         JellyContext context = new JellyContext();
@@ -65,6 +46,25 @@ public class TestDoctypeDefinitionXXE extends TestCase
                 //success
             } else if (cause instanceof org.xml.sax.SAXParseException) {
                 fail("doctypeDefinitionXXE.jelly did not attempt to connect to http://127.0.0.1:4444");
+            } else {
+                fail("Unknown exception: " + e.getMessage());
+            }
+        }
+    }
+
+    public void testDoctypeDefinitionXXEDefaultMode() throws JellyException
+    {
+        JellyContext context = new JellyContext();
+        URL url = this.getClass().getResource("doctypeDefinitionXXE.jelly");
+        try
+        {
+            context.runScript(url, null);
+        } catch (JellyException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof java.net.ConnectException) {
+                fail("doctypeDefinitionXXE.jelly attempted to connect to http://127.0.0.1:4444");
+            } else if (cause instanceof org.xml.sax.SAXParseException) {
+                // Success.
             } else {
                 fail("Unknown exception: " + e.getMessage());
             }

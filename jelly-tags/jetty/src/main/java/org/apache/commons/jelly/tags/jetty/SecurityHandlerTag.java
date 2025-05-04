@@ -145,6 +145,74 @@ public class SecurityHandlerTag extends TagSupport {
 
     }
 
+    /**
+     * Getter for property authenticationMethod.
+     *
+     * @return value of property authenticationMethod.
+     */
+    public String getauthenticationMethod() {
+        return _authenticationMethod;
+    }
+
+    /*
+     * This is the code from Jetty's WebApplicationContext
+     * with the HttpContextTag parameter added
+     *
+     *
+     * Process a parsed XML node to setup the authenticator and realm
+     * for an http server
+     *
+     * @param node the parsed XML starting node of the login configuration
+     * @param httpContext the tag to add the authenticator and realm to
+    */
+    protected void initLoginConfig(XmlParser.Node node,
+                                   HttpContextTag httpContext)
+    {
+        XmlParser.Node method=node.get("auth-method");
+        if (method!=null)
+        {
+            Authenticator authenticator=null;
+            String m=method.toString(false,true);
+
+            if (SecurityConstraint.__FORM_AUTH.equals(m))
+                authenticator=_formAuthenticator=new FormAuthenticator();
+            else if (SecurityConstraint.__BASIC_AUTH.equals(m))
+                authenticator=new BasicAuthenticator();
+            else if (SecurityConstraint.__DIGEST_AUTH.equals(m))
+                authenticator=new DigestAuthenticator();
+            else if (SecurityConstraint.__CERT_AUTH.equals(m))
+                authenticator=new ClientCertAuthenticator();
+            else
+                Code.warning("UNKNOWN AUTH METHOD: "+m);
+
+            httpContext.setAuthenticator(authenticator);
+        }
+
+        XmlParser.Node name=node.get("realm-name");
+        if (name!=null)
+            httpContext.setRealmName(name.toString(false,true));
+
+        XmlParser.Node formConfig = node.get("form-login-config");
+        if (formConfig != null)
+        {
+            if (_formAuthenticator==null)
+                Code.warning("FORM Authentication miss-configured");
+            else
+            {
+                XmlParser.Node loginPage = formConfig.get("form-login-page");
+                if (loginPage != null)
+                    _formAuthenticator.setLoginPage(loginPage.toString(false,true));
+                XmlParser.Node errorPage = formConfig.get("form-error-page");
+                if (errorPage != null)
+                    _formAuthenticator.setErrorPage(errorPage.toString(false,true));
+            }
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    // Property accessors/mutators
+    //--------------------------------------------------------------------------
+
     /*
      * This is the code from Jetty's WebApplicationContext
      * with the HttpContextTag parameter added
@@ -213,74 +281,6 @@ public class SecurityHandlerTag extends TagSupport {
                 httpContext.addSecurityConstraint(url,sc);
             }
         }
-    }
-
-    /*
-     * This is the code from Jetty's WebApplicationContext
-     * with the HttpContextTag parameter added
-     *
-     *
-     * Process a parsed XML node to setup the authenticator and realm
-     * for an http server
-     *
-     * @param node the parsed XML starting node of the login configuration
-     * @param httpContext the tag to add the authenticator and realm to
-    */
-    protected void initLoginConfig(XmlParser.Node node,
-                                   HttpContextTag httpContext)
-    {
-        XmlParser.Node method=node.get("auth-method");
-        if (method!=null)
-        {
-            Authenticator authenticator=null;
-            String m=method.toString(false,true);
-
-            if (SecurityConstraint.__FORM_AUTH.equals(m))
-                authenticator=_formAuthenticator=new FormAuthenticator();
-            else if (SecurityConstraint.__BASIC_AUTH.equals(m))
-                authenticator=new BasicAuthenticator();
-            else if (SecurityConstraint.__DIGEST_AUTH.equals(m))
-                authenticator=new DigestAuthenticator();
-            else if (SecurityConstraint.__CERT_AUTH.equals(m))
-                authenticator=new ClientCertAuthenticator();
-            else
-                Code.warning("UNKNOWN AUTH METHOD: "+m);
-
-            httpContext.setAuthenticator(authenticator);
-        }
-
-        XmlParser.Node name=node.get("realm-name");
-        if (name!=null)
-            httpContext.setRealmName(name.toString(false,true));
-
-        XmlParser.Node formConfig = node.get("form-login-config");
-        if (formConfig != null)
-        {
-            if (_formAuthenticator==null)
-                Code.warning("FORM Authentication miss-configured");
-            else
-            {
-                XmlParser.Node loginPage = formConfig.get("form-login-page");
-                if (loginPage != null)
-                    _formAuthenticator.setLoginPage(loginPage.toString(false,true));
-                XmlParser.Node errorPage = formConfig.get("form-error-page");
-                if (errorPage != null)
-                    _formAuthenticator.setErrorPage(errorPage.toString(false,true));
-            }
-        }
-    }
-
-    //--------------------------------------------------------------------------
-    // Property accessors/mutators
-    //--------------------------------------------------------------------------
-
-    /**
-     * Getter for property authenticationMethod.
-     *
-     * @return value of property authenticationMethod.
-     */
-    public String getauthenticationMethod() {
-        return _authenticationMethod;
     }
 
     /**

@@ -26,12 +26,12 @@ import junit.framework.TestSuite;
  */
 public class TestInvokeStaticTag extends BaseJellyTest {
 
-    public TestInvokeStaticTag(String name) {
-        super(name);
-    }
-
     public static TestSuite suite() throws Exception {
         return new TestSuite(TestInvokeStaticTag.class);
+    }
+
+    public TestInvokeStaticTag(String name) {
+        super(name);
     }
 
     @Override
@@ -44,38 +44,34 @@ public class TestInvokeStaticTag extends BaseJellyTest {
         super.tearDown();
     }
 
-    /**
-     *  Gets the System property 'java.runtime.version' and compares it with,
-     *  well, the same system property
-     */
-     public void testSimpleSystemInvoke() throws Exception {
+    public void testInvokeThatDoesNotHandleException() throws Exception {
         setUpScript( "testInvokeStaticTag.jelly" );
         Script script = getJelly().compileScript();
-
-        getJellyContext().setVariable( "test.simpleSystemInvoke",Boolean.TRUE );
-
-        getJellyContext().setVariable( "propertyName", "java.runtime.version" );
-        script.run( getJellyContext(),getXMLOutput() );
-
-        assertTrue( System.getProperty( "java.runtime.version" ).equals( getJellyContext().getVariable("propertyName" ) ) );
+        getJellyContext().setVariable("test.invokeThatDoesNotHandleException",Boolean.TRUE);
+        script.run(getJellyContext(),getXMLOutput());
+        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        assertNotNull( exceptionMessage );
+        JellyException jellyException = (JellyException) getJellyContext().getVariable("jellyException");
+        assertNotNull( jellyException );
+        assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
+        assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
+                exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
+        assertNotNull( jellyException.getCause() );
+        assertEquals( exceptionMessage, jellyException.getCause().getMessage() );
     }
 
-     /**
-     *  Sets the System property 'TEST PROPERTY' to the value 'Jelly is cool' and compares it with,
-     *  well, the same system property
-     */
-    public void testSystemInvoke() throws Exception {
+     public void testInvokeThatThrowsException() throws Exception {
         setUpScript( "testInvokeStaticTag.jelly" );
         Script script = getJelly().compileScript();
-
-        getJellyContext().setVariable( "test.systemInvoke",Boolean.TRUE );
-
-        getJellyContext().setVariable( "propertyName", "TEST PROPERTY" );
-        getJellyContext().setVariable( "propertyValue", "Jelly is cool" );
-        script.run( getJellyContext(),getXMLOutput() );
-
-        assertTrue( System.getProperty( "TEST PROPERTY" ).equals( "Jelly is cool" ) );
-
+        getJellyContext().setVariable("test.invokeThatThrowsException",Boolean.TRUE);
+        script.run(getJellyContext(),getXMLOutput());
+        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        assertNotNull( exceptionMessage );
+        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
+        assertNull( jellyException );
+        Exception exception = (Exception) getJellyContext().getVariable("exceptionThrown");
+        assertNotNull( exception );
+        assertEquals( exceptionMessage, exception.getMessage() );
     }
 
      /**
@@ -103,34 +99,38 @@ public class TestInvokeStaticTag extends BaseJellyTest {
 
     }
 
-    public void testInvokeThatThrowsException() throws Exception {
+    /**
+     *  Gets the System property 'java.runtime.version' and compares it with,
+     *  well, the same system property
+     */
+     public void testSimpleSystemInvoke() throws Exception {
         setUpScript( "testInvokeStaticTag.jelly" );
         Script script = getJelly().compileScript();
-        getJellyContext().setVariable("test.invokeThatThrowsException",Boolean.TRUE);
-        script.run(getJellyContext(),getXMLOutput());
-        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
-        assertNotNull( exceptionMessage );
-        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
-        assertNull( jellyException );
-        Exception exception = (Exception) getJellyContext().getVariable("exceptionThrown");
-        assertNotNull( exception );
-        assertEquals( exceptionMessage, exception.getMessage() );
+
+        getJellyContext().setVariable( "test.simpleSystemInvoke",Boolean.TRUE );
+
+        getJellyContext().setVariable( "propertyName", "java.runtime.version" );
+        script.run( getJellyContext(),getXMLOutput() );
+
+        assertTrue( System.getProperty( "java.runtime.version" ).equals( getJellyContext().getVariable("propertyName" ) ) );
     }
 
-    public void testInvokeThatDoesNotHandleException() throws Exception {
+    /**
+     *  Sets the System property 'TEST PROPERTY' to the value 'Jelly is cool' and compares it with,
+     *  well, the same system property
+     */
+    public void testSystemInvoke() throws Exception {
         setUpScript( "testInvokeStaticTag.jelly" );
         Script script = getJelly().compileScript();
-        getJellyContext().setVariable("test.invokeThatDoesNotHandleException",Boolean.TRUE);
-        script.run(getJellyContext(),getXMLOutput());
-        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
-        assertNotNull( exceptionMessage );
-        JellyException jellyException = (JellyException) getJellyContext().getVariable("jellyException");
-        assertNotNull( jellyException );
-        assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
-        assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
-                exceptionMessage+"'", jellyException.getMessage().endsWith(exceptionMessage) );
-        assertNotNull( jellyException.getCause() );
-        assertEquals( exceptionMessage, jellyException.getCause().getMessage() );
+
+        getJellyContext().setVariable( "test.systemInvoke",Boolean.TRUE );
+
+        getJellyContext().setVariable( "propertyName", "TEST PROPERTY" );
+        getJellyContext().setVariable( "propertyValue", "Jelly is cool" );
+        script.run( getJellyContext(),getXMLOutput() );
+
+        assertTrue( System.getProperty( "TEST PROPERTY" ).equals( "Jelly is cool" ) );
+
     }
 
 }

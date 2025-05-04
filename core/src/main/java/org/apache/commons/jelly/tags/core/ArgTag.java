@@ -42,29 +42,164 @@ public class ArgTag extends BaseClassLoaderTag {
     // constructors
     //-------------------------------------------------------------------------
 
-    public ArgTag() {
-    }
+    /** My bag of converters, by target Class */
+    private static Map converterMap = new HashMap();
 
     // attribute setters
     //-------------------------------------------------------------------------
 
-    /**
-     * The name of the argument class or type, if any.
-     * This may be a fully specified class name or
-     * a primitive type name
-     * (<code>boolean</code>, <code>int</code>, <code>double</code>, etc.).
-     */
-    public void setType(String type) {
-        this.typeString = type;
+    // these inner classes should probably move to beanutils
+    static {
+        {
+            Converter c = new BooleanConverter();
+            converterMap.put(Boolean.TYPE, c);
+            converterMap.put(Boolean.class, c);
+        }
+        {
+            Converter c = new CharacterConverter();
+            converterMap.put(Character.TYPE, c);
+            converterMap.put(Character.class, c);
+        }
+        {
+            Converter c = new Converter() {
+                private Converter inner = new ByteConverter();
+
+                @Override
+                public Object convert(Class klass, Object value) {
+                    if (value instanceof Number) {
+                        return Byte.valueOf(((Number) value).byteValue());
+                    } else {
+                        return inner.convert(klass, value);
+                    }
+                }
+            };
+            converterMap.put(Byte.TYPE, c);
+            converterMap.put(Byte.class, c);
+        }
+        {
+            Converter c = new Converter() {
+                private Converter inner = new ShortConverter();
+
+                @Override
+                public Object convert(Class klass, Object value) {
+                    if (value instanceof Number) {
+                        return Short.valueOf(((Number) value).shortValue());
+                    } else {
+                        return inner.convert(klass, value);
+                    }
+                }
+            };
+            converterMap.put(Short.TYPE, c);
+            converterMap.put(Short.class, c);
+        }
+        {
+            Converter c = new Converter() {
+                private Converter inner = new IntegerConverter();
+
+                @Override
+                public Object convert(Class klass, Object value) {
+                    if (value instanceof Number) {
+                        return Integer.valueOf(((Number) value).intValue());
+                    } else {
+                        return inner.convert(klass, value);
+                    }
+                }
+            };
+            converterMap.put(Integer.TYPE, c);
+            converterMap.put(Integer.class, c);
+        }
+        {
+            Converter c = new Converter() {
+                private Converter inner = new LongConverter();
+
+                @Override
+                public Object convert(Class klass, Object value) {
+                    if (value instanceof Number) {
+                        return Long.valueOf(((Number) value).longValue());
+                    } else {
+                        return inner.convert(klass, value);
+                    }
+                }
+            };
+            converterMap.put(Long.TYPE, c);
+            converterMap.put(Long.class, c);
+        }
+        {
+            Converter c = new Converter() {
+                private Converter inner = new FloatConverter();
+
+                @Override
+                public Object convert(Class klass, Object value) {
+                    if (value instanceof Number) {
+                        return Float.valueOf(((Number) value).floatValue());
+                    } else {
+                        return inner.convert(klass, value);
+                    }
+                }
+            };
+            converterMap.put(Float.TYPE, c);
+            converterMap.put(Float.class, c);
+        }
+        {
+            Converter c = new Converter() {
+                private Converter inner = new DoubleConverter();
+
+                @Override
+                public Object convert(Class klass, Object value) {
+                    if (value instanceof Number) {
+                        return Double.valueOf(((Number) value).doubleValue());
+                    } else {
+                        return inner.convert(klass, value);
+                    }
+                }
+            };
+            converterMap.put(Double.TYPE, c);
+            converterMap.put(Double.class, c);
+        }
     }
 
-    /** The (possibly null) value of this argument. */
-    public void setValue(Object value) {
-        this.value= value;
+    private static Object convert(Class klass, Object value) throws JellyTagException {
+        if (null == value) {
+            return null;
+        } else if (!klass.isInstance(value)) {
+            Converter converter = (Converter) (converterMap.get(klass));
+            if (null == converter) {
+                throw new JellyTagException("Can't convert " + value + " to " + klass);
+            }
+            try {
+                return converter.convert(klass, value);
+            } catch (ConversionException e) {
+                throw new JellyTagException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")", e);
+            }
+        } else {
+            return value;
+        }
+
     }
 
     // tag methods
     //-------------------------------------------------------------------------
+
+    /** The name of the parameter type, if any. */
+    private String typeString;
+
+    // private methods
+    //-------------------------------------------------------------------------
+
+    /** The value of the parameter, if any */
+    private Object value;
+
+    public ArgTag() {
+    }
+
+    // attributes
+    //-------------------------------------------------------------------------
+
+    private void assertNotNull(Object value) throws JellyTagException {
+        if (null == value) {
+            throw new JellyTagException("A " + typeString + " instance cannot be null.");
+        }
+    }
 
     @Override
     public void doTag(XMLOutput output) throws JellyTagException {
@@ -131,159 +266,24 @@ public class ArgTag extends BaseClassLoaderTag {
         }
     }
 
-    // private methods
+    // static stuff
     //-------------------------------------------------------------------------
-
-    private void assertNotNull(Object value) throws JellyTagException {
-        if (null == value) {
-            throw new JellyTagException("A " + typeString + " instance cannot be null.");
-        }
-    }
 
     private boolean isInstanceOf(Class klass, Object value) {
         return (null == value || (klass.isInstance(value)));
     }
 
-    // attributes
-    //-------------------------------------------------------------------------
-
-    /** The name of the parameter type, if any. */
-    private String typeString;
-
-    /** The value of the parameter, if any */
-    private Object value;
-
-    // static stuff
-    //-------------------------------------------------------------------------
-
-    private static Object convert(Class klass, Object value) throws JellyTagException {
-        if (null == value) {
-            return null;
-        } else if (!klass.isInstance(value)) {
-            Converter converter = (Converter) (converterMap.get(klass));
-            if (null == converter) {
-                throw new JellyTagException("Can't convert " + value + " to " + klass);
-            }
-            try {
-                return converter.convert(klass, value);
-            } catch (ConversionException e) {
-                throw new JellyTagException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")", e);
-            }
-        } else {
-            return value;
-        }
-
+    /**
+     * The name of the argument class or type, if any.
+     * This may be a fully specified class name or
+     * a primitive type name
+     * (<code>boolean</code>, <code>int</code>, <code>double</code>, etc.).
+     */
+    public void setType(String type) {
+        this.typeString = type;
     }
-
-    /** My bag of converters, by target Class */
-    private static Map converterMap = new HashMap();
-    // these inner classes should probably move to beanutils
-    static {
-        {
-            Converter c = new BooleanConverter();
-            converterMap.put(Boolean.TYPE, c);
-            converterMap.put(Boolean.class, c);
-        }
-        {
-            Converter c = new CharacterConverter();
-            converterMap.put(Character.TYPE, c);
-            converterMap.put(Character.class, c);
-        }
-        {
-            Converter c = new Converter() {
-                @Override
-                public Object convert(Class klass, Object value) {
-                    if (value instanceof Number) {
-                        return Byte.valueOf(((Number) value).byteValue());
-                    } else {
-                        return inner.convert(klass, value);
-                    }
-                }
-
-                private Converter inner = new ByteConverter();
-            };
-            converterMap.put(Byte.TYPE, c);
-            converterMap.put(Byte.class, c);
-        }
-        {
-            Converter c = new Converter() {
-                @Override
-                public Object convert(Class klass, Object value) {
-                    if (value instanceof Number) {
-                        return Short.valueOf(((Number) value).shortValue());
-                    } else {
-                        return inner.convert(klass, value);
-                    }
-                }
-
-                private Converter inner = new ShortConverter();
-            };
-            converterMap.put(Short.TYPE, c);
-            converterMap.put(Short.class, c);
-        }
-        {
-            Converter c = new Converter() {
-                @Override
-                public Object convert(Class klass, Object value) {
-                    if (value instanceof Number) {
-                        return Integer.valueOf(((Number) value).intValue());
-                    } else {
-                        return inner.convert(klass, value);
-                    }
-                }
-
-                private Converter inner = new IntegerConverter();
-            };
-            converterMap.put(Integer.TYPE, c);
-            converterMap.put(Integer.class, c);
-        }
-        {
-            Converter c = new Converter() {
-                @Override
-                public Object convert(Class klass, Object value) {
-                    if (value instanceof Number) {
-                        return Long.valueOf(((Number) value).longValue());
-                    } else {
-                        return inner.convert(klass, value);
-                    }
-                }
-
-                private Converter inner = new LongConverter();
-            };
-            converterMap.put(Long.TYPE, c);
-            converterMap.put(Long.class, c);
-        }
-        {
-            Converter c = new Converter() {
-                @Override
-                public Object convert(Class klass, Object value) {
-                    if (value instanceof Number) {
-                        return Float.valueOf(((Number) value).floatValue());
-                    } else {
-                        return inner.convert(klass, value);
-                    }
-                }
-
-                private Converter inner = new FloatConverter();
-            };
-            converterMap.put(Float.TYPE, c);
-            converterMap.put(Float.class, c);
-        }
-        {
-            Converter c = new Converter() {
-                @Override
-                public Object convert(Class klass, Object value) {
-                    if (value instanceof Number) {
-                        return Double.valueOf(((Number) value).doubleValue());
-                    } else {
-                        return inner.convert(klass, value);
-                    }
-                }
-
-                private Converter inner = new DoubleConverter();
-            };
-            converterMap.put(Double.TYPE, c);
-            converterMap.put(Double.class, c);
-        }
+    /** The (possibly null) value of this argument. */
+    public void setValue(Object value) {
+        this.value= value;
     }
 }

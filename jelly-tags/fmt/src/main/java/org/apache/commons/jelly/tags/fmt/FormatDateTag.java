@@ -47,6 +47,38 @@ public class FormatDateTag extends TagSupport {
     private static final String TIME = "time";
     private static final String DATETIME = "both";
 
+    /*
+     * Converts the given string description of a formatting style for
+     * dates and times to the corresponding java.util.DateFormat constant.
+     *
+     * @param style String description of formatting style for dates and times
+     * @param errCode Error code to throw if given style is invalid
+     * @return java.util.DateFormat constant corresponding to given style
+     * @throws JellyException if the given style is invalid
+     */
+    public static int getStyle(String style, String errCode)
+    throws JellyTagException {
+        int ret = DateFormat.DEFAULT;
+
+        if (style != null) {
+            if (DEFAULT.equalsIgnoreCase(style)) {
+                ret = DateFormat.DEFAULT;
+            } else if (SHORT.equalsIgnoreCase(style)) {
+                ret = DateFormat.SHORT;
+            } else if (MEDIUM.equalsIgnoreCase(style)) {
+                ret = DateFormat.MEDIUM;
+            } else if (LONG.equalsIgnoreCase(style)) {
+                ret = DateFormat.LONG;
+            } else if (FULL.equalsIgnoreCase(style)) {
+                ret = DateFormat.FULL;
+            } else {
+                throw new JellyTagException("Invalid style " + errCode);
+            }
+        }
+
+        return ret;
+    }
+
     /** Holds value of property value. */
     private Expression value;
 
@@ -70,16 +102,39 @@ public class FormatDateTag extends TagSupport {
 
     /** Holds value of property scope. */
     private String scope;
-
     /** Evaluated type */
     private String etype;
     /** Evaluated dateStyle */
     private String edateStyle;
+
     /** Evaluated timeStyle */
     private String etimeStyle;
 
     /** Creates a new instance of FormatDateTag */
     public FormatDateTag() {
+    }
+
+    private DateFormat createFormatter(Locale loc) throws JellyTagException {
+        DateFormat formatter = null;
+
+        if ((etype == null) || DATE.equalsIgnoreCase(etype)) {
+            formatter = DateFormat.getDateInstance(
+            getStyle(edateStyle, "FORMAT_DATE_INVALID_DATE_STYLE"),
+            loc);
+        } else if (TIME.equalsIgnoreCase(etype)) {
+            formatter = DateFormat.getTimeInstance(
+            getStyle(etimeStyle, "FORMAT_DATE_INVALID_TIME_STYLE"),
+            loc);
+        } else if (DATETIME.equalsIgnoreCase(etype)) {
+            formatter = DateFormat.getDateTimeInstance(
+            getStyle(edateStyle, "FORMAT_DATE_INVALID_DATE_STYLE"),
+            getStyle(etimeStyle, "FORMAT_DATE_INVALID_TIME_STYLE"),
+            loc);
+        } else {
+            throw new JellyTagException("Date format invalue");
+        }
+
+        return formatter;
     }
 
     /**
@@ -202,36 +257,12 @@ public class FormatDateTag extends TagSupport {
         }
     }
 
-    /** Setter for property value.
-     * @param value New value of property value.
-     *
-     */
-    public void setValue(Expression value) {
-        this.value = value;
-    }
-
-    /** Setter for property type.
-     * @param type New value of property type.
-     *
-     */
-    public void setType(Expression type) {
-        this.type = type;
-    }
-
     /** Setter for property dateStyle.
      * @param dateStyle New value of property dateStyle.
      *
      */
     public void setDateStyle(Expression dateStyle) {
         this.dateStyle = dateStyle;
-    }
-
-    /** Setter for property timeStyle.
-     * @param timeStyle New value of property timeStyle.
-     *
-     */
-    public void setTimeStyle(Expression timeStyle) {
-        this.timeStyle = timeStyle;
     }
 
     /** Setter for property pattern.
@@ -242,22 +273,6 @@ public class FormatDateTag extends TagSupport {
         this.pattern = pattern;
     }
 
-    /** Setter for property timeZone.
-     * @param timeZone New value of property timeZone.
-     *
-     */
-    public void setTimeZone(Expression timeZone) {
-        this.timeZone = timeZone;
-    }
-
-    /** Setter for property var.
-     * @param var New value of property var.
-     *
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
     /** Setter for property scope.
      * @param scope New value of property scope.
      *
@@ -266,62 +281,47 @@ public class FormatDateTag extends TagSupport {
         this.scope = scope;
     }
 
+    /** Setter for property timeStyle.
+     * @param timeStyle New value of property timeStyle.
+     *
+     */
+    public void setTimeStyle(Expression timeStyle) {
+        this.timeStyle = timeStyle;
+    }
+
+    /** Setter for property timeZone.
+     * @param timeZone New value of property timeZone.
+     *
+     */
+    public void setTimeZone(Expression timeZone) {
+        this.timeZone = timeZone;
+    }
+
+    /** Setter for property type.
+     * @param type New value of property type.
+     *
+     */
+    public void setType(Expression type) {
+        this.type = type;
+    }
+
     //*********************************************************************
     // Private utility methods
 
-    private DateFormat createFormatter(Locale loc) throws JellyTagException {
-        DateFormat formatter = null;
-
-        if ((etype == null) || DATE.equalsIgnoreCase(etype)) {
-            formatter = DateFormat.getDateInstance(
-            getStyle(edateStyle, "FORMAT_DATE_INVALID_DATE_STYLE"),
-            loc);
-        } else if (TIME.equalsIgnoreCase(etype)) {
-            formatter = DateFormat.getTimeInstance(
-            getStyle(etimeStyle, "FORMAT_DATE_INVALID_TIME_STYLE"),
-            loc);
-        } else if (DATETIME.equalsIgnoreCase(etype)) {
-            formatter = DateFormat.getDateTimeInstance(
-            getStyle(edateStyle, "FORMAT_DATE_INVALID_DATE_STYLE"),
-            getStyle(etimeStyle, "FORMAT_DATE_INVALID_TIME_STYLE"),
-            loc);
-        } else {
-            throw new JellyTagException("Date format invalue");
-        }
-
-        return formatter;
+    /** Setter for property value.
+     * @param value New value of property value.
+     *
+     */
+    public void setValue(Expression value) {
+        this.value = value;
     }
 
-    /*
-     * Converts the given string description of a formatting style for
-     * dates and times to the corresponding java.util.DateFormat constant.
+    /** Setter for property var.
+     * @param var New value of property var.
      *
-     * @param style String description of formatting style for dates and times
-     * @param errCode Error code to throw if given style is invalid
-     * @return java.util.DateFormat constant corresponding to given style
-     * @throws JellyException if the given style is invalid
      */
-    public static int getStyle(String style, String errCode)
-    throws JellyTagException {
-        int ret = DateFormat.DEFAULT;
-
-        if (style != null) {
-            if (DEFAULT.equalsIgnoreCase(style)) {
-                ret = DateFormat.DEFAULT;
-            } else if (SHORT.equalsIgnoreCase(style)) {
-                ret = DateFormat.SHORT;
-            } else if (MEDIUM.equalsIgnoreCase(style)) {
-                ret = DateFormat.MEDIUM;
-            } else if (LONG.equalsIgnoreCase(style)) {
-                ret = DateFormat.LONG;
-            } else if (FULL.equalsIgnoreCase(style)) {
-                ret = DateFormat.FULL;
-            } else {
-                throw new JellyTagException("Invalid style " + errCode);
-            }
-        }
-
-        return ret;
+    public void setVar(String var) {
+        this.var = var;
     }
 
 }

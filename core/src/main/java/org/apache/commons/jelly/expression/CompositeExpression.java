@@ -31,22 +31,6 @@ import org.apache.commons.jelly.JellyException;
  */
 public class CompositeExpression extends ExpressionSupport {
 
-    /** The expressions */
-    private List expressions;
-
-    public CompositeExpression() {
-        this.expressions = new ArrayList();
-    }
-
-    public CompositeExpression(List expressions) {
-        this.expressions = expressions;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "[expressions=" + expressions +"]";
-    }
-
     /**
      * Parses the given String to be either a ConstantExpression, an Expression denoted as
      * "${foo}" or some String with embedded expressions such as "abc${something}def${else}xyz"
@@ -203,22 +187,14 @@ public class CompositeExpression extends ExpressionSupport {
         return answer;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
+    /** The expressions */
+    private List expressions;
 
-    /**
-     * @return the Expression objects that make up this
-     * composite expression
-     */
-    public List getExpressions() {
-        return expressions;
+    public CompositeExpression() {
+        this.expressions = new ArrayList();
     }
 
-    /**
-     * Sets the Expression objects that make up this
-     * composite expression
-     */
-    public void setExpressions(List expressions) {
+    public CompositeExpression(List expressions) {
         this.expressions = expressions;
     }
 
@@ -229,6 +205,9 @@ public class CompositeExpression extends ExpressionSupport {
         expressions.add(expression);
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
+
     /**
      * A helper method to add a new constant text expression
      */
@@ -236,23 +215,22 @@ public class CompositeExpression extends ExpressionSupport {
         addExpression(new ConstantExpression(text));
     }
 
-    // Expression interface
-    //-------------------------------------------------------------------------
-
-    @Override
-    public String getExpressionText() {
-        StringBuilder buffer = new StringBuilder();
-        for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
-            Expression expression = (Expression) iter.next();
-            buffer.append( expression.getExpressionText() );
-        }
-        return buffer.toString();
-    }
-
     // inherit javadoc from interface
     @Override
     public Object evaluate(JellyContext context) {
         return evaluateAsString(context);
+    }
+
+    // inherit javadoc from interface
+    @Override
+    public Iterator evaluateAsIterator(JellyContext context) {
+        String value = evaluateAsString(context);
+        if ( value == null ) {
+            return Collections.EMPTY_LIST.iterator();
+        }
+        else {
+            return new SingletonIterator( value );
+        }
     }
 
     // inherit javadoc from interface
@@ -270,15 +248,37 @@ public class CompositeExpression extends ExpressionSupport {
 
     }
 
-    // inherit javadoc from interface
+    // Expression interface
+    //-------------------------------------------------------------------------
+
+    /**
+     * @return the Expression objects that make up this
+     * composite expression
+     */
+    public List getExpressions() {
+        return expressions;
+    }
+
     @Override
-    public Iterator evaluateAsIterator(JellyContext context) {
-        String value = evaluateAsString(context);
-        if ( value == null ) {
-            return Collections.EMPTY_LIST.iterator();
+    public String getExpressionText() {
+        StringBuilder buffer = new StringBuilder();
+        for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
+            Expression expression = (Expression) iter.next();
+            buffer.append( expression.getExpressionText() );
         }
-        else {
-            return new SingletonIterator( value );
-        }
+        return buffer.toString();
+    }
+
+    /**
+     * Sets the Expression objects that make up this
+     * composite expression
+     */
+    public void setExpressions(List expressions) {
+        this.expressions = expressions;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[expressions=" + expressions +"]";
     }
 }

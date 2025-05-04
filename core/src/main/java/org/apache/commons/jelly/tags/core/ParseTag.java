@@ -62,6 +62,26 @@ public class ParseTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
 
+    /**
+     * Factory method to create a new Jelly parser
+     * @return XMLParser
+     */
+    protected XMLParser createJellyParser() {
+        XMLParser answer = new XMLParser();
+        answer.setContext(context);
+        return answer;
+    }
+
+    /**
+     * Factory method to create a new XMLReader
+     */
+    protected XMLReader createXMLReader() throws ParserConfigurationException, SAXException {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setNamespaceAware(true);
+        SAXParser parser = factory.newSAXParser();
+        return parser.getXMLReader();
+    }
+
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
@@ -87,49 +107,6 @@ public class ParseTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    /** The variable name that will be used for the Document variable created
-     */
-    public String getVar() {
-        return var;
-    }
-
-    /** Sets the variable name that will be used for the Document variable created
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Returns the text to be parsed
-     * @return String
-     */
-    public String getText() {
-        return text;
-    }
-
-    /**
-     * Sets the text to be parsed by this parser
-     * @param text The text to be parsed by this parser
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    /** @return the XMLReader used for parsing, creating one lazily if need be  */
-    public XMLReader getXMLReader() throws ParserConfigurationException, SAXException {
-        if (xmlReader == null) {
-            xmlReader = createXMLReader();
-        }
-        return xmlReader;
-    }
-
-    /** Sets the XMLReader used for parsing */
-    public void setXMLReader(XMLReader xmlReader) {
-        this.xmlReader = xmlReader;
-    }
-
     /**
      * @return XMLParser
      */
@@ -141,24 +118,27 @@ public class ParseTag extends TagSupport {
     }
 
     /**
-     * Sets the jellyParser.
-     * @param jellyParser The jellyParser to set
+     * Returns the text to be parsed
+     * @return String
      */
-    public void setJellyParser(XMLParser jellyParser) {
-        this.jellyParser = jellyParser;
+    public String getText() {
+        return text;
     }
 
-    // Implementation methods
+    // Properties
     //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a new XMLReader
+    /** The variable name that will be used for the Document variable created
      */
-    protected XMLReader createXMLReader() throws ParserConfigurationException, SAXException {
-        SAXParserFactory factory = SAXParserFactory.newInstance();
-        factory.setNamespaceAware(true);
-        SAXParser parser = factory.newSAXParser();
-        return parser.getXMLReader();
+    public String getVar() {
+        return var;
+    }
+
+    /** @return the XMLReader used for parsing, creating one lazily if need be  */
+    public XMLReader getXMLReader() throws ParserConfigurationException, SAXException {
+        if (xmlReader == null) {
+            xmlReader = createXMLReader();
+        }
+        return xmlReader;
     }
 
     /**
@@ -196,13 +176,33 @@ public class ParseTag extends TagSupport {
         }
     }
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     /**
-     * Factory method to create a new Jelly parser
-     * @return XMLParser
+     * Sets the jellyParser.
+     * @param jellyParser The jellyParser to set
      */
-    protected XMLParser createJellyParser() {
-        XMLParser answer = new XMLParser();
-        answer.setContext(context);
-        return answer;
+    public void setJellyParser(XMLParser jellyParser) {
+        this.jellyParser = jellyParser;
+    }
+
+    /**
+     * Sets the text to be parsed by this parser
+     * @param text The text to be parsed by this parser
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /** Sets the variable name that will be used for the Document variable created
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    /** Sets the XMLReader used for parsing */
+    public void setXMLReader(XMLReader xmlReader) {
+        this.xmlReader = xmlReader;
     }
 }

@@ -43,21 +43,6 @@ public class StringInputStream
     }
 
     /**
-     * Reads from the Stringreader, returning the same value. Note that
-     * data will be lost for characters not in ISO Latin 1. Clients
-     * assuming a return value in the range -1 to 255 may even fail on
-     * such input.
-     *
-     * @return the value of the next character in the StringReader
-     * @throws IOException if the original StringReader fails to be read
-     */
-    @Override
-    public int read() throws IOException
-    {
-        return in.read();
-    }
-
-    /**
      * Closes the Stringreader.
      *
      * @throws IOException if the original StringReader fails to be closed
@@ -88,6 +73,30 @@ public class StringInputStream
     }
 
     /**
+     * @see InputStream#markSupported
+     */
+    @Override
+    public boolean markSupported()
+    {
+        return in.markSupported();
+    }
+
+    /**
+     * Reads from the Stringreader, returning the same value. Note that
+     * data will be lost for characters not in ISO Latin 1. Clients
+     * assuming a return value in the range -1 to 255 may even fail on
+     * such input.
+     *
+     * @return the value of the next character in the StringReader
+     * @throws IOException if the original StringReader fails to be read
+     */
+    @Override
+    public int read() throws IOException
+    {
+        return in.read();
+    }
+
+    /**
      * Resets the StringReader.
      *
      * @throws IOException if the StringReader fails to be reset
@@ -96,15 +105,6 @@ public class StringInputStream
     public synchronized void reset() throws IOException
     {
         in.reset();
-    }
-
-    /**
-     * @see InputStream#markSupported
-     */
-    @Override
-    public boolean markSupported()
-    {
-        return in.markSupported();
     }
 }
 

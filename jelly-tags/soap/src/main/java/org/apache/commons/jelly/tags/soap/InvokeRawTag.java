@@ -151,19 +151,19 @@ public class InvokeRawTag extends TagSupport
     }
 
     /**
-     * Sets the name of the variable to output the results of the SOAP call to.
-     */
-    public void setVar(String var)
-    {
-        this.var = var;
-    }
-    
-    /**
      * The SOAPAction HTTP header.
      */
     public void setSoapAction(String action)
     {
         soapAction = action;
+    }
+    
+    /**
+     * Sets the name of the variable to output the results of the SOAP call to.
+     */
+    public void setVar(String var)
+    {
+        this.var = var;
     }
 
 }

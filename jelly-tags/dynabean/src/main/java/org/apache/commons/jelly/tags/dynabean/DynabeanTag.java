@@ -62,15 +62,15 @@ public class DynabeanTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
+    public String getVar() {
+        return var;
+    }
+
     /**
      * Sets the DynaClass of the new instance to create
      */
     public void setDynaclass(DynaClass dynaClass) {
         this.dynaClass = dynaClass;
-    }
-
-    public String getVar() {
-        return var;
     }
 
     /**

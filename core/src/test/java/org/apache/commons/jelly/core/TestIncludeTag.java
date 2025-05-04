@@ -32,16 +32,39 @@ import junit.framework.TestSuite;
  */
 public class TestIncludeTag extends TestCase {
 
+    private final class CoreTaglibOnlyContext extends JellyContext {
+
+        /**
+         * This implementations makes sure that only "jelly:core"
+         * taglib is instantiated, insuring that "optional" dependencies
+         * are not inadvertantly called.  Specifically addresses a bug
+         * in older Jelly dev versions where a nested include
+         * would trigger instantiation of all tag libraries.
+         *
+         * @param namespaceURI
+         * @return
+         */
+        @Override
+        public TagLibrary getTagLibrary(String namespaceURI)  {
+            if (namespaceURI.equals("jelly:core")) {
+                return super.getTagLibrary(namespaceURI);
+            }
+            throw new NoClassDefFoundError("Unexpected tag library uri: " +
+                                               namespaceURI);
+        }
+
+    }
+    public static TestSuite suite() throws Exception {
+        return new TestSuite(TestIncludeTag.class);
+    }
     Jelly jelly = null;
+
     JellyContext context = null;
+
     XMLOutput xmlOutput = null;
 
     public TestIncludeTag(String name) {
         super(name);
-    }
-
-    public static TestSuite suite() throws Exception {
-        return new TestSuite(TestIncludeTag.class);
     }
 
     public void setUp(String scriptName) throws Exception {
@@ -68,6 +91,25 @@ public class TestIncludeTag extends TestCase {
         String extBase = exturl.substring(0,lastSlash+1);
         URL baseurl = new URL(extBase);
         context.setCurrentURL(baseurl);
+    }
+
+    /**
+     * Insure that includes happen correctly when Jelly scripts
+     * are referenced as a file (rather than as a classpath
+     * element).  Specifically checks to make sure includes succeed
+     * when the initial script is not in the user.dir directory.
+     */
+    public void testFileInclude() throws Exception {
+        // testing outermost
+        setUpFromURL(new URL("file:src/test/resources/org/apache/commons/jelly/core/a.jelly"));
+        Script script = jelly.compileScript();
+        script.run(context,xmlOutput);
+        assertTrue("should have set 'c' variable to 'true'",
+                   context.getVariable("c").equals("true"));
+        assertTrue("should have set 'b' variable to 'true'",
+                   context.getVariable("b").equals("true"));
+        assertTrue("should have set 'a' variable to 'true'",
+                   context.getVariable("a").equals("true"));
     }
 
     public void testInnermost() throws Exception {
@@ -101,48 +143,6 @@ public class TestIncludeTag extends TestCase {
                    context.getVariable("b").equals("true"));
         assertTrue("should have set 'a' variable to 'true'",
                    context.getVariable("a").equals("true"));
-    }
-
-    /**
-     * Insure that includes happen correctly when Jelly scripts
-     * are referenced as a file (rather than as a classpath
-     * element).  Specifically checks to make sure includes succeed
-     * when the initial script is not in the user.dir directory.
-     */
-    public void testFileInclude() throws Exception {
-        // testing outermost
-        setUpFromURL(new URL("file:src/test/resources/org/apache/commons/jelly/core/a.jelly"));
-        Script script = jelly.compileScript();
-        script.run(context,xmlOutput);
-        assertTrue("should have set 'c' variable to 'true'",
-                   context.getVariable("c").equals("true"));
-        assertTrue("should have set 'b' variable to 'true'",
-                   context.getVariable("b").equals("true"));
-        assertTrue("should have set 'a' variable to 'true'",
-                   context.getVariable("a").equals("true"));
-    }
-
-    private final class CoreTaglibOnlyContext extends JellyContext {
-
-        /**
-         * This implementations makes sure that only "jelly:core"
-         * taglib is instantiated, insuring that "optional" dependencies
-         * are not inadvertantly called.  Specifically addresses a bug
-         * in older Jelly dev versions where a nested include
-         * would trigger instantiation of all tag libraries.
-         *
-         * @param namespaceURI
-         * @return
-         */
-        @Override
-        public TagLibrary getTagLibrary(String namespaceURI)  {
-            if (namespaceURI.equals("jelly:core")) {
-                return super.getTagLibrary(namespaceURI);
-            }
-            throw new NoClassDefFoundError("Unexpected tag library uri: " +
-                                               namespaceURI);
-        }
-
     }
 
 }

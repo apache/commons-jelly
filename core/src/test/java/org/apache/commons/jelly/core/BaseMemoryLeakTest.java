@@ -53,6 +53,10 @@ public abstract class BaseMemoryLeakTest extends TestCase {
         super(name);
     }
 
+    protected int outputEveryXIterations() {
+        return 1000;
+    }
+
     /** Runs a script count times and reports the number of bytes "leaked".
      * Note that "leaked" means "not collected by the GC"
      * and can easily be different between JVM's. This is because all 
@@ -152,10 +156,6 @@ public abstract class BaseMemoryLeakTest extends TestCase {
         log.info("Memory test completed, memory \"leaked\": " + (nullsDone - start));
         
         return nullsDone - start;
-    }
-
-    protected int outputEveryXIterations() {
-        return 1000;
     }
 
 }

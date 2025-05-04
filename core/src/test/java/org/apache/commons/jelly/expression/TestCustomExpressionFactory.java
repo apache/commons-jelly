@@ -31,16 +31,24 @@ public class TestCustomExpressionFactory extends BaseJellyTest {
 	private static final String EXPECTED = "id=1; attr=${TEST FACTORY:  1 + 2 }; text=${TEST FACTORY:  'hello' + \" world\" }\n" + 
 				"id=2; attr=${TEST FACTORY:  2 + 3 }; text=<sometag>${TEST FACTORY:  'goodbye cruel' + \" world\" }</sometag>\n";
 
+	public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
+	
+    public static Test suite() {
+        return new TestSuite(TestCustomExpressionFactory.class);
+    }
+
 	public TestCustomExpressionFactory() {
 		super("TestCustomExpressionFactory");
 	}
-	
+
     @Override
     protected void addCustomTagLib(JellyContext context) {
         context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
     }
 
-	public void testCustomFactory() throws Exception {
+    public void testCustomFactory() throws Exception {
 		setUpScript("jelly1.xml");
 		Script script = getJelly().compileScript();
 		script.run(getJellyContext(), getXMLOutput());
@@ -62,13 +70,5 @@ public class TestCustomExpressionFactory extends BaseJellyTest {
 		System.out.println(str);
 		assertEquals(str, EXPECTED); 
 	}
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        return new TestSuite(TestCustomExpressionFactory.class);
-    }
 
 }

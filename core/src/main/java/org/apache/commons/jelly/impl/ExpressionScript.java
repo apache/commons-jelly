@@ -38,26 +38,16 @@ public class ExpressionScript implements Script {
         this.expression = expression;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "[expression=" + expression + "]";
-    }
-
-    /** @return the expression evaluated as a String and output by this script */
-    public Expression getExpression() {
-        return expression;
-    }
-
-    /** Sets the expression evaluated as a String and output by this script */
-    public void setExpression(Expression expression) {
-        this.expression = expression;
-    }
-
     // Script interface
     //-------------------------------------------------------------------------
     @Override
     public Script compile() {
         return this;
+    }
+
+    /** @return the expression evaluated as a String and output by this script */
+    public Expression getExpression() {
+        return expression;
     }
 
     /** Evaluates the body of a tag */
@@ -73,5 +63,15 @@ public class ExpressionScript implements Script {
             }
 
         }
+    }
+
+    /** Sets the expression evaluated as a String and output by this script */
+    public void setExpression(Expression expression) {
+        this.expression = expression;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[expression=" + expression + "]";
     }
 }

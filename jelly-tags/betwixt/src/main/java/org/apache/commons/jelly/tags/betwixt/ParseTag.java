@@ -127,6 +127,12 @@ public class ParseTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
+     * @return the ClassLoader to be used to load bean classes.
+     */
+    protected ClassLoader getClassLoader() {
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
+    }
+    /**
      * @return the introspector to be used, lazily creating one if required.
      */
     public XMLIntrospector getIntrospector() {
@@ -134,54 +140,6 @@ public class ParseTag extends TagSupport {
             introspector = new XMLIntrospector();
         }
         return introspector;
-    }
-    /**
-     * Sets the Betwixt XMLIntrospector instance used to define the metadata for how a
-     * bean should appear as XML.
-     */
-    public void setIntrospector(XMLIntrospector introspector) {
-        this.introspector = introspector;
-    }
-
-    /**
-     * Sets the URI from which XML is parsed. This can be relative to this Jelly script, use
-     * an absolute URI or a full URL
-     */
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    /**
-     * Sets the variable name to output with the result of the XML parse.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Sets the name of the root class to use for parsing the XML
-     */
-    public void setRootClass(String rootClass) {
-        this.rootClass = rootClass;
-    }
-
-    /**
-     * Sets the path that the root class should be bound to.
-     * This is optional and often unnecessary though can be used to ignore some wrapping
-     * elements, such as the &lt;rss&gt; element in the RSS unit test.
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    /**
-     * Sets whether or not the current threads's context class loader
-     * should be used to load the bean classes or not.
-     * This can be useful if running inside a web application or inside some
-     * application server.
-     */
-    public void setUseContextClassLoader(boolean useContextClassLoader) {
-        this.useContextClassLoader = useContextClassLoader;
     }
 
     /**
@@ -194,13 +152,55 @@ public class ParseTag extends TagSupport {
         this.classLoader = classLoader;
     }
 
+    /**
+     * Sets the Betwixt XMLIntrospector instance used to define the metadata for how a
+     * bean should appear as XML.
+     */
+    public void setIntrospector(XMLIntrospector introspector) {
+        this.introspector = introspector;
+    }
+
+    /**
+     * Sets the path that the root class should be bound to.
+     * This is optional and often unnecessary though can be used to ignore some wrapping
+     * elements, such as the &lt;rss&gt; element in the RSS unit test.
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    /**
+     * Sets the name of the root class to use for parsing the XML
+     */
+    public void setRootClass(String rootClass) {
+        this.rootClass = rootClass;
+    }
+
+    /**
+     * Sets the URI from which XML is parsed. This can be relative to this Jelly script, use
+     * an absolute URI or a full URL
+     */
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    /**
+     * Sets whether or not the current threads's context class loader
+     * should be used to load the bean classes or not.
+     * This can be useful if running inside a web application or inside some
+     * application server.
+     */
+    public void setUseContextClassLoader(boolean useContextClassLoader) {
+        this.useContextClassLoader = useContextClassLoader;
+    }
+
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * @return the ClassLoader to be used to load bean classes.
+     * Sets the variable name to output with the result of the XML parse.
      */
-    protected ClassLoader getClassLoader() {
-        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
+    public void setVar(String var) {
+        this.var = var;
     }
 }

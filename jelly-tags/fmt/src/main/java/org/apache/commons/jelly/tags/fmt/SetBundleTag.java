@@ -62,15 +62,15 @@ public class SetBundleTag extends TagSupport {
         }
     }
 
-    public void setVar(String var) {
-        this.var = var;
-    }
-
     public void setBasename(Expression basename) {
         this.basename = basename;
     }
 
     public void setScope(String scope) {
         this.scope = scope;
+    }
+
+    public void setVar(String var) {
+        this.var = var;
     }
 }

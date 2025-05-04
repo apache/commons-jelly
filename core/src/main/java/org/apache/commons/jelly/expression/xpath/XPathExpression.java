@@ -58,16 +58,21 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         this.uris = createUriMap(namespaceContext);
     }
 
-    @Override
-    public String toString() {
-        return getExpressionText();
-    }
-
-    // Expression interface
-    //-------------------------------------------------------------------------
-    @Override
-    public String getExpressionText() {
-        return this.text;
+    /**
+     * Factory method to create a synchronized Map of non-null and non-blank
+     * namespace prefixes to namespace URIs
+     */
+    protected Map createUriMap(Map namespaceContext) {
+        // now lets clone the Map but ignoring default or null prefixes
+        Map uris = new Hashtable(namespaceContext.size());
+        for (Iterator iter = namespaceContext.entrySet().iterator(); iter.hasNext(); ) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String prefix = (String) entry.getKey();
+            if (prefix != null && prefix.length() != 0) {
+                uris.put(prefix, entry.getValue());
+            }
+        }
+        return uris;
     }
 
     @Override
@@ -99,6 +104,13 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         return null;
     }
 
+    // Expression interface
+    //-------------------------------------------------------------------------
+    @Override
+    public String getExpressionText() {
+        return this.text;
+    }
+
     // VariableContext interface
     //-------------------------------------------------------------------------
     @Override
@@ -117,20 +129,8 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     // Implementation methods
     //-------------------------------------------------------------------------
 
-    /**
-     * Factory method to create a synchronized Map of non-null and non-blank
-     * namespace prefixes to namespace URIs
-     */
-    protected Map createUriMap(Map namespaceContext) {
-        // now lets clone the Map but ignoring default or null prefixes
-        Map uris = new Hashtable(namespaceContext.size());
-        for (Iterator iter = namespaceContext.entrySet().iterator(); iter.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String prefix = (String) entry.getKey();
-            if (prefix != null && prefix.length() != 0) {
-                uris.put(prefix, entry.getValue());
-            }
-        }
-        return uris;
+    @Override
+    public String toString() {
+        return getExpressionText();
     }
 }

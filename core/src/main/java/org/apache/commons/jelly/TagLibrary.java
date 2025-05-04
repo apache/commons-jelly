@@ -36,10 +36,7 @@ import org.xml.sax.Attributes;
 
 public abstract class TagLibrary {
 	
-	private boolean allowUnknownTags = true;
-    private Map tags = new HashMap();
-
-    static {
+	static {
 
         // register standard converters
 
@@ -60,6 +57,9 @@ public abstract class TagLibrary {
             File.class
         );
     }
+    private boolean allowUnknownTags = true;
+
+    private Map tags = new HashMap();
 
     /**
 	 * Default Constructor
@@ -76,19 +76,24 @@ public abstract class TagLibrary {
 		this.allowUnknownTags = allowUnknownTags;
 	}
 
-	/** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes)
+	/** Allows taglibs to use their own expression evaluation mechanism */
+    public Expression createExpression(
+        ExpressionFactory factory,
+        TagScript tagScript,
+        String attributeName,
+        String attributeValue)
         throws JellyException {
 
-        Object value = tags.get(name);
-        if (value instanceof Class) {
-            Class type = (Class) value;
-            return TagScript.newInstance(type);
+        ExpressionFactory myFactory = getExpressionFactory();
+        if (myFactory == null) {
+            myFactory = factory;
         }
-        else if (value instanceof TagFactory) {
-            return new TagScript( (TagFactory) value );
+        if (myFactory != null) {
+            return CompositeExpression.parse(attributeValue, myFactory);
         }
-        return null;
+
+        // will use a constant expression instead
+        return new ConstantExpression(attributeValue);
     }
 
     /** Creates a new Tag for the given tag name and attributes */
@@ -111,42 +116,23 @@ public abstract class TagLibrary {
     	return null;
     }
 
-    /** Allows taglibs to use their own expression evaluation mechanism */
-    public Expression createExpression(
-        ExpressionFactory factory,
-        TagScript tagScript,
-        String attributeName,
-        String attributeValue)
+    /** Creates a new script to execute the given tag name and attributes */
+    public TagScript createTagScript(String name, Attributes attributes)
         throws JellyException {
 
-        ExpressionFactory myFactory = getExpressionFactory();
-        if (myFactory == null) {
-            myFactory = factory;
+        Object value = tags.get(name);
+        if (value instanceof Class) {
+            Class type = (Class) value;
+            return TagScript.newInstance(type);
         }
-        if (myFactory != null) {
-            return CompositeExpression.parse(attributeValue, myFactory);
+        else if (value instanceof TagFactory) {
+            return new TagScript( (TagFactory) value );
         }
-
-        // will use a constant expression instead
-        return new ConstantExpression(attributeValue);
+        return null;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
-
-    /**
-     * Registers a tag implementation Class for a given tag name
-     */
-    protected void registerTag(String name, Class type) {
-        tags.put(name, type);
-    }
-
-    /**
-     * Registers a tag factory for a given tag name
-     */
-    protected void registerTagFactory(String name, TagFactory tagFactory) {
-        tags.put(name, tagFactory);
-    }
 
     /** Allows derived tag libraries to use their own factory */
     public ExpressionFactory getExpressionFactory() {
@@ -157,12 +143,26 @@ public abstract class TagLibrary {
         return tags;
     }
 
-	/**
+    /**
 	 * @return the allowUnknownTags
 	 */
 	public boolean isAllowUnknownTags() {
 		return allowUnknownTags;
 	}
+
+    /**
+     * Registers a tag implementation Class for a given tag name
+     */
+    protected void registerTag(String name, Class type) {
+        tags.put(name, type);
+    }
+
+	/**
+     * Registers a tag factory for a given tag name
+     */
+    protected void registerTagFactory(String name, TagFactory tagFactory) {
+        tags.put(name, tagFactory);
+    }
 
 	/**
 	 * @param allowUnknownTags the allowUnknownTags to set

@@ -32,12 +32,12 @@ import junit.framework.TestSuite;
  */
 public class TestUnknownTags extends BaseJellyTest {
 
-	public TestUnknownTags(String name) {
-		super(name);
-	}
-
 	public static TestSuite suite() throws Exception {
 		return new TestSuite(TestUnknownTags.class);
+	}
+
+	public TestUnknownTags(String name) {
+		super(name);
 	}
 
     @Override

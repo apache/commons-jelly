@@ -92,6 +92,32 @@ final class ResultImpl implements Result {
     }
 
     /**
+     * Returns an array of String objects. The array represents
+     * the names of the columns arranged in the same order as in
+     * the getRowsByIndex() method.
+     *
+     * @return an array of String[]
+     */
+    @Override
+    public String[] getColumnNames() {
+        return columnNames;
+    }
+
+    /**
+     * Returns the number of rows in the cached ResultSet
+     *
+     * @return the number of cached rows, or -1 if the Result could
+     *    not be initialized due to SQLExceptions
+     */
+    @Override
+    public int getRowCount() {
+        if (rowMap == null) {
+            return -1;
+        }
+        return rowMap.size();
+    }
+
+    /**
      * Returns an array of SortedMap objects. The SortedMap
      * object key is the ColumnName and the value is the ColumnValue.
      * SortedMap was created using the CASE_INSENSITIVE_ORDER
@@ -125,32 +151,6 @@ final class ResultImpl implements Result {
 
         //should just be able to return Object[][] object
         return (Object [][])rowByIndex.toArray(new Object[0][0]);
-    }
-
-    /**
-     * Returns an array of String objects. The array represents
-     * the names of the columns arranged in the same order as in
-     * the getRowsByIndex() method.
-     *
-     * @return an array of String[]
-     */
-    @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    /**
-     * Returns the number of rows in the cached ResultSet
-     *
-     * @return the number of cached rows, or -1 if the Result could
-     *    not be initialized due to SQLExceptions
-     */
-    @Override
-    public int getRowCount() {
-        if (rowMap == null) {
-            return -1;
-        }
-        return rowMap.size();
     }
 
     /**

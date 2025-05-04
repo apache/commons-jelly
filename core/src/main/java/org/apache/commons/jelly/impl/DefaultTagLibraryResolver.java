@@ -60,6 +60,85 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
     //-------------------------------------------------------------------------
 
     /**
+     * Gets the class loader to be used for instantiating application objects
+     * when required.  This is determined based upon the following rules:
+     * <ul>
+     * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
+     * <li>The thread context class loader, if it exists and the
+     *     <code>useContextClassLoader</code> property is set to true</li>
+     * <li>The class loader used to load the XMLParser class itself.
+     * </ul>
+     */
+    public ClassLoader getClassLoader() {
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /**
+     * @return the DiscoverClasses instance to use to locate services.
+     *  This object is lazily created if it has not been configured.
+     */
+    public DiscoverClasses getDiscoverClasses() {
+        if ( discovery == null ) {
+            ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
+            discovery = new DiscoverClasses(loaders);
+        }
+        return discovery;
+    }
+
+    /**
+     * Gets the boolean as to whether the context classloader should be used.
+     */
+    public boolean getUseContextClassLoader() {
+        return useContextClassLoader;
+    }
+
+    /**
+     * Instantiates the given class name. Otherwise an exception is logged
+     * and null is returned
+     */
+    protected TagLibrary loadClass(String uri, String className) {
+        try {
+            Class theClass = getClassLoader().loadClass(className);
+            if ( theClass != null ) {
+                return newInstance(uri, theClass);
+            }
+        }
+        catch (ClassNotFoundException e) {
+            log.error("Could not find the class: " + className + " when trying to resolve URI: " + uri, e);
+        }
+        return null;
+    }
+
+    /**
+     * Creates a new instance of the given TagLibrary class or
+     * return null if it could not be instantiated.
+     */
+    protected TagLibrary newInstance(String uri, Class theClass) {
+        try {
+            Object object = theClass.newInstance();
+            if (object instanceof TagLibrary) {
+                return (TagLibrary) object;
+            }
+            else {
+                log.error(
+                    "The tag library object mapped to: "
+                        + uri
+                        + " is not a TagLibrary. Object = "
+                        + object);
+            }
+        }
+        catch (Exception e) {
+            log.error(
+                "Could not instantiate instance of class: " + theClass.getName() + ". Reason: " + e,
+                e);
+        }
+        return null;
+    }
+
+    /**
      * Attempts to resolve the given URI to be associated with a TagLibrary
      * otherwise null is returned to indicate no tag library could be found
      * so that the namespace URI should be treated as just vanilla XML.
@@ -106,23 +185,6 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         return null;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Gets the class loader to be used for instantiating application objects
-     * when required.  This is determined based upon the following rules:
-     * <ul>
-     * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
-     * <li>The thread context class loader, if it exists and the
-     *     <code>useContextClassLoader</code> property is set to true</li>
-     * <li>The class loader used to load the XMLParser class itself.
-     * </ul>
-     */
-    public ClassLoader getClassLoader() {
-        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
-    }
-
     /**
      * Sets the class loader to be used for instantiating application objects
      * when required.
@@ -134,11 +196,15 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         this.classLoader = classLoader;
     }
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     /**
-     * Gets the boolean as to whether the context classloader should be used.
+     * Sets the fully configured DiscoverClasses instance to be used to
+     * lookup services
      */
-    public boolean getUseContextClassLoader() {
-        return useContextClassLoader;
+    public void setDiscoverClasses(DiscoverClasses discovery) {
+        this.discovery = discovery;
     }
 
     /**
@@ -152,72 +218,6 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      */
     public void setUseContextClassLoader(boolean use) {
         useContextClassLoader = use;
-    }
-
-    /**
-     * @return the DiscoverClasses instance to use to locate services.
-     *  This object is lazily created if it has not been configured.
-     */
-    public DiscoverClasses getDiscoverClasses() {
-        if ( discovery == null ) {
-            ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
-            discovery = new DiscoverClasses(loaders);
-        }
-        return discovery;
-    }
-
-    /**
-     * Sets the fully configured DiscoverClasses instance to be used to
-     * lookup services
-     */
-    public void setDiscoverClasses(DiscoverClasses discovery) {
-        this.discovery = discovery;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Instantiates the given class name. Otherwise an exception is logged
-     * and null is returned
-     */
-    protected TagLibrary loadClass(String uri, String className) {
-        try {
-            Class theClass = getClassLoader().loadClass(className);
-            if ( theClass != null ) {
-                return newInstance(uri, theClass);
-            }
-        }
-        catch (ClassNotFoundException e) {
-            log.error("Could not find the class: " + className + " when trying to resolve URI: " + uri, e);
-        }
-        return null;
-    }
-
-    /**
-     * Creates a new instance of the given TagLibrary class or
-     * return null if it could not be instantiated.
-     */
-    protected TagLibrary newInstance(String uri, Class theClass) {
-        try {
-            Object object = theClass.newInstance();
-            if (object instanceof TagLibrary) {
-                return (TagLibrary) object;
-            }
-            else {
-                log.error(
-                    "The tag library object mapped to: "
-                        + uri
-                        + " is not a TagLibrary. Object = "
-                        + object);
-            }
-        }
-        catch (Exception e) {
-            log.error(
-                "Could not instantiate instance of class: " + theClass.getName() + ". Reason: " + e,
-                e);
-        }
-        return null;
     }
 
 }

@@ -68,6 +68,25 @@ public class TestCoreTags extends TestCase {
         assertEquals("Produces the correct output", "one two three", text);
     }
 
+    public void testStaticNamespacedAttributes() throws Exception {
+        InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/testStaticNamespacedAttributes.jelly");
+        XMLParser parser = new XMLParser();
+        Script script = parser.parse(in);
+        script = script.compile();
+        log.debug("Found: " + script);
+        JellyContext context = new JellyContext();
+        StringWriter buffer = new StringWriter();
+        script.run(context, XMLOutput.createXMLOutput(buffer));
+        String text = buffer.toString().trim();
+        if (log.isDebugEnabled()) {
+            log.debug("Evaluated script as...");
+            log.debug(text);
+        }
+        assertEquals("Should produces the correct output",
+                "<blip xmlns:blop=\"blop\" blop:x=\"blip\"></blip>",
+                text);
+    }
+
     public void testTrimEndWhitespace() throws Exception {
         TextScript textScript = new TextScript(" ");
         textScript.trimEndWhitespace();
@@ -102,24 +121,5 @@ public class TestCoreTags extends TestCase {
         textScript = new TextScript("foo");
         textScript.trimStartWhitespace();
         assertEquals("foo", textScript.getText());
-    }
-
-    public void testStaticNamespacedAttributes() throws Exception {
-        InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/testStaticNamespacedAttributes.jelly");
-        XMLParser parser = new XMLParser();
-        Script script = parser.parse(in);
-        script = script.compile();
-        log.debug("Found: " + script);
-        JellyContext context = new JellyContext();
-        StringWriter buffer = new StringWriter();
-        script.run(context, XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
-        if (log.isDebugEnabled()) {
-            log.debug("Evaluated script as...");
-            log.debug(text);
-        }
-        assertEquals("Should produces the correct output",
-                "<blip xmlns:blop=\"blop\" blop:x=\"blip\"></blip>",
-                text);
     }
 }

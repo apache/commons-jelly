@@ -40,32 +40,6 @@ public abstract class ExpressionSupport implements Expression {
 
     // inherit javadoc from interface
     @Override
-    public String evaluateAsString(JellyContext context) {
-        Object value = evaluateRecurse(context);
-        // sometimes when Jelly is used inside Maven the value
-        // of an expression can actually be an expression.
-        // e.g. ${foo.bar} can lookup "foo.bar" in a Maven context
-        // which could actually be an expression
-
-        if ( value != null ) {
-            return value.toString();
-        }
-        return null;
-    }
-
-    // inherit javadoc from interface
-    @Override
-    public Object evaluateRecurse(JellyContext context) {
-        Object value = evaluate(context);
-        if (value instanceof Expression) {
-            Expression expression = (Expression) value;
-            return expression.evaluateRecurse(context);
-        }
-        return value;
-    }
-
-    // inherit javadoc from interface
-    @Override
     public boolean evaluateAsBoolean(JellyContext context) {
         Object value = evaluateRecurse(context);
         if ( value instanceof Boolean ) {
@@ -117,5 +91,31 @@ public abstract class ExpressionSupport implements Expression {
             // XXX: should we return single iterator?
             return new SingletonIterator( value );
         }
+    }
+
+    // inherit javadoc from interface
+    @Override
+    public String evaluateAsString(JellyContext context) {
+        Object value = evaluateRecurse(context);
+        // sometimes when Jelly is used inside Maven the value
+        // of an expression can actually be an expression.
+        // e.g. ${foo.bar} can lookup "foo.bar" in a Maven context
+        // which could actually be an expression
+
+        if ( value != null ) {
+            return value.toString();
+        }
+        return null;
+    }
+
+    // inherit javadoc from interface
+    @Override
+    public Object evaluateRecurse(JellyContext context) {
+        Object value = evaluate(context);
+        if (value instanceof Expression) {
+            Expression expression = (Expression) value;
+            return expression.evaluateRecurse(context);
+        }
+        return value;
     }
 }

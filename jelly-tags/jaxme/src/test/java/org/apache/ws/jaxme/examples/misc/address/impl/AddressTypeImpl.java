@@ -32,13 +32,8 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
         }
 
         @Override
-        public void setFirst(String first) {
-            this.first = first;
-        }
-
-        @Override
-        public java.util.List getMiddle() {
-            return middle;
+        public String getInitials() {
+            return initials;
         }
 
         @Override
@@ -47,18 +42,23 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
         }
 
         @Override
-        public void setLast(String last) {
-            this.last = last;
+        public java.util.List getMiddle() {
+            return middle;
         }
 
         @Override
-        public String getInitials() {
-            return initials;
+        public void setFirst(String first) {
+            this.first = first;
         }
 
         @Override
         public void setInitials(String initials) {
             this.initials = initials;
+        }
+
+        @Override
+        public void setLast(String last) {
+            this.last = last;
         }
     }
 
@@ -71,13 +71,13 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
     }
 
     @Override
-    public void setId(String id) {
-        this.id = id;
+    public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName() {
+        return name;
     }
 
     @Override
-    public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName() {
-        return name;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

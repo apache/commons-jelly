@@ -67,69 +67,6 @@ public class AskTag extends TagSupport {
     private boolean useHistoryCompletor = true;
 
     /**
-     * Sets the question to ask to the user. If a "default" attribute is
-     * present, it will appear inside [].
-     * 
-     * @param question
-     *            The question to ask to the user
-     */
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    /**
-     * Sets the name of the variable that will hold the answer. 
-     * This defaults to "interact.answer".
-     * 
-     * @param answer
-     *            the name of the variable that will hold the answer
-     */
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    /**
-     * Sets the default answer to the question. If it is present, it will appear
-     * inside [].
-     * 
-     * @param defaultInput
-     *            the default answer to the question
-     */
-    public void setDefault(String defaultInput) {
-        this.defaultInput = defaultInput;
-    }
-
-    /**
-     * Sets the prompt that will be displayed before the user's input.
-     * 
-     * @param prompt
-     *            the prompt that will be displayed before the user's input.
-     */
-    public void setPrompt(String prompt) {
-        this.prompt = prompt;
-    }
-
-    /**
-     * Sets the list of predefined commands.
-     * 
-     * @param list
-     *            the list of commands used for tab completion.
-     */
-    public void setCompletor(List list) {
-        this.completor = list;
-    }
-    
-    /**
-     * Sets whether the completion should also happen on previously
-     * entered lines (default true).
-     *
-     * @param should whether it should
-     */
-    public void setUseHistoryCompletor(boolean should) {
-        this.useHistoryCompletor = should;
-    }
-
-    /**
      * Perform functionality provided by the tag.
      * 
      * @param output
@@ -199,5 +136,68 @@ public class AskTag extends TagSupport {
         }
 
         context.setVariable(answer, input);
+    }
+
+    /**
+     * Sets the name of the variable that will hold the answer. 
+     * This defaults to "interact.answer".
+     * 
+     * @param answer
+     *            the name of the variable that will hold the answer
+     */
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    /**
+     * Sets the list of predefined commands.
+     * 
+     * @param list
+     *            the list of commands used for tab completion.
+     */
+    public void setCompletor(List list) {
+        this.completor = list;
+    }
+
+    /**
+     * Sets the default answer to the question. If it is present, it will appear
+     * inside [].
+     * 
+     * @param defaultInput
+     *            the default answer to the question
+     */
+    public void setDefault(String defaultInput) {
+        this.defaultInput = defaultInput;
+    }
+
+    /**
+     * Sets the prompt that will be displayed before the user's input.
+     * 
+     * @param prompt
+     *            the prompt that will be displayed before the user's input.
+     */
+    public void setPrompt(String prompt) {
+        this.prompt = prompt;
+    }
+    
+    /**
+     * Sets the question to ask to the user. If a "default" attribute is
+     * present, it will appear inside [].
+     * 
+     * @param question
+     *            The question to ask to the user
+     */
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    /**
+     * Sets whether the completion should also happen on previously
+     * entered lines (default true).
+     *
+     * @param should whether it should
+     */
+    public void setUseHistoryCompletor(boolean should) {
+        this.useHistoryCompletor = should;
     }
 }

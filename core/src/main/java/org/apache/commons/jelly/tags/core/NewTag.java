@@ -41,16 +41,6 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
     public NewTag() {
     }
 
-    /** Sets the name of the variable exported by this tag */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /** Sets the class name of the object to instantiate */
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
     @Override
     public void addArgument(Class type, Object value) {
         paramTypes.add(type);
@@ -106,5 +96,15 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         catch (InvocationTargetException e) {
             throw new JellyTagException(e);
         }
+    }
+
+    /** Sets the class name of the object to instantiate */
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    /** Sets the name of the variable exported by this tag */
+    public void setVar(String var) {
+        this.var = var;
     }
 }

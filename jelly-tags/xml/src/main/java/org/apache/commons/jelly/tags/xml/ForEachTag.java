@@ -81,6 +81,14 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     // XPathSource interface
     //-------------------------------------------------------------------------
 
+    /*
+     * Override superclass so method can be access by IfTag
+     */
+    @Override
+    protected Object getXPathContext() {
+        return super.getXPathContext();
+    }
+
     /**
      * @return the current XPath iteration value
      *  so that any other XPath aware child tags to use
@@ -88,27 +96,6 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     @Override
     public Object getXPathSource() {
         return iterationValue;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-    /** Sets the XPath selection expression
-      */
-    public void setSelect(XPath select) {
-        this.select = select;
-    }
-
-    /** Sets the variable name to export for the item being iterated over
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /** Sets the xpath expression to use to sort selected nodes.
-     */
-    public void setSort(XPath sortXPath) throws JaxenException {
-        if (xpCmp == null) xpCmp = new XPathComparator();
-        xpCmp.setXpath(sortXPath);
     }
 
     /**
@@ -119,12 +106,25 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
         xpCmp.setDescending(descending);
     }
 
-    /*
-     * Override superclass so method can be access by IfTag
+    // Properties
+    //-------------------------------------------------------------------------
+    /** Sets the XPath selection expression
+      */
+    public void setSelect(XPath select) {
+        this.select = select;
+    }
+
+    /** Sets the xpath expression to use to sort selected nodes.
      */
-    @Override
-    protected Object getXPathContext() {
-        return super.getXPathContext();
+    public void setSort(XPath sortXPath) throws JaxenException {
+        if (xpCmp == null) xpCmp = new XPathComparator();
+        xpCmp.setXpath(sortXPath);
+    }
+
+    /** Sets the variable name to export for the item being iterated over
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 
 }

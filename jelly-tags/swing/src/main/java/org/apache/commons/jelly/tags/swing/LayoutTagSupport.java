@@ -46,6 +46,14 @@ public abstract class LayoutTagSupport extends TagSupport {
         getComponentTag().addChild(component, constraints);
     }
 
+    /**
+     * Factory method to create a new LayoutManager instance.
+     */
+    protected abstract LayoutManager createLayoutManager();
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -63,18 +71,6 @@ public abstract class LayoutTagSupport extends TagSupport {
         invokeBody(output);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the name of the variable to use to expose the new LayoutManager object.
-     * If this attribute is not set then the parent widget tag will have its
-     * layout property set.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
     // Implementation methods
     //-------------------------------------------------------------------------
 
@@ -90,7 +86,11 @@ public abstract class LayoutTagSupport extends TagSupport {
     }
 
     /**
-     * Factory method to create a new LayoutManager instance.
+     * Sets the name of the variable to use to expose the new LayoutManager object.
+     * If this attribute is not set then the parent widget tag will have its
+     * layout property set.
      */
-    protected abstract LayoutManager createLayoutManager();
+    public void setVar(String var) {
+        this.var = var;
+    }
 }

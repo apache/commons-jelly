@@ -40,33 +40,13 @@ import junit.framework.TestCase;
  */
 public class TestUnexpectedTagCaching extends TestCase
 {
-    public void testExpectFreshTagOnEachRun() throws Exception
+    public static class SetTag extends TagSupport
     {
-        final JellyContext scriptContext = new JellyContext();
-
-        scriptContext.registerTagLibrary( "a", new TestCachingTagLibrary() );
-
-        final String scriptText = "<a:write xmlns:a=\"a\"><a:set>${message}</a:set></a:write>";
-        final Script script = scriptContext.compileScript( new InputSource( new StringReader( scriptText ) ) );
-
-        assertScriptResult( "one", script, scriptContext );
-        assertScriptResult( "two", script, scriptContext );
-        assertScriptResult( "three", script, scriptContext );
-    }
-
-    private static void assertScriptResult( final String message,
-                                            final Script script,
-                                            final JellyContext scriptContext ) throws JellyTagException
-    {
-        final JellyContext context = new JellyContext( scriptContext );
-
-        context.setVariable( "message", message );
-
-        final StringWriter writer = new StringWriter();
-
-        script.run( context, XMLOutput.createXMLOutput( writer ) );
-
-        assertEquals( "["+ message  + "]", writer.toString() );
+        @Override
+        public void doTag( final XMLOutput output ) throws MissingAttributeException, JellyTagException
+        {
+            ( (WriteTag)getParent() ).addString( getBodyText() );
+        }
     }
 
     public static class TestCachingTagLibrary extends TagLibrary
@@ -81,11 +61,6 @@ public class TestUnexpectedTagCaching extends TestCase
     public static class WriteTag extends TagSupport
     {
         private List m_strings = new ArrayList();
-
-        public List getStrings()
-        {
-            return m_strings;
-        }
 
         public void addString( final String string )
         {
@@ -106,14 +81,39 @@ public class TestUnexpectedTagCaching extends TestCase
                 throw new JellyTagException( "Unable to write message", e );
             }
         }
+
+        public List getStrings()
+        {
+            return m_strings;
+        }
     }
 
-    public static class SetTag extends TagSupport
+    private static void assertScriptResult( final String message,
+                                            final Script script,
+                                            final JellyContext scriptContext ) throws JellyTagException
     {
-        @Override
-        public void doTag( final XMLOutput output ) throws MissingAttributeException, JellyTagException
-        {
-            ( (WriteTag)getParent() ).addString( getBodyText() );
-        }
+        final JellyContext context = new JellyContext( scriptContext );
+
+        context.setVariable( "message", message );
+
+        final StringWriter writer = new StringWriter();
+
+        script.run( context, XMLOutput.createXMLOutput( writer ) );
+
+        assertEquals( "["+ message  + "]", writer.toString() );
+    }
+
+    public void testExpectFreshTagOnEachRun() throws Exception
+    {
+        final JellyContext scriptContext = new JellyContext();
+
+        scriptContext.registerTagLibrary( "a", new TestCachingTagLibrary() );
+
+        final String scriptText = "<a:write xmlns:a=\"a\"><a:set>${message}</a:set></a:write>";
+        final Script script = scriptContext.compileScript( new InputSource( new StringReader( scriptText ) ) );
+
+        assertScriptResult( "one", script, scriptContext );
+        assertScriptResult( "two", script, scriptContext );
+        assertScriptResult( "three", script, scriptContext );
     }
 }

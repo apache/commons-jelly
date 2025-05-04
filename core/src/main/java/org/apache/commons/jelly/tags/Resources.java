@@ -60,13 +60,6 @@ public class Resources {
     return rb.getString(name);
     }
 
-    /** Gets a message with arbitrarily many arguments. */
-    public static String getMessage(String name, Object[] a)
-        throws MissingResourceException {
-    String res = rb.getString(name);
-    return MessageFormat.format(res, a);
-    }
-
     /** Gets a message with one argument. */
     public static String getMessage(String name, Object a1)
         throws MissingResourceException {
@@ -119,6 +112,13 @@ public class Resources {
                     Object a6)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1, a2, a3, a4, a5, a6 });
+    }
+
+    /** Gets a message with arbitrarily many arguments. */
+    public static String getMessage(String name, Object[] a)
+        throws MissingResourceException {
+    String res = rb.getString(name);
+    return MessageFormat.format(res, a);
     }
 
 }

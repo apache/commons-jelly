@@ -38,6 +38,52 @@ public class ResultImpl implements Result {
     private boolean isLimited;
 
     /**
+     * This constructor is given a List of Maps where each Map represents a Row of data.
+     * This constructor is typically used to create a Mock Object representing a result set.
+     *
+     * @param listOfMaps is a list of Maps where a Map represents a Row keyed by the column name
+     */
+    public ResultImpl(List listOfMaps) {
+
+        rowMap = new ArrayList();
+        rowByIndex = new ArrayList();
+        isLimited = false;
+
+        // lets build up a Set of all the unique column names
+        HashSet keySet = new HashSet();
+        for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
+            Map row = (Map) iter.next();
+            keySet.addAll( row.keySet() );
+        }
+
+        // Create the column name array
+        int noOfColumns = keySet.size();
+        columnNames = new String[noOfColumns];
+        int i = 0;
+        for (Iterator iter = keySet.iterator(); iter.hasNext(); i++ ) {
+            columnNames[i] = (String) iter.next();
+        }
+
+        // Now add each row to the result set
+        for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
+            Map row = (Map) iter.next();
+
+            Object[] columns = new Object[noOfColumns];
+            SortedMap columnMap =
+                new TreeMap(String.CASE_INSENSITIVE_ORDER);
+
+            for (i = 0; i < noOfColumns; i++) {
+                String columnName = columnNames[i];
+                Object value = row.get(columnName);
+                columns[i] = value;
+                columnMap.put(columnName, value);
+            }
+            rowMap.add(columnMap);
+            rowByIndex.add(columns);
+        }
+    }
+
+    /**
      * This constructor reads the ResultSet and saves a cached
      * copy.
      *
@@ -94,49 +140,29 @@ public class ResultImpl implements Result {
     }
 
     /**
-     * This constructor is given a List of Maps where each Map represents a Row of data.
-     * This constructor is typically used to create a Mock Object representing a result set.
+     * Returns an array of String objects. The array represents
+     * the names of the columns arranged in the same order as in
+     * the getRowsByIndex() method.
      *
-     * @param listOfMaps is a list of Maps where a Map represents a Row keyed by the column name
+     * @return an array of String[]
      */
-    public ResultImpl(List listOfMaps) {
+    @Override
+    public String[] getColumnNames() {
+        return columnNames;
+    }
 
-        rowMap = new ArrayList();
-        rowByIndex = new ArrayList();
-        isLimited = false;
-
-        // lets build up a Set of all the unique column names
-        HashSet keySet = new HashSet();
-        for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
-            Map row = (Map) iter.next();
-            keySet.addAll( row.keySet() );
+    /**
+     * Returns the number of rows in the cached ResultSet
+     *
+     * @return the number of cached rows, or -1 if the Result could
+     *    not be initialized due to SQLExceptions
+     */
+    @Override
+    public int getRowCount() {
+        if (rowMap == null) {
+            return -1;
         }
-
-        // Create the column name array
-        int noOfColumns = keySet.size();
-        columnNames = new String[noOfColumns];
-        int i = 0;
-        for (Iterator iter = keySet.iterator(); iter.hasNext(); i++ ) {
-            columnNames[i] = (String) iter.next();
-        }
-
-        // Now add each row to the result set
-        for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
-            Map row = (Map) iter.next();
-
-            Object[] columns = new Object[noOfColumns];
-            SortedMap columnMap =
-                new TreeMap(String.CASE_INSENSITIVE_ORDER);
-
-            for (i = 0; i < noOfColumns; i++) {
-                String columnName = columnNames[i];
-                Object value = row.get(columnName);
-                columns[i] = value;
-                columnMap.put(columnName, value);
-            }
-            rowMap.add(columnMap);
-            rowByIndex.add(columns);
-        }
+        return rowMap.size();
     }
 
     /**
@@ -173,32 +199,6 @@ public class ResultImpl implements Result {
 
         //should just be able to return Object[][] object
         return (Object [][])rowByIndex.toArray(new Object[0][0]);
-    }
-
-    /**
-     * Returns an array of String objects. The array represents
-     * the names of the columns arranged in the same order as in
-     * the getRowsByIndex() method.
-     *
-     * @return an array of String[]
-     */
-    @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    /**
-     * Returns the number of rows in the cached ResultSet
-     *
-     * @return the number of cached rows, or -1 if the Result could
-     *    not be initialized due to SQLExceptions
-     */
-    @Override
-    public int getRowCount() {
-        if (rowMap == null) {
-            return -1;
-        }
-        return rowMap.size();
     }
 
     /**

@@ -54,85 +54,6 @@ public class TemplateTag extends TagSupport implements XPathSource {
     public TemplateTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
-        if (tag == null) {
-            throw new JellyTagException( "This <template> tag must be used inside a <stylesheet> tag" );
-        }
-
-        if ( log.isDebugEnabled() ) {
-            log.debug( "adding template rule for match: " + match );
-        }
-
-        Rule rule = createRule(tag, output);
-        if ( rule != null && tag != null) {
-            rule.setMode( mode );
-            tag.addTemplate( rule );
-        }
-    }
-
-    // XPathSource interface
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the current XPath value on which relative paths are evaluated
-     */
-    @Override
-    public Object getXPathSource() {
-        return xpathSource;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    public void setMatch(Pattern match) {
-        this.match = match;
-    }
-
-    /** Getter for property priority.
-     * @return Value of property priority.
-     */
-    public double getPriority() {
-        return priority;
-    }
-
-    /** Sets the priority.
-     * @param priority New value of property priority.
-     */
-    public void setPriority(double priority) {
-        this.priority = priority;
-    }
-
-    /** Getter for property name.
-     * @return Value of property name.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /** Sets the name.
-     * @param name New value of property name.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /** Sets the mode.
-     * @param mode New value of property mode.
-     */
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected Rule createRule(StylesheetTag tag, XMLOutput output) {
-        return new Rule( match, createAction(tag, output) );
-    }
-
     protected Action createAction(final StylesheetTag tag, final XMLOutput output) {
         return new Action() {
             @Override
@@ -155,5 +76,84 @@ public class TemplateTag extends TagSupport implements XPathSource {
                 invokeBody(actualOutput);
             }
         };
+    }
+
+    // XPathSource interface
+    //-------------------------------------------------------------------------
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    protected Rule createRule(StylesheetTag tag, XMLOutput output) {
+        return new Rule( match, createAction(tag, output) );
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(XMLOutput output) throws JellyTagException {
+        StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
+        if (tag == null) {
+            throw new JellyTagException( "This <template> tag must be used inside a <stylesheet> tag" );
+        }
+
+        if ( log.isDebugEnabled() ) {
+            log.debug( "adding template rule for match: " + match );
+        }
+
+        Rule rule = createRule(tag, output);
+        if ( rule != null && tag != null) {
+            rule.setMode( mode );
+            tag.addTemplate( rule );
+        }
+    }
+
+    /** Getter for property name.
+     * @return Value of property name.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /** Getter for property priority.
+     * @return Value of property priority.
+     */
+    public double getPriority() {
+        return priority;
+    }
+
+    /**
+     * @return the current XPath value on which relative paths are evaluated
+     */
+    @Override
+    public Object getXPathSource() {
+        return xpathSource;
+    }
+
+    public void setMatch(Pattern match) {
+        this.match = match;
+    }
+
+    /** Sets the mode.
+     * @param mode New value of property mode.
+     */
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    /** Sets the name.
+     * @param name New value of property name.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /** Sets the priority.
+     * @param priority New value of property priority.
+     */
+    public void setPriority(double priority) {
+        this.priority = priority;
     }
 }

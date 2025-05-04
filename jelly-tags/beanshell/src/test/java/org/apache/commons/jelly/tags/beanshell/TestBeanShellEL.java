@@ -36,12 +36,6 @@ public class TestBeanShellEL extends TestCase {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog( TestBeanShellEL.class );
 
-    /** Jelly context */
-    protected JellyContext context;
-
-    /** The factory of Expression objects */
-    protected ExpressionFactory factory;
-
     public static void main( String[] args ) {
         TestRunner.run( suite() );
     }
@@ -50,8 +44,21 @@ public class TestBeanShellEL extends TestCase {
         return new TestSuite(TestBeanShellEL.class);
     }
 
+    /** Jelly context */
+    protected JellyContext context;
+
+    /** The factory of Expression objects */
+    protected ExpressionFactory factory;
+
     public TestBeanShellEL(String testName) {
         super(testName);
+    }
+
+    /** Evaluates the given expression text and tests it against the expected value */
+    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
+        Expression expr = factory.createExpression( expressionText );
+        Object value = expr.evaluate( context );
+        assertEquals( "Value of expression: " + expressionText, expectedValue, value );
     }
 
     @Override
@@ -69,13 +76,6 @@ public class TestBeanShellEL extends TestCase {
         assertExpression( "bar == 124", Boolean.FALSE );
         assertExpression( "foo.equals( \"abc\" )", Boolean.TRUE );
         assertExpression( "foo.equals( \"xyz\" )", Boolean.FALSE );
-    }
-
-    /** Evaluates the given expression text and tests it against the expected value */
-    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
-        Expression expr = factory.createExpression( expressionText );
-        Object value = expr.evaluate( context );
-        assertEquals( "Value of expression: " + expressionText, expectedValue, value );
     }
 }
 

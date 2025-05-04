@@ -35,13 +35,18 @@ public class JellyServletContext extends JellyContext {
     public JellyServletContext() {
     }
 
+    public JellyServletContext(final JellyContext parent, final ServletContext ctx) {
+        super(parent);
+        this.ctx = ctx;
+    }
+
     public JellyServletContext(final ServletContext ctx) {
         this.ctx = ctx;
     }
 
-    public JellyServletContext(final JellyContext parent, final ServletContext ctx) {
-        super(parent);
-        this.ctx = ctx;
+    @Override
+    protected JellyContext createChildContext() {
+        return new JellyServletContext(this, ctx);
     }
 
     /**
@@ -65,10 +70,5 @@ public class JellyServletContext extends JellyContext {
     @Override
     public InputStream getResourceAsStream(final String s) {
         return ctx.getResourceAsStream(s);
-    }
-
-    @Override
-    protected JellyContext createChildContext() {
-        return new JellyServletContext(this, ctx);
     }
 }

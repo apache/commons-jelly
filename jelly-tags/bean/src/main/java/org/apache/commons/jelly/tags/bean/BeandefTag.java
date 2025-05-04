@@ -97,17 +97,28 @@ public class BeandefTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the name of the tag to create
+     * @return the ClassLoader to use to load classes
+     *  or will use the thread context loader if none is specified.
      */
-    public void setName(String name) {
-        this.name = name;
+    public ClassLoader getClassLoader() {
+        return ClassLoaderUtils.getClassLoader(classLoader, true, getClass());
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    protected Method getInvokeMethod(Class theClass) {
+        if (methodName != null) {
+            // lets lookup the method name
+            return MethodUtils.getAccessibleMethod(theClass, methodName, EMPTY_ARGUMENT_TYPES);
+        }
+        return null;
     }
 
     /**
-     * Sets the Java class name to use for the tag
+     * @return String
      */
-    public void setClassName(String className) {
-        this.className = className;
+    public String getMethodName() {
+        return methodName;
     }
 
     /**
@@ -120,18 +131,10 @@ public class BeandefTag extends TagSupport {
     }
 
     /**
-     * @return the ClassLoader to use to load classes
-     *  or will use the thread context loader if none is specified.
+     * Sets the Java class name to use for the tag
      */
-    public ClassLoader getClassLoader() {
-        return ClassLoaderUtils.getClassLoader(classLoader, true, getClass());
-    }
-
-    /**
-     * @return String
-     */
-    public String getMethodName() {
-        return methodName;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     /**
@@ -142,13 +145,10 @@ public class BeandefTag extends TagSupport {
         this.methodName = methodName;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected Method getInvokeMethod(Class theClass) {
-        if (methodName != null) {
-            // lets lookup the method name
-            return MethodUtils.getAccessibleMethod(theClass, methodName, EMPTY_ARGUMENT_TYPES);
-        }
-        return null;
+    /**
+     * Sets the name of the tag to create
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 }

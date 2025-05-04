@@ -50,12 +50,24 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class HomepageBuilder extends JPanel {
 
+    public static void main(String s[]) {
+        JFrame frame = new JFrame("Homepage Builder");
+
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {System.exit(0);}
+        });
+
+        frame.setContentPane(new HomepageBuilder());
+        frame.pack();
+        frame.setVisible(true);
+    }
     JTextField nameField;
     JTextField urlField;
     JTextField addField;
     JTextField colorField;
     JComboBox templateList;
     JList interestList;
+
     DefaultListModel listModel;
 
     public HomepageBuilder() {
@@ -174,6 +186,17 @@ public class HomepageBuilder extends JPanel {
 
     }
 
+     /***
+      * @return the URL for the relative file name or absolute URL
+      */
+    protected URL resolveURL(String name) throws MalformedURLException {
+         File file = new File(name);
+         if (file.exists()) {
+             return file.toURL();
+         }
+         return new URL(name);
+     }
+
     void showPage() {
 
         //open new window
@@ -195,28 +218,5 @@ public class HomepageBuilder extends JPanel {
         frame.setSize(500,500);
         frame.setVisible(true);
 
-    }
-
-     /***
-      * @return the URL for the relative file name or absolute URL
-      */
-    protected URL resolveURL(String name) throws MalformedURLException {
-         File file = new File(name);
-         if (file.exists()) {
-             return file.toURL();
-         }
-         return new URL(name);
-     }
-
-    public static void main(String s[]) {
-        JFrame frame = new JFrame("Homepage Builder");
-
-        frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {System.exit(0);}
-        });
-
-        frame.setContentPane(new HomepageBuilder());
-        frame.pack();
-        frame.setVisible(true);
     }
 }

@@ -27,14 +27,14 @@ import junit.framework.TestSuite;
 public class TestForEachTag extends BaseJellyTest
 {
 
-    public TestForEachTag(String name)
-    {
-        super(name);
-    }
-
     public static TestSuite suite() throws Exception
     {
         return new TestSuite(TestForEachTag.class);
+    }
+
+    public TestForEachTag(String name)
+    {
+        super(name);
     }
 
     public void testForEachTag() throws Exception

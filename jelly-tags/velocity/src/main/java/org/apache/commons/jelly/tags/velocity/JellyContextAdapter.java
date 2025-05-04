@@ -54,32 +54,6 @@ public class JellyContextAdapter implements Context
         this.jellyContext = jellyContext;
     }
 
-    /**
-     * Sets the read-only flag for this adapter.  If the read-only flag
-     * is set, changes to the Velocity Context will not be propagated to
-     * the JellyContext.  Turning the read-only flag off enables changes
-     * to propagate.
-     *
-     * @param readOnly If this parameter is <code>true</code>, the adapter
-     * becomes read-only.  Setting the parameter to <code>false</code> the
-     * adapter becomes read-write.
-     */
-    public void setReadOnly(boolean readOnly)
-    {
-        this.readOnly = readOnly;
-    }
-
-    /**
-     * Tests if the adapter is read-only.
-     *
-     * @return <code>true</code> if the adapter is read-only; otherwise
-     * returns <code>false</code>.
-     */
-    public boolean isReadOnly()
-    {
-        return readOnly;
-    }
-
     @Override
     public boolean containsKey( Object key )
     {
@@ -127,6 +101,17 @@ public class JellyContextAdapter implements Context
         return keys.toArray();
     }
 
+    /**
+     * Tests if the adapter is read-only.
+     *
+     * @return <code>true</code> if the adapter is read-only; otherwise
+     * returns <code>false</code>.
+     */
+    public boolean isReadOnly()
+    {
+        return readOnly;
+    }
+
     @Override
     public Object put( String key, Object value )
     {
@@ -171,6 +156,21 @@ public class JellyContextAdapter implements Context
         }
 
         return oldValue;
+    }
+
+    /**
+     * Sets the read-only flag for this adapter.  If the read-only flag
+     * is set, changes to the Velocity Context will not be propagated to
+     * the JellyContext.  Turning the read-only flag off enables changes
+     * to propagate.
+     *
+     * @param readOnly If this parameter is <code>true</code>, the adapter
+     * becomes read-only.  Setting the parameter to <code>false</code> the
+     * adapter becomes read-write.
+     */
+    public void setReadOnly(boolean readOnly)
+    {
+        this.readOnly = readOnly;
     }
 }
 

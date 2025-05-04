@@ -39,30 +39,9 @@ public class ScriptBlock implements Script {
     public ScriptBlock() {
     }
 
-    /**
-     * @see Object#toString()
-     */
-    @Override
-    public String toString() {
-        return super.toString() + "[scripts=" + list + "]";
-    }
-
     /** Add a new script to the end of this block */
     public void addScript(Script script) {
         list.add(script);
-    }
-
-    /** Removes a script from this block */
-    public void removeScript(Script script) {
-        list.remove(script);
-    }
-
-    /**
-     * Gets the child scripts that make up this block. This list is live
-     * so that it can be modified if required
-     */
-    public List getScriptList() {
-        return list;
     }
 
     // Script interface
@@ -82,6 +61,19 @@ public class ScriptBlock implements Script {
         return this;
     }
 
+    /**
+     * Gets the child scripts that make up this block. This list is live
+     * so that it can be modified if required
+     */
+    public List getScriptList() {
+        return list;
+    }
+
+    /** Removes a script from this block */
+    public void removeScript(Script script) {
+        list.remove(script);
+    }
+
     /** Evaluates the body of a tag */
     @Override
     public void run(JellyContext context, XMLOutput output) throws JellyTagException {
@@ -95,6 +87,14 @@ public class ScriptBlock implements Script {
             Script script = (Script) iter.next();
             script.run(context, output);
         }
+    }
+
+    /**
+     * @see Object#toString()
+     */
+    @Override
+    public String toString() {
+        return super.toString() + "[scripts=" + list + "]";
     }
     
     /**

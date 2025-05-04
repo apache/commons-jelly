@@ -34,8 +34,43 @@ import org.apache.commons.jelly.expression.ExpressionSupport;
 
 public class JexlExpressionFactory implements ExpressionFactory {
 
+    private final class ExpressionSupportLocal extends ExpressionSupport {
+
+        protected Expression jexlExpression = null;
+        protected String text = null;
+
+        public ExpressionSupportLocal(Expression jexlExpression, String text) {
+            this.jexlExpression = jexlExpression;
+            this.text = text;
+        }
+
+        @Override
+        public Object evaluate(JellyContext context) {
+            Object answer = jexlExpression.evaluate(context);
+
+            if ( answer == null ) {
+                answer = context.getVariable(text);
+            }
+
+            return answer;
+        }
+
+        @Override
+        public String getExpressionText() {
+            return "${" + text + "}";
+        }
+
+        @Override
+        public String toString() {
+            return super.toString() + "[expression:" + text + "]";
+        }
+    }
+
     /** Whether we should allow Ant-style expressions, using dots as part of variable name */
     private boolean supportAntVariables = true;
+
+    // Properties
+    //-------------------------------------------------------------------------
 
     // ExpressionFactory interface
     //-------------------------------------------------------------------------
@@ -69,23 +104,12 @@ public class JexlExpressionFactory implements ExpressionFactory {
         return jexlExpression;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
     /**
      * @return whether we should allow Ant-style expressions, using dots as
      * part of variable name
      */
     public boolean isSupportAntVariables() {
         return supportAntVariables;
-    }
-
-    /**
-     * Sets whether we should allow Ant-style expressions, using dots as
-     * part of variable name
-     */
-    public void setSupportAntVariables(boolean supportAntVariables) {
-        this.supportAntVariables = supportAntVariables;
     }
 
     // Implementation methods
@@ -107,36 +131,12 @@ public class JexlExpressionFactory implements ExpressionFactory {
         return true;
     }
 
-    private final class ExpressionSupportLocal extends ExpressionSupport {
-
-        protected Expression jexlExpression = null;
-        protected String text = null;
-
-        public ExpressionSupportLocal(Expression jexlExpression, String text) {
-            this.jexlExpression = jexlExpression;
-            this.text = text;
-        }
-
-        @Override
-        public Object evaluate(JellyContext context) {
-            Object answer = jexlExpression.evaluate(context);
-
-            if ( answer == null ) {
-                answer = context.getVariable(text);
-            }
-
-            return answer;
-        }
-
-        @Override
-        public String getExpressionText() {
-            return "${" + text + "}";
-        }
-
-        @Override
-        public String toString() {
-            return super.toString() + "[expression:" + text + "]";
-        }
+    /**
+     * Sets whether we should allow Ant-style expressions, using dots as
+     * part of variable name
+     */
+    public void setSupportAntVariables(boolean supportAntVariables) {
+        this.supportAntVariables = supportAntVariables;
     }
 
 }

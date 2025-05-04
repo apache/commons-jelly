@@ -90,6 +90,29 @@ public class OperationTag extends TagSupport implements CollectionTag {
     //-------------------------------------------------------------------------
 
     /**
+     * Converts the argument property into an Object[] or converts the list of
+     * added argument objects (added via child tags) to an Object[] or
+     * return an empty argument array.
+     */
+    protected Object[] getArgumentArray() {
+        Object arg = getArguments();
+        if (arg != null) {
+            if (arg instanceof Object[]) {
+                return (Object[]) arg;
+            }
+            else {
+                return new Object[] { arg };
+            }
+        }
+        else if (argList != null) {
+            return argList.toArray();
+        }
+        else {
+            return new Object[0];
+        }
+    }
+
+    /**
      * @return Object
      */
     public Object getArguments() {
@@ -126,37 +149,14 @@ public class OperationTag extends TagSupport implements CollectionTag {
         this.name = name;
     }
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     /**
      * Sets the parameters.
      * @param parameters The parameters to set
      */
     public void setParameters(String[] parameters) {
         this.parameters = parameters;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Converts the argument property into an Object[] or converts the list of
-     * added argument objects (added via child tags) to an Object[] or
-     * return an empty argument array.
-     */
-    protected Object[] getArgumentArray() {
-        Object arg = getArguments();
-        if (arg != null) {
-            if (arg instanceof Object[]) {
-                return (Object[]) arg;
-            }
-            else {
-                return new Object[] { arg };
-            }
-        }
-        else if (argList != null) {
-            return argList.toArray();
-        }
-        else {
-            return new Object[0];
-        }
     }
 }

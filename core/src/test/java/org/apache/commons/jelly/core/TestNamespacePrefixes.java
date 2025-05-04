@@ -40,12 +40,12 @@ import junit.framework.TestSuite;
  */
 public class TestNamespacePrefixes extends BaseJellyTest {
 
-	public TestNamespacePrefixes(String name) {
-		super(name);
-	}
-
 	public static TestSuite suite() throws Exception {
 		return new TestSuite(TestNamespacePrefixes.class);
+	}
+
+	public TestNamespacePrefixes(String name) {
+		super(name);
 	}
 
     @Override

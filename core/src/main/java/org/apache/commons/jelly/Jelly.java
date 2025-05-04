@@ -47,31 +47,14 @@ public class Jelly {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(Jelly.class);
     
-    /** The JellyContext to use */
-    private JellyContext context;
-    
-    /** The URL of the script to execute */
-    private URL url;
-    
-    /** The URL of the root context for other scripts */
-    private URL rootContext;
-    
-    /** Whether we have loaded the properties yet */
-    private boolean loadedProperties = false;
-
-    /**
-     * whether to override the default namespace
-     */
-    private String defaultNamespaceURI = null;
-
-    /**
-     * whether or not to validate the Jelly script
-     */
-    private boolean validateXML = false;
-        
-    public Jelly() {
+    public static String getJellyBuildDate() {
+        return readBuildTimestampResource("jelly-build-date.txt");
     }
-
+    
+    public static String getJellyVersion() {
+        return readBuildTimestampResource("jelly-version.txt");
+    }
+    
     /**
      * Usage: jelly [scriptFile] [-script scriptFile -o outputFile -Dsysprop=syspropval]
      */
@@ -99,15 +82,6 @@ public class Jelly {
         }
     }
     
-    
-    public static String getJellyVersion() {
-        return readBuildTimestampResource("jelly-version.txt");
-    }
-    
-    public static String getJellyBuildDate() {
-        return readBuildTimestampResource("jelly-build-date.txt");
-    }
-    
     private static String readBuildTimestampResource(String name) {
         java.io.Reader in = null;
         try {
@@ -126,6 +100,32 @@ public class Jelly {
             }
             throw new IllegalStateException("Resource \"" + name + "\" not found.");
         }
+    }
+
+    /** The JellyContext to use */
+    private JellyContext context;
+
+    /** The URL of the script to execute */
+    private URL url;
+        
+    /** The URL of the root context for other scripts */
+    private URL rootContext;
+
+    /** Whether we have loaded the properties yet */
+    private boolean loadedProperties = false;
+    
+    
+    /**
+     * whether to override the default namespace
+     */
+    private String defaultNamespaceURI = null;
+    
+    /**
+     * whether or not to validate the Jelly script
+     */
+    private boolean validateXML = false;
+    
+    public Jelly() {
     }
     
     
@@ -168,41 +168,6 @@ public class Jelly {
     // Properties
     //-------------------------------------------------------------------------                
     
-    /** 
-     * Sets the script URL to use as an absolute URL or a relative file name
-     */
-    public void setScript(String script) throws MalformedURLException {
-        setUrl(resolveURL(script));
-    }
-    
-    public URL getUrl() {
-        return url;
-    }
-    
-    /** 
-     * Sets the script URL to use 
-     */
-    public void setUrl(URL url) {
-        this.url = url;
-    }
-    
-    /** 
-     * Gets the root context
-     */
-    public URL getRootContext() throws MalformedURLException {
-        if (rootContext == null) {
-            rootContext = new File(System.getProperty("user.dir")).toURL();
-        }
-        return rootContext;
-    }
-    
-    /** 
-     * Sets the root context
-     */
-    public void setRootContext(URL rootContext) {
-        this.rootContext = rootContext;
-    }
-    
     /**
      * The context to use
      */
@@ -217,56 +182,20 @@ public class Jelly {
         return context;
     }
     
-    /**
-     * Allows the Jelly context to be explicitly set; note that it is the caller's
-     * responsibility to make sure that the URLs etc are properly configured
-     * @param context
+    /** 
+     * Gets the root context
      */
-    public void setJellyContext(JellyContext context) {
-    	this.context = context;
-    }
-
-    /**
-     * Sets the jelly namespace to use for unprefixed elements.
-     * Will be overridden by an explicit namespace in the
-     * XML document.
-     * 
-     * @param namespace jelly namespace to use (e.g. 'jelly:core')
-     */
-    public void setDefaultNamespaceURI(String namespace) {
-        this.defaultNamespaceURI = namespace;
-    }
-
-    /**
-     * When set to true, the XML parser will attempt to validate
-     * the Jelly XML before converting it into a Script.
-     * 
-     * @param validate whether or not to validate
-     */
-    public void setValidateXML(boolean validate) {
-        this.validateXML = validate;
+    public URL getRootContext() throws MalformedURLException {
+        if (rootContext == null) {
+            rootContext = new File(System.getProperty("user.dir")).toURL();
+        }
+        return rootContext;
     }
     
-    // Implementation methods
-    //-------------------------------------------------------------------------                
-    /**
-     * @return the URL for the relative file name or absolute URL 
-     */
-    protected URL resolveURL(String name) throws MalformedURLException {
-        
-        URL resourceUrl = ClassLoaderUtils.getClassLoader(getClass()).getResource(name);
-        if (resourceUrl == null)
-        {
-            File file = new File(name);
-            if (file.exists()) {
-                return file.toURL();
-            }
-            return new URL(name);
-        } else {
-            return resourceUrl;
-        }
+    public URL getUrl() {
+        return url;
     }
-
+    
     /**
      * Attempts to load jelly.properties from the current directory,
      * the users home directory or from the classpath
@@ -292,7 +221,7 @@ public class Jelly {
             }
         }
     }
-
+    
     /**
      * Load properties from a file into the context
      * @param f
@@ -316,7 +245,7 @@ public class Jelly {
             }
         }
     }
-
+    
     /**
      * Loads the properties from the given input stream 
      */    
@@ -332,5 +261,76 @@ public class Jelly {
             // @todo we should parse the value in case its an Expression
             theContext.setVariable(key, value);
         }
+    }
+    
+    // Implementation methods
+    //-------------------------------------------------------------------------                
+    /**
+     * @return the URL for the relative file name or absolute URL 
+     */
+    protected URL resolveURL(String name) throws MalformedURLException {
+        
+        URL resourceUrl = ClassLoaderUtils.getClassLoader(getClass()).getResource(name);
+        if (resourceUrl == null)
+        {
+            File file = new File(name);
+            if (file.exists()) {
+                return file.toURL();
+            }
+            return new URL(name);
+        } else {
+            return resourceUrl;
+        }
+    }
+
+    /**
+     * Sets the jelly namespace to use for unprefixed elements.
+     * Will be overridden by an explicit namespace in the
+     * XML document.
+     * 
+     * @param namespace jelly namespace to use (e.g. 'jelly:core')
+     */
+    public void setDefaultNamespaceURI(String namespace) {
+        this.defaultNamespaceURI = namespace;
+    }
+
+    /**
+     * Allows the Jelly context to be explicitly set; note that it is the caller's
+     * responsibility to make sure that the URLs etc are properly configured
+     * @param context
+     */
+    public void setJellyContext(JellyContext context) {
+    	this.context = context;
+    }
+    
+    /** 
+     * Sets the root context
+     */
+    public void setRootContext(URL rootContext) {
+        this.rootContext = rootContext;
+    }
+
+    /** 
+     * Sets the script URL to use as an absolute URL or a relative file name
+     */
+    public void setScript(String script) throws MalformedURLException {
+        setUrl(resolveURL(script));
+    }
+
+    /** 
+     * Sets the script URL to use 
+     */
+    public void setUrl(URL url) {
+        this.url = url;
+    }
+
+    /**
+     * When set to true, the XML parser will attempt to validate
+     * the Jelly XML before converting it into a Script.
+     * 
+     * @param validate whether or not to validate
+     */
+    public void setValidateXML(boolean validate) {
+        this.validateXML = validate;
     }
 }

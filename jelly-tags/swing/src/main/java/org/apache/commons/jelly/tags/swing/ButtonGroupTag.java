@@ -84,6 +84,10 @@ public class ButtonGroupTag extends ComponentTag {
         }
     }
 
+    protected ButtonGroup getButtonGroup() {
+        return (ButtonGroup) getBean();
+    }
+
     /**Creates a new buttonGroup.
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
@@ -91,9 +95,5 @@ public class ButtonGroupTag extends ComponentTag {
     protected Object newInstance(Class theClass, Map attributes,
             XMLOutput output) throws JellyTagException {
         return new ButtonGroup();
-    }
-
-    protected ButtonGroup getButtonGroup() {
-        return (ButtonGroup) getBean();
     }
 }

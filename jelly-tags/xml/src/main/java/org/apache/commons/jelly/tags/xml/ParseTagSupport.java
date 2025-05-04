@@ -54,18 +54,17 @@ public abstract class ParseTagSupport extends TagSupport {
     public ParseTagSupport() {
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    /** The variable name that will be used for the Document variable created
+    /**
+     * Factory method to create a new SAXReader
      */
-    public String getVar() {
-        return var;
-    }
+    protected abstract SAXReader createSAXReader() throws SAXException;
 
-    /** Sets the variable name that will be used for the Document variable created
-     */
-    public void setVar(String var) {
-        this.var = var;
+    /** @return the SAXReader used for parsing, creating one lazily if need be  */
+    public SAXReader getSAXReader() throws SAXException {
+        if (saxReader == null) {
+            saxReader = createSAXReader();
+        }
+        return saxReader;
     }
 
     /**
@@ -76,69 +75,12 @@ public abstract class ParseTagSupport extends TagSupport {
         return text;
     }
 
-    /**
-     * Sets the text to be parsed by this parser
-     * @param text The text to be parsed by this parser
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    /** @return the SAXReader used for parsing, creating one lazily if need be  */
-    public SAXReader getSAXReader() throws SAXException {
-        if (saxReader == null) {
-            saxReader = createSAXReader();
-        }
-        return saxReader;
-    }
-
-    /** Sets the SAXReader used for parsing */
-    public void setSAXReader(SAXReader saxReader) {
-        this.saxReader = saxReader;
-    }
-
-    // Implementation methods
+    // Properties
     //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a new SAXReader
+    /** The variable name that will be used for the Document variable created
      */
-    protected abstract SAXReader createSAXReader() throws SAXException;
-
-    /**
-     * Parses the body of this tag and returns the parsed document
-     */
-    protected Document parseBody(XMLOutput output) throws JellyTagException {
-        SAXContentHandler handler = new SAXContentHandler();
-        XMLOutput newOutput = new XMLOutput(handler);
-
-        try {
-            handler.startDocument();
-            invokeBody( newOutput);
-            handler.endDocument();
-            return handler.getDocument();
-        } catch (SAXException e) {
-            throw new JellyTagException(e);
-        }
-    }
-
-    /**
-     * Parses the give piece of text as being markup
-     */
-    protected Document parseText(String text) throws JellyTagException {
-        if ( log.isDebugEnabled() ) {
-            log.debug( "About to parse: " + text );
-        }
-
-        try {
-            return getSAXReader().read( new StringReader( text ) );
-        }
-        catch (DocumentException e) {
-            throw new JellyTagException(e);
-        }
-        catch (SAXException e) {
-            throw new JellyTagException(e);
-        }
+    public String getVar() {
+        return var;
     }
 
     /**
@@ -184,5 +126,63 @@ public abstract class ParseTagSupport extends TagSupport {
         catch (MalformedURLException e) {
             throw new JellyTagException(e);
         }
+    }
+
+    /**
+     * Parses the body of this tag and returns the parsed document
+     */
+    protected Document parseBody(XMLOutput output) throws JellyTagException {
+        SAXContentHandler handler = new SAXContentHandler();
+        XMLOutput newOutput = new XMLOutput(handler);
+
+        try {
+            handler.startDocument();
+            invokeBody( newOutput);
+            handler.endDocument();
+            return handler.getDocument();
+        } catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Parses the give piece of text as being markup
+     */
+    protected Document parseText(String text) throws JellyTagException {
+        if ( log.isDebugEnabled() ) {
+            log.debug( "About to parse: " + text );
+        }
+
+        try {
+            return getSAXReader().read( new StringReader( text ) );
+        }
+        catch (DocumentException e) {
+            throw new JellyTagException(e);
+        }
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
+    }
+
+    /** Sets the SAXReader used for parsing */
+    public void setSAXReader(SAXReader saxReader) {
+        this.saxReader = saxReader;
+    }
+
+    /**
+     * Sets the text to be parsed by this parser
+     * @param text The text to be parsed by this parser
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /** Sets the variable name that will be used for the Document variable created
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 }

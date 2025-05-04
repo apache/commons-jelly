@@ -32,6 +32,17 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(Customer cust) {
+        setName(cust.getName());
+        setLocation(cust.getLocation());
+        List list = cust.getOrders();
+        if (null != list) {
+            for(Iterator iter = list.iterator();iter.hasNext();) {
+                addOrder((Order)iter.next());
+            }
+        }
+    }
+
     public Customer(String name) {
         setName(name);
     }
@@ -47,20 +58,8 @@ public class Customer {
         addOrder(anOrder);
     }
 
-    public Customer(Customer cust) {
-        setName(cust.getName());
-        setLocation(cust.getLocation());
-        List list = cust.getOrders();
-        if (null != list) {
-            for(Iterator iter = list.iterator();iter.hasNext();) {
-                addOrder((Order)iter.next());
-            }
-        }
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "[name=" + name + ";location=" + location + "]";
+    public void addOrder(Order order) {
+        orders.add(order);
     }
 
     /**
@@ -68,18 +67,6 @@ public class Customer {
      */
     public Order createOrder() {
         return new Order();
-    }
-
-    public List getOrders() {
-        return orders;
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
-    public void removeOrder(Order order) {
-        orders.remove(order);
     }
 
     /**
@@ -98,6 +85,14 @@ public class Customer {
         return name;
     }
 
+    public List getOrders() {
+        return orders;
+    }
+
+    public void removeOrder(Order order) {
+        orders.remove(order);
+    }
+
     /**
      * Sets the location.
      * @param location The location to set
@@ -112,5 +107,10 @@ public class Customer {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[name=" + name + ";location=" + location + "]";
     }
 }

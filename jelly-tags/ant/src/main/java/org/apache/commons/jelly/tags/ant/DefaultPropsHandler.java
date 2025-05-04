@@ -63,93 +63,23 @@ public class DefaultPropsHandler implements PropsHandler {
     }
 
     /**
-     * @see PropsHandler#setProperty(String, String)
+     * @see PropsHandler#copyInheritedProperties(Project)
      */
     @Override
-    public void setProperty(String key, String value) {
-        this.properties.put(key, value);
-    }
-
-    /**
-     * @see PropsHandler#setUserProperty(String, String)
-     */
-    @Override
-    public void setUserProperty(String key, String value) {
-        this.userProperties.put(key, value);
-        this.setProperty(key, value);
-    }
-
-    /**
-     * @see PropsHandler#setNewProperty(String, String)
-     */
-    @Override
-    public void setNewProperty(String key, String value) {
-        if (this.getProperty(key) == null) {
-            this.setProperty(key, value);
+    public void copyInheritedProperties(Project other) {
+        Hashtable inheritedProps = this.getInheritedProperties();
+        
+        Enumeration e = inheritedProps.keys();
+        while (e.hasMoreElements()) {
+            String name = e.nextElement().toString();
+            if (other.getUserProperty(name) != null) {
+                continue;
+            }
+            Object value = inheritedProps.get(name);
+            other.setInheritedProperty(name, value.toString());
         }
     }
 
-    /**
-     * @see PropsHandler#setInheritedProperty(String, String)
-     */
-    @Override
-    public void setInheritedProperty(String key, String value) {
-        this.inheritedProperties.put(key, value);
-        this.setUserProperty(key, value);
-    }
-
-    /**
-     * @see PropsHandler#setPropertyIfUndefinedByUser(String, String)
-     */
-    @Override
-    public void setPropertyIfUndefinedByUser(String key, String value) {
-        if (!this.getUserProperties().contains(key)) {
-            this.setProperty(key, value);
-        }
-    }
-
-    /**
-     * @see PropsHandler#getProperty(String)
-     */
-    @Override
-    public String getProperty(String key) {
-        if (key == null) {
-            return null;
-        }
-        return (String) this.properties.get(key);
-    }
-
-    /**
-     * @see PropsHandler#getUserProperty(String)
-     */
-    @Override
-    public String getUserProperty(String key) {
-        if (key == null) {
-            return null;
-        }
-        return (String) this.userProperties.get(key);
-    }
-
-    /**
-     * @see PropsHandler#getProperties()
-     */
-    @Override
-    public Hashtable getProperties() {
-        return new Hashtable(this.properties);
-    }
-
-    /**
-     * @see PropsHandler#getUserProperties()
-     */
-    @Override
-    public Hashtable getUserProperties() {
-        return new Hashtable(this.userProperties);
-    }
-    
-    public Hashtable getInheritedProperties() {
-        return new Hashtable(this.inheritedProperties);
-    }
-    
     /**
      * @see PropsHandler#copyUserProperties(Project)
      */
@@ -169,21 +99,91 @@ public class DefaultPropsHandler implements PropsHandler {
         }
     }
 
+    public Hashtable getInheritedProperties() {
+        return new Hashtable(this.inheritedProperties);
+    }
+
     /**
-     * @see PropsHandler#copyInheritedProperties(Project)
+     * @see PropsHandler#getProperties()
      */
     @Override
-    public void copyInheritedProperties(Project other) {
-        Hashtable inheritedProps = this.getInheritedProperties();
-        
-        Enumeration e = inheritedProps.keys();
-        while (e.hasMoreElements()) {
-            String name = e.nextElement().toString();
-            if (other.getUserProperty(name) != null) {
-                continue;
-            }
-            Object value = inheritedProps.get(name);
-            other.setInheritedProperty(name, value.toString());
+    public Hashtable getProperties() {
+        return new Hashtable(this.properties);
+    }
+
+    /**
+     * @see PropsHandler#getProperty(String)
+     */
+    @Override
+    public String getProperty(String key) {
+        if (key == null) {
+            return null;
+        }
+        return (String) this.properties.get(key);
+    }
+
+    /**
+     * @see PropsHandler#getUserProperties()
+     */
+    @Override
+    public Hashtable getUserProperties() {
+        return new Hashtable(this.userProperties);
+    }
+
+    /**
+     * @see PropsHandler#getUserProperty(String)
+     */
+    @Override
+    public String getUserProperty(String key) {
+        if (key == null) {
+            return null;
+        }
+        return (String) this.userProperties.get(key);
+    }
+
+    /**
+     * @see PropsHandler#setInheritedProperty(String, String)
+     */
+    @Override
+    public void setInheritedProperty(String key, String value) {
+        this.inheritedProperties.put(key, value);
+        this.setUserProperty(key, value);
+    }
+
+    /**
+     * @see PropsHandler#setJavaVersionProperty
+     */
+    @Override
+    public void setJavaVersionProperty() {
+        String javaVersion = JavaEnvUtils.getJavaVersion();
+        this.setPropertyIfUndefinedByUser("ant.java.version", javaVersion);
+    }
+    
+    /**
+     * @see PropsHandler#setNewProperty(String, String)
+     */
+    @Override
+    public void setNewProperty(String key, String value) {
+        if (this.getProperty(key) == null) {
+            this.setProperty(key, value);
+        }
+    }
+    
+    /**
+     * @see PropsHandler#setProperty(String, String)
+     */
+    @Override
+    public void setProperty(String key, String value) {
+        this.properties.put(key, value);
+    }
+
+    /**
+     * @see PropsHandler#setPropertyIfUndefinedByUser(String, String)
+     */
+    @Override
+    public void setPropertyIfUndefinedByUser(String key, String value) {
+        if (!this.getUserProperties().contains(key)) {
+            this.setProperty(key, value);
         }
     }
     
@@ -202,11 +202,11 @@ public class DefaultPropsHandler implements PropsHandler {
     }
 
     /**
-     * @see PropsHandler#setJavaVersionProperty
+     * @see PropsHandler#setUserProperty(String, String)
      */
     @Override
-    public void setJavaVersionProperty() {
-        String javaVersion = JavaEnvUtils.getJavaVersion();
-        this.setPropertyIfUndefinedByUser("ant.java.version", javaVersion);
+    public void setUserProperty(String key, String value) {
+        this.userProperties.put(key, value);
+        this.setProperty(key, value);
     }
 }

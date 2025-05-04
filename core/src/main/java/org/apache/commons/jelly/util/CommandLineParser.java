@@ -46,11 +46,11 @@ public class CommandLineParser {
 
     protected static CommandLineParser _instance = new CommandLineParser();
     
-    private Options cmdLineOptions = null;
-
     public static CommandLineParser getInstance() {
         return _instance;
     }
+
+    private Options cmdLineOptions = null;
 
     /**
      * Parse out the command line options and configure

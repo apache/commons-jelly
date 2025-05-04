@@ -101,46 +101,19 @@ public class SetTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    /** Sets the variable name to define for this expression
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
     /**
-     * Sets the variable scope for this variable. For example setting this value to 'parent' will
-     * set this value in the parent scope. When Jelly is run from inside a Servlet environment
-     * then other scopes will be available such as 'request', 'session' or 'application'.
-     *
-     * Other applications may implement their own custom scopes.
+     * @param value
+     * @return true if the given value is null or an empty String
      */
-    public void setScope(String scope) {
-        this.scope = scope;
-    }
-
-    /** Sets the expression to evaluate. */
-    public void setValue(Expression value) {
-        this.value = value;
-    }
-
-    /**
-     * Sets the default value to be used if the value expression results
-     * in a null value or blank String
-     */
-    public void setDefaultValue(Expression defaultValue) {
-        this.defaultValue = defaultValue;
-    }
-
-    /** Sets the target object on which to set a property. */
-    public void setTarget(Object target) {
-        this.target = target;
-    }
-
-    /** Sets the name of the property to set on the target object. */
-    public void setProperty(String property) {
-        this.property = property;
+    protected boolean isEmpty(Object value) {
+        if (value == null) {
+            return true;
+        }
+        if (value instanceof String) {
+            String s = (String) value;
+            return s.length() == 0;
+        }
+        return false;
     }
 
     /**
@@ -151,6 +124,14 @@ public class SetTag extends TagSupport {
     }
 
     /**
+     * Sets the default value to be used if the value expression results
+     * in a null value or blank String
+     */
+    public void setDefaultValue(Expression defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    /**
      * Sets whether the body of the tag should be XML encoded as text (so that &lt; and &gt; are
      * encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.
      * This is only used if this tag is specified with no value so that the text body of this
@@ -158,6 +139,11 @@ public class SetTag extends TagSupport {
      */
     public void setEncode(boolean encode) {
         this.encode = encode;
+    }
+
+    /** Sets the name of the property to set on the target object. */
+    public void setProperty(String property) {
+        this.property = property;
     }
 
     // Implementation methods
@@ -179,18 +165,32 @@ public class SetTag extends TagSupport {
     }
 
     /**
-     * @param value
-     * @return true if the given value is null or an empty String
+     * Sets the variable scope for this variable. For example setting this value to 'parent' will
+     * set this value in the parent scope. When Jelly is run from inside a Servlet environment
+     * then other scopes will be available such as 'request', 'session' or 'application'.
+     *
+     * Other applications may implement their own custom scopes.
      */
-    protected boolean isEmpty(Object value) {
-        if (value == null) {
-            return true;
-        }
-        if (value instanceof String) {
-            String s = (String) value;
-            return s.length() == 0;
-        }
-        return false;
+    public void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    /** Sets the target object on which to set a property. */
+    public void setTarget(Object target) {
+        this.target = target;
+    }
+
+    /** Sets the expression to evaluate. */
+    public void setValue(Expression value) {
+        this.value = value;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+    /** Sets the variable name to define for this expression
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 
 }

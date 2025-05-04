@@ -48,6 +48,22 @@ public class JellyServlet extends HttpServlet {
      */
     public static final String RESPONSE = "response";
 
+    /**
+     * See org.apache.velocity.servlet.VelocityServlet#createContext
+     * @param req
+     * @param res
+     * @return a new context.
+     */
+    protected JellyContext createContext(
+        HttpServletRequest req,
+        HttpServletResponse res) {
+
+        JellyContext ctx = new JellyServletContext(getServletContext());
+        ctx.setVariable(REQUEST, req);
+        ctx.setVariable(RESPONSE, res);
+        return ctx;
+    }
+
     @Override
     protected void doGet(
         HttpServletRequest request,
@@ -87,19 +103,42 @@ public class JellyServlet extends HttpServlet {
     }
 
     /**
-     * See org.apache.velocity.servlet.VelocityServlet#createContext
-     * @param req
-     * @param res
-     * @return a new context.
+     * Invoked when there is an error thrown in any part of doRequest() processing.
+     * <br><br>
+     * Default will send a simple HTML response indicating there was a problem.
+     *<br><br>
+     * Ripped from VelocityServlet.
+     *
+     * @param request original HttpServletRequest from servlet container.
+     * @param response HttpServletResponse object from servlet container.
+     * @param cause  Exception that was thrown by some other part of process.
      */
-    protected JellyContext createContext(
-        HttpServletRequest req,
-        HttpServletResponse res) {
+    protected void error(
+        HttpServletRequest request,
+        HttpServletResponse response,
+        Exception cause)
+        throws ServletException, IOException {
 
-        JellyContext ctx = new JellyServletContext(getServletContext());
-        ctx.setVariable(REQUEST, req);
-        ctx.setVariable(RESPONSE, res);
-        return ctx;
+        StringBuilder html = new StringBuilder();
+        html.append("<html>");
+        html.append("<title>Error</title>");
+        html.append("<body bgcolor=\"#ffffff\">");
+        html.append("<h2>JellyServlet : Error processing the script</h2>");
+        html.append("<pre>");
+        String why = cause.getMessage();
+        if (why != null && why.trim().length() > 0) {
+            html.append(why);
+            html.append("<br>");
+        }
+
+        StringWriter sw = new StringWriter();
+        cause.printStackTrace(new PrintWriter(sw));
+
+        html.append(sw.toString());
+        html.append("</pre>");
+        html.append("</body>");
+        html.append("</html>");
+        response.getOutputStream().print(html.toString());
     }
 
     /**
@@ -153,44 +192,5 @@ public class JellyServlet extends HttpServlet {
         xmlOutput.flush();
         xmlOutput.close();
         output.flush();
-    }
-
-    /**
-     * Invoked when there is an error thrown in any part of doRequest() processing.
-     * <br><br>
-     * Default will send a simple HTML response indicating there was a problem.
-     *<br><br>
-     * Ripped from VelocityServlet.
-     *
-     * @param request original HttpServletRequest from servlet container.
-     * @param response HttpServletResponse object from servlet container.
-     * @param cause  Exception that was thrown by some other part of process.
-     */
-    protected void error(
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Exception cause)
-        throws ServletException, IOException {
-
-        StringBuilder html = new StringBuilder();
-        html.append("<html>");
-        html.append("<title>Error</title>");
-        html.append("<body bgcolor=\"#ffffff\">");
-        html.append("<h2>JellyServlet : Error processing the script</h2>");
-        html.append("<pre>");
-        String why = cause.getMessage();
-        if (why != null && why.trim().length() > 0) {
-            html.append(why);
-            html.append("<br>");
-        }
-
-        StringWriter sw = new StringWriter();
-        cause.printStackTrace(new PrintWriter(sw));
-
-        html.append(sw.toString());
-        html.append("</pre>");
-        html.append("</body>");
-        html.append("</html>");
-        response.getOutputStream().print(html.toString());
     }
 }

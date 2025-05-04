@@ -39,20 +39,6 @@ public class TJEcho extends TagSupport {
 	}
 
 	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	/**
 	 * @return the attr
 	 */
 	public String getAttr() {
@@ -60,10 +46,24 @@ public class TJEcho extends TagSupport {
 	}
 
 	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
 	 * @param attr the attr to set
 	 */
 	public void setAttr(String attr) {
 		this.attr = attr;
+	}
+
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 
 }

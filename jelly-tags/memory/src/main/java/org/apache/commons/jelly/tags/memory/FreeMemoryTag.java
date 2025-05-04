@@ -31,17 +31,6 @@ public class FreeMemoryTag extends TagSupport {
 
     private String style = "mb";
 
-    public void setStyle(String style) {
-        if (style == null) {
-            style = "mb";
-        }
-        this.style = style.toLowerCase();
-    }
-
-    public String getStyle() {
-        return this.style;
-    }
- 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -67,6 +56,17 @@ public class FreeMemoryTag extends TagSupport {
         catch ( Exception e ) {
             throw new JellyTagException( "Error writing to output", e );
         }
+    }
+
+    public String getStyle() {
+        return this.style;
+    }
+ 
+    public void setStyle(String style) {
+        if (style == null) {
+            style = "mb";
+        }
+        this.style = style.toLowerCase();
     }
 
 }

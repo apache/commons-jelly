@@ -48,18 +48,17 @@ public class JellyException extends Exception implements LocationAware {
         super(message);
     }
 
+    public JellyException(String reason, String fileName, String elementName, int columnNumber, int lineNumber) {
+        super(reason);
+        this.fileName = fileName;
+        this.elementName = elementName;
+        this.columnNumber = columnNumber;
+        this.lineNumber = lineNumber;
+    }
+    
     public JellyException(String message, Throwable cause) {
         super(message);
         this.cause = cause;
-    }
-    
-    public JellyException(Throwable cause) {
-        super(cause.getLocalizedMessage());
-        this.cause = cause;
-    }
-    
-    public JellyException(Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
-        this(cause.getLocalizedMessage(), cause, fileName, elementName, columnNumber, lineNumber);
     }
     
     public JellyException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
@@ -71,12 +70,13 @@ public class JellyException extends Exception implements LocationAware {
         this.lineNumber = lineNumber;
     }
     
-    public JellyException(String reason, String fileName, String elementName, int columnNumber, int lineNumber) {
-        super(reason);
-        this.fileName = fileName;
-        this.elementName = elementName;
-        this.columnNumber = columnNumber;
-        this.lineNumber = lineNumber;
+    public JellyException(Throwable cause) {
+        super(cause.getLocalizedMessage());
+        this.cause = cause;
+    }
+    
+    public JellyException(Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
+        this(cause.getLocalizedMessage(), cause, fileName, elementName, columnNumber, lineNumber);
     }
     
     @Override
@@ -86,22 +86,6 @@ public class JellyException extends Exception implements LocationAware {
 
     
     /** 
-     * @return the line number of the tag 
-     */
-    @Override
-    public int getLineNumber() {
-        return lineNumber;
-    }
-    
-    /** 
-     * Sets the line number of the tag 
-     */
-    @Override
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
-    }
-
-    /** 
      * @return the column number of the tag 
      */
     @Override
@@ -109,31 +93,6 @@ public class JellyException extends Exception implements LocationAware {
         return columnNumber;
     }
     
-    /** 
-     * Sets the column number of the tag 
-     */
-    @Override
-    public void setColumnNumber(int columnNumber) {
-        this.columnNumber = columnNumber;
-    }
-
-    /** 
-     * @return the Jelly file which caused the problem 
-     */
-    @Override
-    public String getFileName() {
-        return fileName;
-    }
-
-    /** 
-     * Sets the Jelly file which caused the problem 
-     */
-    @Override
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-    
-
     /** 
      * @return the element name which caused the problem
      */
@@ -143,14 +102,21 @@ public class JellyException extends Exception implements LocationAware {
     }
 
     /** 
-     * Sets the element name which caused the problem
+     * @return the Jelly file which caused the problem 
      */
     @Override
-    public void setElementName(String elementName) {
-        this.elementName = elementName;
+    public String getFileName() {
+        return fileName;
     }
     
-    
+    /** 
+     * @return the line number of the tag 
+     */
+    @Override
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
     @Override
     public String getMessage() {
         if (fileName == null && lineNumber == -1 && columnNumber == -1 && elementName == null) {
@@ -163,7 +129,29 @@ public class JellyException extends Exception implements LocationAware {
     public String getReason() {
         return super.getMessage();
     }
+    
 
+    @Override
+    public void printStackTrace() {
+        super.printStackTrace();
+        if (cause != null) {
+            System.out.println("Root cause");
+            cause.printStackTrace();
+        }
+    }
+
+    @Override
+    public void printStackTrace(PrintStream s) {
+        synchronized (s) {
+            super.printStackTrace(s);
+            if  (cause != null) {
+                s.println("Root cause");
+                cause.printStackTrace(s);
+            }
+        }
+    }
+    
+    
     // #### overload the printStackTrace methods...
     @Override
     public void printStackTrace(PrintWriter s) { 
@@ -175,25 +163,37 @@ public class JellyException extends Exception implements LocationAware {
             }
         }
     }
-        
+
+    /** 
+     * Sets the column number of the tag 
+     */
     @Override
-    public void printStackTrace(PrintStream s) {
-        synchronized (s) {
-            super.printStackTrace(s);
-            if  (cause != null) {
-                s.println("Root cause");
-                cause.printStackTrace(s);
-            }
-        }
+    public void setColumnNumber(int columnNumber) {
+        this.columnNumber = columnNumber;
     }
 
+    /** 
+     * Sets the element name which caused the problem
+     */
     @Override
-    public void printStackTrace() {
-        super.printStackTrace();
-        if (cause != null) {
-            System.out.println("Root cause");
-            cause.printStackTrace();
-        }
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
+    }
+        
+    /** 
+     * Sets the Jelly file which caused the problem 
+     */
+    @Override
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    /** 
+     * Sets the line number of the tag 
+     */
+    @Override
+    public void setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
     }
 
 }

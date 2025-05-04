@@ -50,26 +50,6 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
     public InvokeTag() {
     }
 
-    /** Sets the name of the variable exported by this tag */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /** Sets the name of a variable that exports the exception thrown by
-     * the method's invocation (if any)
-     */
-    public void setExceptionVar(String var) {
-        this.exceptionVar = var;
-    }
-
-    public void setMethod(String method) {
-        this.methodName = method;
-    }
-
-    public void setOn(Object instance) {
-        this.onInstance = instance;
-    }
-
     @Override
     public void addArgument(Class type, Object value) {
         paramTypes.add(type);
@@ -121,5 +101,25 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
         if (null != var) {
             context.setVariable(var, result);
         }
+    }
+
+    /** Sets the name of a variable that exports the exception thrown by
+     * the method's invocation (if any)
+     */
+    public void setExceptionVar(String var) {
+        this.exceptionVar = var;
+    }
+
+    public void setMethod(String method) {
+        this.methodName = method;
+    }
+
+    public void setOn(Object instance) {
+        this.onInstance = instance;
+    }
+
+    /** Sets the name of the variable exported by this tag */
+    public void setVar(String var) {
+        this.var = var;
     }
 }

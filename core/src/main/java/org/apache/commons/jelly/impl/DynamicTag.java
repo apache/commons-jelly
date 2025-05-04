@@ -77,14 +77,6 @@ public class DynamicTag extends DynaTagSupport {
         getTemplate().run(newJellyContext, output);
     }
 
-    // DynaTag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void setAttribute(String name, Object value) {
-        attributes.put(name, value);
-        attributes.put(name + "Attr", value);
-    }
-
     // Properties
     //-------------------------------------------------------------------------
     /** The template to be executed by this tag which may well
@@ -92,6 +84,14 @@ public class DynamicTag extends DynaTagSupport {
      */
     public Script getTemplate() {
         return template;
+    }
+
+    // DynaTag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void setAttribute(String name, Object value) {
+        attributes.put(name, value);
+        attributes.put(name + "Attr", value);
     }
 
     public void setTemplate(Script template) {

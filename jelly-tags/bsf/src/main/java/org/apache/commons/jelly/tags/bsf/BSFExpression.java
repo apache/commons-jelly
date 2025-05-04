@@ -52,13 +52,6 @@ public class BSFExpression extends ExpressionSupport {
         this.registry = registry;
     }
 
-    // Expression interface
-    //-------------------------------------------------------------------------
-    @Override
-    public String getExpressionText() {
-        return "${" + text + "}";
-    }
-
     @Override
     public Object evaluate(JellyContext context) {
         // XXXX: unfortunately we must synchronize evaluations
@@ -82,5 +75,12 @@ public class BSFExpression extends ExpressionSupport {
                 return null;
             }
         }
+    }
+
+    // Expression interface
+    //-------------------------------------------------------------------------
+    @Override
+    public String getExpressionText() {
+        return "${" + text + "}";
     }
 }

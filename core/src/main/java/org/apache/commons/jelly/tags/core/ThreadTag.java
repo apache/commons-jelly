@@ -30,14 +30,14 @@ import org.apache.commons.logging.LogFactory;
 /** A tag that spawns the contained script in a separate thread
   */
 public class ThreadTag extends TagSupport  {
+    /** The Log to which logging calls will be made. */
+    private static final Log log = LogFactory.getLog(ThreadTag.class);
     /** Thread Name */
     private String name = null;
     /** The destination of output */
     private XMLOutput xmlOutput;
     /** Should we close the underlying output */
     private boolean closeOutput;
-    /** The Log to which logging calls will be made. */
-    private static final Log log = LogFactory.getLog(ThreadTag.class);
 
     public ThreadTag() {
     }
@@ -84,6 +84,15 @@ public class ThreadTag extends TagSupport  {
     }
 
     /**
+     * Sets the file which is generated from the output
+     * @param name The output file name
+     */
+    public void setFile(String name) throws IOException {
+        this.closeOutput = true;
+        setXmlOutput( XMLOutput.createXMLOutput(new FileOutputStream(name)) );
+    }
+
+    /**
      * Sets the name of the thread.
      * @param name The name to set
      */
@@ -97,14 +106,5 @@ public class ThreadTag extends TagSupport  {
     public void setXmlOutput(XMLOutput xmlOutput) {
         this.closeOutput = false;
         this.xmlOutput = xmlOutput;
-    }
-
-    /**
-     * Sets the file which is generated from the output
-     * @param name The output file name
-     */
-    public void setFile(String name) throws IOException {
-        this.closeOutput = true;
-        setXmlOutput( XMLOutput.createXMLOutput(new FileOutputStream(name)) );
     }
 }

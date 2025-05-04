@@ -40,6 +40,14 @@ public class BorderLayoutTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
+     * Creates a BorderLayout
+     */
+    @Override
+    protected LayoutManager createLayoutManager() {
+        return new BorderLayout(hgap, vgap);
+    }
+
+    /**
      * Returns the hgap.
      * @return int
      */
@@ -62,21 +70,13 @@ public class BorderLayoutTag extends LayoutTagSupport {
         this.hgap = hgap;
     }
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     /**
      * Sets the vertical gap in pixels
      */
     public void setVgap(int vgap) {
         this.vgap = vgap;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Creates a BorderLayout
-     */
-    @Override
-    protected LayoutManager createLayoutManager() {
-        return new BorderLayout(hgap, vgap);
     }
 }

@@ -34,16 +34,16 @@ import junit.framework.TestSuite;
  */
 public class TestXMLParserCache extends TestCase {
 
+    public static TestSuite suite() throws Exception {
+        return new TestSuite(TestXMLParserCache.class);
+    }
     Jelly jelly = null;
     JellyContext context = null;
+
     XMLOutput xmlOutput = null;
 
     public TestXMLParserCache(String name) {
         super(name);
-    }
-
-    public static TestSuite suite() throws Exception {
-        return new TestSuite(TestXMLParserCache.class);
     }
 
     public void setUp(String scriptName) throws Exception {

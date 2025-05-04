@@ -40,19 +40,11 @@ public class Attribute {
     //-------------------------------------------------------------------------
 
     /**
-     * Returns whether this attribute is required.
-     * @return boolean
+     * Returns the defaultValue.
+     * @return Expression
      */
-    public boolean isRequired() {
-        return required;
-    }
-
-    /**
-     * Sets whether this attribute is required.
-     * @param required is true if this attribute is a mandatory attribute
-     */
-    public void setRequired(boolean required) {
-        this.required = required;
+    public Expression getDefaultValue() {
+        return defaultValue;
     }
 
     /**
@@ -64,19 +56,11 @@ public class Attribute {
     }
 
     /**
-     * Sets the name.
-     * @param name The name to set
+     * Returns whether this attribute is required.
+     * @return boolean
      */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Returns the defaultValue.
-     * @return Expression
-     */
-    public Expression getDefaultValue() {
-        return defaultValue;
+    public boolean isRequired() {
+        return required;
     }
 
     /**
@@ -85,6 +69,22 @@ public class Attribute {
      */
     public void setDefaultValue(Expression defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    /**
+     * Sets the name.
+     * @param name The name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Sets whether this attribute is required.
+     * @param required is true if this attribute is a mandatory attribute
+     */
+    public void setRequired(boolean required) {
+        this.required = required;
     }
 
 }

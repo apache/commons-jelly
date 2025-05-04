@@ -40,10 +40,6 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     public UseListTag(){
     }
 
-    public List getList() {
-        return (List) getBean();
-    }
-
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
@@ -61,13 +57,16 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
         return super.getAttributeType(name);
     }
 
+    @Override
+    protected Class getDefaultClass() {
+        return ArrayList.class;
+    }
+
     // Implementation methods
     //-------------------------------------------------------------------------
 
-    @Override
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
-        items = (Expression) attributes.remove("items");
-        super.setBeanProperties(bean, attributes);
+    public List getList() {
+        return (List) getBean();
     }
 
     @Override
@@ -86,7 +85,8 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     }
 
     @Override
-    protected Class getDefaultClass() {
-        return ArrayList.class;
+    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
+        items = (Expression) attributes.remove("items");
+        super.setBeanProperties(bean, attributes);
     }
 }

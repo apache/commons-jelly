@@ -51,6 +51,13 @@ public abstract class BaseClassLoaderTag extends TagSupport {
     }
 
     /**
+     * Gets the boolean as to whether the context classloader should be used.
+     */
+    public boolean getUseContextClassLoader() {
+        return useContextClassLoader;
+    }
+
+    /**
      * Sets the class loader to be used for instantiating application objects
      * when required.
      *
@@ -59,13 +66,6 @@ public abstract class BaseClassLoaderTag extends TagSupport {
      */
     public void setClassLoader(ClassLoader classLoader) {
         this.classLoader = classLoader;
-    }
-
-    /**
-     * Gets the boolean as to whether the context classloader should be used.
-     */
-    public boolean getUseContextClassLoader() {
-        return useContextClassLoader;
     }
 
     /**

@@ -36,32 +36,38 @@ public class TextScript implements Script {
         this.text = text;
     }
 
+    // Script interface
+    //-------------------------------------------------------------------------
+    @Override
+    public Script compile() {
+        return this;
+    }
+
+    /** @return the text output by this script */
+    public String getText() {
+        return text;
+    }
+
+    /** Evaluates the body of a tag */
+    @Override
+    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
+        if (text != null) {
+            try {
+                output.write(text);
+            } catch (SAXException e) {
+                throw new JellyTagException("could not write to XMLOutput", e);
+            }
+        }
+    }
+
+    /** Sets the text output by this script */
+    public void setText(String text) {
+        this.text = text;
+    }
+
     @Override
     public String toString() {
         return super.toString() + "[text=" + text + "]";
-    }
-
-    /**
-     * Trims whitespace from the start and end of the text in this script
-     */
-    public void trimWhitespace() {
-        this.text = text.trim();
-    }
-
-    /**
-     * Trims whitespace from the start of the text
-     */
-    public void trimStartWhitespace() {
-        int index = 0;
-        for ( int length = text.length(); index < length; index++ ) {
-            char ch = text.charAt(index);
-            if (!Character.isWhitespace(ch)) {
-                break;
-            }
-        }
-        if ( index > 0 ) {
-            this.text = text.substring(index);
-        }
     }
 
     /**
@@ -81,32 +87,26 @@ public class TextScript implements Script {
         }
     }
 
-    /** @return the text output by this script */
-    public String getText() {
-        return text;
-    }
-
-    /** Sets the text output by this script */
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    // Script interface
-    //-------------------------------------------------------------------------
-    @Override
-    public Script compile() {
-        return this;
-    }
-
-    /** Evaluates the body of a tag */
-    @Override
-    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
-        if (text != null) {
-            try {
-                output.write(text);
-            } catch (SAXException e) {
-                throw new JellyTagException("could not write to XMLOutput", e);
+    /**
+     * Trims whitespace from the start of the text
+     */
+    public void trimStartWhitespace() {
+        int index = 0;
+        for ( int length = text.length(); index < length; index++ ) {
+            char ch = text.charAt(index);
+            if (!Character.isWhitespace(ch)) {
+                break;
             }
         }
+        if ( index > 0 ) {
+            this.text = text.substring(index);
+        }
+    }
+
+    /**
+     * Trims whitespace from the start and end of the text in this script
+     */
+    public void trimWhitespace() {
+        this.text = text.trim();
     }
 }

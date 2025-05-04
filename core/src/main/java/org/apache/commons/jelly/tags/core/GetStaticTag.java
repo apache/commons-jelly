@@ -52,39 +52,6 @@ public class GetStaticTag extends TagSupport {
     /** The name of the class containing the static field. */
     private String className;
 
-    /**
-     * Sets the name of the variable exported by this tag.
-     *
-     * @param var The variable name.
-     */
-
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Sets the name of the field to retrieve.
-     *
-     * @param field The method name
-     */
-
-    public void setField(String field) {
-        this.field = field;
-    }
-
-    /**
-     * Sets the fully qualified name of the class containing the static field.
-     *
-     * @param className The name of the class.
-     */
-
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    // Tag interface
-    //------------------------------------------------------------------------
-
     @Override
     public void doTag(XMLOutput output) throws JellyTagException {
         String message = null;
@@ -112,6 +79,39 @@ public class GetStaticTag extends TagSupport {
                                       var + ".  Original exception message: " +
                                       t.getMessage(), t);
         }
+    }
+
+    /**
+     * Sets the fully qualified name of the class containing the static field.
+     *
+     * @param className The name of the class.
+     */
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    /**
+     * Sets the name of the field to retrieve.
+     *
+     * @param field The method name
+     */
+
+    public void setField(String field) {
+        this.field = field;
+    }
+
+    // Tag interface
+    //------------------------------------------------------------------------
+
+    /**
+     * Sets the name of the variable exported by this tag.
+     *
+     * @param var The variable name.
+     */
+
+    public void setVar(String var) {
+        this.var = var;
     }
 
 }

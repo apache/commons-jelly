@@ -40,6 +40,14 @@ public class EmptyBorderTag extends BorderTagSupport {
     private int top    = -1;
     private int bottom = -1;
 
+    /**
+     * Factory method to create a new EmptyBorder instance.
+     */
+    @Override
+    protected Border createBorder() {
+        return BorderFactory.createEmptyBorder( top, left, bottom, right);
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -57,6 +65,14 @@ public class EmptyBorderTag extends BorderTagSupport {
             throw new MissingAttributeException("bottom");
         }
         super.doTag(output);
+    }
+
+    /**
+     * Sets the bottom inset
+     * @param bottom
+     */
+    public void setBottom( int bottom ) {
+        this.bottom = bottom;
     }
 
     // Properties
@@ -83,22 +99,6 @@ public class EmptyBorderTag extends BorderTagSupport {
      */
     public void setTop( int top ) {
         this.top = top;
-    }
-
-    /**
-     * Sets the bottom inset
-     * @param bottom
-     */
-    public void setBottom( int bottom ) {
-        this.bottom = bottom;
-    }
-
-    /**
-     * Factory method to create a new EmptyBorder instance.
-     */
-    @Override
-    protected Border createBorder() {
-        return BorderFactory.createEmptyBorder( top, left, bottom, right);
     }
 
 }

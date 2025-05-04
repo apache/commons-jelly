@@ -33,29 +33,14 @@ import junit.framework.TestSuite;
 public class TestFileTag extends BaseJellyTest
 {
 
-    public TestFileTag(String name)
-    {
-        super(name);
-    }
-
     public static TestSuite suite() throws Exception
     {
         return new TestSuite(TestFileTag.class);
     }
 
-    public void testSimpleFileTag() throws Exception
+    public TestFileTag(String name)
     {
-        setUpScript("testFileTag.jelly");
-        Script script = getJelly().compileScript();
-
-        script.run(getJellyContext(), getXMLOutput());
-
-        String data = (String)getJellyContext().getVariable("testFileTag");
-
-        //FIXME This doesn't take into account attribute ordering
-        assertEquals("fully qualified attributes not passed",
-                "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\"></html>",
-                data);
+        super(name);
     }
 
     public void testDom4Xmlns() throws SAXException {
@@ -73,6 +58,21 @@ public class TestFileTag extends BaseJellyTest
         output.write(golden);
         output.endDocument();
         assertEquals("output should contain the namespaces", golden, writer.toString());
+    }
+
+    public void testSimpleFileTag() throws Exception
+    {
+        setUpScript("testFileTag.jelly");
+        Script script = getJelly().compileScript();
+
+        script.run(getJellyContext(), getXMLOutput());
+
+        String data = (String)getJellyContext().getVariable("testFileTag");
+
+        //FIXME This doesn't take into account attribute ordering
+        assertEquals("fully qualified attributes not passed",
+                "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\" xml:lang=\"en\"></html>",
+                data);
     }
 
 }

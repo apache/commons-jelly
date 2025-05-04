@@ -40,10 +40,6 @@ public class JellyContextRegistry extends ObjectRegistry {
         return context;
     }
 
-    public void setJellyContext(JellyContext context) {
-        this.context = context;
-    }
-
     // ObjectRegistry interface
     //-------------------------------------------------------------------------
     @Override
@@ -54,6 +50,10 @@ public class JellyContextRegistry extends ObjectRegistry {
     @Override
     public void register(String name, Object value) {
         context.setVariable(name, value);
+    }
+
+    public void setJellyContext(JellyContext context) {
+        this.context = context;
     }
 
     public void unregister(String name) {

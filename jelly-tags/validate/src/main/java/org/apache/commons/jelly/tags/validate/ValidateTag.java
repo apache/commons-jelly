@@ -114,53 +114,11 @@ public class ValidateTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the schema Verifier that this tag will use to verify its body
-     * <p>
-     * jelly:required
-     * </p>
-     */
-    public void setVerifier(Verifier verifier) {
-        this.verifier = verifier;
-    }
-
-    /**
      * @return the ErrorHandler used when validating
      */
     public ErrorHandler getErrorHandler() {
         return errorHandler;
     }
-
-    /**
-     * Sets the SAX ErrorHandler which is used to capture
-     * XML validation events.
-     * If an ErrorHandler is specified
-     * then this tag will output its body and redirect all error messages
-     * to the ErrorHandler.
-     * If no ErrorHandler is specified then this tag will just output the
-     * error messages as XML events
-     *
-     * <p>
-     * jelly:optional
-     * </p>
-     */
-    public void setErrorHandler(ErrorHandler errorHandler) {
-        this.errorHandler = errorHandler;
-    }
-
-    /**
-     * Sets the name of the variable that will contain a boolean flag for whether or
-     * not the XML is valid.
-     *
-     * <p>
-     * jelly:optional
-     * </p>
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /**
      * Processes whether or not the document is valid.
@@ -196,6 +154,48 @@ public class ValidateTag extends TagSupport {
         output.startElement( uri, name, name, attributes );
         output.write( e.getMessage() );
         output.endElement( uri, name, name );
+    }
+
+    /**
+     * Sets the SAX ErrorHandler which is used to capture
+     * XML validation events.
+     * If an ErrorHandler is specified
+     * then this tag will output its body and redirect all error messages
+     * to the ErrorHandler.
+     * If no ErrorHandler is specified then this tag will just output the
+     * error messages as XML events
+     *
+     * <p>
+     * jelly:optional
+     * </p>
+     */
+    public void setErrorHandler(ErrorHandler errorHandler) {
+        this.errorHandler = errorHandler;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the name of the variable that will contain a boolean flag for whether or
+     * not the XML is valid.
+     *
+     * <p>
+     * jelly:optional
+     * </p>
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    /**
+     * Sets the schema Verifier that this tag will use to verify its body
+     * <p>
+     * jelly:required
+     * </p>
+     */
+    public void setVerifier(Verifier verifier) {
+        this.verifier = verifier;
     }
 
 }

@@ -49,71 +49,6 @@ public class TestJettyHttpServerTags extends TestCase {
         super(testName);
     }
 
-    public void testDefaultServer() throws Exception {
-        String text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/defaultServer.jelly"
-        );
-        assertEquals("Produces the correct output", "It works!", text);
-    }
-
-    public void testJettyLogFile() throws Exception {
-        File logFile = new File("target/test-classes/org/apache/commons/jelly/jetty/JellyLogFileTest.log");
-        if (logFile.exists()) {
-            logFile.delete();
-        }
-        assertTrue("Logfile does not exist", !logFile.exists());
-        String text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/jettyLogFile.jelly"
-        );
-        assertEquals("Produces the correct output", "It works!", text);
-        assertTrue("Logfile exists", logFile.exists());
-    }
-
-    public void testSocketListener() throws Exception {
-        String text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/socketListener.jelly"
-        );
-        assertEquals("Produces the correct output", "It works!", text);
-    }
-
-    public void testHttpContext() throws Exception {
-        String text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/httpContext.jelly"
-        );
-        assertEquals("Produces the correct output", "It works!", text);
-    }
-
-    public void testResourceHandler() throws Exception {
-        String text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/resourceHandler.jelly"
-        );
-        assertEquals("Produces the correct output", "It works!", text);
-    }
-
-    public void testSecurityHandler() throws Exception {
-        String text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/securityHandlerForbidden.jelly"
-        );
-        assertEquals("Forbidden test produces the correct output", "It works!", text);
-
-        text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/securityHandlerUnauthorized.jelly"
-        );
-        assertEquals("Unauthorized produces the correct output", "It works!", text);
-    }
-
-    public void testJellyResourceHandler() throws Exception {
-        String text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/jellyResourceHandler.jelly"
-        );
-        assertEquals("jellyResourceHandler produces the correct output", "It works!", text);
-
-        text = evaluateScriptAsText(
-            "/org/apache/commons/jelly/jetty/jellyResourceHandlerRequestBody.jelly"
-        );
-        assertEquals("jellyResourceHandlerRequestBody produces the correct output", "It works!", text);
-    }
-
     /**
      * Evaluates the script by the given file name and
      * returns the whitespace trimmed output as text
@@ -137,5 +72,70 @@ public class TestJettyHttpServerTags extends TestCase {
             log.debug(text);
         }
         return text;
+    }
+
+    public void testDefaultServer() throws Exception {
+        String text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/defaultServer.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+
+    public void testHttpContext() throws Exception {
+        String text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/httpContext.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+
+    public void testJellyResourceHandler() throws Exception {
+        String text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/jellyResourceHandler.jelly"
+        );
+        assertEquals("jellyResourceHandler produces the correct output", "It works!", text);
+
+        text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/jellyResourceHandlerRequestBody.jelly"
+        );
+        assertEquals("jellyResourceHandlerRequestBody produces the correct output", "It works!", text);
+    }
+
+    public void testJettyLogFile() throws Exception {
+        File logFile = new File("target/test-classes/org/apache/commons/jelly/jetty/JellyLogFileTest.log");
+        if (logFile.exists()) {
+            logFile.delete();
+        }
+        assertTrue("Logfile does not exist", !logFile.exists());
+        String text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/jettyLogFile.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+        assertTrue("Logfile exists", logFile.exists());
+    }
+
+    public void testResourceHandler() throws Exception {
+        String text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/resourceHandler.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
+    }
+
+    public void testSecurityHandler() throws Exception {
+        String text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/securityHandlerForbidden.jelly"
+        );
+        assertEquals("Forbidden test produces the correct output", "It works!", text);
+
+        text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/securityHandlerUnauthorized.jelly"
+        );
+        assertEquals("Unauthorized produces the correct output", "It works!", text);
+    }
+
+    public void testSocketListener() throws Exception {
+        String text = evaluateScriptAsText(
+            "/org/apache/commons/jelly/jetty/socketListener.jelly"
+        );
+        assertEquals("Produces the correct output", "It works!", text);
     }
 }

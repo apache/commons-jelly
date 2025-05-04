@@ -101,33 +101,6 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         setAttributesSet.clear();
     }
 
-    @Override
-    public void setAttribute(String name, Object value) throws JellyTagException {
-        boolean isVariableName = false;
-        if (variableNameAttribute != null ) {
-            if ( variableNameAttribute.equals( name ) ) {
-                if (value == null) {
-                    var = null;
-                }
-                else {
-                    var = value.toString();
-                }
-                isVariableName = true;
-            }
-        }
-        if (! isVariableName) {
-
-            // #### strictly speaking we could
-            // know what attributes are specified at compile time
-            // so this dynamic set is unnecessary
-            setAttributesSet.add(name);
-
-            // we could maybe implement attribute specific validation here
-
-            super.setAttribute(name, value);
-        }
-    }
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -196,6 +169,16 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         }
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
+    /**
+     * @return the bean that has just been created
+     */
+    @Override
+    public Object getBean() {
+        return bean;
+    }
+
     /**
      * Report the state of the bean when method invocation fails
      * so that the user can determine any problems that might
@@ -220,13 +203,30 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
         throw new JellyTagException(e);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    /**
-     * @return the bean that has just been created
-     */
     @Override
-    public Object getBean() {
-        return bean;
+    public void setAttribute(String name, Object value) throws JellyTagException {
+        boolean isVariableName = false;
+        if (variableNameAttribute != null ) {
+            if ( variableNameAttribute.equals( name ) ) {
+                if (value == null) {
+                    var = null;
+                }
+                else {
+                    var = value.toString();
+                }
+                isVariableName = true;
+            }
+        }
+        if (! isVariableName) {
+
+            // #### strictly speaking we could
+            // know what attributes are specified at compile time
+            // so this dynamic set is unnecessary
+            setAttributesSet.add(name);
+
+            // we could maybe implement attribute specific validation here
+
+            super.setAttribute(name, value);
+        }
     }
 }

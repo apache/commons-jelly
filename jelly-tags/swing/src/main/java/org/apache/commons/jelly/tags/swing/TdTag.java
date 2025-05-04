@@ -60,77 +60,6 @@ public class TdTag extends TagSupport implements ContainerTag {
         tag.addCell(component, createConstraints());
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(final XMLOutput output) throws JellyTagException {
-        invokeBody(output);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the horizontal alignment to a case insensitive value of {LEFT, CENTER, RIGHT}
-     */
-    public void setAlign(String align) {
-        this.align = align;
-    }
-
-    /**
-     * Sets the vertical alignment to a case insensitive value of {TOP, MIDDLE, BOTTOM}
-     */
-    public void setValign(String valign) {
-        this.valign = valign;
-    }
-
-    /**
-     * Sets the number of columns that this cell should span. The default value is 1
-     */
-    public void setColspan(int colspan) {
-        this.colspan = colspan;
-    }
-
-    /**
-     * Sets the number of rows that this cell should span. The default value is 1
-     */
-    public void setRowspan(int rowspan) {
-        this.rowspan = rowspan;
-    }
-
-    /**
-     * Returns the colfill.
-     * @return boolean
-     */
-    public boolean isColfill() {
-        return colfill;
-    }
-
-    /**
-     * Returns the rowfill.
-     * @return boolean
-     */
-    public boolean isRowfill() {
-        return rowfill;
-    }
-
-    /**
-     * Sets whether or not this column should allow its component to stretch to fill the space available
-     */
-    public void setColfill(boolean colfill) {
-        this.colfill = colfill;
-    }
-
-    /**
-     * Sets whether or not this row should allow its component to stretch to fill the space available
-     */
-    public void setRowfill(boolean rowfill) {
-        this.rowfill = rowfill;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     /**
      * Factory method to create a new constraints object
      */
@@ -158,6 +87,16 @@ public class TdTag extends TagSupport implements ContainerTag {
         answer.gridwidth = colspan;
         answer.gridheight = rowspan;
         return answer;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        invokeBody(output);
     }
 
     /**
@@ -201,5 +140,66 @@ public class TdTag extends TagSupport implements ContainerTag {
                 return GridBagConstraints.WEST;
             }
         }
+    }
+
+    /**
+     * Returns the colfill.
+     * @return boolean
+     */
+    public boolean isColfill() {
+        return colfill;
+    }
+
+    /**
+     * Returns the rowfill.
+     * @return boolean
+     */
+    public boolean isRowfill() {
+        return rowfill;
+    }
+
+    /**
+     * Sets the horizontal alignment to a case insensitive value of {LEFT, CENTER, RIGHT}
+     */
+    public void setAlign(String align) {
+        this.align = align;
+    }
+
+    /**
+     * Sets whether or not this column should allow its component to stretch to fill the space available
+     */
+    public void setColfill(boolean colfill) {
+        this.colfill = colfill;
+    }
+
+    /**
+     * Sets the number of columns that this cell should span. The default value is 1
+     */
+    public void setColspan(int colspan) {
+        this.colspan = colspan;
+    }
+
+    /**
+     * Sets whether or not this row should allow its component to stretch to fill the space available
+     */
+    public void setRowfill(boolean rowfill) {
+        this.rowfill = rowfill;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the number of rows that this cell should span. The default value is 1
+     */
+    public void setRowspan(int rowspan) {
+        this.rowspan = rowspan;
+    }
+
+    /**
+     * Sets the vertical alignment to a case insensitive value of {TOP, MIDDLE, BOTTOM}
+     */
+    public void setValign(String valign) {
+        this.valign = valign;
     }
 }

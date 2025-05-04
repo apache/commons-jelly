@@ -120,17 +120,18 @@ public class BeanTag extends DefineTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the name of the tag to create
+     * @return the ClassLoader to use to load classes specified by this object, 
+     *  the thread context loader if the context flag is set, or the class used to load this class.
      */
-    public void setName(String name) {
-        this.name = name;
+    public ClassLoader getClassLoader() {
+        return ClassLoaderUtils.getClassLoader(classLoader, getContext().getUseContextClassLoader(), getClass());
     }
 
     /**
-     * Sets the Java class name to use for the tag
+     * Extracts the invoke method for the class if one is used.
      */
-    public void setClassName(String className) {
-        this.className = className;
+    protected Method getInvokeMethod( Class theClass ) {
+        return null;
     }
 
     /**
@@ -143,12 +144,21 @@ public class BeanTag extends DefineTagSupport {
     }
 
     /**
-     * @return the ClassLoader to use to load classes specified by this object, 
-     *  the thread context loader if the context flag is set, or the class used to load this class.
+     * Sets the Java class name to use for the tag
      */
-    public ClassLoader getClassLoader() {
-        return ClassLoaderUtils.getClassLoader(classLoader, getContext().getUseContextClassLoader(), getClass());
+    public void setClassName(String className) {
+        this.className = className;
     }
+
+    /**
+     * Sets the name of the tag to create
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
 
     /**
      * Sets the name of the attribute used to define the bean variable that this dynamic
@@ -157,15 +167,5 @@ public class BeanTag extends DefineTagSupport {
      */
     public void setVarAttribute(String varAttribute) {
         this.varAttribute = varAttribute;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Extracts the invoke method for the class if one is used.
-     */
-    protected Method getInvokeMethod( Class theClass ) {
-        return null;
     }
 }

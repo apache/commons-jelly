@@ -50,14 +50,6 @@ public class BSFTagLibrary extends CoreTagLibrary {
         setLanguage(language);
     }
 
-    public void setLanguage(String language) {
-        expressionFactory.setLanguage(language);
-    }
-
-    protected BSFEngine getBSFEngine() throws BSFException {
-        return expressionFactory.getBSFEngine();
-    }
-
     /**
      * Factory method to create a new ScriptTag with a BSFEngine
      *
@@ -73,5 +65,13 @@ public class BSFTagLibrary extends CoreTagLibrary {
         catch (BSFException e) {
             throw new JellyException("Failed to create BSFEngine: " + e, e);
         }
+    }
+
+    protected BSFEngine getBSFEngine() throws BSFException {
+        return expressionFactory.getBSFEngine();
+    }
+
+    public void setLanguage(String language) {
+        expressionFactory.setLanguage(language);
     }
 }

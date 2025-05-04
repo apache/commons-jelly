@@ -46,37 +46,6 @@ public class ClassLoaderTag extends BeanTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * @return the variable to store the class loader in
-     */
-    public String getVar() {
-        return this.var;
-    }
-
-    /**
-     * @param var the variable to store the class loader in
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * @return the url to load the classes from
-     */
-    public String getUrl() {
-        return this.url;
-    }
-
-    /**
-     * @param url the url to load the classes from
-     */
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( getVar() == null ) {
@@ -103,6 +72,37 @@ public class ClassLoaderTag extends BeanTag {
         log.debug("Storing the new classloader in " + getVar());
 
         context.setVariable(getVar(), newClassLoader);
+    }
+
+    /**
+     * @return the url to load the classes from
+     */
+    public String getUrl() {
+        return this.url;
+    }
+
+    /**
+     * @return the variable to store the class loader in
+     */
+    public String getVar() {
+        return this.var;
+    }
+
+    /**
+     * @param url the url to load the classes from
+     */
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * @param var the variable to store the class loader in
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 
 }

@@ -32,8 +32,16 @@ public class JellyTagException extends JellyException {
         super(message);
     }
 
+    public JellyTagException(String reason, String fileName, String elementName, int columnNumber, int lineNumber) {
+        super(reason, fileName, elementName, columnNumber, lineNumber);
+    }
+
     public JellyTagException(String message, Throwable cause) {
         super(message, cause);
+    }
+
+    public JellyTagException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
+        super(reason, cause, fileName, elementName, columnNumber, lineNumber);
     }
 
     public JellyTagException(Throwable cause) {
@@ -42,14 +50,6 @@ public class JellyTagException extends JellyException {
 
     public JellyTagException(Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
         super(cause, fileName, elementName, columnNumber, lineNumber);
-    }
-
-    public JellyTagException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
-        super(reason, cause, fileName, elementName, columnNumber, lineNumber);
-    }
-
-    public JellyTagException(String reason, String fileName, String elementName, int columnNumber, int lineNumber) {
-        super(reason, fileName, elementName, columnNumber, lineNumber);
     }
 
 }

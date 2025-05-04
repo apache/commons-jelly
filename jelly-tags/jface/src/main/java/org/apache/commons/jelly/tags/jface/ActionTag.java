@@ -66,18 +66,6 @@ public class ActionTag extends UseBeanTag {
     }
 
     /**
-     * @return IContributionManager
-     */
-    protected IContributionManager getParentContributionManager() {
-        MenuManagerTag tag =
-            (MenuManagerTag) findAncestorWithClass(MenuManagerTag.class);
-        if (tag != null) {
-            return tag.getMenuManager();
-        }
-        return null;
-    }
-
-    /**
       * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
       */
     @Override
@@ -95,6 +83,18 @@ public class ActionTag extends UseBeanTag {
         }
 
         this.output = output;
+    }
+
+    /**
+     * @return IContributionManager
+     */
+    protected IContributionManager getParentContributionManager() {
+        MenuManagerTag tag =
+            (MenuManagerTag) findAncestorWithClass(MenuManagerTag.class);
+        if (tag != null) {
+            return tag.getMenuManager();
+        }
+        return null;
     }
 
 }

@@ -45,6 +45,24 @@ public class StaticTagScript extends TagScript {
         super(tagFactory);
     }
 
+    /**
+     * Attempts to find a dynamically created tag that has been created since this
+     * script was compiled
+     */
+    protected Tag findDynamicTag(JellyContext context, StaticTag tag) throws JellyException {
+        // lets see if there's a tag library for this URI...
+        TagLibrary taglib = context.getTagLibrary( tag.getUri() );
+        if ( taglib != null ) {
+            Tag newTag = taglib.createTag( tag.getLocalName(), getSaxAttributes() );
+            if ( newTag != null ) {
+                newTag.setParent( tag.getParent() );
+                newTag.setBody( tag.getBody() );
+                return newTag;
+            }
+        }
+        return tag;
+    }
+
     // Script interface
     //-------------------------------------------------------------------------
     @Override
@@ -119,23 +137,5 @@ public class StaticTagScript extends TagScript {
         } catch (SAXException e) {
             throw new JellyTagException("could not end namespace prefixes", e);
         }
-    }
-
-    /**
-     * Attempts to find a dynamically created tag that has been created since this
-     * script was compiled
-     */
-    protected Tag findDynamicTag(JellyContext context, StaticTag tag) throws JellyException {
-        // lets see if there's a tag library for this URI...
-        TagLibrary taglib = context.getTagLibrary( tag.getUri() );
-        if ( taglib != null ) {
-            Tag newTag = taglib.createTag( tag.getLocalName(), getSaxAttributes() );
-            if ( newTag != null ) {
-                newTag.setParent( tag.getParent() );
-                newTag.setBody( tag.getBody() );
-                return newTag;
-            }
-        }
-        return tag;
     }
 }

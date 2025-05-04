@@ -48,31 +48,9 @@ public class ReplaceNamespaceTag extends TagSupport {
         if (!toURI.equals(fromURI)) {
             newOutput = new XMLOutput(output) {
                 @Override
-                public void startElement(String uri, String localName, String qName, Attributes atts)
-                    throws SAXException {
-                    super.startElement(replaceURI(uri), localName, qName, replaceURI(atts));
-                }
-
-                @Override
                 public void endElement(String uri, String localName, String qName)
                     throws SAXException {
                     super.endElement(replaceURI(uri), localName, qName);
-                }
-
-                @Override
-                public void startPrefixMapping(String prefix, String uri)
-                    throws SAXException {
-                    super.startPrefixMapping(prefix, replaceURI(uri));
-                }
-
-                private String replaceURI(String uri) {
-                    String newUri = uri;
-
-                    if (fromURI.equals((uri != null) ? uri : "")) {
-                        newUri = toURI;
-                    }
-
-                    return newUri;
                 }
 
                 private Attributes replaceURI(Attributes atts) {
@@ -96,6 +74,28 @@ public class ReplaceNamespaceTag extends TagSupport {
 
                     return newAttsImpl;
                 }
+
+                private String replaceURI(String uri) {
+                    String newUri = uri;
+
+                    if (fromURI.equals((uri != null) ? uri : "")) {
+                        newUri = toURI;
+                    }
+
+                    return newUri;
+                }
+
+                @Override
+                public void startElement(String uri, String localName, String qName, Attributes atts)
+                    throws SAXException {
+                    super.startElement(replaceURI(uri), localName, qName, replaceURI(atts));
+                }
+
+                @Override
+                public void startPrefixMapping(String prefix, String uri)
+                    throws SAXException {
+                    super.startPrefixMapping(prefix, replaceURI(uri));
+                }
             };
         }
 
@@ -110,17 +110,17 @@ public class ReplaceNamespaceTag extends TagSupport {
     }
 
     /**
-     * Sets the source namespace URI to replace.
-     */
-    public void setFromURI(String namespace) {
-        this.fromNamespace = namespace;
-    }
-
-    /**
      * @return the destination namespace URI to replace
      */
     public String getToURI() {
         return toNamespace;
+    }
+
+    /**
+     * Sets the source namespace URI to replace.
+     */
+    public void setFromURI(String namespace) {
+        this.fromNamespace = namespace;
     }
 
     /**

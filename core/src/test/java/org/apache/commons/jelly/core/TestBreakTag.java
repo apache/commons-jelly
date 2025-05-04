@@ -24,26 +24,14 @@ import junit.framework.TestSuite;
 public class TestBreakTag extends BaseJellyTest
 {
 
-    public TestBreakTag(String name)
-    {
-        super(name);
-    }
-
     public static TestSuite suite() throws Exception
     {
         return new TestSuite(TestBreakTag.class);
     }
 
-    public void testSimpleBreakTag() throws Exception
+    public TestBreakTag(String name)
     {
-        setUpScript("testBreakTag.jelly");
-        Script script = getJelly().compileScript();
-
-        script.run(getJellyContext(), getXMLOutput());
-
-        String simpleResult = (String) getJellyContext().getVariable("simpleResult");
-
-        assertEquals("simpleResult", "12345", simpleResult);
+        super(name);
     }
 
     public void testConditionalBreakTag() throws Exception
@@ -56,6 +44,18 @@ public class TestBreakTag extends BaseJellyTest
         String simpleResult = (String) getJellyContext().getVariable("conditionalResult");
 
         assertEquals("conditionalResult", "12345", simpleResult);
+    }
+
+    public void testSimpleBreakTag() throws Exception
+    {
+        setUpScript("testBreakTag.jelly");
+        Script script = getJelly().compileScript();
+
+        script.run(getJellyContext(), getXMLOutput());
+
+        String simpleResult = (String) getJellyContext().getVariable("simpleResult");
+
+        assertEquals("simpleResult", "12345", simpleResult);
     }
 
     public void testVarBreakTag() throws Exception

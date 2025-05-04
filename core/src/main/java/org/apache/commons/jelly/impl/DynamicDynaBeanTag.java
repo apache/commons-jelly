@@ -74,33 +74,6 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
         setAttributesSet.clear();
     }
 
-    @Override
-    public void setAttribute(String name, Object value) throws JellyTagException {
-        boolean isVariableName = false;
-        if (variableNameAttribute != null ) {
-            if ( variableNameAttribute.equals( name ) ) {
-                if (value == null) {
-                    var = null;
-                }
-                else {
-                    var = value.toString();
-                }
-                isVariableName = true;
-            }
-        }
-        if (! isVariableName) {
-
-            // #### strictly speaking we could
-            // know what attributes are specified at compile time
-            // so this dynamic set is unnecessary
-            setAttributesSet.add(name);
-
-            // we could maybe implement attribute specific validation here
-
-            super.setAttribute(name, value);
-        }
-    }
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -144,5 +117,32 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
     @Override
     public Object getBean() {
         return getDynaBean();
+    }
+
+    @Override
+    public void setAttribute(String name, Object value) throws JellyTagException {
+        boolean isVariableName = false;
+        if (variableNameAttribute != null ) {
+            if ( variableNameAttribute.equals( name ) ) {
+                if (value == null) {
+                    var = null;
+                }
+                else {
+                    var = value.toString();
+                }
+                isVariableName = true;
+            }
+        }
+        if (! isVariableName) {
+
+            // #### strictly speaking we could
+            // know what attributes are specified at compile time
+            // so this dynamic set is unnecessary
+            setAttributesSet.add(name);
+
+            // we could maybe implement attribute specific validation here
+
+            super.setAttribute(name, value);
+        }
     }
 }

@@ -41,6 +41,23 @@ public class EtchedBorderTag extends BorderTagSupport {
     private Color   highlight = null;
     private Color   shadow    = null;
 
+    /**
+     * Factory method to create a new EtchedBorder instance.
+     */
+    @Override
+    protected Border createBorder() {
+        if ( etchType == -1 && shadow == null && highlight == null) {
+            return BorderFactory.createEtchedBorder();
+        }
+        else if ( highlight != null && shadow != null && etchType > -1 ) {
+            return BorderFactory.createEtchedBorder( etchType, highlight, shadow );
+        }
+        else {
+            return BorderFactory.createEtchedBorder( highlight, shadow );
+        }
+
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -81,23 +98,6 @@ public class EtchedBorderTag extends BorderTagSupport {
      */
     public void setTop( Color shadow ) {
         this.shadow = shadow;
-    }
-
-    /**
-     * Factory method to create a new EtchedBorder instance.
-     */
-    @Override
-    protected Border createBorder() {
-        if ( etchType == -1 && shadow == null && highlight == null) {
-            return BorderFactory.createEtchedBorder();
-        }
-        else if ( highlight != null && shadow != null && etchType > -1 ) {
-            return BorderFactory.createEtchedBorder( etchType, highlight, shadow );
-        }
-        else {
-            return BorderFactory.createEtchedBorder( highlight, shadow );
-        }
-
     }
 
 }

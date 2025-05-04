@@ -26,9 +26,6 @@ import java.lang.reflect.Constructor;
  */
 public class ModularExceptionBean {
 
-    private String exception;
-    
-    
     public static void main(String[] args) {
         
         ModularExceptionBean bean = new ModularExceptionBean();
@@ -41,19 +38,12 @@ public class ModularExceptionBean {
             System.out.println(e.getMessage());
         }
     }
+    
+    
+    private String exception;
     public ModularExceptionBean(){
         
     }
-    
-    public void throwIt(String message) throws Throwable{
-        if ( exception != null ) {
-            Class clazz = Class.forName(exception);
-            Constructor c = clazz.getConstructor( new Class[] {String.class});
-            Object obj = c.newInstance(new Object[] {message});
-            throw (Throwable) obj;
-        }
-    }
-    
     
     /**
      * @return the exception.
@@ -61,10 +51,20 @@ public class ModularExceptionBean {
     public String getException() {
         return exception;
     }
+    
+    
     /**
      * @param exception The exception to set.
      */
     public void setException(String exception) {
         this.exception = exception;
+    }
+    public void throwIt(String message) throws Throwable{
+        if ( exception != null ) {
+            Class clazz = Class.forName(exception);
+            Constructor c = clazz.getConstructor( new Class[] {String.class});
+            Object obj = c.newInstance(new Object[] {message});
+            throw (Throwable) obj;
+        }
     }
 }

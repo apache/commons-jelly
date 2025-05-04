@@ -35,14 +35,15 @@ public class SafeContentHandler implements ContentHandler {
     }
 
     /**
+     * @param arg0
+     * @param arg1
+     * @param arg2
      * @throws org.xml.sax.SAXException
      */
     @Override
-    public void startDocument() throws SAXException {
-        if (! documentStarted) {
-            handler.startDocument();
-            documentStarted = true;
-        }
+    public void characters(char[] arg0, int arg1, int arg2)
+        throws SAXException {
+        handler.characters(arg0, arg1, arg2);
     }
 
     /**
@@ -54,18 +55,6 @@ public class SafeContentHandler implements ContentHandler {
             handler.endDocument();
             documentEnded = true;
         }
-    }
-
-    /**
-     * @param arg0
-     * @param arg1
-     * @param arg2
-     * @throws org.xml.sax.SAXException
-     */
-    @Override
-    public void characters(char[] arg0, int arg1, int arg2)
-        throws SAXException {
-        handler.characters(arg0, arg1, arg2);
     }
 
     /**
@@ -127,6 +116,17 @@ public class SafeContentHandler implements ContentHandler {
     @Override
     public void skippedEntity(String arg0) throws SAXException {
         handler.skippedEntity(arg0);
+    }
+
+    /**
+     * @throws org.xml.sax.SAXException
+     */
+    @Override
+    public void startDocument() throws SAXException {
+        if (! documentStarted) {
+            handler.startDocument();
+            documentStarted = true;
+        }
     }
 
     /**

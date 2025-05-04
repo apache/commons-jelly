@@ -59,17 +59,17 @@ public class ParamTag extends TagSupport {
         return name;
     }
     /**
-     * Sets the name of the attribute
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * @return the value of the attribute.
      */
     public Object getValue() {
         return value;
+    }
+
+    /**
+     * Sets the name of the attribute
+     */
+    public void setName(String name) {
+        this.name = name;
     }
     /**
      * Sets the value of the attribute

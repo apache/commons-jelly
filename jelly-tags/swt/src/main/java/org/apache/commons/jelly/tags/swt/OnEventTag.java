@@ -73,20 +73,14 @@ public class OnEventTag extends TagSupport implements Listener {
         widget.addListener(eventType, this);
     }
 
-    // Listener interface
-    //-------------------------------------------------------------------------
     /**
-     * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
+     * Parses the given event type String and returns the SWT event type code
+     *
+     * @param type is the String event type
+     * @return the SWT integer event type
      */
-    @Override
-    public void handleEvent(Event event) {
-        try {
-            context.setVariable(var, event);
-            invokeBody(output);
-        }
-        catch (Exception e) {
-            log.error("Caught exception: " + e + " while processing event: " + event, e);
-        }
+    protected int getEventType(String type) throws JellyTagException {
+        return SwtHelper.parseStyle(SWT.class, type, false);
     }
 
     // Properties
@@ -104,19 +98,27 @@ public class OnEventTag extends TagSupport implements Listener {
     }
 
     /**
-     * Sets the name of the variable to use to expose the event object when
-     * it is fired. If not specified this defaults to "event"
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
      * Returns the type.
      * @return String
      */
     public String getType() {
         return type;
+    }
+
+    // Listener interface
+    //-------------------------------------------------------------------------
+    /**
+     * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
+     */
+    @Override
+    public void handleEvent(Event event) {
+        try {
+            context.setVariable(var, event);
+            invokeBody(output);
+        }
+        catch (Exception e) {
+            log.error("Caught exception: " + e + " while processing event: " + event, e);
+        }
     }
 
     /**
@@ -132,13 +134,11 @@ public class OnEventTag extends TagSupport implements Listener {
     //-------------------------------------------------------------------------
 
     /**
-     * Parses the given event type String and returns the SWT event type code
-     *
-     * @param type is the String event type
-     * @return the SWT integer event type
+     * Sets the name of the variable to use to expose the event object when
+     * it is fired. If not specified this defaults to "event"
      */
-    protected int getEventType(String type) throws JellyTagException {
-        return SwtHelper.parseStyle(SWT.class, type, false);
+    public void setVar(String var) {
+        this.var = var;
     }
 
 }

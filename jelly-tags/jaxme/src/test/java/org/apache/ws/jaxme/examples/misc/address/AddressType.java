@@ -23,24 +23,24 @@ public interface AddressType {
 
         public String getFirst();
 
-        public void setFirst(String first);
-
-        public java.util.List getMiddle();
+        public String getInitials();
 
         public String getLast();
 
-        public void setLast(String last);
+        public java.util.List getMiddle();
 
-        public String getInitials();
+        public void setFirst(String first);
 
         public void setInitials(String initials);
+
+        public void setLast(String last);
     }
 
     public String getId();
 
-    public void setId(String id);
-
     public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName();
+
+    public void setId(String id);
 
     public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType name);
 }

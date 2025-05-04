@@ -56,6 +56,15 @@ public class MultipartPostTag extends PostTag {
     }
 
     /**
+     * Add a part to the message
+     *
+     * @param part the part
+     */
+    public void addPart(Part part) {
+        _parts.add(part);
+    }
+
+    /**
      * Gets a {@link HttpMethod method} to be used for multi-part post'ing
      *
      * @return a HttpUrlMethod implementation
@@ -68,15 +77,6 @@ public class MultipartPostTag extends PostTag {
             _postMethod = new MultipartPostMethod(getResolvedUrl());
         }
         return _postMethod;
-    }
-
-    /**
-     * Add a part to the message
-     *
-     * @param part the part
-     */
-    public void addPart(Part part) {
-        _parts.add(part);
     }
 
     /**

@@ -27,12 +27,12 @@ import junit.framework.TestSuite;
  */
 public class TestSwitchTag extends BaseJellyTest {
 
-    public TestSwitchTag(String name) {
-        super(name);
-    }
-
     public static TestSuite suite() throws Exception {
         return new TestSuite(TestSwitchTag.class);
+    }
+
+    public TestSwitchTag(String name) {
+        super(name);
     }
 
     @Override
@@ -45,90 +45,10 @@ public class TestSwitchTag extends BaseJellyTest {
         super.tearDown();
     }
 
-    public void testSimpleSwitch() throws Exception {
+    public void testCaseAfterDefault() throws Exception {
         setUpScript("testSwitchTag.jelly");
         Script script = getJelly().compileScript();
-        getJellyContext().setVariable("switch.on.a","two");
-        script.run(getJellyContext(),getXMLOutput());
-        assertNull("should not have 'a.one' variable set",
-                   getJellyContext().getVariable("a.one"));
-        assertTrue("should have set 'a.two' variable to 'true'",
-                   getJellyContext().getVariable("a.two").equals("true"));
-        assertNull("should not have 'a.three' variable set",
-                   getJellyContext().getVariable("a.three"));
-        assertNull("should not have 'a.null' variable set",
-                   getJellyContext().getVariable("a.null"));
-        assertNull("should not have 'a.default' variable set",
-                   getJellyContext().getVariable("a.default"));
-    }
-
-    public void testFallThru() throws Exception {
-        setUpScript("testSwitchTag.jelly");
-        Script script = getJelly().compileScript();
-        getJellyContext().setVariable("switch.on.a","one");
-        script.run(getJellyContext(),getXMLOutput());
-        assertTrue("should have set 'a.one' variable to 'true'",
-                   getJellyContext().getVariable("a.one").equals("true"));
-        assertTrue("should have set 'a.two' variable to 'true'",
-                   getJellyContext().getVariable("a.two").equals("true"));
-        assertNull("should not have 'a.three' variable set",
-                   getJellyContext().getVariable("a.three"));
-        assertNull("should not have 'a.null' variable set",
-                   getJellyContext().getVariable("a.null"));
-        assertNull("should not have 'a.default' variable set",
-                   getJellyContext().getVariable("a.default"));
-    }
-
-    public void testDefault() throws Exception {
-        setUpScript("testSwitchTag.jelly");
-        Script script = getJelly().compileScript();
-        getJellyContext().setVariable("switch.on.a","negative one");
-        script.run(getJellyContext(),getXMLOutput());
-        assertNull("should not have 'a.one' variable set",
-                   getJellyContext().getVariable("a.one"));
-        assertNull("should not have 'a.two' variable set",
-                   getJellyContext().getVariable("a.two"));
-        assertNull("should not have 'a.three' variable set",
-                   getJellyContext().getVariable("a.three"));
-        assertNull("should not have 'a.null' variable set",
-                   getJellyContext().getVariable("a.null"));
-        assertTrue("should have set 'a.default' variable to 'true'",
-                   getJellyContext().getVariable("a.default").equals("true"));
-    }
-
-    public void testNullCase() throws Exception {
-        setUpScript("testSwitchTag.jelly");
-        Script script = getJelly().compileScript();
-        getJellyContext().setVariable("switch.on.a",null);
-        script.run(getJellyContext(),getXMLOutput());
-        assertNull("should not have 'a.one' variable set",
-                   getJellyContext().getVariable("a.one"));
-        assertNull("should not have 'a.two' variable set",
-                   getJellyContext().getVariable("a.two"));
-        assertNull("should not have 'a.three' variable set",
-                   getJellyContext().getVariable("a.three"));
-        assertTrue("should have set 'a.null' variable to 'true'",
-                   getJellyContext().getVariable("a.null").equals("true"));
-        assertNull("should not have 'a.default' variable set",
-                   getJellyContext().getVariable("a.default"));
-    }
-
-    public void testSwitchWithoutOn() throws Exception {
-        setUpScript("testSwitchTag.jelly");
-        Script script = getJelly().compileScript();
-        getJellyContext().setVariable("switch.without.on",new Boolean(true));
-        try {
-            script.run(getJellyContext(),getXMLOutput());
-            fail("Expected MissingAttributeException");
-        } catch (MissingAttributeException e) {
-            // expected
-        }
-    }
-
-    public void testCaseWithoutSwitch() throws Exception {
-        setUpScript("testSwitchTag.jelly");
-        Script script = getJelly().compileScript();
-        getJellyContext().setVariable("case.without.switch",new Boolean(true));
+        getJellyContext().setVariable("case.after.default",new Boolean(true));
         try {
             script.run(getJellyContext(),getXMLOutput());
             fail("Expected JellyException");
@@ -137,10 +57,10 @@ public class TestSwitchTag extends BaseJellyTest {
         }
     }
 
-    public void testDefaultWithoutSwitch() throws Exception {
+    public void testCaseWithoutSwitch() throws Exception {
         setUpScript("testSwitchTag.jelly");
         Script script = getJelly().compileScript();
-        getJellyContext().setVariable("default.without.switch",new Boolean(true));
+        getJellyContext().setVariable("case.without.switch",new Boolean(true));
         try {
             script.run(getJellyContext(),getXMLOutput());
             fail("Expected JellyException");
@@ -161,6 +81,52 @@ public class TestSwitchTag extends BaseJellyTest {
         }
     }
 
+    public void testDefault() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("switch.on.a","negative one");
+        script.run(getJellyContext(),getXMLOutput());
+        assertNull("should not have 'a.one' variable set",
+                   getJellyContext().getVariable("a.one"));
+        assertNull("should not have 'a.two' variable set",
+                   getJellyContext().getVariable("a.two"));
+        assertNull("should not have 'a.three' variable set",
+                   getJellyContext().getVariable("a.three"));
+        assertNull("should not have 'a.null' variable set",
+                   getJellyContext().getVariable("a.null"));
+        assertTrue("should have set 'a.default' variable to 'true'",
+                   getJellyContext().getVariable("a.default").equals("true"));
+    }
+
+    public void testDefaultWithoutSwitch() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("default.without.switch",new Boolean(true));
+        try {
+            script.run(getJellyContext(),getXMLOutput());
+            fail("Expected JellyException");
+        } catch (JellyException e) {
+            // expected
+        }
+    }
+
+    public void testFallThru() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("switch.on.a","one");
+        script.run(getJellyContext(),getXMLOutput());
+        assertTrue("should have set 'a.one' variable to 'true'",
+                   getJellyContext().getVariable("a.one").equals("true"));
+        assertTrue("should have set 'a.two' variable to 'true'",
+                   getJellyContext().getVariable("a.two").equals("true"));
+        assertNull("should not have 'a.three' variable set",
+                   getJellyContext().getVariable("a.three"));
+        assertNull("should not have 'a.null' variable set",
+                   getJellyContext().getVariable("a.null"));
+        assertNull("should not have 'a.default' variable set",
+                   getJellyContext().getVariable("a.default"));
+    }
+
     public void testMultipleDefaults() throws Exception {
         setUpScript("testSwitchTag.jelly");
         Script script = getJelly().compileScript();
@@ -173,16 +139,21 @@ public class TestSwitchTag extends BaseJellyTest {
         }
     }
 
-    public void testCaseAfterDefault() throws Exception {
+    public void testNullCase() throws Exception {
         setUpScript("testSwitchTag.jelly");
         Script script = getJelly().compileScript();
-        getJellyContext().setVariable("case.after.default",new Boolean(true));
-        try {
-            script.run(getJellyContext(),getXMLOutput());
-            fail("Expected JellyException");
-        } catch (JellyException e) {
-            // expected
-        }
+        getJellyContext().setVariable("switch.on.a",null);
+        script.run(getJellyContext(),getXMLOutput());
+        assertNull("should not have 'a.one' variable set",
+                   getJellyContext().getVariable("a.one"));
+        assertNull("should not have 'a.two' variable set",
+                   getJellyContext().getVariable("a.two"));
+        assertNull("should not have 'a.three' variable set",
+                   getJellyContext().getVariable("a.three"));
+        assertTrue("should have set 'a.null' variable to 'true'",
+                   getJellyContext().getVariable("a.null").equals("true"));
+        assertNull("should not have 'a.default' variable set",
+                   getJellyContext().getVariable("a.default"));
     }
 
     public void testSeveralCall() throws Exception {
@@ -191,6 +162,35 @@ public class TestSwitchTag extends BaseJellyTest {
         getJellyContext().setVariable("var","foo");
         script.run(getJellyContext(),getXMLOutput());        
         assertEquals("defaultdefault",getJellyContext().getVariable("res"));
+    }
+
+    public void testSimpleSwitch() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("switch.on.a","two");
+        script.run(getJellyContext(),getXMLOutput());
+        assertNull("should not have 'a.one' variable set",
+                   getJellyContext().getVariable("a.one"));
+        assertTrue("should have set 'a.two' variable to 'true'",
+                   getJellyContext().getVariable("a.two").equals("true"));
+        assertNull("should not have 'a.three' variable set",
+                   getJellyContext().getVariable("a.three"));
+        assertNull("should not have 'a.null' variable set",
+                   getJellyContext().getVariable("a.null"));
+        assertNull("should not have 'a.default' variable set",
+                   getJellyContext().getVariable("a.default"));
+    }
+
+    public void testSwitchWithoutOn() throws Exception {
+        setUpScript("testSwitchTag.jelly");
+        Script script = getJelly().compileScript();
+        getJellyContext().setVariable("switch.without.on",new Boolean(true));
+        try {
+            script.run(getJellyContext(),getXMLOutput());
+            fail("Expected MissingAttributeException");
+        } catch (MissingAttributeException e) {
+            // expected
+        }
     }
 
 }

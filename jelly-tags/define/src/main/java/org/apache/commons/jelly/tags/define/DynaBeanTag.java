@@ -98,6 +98,21 @@ public class DynaBeanTag extends DefineTagSupport {
     //-------------------------------------------------------------------------
 
     /**
+     * Returns the dynaClass.
+     * @return DynaClass
+     */
+    public DynaClass getDynaClass() {
+        return dynaClass;
+    }
+
+    /**
+     * Sets the {@link DynaClass} which will be bound to this dynamic tag.
+     */
+    public void setDynaClass(DynaClass dynaClass) {
+        this.dynaClass = dynaClass;
+    }
+
+    /**
      * Sets the name of the tag to create
      */
     public void setName(String name) {
@@ -111,21 +126,6 @@ public class DynaBeanTag extends DefineTagSupport {
      */
     public void setVarAttribute(String varAttribute) {
         this.varAttribute = varAttribute;
-    }
-
-    /**
-     * Returns the dynaClass.
-     * @return DynaClass
-     */
-    public DynaClass getDynaClass() {
-        return dynaClass;
-    }
-
-    /**
-     * Sets the {@link DynaClass} which will be bound to this dynamic tag.
-     */
-    public void setDynaClass(DynaClass dynaClass) {
-        this.dynaClass = dynaClass;
     }
 
 }

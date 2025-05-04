@@ -31,10 +31,6 @@ package org.apache.commons.jelly;
 
 public interface DynaTag extends Tag {
 
-    /** Sets an attribute value of this tag before the tag is invoked
-     */
-    public void setAttribute(String name, Object value) throws JellyTagException;
-
     /**
      * @return the type of the given attribute. By default just return
      * Object.class if this is not known.
@@ -42,4 +38,8 @@ public interface DynaTag extends Tag {
      * be evaluated and just passed in as the attribute value.
      */
     public Class getAttributeType(String name) throws JellyTagException;
+
+    /** Sets an attribute value of this tag before the tag is invoked
+     */
+    public void setAttribute(String name, Object value) throws JellyTagException;
 }

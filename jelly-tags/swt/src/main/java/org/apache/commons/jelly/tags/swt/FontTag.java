@@ -48,92 +48,6 @@ public class FontTag extends TagSupport {
     private String var;
 
     /**
-     * Sets the type of this {@link Font}
-     *
-     * @param type {@link Font} type name
-     */
-    public void setType(final String type) {
-        this.type = type;
-    }
-
-    /**
-     * Obtain the {@link Font} type name
-     *
-     * @return the {@link Font} type name
-     */
-    public String getType() {
-        return this.type;
-    }
-
-    /**
-     * Sets the size of this {@link Font}
-     *
-     * @param size {@link Font} size
-     */
-    public void setSize(final int size) {
-        this.size = size;
-    }
-
-    /**
-     * Obtain the {@link Font} size
-     *
-     * @return the {@link Font} size
-     */
-    public int getSize() {
-        return this.size;
-    }
-
-    /**
-     * Sets the style of this {@link Font} (eg. bold, normal, italics)
-     *
-     * @param style the style of this {@link Font}
-     */
-    public void setStyle(final String style) {
-        this.style = style;
-    }
-
-    /**
-     * Obtain the style of this {@link Font}
-     *
-     * @return the style of this {@link Font}
-     */
-    public String getStyle() {
-        return this.style;
-    }
-
-    /**
-     * Sets the variable name
-     *
-     * @param var the variable name of this {@link Font} instance
-     */
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    /**
-     * Obtain the variable name.
-     *
-     * @return the variable name of this {@link Font} instance
-     */
-    public String getVar() {
-        return this.var;
-    }
-
-    /**
-     * @return the parent widget which will deliver us a {@link Device} reference
-     */
-    public Widget getParentWidget() {
-        final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
-        if (tag != null) {
-            return tag.getWidget();
-        }
-        return null;
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------
-
-    /**
      * Creates a {@link Font} instance as defined by the type, size and style
      * attributes, and stores this {@link Font} instance in the Context so that
      * it can be referenced in the Jelly script.
@@ -183,5 +97,91 @@ public class FontTag extends TagSupport {
 
         // store the Color in the context
         context.setVariable(var, font);
+    }
+
+    /**
+     * @return the parent widget which will deliver us a {@link Device} reference
+     */
+    public Widget getParentWidget() {
+        final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
+        if (tag != null) {
+            return tag.getWidget();
+        }
+        return null;
+    }
+
+    /**
+     * Obtain the {@link Font} size
+     *
+     * @return the {@link Font} size
+     */
+    public int getSize() {
+        return this.size;
+    }
+
+    /**
+     * Obtain the style of this {@link Font}
+     *
+     * @return the style of this {@link Font}
+     */
+    public String getStyle() {
+        return this.style;
+    }
+
+    /**
+     * Obtain the {@link Font} type name
+     *
+     * @return the {@link Font} type name
+     */
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * Obtain the variable name.
+     *
+     * @return the variable name of this {@link Font} instance
+     */
+    public String getVar() {
+        return this.var;
+    }
+
+    /**
+     * Sets the size of this {@link Font}
+     *
+     * @param size {@link Font} size
+     */
+    public void setSize(final int size) {
+        this.size = size;
+    }
+
+    /**
+     * Sets the style of this {@link Font} (eg. bold, normal, italics)
+     *
+     * @param style the style of this {@link Font}
+     */
+    public void setStyle(final String style) {
+        this.style = style;
+    }
+
+    /**
+     * Sets the type of this {@link Font}
+     *
+     * @param type {@link Font} type name
+     */
+    public void setType(final String type) {
+        this.type = type;
+    }
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the variable name
+     *
+     * @param var the variable name of this {@link Font} instance
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

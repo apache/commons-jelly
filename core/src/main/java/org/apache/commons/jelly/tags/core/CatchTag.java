@@ -46,6 +46,31 @@ public class CatchTag extends TagSupport {
     public CatchTag() {
     }
 
+    /**
+	 * Build exception classes set
+	 * @throws ClassNotFoundException
+	 * 
+	 */
+	private void buildExceptionArray() throws ClassNotFoundException {
+		if ( exceptions != null ) {
+		    String[] strings = exceptions.split(";");
+		    
+			if ( exceptionArray == null ) {
+			    
+				int size = ( strings.length > 0) ? strings.length : 1 ;
+				exceptionArray = new Class[size];
+				
+				for ( int i = 0; i < strings.length; i ++) {
+					Class clazz = Class.forName(strings[i]);
+					exceptionArray[i] = clazz;
+				}				
+			}
+		}
+	}
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -94,20 +119,16 @@ public class CatchTag extends TagSupport {
         	}            
         }
     }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the name of the variable which is exposed with the Exception that gets
-     * thrown by evaluating the body of this tag or which is set to null if there is
-     * no exception thrown.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
     
     /**
+	 * @return the exceptions.
+	 */
+	public String getExceptions() {
+		return exceptions;
+	}
+
+	
+	/**
      * Dissect Exception stack to get the real exception throughout the JellyTagException wrapping
      * @param t
      * @return the first exception in stack that's not a JellyTagException
@@ -129,52 +150,9 @@ public class CatchTag extends TagSupport {
             }
         }
         return realException;
-    }
-
-	
-	/**
-	 * Build exception classes set
-	 * @throws ClassNotFoundException
-	 * 
-	 */
-	private void buildExceptionArray() throws ClassNotFoundException {
-		if ( exceptions != null ) {
-		    String[] strings = exceptions.split(";");
-		    
-			if ( exceptionArray == null ) {
-			    
-				int size = ( strings.length > 0) ? strings.length : 1 ;
-				exceptionArray = new Class[size];
-				
-				for ( int i = 0; i < strings.length; i ++) {
-					Class clazz = Class.forName(strings[i]);
-					exceptionArray[i] = clazz;
-				}				
-			}
-		}
-	}	
+    }	
 
 	/**
-	 * @return the exceptions.
-	 */
-	public String getExceptions() {
-		return exceptions;
-	}
-	/**
-	 * @param exceptionList The exceptions to set. Must be separated by ";"
-	 */
-	public void setExceptions(String exceptionList) {
-		this.exceptions = exceptionList;
-	}
-    
-    /**
-     * @param cause The cause to set.
-     */
-    public void setCause(String cause) {
-        this.cause = cause;
-    }
-    
-    /**
      * 
      * @param t
      * @return true if t is expected
@@ -191,5 +169,27 @@ public class CatchTag extends TagSupport {
             }
         }
         return false;
+    }
+	/**
+     * @param cause The cause to set.
+     */
+    public void setCause(String cause) {
+        this.cause = cause;
+    }
+    
+    /**
+	 * @param exceptionList The exceptions to set. Must be separated by ";"
+	 */
+	public void setExceptions(String exceptionList) {
+		this.exceptions = exceptionList;
+	}
+    
+    /**
+     * Sets the name of the variable which is exposed with the Exception that gets
+     * thrown by evaluating the body of this tag or which is set to null if there is
+     * no exception thrown.
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 }

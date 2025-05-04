@@ -24,10 +24,6 @@ import org.apache.commons.jelly.impl.TextScript;
 /** Contains static methods to help tag developers.
  */
 public class TagUtils {
-    private TagUtils() {
-        
-    }
-
     /** Trims the whitespace from a script and its children.
      * 
      */
@@ -47,6 +43,10 @@ public class TagUtils {
                 textScript.trimWhitespace();
             }
         }
+    }
+
+    private TagUtils() {
+        
     }
 
 }

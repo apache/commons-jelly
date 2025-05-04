@@ -29,6 +29,19 @@ public class ClassLoaderUtils {
     private static final Log log = LogFactory.getLog(ClassLoaderUtils.class);
     
     /**
+     * Gets the loader for the given class. 
+     * @param clazz the class to retrieve the loader for
+     * @return the class loader that loaded the provided class
+     */
+    public static ClassLoader getClassLoader(Class clazz) {
+        ClassLoader callersLoader = clazz.getClassLoader();
+        if (callersLoader == null) {
+            callersLoader = ClassLoader.getSystemClassLoader();
+        }
+        return callersLoader;
+    }
+
+    /**
      * Gets the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
      * <ul>
@@ -65,19 +78,6 @@ public class ClassLoaderUtils {
             return specifiedLoader;
         }
         return getClassLoader(callingClass);
-    }
-
-    /**
-     * Gets the loader for the given class. 
-     * @param clazz the class to retrieve the loader for
-     * @return the class loader that loaded the provided class
-     */
-    public static ClassLoader getClassLoader(Class clazz) {
-        ClassLoader callersLoader = clazz.getClassLoader();
-        if (callersLoader == null) {
-            callersLoader = ClassLoader.getSystemClassLoader();
-        }
-        return callersLoader;
     }
 
     /**

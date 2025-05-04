@@ -42,21 +42,6 @@ public class DynamicTagLibrary extends TagLibrary {
         this.uri = uri;
     }
 
-    /** Creates a new script to execute the given tag name and attributes */
-    @Override
-    public TagScript createTagScript(final String name, final Attributes attributes)
-        throws JellyException {
-
-        return new TagScript(
-            new TagFactory() {
-                @Override
-                public Tag createTag(String name, Attributes attributes) throws JellyException {
-                    return DynamicTagLibrary.this.createTag(name, attributes);
-                }
-            }
-        );
-    }
-
     /** Creates a new Tag for the given tag name if it exists */
     @Override
     public Tag createTag(String name, Attributes attributes)
@@ -79,30 +64,19 @@ public class DynamicTagLibrary extends TagLibrary {
         return null;
     }
 
-    /**
-     * Creates a new tag with the given name and template
-     */
-    public void registerDynamicTag(String name, Script template) {
-        templates.put(name, template);
-    }
+    /** Creates a new script to execute the given tag name and attributes */
+    @Override
+    public TagScript createTagScript(final String name, final Attributes attributes)
+        throws JellyException {
 
-    /**
-     * Creates a new Jelly Bean Tag with the given name
-     */
-    public void registerBeanTag(String name, TagFactory factory) {
-        templates.put(name, factory);
-    }
-
-    /**
-     * Returns the script associated with the given tag name
-     *
-     * @param name The tag name
-     * @return The script associated with <code>name</code>, or
-     *         {@code null} if the tag doesn't exist or isn't a script
-     */
-    public Script getDynamicTag(String name) {
-        Object result = templates.get(name);
-        return (result instanceof Script) ? (Script) result : null;
+        return new TagScript(
+            new TagFactory() {
+                @Override
+                public Tag createTag(String name, Attributes attributes) throws JellyException {
+                    return DynamicTagLibrary.this.createTag(name, attributes);
+                }
+            }
+        );
     }
 
     /**
@@ -126,14 +100,16 @@ public class DynamicTagLibrary extends TagLibrary {
         return result;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
+    /**
+     * Returns the script associated with the given tag name
+     *
+     * @param name The tag name
+     * @return The script associated with <code>name</code>, or
+     *         {@code null} if the tag doesn't exist or isn't a script
+     */
+    public Script getDynamicTag(String name) {
+        Object result = templates.get(name);
+        return (result instanceof Script) ? (Script) result : null;
     }
 
     /**
@@ -144,12 +120,36 @@ public class DynamicTagLibrary extends TagLibrary {
         return parent;
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
+    public String getUri() {
+        return uri;
+    }
+
+    /**
+     * Creates a new Jelly Bean Tag with the given name
+     */
+    public void registerBeanTag(String name, TagFactory factory) {
+        templates.put(name, factory);
+    }
+
+    /**
+     * Creates a new tag with the given name and template
+     */
+    public void registerDynamicTag(String name, Script template) {
+        templates.put(name, template);
+    }
+
     /**
      * Sets the parent to inherit tags from that are not defined in this library.
      * @param parent The parent to set
      */
     public void setParent(TagLibrary parent) {
         this.parent = parent;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
 }

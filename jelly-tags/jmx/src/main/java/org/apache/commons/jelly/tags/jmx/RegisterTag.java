@@ -85,6 +85,20 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     }
 
     /**
+     * @return MBeanServer
+     */
+    public MBeanServer getServer() {
+        return server;
+    }
+
+    /**
+     * Registers the given bean with the MBeanServer
+     */
+    protected void register(MBeanServer server, Object bean) throws InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+        server.registerMBean(bean, getName());
+    }
+
+    /**
      * Sets the name.
      * @param name The name to set
      */
@@ -92,12 +106,8 @@ public class RegisterTag extends TagSupport implements CollectionTag {
         this.name = name;
     }
 
-    /**
-     * @return MBeanServer
-     */
-    public MBeanServer getServer() {
-        return server;
-    }
+    // Implementation methods
+    //-------------------------------------------------------------------------
 
     /**
      * Sets the MBeanServer. If this attribute is not supplied then the parent &lt;server&gt; tag
@@ -107,16 +117,6 @@ public class RegisterTag extends TagSupport implements CollectionTag {
      */
     public void setServer(MBeanServer server) {
         this.server = server;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Registers the given bean with the MBeanServer
-     */
-    protected void register(MBeanServer server, Object bean) throws InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
-        server.registerMBean(bean, getName());
     }
 
 }

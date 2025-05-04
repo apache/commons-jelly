@@ -32,20 +32,30 @@ import org.apache.commons.jelly.expression.Expression;
  */
 public class SwitchTag extends TagSupport {
 
-    public SwitchTag() {
-    }
+    // Attributes
+    //-------------------------------------------------------------------------
+    private boolean someCaseMatched = false;
 
     // Tag interface
     //-------------------------------------------------------------------------
 
-    /**
-     * Sets the value to switch on.
-     * Note that the {@link Expression} is evaluated only once, when the
-     * &lt;switch&gt; tag is evaluated.
-     * @param on the value to switch on
-     */
-    public void setOn(Expression on) {
-        this.on = on;
+    private boolean fallingThru = false;
+
+    private boolean defaultEncountered = false;
+
+    private Expression on = null;
+
+    private Object value = null;
+
+    public SwitchTag() {
+    }
+
+    protected void caseMatched() {
+        this.someCaseMatched = true;
+    }
+
+    protected void defaultEncountered() {
+        this.defaultEncountered = true;
     }
 
     @Override
@@ -62,24 +72,6 @@ public class SwitchTag extends TagSupport {
         }
     }
 
-    // Protected properties
-    //-------------------------------------------------------------------------
-    protected boolean hasSomeCaseMatched() {
-        return this.someCaseMatched;
-    }
-
-    protected void caseMatched() {
-        this.someCaseMatched = true;
-    }
-
-    protected boolean isFallingThru() {
-        return this.fallingThru;
-    }
-
-    protected void setFallingThru(boolean fallingThru) {
-        this.fallingThru = fallingThru;
-    }
-
     protected Object getValue() {
         return value;
     }
@@ -87,17 +79,25 @@ public class SwitchTag extends TagSupport {
     protected boolean hasDefaultBeenEncountered() {
         return defaultEncountered;
     }
-
-    protected void defaultEncountered() {
-        this.defaultEncountered = true;
-    }
-
-    // Attributes
+    // Protected properties
     //-------------------------------------------------------------------------
-    private boolean someCaseMatched = false;
-    private boolean fallingThru = false;
-    private boolean defaultEncountered = false;
-    private Expression on = null;
-    private Object value = null;
+    protected boolean hasSomeCaseMatched() {
+        return this.someCaseMatched;
+    }
+    protected boolean isFallingThru() {
+        return this.fallingThru;
+    }
+    protected void setFallingThru(boolean fallingThru) {
+        this.fallingThru = fallingThru;
+    }
+    /**
+     * Sets the value to switch on.
+     * Note that the {@link Expression} is evaluated only once, when the
+     * &lt;switch&gt; tag is evaluated.
+     * @param on the value to switch on
+     */
+    public void setOn(Expression on) {
+        this.on = on;
+    }
 
 }

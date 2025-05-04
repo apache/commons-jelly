@@ -48,6 +48,16 @@ public class SuiteTag extends TagSupport {
         getSuite().addTest(test);
     }
 
+    /**
+     * Factory method to create a new TestSuite
+     */
+    protected TestSuite createSuite() {
+        if ( name == null ) {
+            return new TestSuite();
+        }
+        return new TestSuite(name);
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -69,24 +79,17 @@ public class SuiteTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    public TestSuite getSuite() {
-        return suite;
-    }
-
-    /**
-     * Sets the name of the test suite whichi is exported
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
     /**
      * @return the name of this test suite
      */
     public String getName() {
         return name;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+    public TestSuite getSuite() {
+        return suite;
     }
 
     /**
@@ -100,12 +103,9 @@ public class SuiteTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Factory method to create a new TestSuite
+     * Sets the name of the test suite whichi is exported
      */
-    protected TestSuite createSuite() {
-        if ( name == null ) {
-            return new TestSuite();
-        }
-        return new TestSuite(name);
+    public void setVar(String var) {
+        this.var = var;
     }
 }

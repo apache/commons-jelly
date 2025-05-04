@@ -55,98 +55,6 @@ public class CronTriggerTag extends QuartzTagSupport
         // intentionally left blank.
     }
 
-    /** Sets the name.
-     *
-     *  @param name.
-     */
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    /** Retrieve the name.
-     *
-     *  @return The name.
-     */
-    public String getName()
-    {
-        return this.name;
-    }
-
-    /** Sets the group
-     *
-     *  @param group The group
-     */
-    public void setGroup(String group)
-    {
-        this.group = group;
-    }
-
-    /** Retrieve the group.
-     *
-     *  @return The group.
-     */
-    public String getGroup()
-    {
-        return this.group;
-    }
-
-    /** Sets the cron time spec.
-     *
-     *  @param spec The cron time spec.
-     */
-    public void setSpec(String spec)
-    {
-        this.spec = spec;
-    }
-
-    /** Retrieve the cron time spec.
-     */
-    public String getSpec()
-    {
-        return this.spec;
-    }
-
-    /** Sets the job name.
-     *
-     *  @param jobName The job name.
-     */
-    public void setJobName(String jobName)
-    {
-        this.jobName = jobName;
-    }
-
-    /** Retrieve the job name.
-     *
-     *  @return The job name.
-     */
-    public String getJobName()
-    {
-        return this.jobName;
-    }
-
-    /** Sets the job group.
-     *
-     *  @param jobGroup The job group.
-     */
-    public void setJobGroup(String jobGroup)
-    {
-        this.jobGroup = jobGroup;
-    }
-
-    /** Retrieve the job group.
-     *
-     *  @return The job group.
-     */
-    public String getJobGroup()
-    {
-        return this.jobGroup;
-    }
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    //     org.apache.commons.jelly.Tag
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
     /** Perform this tag.
      *
      *  @param output Output sink.
@@ -201,5 +109,97 @@ public class CronTriggerTag extends QuartzTagSupport
         catch (SchedulerException e) {
             throw new JellyTagException(e);
         }
+    }
+
+    /** Retrieve the group.
+     *
+     *  @return The group.
+     */
+    public String getGroup()
+    {
+        return this.group;
+    }
+
+    /** Retrieve the job group.
+     *
+     *  @return The job group.
+     */
+    public String getJobGroup()
+    {
+        return this.jobGroup;
+    }
+
+    /** Retrieve the job name.
+     *
+     *  @return The job name.
+     */
+    public String getJobName()
+    {
+        return this.jobName;
+    }
+
+    /** Retrieve the name.
+     *
+     *  @return The name.
+     */
+    public String getName()
+    {
+        return this.name;
+    }
+
+    /** Retrieve the cron time spec.
+     */
+    public String getSpec()
+    {
+        return this.spec;
+    }
+
+    /** Sets the group
+     *
+     *  @param group The group
+     */
+    public void setGroup(String group)
+    {
+        this.group = group;
+    }
+
+    /** Sets the job group.
+     *
+     *  @param jobGroup The job group.
+     */
+    public void setJobGroup(String jobGroup)
+    {
+        this.jobGroup = jobGroup;
+    }
+
+    /** Sets the job name.
+     *
+     *  @param jobName The job name.
+     */
+    public void setJobName(String jobName)
+    {
+        this.jobName = jobName;
+    }
+
+    /** Sets the name.
+     *
+     *  @param name.
+     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //     org.apache.commons.jelly.Tag
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /** Sets the cron time spec.
+     *
+     *  @param spec The cron time spec.
+     */
+    public void setSpec(String spec)
+    {
+        this.spec = spec;
     }
 }

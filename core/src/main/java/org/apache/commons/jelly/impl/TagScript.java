@@ -48,6 +48,23 @@ import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 
+final class ExpressionAttribute {
+    String name;
+    String prefix;
+
+    String nsURI;
+    Expression exp;
+    public ExpressionAttribute(String name, Expression exp) {
+        this(name, "", "", exp);
+    }
+    public ExpressionAttribute(String name, String prefix, String nsURI, Expression exp) {
+        this.name = name;
+        this.prefix = prefix;
+        this.nsURI = nsURI;
+        this.exp = exp;
+    }
+}
+
 /**
  * <p><code>TagScript</code> is a Script that evaluates a custom tag.</p>
  *
@@ -58,6 +75,15 @@ public class TagScript implements Script {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TagScript.class);
+
+    /**
+     * @return a new TagScript based on whether
+     * the given Tag class is a bean tag or DynaTag
+     */
+    public static TagScript newInstance(Class tagClass) {
+        TagFactory factory = new DefaultTagFactory(tagClass);
+        return new TagScript(factory);
+    }
 
     /** The attribute expressions that are created */
     protected Map attributes = new Hashtable();
@@ -83,10 +109,10 @@ public class TagScript implements Script {
 
     /** The line number of the tag */
     private int lineNumber = -1;
-
+    
     /** The column number of the tag */
     private int columnNumber = -1;
-    
+
     /** The TagLibrary that we belong to */
     private TagLibrary tagLibrary;
 
@@ -98,68 +124,22 @@ public class TagScript implements Script {
 
     /** The parent TagScript */
     private TagScript parent;
-
+    
     /** The SAX attributes */
     private Attributes saxAttributes;
     
     /** The url of the script when parsed */
     private URL scriptURL = null;
-    
+
     /** A synchronized WeakHashMap from the current Thread (key) to a Tag object (value).
      */
     private Map threadLocalTagCache = Collections.synchronizedMap(new WeakHashMap());
-
-    /**
-     * @return a new TagScript based on whether
-     * the given Tag class is a bean tag or DynaTag
-     */
-    public static TagScript newInstance(Class tagClass) {
-        TagFactory factory = new DefaultTagFactory(tagClass);
-        return new TagScript(factory);
-    }
 
     public TagScript() {
     }
 
     public TagScript(TagFactory tagFactory) {
         this.tagFactory = tagFactory;
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "[tag=" + elementName + ";at=" + lineNumber + ":" + columnNumber + "]";
-    }
-
-    /**
-     * Compiles the tags body
-     */
-    @Override
-    public Script compile() throws JellyException {
-        if (tagBody != null) {
-            tagBody = tagBody.compile();
-        }
-        return this;
-    }
-
-    /**
-     * Sets the optional namespaces prefix to URI map of
-     * the namespaces attached to this Tag
-     */
-    public void setTagNamespacesMap(Map tagNamespacesMap) {
-        // lets check that this is a thread-safe map
-        if ( ! (tagNamespacesMap instanceof Hashtable) ) {
-            tagNamespacesMap = new Hashtable( tagNamespacesMap );
-        }
-        this.tagNamespacesMap = tagNamespacesMap;
-    }
-
-    /**
-     * Configures this TagScript from the SAX Locator, setting the column
-     * and line numbers
-     */
-    public void setLocator(Locator locator) {
-        setLineNumber( locator.getLineNumber() );
-        setColumnNumber( locator.getColumnNumber() );
     }
 
     /** Add an initialization attribute for the tag.
@@ -184,7 +164,161 @@ public class TagScript implements Script {
         attributes.put(name, new ExpressionAttribute(name, prefix, nsURI, expression));
     }
 
+    protected void applyLocation(LocationAware locationAware) {
+        if (locationAware.getLineNumber() == -1) {
+            locationAware.setColumnNumber(columnNumber);
+            locationAware.setLineNumber(lineNumber);
+        }
+        if ( locationAware.getFileName() == null ) {
+            locationAware.setFileName( fileName );
+        }
+        if ( locationAware.getElementName() == null ) {
+            locationAware.setElementName( elementName );
+        }
+    }
+
     /**
+     * Flushes the current cached tag so that it will be created, lazily, next invocation
+     */
+    protected void clearTag() {
+        Thread t = Thread.currentThread();
+        threadLocalTagCache.put(t, null);
+    }
+
+    /**
+     * Compiles the tags body
+     */
+    @Override
+    public Script compile() throws JellyException {
+        if (tagBody != null) {
+            tagBody = tagBody.compile();
+        }
+        return this;
+    }
+
+    /**
+     * Compiles a newly created tag if required, sets its parent and body.
+     */
+    protected void configureTag(Tag tag, JellyContext context) throws JellyException {
+    	tag.setTagLib(tagLibrary);
+        if (tag instanceof CompilableTag) {
+            ((CompilableTag) tag).compile();
+        }
+        Tag parentTag = null;
+        if ( parent != null ) {
+            parentTag = parent.getTag(context);
+        }
+        tag.setParent( parentTag );
+        tag.setBody( tagBody );
+
+        if (tag instanceof NamespaceAwareTag) {
+            NamespaceAwareTag naTag = (NamespaceAwareTag) tag;
+            naTag.setNamespaceContext(getNamespaceContext());
+        }
+        if (tag instanceof LocationAware) {
+            applyLocation((LocationAware) tag);
+        }
+    }
+
+    /**
+     * Converts the given value to the required type.
+     *
+     * @param value is the value to be converted. This will not be null
+     * @param requiredType the type that the value should be converted to
+     */
+    protected Object convertType(Object value, Class requiredType)
+        throws JellyException {
+        if (requiredType.isInstance(value)) {
+            return value;
+        }
+        if (value instanceof String) {
+            return ConvertUtils.convert((String) value, requiredType);
+        }
+        return value;
+    }
+
+    // Script interface
+    //-------------------------------------------------------------------------
+
+    /**
+     * Creates a new Jelly exception, adorning it with location information
+     */
+    protected JellyException createJellyException(String reason) {
+        return new JellyException(
+            reason, fileName, elementName, columnNumber, lineNumber
+        );
+    }
+
+    /**
+     * Creates a new Jelly exception, adorning it with location information
+     */
+    protected JellyException createJellyException(String reason, Exception cause) {
+        if (cause instanceof JellyException) {
+            return (JellyException) cause;
+        }
+
+        if (cause instanceof InvocationTargetException) {
+            return new JellyException(
+                reason,
+                ((InvocationTargetException) cause).getTargetException(),
+                fileName,
+                elementName,
+                columnNumber,
+                lineNumber);
+        }
+        return new JellyException(
+            reason, cause, fileName, elementName, columnNumber, lineNumber
+        );
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /**
+     * Factory method to create a new Tag instance.
+     * The default implementation is to delegate to the TagFactory
+     */
+    protected Tag createTag() throws JellyException {
+        if ( tagFactory != null) {
+            return tagFactory.createTag(localName, getSaxAttributes());
+        }
+        return null;
+    }
+
+    /**
+     * End the new namespace prefixes mapped for the current element
+     */
+    protected void endNamespacePrefixes(XMLOutput output) throws SAXException {
+        if ( tagNamespacesMap != null ) {
+            for ( Iterator iter = tagNamespacesMap.keySet().iterator(); iter.hasNext(); ) {
+                String prefix = (String) iter.next();
+                output.endPrefixMapping(prefix);
+            }
+        }
+    }
+
+    /**
+     * @return the column number of the tag
+     */
+    public int getColumnNumber() {
+        return columnNumber;
+    }
+
+    /**
+     * @return the element name which caused the problem
+     */
+    public String getElementName() {
+        return elementName;
+    }
+
+	/**
+     * @return the Jelly file which caused the problem
+     */
+    public String getFileName() {
+        return fileName;
+    }
+
+	/**
      * Strips off the name of a script to create a new context URL
      * FIXME: Copied from JellyContext
      */
@@ -195,8 +329,182 @@ public class TagScript implements Script {
         return new URL(text);
     }
 
-    // Script interface
-    //-------------------------------------------------------------------------
+    /**
+     * @return the line number of the tag
+     */
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    /**
+     * Returns the local, non namespaced XML name of this tag
+     * @return String
+     */
+    public String getLocalName() {
+        return localName;
+    }
+
+    /**
+     * Returns the namespace context of this tag. This is all the prefixes
+     * in scope in the document where this tag is used which are mapped to
+     * their namespace URIs.
+     *
+     * @return a Map with the keys are namespace prefixes and the values are
+     * namespace URIs.
+     */
+    public synchronized Map getNamespaceContext() {
+        if (namespaceContext == null) {
+            if (parent != null) {
+                namespaceContext = getParent().getNamespaceContext();
+                if (tagNamespacesMap != null && !tagNamespacesMap.isEmpty()) {
+                    // create a new child context
+                    Hashtable newContext = new Hashtable(namespaceContext.size()+1);
+                    newContext.putAll(namespaceContext);
+                    newContext.putAll(tagNamespacesMap);
+                    namespaceContext = newContext;
+                }
+            }
+            else {
+                namespaceContext = tagNamespacesMap;
+                if (namespaceContext == null) {
+                    namespaceContext = new Hashtable();
+                }
+            }
+        }
+        return namespaceContext;
+    }
+
+    /**
+     * Returns the parent.
+     * @return TagScript
+     */
+    public TagScript getParent() {
+        return parent;
+    }
+
+    /**
+     * Returns the SAX attributes of this tag
+     * @return Attributes
+     */
+    public Attributes getSaxAttributes() {
+        return saxAttributes;
+    }
+
+    /**
+     * @return the tag to be evaluated, creating it lazily if required.
+     */
+    public Tag getTag(JellyContext context) throws JellyException {
+        Thread t = Thread.currentThread();
+        Tag tag = (Tag) threadLocalTagCache.get(t);
+        if (tag == null) {
+            tag = createTag();
+            if (tag != null) {
+                threadLocalTagCache.put(t, tag);
+                configureTag(tag, context);
+            }
+        }
+        return tag;
+    }
+
+    /**
+     * Returns the tagBody.
+     * @return Script
+     */
+    public Script getTagBody() {
+        return tagBody;
+    }
+    /**
+     * Returns the Factory of Tag instances.
+     * @return the factory
+     */
+    public TagFactory getTagFactory() {
+        return tagFactory;
+    }
+
+    /**
+	 * @return the tagLibrary
+	 */
+	public TagLibrary getTagLibrary() {
+		return tagLibrary;
+	}
+
+    /**
+     * A helper method to handle this non-Jelly exception.
+     * This method will rethrow the exception, wrapped in a JellyException
+     * while adding line number information etc.
+     *
+     * Is this method wise?
+     */
+    protected void handleException(Error e) throws Error, JellyTagException {
+        if (log.isTraceEnabled()) {
+            log.trace( "Caught exception: " + e, e );
+        }
+
+        if (e instanceof LocationAware) {
+            applyLocation((LocationAware) e);
+        }
+
+        throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
+    }
+
+    /**
+     * A helper method to handle this non-Jelly exception.
+     * This method will rethrow the exception, wrapped in a JellyException
+     * while adding line number information etc.
+     */
+    protected void handleException(Exception e) throws JellyTagException {
+        if (log.isTraceEnabled()) {
+            log.trace( "Caught exception: " + e, e );
+        }
+
+        if (e instanceof LocationAware) {
+            applyLocation((LocationAware) e);
+        }
+
+        if ( e instanceof JellyException ) {
+            e.fillInStackTrace();
+        }
+
+        if ( e instanceof InvocationTargetException) {
+            throw new JellyTagException( ((InvocationTargetException)e).getTargetException(),
+                                      fileName,
+                                      elementName,
+                                      columnNumber,
+                                      lineNumber );
+        }
+
+        throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
+    }
+
+    /**
+     * A helper method to handle this Jelly exception.
+     * This method adorns the JellyException with location information
+     * such as adding line number information etc.
+     */
+    protected void handleException(JellyException e) throws JellyTagException {
+        if (log.isTraceEnabled()) {
+            log.trace( "Caught exception: " + e, e );
+        }
+
+        applyLocation(e);
+
+        throw new JellyTagException(e);
+    }
+
+    /**
+     * A helper method to handle this Jelly exception.
+     * This method adorns the JellyException with location information
+     * such as adding line number information etc.
+     */
+    protected void handleException(JellyTagException e) throws JellyTagException {
+        if (log.isTraceEnabled()) {
+            log.trace( "Caught exception: " + e, e );
+        }
+
+        applyLocation(e);
+
+        throw e;
+    }
 
     /** Evaluates the body of a tag */
     @Override
@@ -288,6 +596,13 @@ public class TagScript implements Script {
     }
 
     /**
+     * Sets the column number of the tag
+     */
+    public void setColumnNumber(int columnNumber) {
+        this.columnNumber = columnNumber;
+    }
+
+    /**
      * Sets the context's root and current URL if not present
      * @param context
      * @throws JellyTagException
@@ -300,94 +615,17 @@ public class TagScript implements Script {
         }
     }
 
-    // Properties
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * @return the tag to be evaluated, creating it lazily if required.
+     * Sets the element name which caused the problem
      */
-    public Tag getTag(JellyContext context) throws JellyException {
-        Thread t = Thread.currentThread();
-        Tag tag = (Tag) threadLocalTagCache.get(t);
-        if (tag == null) {
-            tag = createTag();
-            if (tag != null) {
-                threadLocalTagCache.put(t, tag);
-                configureTag(tag, context);
-            }
-        }
-        return tag;
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
     }
 
-    /**
-     * Returns the Factory of Tag instances.
-     * @return the factory
-     */
-    public TagFactory getTagFactory() {
-        return tagFactory;
-    }
-
-    /**
-     * Sets the Factory of Tag instances.
-     * @param tagFactory The factory to set
-     */
-    public void setTagFactory(TagFactory tagFactory) {
-        this.tagFactory = tagFactory;
-    }
-
-    /**
-	 * @return the tagLibrary
-	 */
-	public TagLibrary getTagLibrary() {
-		return tagLibrary;
-	}
-
-	/**
-	 * @param tagLibrary the tagLibrary to set
-	 */
-	public void setTagLibrary(TagLibrary tagLibrary) {
-		this.tagLibrary = tagLibrary;
-	}
-
-	/**
-     * Returns the parent.
-     * @return TagScript
-     */
-    public TagScript getParent() {
-        return parent;
-    }
-
-    /**
-     * Returns the tagBody.
-     * @return Script
-     */
-    public Script getTagBody() {
-        return tagBody;
-    }
-
-    /**
-     * Sets the parent.
-     * @param parent The parent to set
-     */
-    public void setParent(TagScript parent) {
-        this.parent = parent;
-    }
-
-    /**
-     * Sets the tagBody.
-     * @param tagBody The tagBody to set
-     */
-    public void setTagBody(Script tagBody) {
-        this.tagBody = tagBody;
-    }
-
-    /**
-     * @return the Jelly file which caused the problem
-     */
-    public String getFileName() {
-        return fileName;
-    }
-
+	
     /**
      * Sets the Jelly file which caused the problem
      */
@@ -402,68 +640,10 @@ public class TagScript implements Script {
     }
 
     /**
-     * @return the element name which caused the problem
-     */
-    public String getElementName() {
-        return elementName;
-    }
-
-    /**
-     * Sets the element name which caused the problem
-     */
-    public void setElementName(String elementName) {
-        this.elementName = elementName;
-    }
-    /**
-     * @return the line number of the tag
-     */
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    /**
      * Sets the line number of the tag
      */
     public void setLineNumber(int lineNumber) {
         this.lineNumber = lineNumber;
-    }
-
-    /**
-     * @return the column number of the tag
-     */
-    public int getColumnNumber() {
-        return columnNumber;
-    }
-
-    /**
-     * Sets the column number of the tag
-     */
-    public void setColumnNumber(int columnNumber) {
-        this.columnNumber = columnNumber;
-    }
-
-    /**
-     * Returns the SAX attributes of this tag
-     * @return Attributes
-     */
-    public Attributes getSaxAttributes() {
-        return saxAttributes;
-    }
-
-    /**
-     * Sets the SAX attributes of this tag
-     * @param saxAttributes The saxAttributes to set
-     */
-    public void setSaxAttributes(Attributes saxAttributes) {
-        this.saxAttributes = saxAttributes;
-    }
-
-    /**
-     * Returns the local, non namespaced XML name of this tag
-     * @return String
-     */
-    public String getLocalName() {
-        return localName;
     }
 
     /**
@@ -475,80 +655,28 @@ public class TagScript implements Script {
     }
 
     /**
-     * Returns the namespace context of this tag. This is all the prefixes
-     * in scope in the document where this tag is used which are mapped to
-     * their namespace URIs.
-     *
-     * @return a Map with the keys are namespace prefixes and the values are
-     * namespace URIs.
+     * Configures this TagScript from the SAX Locator, setting the column
+     * and line numbers
      */
-    public synchronized Map getNamespaceContext() {
-        if (namespaceContext == null) {
-            if (parent != null) {
-                namespaceContext = getParent().getNamespaceContext();
-                if (tagNamespacesMap != null && !tagNamespacesMap.isEmpty()) {
-                    // create a new child context
-                    Hashtable newContext = new Hashtable(namespaceContext.size()+1);
-                    newContext.putAll(namespaceContext);
-                    newContext.putAll(tagNamespacesMap);
-                    namespaceContext = newContext;
-                }
-            }
-            else {
-                namespaceContext = tagNamespacesMap;
-                if (namespaceContext == null) {
-                    namespaceContext = new Hashtable();
-                }
-            }
-        }
-        return namespaceContext;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a new Tag instance.
-     * The default implementation is to delegate to the TagFactory
-     */
-    protected Tag createTag() throws JellyException {
-        if ( tagFactory != null) {
-            return tagFactory.createTag(localName, getSaxAttributes());
-        }
-        return null;
-    }
-
-	
-    /**
-     * Compiles a newly created tag if required, sets its parent and body.
-     */
-    protected void configureTag(Tag tag, JellyContext context) throws JellyException {
-    	tag.setTagLib(tagLibrary);
-        if (tag instanceof CompilableTag) {
-            ((CompilableTag) tag).compile();
-        }
-        Tag parentTag = null;
-        if ( parent != null ) {
-            parentTag = parent.getTag(context);
-        }
-        tag.setParent( parentTag );
-        tag.setBody( tagBody );
-
-        if (tag instanceof NamespaceAwareTag) {
-            NamespaceAwareTag naTag = (NamespaceAwareTag) tag;
-            naTag.setNamespaceContext(getNamespaceContext());
-        }
-        if (tag instanceof LocationAware) {
-            applyLocation((LocationAware) tag);
-        }
+    public void setLocator(Locator locator) {
+        setLineNumber( locator.getLineNumber() );
+        setColumnNumber( locator.getColumnNumber() );
     }
 
     /**
-     * Flushes the current cached tag so that it will be created, lazily, next invocation
+     * Sets the parent.
+     * @param parent The parent to set
      */
-    protected void clearTag() {
-        Thread t = Thread.currentThread();
-        threadLocalTagCache.put(t, null);
+    public void setParent(TagScript parent) {
+        this.parent = parent;
+    }
+
+    /**
+     * Sets the SAX attributes of this tag
+     * @param saxAttributes The saxAttributes to set
+     */
+    public void setSaxAttributes(Attributes saxAttributes) {
+        this.saxAttributes = saxAttributes;
     }
 
     /**
@@ -558,6 +686,41 @@ public class TagScript implements Script {
     protected void setTag(Tag tag, JellyContext context) {
         Thread t = Thread.currentThread();
         threadLocalTagCache.put(t, tag);
+    }
+
+    /**
+     * Sets the tagBody.
+     * @param tagBody The tagBody to set
+     */
+    public void setTagBody(Script tagBody) {
+        this.tagBody = tagBody;
+    }
+
+    /**
+     * Sets the Factory of Tag instances.
+     * @param tagFactory The factory to set
+     */
+    public void setTagFactory(TagFactory tagFactory) {
+        this.tagFactory = tagFactory;
+    }
+
+    /**
+	 * @param tagLibrary the tagLibrary to set
+	 */
+	public void setTagLibrary(TagLibrary tagLibrary) {
+		this.tagLibrary = tagLibrary;
+	}
+
+    /**
+     * Sets the optional namespaces prefix to URI map of
+     * the namespaces attached to this Tag
+     */
+    public void setTagNamespacesMap(Map tagNamespacesMap) {
+        // lets check that this is a thread-safe map
+        if ( ! (tagNamespacesMap instanceof Hashtable) ) {
+            tagNamespacesMap = new Hashtable( tagNamespacesMap );
+        }
+        this.tagNamespacesMap = tagNamespacesMap;
     }
 
     /**
@@ -574,171 +737,8 @@ public class TagScript implements Script {
         }
     }
 
-    /**
-     * End the new namespace prefixes mapped for the current element
-     */
-    protected void endNamespacePrefixes(XMLOutput output) throws SAXException {
-        if ( tagNamespacesMap != null ) {
-            for ( Iterator iter = tagNamespacesMap.keySet().iterator(); iter.hasNext(); ) {
-                String prefix = (String) iter.next();
-                output.endPrefixMapping(prefix);
-            }
-        }
+    @Override
+    public String toString() {
+        return super.toString() + "[tag=" + elementName + ";at=" + lineNumber + ":" + columnNumber + "]";
     }
-
-    /**
-     * Converts the given value to the required type.
-     *
-     * @param value is the value to be converted. This will not be null
-     * @param requiredType the type that the value should be converted to
-     */
-    protected Object convertType(Object value, Class requiredType)
-        throws JellyException {
-        if (requiredType.isInstance(value)) {
-            return value;
-        }
-        if (value instanceof String) {
-            return ConvertUtils.convert((String) value, requiredType);
-        }
-        return value;
-    }
-
-    /**
-     * Creates a new Jelly exception, adorning it with location information
-     */
-    protected JellyException createJellyException(String reason) {
-        return new JellyException(
-            reason, fileName, elementName, columnNumber, lineNumber
-        );
-    }
-
-    /**
-     * Creates a new Jelly exception, adorning it with location information
-     */
-    protected JellyException createJellyException(String reason, Exception cause) {
-        if (cause instanceof JellyException) {
-            return (JellyException) cause;
-        }
-
-        if (cause instanceof InvocationTargetException) {
-            return new JellyException(
-                reason,
-                ((InvocationTargetException) cause).getTargetException(),
-                fileName,
-                elementName,
-                columnNumber,
-                lineNumber);
-        }
-        return new JellyException(
-            reason, cause, fileName, elementName, columnNumber, lineNumber
-        );
-    }
-
-    /**
-     * A helper method to handle this Jelly exception.
-     * This method adorns the JellyException with location information
-     * such as adding line number information etc.
-     */
-    protected void handleException(JellyTagException e) throws JellyTagException {
-        if (log.isTraceEnabled()) {
-            log.trace( "Caught exception: " + e, e );
-        }
-
-        applyLocation(e);
-
-        throw e;
-    }
-
-    /**
-     * A helper method to handle this Jelly exception.
-     * This method adorns the JellyException with location information
-     * such as adding line number information etc.
-     */
-    protected void handleException(JellyException e) throws JellyTagException {
-        if (log.isTraceEnabled()) {
-            log.trace( "Caught exception: " + e, e );
-        }
-
-        applyLocation(e);
-
-        throw new JellyTagException(e);
-    }
-
-    protected void applyLocation(LocationAware locationAware) {
-        if (locationAware.getLineNumber() == -1) {
-            locationAware.setColumnNumber(columnNumber);
-            locationAware.setLineNumber(lineNumber);
-        }
-        if ( locationAware.getFileName() == null ) {
-            locationAware.setFileName( fileName );
-        }
-        if ( locationAware.getElementName() == null ) {
-            locationAware.setElementName( elementName );
-        }
-    }
-
-    /**
-     * A helper method to handle this non-Jelly exception.
-     * This method will rethrow the exception, wrapped in a JellyException
-     * while adding line number information etc.
-     */
-    protected void handleException(Exception e) throws JellyTagException {
-        if (log.isTraceEnabled()) {
-            log.trace( "Caught exception: " + e, e );
-        }
-
-        if (e instanceof LocationAware) {
-            applyLocation((LocationAware) e);
-        }
-
-        if ( e instanceof JellyException ) {
-            e.fillInStackTrace();
-        }
-
-        if ( e instanceof InvocationTargetException) {
-            throw new JellyTagException( ((InvocationTargetException)e).getTargetException(),
-                                      fileName,
-                                      elementName,
-                                      columnNumber,
-                                      lineNumber );
-        }
-
-        throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
-    }
-
-    /**
-     * A helper method to handle this non-Jelly exception.
-     * This method will rethrow the exception, wrapped in a JellyException
-     * while adding line number information etc.
-     *
-     * Is this method wise?
-     */
-    protected void handleException(Error e) throws Error, JellyTagException {
-        if (log.isTraceEnabled()) {
-            log.trace( "Caught exception: " + e, e );
-        }
-
-        if (e instanceof LocationAware) {
-            applyLocation((LocationAware) e);
-        }
-
-        throw new JellyTagException(e, fileName, elementName, columnNumber, lineNumber);
-    }
-}
-
-final class ExpressionAttribute {
-    public ExpressionAttribute(String name, Expression exp) {
-        this(name, "", "", exp);
-    }
-    public ExpressionAttribute(String name, String prefix, String nsURI, Expression exp) {
-        this.name = name;
-        this.prefix = prefix;
-        this.nsURI = nsURI;
-        this.exp = exp;
-    }
-
-    String name;
-    String prefix;
-    String nsURI;
-    Expression exp;
 }

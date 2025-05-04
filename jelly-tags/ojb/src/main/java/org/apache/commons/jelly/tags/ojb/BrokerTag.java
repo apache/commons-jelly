@@ -63,14 +63,6 @@ public class BrokerTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    /** Sets the variable name to define for this expression
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
     /** @return the persistence broker instance */
     public PersistenceBroker getBroker() {
         return broker;
@@ -79,5 +71,13 @@ public class BrokerTag extends TagSupport {
     /** Sets the persistence broker instance */
     public void setBroker(PersistenceBroker broker) {
         this.broker = broker;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+    /** Sets the variable name to define for this expression
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 }

@@ -32,16 +32,16 @@ import junit.framework.TestSuite;
  */
 public class TestDefaultNamespaceFilter extends TestCase {
 
+    public static TestSuite suite() throws Exception {
+        return new TestSuite(TestDefaultNamespaceFilter.class);
+    }
     Jelly jelly = null;
     JellyContext context = null;
+
     XMLOutput xmlOutput = null;
 
     public TestDefaultNamespaceFilter(String name) {
         super(name);
-    }
-
-    public static TestSuite suite() throws Exception {
-        return new TestSuite(TestDefaultNamespaceFilter.class);
     }
 
     @Override

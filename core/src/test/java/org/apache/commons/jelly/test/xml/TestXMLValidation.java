@@ -34,16 +34,16 @@ import junit.framework.TestSuite;
  */
 public class TestXMLValidation extends TestCase {
 
+    public static TestSuite suite() throws Exception {
+        return new TestSuite(TestXMLValidation.class);
+    }
     Jelly jelly = null;
     JellyContext context = null;
+
     XMLOutput xmlOutput = null;
 
     public TestXMLValidation(String name) {
         super(name);
-    }
-
-    public static TestSuite suite() throws Exception {
-        return new TestSuite(TestXMLValidation.class);
     }
 
     public void setUp(String scriptName) throws Exception {

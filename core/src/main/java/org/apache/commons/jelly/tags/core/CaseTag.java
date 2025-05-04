@@ -35,17 +35,13 @@ import org.apache.commons.jelly.expression.Expression;
  */
 public class CaseTag extends TagSupport {
 
-    public CaseTag() {
-    }
-
-    // Tag interface
+    // Attributes
     //-------------------------------------------------------------------------
-    public void setValue(Expression value) {
-        this.valueExpression = value;
-    }
+    private Expression valueExpression = null;
 
-    public void setFallThru(boolean fallThru) {
-        this.fallThru = fallThru;
+    private boolean fallThru = false;
+
+    public CaseTag() {
     }
 
     @Override
@@ -70,9 +66,13 @@ public class CaseTag extends TagSupport {
         }
     }
 
-    // Attributes
+    public void setFallThru(boolean fallThru) {
+        this.fallThru = fallThru;
+    }
+    // Tag interface
     //-------------------------------------------------------------------------
-    private Expression valueExpression = null;
-    private boolean fallThru = false;
+    public void setValue(Expression value) {
+        this.valueExpression = value;
+    }
 
 }

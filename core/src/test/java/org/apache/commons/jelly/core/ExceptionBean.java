@@ -21,14 +21,14 @@ package org.apache.commons.jelly.core;
  */
 public class ExceptionBean {
 
+    public static void staticMethod( String msg) throws Exception {
+        throw new Exception( msg );
+    }
+
     public ExceptionBean() {
     }
 
     public void instanceMethod( String msg) throws Exception {
-        throw new Exception( msg );
-    }
-
-    public static void staticMethod( String msg) throws Exception {
         throw new Exception( msg );
     }
 

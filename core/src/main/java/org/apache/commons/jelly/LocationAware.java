@@ -26,34 +26,9 @@ package org.apache.commons.jelly;
 public interface LocationAware {
     
     /** 
-     * @return the line number of the tag 
-     */
-    int getLineNumber();
-    
-    /** 
-     * Sets the line number of the tag 
-     */
-    void setLineNumber(int lineNumber);
-
-    /** 
      * @return the column number of the tag 
      */
     int getColumnNumber();
-    
-    /** 
-     * Sets the column number of the tag 
-     */
-    void setColumnNumber(int columnNumber);
-
-    /** 
-     * @return the Jelly file which caused the problem 
-     */
-    String getFileName();
-    
-    /** 
-     * Sets the Jelly file which caused the problem 
-     */
-    void setFileName(String fileName);
     
     /** 
      * @return the element name which caused the problem
@@ -61,7 +36,32 @@ public interface LocationAware {
     String getElementName();
 
     /** 
+     * @return the Jelly file which caused the problem 
+     */
+    String getFileName();
+    
+    /** 
+     * @return the line number of the tag 
+     */
+    int getLineNumber();
+
+    /** 
+     * Sets the column number of the tag 
+     */
+    void setColumnNumber(int columnNumber);
+    
+    /** 
      * Sets the element name which caused the problem
      */
     void setElementName(String elementName);
+    
+    /** 
+     * Sets the Jelly file which caused the problem 
+     */
+    void setFileName(String fileName);
+
+    /** 
+     * Sets the line number of the tag 
+     */
+    void setLineNumber(int lineNumber);
 }

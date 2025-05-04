@@ -92,11 +92,26 @@ public class WindowListenerTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * Sets the name of the variable to use to expose the Event object
-     */
-    public void setVar(String var) {
-        this.var = var;
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    protected void invokeScript(XMLOutput output, WindowEvent event, Script script) {
+        if ( var != null ) {
+            // define a variable of the event
+            context.setVariable(var, event);
+        }
+
+        try {
+            if ( script != null ) {
+                script.run(context, output );
+            }
+            else {
+                // invoke the body
+                invokeBody(output);
+            }
+        }
+        catch (Exception e) {
+            log.error( "Caught exception processing window event: " + event, e );
+        }
     }
 
     /**
@@ -148,26 +163,11 @@ public class WindowListenerTag extends TagSupport {
         this.opened = opened;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected void invokeScript(XMLOutput output, WindowEvent event, Script script) {
-        if ( var != null ) {
-            // define a variable of the event
-            context.setVariable(var, event);
-        }
-
-        try {
-            if ( script != null ) {
-                script.run(context, output );
-            }
-            else {
-                // invoke the body
-                invokeBody(output);
-            }
-        }
-        catch (Exception e) {
-            log.error( "Caught exception processing window event: " + event, e );
-        }
+    /**
+     * Sets the name of the variable to use to expose the Event object
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 
 }

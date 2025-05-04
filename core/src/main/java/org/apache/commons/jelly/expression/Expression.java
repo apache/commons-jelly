@@ -26,21 +26,10 @@ import org.apache.commons.jelly.JellyContext;
 public interface Expression {
 
     /**
-     * @return the textual representation of this expression
-     */
-    public String getExpressionText();
-
-    /**
      * Evaluates the expression with the given context
      * and returns the result
      */
     public Object evaluate(JellyContext context);
-
-    /**
-     * Evaluates the expression with the given context
-     * coercing the result to be a String.
-     */
-    public String evaluateAsString(JellyContext context);
 
     /**
      * Evaluates the expression with the given context
@@ -53,6 +42,12 @@ public interface Expression {
      * coercing the result to be an Iterator.
      */
     public Iterator evaluateAsIterator(JellyContext context);
+
+    /**
+     * Evaluates the expression with the given context
+     * coercing the result to be a String.
+     */
+    public String evaluateAsString(JellyContext context);
 
     /**
      * This method evaluates the expression until a value (a non-Expression) object
@@ -71,4 +66,9 @@ public interface Expression {
      * actual underlying value object.
      */
     public Object evaluateRecurse(JellyContext context);
+
+    /**
+     * @return the textual representation of this expression
+     */
+    public String getExpressionText();
 }

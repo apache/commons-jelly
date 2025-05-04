@@ -71,11 +71,33 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     // -------------------------------------------------------------------------
 
     /**
-     * @return the bean that has just been created
+     * Adds a name to the Set of property names that will be skipped when setting bean properties. In other words, names added here won't be set into the bean
+     * if they're present in the attribute Map.
+     *
+     * @param name
      */
-    @Override
-    public Object getBean() {
-        return bean;
+    protected void addIgnoreProperty(final String name) {
+        getIgnorePropertySet().add(name);
+    }
+
+    /**
+     * Attempts to convert the given object to a Class instance. If the classObject is already a Class it will be returned otherwise it will be converted to a
+     * String and loaded using the default class loading mechanism.
+     */
+    protected Class convertToClass(final Object classObject) throws MissingAttributeException, ClassNotFoundException {
+        if (classObject instanceof Class) {
+            return (Class) classObject;
+        }
+        if (classObject == null) {
+            final Class theClass = getDefaultClass();
+            if (theClass == null) {
+                throw new MissingAttributeException("class");
+            }
+            return theClass;
+        } else {
+            final String className = classObject.toString();
+            return loadClass(className);
+        }
     }
 
     // Tag interface
@@ -103,100 +125,11 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     // -------------------------------------------------------------------------
 
     /**
-     * Allow derived classes to programmatically set the bean
+     * @return the bean that has just been created
      */
-    protected void setBean(final Object bean) {
-        this.bean = bean;
-    }
-
-    /**
-     * Attempts to convert the given object to a Class instance. If the classObject is already a Class it will be returned otherwise it will be converted to a
-     * String and loaded using the default class loading mechanism.
-     */
-    protected Class convertToClass(final Object classObject) throws MissingAttributeException, ClassNotFoundException {
-        if (classObject instanceof Class) {
-            return (Class) classObject;
-        }
-        if (classObject == null) {
-            final Class theClass = getDefaultClass();
-            if (theClass == null) {
-                throw new MissingAttributeException("class");
-            }
-            return theClass;
-        } else {
-            final String className = classObject.toString();
-            return loadClass(className);
-        }
-    }
-
-    /**
-     * Loads the given class using the default class loading mechanism which is to try use the current Thread's context class loader first otherwise use the
-     * class loader which loaded this class.
-     */
-    protected Class loadClass(final String className) throws ClassNotFoundException {
-        return ClassLoaderUtils.loadClass(className, getClass());
-    }
-
-    /**
-     * Creates a new instance of the given class, which by default will invoke the default constructor. Derived tags could do something different here.
-     */
-    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output) throws JellyTagException {
-        try {
-            return theClass.getConstructor().newInstance();
-        } catch (final ReflectiveOperationException e) {
-            throw new JellyTagException(e.toString());
-        }
-    }
-
-    /**
-     * Sets the properties on the bean. Derived tags could implement some custom type conversion etc.
-     * <p>
-     * This method ignores all property names in the Set returned by {@link #getIgnorePropertySet()}.
-     * </p>
-     */
-    protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
-        final Map attrsToUse = new HashMap(attributes);
-        attrsToUse.keySet().removeAll(getIgnorePropertySet());
-        validateBeanProperties(bean, attrsToUse);
-        try {
-            BeanUtils.populate(bean, attrsToUse);
-        } catch (final IllegalAccessException | InvocationTargetException e) {
-            throw new JellyTagException("could not set the properties of the bean", e);
-        }
-    }
-
-    /**
-     * If {@link #isIgnoreUnknownProperties()} returns true, make sure that every non-ignored ({@link #addIgnoreProperty(String)}) property matches a writable
-     * property on the target bean.
-     *
-     * @param bean       the bean to validate
-     * @param attributes the list of properties to validate
-     * @throws JellyTagException when a property is not writeable
-     */
-    protected void validateBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
-        if (!isIgnoreUnknownProperties()) {
-            for (final Iterator i = attributes.keySet().iterator(); i.hasNext();) {
-                final String attrName = (String) i.next();
-                if (!PropertyUtils.isWriteable(bean, attrName)) {
-                    throw new JellyTagException("No bean property found: " + attrName);
-                }
-            }
-        }
-    }
-
-    /**
-     * By default this will export the bean using the given variable if it is defined. This Strategy method allows derived tags to process the beans in
-     * different ways such as to register this bean with its parent tag etc.
-     */
-    protected void processBean(final String var, final Object bean) throws JellyTagException {
-        if (var != null) {
-            context.setVariable(var, bean);
-        } else {
-            final ArgTag parentArg = (ArgTag) findAncestorWithClass(ArgTag.class);
-            if (null != parentArg) {
-                parentArg.setValue(bean);
-            }
-        }
+    @Override
+    public Object getBean() {
+        return bean;
     }
 
     /**
@@ -204,16 +137,6 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      */
     protected Class getDefaultClass() {
         return defaultClass;
-    }
-
-    /**
-     * Adds a name to the Set of property names that will be skipped when setting bean properties. In other words, names added here won't be set into the bean
-     * if they're present in the attribute Map.
-     *
-     * @param name
-     */
-    protected void addIgnoreProperty(final String name) {
-        getIgnorePropertySet().add(name);
     }
 
     /**
@@ -238,11 +161,88 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     }
 
     /**
+     * Loads the given class using the default class loading mechanism which is to try use the current Thread's context class loader first otherwise use the
+     * class loader which loaded this class.
+     */
+    protected Class loadClass(final String className) throws ClassNotFoundException {
+        return ClassLoaderUtils.loadClass(className, getClass());
+    }
+
+    /**
+     * Creates a new instance of the given class, which by default will invoke the default constructor. Derived tags could do something different here.
+     */
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output) throws JellyTagException {
+        try {
+            return theClass.getConstructor().newInstance();
+        } catch (final ReflectiveOperationException e) {
+            throw new JellyTagException(e.toString());
+        }
+    }
+
+    /**
+     * By default this will export the bean using the given variable if it is defined. This Strategy method allows derived tags to process the beans in
+     * different ways such as to register this bean with its parent tag etc.
+     */
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
+        if (var != null) {
+            context.setVariable(var, bean);
+        } else {
+            final ArgTag parentArg = (ArgTag) findAncestorWithClass(ArgTag.class);
+            if (null != parentArg) {
+                parentArg.setValue(bean);
+            }
+        }
+    }
+
+    /**
+     * Allow derived classes to programmatically set the bean
+     */
+    protected void setBean(final Object bean) {
+        this.bean = bean;
+    }
+
+    /**
+     * Sets the properties on the bean. Derived tags could implement some custom type conversion etc.
+     * <p>
+     * This method ignores all property names in the Set returned by {@link #getIgnorePropertySet()}.
+     * </p>
+     */
+    protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
+        final Map attrsToUse = new HashMap(attributes);
+        attrsToUse.keySet().removeAll(getIgnorePropertySet());
+        validateBeanProperties(bean, attrsToUse);
+        try {
+            BeanUtils.populate(bean, attrsToUse);
+        } catch (final IllegalAccessException | InvocationTargetException e) {
+            throw new JellyTagException("could not set the properties of the bean", e);
+        }
+    }
+
+    /**
      * If this tag finds an attribute in the XML that's not ignored by {@link #ignoreProperties} and isn't a bean property, should it throw an exception?
      *
      * @param ignoreUnknownProperties Sets {@link #ignoreUnknownProperties}.
      */
     public void setIgnoreUnknownProperties(final boolean ignoreUnknownProperties) {
         this.ignoreUnknownProperties = ignoreUnknownProperties;
+    }
+
+    /**
+     * If {@link #isIgnoreUnknownProperties()} returns true, make sure that every non-ignored ({@link #addIgnoreProperty(String)}) property matches a writable
+     * property on the target bean.
+     *
+     * @param bean       the bean to validate
+     * @param attributes the list of properties to validate
+     * @throws JellyTagException when a property is not writeable
+     */
+    protected void validateBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
+        if (!isIgnoreUnknownProperties()) {
+            for (final Iterator i = attributes.keySet().iterator(); i.hasNext();) {
+                final String attrName = (String) i.next();
+                if (!PropertyUtils.isWriteable(bean, attrName)) {
+                    throw new JellyTagException("No bean property found: " + attrName);
+                }
+            }
+        }
     }
 }

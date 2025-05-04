@@ -52,6 +52,47 @@ public class TestEmbedded extends TestCase
     }
 
     /**
+     *  test Script input as a InputStream
+     */
+    public void testInputStreamAsScript()
+    {
+        Embedded embedded = new Embedded();
+        String jellyScript =
+            "<?xml version=\"1.0\"?>"
+                + " <j:jelly xmlns:j=\"jelly:core\">"
+                + "jelly-test-case"
+                + " </j:jelly>";
+        embedded.setScript(new ByteArrayInputStream(jellyScript.getBytes()));
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        embedded.setOutputStream(baos);
+        boolean status = embedded.execute();
+        //executed properly without script errors
+        assertEquals(status, true);
+        //check that the output confirms the expected
+        assertEquals("jelly-test-case", new String(baos.toByteArray()));
+    }
+
+    /**
+     * Test simple 'raw' execution of a string. See JELLY-189.
+     */
+    public void testRawExecuteAsString() throws Exception
+    {
+        String message =
+            "<?xml version=\"1.0\"?>"
+                + " <j:jelly xmlns:j=\"jelly:core\">"
+                + "jelly-test-case"
+                + " </j:jelly>";
+       ByteArrayOutputStream output = new ByteArrayOutputStream();
+       XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
+       InputSource script = new InputSource( new StringReader(message.toString()) );
+       JellyContext context = new JellyContext();
+       context.runScript( script, xmlOutput);
+       output.close();
+       //check that the output confirms the expected
+       assertEquals("jelly-test-case", new String(output.toByteArray()));
+    }
+    
+    /**
      *  test Script input as a java.lang.String object
      */
     public void testStringAsScript()
@@ -77,46 +118,5 @@ public class TestEmbedded extends TestCase
         assertFalse("A script with bad XML was executed successfully", status);
         //Asserting the parser generated a errorMsg
         assertNotNull("A script with bad XML didn't generate an error message", embedded.getErrorMsg());
-    }
-
-    /**
-     *  test Script input as a InputStream
-     */
-    public void testInputStreamAsScript()
-    {
-        Embedded embedded = new Embedded();
-        String jellyScript =
-            "<?xml version=\"1.0\"?>"
-                + " <j:jelly xmlns:j=\"jelly:core\">"
-                + "jelly-test-case"
-                + " </j:jelly>";
-        embedded.setScript(new ByteArrayInputStream(jellyScript.getBytes()));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        embedded.setOutputStream(baos);
-        boolean status = embedded.execute();
-        //executed properly without script errors
-        assertEquals(status, true);
-        //check that the output confirms the expected
-        assertEquals("jelly-test-case", new String(baos.toByteArray()));
-    }
-    
-    /**
-     * Test simple 'raw' execution of a string. See JELLY-189.
-     */
-    public void testRawExecuteAsString() throws Exception
-    {
-        String message =
-            "<?xml version=\"1.0\"?>"
-                + " <j:jelly xmlns:j=\"jelly:core\">"
-                + "jelly-test-case"
-                + " </j:jelly>";
-       ByteArrayOutputStream output = new ByteArrayOutputStream();
-       XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
-       InputSource script = new InputSource( new StringReader(message.toString()) );
-       JellyContext context = new JellyContext();
-       context.runScript( script, xmlOutput);
-       output.close();
-       //check that the output confirms the expected
-       assertEquals("jelly-test-case", new String(output.toByteArray()));
     }
 }

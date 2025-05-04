@@ -65,6 +65,13 @@ public class AttributeTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
+     * Sets the default value of this attribute
+     */
+    public void setDefaultValue(Expression defaultValue) {
+        attribute.setDefaultValue(defaultValue);
+    }
+
+    /**
      * Sets the name of the attribute
      */
     public void setName(String name) {
@@ -76,12 +83,5 @@ public class AttributeTag extends TagSupport {
      */
     public void setRequired(boolean required) {
         attribute.setRequired(required);
-    }
-
-    /**
-     * Sets the default value of this attribute
-     */
-    public void setDefaultValue(Expression defaultValue) {
-        attribute.setDefaultValue(defaultValue);
     }
 }

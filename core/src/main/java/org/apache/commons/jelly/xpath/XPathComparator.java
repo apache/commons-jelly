@@ -31,6 +31,15 @@ import org.jaxen.XPath;
 
 public class XPathComparator implements Comparator {
 
+    /**
+     * My own runtime exception in case something goes wrong with sort.
+     */
+    public static class XPathSortException extends NestedRuntimeException {
+        public XPathSortException(String message, Throwable cause) {
+            super(message, cause);
+        }
+    }
+
     /** The xpath to use to extract value from nodes to compare */
     private XPath xpath = null;
 
@@ -44,23 +53,6 @@ public class XPathComparator implements Comparator {
     public XPathComparator(XPath xpath, boolean descending) {
         this.xpath = xpath;
         this.descending = descending;
-    }
-
-    public void setXpath(XPath xpath) {
-        this.xpath = xpath;
-    }
-
-    public XPath getXpath() {
-        return xpath;
-    }
-
-    public void setDescending(boolean descending) {
-        this.descending = descending;
-    }
-
-    @Override
-    public int compare(Object o1, Object o2) {
-        return compare((Node)o1, (Node)o2);
     }
 
     public int compare(Node n1, Node n2) {
@@ -93,6 +85,11 @@ public class XPathComparator implements Comparator {
         }
     }
 
+    @Override
+    public int compare(Object o1, Object o2) {
+        return compare((Node)o1, (Node)o2);
+    }
+
     /**
      * Turns the XPath result value into a Comparable object.
      */
@@ -117,12 +114,15 @@ public class XPathComparator implements Comparator {
         return value.toString();
     }
 
-    /**
-     * My own runtime exception in case something goes wrong with sort.
-     */
-    public static class XPathSortException extends NestedRuntimeException {
-        public XPathSortException(String message, Throwable cause) {
-            super(message, cause);
-        }
+    public XPath getXpath() {
+        return xpath;
+    }
+
+    public void setDescending(boolean descending) {
+        this.descending = descending;
+    }
+
+    public void setXpath(XPath xpath) {
+        this.xpath = xpath;
     }
 }

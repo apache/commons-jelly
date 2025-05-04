@@ -74,6 +74,28 @@ public class SetTag extends XPathTagSupport {
 
     }
 
+    private int determineReturnType() {
+        int resultType;
+        if (single != null && single.booleanValue()) { // first node
+            if (asString != null && asString.booleanValue()) {
+                resultType = RETURN_FIRST_AS_STRING;
+            } else {
+                resultType = RETURN_FIRST_NODE;
+            }
+        } else { // all nodes
+            if (asString != null && asString.booleanValue()) {
+                if (delim != null) {
+                    resultType = RETURN_DELIMITED_STRING_LIST;
+                } else {
+                    resultType = RETURN_STRING_LIST;
+                }
+            } else {
+                resultType = RETURN_NODE_LIST;
+            }
+        }
+        return resultType;
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -173,6 +195,104 @@ public class SetTag extends XPathTagSupport {
         context.setVariable(var, value);
     }
 
+    private String joinDelimitedElements( final List values ) {
+        StringBuilder sb = new StringBuilder();
+        int sz = values.size();
+        for (int i = 0; i < sz; i++) {
+            String s = (String)values.get(i); 
+            sb.append(s);
+            if (i < sz - 1)
+                sb.append(delim);
+        }
+        return sb.toString();
+    }
+    
+    private List nodeListToStringList( final List values ) {
+        List l = new ArrayList(values.size());
+        for (Iterator it = values.iterator(); it.hasNext(); ) {
+            Object v = it.next();
+            String s = singleValueAsString(v);
+            if (s != null) {
+                l.add(s);
+            }
+        }
+        return l;
+    }
+
+    /** If set to true, will ensure that the (XPath) text-value
+      * of the selected node is taken instead of the node
+      * itself.
+      * This ensures that, thereafter, string manipulations
+      * can be performed on the result.
+      */
+    public void setAsString(boolean asString) {
+        this.asString = new Boolean(asString);
+    }
+
+    /** If set, returns a string delimited by this delimiter.
+      * Implies <code>asString</code> to be true.
+      */
+    public void setDelim(String delim) {
+        this.delimiter = delim;
+        if ( delim!=null ) {
+            this.asString = Boolean.TRUE;
+        }
+    }
+
+    /**
+     * Sets whether to sort ascending or descending.
+     */
+    public void setDescending(boolean descending) {
+        if (xpCmp == null) xpCmp = new XPathComparator();
+        xpCmp.setDescending(descending);
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /** Sets the XPath expression to evaluate. */
+    public void setSelect(XPath select) {
+        this.select = select;
+    }
+
+    /** If set to true will only take the first element matching.
+        It then guarantees that the result is of type
+        {@link org.dom4j.Node} thereby making sure that, for example,
+        when an element is selected, one can directly call such methods
+        as setAttribute.
+        <p>
+        If set to false, guarantees that a list is returned.
+        </p>
+        <p>
+        If set to false, guarantees that a list is returned.
+        </p>
+        */
+    public void setSingle(boolean single) {
+        this.single = new Boolean(single);
+    }
+
+    /** Sets the xpath expression to use to sort selected nodes.
+     *  Ignored if single is true.
+     */
+    public void setSort(XPath sortXPath) throws JaxenException {
+        if (xpCmp == null) xpCmp = new XPathComparator();
+        xpCmp.setXpath(sortXPath);
+    }
+    
+    /** Sets the variable name to define for this expression
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    private String singleValueAsString( final Object value ) {
+        if (value instanceof Node) {
+            return ((Node) value).getStringValue();
+        } else {
+            return null;
+        }
+    }
+
     private List valueAsList( final Object value ) {
         if (value instanceof List) {
             return (List)value;
@@ -195,125 +315,5 @@ public class SetTag extends XPathTagSupport {
         } else {
             return value;
         }
-    }
-    
-    private String singleValueAsString( final Object value ) {
-        if (value instanceof Node) {
-            return ((Node) value).getStringValue();
-        } else {
-            return null;
-        }
-    }
-
-    private List nodeListToStringList( final List values ) {
-        List l = new ArrayList(values.size());
-        for (Iterator it = values.iterator(); it.hasNext(); ) {
-            Object v = it.next();
-            String s = singleValueAsString(v);
-            if (s != null) {
-                l.add(s);
-            }
-        }
-        return l;
-    }
-
-    private String joinDelimitedElements( final List values ) {
-        StringBuilder sb = new StringBuilder();
-        int sz = values.size();
-        for (int i = 0; i < sz; i++) {
-            String s = (String)values.get(i); 
-            sb.append(s);
-            if (i < sz - 1)
-                sb.append(delim);
-        }
-        return sb.toString();
-    }
-
-    private int determineReturnType() {
-        int resultType;
-        if (single != null && single.booleanValue()) { // first node
-            if (asString != null && asString.booleanValue()) {
-                resultType = RETURN_FIRST_AS_STRING;
-            } else {
-                resultType = RETURN_FIRST_NODE;
-            }
-        } else { // all nodes
-            if (asString != null && asString.booleanValue()) {
-                if (delim != null) {
-                    resultType = RETURN_DELIMITED_STRING_LIST;
-                } else {
-                    resultType = RETURN_STRING_LIST;
-                }
-            } else {
-                resultType = RETURN_NODE_LIST;
-            }
-        }
-        return resultType;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /** Sets the variable name to define for this expression
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
-        this.select = select;
-    }
-
-    /** If set to true will only take the first element matching.
-        It then guarantees that the result is of type
-        {@link org.dom4j.Node} thereby making sure that, for example,
-        when an element is selected, one can directly call such methods
-        as setAttribute.
-        <p>
-        If set to false, guarantees that a list is returned.
-        </p>
-        <p>
-        If set to false, guarantees that a list is returned.
-        </p>
-        */
-    public void setSingle(boolean single) {
-        this.single = new Boolean(single);
-    }
-    
-    /** If set to true, will ensure that the (XPath) text-value
-      * of the selected node is taken instead of the node
-      * itself.
-      * This ensures that, thereafter, string manipulations
-      * can be performed on the result.
-      */
-    public void setAsString(boolean asString) {
-        this.asString = new Boolean(asString);
-    }
-
-    /** If set, returns a string delimited by this delimiter.
-      * Implies <code>asString</code> to be true.
-      */
-    public void setDelim(String delim) {
-        this.delimiter = delim;
-        if ( delim!=null ) {
-            this.asString = Boolean.TRUE;
-        }
-    }
-
-    /** Sets the xpath expression to use to sort selected nodes.
-     *  Ignored if single is true.
-     */
-    public void setSort(XPath sortXPath) throws JaxenException {
-        if (xpCmp == null) xpCmp = new XPathComparator();
-        xpCmp.setXpath(sortXPath);
-    }
-
-    /**
-     * Sets whether to sort ascending or descending.
-     */
-    public void setDescending(boolean descending) {
-        if (xpCmp == null) xpCmp = new XPathComparator();
-        xpCmp.setDescending(descending);
     }
 }

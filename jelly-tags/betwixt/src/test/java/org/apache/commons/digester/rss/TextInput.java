@@ -33,51 +33,35 @@ public class TextInput implements Serializable {
      */
     protected String description = null;
 
-    public String getDescription() {
-        return (this.description);
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     /**
      * The text input link (1-500 characters).
      */
     protected String link = null;
-
-    public String getLink() {
-        return (this.link);
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
 
     /**
      * The text input field name (1-100 characters).
      */
     protected String name = null;
 
-    public String getName() {
-        return (this.name);
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     /**
      * The text input submit button label (1-100 characters).
      */
     protected String title = null;
 
-    public String getTitle() {
-        return (this.title);
+    public String getDescription() {
+        return (this.description);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public String getLink() {
+        return (this.link);
+    }
+
+    public String getName() {
+        return (this.name);
+    }
+
+    public String getTitle() {
+        return (this.title);
     }
 
     /**
@@ -108,6 +92,22 @@ public class TextInput implements Serializable {
 
         writer.println("    </textinput>");
 
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }

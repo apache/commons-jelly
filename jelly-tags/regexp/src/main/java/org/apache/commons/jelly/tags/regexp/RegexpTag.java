@@ -35,43 +35,6 @@ public abstract class RegexpTag extends TagSupport {
     private String text;
     private String scope;
 
-    protected final String getText() {
-        return text;
-    }
-
-    protected final Pattern getPattern() {
-        return pattern;
-    }
-
-    protected final Perl5Matcher getPatternMatcher() {
-        return patternMatcher;
-    }
-
-    public final void setExpr(String expr) throws MalformedPatternException {
-        Perl5Compiler patternCompiler = new Perl5Compiler();
-        pattern = patternCompiler.compile(expr);
-    }
-
-    public final void setText(String text) {
-        this.text = text;
-    }
-
-    // Sets the variable name to define for this expression
-    public final void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Sets the variable scope for this variable. For example setting this value to 'parent' will
-     * set this value in the parent scope. When Jelly is run from inside a Servlet environment
-     * then other scopes will be available such as 'request', 'session' or 'application'.
-     *
-     * Other applications may implement their own custom scopes.
-     */
-    public final void setScope(String scope) {
-        this.scope = scope;
-    }
-
     @Override
     public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
         // Check required properties
@@ -97,5 +60,42 @@ public abstract class RegexpTag extends TagSupport {
         }
     }
 
+    protected final Pattern getPattern() {
+        return pattern;
+    }
+
+    protected final Perl5Matcher getPatternMatcher() {
+        return patternMatcher;
+    }
+
     protected abstract boolean getResult();
+
+    protected final String getText() {
+        return text;
+    }
+
+    public final void setExpr(String expr) throws MalformedPatternException {
+        Perl5Compiler patternCompiler = new Perl5Compiler();
+        pattern = patternCompiler.compile(expr);
+    }
+
+    /**
+     * Sets the variable scope for this variable. For example setting this value to 'parent' will
+     * set this value in the parent scope. When Jelly is run from inside a Servlet environment
+     * then other scopes will be available such as 'request', 'session' or 'application'.
+     *
+     * Other applications may implement their own custom scopes.
+     */
+    public final void setScope(String scope) {
+        this.scope = scope;
+    }
+
+    public final void setText(String text) {
+        this.text = text;
+    }
+
+    // Sets the variable name to define for this expression
+    public final void setVar(String var) {
+        this.var = var;
+    }
 }

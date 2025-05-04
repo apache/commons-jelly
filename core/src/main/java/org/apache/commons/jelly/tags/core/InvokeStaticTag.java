@@ -64,40 +64,6 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
     }
 
     /**
-     * Sets the name of the variable exported by this tag
-     *
-     * @param var The variable name
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /** Sets the name of a variable that exports the exception thrown by
-     * the method's invocation (if any)
-     */
-    public void setExceptionVar(String var) {
-        this.exceptionVar = var;
-    }
-
-    /**
-     * Sets the name of the method to invoke
-     *
-     * @param methodName The method name
-     */
-    public void setMethod(String methodName) {
-        this.methodName = methodName;
-    }
-
-    /**
-     * Sets the fully qualified class name containing the static method
-     *
-     * @param className The name of the class
-     */
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    /**
      * Adds an argument to supply to the method
      *
      * @param type The Class type of the argument
@@ -107,6 +73,18 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
     public void addArgument(Class type, Object value) {
         paramTypes.add(type);
         paramValues.add(value);
+    }
+
+    /**
+     * Factory method to create a new JellyTagException instance from a given
+     * failure exception
+     * @param e is the exception which occurred attempting to load the class
+     * @return JellyTagException
+     */
+    protected JellyTagException createLoadClassFailedException(Exception e) {
+        return new JellyTagException(
+            "Could not load class: " + className + ". Reason: " + e, e
+        );
     }
 
     // Tag interface
@@ -156,9 +134,6 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
         }
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-
     /**
      * Loads the class using either the class loader which loaded me or the
      * current threads context class loader
@@ -168,15 +143,40 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
     }
 
     /**
-     * Factory method to create a new JellyTagException instance from a given
-     * failure exception
-     * @param e is the exception which occurred attempting to load the class
-     * @return JellyTagException
+     * Sets the fully qualified class name containing the static method
+     *
+     * @param className The name of the class
      */
-    protected JellyTagException createLoadClassFailedException(Exception e) {
-        return new JellyTagException(
-            "Could not load class: " + className + ". Reason: " + e, e
-        );
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    /** Sets the name of a variable that exports the exception thrown by
+     * the method's invocation (if any)
+     */
+    public void setExceptionVar(String var) {
+        this.exceptionVar = var;
+    }
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the name of the method to invoke
+     *
+     * @param methodName The method name
+     */
+    public void setMethod(String methodName) {
+        this.methodName = methodName;
+    }
+
+    /**
+     * Sets the name of the variable exported by this tag
+     *
+     * @param var The variable name
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 }
 

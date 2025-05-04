@@ -97,6 +97,14 @@ public class ImportTag extends TagSupport {
     }
 
     /**
+     * Sets the file for the script to evaluate.
+     * @param file The file to set
+     */
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    /**
      * Sets whether property inheritance is enabled or disabled
      */
     public void setInherit(boolean inherit) {
@@ -108,14 +116,6 @@ public class ImportTag extends TagSupport {
      */
     public void setUri(String uri) {
         this.uri = uri;
-    }
-
-    /**
-     * Sets the file for the script to evaluate.
-     * @param file The file to set
-     */
-    public void setFile(String file) {
-        this.file = file;
     }
 
 }

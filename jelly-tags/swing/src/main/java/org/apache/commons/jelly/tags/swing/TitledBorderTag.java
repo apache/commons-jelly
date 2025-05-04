@@ -46,84 +46,6 @@ public class TitledBorderTag extends BorderTagSupport {
     private Font font;
     private Color color;
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( title == null) {
-            throw new MissingAttributeException("title");
-        }
-        super.doTag(output);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the color of the title for this border. Can be set via a nested {@code <color>} tag.
-     */
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    /**
-     * Sets the Font to be used by the title. Can be set via a nested {@code <font>} tag.
-     */
-    public void setFont(Font font) {
-        this.font = font;
-    }
-
-    /**
-     * Sets the title text for this border.
-     */
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    /**
-     * Sets the justification of the title. The String is case insensitive.
-     * Possible values are {LEFT, CENTER, RIGHT, LEADING, TRAILING}
-     */
-    public void setTitleJustification(String titleJustification) {
-        this.titleJustification = titleJustification;
-    }
-
-    /**
-     * Sets the position of the title. The String is case insensitive.
-     * Possible values are {ABOVE_TOP, TOP, BELOW_TOP, ABOVE_BOTTOM, BOTTOM, BELOW_BOTTOM}
-     */
-    public void setTitlePosition(String titlePosition) {
-        this.titlePosition = titlePosition;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a new Border instance.
-     */
-    @Override
-    protected Border createBorder() {
-        if (border != null) {
-            if (titleJustification != null && titlePosition != null) {
-                int justification = asTitleJustification(titleJustification);
-                int position = asTitlePosition(titlePosition);
-
-                if (font != null) {
-                    if (color != null) {
-                        return BorderFactory.createTitledBorder(border, title, justification, position, font, color);
-                    }
-                    else {
-                        return BorderFactory.createTitledBorder(border, title, justification, position, font);
-                    }
-                }
-                return BorderFactory.createTitledBorder(border, title, justification, position);
-            }
-            return BorderFactory.createTitledBorder(border, title);
-        }
-        return BorderFactory.createTitledBorder(title);
-    }
-
     /**
      * @return the enumeration for the title justification
      */
@@ -147,6 +69,9 @@ public class TitledBorderTag extends BorderTagSupport {
             return TitledBorder.DEFAULT_JUSTIFICATION;
         }
     }
+
+    // Properties
+    //-------------------------------------------------------------------------
 
     /**
      * @return the enumeration for the title position
@@ -173,5 +98,80 @@ public class TitledBorderTag extends BorderTagSupport {
         else {
             return TitledBorder.DEFAULT_POSITION;
         }
+    }
+
+    /**
+     * Factory method to create a new Border instance.
+     */
+    @Override
+    protected Border createBorder() {
+        if (border != null) {
+            if (titleJustification != null && titlePosition != null) {
+                int justification = asTitleJustification(titleJustification);
+                int position = asTitlePosition(titlePosition);
+
+                if (font != null) {
+                    if (color != null) {
+                        return BorderFactory.createTitledBorder(border, title, justification, position, font, color);
+                    }
+                    else {
+                        return BorderFactory.createTitledBorder(border, title, justification, position, font);
+                    }
+                }
+                return BorderFactory.createTitledBorder(border, title, justification, position);
+            }
+            return BorderFactory.createTitledBorder(border, title);
+        }
+        return BorderFactory.createTitledBorder(title);
+    }
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if ( title == null) {
+            throw new MissingAttributeException("title");
+        }
+        super.doTag(output);
+    }
+
+    /**
+     * Sets the color of the title for this border. Can be set via a nested {@code <color>} tag.
+     */
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    /**
+     * Sets the Font to be used by the title. Can be set via a nested {@code <font>} tag.
+     */
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the title text for this border.
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * Sets the justification of the title. The String is case insensitive.
+     * Possible values are {LEFT, CENTER, RIGHT, LEADING, TRAILING}
+     */
+    public void setTitleJustification(String titleJustification) {
+        this.titleJustification = titleJustification;
+    }
+
+    /**
+     * Sets the position of the title. The String is case insensitive.
+     * Possible values are {ABOVE_TOP, TOP, BELOW_TOP, ABOVE_BOTTOM, BOTTOM, BELOW_BOTTOM}
+     */
+    public void setTitlePosition(String titlePosition) {
+        this.titlePosition = titlePosition;
     }
 }

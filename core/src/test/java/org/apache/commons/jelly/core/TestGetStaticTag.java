@@ -27,12 +27,12 @@ import junit.framework.TestSuite;
 
 public class TestGetStaticTag extends BaseJellyTest {
 
-    public TestGetStaticTag(String name) {
-        super(name);
-    }
-
     public static TestSuite suite() throws Exception {
         return new TestSuite(TestGetStaticTag.class);
+    }
+
+    public TestGetStaticTag(String name) {
+        super(name);
     }
 
     /**

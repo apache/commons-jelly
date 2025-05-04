@@ -50,11 +50,6 @@ public class StaticTag extends DynaTagSupport {
         this.qualifiedName = qualifiedName;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "[qname=" + qualifiedName + ";attributes=" + attributes + "]";
-    }
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -70,13 +65,18 @@ public class StaticTag extends DynaTagSupport {
         }
     }
 
-    public void setAttribute(String name, String prefix, String nsURI, Object value) {
-        if (value == null)
-            return;
-        if (prefix != null && prefix.length() > 0)
-            attributes.addAttribute(nsURI, name, prefix + ":" + name, "CDATA", value.toString());
-        else
-            attributes.addAttribute("", name, name, "CDATA", value.toString());
+    public String getLocalName() {
+        return localName;
+    }
+
+    public String getQName() {
+        return qualifiedName;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+    public String getUri() {
+        return uri;
     }
 
     // DynaTag interface
@@ -96,18 +96,21 @@ public class StaticTag extends DynaTagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    public String getUri() {
-        return uri;
+    public void setAttribute(String name, String prefix, String nsURI, Object value) {
+        if (value == null)
+            return;
+        if (prefix != null && prefix.length() > 0)
+            attributes.addAttribute(nsURI, name, prefix + ":" + name, "CDATA", value.toString());
+        else
+            attributes.addAttribute("", name, name, "CDATA", value.toString());
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public String getQName() {
-        return qualifiedName;
+    public void setLocalName(String localName) {
+        this.localName = localName;
+        // FIXME This just doesn't seem right or work...
+        if (qualifiedName == null || !qualifiedName.endsWith(localName)) {
+            localName = qualifiedName;
+        }
     }
 
     public void setQName(String qualifiedName) {
@@ -121,15 +124,12 @@ public class StaticTag extends DynaTagSupport {
         }
     }
 
-    public String getLocalName() {
-        return localName;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
-    public void setLocalName(String localName) {
-        this.localName = localName;
-        // FIXME This just doesn't seem right or work...
-        if (qualifiedName == null || !qualifiedName.endsWith(localName)) {
-            localName = qualifiedName;
-        }
+    @Override
+    public String toString() {
+        return super.toString() + "[qname=" + qualifiedName + ";attributes=" + attributes + "]";
     }
 }

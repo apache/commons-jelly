@@ -35,26 +35,36 @@ public class ColorConverter implements Converter {
         return instance;
     }
 
+    // Converter interface
+    //-------------------------------------------------------------------------
+    @Override
+    public Object convert(Class type, Object value) {
+        Object answer = null;
+        if (value != null) {
+            String text = value.toString();
+            answer = parse(text);
+        }
+
+        System.out.println("Converting value: " + value + " into: " + answer);
+
+        return answer;
+    }
+
     /**
-     * Parsers a String in the form "x, y, z" into an SWT RGB class
-     * @param value
-     * @return RGB
+     * Parse a String
      */
-    protected RGB parseRGB(String value) {
-        StringTokenizer items = new StringTokenizer(value, ",");
-        int red = 0;
-        int green = 0;
-        int blue = 0;
-        if (items.hasMoreTokens()) {
-            red = parseNumber(items.nextToken());
+    public RGB parse(String value) {
+        if (value.length() <= 1) {
+            throw new IllegalArgumentException(usageText);
         }
-        if (items.hasMoreTokens()) {
-            green = parseNumber(items.nextToken());
+
+        if (value.charAt(0) == '#') {
+            return parseHtml(value);
+        } else if (value.indexOf(',') != -1) {
+            return parseRGB(value);
+        } else {
+            throw new IllegalArgumentException(usageText);
         }
-        if (items.hasMoreTokens()) {
-            blue = parseNumber(items.nextToken());
-        }
-        return new RGB(red, green, blue);
     }
 
     /**
@@ -80,40 +90,30 @@ public class ColorConverter implements Converter {
         }
     }
 
-    /**
-     * Parse a String
-     */
-    public RGB parse(String value) {
-        if (value.length() <= 1) {
-            throw new IllegalArgumentException(usageText);
-        }
-
-        if (value.charAt(0) == '#') {
-            return parseHtml(value);
-        } else if (value.indexOf(',') != -1) {
-            return parseRGB(value);
-        } else {
-            throw new IllegalArgumentException(usageText);
-        }
-    }
-
-    // Converter interface
-    //-------------------------------------------------------------------------
-    @Override
-    public Object convert(Class type, Object value) {
-        Object answer = null;
-        if (value != null) {
-            String text = value.toString();
-            answer = parse(text);
-        }
-
-        System.out.println("Converting value: " + value + " into: " + answer);
-
-        return answer;
-    }
-
     protected int parseNumber(String text) {
         text = text.trim();
         return Integer.parseInt(text.trim());
+    }
+
+    /**
+     * Parsers a String in the form "x, y, z" into an SWT RGB class
+     * @param value
+     * @return RGB
+     */
+    protected RGB parseRGB(String value) {
+        StringTokenizer items = new StringTokenizer(value, ",");
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+        if (items.hasMoreTokens()) {
+            red = parseNumber(items.nextToken());
+        }
+        if (items.hasMoreTokens()) {
+            green = parseNumber(items.nextToken());
+        }
+        if (items.hasMoreTokens()) {
+            blue = parseNumber(items.nextToken());
+        }
+        return new RGB(red, green, blue);
     }
 }

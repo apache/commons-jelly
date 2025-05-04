@@ -40,16 +40,6 @@ public class ConstantExpression extends ExpressionSupport {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "[value=" + value +"]";
-    }
-
-    @Override
-    public String getExpressionText() {
-        return String.valueOf(value);
-    }
-
     /**
       * Evaluate expression against given context.
       *
@@ -61,6 +51,11 @@ public class ConstantExpression extends ExpressionSupport {
         return value;
     }
 
+    @Override
+    public String getExpressionText() {
+        return String.valueOf(value);
+    }
+
     /** Gets the constant value of this expression */
     public Object getValue() {
         return value;
@@ -69,5 +64,10 @@ public class ConstantExpression extends ExpressionSupport {
     /** Sets the constant value of this expression */
     public void setValue(Object value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[value=" + value +"]";
     }
 }

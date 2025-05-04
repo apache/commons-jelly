@@ -35,39 +35,17 @@ public abstract class XMLUnitTagSupport extends AssertTagSupport {
     /** The SAXReader used to parser the document */
     private SAXReader saxReader;
 
+    /**
+     * Factory method to create a new SAXReader
+     */
+    protected abstract SAXReader createSAXReader();
+
     /** @return the SAXReader used for parsing, creating one lazily if need be  */
     public SAXReader getSAXReader() {
         if (saxReader == null) {
             saxReader = createSAXReader();
         }
         return saxReader;
-    }
-
-    /** Sets the SAXReader used for parsing */
-    public void setSAXReader(SAXReader saxReader) {
-        this.saxReader = saxReader;
-    }
-
-    /**
-     * Factory method to create a new SAXReader
-     */
-    protected abstract SAXReader createSAXReader();
-
-    /**
-     * Parses the body of this tag and returns the parsed document
-     */
-    protected Document parseBody() throws JellyTagException {
-        SAXContentHandler handler = new SAXContentHandler();
-        XMLOutput newOutput = new XMLOutput(handler);
-        try {
-            handler.startDocument();
-            invokeBody(newOutput);
-            handler.endDocument();
-        }
-        catch (SAXException e) {
-            throw new JellyTagException(e);
-        }
-        return handler.getDocument();
     }
 
     /**
@@ -99,5 +77,27 @@ public abstract class XMLUnitTagSupport extends AssertTagSupport {
         catch (DocumentException e) {
             throw new JellyTagException(e);
         }
+    }
+
+    /**
+     * Parses the body of this tag and returns the parsed document
+     */
+    protected Document parseBody() throws JellyTagException {
+        SAXContentHandler handler = new SAXContentHandler();
+        XMLOutput newOutput = new XMLOutput(handler);
+        try {
+            handler.startDocument();
+            invokeBody(newOutput);
+            handler.endDocument();
+        }
+        catch (SAXException e) {
+            throw new JellyTagException(e);
+        }
+        return handler.getDocument();
+    }
+
+    /** Sets the SAXReader used for parsing */
+    public void setSAXReader(SAXReader saxReader) {
+        this.saxReader = saxReader;
     }
 }

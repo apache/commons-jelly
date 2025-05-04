@@ -35,12 +35,50 @@ import junit.framework.TestSuite;
  */
 public class TestArgTag extends BaseJellyTest {
 
-    public TestArgTag(String name) {
-        super(name);
+    final class MockArgTagParent extends TagSupport implements ArgTagParent {
+        private List typeList = new ArrayList();
+
+        private List valueList = new ArrayList();
+
+        @Override
+        public void addArgument(Class type, Object value) {
+            typeList.add(type);
+            valueList.add(value);
+        }
+
+        @Override
+        public void doTag(XMLOutput output)  {
+        }
+
+        private Class getType(int i) {
+            return (Class)(typeList.get(i));
+        }
+        private Object getValue(int i) {
+            return valueList.get(i);
+        }
+    }
+
+    final class MockScript implements Script {
+        @Override
+        public Script compile() throws JellyException {
+            return this;
+        }
+
+        @Override
+        public void run(JellyContext context, XMLOutput output) throws JellyTagException {
+        }
     }
 
     public static TestSuite suite() throws Exception {
         return new TestSuite(TestArgTag.class);
+    }
+
+    private MockArgTagParent parentTag = null;
+
+    private ArgTag argTag = null;
+
+    public TestArgTag(String name) {
+        super(name);
     }
 
     @Override
@@ -60,132 +98,6 @@ public class TestArgTag extends BaseJellyTest {
         argTag = null;
     }
 
-    public void testToBooleanFromString() throws Exception {
-        argTag.setType("boolean");
-        argTag.setValue("true");
-        argTag.doTag(getXMLOutput());
-        assertEquals(Boolean.TYPE,parentTag.getType(0));
-        assertEquals(Boolean.TRUE,parentTag.getValue(0));
-    }
-
-    public void testToCharFromString() throws Exception {
-        argTag.setType("char");
-        argTag.setValue("X");
-        argTag.doTag(getXMLOutput());
-        assertEquals(Character.TYPE,parentTag.getType(0));
-        assertEquals(Character.valueOf('X'),parentTag.getValue(0));
-    }
-
-    public void testToByteFromString() throws Exception {
-        argTag.setType("byte");
-        argTag.setValue("17");
-        argTag.doTag(getXMLOutput());
-        assertEquals(Byte.TYPE,parentTag.getType(0));
-        assertEquals(Byte.valueOf((byte)17),parentTag.getValue(0));
-    }
-
-    public void testToByteFromNumber() throws Exception {
-        argTag.setType("byte");
-        argTag.setValue(Double.valueOf(17.3d));
-        argTag.doTag(getXMLOutput());
-        assertEquals(Byte.TYPE,parentTag.getType(0));
-        assertEquals(Byte.valueOf((byte)17),parentTag.getValue(0));
-    }
-
-    public void testToShortFromString() throws Exception {
-        argTag.setType("short");
-        argTag.setValue("17");
-        argTag.doTag(getXMLOutput());
-        assertEquals(Short.TYPE,parentTag.getType(0));
-        assertEquals(Short.valueOf((short)17),parentTag.getValue(0));
-    }
-
-    public void testToShortFromNumber() throws Exception {
-        argTag.setType("short");
-        argTag.setValue(Double.valueOf(17.3d));
-        argTag.doTag(getXMLOutput());
-        assertEquals(Short.TYPE,parentTag.getType(0));
-        assertEquals(Short.valueOf((short)17),parentTag.getValue(0));
-    }
-
-    public void testToIntFromString() throws Exception {
-        argTag.setType("int");
-        argTag.setValue("17");
-        argTag.doTag(getXMLOutput());
-        assertEquals(Integer.TYPE,parentTag.getType(0));
-        assertEquals(Integer.valueOf(17),parentTag.getValue(0));
-    }
-
-    public void testToIntFromNumber() throws Exception {
-        argTag.setType("int");
-        argTag.setValue(Double.valueOf(17.3d));
-        argTag.doTag(getXMLOutput());
-        assertEquals(Integer.TYPE,parentTag.getType(0));
-        assertEquals(Integer.valueOf(17),parentTag.getValue(0));
-    }
-
-    public void testToFloatFromString() throws Exception {
-        argTag.setType("float");
-        argTag.setValue("17.3");
-        argTag.doTag(getXMLOutput());
-        assertEquals(Float.TYPE,parentTag.getType(0));
-        assertEquals(Float.valueOf((float)17.3),parentTag.getValue(0));
-    }
-
-    public void testToFloatFromNumber() throws Exception {
-        argTag.setType("float");
-        argTag.setValue(Double.valueOf(17.3d));
-        argTag.doTag(getXMLOutput());
-        assertEquals(Float.TYPE,parentTag.getType(0));
-        assertEquals(Float.valueOf((float)17.3),parentTag.getValue(0));
-    }
-
-    public void testToLongFromString() throws Exception {
-        argTag.setType("long");
-        argTag.setValue("17");
-        argTag.doTag(getXMLOutput());
-        assertEquals(Long.TYPE,parentTag.getType(0));
-        assertEquals(Long.valueOf(17),parentTag.getValue(0));
-    }
-
-    public void testToLongFromNumber() throws Exception {
-        argTag.setType("long");
-        argTag.setValue(Double.valueOf(17.3d));
-        argTag.doTag(getXMLOutput());
-        assertEquals(Long.TYPE,parentTag.getType(0));
-        assertEquals(Long.valueOf(17),parentTag.getValue(0));
-    }
-
-    public void testToDoubleFromString() throws Exception {
-        argTag.setType("double");
-        argTag.setValue("17.3");
-        argTag.doTag(getXMLOutput());
-        assertEquals(Double.TYPE,parentTag.getType(0));
-        assertEquals(Double.valueOf(17.3),parentTag.getValue(0));
-    }
-
-    public void testToDoubleFromNumber() throws Exception {
-        argTag.setType("double");
-        argTag.setValue(new Long(17L));
-        argTag.doTag(getXMLOutput());
-        assertEquals(Double.TYPE,parentTag.getType(0));
-        assertEquals(Double.valueOf(17),parentTag.getValue(0));
-    }
-
-    public void testToPrimitiveFromNull() throws Exception {
-        String[] types = { "boolean", "char", "byte", "short", "int", "float", "long", "double" };
-        for(int i=0;i<types.length;i++) {
-            argTag.setType(types[i]);
-            argTag.setValue(null);
-            try {
-                argTag.doTag(getXMLOutput());
-                fail("Expected JellyException");
-            } catch (JellyException e) {
-                // expected
-            }
-        }
-    }
-
     public void testFromNull() throws Exception {
         Class[] types = { Boolean.class, Character.class, Byte.class, Short.class, Integer.class, Float.class, Long.class, Double.class, String.class, Object.class };
         for(int i=0;i<types.length;i++) {
@@ -196,8 +108,104 @@ public class TestArgTag extends BaseJellyTest {
             assertNull(parentTag.getValue(i));
         }
     }
+
+    public void testToBooleanFromString() throws Exception {
+        argTag.setType("boolean");
+        argTag.setValue("true");
+        argTag.doTag(getXMLOutput());
+        assertEquals(Boolean.TYPE,parentTag.getType(0));
+        assertEquals(Boolean.TRUE,parentTag.getValue(0));
+    }
+
+    public void testToByteFromNumber() throws Exception {
+        argTag.setType("byte");
+        argTag.setValue(Double.valueOf(17.3d));
+        argTag.doTag(getXMLOutput());
+        assertEquals(Byte.TYPE,parentTag.getType(0));
+        assertEquals(Byte.valueOf((byte)17),parentTag.getValue(0));
+    }
+
+    public void testToByteFromString() throws Exception {
+        argTag.setType("byte");
+        argTag.setValue("17");
+        argTag.doTag(getXMLOutput());
+        assertEquals(Byte.TYPE,parentTag.getType(0));
+        assertEquals(Byte.valueOf((byte)17),parentTag.getValue(0));
+    }
+
+    public void testToCharFromString() throws Exception {
+        argTag.setType("char");
+        argTag.setValue("X");
+        argTag.doTag(getXMLOutput());
+        assertEquals(Character.TYPE,parentTag.getType(0));
+        assertEquals(Character.valueOf('X'),parentTag.getValue(0));
+    }
+
+    public void testToDoubleFromNumber() throws Exception {
+        argTag.setType("double");
+        argTag.setValue(new Long(17L));
+        argTag.doTag(getXMLOutput());
+        assertEquals(Double.TYPE,parentTag.getType(0));
+        assertEquals(Double.valueOf(17),parentTag.getValue(0));
+    }
+
+    public void testToDoubleFromString() throws Exception {
+        argTag.setType("double");
+        argTag.setValue("17.3");
+        argTag.doTag(getXMLOutput());
+        assertEquals(Double.TYPE,parentTag.getType(0));
+        assertEquals(Double.valueOf(17.3),parentTag.getValue(0));
+    }
+
+    public void testToFloatFromNumber() throws Exception {
+        argTag.setType("float");
+        argTag.setValue(Double.valueOf(17.3d));
+        argTag.doTag(getXMLOutput());
+        assertEquals(Float.TYPE,parentTag.getType(0));
+        assertEquals(Float.valueOf((float)17.3),parentTag.getValue(0));
+    }
+
+    public void testToFloatFromString() throws Exception {
+        argTag.setType("float");
+        argTag.setValue("17.3");
+        argTag.doTag(getXMLOutput());
+        assertEquals(Float.TYPE,parentTag.getType(0));
+        assertEquals(Float.valueOf((float)17.3),parentTag.getValue(0));
+    }
+
+    public void testToIntFromNumber() throws Exception {
+        argTag.setType("int");
+        argTag.setValue(Double.valueOf(17.3d));
+        argTag.doTag(getXMLOutput());
+        assertEquals(Integer.TYPE,parentTag.getType(0));
+        assertEquals(Integer.valueOf(17),parentTag.getValue(0));
+    }
+
+    public void testToIntFromString() throws Exception {
+        argTag.setType("int");
+        argTag.setValue("17");
+        argTag.doTag(getXMLOutput());
+        assertEquals(Integer.TYPE,parentTag.getType(0));
+        assertEquals(Integer.valueOf(17),parentTag.getValue(0));
+    }
+
+    public void testToLongFromNumber() throws Exception {
+        argTag.setType("long");
+        argTag.setValue(Double.valueOf(17.3d));
+        argTag.doTag(getXMLOutput());
+        assertEquals(Long.TYPE,parentTag.getType(0));
+        assertEquals(Long.valueOf(17),parentTag.getValue(0));
+    }
     
    
+    public void testToLongFromString() throws Exception {
+        argTag.setType("long");
+        argTag.setValue("17");
+        argTag.doTag(getXMLOutput());
+        assertEquals(Long.TYPE,parentTag.getType(0));
+        assertEquals(Long.valueOf(17),parentTag.getValue(0));
+    }
+
     public void testToObjectArray() throws Exception {
         argTag.setType(Object[].class.getName());
         argTag.setValue(new Object[] {"testObjectArray"});
@@ -213,42 +221,34 @@ public class TestArgTag extends BaseJellyTest {
         assertEquals(Class.class,parentTag.getType(0));
         assertEquals(Object[].class,parentTag.getValue(0));
     }
-
-    private MockArgTagParent parentTag = null;
-    private ArgTag argTag = null;
-
-    final class MockArgTagParent extends TagSupport implements ArgTagParent {
-        @Override
-        public void addArgument(Class type, Object value) {
-            typeList.add(type);
-            valueList.add(value);
+    public void testToPrimitiveFromNull() throws Exception {
+        String[] types = { "boolean", "char", "byte", "short", "int", "float", "long", "double" };
+        for(int i=0;i<types.length;i++) {
+            argTag.setType(types[i]);
+            argTag.setValue(null);
+            try {
+                argTag.doTag(getXMLOutput());
+                fail("Expected JellyException");
+            } catch (JellyException e) {
+                // expected
+            }
         }
-
-        @Override
-        public void doTag(XMLOutput output)  {
-        }
-
-        private Class getType(int i) {
-            return (Class)(typeList.get(i));
-        }
-
-        private Object getValue(int i) {
-            return valueList.get(i);
-        }
-
-        private List typeList = new ArrayList();
-        private List valueList = new ArrayList();
     }
 
-    final class MockScript implements Script {
-        @Override
-        public Script compile() throws JellyException {
-            return this;
-        }
+    public void testToShortFromNumber() throws Exception {
+        argTag.setType("short");
+        argTag.setValue(Double.valueOf(17.3d));
+        argTag.doTag(getXMLOutput());
+        assertEquals(Short.TYPE,parentTag.getType(0));
+        assertEquals(Short.valueOf((short)17),parentTag.getValue(0));
+    }
 
-        @Override
-        public void run(JellyContext context, XMLOutput output) throws JellyTagException {
-        }
+    public void testToShortFromString() throws Exception {
+        argTag.setType("short");
+        argTag.setValue("17");
+        argTag.doTag(getXMLOutput());
+        assertEquals(Short.TYPE,parentTag.getType(0));
+        assertEquals(Short.valueOf((short)17),parentTag.getValue(0));
     }
 
 }

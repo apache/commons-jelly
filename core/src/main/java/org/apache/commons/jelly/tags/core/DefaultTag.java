@@ -32,14 +32,14 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class DefaultTag extends TagSupport {
 
-    public DefaultTag() {
-    }
+    // Attributes
+    //-------------------------------------------------------------------------
+    private boolean fallThru = false;
 
     // Tag interface
     //-------------------------------------------------------------------------
 
-    public void setFallThru(boolean fallThru) {
-        this.fallThru = fallThru;
+    public DefaultTag() {
     }
 
     @Override
@@ -59,8 +59,8 @@ public class DefaultTag extends TagSupport {
         }
     }
 
-    // Attributes
-    //-------------------------------------------------------------------------
-    private boolean fallThru = false;
+    public void setFallThru(boolean fallThru) {
+        this.fallThru = fallThru;
+    }
 
 }

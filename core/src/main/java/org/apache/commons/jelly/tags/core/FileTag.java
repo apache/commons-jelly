@@ -49,123 +49,6 @@ public class FileTag extends TagSupport {
     public FileTag(){
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(final XMLOutput output) throws JellyTagException {
-        try {
-            if ( name != null ) {
-                String encoding = (this.encoding != null) ? this.encoding : "UTF-8";
-                Writer writer = new OutputStreamWriter( new FileOutputStream( name, doAppend ), encoding );
-                writeBody(writer);
-            }
-            else if (var != null) {
-                StringWriter writer = new StringWriter();
-                writeBody(writer);
-                String result = writer.toString();
-                Object varValue = context.getVariable(var);
-                // if we're appending, and var is an instance of string, append it.
-                if (doAppend && varValue instanceof String) {
-                    context.setVariable(var, varValue + result);
-                } else {
-                    context.setVariable(var, result);
-                }
-            }
-            else {
-                throw new JellyTagException( "This tag must have either the 'name' or the 'var' variables defined" );
-            }
-        } catch (FileNotFoundException e) {
-            throw new JellyTagException(e);
-        } catch (UnsupportedEncodingException e) {
-            throw new JellyTagException(e);
-        } catch (SAXException e) {
-            throw new JellyTagException("could not write file", e);
-        }
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the file name for the output
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Sets whether the XML declaration should be output or not
-     */
-    public void setOmitXmlDeclaration(boolean omitXmlDeclaration) {
-        this.omitXmlDeclaration = omitXmlDeclaration;
-    }
-
-    /**
-     * Sets the output mode, whether XML or HTML
-     */
-    public void setOutputMode(String outputMode) {
-        this.outputMode = outputMode;
-    }
-
-    /**
-     * Sets whether pretty printing mode is turned on. The default is off so that whitespace is preserved
-     */
-    public void setPrettyPrint(boolean prettyPrint) {
-        this.prettyPrint = prettyPrint;
-    }
-
-    /**
-     * Sets the XML encoding mode, which defaults to UTF-8
-     */
-    public void setEncoding(String encoding) {
-        this.encoding = encoding;
-    }
-    
-    /**
-     * Sets wether to append at the end of the file
-     * (not really something you normally do with an XML file).
-     */
-    public void setAppend(boolean doAppend) {
-        this.doAppend = doAppend;
-    }
-    
-
-    /**
-     * Returns the var.
-     * @return String
-     */
-    public String getVar() {
-        return var;
-    }
-
-    /**
-     * Sets the var.
-     * @param var The var to set
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Writes the body fo this tag to the given Writer
-     */
-    protected void writeBody(Writer writer) throws SAXException, JellyTagException {
-
-        XMLOutput newOutput = createXMLOutput(writer);
-        try {
-            // we need to avoid multiple start/end document events
-            newOutput.setContentHandler(
-                new SafeContentHandler(newOutput.getContentHandler())
-            );
-            newOutput.startDocument();
-            invokeBody(newOutput);
-            newOutput.endDocument();
-        }
-        finally {
-            try { newOutput.close(); } catch (IOException e) {}
-        }
-    }
-
     /**
      * A Factory method to create a new XMLOutput from the given Writer.
      */
@@ -201,5 +84,122 @@ public class FileTag extends TagSupport {
         answer.setContentHandler(xmlWriter);
         answer.setLexicalHandler(xmlWriter);
         return answer;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        try {
+            if ( name != null ) {
+                String encoding = (this.encoding != null) ? this.encoding : "UTF-8";
+                Writer writer = new OutputStreamWriter( new FileOutputStream( name, doAppend ), encoding );
+                writeBody(writer);
+            }
+            else if (var != null) {
+                StringWriter writer = new StringWriter();
+                writeBody(writer);
+                String result = writer.toString();
+                Object varValue = context.getVariable(var);
+                // if we're appending, and var is an instance of string, append it.
+                if (doAppend && varValue instanceof String) {
+                    context.setVariable(var, varValue + result);
+                } else {
+                    context.setVariable(var, result);
+                }
+            }
+            else {
+                throw new JellyTagException( "This tag must have either the 'name' or the 'var' variables defined" );
+            }
+        } catch (FileNotFoundException e) {
+            throw new JellyTagException(e);
+        } catch (UnsupportedEncodingException e) {
+            throw new JellyTagException(e);
+        } catch (SAXException e) {
+            throw new JellyTagException("could not write file", e);
+        }
+    }
+
+    /**
+     * Returns the var.
+     * @return String
+     */
+    public String getVar() {
+        return var;
+    }
+
+    /**
+     * Sets wether to append at the end of the file
+     * (not really something you normally do with an XML file).
+     */
+    public void setAppend(boolean doAppend) {
+        this.doAppend = doAppend;
+    }
+
+    /**
+     * Sets the XML encoding mode, which defaults to UTF-8
+     */
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    /**
+     * Sets the file name for the output
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    /**
+     * Sets whether the XML declaration should be output or not
+     */
+    public void setOmitXmlDeclaration(boolean omitXmlDeclaration) {
+        this.omitXmlDeclaration = omitXmlDeclaration;
+    }
+    
+
+    /**
+     * Sets the output mode, whether XML or HTML
+     */
+    public void setOutputMode(String outputMode) {
+        this.outputMode = outputMode;
+    }
+
+    /**
+     * Sets whether pretty printing mode is turned on. The default is off so that whitespace is preserved
+     */
+    public void setPrettyPrint(boolean prettyPrint) {
+        this.prettyPrint = prettyPrint;
+    }
+
+    /**
+     * Sets the var.
+     * @param var The var to set
+     */
+    public void setVar(String var) {
+        this.var = var;
+    }
+
+    /**
+     * Writes the body fo this tag to the given Writer
+     */
+    protected void writeBody(Writer writer) throws SAXException, JellyTagException {
+
+        XMLOutput newOutput = createXMLOutput(writer);
+        try {
+            // we need to avoid multiple start/end document events
+            newOutput.setContentHandler(
+                new SafeContentHandler(newOutput.getContentHandler())
+            );
+            newOutput.startDocument();
+            invokeBody(newOutput);
+            newOutput.endDocument();
+        }
+        finally {
+            try { newOutput.close(); } catch (IOException e) {}
+        }
     }
 }

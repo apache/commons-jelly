@@ -40,48 +40,6 @@ public class IncludeTag extends TagSupport {
         this.shouldInherit = true;
     }
 
-    public void setInherit(final String inherit) {
-        if ("true".equals(inherit)) {
-            this.shouldInherit = true;
-        } else {
-            this.shouldInherit = false;
-        }
-    }
-
-    public void setExport(final String export) {
-        if ("true".equals(export)) {
-            this.shouldExport = true;
-        } else {
-            this.shouldExport = false;
-        }
-    }
-
-    public boolean isInherit() {
-        return this.shouldInherit;
-    }
-
-    public boolean isExport() {
-        return this.shouldExport;
-    }
-
-    /**
-     * Gets the file.
-     *
-     * @return the file.
-     */
-    public File getFile() {
-        return file;
-    }
-
-    /**
-     * Sets the file to be included which is either an absolute file or a file relative to the current directory
-     *
-     * @param file A file..
-     */
-    public void setFile(final File file) {
-        this.file = file;
-    }
-
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (uri == null && file == null) {
@@ -100,6 +58,48 @@ public class IncludeTag extends TagSupport {
             }
         } catch (final JellyException e) {
             throw new JellyTagException("could not include jelly script: " + text + ". Reason: " + e, e);
+        }
+    }
+
+    /**
+     * Gets the file.
+     *
+     * @return the file.
+     */
+    public File getFile() {
+        return file;
+    }
+
+    public boolean isExport() {
+        return this.shouldExport;
+    }
+
+    public boolean isInherit() {
+        return this.shouldInherit;
+    }
+
+    public void setExport(final String export) {
+        if ("true".equals(export)) {
+            this.shouldExport = true;
+        } else {
+            this.shouldExport = false;
+        }
+    }
+
+    /**
+     * Sets the file to be included which is either an absolute file or a file relative to the current directory
+     *
+     * @param file A file..
+     */
+    public void setFile(final File file) {
+        this.file = file;
+    }
+
+    public void setInherit(final String inherit) {
+        if ("true".equals(inherit)) {
+            this.shouldInherit = true;
+        } else {
+            this.shouldInherit = false;
         }
     }
 

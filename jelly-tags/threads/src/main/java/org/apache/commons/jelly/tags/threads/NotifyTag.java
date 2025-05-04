@@ -28,6 +28,13 @@ public class NotifyTag extends UseMutexTag {
     /** True means mutex.notifyAll() will be called */
     private boolean notifyAll = false;
 
+    /**
+     * If set to true the notify will notify all waiting threads
+     */
+    public void setNotifyAll(boolean notifyAll) {
+        this.notifyAll = notifyAll;
+    }
+
     /** Perform the notify */
     public void useMutex(Object mutex, XMLOutput output) {
         if (notifyAll) {
@@ -35,12 +42,5 @@ public class NotifyTag extends UseMutexTag {
         } else {
             mutex.notify();
         }
-    }
-
-    /**
-     * If set to true the notify will notify all waiting threads
-     */
-    public void setNotifyAll(boolean notifyAll) {
-        this.notifyAll = notifyAll;
     }
 }

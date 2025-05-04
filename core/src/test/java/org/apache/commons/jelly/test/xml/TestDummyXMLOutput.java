@@ -32,16 +32,16 @@ import junit.framework.TestSuite;
  */
 public class TestDummyXMLOutput extends TestCase {
 
+    public static TestSuite suite() throws Exception {
+        return new TestSuite(TestDummyXMLOutput.class);
+    }
     Jelly jelly = null;
     JellyContext context = null;
+
     XMLOutput xmlOutput = null;
 
     public TestDummyXMLOutput(String name) {
         super(name);
-    }
-
-    public static TestSuite suite() throws Exception {
-        return new TestSuite(TestDummyXMLOutput.class);
     }
 
     public void setUp(String scriptName) throws Exception {

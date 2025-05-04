@@ -115,25 +115,30 @@ public class VerifierTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * Sets the name of the variable that will be set to the new Verifier
-     * <p>
-     * jelly:required
-     * </p>
-     */
-    public void setVar(String var) {
-        this.var = var;
+    public VerifierFactory getFactory() throws JellyTagException {
+        if ( factory == null ) {
+            try {
+                ClassLoader loader = ClassLoaderUtils.getClassLoader(null, true, getClass());
+                factory = (VerifierFactory)loader.loadClass(
+                    "com.sun.msv.verifier.jarv.TheFactoryImpl").getConstructor().newInstance();
+            } catch (ClassNotFoundException e) {
+                throw new JellyTagException(e);
+            } catch (ReflectiveOperationException e) {
+                throw new JellyTagException(e);
+            }
+        }
+        return factory;
     }
 
     /**
-     * Sets the URI of the schema file to parse. If no URI and no file is
-     * specified then the body of this tag is used as the source of the schema
+     * Sets the factory used to create new schema verifier objects.
+     * If none is provided then the default MSV factory is used.
      * <p>
      * jelly:optional
      * </p>
      */
-    public void setUri(String uri) {
-        this.uri = uri;
+    public void setFactory(VerifierFactory factory) {
+        this.factory = factory;
     }
 
     /**
@@ -158,29 +163,24 @@ public class VerifierTag extends TagSupport {
     }
 
     /**
-     * Sets the factory used to create new schema verifier objects.
-     * If none is provided then the default MSV factory is used.
+     * Sets the URI of the schema file to parse. If no URI and no file is
+     * specified then the body of this tag is used as the source of the schema
      * <p>
      * jelly:optional
      * </p>
      */
-    public void setFactory(VerifierFactory factory) {
-        this.factory = factory;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
-    public VerifierFactory getFactory() throws JellyTagException {
-        if ( factory == null ) {
-            try {
-                ClassLoader loader = ClassLoaderUtils.getClassLoader(null, true, getClass());
-                factory = (VerifierFactory)loader.loadClass(
-                    "com.sun.msv.verifier.jarv.TheFactoryImpl").getConstructor().newInstance();
-            } catch (ClassNotFoundException e) {
-                throw new JellyTagException(e);
-            } catch (ReflectiveOperationException e) {
-                throw new JellyTagException(e);
-            }
-        }
-        return factory;
+    /**
+     * Sets the name of the variable that will be set to the new Verifier
+     * <p>
+     * jelly:required
+     * </p>
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 
     // Implementation methods

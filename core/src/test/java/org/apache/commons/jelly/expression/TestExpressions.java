@@ -27,9 +27,6 @@ import junit.framework.TestCase;
  */
 public class TestExpressions extends TestCase {
 
-    protected JellyContext context = new JellyContext();
-    protected ExpressionFactory factory = new JexlExpressionFactory();
-
     public static final class TestException extends Exception {
         public TestException() {
             super("Test Exception");
@@ -41,8 +38,38 @@ public class TestExpressions extends TestCase {
         }
     }
 
+    protected JellyContext context = new JellyContext();
+    protected ExpressionFactory factory = new JexlExpressionFactory();
+
     public TestExpressions(String testName) {
         super(testName);
+    }
+
+    protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
+        Expression expression = CompositeExpression.parse(expressionText, factory);
+        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
+        Object value = expression.evaluate(context);
+        assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
+
+        String text = expression.getExpressionText();
+        assertEquals( "Wrong textual representation for expression text: ", expressionText, text);
+    }
+
+    protected void assertExpressionNotExpressionText(String expressionText, Object expectedValue) throws Exception {
+        Expression expression = CompositeExpression.parse(expressionText, factory);
+        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
+        Object value = expression.evaluate(context);
+        assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
+    }
+    
+    public void testAntExpressions() throws Exception {
+        context.setVariable("maven.home.foo", "cheese");
+
+        assertExpression("${maven.home.foo}", "cheese");
+        assertExpression("${maven.some.madeup.name}", null);
+        assertExpression("cheese ${maven.some.madeup.name}pizza", "cheese pizza");
+        assertExpression("ham and ${maven.home.foo} pizza", "ham and cheese pizza");
+        assertExpression("${maven.home.foo.length()}", Integer.valueOf(6));
     }
 
     public void testExpressions() throws Exception {
@@ -79,16 +106,6 @@ public class TestExpressions extends TestCase {
         }
     }
 
-    public void testAntExpressions() throws Exception {
-        context.setVariable("maven.home.foo", "cheese");
-
-        assertExpression("${maven.home.foo}", "cheese");
-        assertExpression("${maven.some.madeup.name}", null);
-        assertExpression("cheese ${maven.some.madeup.name}pizza", "cheese pizza");
-        assertExpression("ham and ${maven.home.foo} pizza", "ham and cheese pizza");
-        assertExpression("${maven.home.foo.length()}", Integer.valueOf(6));
-    }
-    
     /** Tests that $${xx} is output as ${xx}. This trick is ued
         by several plugins to generate other jelly files or ant files.
         The maven ant plugin is one of them. */
@@ -145,23 +162,6 @@ public class TestExpressions extends TestCase {
         // null is a reserved word
         //assertExpression("${something.null != ''}", Boolean.FALSE);
         assertExpression("${unknown == null}", Boolean.TRUE);
-    }
-
-    protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
-        Expression expression = CompositeExpression.parse(expressionText, factory);
-        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
-        Object value = expression.evaluate(context);
-        assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
-
-        String text = expression.getExpressionText();
-        assertEquals( "Wrong textual representation for expression text: ", expressionText, text);
-    }
-
-    protected void assertExpressionNotExpressionText(String expressionText, Object expectedValue) throws Exception {
-        Expression expression = CompositeExpression.parse(expressionText, factory);
-        assertTrue( "Created a valid expression for: " + expressionText, expression != null );
-        Object value = expression.evaluate(context);
-        assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
     }
 
 }

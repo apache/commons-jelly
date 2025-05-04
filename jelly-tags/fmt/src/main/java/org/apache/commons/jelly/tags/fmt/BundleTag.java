@@ -43,67 +43,57 @@ public class BundleTag extends TagSupport {
     //*********************************************************************
     // Protected state
 
-    private Expression basename;                  // 'basename' attribute
-    private Expression prefix;                    // 'prefix' attribute
-    /** Evaluated basename */
-    private String ebasename;
-    /** Evaluated prefix */
-    private String eprefix;
-
-    //*********************************************************************
-    // Private state
-
-    private LocalizationContext locCtxt;
-
-    //*********************************************************************
-    // Constructor and initialization
-
-    public BundleTag() {
-    }
-
-    //*********************************************************************
-    // Collaboration with subtags
-
-    public LocalizationContext getLocalizationContext() {
-        return locCtxt;
-    }
-
-    public String getPrefixAsString() {
-        return eprefix;
-    }
-
-    //*********************************************************************
-    // Tag logic
-
-    /**
-     * Evaluates this tag after all the tags properties have been initialized.
+    /*
+     * Gets the resource bundle with the given base name and preferred locale.
      *
+     * This method calls java.util.ResourceBundle.getBundle(), but ignores
+     * its return value unless its locale represents an exact or language match
+     * with the given preferred locale.
+     *
+     * @param basename the resource bundle base name
+     * @param pref the preferred locale
+     * @param cl   classloader used to find resource bundle
+     * @return the requested resource bundle, or {@code null} if no resource
+     * bundle with the given base name exists or if there is no exact- or
+     * language-match between the preferred locale and the locale of
+     * the bundle returned by java.util.ResourceBundle.getBundle().
      */
-    @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Object basenameInput = null;
-        if (this.basename != null) {
-            basenameInput = this.basename.evaluate(context);
-        }
-        if (basenameInput != null) {
-            ebasename = basenameInput.toString();
+    private static ResourceBundle findMatch(String basename, Locale pref, ClassLoader cl) {
+        ResourceBundle match = null;
+
+        try {
+            ResourceBundle bundle =
+            ResourceBundle.getBundle(basename, pref, cl);
+            Locale avail = bundle.getLocale();
+            if (pref.equals(avail)) {
+                // Exact match
+                match = bundle;
+            } else {
+                if (pref.getLanguage().equals(avail.getLanguage())
+                && ("".equals(avail.getCountry()))) {
+
+                    // Language match.
+                    // By making sure the available locale does not have a
+                    // country and matches the preferred locale's language, we
+                    // rule out "matches" based on the container's default
+                    // locale. For example, if the preferred locale is
+                    // "en-US", the container's default locale is "en-UK", and
+                    // there is a resource bundle (with the requested base
+                    // name) available for "en-UK", ResourceBundle.getBundle()
+                    // will return it, but even though its language matches
+                    // that of the preferred locale, we must ignore it,
+                    // because matches based on the container's default locale
+                    // are not portable across different containers with
+                    // different default locales.
+
+                    match = bundle;
+                }
+            }
+        } catch (MissingResourceException mre) {
         }
 
-        Object prefixInput = null;
-        if (this.prefix != null) {
-            prefixInput = this.prefix.evaluate(context);
-        }
-        if (prefixInput != null) {
-            eprefix = prefixInput.toString();
-        }
-
-        this.locCtxt = this.getLocalizationContext(context, ebasename);
-        invokeBody(output);
+        return match;
     }
-
-    //*********************************************************************
-    // Public utility methods
-
     /**
      * Gets the default I18N localization context.
      *
@@ -126,7 +116,6 @@ public class BundleTag extends TagSupport {
 
         return locCtxt;
     }
-
     /**
      * Gets the resource bundle with the given base name, whose locale is
      * determined as follows:
@@ -215,57 +204,68 @@ public class BundleTag extends TagSupport {
 
         return locCtxt;
     }
+    private Expression basename;                  // 'basename' attribute
 
-    /*
-     * Gets the resource bundle with the given base name and preferred locale.
+    //*********************************************************************
+    // Private state
+
+    private Expression prefix;                    // 'prefix' attribute
+
+    //*********************************************************************
+    // Constructor and initialization
+
+    /** Evaluated basename */
+    private String ebasename;
+
+    //*********************************************************************
+    // Collaboration with subtags
+
+    /** Evaluated prefix */
+    private String eprefix;
+
+    private LocalizationContext locCtxt;
+
+    //*********************************************************************
+    // Tag logic
+
+    public BundleTag() {
+    }
+
+    //*********************************************************************
+    // Public utility methods
+
+    /**
+     * Evaluates this tag after all the tags properties have been initialized.
      *
-     * This method calls java.util.ResourceBundle.getBundle(), but ignores
-     * its return value unless its locale represents an exact or language match
-     * with the given preferred locale.
-     *
-     * @param basename the resource bundle base name
-     * @param pref the preferred locale
-     * @param cl   classloader used to find resource bundle
-     * @return the requested resource bundle, or {@code null} if no resource
-     * bundle with the given base name exists or if there is no exact- or
-     * language-match between the preferred locale and the locale of
-     * the bundle returned by java.util.ResourceBundle.getBundle().
      */
-    private static ResourceBundle findMatch(String basename, Locale pref, ClassLoader cl) {
-        ResourceBundle match = null;
-
-        try {
-            ResourceBundle bundle =
-            ResourceBundle.getBundle(basename, pref, cl);
-            Locale avail = bundle.getLocale();
-            if (pref.equals(avail)) {
-                // Exact match
-                match = bundle;
-            } else {
-                if (pref.getLanguage().equals(avail.getLanguage())
-                && ("".equals(avail.getCountry()))) {
-
-                    // Language match.
-                    // By making sure the available locale does not have a
-                    // country and matches the preferred locale's language, we
-                    // rule out "matches" based on the container's default
-                    // locale. For example, if the preferred locale is
-                    // "en-US", the container's default locale is "en-UK", and
-                    // there is a resource bundle (with the requested base
-                    // name) available for "en-UK", ResourceBundle.getBundle()
-                    // will return it, but even though its language matches
-                    // that of the preferred locale, we must ignore it,
-                    // because matches based on the container's default locale
-                    // are not portable across different containers with
-                    // different default locales.
-
-                    match = bundle;
-                }
-            }
-        } catch (MissingResourceException mre) {
+    @Override
+    public void doTag(XMLOutput output) throws JellyTagException {
+        Object basenameInput = null;
+        if (this.basename != null) {
+            basenameInput = this.basename.evaluate(context);
+        }
+        if (basenameInput != null) {
+            ebasename = basenameInput.toString();
         }
 
-        return match;
+        Object prefixInput = null;
+        if (this.prefix != null) {
+            prefixInput = this.prefix.evaluate(context);
+        }
+        if (prefixInput != null) {
+            eprefix = prefixInput.toString();
+        }
+
+        this.locCtxt = this.getLocalizationContext(context, ebasename);
+        invokeBody(output);
+    }
+
+    public LocalizationContext getLocalizationContext() {
+        return locCtxt;
+    }
+
+    public String getPrefixAsString() {
+        return eprefix;
     }
 
     /** Setter for property basename.
