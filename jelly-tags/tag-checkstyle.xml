@@ -36,8 +36,7 @@ limitations under the License.
     <module name="UnusedImports"/>
     <module name="NeedBraces"/>
     <module name="JavadocMethod">
-      <property name="allowUndeclaredRTE" value="true"/>
-      <property name="scope" value="public" />
+      <property name="accessModifiers" value="public" />
     </module>
     <module name="UpperEll" />
   </module>
