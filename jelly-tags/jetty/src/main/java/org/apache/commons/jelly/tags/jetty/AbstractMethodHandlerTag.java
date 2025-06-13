@@ -39,8 +39,8 @@ abstract public class AbstractMethodHandlerTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        JellyResourceHandlerTag parentTag =
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final JellyResourceHandlerTag parentTag =
             (JellyResourceHandlerTag) findAncestorWithClass(
                 JellyResourceHandlerTag.class);
 
