@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
  *     // embedded.setScript(scriptAsInputStream)
  *
  *     boolean bStatus=embedded.execute();
- *     if (!bStatus) { // if error 
+ *     if (!bStatus) { // if error
  *         String errorMsg=embedded.getErrorMsg();
  *     }
  *  </pre>
@@ -70,7 +70,7 @@ public class Embedded {
     private OutputStream outputStream;
     /** Output(default System.out) */
     private XMLOutput output =
-        XMLOutput.createXMLOutput(new OutputStreamWriter(System.out));
+            XMLOutput.createXMLOutput(new OutputStreamWriter(System.out));
     /** Exception thrown during compilation of script*/
     Exception scriptCompilationException;
     /** Boolean value indicating whether the script has been successfully compiled or NOT */
@@ -185,7 +185,7 @@ public class Embedded {
     private URL resolveURL(String name) throws MalformedURLException {
         File file = new File(name);
         if (file.exists()) {
-            return file.toURL();
+            return file.toURI().toURL();
         }
         return new URL(name);
     }

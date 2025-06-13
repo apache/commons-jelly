@@ -183,7 +183,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-    * Constructs s a new XMLParser, with the boolean
+     * Constructs s a new XMLParser, with the boolean
      * allowDtdToCallExternalEntities being passed in. If this is set to false,
      * the XMLParser will be created with:
      * XMLReader spf = XMLReaderFactory.createXMLReader();
@@ -198,7 +198,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-   * Constructs ts a new XMLParser, allowing a SAXParser to be passed in.  This
+     * Constructs ts a new XMLParser, allowing a SAXParser to be passed in.  This
      * allows XMLParser to be used in environments which are unfriendly to
      * JAXP1.1 (such as WebLogic 6.0).  Thanks for the request to change go to
      * James House (james@interobjective.com).  This may help in places where
@@ -209,7 +209,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-  * Constructs cts a new XMLParser, allowing an XMLReader to be passed in.  This
+     * Constructs cts a new XMLParser, allowing an XMLReader to be passed in.  This
      * allows XMLParser to be used in environments which are unfriendly to
      * JAXP1.1 (such as WebLogic 6.0).  Note that if you use this option you
      * have to configure namespace and validation support yourself, as these
@@ -225,7 +225,7 @@ public class XMLParser extends DefaultHandler {
     protected void addExpressionScript(ScriptBlock script, Expression expression) {
         if ( expression instanceof ConstantExpression ) {
             ConstantExpression constantExpression
-                = (ConstantExpression) expression;
+                    = (ConstantExpression) expression;
             Object value = constantExpression.getValue();
             if ( value != null ) {
                 script.addScript(new TextScript( value.toString() ));
@@ -237,7 +237,7 @@ public class XMLParser extends DefaultHandler {
             script.addScript(newBlock);
 
             CompositeExpression compositeExpression
-                = (CompositeExpression) expression;
+                    = (CompositeExpression) expression;
             Iterator iter = compositeExpression.getExpressions().iterator();
             while (iter.hasNext()) {
                 addExpressionScript( newBlock, (Expression) iter.next() );
@@ -253,7 +253,7 @@ public class XMLParser extends DefaultHandler {
      * expressions into ExpressionScript objects.
      */
     protected void addTextScript(String text) throws JellyException {
-    	Expression expression = createExpression(tagScript, "", text);
+        Expression expression = createExpression(tagScript, "", text);
         addExpressionScript(script, expression);
     }
 
@@ -268,7 +268,7 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void characters(char buffer[], int start, int length)
-        throws SAXException {
+            throws SAXException {
         textBuffer.append(buffer, start, length);
     }
 
@@ -321,9 +321,9 @@ public class XMLParser extends DefaultHandler {
     }
 
     protected Expression createConstantExpression(
-        String tagName,
-        String attributeName,
-        String attributeValue)  {
+            String tagName,
+            String attributeName,
+            String attributeValue)  {
         return new ConstantExpression(attributeValue);
     }
 
@@ -336,11 +336,11 @@ public class XMLParser extends DefaultHandler {
      * @throws JellyException
      */
     public Expression createExpression(TagScript script, String attributeName, String value) throws JellyException {
-    	ExpressionFactory factory = getExpressionFactory(script);
-    	TagLibrary tagLibrary = script.getTagLibrary();
-    	if (tagLibrary != null)
-    		return tagLibrary.createExpression(factory, script, attributeName, value);
-       	return CompositeExpression.parse(value, factory);
+        ExpressionFactory factory = getExpressionFactory(script);
+        TagLibrary tagLibrary = script.getTagLibrary();
+        if (tagLibrary != null)
+            return tagLibrary.createExpression(factory, script, attributeName, value);
+        return CompositeExpression.parse(value, factory);
     }
 
     /**
@@ -385,12 +385,12 @@ public class XMLParser extends DefaultHandler {
         }
         if (locator != null) {
             String error =
-                "Error at ("
-                    + locator.getLineNumber()
-                    + ", "
-                    + locator.getColumnNumber()
-                    + "): "
-                    + message;
+                    "Error at ("
+                            + locator.getLineNumber()
+                            + ", "
+                            + locator.getColumnNumber()
+                            + "): "
+                            + message;
             if (e != null) {
                 return new SAXParseException(error, locator, e);
             }
@@ -411,20 +411,20 @@ public class XMLParser extends DefaultHandler {
      * Factory method to create a static Tag that represents some static content.
      */
     protected TagScript createStaticTag(
-        final String namespaceURI,
-        final String localName,
-        final String qName,
-        Attributes list)
-        throws SAXException {
+            final String namespaceURI,
+            final String localName,
+            final String qName,
+            Attributes list)
+            throws SAXException {
         try {
             //StaticTag tag = new StaticTag( namespaceURI, localName, qName );
             StaticTagScript script = new StaticTagScript(
-                new TagFactory() {
-                    @Override
-                    public Tag createTag(String name, Attributes attributes) {
-                        return new StaticTag( namespaceURI, localName, qName );
+                    new TagFactory() {
+                        @Override
+                        public Tag createTag(String name, Attributes attributes) {
+                            return new StaticTag( namespaceURI, localName, qName );
+                        }
                     }
-                }
             );
             configureTagScript(script);
 
@@ -448,11 +448,11 @@ public class XMLParser extends DefaultHandler {
         }
         catch (Exception e) {
             log.warn(
-                "Could not create static tag for URI: "
-                    + namespaceURI
-                    + " tag name: "
-                    + localName,
-                e);
+                    "Could not create static tag for URI: "
+                            + namespaceURI
+                            + " tag name: "
+                            + localName,
+                    e);
             throw createSAXException(e);
         }
     }
@@ -462,10 +462,10 @@ public class XMLParser extends DefaultHandler {
      * return null if this is not a custom Tag.
      */
     protected TagScript createTag(
-        String namespaceURI,
-        String localName,
-        Attributes list)
-        throws SAXException {
+            String namespaceURI,
+            String localName,
+            Attributes list)
+            throws SAXException {
         try {
             // use the URI to load a taglib
             TagLibrary taglib = context.getTagLibrary(namespaceURI);
@@ -507,12 +507,12 @@ public class XMLParser extends DefaultHandler {
                         // Fix for JELLY-184 where the xmlns attributes have a blank name and cause
                         //	an exception later on
                         if (attributeName.length() == 0)
-                        	continue;
+                            continue;
                         String attributeValue = list.getValue(i);
                         Expression expression =
-                            createExpression(script,
-                                attributeName,
-                                attributeValue);
+                                createExpression(script,
+                                        attributeName,
+                                        attributeValue);
 //                        Expression expression =
 //                            taglib.createExpression(
 //                                getExpressionFactory(),
@@ -532,8 +532,8 @@ public class XMLParser extends DefaultHandler {
         }
         catch (Exception e) {
             log.warn(
-                "Could not create taglib or URI: " + namespaceURI + " tag name: " + localName,
-                e);
+                    "Could not create taglib or URI: " + namespaceURI + " tag name: " + localName,
+                    e);
             throw createSAXException(e);
         }
     }
@@ -562,7 +562,7 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void endElement(String namespaceURI, String localName, String qName)
-        throws SAXException {
+            throws SAXException {
         try {
             tagScript = (TagScript) tagScriptStack.remove(tagScriptStack.size() - 1);
             if (tagScript != null) {
@@ -638,13 +638,13 @@ public class XMLParser extends DefaultHandler {
     @Override
     public void error(SAXParseException exception) throws SAXException {
         log.error(
-            "Parse Error at line "
-                + exception.getLineNumber()
-                + " column "
-                + exception.getColumnNumber()
-                + ": "
-                + exception.getMessage(),
-            exception);
+                "Parse Error at line "
+                        + exception.getLineNumber()
+                        + " column "
+                        + exception.getColumnNumber()
+                        + ": "
+                        + exception.getMessage(),
+                exception);
         if (errorHandler != null) {
             errorHandler.error(exception);
         } else {
@@ -662,13 +662,13 @@ public class XMLParser extends DefaultHandler {
     @Override
     public void fatalError(SAXParseException exception) throws SAXException {
         log.error(
-            "Parse Fatal Error at line "
-                + exception.getLineNumber()
-                + " column "
-                + exception.getColumnNumber()
-                + ": "
-                + exception.getMessage(),
-            exception);
+                "Parse Fatal Error at line "
+                        + exception.getLineNumber()
+                        + " column "
+                        + exception.getColumnNumber()
+                        + ": "
+                        + exception.getMessage(),
+                exception);
         if (errorHandler != null) {
             errorHandler.fatalError(exception);
         } else {
@@ -739,27 +739,27 @@ public class XMLParser extends DefaultHandler {
      * @return the expression factory used to evaluate tag attributes
      */
     public ExpressionFactory getExpressionFactory(TagScript tagScript) {
-    	// Check the tag library
-    	TagLibrary tagLibrary = null;
-    	if (tagScript != null)
-    		tagLibrary = tagScript.getTagLibrary();
+        // Check the tag library
+        TagLibrary tagLibrary = null;
+        if (tagScript != null)
+            tagLibrary = tagScript.getTagLibrary();
 
-    	// If the tagScript is a StaticTag, then go up the stack looking for a
-    	//	tagScript that belongs to a real TagLibrary
-    	if (tagLibrary == null && tagScript instanceof StaticTagScript)
-    		for (int i = tagScriptStack.size() - 1; i > -1; i--) {
-    			TagScript script = (TagScript)tagScriptStack.get(i);
-    			tagLibrary = script.getTagLibrary();
-    			if (tagLibrary != null)
-    				break;
-    			if (!(script instanceof StaticTagScript))
-    				break;
-    		}
-    	if (tagLibrary != null) {
-    		ExpressionFactory factory = tagLibrary.getExpressionFactory();
-    		if (factory != null)
-    			return factory;
-    	}
+        // If the tagScript is a StaticTag, then go up the stack looking for a
+        //	tagScript that belongs to a real TagLibrary
+        if (tagLibrary == null && tagScript instanceof StaticTagScript)
+            for (int i = tagScriptStack.size() - 1; i > -1; i--) {
+                TagScript script = (TagScript)tagScriptStack.get(i);
+                tagLibrary = script.getTagLibrary();
+                if (tagLibrary != null)
+                    break;
+                if (!(script instanceof StaticTagScript))
+                    break;
+            }
+        if (tagLibrary != null) {
+            ExpressionFactory factory = tagLibrary.getExpressionFactory();
+            if (factory != null)
+                return factory;
+        }
         if (expressionFactory == null) {
             expressionFactory = createExpressionFactory();
         }
@@ -775,7 +775,7 @@ public class XMLParser extends DefaultHandler {
 
             InputStream in = null;
             URL url =
-                getClassLoader().getResource("org/apache/commons/jelly/jelly.properties");
+                    getClassLoader().getResource("org/apache/commons/jelly/jelly.properties");
             if (url != null) {
                 log.debug("Loading Jelly default tag libraries from: " + url);
                 try {
@@ -911,7 +911,7 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void ignorableWhitespace(char buffer[], int start, int len)
-        throws SAXException {
+            throws SAXException {
         // No processing required
     }
 
@@ -946,7 +946,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing exception occurs
      */
     public Script parse(File file) throws IOException, SAXException {
-        return parse(file.toURL());
+        return parse(file.toURI().toURL());
     }
 
     /**
@@ -1051,7 +1051,7 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void processingInstruction(String target, String data)
-        throws SAXException {
+            throws SAXException {
         // No processing is required
     }
 
@@ -1193,11 +1193,11 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void startElement(
-        String namespaceURI,
-        String localName,
-        String qName,
-        Attributes list)
-        throws SAXException {
+            String namespaceURI,
+            String localName,
+            String qName,
+            Attributes list)
+            throws SAXException {
 
         try {
             // add check to ensure namespace URI is "" for no namespace
@@ -1220,7 +1220,7 @@ public class XMLParser extends DefaultHandler {
                 }
                 // sets the file name element names
                 if (fileName != null)
-                	tagScript.setFileName(fileName);
+                    tagScript.setFileName(fileName);
                 tagScript.setElementName(qName);
                 tagScript.setLocalName(localName);
 
@@ -1268,7 +1268,7 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void startPrefixMapping(String prefix, String namespaceURI)
-        throws SAXException {
+            throws SAXException {
         // Register this prefix mapping
         ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
         if (stack == null) {
@@ -1293,10 +1293,10 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void unparsedEntityDecl(
-        String name,
-        String publicId,
-        String systemId,
-        String notation) {
+            String name,
+            String publicId,
+            String systemId,
+            String notation) {
     }
     /**
      * Forward notification of a parse warning to the application supplied
@@ -1310,13 +1310,13 @@ public class XMLParser extends DefaultHandler {
     @Override
     public void warning(SAXParseException exception) throws SAXException {
         log.error(
-            "Parse Warning at line "
-                + exception.getLineNumber()
-                + " column "
-                + exception.getColumnNumber()
-                + ": "
-                + exception.getMessage(),
-            exception);
+                "Parse Warning at line "
+                        + exception.getLineNumber()
+                        + " column "
+                        + exception.getColumnNumber()
+                        + ": "
+                        + exception.getMessage(),
+                exception);
         if (errorHandler != null) {
             errorHandler.warning(exception);
         }

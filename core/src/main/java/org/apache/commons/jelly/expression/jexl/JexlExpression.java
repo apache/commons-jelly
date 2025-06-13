@@ -151,16 +151,10 @@ public class JexlExpression extends ExpressionSupport {
             return value;
         }
         catch (Exception e) {
-        	if (context.isSuppressExpressionExceptions()) {
-	            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
-	            return null;
-        	} else {
-        		if (e instanceof RuntimeException)
-        			throw (RuntimeException)e;
-        		if (e instanceof IllegalStateException)
-        			throw (IllegalStateException )e;
-            	throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
-        	}
+            if (e instanceof RuntimeException) {
+                throw (RuntimeException) e;
+            }
+            throw new IllegalStateException (e.getMessage(), e);
         }
     }
 

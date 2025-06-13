@@ -22,10 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.MultipartPostMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
 
 /**
  * A Multipart MIME message post
@@ -45,14 +44,14 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 public class MultipartPostTag extends PostTag {
 
     /** The post method */
-    private MultipartPostMethod _postMethod;
+    private MultipartRequestEntity _multipartRequestEntity;
 
     /** List of parts as name value pairs */
-    private List _parts;
+    private List<Part> _parts;
 
     /** Creates a new instance of MppostTag */
     public MultipartPostTag() {
-      _parts = new ArrayList();
+        _parts = new ArrayList<>();
     }
 
     /**
@@ -65,7 +64,7 @@ public class MultipartPostTag extends PostTag {
     @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_postMethod == null) {
-            _postMethod = new MultipartPostMethod(getResolvedUrl());
+            _postMethod = new PostMethod(getResolvedUrl());
         }
         return _postMethod;
     }
@@ -88,8 +87,8 @@ public class MultipartPostTag extends PostTag {
      */
     @Override
     protected void setParameters(HttpMethod method) {
-        for (int index = 0; index < _parts.size(); index++) {
-            ((MultipartPostMethod) method).addPart( (Part) _parts.get(index) );
-        }
+        _multipartRequestEntity = new MultipartRequestEntity(_parts.toArray(new Part[0]), _postMethod.getParams());
+        _postMethod.setRequestEntity(_multipartRequestEntity);
     }
 }
+

@@ -25,11 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.Parser;
+import org.apache.commons.cli.*;
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -45,7 +41,7 @@ import org.apache.commons.jelly.XMLOutput;
 public class CommandLineParser {
 
     protected static CommandLineParser _instance = new CommandLineParser();
-    
+
     public static CommandLineParser getInstance() {
         return _instance;
     }
@@ -67,11 +63,11 @@ public class CommandLineParser {
         } catch (ParseException e) {
             throw new JellyException(e);
         }
-        
+
         // check for -h or -v
         if (cmdLine.hasOption("h")) {
             new HelpFormatter().printHelp("jelly [scriptFile] [-script scriptFile] [-o outputFile] [-Dsysprop=syspropval] [-awt]",
-                cmdLineOptions);
+                    cmdLineOptions);
             System.exit(1);
         }
         if (cmdLine.hasOption("v")) {
@@ -88,7 +84,7 @@ public class CommandLineParser {
         } else {
             scriptFile = args[0];
         }
-        
+
         // check the -awt option.
         boolean runInSwingThread = cmdLine.hasOption("awt") || cmdLine.hasOption("swing");
 
@@ -124,22 +120,22 @@ public class CommandLineParser {
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-            } } ); } else {
+                } } ); } else {
                 script.run(context, output);
             }
 
             // now lets wait for all threads to close
             Runtime.getRuntime().addShutdownHook(new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            output.close();
-                        }
-                        catch (Exception e) {
-                            // ignore errors
-                        }
-                    }
-                }
+                                                     @Override
+                                                     public void run() {
+                                                         try {
+                                                             output.close();
+                                                         }
+                                                         catch (Exception e) {
+                                                             // ignore errors
+                                                         }
+                                                     }
+                                                 }
             );
 
         } catch (Exception e) {
@@ -201,7 +197,7 @@ public class CommandLineParser {
         filteredArgList.toArray(filterArgs);
 
         // parse the command line
-        Parser parser = new org.apache.commons.cli.GnuParser();
+        DefaultParser parser = new DefaultParser();
         return parser.parse(cmdLineOptions, filterArgs);
     }
 
