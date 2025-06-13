@@ -33,7 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
-/** 
+/**
  * <p><code>Jelly</code> is a helper class which is capable of
  * running a Jelly script. This class can be used from the command line
  * or can be used as the basis of an Ant task.</p> Command line usage is as follows:
@@ -43,18 +43,18 @@ import org.xml.sax.SAXException;
  * </pre>
  */
 public class Jelly {
-    
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(Jelly.class);
-    
+
     public static String getJellyBuildDate() {
         return readBuildTimestampResource("jelly-build-date.txt");
     }
-    
+
     public static String getJellyVersion() {
         return readBuildTimestampResource("jelly-version.txt");
     }
-    
+
     /**
      * Usage: jelly [scriptFile] [-script scriptFile -o outputFile -Dsysprop=syspropval]
      */
@@ -81,7 +81,7 @@ public class Jelly {
             }
         }
     }
-    
+
     private static String readBuildTimestampResource(String name) {
         java.io.Reader in = null;
         try {
@@ -107,28 +107,28 @@ public class Jelly {
 
     /** The URL of the script to execute */
     private URL url;
-        
+
     /** The URL of the root context for other scripts */
     private URL rootContext;
 
     /** Whether we have loaded the properties yet */
     private boolean loadedProperties = false;
-    
-    
+
+
     /**
      * whether to override the default namespace
      */
     private String defaultNamespaceURI = null;
-    
+
     /**
      * whether or not to validate the Jelly script
      */
     private boolean validateXML = false;
-    
+
     public Jelly() {
     }
-    
-    
+
+
 
     /**
      * Compiles the script
@@ -164,10 +164,10 @@ public class Jelly {
         return script;
     }
 
-    
+
     // Properties
     //-------------------------------------------------------------------------                
-    
+
     /**
      * The context to use
      */
@@ -181,36 +181,36 @@ public class Jelly {
         }
         return context;
     }
-    
-    /** 
+
+    /**
      * Gets the root context
      */
     public URL getRootContext() throws MalformedURLException {
         if (rootContext == null) {
-            rootContext = new File(System.getProperty("user.dir")).toURL();
+            rootContext = new File(System.getProperty("user.dir")).toURI().toURL();
         }
         return rootContext;
     }
-    
+
     public URL getUrl() {
         return url;
     }
-    
+
     /**
      * Attempts to load jelly.properties from the current directory,
      * the users home directory or from the classpath
      */
     protected void loadJellyProperties() {
         InputStream is = null;
-    
+
         String userDir = System.getProperty("user.home");
         File f = new File(userDir + File.separator + "jelly.properties");
         loadProperties(f);
-    
+
         f = new File("jelly.properties");
         loadProperties(f);
-        
-        
+
+
         is = ClassLoaderUtils.getClassLoader(getClass()).getResourceAsStream("jelly.properties");
         if (is != null) {
             try {
@@ -221,7 +221,7 @@ public class Jelly {
             }
         }
     }
-    
+
     /**
      * Load properties from a file into the context
      * @param f
@@ -245,10 +245,10 @@ public class Jelly {
             }
         }
     }
-    
+
     /**
-     * Loads the properties from the given input stream 
-     */    
+     * Loads the properties from the given input stream
+     */
     protected void loadProperties(InputStream is) throws IOException {
         JellyContext theContext = getJellyContext();
         Properties props = new Properties();
@@ -257,25 +257,25 @@ public class Jelly {
         while (propsEnum.hasMoreElements()) {
             String key = (String) propsEnum.nextElement();
             String value = props.getProperty(key);
-            
+
             // @todo we should parse the value in case its an Expression
             theContext.setVariable(key, value);
         }
     }
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     /**
-     * @return the URL for the relative file name or absolute URL 
+     * @return the URL for the relative file name or absolute URL
      */
     protected URL resolveURL(String name) throws MalformedURLException {
-        
+
         URL resourceUrl = ClassLoaderUtils.getClassLoader(getClass()).getResource(name);
         if (resourceUrl == null)
         {
             File file = new File(name);
             if (file.exists()) {
-                return file.toURL();
+                return file.toURI().toURL();
             }
             return new URL(name);
         } else {
@@ -287,7 +287,7 @@ public class Jelly {
      * Sets the jelly namespace to use for unprefixed elements.
      * Will be overridden by an explicit namespace in the
      * XML document.
-     * 
+     *
      * @param namespace jelly namespace to use (e.g. 'jelly:core')
      */
     public void setDefaultNamespaceURI(String namespace) {
@@ -300,24 +300,24 @@ public class Jelly {
      * @param context
      */
     public void setJellyContext(JellyContext context) {
-    	this.context = context;
+        this.context = context;
     }
-    
-    /** 
+
+    /**
      * Sets the root context
      */
     public void setRootContext(URL rootContext) {
         this.rootContext = rootContext;
     }
 
-    /** 
+    /**
      * Sets the script URL to use as an absolute URL or a relative file name
      */
     public void setScript(String script) throws MalformedURLException {
         setUrl(resolveURL(script));
     }
 
-    /** 
+    /**
      * Sets the script URL to use 
      */
     public void setUrl(URL url) {
@@ -327,7 +327,7 @@ public class Jelly {
     /**
      * When set to true, the XML parser will attempt to validate
      * the Jelly XML before converting it into a Script.
-     * 
+     *
      * @param validate whether or not to validate
      */
     public void setValidateXML(boolean validate) {

@@ -19,7 +19,6 @@ package org.apache.commons.jelly.xpath;
 import java.util.Comparator;
 import java.util.List;
 
-import org.apache.commons.jelly.util.NestedRuntimeException;
 import org.dom4j.Node;
 import org.jaxen.JaxenException;
 import org.jaxen.XPath;
@@ -34,7 +33,7 @@ public class XPathComparator implements Comparator {
     /**
      * My own runtime exception in case something goes wrong with sort.
      */
-    public static class XPathSortException extends NestedRuntimeException {
+    public static class XPathSortException extends RuntimeException {
         public XPathSortException(String message, Throwable cause) {
             super(message, cause);
         }

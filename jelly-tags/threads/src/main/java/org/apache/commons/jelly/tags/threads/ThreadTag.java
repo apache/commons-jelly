@@ -119,7 +119,7 @@ public class ThreadTag extends TagSupport {
                         throw (RuntimeException) e;
                     }
                     else {
-                        throw new NestedRuntimeException(e);
+                        throw new RuntimeException(e);
                     }
                 }
             }

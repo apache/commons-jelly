@@ -33,7 +33,7 @@ import org.jaxen.XPath;
 import org.jaxen.dom4j.Dom4jXPath;
 
 /** An expression which returns an XPath object.
-  */
+ */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
 
     /** The Log to which logging calls will be made. */
@@ -95,13 +95,8 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         }
         catch (JaxenException e)
         {
-            if (context.isSuppressExpressionExceptions())
-                log.error("Error constructing xpath", e);
-            else
-            	throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
+            throw new IllegalStateException (e.getMessage(), e);
         }
-
-        return null;
     }
 
     // Expression interface
@@ -115,9 +110,9 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     //-------------------------------------------------------------------------
     @Override
     public Object getVariableValue(
-        String namespaceURI,
-        String prefix,
-        String localName) {
+            String namespaceURI,
+            String prefix,
+            String localName) {
 
         Object value = context.getVariable(localName);
 

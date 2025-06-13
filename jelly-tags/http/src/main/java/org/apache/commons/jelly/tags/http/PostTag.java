@@ -28,7 +28,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 public class PostTag extends HttpTagSupport {
 
     /** The post method */
-    private PostMethod _postMethod;
+    protected PostMethod _postMethod;
 
     /** Creates a new instance of PostTag */
     public PostTag() {
@@ -60,7 +60,7 @@ public class PostTag extends HttpTagSupport {
         NameValuePair nvp = null;
         for (int index = 0; index < getParameters().size(); index++) {
             NameValuePair parameter = (NameValuePair) getParameters().
-                get(index);
+                    get(index);
             ((PostMethod) method).addParameter(parameter);
         }
     }
