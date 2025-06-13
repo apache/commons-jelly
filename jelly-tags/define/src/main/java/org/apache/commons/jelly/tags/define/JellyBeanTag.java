@@ -42,30 +42,6 @@ public class JellyBeanTag extends BeanTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * @return the method name to use, which defaults to 'run' for Runnable
-     * objects
-     */
-    public String getMethod() {
-        if ( method == null ) {
-            return "run";
-        }
-        return method;
-    }
-
-    /**
-     * Sets the name of the method to invoke on the bean.
-     * This defaults to "run" so that Runnable objects can be
-     * invoked, but this property can be set to whatever is required,
-     * such as "execute" or "invoke"
-     */
-    public void setMethod(final String method) {
-        this.method = method;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     @Override
     protected Method getInvokeMethod( final Class theClass ) {
         final Method invokeMethod =
@@ -77,5 +53,29 @@ public class JellyBeanTag extends BeanTag {
         if ( invokeMethod == null ) {
         }
         return invokeMethod;
+    }
+
+    /**
+     * @return the method name to use, which defaults to 'run' for Runnable
+     * objects
+     */
+    public String getMethod() {
+        if ( method == null ) {
+            return "run";
+        }
+        return method;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the name of the method to invoke on the bean.
+     * This defaults to "run" so that Runnable objects can be
+     * invoked, but this property can be set to whatever is required,
+     * such as "execute" or "invoke"
+     */
+    public void setMethod(final String method) {
+        this.method = method;
     }
 }

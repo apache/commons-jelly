@@ -48,6 +48,20 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     //-------------------------------------------------------------------------
 
     /**
+     * Provides a strategy method that allows values to be converted,
+     * particularly to support integer enumerations and String representations.
+     *
+     * @param bean is the bean on which the property is to be set
+     * @param name is the name of the property
+     * @param value the value of the property
+     * @return the new value
+     */
+    protected Object convertValue(final Object bean, final String name, final Object value)
+        throws JellyTagException {
+        return value;
+    }
+
+    /**
      * @return the parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
@@ -56,15 +70,6 @@ public abstract class LayoutTagSupport extends UseBeanTag {
             return tag.getWidget();
         }
         return null;
-    }
-
-    /**
-     * Sets the name of the variable to use to expose the new Layout object.
-     * If this attribute is not set then the parent widget tag will have its
-     * layout property set.
-     */
-    public void setVar(final String var) {
-        this.var = var;
     }
 
     // Implementation methods
@@ -113,17 +118,12 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     }
 
     /**
-     * Provides a strategy method that allows values to be converted,
-     * particularly to support integer enumerations and String representations.
-     *
-     * @param bean is the bean on which the property is to be set
-     * @param name is the name of the property
-     * @param value the value of the property
-     * @return the new value
+     * Sets the name of the variable to use to expose the new Layout object.
+     * If this attribute is not set then the parent widget tag will have its
+     * layout property set.
      */
-    protected Object convertValue(final Object bean, final String name, final Object value)
-        throws JellyTagException {
-        return value;
+    public void setVar(final String var) {
+        this.var = var;
     }
 
 }

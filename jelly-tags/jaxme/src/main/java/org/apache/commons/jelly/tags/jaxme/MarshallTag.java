@@ -36,28 +36,6 @@ public class MarshallTag extends TagSupport {
     private String packages;
     private Object object;
 
-    public String getPackages() {
-        return packages;
-    }
-
-    /**
-     * Defines the generated objects which will be marshalled by specifying the package name.
-     */
-    public void setPackages(final String packages) {
-        this.packages = packages;
-    }
-
-    public Object getObject() {
-        return object;
-    }
-
-    /**
-     * Defines the object to be unmarshalled into XML by specifying a jelly variable name.
-     */
-    public void setObject(final Object object) {
-        this.object = object;
-    }
-
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (packages == null) {
@@ -75,5 +53,27 @@ public class MarshallTag extends TagSupport {
         } catch (final JAXBException ex)  {
             throw new JellyTagException(ex);
         }
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public String getPackages() {
+        return packages;
+    }
+
+    /**
+     * Defines the object to be unmarshalled into XML by specifying a jelly variable name.
+     */
+    public void setObject(final Object object) {
+        this.object = object;
+    }
+
+    /**
+     * Defines the generated objects which will be marshalled by specifying the package name.
+     */
+    public void setPackages(final String packages) {
+        this.packages = packages;
     }
 }

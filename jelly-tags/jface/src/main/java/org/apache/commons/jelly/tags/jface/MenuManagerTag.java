@@ -35,21 +35,6 @@ public class MenuManagerTag extends UseBeanTag {
     private String text;
     private MenuManager mm;
 
-    /**
-     * @return the parent window which this widget will be added to.
-     */
-    public Window getParentWindow() {
-
-        final ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag
-                .class);
-        if (tag != null) {
-            return tag.getWindow();
-        }
-
-        return null;
-    }
-
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
@@ -80,6 +65,21 @@ public class MenuManagerTag extends UseBeanTag {
      */
     public MenuManager getMenuManager() {
         return mm;
+    }
+
+    /**
+     * @return the parent window which this widget will be added to.
+     */
+    public Window getParentWindow() {
+
+        final ApplicationWindowTag tag =
+            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag
+                .class);
+        if (tag != null) {
+            return tag.getWindow();
+        }
+
+        return null;
     }
 
 }

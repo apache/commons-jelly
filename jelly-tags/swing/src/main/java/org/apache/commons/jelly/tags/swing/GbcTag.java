@@ -52,8 +52,17 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GbcTag extends UseBeanTag implements ContainerTag {
 
-    public GridBagConstraints getConstraints() {
-        return (GridBagConstraints) getBean();
+    public static Tag findAncestorWithClass(
+        Tag from,
+        final Class tagClass,
+        final Tag parent) {
+        while (from != null && from != parent) {
+            if (tagClass.isInstance(from)) {
+                return from;
+            }
+            from = from.getParent();
+        }
+        return null;
     }
 
     // ContainerTag interface
@@ -90,6 +99,10 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
             return null;
         }
         return super.convertToClass(classObject);
+    }
+
+    public GridBagConstraints getConstraints() {
+        return (GridBagConstraints) getBean();
     }
 
     /**
@@ -166,19 +179,6 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
                 }
             }
         }
-    }
-
-    public static Tag findAncestorWithClass(
-        Tag from,
-        final Class tagClass,
-        final Tag parent) {
-        while (from != null && from != parent) {
-            if (tagClass.isInstance(from)) {
-                return from;
-            }
-            from = from.getParent();
-        }
-        return null;
     }
 }
 

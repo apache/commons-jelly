@@ -46,11 +46,9 @@ public class JellyThread extends Thread {
         }
     }
 
-    /**
-     * Sets the Runnable target that will be run
-     */
-    public void setTarget(final Runnable target) {
-        this.target = target;
+    /** Gets the status of this thread */
+    public RunnableStatus getStatus() {
+        return status;
     }
 
     /**
@@ -90,6 +88,13 @@ public class JellyThread extends Thread {
     }
 
     /**
+     * Sets the Runnable target that will be run
+     */
+    public void setTarget(final Runnable target) {
+        this.target = target;
+    }
+
+    /**
      * Call this method from a different thread to wait until this thread is done. This
      * is used by the {@link WaitForTag} class.
      */
@@ -114,10 +119,5 @@ public class JellyThread extends Thread {
 
         // release the lock, just needed it to get started
         runningMutex.release();
-    }
-
-    /** Gets the status of this thread */
-    public RunnableStatus getStatus() {
-        return status;
     }
 }

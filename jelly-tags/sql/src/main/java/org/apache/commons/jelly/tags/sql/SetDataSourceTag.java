@@ -54,43 +54,6 @@ public class SetDataSourceTag extends TagSupport {
     //*********************************************************************
     // Accessor methods
 
-    /**
-     * Sets the scope of the variable to hold the
-     * result.
-     *
-     */
-    public void setScope(final String scope) {
-        this.scope = scope;
-    }
-
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    public void setDataSource(final Object dataSource) {
-        this.dataSource = dataSource;
-        this.dataSourceSpecified = true;
-    }
-
-    public void setDriver(final String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
-
-    public void setUrl(final String jdbcURL) {
-        this.jdbcURL = jdbcURL;
-    }
-
-    public void setUser(final String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(final String password) {
-        this.password = password;
-    }
-
-    //*********************************************************************
-    // Tag logic
-
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         DataSource ds = null;
@@ -127,5 +90,42 @@ public class SetDataSourceTag extends TagSupport {
         else {
             context.setVariable("org.apache.commons.jelly.sql.DataSource", ds);
         }
+    }
+
+    public void setDataSource(final Object dataSource) {
+        this.dataSource = dataSource;
+        this.dataSourceSpecified = true;
+    }
+
+    public void setDriver(final String driverClassName) {
+        this.driverClassName = driverClassName;
+    }
+
+    public void setPassword(final String password) {
+        this.password = password;
+    }
+
+    /**
+     * Sets the scope of the variable to hold the
+     * result.
+     *
+     */
+    public void setScope(final String scope) {
+        this.scope = scope;
+    }
+
+    public void setUrl(final String jdbcURL) {
+        this.jdbcURL = jdbcURL;
+    }
+
+    public void setUser(final String userName) {
+        this.userName = userName;
+    }
+
+    //*********************************************************************
+    // Tag logic
+
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

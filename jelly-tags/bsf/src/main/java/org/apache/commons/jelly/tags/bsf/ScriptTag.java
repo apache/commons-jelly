@@ -120,6 +120,11 @@ public class ScriptTag extends TagSupport implements LocationAware {
         return lineNumber;
     }
 
+    private JellyContextRegistry getRegistry()
+    {
+        return (JellyContextRegistry) this.manager.getObjectRegistry();
+    }
+
     /**
      * Sets the columnNumber.
      * @param columnNumber The columnNumber to set
@@ -162,10 +167,5 @@ public class ScriptTag extends TagSupport implements LocationAware {
     @Override
     public void setLineNumber(final int lineNumber) {
         this.lineNumber = lineNumber;
-    }
-
-    private JellyContextRegistry getRegistry()
-    {
-        return (JellyContextRegistry) this.manager.getObjectRegistry();
     }
 }

@@ -71,6 +71,26 @@ public class SetTag extends XPathTagSupport {
 
     }
 
+    private int determineReturnType() {
+        int resultType;
+        if (single != null && single.booleanValue()) { // first node
+            if (asString != null && asString.booleanValue()) {
+                resultType = RETURN_FIRST_AS_STRING;
+            } else {
+                resultType = RETURN_FIRST_NODE;
+            }
+        } else if (asString != null && asString.booleanValue()) {
+            if (delim != null) {
+                resultType = RETURN_DELIMITED_STRING_LIST;
+            } else {
+                resultType = RETURN_STRING_LIST;
+            }
+        } else {
+            resultType = RETURN_NODE_LIST;
+        }
+        return resultType;
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -169,46 +189,6 @@ public class SetTag extends XPathTagSupport {
         context.setVariable(var, value);
     }
 
-    private List valueAsList( final Object value ) {
-        if (value instanceof List) {
-            return (List)value;
-        }
-        if (value == null) {
-            return Collections.EMPTY_LIST;
-        }
-        return Collections.singletonList(value);
-    }
-
-    private Object valueAsSingle( final Object value ) {
-        if (!(value instanceof List)) {
-            return value;
-        }
-        final List l = (List) value;
-        if (l.isEmpty()) {
-            return null;
-        } else {
-            return l.get(0);
-        }
-    }
-
-    private String singleValueAsString( final Object value ) {
-        if (value instanceof Node) {
-            return ((Node) value).getStringValue();
-        }
-        return null;
-    }
-
-    private List nodeListToStringList( final List values ) {
-        final List l = new ArrayList(values.size());
-        for (final Object v : values) {
-            final String s = singleValueAsString(v);
-            if (s != null) {
-                l.add(s);
-            }
-        }
-        return l;
-    }
-
     private String joinDelimitedElements( final List values ) {
         final StringBuilder sb = new StringBuilder();
         final int sz = values.size();
@@ -222,54 +202,15 @@ public class SetTag extends XPathTagSupport {
         return sb.toString();
     }
 
-    private int determineReturnType() {
-        int resultType;
-        if (single != null && single.booleanValue()) { // first node
-            if (asString != null && asString.booleanValue()) {
-                resultType = RETURN_FIRST_AS_STRING;
-            } else {
-                resultType = RETURN_FIRST_NODE;
+    private List nodeListToStringList( final List values ) {
+        final List l = new ArrayList(values.size());
+        for (final Object v : values) {
+            final String s = singleValueAsString(v);
+            if (s != null) {
+                l.add(s);
             }
-        } else if (asString != null && asString.booleanValue()) {
-            if (delim != null) {
-                resultType = RETURN_DELIMITED_STRING_LIST;
-            } else {
-                resultType = RETURN_STRING_LIST;
-            }
-        } else {
-            resultType = RETURN_NODE_LIST;
         }
-        return resultType;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /** Sets the variable name to define for this expression
-     */
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(final XPath select) {
-        this.select = select;
-    }
-
-    /** If set to true will only take the first element matching.
-        It then guarantees that the result is of type
-        {@link org.dom4j.Node} thereby making sure that, for example,
-        when an element is selected, one can directly call such methods
-        as setAttribute.
-        <p>
-        If set to false, guarantees that a list is returned.
-        </p>
-        <p>
-        If set to false, guarantees that a list is returned.
-        </p>
-        */
-    public void setSingle(final boolean single) {
-        this.single = new Boolean(single);
+        return l;
     }
 
     /** If set to true, will ensure that the (XPath) text-value
@@ -292,6 +233,40 @@ public class SetTag extends XPathTagSupport {
         }
     }
 
+    /**
+     * Sets whether to sort ascending or descending.
+     */
+    public void setDescending(final boolean descending) {
+        if (xpCmp == null) {
+            xpCmp = new XPathComparator();
+        }
+        xpCmp.setDescending(descending);
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /** Sets the XPath expression to evaluate. */
+    public void setSelect(final XPath select) {
+        this.select = select;
+    }
+
+    /** If set to true will only take the first element matching.
+        It then guarantees that the result is of type
+        {@link org.dom4j.Node} thereby making sure that, for example,
+        when an element is selected, one can directly call such methods
+        as setAttribute.
+        <p>
+        If set to false, guarantees that a list is returned.
+        </p>
+        <p>
+        If set to false, guarantees that a list is returned.
+        </p>
+        */
+    public void setSingle(final boolean single) {
+        this.single = new Boolean(single);
+    }
+
     /** Sets the xpath expression to use to sort selected nodes.
      *  Ignored if single is true.
      */
@@ -302,13 +277,38 @@ public class SetTag extends XPathTagSupport {
         xpCmp.setXpath(sortXPath);
     }
 
-    /**
-     * Sets whether to sort ascending or descending.
+    /** Sets the variable name to define for this expression
      */
-    public void setDescending(final boolean descending) {
-        if (xpCmp == null) {
-            xpCmp = new XPathComparator();
+    public void setVar(final String var) {
+        this.var = var;
+    }
+
+    private String singleValueAsString( final Object value ) {
+        if (value instanceof Node) {
+            return ((Node) value).getStringValue();
         }
-        xpCmp.setDescending(descending);
+        return null;
+    }
+
+    private List valueAsList( final Object value ) {
+        if (value instanceof List) {
+            return (List)value;
+        }
+        if (value == null) {
+            return Collections.EMPTY_LIST;
+        }
+        return Collections.singletonList(value);
+    }
+
+    private Object valueAsSingle( final Object value ) {
+        if (!(value instanceof List)) {
+            return value;
+        }
+        final List l = (List) value;
+        if (l.isEmpty()) {
+            return null;
+        } else {
+            return l.get(0);
+        }
     }
 }

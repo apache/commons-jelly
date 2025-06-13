@@ -73,150 +73,16 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /** The factory of widgets */
     private Factory factory;
 
+    private String tagName = null;
+
+    private XMLOutput currentOutput = null;
+
     public ComponentTag() {
     }
 
     public ComponentTag(final Factory factory) {
         this.factory = factory;
     }
-
-    @Override
-    public String toString() {
-		final Component comp = getComponent();
-        String componentName = comp!=null ? comp.getName() : null;
-        if (comp!=null && (componentName == null || componentName.length() == 0)) {
-            componentName = getComponent().toString();
-        }
-        return "ComponentTag with bean " + componentName;
-    }
-
-    /**
-     * Sets the Action of this component
-     */
-    public void setAction(final Action action) throws JellyTagException {
-        final Component component = getComponent();
-        if ( component != null ) {
-            // lets just try set the 'action' property
-            try {
-                BeanUtils.setProperty( component, "action", action );
-            } catch (final IllegalAccessException | InvocationTargetException e) {
-                throw new JellyTagException(e);
-            }
-        }
-    }
-
-    /**
-     * Sets the Font of this component
-     */
-    public void setFont(final Font font) throws JellyTagException {
-        final Component component = getComponent();
-        if ( component != null ) {
-            // lets just try set the 'font' property
-            try {
-                BeanUtils.setProperty( component, "font", font );
-            }
-            catch (final IllegalAccessException | InvocationTargetException e) {
-                throw new JellyTagException(e);
-            }
-        }
-    }
-
-    /**
-     * Sets the Border of this component
-     */
-    public void setBorder(final Border border) throws JellyTagException {
-        final Component component = getComponent();
-        if ( component != null ) {
-            try {
-                // lets just try set the 'border' property
-                BeanUtils.setProperty( component, "border", border );
-            }
-            catch (final IllegalAccessException | InvocationTargetException e) {
-                throw new JellyTagException(e);
-            }
-        }
-    }
-
-    /**
-     * Sets the LayoutManager of this component
-     */
-    public void setLayout(final LayoutManager layout) throws JellyTagException {
-        Component component = getComponent();
-        if ( component != null ) {
-            if ( component instanceof RootPaneContainer ) {
-                final RootPaneContainer rpc = (RootPaneContainer) component;
-                component = rpc.getContentPane();
-            }
-
-            try {
-                // lets just try set the 'layout' property
-                BeanUtils.setProperty( component, "layout", layout );
-            }
-            catch (final IllegalAccessException | InvocationTargetException e) {
-                throw new JellyTagException(e);
-            }
-        }
-    }
-
-
-	private String tagName = null;
-
-	private XMLOutput currentOutput = null;
-
-	/** Puts this tag into the context under the given name
-	 * allowing later calls to rerun().
-	 * For example, it makes sense to use ${myTag.rerun()} as a child
-	 * of an <code>action</code> element.
-	 *
-	 * @param name name to be used
-	 */
-	public void setTagName(final String name) {
-		this.tagName = name;
-	}
-
-    /**
-     * Adds a WindowListener to this component
-     */
-    public void addWindowListener(final WindowListener listener) throws JellyTagException {
-        final Component component = getComponent();
-        if ( component instanceof Window ) {
-            final Window window = (Window) component;
-            window.addWindowListener(listener);
-        }
-    }
-
-    /**
-     * Adds a FocusListener to this component
-     */
-    public void addFocusListener(final FocusListener listener) throws JellyTagException {
-        final Component component = getComponent();
-        component.addFocusListener(listener);
-    }
-
-    /**
-     * Adds a KeyListener to this component
-     */
-    public void addKeyListener(final KeyListener listener) throws JellyTagException {
-        final Component component = getComponent();
-        component.addKeyListener(listener);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the visible component, if there is one.
-     */
-    public Component getComponent() {
-        final Object bean = getBean();
-        if ( bean instanceof Component ) {
-            return (Component) bean;
-        }
-        return null;
-    }
-
-    // ContainerTag interface
-    //-------------------------------------------------------------------------
 
     /**
      * Adds a child component to this parent
@@ -272,10 +138,44 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
         }
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
+    /**
+     * Adds a FocusListener to this component
+     */
+    public void addFocusListener(final FocusListener listener) throws JellyTagException {
+        final Component component = getComponent();
+        component.addFocusListener(listener);
+    }
 
     /**
+     * Adds a KeyListener to this component
+     */
+    public void addKeyListener(final KeyListener listener) throws JellyTagException {
+        final Component component = getComponent();
+        component.addKeyListener(listener);
+    }
+
+
+	/**
+     * Adds a WindowListener to this component
+     */
+    public void addWindowListener(final WindowListener listener) throws JellyTagException {
+        final Component component = getComponent();
+        if ( component instanceof Window ) {
+            final Window window = (Window) component;
+            window.addWindowListener(listener);
+        }
+    }
+
+	/** Sets the bean to null, to prevent it from
+     * sticking around in the event that this tag instance is
+     * cached. This method is called at the end of doTag.
+     *
+     */
+    protected void clearBean() {
+        setBean(null);
+    }
+
+	/**
      * A class may be specified otherwise the Factory will be used.
      */
     @Override
@@ -285,6 +185,35 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
         }
         return super.convertToClass(classObject);
     }
+
+    /**Overrides the default UseBean functionality to clear the bean after the
+     * tag runs. This prevents us from keeping references to heavy Swing objects
+     * around for longer than they are needed.
+     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+     */
+    @Override
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        super.doTag(output);
+        clearBean();
+    }
+
+    /**
+     * @return the visible component, if there is one.
+     */
+    public Component getComponent() {
+        final Object bean = getBean();
+        if ( bean instanceof Component ) {
+            return (Component) bean;
+        }
+        return null;
+    }
+
+    protected Object getConstraint() {
+        return null;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
 
     /**
      * A class may be specified otherwise the Factory will be used.
@@ -309,6 +238,9 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
         }
     }
 
+    // ContainerTag interface
+    //-------------------------------------------------------------------------
+
     /**
      * Either defines a variable or adds the current component to the parent
      */
@@ -324,6 +256,24 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                 parentTag.addChild(component, getConstraint());
             } else if (var == null) {
                 throw new JellyTagException( "The 'var' attribute must be specified or this tag must be nested inside a JellySwing container tag like a widget or a layout" );
+            }
+        }
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the Action of this component
+     */
+    public void setAction(final Action action) throws JellyTagException {
+        final Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'action' property
+            try {
+                BeanUtils.setProperty( component, "action", action );
+            } catch (final IllegalAccessException | InvocationTargetException e) {
+                throw new JellyTagException(e);
             }
         }
     }
@@ -393,27 +343,77 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
         }
     }
 
-    protected Object getConstraint() {
-        return null;
+    /**
+     * Sets the Border of this component
+     */
+    public void setBorder(final Border border) throws JellyTagException {
+        final Component component = getComponent();
+        if ( component != null ) {
+            try {
+                // lets just try set the 'border' property
+                BeanUtils.setProperty( component, "border", border );
+            }
+            catch (final IllegalAccessException | InvocationTargetException e) {
+                throw new JellyTagException(e);
+            }
+        }
     }
 
-    /**Overrides the default UseBean functionality to clear the bean after the
-     * tag runs. This prevents us from keeping references to heavy Swing objects
-     * around for longer than they are needed.
-     * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
+    /**
+     * Sets the Font of this component
      */
+    public void setFont(final Font font) throws JellyTagException {
+        final Component component = getComponent();
+        if ( component != null ) {
+            // lets just try set the 'font' property
+            try {
+                BeanUtils.setProperty( component, "font", font );
+            }
+            catch (final IllegalAccessException | InvocationTargetException e) {
+                throw new JellyTagException(e);
+            }
+        }
+    }
+
+    /**
+     * Sets the LayoutManager of this component
+     */
+    public void setLayout(final LayoutManager layout) throws JellyTagException {
+        Component component = getComponent();
+        if ( component != null ) {
+            if ( component instanceof RootPaneContainer ) {
+                final RootPaneContainer rpc = (RootPaneContainer) component;
+                component = rpc.getContentPane();
+            }
+
+            try {
+                // lets just try set the 'layout' property
+                BeanUtils.setProperty( component, "layout", layout );
+            }
+            catch (final IllegalAccessException | InvocationTargetException e) {
+                throw new JellyTagException(e);
+            }
+        }
+    }
+
+    /** Puts this tag into the context under the given name
+	 * allowing later calls to rerun().
+	 * For example, it makes sense to use ${myTag.rerun()} as a child
+	 * of an <code>action</code> element.
+	 *
+	 * @param name name to be used
+	 */
+	public void setTagName(final String name) {
+		this.tagName = name;
+	}
+
     @Override
-    public void doTag(final XMLOutput output) throws JellyTagException {
-        super.doTag(output);
-        clearBean();
-    }
-
-    /** Sets the bean to null, to prevent it from
-     * sticking around in the event that this tag instance is
-     * cached. This method is called at the end of doTag.
-     *
-     */
-    protected void clearBean() {
-        setBean(null);
+    public String toString() {
+		final Component comp = getComponent();
+        String componentName = comp!=null ? comp.getName() : null;
+        if (comp!=null && (componentName == null || componentName.length() == 0)) {
+            componentName = getComponent().toString();
+        }
+        return "ComponentTag with bean " + componentName;
     }
 }

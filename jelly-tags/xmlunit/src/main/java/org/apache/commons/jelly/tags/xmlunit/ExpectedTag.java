@@ -25,6 +25,11 @@ import org.dom4j.io.SAXReader;
 public class ExpectedTag extends XMLUnitTagSupport {
 
     @Override
+    protected SAXReader createSAXReader() {
+        return new SAXReader();
+    }
+
+    @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         final Document expectedDocument = parseBody();
 
@@ -32,11 +37,6 @@ public class ExpectedTag extends XMLUnitTagSupport {
             (AssertDocumentsEqualTag) findAncestorWithClass(AssertDocumentsEqualTag
                 .class);
         assertTag.setExpected(expectedDocument);
-    }
-
-    @Override
-    protected SAXReader createSAXReader() {
-        return new SAXReader();
     }
 
 }

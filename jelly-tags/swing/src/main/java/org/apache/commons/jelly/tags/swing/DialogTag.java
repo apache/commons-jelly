@@ -47,6 +47,22 @@ public class DialogTag extends UseBeanTag implements ContainerTag {
     //-------------------------------------------------------------------------
 
     /**
+     * Adds a component to the dialog.
+     */
+    @Override
+    public void addChild(final Component component, final Object constraints) {
+        final Container contentPane = ((JDialog) getBean()).getContentPane();
+        if (constraints != null) {
+            contentPane.add( component, constraints );
+        } else {
+            contentPane.add( component );
+        }
+    }
+
+    // ContainerTag interface
+    //-------------------------------------------------------------------------
+
+    /**
      * Creates a JDialog.  The constructor used depends on the value of the owner attribute.
      */
     @Override
@@ -60,22 +76,6 @@ public class DialogTag extends UseBeanTag implements ContainerTag {
             return new JDialog((Dialog) owner);
         }
         return new JDialog();
-    }
-
-    // ContainerTag interface
-    //-------------------------------------------------------------------------
-
-    /**
-     * Adds a component to the dialog.
-     */
-    @Override
-    public void addChild(final Component component, final Object constraints) {
-        final Container contentPane = ((JDialog) getBean()).getContentPane();
-        if (constraints != null) {
-            contentPane.add( component, constraints );
-        } else {
-            contentPane.add( component );
-        }
     }
 }
 

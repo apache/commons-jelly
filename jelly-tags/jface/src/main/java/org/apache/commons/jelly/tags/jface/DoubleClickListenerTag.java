@@ -59,6 +59,23 @@ public class DoubleClickListenerTag
         this.output = output;
     }
 
+    //  Listener interface
+    //-------------------------------------------------------------------------
+    /*
+     * @see org.eclipse.jface.viewers.IDoubleClickListener#doubleClick(org.eclipse.jface.viewers.DoubleClickEvent)
+     */
+    @Override
+    public void doubleClick(final DoubleClickEvent event) {
+        try {
+            context.setVariable(var, event);
+            invokeBody(output);
+        } catch (final Exception e) {
+            log.error(
+                "Caught exception: " + e + " while processing event: " + event,
+                e);
+        }
+    }
+
     public StructuredViewer getParentViewer() {
         final ViewerTag tag = (ViewerTag) findAncestorWithClass(ViewerTag.class);
         if (tag != null) {
@@ -83,23 +100,6 @@ public class DoubleClickListenerTag
      */
     public void setVar(final String var) {
         this.var = var;
-    }
-
-    //  Listener interface
-    //-------------------------------------------------------------------------
-    /*
-     * @see org.eclipse.jface.viewers.IDoubleClickListener#doubleClick(org.eclipse.jface.viewers.DoubleClickEvent)
-     */
-    @Override
-    public void doubleClick(final DoubleClickEvent event) {
-        try {
-            context.setVariable(var, event);
-            invokeBody(output);
-        } catch (final Exception e) {
-            log.error(
-                "Caught exception: " + e + " while processing event: " + event,
-                e);
-        }
     }
 
 }

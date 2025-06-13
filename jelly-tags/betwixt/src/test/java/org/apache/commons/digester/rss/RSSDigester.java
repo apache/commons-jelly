@@ -44,11 +44,6 @@ import org.xml.sax.SAXException;
 public class RSSDigester extends Digester {
 
     /**
-     * Have we been configured yet?
-     */
-    protected boolean configured = false;
-
-    /**
      * The set of public identifiers, and corresponding resource names,
      * for the versions of the DTDs that we know about.
      */
@@ -60,18 +55,46 @@ public class RSSDigester extends Digester {
     };
 
     /**
+     * Test main program that parses the channel description included in this
+     * package as a static resource.
+     *
+     * @param args The command line arguments (ignored)
+     */
+    public static void main(final String args[]) {
+
+        try {
+            System.out.println("RSSDigester Test Program");
+            System.out.println("Opening input stream ...");
+            final InputStream is = RSSDigester.class.getResourceAsStream
+                    ("/org/apache/commons/digester/rss/rss-example.xml");
+            System.out.println("Creating new digester ...");
+            final RSSDigester digester = new RSSDigester();
+            if (args.length > 0 && args[0].equals("-debug")) {
+                digester.setLogger(LogFactory.getLog("RSSDigester"));
+            }
+            System.out.println("Parsing input stream ...");
+            final Channel channel = (Channel) digester.parse(is);
+            System.out.println("Closing input stream ...");
+            is.close();
+            System.out.println("Dumping channel info ...");
+            channel.render(System.out);
+        } catch (final Exception e) {
+            System.out.println("-->Exception");
+            e.printStackTrace(System.out);
+        }
+
+    }
+
+    /**
+     * Have we been configured yet?
+     */
+    protected boolean configured = false;
+
+    /**
      * The fully qualified class name of the <code>Channel</code>
      * implementation class.
      */
     protected String channelClass = "org.apache.commons.digester.rss.Channel";
-
-    public String getChannelClass() {
-        return this.channelClass;
-    }
-
-    public void setChannelClass(final String channelClass) {
-        this.channelClass = channelClass;
-    }
 
     /**
      * The fully qualified class name of the <code>Image</code>
@@ -79,27 +102,11 @@ public class RSSDigester extends Digester {
      */
     protected String imageClass = "org.apache.commons.digester.rss.Image";
 
-    public String getImageClass() {
-        return this.imageClass;
-    }
-
-    public void setImageClass(final String imageClass) {
-        this.imageClass = imageClass;
-    }
-
     /**
      * The fully qualified class name of the <code>Item</code>
      * implementation class.
      */
     protected String itemClass = "org.apache.commons.digester.rss.Item";
-
-    public String getItemClass() {
-        return this.itemClass;
-    }
-
-    public void setItemClass(final String itemClass) {
-        this.itemClass = itemClass;
-    }
 
     /**
      * The fully qualified class name of the <code>TextInput</code>
@@ -107,81 +114,6 @@ public class RSSDigester extends Digester {
      */
     protected String textInputClass =
             "org.apache.commons.digester.rss.TextInput";
-
-    public String getTextInputClass() {
-        return this.textInputClass;
-    }
-
-    public void setTextInputClass(final String textInputClass) {
-        this.textInputClass = textInputClass;
-    }
-
-    /**
-     * Parse the content of the specified file using this Digester.  Returns
-     * the root element from the object stack (which will be the Channel).
-     *
-     * @param file File containing the XML data to be parsed
-     * @throws IOException if an input/output error occurs
-     * @throws SAXException if a parsing exception occurs
-     */
-    @Override
-    public Object parse(final File file) throws IOException, SAXException {
-
-        configure();
-        return super.parse(file);
-
-    }
-
-    /**
-     * Parse the content of the specified input source using this Digester.
-     * Returns the root element from the object stack (which will be the
-     * Channel).
-     *
-     * @param input Input source containing the XML data to be parsed
-     * @throws IOException if an input/output error occurs
-     * @throws SAXException if a parsing exception occurs
-     */
-    @Override
-    public Object parse(final InputSource input) throws IOException, SAXException {
-
-        configure();
-        return super.parse(input);
-
-    }
-
-    /**
-     * Parse the content of the specified input stream using this Digester.
-     * Returns the root element from the object stack (which will be
-     * the Channel).
-     *
-     * @param input Input stream containing the XML data to be parsed
-     * @throws IOException if an input/output error occurs
-     * @throws SAXException if a parsing exception occurs
-     */
-    @Override
-    public Object parse(final InputStream input) throws IOException, SAXException {
-
-        configure();
-        return super.parse(input);
-
-    }
-
-    /**
-     * Parse the content of the specified URI using this Digester.
-     * Returns the root element from the object stack (which will be
-     * the Channel).
-     *
-     * @param uri URI containing the XML data to be parsed
-     * @throws IOException if an input/output error occurs
-     * @throws SAXException if a parsing exception occurs
-     */
-    @Override
-    public Object parse(final String uri) throws IOException, SAXException {
-
-        configure();
-        return super.parse(uri);
-
-    }
 
     /**
      * Configure the parsing rules that will be used to process RSS input.
@@ -255,35 +187,103 @@ public class RSSDigester extends Digester {
 
     }
 
+    public String getChannelClass() {
+        return this.channelClass;
+    }
+
+    public String getImageClass() {
+        return this.imageClass;
+    }
+
+    public String getItemClass() {
+        return this.itemClass;
+    }
+
+    public String getTextInputClass() {
+        return this.textInputClass;
+    }
+
     /**
-     * Test main program that parses the channel description included in this
-     * package as a static resource.
+     * Parse the content of the specified file using this Digester.  Returns
+     * the root element from the object stack (which will be the Channel).
      *
-     * @param args The command line arguments (ignored)
+     * @param file File containing the XML data to be parsed
+     * @throws IOException if an input/output error occurs
+     * @throws SAXException if a parsing exception occurs
      */
-    public static void main(final String args[]) {
+    @Override
+    public Object parse(final File file) throws IOException, SAXException {
 
-        try {
-            System.out.println("RSSDigester Test Program");
-            System.out.println("Opening input stream ...");
-            final InputStream is = RSSDigester.class.getResourceAsStream
-                    ("/org/apache/commons/digester/rss/rss-example.xml");
-            System.out.println("Creating new digester ...");
-            final RSSDigester digester = new RSSDigester();
-            if (args.length > 0 && args[0].equals("-debug")) {
-                digester.setLogger(LogFactory.getLog("RSSDigester"));
-            }
-            System.out.println("Parsing input stream ...");
-            final Channel channel = (Channel) digester.parse(is);
-            System.out.println("Closing input stream ...");
-            is.close();
-            System.out.println("Dumping channel info ...");
-            channel.render(System.out);
-        } catch (final Exception e) {
-            System.out.println("-->Exception");
-            e.printStackTrace(System.out);
-        }
+        configure();
+        return super.parse(file);
 
+    }
+
+    /**
+     * Parse the content of the specified input source using this Digester.
+     * Returns the root element from the object stack (which will be the
+     * Channel).
+     *
+     * @param input Input source containing the XML data to be parsed
+     * @throws IOException if an input/output error occurs
+     * @throws SAXException if a parsing exception occurs
+     */
+    @Override
+    public Object parse(final InputSource input) throws IOException, SAXException {
+
+        configure();
+        return super.parse(input);
+
+    }
+
+    /**
+     * Parse the content of the specified input stream using this Digester.
+     * Returns the root element from the object stack (which will be
+     * the Channel).
+     *
+     * @param input Input stream containing the XML data to be parsed
+     * @throws IOException if an input/output error occurs
+     * @throws SAXException if a parsing exception occurs
+     */
+    @Override
+    public Object parse(final InputStream input) throws IOException, SAXException {
+
+        configure();
+        return super.parse(input);
+
+    }
+
+    /**
+     * Parse the content of the specified URI using this Digester.
+     * Returns the root element from the object stack (which will be
+     * the Channel).
+     *
+     * @param uri URI containing the XML data to be parsed
+     * @throws IOException if an input/output error occurs
+     * @throws SAXException if a parsing exception occurs
+     */
+    @Override
+    public Object parse(final String uri) throws IOException, SAXException {
+
+        configure();
+        return super.parse(uri);
+
+    }
+
+    public void setChannelClass(final String channelClass) {
+        this.channelClass = channelClass;
+    }
+
+    public void setImageClass(final String imageClass) {
+        this.imageClass = imageClass;
+    }
+
+    public void setItemClass(final String itemClass) {
+        this.itemClass = itemClass;
+    }
+
+    public void setTextInputClass(final String textInputClass) {
+        this.textInputClass = textInputClass;
     }
 
 }

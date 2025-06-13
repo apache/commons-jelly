@@ -33,77 +33,53 @@ public class Image implements Serializable {
      */
     protected String description = null;
 
-    public String getDescription() {
-        return this.description;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
-    }
-
     /**
      * The image height in pixels (1-400).
      */
     protected int height = 31;
-
-    public int getHeight() {
-        return this.height;
-    }
-
-    public void setHeight(final int height) {
-        this.height = height;
-    }
 
     /**
      * The image link (1-500 characters).
      */
     protected String link = null;
 
-    public String getLink() {
-        return this.link;
-    }
-
-    public void setLink(final String link) {
-        this.link = link;
-    }
-
     /**
      * The image alternate text (1-100 characters).
      */
     protected String title = null;
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(final String title) {
-        this.title = title;
-    }
 
     /**
      * The image location URL (1-500 characters).
      */
     protected String url = null;
 
-    public String getURL() {
-        return this.url;
-    }
-
-    public void setURL(final String url) {
-        this.url = url;
-    }
-
     /**
      * The image width in pixels (1-400).
      */
     protected int width = 31;
 
-    public int getWidth() {
-        return this.width;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setWidth(final int width) {
-        this.width = width;
+    public int getHeight() {
+        return this.height;
+    }
+
+    public String getLink() {
+        return this.link;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getURL() {
+        return this.url;
+    }
+
+    public int getWidth() {
+        return this.width;
     }
 
     /**
@@ -146,6 +122,30 @@ public class Image implements Serializable {
 
         writer.println("    </image>");
 
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public void setHeight(final int height) {
+        this.height = height;
+    }
+
+    public void setLink(final String link) {
+        this.link = link;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public void setURL(final String url) {
+        this.url = url;
+    }
+
+    public void setWidth(final int width) {
+        this.width = width;
     }
 
 }

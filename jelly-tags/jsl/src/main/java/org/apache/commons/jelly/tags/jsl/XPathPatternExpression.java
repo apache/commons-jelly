@@ -34,18 +34,18 @@ public class XPathPatternExpression extends ExpressionSupport implements Variabl
         this.pattern = pattern;
     }
 
-    // Expression interface
-    //-------------------------------------------------------------------------
-    @Override
-    public String getExpressionText() {
-        return text;
-    }
-
     @Override
     public Object evaluate(final JellyContext context) {
         this.context = context;
         //pattern.setVariableContext(this);
         return pattern;
+    }
+
+    // Expression interface
+    //-------------------------------------------------------------------------
+    @Override
+    public String getExpressionText() {
+        return text;
     }
 
     // VariableContext interface

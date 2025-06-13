@@ -37,13 +37,6 @@ public class ConnectionTag extends TagSupport implements ConnectionContext {
     /** The Messenger */
     private Messenger connection;
 
-    // ConnectionContext interface
-    //-------------------------------------------------------------------------
-    @Override
-    public Messenger getConnection() {
-        return connection;
-    }
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -65,6 +58,13 @@ public class ConnectionTag extends TagSupport implements ConnectionContext {
         }
 
         invokeBody(output);
+    }
+
+    // ConnectionContext interface
+    //-------------------------------------------------------------------------
+    @Override
+    public Messenger getConnection() {
+        return connection;
     }
 
     // Properties

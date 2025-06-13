@@ -36,6 +36,11 @@ public class ContainsTagTest extends TestCase {
     {
     }
 
+    @Override
+    public void tearDown()
+    {
+    }
+
     public void testDoTag() throws Exception
     {
       final ContainsTag containsExpTag = new ContainsTag();
@@ -48,11 +53,6 @@ public class ContainsTagTest extends TestCase {
       containsExpTag.doTag(xmlOutput);
 
       assertEquals("TRUE", containsExpTag.getContext().getVariable("testvar").toString().toUpperCase());
-    }
-
-    @Override
-    public void tearDown()
-    {
     }
 
 }

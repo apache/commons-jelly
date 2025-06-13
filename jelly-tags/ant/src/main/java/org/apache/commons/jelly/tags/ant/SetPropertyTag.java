@@ -65,6 +65,14 @@ public class SetPropertyTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
+     * Returns the defaultValue.
+     * @return Object
+     */
+    public Object getDefault() {
+        return defaultValue;
+    }
+
+    /**
      * Returns the name.
      * @return String
      */
@@ -81,6 +89,13 @@ public class SetPropertyTag extends TagSupport {
     }
 
     /**
+     * Sets the default value to be used if the specified value is empty.
+     */
+    public void setDefault(final Object defaultValue) {
+        this.defaultValue = defaultValue;
+    }
+
+    /**
      * Sets the name of the Ant task property to set.
      * @param name The name of the Ant task property to set
      */
@@ -94,21 +109,6 @@ public class SetPropertyTag extends TagSupport {
      */
     public void setValue(final Object value) {
         this.value = value;
-    }
-
-    /**
-     * Returns the defaultValue.
-     * @return Object
-     */
-    public Object getDefault() {
-        return defaultValue;
-    }
-
-    /**
-     * Sets the default value to be used if the specified value is empty.
-     */
-    public void setDefault(final Object defaultValue) {
-        this.defaultValue = defaultValue;
     }
 
 }

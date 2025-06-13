@@ -114,9 +114,6 @@ public class SwingTagLibrary extends TagLibrary {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(SwingTagLibrary.class);
 
-    /** A map of element name to bean class objects */
-    private Map factoryMap;
-
     static {
 
         // ### we should create Converters from Strings to various Swing types such as
@@ -125,6 +122,9 @@ public class SwingTagLibrary extends TagLibrary {
         ConvertUtils.register( new PointConverter(), Point.class );
         ConvertUtils.register( new ColorConverter(), java.awt.Color.class );
     }
+
+    /** A map of element name to bean class objects */
+    private Map factoryMap;
 
     public SwingTagLibrary() {
         registerTag( "action", ActionTag.class );
@@ -197,6 +197,21 @@ public class SwingTagLibrary extends TagLibrary {
     // Implementation methods
     //-------------------------------------------------------------------------
 
+    protected Map getFactoryMap() {
+        if ( factoryMap == null ) {
+            factoryMap = new HashMap();
+            registerFactories();
+        }
+        return factoryMap;
+    }
+
+    /**
+     * Register a bean factory for the given element name and class
+     */
+    protected void registerBeanFactory(final String name, final Class beanClass) {
+        registerFactory(name, new BeanFactory(beanClass));
+    }
+
     /**
      * Strategy method allowing derived classes to change the registration behavior
      */
@@ -265,20 +280,5 @@ public class SwingTagLibrary extends TagLibrary {
      */
     protected void registerFactory(final String name, final Factory factory) {
         getFactoryMap().put(name, factory);
-    }
-
-    /**
-     * Register a bean factory for the given element name and class
-     */
-    protected void registerBeanFactory(final String name, final Class beanClass) {
-        registerFactory(name, new BeanFactory(beanClass));
-    }
-
-    protected Map getFactoryMap() {
-        if ( factoryMap == null ) {
-            factoryMap = new HashMap();
-            registerFactories();
-        }
-        return factoryMap;
     }
 }

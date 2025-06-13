@@ -88,12 +88,50 @@ public class JFaceTagLibrary extends SwtTagLibrary {
     }
 
     /**
+     * Register an action tag for the given name
+     */
+    protected void registerActionTag(final String name, final Class theClass) {
+        registerTagFactory(name, (name1, attributes) -> new ActionTag(theClass));
+    }
+
+    /**
+       * Register a contribution item tag for the given name
+       */
+    protected void registerContributionItemTag(final String name, final Class theClass) {
+        registerTagFactory(name, (name1, attributes) -> new ContributionItemTag(theClass));
+    }
+
+    /**
+     * @param name
+     * @param theClass
+     */
+    protected void registerFieldEditorTag(final String name, final Class theClass) {
+        registerTagFactory(name, (name1, attributes) -> new FieldEditorTag(theClass));
+    }
+
+    /**
+     * Register a layout tag for the given name
+     */
+    @Override
+    protected void registerLayoutTag(final String name, final Class layoutClass) {
+        registerTagFactory(name, (name1, attributes) -> new JFaceLayoutTag(layoutClass));
+    }
+
+    /**
      * @param string
      * @param class1
      */
     private void registerMenuManager(final String name, final Class theClass) {
         registerTagFactory(name, (name1, attributes) -> new MenuManagerTag());
 
+    }
+
+    /**
+     * @param name
+     * @param theClass
+     */
+    protected void registerPreferenceDialogTag(final String name, final Class theClass) {
+        registerTagFactory(name, (name1, attributes) -> new PreferenceDialogTag(theClass));
     }
 
     /**
@@ -119,58 +157,6 @@ public class JFaceTagLibrary extends SwtTagLibrary {
 
     /**
      * Register a widget tag for the given name
-     *
-     * @param name
-     * @param theClass
-     */
-    protected void registerWindowTag(final String name, final Class theClass) {
-        registerTagFactory(name, (name1, attributes) -> new ApplicationWindowTag(theClass));
-    }
-
-    /**
-     * Register an action tag for the given name
-     */
-    protected void registerActionTag(final String name, final Class theClass) {
-        registerTagFactory(name, (name1, attributes) -> new ActionTag(theClass));
-    }
-
-    /**
-       * Register a contribution item tag for the given name
-       */
-    protected void registerContributionItemTag(final String name, final Class theClass) {
-        registerTagFactory(name, (name1, attributes) -> new ContributionItemTag(theClass));
-    }
-
-    /**
-     * @param name
-     * @param theClass
-     */
-    protected void registerPreferenceDialogTag(final String name, final Class theClass) {
-        registerTagFactory(name, (name1, attributes) -> new PreferenceDialogTag(theClass));
-    }
-
-    /**
-     * @param name
-     * @param theClass
-     */
-    protected void registerFieldEditorTag(final String name, final Class theClass) {
-        registerTagFactory(name, (name1, attributes) -> new FieldEditorTag(theClass));
-    }
-
-    /**
-     * @param name
-     * @param theClass
-     */
-    protected void registerWizardDialogTag(final String name, final Class theClass) {
-        registerTagFactory(name, (name1, attributes) -> new WizardDialogTag(theClass));
-    }
-
-    protected void registerWizardPageTag(final String name, final Class theClass) {
-        registerTagFactory(name, (name1, attributes) -> new WizardPageTag(theClass));
-    }
-
-    /**
-     * Register a widget tag for the given name
      */
     @Override
     protected void registerWidgetTag(final String name, final Class widgetClass) {
@@ -186,11 +172,25 @@ public class JFaceTagLibrary extends SwtTagLibrary {
     }
 
     /**
-     * Register a layout tag for the given name
+     * Register a widget tag for the given name
+     *
+     * @param name
+     * @param theClass
      */
-    @Override
-    protected void registerLayoutTag(final String name, final Class layoutClass) {
-        registerTagFactory(name, (name1, attributes) -> new JFaceLayoutTag(layoutClass));
+    protected void registerWindowTag(final String name, final Class theClass) {
+        registerTagFactory(name, (name1, attributes) -> new ApplicationWindowTag(theClass));
+    }
+
+    /**
+     * @param name
+     * @param theClass
+     */
+    protected void registerWizardDialogTag(final String name, final Class theClass) {
+        registerTagFactory(name, (name1, attributes) -> new WizardDialogTag(theClass));
+    }
+
+    protected void registerWizardPageTag(final String name, final Class theClass) {
+        registerTagFactory(name, (name1, attributes) -> new WizardPageTag(theClass));
     }
 
 }

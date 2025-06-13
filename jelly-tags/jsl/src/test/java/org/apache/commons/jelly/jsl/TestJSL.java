@@ -56,16 +56,6 @@ public class TestJSL extends TestCase {
         super(testName);
     }
 
-    public void testExample1() throws Exception {
-        final Document document = runScript( "target/test-classes/org/apache/commons/jelly/jsl/example.jelly" );
-        final Element small = (Element) document.selectSingleNode("/html/body/small");
-
-        //assertTrue( "<small> starts with 'James Elson'", small.getText().trim().startsWith("James Elson") );
-        assertEquals( "I am a title!", small.valueOf( "h2" ).trim() );
-        assertEquals( "Twas a dark, rainy night...", small.valueOf( "small" ).trim() );
-        assertEquals( "dfjsdfjsdf", small.valueOf( "p" ).trim() );
-    }
-
     protected Document runScript(final String fileName) throws Exception {
         final InputStream in = new FileInputStream(fileName);
         final XMLParser parser = new XMLParser();
@@ -81,5 +71,15 @@ public class TestJSL extends TestCase {
         contentHandler.endDocument();
 
         return contentHandler.getDocument();
+    }
+
+    public void testExample1() throws Exception {
+        final Document document = runScript( "target/test-classes/org/apache/commons/jelly/jsl/example.jelly" );
+        final Element small = (Element) document.selectSingleNode("/html/body/small");
+
+        //assertTrue( "<small> starts with 'James Elson'", small.getText().trim().startsWith("James Elson") );
+        assertEquals( "I am a title!", small.valueOf( "h2" ).trim() );
+        assertEquals( "Twas a dark, rainy night...", small.valueOf( "small" ).trim() );
+        assertEquals( "dfjsdfjsdf", small.valueOf( "p" ).trim() );
     }
 }

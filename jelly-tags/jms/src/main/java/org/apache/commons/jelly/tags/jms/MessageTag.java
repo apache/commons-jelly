@@ -52,6 +52,17 @@ public class MessageTag extends TagSupport {
         }
     }
 
+    protected Message createMessage() throws JellyTagException {
+        try {
+            return getConnection().createMessage();
+        } catch (final JMSException e) {
+            throw new JellyTagException(e);
+        }
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -72,12 +83,20 @@ public class MessageTag extends TagSupport {
         }
     }
 
-    // Properties
+    // Implementation methods
     //-------------------------------------------------------------------------
+    protected Messenger findConnection() throws JellyTagException {
+        final ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
+        if ( messengerTag == null ) {
+            throw new JellyTagException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
+        }
 
-    /** Sets the name of the variable that the message will be exported to */
-    public void setVar(final String var) {
-        this.var = var;
+        try {
+            return messengerTag.getConnection();
+        }
+        catch (final JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
 
     public Messenger getConnection() throws JellyTagException {
@@ -85,13 +104,6 @@ public class MessageTag extends TagSupport {
             return findConnection();
         }
         return connection;
-    }
-
-    /**
-     * Sets the Messenger (the JMS connection pool) that will be used to send the message
-     */
-    public void setConnection(final Messenger connection) {
-        this.connection = connection;
     }
 
     public Message getMessage() throws JellyTagException {
@@ -102,6 +114,13 @@ public class MessageTag extends TagSupport {
     }
 
     // JMS related properties
+
+    /**
+     * Sets the Messenger (the JMS connection pool) that will be used to send the message
+     */
+    public void setConnection(final Messenger connection) {
+        this.connection = connection;
+    }
 
     /**
      * Sets the JMS Correlation ID to be used on the message
@@ -139,27 +158,8 @@ public class MessageTag extends TagSupport {
         }
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected Messenger findConnection() throws JellyTagException {
-        final ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
-        if ( messengerTag == null ) {
-            throw new JellyTagException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
-        }
-
-        try {
-            return messengerTag.getConnection();
-        }
-        catch (final JMSException e) {
-            throw new JellyTagException(e);
-        }
-    }
-
-    protected Message createMessage() throws JellyTagException {
-        try {
-            return getConnection().createMessage();
-        } catch (final JMSException e) {
-            throw new JellyTagException(e);
-        }
+    /** Sets the name of the variable that the message will be exported to */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

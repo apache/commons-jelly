@@ -79,13 +79,6 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
     }
 
     /**
-     * Sets the number of messages in the group before the performance statistics are logged
-     */
-    public void setGroupSize(final int groupSize) {
-        this.groupSize = groupSize;
-    }
-
-    /**
      * @return the logger to which statistic messages will be sent
      */
     public Log getLog() {
@@ -93,17 +86,24 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
     }
 
     /**
-     * Sets the logger to which statistic messages will be sent
-     */
-    public void setLog(final Log log) {
-        this.log = log;
-    }
-
-    /**
      * @return the MessageListener which this listener delegates to
      */
     public MessageListener getMessageListener() {
         return messageListener;
+    }
+
+    /**
+     * Sets the number of messages in the group before the performance statistics are logged
+     */
+    public void setGroupSize(final int groupSize) {
+        this.groupSize = groupSize;
+    }
+
+    /**
+     * Sets the logger to which statistic messages will be sent
+     */
+    public void setLog(final Log log) {
+        this.log = log;
     }
 
     /**

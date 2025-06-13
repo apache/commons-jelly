@@ -31,17 +31,17 @@ public class DialogTag extends WidgetTag {
 
     /**
      * @param widgetClass
-     * @param style
      */
-    public DialogTag(final Class widgetClass, final int style) {
-        super(widgetClass, style);
+    public DialogTag(final Class widgetClass) {
+        super(widgetClass);
     }
 
     /**
      * @param widgetClass
+     * @param style
      */
-    public DialogTag(final Class widgetClass) {
-        super(widgetClass);
+    public DialogTag(final Class widgetClass, final int style) {
+        super(widgetClass, style);
     }
 
     // Implementation methods

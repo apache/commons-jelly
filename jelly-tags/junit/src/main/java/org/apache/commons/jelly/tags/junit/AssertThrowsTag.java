@@ -86,38 +86,9 @@ public class AssertThrowsTag extends AssertTagSupport {
         fail("No exception was thrown.");
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    /**
-     * Sets the class name of exception expected to be thrown by the body.  The
-     * class name must be fully qualified and can either be the expected
-     * exception class itself or any supertype of it, but must be a subtype of
-     * <code>java.lang.Throwable</code>.
-     */
-    public void setExpected(final String expected) {
-        this.expected = expected;
-    }
-
-    /**
-     * Sets the variable name to define for this expression.
-     */
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    /**
-     * Sets the class loader to be used to load the exception type
-     */
-    public void setClassLoader(final ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
-
     public ClassLoader getClassLoader() {
         return ClassLoaderUtils.getClassLoader(classLoader, getContext().getUseContextClassLoader(), getClass());
     }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /**
      * Returns the <code>Class</code> corresponding to the class
@@ -153,5 +124,34 @@ public class AssertThrowsTag extends AssertTagSupport {
             return null;
         }
         return throwableClass;
+    }
+
+    /**
+     * Sets the class loader to be used to load the exception type
+     */
+    public void setClassLoader(final ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+    /**
+     * Sets the class name of exception expected to be thrown by the body.  The
+     * class name must be fully qualified and can either be the expected
+     * exception class itself or any supertype of it, but must be a subtype of
+     * <code>java.lang.Throwable</code>.
+     */
+    public void setExpected(final String expected) {
+        this.expected = expected;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the variable name to define for this expression.
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

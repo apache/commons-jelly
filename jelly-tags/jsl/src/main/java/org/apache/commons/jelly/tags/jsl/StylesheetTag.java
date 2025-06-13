@@ -55,43 +55,19 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     }
 
     /**
-     * @return the XMLOutput from the stylesheet if available
-     */
-    public XMLOutput getStylesheetOutput() {
-        if (stylesheet instanceof JellyStylesheet) {
-            final JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
-            return jellyStyle.getOutput();
-        }
-        return null;
-    }
-
-    /**
-     * Sets the XMLOutput to use by the current stylesheet
-     */
-    public void setStylesheetOutput(final XMLOutput output) {
-        if (stylesheet instanceof JellyStylesheet) {
-            final JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
-            jellyStyle.setOutput(output);
-        }
-    }
-
-    /**
      * Adds a new template rule to this stylesheet
      */
     public void addTemplate( final Rule rule ) {
         getStylesheet().addRule( rule );
     }
 
-    // XPathSource interface
-    //-------------------------------------------------------------------------
-
     /**
-     * @return the current XPath iteration value
-     *  so that any other XPath aware child tags to use
+     * Factory method to create a new stylesheet
      */
-    @Override
-    public Object getXPathSource() {
-        return xpathSource;
+    protected Stylesheet createStylesheet(final XMLOutput output) {
+        final JellyStylesheet answer = new JellyStylesheet();
+        answer.setOutput(output);
+        return answer;
     }
 
     // Tag interface
@@ -126,7 +102,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
         }
     }
 
-    // Properties
+    // XPathSource interface
     //-------------------------------------------------------------------------
 
     /**
@@ -136,32 +112,6 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     public String getMode() {
         return mode;
     }
-
-    /**
-     * Sets the mode.
-     * @param mode New value of property mode.
-     */
-    public void setMode(final String mode) {
-        this.mode = mode;
-    }
-
-    public Stylesheet getStylesheet() {
-        return stylesheet;
-    }
-
-    /** Sets the variable name to define for this expression
-     */
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(final XPath select) {
-        this.select = select;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /** @return the source on which the stylesheet should run
      */
@@ -173,13 +123,63 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
         return source;
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
+
+    public Stylesheet getStylesheet() {
+        return stylesheet;
+    }
+
     /**
-     * Factory method to create a new stylesheet
+     * @return the XMLOutput from the stylesheet if available
      */
-    protected Stylesheet createStylesheet(final XMLOutput output) {
-        final JellyStylesheet answer = new JellyStylesheet();
-        answer.setOutput(output);
-        return answer;
+    public XMLOutput getStylesheetOutput() {
+        if (stylesheet instanceof JellyStylesheet) {
+            final JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
+            return jellyStyle.getOutput();
+        }
+        return null;
+    }
+
+    /**
+     * @return the current XPath iteration value
+     *  so that any other XPath aware child tags to use
+     */
+    @Override
+    public Object getXPathSource() {
+        return xpathSource;
+    }
+
+    /**
+     * Sets the mode.
+     * @param mode New value of property mode.
+     */
+    public void setMode(final String mode) {
+        this.mode = mode;
+    }
+
+    /** Sets the XPath expression to evaluate. */
+    public void setSelect(final XPath select) {
+        this.select = select;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the XMLOutput to use by the current stylesheet
+     */
+    public void setStylesheetOutput(final XMLOutput output) {
+        if (stylesheet instanceof JellyStylesheet) {
+            final JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
+            jellyStyle.setOutput(output);
+        }
+    }
+
+    /** Sets the variable name to define for this expression
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 
     /**

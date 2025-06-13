@@ -36,6 +36,13 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
     public MyContainerTag() {
     }
 
+    // CollectionTag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void addItem(final Object value) {
+        list.add(value);
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -43,13 +50,6 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
         invokeBody(output);
         context.setVariable(var, list);
         list = new ArrayList();
-    }
-
-    // CollectionTag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void addItem(final Object value) {
-        list.add(value);
     }
 
     // Properties

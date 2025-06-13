@@ -47,83 +47,6 @@ public class RunTag extends TagSupport {
     private TestResult result;
     private TestListener listener;
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        Test test = getTest();
-        if ( test == null ) {
-            test = (Test) context.getVariable("org.apache.commons.jelly.junit.suite");
-        }
-        if ( test == null ) {
-            throw new MissingAttributeException( "test" );
-        }
-        TestResult result = getResult();
-        if ( result == null ) {
-            result = createResult(output);
-        }
-        TestListener listener = getListener();
-        if ( listener == null ) {
-            listener = createTestListener(output);
-        }
-        result.addListener(listener);
-        test.run(result);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Returns the TestResult used to capture the output of the test.
-     * @return TestResult
-     */
-    public TestResult getResult() {
-        return result;
-    }
-
-    /**
-     * Returns the Test to be ran.
-     * @return Test
-     */
-    public Test getTest() {
-        return test;
-    }
-
-    /**
-     * Sets the JUnit TestResult used to capture the results of the tst
-     * @param result The TestResult to use
-     */
-    public void setResult(final TestResult result) {
-        this.result = result;
-    }
-
-    /**
-     * Sets the JUnit Test to run which could be an individual test or a TestSuite
-     * @param test The test to run
-     */
-    public void setTest(final Test test) {
-        this.test = test;
-    }
-
-    /**
-     * Returns the listener.
-     * @return TestListener
-     */
-    public TestListener getListener() {
-        return listener;
-    }
-
-    /**
-     * Sets the TestListener.to be used to format the output of running the unit test cases
-     * @param listener The listener to set
-     */
-    public void setListener(final TestListener listener) {
-        this.listener = listener;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     /**
      * Factory method to create a new TestResult to capture the output of
      * the test cases
@@ -131,6 +54,9 @@ public class RunTag extends TagSupport {
     protected TestResult createResult(final XMLOutput output) {
         return new TestResult();
     }
+
+    // Properties
+    //-------------------------------------------------------------------------
 
     /**
      * Factory method to create a new TestListener to capture the output of
@@ -204,13 +130,51 @@ public class RunTag extends TagSupport {
         };
     }
 
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        Test test = getTest();
+        if ( test == null ) {
+            test = (Test) context.getVariable("org.apache.commons.jelly.junit.suite");
+        }
+        if ( test == null ) {
+            throw new MissingAttributeException( "test" );
+        }
+        TestResult result = getResult();
+        if ( result == null ) {
+            result = createResult(output);
+        }
+        TestListener listener = getListener();
+        if ( listener == null ) {
+            listener = createTestListener(output);
+        }
+        result.addListener(listener);
+        test.run(result);
+    }
+
     /**
-     * @return the stack trace as a String
+     * Returns the listener.
+     * @return TestListener
      */
-    protected String stackTraceToString(final Throwable t) {
-        final StringWriter writer = new StringWriter();
-        t.printStackTrace(new PrintWriter(writer));
-        return writer.toString();
+    public TestListener getListener() {
+        return listener;
+    }
+
+    /**
+     * Returns the TestResult used to capture the output of the test.
+     * @return TestResult
+     */
+    public TestResult getResult() {
+        return result;
+    }
+
+    /**
+     * Returns the Test to be ran.
+     * @return Test
+     */
+    public Test getTest() {
+        return test;
     }
 
     /**
@@ -218,5 +182,41 @@ public class RunTag extends TagSupport {
      */
     protected void handleSAXException(final SAXException e) {
         log.error( "Caught: " + e, e );
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the TestListener.to be used to format the output of running the unit test cases
+     * @param listener The listener to set
+     */
+    public void setListener(final TestListener listener) {
+        this.listener = listener;
+    }
+
+    /**
+     * Sets the JUnit TestResult used to capture the results of the tst
+     * @param result The TestResult to use
+     */
+    public void setResult(final TestResult result) {
+        this.result = result;
+    }
+
+    /**
+     * Sets the JUnit Test to run which could be an individual test or a TestSuite
+     * @param test The test to run
+     */
+    public void setTest(final Test test) {
+        this.test = test;
+    }
+
+    /**
+     * @return the stack trace as a String
+     */
+    protected String stackTraceToString(final Throwable t) {
+        final StringWriter writer = new StringWriter();
+        t.printStackTrace(new PrintWriter(writer));
+        return writer.toString();
     }
 }

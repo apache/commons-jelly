@@ -69,16 +69,16 @@ public class SortTag extends TagSupport {
         items = newItems;
     }
 
+    public void setProperty(final String newProperty)
+    {
+        property = newProperty;
+    }
+
     /**
      * The variable to hold the sorted collection.
      * @param newVar the name of the variable.
      */
     public void setVar(final String newVar) {
         var = newVar;
-    }
-
-    public void setProperty(final String newProperty)
-    {
-        property = newProperty;
     }
 }

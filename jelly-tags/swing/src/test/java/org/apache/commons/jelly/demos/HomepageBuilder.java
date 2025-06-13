@@ -48,12 +48,25 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class HomepageBuilder extends JPanel {
 
+    public static void main(final String s[]) {
+        final JFrame frame = new JFrame("Homepage Builder");
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(final WindowEvent e) {System.exit(0);}
+        });
+
+        frame.setContentPane(new HomepageBuilder());
+        frame.pack();
+        frame.setVisible(true);
+    }
     JTextField nameField;
     JTextField urlField;
     JTextField addField;
     JTextField colorField;
     JComboBox templateList;
     JList interestList;
+
     DefaultListModel listModel;
 
     public HomepageBuilder() {
@@ -164,6 +177,17 @@ public class HomepageBuilder extends JPanel {
 
     }
 
+     /***
+      * @return the URL for the relative file name or absolute URL
+      */
+    protected URL resolveURL(final String name) throws MalformedURLException {
+         final File file = new File(name);
+         if (file.exists()) {
+             return file.toURL();
+         }
+         return new URL(name);
+     }
+
     void showPage() {
 
         //open new window
@@ -185,29 +209,5 @@ public class HomepageBuilder extends JPanel {
         frame.setSize(500,500);
         frame.setVisible(true);
 
-    }
-
-     /***
-      * @return the URL for the relative file name or absolute URL
-      */
-    protected URL resolveURL(final String name) throws MalformedURLException {
-         final File file = new File(name);
-         if (file.exists()) {
-             return file.toURL();
-         }
-         return new URL(name);
-     }
-
-    public static void main(final String s[]) {
-        final JFrame frame = new JFrame("Homepage Builder");
-
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(final WindowEvent e) {System.exit(0);}
-        });
-
-        frame.setContentPane(new HomepageBuilder());
-        frame.pack();
-        frame.setVisible(true);
     }
 }

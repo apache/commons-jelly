@@ -52,37 +52,6 @@ public class BeanPropertyTag extends BeanTag {
     }
 
     /**
-     * Creates a new instance by calling a create method on the parent bean
-     */
-    @Override
-    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output) throws JellyTagException {
-        final Object parentObject = getParentObject();
-        if (parentObject != null) {
-            // now lets try call the create method...
-            final Class parentClass = parentObject.getClass();
-            final Method method = findCreateMethod(parentClass);
-            if (method != null) {
-                try {
-                    return method.invoke(parentObject, EMPTY_ARGS);
-                }
-                catch (final Exception e) {
-                    throw new JellyTagException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
-                }
-            }
-            Class tagClass = theClass;
-            if (tagClass == Object.class) {
-                tagClass = findAddMethodClass(parentClass);
-            }
-            if (tagClass == null) {
-                throw new JellyTagException("unable to infer element class for tag "+getTagName());
-            }
-
-            return super.newInstance(tagClass, attributes, output) ;
-        }
-        throw new JellyTagException("The " + getTagName() + " tag must be nested within a tag which maps to a BeanSource implementor");
-    }
-
-    /**
      * finds the parameter type of the first public method in the parent class whose name
      * matches the add{tag name} pattern, whose return type is void and which takes
      * one argument only.
@@ -117,5 +86,36 @@ public class BeanPropertyTag extends BeanTag {
         return MethodUtils.getAccessibleMethod(
             theClass, createMethodName, EMPTY_ARG_TYPES
         );
+    }
+
+    /**
+     * Creates a new instance by calling a create method on the parent bean
+     */
+    @Override
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output) throws JellyTagException {
+        final Object parentObject = getParentObject();
+        if (parentObject != null) {
+            // now lets try call the create method...
+            final Class parentClass = parentObject.getClass();
+            final Method method = findCreateMethod(parentClass);
+            if (method != null) {
+                try {
+                    return method.invoke(parentObject, EMPTY_ARGS);
+                }
+                catch (final Exception e) {
+                    throw new JellyTagException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
+                }
+            }
+            Class tagClass = theClass;
+            if (tagClass == Object.class) {
+                tagClass = findAddMethodClass(parentClass);
+            }
+            if (tagClass == null) {
+                throw new JellyTagException("unable to infer element class for tag "+getTagName());
+            }
+
+            return super.newInstance(tagClass, attributes, output) ;
+        }
+        throw new JellyTagException("The " + getTagName() + " tag must be nested within a tag which maps to a BeanSource implementor");
     }
 }

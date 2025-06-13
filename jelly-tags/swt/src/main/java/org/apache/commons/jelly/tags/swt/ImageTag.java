@@ -46,67 +46,6 @@ public class ImageTag extends TagSupport {
     private String resource;
 
     /**
-     * Sets the resource
-     * @param resource image resource location
-     */
-    public void setResource(final String resource) {
-       this.resource = resource;
-    }
-
-    /**
-     * Obtains the resource
-     * @return the image resource
-     */
-    public String getResource() {
-        return resource;
-    }
-
-    /**
-     * Sets the variable name
-     */
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    /**
-     * Obtain the variable name.
-     * @return String the variable name
-     */
-    public String getVar() {
-      return this.var;
-    }
-
-    /**
-     * Sets the src.
-     * @param src The src to set
-     */
-    public void setSrc(final String src) {
-        this.src = src;
-    }
-
-    /**
-     * Method getSrc.
-     * @return String
-     */
-    public String getSrc() {
-        return src;
-    }
-
-    /**
-     * @return the parent widget which this widget will be added to.
-     */
-    public Widget getParentWidget() {
-        final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
-        if (tag != null) {
-            return tag.getWidget();
-        }
-        return null;
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------
-
-    /**
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
@@ -139,6 +78,41 @@ public class ImageTag extends TagSupport {
     }
 
     /**
+     * @return the parent widget which this widget will be added to.
+     */
+    public Widget getParentWidget() {
+        final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
+        if (tag != null) {
+            return tag.getWidget();
+        }
+        return null;
+    }
+
+    /**
+     * Obtains the resource
+     * @return the image resource
+     */
+    public String getResource() {
+        return resource;
+    }
+
+    /**
+     * Method getSrc.
+     * @return String
+     */
+    public String getSrc() {
+        return src;
+    }
+
+    /**
+     * Obtain the variable name.
+     * @return String the variable name
+     */
+    public String getVar() {
+      return this.var;
+    }
+
+    /**
      * Creates an Image, loaded from the local disk
      */
     private Image loadLocalImage(final Display display) {
@@ -152,6 +126,32 @@ public class ImageTag extends TagSupport {
         final ClassLoader loader = ClassLoaderUtils.getClassLoader(null, getContext().getUseContextClassLoader(), getClass());
         final InputStream stream = loader.getResourceAsStream(getResource());
         return new Image(display, stream);
+    }
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the resource
+     * @param resource image resource location
+     */
+    public void setResource(final String resource) {
+       this.resource = resource;
+    }
+
+    /**
+     * Sets the src.
+     * @param src The src to set
+     */
+    public void setSrc(final String src) {
+        this.src = src;
+    }
+
+    /**
+     * Sets the variable name
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 
     /**

@@ -28,6 +28,12 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(final Customer cust) {
+        setName(cust.getName());
+        setCity(cust.getCity());
+        setLocation(cust.getLocation());
+    }
+
     public Customer(final String name) {
         setName(name);
     }
@@ -35,17 +41,6 @@ public class Customer {
     public Customer(final String name, final String city) {
         setName(name);
         setCity(city);
-    }
-
-    public Customer(final Customer cust) {
-        setName(cust.getName());
-        setCity(cust.getCity());
-        setLocation(cust.getLocation());
-    }
-
-    @Override
-    public String toString() {
-        return super.toString() + "[name=" + name + ";city=" + city + "]";
     }
 
     /**
@@ -94,5 +89,10 @@ public class Customer {
      */
     public void setName(final String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[name=" + name + ";city=" + city + "]";
     }
 }

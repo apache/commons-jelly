@@ -54,6 +54,26 @@ public class HttpContextTag extends TagSupport {
     }
 
     /**
+     * Add an http handler to the context instance
+     *
+     * @param httpHandler the handler to add
+     */
+    public void addHandler(final HttpHandler httpHandler) {
+        _context.addHandler(httpHandler);
+    }
+
+    /**
+     * Add a security constraint for the specified path specification
+     * to the context instance
+     *
+     * @param pathSpec the path specification for the security constraint
+     * @param sc the security constraint to add
+     */
+    public void addSecurityConstraint(final String pathSpec, final SecurityConstraint sc) {
+        _context.addSecurityConstraint(pathSpec, sc);
+    }
+
+    /**
      * Perform the tag functionality. In this case, setup the context path
      * and resource base before adding the context to the parent server
      *
@@ -91,36 +111,6 @@ public class HttpContextTag extends TagSupport {
 
     }
 
-    /**
-     * Add an http handler to the context instance
-     *
-     * @param httpHandler the handler to add
-     */
-    public void addHandler(final HttpHandler httpHandler) {
-        _context.addHandler(httpHandler);
-    }
-
-    /**
-     * Add a security constraint for the specified path specification
-     * to the context instance
-     *
-     * @param pathSpec the path specification for the security constraint
-     * @param sc the security constraint to add
-     */
-    public void addSecurityConstraint(final String pathSpec, final SecurityConstraint sc) {
-        _context.addSecurityConstraint(pathSpec, sc);
-    }
-
-    /**
-     * Add an authenticator to the context instance
-     *
-     * @param authenticator the authenticator to add
-     */
-    public void setAuthenticator(final Authenticator authenticator)
-    {
-        _context.setAuthenticator(authenticator);
-    }
-
     //--------------------------------------------------------------------------
     // Property accessors/mutators
     //--------------------------------------------------------------------------
@@ -134,12 +124,12 @@ public class HttpContextTag extends TagSupport {
     }
 
     /**
-     * Setter for property context path.
+     * Getter for property realm name.
      *
-     * @param contextPath New resourceBase of property context path.
+     * @return value of property realm name.
      */
-    public void setContextPath(final String contextPath) {
-        _contextPath = contextPath;
+    public String getRealmName() {
+        return _realmName;
     }
 
     /**
@@ -152,21 +142,22 @@ public class HttpContextTag extends TagSupport {
     }
 
     /**
-     * Setter for property resourceBase.
+     * Add an authenticator to the context instance
      *
-     * @param resourceBase New value of property resourceBase.
+     * @param authenticator the authenticator to add
      */
-    public void setResourceBase(final String resourceBase) {
-        _resourceBase = resourceBase;
+    public void setAuthenticator(final Authenticator authenticator)
+    {
+        _context.setAuthenticator(authenticator);
     }
 
     /**
-     * Getter for property realm name.
+     * Setter for property context path.
      *
-     * @return value of property realm name.
+     * @param contextPath New resourceBase of property context path.
      */
-    public String getRealmName() {
-        return _realmName;
+    public void setContextPath(final String contextPath) {
+        _contextPath = contextPath;
     }
 
     /**
@@ -176,6 +167,15 @@ public class HttpContextTag extends TagSupport {
      */
     public void setRealmName(final String realmName) {
         _realmName = realmName;
+    }
+
+    /**
+     * Setter for property resourceBase.
+     *
+     * @param resourceBase New value of property resourceBase.
+     */
+    public void setResourceBase(final String resourceBase) {
+        _resourceBase = resourceBase;
     }
 
 }

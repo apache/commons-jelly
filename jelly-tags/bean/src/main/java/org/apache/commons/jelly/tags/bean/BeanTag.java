@@ -73,6 +73,30 @@ public class BeanTag extends UseBeanTag {
     }
 
     /**
+     * Finds the Method to add the new bean
+     */
+    protected Method findAddMethod(final Class beanClass, final Class valueClass) {
+        if (addMethodName == null) {
+            return null;
+        }
+        final Class[] argTypes = { valueClass };
+        return MethodUtils.getAccessibleMethod(
+            beanClass, addMethodName, argTypes
+        );
+    }
+
+    /**
+     * @return the parent bean object
+     */
+    protected Object getParentObject() throws JellyTagException {
+        final BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
+        if (tag != null) {
+            return tag.getBean();
+        }
+        return null;
+    }
+
+    /**
      * @return the local name of the XML tag to which this tag is bound
      */
     public String getTagName() {
@@ -155,29 +179,5 @@ public class BeanTag extends UseBeanTag {
                 log.warn( "Could not add bean to parent for bean: " + bean );
             }
         }
-    }
-
-    /**
-     * Finds the Method to add the new bean
-     */
-    protected Method findAddMethod(final Class beanClass, final Class valueClass) {
-        if (addMethodName == null) {
-            return null;
-        }
-        final Class[] argTypes = { valueClass };
-        return MethodUtils.getAccessibleMethod(
-            beanClass, addMethodName, argTypes
-        );
-    }
-
-    /**
-     * @return the parent bean object
-     */
-    protected Object getParentObject() throws JellyTagException {
-        final BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
-        if (tag != null) {
-            return tag.getBean();
-        }
-        return null;
     }
 }

@@ -30,27 +30,6 @@ import org.eclipse.swt.widgets.Widget;
  */
 public class JFaceImageTag extends ImageTag {
 
-    /**
-     * @return the parent window
-     */
-    public Window getParentWindow() {
-        final ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
-        if (tag != null) {
-            return tag.getWindow();
-        }
-        return null;
-    }
-
-    /**
-     * Sets default image Window
-     * @param window
-     * @param image
-     */
-    private void setWindowImage(final Window window, final Image image) {
-        window.getShell().setImage(image);
-    }
-
     /*
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
@@ -80,6 +59,27 @@ public class JFaceImageTag extends ImageTag {
             setWidgetImage(parent, image);
         }
 
+    }
+
+    /**
+     * @return the parent window
+     */
+    public Window getParentWindow() {
+        final ApplicationWindowTag tag =
+            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
+        if (tag != null) {
+            return tag.getWindow();
+        }
+        return null;
+    }
+
+    /**
+     * Sets default image Window
+     * @param window
+     * @param image
+     */
+    private void setWindowImage(final Window window, final Image image) {
+        window.getShell().setImage(image);
     }
 
 }

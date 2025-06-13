@@ -154,43 +154,6 @@ public class SwtTagLibrary extends TagLibrary {
     }
 
     /**
-     * Register a layout tag for the given name
-     */
-    protected void registerLayoutTag(final String name, final Class layoutClass) {
-        registerTagFactory(
-            name,
-            (name1, attributes) -> new LayoutTag(layoutClass)
-        );
-    }
-
-    /**
-     * Register a layout data tag for the given name
-     */
-    protected void registerLayoutDataTag(final String name, final Class layoutDataClass) {
-        registerTagFactory(
-            name,
-            (name1, attributes) -> new LayoutDataTag(layoutDataClass)
-        );
-    }
-
-    /**
-     * Register a widget tag for the given name
-     */
-    protected void registerWidgetTag(final String name, final Class widgetClass) {
-        registerWidgetTag(name, widgetClass, SWT.NULL);
-    }
-
-    /**
-     * Register a widget tag for the given name
-     */
-    protected void registerWidgetTag(final String name, final Class widgetClass, final int style) {
-        registerTagFactory(
-            name,
-            (name1, attributes) -> new WidgetTag(widgetClass, style)
-        );
-    }
-
-    /**
      * Register a registerDialogTag tag for the given name
      */
     protected void registerDialogTag(final String name, final Class widgetClass) {
@@ -208,12 +171,49 @@ public class SwtTagLibrary extends TagLibrary {
       }
 
     /**
+     * Register a layout data tag for the given name
+     */
+    protected void registerLayoutDataTag(final String name, final Class layoutDataClass) {
+        registerTagFactory(
+            name,
+            (name1, attributes) -> new LayoutDataTag(layoutDataClass)
+        );
+    }
+
+    /**
+     * Register a layout tag for the given name
+     */
+    protected void registerLayoutTag(final String name, final Class layoutClass) {
+        registerTagFactory(
+            name,
+            (name1, attributes) -> new LayoutTag(layoutClass)
+        );
+    }
+
+    /**
      * Register a menu tag for the given name and style
      */
     protected void registerMenuTag(final String name, final int style) {
         registerTagFactory(
             name,
             (name1, attributes) -> new MenuTag(style)
+        );
+    }
+
+    /**
+     * Register a widget tag for the given name
+     */
+    protected void registerWidgetTag(final String name, final Class widgetClass) {
+        registerWidgetTag(name, widgetClass, SWT.NULL);
+    }
+
+    /**
+     * Register a widget tag for the given name
+     */
+    protected void registerWidgetTag(final String name, final Class widgetClass, final int style) {
+        registerTagFactory(
+            name,
+            (name1, attributes) -> new WidgetTag(widgetClass, style)
         );
     }
 

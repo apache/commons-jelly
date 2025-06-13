@@ -61,21 +61,21 @@ public class ParameterTag extends TagSupport {
     }
 
     /**
-     * Setter for property name.
-     *
-     * @param name New value of property name.
-     */
-    public void setName(final String name) {
-        _name = name;
-    }
-
-    /**
      * Getter for property value.
      *
      * @return Value of property value.
      */
     public String getValue() {
         return _value;
+    }
+
+    /**
+     * Setter for property name.
+     *
+     * @param name New value of property name.
+     */
+    public void setName(final String name) {
+        _name = name;
     }
 
     /**

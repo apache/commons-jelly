@@ -82,90 +82,6 @@ public class MergeTag extends VelocityTagSupport
     }
 
     /**
-     * Sets the var used to store the results of the merge.
-     *
-     * @param var The var to set in the JellyContext with the results of
-     * the merge.
-     */
-    public void setVar( final String var )
-    {
-        this.var = var;
-    }
-
-    /**
-     * Sets the file name for the merged output.
-     *
-     * @param name The name of the output file that is used to store the
-     * results of the merge.
-     */
-    public void setName( final String name )
-    {
-        this.name = name;
-    }
-
-    /**
-     * Sets the base directory used for loading of templates by the
-     * Velocity file resource loader.
-     *
-     * @param basedir The directory where templates can be located by
-     * the Velocity file resource loader.
-     */
-    public void setBasedir( final String basedir )
-    {
-        this.basedir = basedir;
-    }
-
-    /**
-     * Sets the fil ename of the template used to merge with the
-     * JellyContext.
-     *
-     * @param template The file name of the template to be merged.
-     */
-    public void setTemplate( final String template )
-    {
-        this.template = template;
-    }
-
-    /**
-     * Sets the read-only flag for this adapter which prevents
-     * modifications in the Velocity context from propagating to the
-     * JellyContext.
-     *
-     * @param readOnly <code>true</code> prevents modifications from
-     * propagating (the default), or <code>false</code> which permits
-     * modifications.
-     */
-    public void setReadOnly( final boolean readOnly )
-    {
-        this.readOnly = readOnly;
-    }
-
-    /**
-     * Sets the output encoding mode which defaults to ISO-8859-1 used
-     * when storing the results of a merge in a file.
-     *
-     * @param encoding  The file encoding to use when writing the
-     * output.
-     */
-    public void setOutputEncoding( final String encoding )
-    {
-        this.outputEncoding = encoding;
-    }
-
-    /**
-     * Sets the input encoding used in the specified template which
-     * defaults to ISO-8859-1.
-     *
-     * @param encoding  The encoding used in the template.
-     */
-    public void setInputEncoding( final String encoding )
-    {
-        this.inputEncoding = encoding;
-    }
-
-    // -- Implementation ----------------------------------------------------
-
-    /**
      * Merges the Velocity template with the Jelly context.
      *
      * @param writer The output writer used to write the merged results.
@@ -186,6 +102,90 @@ public class MergeTag extends VelocityTagSupport
         catch (final Exception e) {
             throw new JellyTagException(e);
         }
+    }
+
+    /**
+     * Sets the base directory used for loading of templates by the
+     * Velocity file resource loader.
+     *
+     * @param basedir The directory where templates can be located by
+     * the Velocity file resource loader.
+     */
+    public void setBasedir( final String basedir )
+    {
+        this.basedir = basedir;
+    }
+
+    /**
+     * Sets the input encoding used in the specified template which
+     * defaults to ISO-8859-1.
+     *
+     * @param encoding  The encoding used in the template.
+     */
+    public void setInputEncoding( final String encoding )
+    {
+        this.inputEncoding = encoding;
+    }
+
+    /**
+     * Sets the file name for the merged output.
+     *
+     * @param name The name of the output file that is used to store the
+     * results of the merge.
+     */
+    public void setName( final String name )
+    {
+        this.name = name;
+    }
+
+    /**
+     * Sets the output encoding mode which defaults to ISO-8859-1 used
+     * when storing the results of a merge in a file.
+     *
+     * @param encoding  The file encoding to use when writing the
+     * output.
+     */
+    public void setOutputEncoding( final String encoding )
+    {
+        this.outputEncoding = encoding;
+    }
+
+    /**
+     * Sets the read-only flag for this adapter which prevents
+     * modifications in the Velocity context from propagating to the
+     * JellyContext.
+     *
+     * @param readOnly <code>true</code> prevents modifications from
+     * propagating (the default), or <code>false</code> which permits
+     * modifications.
+     */
+    public void setReadOnly( final boolean readOnly )
+    {
+        this.readOnly = readOnly;
+    }
+
+    /**
+     * Sets the fil ename of the template used to merge with the
+     * JellyContext.
+     *
+     * @param template The file name of the template to be merged.
+     */
+    public void setTemplate( final String template )
+    {
+        this.template = template;
+    }
+
+    // -- Implementation ----------------------------------------------------
+
+    /**
+     * Sets the var used to store the results of the merge.
+     *
+     * @param var The var to set in the JellyContext with the results of
+     * the merge.
+     */
+    public void setVar( final String var )
+    {
+        this.var = var;
     }
 }
 

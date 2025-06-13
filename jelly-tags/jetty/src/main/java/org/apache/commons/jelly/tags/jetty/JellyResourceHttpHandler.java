@@ -57,14 +57,26 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
         _xmlOutput = xmlOutput;
     }
 
-    /*
-     * register this tag as the handler for the specified method
-     *
-     * @param tag the tag to be registered
-     * @param method the name of the http method which this tag processes
-     */
-    public void registerTag(final Tag tag, final String method){
-        _tagMap.put(method.toLowerCase(), tag);
+    public String getRequestBody(final HttpRequest request) throws IOException {
+
+        // read the body as a string from the input stream
+        final InputStream is = request.getInputStream();
+        final InputStreamReader isr = new InputStreamReader(is);
+        final BufferedReader br = new BufferedReader(isr);
+        final StringBuilder sb = new StringBuilder();
+        final char[] buffer = new char[1024];
+        int len;
+
+        while ((len = isr.read(buffer, 0, 1024)) != -1) {
+            sb.append(buffer, 0, len);
+        }
+
+        if (sb.length() > 0) {
+            return sb.toString();
+        } else {
+            return null;
+        }
+
     }
 
     /*
@@ -118,26 +130,14 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
         return;
     }
 
-    public String getRequestBody(final HttpRequest request) throws IOException {
-
-        // read the body as a string from the input stream
-        final InputStream is = request.getInputStream();
-        final InputStreamReader isr = new InputStreamReader(is);
-        final BufferedReader br = new BufferedReader(isr);
-        final StringBuilder sb = new StringBuilder();
-        final char[] buffer = new char[1024];
-        int len;
-
-        while ((len = isr.read(buffer, 0, 1024)) != -1) {
-            sb.append(buffer, 0, len);
-        }
-
-        if (sb.length() > 0) {
-            return sb.toString();
-        } else {
-            return null;
-        }
-
+    /*
+     * register this tag as the handler for the specified method
+     *
+     * @param tag the tag to be registered
+     * @param method the name of the http method which this tag processes
+     */
+    public void registerTag(final Tag tag, final String method){
+        _tagMap.put(method.toLowerCase(), tag);
     }
 }
 

@@ -42,46 +42,6 @@ public class JobTag extends QuartzTagSupport
         // intentionally left blank.
     }
 
-    /** Sets the name of this job.
-     *
-     *  @param name The name of this job.
-     */
-    public void setName(final String name)
-    {
-        this.name = name;
-    }
-
-    /** Retrieve the name of this job.
-     *
-     *  @return The name of this job.
-     */
-    public String getName()
-    {
-        return this.name;
-    }
-
-    /** Sets the group of this job.
-     *
-     *  @param group The group of this job.
-     */
-    public void setGroup(final String group)
-    {
-        this.group = group;
-    }
-
-    /** Retrieve the group of this job.
-     *
-     *  @return The group of this job.
-     */
-    public String getGroup()
-    {
-        return this.group;
-    }
-
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-    //     org.apache.commons.jelly.Tag
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-
     /** Perform this tag.
      *
      *  @param output Output sink.
@@ -129,6 +89,46 @@ public class JobTag extends QuartzTagSupport
         catch (final SchedulerException e) {
             throw new JellyTagException(e);
         }
+    }
+
+    /** Retrieve the group of this job.
+     *
+     *  @return The group of this job.
+     */
+    public String getGroup()
+    {
+        return this.group;
+    }
+
+    /** Retrieve the name of this job.
+     *
+     *  @return The name of this job.
+     */
+    public String getName()
+    {
+        return this.name;
+    }
+
+    /** Sets the group of this job.
+     *
+     *  @param group The group of this job.
+     */
+    public void setGroup(final String group)
+    {
+        this.group = group;
+    }
+
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    //     org.apache.commons.jelly.Tag
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    /** Sets the name of this job.
+     *
+     *  @param name The name of this job.
+     */
+    public void setName(final String name)
+    {
+        this.name = name;
     }
 }
 

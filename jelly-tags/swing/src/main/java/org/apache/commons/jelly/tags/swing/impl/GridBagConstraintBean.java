@@ -30,6 +30,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public class GridBagConstraintBean extends GridBagConstraints {
 
+    /** Logging output */
+    private static final Log LOG = LogFactory.getLog(GridBagConstraintBean.class);
+    /** Error message */
+    private static final String ILLEGAL_ANCHOR_MSG = "Anchor must be one of  the GridBagLayout constants for the current Java version.";
     private boolean gridxSet = false;
     private boolean gridySet = false;
     private boolean gridwidthSet = false;
@@ -38,88 +42,12 @@ public class GridBagConstraintBean extends GridBagConstraints {
     private boolean weightySet = false;
     private boolean ipadxSet = false;
     private boolean ipadySet = false;
+
     private boolean anchorSet = false;
+
     private boolean fillSet = false;
 
-    /** Logging output */
-    private static final Log LOG = LogFactory.getLog(GridBagConstraintBean.class);
-
-    /** Error message */
-    private static final String ILLEGAL_ANCHOR_MSG = "Anchor must be one of  the GridBagLayout constants for the current Java version.";
-
     public GridBagConstraintBean() {
-    }
-
-    public int getGridx() {
-        return gridx;
-    }
-    public void setGridx(final int gridx) {
-        this.gridx = gridx;
-        this.gridxSet = true;
-    }
-
-    public int getGridy() {
-        return gridy;
-    }
-    public void setGridy(final int gridy) {
-        this.gridy = gridy;
-        this.gridySet = true;
-    }
-
-    public int getGridwidth() {
-        return gridwidth;
-    }
-    public void setGridwidth(final int gridwidth) {
-        this.gridwidth = gridwidth;
-        this.gridwidthSet = true;
-    }
-
-    public int getGridheight() {
-        return gridheight;
-    }
-    public void setGridheight(final int gridheight) {
-        this.gridheight = gridheight;
-        this.gridheightSet = true;
-    }
-
-    public double getWeightx() {
-        return weightx;
-    }
-    public void setWeightx(final double weightx) {
-        this.weightx = weightx;
-        this.weightxSet = true;
-    }
-
-    public double getWeighty() {
-        return weighty;
-    }
-    public void setWeighty(final double weighty) {
-        this.weighty = weighty;
-        this.weightySet = true;
-    }
-
-    public int getIpadx() {
-        return ipadx;
-    }
-    public void setIpadx(final int ipadx) {
-        this.ipadx = ipadx;
-        this.ipadxSet = true;
-    }
-
-    public int getIpady() {
-        return ipady;
-    }
-    public void setIpady(final int ipady) {
-        this.ipady = ipady;
-        this.ipadySet = true;
-    }
-
-    // TODO: provide better. insetstop, insetsbottom ??
-    public Insets getInsets() {
-        return insets;
-    }
-    public void setInsets(final Insets insets) {
-        this.insets = insets;
     }
 
     /** Returns the lower-case variant of the constant-name
@@ -169,6 +97,68 @@ public class GridBagConstraintBean extends GridBagConstraints {
         }
 
         throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
+    }
+    private int getByReflection(final String field) {
+        try {
+            final Field f = getClass().getField(field);
+            final Integer rv = (Integer) f.get(this);
+            return rv.intValue();
+        } catch (final SecurityException | NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
+            LOG.debug(e);
+            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
+        }
+    }
+
+    /** Returns the lower-case variant of the constant-name
+        *    corresponding to the stored {@link #fill} attribute.
+        *
+        *    @see    #fill
+        */
+    public String getFill() {
+        switch (fill) {
+            case NONE :
+                return "none";
+            case HORIZONTAL :
+                return "horizontal";
+            case VERTICAL :
+                return "vertical";
+            case BOTH :
+                return "both";
+            default :
+                throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants: NONE, HORIZONTAL, VERTICAL, BOTH.");
+        }
+    }
+    public int getGridheight() {
+        return gridheight;
+    }
+
+    public int getGridwidth() {
+        return gridwidth;
+    }
+    public int getGridx() {
+        return gridx;
+    }
+
+    public int getGridy() {
+        return gridy;
+    }
+    // TODO: provide better. insetstop, insetsbottom ??
+    public Insets getInsets() {
+        return insets;
+    }
+
+    public int getIpadx() {
+        return ipadx;
+    }
+    public int getIpady() {
+        return ipady;
+    }
+
+    public double getWeightx() {
+        return weightx;
+    }
+    public double getWeighty() {
+        return weighty;
     }
 
     /** Accepts one of the strings with the same name as the constants
@@ -240,57 +230,6 @@ public class GridBagConstraintBean extends GridBagConstraints {
         }
         this.anchorSet = true;
     }
-
-    /** Returns the lower-case variant of the constant-name
-        *    corresponding to the stored {@link #fill} attribute.
-        *
-        *    @see    #fill
-        */
-    public String getFill() {
-        switch (fill) {
-            case NONE :
-                return "none";
-            case HORIZONTAL :
-                return "horizontal";
-            case VERTICAL :
-                return "vertical";
-            case BOTH :
-                return "both";
-            default :
-                throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants: NONE, HORIZONTAL, VERTICAL, BOTH.");
-        }
-    }
-    /** Accepts one of the strings with the same name as the constants
-        * and sets the {@link #fill} value accordingly.
-        *    The accepted strings are case-insensitive.
-        *
-        *    @see #fill
-        */
-    public void setFill(final String fillString) {
-        final String lcFillString = fillString.toLowerCase();
-        if (lcFillString != null) {
-            switch (lcFillString) {
-            case "none":
-                this.fill = NONE;
-                break;
-            case "horizontal":
-                this.fill = HORIZONTAL;
-                break;
-            case "vertical":
-                this.fill = VERTICAL;
-                break;
-            case "both":
-                this.fill = BOTH;
-                break;
-            default:
-                throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
-            }
-        } else {
-            throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
-        }
-        this.fillSet = true;
-    }
-
     /** Reads the values in the given grid-bag-constraint-bean that are set and sets
         * them in this object if they have not been set yet.
         */
@@ -337,6 +276,78 @@ public class GridBagConstraintBean extends GridBagConstraints {
         }
     }
 
+    /** Accepts one of the strings with the same name as the constants
+        * and sets the {@link #fill} value accordingly.
+        *    The accepted strings are case-insensitive.
+        *
+        *    @see #fill
+        */
+    public void setFill(final String fillString) {
+        final String lcFillString = fillString.toLowerCase();
+        if (lcFillString != null) {
+            switch (lcFillString) {
+            case "none":
+                this.fill = NONE;
+                break;
+            case "horizontal":
+                this.fill = HORIZONTAL;
+                break;
+            case "vertical":
+                this.fill = VERTICAL;
+                break;
+            case "both":
+                this.fill = BOTH;
+                break;
+            default:
+                throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
+            }
+        } else {
+            throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
+        }
+        this.fillSet = true;
+    }
+    public void setGridheight(final int gridheight) {
+        this.gridheight = gridheight;
+        this.gridheightSet = true;
+    }
+
+    public void setGridwidth(final int gridwidth) {
+        this.gridwidth = gridwidth;
+        this.gridwidthSet = true;
+    }
+    public void setGridx(final int gridx) {
+        this.gridx = gridx;
+        this.gridxSet = true;
+    }
+
+    public void setGridy(final int gridy) {
+        this.gridy = gridy;
+        this.gridySet = true;
+    }
+
+    public void setInsets(final Insets insets) {
+        this.insets = insets;
+    }
+
+    public void setIpadx(final int ipadx) {
+        this.ipadx = ipadx;
+        this.ipadxSet = true;
+    }
+    public void setIpady(final int ipady) {
+        this.ipady = ipady;
+        this.ipadySet = true;
+    }
+
+    public void setWeightx(final double weightx) {
+        this.weightx = weightx;
+        this.weightxSet = true;
+    }
+
+    public void setWeighty(final double weighty) {
+        this.weighty = weighty;
+        this.weightySet = true;
+    }
+
     @Override
     public String toString() {
         return "GridBagConstraintBean["
@@ -363,17 +374,6 @@ public class GridBagConstraintBean extends GridBagConstraints {
             + ", insets="
             + insets
             + "]";
-    }
-
-    private int getByReflection(final String field) {
-        try {
-            final Field f = getClass().getField(field);
-            final Integer rv = (Integer) f.get(this);
-            return rv.intValue();
-        } catch (final SecurityException | NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
-            LOG.debug(e);
-            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
-        }
     }
 
 } // class GridBagConstraintsBean

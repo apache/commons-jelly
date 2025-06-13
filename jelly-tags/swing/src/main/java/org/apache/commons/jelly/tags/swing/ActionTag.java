@@ -48,11 +48,15 @@ public class ActionTag extends UseBeanTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * @return the Action object for this tag
-     */
-    public Action getAction() {
-        return (Action) getBean();
+    protected String capitalize(final String text) {
+        final char ch = text.charAt(0);
+        if ( Character.isUpperCase( ch ) ) {
+            return text;
+        }
+        final StringBuilder buffer = new StringBuilder(text.length());
+        buffer.append( Character.toUpperCase( ch ) );
+        buffer.append( text.substring(1) );
+        return buffer.toString();
     }
 
     // Implementation methods
@@ -69,6 +73,18 @@ public class ActionTag extends UseBeanTag {
         }
         return super.convertToClass(classObject);
     }
+
+    /**
+     * @return the Action object for this tag
+     */
+    public Action getAction() {
+        return (Action) getBean();
+    }
+
+	@Override
+    public void invokeBody(final XMLOutput output) {
+		// do nothing
+	}
 
     /**
      * An existing Action could be specified via the 'action' attribute or an action class
@@ -102,11 +118,6 @@ public class ActionTag extends UseBeanTag {
         }
         return action;
     }
-
-	@Override
-    public void invokeBody(final XMLOutput output) {
-		// do nothing
-	}
 
     /**
      * Either defines a variable or adds the current component to the parent
@@ -153,17 +164,6 @@ public class ActionTag extends UseBeanTag {
 
             action.putValue( name, value );
         }
-    }
-
-    protected String capitalize(final String text) {
-        final char ch = text.charAt(0);
-        if ( Character.isUpperCase( ch ) ) {
-            return text;
-        }
-        final StringBuilder buffer = new StringBuilder(text.length());
-        buffer.append( Character.toUpperCase( ch ) );
-        buffer.append( text.substring(1) );
-        return buffer.toString();
     }
 
 }

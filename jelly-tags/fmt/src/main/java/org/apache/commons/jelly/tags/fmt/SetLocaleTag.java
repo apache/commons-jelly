@@ -37,160 +37,38 @@ public class SetLocaleTag extends TagSupport {
     private static final char HYPHEN = '-';
     private static final char UNDERSCORE = '_';
 
-    private Expression value;
-
-    private Expression variant;
-
-    private String scope;
-
-    /** Creates a new instance of SetLocaleTag */
-    public SetLocaleTag() {
-    }
-
-    /**
-     * Evaluates this tag after all the tags properties have been initialized.
+    /*
+     * Returns the best match between the given preferred locale and the
+     * given available locales.
      *
+     * The best match is given as the first available locale that exactly
+     * matches the given preferred locale ("exact match"). If no exact match
+     * exists, the best match is given as the first available locale that
+     * matches the preferred locale's language component and does not have any
+     * country component ("language match").
+     *
+     * @param pref the preferred locale
+     * @param avail the available formatting locales
+     * @return Available locale that best matches the given preferred locale,
+     * or {@code null} if no match exists
      */
-    @Override
-    public void doTag(final XMLOutput output) throws JellyTagException {
-        Locale locale = null;
+    private static Locale findFormattingMatch(final Locale pref, final Locale[] avail) {
+        Locale match = null;
 
-        Object valueInput = null;
-        if (this.value != null) {
-            valueInput = this.value.evaluate(context);
-        }
-        Object variantInput = null;
-        if (this.variant != null) {
-            variantInput = this.variant.evaluate(context);
-        }
-
-        if (valueInput == null) {
-            locale = Locale.getDefault();
-        } else if (valueInput instanceof String) {
-            if (((String) valueInput).trim().isEmpty()) {
-                locale = Locale.getDefault();
-            } else {
-                locale = parseLocale((String) valueInput, (String) variantInput);
+        for (final Locale element : avail) {
+            if (pref.equals(element)) {
+                // Exact match
+                match = element;
+                break;
             }
-        } else {
-            locale = (Locale) valueInput;
-        }
-
-        if (scope != null) {
-            context.setVariable(Config.FMT_LOCALE, scope, locale);
-        }
-        else {
-            context.setVariable(Config.FMT_LOCALE, locale);
-        }
-        //setResponseLocale(jc, locale);
-    }
-
-    public void setValue(final Expression value) {
-        this.value = value;
-    }
-
-    public void setVariant(final Expression variant) {
-        this.variant = variant;
-    }
-
-    public void setScope(final String scope) {
-        this.scope = scope;
-    }
-
-    //*********************************************************************
-    // Public utility methods
-
-    /**
-     * See parseLocale(String, String) for details.
-     */
-    public static Locale parseLocale(final String locale) {
-        return parseLocale(locale, null);
-    }
-
-    /**
-     * Parses the given locale string into its language and (optionally)
-     * country components, and returns the corresponding
-     * <code>java.util.Locale</code> object.
-     *
-     * If the given locale string is null or empty, the runtime's default
-     * locale is returned.
-     *
-     * @param locale the locale string to parse
-     * @param variant the variant
-     * @return <code>java.util.Locale</code> object corresponding to the given
-     * locale string, or the runtime's default locale if the locale string is
-     * null or empty
-     *
-     * @throws IllegalArgumentException if the given locale does not have a
-     * language component or has an empty country component
-     */
-    public static Locale parseLocale(final String locale, final String variant) {
-
-        Locale ret = null;
-        String language = locale;
-        String country = null;
-        int index = -1;
-
-        if ((index = locale.indexOf(HYPHEN)) > -1
-        || (index = locale.indexOf(UNDERSCORE)) > -1) {
-            language = locale.substring(0, index);
-            country = locale.substring(index+1);
-        }
-
-        if (language == null || language.length() == 0) {
-            throw new IllegalArgumentException("Missing language");
-        }
-
-        if (country == null) {
-            if (variant != null) {
-                ret = new Locale(language, "", variant);
-            } else {
-                ret = new Locale(language, "");
-            }
-        } else if (country.length() > 0) {
-            if (variant != null) {
-                ret = new Locale(language, country, variant);
-            } else {
-                ret = new Locale(language, country);
-            }
-        } else {
-            throw new IllegalArgumentException("Missing country");
-        }
-
-        return ret;
-    }
-
-    /**
-     * Returns the locale specified by the named scoped attribute or context
-     * configuration parameter.
-     *
-     * <p> The named scoped attribute is searched in the page, request,
-     * session (if valid), and application scope(s) (in this order). If no such
-     * attribute exists in any of the scopes, the locale is taken from the
-     * named context configuration parameter.
-     *
-     * @param jc the page in which to search for the named scoped
-     * attribute or context configuration parameter
-     * @param name the name of the scoped attribute or context configuration
-     * parameter
-     *
-     * @return the locale specified by the named scoped attribute or context
-     * configuration parameter, or {@code null} if no scoped attribute or
-     * configuration parameter with the given name exists
-     */
-    static Locale getLocale(final JellyContext jc, final String name) {
-        Locale loc = null;
-
-        final Object obj = jc.getVariable(name);
-        if (obj != null) {
-            if (obj instanceof Locale) {
-                loc = (Locale) obj;
-            } else {
-                loc = parseLocale((String) obj);
+            // Language match
+            if ((pref.getLanguage().equals(element.getLanguage())
+            && "".equals(element.getCountry())) && (match == null)) {
+                match = element;
             }
         }
 
-        return loc;
+        return match;
     }
 
     /*
@@ -263,37 +141,159 @@ public class SetLocaleTag extends TagSupport {
         return match;
     }
 
-    /*
-     * Returns the best match between the given preferred locale and the
-     * given available locales.
+    /**
+     * Returns the locale specified by the named scoped attribute or context
+     * configuration parameter.
      *
-     * The best match is given as the first available locale that exactly
-     * matches the given preferred locale ("exact match"). If no exact match
-     * exists, the best match is given as the first available locale that
-     * matches the preferred locale's language component and does not have any
-     * country component ("language match").
+     * <p> The named scoped attribute is searched in the page, request,
+     * session (if valid), and application scope(s) (in this order). If no such
+     * attribute exists in any of the scopes, the locale is taken from the
+     * named context configuration parameter.
      *
-     * @param pref the preferred locale
-     * @param avail the available formatting locales
-     * @return Available locale that best matches the given preferred locale,
-     * or {@code null} if no match exists
+     * @param jc the page in which to search for the named scoped
+     * attribute or context configuration parameter
+     * @param name the name of the scoped attribute or context configuration
+     * parameter
+     *
+     * @return the locale specified by the named scoped attribute or context
+     * configuration parameter, or {@code null} if no scoped attribute or
+     * configuration parameter with the given name exists
      */
-    private static Locale findFormattingMatch(final Locale pref, final Locale[] avail) {
-        Locale match = null;
+    static Locale getLocale(final JellyContext jc, final String name) {
+        Locale loc = null;
 
-        for (final Locale element : avail) {
-            if (pref.equals(element)) {
-                // Exact match
-                match = element;
-                break;
-            }
-            // Language match
-            if ((pref.getLanguage().equals(element.getLanguage())
-            && "".equals(element.getCountry())) && (match == null)) {
-                match = element;
+        final Object obj = jc.getVariable(name);
+        if (obj != null) {
+            if (obj instanceof Locale) {
+                loc = (Locale) obj;
+            } else {
+                loc = parseLocale((String) obj);
             }
         }
 
-        return match;
+        return loc;
+    }
+
+    /**
+     * See parseLocale(String, String) for details.
+     */
+    public static Locale parseLocale(final String locale) {
+        return parseLocale(locale, null);
+    }
+
+    /**
+     * Parses the given locale string into its language and (optionally)
+     * country components, and returns the corresponding
+     * <code>java.util.Locale</code> object.
+     *
+     * If the given locale string is null or empty, the runtime's default
+     * locale is returned.
+     *
+     * @param locale the locale string to parse
+     * @param variant the variant
+     * @return <code>java.util.Locale</code> object corresponding to the given
+     * locale string, or the runtime's default locale if the locale string is
+     * null or empty
+     *
+     * @throws IllegalArgumentException if the given locale does not have a
+     * language component or has an empty country component
+     */
+    public static Locale parseLocale(final String locale, final String variant) {
+
+        Locale ret = null;
+        String language = locale;
+        String country = null;
+        int index = -1;
+
+        if ((index = locale.indexOf(HYPHEN)) > -1
+        || (index = locale.indexOf(UNDERSCORE)) > -1) {
+            language = locale.substring(0, index);
+            country = locale.substring(index+1);
+        }
+
+        if (language == null || language.length() == 0) {
+            throw new IllegalArgumentException("Missing language");
+        }
+
+        if (country == null) {
+            if (variant != null) {
+                ret = new Locale(language, "", variant);
+            } else {
+                ret = new Locale(language, "");
+            }
+        } else if (country.length() > 0) {
+            if (variant != null) {
+                ret = new Locale(language, country, variant);
+            } else {
+                ret = new Locale(language, country);
+            }
+        } else {
+            throw new IllegalArgumentException("Missing country");
+        }
+
+        return ret;
+    }
+
+    private Expression value;
+
+    private Expression variant;
+
+    private String scope;
+
+    //*********************************************************************
+    // Public utility methods
+
+    /** Creates a new instance of SetLocaleTag */
+    public SetLocaleTag() {
+    }
+
+    /**
+     * Evaluates this tag after all the tags properties have been initialized.
+     *
+     */
+    @Override
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        Locale locale = null;
+
+        Object valueInput = null;
+        if (this.value != null) {
+            valueInput = this.value.evaluate(context);
+        }
+        Object variantInput = null;
+        if (this.variant != null) {
+            variantInput = this.variant.evaluate(context);
+        }
+
+        if (valueInput == null) {
+            locale = Locale.getDefault();
+        } else if (valueInput instanceof String) {
+            if (((String) valueInput).trim().isEmpty()) {
+                locale = Locale.getDefault();
+            } else {
+                locale = parseLocale((String) valueInput, (String) variantInput);
+            }
+        } else {
+            locale = (Locale) valueInput;
+        }
+
+        if (scope != null) {
+            context.setVariable(Config.FMT_LOCALE, scope, locale);
+        }
+        else {
+            context.setVariable(Config.FMT_LOCALE, locale);
+        }
+        //setResponseLocale(jc, locale);
+    }
+
+    public void setScope(final String scope) {
+        this.scope = scope;
+    }
+
+    public void setValue(final Expression value) {
+        this.value = value;
+    }
+
+    public void setVariant(final Expression variant) {
+        this.variant = variant;
     }
 }

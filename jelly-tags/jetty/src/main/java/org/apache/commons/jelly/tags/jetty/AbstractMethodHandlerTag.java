@@ -27,9 +27,6 @@ import org.apache.commons.jelly.XMLOutput;
  */
 abstract public class AbstractMethodHandlerTag extends TagSupport {
 
-    /** Override this to return the name of the http method handled by this tag */
-    abstract public String getMethodHandled();
-
     /**
      * Perform the tag functionality. In this case, add a http method handler
      * to the parent that invokes the script in the body of this tag when
@@ -54,6 +51,9 @@ abstract public class AbstractMethodHandlerTag extends TagSupport {
 
         // NOTE - don't invokeBody here as we only want to do it during a request
     }
+
+    /** Override this to return the name of the http method handled by this tag */
+    abstract public String getMethodHandled();
 
 }
 

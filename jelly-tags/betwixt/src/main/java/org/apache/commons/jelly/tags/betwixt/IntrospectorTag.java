@@ -41,9 +41,6 @@ public class IntrospectorTag extends TagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(IntrospectorTag.class);
 
-    private XMLIntrospector introspector;
-    private String var;
-
     static {
 
         // register converters to standard Strategies
@@ -69,79 +66,6 @@ public class IntrospectorTag extends TagSupport {
             NameMapper.class
         );
     }
-
-    public IntrospectorTag() {
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-
-        if ( var == null ) {
-            throw new MissingAttributeException( "var" );
-        }
-        invokeBody(output);
-
-        XMLIntrospector introspector = getIntrospector();
-
-        context.setVariable( var, introspector );
-
-        // now lets clear this introspector so that its recreated again next time
-        this.introspector = null;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the current XMLIntrospector, lazily creating one if required
-     */
-    public XMLIntrospector getIntrospector() {
-        if ( introspector == null ) {
-            introspector = createIntrospector();
-        }
-        return introspector;
-    }
-
-    /**
-     * Sets whether attributes or elements should be used for primitive types.
-     * The default is false.
-     */
-    public void setAttributesForPrimitives(boolean attributesForPrimitives) {
-        getIntrospector().setAttributesForPrimitives(attributesForPrimitives);
-    }
-
-    /**
-     * Sets the name mapper used for element names.
-     * You can also use the Strings 'lowercase', 'uppercase' or 'hyphenated'
-     * as aliases to the common name mapping strategies or specify a class name String.
-     */
-    public void setElementNameMapper(NameMapper nameMapper) {
-        getIntrospector().setElementNameMapper(nameMapper);
-    }
-
-    /**
-     * Sets the name mapper used for attribute names.
-     * You can also use the Strings 'lowercase', 'uppercase' or 'hyphenated'
-     * as aliases to the common name mapping strategies or specify a class name String.
-     */
-    public void setAttributeNameMapper(NameMapper nameMapper) {
-        getIntrospector().setAttributeNameMapper(nameMapper);
-    }
-
-    /**
-     * Sets the variable name to output the new XMLIntrospector to.
-     * If this attribute is not specified then this tag must be nested
-     * inside an &lt;parse&gt; or &lt;output&gt; tag
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     /**
      * Static helper method which will convert the given string into
      * standard named strategies such as 'lowercase', 'uppercase' or 'hyphenated'
@@ -189,10 +113,86 @@ public class IntrospectorTag extends TagSupport {
         }
     }
 
+    private XMLIntrospector introspector;
+
+    private String var;
+
+    public IntrospectorTag() {
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     /**
      * Factory method to create a new XMLIntrospector
      */
     protected XMLIntrospector createIntrospector() {
         return new XMLIntrospector();
+    }
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+
+        if ( var == null ) {
+            throw new MissingAttributeException( "var" );
+        }
+        invokeBody(output);
+
+        XMLIntrospector introspector = getIntrospector();
+
+        context.setVariable( var, introspector );
+
+        // now lets clear this introspector so that its recreated again next time
+        this.introspector = null;
+    }
+
+    /**
+     * @return the current XMLIntrospector, lazily creating one if required
+     */
+    public XMLIntrospector getIntrospector() {
+        if ( introspector == null ) {
+            introspector = createIntrospector();
+        }
+        return introspector;
+    }
+
+    /**
+     * Sets the name mapper used for attribute names.
+     * You can also use the Strings 'lowercase', 'uppercase' or 'hyphenated'
+     * as aliases to the common name mapping strategies or specify a class name String.
+     */
+    public void setAttributeNameMapper(NameMapper nameMapper) {
+        getIntrospector().setAttributeNameMapper(nameMapper);
+    }
+
+    /**
+     * Sets whether attributes or elements should be used for primitive types.
+     * The default is false.
+     */
+    public void setAttributesForPrimitives(boolean attributesForPrimitives) {
+        getIntrospector().setAttributesForPrimitives(attributesForPrimitives);
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the name mapper used for element names.
+     * You can also use the Strings 'lowercase', 'uppercase' or 'hyphenated'
+     * as aliases to the common name mapping strategies or specify a class name String.
+     */
+    public void setElementNameMapper(NameMapper nameMapper) {
+        getIntrospector().setElementNameMapper(nameMapper);
+    }
+
+    /**
+     * Sets the variable name to output the new XMLIntrospector to.
+     * If this attribute is not specified then this tag must be nested
+     * inside an &lt;parse&gt; or &lt;output&gt; tag
+     */
+    public void setVar(String var) {
+        this.var = var;
     }
 }

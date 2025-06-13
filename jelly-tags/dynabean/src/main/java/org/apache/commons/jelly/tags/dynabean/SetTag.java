@@ -103,35 +103,6 @@ public class SetTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    /** Sets the variable name to define for this expression
-     */
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    /**
-     * Sets the variable scope for this variable. For example setting this value to 'parent' will
-     * set this value in the parent scope. When Jelly is run from inside a Servlet environment
-     * then other scopes will be available such as 'request', 'session' or 'application'.
-     *
-     * Other applications may implement their own custom scopes.
-     */
-    public void setScope(final String scope) {
-        this.scope = scope;
-    }
-
-    /** Sets the expression to evaluate. */
-    public void setValue(final Expression value) {
-        this.value = value;
-    }
-
-    /** Sets the target object on which to set a property. */
-    public void setTarget(final Object target) {
-        this.target = target;
-    }
-
     /** Sets the name of the property to set on the target object. */
     public void setProperty(final String property) {
         this.property = property;
@@ -152,6 +123,35 @@ public class SetTag extends TagSupport {
         catch (final Exception e) {
             log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
         }
+    }
+
+    /**
+     * Sets the variable scope for this variable. For example setting this value to 'parent' will
+     * set this value in the parent scope. When Jelly is run from inside a Servlet environment
+     * then other scopes will be available such as 'request', 'session' or 'application'.
+     *
+     * Other applications may implement their own custom scopes.
+     */
+    public void setScope(final String scope) {
+        this.scope = scope;
+    }
+
+    /** Sets the target object on which to set a property. */
+    public void setTarget(final Object target) {
+        this.target = target;
+    }
+
+    /** Sets the expression to evaluate. */
+    public void setValue(final Expression value) {
+        this.value = value;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+    /** Sets the variable name to define for this expression
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 
 }

@@ -34,11 +34,6 @@ public class Order {
     public Order() {
     }
 
-    @Override
-    public String toString() {
-        return "Order[amount=" + amount + ";price=" + price + ";product=" + product + "]";
-    }
-
     /**
      * Factory method to create a new Product
     public Product createProduct() {
@@ -68,6 +63,14 @@ public class Order {
     }
 
     /**
+     * Returns the product.
+     * @return Product
+     */
+    public Product getProduct() {
+        return product;
+    }
+
+    /**
      * Sets the amount.
      * @param amount The amount to set
      */
@@ -84,19 +87,16 @@ public class Order {
     }
 
     /**
-     * Returns the product.
-     * @return Product
-     */
-    public Product getProduct() {
-        return product;
-    }
-
-    /**
      * Sets the product.
      * @param product The product to set
      */
     public void setProduct(final Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "Order[amount=" + amount + ";price=" + price + ";product=" + product + "]";
     }
 
 }

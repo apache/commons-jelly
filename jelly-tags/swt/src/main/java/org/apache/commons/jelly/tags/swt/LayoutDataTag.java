@@ -45,20 +45,18 @@ public class LayoutDataTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Either defines a variable or adds the current component to the parent
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     @Override
-    protected void processBean(final String var, final Object bean)
+    protected Object convertValue(final Object bean, final String name, final Object value)
         throws JellyTagException {
-        super.processBean(var, bean);
 
-        final Widget parent = getParentWidget();
-
-        if (!(parent instanceof Control)) {
-            throw new JellyTagException("This tag must be nested within a control widget tag");
+        if ((bean instanceof GridData) && (name.endsWith("Alignment") && value instanceof String)) {
+            final int style =
+                SwtHelper.parseStyle(bean.getClass(), (String) value);
+            return new Integer(style);
         }
-        final Control control = (Control) parent;
-        control.setLayoutData(getBean());
+        return super.convertValue(bean, name, value);
     }
 
     /**
@@ -92,18 +90,20 @@ public class LayoutDataTag extends LayoutTagSupport {
     }
 
     /**
-     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     * Either defines a variable or adds the current component to the parent
      */
     @Override
-    protected Object convertValue(final Object bean, final String name, final Object value)
+    protected void processBean(final String var, final Object bean)
         throws JellyTagException {
+        super.processBean(var, bean);
 
-        if ((bean instanceof GridData) && (name.endsWith("Alignment") && value instanceof String)) {
-            final int style =
-                SwtHelper.parseStyle(bean.getClass(), (String) value);
-            return new Integer(style);
+        final Widget parent = getParentWidget();
+
+        if (!(parent instanceof Control)) {
+            throw new JellyTagException("This tag must be nested within a control widget tag");
         }
-        return super.convertValue(bean, name, value);
+        final Control control = (Control) parent;
+        control.setLayoutData(getBean());
     }
 
 }

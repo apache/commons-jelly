@@ -45,6 +45,50 @@ public class BeanTagLibrary extends TagLibrary {
         );
     }
 
+    protected Tag createBeanTag(final String name, final Attributes attributes) throws JellyException {
+        // is the name bound to a specific class
+        final Class beanType = getBeanType(name, attributes);
+        if (beanType != null) {
+            final Method invokeMethod = (Method) invokeMethods.get(name);
+            return new BeanTag(beanType, name, invokeMethod);
+        }
+
+        // its a property tag
+        return new BeanPropertyTag(name);
+    }
+
+    /**
+     * Factory method to create a TagFactory for a given tag attribute and attributes
+     */
+    protected TagFactory createTagFactory(final String name, final Attributes attributes) throws JellyException {
+
+        return this::createBeanTag;
+    }
+
+    // TagLibrary interface
+    //-------------------------------------------------------------------------
+    @Override
+    public TagScript createTagScript(
+        final String name, final Attributes attributes
+    ) throws JellyException {
+
+        // check for standard tags first
+        final TagScript answer = super.createTagScript(name, attributes);
+        if (answer != null) {
+            return answer;
+        }
+
+        // lets try a dynamic tag
+        return new TagScript( createTagFactory(name, attributes) );
+    }
+
+    protected Class getBeanType(final String name, final Attributes attributes) {
+        return (Class) beanTypes.get(name);
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     /**
      * Allows tags to register new bean types
      */
@@ -73,49 +117,5 @@ public class BeanTagLibrary extends TagLibrary {
             type, methodName, BeandefTag.EMPTY_ARGUMENT_TYPES
         );
         registerBean(name, type, method);
-    }
-
-    // TagLibrary interface
-    //-------------------------------------------------------------------------
-    @Override
-    public TagScript createTagScript(
-        final String name, final Attributes attributes
-    ) throws JellyException {
-
-        // check for standard tags first
-        final TagScript answer = super.createTagScript(name, attributes);
-        if (answer != null) {
-            return answer;
-        }
-
-        // lets try a dynamic tag
-        return new TagScript( createTagFactory(name, attributes) );
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a TagFactory for a given tag attribute and attributes
-     */
-    protected TagFactory createTagFactory(final String name, final Attributes attributes) throws JellyException {
-
-        return this::createBeanTag;
-    }
-
-    protected Tag createBeanTag(final String name, final Attributes attributes) throws JellyException {
-        // is the name bound to a specific class
-        final Class beanType = getBeanType(name, attributes);
-        if (beanType != null) {
-            final Method invokeMethod = (Method) invokeMethods.get(name);
-            return new BeanTag(beanType, name, invokeMethod);
-        }
-
-        // its a property tag
-        return new BeanPropertyTag(name);
-    }
-
-    protected Class getBeanType(final String name, final Attributes attributes) {
-        return (Class) beanTypes.get(name);
     }
 }

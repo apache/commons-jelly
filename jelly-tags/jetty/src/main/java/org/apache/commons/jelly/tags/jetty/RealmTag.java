@@ -76,24 +76,6 @@ public class RealmTag extends TagSupport {
     //--------------------------------------------------------------------------
 
     /**
-     * Getter for property name.
-     *
-     * @return value of property name.
-     */
-    public String getName() {
-        return _name;
-    }
-
-    /**
-     * Setter for property name.
-     *
-     * @param name New value of property name.
-     */
-    public void setName(final String name) {
-        _name = name;
-    }
-
-    /**
      * Getter for property config.
      *
      * @return value of property config.
@@ -103,12 +85,30 @@ public class RealmTag extends TagSupport {
     }
 
     /**
+     * Getter for property name.
+     *
+     * @return value of property name.
+     */
+    public String getName() {
+        return _name;
+    }
+
+    /**
      * Setter for property config.
      *
      * @param config New value of property config.
      */
     public void setConfig(final String config) {
         _config = config;
+    }
+
+    /**
+     * Setter for property name.
+     *
+     * @param name New value of property name.
+     */
+    public void setName(final String name) {
+        _name = name;
     }
 
 }

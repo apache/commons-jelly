@@ -49,11 +49,6 @@ public class StoreTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** Sets the value to be persisted */
-    public void setValue(final Object value) {
-        this.value = value;
-    }
-
     /** @return the persistence broker instance */
     public PersistenceBroker getBroker() {
         if (broker == null) {
@@ -73,6 +68,11 @@ public class StoreTag extends TagSupport {
     /** Sets the persistence broker instance */
     public void setBroker(final PersistenceBroker broker) {
         this.broker = broker;
+    }
+
+    /** Sets the value to be persisted */
+    public void setValue(final Object value) {
+        this.value = value;
     }
 }
 

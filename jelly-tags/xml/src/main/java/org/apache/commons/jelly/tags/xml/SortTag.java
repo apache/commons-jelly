@@ -51,6 +51,16 @@ public class SortTag extends XPathTagSupport {
         Collections.sort(list, xpCmp);
     }
 
+    /**
+     * Sets whether to sort ascending or descending.
+     */
+    public void setDescending(final boolean descending) {
+        if (xpCmp == null) {
+            xpCmp = new XPathComparator();
+        }
+        xpCmp.setDescending(descending);
+    }
+
     /** Sets the list to sort. */
     public void setList(final List list) {
         this.list = list;
@@ -63,15 +73,5 @@ public class SortTag extends XPathTagSupport {
             xpCmp = new XPathComparator();
         }
         xpCmp.setXpath(sortXPath);
-    }
-
-    /**
-     * Sets whether to sort ascending or descending.
-     */
-    public void setDescending(final boolean descending) {
-        if (xpCmp == null) {
-            xpCmp = new XPathComparator();
-        }
-        xpCmp.setDescending(descending);
     }
 }

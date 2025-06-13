@@ -43,6 +43,24 @@ public class ParseTag extends ParseTagSupport {
     public ParseTag() {
     }
 
+    /**
+     * Factory method to create a new SAXReader
+     */
+    @Override
+    protected SAXReader createSAXReader() throws SAXException {
+        // installs the NeckHTML parser
+        final SAXParser parser = new SAXParser();
+        parser.setProperty(
+            "http://cyberneko.org/html/properties/names/elems",
+            element
+        );
+        parser.setProperty(
+            "http://cyberneko.org/html/properties/names/attrs",
+            attribute
+        );
+        return new SAXReader( parser );
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -64,13 +82,6 @@ public class ParseTag extends ParseTagSupport {
             document = parse(html);
         }
         context.setVariable(getVar(), document);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-    /** Sets the source of the HTML which is either a String URI, Reader or InputStream */
-    public void setHtml(final Object html) {
-        this.html = html;
     }
 
     /**
@@ -96,21 +107,10 @@ public class ParseTag extends ParseTagSupport {
     // Implementation methods
     //-------------------------------------------------------------------------
 
-    /**
-     * Factory method to create a new SAXReader
-     */
-    @Override
-    protected SAXReader createSAXReader() throws SAXException {
-        // installs the NeckHTML parser
-        final SAXParser parser = new SAXParser();
-        parser.setProperty(
-            "http://cyberneko.org/html/properties/names/elems",
-            element
-        );
-        parser.setProperty(
-            "http://cyberneko.org/html/properties/names/attrs",
-            attribute
-        );
-        return new SAXReader( parser );
+    // Properties
+    //-------------------------------------------------------------------------
+    /** Sets the source of the HTML which is either a String URI, Reader or InputStream */
+    public void setHtml(final Object html) {
+        this.html = html;
     }
 }

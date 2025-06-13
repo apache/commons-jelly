@@ -45,6 +45,11 @@ public class AntlrTag extends TagSupport
     // Tag interface
     //-------------------------------------------------------------------------
 
+    void addGrammar(final String grammar)
+    {
+        this.grammars.add( grammar );
+    }
+
     /**
      * Evaluate the body to register all the various goals and pre/post conditions
      * then run all the current targets
@@ -169,19 +174,14 @@ public class AntlrTag extends TagSupport
         return genFile;
     }
 
-    void addGrammar(final String grammar)
+    public File getOutputDir()
     {
-        this.grammars.add( grammar );
+        return this.outputDir;
     }
 
     public void setOutputDir(final File outputDir)
     {
         this.outputDir = outputDir;
-    }
-
-    public File getOutputDir()
-    {
-        return this.outputDir;
     }
 }
 
@@ -194,13 +194,13 @@ final class NoExitSecurityManager extends SecurityManager
     }
 
     @Override
-    public void checkPermission(final Permission permission)
-    {
-    }
-
-    @Override
     public void checkExit(final int status)
     {
         throw new SecurityException( "exitVM-" + status );
+    }
+
+    @Override
+    public void checkPermission(final Permission permission)
+    {
     }
 }

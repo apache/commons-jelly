@@ -27,6 +27,11 @@ import org.apache.commons.jelly.tags.swing.model.ExpressionTableModel;
  */
 public class TableModelTag extends UseBeanTag {
 
+    @Override
+    protected Class getDefaultClass() {
+        return ExpressionTableModel.class;
+    }
+
     public ExpressionTableModel getTableModel() {
         return (ExpressionTableModel) getBean();
     }
@@ -50,11 +55,6 @@ public class TableModelTag extends UseBeanTag {
         }
         final JTable table = (JTable) component;
         table.setModel(model);
-    }
-
-    @Override
-    protected Class getDefaultClass() {
-        return ExpressionTableModel.class;
     }
 }
 

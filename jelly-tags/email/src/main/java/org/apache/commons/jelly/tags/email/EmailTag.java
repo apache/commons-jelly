@@ -75,68 +75,6 @@ public class EmailTag extends TagSupport {
     private boolean encodeXML = false;
 
     /**
-     * Sets the smtp server for the message. If not set the system
-     * property "mail.smtp.host" will be used.
-     */
-    public void setServer(final Expression server) {
-        this.server = server;
-    }
-
-    /**
-     * Sets the from address for the message
-     */
-    public void setFrom(final Expression from) {
-        this.from = from;
-    }
-
-    /**
-     * ";" separated list of people to send to
-     */
-    public void setTo(final Expression to) {
-        this.to = to;
-    }
-
-    /**
-     * ";" separated list of people to cc
-     */
-    public void setCC(final Expression cc) {
-        this.cc = cc;
-    }
-
-    /**
-     * Sets the email subject
-     */
-    public void setSubject(final Expression subject) {
-        this.subject = subject;
-    }
-
-    /**
-     * Sets the message body. This will override the Jelly tag body
-     */
-    public void setMessage(final Expression message) {
-        this.message = message;
-    }
-
-    /**
-     * Sets the email attachment for the message. Only 1 attachment is supported right now
-     */
-    public void setAttach(final File attachment) throws FileNotFoundException {
-        if (!attachment.exists()) {
-            throw new FileNotFoundException("attachment not found");
-        }
-
-        this.attachment = attachment;
-    }
-
-    /**
-     * Sets whether we should encode the XML body as text or not. The default
-     * is false so that the body will assumed to be valid XML
-     */
-    public void setEncodeXML(final boolean encodeXML) {
-        this.encodeXML = encodeXML;
-    }
-
-    /**
      * Execute the tag
      */
     @Override
@@ -260,5 +198,67 @@ public class EmailTag extends TagSupport {
             throw new JellyTagException(e);
         }
 
+    }
+
+    /**
+     * Sets the email attachment for the message. Only 1 attachment is supported right now
+     */
+    public void setAttach(final File attachment) throws FileNotFoundException {
+        if (!attachment.exists()) {
+            throw new FileNotFoundException("attachment not found");
+        }
+
+        this.attachment = attachment;
+    }
+
+    /**
+     * ";" separated list of people to cc
+     */
+    public void setCC(final Expression cc) {
+        this.cc = cc;
+    }
+
+    /**
+     * Sets whether we should encode the XML body as text or not. The default
+     * is false so that the body will assumed to be valid XML
+     */
+    public void setEncodeXML(final boolean encodeXML) {
+        this.encodeXML = encodeXML;
+    }
+
+    /**
+     * Sets the from address for the message
+     */
+    public void setFrom(final Expression from) {
+        this.from = from;
+    }
+
+    /**
+     * Sets the message body. This will override the Jelly tag body
+     */
+    public void setMessage(final Expression message) {
+        this.message = message;
+    }
+
+    /**
+     * Sets the smtp server for the message. If not set the system
+     * property "mail.smtp.host" will be used.
+     */
+    public void setServer(final Expression server) {
+        this.server = server;
+    }
+
+    /**
+     * Sets the email subject
+     */
+    public void setSubject(final Expression subject) {
+        this.subject = subject;
+    }
+
+    /**
+     * ";" separated list of people to send to
+     */
+    public void setTo(final Expression to) {
+        this.to = to;
     }
 }

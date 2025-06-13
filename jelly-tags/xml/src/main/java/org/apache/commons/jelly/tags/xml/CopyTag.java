@@ -78,13 +78,13 @@ public class CopyTag extends XPathTagSupport {
         }
     }
 
+    public void setLexical(final boolean lexical) {
+        this.lexical = lexical;
+    }
     // Properties
     //-------------------------------------------------------------------------
     /** Sets the XPath expression to evaluate. */
     public void setSelect(final XPath select) {
         this.select = select;
-    }
-    public void setLexical(final boolean lexical) {
-        this.lexical = lexical;
     }
 }

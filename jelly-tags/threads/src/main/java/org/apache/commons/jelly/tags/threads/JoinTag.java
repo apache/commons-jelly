@@ -28,20 +28,6 @@ public class JoinTag extends UseThreadTag {
     /** How long to wait */
     private long timeout = -1;
 
-    /** Perform the thread join */
-    @Override
-    protected void useThread(final Thread thread, final XMLOutput output) throws InterruptedException {
-        joinThread(thread);
-    }
-
-    /** Join all of the threads in a thread group */
-    @Override
-    protected void useThreadGroup(final List threadGroup, final XMLOutput output) throws InterruptedException {
-        for (final Object element : threadGroup) {
-            joinThread((Thread) element);
-        }
-    }
-
     /** Join a thread */
     private void joinThread(final Thread thread) throws InterruptedException {
         if (timeout > 0) {
@@ -58,5 +44,19 @@ public class JoinTag extends UseThreadTag {
      */
     public void setTimeout(final long timeout) {
         this.timeout = timeout;
+    }
+
+    /** Perform the thread join */
+    @Override
+    protected void useThread(final Thread thread, final XMLOutput output) throws InterruptedException {
+        joinThread(thread);
+    }
+
+    /** Join all of the threads in a thread group */
+    @Override
+    protected void useThreadGroup(final List threadGroup, final XMLOutput output) throws InterruptedException {
+        for (final Object element : threadGroup) {
+            joinThread((Thread) element);
+        }
     }
 }

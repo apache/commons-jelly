@@ -37,6 +37,18 @@ public class JFaceLayoutTag extends LayoutTag {
         // TODO Auto-generated constructor stub
     }
 
+    /**
+     * @return the parent window
+     */
+    public Window getParentWindow() {
+        final ApplicationWindowTag tag =
+            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
+        if (tag != null) {
+            return tag.getWindow();
+        }
+        return null;
+    }
+
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#processBean(java.lang.String, java.lang.Object)
      */
@@ -57,18 +69,6 @@ public class JFaceLayoutTag extends LayoutTag {
         final Composite composite = (Composite) parent;
         composite.setLayout(getLayout());
 
-    }
-
-    /**
-     * @return the parent window
-     */
-    public Window getParentWindow() {
-        final ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
-        if (tag != null) {
-            return tag.getWindow();
-        }
-        return null;
     }
 }
 

@@ -45,39 +45,6 @@ public class DataSourceWrapper implements DataSource {
     private String userName;
     private String password;
 
-    public void setDriverClassName(final String driverClassName)
-        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-
-        if (log.isDebugEnabled()) {
-            log.debug("Loading JDBC driver: [" + driverClassName + "]");
-        }
-
-        this.driverClassName = driverClassName;
-        ClassLoaderUtils.getClassLoader(getClass()).loadClass(driverClassName).newInstance();
-    }
-
-    public void setJdbcURL(final String jdbcURL) {
-        this.jdbcURL = jdbcURL;
-    }
-
-    @Override
-    public <T> T unwrap(final Class<T> tClass) throws SQLException {
-        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-    }
-
-    @Override
-    public boolean isWrapperFor(final Class<?> aClass) throws SQLException {
-        return false;
-    }
-
-    public void setUserName(final String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(final String password) {
-        this.password = password;
-    }
-
     /**
      * Returns a Connection using the DriverManager and all
      * set properties.
@@ -133,6 +100,31 @@ public class DataSourceWrapper implements DataSource {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 
+    @Override
+    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+        throw new SQLFeatureNotSupportedException();
+    }
+
+    @Override
+    public boolean isWrapperFor(final Class<?> aClass) throws SQLException {
+        return false;
+    }
+
+    public void setDriverClassName(final String driverClassName)
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Loading JDBC driver: [" + driverClassName + "]");
+        }
+
+        this.driverClassName = driverClassName;
+        ClassLoaderUtils.getClassLoader(getClass()).loadClass(driverClassName).newInstance();
+    }
+
+    public void setJdbcURL(final String jdbcURL) {
+        this.jdbcURL = jdbcURL;
+    }
+
     /**
      * Always throws a SQLException. Not supported.
      */
@@ -149,9 +141,17 @@ public class DataSourceWrapper implements DataSource {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 
+    public void setPassword(final String password) {
+        this.password = password;
+    }
+
+    public void setUserName(final String userName) {
+        this.userName = userName;
+    }
+
     @Override
-    public Logger getParentLogger() throws SQLFeatureNotSupportedException {
-        throw new SQLFeatureNotSupportedException();
+    public <T> T unwrap(final Class<T> tClass) throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 
 }

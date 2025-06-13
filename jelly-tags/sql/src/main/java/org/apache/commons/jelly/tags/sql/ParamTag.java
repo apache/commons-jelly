@@ -31,13 +31,6 @@ import org.apache.commons.jelly.tags.Resources;
 public class ParamTag extends TagSupport {
     protected Object value;
 
-    public void setValue(final Object value) {
-        this.value = value;
-    }
-
-    //*********************************************************************
-    // Tag logic
-
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         final SQLExecutionTag parent =
@@ -61,5 +54,12 @@ public class ParamTag extends TagSupport {
         }
 
         parent.addSQLParameter(paramValue);
+    }
+
+    //*********************************************************************
+    // Tag logic
+
+    public void setValue(final Object value) {
+        this.value = value;
     }
 }

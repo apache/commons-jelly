@@ -37,6 +37,18 @@ public class JFaceLayoutDataTag extends LayoutDataTag {
         super(layoutDataClass);
     }
 
+    /**
+     * @return the parent window
+     */
+    public Window getParentWindow() {
+        final ApplicationWindowTag tag =
+            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
+        if (tag != null) {
+            return tag.getWindow();
+        }
+        return null;
+    }
+
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#processBean(java.lang.String, java.lang.Object)
      */
@@ -56,18 +68,6 @@ public class JFaceLayoutDataTag extends LayoutDataTag {
         }
         final Control control = (Control) parent;
         control.setLayoutData(getBean());
-    }
-
-    /**
-     * @return the parent window
-     */
-    public Window getParentWindow() {
-        final ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
-        if (tag != null) {
-            return tag.getWindow();
-        }
-        return null;
     }
 
 }

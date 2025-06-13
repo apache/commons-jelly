@@ -39,14 +39,21 @@ public class JellyPropsHandler extends DefaultPropsHandler {
         this.context = context;
     }
 
-    /** Sets an ant property.
+    /** Retrieve all ant properties.
      *
-     *  @param name The property name.
-     *  @param value The property value.
+     *  @return A <code>Hashtable</code> of all properties.
      */
     @Override
-    public void setProperty(final String name, final String value) {
-        this.context.setVariable(name, value);
+    public Hashtable getProperties() {
+        final Hashtable h = new Hashtable();
+        for (final Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
+            final String name = (String) i.next();
+            final String value = getProperty( name );
+            if (value != null) {
+                h.put(name, value);
+            }
+        }
+        return h;
     }
 
     /** Retrieve an ant property.
@@ -70,21 +77,14 @@ public class JellyPropsHandler extends DefaultPropsHandler {
         return value.toString();
     }
 
-    /** Retrieve all ant properties.
+    /** Sets an ant property.
      *
-     *  @return A <code>Hashtable</code> of all properties.
+     *  @param name The property name.
+     *  @param value The property value.
      */
     @Override
-    public Hashtable getProperties() {
-        final Hashtable h = new Hashtable();
-        for (final Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
-            final String name = (String) i.next();
-            final String value = getProperty( name );
-            if (value != null) {
-                h.put(name, value);
-            }
-        }
-        return h;
+    public void setProperty(final String name, final String value) {
+        this.context.setVariable(name, value);
     }
 
 }

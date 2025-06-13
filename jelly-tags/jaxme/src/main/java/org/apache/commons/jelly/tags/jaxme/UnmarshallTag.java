@@ -39,29 +39,6 @@ public class UnmarshallTag extends TagSupport {
     private String packages;
     private String var;
 
-    public String getPackages() {
-        return packages;
-    }
-
-    /**
-     * Defines the generated objects to which the XML should be unmarshalled.
-     */
-    public void setPackages(final String packages) {
-        this.packages = packages;
-    }
-
-    public String getVar() {
-        return var;
-    }
-
-    /**
-     * Sets the name of the jelly variable to which
-     * the unmarshalled java object should be bound.
-     */
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (packages == null) {
@@ -90,5 +67,28 @@ public class UnmarshallTag extends TagSupport {
             throw new JellyTagException(ex);
         }
 
+    }
+
+    public String getPackages() {
+        return packages;
+    }
+
+    public String getVar() {
+        return var;
+    }
+
+    /**
+     * Defines the generated objects to which the XML should be unmarshalled.
+     */
+    public void setPackages(final String packages) {
+        this.packages = packages;
+    }
+
+    /**
+     * Sets the name of the jelly variable to which
+     * the unmarshalled java object should be bound.
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

@@ -39,49 +39,6 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     public MessageOperationTag() {
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    @Override
-    public Messenger getConnection() throws JellyTagException, JMSException {
-        if ( connection == null ) {
-            return findConnection();
-        }
-        return connection;
-    }
-
-    /**
-     * Sets the Messenger (the JMS connection pool) that will be used to send the message
-     */
-    public void setConnection(final Messenger connection) {
-        this.connection = connection;
-    }
-
-    public Destination getDestination() throws JellyTagException, JMSException {
-        // if we have a subject defined, lets use it to find the destination
-        if ((destination == null) && (subject != null)) {
-            destination = findDestination(subject);
-        }
-        return destination;
-    }
-
-    /**
-     * Sets the JMS Destination to be used by this tag
-     */
-    public void setDestination(final Destination destination) {
-        this.destination = destination;
-    }
-
-    /**
-     * Sets the subject as a String which is used to create the
-     * JMS Destination to be used by this tag
-     */
-    public void setSubject(final String subject) {
-        this.subject = subject;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     /**
      * Strategy Method allowing derived classes to change this behavior
      */
@@ -98,5 +55,48 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
      */
     protected Destination findDestination(final String subject) throws JellyTagException, JMSException {
         return getConnection().getDestination(subject);
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+    @Override
+    public Messenger getConnection() throws JellyTagException, JMSException {
+        if ( connection == null ) {
+            return findConnection();
+        }
+        return connection;
+    }
+
+    public Destination getDestination() throws JellyTagException, JMSException {
+        // if we have a subject defined, lets use it to find the destination
+        if ((destination == null) && (subject != null)) {
+            destination = findDestination(subject);
+        }
+        return destination;
+    }
+
+    /**
+     * Sets the Messenger (the JMS connection pool) that will be used to send the message
+     */
+    public void setConnection(final Messenger connection) {
+        this.connection = connection;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the JMS Destination to be used by this tag
+     */
+    public void setDestination(final Destination destination) {
+        this.destination = destination;
+    }
+
+    /**
+     * Sets the subject as a String which is used to create the
+     * JMS Destination to be used by this tag
+     */
+    public void setSubject(final String subject) {
+        this.subject = subject;
     }
 }

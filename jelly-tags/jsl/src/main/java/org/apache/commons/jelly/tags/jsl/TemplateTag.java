@@ -53,6 +53,39 @@ public class TemplateTag extends TagSupport implements XPathSource {
     public TemplateTag() {
     }
 
+    protected Action createAction(final StylesheetTag tag, final XMLOutput output) {
+        return node -> {
+
+            // store the context for use by applyTemplates tag
+            tag.setXPathSource( node );
+
+            xpathSource = node;
+
+            if (log.isDebugEnabled()) {
+                log.debug( "Firing template body for match: " + match + " and node: " + node );
+            }
+
+            XMLOutput actualOutput = tag.getStylesheetOutput();
+            if (actualOutput == null) {
+                actualOutput = output;
+            }
+
+            invokeBody(actualOutput);
+        };
+    }
+
+    // XPathSource interface
+    //-------------------------------------------------------------------------
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    protected Rule createRule(final StylesheetTag tag, final XMLOutput output) {
+        return new Rule( match, createAction(tag, output) );
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -73,22 +106,11 @@ public class TemplateTag extends TagSupport implements XPathSource {
         }
     }
 
-    // XPathSource interface
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the current XPath value on which relative paths are evaluated
+    /** Getter for property name.
+     * @return Value of property name.
      */
-    @Override
-    public Object getXPathSource() {
-        return xpathSource;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    public void setMatch(final Pattern match) {
-        this.match = match;
+    public String getName() {
+        return name;
     }
 
     /** Getter for property priority.
@@ -98,25 +120,16 @@ public class TemplateTag extends TagSupport implements XPathSource {
         return priority;
     }
 
-    /** Sets the priority.
-     * @param priority New value of property priority.
+    /**
+     * @return the current XPath value on which relative paths are evaluated
      */
-    public void setPriority(final double priority) {
-        this.priority = priority;
+    @Override
+    public Object getXPathSource() {
+        return xpathSource;
     }
 
-    /** Getter for property name.
-     * @return Value of property name.
-     */
-    public String getName() {
-        return name;
-    }
-
-    /** Sets the name.
-     * @param name New value of property name.
-     */
-    public void setName(final String name) {
-        this.name = name;
+    public void setMatch(final Pattern match) {
+        this.match = match;
     }
 
     /** Sets the mode.
@@ -126,30 +139,17 @@ public class TemplateTag extends TagSupport implements XPathSource {
         this.mode = mode;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected Rule createRule(final StylesheetTag tag, final XMLOutput output) {
-        return new Rule( match, createAction(tag, output) );
+    /** Sets the name.
+     * @param name New value of property name.
+     */
+    public void setName(final String name) {
+        this.name = name;
     }
 
-    protected Action createAction(final StylesheetTag tag, final XMLOutput output) {
-        return node -> {
-
-            // store the context for use by applyTemplates tag
-            tag.setXPathSource( node );
-
-            xpathSource = node;
-
-            if (log.isDebugEnabled()) {
-                log.debug( "Firing template body for match: " + match + " and node: " + node );
-            }
-
-            XMLOutput actualOutput = tag.getStylesheetOutput();
-            if (actualOutput == null) {
-                actualOutput = output;
-            }
-
-            invokeBody(actualOutput);
-        };
+    /** Sets the priority.
+     * @param priority New value of property priority.
+     */
+    public void setPriority(final double priority) {
+        this.priority = priority;
     }
 }

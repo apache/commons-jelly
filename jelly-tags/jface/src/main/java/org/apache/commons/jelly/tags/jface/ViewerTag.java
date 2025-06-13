@@ -50,6 +50,17 @@ public class ViewerTag extends WidgetTag {
         this.style = style;
     }
 
+    /**
+     * @return the visible viewer, if there is one.
+     */
+    public Viewer getViewer() {
+        final Object bean = getBean();
+        if (bean instanceof Viewer) {
+            return (Viewer) bean;
+        }
+        return null;
+    }
+
     /*
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
@@ -67,17 +78,6 @@ public class ViewerTag extends WidgetTag {
         final Viewer viewer = (Viewer) createWidget(theClass, parent, style);
 
         return viewer;
-    }
-
-    /**
-     * @return the visible viewer, if there is one.
-     */
-    public Viewer getViewer() {
-        final Object bean = getBean();
-        if (bean instanceof Viewer) {
-            return (Viewer) bean;
-        }
-        return null;
     }
 
 }

@@ -54,18 +54,18 @@ public class CardLayoutTag extends LayoutTagSupport {
     }
 
     /**
+     * @return the vgap.
+     */
+    public int getVgap() {
+        return vgap;
+    }
+
+    /**
      * @param hgap The hgap to set.
      */
     public void setHgap(final int hgap) {
         this.hgap = hgap;
         hgapSet = true;
-    }
-
-    /**
-     * @return the vgap.
-     */
-    public int getVgap() {
-        return vgap;
     }
 
     /**

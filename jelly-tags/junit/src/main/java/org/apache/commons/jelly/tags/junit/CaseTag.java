@@ -78,16 +78,6 @@ public class CaseTag extends TagSupport {
     }
 
     /**
-     * Sets the name of this test case
-     */
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
      * Strategy method to find the current TestSuite to add a new Test case to
      */
     protected TestSuite getSuite() {
@@ -96,6 +86,16 @@ public class CaseTag extends TagSupport {
             return tag.getSuite();
         }
         return (TestSuite) context.getVariable( "org.apache.commons.jelly.junit.suite" );
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the name of this test case
+     */
+    public void setName(final String name) {
+        this.name = name;
     }
 
 }

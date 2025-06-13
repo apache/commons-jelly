@@ -141,75 +141,13 @@ public class SecurityHandlerTag extends TagSupport {
 
     }
 
-    /*
-     * This is the code from Jetty's WebApplicationContext
-     * with the HttpContextTag parameter added
+    /**
+     * Getter for property authenticationMethod.
      *
-     * Process a parsed XML node to setup the security constraints
-     * for an http server
-     *
-     * @param node the parsed XML starting node of the constraints
-     * @param httpContext the tag to add the security constraint to
-    */
-    protected void initSecurityConstraint(final XmlParser.Node node,
-                                          final HttpContextTag httpContext)
-    {
-        final SecurityConstraint scBase = new SecurityConstraint();
-
-        final XmlParser.Node auths=node.get("auth-constraint");
-        if (auths!=null)
-        {
-            scBase.setAuthenticate(true);
-            // auth-constraint
-            final Iterator iter= auths.iterator("role-name");
-            while(iter.hasNext())
-            {
-                final String role=((XmlParser.Node)iter.next()).toString(false,true);
-                scBase.addRole(role);
-            }
-        }
-
-        XmlParser.Node data=node.get("user-data-constraint");
-        if (data!=null)
-        {
-            data=data.get("transport-guarantee");
-            final String guarantee = data.toString(false,true).toUpperCase();
-            if (guarantee==null || guarantee.length()==0 ||
-                "NONE".equals(guarantee)) {
-                scBase.setDataConstraint(SecurityConstraint.DC_NONE);
-            } else if ("INTEGRAL".equals(guarantee)) {
-                scBase.setDataConstraint(SecurityConstraint.DC_INTEGRAL);
-            } else if ("CONFIDENTIAL".equals(guarantee)) {
-                scBase.setDataConstraint(SecurityConstraint.DC_CONFIDENTIAL);
-            } else
-            {
-                Code.warning("Unknown user-data-constraint:"+guarantee);
-                scBase.setDataConstraint(SecurityConstraint.DC_CONFIDENTIAL);
-            }
-        }
-
-        final Iterator iter= node.iterator("web-resource-collection");
-        while(iter.hasNext())
-        {
-            final XmlParser.Node collection=(XmlParser.Node)iter.next();
-            final String name=collection.getString("web-resource-name",false,true);
-            final SecurityConstraint sc = (SecurityConstraint)scBase.clone();
-            sc.setName(name);
-
-            Iterator iter2= collection.iterator("http-method");
-            while(iter2.hasNext()) {
-                sc.addMethod(((XmlParser.Node)iter2.next())
-                             .toString(false,true));
-            }
-
-            iter2= collection.iterator("url-pattern");
-            while(iter2.hasNext())
-            {
-                final String url=
-                    ((XmlParser.Node)iter2.next()).toString(false,true);
-                httpContext.addSecurityConstraint(url,sc);
-            }
-        }
+     * @return value of property authenticationMethod.
+     */
+    public String getauthenticationMethod() {
+        return _authenticationMethod;
     }
 
     /*
@@ -285,13 +223,75 @@ public class SecurityHandlerTag extends TagSupport {
     // Property accessors/mutators
     //--------------------------------------------------------------------------
 
-    /**
-     * Getter for property authenticationMethod.
+    /*
+     * This is the code from Jetty's WebApplicationContext
+     * with the HttpContextTag parameter added
      *
-     * @return value of property authenticationMethod.
-     */
-    public String getauthenticationMethod() {
-        return _authenticationMethod;
+     * Process a parsed XML node to setup the security constraints
+     * for an http server
+     *
+     * @param node the parsed XML starting node of the constraints
+     * @param httpContext the tag to add the security constraint to
+    */
+    protected void initSecurityConstraint(final XmlParser.Node node,
+                                          final HttpContextTag httpContext)
+    {
+        final SecurityConstraint scBase = new SecurityConstraint();
+
+        final XmlParser.Node auths=node.get("auth-constraint");
+        if (auths!=null)
+        {
+            scBase.setAuthenticate(true);
+            // auth-constraint
+            final Iterator iter= auths.iterator("role-name");
+            while(iter.hasNext())
+            {
+                final String role=((XmlParser.Node)iter.next()).toString(false,true);
+                scBase.addRole(role);
+            }
+        }
+
+        XmlParser.Node data=node.get("user-data-constraint");
+        if (data!=null)
+        {
+            data=data.get("transport-guarantee");
+            final String guarantee = data.toString(false,true).toUpperCase();
+            if (guarantee==null || guarantee.length()==0 ||
+                "NONE".equals(guarantee)) {
+                scBase.setDataConstraint(SecurityConstraint.DC_NONE);
+            } else if ("INTEGRAL".equals(guarantee)) {
+                scBase.setDataConstraint(SecurityConstraint.DC_INTEGRAL);
+            } else if ("CONFIDENTIAL".equals(guarantee)) {
+                scBase.setDataConstraint(SecurityConstraint.DC_CONFIDENTIAL);
+            } else
+            {
+                Code.warning("Unknown user-data-constraint:"+guarantee);
+                scBase.setDataConstraint(SecurityConstraint.DC_CONFIDENTIAL);
+            }
+        }
+
+        final Iterator iter= node.iterator("web-resource-collection");
+        while(iter.hasNext())
+        {
+            final XmlParser.Node collection=(XmlParser.Node)iter.next();
+            final String name=collection.getString("web-resource-name",false,true);
+            final SecurityConstraint sc = (SecurityConstraint)scBase.clone();
+            sc.setName(name);
+
+            Iterator iter2= collection.iterator("http-method");
+            while(iter2.hasNext()) {
+                sc.addMethod(((XmlParser.Node)iter2.next())
+                             .toString(false,true));
+            }
+
+            iter2= collection.iterator("url-pattern");
+            while(iter2.hasNext())
+            {
+                final String url=
+                    ((XmlParser.Node)iter2.next()).toString(false,true);
+                httpContext.addSecurityConstraint(url,sc);
+            }
+        }
     }
 
     /**

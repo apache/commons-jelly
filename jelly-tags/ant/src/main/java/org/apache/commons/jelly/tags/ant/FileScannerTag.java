@@ -59,12 +59,22 @@ public class FileScannerTag extends TagSupport implements TaskSource {
 
     }
 
+    /**
+     * @return the Ant task
+     */
+    public FileScanner getFileScanner() {
+        return fileScanner;
+    }
+
     // TaskSource interface
     //-------------------------------------------------------------------------
     @Override
     public Object getTaskObject() {
         return fileScanner;
     }
+
+    // Properties
+    //-------------------------------------------------------------------------
 
     /**
      * Allows nested tags to set a property on the task object of this tag
@@ -77,16 +87,6 @@ public class FileScannerTag extends TagSupport implements TaskSource {
         catch (final IllegalAccessException | InvocationTargetException ex) {
             throw new JellyTagException(ex);
         }
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the Ant task
-     */
-    public FileScanner getFileScanner() {
-        return fileScanner;
     }
 
     /** Sets the name of the variable exported by this tag */
