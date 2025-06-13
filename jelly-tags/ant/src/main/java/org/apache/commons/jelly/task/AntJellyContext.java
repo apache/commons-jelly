@@ -32,19 +32,19 @@ import org.apache.tools.ant.Project;
 public class AntJellyContext extends JellyContext {
 
     /** The Ant project which contains the variables */
-    private Project project;
+    private final Project project;
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(AntJellyContext.class);
+    private final Log log = LogFactory.getLog(AntJellyContext.class);
 
-    public AntJellyContext(Project project, JellyContext parentJellyContext) {
+    public AntJellyContext(final Project project, final JellyContext parentJellyContext) {
         super( parentJellyContext );
         this.project = project;
     }
 
     /** @return the value of the given variable name */
     @Override
-    public Object getVariable(String name) {
+    public Object getVariable(final String name) {
         // look in parent first
         Object answer = super.getVariable(name);
         if (answer == null) {
@@ -55,10 +55,11 @@ public class AntJellyContext extends JellyContext {
             String answerString = null;
             try {
                 answerString = answer.toString();
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
             }
-            if (answerString == null && answer != null)
+            if (answerString == null && answer != null) {
                 answerString = " of class " + answer.getClass();
+            }
             log.debug("Looking up variable: " + name + " answer: " + answerString);
         }
 
@@ -67,7 +68,7 @@ public class AntJellyContext extends JellyContext {
 
     /** Sets the value of the given variable name */
     @Override
-    public void setVariable(String name, Object value) {
+    public void setVariable(final String name, final Object value) {
         if ( log.isDebugEnabled() ) {
             log.debug( "Setting variable: " + name + " to: " + value );
         }
@@ -82,7 +83,7 @@ public class AntJellyContext extends JellyContext {
 
     /** Removes the given variable */
     @Override
-    public void removeVariable(String name) {
+    public void removeVariable(final String name) {
         super.removeVariable( name );
         project.setProperty(name, null);
     }
@@ -102,7 +103,7 @@ public class AntJellyContext extends JellyContext {
     @Override
     public Map getVariables() {
         // we should add all the Project's properties
-        Map map = new HashMap( project.getProperties() );
+        final Map map = new HashMap( project.getProperties() );
 
         // override any local properties
         map.putAll( super.getVariables() );
@@ -114,14 +115,14 @@ public class AntJellyContext extends JellyContext {
      */
 
     @Override
-    public void setVariables(Map variables) {
+    public void setVariables(final Map variables) {
         super.setVariables(variables);
 
         // export any Ant properties
-        for ( Iterator iter = variables.entrySet().iterator(); iter.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String key = (String) entry.getKey();
-            Object value = entry.getValue();
+        for ( final Iterator iter = variables.entrySet().iterator(); iter.hasNext(); ) {
+            final Map.Entry entry = (Map.Entry) iter.next();
+            final String key = (String) entry.getKey();
+            final Object value = entry.getValue();
             if ( value instanceof String ) {
                 project.setProperty(key, (String)value);
             }
