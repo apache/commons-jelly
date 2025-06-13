@@ -57,47 +57,52 @@ public class GridBagConstraintBean extends GridBagConstraints {
         */
     public String getAnchor() {
         switch (this.anchor) {
-            case CENTER :
-                return "center";
-            case NORTH :
-                return "north";
-            case NORTHEAST :
-                return "northeast";
-            case EAST :
-                return "east";
-            case SOUTHEAST :
-                return "southeast";
-            case SOUTH :
-                return "south";
-            case SOUTHWEST :
-                return "southwest";
-            case WEST :
-                return "west";
-            case NORTHWEST :
-                return "northwest";
+        case CENTER:
+            return "center";
+        case NORTH:
+            return "north";
+        case NORTHEAST:
+            return "northeast";
+        case EAST:
+            return "east";
+        case SOUTHEAST:
+            return "southeast";
+        case SOUTH:
+            return "south";
+        case SOUTHWEST:
+            return "southwest";
+        case WEST:
+            return "west";
+        case NORTHWEST:
+            return "northwest";
         }
-
         if (this.anchor == getByReflection("LINE_START")) {
             return "line_start";
         }
         if (this.anchor == getByReflection("LINE_END")) {
             return "line_end";
-        } else if (this.anchor == getByReflection("PAGE_START")) {
+        }
+        if (this.anchor == getByReflection("PAGE_START")) {
             return "page_start";
-        } else if (this.anchor == getByReflection("PAGE_END")) {
+        }
+        if (this.anchor == getByReflection("PAGE_END")) {
             return "page_end";
-        } else if (this.anchor == getByReflection("FIRST_LINE_START")) {
+        }
+        if (this.anchor == getByReflection("FIRST_LINE_START")) {
             return "first_line_start";
-        } else if (this.anchor == getByReflection("FIRST_LINE_END")) {
+        }
+        if (this.anchor == getByReflection("FIRST_LINE_END")) {
             return "first_line_end";
-        } else if (this.anchor == getByReflection("LAST_LINE_START")) {
+        }
+        if (this.anchor == getByReflection("LAST_LINE_START")) {
             return "last_line_start";
-        } else if (this.anchor ==  getByReflection("LAST_LINE_END")) {
+        }
+        if (this.anchor == getByReflection("LAST_LINE_END")) {
             return "last_line_end";
         }
-
         throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
     }
+
     private int getByReflection(final String field) {
         try {
             final Field f = getClass().getField(field);
@@ -169,63 +174,62 @@ public class GridBagConstraintBean extends GridBagConstraints {
         */
     public void setAnchor(final String anchorString) {
         final String lcAnchorString = anchorString.toLowerCase();
-        if (lcAnchorString != null) {
-            switch (lcAnchorString) {
-            case "center":
-                this.anchor = CENTER;
-                break;
-            case "north":
-                this.anchor = NORTH;
-                break;
-            case "northeast":
-                this.anchor = NORTHEAST;
-                break;
-            case "east":
-                this.anchor = EAST;
-                break;
-            case "southeast":
-                this.anchor = SOUTHEAST;
-                break;
-            case "south":
-                this.anchor = SOUTH;
-                break;
-            case "southwest":
-                this.anchor = SOUTHWEST;
-                break;
-            case "west":
-                this.anchor = WEST;
-                break;
-            case "northwest":
-                this.anchor = NORTHWEST;
-                break;
-            case "page_start":
-                this.anchor = getByReflection("PAGE_START");
-                break;
-            case "page_end":
-                this.anchor = getByReflection("PAGE_END");
-                break;
-            case "line_start":
-                this.anchor = getByReflection("LINE_START");
-                break;
-            case "line_end":
-                this.anchor = getByReflection("LINE_END");
-                break;
-            case "first_line_start":
-                this.anchor = getByReflection("FIRST_LINE_START");
-                break;
-            case "first_line_end":
-                this.anchor = getByReflection("FIRST_LINE_END");
-                break;
-            case "last_line_end":
-                this.anchor = getByReflection("LAST_LINE_END");
-                break;
-            case "last_line_start":
-                this.anchor = getByReflection("LAST_LINE_START");
-                break;
-            default:
-                throw new IllegalArgumentException("Anchor must be the name of one of  the GridBagLayoutConstants (case doesn't matter): center, north, northeast, east, southeast, south, southwest, west, or northwest.");
-            }
-        } else {
+        if (lcAnchorString == null) {
+            throw new IllegalArgumentException("Anchor must be the name of one of  the GridBagLayoutConstants (case doesn't matter): center, north, northeast, east, southeast, south, southwest, west, or northwest.");
+        }
+        switch (lcAnchorString) {
+        case "center":
+            this.anchor = CENTER;
+            break;
+        case "north":
+            this.anchor = NORTH;
+            break;
+        case "northeast":
+            this.anchor = NORTHEAST;
+            break;
+        case "east":
+            this.anchor = EAST;
+            break;
+        case "southeast":
+            this.anchor = SOUTHEAST;
+            break;
+        case "south":
+            this.anchor = SOUTH;
+            break;
+        case "southwest":
+            this.anchor = SOUTHWEST;
+            break;
+        case "west":
+            this.anchor = WEST;
+            break;
+        case "northwest":
+            this.anchor = NORTHWEST;
+            break;
+        case "page_start":
+            this.anchor = getByReflection("PAGE_START");
+            break;
+        case "page_end":
+            this.anchor = getByReflection("PAGE_END");
+            break;
+        case "line_start":
+            this.anchor = getByReflection("LINE_START");
+            break;
+        case "line_end":
+            this.anchor = getByReflection("LINE_END");
+            break;
+        case "first_line_start":
+            this.anchor = getByReflection("FIRST_LINE_START");
+            break;
+        case "first_line_end":
+            this.anchor = getByReflection("FIRST_LINE_END");
+            break;
+        case "last_line_end":
+            this.anchor = getByReflection("LAST_LINE_END");
+            break;
+        case "last_line_start":
+            this.anchor = getByReflection("LAST_LINE_START");
+            break;
+        default:
             throw new IllegalArgumentException("Anchor must be the name of one of  the GridBagLayoutConstants (case doesn't matter): center, north, northeast, east, southeast, south, southwest, west, or northwest.");
         }
         this.anchorSet = true;
@@ -284,24 +288,23 @@ public class GridBagConstraintBean extends GridBagConstraints {
         */
     public void setFill(final String fillString) {
         final String lcFillString = fillString.toLowerCase();
-        if (lcFillString != null) {
-            switch (lcFillString) {
-            case "none":
-                this.fill = NONE;
-                break;
-            case "horizontal":
-                this.fill = HORIZONTAL;
-                break;
-            case "vertical":
-                this.fill = VERTICAL;
-                break;
-            case "both":
-                this.fill = BOTH;
-                break;
-            default:
-                throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
-            }
-        } else {
+        if (lcFillString == null) {
+            throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
+        }
+        switch (lcFillString) {
+        case "none":
+            this.fill = NONE;
+            break;
+        case "horizontal":
+            this.fill = HORIZONTAL;
+            break;
+        case "vertical":
+            this.fill = VERTICAL;
+            break;
+        case "both":
+            this.fill = BOTH;
+            break;
+        default:
             throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
         }
         this.fillSet = true;

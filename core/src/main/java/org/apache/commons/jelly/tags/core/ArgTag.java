@@ -155,19 +155,18 @@ public class ArgTag extends BaseClassLoaderTag {
     private static Object convert(final Class klass, final Object value) throws JellyTagException {
         if (null == value) {
             return null;
-        } else {
-            if (klass.isInstance(value)) {
-                return value;
-            }
-            final Converter converter = (Converter) converterMap.get(klass);
-            if (null == converter) {
-                throw new JellyTagException("Can't convert " + value + " to " + klass);
-            }
-            try {
-                return converter.convert(klass, value);
-            } catch (final ConversionException e) {
-                throw new JellyTagException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")", e);
-            }
+        }
+        if (klass.isInstance(value)) {
+            return value;
+        }
+        final Converter converter = (Converter) converterMap.get(klass);
+        if (null == converter) {
+            throw new JellyTagException("Can't convert " + value + " to " + klass);
+        }
+        try {
+            return converter.convert(klass, value);
+        } catch (final ConversionException e) {
+            throw new JellyTagException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")", e);
         }
 
 

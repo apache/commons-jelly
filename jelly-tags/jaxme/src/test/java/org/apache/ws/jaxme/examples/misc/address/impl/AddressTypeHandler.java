@@ -118,7 +118,7 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
           }
           break;
         case 1:
-          if ("http://ws.apache.org/jaxme/examples/misc/address".equals(namespaceURI) && (localName != null)) {
+          if ("http://ws.apache.org/jaxme/examples/misc/address".equals(namespaceURI) && localName != null) {
             switch (localName) {
             case "First":
                 switch (state) {

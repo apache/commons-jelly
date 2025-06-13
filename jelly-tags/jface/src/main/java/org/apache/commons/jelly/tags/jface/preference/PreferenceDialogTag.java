@@ -62,9 +62,8 @@ public class PreferenceDialogTag extends UseBeanTag {
         final Object parent = attributes.remove("parent");
         if (parent instanceof Shell) {
             return (Shell) parent;
-        } else {
-            throw new JellyTagException("This tag must be nested inside a <applicationWindow> or have a parent of type Shell");
         }
+        throw new JellyTagException("This tag must be nested inside a <applicationWindow> or have a parent of type Shell");
     }
 
     /*

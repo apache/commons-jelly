@@ -100,9 +100,7 @@ public class OperationTag extends TagSupport implements CollectionTag {
             if (arg instanceof Object[]) {
                 return (Object[]) arg;
             }
-            else {
-                return new Object[] { arg };
-            }
+            return new Object[] { arg };
         }
         if (argList != null) {
             return argList.toArray();

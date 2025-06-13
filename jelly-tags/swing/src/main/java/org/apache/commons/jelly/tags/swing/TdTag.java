@@ -110,23 +110,19 @@ public class TdTag extends TagSupport implements ContainerTag {
             if (isTop) {
                 return GridBagConstraints.NORTH;
             }
-            else if (isBottom) {
+            if (isBottom) {
                 return GridBagConstraints.SOUTH;
             }
-            else {
-                return GridBagConstraints.CENTER;
-            }
+            return GridBagConstraints.CENTER;
         }
         if ("right".equalsIgnoreCase(align)) {
             if (isTop) {
                 return GridBagConstraints.NORTHEAST;
             }
-            else if (isBottom) {
+            if (isBottom) {
                 return GridBagConstraints.SOUTHEAST;
             }
-            else {
-                return GridBagConstraints.EAST;
-            }
+            return GridBagConstraints.EAST;
         }
         if (isTop) {
             return GridBagConstraints.NORTHWEST;

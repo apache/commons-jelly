@@ -120,7 +120,7 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
     @Override
     public void setAttribute(final String name, final Object value) throws JellyTagException {
         boolean isVariableName = false;
-        if ( (variableNameAttribute != null) && variableNameAttribute.equals( name ) ) {
+        if ( variableNameAttribute != null && variableNameAttribute.equals( name ) ) {
             if (value == null) {
                 var = null;
             }

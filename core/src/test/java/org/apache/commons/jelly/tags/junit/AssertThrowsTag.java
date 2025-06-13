@@ -73,7 +73,7 @@ public class AssertThrowsTag extends AssertTagSupport {
             if (var != null) {
                 context.setVariable(var, t);
             }
-            if ((throwableClass == null) || throwableClass.isAssignableFrom(t.getClass())) {
+            if (throwableClass == null || throwableClass.isAssignableFrom(t.getClass())) {
                 return;
             }
             fail("Unexpected exception: " + t);

@@ -174,24 +174,23 @@ public class TransactionTag extends TagSupport {
      */
     public void setIsolation(final String iso) throws JellyTagException {
 
-        if (iso != null) {
-            switch (iso) {
-            case TRANSACTION_READ_COMMITTED:
-                isolation = Connection.TRANSACTION_READ_COMMITTED;
-                break;
-            case TRANSACTION_READ_UNCOMMITTED:
-                isolation = Connection.TRANSACTION_READ_UNCOMMITTED;
-                break;
-            case TRANSACTION_REPEATABLE_READ:
-                isolation = Connection.TRANSACTION_REPEATABLE_READ;
-                break;
-            case TRANSACTION_SERIALIZABLE:
-                isolation = Connection.TRANSACTION_SERIALIZABLE;
-                break;
-            default:
-                throw new JellyTagException(Resources.getMessage("TRANSACTION_INVALID_ISOLATION"));
-            }
-        } else {
+        if (iso == null) {
+            throw new JellyTagException(Resources.getMessage("TRANSACTION_INVALID_ISOLATION"));
+        }
+        switch (iso) {
+        case TRANSACTION_READ_COMMITTED:
+            isolation = Connection.TRANSACTION_READ_COMMITTED;
+            break;
+        case TRANSACTION_READ_UNCOMMITTED:
+            isolation = Connection.TRANSACTION_READ_UNCOMMITTED;
+            break;
+        case TRANSACTION_REPEATABLE_READ:
+            isolation = Connection.TRANSACTION_REPEATABLE_READ;
+            break;
+        case TRANSACTION_SERIALIZABLE:
+            isolation = Connection.TRANSACTION_SERIALIZABLE;
+            break;
+        default:
             throw new JellyTagException(Resources.getMessage("TRANSACTION_INVALID_ISOLATION"));
         }
     }

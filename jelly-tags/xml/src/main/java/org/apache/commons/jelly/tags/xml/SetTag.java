@@ -307,8 +307,7 @@ public class SetTag extends XPathTagSupport {
         final List l = (List) value;
         if (l.isEmpty()) {
             return null;
-        } else {
-            return l.get(0);
         }
+        return l.get(0);
     }
 }

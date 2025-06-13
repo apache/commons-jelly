@@ -56,7 +56,7 @@ public class DynamicTagLibrary extends TagLibrary {
             final TagFactory factory = (TagFactory) value;
             return factory.createTag(name, attributes);
         }
-        else if ( parent != null ) {
+        if ( parent != null ) {
             // delegate to the parent
             return parent.createTag(name, attributes);
         }

@@ -69,7 +69,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
 
     public Destination getDestination() throws JellyTagException, JMSException {
         // if we have a subject defined, lets use it to find the destination
-        if ((destination == null) && (subject != null)) {
+        if (destination == null && subject != null) {
             destination = findDestination(subject);
         }
         return destination;

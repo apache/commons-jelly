@@ -155,7 +155,7 @@ public class CompositeExpression extends ExpressionSupport {
                         else if ( text.charAt( cur + 1 ) == '$' ) // $$
                         {
                             chars.append( c );
-                            if ( (cur + 2 < len) && (text.charAt( cur + 2 ) == '{') ) // $${
+                            if ( cur + 2 < len && text.charAt( cur + 2 ) == '{' ) // $${
                             {
                                 ++cur;
                             }

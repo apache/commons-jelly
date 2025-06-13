@@ -33,7 +33,6 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xml.sax.SAXException;
 
 /*
  *

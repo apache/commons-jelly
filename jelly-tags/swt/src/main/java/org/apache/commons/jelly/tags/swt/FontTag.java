@@ -80,7 +80,7 @@ public class FontTag extends TagSupport {
             throw new JellyTagException("This tag requires a font size greater than 0");
         }
 
-        if ((style == null) && log.isDebugEnabled()) {
+        if (style == null && log.isDebugEnabled()) {
             log.debug("No style set on font " + type + ", defaulting to normal");
         }
 

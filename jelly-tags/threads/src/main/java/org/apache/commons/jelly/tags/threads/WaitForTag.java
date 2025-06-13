@@ -49,7 +49,7 @@ public class WaitForTag extends TagSupport {
         // wait on the thread
         if (thread != null) {
             thread.waitUntilDone(onlyWait);
-            if ((status != RunnableStatus.NONE) && !thread.getStatus().equals(status)) {
+            if (status != RunnableStatus.NONE && !thread.getStatus().equals(status)) {
                 throw new RequirementException("Requirement on thread \"" + thread.getName() + "\" not met");
             }
         }
@@ -59,7 +59,7 @@ public class WaitForTag extends TagSupport {
             for (final Object element : group) {
                 final JellyThread gthread = (JellyThread) element;
                 gthread.waitUntilDone(onlyWait);
-                if ((status != RunnableStatus.NONE) && !gthread.getStatus().equals(status)) {
+                if (status != RunnableStatus.NONE && !gthread.getStatus().equals(status)) {
                     throw new RequirementException("Requirement on thread \"" + gthread.getName() + "\" not met");
                 }
             }

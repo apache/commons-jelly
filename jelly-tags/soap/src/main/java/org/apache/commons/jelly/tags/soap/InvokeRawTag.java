@@ -18,11 +18,8 @@
 package org.apache.commons.jelly.tags.soap;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.rmi.RemoteException;
 
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.jelly.JellyTagException;

@@ -490,13 +490,11 @@ public class JellyContext {
                         taglibs.put(namespaceURI, object);
                         return (TagLibrary) object;
                     }
-                    else {
-                        log.error(
-                            "The tag library object mapped to: "
-                                + namespaceURI
-                                + " is not a TagLibrary. Object = "
-                                + object);
-                    }
+                    log.error(
+                        "The tag library object mapped to: "
+                            + namespaceURI
+                            + " is not a TagLibrary. Object = "
+                            + object);
                 }
                 catch (final Exception e) {
                     log.error(

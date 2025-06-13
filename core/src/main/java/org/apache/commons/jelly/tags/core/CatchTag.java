@@ -111,7 +111,7 @@ public class CatchTag extends TagSupport {
             /**
              * if exception is not expected throw exception
              */
-            if ( (exceptionArray != null) && ! isExpected(c)) {
+            if ( exceptionArray != null && ! isExpected(c)) {
             	throw new JellyTagException(t);
             }
         }

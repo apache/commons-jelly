@@ -114,7 +114,7 @@ public class WidgetTag extends UseBeanTag {
                 if (constructors != null) {
                     for (final Constructor constructor : constructors) {
                         final Class[] types = constructor.getParameterTypes();
-                        if ((types.length == 2 && types[1].isAssignableFrom(int.class)) && types[0].isAssignableFrom(parent.getClass())) {
+                        if (types.length == 2 && types[1].isAssignableFrom(int.class) && types[0].isAssignableFrom(parent.getClass())) {
                             final Object[] arguments = { parent, new Integer(style)};
                             return constructor.newInstance(arguments);
                         }

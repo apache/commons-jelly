@@ -39,7 +39,7 @@ public class WhenTag extends TagSupport {
         if ( tag == null ) {
             throw new JellyTagException( "This tag must be enclosed inside a <choose> tag" );
         }
-        if ( (! tag.isBlockEvaluated() && test != null) && test.evaluateAsBoolean( context ) ) {
+        if ( ! tag.isBlockEvaluated() && test != null && test.evaluateAsBoolean( context ) ) {
             tag.setBlockEvaluated(true);
             invokeBody(output);
         }

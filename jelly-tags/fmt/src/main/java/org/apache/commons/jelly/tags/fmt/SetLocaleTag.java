@@ -62,8 +62,8 @@ public class SetLocaleTag extends TagSupport {
                 break;
             }
             // Language match
-            if ((pref.getLanguage().equals(element.getLanguage())
-            && "".equals(element.getCountry())) && (match == null)) {
+            if (pref.getLanguage().equals(element.getLanguage())
+            && "".equals(element.getCountry()) && match == null) {
                 match = element;
             }
         }
@@ -109,7 +109,7 @@ public class SetLocaleTag extends TagSupport {
         }
 
         // Use locale from default I18N localization context, unless it is null
-        if (((locCtxt = BundleTag.getLocalizationContext(jc)) != null) && (locCtxt.getLocale() != null)) {
+        if ((locCtxt = BundleTag.getLocalizationContext(jc)) != null && locCtxt.getLocale() != null) {
             if (format) {
                 //setResponseLocale(jc, locCtxt.getLocale());
             }

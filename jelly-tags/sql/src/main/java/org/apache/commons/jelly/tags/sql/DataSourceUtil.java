@@ -99,7 +99,7 @@ public class DataSourceUtil {
 
         for (int index = 0; index < params.length(); index++) {
             final char nextChar = params.charAt(index);
-            if ((TOKEN.indexOf(nextChar) != -1) && (escCount == 0)) {
+            if (TOKEN.indexOf(nextChar) != -1 && escCount == 0) {
                 paramString[aryCount] = params.substring(begin, index);
                 begin = index + 1;
                 if (++aryCount > 4) {

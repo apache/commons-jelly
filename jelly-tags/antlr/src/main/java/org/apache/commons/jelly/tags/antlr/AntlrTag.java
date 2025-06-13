@@ -79,7 +79,7 @@ public class AntlrTag extends TagSupport
 
             final File generated = getGeneratedFile( grammar.getPath() );
 
-            if ( generated.exists() && (generated.lastModified() > grammar.lastModified()) )
+            if ( generated.exists() && generated.lastModified() > grammar.lastModified() )
             {
                 // it's more recent, skip.
                 return;

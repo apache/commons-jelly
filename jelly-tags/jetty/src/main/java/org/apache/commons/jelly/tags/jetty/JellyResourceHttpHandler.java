@@ -73,9 +73,8 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
 
         if (sb.length() > 0) {
             return sb.toString();
-        } else {
-            return null;
         }
+        return null;
 
     }
 

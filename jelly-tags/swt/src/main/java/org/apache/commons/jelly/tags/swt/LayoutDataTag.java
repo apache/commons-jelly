@@ -51,7 +51,7 @@ public class LayoutDataTag extends LayoutTagSupport {
     protected Object convertValue(final Object bean, final String name, final Object value)
         throws JellyTagException {
 
-        if ((bean instanceof GridData) && (name.endsWith("Alignment") && value instanceof String)) {
+        if (bean instanceof GridData && name.endsWith("Alignment") && value instanceof String) {
             final int style =
                 SwtHelper.parseStyle(bean.getClass(), (String) value);
             return new Integer(style);

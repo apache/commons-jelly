@@ -156,26 +156,24 @@ public class Mutex {
             }
             if (msecs <= 0) {
                 return false;
-            } else {
-                long waitTime = msecs;
-                final long start = System.currentTimeMillis();
-                try {
-                    for (; ;) {
-                        wait(waitTime);
-                        if (!inuse_) {
-                            inuse_ = true;
-                            return true;
-                        } else {
-                            waitTime = msecs - (System.currentTimeMillis() - start);
-                            if (waitTime <= 0) {
-                                return false;
-                            }
-                        }
+            }
+            long waitTime = msecs;
+            final long start = System.currentTimeMillis();
+            try {
+                for (; ;) {
+                    wait(waitTime);
+                    if (!inuse_) {
+                        inuse_ = true;
+                        return true;
                     }
-                } catch (final InterruptedException ex) {
-                    notify();
-                    throw ex;
+                    waitTime = msecs - (System.currentTimeMillis() - start);
+                    if (waitTime <= 0) {
+                        return false;
+                    }
                 }
+            } catch (final InterruptedException ex) {
+                notify();
+                throw ex;
             }
         }
     }
