@@ -17,15 +17,12 @@
 
 package org.apache.commons.jelly.tags.xmlunit;
 
-import java.io.IOException;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
-import org.xml.sax.SAXException;
 
 /**
  * Compares two XML documents using XMLUnit (http://xmlunit.sourceforge.net/).
@@ -48,7 +45,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
     private boolean ignoreWhitespace = false;
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
 
         if (actual != null) {
@@ -81,7 +78,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
                     expectedDocument.asXML(),
                     actualDocument.asXML());
             }
-            catch (Throwable e) {
+            catch (final Throwable e) {
                 throw new JellyTagException(e);
             }
 
@@ -96,7 +93,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
      * Sets the actual XML document which is either a Document, String (of an
      * URI), URI, Reader, or InputStream.
      */
-    public void setActual(Object actual) {
+    public void setActual(final Object actual) {
         this.actual = actual;
     }
 
@@ -104,7 +101,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
      * Sets the expected XML document which is either a Document, String (of an
      * URI), URI, Reader, or InputStream.
      */
-    public void setExpected(Object expected) {
+    public void setExpected(final Object expected) {
         this.expected = expected;
     }
 
@@ -113,7 +110,7 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
      * differences or not.  The default is {@code false}.  Note that the
      * use of the <code>trim</code> attribute is crucial here.
      */
-    public void setIgnoreWhitespace(boolean ignoreWhitespace) {
+    public void setIgnoreWhitespace(final boolean ignoreWhitespace) {
         this.ignoreWhitespace = ignoreWhitespace;
     }
 
