@@ -185,7 +185,7 @@ public class Jelly {
      */
     public URL getRootContext() throws MalformedURLException {
         if (rootContext == null) {
-            rootContext = new File(System.getProperty("user.dir")).toURL();
+            rootContext = new File(System.getProperty("user.dir")).toURI().toURL();
         }
         return rootContext;
     }
@@ -276,7 +276,7 @@ public class Jelly {
         }
         final File file = new File(name);
         if (file.exists()) {
-            return file.toURL();
+            return file.toURI().toURL();
         }
         return new URL(name);
     }

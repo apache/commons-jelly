@@ -228,9 +228,9 @@ public class TestXMLTags extends TestCase {
         final Document document = parseUnitTest(name);
 
         final List failures = document.selectNodes( "/*/fail" );
-        for ( final Iterator iter = failures.iterator(); iter.hasNext(); ) {
-            final Node node = (Node) iter.next();
-            fail( node.getStringValue() );
+        for (Object failure : failures) {
+            final Node node = (Node) failure;
+            fail(node.getStringValue());
         }
     }
 

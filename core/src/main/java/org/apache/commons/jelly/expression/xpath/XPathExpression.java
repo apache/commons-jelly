@@ -95,13 +95,8 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
         }
         catch (final JaxenException e)
         {
-            if (!context.isSuppressExpressionExceptions()) {
-                throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
-            }
-            log.error("Error constructing xpath", e);
+            throw new IllegalStateException (e.getMessage(), e);
         }
-
-        return null;
     }
 
     // Expression interface

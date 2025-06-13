@@ -138,7 +138,7 @@ public class JexlExpression extends ExpressionSupport {
     @Override
     public Object evaluate(final JellyContext context) {
         try {
-            final JexlContext jexlContext = new JellyJexlContext( context );
+            final JexlContext jexlContext = new JellyJexlContext(context);
             if (log.isDebugEnabled()) {
                 log.debug("Evaluating EL: " + expression.getExpression());
             }
@@ -149,19 +149,11 @@ public class JexlExpression extends ExpressionSupport {
             }
 
             return value;
-        }
-        catch (final Exception e) {
-        	if (context.isSuppressExpressionExceptions()) {
-	            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
-	            return null;
-        	}
+        } catch (final Exception e) {
             if (e instanceof RuntimeException) {
-                throw (RuntimeException)e;
+                throw (RuntimeException) e;
             }
-            if (e instanceof IllegalStateException) {
-                throw (IllegalStateException )e;
-            }
-            throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
+            throw new IllegalStateException (e.getMessage(), e);
         }
     }
 
