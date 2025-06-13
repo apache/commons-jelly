@@ -36,8 +36,8 @@ public class ParamTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        TransformTag tag = (TransformTag) this.findAncestorWithClass( TransformTag.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final TransformTag tag = (TransformTag) this.findAncestorWithClass( TransformTag.class );
         if ( tag == null ) {
             throw new JellyTagException( "<param> tag must be enclosed inside a <transform> tag" );
         }
@@ -61,7 +61,7 @@ public class ParamTag extends TagSupport {
     /**
      * Sets the name of the attribute
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -74,7 +74,7 @@ public class ParamTag extends TagSupport {
     /**
      * Sets the value of the attribute
      */
-    public void setValue(Object value) {
+    public void setValue(final Object value) {
         this.value = value;
     }
 }

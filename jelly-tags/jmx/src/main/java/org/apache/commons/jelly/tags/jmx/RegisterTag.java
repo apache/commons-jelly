@@ -48,11 +48,11 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
-    public void addItem(Object bean) throws JellyTagException {
+    public void addItem(final Object bean) throws JellyTagException {
         try {
             register(server, bean);
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException("Failed to register bean: " + bean, e);
         }
     }
@@ -60,12 +60,12 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException("name");
         }
         if (server == null) {
-            ServerTag serverTag = (ServerTag) findAncestorWithClass(ServerTag.class);
+            final ServerTag serverTag = (ServerTag) findAncestorWithClass(ServerTag.class);
             if (serverTag == null) {
                 throw new JellyTagException("This class must be nested inside a <server> tag");
             }
@@ -88,7 +88,7 @@ public class RegisterTag extends TagSupport implements CollectionTag {
      * Sets the name.
      * @param name The name to set
      */
-    public void setName(ObjectName name) {
+    public void setName(final ObjectName name) {
         this.name = name;
     }
 
@@ -105,7 +105,7 @@ public class RegisterTag extends TagSupport implements CollectionTag {
      *
      * @param server The MBeanServer to register the mbeans with.
      */
-    public void setServer(MBeanServer server) {
+    public void setServer(final MBeanServer server) {
         this.server = server;
     }
 
@@ -115,7 +115,7 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     /**
      * Registers the given bean with the MBeanServer
      */
-    protected void register(MBeanServer server, Object bean) throws InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+    protected void register(final MBeanServer server, final Object bean) throws InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
         server.registerMBean(bean, getName());
     }
 

@@ -18,16 +18,14 @@ package org.apache.commons.jelly.tags.quartz;
  */
 
 import java.text.ParseException;
+import java.util.Date;
 
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
-
+import org.apache.commons.jelly.XMLOutput;
 import org.quartz.CronTrigger;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-
-import java.util.Date;
 
 /** Define a trigger using a cron time spec.
  */
@@ -59,7 +57,7 @@ public class CronTriggerTag extends QuartzTagSupport
      *
      *  @param name.
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -77,7 +75,7 @@ public class CronTriggerTag extends QuartzTagSupport
      *
      *  @param group The group
      */
-    public void setGroup(String group)
+    public void setGroup(final String group)
     {
         this.group = group;
     }
@@ -95,7 +93,7 @@ public class CronTriggerTag extends QuartzTagSupport
      *
      *  @param spec The cron time spec.
      */
-    public void setSpec(String spec)
+    public void setSpec(final String spec)
     {
         this.spec = spec;
     }
@@ -111,7 +109,7 @@ public class CronTriggerTag extends QuartzTagSupport
      *
      *  @param jobName The job name.
      */
-    public void setJobName(String jobName)
+    public void setJobName(final String jobName)
     {
         this.jobName = jobName;
     }
@@ -129,7 +127,7 @@ public class CronTriggerTag extends QuartzTagSupport
      *
      *  @param jobGroup The job group.
      */
-    public void setJobGroup(String jobGroup)
+    public void setJobGroup(final String jobGroup)
     {
         this.jobGroup = jobGroup;
     }
@@ -155,7 +153,7 @@ public class CronTriggerTag extends QuartzTagSupport
      *  @throws JellyTagException If an error occurs.
      */
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException
     {
         if ( getSpec() == null )
         {
@@ -182,12 +180,12 @@ public class CronTriggerTag extends QuartzTagSupport
             throw new MissingAttributeException( "jobGroup" );
         }
 
-        CronTrigger trigger = new CronTrigger( getName(),
+        final CronTrigger trigger = new CronTrigger( getName(),
                                                getGroup() );
         try {
             trigger.setCronExpression( getSpec() );
         }
-        catch (ParseException e) {
+        catch (final ParseException e) {
             throw new JellyTagException(e);
         }
         trigger.setJobName( getJobName() );
@@ -195,10 +193,10 @@ public class CronTriggerTag extends QuartzTagSupport
         trigger.setStartTime( new Date() );
 
         try {
-            Scheduler sched = getScheduler();
+            final Scheduler sched = getScheduler();
             sched.scheduleJob( trigger );
         }
-        catch (SchedulerException e) {
+        catch (final SchedulerException e) {
             throw new JellyTagException(e);
         }
     }

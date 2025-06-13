@@ -32,7 +32,7 @@ public class ChooseTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         setBlockEvaluated(false);
         invokeBody(output);
     }
@@ -41,7 +41,7 @@ public class ChooseTag extends TagSupport {
         return blockEvaluated;
     }
 
-    protected void setBlockEvaluated(boolean blockEvaluated) {
+    protected void setBlockEvaluated(final boolean blockEvaluated) {
         this.blockEvaluated = blockEvaluated;
     }
 }

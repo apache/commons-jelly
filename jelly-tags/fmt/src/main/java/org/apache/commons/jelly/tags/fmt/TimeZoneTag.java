@@ -16,17 +16,14 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
+import java.util.TimeZone;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.MissingResourceException;
-import java.util.TimeZone;
 
 /**
  * Support for tag handlers for &lt;timeZone&gt;, the time zone loading
@@ -60,7 +57,7 @@ public class TimeZoneTag extends TagSupport {
      *
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         Object valueInput = null;
         if (this.value != null) {
             valueInput = this.value.evaluate(context);
@@ -104,17 +101,17 @@ public class TimeZoneTag extends TagSupport {
      * nested inside a &lt;timeZone&gt; action and no time zone configuration
      * setting exists
      */
-    static TimeZone getTimeZone(JellyContext jc, Tag fromTag) {
+    static TimeZone getTimeZone(final JellyContext jc, final Tag fromTag) {
         TimeZone tz = null;
 
-        Tag t = findAncestorWithClass(fromTag, TimeZoneTag.class);
+        final Tag t = findAncestorWithClass(fromTag, TimeZoneTag.class);
         if (t != null) {
             // use time zone from parent <timeZone> tag
-            TimeZoneTag parent = (TimeZoneTag) t;
+            final TimeZoneTag parent = (TimeZoneTag) t;
             tz = parent.getTimeZone();
         } else {
             // get time zone from configuration setting
-            Object obj = jc.getVariable(Config.FMT_TIME_ZONE);
+            final Object obj = jc.getVariable(Config.FMT_TIME_ZONE);
             if (obj != null) {
                 if (obj instanceof TimeZone) {
                     tz = (TimeZone) obj;
@@ -131,7 +128,7 @@ public class TimeZoneTag extends TagSupport {
      * @param value New value of property value.
      *
      */
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 }

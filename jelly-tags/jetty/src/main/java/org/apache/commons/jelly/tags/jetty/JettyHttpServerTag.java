@@ -18,8 +18,8 @@
 package org.apache.commons.jelly.tags.jetty;
 
 import java.io.IOException;
-import java.net.UnknownHostException;
 import java.net.URL;
+import java.net.UnknownHostException;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
@@ -71,7 +71,7 @@ public class JettyHttpServerTag extends TagSupport {
             _logSink = new OutputStreamLogSink(DEFAULT_LOG_FILE);
             //_logSink.start();
             Log.instance().add(_logSink);
-        } catch (Exception ex ) {
+        } catch (final Exception ex ) {
             log.error(ex.getLocalizedMessage());
         }
 
@@ -81,7 +81,7 @@ public class JettyHttpServerTag extends TagSupport {
     private String _var;
 
     /** The HTTP server for this tag */
-    private HttpServer _server;
+    private final HttpServer _server;
 
     /** File name of Jetty log file - with default */
     private String _logFileName = DEFAULT_LOG_FILE;
@@ -106,13 +106,13 @@ public class JettyHttpServerTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
 
         try {
-            URL logFileURL = getContext().getResource(getLogFileName());
+            final URL logFileURL = getContext().getResource(getLogFileName());
             _logSink.setFilename(logFileURL.getPath());
             _logSink.start();
-        } catch (Exception ex ) {
+        } catch (final Exception ex ) {
             log.error(ex.getLocalizedMessage());
         }
 
@@ -122,7 +122,7 @@ public class JettyHttpServerTag extends TagSupport {
         try {
             // if no listeners create a default port listener
             if (_server.getListeners().length == 0) {
-                SocketListener listener=new SocketListener();
+                final SocketListener listener=new SocketListener();
                 listener.setPort(DEFAULT_PORT);
                 listener.setHost(DEFAULT_HOST);
                 _server.addListener(listener);
@@ -132,28 +132,24 @@ public class JettyHttpServerTag extends TagSupport {
             if (_server.getContexts().length == 0) {
                 log.info("Creating a default context");
                 // Create a context
-                HttpContext context = _server.getContext(DEFAULT_HOST,
+                final HttpContext context = _server.getContext(DEFAULT_HOST,
                                                         DEFAULT_CONTEXT_PATH);
 
                 // Serve static content from the context
-                URL baseResourceURL = getContext().getResource(DEFAULT_RESOURCE_BASE);
-                Resource resource = Resource.newResource(baseResourceURL);
+                final URL baseResourceURL = getContext().getResource(DEFAULT_RESOURCE_BASE);
+                final Resource resource = Resource.newResource(baseResourceURL);
                 context.setBaseResource(resource);
                 _server.addContext(context);
             }
         }
-        catch (UnknownHostException e) {
-            throw new JellyTagException(e);
-        }
-        catch (IOException e) {
+        catch (final IOException e) {
             throw new JellyTagException(e);
         }
 
         // check that all the contexts have at least one handler
         // if not then add a default resource handler and a not found handler
-        HttpContext[] allContexts = _server.getContexts();
-        for (int i = 0; i < allContexts.length; i++) {
-            HttpContext currContext = allContexts[i];
+        final HttpContext[] allContexts = _server.getContexts();
+        for (final HttpContext currContext : allContexts) {
             if (currContext.getHandlers().length == 0) {
                 log.info("Adding resource and not found handlers to context:" +
                          currContext.getContextPath());
@@ -166,7 +162,7 @@ public class JettyHttpServerTag extends TagSupport {
         try {
             _server.start();
         }
-        catch (MultiException e) {
+        catch (final MultiException e) {
             throw new JellyTagException(e);
         }
 
@@ -181,7 +177,7 @@ public class JettyHttpServerTag extends TagSupport {
      *
      * @param listener the listener to add
      */
-    public void addListener(HttpListener listener) {
+    public void addListener(final HttpListener listener) {
         _server.addListener(listener);
     }
 
@@ -190,7 +186,7 @@ public class JettyHttpServerTag extends TagSupport {
      *
      * @param context the context to add
      */
-    public void addContext(HttpContext context) {
+    public void addContext(final HttpContext context) {
         _server.addContext(context);
     }
 
@@ -200,7 +196,7 @@ public class JettyHttpServerTag extends TagSupport {
      * @param realm the realm to add
      * @return the realm added
      */
-    public UserRealm addRealm(UserRealm realm)
+    public UserRealm addRealm(final UserRealm realm)
     {
         return _server.addRealm(realm);
     }
@@ -219,7 +215,7 @@ public class JettyHttpServerTag extends TagSupport {
      *
      * @param var New value of property var.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         _var = var;
     }
 
@@ -237,7 +233,7 @@ public class JettyHttpServerTag extends TagSupport {
      *
      * @param logFileName New value of property logFileName.
      */
-    public void setLogFileName(String logFileName) {
+    public void setLogFileName(final String logFileName) {
         _logFileName = logFileName;
     }
 

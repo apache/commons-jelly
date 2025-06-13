@@ -61,18 +61,18 @@ public class ValidateTag extends TagSupport {
             try {
                 // we are redirecting errors to another handler
                 // so just filter the body
-                VerifierFilter filter = verifier.getVerifierFilter();
+                final VerifierFilter filter = verifier.getVerifierFilter();
 
                 // now install the current output in the filter chain...
                 // ####
 
-                ContentHandler handler = filter.getContentHandler();
+                final ContentHandler handler = filter.getContentHandler();
                 handler.startDocument();
                 invokeBody( new XMLOutput( handler ) );
                 handler.endDocument();
                 valid = filter.isValid();
             }
-            catch (SAXException e) {
+            catch (final SAXException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -81,29 +81,30 @@ public class ValidateTag extends TagSupport {
             verifier.setErrorHandler(
                 new ErrorHandler() {
                     @Override
-                    public void error(SAXParseException exception) throws SAXException {
+                    public void error(final SAXParseException exception) throws SAXException {
                         outputException(output, "error", exception);
                     }
 
                     @Override
-                    public void fatalError(SAXParseException exception) throws SAXException {
+                    public void fatalError(final SAXParseException exception) throws SAXException {
                         outputException(output, "fatalError", exception);
                     }
 
-                    public void warning(SAXParseException exception) throws SAXException {
+                    @Override
+                    public void warning(final SAXParseException exception) throws SAXException {
                         outputException(output, "warning", exception);
                     }
                 }
             );
 
             try {
-                VerifierHandler handler = verifier.getVerifierHandler();
+                final VerifierHandler handler = verifier.getVerifierHandler();
                 handler.startDocument();
                 invokeBody( new XMLOutput( handler ) );
                 handler.endDocument();
                 valid = handler.isValid();
             }
-            catch (SAXException e) {
+            catch (final SAXException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -119,7 +120,7 @@ public class ValidateTag extends TagSupport {
      * jelly:required
      * </p>
      */
-    public void setVerifier(Verifier verifier) {
+    public void setVerifier(final Verifier verifier) {
         this.verifier = verifier;
     }
 
@@ -143,7 +144,7 @@ public class ValidateTag extends TagSupport {
      * jelly:optional
      * </p>
      */
-    public void setErrorHandler(ErrorHandler errorHandler) {
+    public void setErrorHandler(final ErrorHandler errorHandler) {
         this.errorHandler = errorHandler;
     }
 
@@ -155,7 +156,7 @@ public class ValidateTag extends TagSupport {
      * jelly:optional
      * </p>
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -167,9 +168,9 @@ public class ValidateTag extends TagSupport {
      * Derived classes can overload this method to do different things, such
      * as to throw assertion exceptions etc.
      */
-    protected void handleValid(boolean valid) {
+    protected void handleValid(final boolean valid) {
         if (var != null ) {
-            Boolean value = (valid) ? Boolean.TRUE : Boolean.FALSE;
+            final Boolean value = valid ? Boolean.TRUE : Boolean.FALSE;
             context.setVariable(var, value);
         }
     }
@@ -177,18 +178,18 @@ public class ValidateTag extends TagSupport {
     /**
      * Outputs the given validation exception as XML to the output
      */
-    protected void outputException(XMLOutput output, String name, SAXParseException e) throws SAXException {
-        AttributesImpl attributes = new AttributesImpl();
-        String uri = "";
-        String type = "CDATA";
+    protected void outputException(final XMLOutput output, final String name, final SAXParseException e) throws SAXException {
+        final AttributesImpl attributes = new AttributesImpl();
+        final String uri = "";
+        final String type = "CDATA";
         attributes.addAttribute( uri, "column", "column", type, Integer.toString( e.getColumnNumber() ) );
         attributes.addAttribute( uri, "line", "line", type, Integer.toString( e.getLineNumber() ) );
 
-        String publicID = e.getPublicId();
+        final String publicID = e.getPublicId();
         if ( publicID != null && publicID.length() > 0 ) {
             attributes.addAttribute( uri, "publicID", "publicID", type, publicID );
         }
-        String systemID = e.getSystemId();
+        final String systemID = e.getSystemId();
         if ( systemID != null && systemID.length() > 0 ) {
             attributes.addAttribute( uri, "systemID", "systemID", type, systemID );
         }

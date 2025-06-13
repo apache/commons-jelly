@@ -53,27 +53,29 @@ public class GetStaticTag extends TagSupport {
     private String className;
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         String message = null;
 
-        if (var == null)
+        if (var == null) {
             message = "var";
-        else if (field == null)
+        } else if (field == null) {
             message = "field";
-        else if (className == null)
+        } else if (className == null) {
             message = "className";
+        }
 
-        if (message != null)
+        if (message != null) {
             throw new MissingAttributeException(message);
+        }
 
         try {
-            Class type     = ClassLoaderUtils.getClassLoader(getClass()).loadClass(className);
-            Object result  = type.getField(field).get(null);
-            JellyContext context = getContext();
+            final Class type     = ClassLoaderUtils.getClassLoader(getClass()).loadClass(className);
+            final Object result  = type.getField(field).get(null);
+            final JellyContext context = getContext();
 
             context.setVariable(var, result);
 
-        } catch (Throwable t) {
+        } catch (final Throwable t) {
             throw
                 new JellyTagException("Could not access " + className + "." +
                                       var + ".  Original exception message: " +
@@ -87,7 +89,7 @@ public class GetStaticTag extends TagSupport {
      * @param className The name of the class.
      */
 
-    public void setClassName(String className) {
+    public void setClassName(final String className) {
         this.className = className;
     }
 
@@ -97,7 +99,7 @@ public class GetStaticTag extends TagSupport {
      * @param field The method name
      */
 
-    public void setField(String field) {
+    public void setField(final String field) {
         this.field = field;
     }
 
@@ -110,7 +112,7 @@ public class GetStaticTag extends TagSupport {
      * @param var The variable name.
      */
 
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

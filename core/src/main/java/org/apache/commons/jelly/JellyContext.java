@@ -73,7 +73,7 @@ public class JellyContext {
     private URL currentURL;
 
     /** Tag libraries found so far */
-    private Map taglibs = new Hashtable();
+    private final Map taglibs = new Hashtable();
 
     /** Synchronized access to the variables in scope */
     private Map variables = new Hashtable();
@@ -95,13 +95,14 @@ public class JellyContext {
 
     /** Should we cache Tag instances, per thread, to reduce object construction overhead? */
     private boolean cacheTags = false;
-    
+
     /**
      * True if exceptions should be suppressed; introduced in 1.1 beta and immediately deprecated
      * because future versions will _never_ suppress exceptions (required here for backwards
      * compatibility)
 	 * @deprecated after v1.1, exceptions will never be suppressed
      */
+    @Deprecated
     private boolean suppressExpressionExceptions;
 
     /**
@@ -119,7 +120,7 @@ public class JellyContext {
      *
      * @param parent the parent context for the newly created context.
      */
-    public JellyContext(JellyContext parent) {
+    public JellyContext(final JellyContext parent) {
         this.parent = parent;
         this.rootURL = parent.rootURL;
         this.currentURL = parent.currentURL;
@@ -137,7 +138,7 @@ public class JellyContext {
      * @param parentJellyContext the parent context for the newly created context.
      * @param currentURL the root URL used in resolving relative resources
      */
-    public JellyContext(JellyContext parentJellyContext, URL currentURL) {
+    public JellyContext(final JellyContext parentJellyContext, final URL currentURL) {
         this(parentJellyContext);
         this.currentURL = currentURL;
     }
@@ -150,7 +151,7 @@ public class JellyContext {
      * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/'
      * @param currentURL the root URL used in resolving relative resources
      */
-    public JellyContext(JellyContext parentJellyContext, URL rootURL, URL currentURL) {
+    public JellyContext(final JellyContext parentJellyContext, final URL rootURL, final URL currentURL) {
         this(parentJellyContext, currentURL);
         this.rootURL = rootURL;
     }
@@ -159,7 +160,7 @@ public class JellyContext {
      * Create a new context with the given rootURL
      * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/'
      */
-    public JellyContext(URL rootURL) {
+    public JellyContext(final URL rootURL) {
         this( rootURL, rootURL );
     }
 
@@ -168,7 +169,7 @@ public class JellyContext {
      * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/'
      * @param currentURL the root URL used in resolving relative resources
      */
-    public JellyContext(URL rootURL, URL currentURL) {
+    public JellyContext(final URL rootURL, final URL currentURL) {
         this.rootURL = rootURL;
         this.currentURL = currentURL;
         init();
@@ -192,16 +193,14 @@ public class JellyContext {
      * Attempts to parse the script from the given InputSource using the
      * {@link #getResource} method then returns the compiled script.
      */
-    public Script compileScript(InputSource source) throws JellyException {
-        XMLParser parser = getXMLParser();
+    public Script compileScript(final InputSource source) throws JellyException {
+        final XMLParser parser = getXMLParser();
         parser.setContext(this);
 
         Script script = null;
         try {
             script = parser.parse(source);
-        } catch (IOException e) {
-            throw new JellyException(JellyContext.BAD_PARSE, e);
-        } catch (SAXException e) {
+        } catch (final IOException | SAXException e) {
             throw new JellyException(JellyContext.BAD_PARSE, e);
         }
 
@@ -212,19 +211,17 @@ public class JellyContext {
      * Attempts to parse the script from the given uri using the
      * {@link #getResource} method then returns the compiled script.
      */
-    public Script compileScript(String uri) throws JellyException {
-        XMLParser parser = getXMLParser();
+    public Script compileScript(final String uri) throws JellyException {
+        final XMLParser parser = getXMLParser();
         parser.setContext(this);
-        InputStream in = getResourceAsStream(uri);
+        final InputStream in = getResourceAsStream(uri);
         if (in == null) {
             throw new JellyException("Could not find Jelly script: " + uri);
         }
         Script script = null;
         try {
             script = parser.parse(in);
-        } catch (IOException e) {
-            throw new JellyException(JellyContext.BAD_PARSE, e);
-        } catch (SAXException e) {
+        } catch (final IOException | SAXException e) {
             throw new JellyException(JellyContext.BAD_PARSE, e);
         }
 
@@ -235,16 +232,14 @@ public class JellyContext {
      * Attempts to parse the script from the given URL using the
      * {@link #getResource} method then returns the compiled script.
      */
-    public Script compileScript(URL url) throws JellyException {
-        XMLParser parser = getXMLParser();
+    public Script compileScript(final URL url) throws JellyException {
+        final XMLParser parser = getXMLParser();
         parser.setContext(this);
 
         Script script = null;
         try {
             script = parser.parse(url.toString());
-        } catch (IOException e) {
-            throw new JellyException(JellyContext.BAD_PARSE, e);
-        } catch (SAXException e) {
+        } catch (final IOException | SAXException e) {
             throw new JellyException(JellyContext.BAD_PARSE, e);
         }
 
@@ -268,14 +263,14 @@ public class JellyContext {
      * @param relativeURI is the relative URI (without a leading "/")
      * @throws MalformedURLException if the URL is invalid.
      */
-    protected URL createRelativeURL(URL rootURL, String relativeURI)
+    protected URL createRelativeURL(final URL rootURL, final String relativeURI)
         throws MalformedURLException {
         URL url = rootURL;
         if (url == null) {
-            File file = new File(System.getProperty("user.dir"));
+            final File file = new File(System.getProperty("user.dir"));
             url = file.toURL();
         }
-        String urlText = url.toString() + relativeURI;
+        final String urlText = url.toString() + relativeURI;
         if ( log.isDebugEnabled() ) {
             log.debug("Attempting to open url: " + urlText);
         }
@@ -298,11 +293,13 @@ public class JellyContext {
      * @return the value of the variable in this or one of its descendant contexts or null
      *  if the variable could not be found.
      */
-    public Object findVariable(String name) {
+    public Object findVariable(final String name) {
         Object answer = variables.get(name);
-        boolean definedHere = answer != null || variables.containsKey(name);
+        final boolean definedHere = answer != null || variables.containsKey(name);
 
-        if (definedHere) return answer;
+        if (definedHere) {
+            return answer;
+        }
 
         if ( answer == null && parent != null ) {
             answer = parent.findVariable(name);
@@ -344,24 +341,23 @@ public class JellyContext {
     /**
      * Strips off the name of a script to create a new context URL
      */
-    protected URL getJellyContextURL(InputSource source) throws MalformedURLException {
+    protected URL getJellyContextURL(final InputSource source) throws MalformedURLException {
         String text = source.getSystemId();
         if (text != null) {
-            int idx = text.lastIndexOf('/');
+            final int idx = text.lastIndexOf('/');
             text = text.substring(0, idx + 1);
             return new URL(text);
-        } else {
-            return null;
         }
-        
+        return null;
+
     }
 
     /**
      * Strips off the name of a script to create a new context URL
      */
-    protected URL getJellyContextURL(URL url) throws MalformedURLException {
+    protected URL getJellyContextURL(final URL url) throws MalformedURLException {
         String text = url.toString();
-        int idx = text.lastIndexOf('/');
+        final int idx = text.lastIndexOf('/');
         text = text.substring(0, idx + 1);
         return new URL(text);
     }
@@ -382,22 +378,20 @@ public class JellyContext {
      * Otherwise the uri is interpreted as relative to the current context (the
      * location of the current script).
      */
-    public URL getResource(String uri) throws MalformedURLException {
+    public URL getResource(final String uri) throws MalformedURLException {
         if (uri.startsWith("/")) {
             // append this uri to the context root
             return createRelativeURL(rootURL, uri.substring(1));
         }
-        else {
+        try {
+            return new URL(uri);
+        }
+        catch (final MalformedURLException e) {
+            // lets try find a relative resource
             try {
-                return new URL(uri);
-            }
-            catch (MalformedURLException e) {
-                // lets try find a relative resource
-                try {
-                    return createRelativeURL(currentURL, uri);
-                } catch (MalformedURLException e2) {
-                    throw e;
-                }
+                return createRelativeURL(currentURL, uri);
+            } catch (final MalformedURLException e2) {
+                throw e;
             }
         }
     }
@@ -412,12 +406,12 @@ public class JellyContext {
      * @return null if this resource could not be loaded, otherwise the resources
      *  input stream is returned.
      */
-    public InputStream getResourceAsStream(String uri) {
+    public InputStream getResourceAsStream(final String uri) {
         try {
-            URL url = getResource(uri);
+            final URL url = getResource(uri);
             return url.openStream();
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             if (log.isTraceEnabled()) {
                 log.trace(
                     "Caught exception attempting to open: " + uri + ". Exception: " + e,
@@ -426,7 +420,7 @@ public class JellyContext {
             return null;
         }
     }
-    
+
     /**
      * @return the current root context URL from which all absolute resource URIs
      *  will be relative to. For example in a web application the root URL will
@@ -435,29 +429,29 @@ public class JellyContext {
     public URL getRootURL() {
         return rootURL;
     }
-    
+
     /**
      * @return the scope of the given name, such as the 'parent' scope.
      * If Jelly is used in a Servlet situation then 'request', 'session' and 'application' are other names
      * for scopes
      */
-    public JellyContext getScope(String name) {
+    public JellyContext getScope(final String name) {
         if ( "parent".equals( name ) ) {
             return getParent();
         }
         return null;
     }
-    
+
     /**
      * Gets a system property and handle security exceptions
      * @param name the name of the property to retrieve
      * @return the value of the property, or null if a SecurityException occurs
      */
-    private Object getSystemProperty(String name) {
+    private Object getSystemProperty(final String name) {
         try {
             return System.getProperty(name);
         }
-        catch (SecurityException e) {
+        catch (final SecurityException e) {
             log.debug("security exception accessing system properties", e);
         }
         return null;
@@ -466,7 +460,7 @@ public class JellyContext {
     /**
      * @return the TagLibrary for the given namespace URI or null if one could not be found
      */
-    public TagLibrary getTagLibrary(String namespaceURI) {
+    public TagLibrary getTagLibrary(final String namespaceURI) {
 
         // use my own mapping first, so that namespaceURIs can
         // be redefined inside child contexts...
@@ -480,18 +474,18 @@ public class JellyContext {
         if ( answer instanceof TagLibrary ) {
             return (TagLibrary) answer;
         }
-        else if ( answer instanceof String ) {
-            String className = (String) answer;
+        if ( answer instanceof String ) {
+            final String className = (String) answer;
             Class theClass = null;
             try {
                 theClass = getClassLoader().loadClass(className);
             }
-            catch (ClassNotFoundException e) {
+            catch (final ClassNotFoundException e) {
                 log.error("Could not find the class: " + className, e);
             }
             if ( theClass != null ) {
                 try {
-                    Object object = theClass.getConstructor().newInstance();
+                    final Object object = theClass.getConstructor().newInstance();
                     if (object instanceof TagLibrary) {
                         taglibs.put(namespaceURI, object);
                         return (TagLibrary) object;
@@ -504,7 +498,7 @@ public class JellyContext {
                                 + object);
                     }
                 }
-                catch (Exception e) {
+                catch (final Exception e) {
                     log.error(
                         "Could not instantiate instance of class: " + className + ". Reason: " + e,
                         e);
@@ -523,14 +517,16 @@ public class JellyContext {
     }
 
     /** @return the value of the given variable name */
-    public Object getVariable(String name) {
+    public Object getVariable(final String name) {
         Object value = variables.get(name);
-        boolean definedHere = value != null || variables.containsKey(name);
+        final boolean definedHere = value != null || variables.containsKey(name);
 
-        if (definedHere) return value;
+        if (definedHere) {
+            return value;
+        }
 
         if ( value == null && isInherit() ) {
-            JellyContext parentContext = getParent();
+            final JellyContext parentContext = getParent();
             if (parentContext != null) {
                 value = parentContext.getVariable( name );
             }
@@ -550,8 +546,8 @@ public class JellyContext {
      * @param scopeName is the optional scope name such as 'parent'. For servlet environments
      * this could be 'application', 'session' or 'request'.
      */
-    public Object getVariable(String name, String scopeName) {
-        JellyContext scope = getScope(scopeName);
+    public Object getVariable(final String name, final String scopeName) {
+        final JellyContext scope = getScope(scopeName);
         if ( scope != null ) {
             return scope.getVariable(name);
         }
@@ -578,7 +574,7 @@ public class JellyContext {
      * of the XMLParser
      */
     protected XMLParser getXMLParser() {
-        XMLParser parser = createXMLParser();
+        final XMLParser parser = createXMLParser();
         return parser;
     }
 
@@ -591,7 +587,7 @@ public class JellyContext {
         variables.put("context", this);
         try {
             variables.put("systemScope", System.getProperties());
-        } catch (SecurityException e) {
+        } catch (final SecurityException e) {
             log.debug("security exception accessing system properties", e);
         }
     }
@@ -641,21 +637,20 @@ public class JellyContext {
 	 * @return the suppressExpressionExceptions
 	 * @deprecated after v1.1, exceptions will never be suppressed
 	 */
-	public boolean isSuppressExpressionExceptions() {
+	@Deprecated
+    public boolean isSuppressExpressionExceptions() {
 		return suppressExpressionExceptions;
 	}
 
-    public boolean isTagLibraryRegistered(String namespaceURI) {
-        boolean answer = taglibs.containsKey( namespaceURI );
+    public boolean isTagLibraryRegistered(final String namespaceURI) {
+        final boolean answer = taglibs.containsKey( namespaceURI );
         if (answer) {
             return true;
         }
-        else if ( parent != null ) {
+        if (parent != null) {
             return parent.isTagLibraryRegistered(namespaceURI);
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     /**
@@ -670,13 +665,13 @@ public class JellyContext {
      * A factory method to create a new child context of the
      * current context.
      */
-    public JellyContext newJellyContext(Map newVariables) {
+    public JellyContext newJellyContext(final Map newVariables) {
         // XXXX: should allow this new context to
         // XXXX: inherit parent contexts?
         // XXXX: Or at least publish the parent scope
         // XXXX: as a Map in this new variable scope?
         newVariables.put("parentScope", variables);
-        JellyContext answer = createChildContext();
+        final JellyContext answer = createChildContext();
         answer.setVariables(newVariables);
         return answer;
     }
@@ -686,8 +681,8 @@ public class JellyContext {
      * This should be called before the parser is used.
      */
     public void registerTagLibrary(
-        String namespaceURI,
-        String className) {
+        final String namespaceURI,
+        final String className) {
 
         if (log.isDebugEnabled()) {
             log.debug("Registering tag library to: " + namespaceURI + " taglib: " + className);
@@ -705,7 +700,7 @@ public class JellyContext {
     /** Registers the given tag library against the given namespace URI.
      * This should be called before the parser is used.
      */
-    public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
+    public void registerTagLibrary(final String namespaceURI, final TagLibrary taglib) {
         if (log.isDebugEnabled()) {
             log.debug("Registering tag library to: " + namespaceURI + " taglib: " + taglib);
         }
@@ -717,7 +712,7 @@ public class JellyContext {
     }
 
     /** Removes the given variable */
-    public void removeVariable(String name) {
+    public void removeVariable(final String name) {
         variables.remove(name);
     }
 
@@ -728,8 +723,8 @@ public class JellyContext {
      * @param scopeName is the optional scope name such as 'parent'. For servlet environments
      *  this could be 'application', 'session' or 'request'.
      */
-    public void removeVariable(String name, String scopeName) {
-        JellyContext scope = getScope(scopeName);
+    public void removeVariable(final String name, final String scopeName) {
+        final JellyContext scope = getScope(scopeName);
         if ( scope != null ) {
             scope.removeVariable(name);
         }
@@ -740,11 +735,11 @@ public class JellyContext {
      *
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(File file, XMLOutput output) throws JellyException {
+    public JellyContext runScript(final File file, final XMLOutput output) throws JellyException {
         try {
             return runScript(file.toURL(), output, JellyContext.DEFAULT_EXPORT,
                 JellyContext.DEFAULT_INHERIT);
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyException(e.toString());
         }
     }
@@ -754,11 +749,11 @@ public class JellyContext {
      *
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(File file, XMLOutput output,
-                          boolean export, boolean inherit) throws JellyException {
+    public JellyContext runScript(final File file, final XMLOutput output,
+                          final boolean export, final boolean inherit) throws JellyException {
         try {
             return runScript(file.toURL(), output, export, inherit);
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyException(e.toString());
         }
     }
@@ -768,7 +763,7 @@ public class JellyContext {
      *
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(InputSource source, XMLOutput output) throws JellyException {
+    public JellyContext runScript(final InputSource source, final XMLOutput output) throws JellyException {
         return runScript(source, output, JellyContext.DEFAULT_EXPORT,
             JellyContext.DEFAULT_INHERIT);
     }
@@ -778,18 +773,18 @@ public class JellyContext {
      *
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(InputSource source, XMLOutput output,
-                          boolean export, boolean inherit) throws JellyException {
-        Script script = compileScript(source);
+    public JellyContext runScript(final InputSource source, final XMLOutput output,
+                          final boolean export, final boolean inherit) throws JellyException {
+        final Script script = compileScript(source);
 
         URL newJellyContextURL = null;
         try {
             newJellyContextURL = getJellyContextURL(source);
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyException(e.toString());
         }
 
-        JellyContext newJellyContext = newJellyContext();
+        final JellyContext newJellyContext = newJellyContext();
         newJellyContext.setRootURL( newJellyContextURL );
         newJellyContext.setCurrentURL( newJellyContextURL );
         newJellyContext.setExport( export );
@@ -817,11 +812,11 @@ public class JellyContext {
      *
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(String uri, XMLOutput output) throws JellyException {
+    public JellyContext runScript(final String uri, final XMLOutput output) throws JellyException {
         URL url = null;
         try {
             url = getResource(uri);
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyException(e.toString());
         }
 
@@ -838,12 +833,12 @@ public class JellyContext {
      *
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(String uri, XMLOutput output,
-                          boolean export, boolean inherit) throws JellyException {
+    public JellyContext runScript(final String uri, final XMLOutput output,
+                          final boolean export, final boolean inherit) throws JellyException {
         URL url = null;
         try {
             url = getResource(uri);
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyException(e.toString());
         }
 
@@ -859,7 +854,7 @@ public class JellyContext {
      *
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(URL url, XMLOutput output) throws JellyException {
+    public JellyContext runScript(final URL url, final XMLOutput output) throws JellyException {
         return runScript(url, output, JellyContext.DEFAULT_EXPORT,
             JellyContext.DEFAULT_INHERIT);
     }
@@ -869,15 +864,15 @@ public class JellyContext {
      *
      * @return the new child context that was used to run the script
      */
-    public JellyContext runScript(URL url, XMLOutput output,
-                          boolean export, boolean inherit) throws JellyException {
+    public JellyContext runScript(final URL url, final XMLOutput output,
+                          final boolean export, final boolean inherit) throws JellyException {
         return runScript(new InputSource(url.toString()), output, export, inherit);
     }
 
     /**
      * Sets whether we should allow our doctype definitions to call out to external entities.
      */
-    public void setAllowDtdToCallExternalEntities(boolean allowDtdToCallExternalEntities) {
+    public void setAllowDtdToCallExternalEntities(final boolean allowDtdToCallExternalEntities) {
         this.allowDtdToCallExternalEntities = allowDtdToCallExternalEntities;
     }
 
@@ -889,7 +884,7 @@ public class JellyContext {
      *
      * @param cacheTags Whether caching should be enabled or disabled.
      */
-    public void setCacheTags(boolean cacheTags) {
+    public void setCacheTags(final boolean cacheTags) {
         this.cacheTags = cacheTags;
     }
 
@@ -900,7 +895,7 @@ public class JellyContext {
      * @param classLoader The new class loader to use, or {@code null}
      *  to revert to the standard rules
      */
-    public void setClassLoader(ClassLoader classLoader) {
+    public void setClassLoader(final ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 
@@ -909,14 +904,14 @@ public class JellyContext {
      *  This URL context is used to deduce relative scripts when relative URIs are
      *  used in calls to {@link #getResource} to process relative scripts.
      */
-    public void setCurrentURL(URL currentURL) {
+    public void setCurrentURL(final URL currentURL) {
         this.currentURL = currentURL;
     }
 
     /**
      * Sets whether we should export variable definitions to our parent context
      */
-    public void setExport(boolean export) {
+    public void setExport(final boolean export) {
         this.export = export;
     }
 
@@ -924,14 +919,14 @@ public class JellyContext {
      * Sets whether we export tag libraries to our parents context
      * @param exportLibraries The exportLibraries to set
      */
-    public void setExportLibraries(boolean exportLibraries) {
+    public void setExportLibraries(final boolean exportLibraries) {
         this.exportLibraries = exportLibraries;
     }
 
     /**
      * Sets whether we should inherit variables from our parent context
      */
-    public void setInherit(boolean inherit) {
+    public void setInherit(final boolean inherit) {
         this.inherit = inherit;
     }
 
@@ -939,16 +934,16 @@ public class JellyContext {
      * Change the parent context to the one provided
      * @param context the new parent context
      */
-    protected void setParent(JellyContext context)
+    protected void setParent(final JellyContext context)
     {
         parent = context;
         this.variables.put("parentScope", parent.variables);
         // need to re-export tag libraries to the new parent
         if (isExportLibraries() && parent != null) {
-            for (Iterator keys = taglibs.keySet().iterator(); keys.hasNext();)
+            for (final Iterator keys = taglibs.keySet().iterator(); keys.hasNext();)
             {
-                String namespaceURI = (String) keys.next();
-                Object tagLibOrClassName = taglibs.get(namespaceURI);
+                final String namespaceURI = (String) keys.next();
+                final Object tagLibOrClassName = taglibs.get(namespaceURI);
                 if (tagLibOrClassName instanceof TagLibrary)
                 {
                     parent.registerTagLibrary( namespaceURI, (TagLibrary) tagLibOrClassName );
@@ -967,7 +962,7 @@ public class JellyContext {
      *  will be relative to. For example in a web application the root URL will
      *  map to the web directory which contains the WEB-INF directory.
      */
-    public void setRootURL(URL rootURL) {
+    public void setRootURL(final URL rootURL) {
         this.rootURL = rootURL;
     }
 
@@ -975,7 +970,8 @@ public class JellyContext {
 	 * @param suppressExpressionExceptions the suppressExpressionExceptions to set
 	 * @deprecated after v1.1, exceptions will never be suppressed
 	 */
-	public void setSuppressExpressionExceptions(boolean suppressExpressionExceptions) {
+	@Deprecated
+    public void setSuppressExpressionExceptions(final boolean suppressExpressionExceptions) {
 		this.suppressExpressionExceptions = suppressExpressionExceptions;
 	}
 
@@ -988,12 +984,12 @@ public class JellyContext {
      *
      * @param use determines whether to use JellyContext ClassLoader.
      */
-    public void setUseContextClassLoader(boolean use) {
+    public void setUseContextClassLoader(final boolean use) {
         useContextClassLoader = use;
     }
 
     /** Sets the value of the named variable */
-    public void setVariable(String name, Object value) {
+    public void setVariable(final String name, final Object value) {
         if ( isExport() ) {
             getParent().setVariable( name, value );
             return;
@@ -1013,8 +1009,8 @@ public class JellyContext {
      *  this could be 'application', 'session' or 'request'.
      * @param value is the value of the attribute
      */
-    public void setVariable(String name, String scopeName, Object value) {
-        JellyContext scope = getScope(scopeName);
+    public void setVariable(final String name, final String scopeName, final Object value) {
+        final JellyContext scope = getScope(scopeName);
         if ( scope != null ) {
             scope.setVariable(name, value);
         }
@@ -1023,11 +1019,11 @@ public class JellyContext {
 	/**
      * Sets the Map of variables to use
      */
-    public void setVariables(Map variables) {
+    public void setVariables(final Map variables) {
         // I have seen this fail when the passed Map contains a key, value
         // pair where the value is null
-        for (Iterator iter = variables.entrySet().iterator(); iter.hasNext();) {
-            Map.Entry element = (Map.Entry) iter.next();
+        for (final Iterator iter = variables.entrySet().iterator(); iter.hasNext();) {
+            final Map.Entry element = (Map.Entry) iter.next();
             if (element.getValue() != null) {
                 this.variables.put(element.getKey(), element.getValue());
             }

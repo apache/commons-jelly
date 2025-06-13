@@ -42,8 +42,8 @@ public class JellyResourceHandlerTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
             HttpContextTag.class);
         if ( httpContext == null ) {
             throw new JellyTagException( "<jellyResourceHandler> tag must be enclosed inside a <httpContext> tag" );

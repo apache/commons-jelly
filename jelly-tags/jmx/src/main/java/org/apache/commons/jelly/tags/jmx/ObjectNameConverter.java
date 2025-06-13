@@ -36,16 +36,14 @@ public class ObjectNameConverter implements Converter {
 
     //-------------------------------------------------------------------------
     @Override
-    public Object convert(Class type, Object value) {
+    public Object convert(final Class type, final Object value) {
         try {
             if (value == null) {
                 return new ObjectName("");
             }
-            else {
-                return new ObjectName(value.toString());
-            }
+            return new ObjectName(value.toString());
         }
-        catch (MalformedObjectNameException e) {
+        catch (final MalformedObjectNameException e) {
             throw new ConversionException(
                 "Could not convert: "
                     + value

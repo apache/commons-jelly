@@ -65,7 +65,7 @@ public class EmptyBorderTag extends BorderTagSupport {
      * Sets the left inset
      * @param left
      */
-    public void setLeft( int left ) {
+    public void setLeft( final int left ) {
         this.left = left;
     }
 
@@ -73,7 +73,7 @@ public class EmptyBorderTag extends BorderTagSupport {
      * Sets the right inset
      * @param right
      */
-    public void setRight( int right ) {
+    public void setRight( final int right ) {
         this.right = right;
     }
 
@@ -81,7 +81,7 @@ public class EmptyBorderTag extends BorderTagSupport {
      * Sets the top inset
      * @param top
      */
-    public void setTop( int top ) {
+    public void setTop( final int top ) {
         this.top = top;
     }
 
@@ -89,7 +89,7 @@ public class EmptyBorderTag extends BorderTagSupport {
      * Sets the bottom inset
      * @param bottom
      */
-    public void setBottom( int bottom ) {
+    public void setBottom( final int bottom ) {
         this.bottom = bottom;
     }
 

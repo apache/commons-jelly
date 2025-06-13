@@ -44,43 +44,44 @@ public class TestNamespacePrefixes extends BaseJellyTest {
 		return new TestSuite(TestNamespacePrefixes.class);
 	}
 
-	public TestNamespacePrefixes(String name) {
+	public TestNamespacePrefixes(final String name) {
 		super(name);
 	}
 
     @Override
-    protected void addCustomTagLib(JellyContext context) {
+    protected void addCustomTagLib(final JellyContext context) {
         context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
     }
 
-    
+
 
 	public void testNamespacePrefixes() throws Exception {
-		SAXParserFactory pf = SAXParserFactory.newInstance();
+		final SAXParserFactory pf = SAXParserFactory.newInstance();
 		pf.setValidating(false);
 		pf.setNamespaceAware(true);
 		pf.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
 		XMLReader reader = null;
-		SAXParser parser = pf.newSAXParser();
+		final SAXParser parser = pf.newSAXParser();
 		reader = parser.getXMLReader();
 
-        URL url = this.getClass().getResource("testNamespacePrefixes.xml");
-        if (null == url)
+        final URL url = this.getClass().getResource("testNamespacePrefixes.xml");
+        if (null == url) {
             throw new Exception("Could not find Jelly script: testNamespacePrefixes.xml in package of class: " + getClass().getName());
-		InputSource inSrc = new InputSource(new FileReader(new File(url.getPath())));
+        }
+		final InputSource inSrc = new InputSource(new FileReader(new File(url.getPath())));
 
-		JellyContext context = getJellyContext();
-		XMLParser jellyParser = new XMLParser();
+		final JellyContext context = getJellyContext();
+		final XMLParser jellyParser = new XMLParser();
 		jellyParser.setContext(context);
 
 		reader.setContentHandler(jellyParser);
 		reader.parse(inSrc);
 
-		Script script = jellyParser.getScript();
+		final Script script = jellyParser.getScript();
 		script.compile();
 		script.run(context, getXMLOutput());
-		
-		String str = getStringOutput().toString();
+
+		final String str = getStringOutput().toString();
 		System.out.println(str);
 	}
 }

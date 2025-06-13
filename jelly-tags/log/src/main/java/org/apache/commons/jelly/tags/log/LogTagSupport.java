@@ -16,7 +16,6 @@
  */
 package org.apache.commons.jelly.tags.log;
 
-import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,12 +49,12 @@ public abstract class LogTagSupport extends TagSupport {
     /**
      * Sets the name of the logger to use
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         setLog( LogFactory.getLog(name) );
     }
 
     /** Sets the Log instance to use for logging. */
-    public void setLog(Log log) {
+    public void setLog(final Log log) {
         this.log = log;
     }
 
@@ -70,7 +69,7 @@ public abstract class LogTagSupport extends TagSupport {
      * Sets whether the body of the tag should be encoded as text (so that &lt; and &gt; are
      * encoded as &amp;lt; and &amp;gt;) or leave the text as XML which is the default.
      */
-    public void setEncode(boolean encode) {
+    public void setEncode(final boolean encode) {
         this.encode = encode;
     }
 

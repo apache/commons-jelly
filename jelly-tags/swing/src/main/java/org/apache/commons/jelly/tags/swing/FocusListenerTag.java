@@ -35,17 +35,16 @@ public class FocusListenerTag extends TagSupport
   protected Script lost;
 
   /**
-   * 
+   *
    */
   public FocusListenerTag()
   {
-    super();
   }
 
   /**
   * @param var
   */
-  public void setVar(String var)
+  public void setVar(final String var)
   {
     this.var = var;
   }
@@ -53,7 +52,7 @@ public class FocusListenerTag extends TagSupport
   /**
    * @param gained
    */
-  public void setGained(Script gained)
+  public void setGained(final Script gained)
   {
     this.gained = gained;
   }
@@ -61,7 +60,7 @@ public class FocusListenerTag extends TagSupport
   /**
    * @param lost
    */
-  public void setLost(Script lost)
+  public void setLost(final Script lost)
   {
     this.lost = lost;
   }
@@ -70,19 +69,19 @@ public class FocusListenerTag extends TagSupport
 public void doTag(final XMLOutput output) throws JellyTagException
   {
     // now lets add this action to its parent if we have one
-    ComponentTag tag = (ComponentTag)findAncestorWithClass(ComponentTag.class);
+    final ComponentTag tag = (ComponentTag)findAncestorWithClass(ComponentTag.class);
     if (tag != null)
     {
-      FocusListener listener = new FocusListener()
+      final FocusListener listener = new FocusListener()
       {
         @Override
-        public void focusGained(FocusEvent e)
+        public void focusGained(final FocusEvent e)
         {
           invokeScript(output, e, gained);
         }
 
         @Override
-        public void focusLost(FocusEvent e)
+        public void focusLost(final FocusEvent e)
         {
           invokeScript(output, e, lost);
         }
@@ -91,7 +90,7 @@ public void doTag(final XMLOutput output) throws JellyTagException
     }
   }
 
-  protected void invokeScript(XMLOutput output, FocusEvent event, Script script)
+  protected void invokeScript(final XMLOutput output, final FocusEvent event, final Script script)
   {
     if (var != null)
     {
@@ -111,7 +110,7 @@ public void doTag(final XMLOutput output) throws JellyTagException
         invokeBody(output);
       }
     }
-    catch (Exception e)
+    catch (final Exception e)
     {
       log.error("Caught exception processing window event: " + event, e);
     }

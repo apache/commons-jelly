@@ -50,7 +50,7 @@ import org.xml.sax.SAXException;
  *     // embedded.setScript(scriptAsInputStream)
  *
  *     boolean bStatus=embedded.execute();
- *     if (!bStatus) { // if error 
+ *     if (!bStatus) { // if error
  *         String errorMsg=embedded.getErrorMsg();
  *     }
  *  </pre>
@@ -90,7 +90,7 @@ public class Embedded {
      * Compile the script
      */
     private void compileScriptAndKeep() {
-        XMLParser parser = new XMLParser();
+        final XMLParser parser = new XMLParser();
         parser.setContext(context);
         scriptCompiled = false;
         try {
@@ -98,13 +98,7 @@ public class Embedded {
             script = script.compile();
             scriptCompiled = true;
         }
-        catch (IOException e) {
-            scriptCompilationException = e;
-        }
-        catch (SAXException e) {
-            scriptCompilationException = e;
-        }
-        catch (Exception e) {
+        catch (final Exception e) {
             scriptCompilationException = e;
         }
     }
@@ -113,18 +107,21 @@ public class Embedded {
      * Execute the jelly script and capture the errors (ifany) within.
      */
     public boolean execute() {
-        if (log.isDebugEnabled())
+        if (log.isDebugEnabled()) {
             log.debug("Starting Execution");
+        }
         //If script has not been compiled then return the errorMsg that occurredd during compilation
         if (!scriptCompiled) {
-            if (log.isErrorEnabled())
+            if (log.isErrorEnabled()) {
                 log.error(scriptCompilationException.getMessage());
+            }
             setErrorMsg(scriptCompilationException.getMessage());
             return false;
         }
         if (inputStream == null) {
-            if (log.isErrorEnabled())
+            if (log.isErrorEnabled()) {
                 log.error("[Error] Input script-resource NOT accessible");
+            }
             setErrorMsg("[Error] Input script-resource NOT accessible");
             return false;
         }
@@ -133,14 +130,16 @@ public class Embedded {
             outputStream.close();
             output.flush();
         }
-        catch (Exception e) {
-            if (log.isErrorEnabled())
+        catch (final Exception e) {
+            if (log.isErrorEnabled()) {
                 log.error(e.getMessage());
+            }
             setErrorMsg(e.getMessage());
             return false;
         }
-        if (log.isDebugEnabled())
+        if (log.isDebugEnabled()) {
             log.debug("Done Executing");
+        }
         return true;
     }
 
@@ -165,25 +164,27 @@ public class Embedded {
      * The class will be loaded via the given ClassLoader
      * This should be called before the parser is used.
      */
-    public void registerTagLibrary(String namespaceURI, String className) {
-        if (context != null)
+    public void registerTagLibrary(final String namespaceURI, final String className) {
+        if (context != null) {
             context.registerTagLibrary(namespaceURI, className);
+        }
     }
 
     /**
      * Registers the given tag library against the given namespace URI.
      * This should be called before the parser is used.
      */
-    public void registerTagLibrary(String namespaceURI, TagLibrary taglib) {
-        if (context != null)
+    public void registerTagLibrary(final String namespaceURI, final TagLibrary taglib) {
+        if (context != null) {
             context.registerTagLibrary(namespaceURI, taglib);
+        }
     }
 
     /**
      * @return the URL for the relative file name or absolute URL
      */
-    private URL resolveURL(String name) throws MalformedURLException {
-        File file = new File(name);
+    private URL resolveURL(final String name) throws MalformedURLException {
+        final File file = new File(name);
         if (file.exists()) {
             return file.toURL();
         }
@@ -194,7 +195,7 @@ public class Embedded {
      * Method setContext.
      * @param context
      */
-    public void setContext(JellyContext context) {
+    public void setContext(final JellyContext context) {
         this.context = context;
     }
 
@@ -202,7 +203,7 @@ public class Embedded {
      * Sets the errorMsg.
      * @param errorMsg The errorMsg to set
      */
-    private void setErrorMsg(String errorMsg) {
+    private void setErrorMsg(final String errorMsg) {
         this.errorMsg = errorMsg;
     }
 
@@ -210,7 +211,7 @@ public class Embedded {
      * Method setOutputStream.
      * @param outputStream
      */
-    public void setOutputStream(OutputStream outputStream) {
+    public void setOutputStream(final OutputStream outputStream) {
         this.outputStream = outputStream;
         this.output = XMLOutput.createXMLOutput(new OutputStreamWriter(this.outputStream));
     }
@@ -219,7 +220,7 @@ public class Embedded {
      * Sets the input stream
      * @param scriptAsInputStream
      */
-    public void setScript(InputStream scriptAsInputStream) {
+    public void setScript(final InputStream scriptAsInputStream) {
         inputStream = scriptAsInputStream;
         compileScriptAndKeep();
     }
@@ -228,17 +229,17 @@ public class Embedded {
      * Sets the input script
      * @param scriptAsString
      */
-    public void setScript(String scriptAsString) {
+    public void setScript(final String scriptAsString) {
 
         try {
-            URL url = resolveURL(scriptAsString);
+            final URL url = resolveURL(scriptAsString);
             inputStream = url.openStream();
         }
-        catch (MalformedURLException e) {
+        catch (final MalformedURLException e) {
             //Encapsulate the string within
             inputStream = new ByteArrayInputStream(scriptAsString.getBytes());
         }
-        catch (IOException e) {
+        catch (final IOException e) {
             //Error reading from the URL
             inputStream = null;
         }
@@ -252,7 +253,7 @@ public class Embedded {
      * @param name
      * @param value
      */
-    public void setVariable(String name, Object value) {
+    public void setVariable(final String name, final Object value) {
         context.setVariable(name, value);
     }
 

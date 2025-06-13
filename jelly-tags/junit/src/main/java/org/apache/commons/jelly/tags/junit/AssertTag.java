@@ -20,10 +20,8 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.jaxen.JaxenException;
 import org.jaxen.XPath;
 
@@ -48,7 +46,7 @@ public class AssertTag extends AssertTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (test == null && xpath == null) {
             throw new MissingAttributeException( "test" );
         }
@@ -58,13 +56,13 @@ public class AssertTag extends AssertTagSupport {
             }
         }
         else {
-            Object xpathContext = getXPathContext();
+            final Object xpathContext = getXPathContext();
             try {
                 if (! xpath.booleanValueOf(xpathContext)) {
                     fail( getBodyText(), "evaluating xpath: "+ xpath );
                 }
             }
-            catch (JaxenException e) {
+            catch (final JaxenException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -79,7 +77,7 @@ public class AssertTag extends AssertTagSupport {
      * then the test succeeds otherwise if it returns false then the text will
      * fail with the content of the tag being the error message.
      */
-    public void setTest(Expression test) {
+    public void setTest(final Expression test) {
         this.test = test;
     }
 
@@ -88,7 +86,7 @@ public class AssertTag extends AssertTagSupport {
      * then the test succeeds otherwise if it returns false then the text will
      * fail with the content of the tag being the error message.
      */
-    public void setXpath(XPath xpath) {
+    public void setXpath(final XPath xpath) {
         this.xpath = xpath;
     }
 }

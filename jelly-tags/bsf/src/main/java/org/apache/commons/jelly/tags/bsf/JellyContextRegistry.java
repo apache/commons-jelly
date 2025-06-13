@@ -17,7 +17,6 @@
 package org.apache.commons.jelly.tags.bsf;
 
 import org.apache.bsf.util.ObjectRegistry;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,23 +39,24 @@ public class JellyContextRegistry extends ObjectRegistry {
         return context;
     }
 
-    public void setJellyContext(JellyContext context) {
+    public void setJellyContext(final JellyContext context) {
         this.context = context;
     }
 
     // ObjectRegistry interface
     //-------------------------------------------------------------------------
     @Override
-    public Object lookup(String name) {
+    public Object lookup(final String name) {
         return context.getVariable(name);
     }
 
     @Override
-    public void register(String name, Object value) {
+    public void register(final String name, final Object value) {
         context.setVariable(name, value);
     }
 
-    public void unregister(String name) {
+    @Override
+    public void unregister(final String name) {
         context.removeVariable(name);
     }
 }

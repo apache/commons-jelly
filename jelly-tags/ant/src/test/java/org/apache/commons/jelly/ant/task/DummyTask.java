@@ -16,8 +16,8 @@
  */
 package org.apache.commons.jelly.ant.task;
 
-import org.apache.tools.ant.Task;
 import org.apache.tools.ant.BuildException;
+import org.apache.tools.ant.Task;
 
 /*
 
@@ -71,7 +71,7 @@ i
  */
 public class DummyTask extends Task {
     private int i = 0;
-    private String[] messages = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
+    private final String[] messages = { "a", "b", "c", "d", "e", "f", "g", "h", "i" };
     private boolean force;
 
     @Override
@@ -86,11 +86,11 @@ public class DummyTask extends Task {
         return new Thingy();
     }
 
-    public void addDang(Thingy thingy) {
+    public void addDang(final Thingy thingy) {
         System.out.println("addDang: " + messages[i++]);
     }
 
-    public void addConfiguredDong(Thingy thingy) {
+    public void addConfiguredDong(final Thingy thingy) {
         System.out.println("addConfiguredDong: " + messages[i++]);
     }
 
@@ -99,11 +99,11 @@ public class DummyTask extends Task {
         return new Thingy();
     }
 
-    public void addWontStop(Thingy thingy) {
+    public void addWontStop(final Thingy thingy) {
         System.out.println("addWontStop: " + messages[i++]);
     }
 
-    public void addConfiguredTillYouDrop(Thingy thingy) {
+    public void addConfiguredTillYouDrop(final Thingy thingy) {
         System.out.println("addConfiguredTillYouDrop: " + messages[i++]);
     }
 
@@ -111,7 +111,7 @@ public class DummyTask extends Task {
         return force;
     }
 
-    public void setForce(boolean force) {
+    public void setForce(final boolean force) {
         this.force = force;
     }
 

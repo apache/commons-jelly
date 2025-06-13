@@ -28,9 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import javax.xml.transform.Result;
-import javax.xml.transform.Source;
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.URIResolver;
 import javax.xml.transform.sax.SAXResult;
@@ -39,7 +37,6 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
@@ -87,7 +84,7 @@ public class TransformTag extends ParseTag {
     private Object xslt;
 
     /** The xsl transformer factory */
-    private SAXTransformerFactory tf;
+    private final SAXTransformerFactory tf;
 
     /** The transformer handler, doing the real work */
     private TransformerHandler transformerHandler;
@@ -96,7 +93,6 @@ public class TransformTag extends ParseTag {
      * Constructor for TransformTag.
      */
     public TransformTag() {
-        super();
         this.tf = (SAXTransformerFactory) TransformerFactory.newInstance();
     }
 
@@ -110,7 +106,7 @@ public class TransformTag extends ParseTag {
      * @throws MissingAttributeException Thrown when required attributes are missing
      */
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (null == this.getXslt()) {
             throw new MissingAttributeException("The xslt attribute cannot be null");
@@ -123,7 +119,7 @@ public class TransformTag extends ParseTag {
             this.transformerHandler =
                 this.tf.newTransformerHandler(this.getObjAsSAXSource(this.getXslt()));
         }
-        catch (TransformerConfigurationException e) {
+        catch (final TransformerConfigurationException e) {
             throw new JellyTagException(e);
         }
 
@@ -132,12 +128,12 @@ public class TransformTag extends ParseTag {
 
         try {
             // get a reader to provide SAX events to transformer
-            XMLReader xmlReader = this.createXMLReader();
+            final XMLReader xmlReader = this.createXMLReader();
             xmlReader.setContentHandler(this.transformerHandler);
             xmlReader.setProperty(LEXICAL_HANDLER_PROPERTY, this.transformerHandler);
 
             // handle result differently, depending on if var is specified
-            String varName = this.getVar();
+            final String varName = this.getVar();
             if (null == varName) {
                 // pass the result of the transform out as SAX events
                 this.transformerHandler.setResult(this.createSAXResult(output));
@@ -145,19 +141,16 @@ public class TransformTag extends ParseTag {
             }
             else {
                 // pass the result of the transform out as a document
-                DocumentResult result = new DocumentResult();
+                final DocumentResult result = new DocumentResult();
                 this.transformerHandler.setResult(result);
                 xmlReader.parse(this.getXMLInputSource());
 
                 // output the result as a variable
-                Document transformedDoc = result.getDocument();
+                final Document transformedDoc = result.getDocument();
                 this.context.setVariable(varName, transformedDoc);
             }
         }
-        catch (SAXException e) {
-            throw new JellyTagException(e);
-        }
-        catch (IOException e) {
+        catch (final SAXException | IOException e) {
             throw new JellyTagException(e);
         }
 
@@ -182,11 +175,11 @@ public class TransformTag extends ParseTag {
      *
      * @param xslt    The source of the xslt
      */
-    public void setXslt(Object xslt) {
+    public void setXslt(final Object xslt) {
         this.xslt = xslt;
     }
 
-    public void setParameterValue(String name, Object value) {
+    public void setParameterValue(final String name, final Object value) {
         this.transformerHandler.getTransformer().setParameter(name, value);
     }
 
@@ -200,27 +193,24 @@ public class TransformTag extends ParseTag {
      * @return a URI Resolver for the JellyContext
      */
     protected URIResolver createURIResolver() {
-        return new URIResolver() {
-            @Override
-            public Source resolve(String href, String base)
-                throws TransformerException {
+        return (href, base) -> {
 
-                if (log.isDebugEnabled() ) {
-                    log.debug( "base: " + base + " href: " + href );
-                }
+        if (log.isDebugEnabled() ) {
+            log.debug( "base: " + base + " href: " + href );
+        }
 
-                // pass if we don't have a systemId
-                if (null == href)
-                    return null;
+        // pass if we don't have a systemId
+        if (null == href) {
+            return null;
+        }
 
-                // @todo
-                // #### this is a pretty simplistic implementation.
-                // #### we should really handle this better such that if
-                // #### base is specified as an absolute URL
-                // #### we trim the end off it and append href
-                return new StreamSource(context.getResourceAsStream(href));
-            }
-        };
+        // @todo
+        // #### this is a pretty simplistic implementation.
+        // #### we should really handle this better such that if
+        // #### base is specified as an absolute URL
+        // #### we trim the end off it and append href
+        return new StreamSource(context.getResourceAsStream(href));
+         };
     }
 
     /**
@@ -231,8 +221,8 @@ public class TransformTag extends ParseTag {
      * @param output The destination of the transform output
      * @return A SAXResult for the transfrom output
      */
-    protected Result createSAXResult(XMLOutput output) {
-        SAXResult result = new SAXResult(output);
+    protected Result createSAXResult(final XMLOutput output) {
+        final SAXResult result = new SAXResult(output);
         result.setLexicalHandler(output);
         return result;
     }
@@ -249,7 +239,7 @@ public class TransformTag extends ParseTag {
      */
     protected XMLReader createXMLReader() throws SAXException {
         XMLReader xmlReader = null;
-        Object xmlReaderSourceObj = this.getXml();
+        final Object xmlReaderSourceObj = this.getXml();
         // if no XML source specified then get from body
         // otherwise convert it to a SAX source
         if (null == xmlReaderSourceObj) {
@@ -271,7 +261,7 @@ public class TransformTag extends ParseTag {
      */
     protected InputSource getXMLInputSource() {
         InputSource xmlInputSource = null;
-        Object xmlInputSourceObj = this.getXml();
+        final Object xmlInputSourceObj = this.getXml();
         // if no XML source specified then get from tag body
         // otherwise convert it to an input source
         if (null == xmlInputSourceObj) {
@@ -287,13 +277,13 @@ public class TransformTag extends ParseTag {
      *
      * @return SAXSource from the source object or null
      */
-    protected SAXSource getObjAsSAXSource(Object saxSourceObj) {
+    protected SAXSource getObjAsSAXSource(final Object saxSourceObj) {
         SAXSource saxSource = null;
         if (null != saxSourceObj) {
             if (saxSourceObj instanceof Document) {
                 saxSource =  new DocumentSource((Document) saxSourceObj);
             } else {
-                InputSource xmlInputSource =
+                final InputSource xmlInputSource =
                     this.getInputSourceFromObj(saxSourceObj);
                 saxSource = new SAXSource(xmlInputSource);
             }
@@ -307,44 +297,42 @@ public class TransformTag extends ParseTag {
      *
      * @return InputSource for the object or null
      */
-    protected InputSource getInputSourceFromObj(Object sourceObj ) {
+    protected InputSource getInputSourceFromObj(final Object sourceObj ) {
         InputSource xmlInputSource = null;
         if (sourceObj instanceof Document) {
-            SAXSource saxSource = new DocumentSource((Document) sourceObj);
+            final SAXSource saxSource = new DocumentSource((Document) sourceObj);
             xmlInputSource = saxSource.getInputSource();
-        } else {
-            if (sourceObj instanceof String) {
-                String uri = (String) sourceObj;
+        } else if (sourceObj instanceof String) {
+            final String uri = (String) sourceObj;
+            xmlInputSource = new InputSource(context.getResourceAsStream(uri));
+        }
+        else if (sourceObj instanceof Reader) {
+            xmlInputSource = new InputSource((Reader) sourceObj);
+        }
+        else if (sourceObj instanceof InputStream) {
+            xmlInputSource = new InputSource((InputStream) sourceObj);
+        }
+        else if (sourceObj instanceof URL) {
+            final String uri = ((URL) sourceObj).toString();
+            xmlInputSource = new InputSource(context.getResourceAsStream(uri));
+        }
+        else if (sourceObj instanceof File) {
+            try {
+                final String uri = ((File) sourceObj).toURL().toString();
                 xmlInputSource = new InputSource(context.getResourceAsStream(uri));
             }
-            else if (sourceObj instanceof Reader) {
-                xmlInputSource = new InputSource((Reader) sourceObj);
-            }
-            else if (sourceObj instanceof InputStream) {
-                xmlInputSource = new InputSource((InputStream) sourceObj);
-            }
-            else if (sourceObj instanceof URL) {
-                String uri = ((URL) sourceObj).toString();
-                xmlInputSource = new InputSource(context.getResourceAsStream(uri));
-            }
-            else if (sourceObj instanceof File) {
-                try {
-                    String uri = ((File) sourceObj).toURL().toString();
-                    xmlInputSource = new InputSource(context.getResourceAsStream(uri));
-                }
-                catch (MalformedURLException e) {
-                    throw new IllegalArgumentException(
-                        "This should never occur. We should always be able to convert a File to a URL" + e );
-                }
-            }
-            else {
+            catch (final MalformedURLException e) {
                 throw new IllegalArgumentException(
-                    "Invalid source argument. Must be a String, Reader, InputStream or URL."
-                        + " Was type; "
-                        + sourceObj.getClass().getName()
-                        + " with value: "
-                        + sourceObj);
+                    "This should never occur. We should always be able to convert a File to a URL" + e );
             }
+        }
+        else {
+            throw new IllegalArgumentException(
+                "Invalid source argument. Must be a String, Reader, InputStream or URL."
+                    + " Was type; "
+                    + sourceObj.getClass().getName()
+                    + " with value: "
+                    + sourceObj);
         }
 
         return xmlInputSource;
@@ -355,21 +343,21 @@ public class TransformTag extends ParseTag {
      *
     * @param output The destination for any SAX output (not actually used)
      */
-    private void doNestedParamTag(XMLOutput output) throws JellyTagException {
+    private void doNestedParamTag(final XMLOutput output) throws JellyTagException {
         // find any nested param tags and run them
-        Script bodyScript = this.getBody();
-        
+        final Script bodyScript = this.getBody();
+
         if (bodyScript instanceof ScriptBlock) {
-            ScriptBlock scriptBlock = (ScriptBlock) bodyScript;
-            List scriptList = scriptBlock.getScriptList();
-            for (Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
-                Script script = (Script) iter.next();
+            final ScriptBlock scriptBlock = (ScriptBlock) bodyScript;
+            final List scriptList = scriptBlock.getScriptList();
+            for (final Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
+                final Script script = (Script) iter.next();
                 if (script instanceof TagScript) {
 
                     Tag tag = null;
                     try {
                         tag = ((TagScript) script).getTag(getContext());
-                    } catch (JellyException e) {
+                    } catch (final JellyException e) {
                         throw new JellyTagException(e);
                     }
 
@@ -382,17 +370,17 @@ public class TransformTag extends ParseTag {
         }
     }
 
-    
+
     /** A helper class that converts a transform tag body to an XMLReader
       * to hide the details of where the input for the transform is obtained
       */
     private final class TagBodyXMLReader implements XMLReader {
 
         /** The tag whose body is to be read. */
-        private Tag tag;
+        private final Tag tag;
 
         /** The destination for the sax events generated by the reader. */
-        private XMLOutput xmlOutput;
+        private final XMLOutput xmlOutput;
 
         /** Storage for a DTDHandler if set by the user of the reader. */
         private DTDHandler dtdHandler;
@@ -408,7 +396,7 @@ public class TransformTag extends ParseTag {
          *
          * @param tag    The Tag to convert to an XMLReader
          */
-        public TagBodyXMLReader(Tag tag)
+        public TagBodyXMLReader(final Tag tag)
         {
             this.tag = tag;
             this.xmlOutput = new XMLOutput();
@@ -428,15 +416,14 @@ public class TransformTag extends ParseTag {
                        stream or character stream supplied by the application.
          */
         @Override
-        public void parse(InputSource input)
+        public void parse(final InputSource input)
         throws IOException, SAXException
         {
             // safety check that we are being used correctly
-            if (input instanceof TagBodyInputSource) {
-                this.doInvokeBody();
-            } else {
+            if (!(input instanceof TagBodyInputSource)) {
                 throw new SAXException("Invalid input source");
             }
+            this.doInvokeBody();
         }
 
         /**
@@ -450,7 +437,7 @@ public class TransformTag extends ParseTag {
                        stream or character stream supplied by the application.
          */
         @Override
-        public void parse(String systemId)
+        public void parse(final String systemId)
         throws IOException, SAXException
         {
             this.doInvokeBody();
@@ -468,17 +455,17 @@ public class TransformTag extends ParseTag {
         private void doInvokeBody() throws SAXException {
             try {
                 if (this.shouldParseBody()) {
-                    XMLReader anXMLReader = XMLReaderFactory.createXMLReader();
+                    final XMLReader anXMLReader = XMLReaderFactory.createXMLReader();
                     anXMLReader.setContentHandler(this.xmlOutput);
                     anXMLReader.setProperty(LEXICAL_HANDLER_PROPERTY,this.xmlOutput);
-                    StringWriter writer = new StringWriter();
+                    final StringWriter writer = new StringWriter();
                     this.tag.invokeBody(XMLOutput.createXMLOutput(writer));
-                    Reader reader = new StringReader(writer.toString());
+                    final Reader reader = new StringReader(writer.toString());
                     anXMLReader.parse(new InputSource(reader));
                 } else {
                     this.tag.invokeBody(this.xmlOutput);
                 }
-            } catch (Exception ex) {
+            } catch (final Exception ex) {
                 throw new SAXException(ex);
             }
         }
@@ -493,13 +480,13 @@ public class TransformTag extends ParseTag {
         private boolean shouldParseBody() throws JellyTagException {
             boolean result = false;
             // check to see if we need to parse the body or just invoke it
-            Script bodyScript = this.tag.getBody();
-            
+            final Script bodyScript = this.tag.getBody();
+
             if (bodyScript instanceof ScriptBlock) {
-                ScriptBlock scriptBlock = (ScriptBlock) bodyScript;
-                List scriptList = scriptBlock.getScriptList();
-                for (Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
-                    Script script = (Script) iter.next();
+                final ScriptBlock scriptBlock = (ScriptBlock) bodyScript;
+                final List scriptList = scriptBlock.getScriptList();
+                for (final Iterator iter = scriptList.iterator(); iter.hasNext(); ) {
+                    final Script script = (Script) iter.next();
                     if (script instanceof StaticTagScript) {
                         result = true;
                          break;
@@ -529,7 +516,7 @@ public class TransformTag extends ParseTag {
          *      This value cannot be null.
          */
         @Override
-        public void setContentHandler(ContentHandler contentHandler) {
+        public void setContentHandler(final ContentHandler contentHandler) {
             this.xmlOutput.setContentHandler(contentHandler);
             // often classes will implement LexicalHandler as well
             if (contentHandler instanceof LexicalHandler) {
@@ -553,7 +540,7 @@ public class TransformTag extends ParseTag {
          * @param the DTD Handler to use to feed SAX events into
          */
         @Override
-        public void setDTDHandler(DTDHandler dtdHandler) {
+        public void setDTDHandler(final DTDHandler dtdHandler) {
             this.dtdHandler = dtdHandler;
         }
 
@@ -573,7 +560,7 @@ public class TransformTag extends ParseTag {
          * @param the Error Handler to use to feed SAX events into
          */
         @Override
-        public void setErrorHandler(ErrorHandler errorHandler) {
+        public void setErrorHandler(final ErrorHandler errorHandler) {
             // save the error handler
             this.errorHandler = errorHandler;
         }
@@ -594,7 +581,7 @@ public class TransformTag extends ParseTag {
          * @param the Entity Resolver to use to feed SAX events into
          */
         @Override
-        public void setEntityResolver(EntityResolver entityResolver) {
+        public void setEntityResolver(final EntityResolver entityResolver) {
             this.entityResolver = entityResolver;
         }
 
@@ -610,16 +597,15 @@ public class TransformTag extends ParseTag {
          *            cannot determine its value at this time.
          */
         @Override
-        public Object getProperty(String name)
+        public Object getProperty(final String name)
         throws SAXNotRecognizedException, SAXNotSupportedException
         {
             // respond to the lexical handler request
             if (name.equalsIgnoreCase(LEXICAL_HANDLER_PROPERTY)) {
                 return this.xmlOutput.getLexicalHandler();
-            } else {
-                // do nothing
-                return null;
             }
+            // do nothing
+            return null;
         }
 
         /**
@@ -634,7 +620,7 @@ public class TransformTag extends ParseTag {
          *            cannot determine its value at this time.
          */
         @Override
-        public void setProperty(String name, Object value)
+        public void setProperty(final String name, final Object value)
         throws SAXNotRecognizedException, SAXNotSupportedException
         {
             // respond to the lexical handler setting
@@ -655,7 +641,7 @@ public class TransformTag extends ParseTag {
          *            cannot determine its value at this time.
          */
         @Override
-        public boolean getFeature(String name)
+        public boolean getFeature(final String name)
         throws SAXNotRecognizedException, SAXNotSupportedException
         {
             // do nothing
@@ -674,7 +660,7 @@ public class TransformTag extends ParseTag {
          *            cannot determine its value at this time.
          */
         @Override
-        public void setFeature(String name, boolean value)
+        public void setFeature(final String name, final boolean value)
         throws SAXNotRecognizedException, SAXNotSupportedException
         {
             // do nothing

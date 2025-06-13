@@ -18,17 +18,17 @@ package org.apache.commons.jelly.core;
 
 import java.net.URL;
 
-import junit.framework.TestCase;
-
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
+
+import junit.framework.TestCase;
 
 /*
  */
 public abstract class BaseJellyTest extends TestCase {
 
-    public BaseJellyTest(String name) {
+    public BaseJellyTest(final String name) {
         super(name);
     }
 
@@ -40,8 +40,8 @@ public abstract class BaseJellyTest extends TestCase {
         xmlOutput = XMLOutput.createDummyXMLOutput();
     }
 
-    protected void setUpScript(String scriptname) throws Exception {
-        URL url = this.getClass().getResource(scriptname);
+    protected void setUpScript(final String scriptname) throws Exception {
+        final URL url = this.getClass().getResource(scriptname);
         if (null == url) {
             throw new Exception(
                 "Could not find Jelly script: " + scriptname
@@ -50,10 +50,10 @@ public abstract class BaseJellyTest extends TestCase {
         }
         jelly.setUrl(url);
 
-        String exturl = url.toExternalForm();
-        int lastSlash = exturl.lastIndexOf("/");
-        String extBase = exturl.substring(0,lastSlash+1);
-        URL baseurl = new URL(extBase);
+        final String exturl = url.toExternalForm();
+        final int lastSlash = exturl.lastIndexOf("/");
+        final String extBase = exturl.substring(0,lastSlash+1);
+        final URL baseurl = new URL(extBase);
         context.setCurrentURL(baseurl);
     }
 

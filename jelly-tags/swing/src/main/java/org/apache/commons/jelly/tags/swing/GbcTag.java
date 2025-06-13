@@ -68,8 +68,8 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
      * @param constraints the constraints to use
      */
     @Override
-    public void addChild(Component component, Object constraints) throws JellyTagException {
-        GridBagLayoutTag tag = (GridBagLayoutTag) findAncestorWithClass( GridBagLayoutTag.class );
+    public void addChild(final Component component, final Object constraints) throws JellyTagException {
+        final GridBagLayoutTag tag = (GridBagLayoutTag) findAncestorWithClass( GridBagLayoutTag.class );
         if (tag == null) {
             throw new JellyTagException( "this tag must be nested within a <gridBagLayout> tag" );
         }
@@ -84,43 +84,39 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
      * @param classObject the object to be converted
      */
     @Override
-    protected Class convertToClass(Object classObject)
+    protected Class convertToClass(final Object classObject)
     throws MissingAttributeException, ClassNotFoundException {
         if (classObject == null) {
             return null;
         }
-        else {
-            return super.convertToClass(classObject);
-        }
+        return super.convertToClass(classObject);
     }
 
     /**
      * A class may be specified otherwise the Factory will be used.
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
-        if (theClass != null ) {
-            try {
-                return theClass.getConstructor().newInstance();
-            } catch (ReflectiveOperationException e) {
-                throw new JellyTagException(e);
-            }
-        }
-        else {
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output) throws JellyTagException {
+        if (theClass == null ) {
             return new GridBagConstraintBean();
+        }
+        try {
+            return theClass.getConstructor().newInstance();
+        } catch (final ReflectiveOperationException e) {
+            throw new JellyTagException(e);
         }
     }
 
     @Override
-    protected void setBeanProperties(Object bean, Map attributes)
+    protected void setBeanProperties(final Object bean, final Map attributes)
         throws JellyTagException {
 
         Insets ins = null;
-        Object insetString = attributes.get("insets");
+        final Object insetString = attributes.get("insets");
         if (insetString instanceof String) {
             attributes.remove("insets");
 
-            String[] parts = StringUtils.split((String) insetString, ",");
+            final String[] parts = StringUtils.split((String) insetString, ",");
 
             if (parts.length != 4) {
                 throw new JellyTagException(
@@ -142,22 +138,22 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
         // in the context of the closest gridbaglayout tag
 
         if (bean instanceof GridBagConstraintBean) {
-            GridBagConstraintBean gbc = (GridBagConstraintBean) bean;
+            final GridBagConstraintBean gbc = (GridBagConstraintBean) bean;
 
             if (ins != null) {
                 gbc.setInsets(ins);
             }
 
-            GridBagLayoutTag parentLayoutTag =
-                (GridBagLayoutTag) (findAncestorWithClass(GridBagLayoutTag
-                    .class));
+            final GridBagLayoutTag parentLayoutTag =
+                (GridBagLayoutTag) findAncestorWithClass(GridBagLayoutTag
+                    .class);
             if (parentLayoutTag != null) {
-                GbcTag parentGbcTag =
-                    (GbcTag) (findAncestorWithClass(getParent(),
+                final GbcTag parentGbcTag =
+                    (GbcTag) findAncestorWithClass(getParent(),
                         GbcTag.class,
-                        parentLayoutTag));
+                        parentLayoutTag);
                 if (parentGbcTag != null) {
-                    GridBagConstraints parentGbc =
+                    final GridBagConstraints parentGbc =
                         parentGbcTag.getConstraints();
 
                     if (parentGbc != null
@@ -174,8 +170,8 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
 
     public static Tag findAncestorWithClass(
         Tag from,
-        Class tagClass,
-        Tag parent) {
+        final Class tagClass,
+        final Tag parent) {
         while (from != null && from != parent) {
             if (tagClass.isInstance(from)) {
                 return from;

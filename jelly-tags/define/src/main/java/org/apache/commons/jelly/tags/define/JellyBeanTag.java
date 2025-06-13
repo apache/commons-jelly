@@ -20,7 +20,6 @@ package org.apache.commons.jelly.tags.define;
 import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils2.MethodUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -60,7 +59,7 @@ public class JellyBeanTag extends BeanTag {
      * invoked, but this property can be set to whatever is required,
      * such as "execute" or "invoke"
      */
-    public void setMethod(String method) {
+    public void setMethod(final String method) {
         this.method = method;
     }
 
@@ -68,8 +67,8 @@ public class JellyBeanTag extends BeanTag {
     //-------------------------------------------------------------------------
 
     @Override
-    protected Method getInvokeMethod( Class theClass ) {
-        Method invokeMethod =
+    protected Method getInvokeMethod( final Class theClass ) {
+        final Method invokeMethod =
             MethodUtils.getAccessibleMethod(
                 theClass,
                 getMethod(),

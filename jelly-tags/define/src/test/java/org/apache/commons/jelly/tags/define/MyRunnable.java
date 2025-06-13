@@ -35,7 +35,7 @@ public class MyRunnable implements Runnable {
 
     private int x;
     private String y;
-    private List fileSets = new ArrayList();
+    private final List fileSets = new ArrayList();
 
     public MyRunnable() {
     }
@@ -65,7 +65,7 @@ public class MyRunnable implements Runnable {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(final int x) {
         this.x = x;
     }
 
@@ -73,7 +73,7 @@ public class MyRunnable implements Runnable {
         return y;
     }
 
-    public void setY(String y) {
+    public void setY(final String y) {
         this.y = y;
     }
 }

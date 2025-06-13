@@ -36,23 +36,23 @@ public class SendTag extends MessageOperationTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         // evaluate body as it may contain a <destination> or message tag
         invokeBody(output);
 
-        Message message = getMessage();
+        final Message message = getMessage();
         if ( message == null ) {
             throw new JellyTagException( "No message specified. Either specify a 'message' attribute or use a nested <jms:message> tag" );
         }
 
         try {
-            Destination destination = getDestination();
+            final Destination destination = getDestination();
             if ( destination == null ) {
                 throw new JellyTagException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
             }
             getConnection().send( destination, message );
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
     }
@@ -66,7 +66,7 @@ public class SendTag extends MessageOperationTag {
     /**
      * Sets the JMS message to be sent
      */
-    public void setMessage(Message message) {
+    public void setMessage(final Message message) {
         this.message = message;
     }
 }

@@ -33,7 +33,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
-/** 
+/**
  * <p><code>Jelly</code> is a helper class which is capable of
  * running a Jelly script. This class can be used from the command line
  * or can be used as the basis of an Ant task.</p> Command line usage is as follows:
@@ -43,22 +43,22 @@ import org.xml.sax.SAXException;
  * </pre>
  */
 public class Jelly {
-    
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(Jelly.class);
-    
+
     public static String getJellyBuildDate() {
         return readBuildTimestampResource("jelly-build-date.txt");
     }
-    
+
     public static String getJellyVersion() {
         return readBuildTimestampResource("jelly-version.txt");
     }
-    
+
     /**
      * Usage: jelly [scriptFile] [-script scriptFile -o outputFile -Dsysprop=syspropval]
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
 
         try {
             if (args.length <= 0) {
@@ -67,12 +67,12 @@ public class Jelly {
             }
 
             // parse the command line options using CLI
-            // using a separate class to avoid unnecessary 
+            // using a separate class to avoid unnecessary
             // dependencies
             CommandLineParser.getInstance().invokeCommandLineJelly(args);
         }
-        catch (JellyException e) {
-            Throwable cause = e.getCause();
+        catch (final JellyException e) {
+            final Throwable cause = e.getCause();
 
             if (cause == null) {
                 e.printStackTrace();
@@ -81,22 +81,22 @@ public class Jelly {
             }
         }
     }
-    
-    private static String readBuildTimestampResource(String name) {
+
+    private static String readBuildTimestampResource(final String name) {
         java.io.Reader in = null;
         try {
-            java.io.StringWriter w = new java.io.StringWriter();
+            final java.io.StringWriter w = new java.io.StringWriter();
             in = new java.io.InputStreamReader(Jelly.class.getResourceAsStream(name),"utf-8");
             int r;
             while ( (r=in.read()) >= 0 ) {
                 w.write((char) r);
             }
             return w.toString();
-        } catch (Exception ex) {
+        } catch (final Exception ex) {
             ex.printStackTrace();
             try {
                 in.close();
-            } catch (Exception e) {
+            } catch (final Exception e) {
             }
             throw new IllegalStateException("Resource \"" + name + "\" not found.");
         }
@@ -107,28 +107,28 @@ public class Jelly {
 
     /** The URL of the script to execute */
     private URL url;
-        
+
     /** The URL of the root context for other scripts */
     private URL rootContext;
 
     /** Whether we have loaded the properties yet */
     private boolean loadedProperties = false;
-    
-    
+
+
     /**
      * whether to override the default namespace
      */
     private String defaultNamespaceURI = null;
-    
+
     /**
      * whether or not to validate the Jelly script
      */
     private boolean validateXML = false;
-    
+
     public Jelly() {
     }
-    
-    
+
+
 
     /**
      * Compiles the script
@@ -139,10 +139,10 @@ public class Jelly {
             loadJellyProperties();
         }
 
-        XMLParser parser = new XMLParser();
+        final XMLParser parser = new XMLParser();
         try {
             parser.setContext(getJellyContext());
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyException(e.toString());
         }
 
@@ -155,19 +155,17 @@ public class Jelly {
             if (log.isDebugEnabled()) {
                 log.debug("Compiled script: " + getUrl());
             }
-        } catch (IOException e) {
-            throw new JellyException("could not parse Jelly script", e);
-        } catch (SAXException e) {
+        } catch (final IOException | SAXException e) {
             throw new JellyException("could not parse Jelly script", e);
         }
 
         return script;
     }
 
-    
+
     // Properties
-    //-------------------------------------------------------------------------                
-    
+    //-------------------------------------------------------------------------
+
     /**
      * The context to use
      */
@@ -175,14 +173,14 @@ public class Jelly {
         if (context == null) {
             // take off the name off the URL
             String text = getUrl().toString();
-            int idx = text.lastIndexOf('/');
+            final int idx = text.lastIndexOf('/');
             text = text.substring(0, idx + 1);
             context = new JellyContext(getRootContext(), new URL(text));
         }
         return context;
     }
-    
-    /** 
+
+    /**
      * Gets the root context
      */
     public URL getRootContext() throws MalformedURLException {
@@ -191,106 +189,106 @@ public class Jelly {
         }
         return rootContext;
     }
-    
+
     public URL getUrl() {
         return url;
     }
-    
+
     /**
      * Attempts to load jelly.properties from the current directory,
      * the users home directory or from the classpath
      */
     protected void loadJellyProperties() {
         InputStream is = null;
-    
-        String userDir = System.getProperty("user.home");
+
+        final String userDir = System.getProperty("user.home");
         File f = new File(userDir + File.separator + "jelly.properties");
         loadProperties(f);
-    
+
         f = new File("jelly.properties");
         loadProperties(f);
-        
-        
+
+
         is = ClassLoaderUtils.getClassLoader(getClass()).getResourceAsStream("jelly.properties");
         if (is != null) {
             try {
                 loadProperties(is);
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 log.error( "Caught exception while loading jelly.properties from the classpath. Reason: " + e, e );
             }
         }
     }
-    
+
     /**
      * Load properties from a file into the context
      * @param f
      */
-    private void loadProperties(File f) {
+    private void loadProperties(final File f) {
         InputStream is = null;
         try {
             if (f.exists()) {
                 is = new FileInputStream(f);
                 loadProperties(is);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             log.error( "Caught exception while loading: " + f.getName() + ". Reason: " + e, e );
         } finally {
             if (is != null) {
                 try {
                     is.close();
-                } catch (IOException e) {
-                    if (log.isDebugEnabled()) log.debug("error closing property input stream", e);
+                } catch (final IOException e) {
+                    if (log.isDebugEnabled()) {
+                        log.debug("error closing property input stream", e);
+                    }
                 }
             }
         }
     }
-    
+
     /**
-     * Loads the properties from the given input stream 
-     */    
-    protected void loadProperties(InputStream is) throws IOException {
-        JellyContext theContext = getJellyContext();
-        Properties props = new Properties();
+     * Loads the properties from the given input stream
+     */
+    protected void loadProperties(final InputStream is) throws IOException {
+        final JellyContext theContext = getJellyContext();
+        final Properties props = new Properties();
         props.load(is);
-        Enumeration propsEnum = props.propertyNames();
+        final Enumeration propsEnum = props.propertyNames();
         while (propsEnum.hasMoreElements()) {
-            String key = (String) propsEnum.nextElement();
-            String value = props.getProperty(key);
-            
+            final String key = (String) propsEnum.nextElement();
+            final String value = props.getProperty(key);
+
             // @todo we should parse the value in case its an Expression
             theContext.setVariable(key, value);
         }
     }
-    
+
     // Implementation methods
-    //-------------------------------------------------------------------------                
+    //-------------------------------------------------------------------------
     /**
-     * @return the URL for the relative file name or absolute URL 
+     * @return the URL for the relative file name or absolute URL
      */
-    protected URL resolveURL(String name) throws MalformedURLException {
-        
-        URL resourceUrl = ClassLoaderUtils.getClassLoader(getClass()).getResource(name);
-        if (resourceUrl == null)
-        {
-            File file = new File(name);
-            if (file.exists()) {
-                return file.toURL();
-            }
-            return new URL(name);
-        } else {
+    protected URL resolveURL(final String name) throws MalformedURLException {
+
+        final URL resourceUrl = ClassLoaderUtils.getClassLoader(getClass()).getResource(name);
+        if (resourceUrl != null) {
             return resourceUrl;
         }
+        final File file = new File(name);
+        if (file.exists()) {
+            return file.toURL();
+        }
+        return new URL(name);
     }
 
     /**
      * Sets the jelly namespace to use for unprefixed elements.
      * Will be overridden by an explicit namespace in the
      * XML document.
-     * 
+     *
      * @param namespace jelly namespace to use (e.g. 'jelly:core')
      */
-    public void setDefaultNamespaceURI(String namespace) {
+    public void setDefaultNamespaceURI(final String namespace) {
         this.defaultNamespaceURI = namespace;
     }
 
@@ -299,38 +297,38 @@ public class Jelly {
      * responsibility to make sure that the URLs etc are properly configured
      * @param context
      */
-    public void setJellyContext(JellyContext context) {
+    public void setJellyContext(final JellyContext context) {
     	this.context = context;
     }
-    
-    /** 
+
+    /**
      * Sets the root context
      */
-    public void setRootContext(URL rootContext) {
+    public void setRootContext(final URL rootContext) {
         this.rootContext = rootContext;
     }
 
-    /** 
+    /**
      * Sets the script URL to use as an absolute URL or a relative file name
      */
-    public void setScript(String script) throws MalformedURLException {
+    public void setScript(final String script) throws MalformedURLException {
         setUrl(resolveURL(script));
     }
 
-    /** 
-     * Sets the script URL to use 
+    /**
+     * Sets the script URL to use
      */
-    public void setUrl(URL url) {
+    public void setUrl(final URL url) {
         this.url = url;
     }
 
     /**
      * When set to true, the XML parser will attempt to validate
      * the Jelly XML before converting it into a Script.
-     * 
+     *
      * @param validate whether or not to validate
      */
-    public void setValidateXML(boolean validate) {
+    public void setValidateXML(final boolean validate) {
         this.validateXML = validate;
     }
 }

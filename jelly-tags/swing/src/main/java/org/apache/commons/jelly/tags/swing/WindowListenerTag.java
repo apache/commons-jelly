@@ -54,34 +54,41 @@ public class WindowListenerTag extends TagSupport {
     public void doTag(final XMLOutput output) throws JellyTagException {
 
         // now lets add this action to its parent if we have one
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+        final ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
         if ( tag != null ) {
-            WindowListener listener = new WindowListener() {
-                public void windowActivated(WindowEvent e) {
+            final WindowListener listener = new WindowListener() {
+                @Override
+                public void windowActivated(final WindowEvent e) {
                     invokeScript( output, e, activated );
                 }
 
-                public void windowClosed(WindowEvent e) {
+                @Override
+                public void windowClosed(final WindowEvent e) {
                     invokeScript( output, e, closed );
                 }
 
-                public void windowClosing(WindowEvent e) {
+                @Override
+                public void windowClosing(final WindowEvent e) {
                     invokeScript( output, e, closing );
                 }
 
-                public void windowDeactivated(WindowEvent e) {
+                @Override
+                public void windowDeactivated(final WindowEvent e) {
                     invokeScript( output, e, deactivated );
                 }
 
-                public void windowDeiconified(WindowEvent e) {
+                @Override
+                public void windowDeiconified(final WindowEvent e) {
                     invokeScript( output, e, deiconified );
                 }
 
-                public void windowIconified(WindowEvent e) {
+                @Override
+                public void windowIconified(final WindowEvent e) {
                     invokeScript( output, e, iconified );
                 }
 
-                public void windowOpened(WindowEvent e) {
+                @Override
+                public void windowOpened(final WindowEvent e) {
                     invokeScript( output, e, opened );
                 }
             };
@@ -95,62 +102,62 @@ public class WindowListenerTag extends TagSupport {
     /**
      * Sets the name of the variable to use to expose the Event object
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
     /**
      * Sets the Script to be executed when the window is activated.
      */
-    public void setActivated(Script activated) {
+    public void setActivated(final Script activated) {
         this.activated = activated;
     }
 
     /**
      * Sets the Script to be executed when the window is closed.
      */
-    public void setClosed(Script closed) {
+    public void setClosed(final Script closed) {
         this.closed = closed;
     }
 
     /**
      * Sets the Script to be executed when the window is closing.
      */
-    public void setClosing(Script closing) {
+    public void setClosing(final Script closing) {
         this.closing = closing;
     }
 
     /**
      * Sets the Script to be executed when the window is deactivated.
      */
-    public void setDeactivated(Script deactivated) {
+    public void setDeactivated(final Script deactivated) {
         this.deactivated = deactivated;
     }
 
     /**
      * Sets the Script to be executed when the window is deiconified.
      */
-    public void setDeiconified(Script deiconified) {
+    public void setDeiconified(final Script deiconified) {
         this.deiconified = deiconified;
     }
 
     /**
      * Sets the Script to be executed when the window is iconified.
      */
-    public void setIconified(Script iconified) {
+    public void setIconified(final Script iconified) {
         this.iconified = iconified;
     }
 
     /**
      * Sets the Script to be executed when the window is opened.
      */
-    public void setOpened(Script opened) {
+    public void setOpened(final Script opened) {
         this.opened = opened;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
-    protected void invokeScript(XMLOutput output, WindowEvent event, Script script) {
+    protected void invokeScript(final XMLOutput output, final WindowEvent event, final Script script) {
         if ( var != null ) {
             // define a variable of the event
             context.setVariable(var, event);
@@ -165,7 +172,7 @@ public class WindowListenerTag extends TagSupport {
                 invokeBody(output);
             }
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             log.error( "Caught exception processing window event: " + event, e );
         }
     }

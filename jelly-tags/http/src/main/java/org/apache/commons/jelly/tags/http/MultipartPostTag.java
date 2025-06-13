@@ -22,10 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.MultipartPostMethod;
 import org.apache.commons.httpclient.methods.multipart.Part;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
 
 /**
  * A Multipart MIME message post
@@ -48,7 +46,7 @@ public class MultipartPostTag extends PostTag {
     private MultipartPostMethod _postMethod;
 
     /** List of parts as name value pairs */
-    private List _parts;
+    private final List _parts;
 
     /** Creates a new instance of MppostTag */
     public MultipartPostTag() {
@@ -75,7 +73,7 @@ public class MultipartPostTag extends PostTag {
      *
      * @param part the part
      */
-    public void addPart(Part part) {
+    public void addPart(final Part part) {
         _parts.add(part);
     }
 
@@ -87,9 +85,9 @@ public class MultipartPostTag extends PostTag {
      *  {@link #getHttpMethod()}
      */
     @Override
-    protected void setParameters(HttpMethod method) {
-        for (int index = 0; index < _parts.size(); index++) {
-            ((MultipartPostMethod) method).addPart( (Part) _parts.get(index) );
+    protected void setParameters(final HttpMethod method) {
+        for (final Object _part : _parts) {
+            ((MultipartPostMethod) method).addPart( (Part) _part );
         }
     }
 }

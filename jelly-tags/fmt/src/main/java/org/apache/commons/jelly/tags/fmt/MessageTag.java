@@ -16,19 +16,18 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.expression.Expression;
-
-import org.xml.sax.SAXException;
-
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
+import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.Tag;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
+import org.xml.sax.SAXException;
 
 /**
  * Support for tag handlers for &lt;message&gt;, the lookup up
@@ -50,7 +49,7 @@ public class MessageTag extends TagSupport {
 
     private String scope;
 
-    private List params;
+    private final List params;
 
     /** Creates a new instance of MessageTag */
     public MessageTag() {
@@ -60,12 +59,12 @@ public class MessageTag extends TagSupport {
     /**
      * Adds an argument (for parametric replacement) to this tag's message.
      */
-    public void addParam(Object arg) {
+    public void addParam(final Object arg) {
         params.add(arg);
     }
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         Object keyInput = null;
         if (this.key != null) {
@@ -78,10 +77,10 @@ public class MessageTag extends TagSupport {
             keyInput = getBodyText();
         }
 
-        if ((keyInput == null) || keyInput.equals("")) {
+        if (keyInput == null || keyInput.equals("")) {
             try {
                 output.write("??????");
-            } catch (SAXException e) {
+            } catch (final SAXException e) {
                 throw new JellyTagException(e);
             }
             return;
@@ -97,27 +96,25 @@ public class MessageTag extends TagSupport {
 
         String prefix = null;
         if (locCtxt == null) {
-            Tag t = findAncestorWithClass(this, BundleTag.class);
+            final Tag t = findAncestorWithClass(this, BundleTag.class);
             if (t != null) {
                 // use resource bundle from parent <bundle> tag
-                BundleTag parent = (BundleTag) t;
+                final BundleTag parent = (BundleTag) t;
                 locCtxt = parent.getLocalizationContext();
                 prefix = parent.getPrefixAsString();
             } else {
                 locCtxt = BundleTag.getLocalizationContext(context);
             }
-        } else {
-            // localization context taken from 'bundle' attribute
-            if (locCtxt.getLocale() != null) {
-                // TODO
-                // SetLocaleSupport.setResponseLocale(pageContext,
-                // locCtxt.getLocale());
-            }
+        } else // localization context taken from 'bundle' attribute
+        if (locCtxt.getLocale() != null) {
+            // TODO
+            // SetLocaleSupport.setResponseLocale(pageContext,
+            // locCtxt.getLocale());
         }
 
         String message = UNDEFINED_KEY + keyInput + UNDEFINED_KEY;
         if (locCtxt != null) {
-            ResourceBundle bundle = locCtxt.getResourceBundle();
+            final ResourceBundle bundle = locCtxt.getResourceBundle();
             if (bundle != null) {
                 try {
                     // prepend 'prefix' attribute from parent bundle
@@ -127,39 +124,34 @@ public class MessageTag extends TagSupport {
                     message = bundle.getString(keyInput.toString());
                     // Perform parametric replacement if required
                     if (!params.isEmpty()) {
-                        Object[] messageArgs = params.toArray();
-                        MessageFormat formatter = new MessageFormat("");
+                        final Object[] messageArgs = params.toArray();
+                        final MessageFormat formatter = new MessageFormat("");
                         if (locCtxt.getLocale() != null) {
                             formatter.setLocale(locCtxt.getLocale());
                         }
                         formatter.applyPattern(message);
                         message = formatter.format(messageArgs);
                     }
-                } catch (MissingResourceException mre) {
+                } catch (final MissingResourceException mre) {
                     message = UNDEFINED_KEY + keyInput + UNDEFINED_KEY;
                 }
             }
         }
 
         if (scope != null) {
-            if (var != null) {
-                context.setVariable(var, scope, message);
-            }
-            else {
+            if (var == null) {
                 throw new JellyTagException( "If 'scope' is specified, 'var' must be defined for this tag" );
             }
+            context.setVariable(var, scope, message);
+        } else if (var != null) {
+            context.setVariable(var, message);
         }
         else {
-            if (var != null) {
-                context.setVariable(var, message);
-            }
-            else {
-                // write the message
-                try {
-                    output.write(message);
-                } catch (SAXException e) {
-                    throw new JellyTagException(e);
-                }
+            // write the message
+            try {
+                output.write(message);
+            } catch (final SAXException e) {
+                throw new JellyTagException(e);
             }
         }
     }
@@ -168,7 +160,7 @@ public class MessageTag extends TagSupport {
      * @param key New value of property key.
      *
      */
-    public void setKey(Expression key) {
+    public void setKey(final Expression key) {
         this.key = key;
     }
 
@@ -176,7 +168,7 @@ public class MessageTag extends TagSupport {
      * @param bundle New value of property bundle.
      *
      */
-    public void setBundle(Expression bundle) {
+    public void setBundle(final Expression bundle) {
         this.bundle = bundle;
     }
 
@@ -184,7 +176,7 @@ public class MessageTag extends TagSupport {
      * @param var New value of property var.
      *
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -192,7 +184,7 @@ public class MessageTag extends TagSupport {
      * @param scope New value of property scope.
      *
      */
-    public void setScope(String scope) {
+    public void setScope(final String scope) {
         this.scope = scope;
     }
 

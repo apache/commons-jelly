@@ -22,7 +22,6 @@ import java.io.IOException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.SocketListener;
 import org.mortbay.util.InetAddrPort;
 
@@ -49,8 +48,8 @@ public class SocketListenerTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
             JettyHttpServerTag.class);
         if ( httpserver == null ) {
             throw new JellyTagException( "<socketListener> tag must be enclosed inside a <server> tag" );
@@ -60,7 +59,7 @@ public class SocketListenerTag extends TagSupport {
             httpserver.addListener(
                 new SocketListener(new InetAddrPort(getHost(), getPort())));
         }
-        catch (IOException e) {
+        catch (final IOException e) {
             throw new JellyTagException(e);
         }
 
@@ -84,7 +83,7 @@ public class SocketListenerTag extends TagSupport {
      *
      * @param port New value of property port.
      */
-    public void setPort(int port) {
+    public void setPort(final int port) {
         _port = port;
     }
 
@@ -102,7 +101,7 @@ public class SocketListenerTag extends TagSupport {
      *
      * @param host New value of property host.
      */
-    public void setHost(String host) {
+    public void setHost(final String host) {
         _host = host;
     }
 

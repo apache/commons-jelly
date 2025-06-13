@@ -65,7 +65,7 @@ public class Dummy implements DummyMBean {
      * @param count The count to set
      */
     @Override
-    public void setCount(int count) {
+    public void setCount(final int count) {
         this.count = count;
     }
 
@@ -74,7 +74,7 @@ public class Dummy implements DummyMBean {
      * @param name The name to set
      */
     @Override
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 

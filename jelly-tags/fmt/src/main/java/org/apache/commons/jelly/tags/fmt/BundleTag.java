@@ -16,15 +16,15 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
+import java.util.Locale;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.MissingResourceException;
 
 /**
  * Support for tag handlers for &lt;bundle&gt;, the resource bundle loading
@@ -80,7 +80,7 @@ public class BundleTag extends TagSupport {
      *
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         Object basenameInput = null;
         if (this.basename != null) {
             basenameInput = this.basename.evaluate(context);
@@ -97,7 +97,7 @@ public class BundleTag extends TagSupport {
             eprefix = prefixInput.toString();
         }
 
-        this.locCtxt = this.getLocalizationContext(context, ebasename);
+        this.locCtxt = BundleTag.getLocalizationContext(context, ebasename);
         invokeBody(output);
     }
 
@@ -109,10 +109,10 @@ public class BundleTag extends TagSupport {
      *
      * @param jc Page in which to look up the default I18N localization context
      */
-    public static LocalizationContext getLocalizationContext(JellyContext jc) {
+    public static LocalizationContext getLocalizationContext(final JellyContext jc) {
         LocalizationContext locCtxt = null;
 
-        Object obj = jc.getVariable(Config.FMT_LOCALIZATION_CONTEXT);
+        final Object obj = jc.getVariable(Config.FMT_LOCALIZATION_CONTEXT);
         if (obj == null) {
             return null;
         }
@@ -149,18 +149,18 @@ public class BundleTag extends TagSupport {
      * given base name and the locale that led to the resource bundle match,
      * or the empty localization context if no resource bundle match was found
      */
-    public static LocalizationContext getLocalizationContext(JellyContext jellyContext,
-    String basename) {
+    public static LocalizationContext getLocalizationContext(final JellyContext jellyContext,
+    final String basename) {
         LocalizationContext locCtxt = null;
         ResourceBundle bundle = null;
 
-        if ((basename == null) || basename.isEmpty()) {
+        if (basename == null || basename.isEmpty()) {
             return new LocalizationContext();
         }
 
         // Try preferred locales
         Locale pref = null; {
-            Object tmp = jellyContext.getVariable(Config.FMT_LOCALE);
+            final Object tmp = jellyContext.getVariable(Config.FMT_LOCALE);
             if (tmp != null && tmp instanceof Locale) {
                 pref = (Locale) tmp;
             }
@@ -176,7 +176,7 @@ public class BundleTag extends TagSupport {
         if (locCtxt == null) {
             // No match found with preferred locales, try using fallback locale
             {
-                Object tmp = jellyContext.getVariable(Config.FMT_FALLBACK_LOCALE);
+                final Object tmp = jellyContext.getVariable(Config.FMT_FALLBACK_LOCALE);
                 if (tmp != null && tmp instanceof Locale) {
                     pref = (Locale) tmp;
                 }
@@ -197,7 +197,7 @@ public class BundleTag extends TagSupport {
                 if (bundle != null) {
                     locCtxt = new LocalizationContext(bundle, null);
                 }
-            } catch (MissingResourceException mre) {
+            } catch (final MissingResourceException mre) {
                 // do nothing
             }
         }
@@ -231,38 +231,36 @@ public class BundleTag extends TagSupport {
      * language-match between the preferred locale and the locale of
      * the bundle returned by java.util.ResourceBundle.getBundle().
      */
-    private static ResourceBundle findMatch(String basename, Locale pref, ClassLoader cl) {
+    private static ResourceBundle findMatch(final String basename, final Locale pref, final ClassLoader cl) {
         ResourceBundle match = null;
 
         try {
-            ResourceBundle bundle =
+            final ResourceBundle bundle =
             ResourceBundle.getBundle(basename, pref, cl);
-            Locale avail = bundle.getLocale();
+            final Locale avail = bundle.getLocale();
             if (pref.equals(avail)) {
                 // Exact match
                 match = bundle;
-            } else {
-                if (pref.getLanguage().equals(avail.getLanguage())
-                && ("".equals(avail.getCountry()))) {
+            } else if (pref.getLanguage().equals(avail.getLanguage())
+            && "".equals(avail.getCountry())) {
 
-                    // Language match.
-                    // By making sure the available locale does not have a
-                    // country and matches the preferred locale's language, we
-                    // rule out "matches" based on the container's default
-                    // locale. For example, if the preferred locale is
-                    // "en-US", the container's default locale is "en-UK", and
-                    // there is a resource bundle (with the requested base
-                    // name) available for "en-UK", ResourceBundle.getBundle()
-                    // will return it, but even though its language matches
-                    // that of the preferred locale, we must ignore it,
-                    // because matches based on the container's default locale
-                    // are not portable across different containers with
-                    // different default locales.
+                // Language match.
+                // By making sure the available locale does not have a
+                // country and matches the preferred locale's language, we
+                // rule out "matches" based on the container's default
+                // locale. For example, if the preferred locale is
+                // "en-US", the container's default locale is "en-UK", and
+                // there is a resource bundle (with the requested base
+                // name) available for "en-UK", ResourceBundle.getBundle()
+                // will return it, but even though its language matches
+                // that of the preferred locale, we must ignore it,
+                // because matches based on the container's default locale
+                // are not portable across different containers with
+                // different default locales.
 
-                    match = bundle;
-                }
+                match = bundle;
             }
-        } catch (MissingResourceException mre) {
+        } catch (final MissingResourceException mre) {
         }
 
         return match;
@@ -272,7 +270,7 @@ public class BundleTag extends TagSupport {
      * @param basename New value of property basename.
      *
      */
-    public void setBasename(Expression basename) {
+    public void setBasename(final Expression basename) {
         this.basename = basename;
     }
 
@@ -280,7 +278,7 @@ public class BundleTag extends TagSupport {
      * @param prefix New value of property prefix.
      *
      */
-    public void setPrefix(Expression prefix) {
+    public void setPrefix(final Expression prefix) {
         this.prefix = prefix;
     }
 

@@ -17,12 +17,11 @@
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
-import javax.jms.Message;
 import javax.jms.JMSException;
+import javax.jms.Message;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -42,13 +41,13 @@ public class ReceiveTag extends MessageOperationTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         // evaluate body as it may contain a <destination> tag
         invokeBody(output);
 
         Message message = null;
         try {
-            Destination destination = getDestination();
+            final Destination destination = getDestination();
             if ( destination == null ) {
                 throw new JellyTagException( "No destination specified. Either specify a 'destination' attribute or use a nested <jms:destination> tag" );
             }
@@ -73,7 +72,7 @@ public class ReceiveTag extends MessageOperationTag {
                 message = getConnection().receive( destination );
             }
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
 
@@ -90,7 +89,7 @@ public class ReceiveTag extends MessageOperationTag {
      * Sets the variable name to create for the received message, which will be null if no
      * message could be returned in the given time period.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -102,7 +101,7 @@ public class ReceiveTag extends MessageOperationTag {
      * Sets the timeout period in milliseconds to wait for a message. A value
      * of -1 will wait forever for a message.
      */
-    public void setTimeout(long timeout) {
+    public void setTimeout(final long timeout) {
         this.timeout = timeout;
     }
 
@@ -113,7 +112,7 @@ public class ReceiveTag extends MessageOperationTag {
      * A strategy method which processes the incoming message, allowing derived classes
      * to implement different processing methods
      */
-    protected void onMessage( Message message ) {
+    protected void onMessage( final Message message ) {
         if ( message != null ) {
             context.setVariable( var, message );
         }

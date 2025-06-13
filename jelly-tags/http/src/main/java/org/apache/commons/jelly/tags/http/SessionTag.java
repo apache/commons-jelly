@@ -56,12 +56,12 @@ public class SessionTag extends TagSupport {
      * @throws JellyTagException when any error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
         if (_httpClient == null)
         {
             _httpClient = new HttpClient();
         }
-        
+
         if (isProxyAvailable()) {
             _httpClient.getHostConfiguration().setProxy(getProxyHost(), getProxyPort());
         }
@@ -83,7 +83,7 @@ public class SessionTag extends TagSupport {
      *
      * @param httpClient New value of property httpClient.
      */
-    public void setHttpClient(HttpClient httpClient) {
+    public void setHttpClient(final HttpClient httpClient) {
         _httpClient = httpClient;
     }
     /**
@@ -110,7 +110,7 @@ public class SessionTag extends TagSupport {
      *
      * @param host the {@link #getProxy() proxy's} host property
      */
-    public void setProxyHost(String host) {
+    public void setProxyHost(final String host) {
         getProxy().setHost(host);
     }
 
@@ -128,7 +128,7 @@ public class SessionTag extends TagSupport {
      *
      * @param port the {@link #getProxy() proxy's} port property
      */
-    public void setProxyPort(int port) {
+    public void setProxyPort(final int port) {
         getProxy().setPort(port);
     }
 
@@ -146,7 +146,7 @@ public class SessionTag extends TagSupport {
      *
      * @param host New value of property host.
      */
-    public void setHost(String host) {
+    public void setHost(final String host) {
         _host = host;
     }
 
@@ -160,7 +160,7 @@ public class SessionTag extends TagSupport {
     /** Setter for property port.
      * @param port New value of property port.
      */
-    public void setPort(String port) {
+    public void setPort(final String port) {
         _port = port;
     }
 
@@ -178,7 +178,7 @@ public class SessionTag extends TagSupport {
      *
      * @param proxy New value of property proxy.
      */
-    public void setProxy(Proxy proxy) {
+    public void setProxy(final Proxy proxy) {
         _proxy = proxy;
     }
 
@@ -196,7 +196,7 @@ public class SessionTag extends TagSupport {
      *
      * @param secure New value of property secure.
      */
-    public void setSecure(boolean secure) {
+    public void setSecure(final boolean secure) {
         _secure = secure;
     }
 
@@ -210,7 +210,7 @@ public class SessionTag extends TagSupport {
     /** Setter for property userAgent.
      * @param userAgent New value of property userAgent.
      */
-    public void setUserAgent(String userAgent) {
+    public void setUserAgent(final String userAgent) {
         _userAgent = userAgent;
     }
 
@@ -224,7 +224,7 @@ public class SessionTag extends TagSupport {
     /** Setter for property strictMode.
      * @param strictMode New value of property strictMode.
      */
-    public void setStrictMode(boolean strictMode) {
+    public void setStrictMode(final boolean strictMode) {
         _strictMode = strictMode;
     }
 

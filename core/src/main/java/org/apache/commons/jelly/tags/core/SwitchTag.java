@@ -59,17 +59,16 @@ public class SwitchTag extends TagSupport {
     }
 
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         this.defaultEncountered = false;
         this.someCaseMatched = false;
         this.fallingThru = false;
-                
+
         if (null == on) {
             throw new MissingAttributeException("on");
-        } else {
-            value = on.evaluate(context);
-            invokeBody(output);
         }
+        value = on.evaluate(context);
+        invokeBody(output);
     }
 
     protected Object getValue() {
@@ -87,7 +86,7 @@ public class SwitchTag extends TagSupport {
     protected boolean isFallingThru() {
         return this.fallingThru;
     }
-    protected void setFallingThru(boolean fallingThru) {
+    protected void setFallingThru(final boolean fallingThru) {
         this.fallingThru = fallingThru;
     }
     /**
@@ -96,7 +95,7 @@ public class SwitchTag extends TagSupport {
      * &lt;switch&gt; tag is evaluated.
      * @param on the value to switch on
      */
-    public void setOn(Expression on) {
+    public void setOn(final Expression on) {
         this.on = on;
     }
 

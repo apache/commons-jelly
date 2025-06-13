@@ -17,6 +17,7 @@
 package org.apache.commons.jelly.tags.swt;
 
 import java.io.InputStream;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -48,7 +49,7 @@ public class ImageTag extends TagSupport {
      * Sets the resource
      * @param resource image resource location
      */
-    public void setResource(String resource) {
+    public void setResource(final String resource) {
        this.resource = resource;
     }
 
@@ -63,7 +64,7 @@ public class ImageTag extends TagSupport {
     /**
      * Sets the variable name
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -79,7 +80,7 @@ public class ImageTag extends TagSupport {
      * Sets the src.
      * @param src The src to set
      */
-    public void setSrc(String src) {
+    public void setSrc(final String src) {
         this.src = src;
     }
 
@@ -95,7 +96,7 @@ public class ImageTag extends TagSupport {
      * @return the parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
-        WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
+        final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
         if (tag != null) {
             return tag.getWidget();
         }
@@ -109,11 +110,11 @@ public class ImageTag extends TagSupport {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         // invoke by body just in case some nested tag configures me
         invokeBody(output);
 
-        Widget parent = getParentWidget();
+        final Widget parent = getParentWidget();
 
         if (parent == null) {
             throw new JellyTagException("This tag must be nested within a Widget or a Window");
@@ -140,16 +141,16 @@ public class ImageTag extends TagSupport {
     /**
      * Creates an Image, loaded from the local disk
      */
-    private Image loadLocalImage(Display display) {
+    private Image loadLocalImage(final Display display) {
         return new Image(display, getSrc());
     }
 
     /**
      * Creates an Image, loaded from a specified resource.
      */
-    private Image loadResourceImage(Display display) {
-        ClassLoader loader = ClassLoaderUtils.getClassLoader(null, getContext().getUseContextClassLoader(), getClass());
-        InputStream stream = loader.getResourceAsStream(getResource());
+    private Image loadResourceImage(final Display display) {
+        final ClassLoader loader = ClassLoaderUtils.getClassLoader(null, getContext().getUseContextClassLoader(), getClass());
+        final InputStream stream = loader.getResourceAsStream(getResource());
         return new Image(display, stream);
     }
 
@@ -159,21 +160,21 @@ public class ImageTag extends TagSupport {
      * @param image
      * @throws JellyTagException
      */
-    protected void setWidgetImage(Widget parent, Image image) throws JellyTagException {
+    protected void setWidgetImage(final Widget parent, final Image image) throws JellyTagException {
         if (parent instanceof Label) {
-            Label label = (Label) parent;
+            final Label label = (Label) parent;
             label.setImage(image);
 
         } else if (parent instanceof Button) {
-            Button button = (Button) parent;
+            final Button button = (Button) parent;
             button.setImage(image);
 
         } else if (parent instanceof Item) {
-            Item item = (Item) parent;
+            final Item item = (Item) parent;
             item.setImage(image);
 
         } else if (parent instanceof Decorations) {
-            Decorations item = (Decorations) parent;
+            final Decorations item = (Decorations) parent;
             item.setImage(image);
 
         } else {

@@ -41,11 +41,11 @@ public class DriverTag extends TagSupport {
     //*********************************************************************
     // Accessor methods
 
-    public void setDriver(String driverClassName) {
+    public void setDriver(final String driverClassName) {
         this.driverClassName = driverClassName;
     }
 
-    public void setJdbcURL(String jdbcURL) {
+    public void setJdbcURL(final String jdbcURL) {
         this.jdbcURL = jdbcURL;
     }
 
@@ -54,15 +54,15 @@ public class DriverTag extends TagSupport {
      * result.
      *
      */
-    public void setScope(String scopeName) {
+    public void setScope(final String scopeName) {
         this.scope = scopeName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(final String userName) {
         this.userName = userName;
     }
 
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -70,12 +70,12 @@ public class DriverTag extends TagSupport {
     // Tag logic
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        DataSourceWrapper ds = new DataSourceWrapper();
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final DataSourceWrapper ds = new DataSourceWrapper();
         try {
             ds.setDriverClassName(getDriverClassName());
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException("Invalid driver class name: " + e.getMessage());
         }
         ds.setJdbcURL(getJdbcURL());
@@ -112,7 +112,7 @@ public class DriverTag extends TagSupport {
         return getInitParameter(PASSWORD);
     }
 
-    protected String getInitParameter(String key) {
+    protected String getInitParameter(final String key) {
         return "";
     }
 }

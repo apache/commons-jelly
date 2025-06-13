@@ -23,14 +23,12 @@ import java.util.Map;
 import org.apache.commons.beanutils2.DynaClass;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.Attribute;
 import org.apache.commons.jelly.impl.DynamicDynaBeanTag;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.xml.sax.Attributes;
 
 /**
  * Binds a Java bean to the given named Jelly tag so that the attributes of
@@ -59,7 +57,7 @@ public class DynaBeanTag extends DefineTagSupport {
     /**
      * Adds a new attribute definition to this dynamic tag
      */
-    public void addAttribute(Attribute attribute) {
+    public void addAttribute(final Attribute attribute) {
         if ( attributes == null ) {
             attributes = new HashMap();
         }
@@ -69,7 +67,7 @@ public class DynaBeanTag extends DefineTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         invokeBody(output);
 
         if (name == null) {
@@ -80,14 +78,9 @@ public class DynaBeanTag extends DefineTagSupport {
         }
 
         final DynaClass theDynaClass = dynaClass;
-        final Map beanAttributes = (attributes != null) ? attributes : EMPTY_MAP;
+        final Map beanAttributes = attributes != null ? attributes : EMPTY_MAP;
 
-        TagFactory factory = new TagFactory() {
-            @Override
-            public Tag createTag(String name, Attributes attributes) {
-                return  new DynamicDynaBeanTag(theDynaClass, beanAttributes, varAttribute);
-            }
-        };
+        final TagFactory factory = (name, attributes) -> new DynamicDynaBeanTag(theDynaClass, beanAttributes, varAttribute);
         getTagLibrary().registerBeanTag(name, factory);
 
         // now lets clear the attributes for next invocation and help the GC
@@ -100,7 +93,7 @@ public class DynaBeanTag extends DefineTagSupport {
     /**
      * Sets the name of the tag to create
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -109,7 +102,7 @@ public class DynaBeanTag extends DefineTagSupport {
      * tag will output its results as. This defaults to 'var' though this property
      * can be used to change this if it conflicts with a bean property called 'var'.
      */
-    public void setVarAttribute(String varAttribute) {
+    public void setVarAttribute(final String varAttribute) {
         this.varAttribute = varAttribute;
     }
 
@@ -124,7 +117,7 @@ public class DynaBeanTag extends DefineTagSupport {
     /**
      * Sets the {@link DynaClass} which will be bound to this dynamic tag.
      */
-    public void setDynaClass(DynaClass dynaClass) {
+    public void setDynaClass(final DynaClass dynaClass) {
         this.dynaClass = dynaClass;
     }
 

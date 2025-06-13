@@ -40,7 +40,7 @@ public class JellyContextAdapterTest extends TestCase
      *
      * @param testName name of the test case
      */
-    public JellyContextAdapterTest( String testName )
+    public JellyContextAdapterTest( final String testName )
     {
         super( testName );
     }
@@ -89,7 +89,7 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadWritePut()
     {
-        Object value = new Object();
+        final Object value = new Object();
 
         adapter.setReadOnly( false );
         adapter.put( "key", value );
@@ -108,7 +108,7 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadOnlyPut()
     {
-        Object value = new Object();
+        final Object value = new Object();
 
         adapter.setReadOnly( true );
         adapter.put( "key", value );
@@ -126,11 +126,11 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadWriteRemove()
     {
-        Object value = new Object();
+        final Object value = new Object();
 
         adapter.setReadOnly( false );
         adapter.put( "key", value );
-        Object oldValue = adapter.remove( "key" );
+        final Object oldValue = adapter.remove( "key" );
 
         assertTrue( "Value returned from remove() is not the original",
                 value == oldValue );
@@ -151,12 +151,12 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadOnlyRemove()
     {
-        Object value = new Object();
+        final Object value = new Object();
 
         adapter.setReadOnly( true );
         adapter.put( "key", value );
 
-        Object oldValue = adapter.remove( "key" );
+        final Object oldValue = adapter.remove( "key" );
 
         assertTrue( "Value returned from remove() is not the original",
                 value == oldValue );
@@ -178,8 +178,8 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadOnlyShadowingRemove()
     {
-        Object value1 = new Object();
-        Object value2 = new Object();
+        final Object value1 = new Object();
+        final Object value2 = new Object();
 
         adapter.setReadOnly( true );
         adapter.put( "key", value1 );
@@ -202,8 +202,8 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadWriteContainsKey()
     {
-        Object value1 = new Object();
-        Object value2 = new Object();
+        final Object value1 = new Object();
+        final Object value2 = new Object();
 
         adapter.setReadOnly( false );
         adapter.put( "key1", value1 );
@@ -224,8 +224,8 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadOnlyContainsKey()
     {
-        Object value1= new Object();
-        Object value2 = new Object();
+        final Object value1= new Object();
+        final Object value2 = new Object();
 
         adapter.setReadOnly( true );
         adapter.put( "key1", value1 );
@@ -246,21 +246,21 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadWriteGetKeys()
     {
-        Object value1 = new Object();
-        Object value2 = new Object();
-        Object value3 = new Object();
+        final Object value1 = new Object();
+        final Object value2 = new Object();
+        final Object value3 = new Object();
 
         adapter.setReadOnly( false );
         adapter.put( "key1", value1 );
         adapter.put( "key2", value2 );
         jellyContext.setVariable( "key3", value3 );
 
-        Set expectedKeys = new HashSet();
+        final Set expectedKeys = new HashSet();
         expectedKeys.add( "key1" );
         expectedKeys.add( "key2" );
         expectedKeys.add( "key3" );
 
-        Set actualKeys = new HashSet();
+        final Set actualKeys = new HashSet();
         CollectionUtils.addAll(actualKeys, adapter.getKeys());
 
         assertTrue( "adapter: does not contain the correct key set",
@@ -272,20 +272,20 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadOnlyGetKeys()
     {
-        Object value1 = new Object();
-        Object value2 = new Object();
-        Object value3 = new Object();
+        final Object value1 = new Object();
+        final Object value2 = new Object();
+        final Object value3 = new Object();
 
         adapter.setReadOnly( true );
         adapter.put( "key1", value1 );
         adapter.put( "key2", value2 );
         jellyContext.setVariable( "key3", value3 );
 
-        Set expectedKeys = new HashSet();
+        final Set expectedKeys = new HashSet();
         expectedKeys.add( "key1" );
         expectedKeys.add( "key2" );
 
-        Set actualKeys = new HashSet();
+        final Set actualKeys = new HashSet();
         CollectionUtils.addAll(actualKeys, adapter.getKeys());
 
         assertTrue( "adapter: does not contain the correct key set",

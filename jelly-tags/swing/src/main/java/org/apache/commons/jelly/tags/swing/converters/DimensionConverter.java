@@ -27,10 +27,10 @@ import org.apache.commons.beanutils2.Converter;
 public class DimensionConverter implements Converter {
 
     @Override
-    public Object convert(Class type, Object value) {
+    public Object convert(final Class type, final Object value) {
         if ( value != null ) {
-            String text = value.toString();
-            StringTokenizer dimensionEnum = new StringTokenizer( text, "," );
+            final String text = value.toString();
+            final StringTokenizer dimensionEnum = new StringTokenizer( text, "," );
             int width = 0;
             int height = 0;
             if ( dimensionEnum.hasMoreTokens() ) {

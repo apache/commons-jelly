@@ -29,13 +29,13 @@ import org.apache.commons.jelly.expression.Expression;
 public class JellyPropsHandler extends DefaultPropsHandler {
 
     /** The JellyContext. */
-    private JellyContext context;
+    private final JellyContext context;
 
     /** Simple constructor with the context to be used.
      *
      *  @param context The context to be used.
      */
-    public JellyPropsHandler(JellyContext context) {
+    public JellyPropsHandler(final JellyContext context) {
         this.context = context;
     }
 
@@ -45,7 +45,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
      *  @param value The property value.
      */
     @Override
-    public void setProperty(String name, String value) {
+    public void setProperty(final String name, final String value) {
         this.context.setVariable(name, value);
     }
 
@@ -56,24 +56,18 @@ public class JellyPropsHandler extends DefaultPropsHandler {
      *  @return The property value.
      */
     @Override
-    public String getProperty(String name) {
+    public String getProperty(final String name) {
         if (name == null) {
             return null;
         }
-        Object value = this.context.getVariable(name);
+        final Object value = this.context.getVariable(name);
         if (value == null) {
             return null;
         }
-        else {
-            if ( value instanceof Expression )
-            {
-                return ( ( Expression ) value ).evaluateAsString( context );
-            }
-            else
-            {
-                return value.toString();
-            }
+        if (value instanceof Expression) {
+            return ( ( Expression ) value ).evaluateAsString( context );
         }
+        return value.toString();
     }
 
     /** Retrieve all ant properties.
@@ -82,10 +76,10 @@ public class JellyPropsHandler extends DefaultPropsHandler {
      */
     @Override
     public Hashtable getProperties() {
-        Hashtable h = new Hashtable();
-        for (Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
-            String name = (String) i.next();
-            String value = getProperty( name );
+        final Hashtable h = new Hashtable();
+        for (final Iterator i = this.context.getVariableNames(); i.hasNext(); ) {
+            final String name = (String) i.next();
+            final String value = getProperty( name );
             if (value != null) {
                 h.put(name, value);
             }

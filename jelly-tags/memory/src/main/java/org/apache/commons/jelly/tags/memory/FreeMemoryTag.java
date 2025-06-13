@@ -41,13 +41,13 @@ public class FreeMemoryTag extends TagSupport {
     public String getStyle() {
         return this.style;
     }
- 
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
-        Runtime r = Runtime.getRuntime();
+        final Runtime r = Runtime.getRuntime();
 
         try {
             long total = r.totalMemory();
@@ -61,10 +61,10 @@ public class FreeMemoryTag extends TagSupport {
                 free /= MB;
                 total /= MB;
             }
-            
+
             output.write( free + style + "/" + total + style );
         }
-        catch ( Exception e ) {
+        catch ( final Exception e ) {
             throw new JellyTagException( "Error writing to output", e );
         }
     }

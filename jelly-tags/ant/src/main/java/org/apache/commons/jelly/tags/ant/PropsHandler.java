@@ -7,9 +7,9 @@ package org.apache.commons.jelly.tags.ant;
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      https://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -66,12 +66,12 @@ public interface PropsHandler {
      *  @param value The value.
      */
     void setInheritedProperty(String key, String value);
-    
+
     /** Sets a property that is not a user property.
-     * 
-     * Acts as the replacement for ant's private 
+     *
+     * Acts as the replacement for ant's private
      * <code>setPropertyInternal</code> method.
-     * 
+     *
      * @param key The property key.
      * @param value The value.
      */
@@ -104,27 +104,27 @@ public interface PropsHandler {
      *  @return A <code>Hashtable</code> of all user properties.
      */
     Hashtable getUserProperties();
-    
+
     /** Copy all of the user properties to the other <code>Project</code>.
-     * 
+     *
      * @param other The <code>Project</code> to copy the properties to.
      */
     void copyUserProperties(Project other);
-    
+
     /** Copy all of the inherited properties to the other <code>Project</code>.
-     * 
+     *
      * @param other The <code>Project</code> to copy the properties to.
      */
     void copyInheritedProperties(Project other);
-    
+
     /** Sets the system variables for a <code>Project</code> that have
      * not already been assigned as user properties.
      */
     void setSystemProperties();
-    
+
     /** Sets the <code>ant.java.version</code> property.
      */
-    void setJavaVersionProperty();    
-    
-    
+    void setJavaVersionProperty();
+
+
 }

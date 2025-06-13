@@ -36,7 +36,7 @@ import junit.textui.TestRunner;
  */
 public class TestDynaBeans extends TestCase {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
     public static Test suite() {
@@ -47,20 +47,20 @@ public class TestDynaBeans extends TestCase {
 
     protected ExpressionFactory factory = new JexlExpressionFactory();
 
-    public TestDynaBeans(String testName) {
+    public TestDynaBeans(final String testName) {
         super(testName);
     }
 
-    protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
-        Expression expression = CompositeExpression.parse(expressionText, factory);
+    protected void assertExpression(final String expressionText, final Object expectedValue) throws Exception {
+        final Expression expression = CompositeExpression.parse(expressionText, factory);
         assertTrue( "Created a valid expression for: " + expressionText, expression != null );
-        Object value = expression.evaluate(context);
+        final Object value = expression.evaluate(context);
         //assertEquals( "Expression for: " + expressionText + " is: " + expression, expectedValue, value );
         assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
     }
 
     protected DynaClass createDynaClass() {
-        DynaProperty[] properties = {
+        final DynaProperty[] properties = {
             new DynaProperty("booleanProperty", Boolean.TYPE),
             new DynaProperty("booleanSecond", Boolean.TYPE),
             new DynaProperty("doubleProperty", Double.TYPE),
@@ -78,8 +78,8 @@ public class TestDynaBeans extends TestCase {
     }
 
     public void testDynaBeans() throws Exception {
-        DynaClass dynaClass = createDynaClass();
-        DynaBean dynaBean = dynaClass.newInstance();
+        final DynaClass dynaClass = createDynaClass();
+        final DynaBean dynaBean = dynaClass.newInstance();
         dynaBean.set( "stringProperty", "foo" );
         dynaBean.set( "intProperty", Integer.valueOf(24) );
 

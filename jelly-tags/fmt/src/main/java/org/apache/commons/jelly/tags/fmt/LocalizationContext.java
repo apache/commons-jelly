@@ -16,8 +16,8 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import java.util.ResourceBundle;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Class representing an I18N localization context.
@@ -59,7 +59,7 @@ public class LocalizationContext {
      * @param bundle The localization context's resource bundle
      * @param locale The localization context's locale
      */
-    public LocalizationContext(ResourceBundle bundle, Locale locale) {
+    public LocalizationContext(final ResourceBundle bundle, final Locale locale) {
         this.bundle = bundle;
         this.locale = locale;
     }
@@ -72,7 +72,7 @@ public class LocalizationContext {
      *
      * @param bundle The resource bundle
      */
-    public LocalizationContext(ResourceBundle bundle) {
+    public LocalizationContext(final ResourceBundle bundle) {
         this.bundle = bundle;
         this.locale = bundle.getLocale();
     }

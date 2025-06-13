@@ -29,7 +29,7 @@ public class TestBreakTag extends BaseJellyTest
         return new TestSuite(TestBreakTag.class);
     }
 
-    public TestBreakTag(String name)
+    public TestBreakTag(final String name)
     {
         super(name);
     }
@@ -37,11 +37,11 @@ public class TestBreakTag extends BaseJellyTest
     public void testConditionalBreakTag() throws Exception
     {
         setUpScript("testBreakTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         script.run(getJellyContext(), getXMLOutput());
 
-        String simpleResult = (String) getJellyContext().getVariable("conditionalResult");
+        final String simpleResult = (String) getJellyContext().getVariable("conditionalResult");
 
         assertEquals("conditionalResult", "12345", simpleResult);
     }
@@ -49,11 +49,11 @@ public class TestBreakTag extends BaseJellyTest
     public void testSimpleBreakTag() throws Exception
     {
         setUpScript("testBreakTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         script.run(getJellyContext(), getXMLOutput());
 
-        String simpleResult = (String) getJellyContext().getVariable("simpleResult");
+        final String simpleResult = (String) getJellyContext().getVariable("simpleResult");
 
         assertEquals("simpleResult", "12345", simpleResult);
     }
@@ -61,11 +61,11 @@ public class TestBreakTag extends BaseJellyTest
     public void testVarBreakTag() throws Exception
     {
         setUpScript("testBreakTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         script.run(getJellyContext(), getXMLOutput());
 
-        String varBroken = (String) getJellyContext().getVariable("varBroken");
+        final String varBroken = (String) getJellyContext().getVariable("varBroken");
 
         assertEquals("varBroken", "true", varBroken);
     }
@@ -73,11 +73,11 @@ public class TestBreakTag extends BaseJellyTest
     public void testVarNoBreakTag() throws Exception
     {
         setUpScript("testBreakTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         script.run(getJellyContext(), getXMLOutput());
 
-        String varNotBroken = (String) getJellyContext().getVariable("varNotBroken");
+        final String varNotBroken = (String) getJellyContext().getVariable("varNotBroken");
 
         assertEquals("varNotBroken", "false", varNotBroken);
     }

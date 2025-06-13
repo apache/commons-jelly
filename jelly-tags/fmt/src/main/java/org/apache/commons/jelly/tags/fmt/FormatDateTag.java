@@ -16,19 +16,17 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.expression.Expression;
-
-import org.xml.sax.SAXException;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
+import org.xml.sax.SAXException;
 
 /**
  * Support for tag handlers for &lt;formatDate&gt;, the date and time formatting
@@ -87,7 +85,7 @@ public class FormatDateTag extends TagSupport {
      *
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         if (scope != null && var == null) {
             throw new JellyTagException(
@@ -139,7 +137,7 @@ public class FormatDateTag extends TagSupport {
         }
 
         // Create formatter
-        Locale locale = SetLocaleTag.getFormattingLocale(
+        final Locale locale = SetLocaleTag.getFormattingLocale(
             context,
             this,
             true,
@@ -153,14 +151,14 @@ public class FormatDateTag extends TagSupport {
             if (pattern != null) {
                 try {
                     ((SimpleDateFormat) formatter).applyPattern(epattern);
-                } catch (ClassCastException cce) {
+                } catch (final ClassCastException cce) {
                     formatter = new SimpleDateFormat(epattern, locale);
                 }
             }
 
             // Set time zone
             TimeZone tz = null;
-            if ((etimeZone instanceof String)
+            if (etimeZone instanceof String
             && ((String) etimeZone).isEmpty()) {
                 etimeZone = null;
             }
@@ -196,7 +194,7 @@ public class FormatDateTag extends TagSupport {
             try {
                 // write the formatted
                 output.write(formatted);
-            } catch (SAXException e) {
+            } catch (final SAXException e) {
                 throw new JellyTagException("could not write formatted text",e);
             }
         }
@@ -206,7 +204,7 @@ public class FormatDateTag extends TagSupport {
      * @param value New value of property value.
      *
      */
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 
@@ -214,7 +212,7 @@ public class FormatDateTag extends TagSupport {
      * @param type New value of property type.
      *
      */
-    public void setType(Expression type) {
+    public void setType(final Expression type) {
         this.type = type;
     }
 
@@ -222,7 +220,7 @@ public class FormatDateTag extends TagSupport {
      * @param dateStyle New value of property dateStyle.
      *
      */
-    public void setDateStyle(Expression dateStyle) {
+    public void setDateStyle(final Expression dateStyle) {
         this.dateStyle = dateStyle;
     }
 
@@ -230,7 +228,7 @@ public class FormatDateTag extends TagSupport {
      * @param timeStyle New value of property timeStyle.
      *
      */
-    public void setTimeStyle(Expression timeStyle) {
+    public void setTimeStyle(final Expression timeStyle) {
         this.timeStyle = timeStyle;
     }
 
@@ -238,7 +236,7 @@ public class FormatDateTag extends TagSupport {
      * @param pattern New value of property pattern.
      *
      */
-    public void setPattern(Expression pattern) {
+    public void setPattern(final Expression pattern) {
         this.pattern = pattern;
     }
 
@@ -246,7 +244,7 @@ public class FormatDateTag extends TagSupport {
      * @param timeZone New value of property timeZone.
      *
      */
-    public void setTimeZone(Expression timeZone) {
+    public void setTimeZone(final Expression timeZone) {
         this.timeZone = timeZone;
     }
 
@@ -254,7 +252,7 @@ public class FormatDateTag extends TagSupport {
      * @param var New value of property var.
      *
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -262,17 +260,17 @@ public class FormatDateTag extends TagSupport {
      * @param scope New value of property scope.
      *
      */
-    public void setScope(String scope) {
+    public void setScope(final String scope) {
         this.scope = scope;
     }
 
     //*********************************************************************
     // Private utility methods
 
-    private DateFormat createFormatter(Locale loc) throws JellyTagException {
+    private DateFormat createFormatter(final Locale loc) throws JellyTagException {
         DateFormat formatter = null;
 
-        if ((etype == null) || DATE.equalsIgnoreCase(etype)) {
+        if (etype == null || DATE.equalsIgnoreCase(etype)) {
             formatter = DateFormat.getDateInstance(
             getStyle(edateStyle, "FORMAT_DATE_INVALID_DATE_STYLE"),
             loc);
@@ -301,7 +299,7 @@ public class FormatDateTag extends TagSupport {
      * @return java.util.DateFormat constant corresponding to given style
      * @throws JellyException if the given style is invalid
      */
-    public static int getStyle(String style, String errCode)
+    public static int getStyle(final String style, final String errCode)
     throws JellyTagException {
         int ret = DateFormat.DEFAULT;
 

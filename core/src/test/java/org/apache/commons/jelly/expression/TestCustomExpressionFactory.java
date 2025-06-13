@@ -27,14 +27,14 @@ import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
 public class TestCustomExpressionFactory extends BaseJellyTest {
-	
-	private static final String EXPECTED = "id=1; attr=${TEST FACTORY:  1 + 2 }; text=${TEST FACTORY:  'hello' + \" world\" }\n" + 
+
+	private static final String EXPECTED = "id=1; attr=${TEST FACTORY:  1 + 2 }; text=${TEST FACTORY:  'hello' + \" world\" }\n" +
 				"id=2; attr=${TEST FACTORY:  2 + 3 }; text=<sometag>${TEST FACTORY:  'goodbye cruel' + \" world\" }</sometag>\n";
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
         TestRunner.run(suite());
     }
-	
+
     public static Test suite() {
         return new TestSuite(TestCustomExpressionFactory.class);
     }
@@ -44,19 +44,19 @@ public class TestCustomExpressionFactory extends BaseJellyTest {
 	}
 
     @Override
-    protected void addCustomTagLib(JellyContext context) {
+    protected void addCustomTagLib(final JellyContext context) {
         context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
     }
 
     public void testCustomFactory() throws Exception {
 		setUpScript("jelly1.xml");
-		Script script = getJelly().compileScript();
+		final Script script = getJelly().compileScript();
 		script.run(getJellyContext(), getXMLOutput());
 
 		/*
 		JellyContext ctx = new JellyContext();
 		ctx.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
-		
+
 		URL url = getClass().getResource("jelly1.xml");
 		if (url == null)
 			throw new Exception("Cannot find jelly1.xml in classpath");
@@ -64,11 +64,11 @@ public class TestCustomExpressionFactory extends BaseJellyTest {
 		StringWriter strWriter = new StringWriter();
 		XMLOutput output = XMLOutput.createXMLOutput(strWriter);
 		ctx.runScript(file, output);
-		
+
 		*/
-		String str = getStringOutput().toString();
+		final String str = getStringOutput().toString();
 		System.out.println(str);
-		assertEquals(str, EXPECTED); 
+		assertEquals(str, EXPECTED);
 	}
 
 }

@@ -16,11 +16,12 @@
  */
 package org.apache.commons.jelly.tags.swing.converters;
 
-import javax.swing.DebugGraphics;
 import java.util.StringTokenizer;
 
-import org.apache.commons.beanutils2.Converter;
+import javax.swing.DebugGraphics;
+
 import org.apache.commons.beanutils2.ConvertUtils;
+import org.apache.commons.beanutils2.Converter;
 
 /**
  * A Converter that turns Strings in one of the constants of
@@ -41,22 +42,22 @@ public class DebugGraphicsConverter implements Converter {
      * @see org.apache.commons.beanutils2.Converter#convert(java.lang.Class, java.lang.Object)
      */
     @Override
-    public Object convert(Class type, Object value) {
+    public Object convert(final Class type, final Object value) {
         return convert(value);
     }
-    
+
     /** This is not part of the converter interface, it's for use by
      * classes that don't use DebugGraphicsConverter through BeanUtils.
      * @param value
      * @return
      */
-    public Object convert(Object value) {
+    public Object convert(final Object value) {
         if (value != null) {
             int result = 0;
-            StringTokenizer stok =
+            final StringTokenizer stok =
                 new StringTokenizer(value.toString(), ", \t|", false);
             while (stok.hasMoreTokens()) {
-                String tok = stok.nextToken();
+                final String tok = stok.nextToken();
                 result |= recognizeOption(tok);
             }
             return new Integer(result);
@@ -67,16 +68,20 @@ public class DebugGraphicsConverter implements Converter {
     protected int recognizeOption(String value) {
         value = value.toString().toLowerCase();
 
-        if ("log".equals(value) || "log_option".equals(value)) {
+        if (value == null) {
+            throw new IllegalArgumentException(usageText);
+        }
+        switch (value) {
+        case "log":
+        case "log_option":
             return DebugGraphics.LOG_OPTION;
-        }
-        else if ("flash".equals(value) || "flash_option".equals(value)) {
-                return DebugGraphics.FLASH_OPTION;
-        }
-        else if ("buffered".equals(value) || "buffered_option".equals(value)) {
+        case "flash":
+        case "flash_option":
+            return DebugGraphics.FLASH_OPTION;
+        case "buffered":
+        case "buffered_option":
             return DebugGraphics.BUFFERED_OPTION;
-        }
-        else {
+        default:
             throw new IllegalArgumentException(usageText);
         }
     }

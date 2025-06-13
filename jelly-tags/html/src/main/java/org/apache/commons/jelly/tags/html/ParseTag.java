@@ -19,15 +19,11 @@ package org.apache.commons.jelly.tags.html;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.xml.ParseTagSupport;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.cyberneko.html.parsers.SAXParser;
-
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
-
 import org.xml.sax.SAXException;
 
 /** A tag which parses some HTML and defines a variable with the parsed Document.
@@ -50,13 +46,13 @@ public class ParseTag extends ParseTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if (getVar() == null) {
             throw new IllegalArgumentException("The var attribute cannot be null");
         }
         Document document = null;
         if (html == null) {
-            String text = getText();
+            final String text = getText();
             if (text != null) {
                 document = parseText(text);
             }
@@ -73,7 +69,7 @@ public class ParseTag extends ParseTagSupport {
     // Properties
     //-------------------------------------------------------------------------
     /** Sets the source of the HTML which is either a String URI, Reader or InputStream */
-    public void setHtml(Object html) {
+    public void setHtml(final Object html) {
         this.html = html;
     }
 
@@ -83,7 +79,7 @@ public class ParseTag extends ParseTagSupport {
      *
      * @param attribute The processing mode of attributes
      */
-    public void setAttribute(String attribute) {
+    public void setAttribute(final String attribute) {
         this.attribute = attribute;
     }
 
@@ -93,7 +89,7 @@ public class ParseTag extends ParseTagSupport {
      *
      * @param element The processing mode of elements
      */
-    public void setElement(String element) {
+    public void setElement(final String element) {
         this.element = element;
     }
 
@@ -106,7 +102,7 @@ public class ParseTag extends ParseTagSupport {
     @Override
     protected SAXReader createSAXReader() throws SAXException {
         // installs the NeckHTML parser
-        SAXParser parser = new SAXParser();
+        final SAXParser parser = new SAXParser();
         parser.setProperty(
             "http://cyberneko.org/html/properties/names/elems",
             element

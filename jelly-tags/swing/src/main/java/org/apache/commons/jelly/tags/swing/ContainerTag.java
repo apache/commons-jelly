@@ -16,9 +16,9 @@
  */
 package org.apache.commons.jelly.tags.swing;
 
-import org.apache.commons.jelly.JellyTagException;
-
 import java.awt.Component;
+
+import org.apache.commons.jelly.JellyTagException;
 
 /**
  * An interface which represents a Tag which is capable of containing AWT Components.

@@ -18,7 +18,6 @@ package org.apache.commons.jelly.tags.beanshell;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.ExpressionSupport;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -30,9 +29,9 @@ public class BeanShellExpression extends ExpressionSupport {
     private static final Log log = LogFactory.getLog( BeanShellExpression.class );
 
     /** The expression */
-    private String text;
+    private final String text;
 
-    public BeanShellExpression(String text) {
+    public BeanShellExpression(final String text) {
         this.text = text;
     }
 
@@ -44,9 +43,9 @@ public class BeanShellExpression extends ExpressionSupport {
     }
 
     @Override
-    public Object evaluate(JellyContext context) {
+    public Object evaluate(final JellyContext context) {
         try {
-            JellyInterpreter interpreter = new JellyInterpreter();
+            final JellyInterpreter interpreter = new JellyInterpreter();
             interpreter.setJellyContext(context);
 
             if ( log.isDebugEnabled() ) {
@@ -55,7 +54,7 @@ public class BeanShellExpression extends ExpressionSupport {
 
             return interpreter.eval( text );
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
             return null;
         }

@@ -34,7 +34,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-
 import org.xml.sax.SAXException;
 
 /**
@@ -76,13 +75,13 @@ public class JellyTask extends Task {
                 log( "Sending output to: " + output );
             }
 
-            Script script = compileScript();
-            JellyContext context = getJellyContext();
+            final Script script = compileScript();
+            final JellyContext context = getJellyContext();
             context.setVariable( "project", getProject() );
             script.run( context, getXMLOutput() );
             getXMLOutput().flush();
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new BuildException(e, getLocation() );
         }
     }
@@ -93,7 +92,7 @@ public class JellyTask extends Task {
     /**
      * Sets the script URL to use as an absolute URL or a relative file name
      */
-    public void setScript(String script) throws MalformedURLException {
+    public void setScript(final String script) throws MalformedURLException {
         setUrl(resolveURL(script));
     }
 
@@ -104,21 +103,21 @@ public class JellyTask extends Task {
     /**
      * Sets the script URL to use
      */
-    public void setUrl(URL url) {
+    public void setUrl(final URL url) {
         this.url = url;
     }
 
     /**
      * Sets the script file to use
      */
-    public void setFile(File file) throws MalformedURLException {
+    public void setFile(final File file) throws MalformedURLException {
         setUrl( file.toURL() );
     }
 
     /**
      * Sets the output to generate
      */
-    public void setOutput(File output) throws IOException {
+    public void setOutput(final File output) throws IOException {
         this.output = output;
         xmlOutput = XMLOutput.createXMLOutput( new FileWriter( output ) );
     }
@@ -133,7 +132,7 @@ public class JellyTask extends Task {
     /**
      * Sets the XMLOutput used
      */
-    public void setXMLOutput(XMLOutput xmlOutput) {
+    public void setXMLOutput(final XMLOutput xmlOutput) {
         this.xmlOutput = xmlOutput;
     }
 
@@ -150,7 +149,7 @@ public class JellyTask extends Task {
     /**
      * Sets the root context
      */
-    public void setRootContext(URL rootContext) {
+    public void setRootContext(final URL rootContext) {
         this.rootContext = rootContext;
     }
 
@@ -161,9 +160,9 @@ public class JellyTask extends Task {
         if (context == null) {
             // take off the name off the URL
             String text = getUrl().toString();
-            int idx = text.lastIndexOf('/');
+            final int idx = text.lastIndexOf('/');
             text = text.substring(0, idx + 1);
-            JellyContext parentContext =  new JellyContext(getRootContext(), new URL(text));
+            final JellyContext parentContext =  new JellyContext(getRootContext(), new URL(text));
             context = new AntJellyContext(getProject() , parentContext);
 
             // register the Ant tag library
@@ -179,17 +178,14 @@ public class JellyTask extends Task {
      * Compiles the script
      */
     protected Script compileScript() throws JellyException {
-        XMLParser parser = new XMLParser();
+        final XMLParser parser = new XMLParser();
 
         Script script = null;
         try {
             parser.setContext(getJellyContext());
             script = parser.parse(getUrl().toString());
         }
-        catch (IOException e) {
-            throw new JellyException(e);
-        }
-        catch (SAXException e) {
+        catch (final IOException | SAXException e) {
             throw new JellyException(e);
         }
         script = script.compile();
@@ -203,8 +199,8 @@ public class JellyTask extends Task {
     /**
      * @return the URL for the relative file name or absolute URL
      */
-    protected URL resolveURL(String name) throws MalformedURLException {
-        File file = getProject().resolveFile(name);
+    protected URL resolveURL(final String name) throws MalformedURLException {
+        final File file = getProject().resolveFile(name);
         if (file.exists()) {
             return file.toURL();
         }

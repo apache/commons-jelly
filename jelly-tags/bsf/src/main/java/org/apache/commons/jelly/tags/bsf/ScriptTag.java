@@ -18,6 +18,9 @@ package org.apache.commons.jelly.tags.bsf;
 
 import java.util.Iterator;
 
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.LocationAware;
 import org.apache.commons.jelly.MissingAttributeException;
@@ -25,10 +28,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.bsf.BSFEngine;
-import org.apache.bsf.BSFManager;
-import org.apache.bsf.BSFException;
 
 /**
  * A tag which evaluates its body using the current scripting language
@@ -39,13 +38,13 @@ public class ScriptTag extends TagSupport implements LocationAware {
     private static final Log log = LogFactory.getLog(ScriptTag.class.getName() + ".evaluating");
 
     private BSFEngine engine;
-    private BSFManager manager;
+    private final BSFManager manager;
     private String elementName;
     private String fileName;
     private int columnNumber;
     private int lineNumber;
 
-    public ScriptTag(BSFEngine engine, BSFManager manager) {
+    public ScriptTag(final BSFEngine engine, final BSFManager manager) {
         this.engine = engine;
         this.manager = manager;
     }
@@ -53,8 +52,8 @@ public class ScriptTag extends TagSupport implements LocationAware {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        String text = getBodyText();
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        final String text = getBodyText();
 
         log.debug(text);
 
@@ -67,14 +66,14 @@ public class ScriptTag extends TagSupport implements LocationAware {
 
             try {
                 // XXXX: hack - there must be a better way!!!
-                for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
-                    String name = (String) iter.next();
-                    Object value = context.getVariable( name );
+                for ( final Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
+                    final String name = (String) iter.next();
+                    final Object value = context.getVariable( name );
                     manager.declareBean( name, value, value.getClass() );
                 }
                 engine.exec(fileName, lineNumber, columnNumber, text);
             }
-            catch (BSFException e) {
+            catch (final BSFException e) {
                 throw new JellyTagException("Error occurred with script: " + e, e);
             }
         }
@@ -126,7 +125,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * @param columnNumber The columnNumber to set
      */
     @Override
-    public void setColumnNumber(int columnNumber) {
+    public void setColumnNumber(final int columnNumber) {
         this.columnNumber = columnNumber;
     }
 
@@ -135,7 +134,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * @param elementName The elementName to set
      */
     @Override
-    public void setElementName(String elementName) {
+    public void setElementName(final String elementName) {
         this.elementName = elementName;
     }
 
@@ -143,7 +142,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * Sets the engine.
      * @param engine The engine to set
      */
-    public void setEngine(BSFEngine engine) {
+    public void setEngine(final BSFEngine engine) {
         this.engine = engine;
     }
 
@@ -152,7 +151,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * @param fileName The fileName to set
      */
     @Override
-    public void setFileName(String fileName) {
+    public void setFileName(final String fileName) {
         this.fileName = fileName;
     }
 
@@ -161,7 +160,7 @@ public class ScriptTag extends TagSupport implements LocationAware {
      * @param lineNumber The lineNumber to set
      */
     @Override
-    public void setLineNumber(int lineNumber) {
+    public void setLineNumber(final int lineNumber) {
         this.lineNumber = lineNumber;
     }
 

@@ -66,7 +66,7 @@ public class ImportTag extends TagSupport {
      * @throws JellyTagException on any other errors
      */
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (uri == null && file == null) {
             throw new MissingAttributeException( "uri" );
         }
@@ -81,7 +81,7 @@ public class ImportTag extends TagSupport {
                   isInherit());
             }
         }
-        catch (JellyException e) {
+        catch (final JellyException e) {
             throw new JellyTagException("could not import script", e);
         }
     }
@@ -100,21 +100,21 @@ public class ImportTag extends TagSupport {
      * Sets the file for the script to evaluate.
      * @param file The file to set
      */
-    public void setFile(String file) {
+    public void setFile(final String file) {
         this.file = file;
     }
 
     /**
      * Sets whether property inheritance is enabled or disabled
      */
-    public void setInherit(boolean inherit) {
+    public void setInherit(final boolean inherit) {
         this.inherit = inherit;
     }
 
     /**
      * Sets the URI (relative URI or absolute URL) for the script to evaluate.
      */
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 

@@ -17,8 +17,17 @@
 
 package org.apache.commons.jelly.tags.sql;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import javax.servlet.jsp.jstl.sql.Result;
 
 /**
@@ -32,9 +41,9 @@ import javax.servlet.jsp.jstl.sql.Result;
  */
 
 public class ResultImpl implements Result {
-    private List rowMap;
-    private List rowByIndex;
-    private String[] columnNames;
+    private final List rowMap;
+    private final List rowByIndex;
+    private final String[] columnNames;
     private boolean isLimited;
 
     /**
@@ -47,14 +56,14 @@ public class ResultImpl implements Result {
      * @param maxRows query maximum rows limit
      * @throws SQLException if a database error occurs
      */
-    public ResultImpl(ResultSet rs, int startRow, int maxRows)
+    public ResultImpl(final ResultSet rs, final int startRow, final int maxRows)
         throws SQLException {
 
         rowMap = new ArrayList();
         rowByIndex = new ArrayList();
 
-        ResultSetMetaData rsmd = rs.getMetaData();
-        int noOfColumns = rsmd.getColumnCount();
+        final ResultSetMetaData rsmd = rs.getMetaData();
+        final int noOfColumns = rsmd.getColumnCount();
 
         // Create the column name array
         columnNames = new String[noOfColumns];
@@ -70,12 +79,12 @@ public class ResultImpl implements Result {
         // Process the remaining rows upto maxRows
         int processedRows = 0;
         while (rs.next()) {
-            if ((maxRows != -1) && (processedRows == maxRows)) {
+            if (maxRows != -1 && processedRows == maxRows) {
                 isLimited = true;
                 break;
             }
-            Object[] columns = new Object[noOfColumns];
-            SortedMap columnMap =
+            final Object[] columns = new Object[noOfColumns];
+            final SortedMap columnMap =
                 new TreeMap(String.CASE_INSENSITIVE_ORDER);
 
             // JDBC uses 1 as the lowest index!
@@ -99,38 +108,38 @@ public class ResultImpl implements Result {
      *
      * @param listOfMaps is a list of Maps where a Map represents a Row keyed by the column name
      */
-    public ResultImpl(List listOfMaps) {
+    public ResultImpl(final List listOfMaps) {
 
         rowMap = new ArrayList();
         rowByIndex = new ArrayList();
         isLimited = false;
 
         // lets build up a Set of all the unique column names
-        HashSet keySet = new HashSet();
-        for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
-            Map row = (Map) iter.next();
+        final HashSet keySet = new HashSet();
+        for (final Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
+            final Map row = (Map) iter.next();
             keySet.addAll( row.keySet() );
         }
 
         // Create the column name array
-        int noOfColumns = keySet.size();
+        final int noOfColumns = keySet.size();
         columnNames = new String[noOfColumns];
         int i = 0;
-        for (Iterator iter = keySet.iterator(); iter.hasNext(); i++ ) {
+        for (final Iterator iter = keySet.iterator(); iter.hasNext(); i++ ) {
             columnNames[i] = (String) iter.next();
         }
 
         // Now add each row to the result set
-        for (Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
-            Map row = (Map) iter.next();
+        for (final Iterator iter = listOfMaps.iterator(); iter.hasNext(); ) {
+            final Map row = (Map) iter.next();
 
-            Object[] columns = new Object[noOfColumns];
-            SortedMap columnMap =
+            final Object[] columns = new Object[noOfColumns];
+            final SortedMap columnMap =
                 new TreeMap(String.CASE_INSENSITIVE_ORDER);
 
             for (i = 0; i < noOfColumns; i++) {
-                String columnName = columnNames[i];
-                Object value = row.get(columnName);
+                final String columnName = columnNames[i];
+                final Object value = row.get(columnName);
                 columns[i] = value;
                 columnMap.put(columnName, value);
             }

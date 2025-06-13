@@ -50,7 +50,7 @@ public class InvokeTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (endpoint == null) {
             throw new MissingAttributeException("endpoint");
         }
@@ -76,7 +76,7 @@ public class InvokeTag extends TagSupport {
 
         Object answer = null;
         try {
-            Call call = (Call) service.createCall();
+            final Call call = (Call) service.createCall();
 
             // @todo Jelly should have native support for URL and QName
             // directly on properties
@@ -87,22 +87,17 @@ public class InvokeTag extends TagSupport {
                 call.setUsername( userName );
                 call.setPassword( password );
             }
-            
+
             answer = call.invoke(params);
-        } catch (MalformedURLException e) {
-            throw new JellyTagException(e);
-        } catch (ServiceException e) {
-            throw new JellyTagException(e);
-        } catch (RemoteException e) {
+        } catch (final MalformedURLException | ServiceException | RemoteException e) {
             throw new JellyTagException(e);
         }
 
-        if (var != null) {
-            context.setVariable(var, answer);
-        } else {
+        if (var == null) {
             // should turn the answer into XML events...
             throw new JellyTagException( "Not implemented yet; should stream results as XML events. Results: " + answer );
         }
+        context.setVariable(var, answer);
     }
 
     // Properties
@@ -110,18 +105,18 @@ public class InvokeTag extends TagSupport {
     /**
      * Sets the end point to which the invocation will occur
      */
-    public void setEndpoint(String endpoint) {
+    public void setEndpoint(final String endpoint) {
         this.endpoint = endpoint;
     }
 
     /**
      * Sets the namespace of the operation
      */
-    public void setNamespace(String namespace) {
+    public void setNamespace(final String namespace) {
         this.namespace = namespace;
     }
 
-    public void setMethod(String method) {
+    public void setMethod(final String method) {
         this.method = method;
     }
 
@@ -137,14 +132,14 @@ public class InvokeTag extends TagSupport {
      * Sets the service to be used by this invocation.
      * If none is specified then a default is used.
      */
-    public void setService(Service service) {
+    public void setService(final Service service) {
         this.service = service;
     }
 
     /**
      * Sets the name of the variable to output the results of the SOAP call to.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -152,14 +147,14 @@ public class InvokeTag extends TagSupport {
      * Sets the parameters for this SOAP call. This can be an array or collection of
      * SOAPBodyElements or types.
      */
-    public void setParams(Object params) {
+    public void setParams(final Object params) {
         this.params = params;
     }
 
     /**
      * Sets the password for the SOAP call.
      */
-    public void setPassword(String password)
+    public void setPassword(final String password)
     {
         this.password = password;
     }
@@ -167,7 +162,7 @@ public class InvokeTag extends TagSupport {
     /**
      * Sets the user name for the SOAP call.
      */
-    public void setUsername(String userName)
+    public void setUsername(final String userName)
     {
         this.userName = userName;
     }
@@ -194,7 +189,7 @@ public class InvokeTag extends TagSupport {
             return (Object[]) params;
         }
         if (params instanceof Collection) {
-            Collection coll = (Collection) params;
+            final Collection coll = (Collection) params;
             return coll.toArray();
         }
         // lets just wrap the current object inside an array

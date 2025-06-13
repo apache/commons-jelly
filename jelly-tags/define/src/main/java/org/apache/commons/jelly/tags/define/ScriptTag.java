@@ -23,7 +23,7 @@ import org.apache.commons.jelly.XMLOutput;
 /**
  * &lt;script&gt; tag is used to assign a Script object
  * to a variable.
- * <p> 
+ * <p>
  * The script can then be called whenever the user wishes
  * maybe from inside an expression or more typically via the &lt;invoke&gt; tag.
  * </p>
@@ -38,7 +38,7 @@ public class ScriptTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if ( var == null ) {
             throw new JellyTagException( "<define:script> must have a var attribute" );
         }
@@ -54,7 +54,7 @@ public class ScriptTag extends TagSupport {
     }
 
     /** Sets the variable name of the tag to create */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

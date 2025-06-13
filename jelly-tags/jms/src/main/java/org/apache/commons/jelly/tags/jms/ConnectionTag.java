@@ -47,12 +47,12 @@ public class ConnectionTag extends TagSupport implements ConnectionContext {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         try {
             connection = MessengerManager.get( name );
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
 
@@ -72,13 +72,13 @@ public class ConnectionTag extends TagSupport implements ConnectionContext {
 
     /** Sets the name of the Messenger (JMS connection pool) to use
       */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     /** Sets the variable name to use for the exported Messenger (JMS connection pool)
       */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

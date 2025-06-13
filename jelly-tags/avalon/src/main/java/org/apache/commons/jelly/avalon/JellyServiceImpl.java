@@ -17,20 +17,17 @@
 
 package org.apache.commons.jelly.avalon;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.net.URL;
-import java.net.MalformedURLException;
 import java.io.File;
-import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 // Avalon
 import org.apache.avalon.framework.configuration.Configurable;
 import org.apache.avalon.framework.configuration.Configuration;
 import org.apache.avalon.framework.configuration.ConfigurationException;
-
 // Jelly
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
@@ -45,21 +42,20 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class JellyServiceImpl implements JellyService, Configurable {
 
-    private boolean m_configured = false;
-    private Map m_scripts = new HashMap();
+    private final boolean m_configured = false;
+    private final Map m_scripts = new HashMap();
 
     /**
      * Constructor for JellyService.
      */
     public JellyServiceImpl() {
-        super();
     }
 
     /**
      * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map)
      */
     @Override
-    public Map runNamedScript( String name, Map params ) throws Exception {
+    public Map runNamedScript( final String name, final Map params ) throws Exception {
         return runNamedScript(name, params, createXMLOutput());
     }
 
@@ -67,12 +63,13 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, XMLOutput)
      */
     @Override
-    public Map runNamedScript( String name, Map params, XMLOutput output ) throws Exception {
-        if ( !m_scripts.containsKey( name ) )
+    public Map runNamedScript( final String name, final Map params, final XMLOutput output ) throws Exception {
+        if ( !m_scripts.containsKey( name ) ) {
             throw new JellyException( "No script exists for script name [" + name + "]" );
+        }
 
-        Script script = (Script)m_scripts.get( name );
-        JellyContext context = createJellyContext();
+        final Script script = (Script)m_scripts.get( name );
+        final JellyContext context = createJellyContext();
 
         context.setVariables( params );
 
@@ -84,9 +81,9 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @see org.apache.commons.jelly.avalon.JellyService#runNamedScript(String, Map, OutputStream)
      */
     @Override
-    public Map runNamedScript( String name, Map params, OutputStream out ) throws Exception {
-        XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
-        Map answer = runNamedScript(name, params, xmlOutput);
+    public Map runNamedScript( final String name, final Map params, final OutputStream out ) throws Exception {
+        final XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
+        final Map answer = runNamedScript(name, params, xmlOutput);
         xmlOutput.flush();
         return answer;
     }
@@ -95,18 +92,18 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, XMLOutput)
      */
     @Override
-    public Map runScript( String url, Map params, XMLOutput output ) throws Exception {
+    public Map runScript( final String url, final Map params, final XMLOutput output ) throws Exception {
         URL actualUrl = null;
         try {
            actualUrl = new URL( url );
         }
-        catch ( MalformedURLException x ) {
+        catch ( final MalformedURLException x ) {
             throw new JellyException( "Could not find script at URL [" + url + "]: " +
                                         x.getMessage(), x );
         }
 
         // Set up the context
-        JellyContext context = createJellyContext();
+        final JellyContext context = createJellyContext();
         context.setVariables( params );
 
         // Run the script
@@ -118,9 +115,9 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map, OutputStream)
      */
     @Override
-    public Map runScript( String url, Map params, OutputStream out ) throws Exception {
-        XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
-        Map answer = runScript(url, params, xmlOutput);
+    public Map runScript( final String url, final Map params, final OutputStream out ) throws Exception {
+        final XMLOutput xmlOutput = XMLOutput.createXMLOutput( out );
+        final Map answer = runScript(url, params, xmlOutput);
         xmlOutput.flush();
         return answer;
     }
@@ -129,7 +126,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @see org.apache.commons.jelly.avalon.JellyService#runScript(String, Map)
      */
     @Override
-    public Map runScript( String url, Map params ) throws Exception {
+    public Map runScript( final String url, final Map params ) throws Exception {
         return runScript(url, params, createXMLOutput());
     }
 
@@ -159,24 +156,26 @@ public class JellyServiceImpl implements JellyService, Configurable {
      * @throws ConfigurationException
      */
     @Override
-    public void configure( Configuration config ) throws ConfigurationException {
-        if ( m_configured )
+    public void configure( final Configuration config ) throws ConfigurationException {
+        if ( m_configured ) {
             throw new ConfigurationException( "configure may only be executed once" );
+        }
 
-        if ( !"jelly".equals( config.getName() ) )
+        if ( !"jelly".equals( config.getName() ) ) {
             throw new ConfigurationException( "Expected <jelly> but got " + config.getName() );
+        }
 
         // Configure named scripts
-        Configuration[] scripts = config.getChildren( "scripts" );
+        final Configuration[] scripts = config.getChildren( "scripts" );
         for (int i = 0; i < scripts.length; i++) {
-            String name = config.getChild( "name" ).getValue();
+            final String name = config.getChild( "name" ).getValue();
 
             // Try to load and compile the script
             try {
-                String scriptName = config.getChild( "url" ).getValue();
+                final String scriptName = config.getChild( "url" ).getValue();
                 // Try to load the script via file, then by URL, then by classloader
                 URL url = null;
-                File file = new File( scriptName );
+                final File file = new File( scriptName );
                 if ( file.exists() ) {
                     url = file.toURL();
                 }
@@ -184,26 +183,27 @@ public class JellyServiceImpl implements JellyService, Configurable {
                     try {
                         url = new URL( scriptName );
                     }
-                    catch ( MalformedURLException mfue ) {
+                    catch ( final MalformedURLException mfue ) {
                       // Last try, via classloader
                       url = getClass().getResource( scriptName );
                     }
                 }
 
                 // All attempts failed...
-                if ( url == null )
+                if ( url == null ) {
                     throw new ConfigurationException( "Could not find script [" + scriptName + "]" );
+                }
 
                 // Get the script and store it
-                Jelly jelly = new Jelly();
+                final Jelly jelly = new Jelly();
                 jelly.setUrl( url );
-                boolean validate = config.getChild( "url" ).getAttributeAsBoolean( "validate",  false );
+                final boolean validate = config.getChild( "url" ).getAttributeAsBoolean( "validate",  false );
                 jelly.setValidateXML( validate );
-                Script script = jelly.compileScript();
+                final Script script = jelly.compileScript();
 
                 m_scripts.put( name, script );
             }
-            catch ( Throwable t ) {
+            catch ( final Throwable t ) {
                 throw new ConfigurationException( "Could not load script [" + name + "]: " + t.getMessage() );
             }
         }

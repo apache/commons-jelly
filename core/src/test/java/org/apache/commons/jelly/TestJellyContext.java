@@ -24,7 +24,7 @@ import junit.framework.TestCase;
  */
 public class TestJellyContext extends TestCase
 {
-    public TestJellyContext( String s )
+    public TestJellyContext( final String s )
     {
         super( s );
     }

@@ -20,8 +20,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
@@ -72,11 +72,11 @@ public class VerifierTag extends TagSupport {
         } else if (file != null) {
             try {
                 in = new FileInputStream(file);
-            } catch (FileNotFoundException e) {
+            } catch (final FileNotFoundException e) {
                 throw new JellyTagException(e);
             }
         } else {
-            String text = getBodyText();
+            final String text = getBodyText();
             in = new ByteArrayInputStream( text.getBytes() );
         }
 
@@ -99,13 +99,7 @@ public class VerifierTag extends TagSupport {
 
             verifier = schema.newVerifier();
         }
-        catch (VerifierConfigurationException e) {
-            throw new JellyTagException(e);
-        }
-        catch (SAXException e) {
-            throw new JellyTagException(e);
-        }
-        catch (IOException e) {
+        catch (final VerifierConfigurationException | SAXException | IOException e) {
             throw new JellyTagException(e);
         }
 
@@ -121,7 +115,7 @@ public class VerifierTag extends TagSupport {
      * jelly:required
      * </p>
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -132,7 +126,7 @@ public class VerifierTag extends TagSupport {
      * jelly:optional
      * </p>
      */
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 
@@ -143,7 +137,7 @@ public class VerifierTag extends TagSupport {
      * jelly:optional
      * </p>
      */
-    public void setFile(File aFile) {
+    public void setFile(final File aFile) {
         file = aFile;
     }
 
@@ -153,7 +147,7 @@ public class VerifierTag extends TagSupport {
      * jelly:optional
      * </p>
      */
-    public void setSystemId(String systemId) {
+    public void setSystemId(final String systemId) {
         this.systemId = systemId;
     }
 
@@ -164,19 +158,17 @@ public class VerifierTag extends TagSupport {
      * jelly:optional
      * </p>
      */
-    public void setFactory(VerifierFactory factory) {
+    public void setFactory(final VerifierFactory factory) {
         this.factory = factory;
     }
 
     public VerifierFactory getFactory() throws JellyTagException {
         if ( factory == null ) {
             try {
-                ClassLoader loader = ClassLoaderUtils.getClassLoader(null, true, getClass());
+                final ClassLoader loader = ClassLoaderUtils.getClassLoader(null, true, getClass());
                 factory = (VerifierFactory)loader.loadClass(
                     "com.sun.msv.verifier.jarv.TheFactoryImpl").getConstructor().newInstance();
-            } catch (ClassNotFoundException e) {
-                throw new JellyTagException(e);
-            } catch (ReflectiveOperationException e) {
+            } catch (final ReflectiveOperationException e) {
                 throw new JellyTagException(e);
             }
         }

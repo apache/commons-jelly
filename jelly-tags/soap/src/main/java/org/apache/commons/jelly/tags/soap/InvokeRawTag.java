@@ -48,7 +48,7 @@ public class InvokeRawTag extends TagSupport
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output)
+    public void doTag(final XMLOutput output)
         throws MissingAttributeException, JellyTagException
     {
         if (endpoint == null)
@@ -56,15 +56,15 @@ public class InvokeRawTag extends TagSupport
             throw new MissingAttributeException("endpoint");
         }
 
-        String request = getBodyText();
+        final String request = getBodyText();
 
         String answer = null;
         try
         {
             // Prepare HTTP post
-            PostMethod post = new PostMethod(endpoint);
+            final PostMethod post = new PostMethod(endpoint);
 
-            // Request content will be retrieved directly 
+            // Request content will be retrieved directly
             // from the input stream
             post.setRequestBody(new StringInputStream(request));
 
@@ -89,7 +89,7 @@ public class InvokeRawTag extends TagSupport
             post.setRequestHeader(
                 "Content-type",
                 "text/xml; charset=ISO-8859-1");
-            
+
             // Set the SOAPAction header
             if ( soapAction == null )
             {
@@ -99,45 +99,29 @@ public class InvokeRawTag extends TagSupport
             {
                 post.setRequestHeader( "SOAPAction", soapAction);
             }
-            
+
             // Get HTTP client
-            HttpClient httpclient = new HttpClient();
+            final HttpClient httpclient = new HttpClient();
             // Execute request
-            int result = httpclient.executeMethod(post);
+            final int result = httpclient.executeMethod(post);
 
             answer = post.getResponseBodyAsString();
-            
+
             // Release current connection to the connection pool once you are done
             post.releaseConnection();
         }
-        catch (MalformedURLException e)
-        {
-            throw new JellyTagException(e);
-        }
-        catch (RemoteException e)
-        {
-            throw new JellyTagException(e);
-        }
-        catch (HttpException e)
-        {
-            throw new JellyTagException(e);
-        }
-        catch (IOException e)
+        catch (final IOException e)
         {
             throw new JellyTagException(e);
         }
 
-        if (var != null)
-        {
-            context.setVariable(var, answer);
-        }
-        else
-        {
+        if (var == null) {
             // should turn the answer into XML events...
             throw new JellyTagException(
                 "Not implemented yet; should stream results as XML events. Results: "
                     + answer);
         }
+        context.setVariable(var, answer);
     }
 
     // Properties
@@ -145,7 +129,7 @@ public class InvokeRawTag extends TagSupport
     /**
      * Sets the end point to which the invocation will occur
      */
-    public void setEndpoint(String endpoint)
+    public void setEndpoint(final String endpoint)
     {
         this.endpoint = endpoint;
     }
@@ -153,15 +137,15 @@ public class InvokeRawTag extends TagSupport
     /**
      * Sets the name of the variable to output the results of the SOAP call to.
      */
-    public void setVar(String var)
+    public void setVar(final String var)
     {
         this.var = var;
     }
-    
+
     /**
      * The SOAPAction HTTP header.
      */
-    public void setSoapAction(String action)
+    public void setSoapAction(final String action)
     {
         soapAction = action;
     }

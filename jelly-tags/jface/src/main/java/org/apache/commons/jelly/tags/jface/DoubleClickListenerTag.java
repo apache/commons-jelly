@@ -44,13 +44,13 @@ public class DoubleClickListenerTag
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output)
+    public void doTag(final XMLOutput output)
         throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException("var");
         }
 
-        StructuredViewer viewer = getParentViewer();
+        final StructuredViewer viewer = getParentViewer();
         if (viewer == null) {
             throw new JellyTagException("This tag must be nested within a viewer tag");
         }
@@ -60,9 +60,9 @@ public class DoubleClickListenerTag
     }
 
     public StructuredViewer getParentViewer() {
-        ViewerTag tag = (ViewerTag) findAncestorWithClass(ViewerTag.class);
+        final ViewerTag tag = (ViewerTag) findAncestorWithClass(ViewerTag.class);
         if (tag != null) {
-            Viewer viewer = tag.getViewer();
+            final Viewer viewer = tag.getViewer();
             if (viewer instanceof StructuredViewer) {
                 return (StructuredViewer) viewer;
             }
@@ -81,7 +81,7 @@ public class DoubleClickListenerTag
      * Sets the var.
      * @param var The var to set
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -91,11 +91,11 @@ public class DoubleClickListenerTag
      * @see org.eclipse.jface.viewers.IDoubleClickListener#doubleClick(org.eclipse.jface.viewers.DoubleClickEvent)
      */
     @Override
-    public void doubleClick(DoubleClickEvent event) {
+    public void doubleClick(final DoubleClickEvent event) {
         try {
             context.setVariable(var, event);
             invokeBody(output);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             log.error(
                 "Caught exception: " + e + " while processing event: " + event,
                 e);

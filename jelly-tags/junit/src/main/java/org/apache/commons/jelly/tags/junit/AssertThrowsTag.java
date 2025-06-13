@@ -56,11 +56,11 @@ public class AssertThrowsTag extends AssertTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         Class throwableClass = null;
         try {
              throwableClass = getThrowableClass();
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
             throw new JellyTagException(e);
         }
 
@@ -70,7 +70,7 @@ public class AssertThrowsTag extends AssertTagSupport {
         catch (Throwable t) {
             if (t instanceof JellyException) {
                 // unwrap Jelly exceptions which wrap other exceptions
-                JellyException je = (JellyException) t;
+                final JellyException je = (JellyException) t;
                 if (je.getCause() != null) {
                     t = je.getCause();
                 }
@@ -78,12 +78,10 @@ public class AssertThrowsTag extends AssertTagSupport {
             if (var != null) {
                 context.setVariable(var, t);
             }
-            if (throwableClass != null && !throwableClass.isAssignableFrom(t.getClass())) {
-                fail("Unexpected exception: " + t);
-            }
-            else {
+            if ((throwableClass == null) || throwableClass.isAssignableFrom(t.getClass())) {
                 return;
             }
+            fail("Unexpected exception: " + t);
         }
         fail("No exception was thrown.");
     }
@@ -96,21 +94,21 @@ public class AssertThrowsTag extends AssertTagSupport {
      * exception class itself or any supertype of it, but must be a subtype of
      * <code>java.lang.Throwable</code>.
      */
-    public void setExpected(String expected) {
+    public void setExpected(final String expected) {
         this.expected = expected;
     }
 
     /**
      * Sets the variable name to define for this expression.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
     /**
      * Sets the class loader to be used to load the exception type
      */
-    public void setClassLoader(ClassLoader classLoader) {
+    public void setClassLoader(final ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 
@@ -140,11 +138,11 @@ public class AssertThrowsTag extends AssertTagSupport {
         try {
             throwableClass = getClassLoader().loadClass(expected);
         }
-        catch (ClassNotFoundException e) {
+        catch (final ClassNotFoundException e) {
             try {
                 throwableClass = Thread.currentThread().getContextClassLoader().loadClass(expected);
             }
-            catch (ClassNotFoundException e2) {
+            catch (final ClassNotFoundException e2) {
                 log.warn( "Could not find exception class: " + expected );
                 throw e;
             }

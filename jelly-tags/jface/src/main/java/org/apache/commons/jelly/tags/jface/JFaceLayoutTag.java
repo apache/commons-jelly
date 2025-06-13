@@ -32,7 +32,7 @@ public class JFaceLayoutTag extends LayoutTag {
     /**
      * @param layoutClass
      */
-    public JFaceLayoutTag(Class layoutClass) {
+    public JFaceLayoutTag(final Class layoutClass) {
         super(layoutClass);
         // TODO Auto-generated constructor stub
     }
@@ -41,23 +41,21 @@ public class JFaceLayoutTag extends LayoutTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#processBean(java.lang.String, java.lang.Object)
      */
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
 
         Widget parent = getParentWidget();
         if (parent == null) { // perhaps parent is a Window
-            Window window = getParentWindow();
+            final Window window = getParentWindow();
             if (window != null && window instanceof ApplicationWindowImpl) {
                 parent = ((ApplicationWindowImpl) window).getContents();
             }
         }
 
-        if (parent instanceof Composite) {
-            Composite composite = (Composite) parent;
-            composite.setLayout(getLayout());
-
-        } else {
+        if (!(parent instanceof Composite)) {
             throw new JellyTagException("This tag must be nested within a composite widget tag");
         }
+        final Composite composite = (Composite) parent;
+        composite.setLayout(getLayout());
 
     }
 
@@ -65,7 +63,7 @@ public class JFaceLayoutTag extends LayoutTag {
      * @return the parent window
      */
     public Window getParentWindow() {
-        ApplicationWindowTag tag =
+        final ApplicationWindowTag tag =
             (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
         if (tag != null) {
             return tag.getWindow();

@@ -67,7 +67,7 @@ public class ParseTag extends TagSupport {
      * @return XMLParser
      */
     protected XMLParser createJellyParser() {
-        XMLParser answer = new XMLParser();
+        final XMLParser answer = new XMLParser();
         answer.setContext(context);
         return answer;
     }
@@ -76,9 +76,9 @@ public class ParseTag extends TagSupport {
      * Factory method to create a new XMLReader
      */
     protected XMLReader createXMLReader() throws ParserConfigurationException, SAXException {
-        SAXParserFactory factory = SAXParserFactory.newInstance();
+        final SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
-        SAXParser parser = factory.newSAXParser();
+        final SAXParser parser = factory.newSAXParser();
         return parser.getXMLReader();
     }
 
@@ -86,10 +86,10 @@ public class ParseTag extends TagSupport {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output)
+    public void doTag(final XMLOutput output)
         throws MissingAttributeException, JellyTagException {
 
-        String text = getText();
+        final String text = getText();
         if (text != null) {
             parseText(text);
         }
@@ -97,7 +97,7 @@ public class ParseTag extends TagSupport {
             parseBody(output);
         }
 
-        Script script = getJellyParser().getScript();
+        final Script script = getJellyParser().getScript();
         if (var != null) {
             context.setVariable(var, script);
         }
@@ -144,16 +144,16 @@ public class ParseTag extends TagSupport {
     /**
      * Parses the body of this tag and returns the parsed document
      */
-    protected void parseBody(XMLOutput output) throws JellyTagException {
-        ContentHandler handler = getJellyParser();
-        XMLOutput newOutput = new XMLOutput(handler);
+    protected void parseBody(final XMLOutput output) throws JellyTagException {
+        final ContentHandler handler = getJellyParser();
+        final XMLOutput newOutput = new XMLOutput(handler);
 
         try {
             handler.startDocument();
             invokeBody(newOutput);
             handler.endDocument();
         }
-        catch (SAXException e) {
+        catch (final SAXException e) {
             throw new JellyTagException(e);
         }
     }
@@ -161,17 +161,17 @@ public class ParseTag extends TagSupport {
     /**
      * Parses the give piece of text as being markup
      */
-    protected void parseText(String text) throws JellyTagException {
+    protected void parseText(final String text) throws JellyTagException {
         if ( log.isDebugEnabled() ) {
             log.debug( "About to parse: " + text );
         }
 
         try {
-            XMLReader xmlReader = getXMLReader();
+            final XMLReader xmlReader = getXMLReader();
             xmlReader.setContentHandler(getJellyParser());
             xmlReader.parse( new InputSource( new StringReader( text ) ) );
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException(e);
         }
     }
@@ -183,7 +183,7 @@ public class ParseTag extends TagSupport {
      * Sets the jellyParser.
      * @param jellyParser The jellyParser to set
      */
-    public void setJellyParser(XMLParser jellyParser) {
+    public void setJellyParser(final XMLParser jellyParser) {
         this.jellyParser = jellyParser;
     }
 
@@ -191,18 +191,18 @@ public class ParseTag extends TagSupport {
      * Sets the text to be parsed by this parser
      * @param text The text to be parsed by this parser
      */
-    public void setText(String text) {
+    public void setText(final String text) {
         this.text = text;
     }
 
     /** Sets the variable name that will be used for the Document variable created
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
     /** Sets the XMLReader used for parsing */
-    public void setXMLReader(XMLReader xmlReader) {
+    public void setXMLReader(final XMLReader xmlReader) {
         this.xmlReader = xmlReader;
     }
 }

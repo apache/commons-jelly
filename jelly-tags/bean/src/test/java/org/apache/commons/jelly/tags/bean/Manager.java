@@ -30,7 +30,7 @@ public class Manager {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(Manager.class);
 
-    private List customers = new ArrayList();
+    private final List customers = new ArrayList();
 
     boolean invoked = false;
 
@@ -55,11 +55,11 @@ public class Manager {
         return customers;
     }
 
-    public void addCustomer(Customer customer) {
+    public void addCustomer(final Customer customer) {
         customers.add(customer);
     }
 
-    public void removeCustomer(Customer customer) {
+    public void removeCustomer(final Customer customer) {
         customers.remove(customer);
     }
 
@@ -74,7 +74,7 @@ public class Manager {
      * Sets the invoked.
      * @param invoked The invoked to set
      */
-    public void setInvoked(boolean invoked) {
+    public void setInvoked(final boolean invoked) {
         this.invoked = invoked;
     }
 

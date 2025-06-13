@@ -26,7 +26,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
 
     /** The default message to display if none is given */
     private static String DEFAULT_MESSAGE = "assertion failed";
-    
+
     public AssertTagSupport() {
     }
 
@@ -34,7 +34,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * Produces a failure assertion with the given message
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void fail(String message) throws JellyAssertionFailedError {
+    protected void fail(final String message) throws JellyAssertionFailedError {
         throw new JellyAssertionFailedError(message);
     }
 
@@ -50,7 +50,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * Produces a failure assertion with the given message and added detail.
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void fail(String message, String detail) throws JellyAssertionFailedError {
+    protected void fail(final String message, final String detail) throws JellyAssertionFailedError {
         if (message == null || message.length() == 0) {
             fail(detail);
         }
@@ -63,31 +63,33 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * Produces a failure if the actual value was not equal to the expected value
      * @throws JellyAssertionFailedError if expected != actual.
      */
-    protected void failNotEquals(String message, Object expected, Object actual, String expressions) throws JellyAssertionFailedError {
+    protected void failNotEquals(final String message, final Object expected, final Object actual, final String expressions) throws JellyAssertionFailedError {
         String formatted= "";
         if (message != null) {
             formatted = message +" ";
         }
         fail(formatted + "expected:[" + expected + "] but was:[" + actual + "]" + expressions);
     }
-    
+
     /**
      * Fail if actual is not true
      * @param message failure message
      * @param actual value to test
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertTrue(String message, boolean actual) throws JellyAssertionFailedError
+    protected void assertTrue(final String message, final boolean actual) throws JellyAssertionFailedError
     {
-        if (!actual) fail(message);
+        if (!actual) {
+            fail(message);
+        }
     }
-    
+
     /**
      * Fail if actual is not true
      * @param actual value to test
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertTrue(boolean actual) throws JellyAssertionFailedError
+    protected void assertTrue(final boolean actual) throws JellyAssertionFailedError
     {
         assertTrue(DEFAULT_MESSAGE, actual);
     }
@@ -98,21 +100,23 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * @param actual value to test
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertFalse(String message, boolean actual) throws JellyAssertionFailedError
+    protected void assertFalse(final String message, final boolean actual) throws JellyAssertionFailedError
     {
-        if (actual) fail(message);
+        if (actual) {
+            fail(message);
+        }
     }
-    
+
     /**
      * Fail if actual is true
      * @param actual value to test
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertFalse(boolean actual) throws JellyAssertionFailedError
+    protected void assertFalse(final boolean actual) throws JellyAssertionFailedError
     {
         assertFalse(DEFAULT_MESSAGE, actual);
     }
-    
+
     /**
      * Fail if !expected.equals(actual). If expected is null, actual must be.
      * @param message failure message.
@@ -120,7 +124,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * @param actual actual value to compare against expected.
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertEquals(String message, Object expected, Object actual)
+    protected void assertEquals(final String message, final Object expected, final Object actual)
         throws JellyAssertionFailedError
     {
         if (expected == null)
@@ -136,16 +140,16 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(String, Object, Object)
      */
-    protected void assertEquals(Object expected, Object actual)
+    protected void assertEquals(final Object expected, final Object actual)
     throws JellyAssertionFailedError
     {
         assertEquals(DEFAULT_MESSAGE, expected, actual);
     }
-    
+
     /**
      * @see #assertEquals(String, Object, Object)
      */
-    protected void assertEquals(String message, boolean expected, boolean actual)
+    protected void assertEquals(final String message, final boolean expected, final boolean actual)
     throws JellyAssertionFailedError
     {
         assertTrue(message, expected == actual);
@@ -153,16 +157,16 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(Object, Object)
      */
-    protected void assertEquals(boolean expected, boolean actual)
+    protected void assertEquals(final boolean expected, final boolean actual)
     throws JellyAssertionFailedError
     {
         assertTrue(DEFAULT_MESSAGE, expected == actual);
     }
-    
+
     /**
      * @see #assertEquals(String, Object, Object)
      */
-    protected void assertEquals(String message, byte expected, byte actual)
+    protected void assertEquals(final String message, final byte expected, final byte actual)
     throws JellyAssertionFailedError
     {
         assertTrue(message, expected == actual);
@@ -170,23 +174,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(Object, Object)
      */
-    protected void assertEquals(byte expected, byte actual)
-    throws JellyAssertionFailedError
-    {
-        assertTrue(DEFAULT_MESSAGE, expected == actual);
-    }
-    /**
-     * @see #assertEquals(String, Object, Object)
-     */
-    protected void assertEquals(String message, char expected, char actual)
-    throws JellyAssertionFailedError
-    {
-        assertTrue(message, expected == actual);
-    }
-    /**
-     * @see #assertEquals(Object, Object)
-     */
-    protected void assertEquals(char expected, char actual)
+    protected void assertEquals(final byte expected, final byte actual)
     throws JellyAssertionFailedError
     {
         assertTrue(DEFAULT_MESSAGE, expected == actual);
@@ -194,7 +182,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(String, Object, Object)
      */
-    protected void assertEquals(String message, double expected, double actual)
+    protected void assertEquals(final String message, final char expected, final char actual)
     throws JellyAssertionFailedError
     {
         assertTrue(message, expected == actual);
@@ -202,7 +190,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(Object, Object)
      */
-    protected void assertEquals(double expected, double actual)
+    protected void assertEquals(final char expected, final char actual)
     throws JellyAssertionFailedError
     {
         assertTrue(DEFAULT_MESSAGE, expected == actual);
@@ -210,7 +198,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(String, Object, Object)
      */
-    protected void assertEquals(String message, float expected, float actual)
+    protected void assertEquals(final String message, final double expected, final double actual)
     throws JellyAssertionFailedError
     {
         assertTrue(message, expected == actual);
@@ -218,7 +206,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(Object, Object)
      */
-    protected void assertEquals(float expected, float actual)
+    protected void assertEquals(final double expected, final double actual)
     throws JellyAssertionFailedError
     {
         assertTrue(DEFAULT_MESSAGE, expected == actual);
@@ -226,7 +214,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(String, Object, Object)
      */
-    protected void assertEquals(String message, int expected, int actual)
+    protected void assertEquals(final String message, final float expected, final float actual)
     throws JellyAssertionFailedError
     {
         assertTrue(message, expected == actual);
@@ -234,7 +222,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(Object, Object)
      */
-    protected void assertEquals(int expected, int actual)
+    protected void assertEquals(final float expected, final float actual)
     throws JellyAssertionFailedError
     {
         assertTrue(DEFAULT_MESSAGE, expected == actual);
@@ -242,7 +230,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(String, Object, Object)
      */
-    protected void assertEquals(String message, long expected, long actual)
+    protected void assertEquals(final String message, final int expected, final int actual)
     throws JellyAssertionFailedError
     {
         assertTrue(message, expected == actual);
@@ -250,7 +238,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(Object, Object)
      */
-    protected void assertEquals(long expected, long actual)
+    protected void assertEquals(final int expected, final int actual)
     throws JellyAssertionFailedError
     {
         assertTrue(DEFAULT_MESSAGE, expected == actual);
@@ -258,7 +246,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(String, Object, Object)
      */
-    protected void assertEquals(String message, short expected, short actual)
+    protected void assertEquals(final String message, final long expected, final long actual)
     throws JellyAssertionFailedError
     {
         assertTrue(message, expected == actual);
@@ -266,7 +254,23 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertEquals(Object, Object)
      */
-    protected void assertEquals(short expected, short actual)
+    protected void assertEquals(final long expected, final long actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(DEFAULT_MESSAGE, expected == actual);
+    }
+    /**
+     * @see #assertEquals(String, Object, Object)
+     */
+    protected void assertEquals(final String message, final short expected, final short actual)
+    throws JellyAssertionFailedError
+    {
+        assertTrue(message, expected == actual);
+    }
+    /**
+     * @see #assertEquals(Object, Object)
+     */
+    protected void assertEquals(final short expected, final short actual)
     throws JellyAssertionFailedError
     {
         assertTrue(DEFAULT_MESSAGE, expected == actual);
@@ -278,14 +282,14 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * @param actual value to check
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertNull(String message, Object actual)
+    protected void assertNull(final String message, final Object actual)
     {
         assertTrue(message, actual == null);
     }
     /**
      * @see #assertNull(String, Object)
      */
-    protected void assertNull(Object actual)
+    protected void assertNull(final Object actual)
     {
         assertNull(DEFAULT_MESSAGE, actual);
     }
@@ -296,14 +300,14 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * @param actual value to check
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertNotNull(String message, Object actual)
+    protected void assertNotNull(final String message, final Object actual)
     {
         assertTrue(message, actual != null);
     }
     /**
      * @see #assertNotNull(String, Object)
      */
-    protected void assertNotNull(Object actual)
+    protected void assertNotNull(final Object actual)
     {
         assertNotNull(DEFAULT_MESSAGE, actual);
     }
@@ -315,7 +319,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * @param actual actual value to compare against expected.
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertSame(String message, Object expected, Object actual)
+    protected void assertSame(final String message, final Object expected, final Object actual)
         throws JellyAssertionFailedError
     {
         assertTrue(message, expected == actual);
@@ -323,9 +327,9 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertSame(String, Object, Object)
      */
-    protected void assertSame(Object expected, Object actual)
+    protected void assertSame(final Object expected, final Object actual)
     throws JellyAssertionFailedError
-    
+
     {
         assertSame(DEFAULT_MESSAGE, expected, actual);
     }
@@ -337,7 +341,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
      * @param actual actual value to compare against expected.
      * @throws JellyAssertionFailedError to signify failure
      */
-    protected void assertNotSame(String message, Object expected, Object actual)
+    protected void assertNotSame(final String message, final Object expected, final Object actual)
         throws JellyAssertionFailedError
     {
         assertTrue(message, expected != actual);
@@ -345,9 +349,9 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * @see #assertNotSame(String, Object, Object)
      */
-    protected void assertNotSame(Object expected, Object actual)
+    protected void assertNotSame(final Object expected, final Object actual)
     throws JellyAssertionFailedError
-    
+
     {
         assertNotSame(DEFAULT_MESSAGE, expected, actual);
     }

@@ -31,7 +31,7 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class PreferenceDialogTag extends UseBeanTag {
 
-    public PreferenceDialogTag(Class arg0) {
+    public PreferenceDialogTag(final Class arg0) {
         super(arg0);
     }
 
@@ -39,7 +39,7 @@ public class PreferenceDialogTag extends UseBeanTag {
      * @return PreferenceDialog
      */
     public PreferenceDialog getPreferenceDialog() {
-        Object bean = getBean();
+        final Object bean = getBean();
         if (bean instanceof PreferenceDialog) {
             return (PreferenceDialog) bean;
         }
@@ -51,20 +51,19 @@ public class PreferenceDialogTag extends UseBeanTag {
      * @throws JellyTagException
      */
     protected Shell getShell() throws JellyTagException {
-        ApplicationWindowTag tag =
+        final ApplicationWindowTag tag =
             (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
 
         if (tag != null) {
             return tag.getWindow().getShell();
 
+        }
+        final Map attributes = getAttributes();
+        final Object parent = attributes.remove("parent");
+        if (parent instanceof Shell) {
+            return (Shell) parent;
         } else {
-            Map attributes = getAttributes();
-            Object parent = attributes.remove("parent");
-            if (parent instanceof Shell) {
-                return (Shell) parent;
-            } else {
-                throw new JellyTagException("This tag must be nested inside a <applicationWindow> or have a parent of type Shell");
-            }
+            throw new JellyTagException("This tag must be nested inside a <applicationWindow> or have a parent of type Shell");
         }
     }
 
@@ -72,8 +71,8 @@ public class PreferenceDialogTag extends UseBeanTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    protected Object newInstance(Class arg0, Map arg1, XMLOutput arg2) throws JellyTagException {
-        PreferenceManager pm = new PreferenceManager();
+    protected Object newInstance(final Class arg0, final Map arg1, final XMLOutput arg2) throws JellyTagException {
+        final PreferenceManager pm = new PreferenceManager();
         return new PreferenceDialog(getShell(), pm);
     }
 

@@ -44,8 +44,8 @@ public class CopyTag extends XPathTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Object xpathContext = getXPathContext();
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final Object xpathContext = getXPathContext();
 
         Object node = xpathContext;
 
@@ -55,7 +55,7 @@ public class CopyTag extends XPathTagSupport {
             }
 
             if ( node instanceof Element ) {
-                Element element = (Element) node;
+                final Element element = (Element) node;
 
                 SAXWriter saxWriter;
 
@@ -73,10 +73,7 @@ public class CopyTag extends XPathTagSupport {
                 invokeBody(output);
             }
         }
-        catch (SAXException e) {
-            throw new JellyTagException(e);
-        }
-        catch (JaxenException e) {
+        catch (final SAXException | JaxenException e) {
             throw new JellyTagException(e);
         }
     }
@@ -84,10 +81,10 @@ public class CopyTag extends XPathTagSupport {
     // Properties
     //-------------------------------------------------------------------------
     /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
+    public void setSelect(final XPath select) {
         this.select = select;
     }
-    public void setLexical(boolean lexical) {
+    public void setLexical(final boolean lexical) {
         this.lexical = lexical;
     }
 }

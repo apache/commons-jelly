@@ -48,11 +48,11 @@ public class WidgetTag extends UseBeanTag {
     protected Widget parent;
     private int style = SWT.NULL;
 
-    public WidgetTag(Class widgetClass) {
+    public WidgetTag(final Class widgetClass) {
         super(widgetClass);
     }
 
-    public WidgetTag(Class widgetClass, int style) {
+    public WidgetTag(final Class widgetClass, final int style) {
         super(widgetClass);
         this.style = style;
     }
@@ -69,7 +69,7 @@ public class WidgetTag extends UseBeanTag {
      * @return the visible widget, if there is one.
      */
     public Widget getWidget() {
-        Object bean = getBean();
+        final Object bean = getBean();
         if (bean instanceof Widget) {
             return (Widget) bean;
         }
@@ -82,7 +82,7 @@ public class WidgetTag extends UseBeanTag {
     public Widget getParentWidget() {
 
         if (parent == null) {
-            WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
+            final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
             if (tag != null) {
                 return tag.getWidget();
             }
@@ -94,19 +94,18 @@ public class WidgetTag extends UseBeanTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Map attributes = getAttributes();
-        Object parent = attributes.remove("parent");
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final Map attributes = getAttributes();
+        final Object parent = attributes.remove("parent");
         if (parent != null) {
-            if (parent instanceof Widget) {
-                this.parent = (Widget) parent;
-            } else {
+            if (!(parent instanceof Widget)) {
                 throw new JellyTagException(
                     "The parent attribute is not a Widget, it is of type: "
                         + parent.getClass().getName()
                         + " value: "
                         + parent);
             }
+            this.parent = (Widget) parent;
         }
         super.doTag(output);
         clearBean();
@@ -119,14 +118,14 @@ public class WidgetTag extends UseBeanTag {
      * Factory method to create a new widget
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output)
         throws JellyTagException {
-        int style = getStyle(attributes);
+        final int style = getStyle(attributes);
 
         // now lets call the constructor with the parent
-        Widget parent = getParentWidget();
+        final Widget parent = getParentWidget();
 
-        Widget widget = (Widget) createWidget(theClass, parent, style);
+        final Widget widget = (Widget) createWidget(theClass, parent, style);
         if (parent != null) {
             attachWidgets(parent, widget);
         }
@@ -138,27 +137,27 @@ public class WidgetTag extends UseBeanTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
      */
     @Override
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
+    protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
 
         if (bean instanceof Control) {
-            Control control = (Control) bean;
+            final Control control = (Control) bean;
 
             // Special handling of size property as the Control object breaks the
             // JavaBean naming conventions by overloading the setSize() method
-            Object size = attributes.remove("size");
+            final Object size = attributes.remove("size");
             setSize(control, size);
 
             // Special handling of color property as the Control object breaks the
             // JavaBean naming conventions by overloading the setBackground() or setForeground() method
             Object colorValue = attributes.remove("background");
-            Color background =
-                (colorValue instanceof Color)
+            final Color background =
+                colorValue instanceof Color
                     ? (Color) colorValue : getColor(control, colorValue);
             control.setBackground(background);
 
             colorValue = attributes.remove("foreground");
-            Color foreground =
-                (colorValue instanceof Color)
+            final Color foreground =
+                colorValue instanceof Color
                     ? (Color) colorValue : getColor(control, colorValue);
             control.setForeground(foreground);
         }
@@ -171,7 +170,7 @@ public class WidgetTag extends UseBeanTag {
      * @param control
      * @param colorValue
      */
-    protected Color getColor(Control control, Object colorValue) {
+    protected Color getColor(final Control control, final Object colorValue) {
         Color color = null;
         if (colorValue != null) {
             RGB rgb = null;
@@ -190,7 +189,7 @@ public class WidgetTag extends UseBeanTag {
      * @param control
      * @param size
      */
-    protected void setSize(Control control, Object size) {
+    protected void setSize(final Control control, final Object size) {
         Point point = null;
         if (size != null) {
             if (size instanceof Point) {
@@ -210,10 +209,10 @@ public class WidgetTag extends UseBeanTag {
      * @param parent is the parent widget which is never null
      * @param widget is the new child widget to be attached to the parent
      */
-    protected void attachWidgets(Object parent, Widget widget) throws JellyTagException {
+    protected void attachWidgets(final Object parent, final Widget widget) throws JellyTagException {
         // set the content that will be scrolled if the parent is a ScrolledComposite
         if (parent instanceof ScrolledComposite && widget instanceof Control) {
-            ScrolledComposite scrolledComposite = (ScrolledComposite) parent;
+            final ScrolledComposite scrolledComposite = (ScrolledComposite) parent;
             scrolledComposite.setContent((Control) widget);
         }
     }
@@ -227,7 +226,7 @@ public class WidgetTag extends UseBeanTag {
      * @param style the SWT style code
      * @return the new Widget
      */
-    protected Object createWidget(Class theClass, Widget parent, int style)
+    protected Object createWidget(final Class theClass, final Widget parent, final int style)
         throws JellyTagException {
         if (theClass == null) {
             throw new JellyTagException("No Class available to create the new widget");
@@ -236,36 +235,27 @@ public class WidgetTag extends UseBeanTag {
         try {
             if (parent == null) {
                 // lets try call a constructor with a single style
-                Class[] types = { int.class };
-                Constructor constructor = theClass.getConstructor(types);
+                final Class[] types = { int.class };
+                final Constructor constructor = theClass.getConstructor(types);
                 if (constructor != null) {
-                    Object[] arguments = { new Integer(style)};
+                    final Object[] arguments = { new Integer(style)};
                     return constructor.newInstance(arguments);
                 }
             } else {
                 // lets try to find the constructor with 2 arguments with the 2nd argument being an int
-                Constructor[] constructors = theClass.getConstructors();
+                final Constructor[] constructors = theClass.getConstructors();
                 if (constructors != null) {
-                    for (int i = 0, size = constructors.length; i < size; i++) {
-                        Constructor constructor = constructors[i];
-                        Class[] types = constructor.getParameterTypes();
-                        if (types.length == 2 && types[1].isAssignableFrom(int.class)) {
-                            if (types[0].isAssignableFrom(parent.getClass())) {
-                                Object[] arguments = { parent, new Integer(style)};
-                                return constructor.newInstance(arguments);
-                            }
+                    for (final Constructor constructor : constructors) {
+                        final Class[] types = constructor.getParameterTypes();
+                        if ((types.length == 2 && types[1].isAssignableFrom(int.class)) && types[0].isAssignableFrom(parent.getClass())) {
+                            final Object[] arguments = { parent, new Integer(style)};
+                            return constructor.newInstance(arguments);
                         }
                     }
                 }
             }
             return theClass.getConstructor().newInstance();
-        } catch (NoSuchMethodException e) {
-            throw new JellyTagException(e);
-        } catch (InstantiationException e) {
-            throw new JellyTagException(e);
-        } catch (IllegalAccessException e) {
-            throw new JellyTagException(e);
-        } catch (InvocationTargetException e) {
+        } catch (final NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new JellyTagException(e);
         }
     }
@@ -274,14 +264,14 @@ public class WidgetTag extends UseBeanTag {
      * Creates the SWT style code for the current attributes
      * @return the SWT style code
      */
-    protected int getStyle(Map attributes) throws JellyTagException {
-        String text = (String) attributes.remove("style");
+    protected int getStyle(final Map attributes) throws JellyTagException {
+        final String text = (String) attributes.remove("style");
         if (text != null) {
             return SwtHelper.parseStyle(SWT.class, text);
         }
         return style;
     }
-    
+
     /** Sets the bean to null, to prevent it from
      * sticking around in the event that this tag instance is
      * cached. This method is called at the end of doTag.

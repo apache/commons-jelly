@@ -63,12 +63,12 @@ public class MyTableModel extends AbstractTableModel {
     }
 
     @Override
-    public String getColumnName(int col) {
+    public String getColumnName(final int col) {
         return columnNames[col];
     }
 
     @Override
-    public Object getValueAt(int row, int col) {
+    public Object getValueAt(final int row, final int col) {
         return data[row][col];
     }
 
@@ -79,7 +79,7 @@ public class MyTableModel extends AbstractTableModel {
      * rather than a check box.
      */
     @Override
-    public Class getColumnClass(int c) {
+    public Class getColumnClass(final int c) {
         return getValueAt(0, c).getClass();
     }
 
@@ -88,14 +88,8 @@ public class MyTableModel extends AbstractTableModel {
      * editable.
      */
     @Override
-    public boolean isCellEditable(int row, int col) {
-        //Note that the data/cell address is constant,
-        //no matter where the cell appears onscreen.
-        if (col < 2) {
-            return false;
-        } else {
-            return true;
-        }
+    public boolean isCellEditable(final int row, final int col) {
+        return !(col < 2);
     }
 
     /*
@@ -103,7 +97,7 @@ public class MyTableModel extends AbstractTableModel {
      * data can change.
      */
     @Override
-    public void setValueAt(Object value, int row, int col) {
+    public void setValueAt(final Object value, final int row, final int col) {
         if (log.isDebugEnabled()) {
             log.debug("Setting value at " + row + "," + col
                                + " to " + value
@@ -123,7 +117,7 @@ public class MyTableModel extends AbstractTableModel {
             try {
                 data[row][col] = new Integer(value.toString());
                 fireTableCellUpdated(row, col);
-            } catch (NumberFormatException e) {
+            } catch (final NumberFormatException e) {
                 log.error( "The \"" + getColumnName(col)
                     + "\" column accepts only integer values.");
             }

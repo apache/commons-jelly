@@ -55,7 +55,7 @@ public class SetTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         Object answer = null;
         if ( value != null ) {
             answer = value.evaluate(context);
@@ -66,9 +66,9 @@ public class SetTag extends TagSupport {
 
         // Assume that if a var name and a property is given then
         // var is the name of an object in the context
-        if (( var != null )
-        && ( property != null)
-        && ( target == null ))
+        if (var != null
+        && property != null
+        && target == null)
         {
             // Get object from context
             if ( scope != null ) {
@@ -107,7 +107,7 @@ public class SetTag extends TagSupport {
     //-------------------------------------------------------------------------
     /** Sets the variable name to define for this expression
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -118,38 +118,38 @@ public class SetTag extends TagSupport {
      *
      * Other applications may implement their own custom scopes.
      */
-    public void setScope(String scope) {
+    public void setScope(final String scope) {
         this.scope = scope;
     }
 
     /** Sets the expression to evaluate. */
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 
     /** Sets the target object on which to set a property. */
-    public void setTarget(Object target) {
+    public void setTarget(final Object target) {
         this.target = target;
     }
 
     /** Sets the name of the property to set on the target object. */
-    public void setProperty(String property) {
+    public void setProperty(final String property) {
         this.property = property;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
-    protected void setPropertyValue( Object target, String property, Object value ) {
+    protected void setPropertyValue( final Object target, final String property, final Object value ) {
         try {
             if ( target instanceof Map ) {
-                Map map = (Map) target;
+                final Map map = (Map) target;
                 map.put( property, value );
             }
             else {
                 BeanUtils.setProperty( target, property, value );
             }
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
         }
     }

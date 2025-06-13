@@ -39,13 +39,13 @@ public class JexlExpressionFactory implements ExpressionFactory {
         protected Expression jexlExpression = null;
         protected String text = null;
 
-        public ExpressionSupportLocal(Expression jexlExpression, String text) {
+        public ExpressionSupportLocal(final Expression jexlExpression, final String text) {
             this.jexlExpression = jexlExpression;
             this.text = text;
         }
 
         @Override
-        public Object evaluate(JellyContext context) {
+        public Object evaluate(final JellyContext context) {
             Object answer = jexlExpression.evaluate(context);
 
             if ( answer == null ) {
@@ -75,7 +75,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
     // ExpressionFactory interface
     //-------------------------------------------------------------------------
     @Override
-    public Expression createExpression(String text) throws JellyException {
+    public Expression createExpression(final String text) throws JellyException {
 /*
 
         org.apache.commons.jexl.Expression expr =
@@ -94,7 +94,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
             jexlExpression = new JexlExpression(
             org.apache.commons.jexl.ExpressionFactory.createExpression(text)
             );
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new JellyException("Unable to create expression: " + text, e);
         }
 
@@ -119,10 +119,9 @@ public class JexlExpressionFactory implements ExpressionFactory {
      * @return true if the given string is a valid Ant variable name,
      * typically thats alphanumeric text with '.' etc.
      */
-    protected boolean isValidAntVariableName(String text) {
-        char[] chars = text.toCharArray();
-        for (int i = 0, size = chars.length; i < size; i++ ) {
-            char ch = chars[i];
+    protected boolean isValidAntVariableName(final String text) {
+        final char[] chars = text.toCharArray();
+        for (final char ch : chars) {
             // could maybe be a bit more restrictive...
             if ( Character.isWhitespace(ch) || ch == '[' || ch == ']' || ch == '(' || ch == ')') {
                 return false;
@@ -135,7 +134,7 @@ public class JexlExpressionFactory implements ExpressionFactory {
      * Sets whether we should allow Ant-style expressions, using dots as
      * part of variable name
      */
-    public void setSupportAntVariables(boolean supportAntVariables) {
+    public void setSupportAntVariables(final boolean supportAntVariables) {
         this.supportAntVariables = supportAntVariables;
     }
 

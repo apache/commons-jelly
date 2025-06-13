@@ -33,7 +33,7 @@ public class ExpressionTableModel extends AbstractTableModel {
 
     private JellyContext context;
     private List rows = new ArrayList();
-    private MyTableColumnModel columnModel = new MyTableColumnModel();
+    private final MyTableColumnModel columnModel = new MyTableColumnModel();
 
     public ExpressionTableModel() {
     }
@@ -56,14 +56,14 @@ public class ExpressionTableModel extends AbstractTableModel {
     /**
      * Adds a new column definition to the table
      */
-    public void addColumn(ExpressionTableColumn column) {
+    public void addColumn(final ExpressionTableColumn column) {
         columnModel.addColumn(column);
     }
 
     /**
      * Removes a column definition from the table
      */
-    public void removeColumn(ExpressionTableColumn column) {
+    public void removeColumn(final ExpressionTableColumn column) {
         columnModel.removeColumn(column);
     }
 
@@ -80,12 +80,12 @@ public class ExpressionTableModel extends AbstractTableModel {
     }
 
     @Override
-    public String getColumnName(int columnIndex) {
-        String answer = null;
+    public String getColumnName(final int columnIndex) {
+        final String answer = null;
         if (columnIndex < 0 || columnIndex >= columnModel.getColumnCount()) {
             return answer;
         }
-        Object value = columnModel.getColumn(columnIndex).getHeaderValue();
+        final Object value = columnModel.getColumn(columnIndex).getHeaderValue();
         if (value != null) {
             return value.toString();
         }
@@ -93,16 +93,16 @@ public class ExpressionTableModel extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        Object answer = null;
+    public Object getValueAt(final int rowIndex, final int columnIndex) {
+        final Object answer = null;
         if (rowIndex < 0 || rowIndex >= rows.size()) {
             return answer;
         }
         if (columnIndex < 0 || columnIndex >= columnModel.getColumnCount()) {
             return answer;
         }
-        Object row = rows.get(rowIndex);;
-        ExpressionTableColumn column = (ExpressionTableColumn) columnModel.getColumn(columnIndex);
+        final Object row = rows.get(rowIndex);
+        final ExpressionTableColumn column = (ExpressionTableColumn) columnModel.getColumn(columnIndex);
         if (row == null || column == null) {
             return answer;
         }
@@ -124,7 +124,7 @@ public class ExpressionTableModel extends AbstractTableModel {
      * Sets the list of rows.
      * @param rows The rows to set
      */
-    public void setRows(List rows) {
+    public void setRows(final List rows) {
         this.rows = rows;
     }
 
@@ -140,7 +140,7 @@ public class ExpressionTableModel extends AbstractTableModel {
      * Sets the context.
      * @param context The context to set
      */
-    public void setContext(JellyContext context) {
+    public void setContext(final JellyContext context) {
         this.context = context;
     }
 
@@ -150,6 +150,6 @@ public class ExpressionTableModel extends AbstractTableModel {
         public List getColumnList() {
             return tableColumns;
         }
-    };
+    }
 
 }

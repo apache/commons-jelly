@@ -16,7 +16,6 @@
  */
 package org.apache.commons.jelly.tags.jms;
 
-import javax.jms.Message;
 import javax.jms.MessageListener;
 
 import org.apache.commons.jelly.JellyContext;
@@ -24,7 +23,6 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -47,8 +45,8 @@ public class OnMessageTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        ConsumerTag tag = (ConsumerTag) findAncestorWithClass(ConsumerTag.class);
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final ConsumerTag tag = (ConsumerTag) findAncestorWithClass(ConsumerTag.class);
         if (tag == null) {
             throw new JellyTagException("This tag must be nested within a ConsumerTag like the subscribe tag");
         }
@@ -57,16 +55,13 @@ public class OnMessageTag extends TagSupport {
         final Script script = getBody();
         final XMLOutput childOutput = output;
 
-        MessageListener listener = new MessageListener() {
-            @Override
-            public void onMessage(Message message) {
-                childContext.setVariable(var, message);
-                try {
-                    script.run(childContext, childOutput);
-                }
-                catch (Exception e) {
-                    log.error("Caught exception processing message: " + message + ". Exception: " + e, e);
-                }
+        final MessageListener listener = message -> {
+            childContext.setVariable(var, message);
+            try {
+                script.run(childContext, childOutput);
+            }
+            catch (final Exception e) {
+                log.error("Caught exception processing message: " + message + ". Exception: " + e, e);
             }
         };
 
@@ -81,7 +76,7 @@ public class OnMessageTag extends TagSupport {
      * Sets the name of the variable used to make the JMS message available to this tags
      * body when a message is received.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

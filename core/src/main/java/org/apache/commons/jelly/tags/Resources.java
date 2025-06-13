@@ -55,69 +55,69 @@ public class Resources {
     // Public static methods
 
     /** Gets a message with no arguments. */
-    public static String getMessage(String name)
+    public static String getMessage(final String name)
         throws MissingResourceException {
     return rb.getString(name);
     }
 
     /** Gets a message with one argument. */
-    public static String getMessage(String name, Object a1)
+    public static String getMessage(final String name, final Object a1)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1 });
     }
 
     /** Gets a message with two arguments. */
-    public static String getMessage(String name, Object a1, Object a2)
+    public static String getMessage(final String name, final Object a1, final Object a2)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1, a2 });
     }
 
     /** Gets a message with three arguments. */
-    public static String getMessage(String name,
-                    Object a1,
-                    Object a2,
-                    Object a3)
+    public static String getMessage(final String name,
+                    final Object a1,
+                    final Object a2,
+                    final Object a3)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1, a2, a3 });
     }
 
     /** Gets a message with four arguments. */
-    public static String getMessage(String name,
-                    Object a1,
-                    Object a2,
-                    Object a3,
-                    Object a4)
+    public static String getMessage(final String name,
+                    final Object a1,
+                    final Object a2,
+                    final Object a3,
+                    final Object a4)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1, a2, a3, a4 });
     }
 
     /** Gets a message with five arguments. */
-    public static String getMessage(String name,
-                    Object a1,
-                    Object a2,
-                    Object a3,
-                    Object a4,
-                    Object a5)
+    public static String getMessage(final String name,
+                    final Object a1,
+                    final Object a2,
+                    final Object a3,
+                    final Object a4,
+                    final Object a5)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1, a2, a3, a4, a5 });
     }
 
     /** Gets a message with six arguments. */
-    public static String getMessage(String name,
-                    Object a1,
-                    Object a2,
-                    Object a3,
-                    Object a4,
-                    Object a5,
-                    Object a6)
+    public static String getMessage(final String name,
+                    final Object a1,
+                    final Object a2,
+                    final Object a3,
+                    final Object a4,
+                    final Object a5,
+                    final Object a6)
         throws MissingResourceException {
     return getMessage(name, new Object[] { a1, a2, a3, a4, a5, a6 });
     }
 
     /** Gets a message with arbitrarily many arguments. */
-    public static String getMessage(String name, Object[] a)
+    public static String getMessage(final String name, final Object[] a)
         throws MissingResourceException {
-    String res = rb.getString(name);
+    final String res = rb.getString(name);
     return MessageFormat.format(res, a);
     }
 

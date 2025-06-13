@@ -17,10 +17,10 @@
 
 package org.apache.commons.jelly.tags.http;
 
+import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.httpclient.methods.multipart.StringPart;
 
 /**
  * A tag to hold a part of a multiPartPost
@@ -42,7 +42,7 @@ public class PartTag extends TagSupport {
      */
     private final class MyStringPart extends StringPart {
       String _contentType;
-      public MyStringPart(String name, String value, String contentType) {
+      public MyStringPart(final String name, final String value, final String contentType) {
         super(name, value, "utf-8");
         _contentType=contentType;
       }
@@ -58,9 +58,9 @@ public class PartTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        MultipartPostTag http = (MultipartPostTag) findAncestorWithClass(MultipartPostTag.class);
-        StringPart sp = new MyStringPart(getName(), getValue(), getContentType());
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final MultipartPostTag http = (MultipartPostTag) findAncestorWithClass(MultipartPostTag.class);
+        final StringPart sp = new MyStringPart(getName(), getValue(), getContentType());
         http.addPart(sp);
         invokeBody(xmlOutput);
     }
@@ -82,7 +82,7 @@ public class PartTag extends TagSupport {
      *
      * @param name New value of property name.
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         _name = name;
     }
 
@@ -100,7 +100,7 @@ public class PartTag extends TagSupport {
      *
      * @param value New value of property value.
      */
-    public void setValue(String value) {
+    public void setValue(final String value) {
         _value = value;
     }
 
@@ -118,7 +118,7 @@ public class PartTag extends TagSupport {
      *
      * @param contentType New value of contentType.
      */
-    public void setContentType(String contentType) {
+    public void setContentType(final String contentType) {
         _contentType = contentType;
     }
 

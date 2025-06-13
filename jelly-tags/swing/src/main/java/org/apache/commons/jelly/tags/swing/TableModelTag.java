@@ -34,24 +34,22 @@ public class TableModelTag extends UseBeanTag {
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
         super.processBean(var, bean);
 
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+        final ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
         if ( tag == null ) {
             throw new JellyTagException( "This tag must be nested within a JellySwing <table> tag" );
         }
-        ExpressionTableModel model = getTableModel();
+        final ExpressionTableModel model = getTableModel();
         model.setContext(context);
 
-        Object component = tag.getComponent();
-        if (component instanceof JTable) {
-            JTable table = (JTable) component;
-            table.setModel(model);
-        }
-        else {
+        final Object component = tag.getComponent();
+        if (!(component instanceof JTable)) {
             throw new JellyTagException( "This tag must be nested within a JellySwing <table> tag" );
         }
+        final JTable table = (JTable) component;
+        table.setModel(model);
     }
 
     @Override

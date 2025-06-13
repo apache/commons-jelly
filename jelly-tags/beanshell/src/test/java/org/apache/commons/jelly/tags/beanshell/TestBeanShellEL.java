@@ -16,18 +16,16 @@
  */
 package org.apache.commons.jelly.tags.beanshell;
 
+import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.tags.beanshell.BeanShellExpressionFactory;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /** Tests the BeanShell EL
   */
@@ -42,7 +40,7 @@ public class TestBeanShellEL extends TestCase {
     /** The factory of Expression objects */
     protected ExpressionFactory factory;
 
-    public static void main( String[] args ) {
+    public static void main( final String[] args ) {
         TestRunner.run( suite() );
     }
 
@@ -50,7 +48,7 @@ public class TestBeanShellEL extends TestCase {
         return new TestSuite(TestBeanShellEL.class);
     }
 
-    public TestBeanShellEL(String testName) {
+    public TestBeanShellEL(final String testName) {
         super(testName);
     }
 
@@ -72,9 +70,9 @@ public class TestBeanShellEL extends TestCase {
     }
 
     /** Evaluates the given expression text and tests it against the expected value */
-    protected void assertExpression( String expressionText, Object expectedValue ) throws Exception {
-        Expression expr = factory.createExpression( expressionText );
-        Object value = expr.evaluate( context );
+    protected void assertExpression( final String expressionText, final Object expectedValue ) throws Exception {
+        final Expression expr = factory.createExpression( expressionText );
+        final Object value = expr.evaluate( context );
         assertEquals( "Value of expression: " + expressionText, expectedValue, value );
     }
 }

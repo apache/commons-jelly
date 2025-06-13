@@ -17,16 +17,16 @@
 
 package org.apache.commons.jelly.tags.xml;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathComparator;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
-import org.jaxen.XPath;
 import org.jaxen.JaxenException;
-
-import java.util.List;
-import java.util.Collections;
+import org.jaxen.XPath;
 
 /** A tag that can sort a list of XML nodes via an xpath expression.
   */
@@ -40,7 +40,7 @@ public class SortTag extends XPathTagSupport {
     private XPathComparator xpCmp = null;
 
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (xpCmp == null) {
             throw new MissingAttributeException( "xpCmp" );
         }
@@ -52,22 +52,26 @@ public class SortTag extends XPathTagSupport {
     }
 
     /** Sets the list to sort. */
-    public void setList(List list) {
+    public void setList(final List list) {
         this.list = list;
     }
 
     /** Sets the xpath expression to use to sort selected nodes.
      */
-    public void setSort(XPath sortXPath) throws JaxenException {
-        if (xpCmp == null) xpCmp = new XPathComparator();
+    public void setSort(final XPath sortXPath) throws JaxenException {
+        if (xpCmp == null) {
+            xpCmp = new XPathComparator();
+        }
         xpCmp.setXpath(sortXPath);
     }
 
     /**
      * Sets whether to sort ascending or descending.
      */
-    public void setDescending(boolean descending) {
-        if (xpCmp == null) xpCmp = new XPathComparator();
+    public void setDescending(final boolean descending) {
+        if (xpCmp == null) {
+            xpCmp = new XPathComparator();
+        }
         xpCmp.setDescending(descending);
     }
 }

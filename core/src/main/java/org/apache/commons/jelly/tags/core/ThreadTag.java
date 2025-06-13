@@ -50,7 +50,7 @@ public class ThreadTag extends TagSupport  {
             // lets default to system.out
             try {
                 xmlOutput = XMLOutput.createXMLOutput( System.out );
-            } catch (UnsupportedEncodingException e) {
+            } catch (final UnsupportedEncodingException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -58,21 +58,20 @@ public class ThreadTag extends TagSupport  {
         // lets create a child context
         final JellyContext newContext = context.newJellyContext();
 
-        Thread thread = new Thread(
-            new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        getBody().run(newContext, xmlOutput);
-                        if (closeOutput) {
-                            xmlOutput.close();
-                        }
-                        else {
-                            xmlOutput.flush();
-                        }
+        final Thread thread = new Thread(
+            () -> {
+                try {
+                    getBody().run(newContext, xmlOutput);
+                    if (closeOutput) {
+                        xmlOutput.close();
                     }
-                    catch (Exception e) {
-                        if (log.isErrorEnabled()) log.error("error running thread tag", e);
+                    else {
+                        xmlOutput.flush();
+                    }
+                }
+                catch (final Exception e) {
+                    if (log.isErrorEnabled()) {
+                        log.error("error running thread tag", e);
                     }
                 }
             }
@@ -87,7 +86,7 @@ public class ThreadTag extends TagSupport  {
      * Sets the file which is generated from the output
      * @param name The output file name
      */
-    public void setFile(String name) throws IOException {
+    public void setFile(final String name) throws IOException {
         this.closeOutput = true;
         setXmlOutput( XMLOutput.createXMLOutput(new FileOutputStream(name)) );
     }
@@ -96,14 +95,14 @@ public class ThreadTag extends TagSupport  {
      * Sets the name of the thread.
      * @param name The name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     /**
      * Sets the destination of output
      */
-    public void setXmlOutput(XMLOutput xmlOutput) {
+    public void setXmlOutput(final XMLOutput xmlOutput) {
         this.closeOutput = false;
         this.xmlOutput = xmlOutput;
     }

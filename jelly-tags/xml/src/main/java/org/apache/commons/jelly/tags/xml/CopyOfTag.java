@@ -16,7 +16,6 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.jelly.JellyTagException;
@@ -47,8 +46,8 @@ public class CopyOfTag extends XPathTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        Object xpathContext = getXPathContext();
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        final Object xpathContext = getXPathContext();
 
         if (select == null) {
             throw new MissingAttributeException( "select" );
@@ -65,15 +64,14 @@ public class CopyOfTag extends XPathTagSupport {
         Object obj;
         try {
             obj = select.evaluate(xpathContext);
-        } catch (JaxenException e) {
+        } catch (final JaxenException e) {
             throw new JellyTagException("Failed to evaluate XPath expression", e);
         }
 
         try {
             if (obj instanceof List) {
-                List nodes = (List) obj;
-                for (Iterator iter = nodes.iterator(); iter.hasNext(); ) {
-                    Object object = iter.next();
+                final List nodes = (List) obj;
+                for (final Object object : nodes) {
                     if ( object instanceof Node ) {
                         saxWriter.write( (Node) object );
                     }
@@ -86,7 +84,7 @@ public class CopyOfTag extends XPathTagSupport {
             } else {
                 saxWriter.write( obj.toString() );
             }
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             throw new JellyTagException("Failed to write XML output.", e);
         }
     }
@@ -94,11 +92,11 @@ public class CopyOfTag extends XPathTagSupport {
     // Properties
     //-------------------------------------------------------------------------
     /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
+    public void setSelect(final XPath select) {
         this.select = select;
     }
 
-    public void setLexical(boolean lexical) {
+    public void setLexical(final boolean lexical) {
         this.lexical = lexical;
     }
 }

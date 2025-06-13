@@ -44,10 +44,10 @@ public class ServerTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         // force the creation of a Server
-        MBeanServer server = getServer();
+        final MBeanServer server = getServer();
 
         // allow children to register beans
         invokeBody(output);
@@ -69,7 +69,7 @@ public class ServerTag extends TagSupport {
      * Sets the server.
      * @param server The server to set
      */
-    public void setServer(MBeanServer server) {
+    public void setServer(final MBeanServer server) {
         this.server = server;
     }
 

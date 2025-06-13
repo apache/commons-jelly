@@ -54,11 +54,11 @@ public class DateParamTag extends TagSupport {
     //*********************************************************************
     // Properties
 
-    public void setValue(Date value) {
+    public void setValue(final Date value) {
         this.value = value;
     }
 
-    public void setType(String type) {
+    public void setType(final String type) {
         this.type = type;
     }
 
@@ -66,8 +66,8 @@ public class DateParamTag extends TagSupport {
     // Tag logic
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        SQLExecutionTag parent =
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final SQLExecutionTag parent =
             (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
         if (parent == null) {
             throw new JellyTagException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));
@@ -85,7 +85,7 @@ public class DateParamTag extends TagSupport {
 
     private void convertValue() throws JellyTagException {
 
-        if ((type == null) || (type.equalsIgnoreCase(TIMESTAMP_TYPE))) {
+        if (type == null || type.equalsIgnoreCase(TIMESTAMP_TYPE)) {
             if (!(value instanceof java.sql.Timestamp)) {
                 value = new java.sql.Timestamp(value.getTime());
             }

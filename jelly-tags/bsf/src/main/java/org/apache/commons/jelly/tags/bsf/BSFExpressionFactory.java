@@ -16,27 +16,26 @@
  */
 package org.apache.commons.jelly.tags.bsf;
 
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.bsf.BSFEngine;
-import org.apache.bsf.BSFException;
-import org.apache.bsf.BSFManager;
-
 /** Represents a factory of BSF expressions
   */
 public class BSFExpressionFactory implements ExpressionFactory {
 
     /** The logger of messages */
-    private Log log = LogFactory.getLog( getClass() );
+    private final Log log = LogFactory.getLog( getClass() );
 
     private String language = "javascript";
     private BSFManager manager;
     private BSFEngine engine;
-    private JellyContextRegistry registry = new JellyContextRegistry();
+    private final JellyContextRegistry registry = new JellyContextRegistry();
 
     public BSFExpressionFactory() {
     }
@@ -49,7 +48,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(final String language) {
         this.language = language;
     }
 
@@ -61,7 +60,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
         return engine;
     }
 
-    public void setBSFEngine(BSFEngine engine) {
+    public void setBSFEngine(final BSFEngine engine) {
         this.engine = engine;
     }
 
@@ -73,7 +72,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
         return manager;
     }
 
-    public void setBSFManager(BSFManager manager) {
+    public void setBSFManager(final BSFManager manager) {
         this.manager = manager;
         manager.setObjectRegistry( registry );
     }
@@ -81,10 +80,10 @@ public class BSFExpressionFactory implements ExpressionFactory {
     // ExpressionFactory interface
     //-------------------------------------------------------------------------
     @Override
-    public Expression createExpression(String text) throws JellyException {
+    public Expression createExpression(final String text) throws JellyException {
         try {
             return new BSFExpression( text, getBSFEngine(), getBSFManager(), registry );
-        } catch (BSFException e) {
+        } catch (final BSFException e) {
             throw new JellyException("Could not obtain BSF engine",e);
         }
     }
@@ -99,7 +98,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
 
     /** Factory method */
     protected BSFManager createBSFManager() {
-        BSFManager answer = new BSFManager();
+        final BSFManager answer = new BSFManager();
         return answer;
     }
 }

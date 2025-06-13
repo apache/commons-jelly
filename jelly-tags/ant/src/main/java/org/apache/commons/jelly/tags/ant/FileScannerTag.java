@@ -31,19 +31,19 @@ import org.apache.commons.jelly.XMLOutput;
 public class FileScannerTag extends TagSupport implements TaskSource {
 
     /** The file walker that gets created */
-    private FileScanner fileScanner;
+    private final FileScanner fileScanner;
 
     /** The variable exported */
     private String var;
 
-    public FileScannerTag(FileScanner fileScanner) {
+    public FileScannerTag(final FileScanner fileScanner) {
         this.fileScanner = fileScanner;
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         fileScanner.setProject(AntTagLibrary.getProject(context));
 
         fileScanner.clear();
@@ -70,14 +70,11 @@ public class FileScannerTag extends TagSupport implements TaskSource {
      * Allows nested tags to set a property on the task object of this tag
      */
     @Override
-    public void setTaskProperty(String name, Object value) throws JellyTagException {
+    public void setTaskProperty(final String name, final Object value) throws JellyTagException {
         try {
             BeanUtils.setProperty( fileScanner, name, value );
         }
-        catch (IllegalAccessException ex) {
-            throw new JellyTagException(ex);
-        }
-        catch (InvocationTargetException ex) {
+        catch (final IllegalAccessException | InvocationTargetException ex) {
             throw new JellyTagException(ex);
         }
     }
@@ -93,7 +90,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     }
 
     /** Sets the name of the variable exported by this tag */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

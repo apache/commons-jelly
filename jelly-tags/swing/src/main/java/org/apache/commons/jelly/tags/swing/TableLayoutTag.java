@@ -41,7 +41,7 @@ public class TableLayoutTag extends LayoutTagSupport {
     /**
      * Adds a new cell to the current grid
      */
-    public void addCell(Cell cell) throws JellyTagException {
+    public void addCell(final Cell cell) throws JellyTagException {
         // find the parent container and add the component with the grid bag constraints
         addLayoutComponent(cell.getComponent(), cell.getConstraints());
     }

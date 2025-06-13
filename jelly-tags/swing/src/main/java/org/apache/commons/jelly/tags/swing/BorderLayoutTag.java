@@ -58,14 +58,14 @@ public class BorderLayoutTag extends LayoutTagSupport {
     /**
      * Sets the horizontal gap in pixels.
      */
-    public void setHgap(int hgap) {
+    public void setHgap(final int hgap) {
         this.hgap = hgap;
     }
 
     /**
      * Sets the vertical gap in pixels
      */
-    public void setVgap(int vgap) {
+    public void setVgap(final int vgap) {
         this.vgap = vgap;
     }
 

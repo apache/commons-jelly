@@ -18,12 +18,11 @@ package org.apache.commons.jelly.tags.junit;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 
 /**
@@ -33,7 +32,7 @@ public class AssertFileContainsTag extends AssertTagSupport
 {
     /** The file to check */
     private File file;
-    
+
     /** Content to match */
     private String match;
 
@@ -43,7 +42,7 @@ public class AssertFileContainsTag extends AssertTagSupport
      * @throws JellyTagException if the file doesn't exist.
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException
+    public void doTag(final XMLOutput output) throws JellyTagException
     {
         if (match == null)
         {
@@ -55,62 +54,58 @@ public class AssertFileContainsTag extends AssertTagSupport
             message = "File does not contain '" + match + "'";
         }
 
-        
+
         if (file == null)
         {
             throw new MissingAttributeException("file");
         }
-        if (file.exists() && file.canRead())
-        {
+        if (!file.exists() || !file.canRead()) {
             try
             {
-                BufferedReader br = new BufferedReader(new FileReader(file));
-                String line;
-                boolean found = false;
-                while ((line = br.readLine()) != null)
-                {
-                    if (line.contains(match))
-                    {
-                        found = true;
-                        break;
-                    }
-                }
-                br.close();
-                assertTrue(message, found);
-            }
-            catch (IOException fnfe)
-            {
-                throw new JellyTagException(fnfe);
-            }
-        }
-        else
-        {
-            try
-            {
-                throw new JellyTagException("File '" + file.getCanonicalPath() 
+                throw new JellyTagException("File '" + file.getCanonicalPath()
                     + "' can't be read.");
             }
-            catch (IOException e)
+            catch (final IOException e)
             {
                 throw new JellyTagException(e);
             }
         }
+        try
+        {
+            final BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            boolean found = false;
+            while ((line = br.readLine()) != null)
+            {
+                if (line.contains(match))
+                {
+                    found = true;
+                    break;
+                }
+            }
+            br.close();
+            assertTrue(message, found);
+        }
+        catch (final IOException fnfe)
+        {
+            throw new JellyTagException(fnfe);
+        }
     }
-    
+
     /**
      * The file to be tested. If this file exists, the test will pass.
      * @param aFile the file to test.
      */
-    public void setFile(File aFile)
+    public void setFile(final File aFile)
     {
         file = aFile;
     }
-    
+
     /**
      * The content to be checked for. If this text matches some part
      * of the given file, the test will pass.
      */
-    public void setMatch(String aString)
+    public void setMatch(final String aString)
     {
         match = aString;
     }

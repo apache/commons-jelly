@@ -31,7 +31,7 @@ import org.apache.commons.jelly.tags.Resources;
 public class ParamTag extends TagSupport {
     protected Object value;
 
-    public void setValue(Object value) {
+    public void setValue(final Object value) {
         this.value = value;
     }
 
@@ -39,8 +39,8 @@ public class ParamTag extends TagSupport {
     // Tag logic
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        SQLExecutionTag parent =
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final SQLExecutionTag parent =
             (SQLExecutionTag) findAncestorWithClass(this, SQLExecutionTag.class);
         if (parent == null) {
             throw new JellyTagException(Resources.getMessage("SQL_PARAM_OUTSIDE_PARENT"));

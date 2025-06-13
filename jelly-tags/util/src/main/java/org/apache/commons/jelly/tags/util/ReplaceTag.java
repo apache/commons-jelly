@@ -22,11 +22,9 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.apache.commons.lang3.StringUtils;
-
 import org.xml.sax.SAXException;
 
 /**
@@ -58,7 +56,7 @@ public class ReplaceTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         // check required properties
         if (oldChar != null) {
             oldString = oldChar.substring(0,1);
@@ -86,13 +84,13 @@ public class ReplaceTag extends TagSupport {
 
         // set the result in the context, or output it
         if (answer != null) {
-            String stringAnswer = StringUtils.replace(answer.toString(), oldString, newString);
+            final String stringAnswer = StringUtils.replace(answer.toString(), oldString, newString);
             if ( var != null ) {
                 context.setVariable(var, stringAnswer);
             } else {
                 try {
                     output.write(stringAnswer);
-                } catch (SAXException e) {
+                } catch (final SAXException e) {
                     throw new JellyTagException(e);
                 }
             }
@@ -159,7 +157,7 @@ public class ReplaceTag extends TagSupport {
      * Sets the newChar.
      * @param newChar The newChar to set
      */
-    public void setNewChar(String newChar)
+    public void setNewChar(final String newChar)
     {
         this.newChar = newChar;
     }
@@ -168,7 +166,7 @@ public class ReplaceTag extends TagSupport {
      * Sets the oldChar.
      * @param oldChar The oldChar to set
      */
-    public void setOldChar(String oldChar)
+    public void setOldChar(final String oldChar)
     {
         this.oldChar = oldChar;
     }
@@ -177,7 +175,7 @@ public class ReplaceTag extends TagSupport {
      * Sets the newString.
      * @param newString The newString to set
      */
-    public void setNew(String newString)
+    public void setNew(final String newString)
     {
         this.newString = newString;
     }
@@ -186,7 +184,7 @@ public class ReplaceTag extends TagSupport {
      * Sets the oldString.
      * @param oldString The oldString to set
      */
-    public void setOld(String oldString)
+    public void setOld(final String oldString)
     {
         this.oldString = oldString;
     }
@@ -195,7 +193,7 @@ public class ReplaceTag extends TagSupport {
      * Sets the value.
      * @param value The value to set
      */
-    public void setValue(Expression value)
+    public void setValue(final Expression value)
     {
         this.value = value;
     }
@@ -204,7 +202,7 @@ public class ReplaceTag extends TagSupport {
      * Sets the var.
      * @param var The var to set
      */
-    public void setVar(String var)
+    public void setVar(final String var)
     {
         this.var = var;
     }

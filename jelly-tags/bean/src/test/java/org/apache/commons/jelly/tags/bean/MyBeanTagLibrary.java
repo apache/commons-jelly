@@ -16,8 +16,6 @@
  */
 package org.apache.commons.jelly.tags.bean;
 
-import org.apache.commons.jelly.tags.bean.BeanTagLibrary;
-
 /**
  * Describes the Taglib.
  * This could be created via Jelly script, or could load the mapping of

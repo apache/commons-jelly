@@ -39,7 +39,7 @@ public class FileTag extends TagSupport {
     //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        boolean available = false;
+        final boolean available = false;
 
         if (name == null) {
             throw new MissingAttributeException("name must be specified");
@@ -49,7 +49,7 @@ public class FileTag extends TagSupport {
             throw new MissingAttributeException("var must be specified");
         }
 
-        File newFile = new File(name);
+        final File newFile = new File(name);
         getContext().setVariable(var, newFile);
     }
 
@@ -57,7 +57,7 @@ public class FileTag extends TagSupport {
      * Name of the file to be placed into the context
      * @param name The fileName to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -65,7 +65,7 @@ public class FileTag extends TagSupport {
      * Name of the variable to contain the file
      * @param var The var to set
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

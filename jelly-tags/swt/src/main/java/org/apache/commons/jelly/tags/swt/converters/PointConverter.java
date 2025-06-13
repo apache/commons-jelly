@@ -19,7 +19,6 @@ package org.apache.commons.jelly.tags.swt.converters;
 import java.util.StringTokenizer;
 
 import org.apache.commons.beanutils2.Converter;
-
 import org.eclipse.swt.graphics.Point;
 
 /**
@@ -38,8 +37,8 @@ public class PointConverter implements Converter {
      * @param text
      * @return Point
      */
-    public Point parse(String text) {
-        StringTokenizer items = new StringTokenizer( text, "," );
+    public Point parse(final String text) {
+        final StringTokenizer items = new StringTokenizer( text, "," );
         int x = 0;
         int y = 0;
         if ( items.hasMoreTokens() ) {
@@ -54,10 +53,10 @@ public class PointConverter implements Converter {
     // Converter interface
     //-------------------------------------------------------------------------
     @Override
-    public Object convert(Class type, Object value) {
+    public Object convert(final Class type, final Object value) {
         Object answer = null;
         if ( value != null ) {
-            String text = value.toString();
+            final String text = value.toString();
             answer = parse(text);
         }
 

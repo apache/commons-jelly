@@ -51,7 +51,7 @@ public class RunTag extends TagSupport {
      * Factory method to create a new TestResult to capture the output of
      * the test cases
      */
-    protected TestResult createResult(XMLOutput output) {
+    protected TestResult createResult(final XMLOutput output) {
         return new TestResult();
     }
 
@@ -65,7 +65,7 @@ public class RunTag extends TagSupport {
     protected TestListener createTestListener(final XMLOutput output) {
         return new TestListener() {
             @Override
-            public void addError(Test test, Throwable t) {
+            public void addError(final Test test, final Throwable t) {
                 try {
                     output.startElement("error");
 
@@ -79,13 +79,13 @@ public class RunTag extends TagSupport {
 
                     output.endElement("error");
                 }
-                catch (SAXException e) {
+                catch (final SAXException e) {
                     handleSAXException(e);
                 }
             }
 
             @Override
-            public void addFailure(Test test, AssertionFailedError t) {
+            public void addFailure(final Test test, final AssertionFailedError t) {
                 try {
                     output.startElement("failure");
 
@@ -99,31 +99,31 @@ public class RunTag extends TagSupport {
 
                     output.endElement("failure");
                 }
-                catch (SAXException e) {
+                catch (final SAXException e) {
                     handleSAXException(e);
                 }
             }
 
             @Override
-            public void endTest(Test test) {
+            public void endTest(final Test test) {
                 try {
                     output.endElement("test");
                 }
-                catch (SAXException e) {
+                catch (final SAXException e) {
                     handleSAXException(e);
                 }
             }
 
             @Override
-            public void startTest(Test test) {
+            public void startTest(final Test test) {
                 try {
-                    String name = test.toString();
-                    AttributesImpl attributes = new AttributesImpl();
+                    final String name = test.toString();
+                    final AttributesImpl attributes = new AttributesImpl();
                     attributes.addAttribute("", "name", "name", "CDATA", name);
 
                     output.startElement("test", attributes);
                 }
-                catch (SAXException e) {
+                catch (final SAXException e) {
                     handleSAXException(e);
                 }
             }
@@ -133,7 +133,7 @@ public class RunTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         Test test = getTest();
         if ( test == null ) {
             test = (Test) context.getVariable("org.apache.commons.jelly.junit.suite");
@@ -180,7 +180,7 @@ public class RunTag extends TagSupport {
     /**
      * Handles SAX Exceptions
      */
-    protected void handleSAXException(SAXException e) {
+    protected void handleSAXException(final SAXException e) {
         log.error( "Caught: " + e, e );
     }
 
@@ -191,7 +191,7 @@ public class RunTag extends TagSupport {
      * Sets the TestListener.to be used to format the output of running the unit test cases
      * @param listener The listener to set
      */
-    public void setListener(TestListener listener) {
+    public void setListener(final TestListener listener) {
         this.listener = listener;
     }
 
@@ -199,7 +199,7 @@ public class RunTag extends TagSupport {
      * Sets the JUnit TestResult used to capture the results of the tst
      * @param result The TestResult to use
      */
-    public void setResult(TestResult result) {
+    public void setResult(final TestResult result) {
         this.result = result;
     }
 
@@ -207,15 +207,15 @@ public class RunTag extends TagSupport {
      * Sets the JUnit Test to run which could be an individual test or a TestSuite
      * @param test The test to run
      */
-    public void setTest(Test test) {
+    public void setTest(final Test test) {
         this.test = test;
     }
 
     /**
      * @return the stack trace as a String
      */
-    protected String stackTraceToString(Throwable t) {
-        StringWriter writer = new StringWriter();
+    protected String stackTraceToString(final Throwable t) {
+        final StringWriter writer = new StringWriter();
         t.printStackTrace(new PrintWriter(writer));
         return writer.toString();
     }

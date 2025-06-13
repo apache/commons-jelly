@@ -33,7 +33,7 @@ public class FailTag extends AssertTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         String message = getMessage();
         if ( message == null ) {
             message = getBodyText();
@@ -55,7 +55,7 @@ public class FailTag extends AssertTagSupport {
      * Sets the failure message. If this attribute is not specified then the
      * body of this tag will be used instead.
      */
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 }

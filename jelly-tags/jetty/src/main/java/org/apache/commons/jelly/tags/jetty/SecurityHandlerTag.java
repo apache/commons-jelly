@@ -17,26 +17,24 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.Iterator;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.BasicAuthenticator;
 import org.mortbay.http.ClientCertAuthenticator;
 import org.mortbay.http.DigestAuthenticator;
-import org.mortbay.http.SecurityConstraint.Authenticator;
 import org.mortbay.http.SecurityConstraint;
+import org.mortbay.http.SecurityConstraint.Authenticator;
 import org.mortbay.http.handler.SecurityHandler;
 import org.mortbay.jetty.servlet.FormAuthenticator;
 import org.mortbay.util.Code;
 import org.mortbay.xml.XmlParser;
-
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.Iterator;
 
 /**
  * Declare a security handler for a Jetty http server
@@ -91,13 +89,13 @@ public class SecurityHandlerTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
             HttpContextTag.class);
         if ( httpContext == null ) {
             throw new JellyTagException( "<securityHandler> tag must be enclosed inside a <httpContext> tag" );
         }
-        SecurityHandler securityHandler = new SecurityHandler();
+        final SecurityHandler securityHandler = new SecurityHandler();
         if (getauthenticationMethod() != null) {
             securityHandler.setAuthMethod(getauthenticationMethod());
         }
@@ -105,34 +103,32 @@ public class SecurityHandlerTag extends TagSupport {
 
         // get the security constraints from the body of this tag
         // by parsing the body of the parent (so it will be well formed)
-        String bodyText = getBodyText();
-        StringReader reader = new StringReader(bodyText);
-        InputSource inputSource = new InputSource(reader);
+        final String bodyText = getBodyText();
+        final StringReader reader = new StringReader(bodyText);
+        final InputSource inputSource = new InputSource(reader);
 
         // crate a non-validating parser
-        XmlParser xmlParser = new XmlParser(false);
+        final XmlParser xmlParser = new XmlParser(false);
 
         XmlParser.Node node = null;
         try {
             node = xmlParser.parse(inputSource);
         }
-        catch (IOException e) {
-            throw new JellyTagException(e);
-        }
-        catch (SAXException e) {
+        catch (final IOException | SAXException e) {
             throw new JellyTagException(e);
         }
 
-        Iterator iter=node.iterator();
+        final Iterator iter=node.iterator();
         XmlParser.Node currNode = null;
         while (iter.hasNext())
         {
-                Object o = iter.next();
-                if (!(o instanceof XmlParser.Node))
+                final Object o = iter.next();
+                if (!(o instanceof XmlParser.Node)) {
                     continue;
+                }
 
                 currNode=(XmlParser.Node)o;
-                String name=currNode.getTag();
+                final String name=currNode.getTag();
 
                 if ("security-constraint".equals(name)) {
                     initSecurityConstraint(currNode, httpContext);
@@ -155,20 +151,20 @@ public class SecurityHandlerTag extends TagSupport {
      * @param node the parsed XML starting node of the constraints
      * @param httpContext the tag to add the security constraint to
     */
-    protected void initSecurityConstraint(XmlParser.Node node,
-                                          HttpContextTag httpContext)
+    protected void initSecurityConstraint(final XmlParser.Node node,
+                                          final HttpContextTag httpContext)
     {
-        SecurityConstraint scBase = new SecurityConstraint();
+        final SecurityConstraint scBase = new SecurityConstraint();
 
-        XmlParser.Node auths=node.get("auth-constraint");
+        final XmlParser.Node auths=node.get("auth-constraint");
         if (auths!=null)
         {
             scBase.setAuthenticate(true);
             // auth-constraint
-            Iterator iter= auths.iterator("role-name");
+            final Iterator iter= auths.iterator("role-name");
             while(iter.hasNext())
             {
-                String role=((XmlParser.Node)iter.next()).toString(false,true);
+                final String role=((XmlParser.Node)iter.next()).toString(false,true);
                 scBase.addRole(role);
             }
         }
@@ -177,38 +173,39 @@ public class SecurityHandlerTag extends TagSupport {
         if (data!=null)
         {
             data=data.get("transport-guarantee");
-            String guarantee = data.toString(false,true).toUpperCase();
+            final String guarantee = data.toString(false,true).toUpperCase();
             if (guarantee==null || guarantee.length()==0 ||
-                "NONE".equals(guarantee))
+                "NONE".equals(guarantee)) {
                 scBase.setDataConstraint(SecurityConstraint.DC_NONE);
-            else if ("INTEGRAL".equals(guarantee))
+            } else if ("INTEGRAL".equals(guarantee)) {
                 scBase.setDataConstraint(SecurityConstraint.DC_INTEGRAL);
-            else if ("CONFIDENTIAL".equals(guarantee))
+            } else if ("CONFIDENTIAL".equals(guarantee)) {
                 scBase.setDataConstraint(SecurityConstraint.DC_CONFIDENTIAL);
-            else
+            } else
             {
                 Code.warning("Unknown user-data-constraint:"+guarantee);
                 scBase.setDataConstraint(SecurityConstraint.DC_CONFIDENTIAL);
             }
         }
 
-        Iterator iter= node.iterator("web-resource-collection");
+        final Iterator iter= node.iterator("web-resource-collection");
         while(iter.hasNext())
         {
-            XmlParser.Node collection=(XmlParser.Node)iter.next();
-            String name=collection.getString("web-resource-name",false,true);
-            SecurityConstraint sc = (SecurityConstraint)scBase.clone();
+            final XmlParser.Node collection=(XmlParser.Node)iter.next();
+            final String name=collection.getString("web-resource-name",false,true);
+            final SecurityConstraint sc = (SecurityConstraint)scBase.clone();
             sc.setName(name);
 
             Iterator iter2= collection.iterator("http-method");
-            while(iter2.hasNext())
+            while(iter2.hasNext()) {
                 sc.addMethod(((XmlParser.Node)iter2.next())
                              .toString(false,true));
+            }
 
             iter2= collection.iterator("url-pattern");
             while(iter2.hasNext())
             {
-                String url=
+                final String url=
                     ((XmlParser.Node)iter2.next()).toString(false,true);
                 httpContext.addSecurityConstraint(url,sc);
             }
@@ -226,46 +223,60 @@ public class SecurityHandlerTag extends TagSupport {
      * @param node the parsed XML starting node of the login configuration
      * @param httpContext the tag to add the authenticator and realm to
     */
-    protected void initLoginConfig(XmlParser.Node node,
-                                   HttpContextTag httpContext)
+    protected void initLoginConfig(final XmlParser.Node node,
+                                   final HttpContextTag httpContext)
     {
-        XmlParser.Node method=node.get("auth-method");
+        final XmlParser.Node method=node.get("auth-method");
         if (method!=null)
         {
             Authenticator authenticator=null;
-            String m=method.toString(false,true);
+            final String m=method.toString(false,true);
 
-            if (SecurityConstraint.__FORM_AUTH.equals(m))
-                authenticator=_formAuthenticator=new FormAuthenticator();
-            else if (SecurityConstraint.__BASIC_AUTH.equals(m))
-                authenticator=new BasicAuthenticator();
-            else if (SecurityConstraint.__DIGEST_AUTH.equals(m))
-                authenticator=new DigestAuthenticator();
-            else if (SecurityConstraint.__CERT_AUTH.equals(m))
-                authenticator=new ClientCertAuthenticator();
-            else
+            if (m != null) {
+                switch (m) {
+                case SecurityConstraint.__FORM_AUTH:
+                    authenticator=_formAuthenticator=new FormAuthenticator();
+                    break;
+                case SecurityConstraint.__BASIC_AUTH:
+                    authenticator=new BasicAuthenticator();
+                    break;
+                case SecurityConstraint.__DIGEST_AUTH:
+                    authenticator=new DigestAuthenticator();
+                    break;
+                case SecurityConstraint.__CERT_AUTH:
+                    authenticator=new ClientCertAuthenticator();
+                    break;
+                default:
+                    Code.warning("UNKNOWN AUTH METHOD: "+m);
+                    break;
+                }
+            } else {
                 Code.warning("UNKNOWN AUTH METHOD: "+m);
+            }
 
             httpContext.setAuthenticator(authenticator);
         }
 
-        XmlParser.Node name=node.get("realm-name");
-        if (name!=null)
+        final XmlParser.Node name=node.get("realm-name");
+        if (name!=null) {
             httpContext.setRealmName(name.toString(false,true));
+        }
 
-        XmlParser.Node formConfig = node.get("form-login-config");
+        final XmlParser.Node formConfig = node.get("form-login-config");
         if (formConfig != null)
         {
-            if (_formAuthenticator==null)
+            if (_formAuthenticator==null) {
                 Code.warning("FORM Authentication miss-configured");
-            else
+            } else
             {
-                XmlParser.Node loginPage = formConfig.get("form-login-page");
-                if (loginPage != null)
+                final XmlParser.Node loginPage = formConfig.get("form-login-page");
+                if (loginPage != null) {
                     _formAuthenticator.setLoginPage(loginPage.toString(false,true));
-                XmlParser.Node errorPage = formConfig.get("form-error-page");
-                if (errorPage != null)
+                }
+                final XmlParser.Node errorPage = formConfig.get("form-error-page");
+                if (errorPage != null) {
                     _formAuthenticator.setErrorPage(errorPage.toString(false,true));
+                }
             }
         }
     }
@@ -289,7 +300,7 @@ public class SecurityHandlerTag extends TagSupport {
      * @param authenticationMethod Type of authentication (BASIC, FORM, DIGEST, CLIENT-CERT)
      * Note that only BASIC and CLIENT-CERT are supported by Jetty as of v4.1.1
      */
-    public void setauthenticationMethod(String authenticationMethod) {
+    public void setauthenticationMethod(final String authenticationMethod) {
         _authenticationMethod = authenticationMethod;
     }
 

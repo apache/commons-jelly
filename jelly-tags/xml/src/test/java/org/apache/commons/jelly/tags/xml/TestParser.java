@@ -20,19 +20,19 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Iterator;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
+import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
 /** Tests the core tags
   */
@@ -41,7 +41,7 @@ public class TestParser extends TestCase {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestParser.class);
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
 
@@ -49,7 +49,7 @@ public class TestParser extends TestCase {
         return new TestSuite(TestParser.class);
     }
 
-    public TestParser(String testName) {
+    public TestParser(final String testName) {
         super(testName);
     }
 
@@ -58,8 +58,8 @@ public class TestParser extends TestCase {
      * relationships
      */
     public void testParser() throws Exception {
-        InputStream in = new FileInputStream("target/test-classes/org/apache/commons/jelly/tags/xml/example2.jelly");
-        XMLParser parser = new XMLParser();
+        final InputStream in = new FileInputStream("target/test-classes/org/apache/commons/jelly/tags/xml/example2.jelly");
+        final XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
 
@@ -72,20 +72,21 @@ public class TestParser extends TestCase {
      * Tests that the Tag in the TagScript has the given parent and then
      * recurse to check its children has the correct parent and so forth.
      */
-    protected void assertTagsHaveParent(Script script, Tag parent, JellyContext context) throws Exception {
-        if ( context == null )
+    protected void assertTagsHaveParent(final Script script, final Tag parent, JellyContext context) throws Exception {
+        if ( context == null ) {
             context = new JellyContext();
+        }
         if ( script instanceof TagScript ) {
-            TagScript tagScript = (TagScript) script;
-            Tag tag = tagScript.getTag(context);
+            final TagScript tagScript = (TagScript) script;
+            final Tag tag = tagScript.getTag(context);
 
             assertEquals( "Tag: " + tag + " has the incorrect parent", parent, tag.getParent() );
 
             assertTagsHaveParent( tag.getBody(), tag, context );
         }
         else if ( script instanceof ScriptBlock ) {
-            ScriptBlock block = (ScriptBlock) script;
-            for ( Iterator iter = block.getScriptList().iterator(); iter.hasNext(); ) {
+            final ScriptBlock block = (ScriptBlock) script;
+            for ( final Iterator iter = block.getScriptList().iterator(); iter.hasNext(); ) {
                 assertTagsHaveParent( (Script) iter.next(), parent, context );
             }
         }

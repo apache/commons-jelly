@@ -59,32 +59,32 @@ public class SetDataSourceTag extends TagSupport {
      * result.
      *
      */
-    public void setScope(String scope) {
+    public void setScope(final String scope) {
         this.scope = scope;
     }
 
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
-    public void setDataSource(Object dataSource) {
+    public void setDataSource(final Object dataSource) {
         this.dataSource = dataSource;
         this.dataSourceSpecified = true;
     }
 
-    public void setDriver(String driverClassName) {
+    public void setDriver(final String driverClassName) {
         this.driverClassName = driverClassName;
     }
 
-    public void setUrl(String jdbcURL) {
+    public void setUrl(final String jdbcURL) {
         this.jdbcURL = jdbcURL;
     }
 
-    public void setUser(String userName) {
+    public void setUser(final String userName) {
         this.userName = userName;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -92,7 +92,7 @@ public class SetDataSourceTag extends TagSupport {
     // Tag logic
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         DataSource ds = null;
 
         if (dataSource != null) {
@@ -103,14 +103,14 @@ public class SetDataSourceTag extends TagSupport {
                 throw new JellyTagException(Resources.getMessage("SQL_DATASOURCE_NULL"));
             }
 
-            DataSourceWrapper dsw = new DataSourceWrapper();
+            final DataSourceWrapper dsw = new DataSourceWrapper();
             try {
                 // set driver class iff provided by the tag
                 if (driverClassName != null) {
                     dsw.setDriverClassName(driverClassName);
                 }
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 log.error( "Could not load driver class: " + e, e );
                 throw new JellyTagException(
                     Resources.getMessage("DRIVER_INVALID_CLASS", e.getMessage()));

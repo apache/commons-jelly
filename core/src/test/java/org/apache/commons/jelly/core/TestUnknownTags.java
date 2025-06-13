@@ -36,26 +36,27 @@ public class TestUnknownTags extends BaseJellyTest {
 		return new TestSuite(TestUnknownTags.class);
 	}
 
-	public TestUnknownTags(String name) {
+	public TestUnknownTags(final String name) {
 		super(name);
 	}
 
     @Override
-    protected void addCustomTagLib(JellyContext context) {
+    protected void addCustomTagLib(final JellyContext context) {
         context.registerTagLibrary(TJTagLibrary.NS, TJTagLibrary.class.getName());
     }
 
 	public void testUnknownTags() throws Exception {
 		setUpScript("testUnknownTags.xml");
 		try {
-			Script script = getJelly().compileScript();
+			final Script script = getJelly().compileScript();
 			script.run(getJellyContext(), getXMLOutput());
 			System.out.println(getStringOutput());
-		}catch (JellyException e) {
+		}catch (final JellyException e) {
 			if (e.getCause() instanceof SAXParseException) {
-				Throwable cause = e.getCause();
-				if (cause.getMessage().contains("Unrecognized tag called tag-that-does-not-exist in TagLibrary jelly:test"))
-					return;
+				final Throwable cause = e.getCause();
+				if (cause.getMessage().contains("Unrecognized tag called tag-that-does-not-exist in TagLibrary jelly:test")) {
+                    return;
+                }
 			}
 			throw e;
 		}

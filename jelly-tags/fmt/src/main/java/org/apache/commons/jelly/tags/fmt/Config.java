@@ -17,8 +17,6 @@
 
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.JellyContext;
-
 /**
  * Class supporting access to configuration data.
  * @version 1.1

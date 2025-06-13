@@ -31,16 +31,16 @@ public class CatchTag extends TagSupport {
      * Exception class list separated by ";"
      */
 	private String exceptions;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private Class[] exceptionArray;
 	/**
 	 * Var to store cause exception class
 	 */
 	private String cause;
-	
+
     private String var;
 
     public CatchTag() {
@@ -49,21 +49,21 @@ public class CatchTag extends TagSupport {
     /**
 	 * Build exception classes set
 	 * @throws ClassNotFoundException
-	 * 
+	 *
 	 */
 	private void buildExceptionArray() throws ClassNotFoundException {
 		if ( exceptions != null ) {
-		    String[] strings = exceptions.split(";");
-		    
+		    final String[] strings = exceptions.split(";");
+
 			if ( exceptionArray == null ) {
-			    
-				int size = ( strings.length > 0) ? strings.length : 1 ;
+
+				final int size = strings.length > 0 ? strings.length : 1 ;
 				exceptionArray = new Class[size];
-				
+
 				for ( int i = 0; i < strings.length; i ++) {
-					Class clazz = Class.forName(strings[i]);
+					final Class clazz = Class.forName(strings[i]);
 					exceptionArray[i] = clazz;
-				}				
+				}
 			}
 		}
 	}
@@ -74,7 +74,7 @@ public class CatchTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         /**
          * Buid exception set
@@ -82,44 +82,41 @@ public class CatchTag extends TagSupport {
 		if ( exceptionArray == null ) {
 			try {
 			    buildExceptionArray();
-			} catch (ClassNotFoundException e) {
+			} catch (final ClassNotFoundException e) {
 				throw new JellyTagException(e);
 			}
 		}
-		
+
         if (var != null) {
             context.removeVariable(var);
         }
-        
+
 	    if ( cause != null ) {
 	        context.removeVariable(cause);
 	    }
         try {
             invokeBody(output);
         }
-        catch (Throwable t) {        	
+        catch (final Throwable t) {
             if (var != null) {
                 context.setVariable(var, t);
             }
-            
-    		Throwable c = getRealException(t); 
-    		
+
+    		final Throwable c = getRealException(t);
+
 		    if ( cause != null ) {
 		        context.setVariable( cause, c );
 		    }
-		    
-            if ( exceptionArray != null ) {
 
-        	    /**
-        	     * if exception is not expected throw exception 
-        	     */    		    
-        		if ( ! isExpected(c)) {
-        			throw new JellyTagException(t);
-        		}        		
-        	}            
+            /**
+             * if exception is not expected throw exception
+             */
+            if ( (exceptionArray != null) && ! isExpected(c)) {
+            	throw new JellyTagException(t);
+            }
         }
     }
-    
+
     /**
 	 * @return the exceptions.
 	 */
@@ -127,43 +124,43 @@ public class CatchTag extends TagSupport {
 		return exceptions;
 	}
 
-	
+
 	/**
      * Dissect Exception stack to get the real exception throughout the JellyTagException wrapping
      * @param t
      * @return the first exception in stack that's not a JellyTagException
      */
-    protected Throwable getRealException(Throwable t) {
-        Throwable c = t.getCause();
-        Throwable realException = null; 
-        
+    protected Throwable getRealException(final Throwable t) {
+        final Throwable c = t.getCause();
+        Throwable realException = null;
+
         if ( c != null ) {
             if ( c instanceof JellyTagException ) {
                 realException = getRealException(c);
-                
+
                 if ( realException == null ) {
                     realException = c;
                 }
-                
+
             } else {
                 realException = c;
             }
         }
         return realException;
-    }	
+    }
 
 	/**
-     * 
+     *
      * @param t
      * @return true if t is expected
      */
-    public boolean isExpected(Throwable t) {
+    public boolean isExpected(final Throwable t) {
         if ( exceptionArray == null ) {
             return true;
         }
         Class clazz = null;
-        for ( int i = 0; i < exceptionArray.length; i ++ ) {
-            clazz = exceptionArray[i];
+        for (final Class element : exceptionArray) {
+            clazz = element;
             if ( clazz.isAssignableFrom(t.getClass())){
                 return true;
             }
@@ -173,23 +170,23 @@ public class CatchTag extends TagSupport {
 	/**
      * @param cause The cause to set.
      */
-    public void setCause(String cause) {
+    public void setCause(final String cause) {
         this.cause = cause;
     }
-    
+
     /**
 	 * @param exceptionList The exceptions to set. Must be separated by ";"
 	 */
-	public void setExceptions(String exceptionList) {
+	public void setExceptions(final String exceptionList) {
 		this.exceptions = exceptionList;
 	}
-    
+
     /**
      * Sets the name of the variable which is exposed with the Exception that gets
      * thrown by evaluating the body of this tag or which is set to null if there is
      * no exception thrown.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

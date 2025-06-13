@@ -34,7 +34,7 @@ public class JFaceImageTag extends ImageTag {
      * @return the parent window
      */
     public Window getParentWindow() {
-        ApplicationWindowTag tag =
+        final ApplicationWindowTag tag =
             (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
         if (tag != null) {
             return tag.getWindow();
@@ -47,7 +47,7 @@ public class JFaceImageTag extends ImageTag {
      * @param window
      * @param image
      */
-    private void setWindowImage(Window window, Image image) {
+    private void setWindowImage(final Window window, final Image image) {
         window.getShell().setImage(image);
     }
 
@@ -55,7 +55,7 @@ public class JFaceImageTag extends ImageTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         // invoke by body just in case some nested tag configures me
         invokeBody(output);
@@ -73,7 +73,7 @@ public class JFaceImageTag extends ImageTag {
             throw new JellyTagException("This tag must be nested within a Widget or a Window");
         }
 
-        Image image = new Image(parent.getDisplay(), getSrc());
+        final Image image = new Image(parent.getDisplay(), getSrc());
         if (window != null) {
             setWindowImage(window, image);
         } else {

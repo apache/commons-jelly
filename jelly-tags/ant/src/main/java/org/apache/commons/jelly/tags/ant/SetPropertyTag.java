@@ -21,7 +21,6 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -45,11 +44,11 @@ public class SetPropertyTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException("name");
         }
-        TaskSource tag = (TaskSource) findAncestorWithClass( TaskSource.class );
+        final TaskSource tag = (TaskSource) findAncestorWithClass( TaskSource.class );
         if ( tag == null ) {
             throw new JellyTagException( "This tag must be nested within an Ant task tag" );
         }
@@ -85,7 +84,7 @@ public class SetPropertyTag extends TagSupport {
      * Sets the name of the Ant task property to set.
      * @param name The name of the Ant task property to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -93,7 +92,7 @@ public class SetPropertyTag extends TagSupport {
      * Sets the value of the Ant task property to set.
      * @param value The value of the Ant task property to set
      */
-    public void setValue(Object value) {
+    public void setValue(final Object value) {
         this.value = value;
     }
 
@@ -108,7 +107,7 @@ public class SetPropertyTag extends TagSupport {
     /**
      * Sets the default value to be used if the specified value is empty.
      */
-    public void setDefault(Object defaultValue) {
+    public void setDefault(final Object defaultValue) {
         this.defaultValue = defaultValue;
     }
 

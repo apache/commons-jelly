@@ -18,6 +18,7 @@
 package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
+
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 
@@ -62,7 +63,7 @@ public class PutTag extends HttpTagSupport {
      * @param value the parameter value
      */
     @Override
-    public void addParameter(String name, String value) {
+    public void addParameter(final String name, final String value) {
         throw new IllegalArgumentException("PUT requests don't have params");
     }
 

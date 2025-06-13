@@ -34,7 +34,7 @@ public class LayoutTag extends LayoutTagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(LayoutTag.class);
 
-    public LayoutTag(Class layoutClass) {
+    public LayoutTag(final Class layoutClass) {
         super(layoutClass);
     }
 
@@ -45,7 +45,7 @@ public class LayoutTag extends LayoutTagSupport {
      * @return the Layout if there is one otherwise null
      */
     public Layout getLayout() {
-        Object bean = getBean();
+        final Object bean = getBean();
         if (bean instanceof Layout) {
             return (Layout) bean;
         }
@@ -59,32 +59,30 @@ public class LayoutTag extends LayoutTagSupport {
      * Either defines a variable or adds the current component to the parent
      */
     @Override
-    protected void processBean(String var, Object bean)
+    protected void processBean(final String var, final Object bean)
         throws JellyTagException {
         super.processBean(var, bean);
 
-        Widget parent = getParentWidget();
+        final Widget parent = getParentWidget();
 
-        if (parent instanceof Composite) {
-            Composite composite = (Composite) parent;
-            composite.setLayout(getLayout());
-
-        } else {
+        if (!(parent instanceof Composite)) {
             throw new JellyTagException("This tag must be nested within a composite widget tag");
         }
+        final Composite composite = (Composite) parent;
+        composite.setLayout(getLayout());
     }
 
     /**
      * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     @Override
-    protected Object convertValue(Object bean, String name, Object value)
+    protected Object convertValue(final Object bean, final String name, final Object value)
         throws JellyTagException {
 
         if (bean instanceof FillLayout
             && name.equals("type")
             && value instanceof String) {
-            int style = SwtHelper.parseStyle(SWT.class, (String) value);
+            final int style = SwtHelper.parseStyle(SWT.class, (String) value);
             return new Integer(style);
         }
         return super.convertValue(bean, name, value);

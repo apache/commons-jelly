@@ -44,7 +44,7 @@ public class BreakTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws BreakException, JellyTagException {
+    public void doTag(final XMLOutput output) throws BreakException, JellyTagException {
         boolean broken = false;
         if (test == null || test.evaluateAsBoolean(context)) {
             broken = true;
@@ -64,7 +64,7 @@ public class BreakTag extends TagSupport {
      *
      * @param test the Jelly expression to evaluate
      */
-    public void setTest(Expression test) {
+    public void setTest(final Expression test) {
         this.test = test;
     }
 
@@ -72,7 +72,7 @@ public class BreakTag extends TagSupport {
      * Sets the variable name to export indicating if the item was broken
      * @param var name of the variable to be exported
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

@@ -64,7 +64,7 @@ public class TransactionTag extends TagSupport {
      * Sets the SQL DataSource. DataSource can be
      * a String or a DataSource object.
      */
-    public void setDataSource(Object dataSource) {
+    public void setDataSource(final Object dataSource) {
         this.rawDataSource = dataSource;
         this.dataSourceSpecified = true;
     }
@@ -78,13 +78,13 @@ public class TransactionTag extends TagSupport {
      * the transaction.
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
-        if ((rawDataSource == null) && dataSourceSpecified) {
+        if (rawDataSource == null && dataSourceSpecified) {
             throw new JellyTagException(Resources.getMessage("SQL_DATASOURCE_NULL"));
         }
 
-        DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
+        final DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
 
         try {
             conn = dataSource.getConnection();
@@ -92,13 +92,13 @@ public class TransactionTag extends TagSupport {
             if (origIsolation == Connection.TRANSACTION_NONE) {
                 throw new JellyTagException(Resources.getMessage("TRANSACTION_NO_SUPPORT"));
             }
-            if ((isolation != Connection.TRANSACTION_NONE)
-                && (isolation != origIsolation)) {
+            if (isolation != Connection.TRANSACTION_NONE
+                && isolation != origIsolation) {
                 conn.setTransactionIsolation(isolation);
             }
             conn.setAutoCommit(false);
         }
-        catch (SQLException e) {
+        catch (final SQLException e) {
             throw new JellyTagException(
                 Resources.getMessage("ERROR_GET_CONNECTION", e.getMessage()));
         }
@@ -108,12 +108,12 @@ public class TransactionTag extends TagSupport {
             invokeBody(output);
             finished = true;
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             if (conn != null) {
                 try {
                     conn.rollback();
                 }
-                catch (SQLException s) {
+                catch (final SQLException s) {
                     // Ignore to not hide orignal exception
                 }
                 doFinally();
@@ -125,7 +125,7 @@ public class TransactionTag extends TagSupport {
         try {
             conn.commit();
         }
-        catch (SQLException e) {
+        catch (final SQLException e) {
             throw new JellyTagException(
                 Resources.getMessage("TRANSACTION_COMMIT_ERROR", e.getMessage()));
         }
@@ -140,21 +140,26 @@ public class TransactionTag extends TagSupport {
     /**
      * Sets the transaction isolation level.
      */
-    public void setIsolation(String iso) throws JellyTagException {
+    public void setIsolation(final String iso) throws JellyTagException {
 
-        if (TRANSACTION_READ_COMMITTED.equals(iso)) {
-            isolation = Connection.TRANSACTION_READ_COMMITTED;
-        }
-        else if (TRANSACTION_READ_UNCOMMITTED.equals(iso)) {
-            isolation = Connection.TRANSACTION_READ_UNCOMMITTED;
-        }
-        else if (TRANSACTION_REPEATABLE_READ.equals(iso)) {
-            isolation = Connection.TRANSACTION_REPEATABLE_READ;
-        }
-        else if (TRANSACTION_SERIALIZABLE.equals(iso)) {
-            isolation = Connection.TRANSACTION_SERIALIZABLE;
-        }
-        else {
+        if (iso != null) {
+            switch (iso) {
+            case TRANSACTION_READ_COMMITTED:
+                isolation = Connection.TRANSACTION_READ_COMMITTED;
+                break;
+            case TRANSACTION_READ_UNCOMMITTED:
+                isolation = Connection.TRANSACTION_READ_UNCOMMITTED;
+                break;
+            case TRANSACTION_REPEATABLE_READ:
+                isolation = Connection.TRANSACTION_REPEATABLE_READ;
+                break;
+            case TRANSACTION_SERIALIZABLE:
+                isolation = Connection.TRANSACTION_SERIALIZABLE;
+                break;
+            default:
+                throw new JellyTagException(Resources.getMessage("TRANSACTION_INVALID_ISOLATION"));
+            }
+        } else {
             throw new JellyTagException(Resources.getMessage("TRANSACTION_INVALID_ISOLATION"));
         }
     }
@@ -177,14 +182,14 @@ public class TransactionTag extends TagSupport {
     protected void doFinally() {
         if (conn != null) {
             try {
-                if ((isolation != Connection.TRANSACTION_NONE)
-                    && (isolation != origIsolation)) {
+                if (isolation != Connection.TRANSACTION_NONE
+                    && isolation != origIsolation) {
                     conn.setTransactionIsolation(origIsolation);
                 }
                 conn.setAutoCommit(true);
                 conn.close();
             }
-            catch (SQLException e) {
+            catch (final SQLException e) {
                 // Not much we can do
             }
         }

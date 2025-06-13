@@ -23,14 +23,14 @@ public class TestCoreMemoryLeak extends BaseMemoryLeakTest {
     /** The JUnit constructor.
      * @param name
      */
-    public TestCoreMemoryLeak(String name) {
+    public TestCoreMemoryLeak(final String name) {
         super(name);
     }
-    
+
     public void testBasicScriptForLeak() throws Exception {
         assertTrue("Leak in core library", runScriptManyTimes("c.jelly", 10000) < 200000);
     }
-    
+
     public void testIncludeTagForLeak() throws Exception {
         assertTrue("Leak in include tag", runScriptManyTimes("a.jelly", 10000) < 200000);
     }

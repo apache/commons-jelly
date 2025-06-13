@@ -32,11 +32,11 @@ public class AssertEqualsTag extends AssertTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        String message = getBodyText();
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final String message = getBodyText();
 
-        Object expectedValue = expected.evaluate(context);
-        Object actualValue = actual.evaluate(context);
+        final Object expectedValue = expected.evaluate(context);
+        final Object actualValue = actual.evaluate(context);
 
         if (expectedValue == null && actualValue == null) {
             return;
@@ -45,7 +45,7 @@ public class AssertEqualsTag extends AssertTagSupport {
             return;
         }
 
-        String expressions = "\nExpected expression: ("
+        final String expressions = "\nExpected expression: ("
             + expected.getExpressionText() + ")=(" + expectedValue + ")"
             + "\nActual expression: ("
             + actual.getExpressionText() + ")=(" + actualValue + ")";
@@ -60,14 +60,14 @@ public class AssertEqualsTag extends AssertTagSupport {
      * Sets the actual value which will be compared against the
      * expected value.
      */
-    public void setActual(Expression actual) {
+    public void setActual(final Expression actual) {
         this.actual = actual;
     }
 
     /**
      * Sets the expected value to be tested against
      */
-    public void setExpected(Expression expected) {
+    public void setExpected(final Expression expected) {
         this.expected = expected;
     }
 }

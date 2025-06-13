@@ -49,7 +49,7 @@ public abstract class QuartzTagSupport extends TagSupport
 
         if ( sched == null )
         {
-            StdSchedulerFactory factory = new StdSchedulerFactory();
+            final StdSchedulerFactory factory = new StdSchedulerFactory();
 
             final Scheduler newSched = factory.getScheduler();
 
@@ -70,7 +70,7 @@ public abstract class QuartzTagSupport extends TagSupport
                                 newSched.shutdown();
                             }
                         }
-                        catch (SchedulerException e)
+                        catch (final SchedulerException e)
                         {
                             e.printStackTrace();
                         }

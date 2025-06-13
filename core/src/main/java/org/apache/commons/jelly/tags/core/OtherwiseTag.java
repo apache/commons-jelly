@@ -30,8 +30,8 @@ public class OtherwiseTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        ChooseTag tag = (ChooseTag) findAncestorWithClass( ChooseTag.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final ChooseTag tag = (ChooseTag) findAncestorWithClass( ChooseTag.class );
         if ( tag == null ) {
             throw new JellyTagException( "This tag must be enclosed inside a <choose> tag" );
         }

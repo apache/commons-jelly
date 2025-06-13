@@ -7,9 +7,9 @@ package org.apache.commons.jelly.tags.ant;
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      https://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -58,7 +58,7 @@ public class GrantProject extends Project {
      *         or {@code null} to remove any currently installed
      *         <code>PropsHandler</code>.
      */
-    public void setPropsHandler(PropsHandler propsHandler) {
+    public void setPropsHandler(final PropsHandler propsHandler) {
         this.propsHandler = propsHandler;
     }
 
@@ -76,22 +76,22 @@ public class GrantProject extends Project {
     //     org.apache.tools.ant.Project implementation
     // ------------------------------------------------------------
 
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     //         properties delegators:
     //
     //         If a PropsHandler is not installed, delegate
     //         up the hierarchy to the ant.Project parent
     //         class.  Otherwise, delegate outwards using
     //         the PropsHandler.
-    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
     @Override
-    public String replaceProperties(String value) throws BuildException {
+    public String replaceProperties(final String value) throws BuildException {
         return ProjectHelper.replaceProperties(this, value, getProperties());
     }
 
     @Override
-    public synchronized void setProperty(String key, String value) {
+    public synchronized void setProperty(final String key, final String value) {
         if (this.propsHandler == null) {
             super.setProperty(key, value);
         }
@@ -101,7 +101,7 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public synchronized void setUserProperty(String key, String value) {
+    public synchronized void setUserProperty(final String key, final String value) {
         if (this.propsHandler == null) {
             super.setUserProperty(key, value);
         }
@@ -111,7 +111,7 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public synchronized void setNewProperty(String key, String value) {
+    public synchronized void setNewProperty(final String key, final String value) {
         if (this.propsHandler == null) {
             super.setNewProperty(key, value);
         }
@@ -121,7 +121,7 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public void setInheritedProperty(String key, String value) {
+    public void setInheritedProperty(final String key, final String value) {
         if (this.propsHandler == null) {
             super.setInheritedProperty(key, value);
         }
@@ -131,7 +131,7 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public String getProperty(String key) {
+    public String getProperty(final String key) {
         if (this.propsHandler == null) {
             return super.getProperty(key);
         }
@@ -140,7 +140,7 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public String getUserProperty(String key) {
+    public String getUserProperty(final String key) {
         if (this.propsHandler == null) {
             return super.getUserProperty(key);
         }
@@ -167,7 +167,7 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public void copyUserProperties(Project other) {
+    public void copyUserProperties(final Project other) {
         if (this.propsHandler == null) {
             super.copyUserProperties(other);
         }
@@ -177,7 +177,7 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public void copyInheritedProperties(Project other) {
+    public void copyInheritedProperties(final Project other) {
         if (this.propsHandler == null) {
             super.copyInheritedProperties(other);
         }
@@ -207,7 +207,7 @@ public class GrantProject extends Project {
     }
 
     @Override
-    public void setBaseDir(File baseDir) throws BuildException {
+    public void setBaseDir(final File baseDir) throws BuildException {
         super.setBaseDir(baseDir);
 
         if (this.propsHandler != null) {

@@ -16,18 +16,17 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Collections;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathComparator;
 import org.apache.commons.jelly.xpath.XPathSource;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
-
-import org.jaxen.XPath;
 import org.jaxen.JaxenException;
+import org.jaxen.XPath;
 
 /** A tag which performs an iteration over the results of an XPath expression
   */
@@ -52,22 +51,22 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if (select != null) {
             List nodes = null;
             try {
                 nodes = select.selectNodes( getXPathContext() );
             }
-            catch (JaxenException e) {
+            catch (final JaxenException e) {
                 throw new JellyTagException(e);
             }
 
             // sort the list if xpCmp is set.
-            if (xpCmp != null && (xpCmp.getXpath() != null)) {
+            if (xpCmp != null && xpCmp.getXpath() != null) {
                 Collections.sort(nodes, xpCmp);
             }
 
-            Iterator iter = nodes.iterator();
+            final Iterator iter = nodes.iterator();
             while (iter.hasNext()) {
                 iterationValue = iter.next();
                 if (var != null) {
@@ -94,28 +93,32 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     //-------------------------------------------------------------------------
     /** Sets the XPath selection expression
       */
-    public void setSelect(XPath select) {
+    public void setSelect(final XPath select) {
         this.select = select;
     }
 
     /** Sets the variable name to export for the item being iterated over
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
     /** Sets the xpath expression to use to sort selected nodes.
      */
-    public void setSort(XPath sortXPath) throws JaxenException {
-        if (xpCmp == null) xpCmp = new XPathComparator();
+    public void setSort(final XPath sortXPath) throws JaxenException {
+        if (xpCmp == null) {
+            xpCmp = new XPathComparator();
+        }
         xpCmp.setXpath(sortXPath);
     }
 
     /**
      * Sets whether to sort ascending or descending.
      */
-    public void setDescending(boolean descending) {
-        if (xpCmp == null) xpCmp = new XPathComparator();
+    public void setDescending(final boolean descending) {
+        if (xpCmp == null) {
+            xpCmp = new XPathComparator();
+        }
         xpCmp.setDescending(descending);
     }
 

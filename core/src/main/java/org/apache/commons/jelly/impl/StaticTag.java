@@ -39,12 +39,12 @@ public class StaticTag extends DynaTagSupport {
     private String localName;
 
     /** The XML Attributes */
-    private AttributesImpl attributes = new AttributesImpl();
+    private final AttributesImpl attributes = new AttributesImpl();
 
     public StaticTag() {
     }
 
-    public StaticTag(String uri, String localName, String qualifiedName) {
+    public StaticTag(final String uri, final String localName, final String qualifiedName) {
         this.uri = uri;
         this.localName = localName;
         this.qualifiedName = qualifiedName;
@@ -53,12 +53,12 @@ public class StaticTag extends DynaTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         try {
             output.startElement(uri, localName, qualifiedName, attributes);
             invokeBody(output);
             output.endElement(uri, localName, qualifiedName);
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             throw new JellyTagException(e);
         } finally {
             attributes.clear();
@@ -82,11 +82,11 @@ public class StaticTag extends DynaTagSupport {
     // DynaTag interface
     //-------------------------------------------------------------------------
     @Override
-    public void setAttribute(String name, Object value) throws JellyTagException {
+    public void setAttribute(final String name, final Object value) throws JellyTagException {
         // ### we'll assume that all attributes are in no namespace!
         // ### this is severely limiting!
         // ### - Tag attributes should allow for namespace aware
-        int index = attributes.getIndex("", name);
+        final int index = attributes.getIndex("", name);
         if (index >= 0) {
             attributes.removeAttribute(index);
         }
@@ -96,13 +96,15 @@ public class StaticTag extends DynaTagSupport {
         }
     }
 
-    public void setAttribute(String name, String prefix, String nsURI, Object value) {
-        if (value == null)
+    public void setAttribute(final String name, final String prefix, final String nsURI, final Object value) {
+        if (value == null) {
             return;
-        if (prefix != null && prefix.length() > 0)
+        }
+        if (prefix != null && prefix.length() > 0) {
             attributes.addAttribute(nsURI, name, prefix + ":" + name, "CDATA", value.toString());
-        else
+        } else {
             attributes.addAttribute("", name, name, "CDATA", value.toString());
+        }
     }
 
     public void setLocalName(String localName) {
@@ -113,9 +115,9 @@ public class StaticTag extends DynaTagSupport {
         }
     }
 
-    public void setQName(String qualifiedName) {
+    public void setQName(final String qualifiedName) {
         this.qualifiedName = qualifiedName;
-        int idx = qualifiedName.indexOf(':');
+        final int idx = qualifiedName.indexOf(':');
         if (idx >= 0) {
             this.localName = qualifiedName.substring(idx + 1);
         }
@@ -124,7 +126,7 @@ public class StaticTag extends DynaTagSupport {
         }
     }
 
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 

@@ -38,23 +38,24 @@ public class RunnableStatus {
 
     }
 
-    public RunnableStatus(int status) {
+    public RunnableStatus(final int status) {
         set(status);
     }
 
-    public synchronized void set(int status) {
+    public synchronized void set(final int status) {
         set(status, null);
     }
 
-    public synchronized void set(int status, Exception e) {
+    public synchronized void set(final int status, final Exception e) {
         // this check is important since I may call setStatus(BLAH) again
         // to trigger the callback
         if (this.status != status) {
             this.status = status;
 
             // store the exception if one was set
-            if (e != null)
+            if (e != null) {
                 this.exception = e;
+            }
         }
     }
 
@@ -63,34 +64,34 @@ public class RunnableStatus {
     }
 
     public synchronized boolean isSuccess() {
-        return (status == SUCCESS);
+        return status == SUCCESS;
     }
 
     public synchronized boolean isFailure() {
-        return (status == FAILURE);
+        return status == FAILURE;
     }
 
     public synchronized boolean isAvoided() {
-        return (status == AVOIDED);
+        return status == AVOIDED;
     }
 
     public synchronized boolean isTimedOut() {
-        return (status == TIMED_OUT);
+        return status == TIMED_OUT;
     }
 
     public synchronized boolean isKilled() {
-        return (status == KILLED);
+        return status == KILLED;
     }
 
     public synchronized Exception getException() {
         return exception;
     }
 
-    public synchronized boolean equals(RunnableStatus status) {
+    public synchronized boolean equals(final RunnableStatus status) {
         return status.get() == this.status;
     }
 
-    public synchronized boolean equals(int status) {
+    public synchronized boolean equals(final int status) {
         return this.status == status;
     }
 
@@ -100,53 +101,58 @@ public class RunnableStatus {
      * @param status The status string rep.
      * @return The status enum value
      */
-    public static int getStatusCode(String status) {
+    public static int getStatusCode(final String status) {
         if (status.equalsIgnoreCase("SUCCESS")) {
             return SUCCESS;
-        } else if (status.equalsIgnoreCase("FAILURE")) {
-            return FAILURE;
-        } else if (status.equalsIgnoreCase("TIMED_OUT")) {
-            return TIMED_OUT;
-        } else if (status.equalsIgnoreCase("AVOIDED")) {
-            return AVOIDED;
-        } else if (status.equalsIgnoreCase("KILLED")) {
-            return KILLED;
-        } else {
-            throw new IllegalArgumentException(status + " is invalid status");
         }
+        if (status.equalsIgnoreCase("FAILURE")) {
+            return FAILURE;
+        }
+        if (status.equalsIgnoreCase("TIMED_OUT")) {
+            return TIMED_OUT;
+        }
+        if (status.equalsIgnoreCase("AVOIDED")) {
+            return AVOIDED;
+        }
+        if (status.equalsIgnoreCase("KILLED")) {
+            return KILLED;
+        }
+        throw new IllegalArgumentException(status + " is invalid status");
     }
 
     /**
      * The reverse of getStatusCode
      */
-    public static String getStatusString(int status) {
-        if (status == SUCCESS) {
+    public static String getStatusString(final int status) {
+        switch (status) {
+        case SUCCESS:
             return "SUCCESS";
-        } else if (status == FAILURE) {
+        case FAILURE:
             return "FAILURE";
-        } else if (status == TIMED_OUT) {
+        case TIMED_OUT:
             return "TIMED_OUT";
-        } else if (status == AVOIDED) {
+        case AVOIDED:
             return "AVOIDED";
-        } else if (status == KILLED) {
+        case KILLED:
             return "KILLED";
-        } else {
+        default:
             throw new IllegalArgumentException(status + " is invalid status");
         }
     }
 
-    public static boolean isValidStatus(int status) {
-        if (status == SUCCESS) {
+    public static boolean isValidStatus(final int status) {
+        switch (status) {
+        case SUCCESS:
             return true;
-        } else if (status == FAILURE) {
+        case FAILURE:
             return true;
-        } else if (status == TIMED_OUT) {
+        case TIMED_OUT:
             return true;
-        } else if (status == AVOIDED) {
+        case AVOIDED:
             return true;
-        } else if (status == KILLED) {
+        case KILLED:
             return true;
-        } else {
+        default:
             return false;
         }
     }

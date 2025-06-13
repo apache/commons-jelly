@@ -40,8 +40,8 @@ public class ColorConverter implements Converter {
      * @param value
      * @return RGB
      */
-    protected RGB parseRGB(String value) {
-        StringTokenizer items = new StringTokenizer(value, ",");
+    protected RGB parseRGB(final String value) {
+        final StringTokenizer items = new StringTokenizer(value, ",");
         int red = 0;
         int green = 0;
         int blue = 0;
@@ -62,19 +62,19 @@ public class ColorConverter implements Converter {
      * @param value
      * @return RGB
      */
-    protected RGB parseHtml(String value) {
+    protected RGB parseHtml(final String value) {
         if (value.length() != 7) {
             throw new IllegalArgumentException(usageText);
         }
         int colorValue = 0;
         try {
             colorValue = Integer.parseInt(value.substring(1), 16);
-            java.awt.Color swingColor = new java.awt.Color(colorValue);
+            final java.awt.Color swingColor = new java.awt.Color(colorValue);
             return new RGB(
                 swingColor.getRed(),
                 swingColor.getGreen(),
                 swingColor.getBlue());
-        } catch (NumberFormatException ex) {
+        } catch (final NumberFormatException ex) {
             throw new IllegalArgumentException(
                 value + "is not a valid Html color\n " + ex);
         }
@@ -83,27 +83,27 @@ public class ColorConverter implements Converter {
     /**
      * Parse a String
      */
-    public RGB parse(String value) {
+    public RGB parse(final String value) {
         if (value.length() <= 1) {
             throw new IllegalArgumentException(usageText);
         }
 
         if (value.charAt(0) == '#') {
             return parseHtml(value);
-        } else if (value.indexOf(',') != -1) {
-            return parseRGB(value);
-        } else {
-            throw new IllegalArgumentException(usageText);
         }
+        if (value.indexOf(',') != -1) {
+            return parseRGB(value);
+        }
+        throw new IllegalArgumentException(usageText);
     }
 
     // Converter interface
     //-------------------------------------------------------------------------
     @Override
-    public Object convert(Class type, Object value) {
+    public Object convert(final Class type, final Object value) {
         Object answer = null;
         if (value != null) {
-            String text = value.toString();
+            final String text = value.toString();
             answer = parse(text);
         }
 

@@ -37,14 +37,14 @@ public class ResultSetTag extends TagSupport {
     /**
      * Adds the given row to the list of rows
      */
-    public void addRow(Map row) {
+    public void addRow(final Map row) {
         rows.add(row);
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException( "var" );
         }
@@ -52,7 +52,7 @@ public class ResultSetTag extends TagSupport {
         invokeBody(output);
 
         // now lets create a new Result implementation
-        ResultImpl results = new ResultImpl( rows );
+        final ResultImpl results = new ResultImpl( rows );
         context.setVariable(var, results);
         rows = null;
     }
@@ -62,7 +62,7 @@ public class ResultSetTag extends TagSupport {
     /**
      * Sets the variable to export the result set to.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

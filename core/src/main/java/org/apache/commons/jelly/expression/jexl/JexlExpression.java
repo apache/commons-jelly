@@ -30,9 +30,9 @@ import org.apache.commons.logging.LogFactory;
 
 final class JellyJexlContext implements JexlContext {
 
-    private Map vars;
+    private final Map vars;
 
-    JellyJexlContext(JellyContext context) {
+    JellyJexlContext(final JellyContext context) {
         this.vars = new JellyMap( context );
     }
 
@@ -42,7 +42,7 @@ final class JellyJexlContext implements JexlContext {
     }
 
     @Override
-    public void setVars(Map vars) {
+    public void setVars(final Map vars) {
         this.vars.clear();
         this.vars.putAll( vars );
     }
@@ -50,9 +50,9 @@ final class JellyJexlContext implements JexlContext {
 
 final class JellyMap implements Map {
 
-    private JellyContext context;
+    private final JellyContext context;
 
-    JellyMap(JellyContext context) {
+    JellyMap(final JellyContext context) {
         this.context = context;
     }
 
@@ -62,12 +62,12 @@ final class JellyMap implements Map {
     }
 
     @Override
-    public boolean containsKey(Object key) {
-        return ( get( key ) != null );
+    public boolean containsKey(final Object key) {
+        return get( key ) != null;
     }
 
     @Override
-    public boolean containsValue(Object value) {
+    public boolean containsValue(final Object value) {
         return false;
     }
 
@@ -77,7 +77,7 @@ final class JellyMap implements Map {
     }
 
     @Override
-    public Object get(Object key) {
+    public Object get(final Object key) {
         return context.getVariable( (String) key );
     }
 
@@ -92,17 +92,17 @@ final class JellyMap implements Map {
     }
 
     @Override
-    public Object put(Object key, Object value) {
+    public Object put(final Object key, final Object value) {
         return null;
     }
 
     @Override
-    public void putAll(Map t) {
+    public void putAll(final Map t) {
         // not implemented
     }
 
     @Override
-    public Object remove(Object key) {
+    public Object remove(final Object key) {
         return null;
     }
 
@@ -129,20 +129,20 @@ public class JexlExpression extends ExpressionSupport {
     private static final Log log = LogFactory.getLog(JexlExpression.class);
 
     /** The Jexl expression object */
-    private Expression expression;
+    private final Expression expression;
 
-    public JexlExpression(Expression expression) {
+    public JexlExpression(final Expression expression) {
         this.expression = expression;
     }
 
     @Override
-    public Object evaluate(JellyContext context) {
+    public Object evaluate(final JellyContext context) {
         try {
-            JexlContext jexlContext = new JellyJexlContext( context );
+            final JexlContext jexlContext = new JellyJexlContext( context );
             if (log.isDebugEnabled()) {
                 log.debug("Evaluating EL: " + expression.getExpression());
             }
-            Object value = expression.evaluate(jexlContext);
+            final Object value = expression.evaluate(jexlContext);
 
             if (log.isDebugEnabled()) {
                 log.debug("value of expression: " + value);
@@ -150,17 +150,18 @@ public class JexlExpression extends ExpressionSupport {
 
             return value;
         }
-        catch (Exception e) {
+        catch (final Exception e) {
         	if (context.isSuppressExpressionExceptions()) {
 	            log.warn("Caught exception evaluating: " + expression + ". Reason: " + e, e);
 	            return null;
-        	} else {
-        		if (e instanceof RuntimeException)
-        			throw (RuntimeException)e;
-        		if (e instanceof IllegalStateException)
-        			throw (IllegalStateException )e;
-            	throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
         	}
+            if (e instanceof RuntimeException) {
+                throw (RuntimeException)e;
+            }
+            if (e instanceof IllegalStateException) {
+                throw (IllegalStateException )e;
+            }
+            throw (IllegalStateException)new IllegalStateException (e.getMessage(), e);
         }
     }
 

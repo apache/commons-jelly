@@ -39,7 +39,7 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
         context.setVariable(var, list);
         list = new ArrayList();
@@ -48,7 +48,7 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
-    public void addItem(Object value) {
+    public void addItem(final Object value) {
         list.add(value);
     }
 
@@ -65,7 +65,7 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
      * Sets the var.
      * @param var The var to set
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

@@ -44,14 +44,14 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
     /** The object to invoke the method on */
     private Object onInstance;
 
-    private List paramTypes = new ArrayList();
-    private List paramValues = new ArrayList();
+    private final List paramTypes = new ArrayList();
+    private final List paramValues = new ArrayList();
 
     public InvokeTag() {
     }
 
     @Override
-    public void addArgument(Class type, Object value) {
+    public void addArgument(final Class type, final Object value) {
         paramTypes.add(type);
         paramValues.add(value);
     }
@@ -59,7 +59,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( null == methodName) {
             throw new MissingAttributeException( "method" );
         }
@@ -69,32 +69,28 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
 
         invokeBody(output);
 
-        Object[] values = paramValues.toArray();
-        Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
+        final Object[] values = paramValues.toArray();
+        final Class[] types = (Class[])paramTypes.toArray(new Class[paramTypes.size()]);
 
         Object result = null;
         try {
             result = MethodUtils.invokeMethod(onInstance, methodName, values, types);
         }
-        catch (NoSuchMethodException e) {
+        catch (final NoSuchMethodException | IllegalAccessException e) {
             throw new JellyTagException(e);
         }
-        catch (IllegalAccessException e) {
-            throw new JellyTagException(e);
-        }
-        catch (InvocationTargetException e) {
-            if (null != exceptionVar) {
-                context.setVariable(exceptionVar,e.getTargetException());
-            } else {
+        catch (final InvocationTargetException e) {
+            if (null == exceptionVar) {
                 throw new JellyTagException("method " + methodName + " threw exception: " + e.getTargetException().getMessage(), e.getTargetException());
             }
+            context.setVariable(exceptionVar,e.getTargetException());
         }
         finally {
             paramTypes.clear();
             paramValues.clear();
         }
 
-        ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
+        final ArgTag parentArg = (ArgTag)findAncestorWithClass(ArgTag.class);
         if (null != parentArg) {
             parentArg.setValue(result);
         }
@@ -106,20 +102,20 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
     /** Sets the name of a variable that exports the exception thrown by
      * the method's invocation (if any)
      */
-    public void setExceptionVar(String var) {
+    public void setExceptionVar(final String var) {
         this.exceptionVar = var;
     }
 
-    public void setMethod(String method) {
+    public void setMethod(final String method) {
         this.methodName = method;
     }
 
-    public void setOn(Object instance) {
+    public void setOn(final Object instance) {
         this.onInstance = instance;
     }
 
     /** Sets the name of the variable exported by this tag */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

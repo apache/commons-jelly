@@ -31,13 +31,13 @@ public class TestNewTag extends BaseJellyTest {
         return new TestSuite(TestNewTag.class);
     }
 
-    public TestNewTag(String name) {
+    public TestNewTag(final String name) {
         super(name);
     }
 
     public void testNewThenOverwrite() throws Exception {
         setUpScript("testNewTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.newThenOverwrite",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
@@ -46,44 +46,44 @@ public class TestNewTag extends BaseJellyTest {
 
     public void testNewWithExpressionArg() throws Exception {
         setUpScript("testNewTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.newWithExpressionArg",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertNotNull(customer.getName());
         assertEquals("Jane Doe",customer.getName());
     }
 
     public void testNewWithLiteralArg() throws Exception {
         setUpScript("testNewTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.newWithLiteralArg",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertNotNull(customer.getName());
         assertEquals("Jane Doe",customer.getName());
     }
 
     public void testNewWithNewArg() throws Exception {
         setUpScript("testNewTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.newWithNewArg",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         {
             assertNotNull(getJellyContext().getVariable("foo"));
             assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-            Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+            final Customer customer = (Customer)getJellyContext().getVariable("foo");
             assertNotNull(customer.getName());
             assertEquals("",customer.getName());
         }
         {
             assertNotNull(getJellyContext().getVariable("bar"));
             assertTrue(getJellyContext().getVariable("bar") instanceof Customer);
-            Customer customer = (Customer)(getJellyContext().getVariable("bar"));
+            final Customer customer = (Customer)getJellyContext().getVariable("bar");
             assertEquals("Jane Doe",customer.getName());
             assertEquals("Chicago",customer.getCity());
             assertNotNull(customer.getOrders());
@@ -93,7 +93,7 @@ public class TestNewTag extends BaseJellyTest {
         {
             assertNotNull(getJellyContext().getVariable("qux"));
             assertTrue(getJellyContext().getVariable("qux") instanceof Customer);
-            Customer customer = (Customer)(getJellyContext().getVariable("qux"));
+            final Customer customer = (Customer)getJellyContext().getVariable("qux");
             assertEquals("Jane Doe",customer.getName());
             assertEquals("Chicago",customer.getCity());
             assertNotNull(customer.getOrders());
@@ -104,23 +104,23 @@ public class TestNewTag extends BaseJellyTest {
 
     public void testNewWithNullArg() throws Exception {
         setUpScript("testNewTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.newWithNullArg",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertNull(customer.getName());
     }
 
     public void testNewWithTwoArgs() throws Exception {
         setUpScript("testNewTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.newWithTwoArgs",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertNotNull(customer.getName());
         assertEquals("Jane Doe",customer.getName());
         assertNotNull(customer.getCity());
@@ -129,12 +129,12 @@ public class TestNewTag extends BaseJellyTest {
 
     public void testNewWithUseBeanArg() throws Exception {
         setUpScript("testNewTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.newWithUseBeanArg",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertEquals("Jane Doe",customer.getName());
         assertEquals("Chicago",customer.getCity());
         assertEquals("Location",customer.getLocation());
@@ -142,12 +142,12 @@ public class TestNewTag extends BaseJellyTest {
 
     public void testSimpleNew() throws Exception {
         setUpScript("testNewTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.simpleNew",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertNull(customer.getName());
     }
 }

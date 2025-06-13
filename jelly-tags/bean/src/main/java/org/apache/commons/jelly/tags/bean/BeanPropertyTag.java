@@ -22,7 +22,6 @@ import java.lang.reflect.Modifier;
 import java.util.Map;
 
 import org.apache.commons.beanutils2.MethodUtils;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
@@ -42,7 +41,7 @@ public class BeanPropertyTag extends BeanTag {
     /** The name of the create method */
     private String createMethodName;
 
-    public BeanPropertyTag(String tagName) {
+    public BeanPropertyTag(final String tagName) {
         super(Object.class, tagName);
 
         if (tagName.length() > 0) {
@@ -56,29 +55,29 @@ public class BeanPropertyTag extends BeanTag {
      * Creates a new instance by calling a create method on the parent bean
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
-        Object parentObject = getParentObject();
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output) throws JellyTagException {
+        final Object parentObject = getParentObject();
         if (parentObject != null) {
             // now lets try call the create method...
-            Class parentClass = parentObject.getClass();
-            Method method = findCreateMethod(parentClass);
+            final Class parentClass = parentObject.getClass();
+            final Method method = findCreateMethod(parentClass);
             if (method != null) {
                 try {
                     return method.invoke(parentObject, EMPTY_ARGS);
                 }
-                catch (Exception e) {
+                catch (final Exception e) {
                     throw new JellyTagException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
                 }
             }
-            else {
-                Class tagClass = theClass;
-                if (tagClass == Object.class)
-                    tagClass = findAddMethodClass(parentClass);
-                if (tagClass == null)
-                    throw new JellyTagException("unable to infer element class for tag "+getTagName());
-
-                return super.newInstance(tagClass, attributes, output) ;
+            Class tagClass = theClass;
+            if (tagClass == Object.class) {
+                tagClass = findAddMethodClass(parentClass);
             }
+            if (tagClass == null) {
+                throw new JellyTagException("unable to infer element class for tag "+getTagName());
+            }
+
+            return super.newInstance(tagClass, attributes, output) ;
         }
         throw new JellyTagException("The " + getTagName() + " tag must be nested within a tag which maps to a BeanSource implementor");
     }
@@ -90,19 +89,19 @@ public class BeanPropertyTag extends BeanTag {
      * @param parentClass
      * @return the class of the first and only parameter
      */
-    protected Class findAddMethodClass(Class parentClass) {
-        Method[] methods = parentClass.getMethods();
-        for (int i = 0; i < methods.length; i++) {
-            Method method = methods[i];
+    protected Class findAddMethodClass(final Class parentClass) {
+        final Method[] methods = parentClass.getMethods();
+        for (final Method method : methods) {
             if (Modifier.isPublic(method.getModifiers())) {
-                Class[] args = method.getParameterTypes();
+                final Class[] args = method.getParameterTypes();
                 if (method.getName().equals(addMethodName)
                       && java.lang.Void.TYPE.equals(method.getReturnType())
                       && args.length == 1
                       && !java.lang.String.class.equals(args[0])
                       && !args[0].isArray()
-                      && !args[0].isPrimitive())
+                      && !args[0].isPrimitive()) {
                     return args[0];
+                }
             }
         }
         return null;
@@ -111,7 +110,7 @@ public class BeanPropertyTag extends BeanTag {
     /**
      * Finds the Method to create a new property object
      */
-    protected Method findCreateMethod(Class theClass) {
+    protected Method findCreateMethod(final Class theClass) {
         if (createMethodName == null) {
             return null;
         }

@@ -28,12 +28,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import junit.framework.Assert;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
@@ -46,6 +40,12 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Node;
 import org.dom4j.io.SAXContentHandler;
 import org.dom4j.io.XMLWriter;
+
+import junit.framework.Assert;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
 /** Tests the parser, the engine and the XML tags
   */
@@ -60,7 +60,7 @@ public class TestXMLTags extends TestCase {
     /** Regular expression for multiple namespace attributes. */
     private static final String REG_NS = "( xmlns(:(\\w)+)?=\".+\")+";
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
 
@@ -75,8 +75,8 @@ public class TestXMLTags extends TestCase {
      * @param post the part after the namespace expression
      * @return the matcher
      */
-    private static Matcher matcherForNamespaceFragment(String s, String pre, String post) {
-        Pattern pattern = Pattern.compile(Pattern.quote(pre) + REG_NS + Pattern.quote(post));
+    private static Matcher matcherForNamespaceFragment(final String s, final String pre, final String post) {
+        final Pattern pattern = Pattern.compile(Pattern.quote(pre) + REG_NS + Pattern.quote(post));
         return pattern.matcher(s);
     }
 
@@ -89,8 +89,8 @@ public class TestXMLTags extends TestCase {
      * @param post the part after the namespace expression
      * @return the extracted namespace expression
      */
-    private static String checkNamespaceFragment(String s, String pre, String post) {
-        Matcher matcher = matcherForNamespaceFragment(s, pre, post);
+    private static String checkNamespaceFragment(final String s, final String pre, final String post) {
+        final Matcher matcher = matcherForNamespaceFragment(s, pre, post);
         assertTrue("Pattern '" + pre + REG_NS + post + "' does not match " + s,
                 matcher.matches());
         return matcher.group(1);
@@ -104,19 +104,19 @@ public class TestXMLTags extends TestCase {
      * @param post the part after the namespace expression
      * @param ns the namespaces to be matched in the fragment
      */
-    private static void findNamespaceFragment(String s, String pre, String post,
-                                                String... ns) {
-        Matcher matcher = matcherForNamespaceFragment(s, pre, post);
+    private static void findNamespaceFragment(final String s, final String pre, final String post,
+                                                final String... ns) {
+        final Matcher matcher = matcherForNamespaceFragment(s, pre, post);
         assertTrue("Pattern '" + pre + REG_NS + post + "' does not match " + s,
                 matcher.find());
-        String match = matcher.group(1);
-        for (String namespace : ns) {
+        final String match = matcher.group(1);
+        for (final String namespace : ns) {
             assertTrue("Namespace '" + namespace + "' not found in '" + match + "':",
                     match.contains(namespace));
         }
     }
 
-    public TestXMLTags(String testName) {
+    public TestXMLTags(final String testName) {
         super(testName);
     }
 
@@ -129,15 +129,15 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testParse() throws Exception {
-        InputStream in = new FileInputStream(testBaseDir + "/example.jelly");
-        XMLParser parser = new XMLParser();
+        final InputStream in = new FileInputStream(testBaseDir + "/example.jelly");
+        final XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
         log.debug("Found: " + script);
         assertTrue("Parsed a Script", script instanceof Script);
-        StringWriter buffer = new StringWriter();
+        final StringWriter buffer = new StringWriter();
         script.run(parser.getContext(), XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
+        final String text = buffer.toString().trim();
         if (log.isDebugEnabled()) {
             log.debug("Evaluated script as...");
             log.debug(text);
@@ -146,7 +146,7 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testElementWithNameSpace() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/elementWithNameSpace.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/elementWithNameSpace.jelly");
         assertEquals("Should produce the correct output",
                 "<env:Envelope "+
                 "xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\" "+
@@ -158,7 +158,7 @@ public class TestXMLTags extends TestCase {
         try {
             evaluateScriptAsText(testBaseDir + "/elementWithNameSpaceError.jelly");
             Assert.fail("We should have bailed out with an JellyException");
-        } catch (JellyException jex) {
+        } catch (final JellyException jex) {
             assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
         }
     }
@@ -167,13 +167,13 @@ public class TestXMLTags extends TestCase {
         // For this test when we not set "ns" var with expected namespace, it
         // is expected to repeat the same two times
         String text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly");
-        String repeatingText = "<test-subnode attr=\"test\"><test-anotherSubNode></test-anotherSubNode><test-anotherSubNodeAgain xmlns:other=\"\" other:abc=\"testValue\"></test-anotherSubNodeAgain></test-subnode>";
+        final String repeatingText = "<test-subnode attr=\"test\"><test-anotherSubNode></test-anotherSubNode><test-anotherSubNodeAgain xmlns:other=\"\" other:abc=\"testValue\"></test-anotherSubNodeAgain></test-subnode>";
         assertEquals("Should produce the correct output",
                 "<test-node xmlns:test=\"http://apache/testNS\" test:abc=\"testValue\">"+
                 repeatingText + repeatingText +
                 "</test-node>", text);
 
-        Map ctxVars = new HashMap();
+        final Map ctxVars = new HashMap();
         ctxVars.put("ns", "http://java/ns");
 
         text = evaluateScriptAsText(testBaseDir + "/namespaceReplace.jelly", ctxVars);
@@ -194,15 +194,15 @@ public class TestXMLTags extends TestCase {
         try {
             evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDuplicatedNS.jelly");
             Assert.fail("We should have bailed out with an JellyException");
-        } catch (JellyException jex) {
+        } catch (final JellyException jex) {
             assertTrue(jex.getReason().startsWith("Cannot set same prefix to different URI in same node"));
         }
     }
 
     public void testAttributeNameSpace() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpace.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpace.jelly");
         System.out.println(text);
-        String ns = checkNamespaceFragment(text, "<top-node xmlns=\"abc\"><test-node",
+        final String ns = checkNamespaceFragment(text, "<top-node xmlns=\"abc\"><test-node",
                 " test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
                         "<test:test-subnode><node-at-same-ns-as-top xmlns=\"abc\">"+
                         "</node-at-same-ns-as-top>"+
@@ -214,9 +214,9 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testAttributeNameSpaceDefaultNS() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDefaultNS.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceDefaultNS.jelly");
         System.out.println(text);
-        String ns = checkNamespaceFragment(text, "<top-node><test-node",
+        final String ns = checkNamespaceFragment(text, "<top-node><test-node",
                 " test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">" +
                         "<test:test-subnode><node-at-same-ns-as-top xmlns=\"\">"+
                         "</node-at-same-ns-as-top>"+
@@ -228,7 +228,7 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testAttributeNameSpaceWithInnerElements() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceWithInnerElements.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/attributeNameSpaceWithInnerElements.jelly");
         assertEquals("Should produce the correct output",
                 "<test-node xmlns:test=\"http://apache/testNS\" test:abc=\"testValue\" abc2=\"testValue\" abc3=\"testValue\">"+
                 "<test-sub-node xmlns:test2=\"http://apache/testNS\" xmlns:test3=\"http://apache/anotherNS\" test:abc=\"testValue\" test2:abc2=\"testValue\" test3:abc3=\"testValue\">"+
@@ -238,76 +238,76 @@ public class TestXMLTags extends TestCase {
     }
 
     public void testTransform() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/transformExample.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/transformExample.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformAllInLine() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/transformExampleAllInLine.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/transformExampleAllInLine.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformParams() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/transformParamExample.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/transformParamExample.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformParamsInLine() throws Exception {
 
-        String text = evaluateScriptAsText(testBaseDir + "/transformParamExample2.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/transformParamExample2.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformSAXOutput() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir + "/transformExampleSAXOutput.jelly");
+        final String text = evaluateScriptAsText(testBaseDir + "/transformExampleSAXOutput.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformSAXOutputNestedTransforms() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir +
+        final String text = evaluateScriptAsText(testBaseDir +
             "/transformExampleSAXOutputNestedTransforms.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testTransformSchematron() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir +
+        final String text = evaluateScriptAsText(testBaseDir +
             "/schematron/transformSchematronExample.jelly");
         assertEquals("Should produce the correct output", "Report count=1:assert count=2", text);
     }
 
     public void testTransformXmlVar() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir +
+        final String text = evaluateScriptAsText(testBaseDir +
             "/transformExampleXmlVar.jelly");
         assertEquals("Should produce the correct output", "It works!", text);
     }
 
     public void testDoctype() throws Exception {
-        String text = evaluateScriptAsText(testBaseDir +
+        final String text = evaluateScriptAsText(testBaseDir +
             "/testDoctype.jelly");
         assertEquals("Should produce the correct output", "<!DOCTYPE foo PUBLIC \"publicID\" \"foo.dtd\">\n<foo></foo>", text);
     }
 
-    public void runUnitTest(String name) throws Exception {
-        Document document = parseUnitTest(name);
+    public void runUnitTest(final String name) throws Exception {
+        final Document document = parseUnitTest(name);
 
-        List failures = document.selectNodes( "/*/fail" );
-        for ( Iterator iter = failures.iterator(); iter.hasNext(); ) {
-            Node node = (Node) iter.next();
+        final List failures = document.selectNodes( "/*/fail" );
+        for ( final Iterator iter = failures.iterator(); iter.hasNext(); ) {
+            final Node node = (Node) iter.next();
             fail( node.getStringValue() );
         }
     }
 
-    public Document parseUnitTest(String name) throws Exception {
+    public Document parseUnitTest(final String name) throws Exception {
         // parse script
-        InputStream in = new FileInputStream(name);
-        XMLParser parser = new XMLParser();
+        final InputStream in = new FileInputStream(name);
+        final XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
         assertTrue("Parsed a Script", script instanceof Script);
-        StringWriter buffer = new StringWriter();
+        final StringWriter buffer = new StringWriter();
         script.run(parser.getContext(), XMLOutput.createXMLOutput(buffer));
 
-        String text = buffer.toString().trim();
+        final String text = buffer.toString().trim();
         if (log.isDebugEnabled()) {
             log.debug("Evaluated script as...");
             log.debug(text);
@@ -321,7 +321,7 @@ public class TestXMLTags extends TestCase {
      * Evaluates the script by the given file name and
      * returns the whitespace trimmed output as text
      */
-    protected String evaluateScriptAsText(String fileName) throws Exception {
+    protected String evaluateScriptAsText(final String fileName) throws Exception {
         return evaluateScriptAsText(fileName, null);
     }
 
@@ -329,13 +329,13 @@ public class TestXMLTags extends TestCase {
      * Evaluates the script by the given file name and
      * returns the whitespace trimmed output as text
      */
-    protected String evaluateScriptAsText(String fileName, Map ctxVars) throws Exception {
-        JellyContext context = new JellyContext();
+    protected String evaluateScriptAsText(final String fileName, final Map ctxVars) throws Exception {
+        final JellyContext context = new JellyContext();
         if (ctxVars != null) {
-            Set keys = ctxVars.keySet();
-            for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
-                String key = (String) iterator.next();
-                Object value = ctxVars.get(key);
+            final Set keys = ctxVars.keySet();
+            for (final Iterator iterator = keys.iterator(); iterator.hasNext();) {
+                final String key = (String) iterator.next();
+                final Object value = ctxVars.get(key);
                 context.setVariable(key, value);
             }
         }
@@ -345,11 +345,11 @@ public class TestXMLTags extends TestCase {
         context.setRootURL(new File(".").toURL());
 
         // capture the output
-        StringWriter buffer = new StringWriter();
-        XMLOutput output = XMLOutput.createXMLOutput(buffer);
+        final StringWriter buffer = new StringWriter();
+        final XMLOutput output = XMLOutput.createXMLOutput(buffer);
 
         context.runScript( new File(fileName), output );
-        String text = buffer.toString().trim();
+        final String text = buffer.toString().trim();
         if (log.isDebugEnabled()) {
             log.debug("Evaluated script as...");
             log.debug(text);
@@ -357,28 +357,28 @@ public class TestXMLTags extends TestCase {
         return text;
     }
 
-    protected String evaluateScriptAsTextUsingSaxContentHandler(String fileName, Map ctxVars) throws Exception {
-        org.dom4j.io.OutputFormat outputFormat = new org.dom4j.io.OutputFormat();
+    protected String evaluateScriptAsTextUsingSaxContentHandler(final String fileName, final Map ctxVars) throws Exception {
+        final org.dom4j.io.OutputFormat outputFormat = new org.dom4j.io.OutputFormat();
         outputFormat.setSuppressDeclaration(true);
         outputFormat.setNewlines(false);
         outputFormat.setIndent(false);
         outputFormat.setExpandEmptyElements(true);
         //outputFormat.setIndentSize(4);
 
-        StringWriter buffer = new StringWriter();
-        XMLWriter xmlWriter = new XMLWriter(buffer, outputFormat);
+        final StringWriter buffer = new StringWriter();
+        final XMLWriter xmlWriter = new XMLWriter(buffer, outputFormat);
         // xmlWriter.setEscapeText(false);
 
-        SAXContentHandler saxHandler = new SAXContentHandler();
-        XMLOutput output = new XMLOutput(saxHandler);
+        final SAXContentHandler saxHandler = new SAXContentHandler();
+        final XMLOutput output = new XMLOutput(saxHandler);
 
         // now run a script using a URL
-        JellyContext context = new JellyContext();
+        final JellyContext context = new JellyContext();
         if (ctxVars != null) {
-            Set keys = ctxVars.keySet();
-            for (Iterator iterator = keys.iterator(); iterator.hasNext();) {
-                String key = (String) iterator.next();
-                Object value = ctxVars.get(key);
+            final Set keys = ctxVars.keySet();
+            for (final Iterator iterator = keys.iterator(); iterator.hasNext();) {
+                final String key = (String) iterator.next();
+                final Object value = ctxVars.get(key);
                 context.setVariable(key, value);
             }
         }
@@ -393,7 +393,7 @@ public class TestXMLTags extends TestCase {
         xmlWriter.write(saxHandler.getDocument());
         xmlWriter.flush();
 
-        String text = buffer.toString().trim();
+        final String text = buffer.toString().trim();
         if (log.isDebugEnabled()) {
             log.debug("Evaluated script as...");
             log.debug(text);

@@ -19,7 +19,6 @@ package org.apache.commons.jelly.tags.swt;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.tags.swt.converters.ColorConverter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.eclipse.swt.SWT;
@@ -167,10 +166,8 @@ public class FontTag extends TagSupport {
             throw new JellyTagException("This tag requires a font size greater than 0");
         }
 
-        if (style == null) {
-            if (log.isDebugEnabled()) {
-                log.debug("No style set on font " + type + ", defaulting to normal");
-            }
+        if ((style == null) && log.isDebugEnabled()) {
+            log.debug("No style set on font " + type + ", defaulting to normal");
         }
 
         final Font font =

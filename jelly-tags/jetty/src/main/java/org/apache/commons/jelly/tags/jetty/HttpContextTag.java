@@ -17,19 +17,18 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.HttpContext;
 import org.mortbay.http.HttpHandler;
 import org.mortbay.http.SecurityConstraint;
 import org.mortbay.http.SecurityConstraint.Authenticator;
 import org.mortbay.util.Resource;
-
-import java.io.IOException;
-import java.net.URL;
-import java.net.MalformedURLException;
 
 /**
  * Declare a context for a Jetty http server
@@ -46,7 +45,7 @@ public class HttpContextTag extends TagSupport {
     private String _realmName;
 
     /** The actual context this tag refers to */
-    private HttpContext _context;
+    private final HttpContext _context;
 
     /** Creates a new instance of HttpContextTag */
     public HttpContextTag() {
@@ -62,9 +61,9 @@ public class HttpContextTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
 
-        JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
+        final JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
             JettyHttpServerTag.class);
         if ( httpserver == null ) {
             throw new JellyTagException( "<httpContext> tag must be enclosed inside a <server> tag" );
@@ -78,13 +77,10 @@ public class HttpContextTag extends TagSupport {
         // convert the resource string to a URL
         // (this makes URL's relative to the location of the script
         try {
-            URL baseResourceURL = getContext().getResource(getResourceBase());
+            final URL baseResourceURL = getContext().getResource(getResourceBase());
             _context.setBaseResource(Resource.newResource(baseResourceURL));
         }
-        catch (MalformedURLException e) {
-            throw new JellyTagException(e);
-        }
-        catch (IOException e) {
+        catch (final IOException e) {
             throw new JellyTagException(e);
         }
 
@@ -100,7 +96,7 @@ public class HttpContextTag extends TagSupport {
      *
      * @param httpHandler the handler to add
      */
-    public void addHandler(HttpHandler httpHandler) {
+    public void addHandler(final HttpHandler httpHandler) {
         _context.addHandler(httpHandler);
     }
 
@@ -111,7 +107,7 @@ public class HttpContextTag extends TagSupport {
      * @param pathSpec the path specification for the security constraint
      * @param sc the security constraint to add
      */
-    public void addSecurityConstraint(String pathSpec, SecurityConstraint sc) {
+    public void addSecurityConstraint(final String pathSpec, final SecurityConstraint sc) {
         _context.addSecurityConstraint(pathSpec, sc);
     }
 
@@ -120,7 +116,7 @@ public class HttpContextTag extends TagSupport {
      *
      * @param authenticator the authenticator to add
      */
-    public void setAuthenticator(Authenticator authenticator)
+    public void setAuthenticator(final Authenticator authenticator)
     {
         _context.setAuthenticator(authenticator);
     }
@@ -142,7 +138,7 @@ public class HttpContextTag extends TagSupport {
      *
      * @param contextPath New resourceBase of property context path.
      */
-    public void setContextPath(String contextPath) {
+    public void setContextPath(final String contextPath) {
         _contextPath = contextPath;
     }
 
@@ -160,7 +156,7 @@ public class HttpContextTag extends TagSupport {
      *
      * @param resourceBase New value of property resourceBase.
      */
-    public void setResourceBase(String resourceBase) {
+    public void setResourceBase(final String resourceBase) {
         _resourceBase = resourceBase;
     }
 
@@ -178,7 +174,7 @@ public class HttpContextTag extends TagSupport {
      *
      * @param realmName New realm name.
      */
-    public void setRealmName(String realmName) {
+    public void setRealmName(final String realmName) {
         _realmName = realmName;
     }
 

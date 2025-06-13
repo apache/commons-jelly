@@ -16,17 +16,17 @@
  */
 package org.apache.commons.jelly.tags.regexp;
 
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.XMLOutput;
+
 import junit.framework.TestCase;
-import org.apache.commons.jelly.tags.regexp.MatchTag;
 
 /*** <p><code>MatchTagTest</code> a class that is useful to perform regexp matches
 * in strings.</p>
 */
 public class MatchTagTest extends TestCase {
 
-  public MatchTagTest(String name)
+  public MatchTagTest(final String name)
   {
     super(name);
   }
@@ -38,8 +38,8 @@ public void setUp() throws Exception
 
   public void testDoTag() throws Exception
   {
-    MatchTag matchExpTag = new MatchTag();
-    XMLOutput xmlOutput = new XMLOutput();
+    final MatchTag matchExpTag = new MatchTag();
+    final XMLOutput xmlOutput = new XMLOutput();
 
     matchExpTag.setText("ID1234");
     matchExpTag.setExpr("[A-Z][A-Z][0-9]{4}");

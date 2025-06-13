@@ -41,8 +41,8 @@ public class ParameterTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        HttpTagSupport http = (HttpTagSupport) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final HttpTagSupport http = (HttpTagSupport) findAncestorWithClass(
             HttpTagSupport.class);
         http.addParameter(getName(), getValue());
         invokeBody(xmlOutput);
@@ -65,7 +65,7 @@ public class ParameterTag extends TagSupport {
      *
      * @param name New value of property name.
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         _name = name;
     }
 
@@ -83,7 +83,7 @@ public class ParameterTag extends TagSupport {
      *
      * @param value New value of property value.
      */
-    public void setValue(String value) {
+    public void setValue(final String value) {
         _value = value;
     }
 

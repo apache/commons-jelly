@@ -19,10 +19,10 @@ package org.apache.commons.jelly.tags.jsl;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
+import org.apache.commons.jelly.expression.xpath.XPathExpression;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.tags.xml.ExprTag;
 import org.apache.commons.jelly.tags.xml.XMLTagLibrary;
-import org.apache.commons.jelly.expression.xpath.XPathExpression;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.DocumentHelper;
@@ -33,7 +33,7 @@ import org.dom4j.rule.Pattern;
 public class JSLTagLibrary extends XMLTagLibrary {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(JSLTagLibrary.class);
+    private final Log log = LogFactory.getLog(JSLTagLibrary.class);
 
     public JSLTagLibrary() {
         registerTag("stylesheet", StylesheetTag.class);
@@ -45,10 +45,10 @@ public class JSLTagLibrary extends XMLTagLibrary {
 
     @Override
     public Expression createExpression(
-        ExpressionFactory factory,
-        TagScript tagScript,
-        String attributeName,
-        String attributeValue) throws JellyException {
+        final ExpressionFactory factory,
+        final TagScript tagScript,
+        final String attributeName,
+        final String attributeValue) throws JellyException {
 
         // #### may need to include some namespace URI information in the XPath instance?
 
@@ -57,7 +57,7 @@ public class JSLTagLibrary extends XMLTagLibrary {
                 log.debug( "Parsing XPath expression: " + attributeValue );
             }
 
-            Expression xpathExpr = createXPathTextExpression( attributeValue );
+            final Expression xpathExpr = createXPathTextExpression( attributeValue );
 
             return new XPathExpression(attributeValue, xpathExpr, tagScript);
         }
@@ -68,10 +68,10 @@ public class JSLTagLibrary extends XMLTagLibrary {
             }
 
             try {
-                Pattern pattern = DocumentHelper.createPattern( attributeValue );
+                final Pattern pattern = DocumentHelper.createPattern( attributeValue );
                 return new XPathPatternExpression(attributeValue, pattern);
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 throw new JellyException( "Could not parse XPath expression: \"" + attributeValue + "\" reason: " + e, e );
             }
         }

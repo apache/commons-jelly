@@ -67,7 +67,7 @@ public class QueryTag extends SqlTagSupport {
      * The index of the first row returned can be
      * specified using startRow.
      */
-    public void setStartRow(int startRow) {
+    public void setStartRow(final int startRow) {
         this.startRow = startRow;
     }
 
@@ -75,7 +75,7 @@ public class QueryTag extends SqlTagSupport {
      * Query result can be limited by specifying
      * the maximum number of rows returned.
      */
-    public void setMaxRows(int maxRows) {
+    public void setMaxRows(final int maxRows) {
         this.maxRows = maxRows;
         this.maxRowsSpecified = true;
     }
@@ -97,10 +97,10 @@ public class QueryTag extends SqlTagSupport {
      * named <code>javax.servlet.jstl.sql.dataSource</code>.
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         if (!maxRowsSpecified) {
-            Object obj = context.getVariable("org.apache.commons.jelly.sql.maxRows");
+            final Object obj = context.getVariable("org.apache.commons.jelly.sql.maxRows");
             if (obj != null) {
                 if (obj instanceof Integer) {
                     maxRows = ((Integer) obj).intValue();
@@ -109,7 +109,7 @@ public class QueryTag extends SqlTagSupport {
                     try {
                         maxRows = Integer.parseInt((String) obj);
                     }
-                    catch (NumberFormatException nfe) {
+                    catch (final NumberFormatException nfe) {
                         throw new JellyTagException(
                             Resources.getMessage("SQL_MAXROWS_PARSE_ERROR", (String) obj),
                             nfe);
@@ -147,7 +147,7 @@ public class QueryTag extends SqlTagSupport {
             /*
              * We shouldn't have a negative startRow or illegal maxrows
              */
-            if ((startRow < 0) || (maxRows < -1)) {
+            if (startRow < 0 || maxRows < -1) {
                 throw new JellyTagException(Resources.getMessage("PARAM_BAD_VALUE"));
             }
 
@@ -163,7 +163,7 @@ public class QueryTag extends SqlTagSupport {
             }
 
             if ( hasParameters() ) {
-                PreparedStatement ps = conn.prepareStatement(sqlStatement);
+                final PreparedStatement ps = conn.prepareStatement(sqlStatement);
                 statement = ps;
                 setParameters(ps);
                 rs = ps.executeQuery();
@@ -181,14 +181,14 @@ public class QueryTag extends SqlTagSupport {
 
             // lets nullify before we close in case we get exceptions
             // while closing, we don't want to try to close again
-            ResultSet tempRs = rs;
+            final ResultSet tempRs = rs;
             rs = null;
             tempRs.close();
-            Statement tempStatement = statement;
+            final Statement tempStatement = statement;
             statement = null;
             tempStatement.close();
         }
-        catch (SQLException e) {
+        catch (final SQLException e) {
             throw new JellyTagException(sqlStatement + ": " + e.getMessage(), e);
         }
         finally {
@@ -196,7 +196,7 @@ public class QueryTag extends SqlTagSupport {
                 try {
                     rs.close();
                 }
-                catch (SQLException e) {
+                catch (final SQLException e) {
                     log.error("Caught exception while closing result set: " + e, e);
                 }
             }
@@ -204,7 +204,7 @@ public class QueryTag extends SqlTagSupport {
                 try {
                     statement.close();
                 }
-                catch (SQLException e) {
+                catch (final SQLException e) {
                     log.error("Caught exception while closing statement: " + e, e);
                 }
             }
@@ -212,7 +212,7 @@ public class QueryTag extends SqlTagSupport {
                 try {
                     conn.close();
                 }
-                catch (SQLException e) {
+                catch (final SQLException e) {
                     log.error("Caught exception while closing connection: " + e, e);
                 }
                 conn = null;

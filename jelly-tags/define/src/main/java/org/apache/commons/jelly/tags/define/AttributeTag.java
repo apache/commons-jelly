@@ -21,7 +21,6 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.impl.Attribute;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -39,21 +38,21 @@ public class AttributeTag extends TagSupport {
     private static final Log log = LogFactory.getLog(AttributeTag.class);
 
     /** The attribute definition */
-    private Attribute attribute;
+    private final Attribute attribute;
 
     public AttributeTag() {
         attribute = new Attribute();
     }
 
-    public AttributeTag(Attribute attribute) {
+    public AttributeTag(final Attribute attribute) {
         this.attribute = attribute;
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        BeanTag tag = (BeanTag) findAncestorWithClass( BeanTag.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final BeanTag tag = (BeanTag) findAncestorWithClass( BeanTag.class );
         if ( tag == null ) {
             throw new JellyTagException( "This tag should be nested inside a <define:bean> or <define:jellybean> tag" );
         }
@@ -67,21 +66,21 @@ public class AttributeTag extends TagSupport {
     /**
      * Sets the name of the attribute
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         attribute.setName(name);
     }
 
     /**
      * Sets whether this attribute is mandatory or not
      */
-    public void setRequired(boolean required) {
+    public void setRequired(final boolean required) {
         attribute.setRequired(required);
     }
 
     /**
      * Sets the default value of this attribute
      */
-    public void setDefaultValue(Expression defaultValue) {
+    public void setDefaultValue(final Expression defaultValue) {
         attribute.setDefaultValue(defaultValue);
     }
 }

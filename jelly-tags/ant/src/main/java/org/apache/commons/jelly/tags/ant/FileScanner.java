@@ -30,12 +30,12 @@ import org.apache.tools.ant.types.FileSet;
 public class FileScanner {
 
     /** FileSets */
-    private List filesets = new ArrayList();
+    private final List filesets = new ArrayList();
 
     /** The Ant project */
     private Project project;
 
-    public void setProject(Project project)
+    public void setProject(final Project project)
     {
         this.project = project;
     }
@@ -65,7 +65,7 @@ public class FileScanner {
     /**
      * Adds a set of files (nested fileset attribute).
      */
-    public void addFileset(FileSet set) {
+    public void addFileset(final FileSet set) {
         filesets.add(set);
     }
 

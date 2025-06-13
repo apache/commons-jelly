@@ -34,7 +34,7 @@ import org.jaxen.XPath;
 public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(StylesheetTag.class);
+    private final Log log = LogFactory.getLog(StylesheetTag.class);
 
     /** Holds the stylesheet which will be applied to the source context. */
     private Stylesheet stylesheet;
@@ -59,7 +59,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
      */
     public XMLOutput getStylesheetOutput() {
         if (stylesheet instanceof JellyStylesheet) {
-            JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
+            final JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
             return jellyStyle.getOutput();
         }
         return null;
@@ -68,9 +68,9 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     /**
      * Sets the XMLOutput to use by the current stylesheet
      */
-    public void setStylesheetOutput(XMLOutput output) {
+    public void setStylesheetOutput(final XMLOutput output) {
         if (stylesheet instanceof JellyStylesheet) {
-            JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
+            final JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
             jellyStyle.setOutput(output);
         }
     }
@@ -78,7 +78,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     /**
      * Adds a new template rule to this stylesheet
      */
-    public void addTemplate( Rule rule ) {
+    public void addTemplate( final Rule rule ) {
         getStylesheet().addRule( rule );
     }
 
@@ -97,7 +97,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         stylesheet = createStylesheet(output);
 
         // run the body to add the rules
@@ -111,7 +111,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
             //dom4j seems to only throw generic Exceptions
             try {
-                Object source = getSource();
+                final Object source = getSource();
 
                 if (log.isDebugEnabled()) {
                     log.debug("About to evaluate stylesheet on source: " + source);
@@ -119,7 +119,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
                 stylesheet.run(source);
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 throw new JellyTagException(e);
             }
 
@@ -141,7 +141,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
      * Sets the mode.
      * @param mode New value of property mode.
      */
-    public void setMode(String mode) {
+    public void setMode(final String mode) {
         this.mode = mode;
     }
 
@@ -151,12 +151,12 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
 
     /** Sets the variable name to define for this expression
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
     /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
+    public void setSelect(final XPath select) {
         this.select = select;
     }
 
@@ -166,7 +166,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     /** @return the source on which the stylesheet should run
      */
     protected Object getSource() throws JaxenException {
-        Object source = getXPathContext();
+        final Object source = getXPathContext();
         if ( select != null ) {
             return select.evaluate(source);
         }
@@ -177,7 +177,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
      * Factory method to create a new stylesheet
      */
     protected Stylesheet createStylesheet(final XMLOutput output) {
-        JellyStylesheet answer = new JellyStylesheet();
+        final JellyStylesheet answer = new JellyStylesheet();
         answer.setOutput(output);
         return answer;
     }
@@ -186,7 +186,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
      * Sets the xpathSource.
      * @param xpathSource The xpathSource to set
      */
-    void setXPathSource(Object xpathSource) {
+    void setXPathSource(final Object xpathSource) {
         this.xpathSource = xpathSource;
     }
 

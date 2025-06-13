@@ -16,11 +16,11 @@
  */
 package org.apache.commons.jelly.tags.beanshell;
 
-import bsh.EvalError;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
+import bsh.EvalError;
 
 /**
  * A tag which invokes a BeanShell script.
@@ -33,16 +33,16 @@ public class ScriptTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         try {
-            JellyInterpreter interpreter = BeanShellExpressionFactory.getInterpreter(context);
+            final JellyInterpreter interpreter = BeanShellExpressionFactory.getInterpreter(context);
 
             // @todo it'd be really nice to create a JellyNameSpace to pass into
             // this method so that any variables declared by beanshell could be exported
             // into the JellyContext
-            String text = getBodyText(false);
+            final String text = getBodyText(false);
             interpreter.eval(text);
-        } catch (EvalError e) {
+        } catch (final EvalError e) {
             throw new JellyTagException(e);
         }
     }

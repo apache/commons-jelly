@@ -41,7 +41,7 @@ public class AssertTag extends AssertTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if (test == null && xpath == null) {
             throw new MissingAttributeException( "test" );
         }
@@ -52,11 +52,11 @@ public class AssertTag extends AssertTagSupport {
         }
         else {
             try {
-                Object xpathContext = getXPathContext();
+                final Object xpathContext = getXPathContext();
                 if (! xpath.booleanValueOf(xpathContext)) {
                     fail( getBodyText(), "evaluating xpath: "+ xpath );
                 }
-            } catch (JaxenException anException) {
+            } catch (final JaxenException anException) {
                 throw new JellyTagException("Error evaluating xpath", anException);
             }
 
@@ -72,7 +72,7 @@ public class AssertTag extends AssertTagSupport {
      * then the test succeeds otherwise if it returns false then the text will
      * fail with the content of the tag being the error message.
      */
-    public void setTest(Expression test) {
+    public void setTest(final Expression test) {
         this.test = test;
     }
 
@@ -81,7 +81,7 @@ public class AssertTag extends AssertTagSupport {
      * then the test succeeds otherwise if it returns false then the text will
      * fail with the content of the tag being the error message.
      */
-    public void setXpath(XPath xpath) {
+    public void setXpath(final XPath xpath) {
         this.xpath = xpath;
     }
 }

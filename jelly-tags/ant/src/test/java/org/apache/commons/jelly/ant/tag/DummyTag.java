@@ -16,8 +16,6 @@
  */
 package org.apache.commons.jelly.ant.tag;
 
-import junit.framework.AssertionFailedError;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -26,6 +24,8 @@ import org.apache.commons.jelly.tags.ant.AntTagLibrary;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.types.Path;
+
+import junit.framework.AssertionFailedError;
 
 /**
  * A mock tag which is used for testing the Ant nested properties behavior
@@ -57,7 +57,7 @@ public class DummyTag extends TagSupport implements BeanSource {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         if (! calledSetFlag) {
             throw new AssertionFailedError("call to setFlag() was not made");
@@ -90,13 +90,13 @@ public class DummyTag extends TagSupport implements BeanSource {
         return new Path( AntTagLibrary.getProject(context) );
     }
 
-    public void setClasspath(Path classpath) {
+    public void setClasspath(final Path classpath) {
         log.info("called setClasspath()");
         calledSetClasspath = true;
         this.classpath = classpath;
     }
 
-    public void setFlag(boolean flag)
+    public void setFlag(final boolean flag)
     {
         log.info("called setFlag()");
         calledSetFlag = true;
@@ -107,7 +107,7 @@ public class DummyTag extends TagSupport implements BeanSource {
     // Tag properties
     //-------------------------------------------------------------------------
 
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

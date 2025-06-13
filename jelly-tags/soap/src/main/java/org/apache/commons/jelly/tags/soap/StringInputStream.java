@@ -30,14 +30,14 @@ public class StringInputStream
     extends InputStream
 {
     /** Source string, stored as a StringReader */
-    private StringReader in;
+    private final StringReader in;
 
     /**
      * Composes a stream from a String
      *
      * @param source The string to read from. Must not be {@code null}.
      */
-    public StringInputStream( String source )
+    public StringInputStream( final String source )
     {
         in = new StringReader( source );
     }
@@ -81,7 +81,7 @@ public class StringInputStream
         {
             in.mark( limit );
         }
-        catch ( IOException ioe )
+        catch ( final IOException ioe )
         {
             throw new UncheckedIOException( ioe.getMessage(), ioe );
         }

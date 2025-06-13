@@ -16,12 +16,12 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.Tag;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.expression.Expression;
 import java.util.TimeZone;
+
+import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
 
 /**
  * Support for tag handlers for &lt;setTimeZone&gt;, the time zone setting
@@ -44,7 +44,7 @@ public class SetTimeZoneTag extends TagSupport {
      *
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         TimeZone timeZone = null;
 
         Object valueInput = null;
@@ -73,15 +73,15 @@ public class SetTimeZoneTag extends TagSupport {
         }
     }
 
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
-    public void setScope(String scope) {
+    public void setScope(final String scope) {
         this.scope = scope;
     }
 }

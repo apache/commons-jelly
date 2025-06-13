@@ -40,7 +40,7 @@ public class ObjectMessageTag extends MessageTag {
      * If this value is not set or the value is null then the content
      * of the tag will be used instead.
      */
-    public void setObject(Serializable object) {
+    public void setObject(final Serializable object) {
         this.object = object;
     }
 
@@ -48,11 +48,11 @@ public class ObjectMessageTag extends MessageTag {
     //-------------------------------------------------------------------------
     @Override
     protected Message createMessage() throws JellyTagException {
-        Serializable value = (object != null) ? object : getBodyText();
+        final Serializable value = object != null ? object : getBodyText();
         try {
             return getConnection().createObjectMessage(value);
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
     }

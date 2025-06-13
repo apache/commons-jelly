@@ -16,14 +16,12 @@
  */
 package org.apache.commons.jelly.tags.bsf;
 
-import org.apache.bsf.BSFEngine;
-import org.apache.bsf.BSFManager;
-
 import java.util.Iterator;
 
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFManager;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.ExpressionSupport;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -35,17 +33,17 @@ public class BSFExpression extends ExpressionSupport {
     private static final Log log = LogFactory.getLog( BSFExpression.class );
 
     /** The expression */
-    private String text;
+    private final String text;
 
     /** The BSF Engine to evaluate expressions */
-    private BSFEngine engine;
+    private final BSFEngine engine;
     /** The BSF Manager to evaluate expressions */
-    private BSFManager manager;
+    private final BSFManager manager;
 
     /** The adapter to BSF's ObjectRegistry that uses the JellyContext */
-    private JellyContextRegistry registry;
+    private final JellyContextRegistry registry;
 
-    public BSFExpression(String text, BSFEngine engine, BSFManager manager, JellyContextRegistry registry) {
+    public BSFExpression(final String text, final BSFEngine engine, final BSFManager manager, final JellyContextRegistry registry) {
         this.text = text;
         this.engine = engine;
         this.manager = manager;
@@ -60,7 +58,7 @@ public class BSFExpression extends ExpressionSupport {
     }
 
     @Override
-    public Object evaluate(JellyContext context) {
+    public Object evaluate(final JellyContext context) {
         // XXXX: unfortunately we must synchronize evaluations
         // so that we can swizzle in the context.
         // maybe we could create an expression from a context
@@ -70,14 +68,14 @@ public class BSFExpression extends ExpressionSupport {
 
             try {
                 // XXXX: hack - there must be a better way!!!
-                for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
-                    String name = (String) iter.next();
-                    Object value = context.getVariable( name );
+                for ( final Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
+                    final String name = (String) iter.next();
+                    final Object value = context.getVariable( name );
                     manager.declareBean( name, value, value.getClass() );
                 }
                 return engine.eval( text, -1, -1, text );
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 log.warn( "Caught exception evaluating: " + text + ". Reason: " + e, e );
                 return null;
             }

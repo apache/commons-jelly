@@ -28,16 +28,16 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String name) {
+    public Customer(final String name) {
         setName(name);
     }
 
-    public Customer(String name, String city) {
+    public Customer(final String name, final String city) {
         setName(name);
         setCity(city);
     }
 
-    public Customer(Customer cust) {
+    public Customer(final Customer cust) {
         setName(cust.getName());
         setCity(cust.getCity());
         setLocation(cust.getLocation());
@@ -76,7 +76,7 @@ public class Customer {
      * Sets the city.
      * @param city The city to set
      */
-    public void setCity(String city) {
+    public void setCity(final String city) {
         this.city = city;
     }
 
@@ -84,7 +84,7 @@ public class Customer {
      * Sets the location.
      * @param location The location to set
      */
-    public void setLocation(String location) {
+    public void setLocation(final String location) {
         this.location = location;
     }
 
@@ -92,7 +92,7 @@ public class Customer {
      * Sets the name.
      * @param name The name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 }

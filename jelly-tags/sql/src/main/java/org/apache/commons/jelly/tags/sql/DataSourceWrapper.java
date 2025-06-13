@@ -45,7 +45,7 @@ public class DataSourceWrapper implements DataSource {
     private String userName;
     private String password;
 
-    public void setDriverClassName(String driverClassName)
+    public void setDriverClassName(final String driverClassName)
         throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
         if (log.isDebugEnabled()) {
@@ -56,24 +56,25 @@ public class DataSourceWrapper implements DataSource {
         ClassLoaderUtils.getClassLoader(getClass()).loadClass(driverClassName).newInstance();
     }
 
-    public void setJdbcURL(String jdbcURL) {
+    public void setJdbcURL(final String jdbcURL) {
         this.jdbcURL = jdbcURL;
     }
 
-    public <T> T unwrap(Class<T> tClass) throws SQLException {
+    @Override
+    public <T> T unwrap(final Class<T> tClass) throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 
     @Override
-    public boolean isWrapperFor(Class<?> aClass) throws SQLException {
+    public boolean isWrapperFor(final Class<?> aClass) throws SQLException {
         return false;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(final String userName) {
         this.userName = userName;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -111,7 +112,7 @@ public class DataSourceWrapper implements DataSource {
      * in the constructor and cannot be changed.
      */
     @Override
-    public Connection getConnection(String userName, String password)
+    public Connection getConnection(final String userName, final String password)
         throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
@@ -136,7 +137,7 @@ public class DataSourceWrapper implements DataSource {
      * Always throws a SQLException. Not supported.
      */
     @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
+    public void setLoginTimeout(final int seconds) throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 
@@ -144,7 +145,7 @@ public class DataSourceWrapper implements DataSource {
      * Always throws a SQLException. Not supported.
      */
     @Override
-    public synchronized void setLogWriter(PrintWriter out) throws SQLException {
+    public synchronized void setLogWriter(final PrintWriter out) throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 

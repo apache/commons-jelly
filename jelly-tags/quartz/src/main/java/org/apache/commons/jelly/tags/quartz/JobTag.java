@@ -18,13 +18,12 @@ package org.apache.commons.jelly.tags.quartz;
  */
 
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.MissingAttributeException;
-
+import org.apache.commons.jelly.XMLOutput;
+import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.JobDetail;
-import org.quartz.JobDataMap;
 
 /** Defines a schedulable job.
  */
@@ -47,7 +46,7 @@ public class JobTag extends QuartzTagSupport
      *
      *  @param name The name of this job.
      */
-    public void setName(String name)
+    public void setName(final String name)
     {
         this.name = name;
     }
@@ -65,7 +64,7 @@ public class JobTag extends QuartzTagSupport
      *
      *  @param group The group of this job.
      */
-    public void setGroup(String group)
+    public void setGroup(final String group)
     {
         this.group = group;
     }
@@ -91,7 +90,7 @@ public class JobTag extends QuartzTagSupport
      *  @throws JellyTagException If an error occurs.
      */
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException
     {
         if ( getName() == null )
         {
@@ -103,13 +102,13 @@ public class JobTag extends QuartzTagSupport
             throw new MissingAttributeException( "group" );
         }
 
-        JobDetail detail = new JobDetail( getName(),
+        final JobDetail detail = new JobDetail( getName(),
                                           getGroup(),
                                           JellyJob.class );
 
         detail.setDurability( true );
 
-        JobDataMap data = new JobDataMap();
+        final JobDataMap data = new JobDataMap();
 
         data.put( "jelly.output",
                   output );
@@ -123,11 +122,11 @@ public class JobTag extends QuartzTagSupport
         detail.setJobDataMap( data );
 
         try {
-            Scheduler sched = getScheduler();
+            final Scheduler sched = getScheduler();
             sched.addJob( detail,
                           true );
         }
-        catch (SchedulerException e) {
+        catch (final SchedulerException e) {
             throw new JellyTagException(e);
         }
     }

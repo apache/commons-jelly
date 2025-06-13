@@ -40,7 +40,7 @@ public class MenuManagerTag extends UseBeanTag {
      */
     public Window getParentWindow() {
 
-        ApplicationWindowTag tag =
+        final ApplicationWindowTag tag =
             (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag
                 .class);
         if (tag != null) {
@@ -54,18 +54,19 @@ public class MenuManagerTag extends UseBeanTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output)
+    public void doTag(final XMLOutput output)
         throws MissingAttributeException, JellyTagException {
 
-        Map attributes = getAttributes();
+        final Map attributes = getAttributes();
         text = attributes.remove("text").toString();
 
-        if (text == null)
+        if (text == null) {
             throw new MissingAttributeException("text attribute is missing");
+        }
 
         mm = new MenuManager(text);
 
-        ApplicationWindow window = (ApplicationWindow) getParentWindow();
+        final ApplicationWindow window = (ApplicationWindow) getParentWindow();
         if (window != null) {
             window.getMenuBarManager().add(mm);
         }

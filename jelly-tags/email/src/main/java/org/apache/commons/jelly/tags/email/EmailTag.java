@@ -16,31 +16,31 @@
  */
 package org.apache.commons.jelly.tags.email;
 
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.logging.Log;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Date;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
-import javax.mail.Session;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
-import javax.mail.internet.MimeMessage;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
-import javax.activation.FileDataSource;
-import javax.activation.DataHandler;
 
-import java.util.Properties;
-import java.util.StringTokenizer;
-import java.util.Date;
-import java.io.File;
-import java.io.FileNotFoundException;
+import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Basic tag for sending an email. Supports one attachment, multiple to addresses delimited by ";",
@@ -48,7 +48,7 @@ import java.io.FileNotFoundException;
  */
 
 public class EmailTag extends TagSupport {
-    private Log logger = LogFactory.getLog(EmailTag.class);
+    private final Log logger = LogFactory.getLog(EmailTag.class);
 
     /** Smtp server */
     private Expression server       = null;
@@ -78,49 +78,49 @@ public class EmailTag extends TagSupport {
      * Sets the smtp server for the message. If not set the system
      * property "mail.smtp.host" will be used.
      */
-    public void setServer(Expression server) {
+    public void setServer(final Expression server) {
         this.server = server;
     }
 
     /**
      * Sets the from address for the message
      */
-    public void setFrom(Expression from) {
+    public void setFrom(final Expression from) {
         this.from = from;
     }
 
     /**
      * ";" separated list of people to send to
      */
-    public void setTo(Expression to) {
+    public void setTo(final Expression to) {
         this.to = to;
     }
 
     /**
      * ";" separated list of people to cc
      */
-    public void setCC(Expression cc) {
+    public void setCC(final Expression cc) {
         this.cc = cc;
     }
 
     /**
      * Sets the email subject
      */
-    public void setSubject(Expression subject) {
+    public void setSubject(final Expression subject) {
         this.subject = subject;
     }
 
     /**
      * Sets the message body. This will override the Jelly tag body
      */
-    public void setMessage(Expression message) {
+    public void setMessage(final Expression message) {
         this.message = message;
     }
 
     /**
      * Sets the email attachment for the message. Only 1 attachment is supported right now
      */
-    public void setAttach(File attachment) throws FileNotFoundException {
+    public void setAttach(final File attachment) throws FileNotFoundException {
         if (!attachment.exists()) {
             throw new FileNotFoundException("attachment not found");
         }
@@ -132,7 +132,7 @@ public class EmailTag extends TagSupport {
      * Sets whether we should encode the XML body as text or not. The default
      * is false so that the body will assumed to be valid XML
      */
-    public void setEncodeXML(boolean encodeXML) {
+    public void setEncodeXML(final boolean encodeXML) {
         this.encodeXML = encodeXML;
     }
 
@@ -140,19 +140,16 @@ public class EmailTag extends TagSupport {
      * Execute the tag
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        Properties props = new Properties();
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final Properties props = new Properties();
         props.putAll(context.getVariables());
 
         // if a server was set then configure the system property
         if (server != null) {
-            Object serverInput = this.server.evaluate(context);
+            final Object serverInput = this.server.evaluate(context);
             props.put("mail.smtp.host", serverInput.toString());
-        }
-        else {
-            if (props.get("mail.smtp.host") == null) {
-                throw new JellyTagException("no smtp server configured");
-            }
+        } else if (props.get("mail.smtp.host") == null) {
+            throw new JellyTagException("no smtp server configured");
         }
 
         // check if there was no to address
@@ -174,14 +171,14 @@ public class EmailTag extends TagSupport {
             messageBody = getBodyText(encodeXML);
         }
 
-        Object fromInput = this.from.evaluate(context);
-        Object toInput = this.to.evaluate(context);
+        final Object fromInput = this.from.evaluate(context);
+        final Object toInput = this.to.evaluate(context);
 
         // configure the mail session
-        Session session = Session.getDefaultInstance(props, null);
+        final Session session = Session.getDefaultInstance(props, null);
 
         // construct the mime message
-        MimeMessage msg = new MimeMessage(session);
+        final MimeMessage msg = new MimeMessage(session);
 
         try {
             // set the from address
@@ -189,7 +186,7 @@ public class EmailTag extends TagSupport {
 
             // parse out the to addresses
             StringTokenizer st = new StringTokenizer(toInput.toString(), ";");
-            InternetAddress[] addresses = new InternetAddress[st.countTokens()];
+            final InternetAddress[] addresses = new InternetAddress[st.countTokens()];
             int addressCount = 0;
             while (st.hasMoreTokens()) {
                 addresses[addressCount++] = new InternetAddress(st.nextToken().trim());
@@ -200,9 +197,9 @@ public class EmailTag extends TagSupport {
 
             // parse out the cc addresses
             if (cc != null) {
-                Object ccInput = this.cc.evaluate(context);
+                final Object ccInput = this.cc.evaluate(context);
                 st = new StringTokenizer(ccInput.toString(), ";");
-                InternetAddress[] ccAddresses = new InternetAddress[st.countTokens()];
+                final InternetAddress[] ccAddresses = new InternetAddress[st.countTokens()];
                 int ccAddressCount = 0;
                 while (st.hasMoreTokens()) {
                     ccAddresses[ccAddressCount++] = new InternetAddress(st.nextToken().trim());
@@ -212,17 +209,14 @@ public class EmailTag extends TagSupport {
                 msg.setRecipients(Message.RecipientType.CC, ccAddresses);
             }
         }
-        catch (AddressException e) {
-            throw new JellyTagException(e);
-        }
-        catch (MessagingException e) {
+        catch (final MessagingException e) {
             throw new JellyTagException(e);
         }
 
         try {
             // set the subject
             if (subject != null) {
-                Object subjectInput = this.subject.evaluate(context);
+                final Object subjectInput = this.subject.evaluate(context);
                 msg.setSubject(subjectInput.toString());
             }
 
@@ -239,17 +233,17 @@ public class EmailTag extends TagSupport {
 
                 // attach the multipart mime message
                 // setup the body
-                MimeBodyPart mbp1 = new MimeBodyPart();
+                final MimeBodyPart mbp1 = new MimeBodyPart();
                 mbp1.setText(messageBody);
 
                 // setup the attachment
-                MimeBodyPart mbp2 = new MimeBodyPart();
-                FileDataSource fds = new FileDataSource(attachment);
+                final MimeBodyPart mbp2 = new MimeBodyPart();
+                final FileDataSource fds = new FileDataSource(attachment);
                 mbp2.setDataHandler(new DataHandler(fds));
                 mbp2.setFileName(fds.getName());
 
                 // create the multipart and add its parts
-                Multipart mp = new MimeMultipart();
+                final Multipart mp = new MimeMultipart();
                 mp.addBodyPart(mbp1);
                 mp.addBodyPart(mbp2);
 
@@ -262,7 +256,7 @@ public class EmailTag extends TagSupport {
             // send the email
             Transport.send(msg);
         }
-        catch (MessagingException e) {
+        catch (final MessagingException e) {
             throw new JellyTagException(e);
         }
 

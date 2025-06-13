@@ -56,7 +56,7 @@ public class ClassLoaderTag extends BeanTag {
     /**
      * @param var the variable to store the class loader in
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -70,7 +70,7 @@ public class ClassLoaderTag extends BeanTag {
     /**
      * @param url the url to load the classes from
      */
-    public void setUrl(String url) {
+    public void setUrl(final String url) {
         this.url = url;
     }
 
@@ -78,7 +78,7 @@ public class ClassLoaderTag extends BeanTag {
     //-------------------------------------------------------------------------
 
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( getVar() == null ) {
             throw new MissingAttributeException( "var" );
         }
@@ -96,7 +96,7 @@ public class ClassLoaderTag extends BeanTag {
         try {
             newClassLoader =
               new URLClassLoader( new URL[] { new URL(getUrl()) }, parent );
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyTagException(e);
         }
 

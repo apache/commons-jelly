@@ -26,12 +26,12 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 
 /** Implements a ButtonGroup.
- * <p> 
+ * <p>
  * This tag acts like a Swing component
  * except that adding a component other than an AbstractButton, will be passed
  * through to the parent tag. This is meant to make the
  * buttonGroup easier to use like this:
- * </p> 
+ * </p>
  * <pre>{@code
  * <panel>
  *  <buttonGroup>
@@ -68,19 +68,15 @@ public class ButtonGroupTag extends ComponentTag {
      * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
      */
     @Override
-    public void addChild(Component component, Object constraints) throws JellyTagException {
+    public void addChild(final Component component, final Object constraints) throws JellyTagException {
         if (component instanceof AbstractButton) {
             getButtonGroup().add((AbstractButton) component);
-        } else {
-            if ( component != null ) {
-                ContainerTag parentTag = (ContainerTag) findAncestorWithClass( ContainerTag.class );
-                if ( parentTag != null ) {
-                    parentTag.addChild(component, getConstraint());
-                }
-                else {
-                    throw new JellyTagException( "This buttonGroup tag must be nested within a Swing component tag." );
-                }
+        } else if ( component != null ) {
+            final ContainerTag parentTag = (ContainerTag) findAncestorWithClass( ContainerTag.class );
+            if ( parentTag == null ) {
+                throw new JellyTagException( "This buttonGroup tag must be nested within a Swing component tag." );
             }
+            parentTag.addChild(component, getConstraint());
         }
     }
 
@@ -88,8 +84,8 @@ public class ButtonGroupTag extends ComponentTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes,
-            XMLOutput output) throws JellyTagException {
+    protected Object newInstance(final Class theClass, final Map attributes,
+            final XMLOutput output) throws JellyTagException {
         return new ButtonGroup();
     }
 

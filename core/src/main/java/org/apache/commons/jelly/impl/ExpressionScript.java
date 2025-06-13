@@ -34,7 +34,7 @@ public class ExpressionScript implements Script {
     public ExpressionScript() {
     }
 
-    public ExpressionScript(Expression expression) {
+    public ExpressionScript(final Expression expression) {
         this.expression = expression;
     }
 
@@ -52,13 +52,13 @@ public class ExpressionScript implements Script {
 
     /** Evaluates the body of a tag */
     @Override
-    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
-        Object result = expression.evaluate(context);
+    public void run(final JellyContext context, final XMLOutput output) throws JellyTagException {
+        final Object result = expression.evaluate(context);
         if (result != null) {
 
             try {
                 output.objectData(result);
-            } catch (SAXException e) {
+            } catch (final SAXException e) {
                 throw new JellyTagException("Could not write to XMLOutput", e);
             }
 
@@ -66,7 +66,7 @@ public class ExpressionScript implements Script {
     }
 
     /** Sets the expression evaluated as a String and output by this script */
-    public void setExpression(Expression expression) {
+    public void setExpression(final Expression expression) {
         this.expression = expression;
     }
 

@@ -17,15 +17,14 @@
 
 package org.apache.commons.jelly.tags.sql;
 
-import javax.sql.DataSource;
-import javax.naming.InitialContext;
 import javax.naming.Context;
+import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.tags.Resources;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -49,7 +48,7 @@ public class DataSourceUtil {
      * Otherwise check to see if dataSource is a DataSource object and use as
      * is
      */
-    static DataSource getDataSource(Object rawDataSource, JellyContext pc)
+    static DataSource getDataSource(Object rawDataSource, final JellyContext pc)
         throws JellyTagException {
         DataSource dataSource = null;
 
@@ -68,12 +67,12 @@ public class DataSourceUtil {
         */
         if (rawDataSource instanceof String) {
             try {
-                Context ctx = new InitialContext();
+                final Context ctx = new InitialContext();
                 // relative to standard JNDI root for J2EE app
-                Context envCtx = (Context) ctx.lookup("java:comp/env");
+                final Context envCtx = (Context) ctx.lookup("java:comp/env");
                 dataSource = (DataSource) envCtx.lookup((String) rawDataSource);
             }
-            catch (NamingException ex) {
+            catch (final NamingException ex) {
                 dataSource = getDataSource((String) rawDataSource);
             }
         }
@@ -90,23 +89,21 @@ public class DataSourceUtil {
     /**
      * Parse JDBC parameters and setup dataSource appropriately
      */
-    private static DataSource getDataSource(String params) throws JellyTagException {
-        DataSourceWrapper dataSource = new DataSourceWrapper();
+    private static DataSource getDataSource(final String params) throws JellyTagException {
+        final DataSourceWrapper dataSource = new DataSourceWrapper();
 
-        String[] paramString = new String[4];
+        final String[] paramString = new String[4];
         int escCount = 0;
         int aryCount = 0;
         int begin = 0;
 
         for (int index = 0; index < params.length(); index++) {
-            char nextChar = params.charAt(index);
-            if (TOKEN.indexOf(nextChar) != -1) {
-                if (escCount == 0) {
-                    paramString[aryCount] = params.substring(begin, index);
-                    begin = index + 1;
-                    if (++aryCount > 4) {
-                        throw new JellyTagException(Resources.getMessage("JDBC_PARAM_COUNT"));
-                    }
+            final char nextChar = params.charAt(index);
+            if ((TOKEN.indexOf(nextChar) != -1) && (escCount == 0)) {
+                paramString[aryCount] = params.substring(begin, index);
+                begin = index + 1;
+                if (++aryCount > 4) {
+                    throw new JellyTagException(Resources.getMessage("JDBC_PARAM_COUNT"));
                 }
             }
             if (ESCAPE.indexOf(nextChar) != -1) {
@@ -126,7 +123,7 @@ public class DataSourceUtil {
             try {
                 dataSource.setDriverClassName(paramString[1]);
             }
-            catch (Exception ex) {
+            catch (final Exception ex) {
                 throw new JellyTagException(
                     Resources.getMessage("DRIVER_INVALID_CLASS", ex.getMessage()));
             }

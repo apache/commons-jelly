@@ -17,8 +17,6 @@
 package org.apache.commons.jelly.demos;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -62,7 +60,7 @@ public class HomepageBuilder extends JPanel {
 
         System.out.println("Starting Homepage Builder");
 
-        JPanel leftPanel = new JPanel();
+        final JPanel leftPanel = new JPanel();
         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS));
 
         leftPanel.add(new JLabel("Name:"));
@@ -93,13 +91,8 @@ public class HomepageBuilder extends JPanel {
         addField = new JTextField();
         leftPanel.add(addField);
 
-        JButton addButton = new JButton("Add >>>");
-        addButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                listModel.addElement(addField.getText());
-            }
-        });
+        final JButton addButton = new JButton("Add >>>");
+        addButton.addActionListener(e -> listModel.addElement(addField.getText()));
         leftPanel.add(addButton);
 
         listModel = new DefaultListModel();
@@ -108,13 +101,10 @@ public class HomepageBuilder extends JPanel {
         listModel.addElement("Eating jelly");
         interestList = new JList(listModel);
 
-        JButton submit = new JButton("Build and preview your page!");
-        submit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buildPage(templateList.getSelectedItem().toString(),new JellyContext());
-                showPage();
-            }
+        final JButton submit = new JButton("Build and preview your page!");
+        submit.addActionListener(e -> {
+            buildPage(templateList.getSelectedItem().toString(),new JellyContext());
+            showPage();
         });
 
         // Layout the demo
@@ -125,7 +115,7 @@ public class HomepageBuilder extends JPanel {
         setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
     }
 
-    public void buildPage(String template, JellyContext ctx) {
+    public void buildPage(final String template, final JellyContext ctx) {
 
 //        try {
 //
@@ -149,26 +139,26 @@ public class HomepageBuilder extends JPanel {
 
         try {
 
-            OutputStream output = new FileOutputStream("demopage.html");
+            final OutputStream output = new FileOutputStream("demopage.html");
 
-            JellyContext context = new JellyContext();
+            final JellyContext context = new JellyContext();
             context.setVariable("name",nameField.getText());
             context.setVariable("background",colorField.getText());
             context.setVariable("url",urlField.getText());
 
-            Vector v = new Vector();
-            Enumeration items = listModel.elements();
+            final Vector v = new Vector();
+            final Enumeration items = listModel.elements();
             while (items.hasMoreElements()) {
                 v.add(items.nextElement());
             }
             context.setVariable("hobbies", v);
 
-            XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
+            final XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
             context.runScript( resolveURL("src/test/org/apache/commons/jelly/demos/"+template), xmlOutput );
             xmlOutput.flush();
             System.out.println("Finished merging template");
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
 
@@ -177,17 +167,17 @@ public class HomepageBuilder extends JPanel {
     void showPage() {
 
         //open new window
-        JFrame frame = new JFrame("Your Homepage");
+        final JFrame frame = new JFrame("Your Homepage");
 
         //add html pane
         try {
 
-          URL url = resolveURL("demopage.html");
-          JEditorPane htmlPane = new JEditorPane(url);
+          final URL url = resolveURL("demopage.html");
+          final JEditorPane htmlPane = new JEditorPane(url);
           htmlPane.setEditable(false);
           frame.setContentPane(new JScrollPane(htmlPane));
 
-        } catch (Exception ioe) {
+        } catch (final Exception ioe) {
           System.err.println("Error displaying page");
         }
 
@@ -200,19 +190,20 @@ public class HomepageBuilder extends JPanel {
      /***
       * @return the URL for the relative file name or absolute URL
       */
-    protected URL resolveURL(String name) throws MalformedURLException {
-         File file = new File(name);
+    protected URL resolveURL(final String name) throws MalformedURLException {
+         final File file = new File(name);
          if (file.exists()) {
              return file.toURL();
          }
          return new URL(name);
      }
 
-    public static void main(String s[]) {
-        JFrame frame = new JFrame("Homepage Builder");
+    public static void main(final String s[]) {
+        final JFrame frame = new JFrame("Homepage Builder");
 
         frame.addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {System.exit(0);}
+            @Override
+            public void windowClosing(final WindowEvent e) {System.exit(0);}
         });
 
         frame.setContentPane(new HomepageBuilder());

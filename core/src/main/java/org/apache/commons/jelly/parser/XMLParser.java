@@ -35,7 +35,6 @@ import javax.xml.parsers.SAXParserFactory;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
-import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.ConstantExpression;
@@ -47,7 +46,6 @@ import org.apache.commons.jelly.impl.ExpressionScript;
 import org.apache.commons.jelly.impl.ScriptBlock;
 import org.apache.commons.jelly.impl.StaticTag;
 import org.apache.commons.jelly.impl.StaticTagScript;
-import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
@@ -91,10 +89,10 @@ public class XMLParser extends DefaultHandler {
     private TagScript tagScript;
 
     /** The stack of body scripts. */
-    private ArrayDeque scriptStack = new ArrayDeque();
+    private final ArrayDeque scriptStack = new ArrayDeque();
 
     /** The stack of tagScripts - use ArrayList as it allows null. */
-    private ArrayList tagScriptStack = new ArrayList();
+    private final ArrayList tagScriptStack = new ArrayList();
 
     /** The current text buffer where non-custom tags get written */
     private StringBuffer textBuffer;
@@ -193,7 +191,7 @@ public class XMLParser extends DefaultHandler {
      * as given by
      * https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet#XMLReader
      */
-    public XMLParser(boolean allowDtdToCallExternalEntities) {
+    public XMLParser(final boolean allowDtdToCallExternalEntities) {
         this.allowDtdToCallExternalEntities = allowDtdToCallExternalEntities;
     }
 
@@ -204,7 +202,7 @@ public class XMLParser extends DefaultHandler {
      * James House (james@interobjective.com).  This may help in places where
      * you are able to load JAXP 1.1 classes yourself.
      */
-    public XMLParser(SAXParser parser) {
+    public XMLParser(final SAXParser parser) {
         this.parser = parser;
     }
 
@@ -215,30 +213,30 @@ public class XMLParser extends DefaultHandler {
      * have to configure namespace and validation support yourself, as these
      * properties only affect the SAXParser and empty constructor.
      */
-    public XMLParser(XMLReader reader) {
+    public XMLParser(final XMLReader reader) {
         this.reader = reader;
     }
 
     /**
      * Adds the given Expression object to the current Script.
      */
-    protected void addExpressionScript(ScriptBlock script, Expression expression) {
+    protected void addExpressionScript(final ScriptBlock script, final Expression expression) {
         if ( expression instanceof ConstantExpression ) {
-            ConstantExpression constantExpression
+            final ConstantExpression constantExpression
                 = (ConstantExpression) expression;
-            Object value = constantExpression.getValue();
+            final Object value = constantExpression.getValue();
             if ( value != null ) {
                 script.addScript(new TextScript( value.toString() ));
             }
         }
         else
         if ( expression instanceof CompositeExpression ) {
-            CompositeTextScriptBlock newBlock = new CompositeTextScriptBlock();
+            final CompositeTextScriptBlock newBlock = new CompositeTextScriptBlock();
             script.addScript(newBlock);
 
-            CompositeExpression compositeExpression
+            final CompositeExpression compositeExpression
                 = (CompositeExpression) expression;
-            Iterator iter = compositeExpression.getExpressions().iterator();
+            final Iterator iter = compositeExpression.getExpressions().iterator();
             while (iter.hasNext()) {
                 addExpressionScript( newBlock, (Expression) iter.next() );
             }
@@ -252,8 +250,8 @@ public class XMLParser extends DefaultHandler {
      * Adds the text to the current script block parsing any embedded
      * expressions into ExpressionScript objects.
      */
-    protected void addTextScript(String text) throws JellyException {
-    	Expression expression = createExpression(tagScript, "", text);
+    protected void addTextScript(final String text) throws JellyException {
+    	final Expression expression = createExpression(tagScript, "", text);
         addExpressionScript(script, expression);
     }
 
@@ -267,7 +265,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing error is to be reported
      */
     @Override
-    public void characters(char buffer[], int start, int length)
+    public void characters(final char buffer[], final int start, final int length)
         throws SAXException {
         textBuffer.append(buffer, start, length);
     }
@@ -278,12 +276,12 @@ public class XMLParser extends DefaultHandler {
      */
     protected void configure() {
         // load the properties file of libraries available
-        Properties properties = getJellyProperties();
-        for (Iterator iter = properties.entrySet().iterator(); iter.hasNext();) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String uri = (String) entry.getKey();
-            String className = (String) entry.getValue();
-            String libraryURI = "jelly:" + uri;
+        final Properties properties = getJellyProperties();
+        for (final Iterator iter = properties.entrySet().iterator(); iter.hasNext();) {
+            final Map.Entry entry = (Map.Entry) iter.next();
+            final String uri = (String) entry.getKey();
+            final String className = (String) entry.getValue();
+            final String libraryURI = "jelly:" + uri;
 
             // don't overload any Mock Tags already
             if ( ! context.isTagLibraryRegistered(libraryURI) ) {
@@ -298,7 +296,7 @@ public class XMLParser extends DefaultHandler {
      * @param tagLibrary the TagLibrary that created the TagScript
      * @param aTagScript the TagScript that's just been created
      */
-    protected void configureTagScript(TagLibrary tagLibrary,  TagScript aTagScript) {
+    protected void configureTagScript(final TagLibrary tagLibrary,  final TagScript aTagScript) {
         // Set the TagLibrary that created the script
         aTagScript.setTagLibrary(tagLibrary);
 
@@ -309,7 +307,7 @@ public class XMLParser extends DefaultHandler {
      * Configure a newly created TagScript instance before any Expressions are created
      * @param aTagScript
      */
-    protected void configureTagScript(TagScript aTagScript) {
+    protected void configureTagScript(final TagScript aTagScript) {
         // set parent relationship...
         aTagScript.setParent(this.tagScript);
 
@@ -321,9 +319,9 @@ public class XMLParser extends DefaultHandler {
     }
 
     protected Expression createConstantExpression(
-        String tagName,
-        String attributeName,
-        String attributeValue)  {
+        final String tagName,
+        final String attributeName,
+        final String attributeValue)  {
         return new ConstantExpression(attributeValue);
     }
 
@@ -335,11 +333,12 @@ public class XMLParser extends DefaultHandler {
      * @return The parsed exception.
      * @throws JellyException
      */
-    public Expression createExpression(TagScript script, String attributeName, String value) throws JellyException {
-    	ExpressionFactory factory = getExpressionFactory(script);
-    	TagLibrary tagLibrary = script.getTagLibrary();
-    	if (tagLibrary != null)
-    		return tagLibrary.createExpression(factory, script, attributeName, value);
+    public Expression createExpression(final TagScript script, final String attributeName, final String value) throws JellyException {
+    	final ExpressionFactory factory = getExpressionFactory(script);
+    	final TagLibrary tagLibrary = script.getTagLibrary();
+    	if (tagLibrary != null) {
+            return tagLibrary.createExpression(factory, script, attributeName, value);
+        }
        	return CompositeExpression.parse(value, factory);
     }
 
@@ -358,7 +357,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @return the new exception
      */
-    protected SAXException createSAXException(Exception e) {
+    protected SAXException createSAXException(final Exception e) {
         return createSAXException(e.getMessage(), e);
     }
 
@@ -368,7 +367,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @return the new exception
      */
-    protected SAXException createSAXException(String message) {
+    protected SAXException createSAXException(final String message) {
         return createSAXException(message, null);
     }
 
@@ -378,13 +377,13 @@ public class XMLParser extends DefaultHandler {
      *
      * @return the new exception
      */
-    protected SAXException createSAXException(String message, Exception e) {
+    protected SAXException createSAXException(final String message, final Exception e) {
         log.warn("Underlying exception: " + e);
         if (e != null) {
             e.printStackTrace();
         }
         if (locator != null) {
-            String error =
+            final String error =
                 "Error at ("
                     + locator.getLineNumber()
                     + ", "
@@ -394,17 +393,13 @@ public class XMLParser extends DefaultHandler {
             if (e != null) {
                 return new SAXParseException(error, locator, e);
             }
-            else {
-                return new SAXParseException(error, locator);
-            }
+            return new SAXParseException(error, locator);
         }
         log.error("No Locator!");
         if (e != null) {
             return new SAXException(message, e);
         }
-        else {
-            return new SAXException(message);
-        }
+        return new SAXException(message);
     }
 
     /**
@@ -414,31 +409,26 @@ public class XMLParser extends DefaultHandler {
         final String namespaceURI,
         final String localName,
         final String qName,
-        Attributes list)
+        final Attributes list)
         throws SAXException {
         try {
             //StaticTag tag = new StaticTag( namespaceURI, localName, qName );
-            StaticTagScript script = new StaticTagScript(
-                new TagFactory() {
-                    @Override
-                    public Tag createTag(String name, Attributes attributes) {
-                        return new StaticTag( namespaceURI, localName, qName );
-                    }
-                }
+            final StaticTagScript script = new StaticTagScript(
+                (name, attributes) -> new StaticTag( namespaceURI, localName, qName )
             );
             configureTagScript(script);
 
             // now iterate through through the expressions
-            int size = list.getLength();
+            final int size = list.getLength();
             for (int i = 0; i < size; i++) {
-                String attributeValue = list.getValue(i);
-                Expression expression = createExpression(script, null, attributeValue);
+                final String attributeValue = list.getValue(i);
+                final Expression expression = createExpression(script, null, attributeValue);
 //                Expression expression = CompositeExpression.parse(
 //                        attributeValue, getExpressionFactory()
 //                    );
-                String attrQName = list.getQName(i);
-                int p = attrQName.indexOf(':');
-                String prefix = p>=0 ?
+                final String attrQName = list.getQName(i);
+                final int p = attrQName.indexOf(':');
+                final String prefix = p>=0 ?
                         attrQName.substring(0, p):
                         "";
                 script.addAttribute(list.getLocalName(i),
@@ -446,7 +436,7 @@ public class XMLParser extends DefaultHandler {
             }
             return script;
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             log.warn(
                 "Could not create static tag for URI: "
                     + namespaceURI
@@ -462,38 +452,36 @@ public class XMLParser extends DefaultHandler {
      * return null if this is not a custom Tag.
      */
     protected TagScript createTag(
-        String namespaceURI,
-        String localName,
-        Attributes list)
+        final String namespaceURI,
+        final String localName,
+        final Attributes list)
         throws SAXException {
         try {
             // use the URI to load a taglib
             TagLibrary taglib = context.getTagLibrary(namespaceURI);
-            if (taglib == null) {
-                if (namespaceURI != null && namespaceURI.startsWith("jelly:")) {
-                    String uri = namespaceURI.substring(6);
-                    // try to find the class on the classpath
-                    try {
-                        Class taglibClass = getClassLoader().loadClass(uri);
-                        taglib = (TagLibrary) taglibClass.getConstructor().newInstance();
-                        context.registerTagLibrary(namespaceURI, taglib);
-                    }
-                    catch (ClassNotFoundException e) {
-                        throw createSAXException("Could not load class: " + uri + " so taglib instantiation failed", e);
-                    }
-                    catch (IllegalAccessException e) {
-                        throw createSAXException("Constructor for class is not accessible: " + uri + " so taglib instantiation failed", e);
-                    }
-                    catch (InstantiationException e) {
-                        throw createSAXException("Class could not be instantiated: " + uri + " so taglib instantiation failed", e);
-                    }
-                    catch (ClassCastException e) {
-                        throw createSAXException("Class is not a TagLibrary: " + uri + " so taglib instantiation failed", e);
-                    }
+            if (taglib == null && namespaceURI != null && namespaceURI.startsWith("jelly:")) {
+                final String uri = namespaceURI.substring(6);
+                // try to find the class on the classpath
+                try {
+                    final Class taglibClass = getClassLoader().loadClass(uri);
+                    taglib = (TagLibrary) taglibClass.getConstructor().newInstance();
+                    context.registerTagLibrary(namespaceURI, taglib);
+                }
+                catch (final ClassNotFoundException e) {
+                    throw createSAXException("Could not load class: " + uri + " so taglib instantiation failed", e);
+                }
+                catch (final IllegalAccessException e) {
+                    throw createSAXException("Constructor for class is not accessible: " + uri + " so taglib instantiation failed", e);
+                }
+                catch (final InstantiationException e) {
+                    throw createSAXException("Class could not be instantiated: " + uri + " so taglib instantiation failed", e);
+                }
+                catch (final ClassCastException e) {
+                    throw createSAXException("Class is not a TagLibrary: " + uri + " so taglib instantiation failed", e);
                 }
             }
             if (taglib != null) {
-                TagScript script = taglib.createTagScript(localName, list);
+                final TagScript script = taglib.createTagScript(localName, list);
                 if ( script != null ) {
                     configureTagScript(taglib, script);
 
@@ -501,14 +489,15 @@ public class XMLParser extends DefaultHandler {
                     script.setSaxAttributes(new AttributesImpl(list));
 
                     // now iterate through through the expressions
-                    int size = list.getLength();
+                    final int size = list.getLength();
                     for (int i = 0; i < size; i++) {
-                        String attributeName = list.getLocalName(i);
+                        final String attributeName = list.getLocalName(i);
                         // Fix for JELLY-184 where the xmlns attributes have a blank name and cause
                         //	an exception later on
-                        if (attributeName.length() == 0)
-                        	continue;
-                        String attributeValue = list.getValue(i);
+                        if (attributeName.length() == 0) {
+                            continue;
+                        }
+                        final String attributeValue = list.getValue(i);
                         Expression expression =
                             createExpression(script,
                                 attributeName,
@@ -524,13 +513,14 @@ public class XMLParser extends DefaultHandler {
                         }
                         script.addAttribute(attributeName, expression);
                     }
-                } else if (!taglib.isAllowUnknownTags())
+                } else if (!taglib.isAllowUnknownTags()) {
                     throw new JellyException("Unrecognized tag called " + localName + " in TagLibrary " + namespaceURI);
+                }
                 return script;
             }
             return null;
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             log.warn(
                 "Could not create taglib or URI: " + namespaceURI + " tag name: " + localName,
                 e);
@@ -561,7 +551,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing error is to be reported
      */
     @Override
-    public void endElement(String namespaceURI, String localName, String qName)
+    public void endElement(final String namespaceURI, final String localName, final String qName)
         throws SAXException {
         try {
             tagScript = (TagScript) tagScriptStack.remove(tagScriptStack.size() - 1);
@@ -585,7 +575,7 @@ public class XMLParser extends DefaultHandler {
             else {
                 tagScript = (TagScript) tagScriptStack.get(tagScriptStack.size() - 1);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             log.error( "Caught exception: " + e, e );
             throw new SAXException( "Runtime Exception: " + e, e );
         }
@@ -598,9 +588,9 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing error is to be reported
      */
     @Override
-    public void endPrefixMapping(String prefix) throws SAXException {
+    public void endPrefixMapping(final String prefix) throws SAXException {
         // Deregister this prefix mapping
-        ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
+        final ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
         if (stack == null) {
             return;
         }
@@ -610,7 +600,7 @@ public class XMLParser extends DefaultHandler {
                 namespaces.remove(prefix);
             }
         }
-        catch (EmptyStackException e) {
+        catch (final EmptyStackException e) {
             throw createSAXException("endPrefixMapping popped too many times");
         }
     }
@@ -636,7 +626,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing exception occurs
      */
     @Override
-    public void error(SAXParseException exception) throws SAXException {
+    public void error(final SAXParseException exception) throws SAXException {
         log.error(
             "Parse Error at line "
                 + exception.getLineNumber()
@@ -645,11 +635,10 @@ public class XMLParser extends DefaultHandler {
                 + ": "
                 + exception.getMessage(),
             exception);
-        if (errorHandler != null) {
-            errorHandler.error(exception);
-        } else {
+        if (errorHandler == null) {
             throw exception;
         }
+        errorHandler.error(exception);
     }
 
     /**
@@ -660,7 +649,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing exception occurs
      */
     @Override
-    public void fatalError(SAXParseException exception) throws SAXException {
+    public void fatalError(final SAXParseException exception) throws SAXException {
         log.error(
             "Parse Fatal Error at line "
                 + exception.getLineNumber()
@@ -669,11 +658,10 @@ public class XMLParser extends DefaultHandler {
                 + ": "
                 + exception.getMessage(),
             exception);
-        if (errorHandler != null) {
-            errorHandler.fatalError(exception);
-        } else {
+        if (errorHandler == null) {
             throw exception;
         }
+        errorHandler.fatalError(exception);
     }
 
     /**
@@ -684,16 +672,16 @@ public class XMLParser extends DefaultHandler {
      * @param prefix Prefix to look up
      * @return The matching prefix.
      */
-    public String findNamespaceURI(String prefix) {
-        ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
+    public String findNamespaceURI(final String prefix) {
+        final ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
         if (stack == null) {
-            return (null);
+            return null;
         }
         try {
-            return ((String) stack.peek());
+            return (String) stack.peek();
         }
-        catch (EmptyStackException e) {
-            return (null);
+        catch (final EmptyStackException e) {
+            return null;
         }
     }
 
@@ -720,15 +708,15 @@ public class XMLParser extends DefaultHandler {
      * current context defined on the JellyContext
      */
     protected String getCurrentURI() {
-        URL url = this.getContext().getCurrentURL();
-        return (url != null) ? url.toString() : null;
+        final URL url = this.getContext().getCurrentURL();
+        return url != null ? url.toString() : null;
     }
 
     /**
      * Return the error handler for this XMLParser.
      */
     public ErrorHandler getErrorHandler() {
-        return (this.errorHandler);
+        return this.errorHandler;
     }
 
     /**
@@ -738,27 +726,32 @@ public class XMLParser extends DefaultHandler {
      * @param tagScript
      * @return the expression factory used to evaluate tag attributes
      */
-    public ExpressionFactory getExpressionFactory(TagScript tagScript) {
+    public ExpressionFactory getExpressionFactory(final TagScript tagScript) {
     	// Check the tag library
     	TagLibrary tagLibrary = null;
-    	if (tagScript != null)
-    		tagLibrary = tagScript.getTagLibrary();
+    	if (tagScript != null) {
+            tagLibrary = tagScript.getTagLibrary();
+        }
 
     	// If the tagScript is a StaticTag, then go up the stack looking for a
     	//	tagScript that belongs to a real TagLibrary
-    	if (tagLibrary == null && tagScript instanceof StaticTagScript)
-    		for (int i = tagScriptStack.size() - 1; i > -1; i--) {
-    			TagScript script = (TagScript)tagScriptStack.get(i);
+    	if (tagLibrary == null && tagScript instanceof StaticTagScript) {
+            for (int i = tagScriptStack.size() - 1; i > -1; i--) {
+    			final TagScript script = (TagScript)tagScriptStack.get(i);
     			tagLibrary = script.getTagLibrary();
-    			if (tagLibrary != null)
-    				break;
-    			if (!(script instanceof StaticTagScript))
-    				break;
+    			if (tagLibrary != null) {
+                    break;
+                }
+    			if (!(script instanceof StaticTagScript)) {
+                    break;
+                }
     		}
+        }
     	if (tagLibrary != null) {
-    		ExpressionFactory factory = tagLibrary.getExpressionFactory();
-    		if (factory != null)
-    			return factory;
+    		final ExpressionFactory factory = tagLibrary.getExpressionFactory();
+    		if (factory != null) {
+                return factory;
+            }
     	}
         if (expressionFactory == null) {
             expressionFactory = createExpressionFactory();
@@ -774,7 +767,7 @@ public class XMLParser extends DefaultHandler {
             jellyProperties = new Properties();
 
             InputStream in = null;
-            URL url =
+            final URL url =
                 getClassLoader().getResource("org/apache/commons/jelly/jelly.properties");
             if (url != null) {
                 log.debug("Loading Jelly default tag libraries from: " + url);
@@ -782,15 +775,17 @@ public class XMLParser extends DefaultHandler {
                     in = url.openStream();
                     jellyProperties .load(in);
                 }
-                catch (IOException e) {
+                catch (final IOException e) {
                     log.error("Could not load jelly properties from: " + url + ". Reason: " + e, e);
                 }
                 finally {
                     try {
                         in.close();
                     }
-                    catch (Exception e) {
-                        if (log.isDebugEnabled()) log.debug("error closing jelly.properties", e);
+                    catch (final Exception e) {
+                        if (log.isDebugEnabled()) {
+                            log.debug("error closing jelly.properties", e);
+                        }
                     }
                 }
             }
@@ -812,7 +807,7 @@ public class XMLParser extends DefaultHandler {
     public SAXParser getParser() {
         // Return the parser we already created (if any)
         if (parser != null) {
-            return (parser);
+            return parser;
         }
         // Create and return a new parser
         synchronized (this) {
@@ -823,11 +818,11 @@ public class XMLParser extends DefaultHandler {
                 factory.setNamespaceAware(true);
                 factory.setValidating(validating);
                 parser = factory.newSAXParser();
-                return (parser);
+                return parser;
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 log.error("XMLParser.getParser: ", e);
-                return (null);
+                return null;
             }
         }
     }
@@ -839,13 +834,14 @@ public class XMLParser extends DefaultHandler {
      * @deprecated Use getXMLReader() instead, which can throw a
      *  SAXException if the reader cannot be instantiated
      */
+    @Deprecated
     public XMLReader getReader() {
         try {
-            return (getXMLReader());
+            return getXMLReader();
         }
-        catch (SAXException e) {
+        catch (final SAXException e) {
             log.error("Cannot get XMLReader", e);
-            return (null);
+            return null;
         }
     }
 
@@ -871,7 +867,7 @@ public class XMLParser extends DefaultHandler {
      * Return the validating parser flag.
      */
     public boolean getValidating() {
-        return (this.validating);
+        return this.validating;
     }
 
     /**
@@ -910,7 +906,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing error is to be reported
      */
     @Override
-    public void ignorableWhitespace(char buffer[], int start, int len)
+    public void ignorableWhitespace(final char buffer[], final int start, final int len)
         throws SAXException {
         // No processing required
     }
@@ -933,7 +929,7 @@ public class XMLParser extends DefaultHandler {
      * @param systemId The system identifier (if any)
      */
     @Override
-    public void notationDecl(String name, String publicId, String systemId) {
+    public void notationDecl(final String name, final String publicId, final String systemId) {
     }
 
     /**
@@ -945,7 +941,7 @@ public class XMLParser extends DefaultHandler {
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
-    public Script parse(File file) throws IOException, SAXException {
+    public Script parse(final File file) throws IOException, SAXException {
         return parse(file.toURL());
     }
 
@@ -958,7 +954,7 @@ public class XMLParser extends DefaultHandler {
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
-    public Script parse(InputSource input) throws IOException, SAXException {
+    public Script parse(final InputSource input) throws IOException, SAXException {
         ensureConfigured();
         this.fileName = input.getSystemId();
         getXMLReader().parse(input);
@@ -979,7 +975,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException
      *                   if a parsing exception occurs
      */
-    public Script parse(InputStream input) throws IOException, SAXException {
+    public Script parse(final InputStream input) throws IOException, SAXException {
         ensureConfigured();
         this.fileName = getCurrentURI();
         getXMLReader().parse(new InputSource(input));
@@ -1000,7 +996,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException
      *                   if a parsing exception occurs
      */
-    public Script parse(Reader reader) throws IOException, SAXException {
+    public Script parse(final Reader reader) throws IOException, SAXException {
         ensureConfigured();
         this.fileName = getCurrentURI();
         getXMLReader().parse(new InputSource(reader));
@@ -1016,7 +1012,7 @@ public class XMLParser extends DefaultHandler {
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
-    public Script parse(String uri) throws IOException, SAXException {
+    public Script parse(final String uri) throws IOException, SAXException {
         ensureConfigured();
         this.fileName = uri;
         getXMLReader().parse(uri);
@@ -1032,11 +1028,11 @@ public class XMLParser extends DefaultHandler {
      * @throws IOException if an input/output error occurs
      * @throws SAXException if a parsing exception occurs
      */
-    public Script parse(URL url) throws IOException, SAXException {
+    public Script parse(final URL url) throws IOException, SAXException {
         ensureConfigured();
         this.fileName = url.toString();
 
-        InputSource source = new InputSource(url.toString());
+        final InputSource source = new InputSource(url.toString());
 
         getXMLReader().parse(source);
         return script;
@@ -1050,7 +1046,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing error is to be reported
      */
     @Override
-    public void processingInstruction(String target, String data)
+    public void processingInstruction(final String target, final String data)
         throws SAXException {
         // No processing is required
     }
@@ -1066,7 +1062,7 @@ public class XMLParser extends DefaultHandler {
      * as given by
      * https://www.owasp.org/index.php/XML_External_Entity_(XXE)_Prevention_Cheat_Sheet#XMLReader
      */
-    public void setAllowDtdToCallExternalEntities(boolean allowDtdToCallExternalEntities) {
+    public void setAllowDtdToCallExternalEntities(final boolean allowDtdToCallExternalEntities) {
         this.allowDtdToCallExternalEntities = allowDtdToCallExternalEntities;
     }
 
@@ -1077,11 +1073,11 @@ public class XMLParser extends DefaultHandler {
      * @param classLoader The new class loader to use, or {@code null}
      *  to revert to the standard rules
      */
-    public void setClassLoader(ClassLoader classLoader) {
+    public void setClassLoader(final ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 
-    public void setContext(JellyContext context) {
+    public void setContext(final JellyContext context) {
         this.context = context;
     }
 
@@ -1092,7 +1088,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param namespace jelly namespace to use (e.g. 'jelly:core')
      */
-    public void setDefaultNamespaceURI(String namespace) {
+    public void setDefaultNamespaceURI(final String namespace) {
         this.defaultNamespaceURI = namespace;
     }
 
@@ -1102,7 +1098,7 @@ public class XMLParser extends DefaultHandler {
      * @param locator The new locator
      */
     @Override
-    public void setDocumentLocator(Locator locator) {
+    public void setDocumentLocator(final Locator locator) {
         this.locator = locator;
     }
 
@@ -1111,19 +1107,19 @@ public class XMLParser extends DefaultHandler {
      *
      * @param errorHandler The new error handler
      */
-    public void setErrorHandler(ErrorHandler errorHandler) {
+    public void setErrorHandler(final ErrorHandler errorHandler) {
         this.errorHandler = errorHandler;
     }
 
     /** Sets the expression factory used to evaluate tag attributes */
-    public void setExpressionFactory(ExpressionFactory expressionFactory) {
+    public void setExpressionFactory(final ExpressionFactory expressionFactory) {
         this.expressionFactory = expressionFactory;
     }
 
     /**
      * Sets the current logger for this XMLParser.
      */
-    public void setLogger(Log log) {
+    public void setLogger(final Log log) {
         this.log = log;
     }
 
@@ -1136,7 +1132,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param use determines whether to use JellyContext ClassLoader.
      */
-    public void setUseContextClassLoader(boolean use) {
+    public void setUseContextClassLoader(final boolean use) {
         useContextClassLoader = use;
     }
 
@@ -1146,7 +1142,7 @@ public class XMLParser extends DefaultHandler {
      *
      * @param validating The new validating parser flag.
      */
-    public void setValidating(boolean validating) {
+    public void setValidating(final boolean validating) {
         this.validating = validating;
     }
 
@@ -1157,7 +1153,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing error is to be reported
      */
     @Override
-    public void skippedEntity(String name) throws SAXException {
+    public void skippedEntity(final String name) throws SAXException {
         // No processing required
     }
 
@@ -1194,9 +1190,9 @@ public class XMLParser extends DefaultHandler {
     @Override
     public void startElement(
         String namespaceURI,
-        String localName,
-        String qName,
-        Attributes list)
+        final String localName,
+        final String qName,
+        final Attributes list)
         throws SAXException {
 
         try {
@@ -1219,8 +1215,9 @@ public class XMLParser extends DefaultHandler {
                     tagScript.setLocator(locator);
                 }
                 // sets the file name element names
-                if (fileName != null)
-                	tagScript.setFileName(fileName);
+                if (fileName != null) {
+                    tagScript.setFileName(fileName);
+                }
                 tagScript.setElementName(qName);
                 tagScript.setLocalName(localName);
 
@@ -1238,7 +1235,7 @@ public class XMLParser extends DefaultHandler {
                 // XXXX: might wanna handle empty elements later...
                 textBuffer.append("<");
                 textBuffer.append(qName);
-                int size = list.getLength();
+                final int size = list.getLength();
                 for (int i = 0; i < size; i++) {
                     textBuffer.append(" ");
                     textBuffer.append(list.getQName(i));
@@ -1250,10 +1247,10 @@ public class XMLParser extends DefaultHandler {
                 textBuffer.append(">");
             }
         }
-        catch (SAXException e) {
+        catch (final SAXException e) {
             throw e;
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             log.error( "Caught exception: " + e, e );
             throw new SAXException( "Runtime Exception: " + e, e );
         }
@@ -1267,7 +1264,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing error is to be reported
      */
     @Override
-    public void startPrefixMapping(String prefix, String namespaceURI)
+    public void startPrefixMapping(final String prefix, final String namespaceURI)
         throws SAXException {
         // Register this prefix mapping
         ArrayDeque stack = (ArrayDeque) namespaces.get(prefix);
@@ -1293,10 +1290,10 @@ public class XMLParser extends DefaultHandler {
      */
     @Override
     public void unparsedEntityDecl(
-        String name,
-        String publicId,
-        String systemId,
-        String notation) {
+        final String name,
+        final String publicId,
+        final String systemId,
+        final String notation) {
     }
     /**
      * Forward notification of a parse warning to the application supplied
@@ -1308,7 +1305,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing exception occurs
      */
     @Override
-    public void warning(SAXParseException exception) throws SAXException {
+    public void warning(final SAXParseException exception) throws SAXException {
         log.error(
             "Parse Warning at line "
                 + exception.getLineNumber()

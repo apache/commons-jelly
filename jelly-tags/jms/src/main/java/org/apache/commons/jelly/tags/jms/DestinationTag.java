@@ -37,22 +37,22 @@ public class DestinationTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
         if ( messengerTag == null ) {
             throw new JellyTagException("<jms:destination> tag must be within a <jms:connection> or <jms:send> or <jms:receive> tag");
         }
 
         Destination destination = null;
         try {
-            Messenger messenger = messengerTag.getConnection();
+            final Messenger messenger = messengerTag.getConnection();
             if (messenger == null) {
                 throw new JellyTagException("No JMS Connection could be found!" );
             }
-            String subject = (name != null) ? name : getBodyText();
+            final String subject = name != null ? name : getBodyText();
             destination = messenger.getDestination( subject );
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
 
@@ -60,7 +60,7 @@ public class DestinationTag extends TagSupport {
             context.setVariable( var, destination );
         }
         else {
-            MessageOperationTag tag = (MessageOperationTag) findAncestorWithClass( MessageOperationTag.class );
+            final MessageOperationTag tag = (MessageOperationTag) findAncestorWithClass( MessageOperationTag.class );
             if ( tag == null ) {
                 throw new JellyTagException("<jms:destination> tag must be within a <jms:send> or <jms:receive> tag or the 'var' attribute should be specified");
             }
@@ -73,13 +73,13 @@ public class DestinationTag extends TagSupport {
 
     /** Sets the name of the Destination
       */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     /** Sets the variable name to use for the Destination
       */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

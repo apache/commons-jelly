@@ -58,19 +58,19 @@ public class MergeTag extends VelocityTagSupport
         if ( name != null )
         {
             try {
-                Writer writer = new OutputStreamWriter(
+                final Writer writer = new OutputStreamWriter(
                         new FileOutputStream( name ),
                         outputEncoding == null ? ENCODING : outputEncoding );
                 mergeTemplate( writer );
                 writer.close();
             }
-            catch (IOException e) {
+            catch (final IOException e) {
                 throw new JellyTagException(e);
             }
         }
         else if ( var != null )
         {
-            StringWriter writer = new StringWriter();
+            final StringWriter writer = new StringWriter();
             mergeTemplate( writer );
             context.setVariable( var, writer.toString() );
         }
@@ -87,7 +87,7 @@ public class MergeTag extends VelocityTagSupport
      * @param var The var to set in the JellyContext with the results of
      * the merge.
      */
-    public void setVar( String var )
+    public void setVar( final String var )
     {
         this.var = var;
     }
@@ -98,7 +98,7 @@ public class MergeTag extends VelocityTagSupport
      * @param name The name of the output file that is used to store the
      * results of the merge.
      */
-    public void setName( String name )
+    public void setName( final String name )
     {
         this.name = name;
     }
@@ -110,7 +110,7 @@ public class MergeTag extends VelocityTagSupport
      * @param basedir The directory where templates can be located by
      * the Velocity file resource loader.
      */
-    public void setBasedir( String basedir )
+    public void setBasedir( final String basedir )
     {
         this.basedir = basedir;
     }
@@ -121,7 +121,7 @@ public class MergeTag extends VelocityTagSupport
      *
      * @param template The file name of the template to be merged.
      */
-    public void setTemplate( String template )
+    public void setTemplate( final String template )
     {
         this.template = template;
     }
@@ -135,7 +135,7 @@ public class MergeTag extends VelocityTagSupport
      * propagating (the default), or <code>false</code> which permits
      * modifications.
      */
-    public void setReadOnly( boolean readOnly )
+    public void setReadOnly( final boolean readOnly )
     {
         this.readOnly = readOnly;
     }
@@ -147,7 +147,7 @@ public class MergeTag extends VelocityTagSupport
      * @param encoding  The file encoding to use when writing the
      * output.
      */
-    public void setOutputEncoding( String encoding )
+    public void setOutputEncoding( final String encoding )
     {
         this.outputEncoding = encoding;
     }
@@ -158,7 +158,7 @@ public class MergeTag extends VelocityTagSupport
      *
      * @param encoding  The encoding used in the template.
      */
-    public void setInputEncoding( String encoding )
+    public void setInputEncoding( final String encoding )
     {
         this.inputEncoding = encoding;
     }
@@ -171,9 +171,9 @@ public class MergeTag extends VelocityTagSupport
      * @param writer The output writer used to write the merged results.
      * @throws Exception If an exception occurs during the merge.
      */
-    private void mergeTemplate( Writer writer ) throws JellyTagException
+    private void mergeTemplate( final Writer writer ) throws JellyTagException
     {
-        JellyContextAdapter adapter = new JellyContextAdapter( getContext() );
+        final JellyContextAdapter adapter = new JellyContextAdapter( getContext() );
         adapter.setReadOnly( readOnly );
 
         try {
@@ -183,16 +183,7 @@ public class MergeTag extends VelocityTagSupport
                 adapter,
                 writer );
         }
-        catch (ResourceNotFoundException e) {
-            throw new JellyTagException(e);
-        }
-        catch (ParseErrorException e) {
-            throw new JellyTagException(e);
-        }
-        catch (MethodInvocationException e) {
-            throw new JellyTagException(e);
-        }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException(e);
         }
     }

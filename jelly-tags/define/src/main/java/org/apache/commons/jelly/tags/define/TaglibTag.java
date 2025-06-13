@@ -43,15 +43,15 @@ public class TaglibTag extends TagSupport {
     public TaglibTag() {
     }
 
-    public TaglibTag(String uri) {
+    public TaglibTag(final String uri) {
         this.uri = uri;
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        String uri = getUri();
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final String uri = getUri();
         tagLibrary = new DynamicTagLibrary( uri );
 
         // inherit tags from an existing tag library
@@ -74,7 +74,7 @@ public class TaglibTag extends TagSupport {
     /**
      * Sets the namespace URI to register this new dynamic tag library with
      */
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 
@@ -100,7 +100,7 @@ public class TaglibTag extends TagSupport {
      *
      * @param inherit The inherit to set
      */
-    public void setInherit(boolean inherit) {
+    public void setInherit(final boolean inherit) {
         this.inherit = inherit;
     }
 

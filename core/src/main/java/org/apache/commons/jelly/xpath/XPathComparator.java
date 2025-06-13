@@ -35,7 +35,7 @@ public class XPathComparator implements Comparator {
      * My own runtime exception in case something goes wrong with sort.
      */
     public static class XPathSortException extends NestedRuntimeException {
-        public XPathSortException(String message, Throwable cause) {
+        public XPathSortException(final String message, final Throwable cause) {
             super(message, cause);
         }
     }
@@ -50,35 +50,34 @@ public class XPathComparator implements Comparator {
 
     }
 
-    public XPathComparator(XPath xpath, boolean descending) {
+    public XPathComparator(final XPath xpath, final boolean descending) {
         this.xpath = xpath;
         this.descending = descending;
     }
 
-    public int compare(Node n1, Node n2) {
+    public int compare(final Node n1, final Node n2) {
         try {
 
             // apply the xpaths. not using stringValueOf since I don't
             // want all of the child nodes appended to the strings
-            Object val1 = xpath.evaluate(n1);
-            Object val2 = xpath.evaluate(n2);
+            final Object val1 = xpath.evaluate(n1);
+            final Object val2 = xpath.evaluate(n2);
 
             // return if null
             if (val1 == null || val2 == null) {
-                return val1 == null ? (val2 == null ? 1 : -1) : 1;
+                return val1 == null ? val2 == null ? 1 : -1 : 1;
             }
 
-            Comparable c1 = getComparableValue(val1);
-            Comparable c2 = getComparableValue(val2);
+            final Comparable c1 = getComparableValue(val1);
+            final Comparable c2 = getComparableValue(val2);
 
             // compare descending or ascending
             if (!descending) {
                 return c1.compareTo(c2);
-            } else {
-                return c2.compareTo(c1);
             }
+            return c2.compareTo(c1);
 
-        } catch (JaxenException e) {
+        } catch (final JaxenException e) {
 
             throw new XPathSortException("error sorting nodes", e);
 
@@ -86,7 +85,7 @@ public class XPathComparator implements Comparator {
     }
 
     @Override
-    public int compare(Object o1, Object o2) {
+    public int compare(final Object o1, final Object o2) {
         return compare((Node)o1, (Node)o2);
     }
 
@@ -95,7 +94,7 @@ public class XPathComparator implements Comparator {
      */
     protected Comparable getComparableValue(Object value) {
         if (value instanceof List) {
-            List list = (List) value;
+            final List list = (List) value;
             if (list.isEmpty()) {
                 value = "";
             }
@@ -107,8 +106,8 @@ public class XPathComparator implements Comparator {
         if (value instanceof Comparable) {
             return (Comparable) value;
         }
-        else if (value instanceof Node) {
-            Node node = (Node) value;
+        if (value instanceof Node) {
+            final Node node = (Node) value;
             return node.getStringValue();
         }
         return value.toString();
@@ -118,11 +117,11 @@ public class XPathComparator implements Comparator {
         return xpath;
     }
 
-    public void setDescending(boolean descending) {
+    public void setDescending(final boolean descending) {
         this.descending = descending;
     }
 
-    public void setXpath(XPath xpath) {
+    public void setXpath(final XPath xpath) {
         this.xpath = xpath;
     }
 }

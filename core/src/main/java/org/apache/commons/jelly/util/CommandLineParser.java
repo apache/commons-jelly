@@ -45,7 +45,7 @@ import org.apache.commons.jelly.XMLOutput;
 public class CommandLineParser {
 
     protected static CommandLineParser _instance = new CommandLineParser();
-    
+
     public static CommandLineParser getInstance() {
         return _instance;
     }
@@ -60,14 +60,14 @@ public class CommandLineParser {
      * @throws JellyException
      *                   if the command line could not be parsed
      */
-    public void invokeCommandLineJelly(String[] args) throws JellyException {
+    public void invokeCommandLineJelly(final String[] args) throws JellyException {
         CommandLine cmdLine = null;
         try {
             cmdLine = parseCommandLineOptions(args);
-        } catch (ParseException e) {
+        } catch (final ParseException e) {
             throw new JellyException(e);
         }
-        
+
         // check for -h or -v
         if (cmdLine.hasOption("h")) {
             new HelpFormatter().printHelp("jelly [scriptFile] [-script scriptFile] [-o outputFile] [-Dsysprop=syspropval] [-awt]",
@@ -88,16 +88,16 @@ public class CommandLineParser {
         } else {
             scriptFile = args[0];
         }
-        
+
         // check the -awt option.
-        boolean runInSwingThread = cmdLine.hasOption("awt") || cmdLine.hasOption("swing");
+        final boolean runInSwingThread = cmdLine.hasOption("awt") || cmdLine.hasOption("swing");
 
         //
         // Use classloader to find file
         //
-        URL url = ClassLoaderUtils.getClassLoader(getClass()).getResource(scriptFile);
+        final URL url = ClassLoaderUtils.getClassLoader(getClass()).getResource(scriptFile);
         // check if the script file exists
-        if (url == null && !(new File(scriptFile)).exists()) {
+        if (url == null && !new File(scriptFile).exists()) {
             throw new JellyException("Script file " + scriptFile + " not found");
         }
 
@@ -107,7 +107,7 @@ public class CommandLineParser {
                     XMLOutput.createXMLOutput(new FileWriter(cmdLine.getOptionValue("o"))) :
                     XMLOutput.createXMLOutput(System.out);
 
-            Jelly jelly = new Jelly();
+            final Jelly jelly = new Jelly();
             jelly.setScript(scriptFile);
 
             final Script script = jelly.compileScript();
@@ -117,14 +117,13 @@ public class CommandLineParser {
             context.setVariable("args", args);
             context.setVariable("commandLine", cmdLine);
             if (runInSwingThread) {
-                javax.swing.SwingUtilities.invokeAndWait(new Runnable() { @Override
-                public void run() {
+                javax.swing.SwingUtilities.invokeAndWait(() -> {
                     try {
                         script.run(context, output);
-                    } catch (Exception ex) {
+                    } catch (final Exception ex) {
                         ex.printStackTrace();
                     }
-            } } ); } else {
+            } ); } else {
                 script.run(context, output);
             }
 
@@ -135,14 +134,14 @@ public class CommandLineParser {
                         try {
                             output.close();
                         }
-                        catch (Exception e) {
+                        catch (final Exception e) {
                             // ignore errors
                         }
                     }
                 }
             );
 
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new JellyException(e);
         }
 
@@ -152,7 +151,7 @@ public class CommandLineParser {
      * Parse the command line using CLI. -o and -script are reserved for Jelly.
      * -Dsysprop=sysval is support on the command line as well.
      */
-    public CommandLine parseCommandLineOptions(String[] args) throws ParseException {
+    public CommandLine parseCommandLineOptions(final String[] args) throws ParseException {
         // create the expected options
         cmdLineOptions = new Options();
         cmdLineOptions.addOption("o", true, "Output file");
@@ -162,25 +161,26 @@ public class CommandLineParser {
         cmdLineOptions.addOption("script", true, "Jelly script to run");
         cmdLineOptions.addOption("awt", false, "Wether to run in the AWT thread.");
         cmdLineOptions.addOption("swing", false, "Synonym of \"-awt\".");
-        List builtinOptionNames = Arrays.asList(new String[] { "-o", "-script", "-h", "--help", "-v", "--version", "-awt", "-swing" });
+        final List builtinOptionNames = Arrays.asList(new String[] { "-o", "-script", "-h", "--help", "-v", "--version", "-awt", "-swing" });
 
         // -D options will be added to the system properties
-        Properties sysProps = System.getProperties();
+        final Properties sysProps = System.getProperties();
 
         // filter the system property setting from the arg list
         // before passing it to the CLI parser
-        ArrayList filteredArgList = new ArrayList();
+        final ArrayList filteredArgList = new ArrayList();
 
-        for (int i = 0; i < args.length; i++) {
-            String arg = args[i];
+        for (final String arg2 : args) {
+            String arg = arg2;
 
             // if this is a -D property parse it and add it to the system properties.
             // -D args will not be copied into the filteredArgList.
-            if (arg.startsWith("-D") && (arg.length() > 2)) {
+            if (arg.startsWith("-D") && arg.length() > 2) {
                 arg = arg.substring(2);
-                int ePos = arg.indexOf("=");
-                if (ePos == -1 || ePos == 0 || ePos == arg.length() - 1)
+                final int ePos = arg.indexOf("=");
+                if (ePos == -1 || ePos == 0 || ePos == arg.length() - 1) {
                     System.err.println("Invalid system property: \"" + arg + "\".");
+                }
                 sysProps.setProperty(arg.substring(0, ePos), arg.substring(ePos + 1));
             } else {
                 // add this to the filtered list of arguments
@@ -188,20 +188,18 @@ public class CommandLineParser {
 
                 // add additional "-?" options to the options object. if this is not done
                 // the only options allowed would be the builtin-ones.
-                if (arg.startsWith("-") && arg.length() > 1) {
-                    if (!(builtinOptionNames.contains(arg))) {
-                        cmdLineOptions.addOption(arg.substring(1, arg.length()), true, "dynamic option");
-                    }
+                if (arg.startsWith("-") && arg.length() > 1 && !builtinOptionNames.contains(arg)) {
+                    cmdLineOptions.addOption(arg.substring(1), true, "dynamic option");
                 }
             }
         }
 
         // make the filteredArgList into an array
-        String[] filterArgs = new String[filteredArgList.size()];
+        final String[] filterArgs = new String[filteredArgList.size()];
         filteredArgList.toArray(filterArgs);
 
         // parse the command line
-        Parser parser = new org.apache.commons.cli.GnuParser();
+        final Parser parser = new org.apache.commons.cli.GnuParser();
         return parser.parse(cmdLineOptions, filterArgs);
     }
 

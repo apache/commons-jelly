@@ -62,21 +62,21 @@ public class TitledBorderTag extends BorderTagSupport {
     /**
      * Sets the color of the title for this border. Can be set via a nested {@code <color>} tag.
      */
-    public void setColor(Color color) {
+    public void setColor(final Color color) {
         this.color = color;
     }
 
     /**
      * Sets the Font to be used by the title. Can be set via a nested {@code <font>} tag.
      */
-    public void setFont(Font font) {
+    public void setFont(final Font font) {
         this.font = font;
     }
 
     /**
      * Sets the title text for this border.
      */
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -84,7 +84,7 @@ public class TitledBorderTag extends BorderTagSupport {
      * Sets the justification of the title. The String is case insensitive.
      * Possible values are {LEFT, CENTER, RIGHT, LEADING, TRAILING}
      */
-    public void setTitleJustification(String titleJustification) {
+    public void setTitleJustification(final String titleJustification) {
         this.titleJustification = titleJustification;
     }
 
@@ -92,7 +92,7 @@ public class TitledBorderTag extends BorderTagSupport {
      * Sets the position of the title. The String is case insensitive.
      * Possible values are {ABOVE_TOP, TOP, BELOW_TOP, ABOVE_BOTTOM, BOTTOM, BELOW_BOTTOM}
      */
-    public void setTitlePosition(String titlePosition) {
+    public void setTitlePosition(final String titlePosition) {
         this.titlePosition = titlePosition;
     }
 
@@ -106,16 +106,14 @@ public class TitledBorderTag extends BorderTagSupport {
     protected Border createBorder() {
         if (border != null) {
             if (titleJustification != null && titlePosition != null) {
-                int justification = asTitleJustification(titleJustification);
-                int position = asTitlePosition(titlePosition);
+                final int justification = asTitleJustification(titleJustification);
+                final int position = asTitlePosition(titlePosition);
 
                 if (font != null) {
                     if (color != null) {
                         return BorderFactory.createTitledBorder(border, title, justification, position, font, color);
                     }
-                    else {
-                        return BorderFactory.createTitledBorder(border, title, justification, position, font);
-                    }
+                    return BorderFactory.createTitledBorder(border, title, justification, position, font);
                 }
                 return BorderFactory.createTitledBorder(border, title, justification, position);
             }
@@ -127,51 +125,47 @@ public class TitledBorderTag extends BorderTagSupport {
     /**
      * @return the enumeration for the title justification
      */
-    protected int asTitleJustification(String text) {
+    protected int asTitleJustification(final String text) {
         if (text.equalsIgnoreCase("LEFT")) {
             return TitledBorder.LEFT;
         }
-        else if (text.equalsIgnoreCase("CENTER")) {
+        if (text.equalsIgnoreCase("CENTER")) {
             return TitledBorder.CENTER;
         }
-        else if (text.equalsIgnoreCase("RIGHT")) {
+        if (text.equalsIgnoreCase("RIGHT")) {
             return TitledBorder.RIGHT;
         }
-        else if (text.equalsIgnoreCase("LEADING")) {
+        if (text.equalsIgnoreCase("LEADING")) {
             return TitledBorder.LEADING;
         }
-        else if (text.equalsIgnoreCase("TRAILING")) {
+        if (text.equalsIgnoreCase("TRAILING")) {
             return TitledBorder.TRAILING;
         }
-        else {
-            return TitledBorder.DEFAULT_JUSTIFICATION;
-        }
+        return TitledBorder.DEFAULT_JUSTIFICATION;
     }
 
     /**
      * @return the enumeration for the title position
      */
-    protected int asTitlePosition(String text) {
+    protected int asTitlePosition(final String text) {
         if (text.equalsIgnoreCase("ABOVE_TOP")) {
             return TitledBorder.ABOVE_TOP;
         }
-        else if (text.equalsIgnoreCase("TOP")) {
+        if (text.equalsIgnoreCase("TOP")) {
             return TitledBorder.TOP;
         }
-        else if (text.equalsIgnoreCase("BELOW_TOP")) {
+        if (text.equalsIgnoreCase("BELOW_TOP")) {
             return TitledBorder.BELOW_TOP;
         }
-        else if (text.equalsIgnoreCase("ABOVE_BOTTOM")) {
+        if (text.equalsIgnoreCase("ABOVE_BOTTOM")) {
             return TitledBorder.ABOVE_BOTTOM;
         }
-        else if (text.equalsIgnoreCase("BOTTOM")) {
+        if (text.equalsIgnoreCase("BOTTOM")) {
             return TitledBorder.BOTTOM;
         }
-        else if (text.equalsIgnoreCase("BELOW_BOTTOM")) {
+        if (text.equalsIgnoreCase("BELOW_BOTTOM")) {
             return TitledBorder.BELOW_BOTTOM;
         }
-        else {
-            return TitledBorder.DEFAULT_POSITION;
-        }
+        return TitledBorder.DEFAULT_POSITION;
     }
 }

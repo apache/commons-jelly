@@ -44,23 +44,23 @@ public class BodyTag extends TagSupport {
      * @throws JellyTagException when any error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        HttpTagSupport httpTag = (HttpTagSupport) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final HttpTagSupport httpTag = (HttpTagSupport) findAncestorWithClass(
             HttpTagSupport.class);
 
         HttpMethod httpMethod = null;
         try {
             httpMethod = httpTag.getHttpMethod();
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyTagException(e);
         }
 
-        String bodyText = getBodyText();
+        final String bodyText = getBodyText();
         if (httpMethod instanceof PostMethod) {
-            PostMethod postMethod = (PostMethod) httpMethod;
+            final PostMethod postMethod = (PostMethod) httpMethod;
             postMethod.setRequestBody(bodyText);
         } else if (httpMethod instanceof PutMethod) {
-            PutMethod putMethod = (PutMethod) httpMethod;
+            final PutMethod putMethod = (PutMethod) httpMethod;
             putMethod.setRequestBody(bodyText);
         } else {
             throw new IllegalStateException("Http method from parent was "

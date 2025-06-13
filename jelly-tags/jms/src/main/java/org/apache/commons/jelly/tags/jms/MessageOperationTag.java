@@ -52,16 +52,14 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     /**
      * Sets the Messenger (the JMS connection pool) that will be used to send the message
      */
-    public void setConnection(Messenger connection) {
+    public void setConnection(final Messenger connection) {
         this.connection = connection;
     }
 
     public Destination getDestination() throws JellyTagException, JMSException {
-        if (destination == null) {
-            // if we have a subject defined, lets use it to find the destination
-            if (subject != null) {
-                destination = findDestination(subject);
-            }
+        // if we have a subject defined, lets use it to find the destination
+        if ((destination == null) && (subject != null)) {
+            destination = findDestination(subject);
         }
         return destination;
     }
@@ -69,7 +67,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     /**
      * Sets the JMS Destination to be used by this tag
      */
-    public void setDestination(Destination destination) {
+    public void setDestination(final Destination destination) {
         this.destination = destination;
     }
 
@@ -77,7 +75,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
      * Sets the subject as a String which is used to create the
      * JMS Destination to be used by this tag
      */
-    public void setSubject(String subject) {
+    public void setSubject(final String subject) {
         this.subject = subject;
     }
 
@@ -88,7 +86,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
      * Strategy Method allowing derived classes to change this behavior
      */
     protected Messenger findConnection() throws JellyTagException, JMSException {
-        ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
+        final ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
         if ( messengerTag == null ) {
             throw new JellyTagException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
         }
@@ -98,7 +96,7 @@ public abstract class MessageOperationTag extends TagSupport implements Connecti
     /**
      * Strategy Method allowing derived classes to change this behavior
      */
-    protected Destination findDestination(String subject) throws JellyTagException, JMSException {
+    protected Destination findDestination(final String subject) throws JellyTagException, JMSException {
         return getConnection().getDestination(subject);
     }
 }

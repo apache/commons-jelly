@@ -21,7 +21,6 @@ import java.io.File;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.expression.Expression;
 
 /**
  * Checks that a file exists, and if not, then the test will fail.
@@ -37,7 +36,7 @@ public class AssertFileExistsTag extends AssertTagSupport
 	 * @throws JellyTagException if the file doesn't exist.
 	 */
 	@Override
-    public void doTag(XMLOutput output) throws JellyTagException
+    public void doTag(final XMLOutput output) throws JellyTagException
     {
         String message = getBodyText();
         if (message == null || message.length() == 0)
@@ -45,22 +44,19 @@ public class AssertFileExistsTag extends AssertTagSupport
             message = "File does not exist.";
         }
 
-        
+
         if (file == null)
         {
             throw new MissingAttributeException("file");
         }
-        else
-        {
-            assertTrue(message, file.exists());
-        }
+        assertTrue(message, file.exists());
 	}
-    
+
     /**
      * The file to be tested. If this file exists, the test will pass.
      * @param aFile the file to test.
      */
-    public void setFile(File aFile)
+    public void setFile(final File aFile)
     {
         file = aFile;
     }

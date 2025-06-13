@@ -40,18 +40,18 @@ public class TestDummyXMLOutput extends TestCase {
 
     XMLOutput xmlOutput = null;
 
-    public TestDummyXMLOutput(String name) {
+    public TestDummyXMLOutput(final String name) {
         super(name);
     }
 
-    public void setUp(String scriptName) throws Exception {
+    public void setUp(final String scriptName) throws Exception {
         this.context = new JellyContext();
         this.xmlOutput = XMLOutput.createDummyXMLOutput();
 
         this.jelly = new Jelly();
 
-        String script = scriptName;
-        URL url = this.getClass().getResource(script);
+        final String script = scriptName;
+        final URL url = this.getClass().getResource(script);
         if ( url == null ) {
             throw new Exception(
                 "Could not find Jelly script: " + script
@@ -64,7 +64,7 @@ public class TestDummyXMLOutput extends TestCase {
     public void testDummyXMLOutput() throws Exception {
         // without validation
         setUp("producesOutput.jelly");
-        Script script = this.jelly.compileScript();
+        final Script script = this.jelly.compileScript();
         script.run(this.context,this.xmlOutput);
         assertTrue("should have set 'foo' variable to 'bar'",
                    this.context.getVariable("foo").equals("bar"));

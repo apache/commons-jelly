@@ -47,12 +47,12 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         // evaluate body as it may contain child tags to register a MessageListener
         invokeBody(output);
 
-        MessageListener listener = getMessageListener();
+        final MessageListener listener = getMessageListener();
         if (listener == null) {
             throw new JellyTagException( "No messageListener attribute is specified so could not subscribe" );
         }
@@ -64,7 +64,7 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
         try {
             destination = getDestination();
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
 
@@ -86,7 +86,7 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
                 getConnection().addListener( destination, selector, listener );
             }
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
     }
@@ -97,7 +97,7 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
     /**
      * Sets the optional JMS Message selector for the subscription
      */
-    public void setSelector(String selector) {
+    public void setSelector(final String selector) {
         this.selector = selector;
     }
 
@@ -113,7 +113,7 @@ public class SubscribeTag extends MessageOperationTag implements ConsumerTag {
      * Sets the JMS messageListener used ot consume JMS messages on the given destination
      */
     @Override
-    public void setMessageListener(MessageListener messageListener) {
+    public void setMessageListener(final MessageListener messageListener) {
         this.messageListener = messageListener;
     }
 

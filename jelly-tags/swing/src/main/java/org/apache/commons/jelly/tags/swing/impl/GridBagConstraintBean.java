@@ -53,7 +53,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public int getGridx() {
         return gridx;
     }
-    public void setGridx(int gridx) {
+    public void setGridx(final int gridx) {
         this.gridx = gridx;
         this.gridxSet = true;
     }
@@ -61,7 +61,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public int getGridy() {
         return gridy;
     }
-    public void setGridy(int gridy) {
+    public void setGridy(final int gridy) {
         this.gridy = gridy;
         this.gridySet = true;
     }
@@ -69,7 +69,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public int getGridwidth() {
         return gridwidth;
     }
-    public void setGridwidth(int gridwidth) {
+    public void setGridwidth(final int gridwidth) {
         this.gridwidth = gridwidth;
         this.gridwidthSet = true;
     }
@@ -77,7 +77,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public int getGridheight() {
         return gridheight;
     }
-    public void setGridheight(int gridheight) {
+    public void setGridheight(final int gridheight) {
         this.gridheight = gridheight;
         this.gridheightSet = true;
     }
@@ -85,7 +85,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public double getWeightx() {
         return weightx;
     }
-    public void setWeightx(double weightx) {
+    public void setWeightx(final double weightx) {
         this.weightx = weightx;
         this.weightxSet = true;
     }
@@ -93,7 +93,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public double getWeighty() {
         return weighty;
     }
-    public void setWeighty(double weighty) {
+    public void setWeighty(final double weighty) {
         this.weighty = weighty;
         this.weightySet = true;
     }
@@ -101,7 +101,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public int getIpadx() {
         return ipadx;
     }
-    public void setIpadx(int ipadx) {
+    public void setIpadx(final int ipadx) {
         this.ipadx = ipadx;
         this.ipadxSet = true;
     }
@@ -109,7 +109,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public int getIpady() {
         return ipady;
     }
-    public void setIpady(int ipady) {
+    public void setIpady(final int ipady) {
         this.ipady = ipady;
         this.ipadySet = true;
     }
@@ -118,7 +118,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     public Insets getInsets() {
         return insets;
     }
-    public void setInsets(Insets insets) {
+    public void setInsets(final Insets insets) {
         this.insets = insets;
     }
 
@@ -149,22 +149,24 @@ public class GridBagConstraintBean extends GridBagConstraints {
                 return "northwest";
         }
 
-        if (this.anchor == getByReflection("LINE_START"))
+        if (this.anchor == getByReflection("LINE_START")) {
             return "line_start";
-        else if (this.anchor == getByReflection("LINE_END"))
+        }
+        if (this.anchor == getByReflection("LINE_END")) {
             return "line_end";
-        else if (this.anchor == getByReflection("PAGE_START"))
+        } else if (this.anchor == getByReflection("PAGE_START")) {
             return "page_start";
-        else if (this.anchor == getByReflection("PAGE_END"))
+        } else if (this.anchor == getByReflection("PAGE_END")) {
             return "page_end";
-        else if (this.anchor == getByReflection("FIRST_LINE_START"))
+        } else if (this.anchor == getByReflection("FIRST_LINE_START")) {
             return "first_line_start";
-        else if (this.anchor == getByReflection("FIRST_LINE_END"))
+        } else if (this.anchor == getByReflection("FIRST_LINE_END")) {
             return "first_line_end";
-        else if (this.anchor == getByReflection("LAST_LINE_START"))
+        } else if (this.anchor == getByReflection("LAST_LINE_START")) {
             return "last_line_start";
-        else if (this.anchor ==  getByReflection("LAST_LINE_END"))
+        } else if (this.anchor ==  getByReflection("LAST_LINE_END")) {
             return "last_line_end";
+        }
 
         throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
     }
@@ -175,44 +177,67 @@ public class GridBagConstraintBean extends GridBagConstraints {
         *
         *    @see #anchor
         */
-    public void setAnchor(String anchorString) {
-        String lcAnchorString = anchorString.toLowerCase();
-        if (lcAnchorString.equals("center"))
-            this.anchor = CENTER;
-        else if (lcAnchorString.equals("north"))
-            this.anchor = NORTH;
-        else if (lcAnchorString.equals("northeast"))
-            this.anchor = NORTHEAST;
-        else if (lcAnchorString.equals("east"))
-            this.anchor = EAST;
-        else if (lcAnchorString.equals("southeast"))
-            this.anchor = SOUTHEAST;
-        else if (lcAnchorString.equals("south"))
-            this.anchor = SOUTH;
-        else if (lcAnchorString.equals("southwest"))
-            this.anchor = SOUTHWEST;
-        else if (lcAnchorString.equals("west"))
-            this.anchor = WEST;
-        else if (lcAnchorString.equals("northwest"))
-            this.anchor = NORTHWEST;
-        else if (lcAnchorString.equals("page_start"))
-            this.anchor = getByReflection("PAGE_START");
-        else if (lcAnchorString.equals("page_end"))
-            this.anchor = getByReflection("PAGE_END");
-        else if (lcAnchorString.equals("line_start"))
-            this.anchor = getByReflection("LINE_START");
-        else if (lcAnchorString.equals("line_end"))
-            this.anchor = getByReflection("LINE_END");
-        else if (lcAnchorString.equals("first_line_start"))
-            this.anchor = getByReflection("FIRST_LINE_START");
-        else if (lcAnchorString.equals("first_line_end"))
-            this.anchor = getByReflection("FIRST_LINE_END");
-        else if (lcAnchorString.equals("last_line_end"))
-            this.anchor = getByReflection("LAST_LINE_END");
-        else if (lcAnchorString.equals("last_line_start"))
-            this.anchor = getByReflection("LAST_LINE_START");
-        else
+    public void setAnchor(final String anchorString) {
+        final String lcAnchorString = anchorString.toLowerCase();
+        if (lcAnchorString != null) {
+            switch (lcAnchorString) {
+            case "center":
+                this.anchor = CENTER;
+                break;
+            case "north":
+                this.anchor = NORTH;
+                break;
+            case "northeast":
+                this.anchor = NORTHEAST;
+                break;
+            case "east":
+                this.anchor = EAST;
+                break;
+            case "southeast":
+                this.anchor = SOUTHEAST;
+                break;
+            case "south":
+                this.anchor = SOUTH;
+                break;
+            case "southwest":
+                this.anchor = SOUTHWEST;
+                break;
+            case "west":
+                this.anchor = WEST;
+                break;
+            case "northwest":
+                this.anchor = NORTHWEST;
+                break;
+            case "page_start":
+                this.anchor = getByReflection("PAGE_START");
+                break;
+            case "page_end":
+                this.anchor = getByReflection("PAGE_END");
+                break;
+            case "line_start":
+                this.anchor = getByReflection("LINE_START");
+                break;
+            case "line_end":
+                this.anchor = getByReflection("LINE_END");
+                break;
+            case "first_line_start":
+                this.anchor = getByReflection("FIRST_LINE_START");
+                break;
+            case "first_line_end":
+                this.anchor = getByReflection("FIRST_LINE_END");
+                break;
+            case "last_line_end":
+                this.anchor = getByReflection("LAST_LINE_END");
+                break;
+            case "last_line_start":
+                this.anchor = getByReflection("LAST_LINE_START");
+                break;
+            default:
+                throw new IllegalArgumentException("Anchor must be the name of one of  the GridBagLayoutConstants (case doesn't matter): center, north, northeast, east, southeast, south, southwest, west, or northwest.");
+            }
+        } else {
             throw new IllegalArgumentException("Anchor must be the name of one of  the GridBagLayoutConstants (case doesn't matter): center, north, northeast, east, southeast, south, southwest, west, or northwest.");
+        }
         this.anchorSet = true;
     }
 
@@ -241,25 +266,35 @@ public class GridBagConstraintBean extends GridBagConstraints {
         *
         *    @see #fill
         */
-    public void setFill(String fillString) {
-        String lcFillString = fillString.toLowerCase();
-        if (lcFillString.equals("none"))
-            this.fill = NONE;
-        else if (lcFillString.equals("horizontal"))
-            this.fill = HORIZONTAL;
-        else if (lcFillString.equals("vertical"))
-            this.fill = VERTICAL;
-        else if (lcFillString.equals("both"))
-            this.fill = BOTH;
-        else
+    public void setFill(final String fillString) {
+        final String lcFillString = fillString.toLowerCase();
+        if (lcFillString != null) {
+            switch (lcFillString) {
+            case "none":
+                this.fill = NONE;
+                break;
+            case "horizontal":
+                this.fill = HORIZONTAL;
+                break;
+            case "vertical":
+                this.fill = VERTICAL;
+                break;
+            case "both":
+                this.fill = BOTH;
+                break;
+            default:
+                throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
+            }
+        } else {
             throw new IllegalArgumentException("Fill must be the name of one of  the GridBagLayoutConstants (case does not matter): NONE, HORIZONTAL, VERTICAL, BOTH.");
+        }
         this.fillSet = true;
     }
 
     /** Reads the values in the given grid-bag-constraint-bean that are set and sets
         * them in this object if they have not been set yet.
         */
-    public void setBasedOn(GridBagConstraintBean from) {
+    public void setBasedOn(final GridBagConstraintBean from) {
         if (!gridxSet && from.gridxSet) {
             gridx = from.gridx;
             this.gridxSet = true;
@@ -330,21 +365,12 @@ public class GridBagConstraintBean extends GridBagConstraints {
             + "]";
     }
 
-    private int getByReflection(String field) {
+    private int getByReflection(final String field) {
         try {
-            Field f = getClass().getField(field);
-            Integer rv = (Integer) f.get(this);
+            final Field f = getClass().getField(field);
+            final Integer rv = (Integer) f.get(this);
             return rv.intValue();
-        } catch (SecurityException e) {
-            LOG.debug(e);
-            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
-        } catch (NoSuchFieldException e) {
-            LOG.debug(e);
-            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
-        } catch (IllegalArgumentException e) {
-            LOG.debug(e);
-            throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
-        } catch (IllegalAccessException e) {
+        } catch (final SecurityException | NoSuchFieldException | IllegalArgumentException | IllegalAccessException e) {
             LOG.debug(e);
             throw new IllegalArgumentException(ILLEGAL_ANCHOR_MSG);
         }

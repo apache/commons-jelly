@@ -33,8 +33,8 @@ public class SuperTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        ExtendTag tag = (ExtendTag) findAncestorWithClass(ExtendTag.class);
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final ExtendTag tag = (ExtendTag) findAncestorWithClass(ExtendTag.class);
         if (tag == null) {
             throw new JellyTagException(
                 "<define:super> must be inside a <define:extend>");

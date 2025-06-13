@@ -17,25 +17,9 @@
 
 package org.apache.commons.jelly.avalon;
 
-import java.util.Map;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.net.URL;
-import java.net.MalformedURLException;
-import java.io.File;
-import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
-// Avalon
-import org.apache.avalon.framework.configuration.Configurable;
-import org.apache.avalon.framework.configuration.Configuration;
-import org.apache.avalon.framework.configuration.ConfigurationException;
-
-// Jelly
-import org.apache.commons.jelly.Jelly;
-import org.apache.commons.jelly.JellyContext;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
 /**

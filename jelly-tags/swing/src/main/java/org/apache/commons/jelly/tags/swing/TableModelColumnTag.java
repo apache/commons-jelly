@@ -31,7 +31,7 @@ public class TableModelColumnTag extends UseBeanTag {
     }
 
     @Override
-    public Class getAttributeType(String name) throws JellyTagException {
+    public Class getAttributeType(final String name) throws JellyTagException {
         if (name.equals("value")) {
             return Expression.class;
         }
@@ -41,10 +41,10 @@ public class TableModelColumnTag extends UseBeanTag {
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
         super.processBean(var, bean);
 
-        TableModelTag tag = (TableModelTag) findAncestorWithClass( TableModelTag.class );
+        final TableModelTag tag = (TableModelTag) findAncestorWithClass( TableModelTag.class );
         if ( tag == null ) {
             throw new JellyTagException( "This tag must be nested within a <tableModel> tag" );
         }

@@ -20,10 +20,9 @@ package org.apache.commons.jelly.tags.quartz;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.quartz.Job;
-import org.quartz.JobDetail;
 import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
@@ -49,18 +48,18 @@ public class JellyJob implements Job
      *  @throws JobExecutionException If an error occurs during job execution.
      */
     @Override
-    public void execute(JobExecutionContext jobContext) throws JobExecutionException
+    public void execute(final JobExecutionContext jobContext) throws JobExecutionException
     {
 
-        JobDetail  detail = jobContext.getJobDetail();
+        final JobDetail  detail = jobContext.getJobDetail();
 
-        JobDataMap data   = detail.getJobDataMap();
+        final JobDataMap data   = detail.getJobDataMap();
 
-        Script script = (Script) data.get( "jelly.script" );
+        final Script script = (Script) data.get( "jelly.script" );
 
-        JellyContext jellyContext = (JellyContext) data.get( "jelly.context" );
+        final JellyContext jellyContext = (JellyContext) data.get( "jelly.context" );
 
-        XMLOutput    output       = (XMLOutput) data.get( "jelly.output" );
+        final XMLOutput    output       = (XMLOutput) data.get( "jelly.output" );
 
         try
         {
@@ -68,7 +67,7 @@ public class JellyJob implements Job
                         output );
             output.flush();
         }
-        catch (Exception e)
+        catch (final Exception e)
         {
             e.printStackTrace();
             throw new JobExecutionException( e,

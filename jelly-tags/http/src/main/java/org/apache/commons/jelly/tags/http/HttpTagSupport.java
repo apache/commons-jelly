@@ -76,15 +76,14 @@ public abstract class HttpTagSupport extends TagSupport {
     public String getResolvedUrl() {
         if (getUri() != null) {
             return getUri();
-        } else {
-            // build it from path, host and optionally port
-            SessionTag session = (SessionTag) findAncestorWithClass(
-                SessionTag.class);
-            String host = session.getHost();
-            String port = session.getPort();
-            // short term hack, need to add port and security in
-            return "http://" + host + getPath();
         }
+        // build it from path, host and optionally port
+        final SessionTag session = (SessionTag) findAncestorWithClass(
+            SessionTag.class);
+        final String host = session.getHost();
+        final String port = session.getPort();
+        // short term hack, need to add port and security in
+        return "http://" + host + getPath();
     }
 
     /**
@@ -106,24 +105,21 @@ public abstract class HttpTagSupport extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
         // allow nested tags first, e.g body
         invokeBody(xmlOutput);
 
         // track request execution
-        long start = System.currentTimeMillis();
+        final long start = System.currentTimeMillis();
         HttpMethod urlMethod = null;
         try {
             urlMethod = getConfiguredHttpMethod();
             getHttpClient().executeMethod(urlMethod);
         }
-        catch (MalformedURLException e) {
+        catch (final IOException e) {
             throw new JellyTagException(e);
         }
-        catch (IOException e) {
-            throw new JellyTagException(e);
-        }
-        long end = System.currentTimeMillis();
+        final long end = System.currentTimeMillis();
 
         // set variable to value
         if (getVar() != null) {
@@ -143,12 +139,12 @@ public abstract class HttpTagSupport extends TagSupport {
     private HttpMethod getConfiguredHttpMethod() throws
     MalformedURLException {
         // retrieve and configure url method
-        HttpMethod urlMethod = getHttpMethod();
+        final HttpMethod urlMethod = getHttpMethod();
         urlMethod.setFollowRedirects(isFollowRedirects());
         // add request headers
         NameValuePair header = null;
-        for (int index = 0; index < getRequestHeaders().size(); index++) {
-            header = (NameValuePair) getRequestHeaders().get(index);
+        for (final Object element : getRequestHeaders()) {
+            header = (NameValuePair) element;
             urlMethod.addRequestHeader(header.getName(), header.getValue());
         }
         // add parameters
@@ -171,9 +167,9 @@ public abstract class HttpTagSupport extends TagSupport {
      * @param method the {@link HttpMethod method} to configure
      * @throws MalformedURLException Never thrown here but can be from a subclass.
      */
-    protected void setParameters(HttpMethod method) throws MalformedURLException {
+    protected void setParameters(final HttpMethod method) throws MalformedURLException {
         if (getParameters().size() > 0) {
-            NameValuePair[] parameters = (NameValuePair[]) getParameters().
+            final NameValuePair[] parameters = (NameValuePair[]) getParameters().
                 toArray(new NameValuePair[0]);
             method.setQueryString(parameters);
         }
@@ -186,7 +182,7 @@ public abstract class HttpTagSupport extends TagSupport {
      *      not found
      */
     private SessionTag getSessionTag() {
-        SessionTag sessionTag = (SessionTag) findAncestorWithClass(
+        final SessionTag sessionTag = (SessionTag) findAncestorWithClass(
             SessionTag.class);
         return sessionTag;
     }
@@ -198,7 +194,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * @return the shared http client from the session tag, or create a new one.
      */
     private HttpClient getHttpClient() {
-        SessionTag session = getSessionTag();
+        final SessionTag session = getSessionTag();
         HttpClient client = null;
         if (session != null) {
             client = session.getHttpClient();
@@ -215,7 +211,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * @param name the parameter name
      * @param value the parameter value
      */
-    public void addParameter(String name, String value) {
+    public void addParameter(final String name, final String value) {
         getParameters().add(new NameValuePair(name, value));
     }
 
@@ -225,7 +221,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * @param name the header name
      * @param value the header value
      */
-    public void addRequestHeader(String name, String value) {
+    public void addRequestHeader(final String name, final String value) {
         getRequestHeaders().add(new NameValuePair(name, value));
     }
 
@@ -247,7 +243,7 @@ public abstract class HttpTagSupport extends TagSupport {
      *
      * @param var New value of property var.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         _var = var;
     }
 
@@ -265,7 +261,7 @@ public abstract class HttpTagSupport extends TagSupport {
      *
      * @param path New value of property path.
      */
-    public void setPath(String path) {
+    public void setPath(final String path) {
         _path = path;
     }
 
@@ -283,7 +279,7 @@ public abstract class HttpTagSupport extends TagSupport {
      *
      * @param uri New value of property uri.
      */
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         _uri = uri;
     }
 
@@ -301,7 +297,7 @@ public abstract class HttpTagSupport extends TagSupport {
      *
      * @param followRedirects New value of property followRedirects.
      */
-    public void setFollowRedirects(boolean followRedirects) {
+    public void setFollowRedirects(final boolean followRedirects) {
         _followRedirects = followRedirects;
     }
 
@@ -319,7 +315,7 @@ public abstract class HttpTagSupport extends TagSupport {
      *
      * @param parameters New value of property parameters.
      */
-    public void setParameters(List parameters) {
+    public void setParameters(final List parameters) {
         _parameters = parameters;
     }
 
@@ -337,7 +333,7 @@ public abstract class HttpTagSupport extends TagSupport {
      *
      * @param requestHeaders New value of property requestHeaders.
      */
-    public void setRequestHeaders(List requestHeaders) {
+    public void setRequestHeaders(final List requestHeaders) {
         _requestHeaders = requestHeaders;
     }
 

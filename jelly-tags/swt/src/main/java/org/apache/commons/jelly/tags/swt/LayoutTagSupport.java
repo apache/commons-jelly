@@ -40,7 +40,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
 
     private String var;
 
-    public LayoutTagSupport(Class layoutClass) {
+    public LayoutTagSupport(final Class layoutClass) {
         super(layoutClass);
     }
 
@@ -51,7 +51,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @return the parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
-        WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
+        final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
         if (tag != null) {
             return tag.getWidget();
         }
@@ -63,7 +63,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * If this attribute is not set then the parent widget tag will have its
      * layout property set.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -73,7 +73,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * Either defines a variable or adds the current component to the parent
      */
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -83,20 +83,20 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#setBeanProperties(java.lang.Object, java.util.Map)
      */
     @Override
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
+    protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
 
         if (bean != null) {
-            Class theClass = bean.getClass();
-            for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
-                Map.Entry entry = (Map.Entry) iter.next();
-                String name = (String) entry.getKey();
+            final Class theClass = bean.getClass();
+            for (final Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
+                final Map.Entry entry = (Map.Entry) iter.next();
+                final String name = (String) entry.getKey();
                 Object value = entry.getValue();
 
                 value = convertValue(bean, name, value);
 
                 try {
                     // lets first see if there's a field available
-                    Field field = theClass.getField(name);
+                    final Field field = theClass.getField(name);
                     if (field != null) {
                         if (value instanceof String) {
                             value = ConvertUtils.convert((String) value, field.getType());
@@ -105,11 +105,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
                     } else {
                         BeanUtils.setProperty(bean, name, value);
                     }
-                } catch (NoSuchFieldException e) {
-                    throw new JellyTagException(e);
-                } catch (IllegalAccessException e) {
-                    throw new JellyTagException(e);
-                } catch (InvocationTargetException e) {
+                } catch (final NoSuchFieldException | IllegalAccessException | InvocationTargetException e) {
                     throw new JellyTagException(e);
                 }
             }
@@ -125,7 +121,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @param value the value of the property
      * @return the new value
      */
-    protected Object convertValue(Object bean, String name, Object value)
+    protected Object convertValue(final Object bean, final String name, final Object value)
         throws JellyTagException {
         return value;
     }

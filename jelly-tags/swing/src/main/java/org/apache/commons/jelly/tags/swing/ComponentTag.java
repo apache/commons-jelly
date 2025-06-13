@@ -63,44 +63,43 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ComponentTag.class);
-    
-    /** This is a converter that might normally be used through the 
+
+    /** This is a converter that might normally be used through the
      * BeanUtils product. However, it only applies to one Component
      * property and not to all ints, so it's not registered with BeanUtils.
      */
     private static final DebugGraphicsConverter debugGraphicsConverter = new DebugGraphicsConverter();
-    
+
     /** The factory of widgets */
     private Factory factory;
 
     public ComponentTag() {
     }
 
-    public ComponentTag(Factory factory) {
+    public ComponentTag(final Factory factory) {
         this.factory = factory;
     }
 
     @Override
     public String toString() {
-		Component comp = getComponent();
-        String componentName = (comp!=null) ? comp.getName() : null;
-        if (comp!=null && (componentName == null || componentName.length() == 0))
+		final Component comp = getComponent();
+        String componentName = comp!=null ? comp.getName() : null;
+        if (comp!=null && (componentName == null || componentName.length() == 0)) {
             componentName = getComponent().toString();
+        }
         return "ComponentTag with bean " + componentName;
     }
 
     /**
      * Sets the Action of this component
      */
-    public void setAction(Action action) throws JellyTagException {
-        Component component = getComponent();
+    public void setAction(final Action action) throws JellyTagException {
+        final Component component = getComponent();
         if ( component != null ) {
             // lets just try set the 'action' property
             try {
                 BeanUtils.setProperty( component, "action", action );
-            } catch (IllegalAccessException e) {
-                throw new JellyTagException(e);
-            } catch (InvocationTargetException e) {
+            } catch (final IllegalAccessException | InvocationTargetException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -109,17 +108,14 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Sets the Font of this component
      */
-    public void setFont(Font font) throws JellyTagException {
-        Component component = getComponent();
+    public void setFont(final Font font) throws JellyTagException {
+        final Component component = getComponent();
         if ( component != null ) {
             // lets just try set the 'font' property
             try {
                 BeanUtils.setProperty( component, "font", font );
             }
-            catch (IllegalAccessException e) {
-                throw new JellyTagException(e);
-            }
-            catch (InvocationTargetException e) {
+            catch (final IllegalAccessException | InvocationTargetException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -128,17 +124,14 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Sets the Border of this component
      */
-    public void setBorder(Border border) throws JellyTagException {
-        Component component = getComponent();
+    public void setBorder(final Border border) throws JellyTagException {
+        final Component component = getComponent();
         if ( component != null ) {
             try {
                 // lets just try set the 'border' property
                 BeanUtils.setProperty( component, "border", border );
             }
-            catch (IllegalAccessException e) {
-                throw new JellyTagException(e);
-            }
-            catch (InvocationTargetException e) {
+            catch (final IllegalAccessException | InvocationTargetException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -147,11 +140,11 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Sets the LayoutManager of this component
      */
-    public void setLayout(LayoutManager layout) throws JellyTagException {
+    public void setLayout(final LayoutManager layout) throws JellyTagException {
         Component component = getComponent();
         if ( component != null ) {
             if ( component instanceof RootPaneContainer ) {
-                RootPaneContainer rpc = (RootPaneContainer) component;
+                final RootPaneContainer rpc = (RootPaneContainer) component;
                 component = rpc.getContentPane();
             }
 
@@ -159,20 +152,17 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                 // lets just try set the 'layout' property
                 BeanUtils.setProperty( component, "layout", layout );
             }
-            catch (IllegalAccessException e) {
-                throw new JellyTagException(e);
-            }
-            catch (InvocationTargetException e) {
+            catch (final IllegalAccessException | InvocationTargetException e) {
                 throw new JellyTagException(e);
             }
         }
     }
-	
-    
+
+
 	private String tagName = null;
-	
+
 	private XMLOutput currentOutput = null;
-	
+
 	/** Puts this tag into the context under the given name
 	 * allowing later calls to rerun().
 	 * For example, it makes sense to use ${myTag.rerun()} as a child
@@ -180,17 +170,17 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
 	 *
 	 * @param name name to be used
 	 */
-	public void setTagName(String name) {
+	public void setTagName(final String name) {
 		this.tagName = name;
 	}
 
     /**
      * Adds a WindowListener to this component
      */
-    public void addWindowListener(WindowListener listener) throws JellyTagException {
-        Component component = getComponent();
+    public void addWindowListener(final WindowListener listener) throws JellyTagException {
+        final Component component = getComponent();
         if ( component instanceof Window ) {
-            Window window = (Window) component;
+            final Window window = (Window) component;
             window.addWindowListener(listener);
         }
     }
@@ -198,16 +188,16 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /**
      * Adds a FocusListener to this component
      */
-    public void addFocusListener(FocusListener listener) throws JellyTagException {
-        Component component = getComponent();
+    public void addFocusListener(final FocusListener listener) throws JellyTagException {
+        final Component component = getComponent();
         component.addFocusListener(listener);
     }
 
     /**
      * Adds a KeyListener to this component
      */
-    public void addKeyListener(KeyListener listener) throws JellyTagException {
-        Component component = getComponent();
+    public void addKeyListener(final KeyListener listener) throws JellyTagException {
+        final Component component = getComponent();
         component.addKeyListener(listener);
     }
 
@@ -218,7 +208,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * @return the visible component, if there is one.
      */
     public Component getComponent() {
-        Object bean = getBean();
+        final Object bean = getBean();
         if ( bean instanceof Component ) {
             return (Component) bean;
         }
@@ -232,14 +222,14 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * Adds a child component to this parent
      */
     @Override
-    public void addChild(Component component, Object constraints) throws JellyTagException {
-        Object parent = getBean();
+    public void addChild(final Component component, final Object constraints) throws JellyTagException {
+        final Object parent = getBean();
         if ( parent instanceof JFrame && component instanceof JMenuBar ) {
-            JFrame frame = (JFrame) parent;
+            final JFrame frame = (JFrame) parent;
             frame.setJMenuBar( (JMenuBar) component );
         }
         else if ( parent instanceof RootPaneContainer ) {
-            RootPaneContainer rpc = (RootPaneContainer) parent;
+            final RootPaneContainer rpc = (RootPaneContainer) parent;
             if (constraints != null) {
                 rpc.getContentPane().add( component, constraints );
             }
@@ -248,11 +238,11 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
             }
         }
         else if ( parent instanceof JScrollPane ) {
-            JScrollPane scrollPane = (JScrollPane) parent;
+            final JScrollPane scrollPane = (JScrollPane) parent;
             scrollPane.setViewportView( component );
         }
         else if ( parent instanceof JSplitPane) {
-            JSplitPane splitPane = (JSplitPane) parent;
+            final JSplitPane splitPane = (JSplitPane) parent;
             if ( splitPane.getOrientation() == JSplitPane.HORIZONTAL_SPLIT ) {
                 if ( splitPane.getTopComponent() == null ) {
                     splitPane.setTopComponent( component );
@@ -260,22 +250,19 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                 else {
                     splitPane.setBottomComponent( component );
                 }
+            } else if ( splitPane.getLeftComponent() == null ) {
+                splitPane.setLeftComponent( component );
             }
             else {
-                if ( splitPane.getLeftComponent() == null ) {
-                    splitPane.setLeftComponent( component );
-                }
-                else {
-                    splitPane.setRightComponent( component );
-                }
+                splitPane.setRightComponent( component );
             }
         }
         else if ( parent instanceof JMenuBar && component instanceof JMenu ) {
-            JMenuBar menuBar = (JMenuBar) parent;
+            final JMenuBar menuBar = (JMenuBar) parent;
             menuBar.add( (JMenu) component );
         }
         else if ( parent instanceof Container ) {
-            Container container = (Container) parent;
+            final Container container = (Container) parent;
             if (constraints != null) {
                 container.add( component, constraints );
             }
@@ -292,20 +279,18 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * A class may be specified otherwise the Factory will be used.
      */
     @Override
-    protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
+    protected Class convertToClass(final Object classObject) throws MissingAttributeException, ClassNotFoundException {
         if (classObject == null) {
             return null;
         }
-        else {
-            return super.convertToClass(classObject);
-        }
+        return super.convertToClass(classObject);
     }
 
     /**
      * A class may be specified otherwise the Factory will be used.
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output) throws JellyTagException {
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output) throws JellyTagException {
 		if (attributes.containsKey("tagName")) {
 			this.setTagName((String)attributes.get("tagName"));
 			addIgnoreProperty("tagName");
@@ -317,10 +302,9 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
         try {
             if (theClass != null ) {
                 return theClass.getConstructor().newInstance();
-            } else {
-                return factory.newInstance();
             }
-        } catch (ReflectiveOperationException e) {
+            return factory.newInstance();
+        } catch (final ReflectiveOperationException e) {
             throw new JellyTagException(e);
         }
     }
@@ -329,20 +313,17 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * Either defines a variable or adds the current component to the parent
      */
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         }
-        Component component = getComponent();
+        final Component component = getComponent();
         if ( component != null ) {
-            ContainerTag parentTag = (ContainerTag) findAncestorWithClass( ContainerTag.class );
+            final ContainerTag parentTag = (ContainerTag) findAncestorWithClass( ContainerTag.class );
             if ( parentTag != null ) {
                 parentTag.addChild(component, getConstraint());
-            }
-            else {
-                if (var == null) {
-                    throw new JellyTagException( "The 'var' attribute must be specified or this tag must be nested inside a JellySwing container tag like a widget or a layout" );
-                }
+            } else if (var == null) {
+                throw new JellyTagException( "The 'var' attribute must be specified or this tag must be nested inside a JellySwing container tag like a widget or a layout" );
             }
         }
     }
@@ -351,12 +332,12 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * Handles wierd properties that don't quite match the Java Beans contract
      */
     @Override
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
-            
-            Component component = getComponent();
+    protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
+
+            final Component component = getComponent();
             if (component != null) {
                 if (attributes.containsKey("location")) {
-                    Object value = attributes.get("location");
+                    final Object value = attributes.get("location");
                     Point p = null;
                     if (value instanceof Point) {
                         p = (Point) value;
@@ -372,7 +353,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                 }
 
                 if (attributes.containsKey("size")) {
-                    Object value = attributes.get("size");
+                    final Object value = attributes.get("size");
                     Dimension d = null;
                     if (value instanceof Dimension) {
                         d = (Dimension) value;
@@ -386,28 +367,28 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
                     component.setSize(d);
                     addIgnoreProperty("size");
                 }
-				
-                
+
+
                 if (attributes.containsKey("debugGraphicsOptions")) {
                     try {
-                        Object o = debugGraphicsConverter.convert(attributes.get("debugGraphicsOptions"));
+                        final Object o = debugGraphicsConverter.convert(attributes.get("debugGraphicsOptions"));
                         attributes.put("debugGraphicsOptions", o);
-                    } catch (IllegalArgumentException e) {
+                    } catch (final IllegalArgumentException e) {
                         throw new JellyTagException(e);
                     }
                 }
-                
+
                 if (attributes.containsKey("debugGraphics")) {
                     try {
-                        Object o = debugGraphicsConverter.convert(attributes.get("debugGraphics"));
+                        final Object o = debugGraphicsConverter.convert(attributes.get("debugGraphics"));
                         attributes.put("debugGraphicsOptions", o);
-                    } catch (IllegalArgumentException e) {
+                    } catch (final IllegalArgumentException e) {
                         throw new JellyTagException(e);
                     }
-                    
+
                     addIgnoreProperty("debugGraphics");
                 }
-                
+
              super.setBeanProperties(bean, attributes);
         }
     }
@@ -422,7 +403,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         super.doTag(output);
         clearBean();
     }

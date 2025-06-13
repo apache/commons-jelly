@@ -40,7 +40,7 @@ public class BrokerTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if ( var == null ) {
             var = "org.apache.commons.jelly.ojb.Broker";
         }
@@ -67,7 +67,7 @@ public class BrokerTag extends TagSupport {
     //-------------------------------------------------------------------------
     /** Sets the variable name to define for this expression
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 
@@ -77,7 +77,7 @@ public class BrokerTag extends TagSupport {
     }
 
     /** Sets the persistence broker instance */
-    public void setBroker(PersistenceBroker broker) {
+    public void setBroker(final PersistenceBroker broker) {
         this.broker = broker;
     }
 }

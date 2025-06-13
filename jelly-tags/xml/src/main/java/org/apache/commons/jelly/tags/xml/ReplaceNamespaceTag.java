@@ -20,7 +20,6 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
@@ -40,51 +39,51 @@ public class ReplaceNamespaceTag extends TagSupport {
     //  Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        final String fromURI = (fromNamespace != null) ? fromNamespace : "";
-        final String toURI = (toNamespace != null) ? toNamespace : "";
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        final String fromURI = fromNamespace != null ? fromNamespace : "";
+        final String toURI = toNamespace != null ? toNamespace : "";
         XMLOutput newOutput = output;
 
         if (!toURI.equals(fromURI)) {
             newOutput = new XMLOutput(output) {
                 @Override
-                public void startElement(String uri, String localName, String qName, Attributes atts)
+                public void startElement(final String uri, final String localName, final String qName, final Attributes atts)
                     throws SAXException {
                     super.startElement(replaceURI(uri), localName, qName, replaceURI(atts));
                 }
 
                 @Override
-                public void endElement(String uri, String localName, String qName)
+                public void endElement(final String uri, final String localName, final String qName)
                     throws SAXException {
                     super.endElement(replaceURI(uri), localName, qName);
                 }
 
                 @Override
-                public void startPrefixMapping(String prefix, String uri)
+                public void startPrefixMapping(final String prefix, final String uri)
                     throws SAXException {
                     super.startPrefixMapping(prefix, replaceURI(uri));
                 }
 
-                private String replaceURI(String uri) {
+                private String replaceURI(final String uri) {
                     String newUri = uri;
 
-                    if (fromURI.equals((uri != null) ? uri : "")) {
+                    if (fromURI.equals(uri != null ? uri : "")) {
                         newUri = toURI;
                     }
 
                     return newUri;
                 }
 
-                private Attributes replaceURI(Attributes atts) {
-                    AttributesImpl newAttsImpl = new AttributesImpl();
+                private Attributes replaceURI(final Attributes atts) {
+                    final AttributesImpl newAttsImpl = new AttributesImpl();
 
                     for (int i = 0; i < atts.getLength(); i++) {
                         // Normally attributes don't have namespaces
                         // But may have (only if on form prefix:attr) ?
                         // So, we'll only replace if needed
-                        String QName = atts.getQName(i);
+                        final String QName = atts.getQName(i);
                         String newUri = atts.getURI(i);
-                        int idx = QName.indexOf(':');
+                        final int idx = QName.indexOf(':');
 
                         if (idx >= 0) {
                             newUri = replaceURI(newUri);
@@ -112,7 +111,7 @@ public class ReplaceNamespaceTag extends TagSupport {
     /**
      * Sets the source namespace URI to replace.
      */
-    public void setFromURI(String namespace) {
+    public void setFromURI(final String namespace) {
         this.fromNamespace = namespace;
     }
 
@@ -126,7 +125,7 @@ public class ReplaceNamespaceTag extends TagSupport {
     /**
      * Sets the destination namespace URI to replace.
      */
-    public void setToURI(String namespace) {
+    public void setToURI(final String namespace) {
         this.toNamespace = namespace;
     }
 }

@@ -25,10 +25,10 @@ import org.dom4j.io.SAXReader;
 public class ExpectedTag extends XMLUnitTagSupport {
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Document expectedDocument = parseBody();
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final Document expectedDocument = parseBody();
 
-        AssertDocumentsEqualTag assertTag =
+        final AssertDocumentsEqualTag assertTag =
             (AssertDocumentsEqualTag) findAncestorWithClass(AssertDocumentsEqualTag
                 .class);
         assertTag.setExpected(expectedDocument);

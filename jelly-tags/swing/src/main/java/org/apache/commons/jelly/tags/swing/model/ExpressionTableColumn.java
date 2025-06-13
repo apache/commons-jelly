@@ -20,7 +20,6 @@ import javax.swing.table.TableColumn;
 
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -46,12 +45,12 @@ public class ExpressionTableColumn extends TableColumn {
     /**
      * Evaluates the value of a cell
      */
-    public Object evaluateValue(ExpressionTableModel model, Object row, int rowIndex, int columnIndex) {
+    public Object evaluateValue(final ExpressionTableModel model, final Object row, final int rowIndex, final int columnIndex) {
         if (value == null) {
             return null;
         }
         // lets put the values in the context
-        JellyContext context = model.getContext();
+        final JellyContext context = model.getContext();
         context.setVariable("rows", model.getRows());
         context.setVariable("columns", model.getColumnList());
         context.setVariable("row", row);
@@ -62,7 +61,7 @@ public class ExpressionTableColumn extends TableColumn {
         try {
             return value.evaluateRecurse(context);
         }
-        catch (RuntimeException e) {
+        catch (final RuntimeException e) {
             log.warn( "Caught exception: " + e + " evaluating: " + value, e );
             throw e;
         }
@@ -91,7 +90,7 @@ public class ExpressionTableColumn extends TableColumn {
      * Sets the expression used to extract the value.
      * @param type The type to set
      */
-    public void setType(Class type) {
+    public void setType(final Class type) {
         this.type = type;
     }
 
@@ -99,7 +98,7 @@ public class ExpressionTableColumn extends TableColumn {
      * Sets the value.
      * @param value The value to set
      */
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 
