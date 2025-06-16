@@ -16,10 +16,10 @@
  */
 package org.apache.commons.jelly.html;
 
+import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
+
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
 
 /**
  * A helper class to run jelly test cases as part of Ant's JUnit tests
@@ -27,7 +27,7 @@ import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
  */
 public class TestJelly extends AbstractJellyTestSuite {
 
-    public static void main( String[] args ) throws Exception {
+    public static void main( final String[] args ) throws Exception {
         TestRunner.run( suite() );
     }
 

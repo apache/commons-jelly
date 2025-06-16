@@ -27,21 +27,21 @@ import junit.framework.TestCase;
  */
 public class TestDoctypeDefinitionXXE extends TestCase
 {
-    public TestDoctypeDefinitionXXE( String s )
+    public TestDoctypeDefinitionXXE( final String s )
     {
         super( s );
     }
 
     public void testDoctypeDefinitionXXEAllowDTDCalls() throws JellyException
     {
-        JellyContext context = new JellyContext();
+        final JellyContext context = new JellyContext();
         context.setAllowDtdToCallExternalEntities(true);
-        URL url = this.getClass().getResource("doctypeDefinitionXXE.jelly");
+        final URL url = this.getClass().getResource("doctypeDefinitionXXE.jelly");
         try
         {
             context.runScript(url, null);
-        } catch (JellyException e) {
-            Throwable cause = e.getCause();
+        } catch (final JellyException e) {
+            final Throwable cause = e.getCause();
             if (cause instanceof java.net.ConnectException) {
                 //success
             } else if (cause instanceof org.xml.sax.SAXParseException) {
@@ -54,13 +54,13 @@ public class TestDoctypeDefinitionXXE extends TestCase
 
     public void testDoctypeDefinitionXXEDefaultMode() throws JellyException
     {
-        JellyContext context = new JellyContext();
-        URL url = this.getClass().getResource("doctypeDefinitionXXE.jelly");
+        final JellyContext context = new JellyContext();
+        final URL url = this.getClass().getResource("doctypeDefinitionXXE.jelly");
         try
         {
             context.runScript(url, null);
-        } catch (JellyException e) {
-            Throwable cause = e.getCause();
+        } catch (final JellyException e) {
+            final Throwable cause = e.getCause();
             if (cause instanceof java.net.ConnectException) {
                 fail("doctypeDefinitionXXE.jelly attempted to connect to http://127.0.0.1:4444");
             } else if (cause instanceof org.xml.sax.SAXParseException) {

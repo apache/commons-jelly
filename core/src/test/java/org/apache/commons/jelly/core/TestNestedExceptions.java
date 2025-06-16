@@ -24,12 +24,12 @@ import junit.textui.TestRunner;
 
 public class TestNestedExceptions extends AbstractJellyTestSuite {
 
-    public static void main( String[] args ) throws Exception {
+    public static void main( final String[] args ) throws Exception {
         TestRunner.run( suite() );
     }
 
     public static TestSuite suite() throws Exception {
         return createTestSuite(TestNestedExceptions.class, "testNestedExceptions.xml");
     }
-    
+
 }

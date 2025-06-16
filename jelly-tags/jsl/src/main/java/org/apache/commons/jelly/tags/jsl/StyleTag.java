@@ -33,7 +33,7 @@ import org.jaxen.XPath;
 public class StyleTag extends XPathTagSupport {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(StyleTag.class);
+    private final Log log = LogFactory.getLog(StyleTag.class);
 
     /** Holds the stylesheet which will be applied to the source context. */
     private Stylesheet stylesheet;
@@ -47,26 +47,26 @@ public class StyleTag extends XPathTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        Stylesheet stylesheet = getStylesheet();
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        final Stylesheet stylesheet = getStylesheet();
         if (stylesheet == null) {
             throw new MissingAttributeException("stylesheet");
         }
 
         if (stylesheet instanceof JellyStylesheet) {
-            JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
+            final JellyStylesheet jellyStyle = (JellyStylesheet) stylesheet;
             jellyStyle.setOutput(output);
         }
 
         // dom4j only seems to throw Exception
         try {
-            Object source = getSource();
+            final Object source = getSource();
             if (log.isDebugEnabled()) {
                 log.debug("About to evaluate stylesheet on source: " + source);
             }
 
             stylesheet.run(source);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new JellyTagException(e);
         }
     }
@@ -74,32 +74,32 @@ public class StyleTag extends XPathTagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
+    /** @return the source on which the stylesheet should run
+     */
+    protected Object getSource() throws JaxenException {
+        final Object source = getXPathContext();
+        if ( select != null ) {
+            return select.evaluate(source);
+        }
+        return source;
+    }
+
     public Stylesheet getStylesheet() {
         return stylesheet;
     }
 
-    /**
-     * Sets the stylesheet to use to style this tags body
-     */
-    public void setStylesheet(Stylesheet stylesheet) {
-        this.stylesheet = stylesheet;
-    }
-
     /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
+    public void setSelect(final XPath select) {
         this.select = select;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
-    /** @return the source on which the stylesheet should run
+    /**
+     * Sets the stylesheet to use to style this tags body
      */
-    protected Object getSource() throws JaxenException {
-        Object source = getXPathContext();
-        if ( select != null ) {
-            return select.evaluate(source);
-        }
-        return source;
+    public void setStylesheet(final Stylesheet stylesheet) {
+        this.stylesheet = stylesheet;
     }
 }

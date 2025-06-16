@@ -16,18 +16,16 @@
  */
 package org.apache.commons.jelly.tags.threads;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.util.NestedRuntimeException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 /**
  * A tag that spawns the contained script in a separate thread.  A thread
@@ -55,13 +53,12 @@ public class ThreadTag extends TagSupport {
     /** Should a new context be created */
     private boolean newContext = false;
     /** Keep a reference to the thread */
-    private JellyThread thread = new JellyThread();
+    private final JellyThread thread = new JellyThread();
 
     public ThreadTag() {
-        super();
     }
 
-    public ThreadTag(boolean shouldTrim) {
+    public ThreadTag(final boolean shouldTrim) {
         super(shouldTrim);
     }
 
@@ -74,7 +71,7 @@ public class ThreadTag extends TagSupport {
             try {
                 xmlOutput = XMLOutput.createXMLOutput(System.out);
             }
-            catch (UnsupportedEncodingException e) {
+            catch (final UnsupportedEncodingException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -83,45 +80,41 @@ public class ThreadTag extends TagSupport {
         final JellyContext useThisContext = newContext ? context.newJellyContext() : context;
 
         // set the target to run
-        thread.setTarget(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    getBody().run(useThisContext, xmlOutput);
-                    if (closeOutput) {
-                        xmlOutput.close();
+        thread.setTarget(() -> {
+            try {
+                getBody().run(useThisContext, xmlOutput);
+                if (closeOutput) {
+                    xmlOutput.close();
+                }
+                else {
+                    xmlOutput.flush();
+                }
+            }
+            catch (final JellyTagException e) {
+                // jelly wraps the exceptions thrown
+                final Throwable subException = e.getCause();
+                if (subException != null) {
+                    if (subException instanceof TimeoutException) {
+                        throw (TimeoutException)subException;
                     }
-                    else {
-                        xmlOutput.flush();
+                    if (subException instanceof RequirementException) {
+                        throw (RequirementException)subException;
                     }
                 }
-                catch (JellyTagException e) {
-                    // jelly wraps the exceptions thrown
-                    Throwable subException = e.getCause();
-                    if (subException != null) {
-                        if (subException instanceof TimeoutException) {
-                            throw (TimeoutException)subException;
-                        } else if (subException instanceof RequirementException) {
-                            throw (RequirementException)subException;
-                        }
-                    }
 
-                    log.error(e);
+                log.error(e);
 
-                    // wrap the exception with a RuntimeException
-                    throw new NestedRuntimeException(e);
+                // wrap the exception with a RuntimeException
+                throw new RuntimeException(e);
+            }
+            catch (final Exception e) {
+                log.error(e);
+
+                // wrap the exception with a RuntimeException
+                if (e instanceof RuntimeException) {
+                    throw (RuntimeException) e;
                 }
-                catch (Exception e) {
-                    log.error(e);
-
-                    // wrap the exception with a RuntimeException
-                    if (e instanceof RuntimeException) {
-                        throw (RuntimeException) e;
-                    }
-                    else {
-                        throw new RuntimeException(e);
-                    }
-                }
+                throw new RuntimeException(e);
             }
         });
 
@@ -132,7 +125,7 @@ public class ThreadTag extends TagSupport {
         if (name != null) {
             thread.setName(name);
         } else {
-            thread.setName("Jelly Thread #" + (threadNumber++));
+            thread.setName("Jelly Thread #" + threadNumber++);
         }
 
         // set whether this thread is a daemon thread
@@ -146,7 +139,7 @@ public class ThreadTag extends TagSupport {
         // check if this tag is nested inside a group tag. if so
         // add this thread to the thread group but do not start it.
         // all threads in a thread group should start together.
-        GroupTag gt = (GroupTag) findAncestorWithClass(GroupTag.class);
+        final GroupTag gt = (GroupTag) findAncestorWithClass(GroupTag.class);
         if (gt != null) {
             gt.addThread(thread);
         } else {
@@ -156,10 +149,56 @@ public class ThreadTag extends TagSupport {
     }
 
     /**
+     * Gets the thread instance
+     * @return The thread
+     */
+    public Thread getThread() {
+        return thread;
+    }
+
+    /**
+     * Sets the thread to be a daemon thread if true
+     */
+    public void setDaemon(final boolean daemon) {
+        this.daemon = daemon;
+    }
+
+    /**
+     * Sets the file which is generated from the output
+     * @param name The output file name
+     */
+    public void setFile(final String name) throws IOException {
+        this.closeOutput = true;
+        setXmlOutput(XMLOutput.createXMLOutput(new FileOutputStream(name)));
+    }
+
+    /**
+     * Sets the name of the thread.
+     * @param name The name to set
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
+     * Should a new context be created for this thread?
+     */
+    public void setNewContext(final boolean newContext) {
+        this.newContext = newContext;
+    }
+
+    /**
+     * Sets the threads priority. Defaults to Thread.NORM_PRIORITY
+     */
+    public void setPriority(final int priority) {
+        this.priority = priority;
+    }
+
+    /**
      * Sets the variable name to export, optional
      * @param var The variable name
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
         if (name == null) {
             name = var;
@@ -167,56 +206,10 @@ public class ThreadTag extends TagSupport {
     }
 
     /**
-     * Sets the name of the thread.
-     * @param name The name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Sets the threads priority. Defaults to Thread.NORM_PRIORITY
-     */
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
-    /**
-     * Sets the thread to be a daemon thread if true
-     */
-    public void setDaemon(boolean daemon) {
-        this.daemon = daemon;
-    }
-
-    /**
      * Sets the destination of output
      */
-    public void setXmlOutput(XMLOutput xmlOutput) {
+    public void setXmlOutput(final XMLOutput xmlOutput) {
         this.closeOutput = false;
         this.xmlOutput = xmlOutput;
-    }
-
-    /**
-     * Sets the file which is generated from the output
-     * @param name The output file name
-     */
-    public void setFile(String name) throws IOException {
-        this.closeOutput = true;
-        setXmlOutput(XMLOutput.createXMLOutput(new FileOutputStream(name)));
-    }
-
-    /**
-     * Should a new context be created for this thread?
-     */
-    public void setNewContext(boolean newContext) {
-        this.newContext = newContext;
-    }
-
-    /**
-     * Gets the thread instance
-     * @return The thread
-     */
-    public Thread getThread() {
-        return thread;
     }
 }

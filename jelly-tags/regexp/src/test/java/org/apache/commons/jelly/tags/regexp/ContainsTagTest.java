@@ -16,17 +16,17 @@
  */
 package org.apache.commons.jelly.tags.regexp;
 
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.JellyContext;
+import org.apache.commons.jelly.XMLOutput;
+
 import junit.framework.TestCase;
-import org.apache.commons.jelly.tags.regexp.ContainsTag;
 
 /*** <p><code>ContainsTagTest</code> a class that is useful to perform regexp matches
 * in strings.</p>
 */
 public class ContainsTagTest extends TestCase {
 
-    public ContainsTagTest(String name)
+    public ContainsTagTest(final String name)
     {
       super(name);
     }
@@ -36,10 +36,15 @@ public class ContainsTagTest extends TestCase {
     {
     }
 
+    @Override
+    public void tearDown()
+    {
+    }
+
     public void testDoTag() throws Exception
     {
-      ContainsTag containsExpTag = new ContainsTag();
-      XMLOutput xmlOutput = new XMLOutput();
+      final ContainsTag containsExpTag = new ContainsTag();
+      final XMLOutput xmlOutput = new XMLOutput();
 
       containsExpTag.setText("Hello World");
       containsExpTag.setExpr("World");
@@ -48,11 +53,6 @@ public class ContainsTagTest extends TestCase {
       containsExpTag.doTag(xmlOutput);
 
       assertEquals("TRUE", containsExpTag.getContext().getVariable("testvar").toString().toUpperCase());
-    }
-
-    @Override
-    public void tearDown()
-    {
     }
 
 }

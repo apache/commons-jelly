@@ -28,16 +28,16 @@ import junit.textui.TestRunner;
  * @version 0.0
  */
 public class TestCatchTag extends AbstractJellyTestSuite {
-    
-    public static void main( String[] args ) throws Exception {
+
+    public static void main( final String[] args ) throws Exception {
         TestRunner.run( suite() );
     }
 
     public static TestSuite suite() throws Exception {
-        TestSuite suite = createTestSuite(TestCatchTag.class, "testNewCatchTag.xml");
+        final TestSuite suite = createTestSuite(TestCatchTag.class, "testNewCatchTag.xml");
         suite.addTest(new TestModularExceptionBean("testThrowIt"));
         return suite;
     }
-    
+
 
 }

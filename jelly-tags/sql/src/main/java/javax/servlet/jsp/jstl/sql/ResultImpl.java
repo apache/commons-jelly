@@ -17,8 +17,13 @@
 
 package javax.servlet.jsp.jstl.sql;
 
-import java.sql.*;
-import java.util.*;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * <p>This class creates a cached version of a <code>ResultSet</code>.
@@ -30,9 +35,9 @@ import java.util.*;
  */
 
 final class ResultImpl implements Result {
-    private List rowMap;
-    private List rowByIndex;
-    private String[] columnNames;
+    private final List rowMap;
+    private final List rowByIndex;
+    private final String[] columnNames;
     private boolean isLimited;
 
     /**
@@ -45,14 +50,14 @@ final class ResultImpl implements Result {
      * @param maxRows query maximum rows limit
      * @throws SQLException if a database error occurs
      */
-    public ResultImpl(ResultSet rs, int startRow, int maxRows)
+    public ResultImpl(final ResultSet rs, final int startRow, final int maxRows)
         throws SQLException
     {
         rowMap = new ArrayList();
         rowByIndex = new ArrayList();
 
-        ResultSetMetaData rsmd = rs.getMetaData();
-        int noOfColumns = rsmd.getColumnCount();
+        final ResultSetMetaData rsmd = rs.getMetaData();
+        final int noOfColumns = rsmd.getColumnCount();
 
         // Create the column name array
         columnNames = new String[noOfColumns];
@@ -68,12 +73,12 @@ final class ResultImpl implements Result {
         // Process the remaining rows upto maxRows
         int processedRows = 0;
         while (rs.next()) {
-            if ((maxRows != -1) && (processedRows == maxRows)) {
+            if (maxRows != -1 && processedRows == maxRows) {
                 isLimited = true;
                 break;
             }
-            Object[] columns = new Object[noOfColumns];
-            SortedMap columnMap =
+            final Object[] columns = new Object[noOfColumns];
+            final SortedMap columnMap =
                 new TreeMap(String.CASE_INSENSITIVE_ORDER);
 
             // JDBC uses 1 as the lowest index!
@@ -89,6 +94,32 @@ final class ResultImpl implements Result {
             rowByIndex.add(columns);
             processedRows++;
         }
+    }
+
+    /**
+     * Returns an array of String objects. The array represents
+     * the names of the columns arranged in the same order as in
+     * the getRowsByIndex() method.
+     *
+     * @return an array of String[]
+     */
+    @Override
+    public String[] getColumnNames() {
+        return columnNames;
+    }
+
+    /**
+     * Returns the number of rows in the cached ResultSet
+     *
+     * @return the number of cached rows, or -1 if the Result could
+     *    not be initialized due to SQLExceptions
+     */
+    @Override
+    public int getRowCount() {
+        if (rowMap == null) {
+            return -1;
+        }
+        return rowMap.size();
     }
 
     /**
@@ -125,32 +156,6 @@ final class ResultImpl implements Result {
 
         //should just be able to return Object[][] object
         return (Object [][])rowByIndex.toArray(new Object[0][0]);
-    }
-
-    /**
-     * Returns an array of String objects. The array represents
-     * the names of the columns arranged in the same order as in
-     * the getRowsByIndex() method.
-     *
-     * @return an array of String[]
-     */
-    @Override
-    public String[] getColumnNames() {
-        return columnNames;
-    }
-
-    /**
-     * Returns the number of rows in the cached ResultSet
-     *
-     * @return the number of cached rows, or -1 if the Result could
-     *    not be initialized due to SQLExceptions
-     */
-    @Override
-    public int getRowCount() {
-        if (rowMap == null) {
-            return -1;
-        }
-        return rowMap.size();
     }
 
     /**

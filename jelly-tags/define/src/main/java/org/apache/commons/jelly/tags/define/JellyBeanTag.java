@@ -20,7 +20,6 @@ package org.apache.commons.jelly.tags.define;
 import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils2.MethodUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -43,6 +42,19 @@ public class JellyBeanTag extends BeanTag {
     // Properties
     //-------------------------------------------------------------------------
 
+    @Override
+    protected Method getInvokeMethod( final Class theClass ) {
+        final Method invokeMethod =
+            MethodUtils.getAccessibleMethod(
+                theClass,
+                getMethod(),
+                emptyParamTypes);
+
+        if ( invokeMethod == null ) {
+        }
+        return invokeMethod;
+    }
+
     /**
      * @return the method name to use, which defaults to 'run' for Runnable
      * objects
@@ -54,29 +66,16 @@ public class JellyBeanTag extends BeanTag {
         return method;
     }
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
     /**
      * Sets the name of the method to invoke on the bean.
      * This defaults to "run" so that Runnable objects can be
      * invoked, but this property can be set to whatever is required,
      * such as "execute" or "invoke"
      */
-    public void setMethod(String method) {
+    public void setMethod(final String method) {
         this.method = method;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    @Override
-    protected Method getInvokeMethod( Class theClass ) {
-        Method invokeMethod =
-            MethodUtils.getAccessibleMethod(
-                theClass,
-                getMethod(),
-                emptyParamTypes);
-
-        if ( invokeMethod == null ) {
-        }
-        return invokeMethod;
     }
 }

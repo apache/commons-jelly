@@ -33,11 +33,6 @@ public class Product {
     public Product() {
     }
 
-    @Override
-    public String toString() {
-        return "Product[id=" + id + ";name=" + name + "]";
-    }
-
     // Properties
     //-------------------------------------------------------------------------
     /**
@@ -60,7 +55,7 @@ public class Product {
      * Sets the id.
      * @param id The id to set
      */
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -68,8 +63,13 @@ public class Product {
      * Sets the name.
      * @param name The name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Product[id=" + id + ";name=" + name + "]";
     }
 
 }

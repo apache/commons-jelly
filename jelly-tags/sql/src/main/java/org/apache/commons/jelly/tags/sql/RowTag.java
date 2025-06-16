@@ -29,8 +29,8 @@ public class RowTag extends MapTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        ResultSetTag tag = (ResultSetTag) findAncestorWithClass( ResultSetTag.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final ResultSetTag tag = (ResultSetTag) findAncestorWithClass( ResultSetTag.class );
         if ( tag == null ) {
             throw new JellyTagException( "This tag must be nested with in a <resultSet> tag" );
         }

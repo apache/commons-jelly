@@ -22,7 +22,7 @@ package org.apache.commons.jelly.tags.threads;
  */
 
 public class TimeoutException extends RuntimeException {
-    public TimeoutException(String message) {
+    public TimeoutException(final String message) {
         super(message);
     }
 }

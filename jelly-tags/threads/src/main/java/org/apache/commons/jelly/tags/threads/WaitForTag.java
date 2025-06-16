@@ -17,11 +17,11 @@
 
 package org.apache.commons.jelly.tags.threads;
 
+import java.util.List;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
-import java.util.List;
 
 /**
  * This tag creates a dependency on another thread. If onlyWait is set
@@ -36,43 +36,12 @@ public class WaitForTag extends TagSupport {
     private long onlyWait = -1;
 
     /**
-     * Wait for a specific status. "SUCCESS", "FAILURE", "TIMED_OUT", or "AVOIDED". If
-     * waiting on a thread group each thread in the group will have to have this status
-     * set.
-     */
-    public void setStatus(String status) {
-        this.status = RunnableStatus.getStatusCode(status);
-    }
-
-    /**
-     * Which thread will this tag check the status of
-     */
-    public void setThread(JellyThread thread) {
-        this.thread = thread;
-    }
-
-    /**
-     * Sets the group of threads to wait on
-     */
-    public void setGroup(List group) {
-        this.group = group;
-    }
-
-    /**
-     * Sets how long to wait for the thread to finish. If waiting for a group
-     * this will be the time to wait for each thread in the group to finish.
-     */
-    public void setOnlyWait(long onlyWait) {
-        this.onlyWait = onlyWait;
-    }
-
-    /**
      * Check the requirements
      * @throws TimeoutException If the call to waitUntilDone(onlyWait) times out
      * @throws RequirementException If a threads status doesn't match the setStatus() value
      */
     @Override
-    public void doTag(XMLOutput output) throws TimeoutException, RequirementException, JellyTagException {
+    public void doTag(final XMLOutput output) throws TimeoutException, RequirementException, JellyTagException {
         if (thread == null && group == null) {
             throw new JellyTagException("This tag requires that you set the thread or group attribute");
         }
@@ -80,24 +49,51 @@ public class WaitForTag extends TagSupport {
         // wait on the thread
         if (thread != null) {
             thread.waitUntilDone(onlyWait);
-            if (status != RunnableStatus.NONE) {
-                if (!thread.getStatus().equals(status)) {
-                    throw new RequirementException("Requirement on thread \"" + thread.getName() + "\" not met");
-                }
+            if (status != RunnableStatus.NONE && !thread.getStatus().equals(status)) {
+                throw new RequirementException("Requirement on thread \"" + thread.getName() + "\" not met");
             }
         }
 
         // wait on the threadgroup
         if (group != null) {
-            for (int i = 0; i < group.size(); i++) {
-                JellyThread gthread = (JellyThread) group.get(i);
+            for (final Object element : group) {
+                final JellyThread gthread = (JellyThread) element;
                 gthread.waitUntilDone(onlyWait);
-                if (status != RunnableStatus.NONE) {
-                    if (!gthread.getStatus().equals(status)) {
-                        throw new RequirementException("Requirement on thread \"" + gthread.getName() + "\" not met");
-                    }
+                if (status != RunnableStatus.NONE && !gthread.getStatus().equals(status)) {
+                    throw new RequirementException("Requirement on thread \"" + gthread.getName() + "\" not met");
                 }
             }
         }
+    }
+
+    /**
+     * Sets the group of threads to wait on
+     */
+    public void setGroup(final List group) {
+        this.group = group;
+    }
+
+    /**
+     * Sets how long to wait for the thread to finish. If waiting for a group
+     * this will be the time to wait for each thread in the group to finish.
+     */
+    public void setOnlyWait(final long onlyWait) {
+        this.onlyWait = onlyWait;
+    }
+
+    /**
+     * Wait for a specific status. "SUCCESS", "FAILURE", "TIMED_OUT", or "AVOIDED". If
+     * waiting on a thread group each thread in the group will have to have this status
+     * set.
+     */
+    public void setStatus(final String status) {
+        this.status = RunnableStatus.getStatusCode(status);
+    }
+
+    /**
+     * Which thread will this tag check the status of
+     */
+    public void setThread(final JellyThread thread) {
+        this.thread = thread;
     }
 }

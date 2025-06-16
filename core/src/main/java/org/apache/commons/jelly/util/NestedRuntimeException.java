@@ -43,7 +43,7 @@ public class NestedRuntimeException extends RuntimeException {
      * @param cause  the exception or error that caused this exception to be
      * thrown
      */
-    public NestedRuntimeException(String msg, Throwable cause) {
+    public NestedRuntimeException(final String msg, final Throwable cause) {
         super(msg, cause);
     }
 
@@ -54,7 +54,7 @@ public class NestedRuntimeException extends RuntimeException {
      * @param cause the exception or error that caused this exception to be
      * thrown
      */
-    public NestedRuntimeException(Throwable cause) {
+    public NestedRuntimeException(final Throwable cause) {
         super(cause);
     }
 

@@ -36,7 +36,7 @@ import junit.textui.TestRunner;
 public class TestEmbedded extends TestCase
 {
 
-    public static void main(String[] args)
+    public static void main(final String[] args)
     {
         TestRunner.run(suite());
     }
@@ -46,7 +46,7 @@ public class TestEmbedded extends TestCase
         return new TestSuite(TestEmbedded.class);
     }
 
-    public TestEmbedded(String testName)
+    public TestEmbedded(final String testName)
     {
         super(testName);
     }
@@ -56,16 +56,16 @@ public class TestEmbedded extends TestCase
      */
     public void testInputStreamAsScript()
     {
-        Embedded embedded = new Embedded();
-        String jellyScript =
+        final Embedded embedded = new Embedded();
+        final String jellyScript =
             "<?xml version=\"1.0\"?>"
                 + " <j:jelly xmlns:j=\"jelly:core\">"
                 + "jelly-test-case"
                 + " </j:jelly>";
         embedded.setScript(new ByteArrayInputStream(jellyScript.getBytes()));
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         embedded.setOutputStream(baos);
-        boolean status = embedded.execute();
+        final boolean status = embedded.execute();
         //executed properly without script errors
         assertEquals(status, true);
         //check that the output confirms the expected
@@ -77,34 +77,34 @@ public class TestEmbedded extends TestCase
      */
     public void testRawExecuteAsString() throws Exception
     {
-        String message =
+        final String message =
             "<?xml version=\"1.0\"?>"
                 + " <j:jelly xmlns:j=\"jelly:core\">"
                 + "jelly-test-case"
                 + " </j:jelly>";
-       ByteArrayOutputStream output = new ByteArrayOutputStream();
-       XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
-       InputSource script = new InputSource( new StringReader(message.toString()) );
-       JellyContext context = new JellyContext();
+       final ByteArrayOutputStream output = new ByteArrayOutputStream();
+       final XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
+       final InputSource script = new InputSource( new StringReader(message.toString()) );
+       final JellyContext context = new JellyContext();
        context.runScript( script, xmlOutput);
        output.close();
        //check that the output confirms the expected
        assertEquals("jelly-test-case", new String(output.toByteArray()));
     }
-    
+
     /**
      *  test Script input as a java.lang.String object
      */
     public void testStringAsScript()
     {
-        Embedded embedded = new Embedded();
-        String jellyScript =
+        final Embedded embedded = new Embedded();
+        final String jellyScript =
             "<?xml version=\"1.0\"?>"
                 + " <j:jelly xmlns:j=\"jelly:core\">"
                 + "jelly-test-case"
                 + " </j:jelly>";
         embedded.setScript(jellyScript);
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
         embedded.setOutputStream(baos);
         boolean status = embedded.execute();
         //executed properly without script errors

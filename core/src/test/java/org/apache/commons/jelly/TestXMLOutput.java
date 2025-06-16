@@ -27,51 +27,51 @@ public class TestXMLOutput extends BaseJellyTest {
     /** JUnit constructor
      * @param name
      */
-    public TestXMLOutput(String name) {
+    public TestXMLOutput(final String name) {
         super(name);
     }
-    
+
     public void testOutputBad() throws Exception {
         setUpScript("outputBad.jelly");
-        Script script = getJelly().compileScript();
-        
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        
+        final Script script = getJelly().compileScript();
+
+        final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
         script.run(getJellyContext(),XMLOutput.createXMLOutput(bos));
         assertEquals("<html></html>",bos.toString());
     }
-    
+
     public void testOutputBadGood() throws Exception {
         setUpScript("outputBad.jelly");
-        Script script = getJelly().compileScript();
-        
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        
-        XMLOutput output = XMLOutput.createXMLOutput(bos);
-        
+        final Script script = getJelly().compileScript();
+
+        final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+        final XMLOutput output = XMLOutput.createXMLOutput(bos);
+
         script.run(getJellyContext(),output);
         output.flush();
         assertEquals("<html></html>",bos.toString());
     }
-    
+
     public void testOutputData() throws Exception {
         setUpScript("outputData.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        XMLOutput output = XMLOutput.createXMLOutput(bos);
+        final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        final XMLOutput output = XMLOutput.createXMLOutput(bos);
 
         script.run(getJellyContext(),output);
         output.flush();
         assertEquals("[string]",bos.toString().trim());
 	}
-    
+
     public void testOutputGood() throws Exception {
         setUpScript("outputGood.jelly");
-        Script script = getJelly().compileScript();
-        
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        
+        final Script script = getJelly().compileScript();
+
+        final ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
         script.run(getJellyContext(),XMLOutput.createXMLOutput(bos));
         assertEquals("<html></html>x",bos.toString());
     }

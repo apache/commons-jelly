@@ -35,7 +35,7 @@ public class MyRunnable implements Runnable {
 
     private int x;
     private String y;
-    private List fileSets = new ArrayList();
+    private final List fileSets = new ArrayList();
 
     public MyRunnable() {
     }
@@ -51,6 +51,16 @@ public class MyRunnable implements Runnable {
     }
     */
 
+    // Properties
+    //-------------------------------------------------------------------------
+    public int getX() {
+        return x;
+    }
+
+    public String getY() {
+        return y;
+    }
+
     // Runnable interface
     //-------------------------------------------------------------------------
     @Override
@@ -59,21 +69,11 @@ public class MyRunnable implements Runnable {
         log.info( "FileSets are: " + fileSets );
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
+    public void setX(final int x) {
         this.x = x;
     }
 
-    public String getY() {
-        return y;
-    }
-
-    public void setY(String y) {
+    public void setY(final String y) {
         this.y = y;
     }
 }

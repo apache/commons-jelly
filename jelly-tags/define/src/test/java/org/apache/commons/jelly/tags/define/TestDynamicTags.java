@@ -19,27 +19,23 @@ package org.apache.commons.jelly.tags.define;
 import java.io.File;
 import java.io.StringWriter;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
+
 /** Tests dynamic tags
   */
 public class TestDynamicTags extends TestCase {
 
-    JellyContext context = new JellyContext();
-    XMLOutput output;
-
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestDynamicTags.class);
-
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
 
@@ -47,23 +43,20 @@ public class TestDynamicTags extends TestCase {
         return new TestSuite(TestDynamicTags.class);
     }
 
-    public TestDynamicTags(String testName) {
+    JellyContext context = new JellyContext();
+
+    XMLOutput output;
+
+    public TestDynamicTags(final String testName) {
         super(testName);
     }
 
-    public void testParse() throws Exception {
-        StringWriter buffer = new StringWriter();
-        output = XMLOutput.createXMLOutput(buffer);
-
-        //runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
-        runScript("target/test-classes/org/apache/commons/jelly/tags/define/example.jelly");
-
-        log.info("The output was as follows");
-        log.info(buffer.toString());
+    protected void runScript(final String name) throws Exception {
+        context.runScript(new File(name), output);
     }
 
     public void testJellyBean() throws Exception {
-        StringWriter buffer = new StringWriter();
+        final StringWriter buffer = new StringWriter();
         output = XMLOutput.createXMLOutput(buffer);
 
     log.warn("commented out test, need to rewrite without ant");
@@ -73,7 +66,14 @@ public class TestDynamicTags extends TestCase {
         log.info(buffer.toString());
     }
 
-    protected void runScript(String name) throws Exception {
-        context.runScript(new File(name), output);
+    public void testParse() throws Exception {
+        final StringWriter buffer = new StringWriter();
+        output = XMLOutput.createXMLOutput(buffer);
+
+        //runScript("src/test/org/apache/commons/jelly/define/babelfishTaglib.jelly");
+        runScript("target/test-classes/org/apache/commons/jelly/tags/define/example.jelly");
+
+        log.info("The output was as follows");
+        log.info(buffer.toString());
     }
 }

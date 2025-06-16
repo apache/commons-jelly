@@ -37,8 +37,8 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
      * Adds a child component to this parent
      */
     @Override
-    public void addChild(Component component, Object constraints) throws JellyTagException {
-        BorderLayoutTag tag = (BorderLayoutTag) findAncestorWithClass( BorderLayoutTag.class );
+    public void addChild(final Component component, final Object constraints) throws JellyTagException {
+        final BorderLayoutTag tag = (BorderLayoutTag) findAncestorWithClass( BorderLayoutTag.class );
         if (tag == null) {
             throw new JellyTagException( "this tag must be nested within a <borderLayout> tag" );
         }
@@ -63,34 +63,32 @@ public class BorderAlignTag extends TagSupport implements ContainerTag {
         return align;
     }
 
-    /**
-     * Sets the alignment of the child component which is a case insensitive value
-     * of {NORTH, SOUTH, EAST, WEST, CENTER} which defaults to CENTER
-     */
-    public void setAlign(String align) {
-        this.align = align;
+    protected Object getConstraints() {
+        if ("north".equalsIgnoreCase(align)) {
+            return BorderLayout.NORTH;
+        }
+        if ("south".equalsIgnoreCase(align)) {
+            return BorderLayout.SOUTH;
+        }
+        if ("east".equalsIgnoreCase(align)) {
+            return BorderLayout.EAST;
+        }
+        if ("west".equalsIgnoreCase(align)) {
+            return BorderLayout.WEST;
+        }
+        // default to CENTER
+        return BorderLayout.CENTER;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
-    protected Object getConstraints() {
-        if ("north".equalsIgnoreCase(align)) {
-            return BorderLayout.NORTH;
-        }
-        else if ("south".equalsIgnoreCase(align)) {
-            return BorderLayout.SOUTH;
-        }
-        else if ("east".equalsIgnoreCase(align)) {
-            return BorderLayout.EAST;
-        }
-        else if ("west".equalsIgnoreCase(align)) {
-            return BorderLayout.WEST;
-        }
-        else {
-            // default to CENTER
-            return BorderLayout.CENTER;
-        }
+    /**
+     * Sets the alignment of the child component which is a case insensitive value
+     * of {NORTH, SOUTH, EAST, WEST, CENTER} which defaults to CENTER
+     */
+    public void setAlign(final String align) {
+        this.align = align;
     }
 }
 

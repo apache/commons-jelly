@@ -21,7 +21,7 @@ import org.apache.commons.jelly.TagLibrary;
 /** Implements regexp tags.
  */
 public class RegexpTagLibrary extends TagLibrary {
-    
+
     public RegexpTagLibrary()
     {
         registerTag("match", MatchTag.class);

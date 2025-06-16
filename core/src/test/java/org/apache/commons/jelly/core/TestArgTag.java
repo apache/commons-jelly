@@ -36,24 +36,24 @@ import junit.framework.TestSuite;
 public class TestArgTag extends BaseJellyTest {
 
     final class MockArgTagParent extends TagSupport implements ArgTagParent {
-        private List typeList = new ArrayList();
+        private final List typeList = new ArrayList();
 
-        private List valueList = new ArrayList();
+        private final List valueList = new ArrayList();
 
         @Override
-        public void addArgument(Class type, Object value) {
+        public void addArgument(final Class type, final Object value) {
             typeList.add(type);
             valueList.add(value);
         }
 
         @Override
-        public void doTag(XMLOutput output)  {
+        public void doTag(final XMLOutput output)  {
         }
 
-        private Class getType(int i) {
-            return (Class)(typeList.get(i));
+        private Class getType(final int i) {
+            return (Class)typeList.get(i);
         }
-        private Object getValue(int i) {
+        private Object getValue(final int i) {
             return valueList.get(i);
         }
     }
@@ -65,7 +65,7 @@ public class TestArgTag extends BaseJellyTest {
         }
 
         @Override
-        public void run(JellyContext context, XMLOutput output) throws JellyTagException {
+        public void run(final JellyContext context, final XMLOutput output) throws JellyTagException {
         }
     }
 
@@ -77,7 +77,7 @@ public class TestArgTag extends BaseJellyTest {
 
     private ArgTag argTag = null;
 
-    public TestArgTag(String name) {
+    public TestArgTag(final String name) {
         super(name);
     }
 
@@ -99,7 +99,7 @@ public class TestArgTag extends BaseJellyTest {
     }
 
     public void testFromNull() throws Exception {
-        Class[] types = { Boolean.class, Character.class, Byte.class, Short.class, Integer.class, Float.class, Long.class, Double.class, String.class, Object.class };
+        final Class[] types = { Boolean.class, Character.class, Byte.class, Short.class, Integer.class, Float.class, Long.class, Double.class, String.class, Object.class };
         for(int i=0;i<types.length;i++) {
             argTag.setType(types[i].getName());
             argTag.setValue(null);
@@ -196,8 +196,8 @@ public class TestArgTag extends BaseJellyTest {
         assertEquals(Long.TYPE,parentTag.getType(0));
         assertEquals(Long.valueOf(17),parentTag.getValue(0));
     }
-    
-   
+
+
     public void testToLongFromString() throws Exception {
         argTag.setType("long");
         argTag.setValue("17");
@@ -222,14 +222,14 @@ public class TestArgTag extends BaseJellyTest {
         assertEquals(Object[].class,parentTag.getValue(0));
     }
     public void testToPrimitiveFromNull() throws Exception {
-        String[] types = { "boolean", "char", "byte", "short", "int", "float", "long", "double" };
-        for(int i=0;i<types.length;i++) {
-            argTag.setType(types[i]);
+        final String[] types = { "boolean", "char", "byte", "short", "int", "float", "long", "double" };
+        for (final String type : types) {
+            argTag.setType(type);
             argTag.setValue(null);
             try {
                 argTag.doTag(getXMLOutput());
                 fail("Expected JellyException");
-            } catch (JellyException e) {
+            } catch (final JellyException e) {
                 // expected
             }
         }

@@ -38,9 +38,9 @@ public class ColorConverter implements Converter {
         "A color is encoded as a java.awt.Color name or a #xxxxxx triple of hex-bytes.";
 
     @Override
-    public Object convert(Class type, Object value) {
+    public Object convert(final Class type, final Object value) {
         if (value != null) {
-            String s = value.toString();
+            final String s = value.toString();
             if (s.length() <= 1) {
                 throw new IllegalArgumentException(usageText);
             }
@@ -53,7 +53,7 @@ public class ColorConverter implements Converter {
                     colorValue = Integer.parseInt(s.substring(1), 16);
                     return new Color(colorValue);
                 }
-                catch (NumberFormatException ex) {
+                catch (final NumberFormatException ex) {
                     throw new IllegalArgumentException(
                         "Can't parse \""
                             + s
@@ -61,25 +61,23 @@ public class ColorConverter implements Converter {
                             + ex);
                 }
             }
-            else {
-                // a color name
-                try {
-                    // could it be this is already somewhere: get the value of  a static final by string
-                    Field f = SystemColor.class.getField(s);
-                    if (f == null
-                        || !Modifier.isStatic(f.getModifiers())
-                        || !Modifier.isFinal(f.getModifiers())
-                        || !Modifier.isPublic(f.getModifiers())
-                        || !Color.class.isAssignableFrom(f.getType())) {
+            // a color name
+            try {
+                // could it be this is already somewhere: get the value of  a static final by string
+                final Field f = SystemColor.class.getField(s);
+                if (f == null
+                    || !Modifier.isStatic(f.getModifiers())
+                    || !Modifier.isFinal(f.getModifiers())
+                    || !Modifier.isPublic(f.getModifiers())
+                    || !Color.class.isAssignableFrom(f.getType())) {
 
-                        throw new IllegalArgumentException(usageText);
-                    }
-                    return (Color) f.get(SystemColor.class);
+                    throw new IllegalArgumentException(usageText);
                 }
-                catch (Exception ex) {
-                    throw new IllegalArgumentException(
-                        "Can't parse \"" + s + "\" as a color-name: " + ex);
-                }
+                return (Color) f.get(SystemColor.class);
+            }
+            catch (final Exception ex) {
+                throw new IllegalArgumentException(
+                    "Can't parse \"" + s + "\" as a color-name: " + ex);
             }
         }
         return null;

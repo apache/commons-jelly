@@ -27,40 +27,39 @@ public class Customer {
 
     private String name;
     private String location;
-    private List orders = new ArrayList();
+    private final List orders = new ArrayList();
 
     public Customer() {
     }
 
-    public Customer(String name) {
-        setName(name);
-    }
-
-    public Customer(String name, String location) {
-        setName(name);
-        setLocation(location);
-    }
-
-    public Customer(String name, String location, Order anOrder) {
-        setName(name);
-        setLocation(location);
-        addOrder(anOrder);
-    }
-
-    public Customer(Customer cust) {
+    public Customer(final Customer cust) {
         setName(cust.getName());
         setLocation(cust.getLocation());
-        List list = cust.getOrders();
+        final List list = cust.getOrders();
         if (null != list) {
-            for(Iterator iter = list.iterator();iter.hasNext();) {
+            for(final Iterator iter = list.iterator();iter.hasNext();) {
                 addOrder((Order)iter.next());
             }
         }
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "[name=" + name + ";location=" + location + "]";
+    public Customer(final String name) {
+        setName(name);
+    }
+
+    public Customer(final String name, final String location) {
+        setName(name);
+        setLocation(location);
+    }
+
+    public Customer(final String name, final String location, final Order anOrder) {
+        setName(name);
+        setLocation(location);
+        addOrder(anOrder);
+    }
+
+    public void addOrder(final Order order) {
+        orders.add(order);
     }
 
     /**
@@ -68,18 +67,6 @@ public class Customer {
      */
     public Order createOrder() {
         return new Order();
-    }
-
-    public List getOrders() {
-        return orders;
-    }
-
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
-    public void removeOrder(Order order) {
-        orders.remove(order);
     }
 
     /**
@@ -98,11 +85,19 @@ public class Customer {
         return name;
     }
 
+    public List getOrders() {
+        return orders;
+    }
+
+    public void removeOrder(final Order order) {
+        orders.remove(order);
+    }
+
     /**
      * Sets the location.
      * @param location The location to set
      */
-    public void setLocation(String location) {
+    public void setLocation(final String location) {
         this.location = location;
     }
 
@@ -110,7 +105,12 @@ public class Customer {
      * Sets the name.
      * @param name The name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[name=" + name + ";location=" + location + "]";
     }
 }

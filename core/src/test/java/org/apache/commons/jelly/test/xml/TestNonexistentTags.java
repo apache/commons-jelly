@@ -40,18 +40,18 @@ public class TestNonexistentTags extends TestCase {
 
     XMLOutput xmlOutput = null;
 
-    public TestNonexistentTags(String name) {
+    public TestNonexistentTags(final String name) {
         super(name);
     }
 
-    public void setUp(String scriptName) throws Exception {
+    public void setUp(final String scriptName) throws Exception {
         context = new JellyContext();
         xmlOutput = XMLOutput.createDummyXMLOutput();
 
         jelly = new Jelly();
 
-        String script = scriptName;
-        URL url = this.getClass().getResource(script);
+        final String script = scriptName;
+        final URL url = this.getClass().getResource(script);
         if ( url == null ) {
             throw new Exception(
                 "Could not find Jelly script: " + script
@@ -69,7 +69,7 @@ public class TestNonexistentTags extends TestCase {
         try {
             jelly.compileScript();
             fail("Scripts should throw JellyException when it declares a nonexistent tag.");
-        } catch (JellyException e) {
+        } catch (final JellyException e) {
         }
     }
 

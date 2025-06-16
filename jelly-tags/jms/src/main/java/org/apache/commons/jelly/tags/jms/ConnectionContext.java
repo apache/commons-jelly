@@ -19,7 +19,6 @@ package org.apache.commons.jelly.tags.jms;
 import javax.jms.JMSException;
 
 import org.apache.commons.jelly.JellyTagException;
-
 import org.apache.commons.messenger.Messenger;
 
 /** Represents a context capable of providing a Messenger connection to use

@@ -34,16 +34,14 @@ public class WhenTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        ChooseTag tag = (ChooseTag) findAncestorWithClass( ChooseTag.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final ChooseTag tag = (ChooseTag) findAncestorWithClass( ChooseTag.class );
         if ( tag == null ) {
             throw new JellyTagException( "This tag must be enclosed inside a <choose> tag" );
         }
-        if ( ! tag.isBlockEvaluated() && test != null ) {
-            if ( test.evaluateAsBoolean( context ) ) {
-                tag.setBlockEvaluated(true);
-                invokeBody(output);
-            }
+        if ( ! tag.isBlockEvaluated() && test != null && test.evaluateAsBoolean( context ) ) {
+            tag.setBlockEvaluated(true);
+            invokeBody(output);
         }
     }
 
@@ -51,7 +49,7 @@ public class WhenTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /** Sets the expression to evaluate. */
-    public void setTest(Expression test) {
+    public void setTest(final Expression test) {
         this.test = test;
     }
 

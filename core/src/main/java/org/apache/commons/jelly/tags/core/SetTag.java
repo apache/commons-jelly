@@ -61,7 +61,7 @@ public class SetTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         // perform validation up front to fail fast
         if ( var != null ) {
             if ( target != null || property != null ) {
@@ -105,12 +105,12 @@ public class SetTag extends TagSupport {
      * @param value
      * @return true if the given value is null or an empty String
      */
-    protected boolean isEmpty(Object value) {
+    protected boolean isEmpty(final Object value) {
         if (value == null) {
             return true;
         }
         if (value instanceof String) {
-            String s = (String) value;
+            final String s = (String) value;
             return s.length() == 0;
         }
         return false;
@@ -127,7 +127,7 @@ public class SetTag extends TagSupport {
      * Sets the default value to be used if the value expression results
      * in a null value or blank String
      */
-    public void setDefaultValue(Expression defaultValue) {
+    public void setDefaultValue(final Expression defaultValue) {
         this.defaultValue = defaultValue;
     }
 
@@ -137,29 +137,27 @@ public class SetTag extends TagSupport {
      * This is only used if this tag is specified with no value so that the text body of this
      * tag is used as the body.
      */
-    public void setEncode(boolean encode) {
+    public void setEncode(final boolean encode) {
         this.encode = encode;
     }
 
     /** Sets the name of the property to set on the target object. */
-    public void setProperty(String property) {
+    public void setProperty(final String property) {
         this.property = property;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
-    protected void setPropertyValue( Object target, String property, Object value ) {
+    protected void setPropertyValue( final Object target, final String property, final Object value ) {
         try {
             if ( target instanceof Map ) {
-                Map map = (Map) target;
+                final Map map = (Map) target;
                 map.put( property, value );
             }
             else {
                 BeanUtils.setProperty( target, property, value );
             }
-        } catch (InvocationTargetException e) {
-            log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
-        } catch (IllegalAccessException e) {
+        } catch (final InvocationTargetException | IllegalAccessException e) {
             log.error( "Failed to set the property: " + property + " on bean: " + target + " to value: " + value + " due to exception: " + e, e );
         }
     }
@@ -171,17 +169,17 @@ public class SetTag extends TagSupport {
      *
      * Other applications may implement their own custom scopes.
      */
-    public void setScope(String scope) {
+    public void setScope(final String scope) {
         this.scope = scope;
     }
 
     /** Sets the target object on which to set a property. */
-    public void setTarget(Object target) {
+    public void setTarget(final Object target) {
         this.target = target;
     }
 
     /** Sets the expression to evaluate. */
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 
@@ -189,7 +187,7 @@ public class SetTag extends TagSupport {
     //-------------------------------------------------------------------------
     /** Sets the variable name to define for this expression
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

@@ -28,7 +28,8 @@ import org.apache.commons.jelly.XMLOutput;
 
 public class SynchronizeTag extends UseMutexTag {
     /** Synchronize on the mutex */
-    protected void useMutex(Object mutex, XMLOutput output) throws JellyTagException {
+    @Override
+    protected void useMutex(final Object mutex, final XMLOutput output) throws JellyTagException {
         synchronized (mutex) {
             invokeBody(output);
         }

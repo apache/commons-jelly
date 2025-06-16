@@ -43,8 +43,8 @@ public class DefaultTag extends TagSupport {
     }
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
         if (null == tag) {
             throw new JellyTagException("This tag must be enclosed inside a <switch> tag" );
         }
@@ -52,14 +52,14 @@ public class DefaultTag extends TagSupport {
             throw new JellyTagException("Only one <default> tag is allowed per <switch>.");
         }
         tag.defaultEncountered();
-        if (tag.isFallingThru() || (!tag.hasSomeCaseMatched())) {
+        if (tag.isFallingThru() || !tag.hasSomeCaseMatched()) {
             tag.caseMatched();
             tag.setFallingThru(fallThru);
             invokeBody(output);
         }
     }
 
-    public void setFallThru(boolean fallThru) {
+    public void setFallThru(final boolean fallThru) {
         this.fallThru = fallThru;
     }
 

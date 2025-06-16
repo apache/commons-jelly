@@ -40,19 +40,19 @@ public class WizardPageTag extends UseBeanTag {
     public class WizardPageImpl extends WizardPage {
         private Composite parentComposite;
 
-        public WizardPageImpl(String title) {
+        public WizardPageImpl(final String title) {
             super(title);
         }
 
         @Override
-        public void createControl(Composite parent) {
+        public void createControl(final Composite parent) {
             // set initial parent Control to avoid a NPE during invokeBody
             setControl(parent);
 
             // create page contents
             try {
                 invokeBody(output);
-            } catch (JellyTagException e) {
+            } catch (final JellyTagException e) {
                 log.error(e);
             }
 
@@ -65,7 +65,7 @@ public class WizardPageTag extends UseBeanTag {
         public Control getParentControl() {
             return parentComposite;
         }
-        public void setParentComposite(Composite parentComposite) {
+        public void setParentComposite(final Composite parentComposite) {
             this.parentComposite = parentComposite;
         }
 
@@ -80,7 +80,7 @@ public class WizardPageTag extends UseBeanTag {
     /**
      * @param theClass
      */
-    public WizardPageTag(Class theClass) {
+    public WizardPageTag(final Class theClass) {
         super(theClass);
     }
 
@@ -88,30 +88,30 @@ public class WizardPageTag extends UseBeanTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         // check location
-        WizardDialogTag wizardTag = (WizardDialogTag) findAncestorWithClass(WizardDialogTag.class);
+        final WizardDialogTag wizardTag = (WizardDialogTag) findAncestorWithClass(WizardDialogTag.class);
         if (wizardTag == null) {
             throw new JellyTagException("This tag must be nested within a <wizardDialog>");
         }
 
         // check for missing attributes
-        String title = (String) getAttributes().get("title");
+        final String title = (String) getAttributes().get("title");
         if (title == null) {
             throw new MissingAttributeException("title");
         }
 
         // get WizardPageImpl
-        WizardPageImpl page = new WizardPageImpl(title);
+        final WizardPageImpl page = new WizardPageImpl(title);
         setBean(page);
         setBeanProperties(page, getAttributes());
 
-        String var = (String) getAttributes().get("var");
+        final String var = (String) getAttributes().get("var");
         processBean(var, page);
 
         // get Wizard
-        WizardDialogTag.WizardDialogImpl dialog = wizardTag.getWizardDialogImpl();
-        Wizard wizard = (Wizard) dialog.getWizard();
+        final WizardDialogTag.WizardDialogImpl dialog = wizardTag.getWizardDialogImpl();
+        final Wizard wizard = (Wizard) dialog.getWizard();
 
         // add WizardPage to the Wizard
         wizard.addPage(page);
@@ -125,7 +125,7 @@ public class WizardPageTag extends UseBeanTag {
      * @return WizardPageImpl
      */
     public WizardPageImpl getWizardPageImpl() {
-        Object bean = getBean();
+        final Object bean = getBean();
         if (bean instanceof WizardPageImpl) {
             return (WizardPageImpl) bean;
         }

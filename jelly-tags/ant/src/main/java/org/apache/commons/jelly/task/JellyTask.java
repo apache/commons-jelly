@@ -34,7 +34,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-
 import org.xml.sax.SAXException;
 
 /**
@@ -66,6 +65,31 @@ public class JellyTask extends Task {
     //-------------------------------------------------------------------------
 
     /**
+     * Compiles the script
+     */
+    protected Script compileScript() throws JellyException {
+        final XMLParser parser = new XMLParser();
+
+        Script script = null;
+        try {
+            parser.setContext(getJellyContext());
+            script = parser.parse(getUrl().toString());
+        }
+        catch (final IOException | SAXException e) {
+            throw new JellyException(e);
+        }
+        script = script.compile();
+
+        if (log.isDebugEnabled()) {
+            log.debug("Compiled script: " + getUrl());
+        }
+        return script;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
+    /**
      * Executes the Jelly script
      */
     @Override
@@ -76,65 +100,33 @@ public class JellyTask extends Task {
                 log( "Sending output to: " + output );
             }
 
-            Script script = compileScript();
-            JellyContext context = getJellyContext();
+            final Script script = compileScript();
+            final JellyContext context = getJellyContext();
             context.setVariable( "project", getProject() );
             script.run( context, getXMLOutput() );
             getXMLOutput().flush();
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new BuildException(e, getLocation() );
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
     /**
-     * Sets the script URL to use as an absolute URL or a relative file name
+     * The context to use
      */
-    public void setScript(String script) throws MalformedURLException {
-        setUrl(resolveURL(script));
-    }
+    public JellyContext getJellyContext() throws MalformedURLException {
+        if (context == null) {
+            // take off the name off the URL
+            String text = getUrl().toString();
+            final int idx = text.lastIndexOf('/');
+            text = text.substring(0, idx + 1);
+            final JellyContext parentContext =  new JellyContext(getRootContext(), new URL(text));
+            context = new AntJellyContext(getProject() , parentContext);
 
-    public URL getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the script URL to use
-     */
-    public void setUrl(URL url) {
-        this.url = url;
-    }
-
-    /**
-     * Sets the script file to use
-     */
-    public void setFile(File file) throws MalformedURLException {
-        setUrl( file.toURL() );
-    }
-
-    /**
-     * Sets the output to generate
-     */
-    public void setOutput(File output) throws IOException {
-        this.output = output;
-        xmlOutput = XMLOutput.createXMLOutput( new FileWriter( output ) );
-    }
-
-    public XMLOutput getXMLOutput() throws IOException {
-        if (xmlOutput == null) {
-            xmlOutput = XMLOutput.createXMLOutput( System.out );
+            // register the Ant tag library
+            context.registerTagLibrary( "jelly:ant", new AntTagLibrary() );
         }
-        return xmlOutput;
-    }
-
-    /**
-     * Sets the XMLOutput used
-     */
-    public void setXMLOutput(XMLOutput xmlOutput) {
-        this.xmlOutput = xmlOutput;
+        return context;
     }
 
     /**
@@ -147,67 +139,71 @@ public class JellyTask extends Task {
         return rootContext;
     }
 
+    public URL getUrl() {
+        return url;
+    }
+
+    public XMLOutput getXMLOutput() throws IOException {
+        if (xmlOutput == null) {
+            xmlOutput = XMLOutput.createXMLOutput( System.out );
+        }
+        return xmlOutput;
+    }
+
+    /**
+     * @return the URL for the relative file name or absolute URL
+     */
+    protected URL resolveURL(final String name) throws MalformedURLException {
+        final File file = getProject().resolveFile(name);
+        if (file.exists()) {
+            return file.toURI().toURL();
+        }
+        return new URL(name);
+    }
+
+    /**
+     * Sets the script file to use
+     */
+    public void setFile(final File file) throws MalformedURLException {
+        setUrl( file.toURI().toURL() );
+    }
+
+    /**
+     * Sets the output to generate
+     */
+    public void setOutput(final File output) throws IOException {
+        this.output = output;
+        xmlOutput = XMLOutput.createXMLOutput( new FileWriter( output ) );
+    }
+
     /**
      * Sets the root context
      */
-    public void setRootContext(URL rootContext) {
+    public void setRootContext(final URL rootContext) {
         this.rootContext = rootContext;
     }
 
     /**
-     * The context to use
+     * Sets the script URL to use as an absolute URL or a relative file name
      */
-    public JellyContext getJellyContext() throws MalformedURLException {
-        if (context == null) {
-            // take off the name off the URL
-            String text = getUrl().toString();
-            int idx = text.lastIndexOf('/');
-            text = text.substring(0, idx + 1);
-            JellyContext parentContext =  new JellyContext(getRootContext(), new URL(text));
-            context = new AntJellyContext(getProject() , parentContext);
-
-            // register the Ant tag library
-            context.registerTagLibrary( "jelly:ant", new AntTagLibrary() );
-        }
-        return context;
+    public void setScript(final String script) throws MalformedURLException {
+        setUrl(resolveURL(script));
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * Compiles the script
+     * Sets the script URL to use
      */
-    protected Script compileScript() throws JellyException {
-        XMLParser parser = new XMLParser();
-
-        Script script = null;
-        try {
-            parser.setContext(getJellyContext());
-            script = parser.parse(getUrl().toString());
-        }
-        catch (IOException e) {
-            throw new JellyException(e);
-        }
-        catch (SAXException e) {
-            throw new JellyException(e);
-        }
-        script = script.compile();
-
-        if (log.isDebugEnabled()) {
-            log.debug("Compiled script: " + getUrl());
-        }
-        return script;
+    public void setUrl(final URL url) {
+        this.url = url;
     }
 
     /**
-     * @return the URL for the relative file name or absolute URL
+     * Sets the XMLOutput used
      */
-    protected URL resolveURL(String name) throws MalformedURLException {
-        File file = getProject().resolveFile(name);
-        if (file.exists()) {
-            return file.toURI().toURL();
-        }
-        return new URL(name);
+    public void setXMLOutput(final XMLOutput xmlOutput) {
+        this.xmlOutput = xmlOutput;
     }
 }

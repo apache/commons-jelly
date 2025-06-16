@@ -67,7 +67,7 @@ public class Attribute {
      * Sets the defaultValue.
      * @param defaultValue The defaultValue to set
      */
-    public void setDefaultValue(Expression defaultValue) {
+    public void setDefaultValue(final Expression defaultValue) {
         this.defaultValue = defaultValue;
     }
 
@@ -75,7 +75,7 @@ public class Attribute {
      * Sets the name.
      * @param name The name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -83,7 +83,7 @@ public class Attribute {
      * Sets whether this attribute is required.
      * @param required is true if this attribute is a mandatory attribute
      */
-    public void setRequired(boolean required) {
+    public void setRequired(final boolean required) {
         this.required = required;
     }
 

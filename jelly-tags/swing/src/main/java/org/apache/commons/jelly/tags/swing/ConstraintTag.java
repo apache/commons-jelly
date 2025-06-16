@@ -52,76 +52,60 @@ public class ConstraintTag extends DynaBeanTagSupport {
                         And... have an insets?? A child ?
     */
 
+    public static class ConstantFactory implements TagFactory, Factory {
+        private final Object constant;
+        public ConstantFactory(final Object c) { this.constant = c;}
+        @Override
+        public Tag createTag(final String name, final Attributes attributes) throws JellyException {
+            return new ConstraintTag ( this );
+        }
+        @Override
+        public Object newInstance() { return constant; }
+    } // class ConstantStringFactory
+    public static class HereFactory extends BeanFactory implements TagFactory {
+        public HereFactory(final Class c) { super(c); }
+        @Override
+        public Tag createTag(final String name, final Attributes attributes) {
+            return new ConstraintTag ( this );
+            // still scratching my head about "this" usage...
+        }
+    } // class HereFactory
     protected Factory factory;
-    protected String var = null;
-    protected Object bean = null;
 
-        public static class HereFactory extends BeanFactory implements TagFactory {
-            public HereFactory(Class c) { super(c); }
-            @Override
-            public Tag createTag(String name, Attributes attributes) {
-                return new ConstraintTag ( this );
-                // still scratching my head about "this" usage...
-            }
-        } // class HereFactory
-        public static class ConstantFactory implements TagFactory, Factory {
-            public ConstantFactory(Object c) { this.constant = c;}
-            private Object constant;
-            @Override
-            public Object newInstance() { return constant; }
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return new ConstraintTag ( this );
-            }
-        } // class ConstantStringFactory
+        protected String var = null;
+        protected Object bean = null;
 
         // we could be able to make factories that create their tags in parametrized
         // subclasses of the tag depending on the name and attributes
         // it would useful, for example, to make a cardLayout's <card name="">
 
-    public ConstraintTag (Factory factory) {
+    public ConstraintTag (final Factory factory) {
         this.factory = factory;
-    }
-
-    protected void createBean ( Factory factory ) throws InstantiationException {
-        bean = factory.newInstance();
     }
 
     @Override
     public void beforeSetAttributes (  ) throws JellyTagException {
         try {
             createBean(factory);
-        } catch (InstantiationException e) {
+        } catch (final InstantiationException e) {
             throw new JellyTagException(e.toString());
         }
     }
 
-    @Override
-    public void setAttribute ( String name, Object value ) throws JellyTagException {
-        // no real need for DynaBeans or ?
-        if ( "var".equals(name) ) {
-            var = value.toString();
-        } else {
-
-            try {
-              BeanUtils.setProperty( bean, name, value );
-            } catch (IllegalAccessException e) {
-                throw new JellyTagException(e.toString());
-            } catch (InvocationTargetException e) {
-                throw new JellyTagException(e.toString());
-            }
-
-        }
+    protected void createBean ( final Factory factory ) throws InstantiationException {
+        bean = factory.newInstance();
     }
+
     /** Children invocation... just nothing...
         */
     @Override
-    public void doTag ( XMLOutput output ) throws JellyTagException {
-        if ( var != null ) context.setVariable ( var, getBean() );
+    public void doTag ( final XMLOutput output ) throws JellyTagException {
+        if ( var != null ) {
+            context.setVariable ( var, getBean() );
+        }
         invokeBody ( output );
         // nothing else to do... the getConstraintObject method should have been called.
     }
-
     public Object getBean() {
         return bean;
     }
@@ -130,5 +114,21 @@ public class ConstraintTag extends DynaBeanTagSupport {
         */
     public Object getConstraintObject() {
         return getBean();
+    }
+
+    @Override
+    public void setAttribute ( final String name, final Object value ) throws JellyTagException {
+        // no real need for DynaBeans or ?
+        if ( "var".equals(name) ) {
+            var = value.toString();
+        } else {
+
+            try {
+              BeanUtils.setProperty( bean, name, value );
+            } catch (final IllegalAccessException | InvocationTargetException e) {
+                throw new JellyTagException(e.toString());
+            }
+
+        }
     }
 }

@@ -63,7 +63,7 @@ public class Order {
      * Sets the amount.
      * @param amount The amount to set
      */
-    public void setAmount(int amount) {
+    public void setAmount(final int amount) {
         this.amount = amount;
     }
 
@@ -71,7 +71,7 @@ public class Order {
      * Sets the price.
      * @param price The price to set
      */
-    public void setPrice(double price) {
+    public void setPrice(final double price) {
         this.price = price;
     }
 
@@ -79,7 +79,7 @@ public class Order {
      * Sets the product.
      * @param product The product to set
      */
-    public void setProduct(Product product) {
+    public void setProduct(final Product product) {
         this.product = product;
     }
 

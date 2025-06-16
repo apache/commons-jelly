@@ -29,7 +29,7 @@ public class ApplicationWindowImpl extends ApplicationWindow {
     /**
      * @param shell
      */
-    public ApplicationWindowImpl(Shell shell) {
+    public ApplicationWindowImpl(final Shell shell) {
 
         super(shell);
 

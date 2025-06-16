@@ -35,56 +35,6 @@ public class ColorTag extends TagSupport {
     private String var;
 
     /**
-     * Sets the RGB value for this {@link Color} instance
-     *
-     * @param rgb value (eg. #666666);
-     */
-    public void setRgb(final String rgb) {
-        this.rgb = rgb;
-    }
-
-    /**
-     * Obtain the RGB value for this {@link Color} instance
-     *
-     * @return the RGB value (eg. #666666)
-     */
-    public String getRgb() {
-        return this.rgb;
-    }
-
-    /**
-     * Sets the variable name
-     *
-     * @param var the variable name of this {@link Color} instance
-     */
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    /**
-     * Obtain the variable name.
-     *
-     * @return the variable name of this {@link Color} instance
-     */
-    public String getVar() {
-        return this.var;
-    }
-
-    /**
-     * @return the parent widget which this widget will be added to.
-     */
-    public Widget getParentWidget() {
-        final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
-        if (tag != null) {
-            return tag.getWidget();
-        }
-        return null;
-    }
-
-    // Tag interface
-    //-------------------------------------------------------------------------
-
-    /**
      * Creates a {@link Color} instance as defined by the RGB attribute.
      * Stores this {@link Color} instance in the Context so that it can be
      * referenced in the Jelly script.
@@ -118,5 +68,55 @@ public class ColorTag extends TagSupport {
 
         // store the Color in the context
         context.setVariable(var, color);
+    }
+
+    /**
+     * @return the parent widget which this widget will be added to.
+     */
+    public Widget getParentWidget() {
+        final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
+        if (tag != null) {
+            return tag.getWidget();
+        }
+        return null;
+    }
+
+    /**
+     * Obtain the RGB value for this {@link Color} instance
+     *
+     * @return the RGB value (eg. #666666)
+     */
+    public String getRgb() {
+        return this.rgb;
+    }
+
+    /**
+     * Obtain the variable name.
+     *
+     * @return the variable name of this {@link Color} instance
+     */
+    public String getVar() {
+        return this.var;
+    }
+
+    /**
+     * Sets the RGB value for this {@link Color} instance
+     *
+     * @param rgb value (eg. #666666);
+     */
+    public void setRgb(final String rgb) {
+        this.rgb = rgb;
+    }
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the variable name
+     *
+     * @param var the variable name of this {@link Color} instance
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

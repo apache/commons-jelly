@@ -43,14 +43,14 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
-    public void addItem(Object value) {
+    public void addItem(final Object value) {
         getList().add(value);
     }
 
     // DynaTag interface
     //-------------------------------------------------------------------------
     @Override
-    public Class getAttributeType(String name) throws JellyTagException {
+    public Class getAttributeType(final String name) throws JellyTagException {
         if (name.equals("items")) {
             return Expression.class;
         }
@@ -70,14 +70,14 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     }
 
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
         super.processBean(var, bean);
 
-        List list = getList();
+        final List list = getList();
 
         // if the items variable is specified lets append all the items
         if (items != null) {
-            Iterator iter = items.evaluateAsIterator(context);
+            final Iterator iter = items.evaluateAsIterator(context);
             while (iter.hasNext()) {
                 list.add( iter.next() );
             }
@@ -85,7 +85,7 @@ public class UseListTag extends UseBeanTag implements CollectionTag {
     }
 
     @Override
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
+    protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
         items = (Expression) attributes.remove("items");
         super.setBeanProperties(bean, attributes);
     }

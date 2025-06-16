@@ -25,9 +25,6 @@ import java.io.Writer;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.velocity.exception.MethodInvocationException;
-import org.apache.velocity.exception.ParseErrorException;
-import org.apache.velocity.exception.ResourceNotFoundException;
 
 /**
  * A tag that uses Velocity to render a specified template with the
@@ -58,19 +55,19 @@ public class MergeTag extends VelocityTagSupport
         if ( name != null )
         {
             try {
-                Writer writer = new OutputStreamWriter(
+                final Writer writer = new OutputStreamWriter(
                         new FileOutputStream( name ),
                         outputEncoding == null ? ENCODING : outputEncoding );
                 mergeTemplate( writer );
                 writer.close();
             }
-            catch (IOException e) {
+            catch (final IOException e) {
                 throw new JellyTagException(e);
             }
         }
         else if ( var != null )
         {
-            StringWriter writer = new StringWriter();
+            final StringWriter writer = new StringWriter();
             mergeTemplate( writer );
             context.setVariable( var, writer.toString() );
         }
@@ -82,25 +79,26 @@ public class MergeTag extends VelocityTagSupport
     }
 
     /**
-     * Sets the var used to store the results of the merge.
+     * Merges the Velocity template with the Jelly context.
      *
-     * @param var The var to set in the JellyContext with the results of
-     * the merge.
+     * @param writer The output writer used to write the merged results.
+     * @throws Exception If an exception occurs during the merge.
      */
-    public void setVar( String var )
+    private void mergeTemplate( final Writer writer ) throws JellyTagException
     {
-        this.var = var;
-    }
+        final JellyContextAdapter adapter = new JellyContextAdapter( getContext() );
+        adapter.setReadOnly( readOnly );
 
-    /**
-     * Sets the file name for the merged output.
-     *
-     * @param name The name of the output file that is used to store the
-     * results of the merge.
-     */
-    public void setName( String name )
-    {
-        this.name = name;
+        try {
+            getVelocityEngine( basedir ).mergeTemplate(
+                template,
+                inputEncoding == null ? ENCODING : inputEncoding,
+                adapter,
+                writer );
+        }
+        catch (final Exception e) {
+            throw new JellyTagException(e);
+        }
     }
 
     /**
@@ -110,20 +108,43 @@ public class MergeTag extends VelocityTagSupport
      * @param basedir The directory where templates can be located by
      * the Velocity file resource loader.
      */
-    public void setBasedir( String basedir )
+    public void setBasedir( final String basedir )
     {
         this.basedir = basedir;
     }
 
     /**
-     * Sets the fil ename of the template used to merge with the
-     * JellyContext.
+     * Sets the input encoding used in the specified template which
+     * defaults to ISO-8859-1.
      *
-     * @param template The file name of the template to be merged.
+     * @param encoding  The encoding used in the template.
      */
-    public void setTemplate( String template )
+    public void setInputEncoding( final String encoding )
     {
-        this.template = template;
+        this.inputEncoding = encoding;
+    }
+
+    /**
+     * Sets the file name for the merged output.
+     *
+     * @param name The name of the output file that is used to store the
+     * results of the merge.
+     */
+    public void setName( final String name )
+    {
+        this.name = name;
+    }
+
+    /**
+     * Sets the output encoding mode which defaults to ISO-8859-1 used
+     * when storing the results of a merge in a file.
+     *
+     * @param encoding  The file encoding to use when writing the
+     * output.
+     */
+    public void setOutputEncoding( final String encoding )
+    {
+        this.outputEncoding = encoding;
     }
 
     /**
@@ -135,66 +156,33 @@ public class MergeTag extends VelocityTagSupport
      * propagating (the default), or <code>false</code> which permits
      * modifications.
      */
-    public void setReadOnly( boolean readOnly )
+    public void setReadOnly( final boolean readOnly )
     {
         this.readOnly = readOnly;
     }
 
     /**
-     * Sets the output encoding mode which defaults to ISO-8859-1 used
-     * when storing the results of a merge in a file.
+     * Sets the fil ename of the template used to merge with the
+     * JellyContext.
      *
-     * @param encoding  The file encoding to use when writing the
-     * output.
+     * @param template The file name of the template to be merged.
      */
-    public void setOutputEncoding( String encoding )
+    public void setTemplate( final String template )
     {
-        this.outputEncoding = encoding;
-    }
-
-    /**
-     * Sets the input encoding used in the specified template which
-     * defaults to ISO-8859-1.
-     *
-     * @param encoding  The encoding used in the template.
-     */
-    public void setInputEncoding( String encoding )
-    {
-        this.inputEncoding = encoding;
+        this.template = template;
     }
 
     // -- Implementation ----------------------------------------------------
 
     /**
-     * Merges the Velocity template with the Jelly context.
+     * Sets the var used to store the results of the merge.
      *
-     * @param writer The output writer used to write the merged results.
-     * @throws Exception If an exception occurs during the merge.
+     * @param var The var to set in the JellyContext with the results of
+     * the merge.
      */
-    private void mergeTemplate( Writer writer ) throws JellyTagException
+    public void setVar( final String var )
     {
-        JellyContextAdapter adapter = new JellyContextAdapter( getContext() );
-        adapter.setReadOnly( readOnly );
-
-        try {
-            getVelocityEngine( basedir ).mergeTemplate(
-                template,
-                inputEncoding == null ? ENCODING : inputEncoding,
-                adapter,
-                writer );
-        }
-        catch (ResourceNotFoundException e) {
-            throw new JellyTagException(e);
-        }
-        catch (ParseErrorException e) {
-            throw new JellyTagException(e);
-        }
-        catch (MethodInvocationException e) {
-            throw new JellyTagException(e);
-        }
-        catch (Exception e) {
-            throw new JellyTagException(e);
-        }
+        this.var = var;
     }
 }
 

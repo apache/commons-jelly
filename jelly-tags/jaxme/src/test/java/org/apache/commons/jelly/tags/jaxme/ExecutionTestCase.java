@@ -17,6 +17,7 @@
 package org.apache.commons.jelly.tags.jaxme;
 
 import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
+
 import junit.framework.TestSuite;
 
 /**

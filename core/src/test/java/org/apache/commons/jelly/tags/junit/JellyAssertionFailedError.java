@@ -50,16 +50,16 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     public JellyAssertionFailedError() {
     }
 
-    public JellyAssertionFailedError(String message) {
+    public JellyAssertionFailedError(final String message) {
         super(message);
     }
 
-    public JellyAssertionFailedError(String message, Throwable cause) {
+    public JellyAssertionFailedError(final String message, final Throwable cause) {
         super(message);
         this.cause = cause;
     }
 
-    public JellyAssertionFailedError(Throwable cause) {
+    public JellyAssertionFailedError(final Throwable cause) {
         super(cause.getLocalizedMessage());
         this.cause = cause;
     }
@@ -121,7 +121,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     }
 
     @Override
-    public void printStackTrace(PrintStream s) {
+    public void printStackTrace(final PrintStream s) {
         synchronized (s) {
             super.printStackTrace(s);
             if  (cause != null) {
@@ -133,7 +133,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
 
     // #### overload the printStackTrace methods...
     @Override
-    public void printStackTrace(PrintWriter s) {
+    public void printStackTrace(final PrintWriter s) {
         synchronized (s) {
             super.printStackTrace(s);
             if  (cause != null) {
@@ -147,7 +147,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
      * Sets the column number of the tag
      */
     @Override
-    public void setColumnNumber(int columnNumber) {
+    public void setColumnNumber(final int columnNumber) {
         this.columnNumber = columnNumber;
     }
 
@@ -155,7 +155,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
      * Sets the element name which caused the problem
      */
     @Override
-    public void setElementName(String elementName) {
+    public void setElementName(final String elementName) {
         this.elementName = elementName;
     }
 
@@ -163,7 +163,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
      * Sets the Jelly file which caused the problem
      */
     @Override
-    public void setFileName(String fileName) {
+    public void setFileName(final String fileName) {
         this.fileName = fileName;
     }
 
@@ -171,7 +171,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
      * Sets the line number of the tag
      */
     @Override
-    public void setLineNumber(int lineNumber) {
+    public void setLineNumber(final int lineNumber) {
         this.lineNumber = lineNumber;
     }
 }

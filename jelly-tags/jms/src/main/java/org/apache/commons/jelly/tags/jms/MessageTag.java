@@ -17,13 +17,12 @@
 package org.apache.commons.jelly.tags.jms;
 
 import javax.jms.Destination;
-import javax.jms.Message;
 import javax.jms.JMSException;
+import javax.jms.Message;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.messenger.Messenger;
 
 /** A tag which creates a JMS message
@@ -43,23 +42,34 @@ public class MessageTag extends TagSupport {
     }
 
     /** Adds a JMS property to the message */
-    public void addProperty(String name, Object value) throws JellyTagException {
-        Message message = getMessage();
+    public void addProperty(final String name, final Object value) throws JellyTagException {
+        final Message message = getMessage();
 
         try {
             message.setObjectProperty(name, value);
-        } catch (JMSException e) {
+        } catch (final JMSException e) {
             throw new JellyTagException(e);
         }
     }
 
+    protected Message createMessage() throws JellyTagException {
+        try {
+            return getConnection().createMessage();
+        } catch (final JMSException e) {
+            throw new JellyTagException(e);
+        }
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if ( var == null ) {
             // expose message to parent message consumer
-            SendTag tag = (SendTag) findAncestorWithClass( SendTag.class );
+            final SendTag tag = (SendTag) findAncestorWithClass( SendTag.class );
             if ( tag == null ) {
                 throw new JellyTagException("<jms:message> tags must either have the 'var' attribute specified or be used inside a <jms:send> tag");
             }
@@ -73,12 +83,20 @@ public class MessageTag extends TagSupport {
         }
     }
 
-    // Properties
+    // Implementation methods
     //-------------------------------------------------------------------------
+    protected Messenger findConnection() throws JellyTagException {
+        final ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
+        if ( messengerTag == null ) {
+            throw new JellyTagException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
+        }
 
-    /** Sets the name of the variable that the message will be exported to */
-    public void setVar(String var) {
-        this.var = var;
+        try {
+            return messengerTag.getConnection();
+        }
+        catch (final JMSException e) {
+            throw new JellyTagException(e);
+        }
     }
 
     public Messenger getConnection() throws JellyTagException {
@@ -86,13 +104,6 @@ public class MessageTag extends TagSupport {
             return findConnection();
         }
         return connection;
-    }
-
-    /**
-     * Sets the Messenger (the JMS connection pool) that will be used to send the message
-     */
-    public void setConnection(Messenger connection) {
-        this.connection = connection;
     }
 
     public Message getMessage() throws JellyTagException {
@@ -105,13 +116,20 @@ public class MessageTag extends TagSupport {
     // JMS related properties
 
     /**
+     * Sets the Messenger (the JMS connection pool) that will be used to send the message
+     */
+    public void setConnection(final Messenger connection) {
+        this.connection = connection;
+    }
+
+    /**
      * Sets the JMS Correlation ID to be used on the message
      */
-    public void setCorrelationID(String correlationID) throws JellyTagException {
+    public void setCorrelationID(final String correlationID) throws JellyTagException {
         try {
             getMessage().setJMSCorrelationID(correlationID);
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
     }
@@ -119,11 +137,11 @@ public class MessageTag extends TagSupport {
     /**
      * Sets the reply-to destination to add to the message
      */
-    public void setReplyTo(Destination destination) throws JellyTagException {
+    public void setReplyTo(final Destination destination) throws JellyTagException {
         try {
             getMessage().setJMSReplyTo(destination);
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
     }
@@ -131,36 +149,17 @@ public class MessageTag extends TagSupport {
     /**
      * Sets the type name of the message
      */
-    public void setType(String type) throws JellyTagException {
+    public void setType(final String type) throws JellyTagException {
         try {
             getMessage().setJMSType(type);
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected Messenger findConnection() throws JellyTagException {
-        ConnectionContext messengerTag = (ConnectionContext) findAncestorWithClass( ConnectionContext.class );
-        if ( messengerTag == null ) {
-            throw new JellyTagException("This tag must be within a <jms:connection> tag or the 'connection' attribute should be specified");
-        }
-
-        try {
-            return messengerTag.getConnection();
-        }
-        catch (JMSException e) {
-            throw new JellyTagException(e);
-        }
-    }
-
-    protected Message createMessage() throws JellyTagException {
-        try {
-            return getConnection().createMessage();
-        } catch (JMSException e) {
-            throw new JellyTagException(e);
-        }
+    /** Sets the name of the variable that the message will be exported to */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

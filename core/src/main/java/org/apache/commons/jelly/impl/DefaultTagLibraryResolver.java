@@ -82,7 +82,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      */
     public DiscoverClasses getDiscoverClasses() {
         if ( discovery == null ) {
-            ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
+            final ClassLoaders loaders = ClassLoaders.getAppLoaders(TagLibrary.class, getClass(), false);
             discovery = new DiscoverClasses(loaders);
         }
         return discovery;
@@ -99,14 +99,14 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * Instantiates the given class name. Otherwise an exception is logged
      * and null is returned
      */
-    protected TagLibrary loadClass(String uri, String className) {
+    protected TagLibrary loadClass(final String uri, final String className) {
         try {
-            Class theClass = getClassLoader().loadClass(className);
+            final Class theClass = getClassLoader().loadClass(className);
             if ( theClass != null ) {
                 return newInstance(uri, theClass);
             }
         }
-        catch (ClassNotFoundException e) {
+        catch (final ClassNotFoundException e) {
             log.error("Could not find the class: " + className + " when trying to resolve URI: " + uri, e);
         }
         return null;
@@ -116,21 +116,19 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * Creates a new instance of the given TagLibrary class or
      * return null if it could not be instantiated.
      */
-    protected TagLibrary newInstance(String uri, Class theClass) {
+    protected TagLibrary newInstance(final String uri, final Class theClass) {
         try {
-            Object object = theClass.newInstance();
+            final Object object = theClass.newInstance();
             if (object instanceof TagLibrary) {
                 return (TagLibrary) object;
             }
-            else {
-                log.error(
-                    "The tag library object mapped to: "
-                        + uri
-                        + " is not a TagLibrary. Object = "
-                        + object);
-            }
+            log.error(
+                "The tag library object mapped to: "
+                    + uri
+                    + " is not a TagLibrary. Object = "
+                    + object);
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             log.error(
                 "Could not instantiate instance of class: " + theClass.getName() + ". Reason: " + e,
                 e);
@@ -144,8 +142,8 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * so that the namespace URI should be treated as just vanilla XML.
      */
     @Override
-    public TagLibrary resolveTagLibrary(String uri) {
-        DiscoverClasses discovery = getDiscoverClasses();
+    public TagLibrary resolveTagLibrary(final String uri) {
+        final DiscoverClasses discovery = getDiscoverClasses();
         String name = uri;
         if ( uri.startsWith( "jelly:" ) ) {
             name = "jelly." + uri.substring(6);
@@ -168,16 +166,16 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
         }
         return answer;
 */
-        ResourceClassIterator iter = discovery.findResourceClasses(name);
+        final ResourceClassIterator iter = discovery.findResourceClasses(name);
         while (iter.hasNext()) {
-            ResourceClass resource = iter.nextResourceClass();
+            final ResourceClass resource = iter.nextResourceClass();
             try {
-                Class typeClass = resource.loadClass();
+                final Class typeClass = resource.loadClass();
                 if ( typeClass != null ) {
                     return newInstance(uri, typeClass);
                 }
             }
-            catch (Exception e) {
+            catch (final Exception e) {
                 log.error( "Could not load service: " + resource );
             }
         }
@@ -192,7 +190,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * @param classLoader The new class loader to use, or {@code null}
      *  to revert to the standard rules
      */
-    public void setClassLoader(ClassLoader classLoader) {
+    public void setClassLoader(final ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 
@@ -203,7 +201,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * Sets the fully configured DiscoverClasses instance to be used to
      * lookup services
      */
-    public void setDiscoverClasses(DiscoverClasses discovery) {
+    public void setDiscoverClasses(final DiscoverClasses discovery) {
         this.discovery = discovery;
     }
 
@@ -216,7 +214,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      *
      * @param use determines whether to use JellyContext ClassLoader.
      */
-    public void setUseContextClassLoader(boolean use) {
+    public void setUseContextClassLoader(final boolean use) {
         useContextClassLoader = use;
     }
 

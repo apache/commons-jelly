@@ -56,7 +56,6 @@ import javax.swing.JTree;
 
 import org.apache.commons.beanutils2.ConvertUtils;
 import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
@@ -115,9 +114,6 @@ public class SwingTagLibrary extends TagLibrary {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(SwingTagLibrary.class);
 
-    /** A map of element name to bean class objects */
-    private Map factoryMap;
-
     static {
 
         // ### we should create Converters from Strings to various Swing types such as
@@ -126,6 +122,9 @@ public class SwingTagLibrary extends TagLibrary {
         ConvertUtils.register( new PointConverter(), Point.class );
         ConvertUtils.register( new ColorConverter(), java.awt.Color.class );
     }
+
+    /** A map of element name to bean class objects */
+    private Map factoryMap;
 
     public SwingTagLibrary() {
         registerTag( "action", ActionTag.class );
@@ -160,7 +159,7 @@ public class SwingTagLibrary extends TagLibrary {
         // BorderLayout
         registerTag( "borderLayout", BorderLayoutTag.class );
         registerTag( "borderAlign", BorderAlignTag.class );
-        
+
         //CardLayout
         registerTag( "cardLayout", CardLayoutTag.class);
 
@@ -170,22 +169,17 @@ public class SwingTagLibrary extends TagLibrary {
 
     /** Creates a new script to execute the given tag name and attributes */
     @Override
-    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
-        TagScript answer = super.createTagScript(name, attributes);
+    public TagScript createTagScript(final String name, final Attributes attributes) throws JellyException {
+        final TagScript answer = super.createTagScript(name, attributes);
         if ( answer == null ) {
             final Factory factory = getFactory( name );
             if ( factory != null ) {
                 return new TagScript(
-                    new TagFactory() {
-                        @Override
-                        public Tag createTag(String name, Attributes attributes) throws JellyException {
-                            if ( factory instanceof TagFactory ) {
-                                return ((TagFactory) factory).createTag(name, attributes);
-                            }
-                            else {
-                                return new ComponentTag(factory);
-                            }
+                    (name1, attributes1) -> {
+                        if ( factory instanceof TagFactory ) {
+                            return ((TagFactory) factory).createTag(name1, attributes1);
                         }
+                        return new ComponentTag(factory);
                     }
                 );
             }
@@ -196,12 +190,27 @@ public class SwingTagLibrary extends TagLibrary {
     /**
      * @return the Factory of the Swing component for the given element name
      */
-    public Factory getFactory(String elementName) {
+    public Factory getFactory(final String elementName) {
         return (Factory) getFactoryMap().get(elementName);
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
+
+    protected Map getFactoryMap() {
+        if ( factoryMap == null ) {
+            factoryMap = new HashMap();
+            registerFactories();
+        }
+        return factoryMap;
+    }
+
+    /**
+     * Register a bean factory for the given element name and class
+     */
+    protected void registerBeanFactory(final String name, final Class beanClass) {
+        registerFactory(name, new BeanFactory(beanClass));
+    }
 
     /**
      * Strategy method allowing derived classes to change the registration behavior
@@ -237,37 +246,24 @@ public class SwingTagLibrary extends TagLibrary {
 
         registerFactory(
             "splitPane",
-            new Factory() {
-                @Override
-                public Object newInstance() {
-                    JSplitPane answer = new JSplitPane();
-                    answer.setLeftComponent(null);
-                    answer.setRightComponent(null);
-                    answer.setTopComponent(null);
-                    answer.setBottomComponent(null);
-                    return answer;
-                }
+            () -> {
+                final JSplitPane answer = new JSplitPane();
+                answer.setLeftComponent(null);
+                answer.setRightComponent(null);
+                answer.setTopComponent(null);
+                answer.setBottomComponent(null);
+                return answer;
             }
         );
 
         // Box related layout components
         registerFactory(
             "hbox",
-            new Factory() {
-                @Override
-                public Object newInstance() {
-                    return Box.createHorizontalBox();
-                }
-            }
+            Box::createHorizontalBox
         );
         registerFactory(
             "vbox",
-            new Factory() {
-                @Override
-                public Object newInstance() {
-                    return Box.createVerticalBox();
-                }
-            }
+            Box::createVerticalBox
         );
 
         registerBeanFactory( "tabbedPane", JTabbedPane.class );
@@ -282,22 +278,7 @@ public class SwingTagLibrary extends TagLibrary {
     /**
      * Register a widget factory for the given element name
      */
-    protected void registerFactory(String name, Factory factory) {
+    protected void registerFactory(final String name, final Factory factory) {
         getFactoryMap().put(name, factory);
-    }
-
-    /**
-     * Register a bean factory for the given element name and class
-     */
-    protected void registerBeanFactory(String name, Class beanClass) {
-        registerFactory(name, new BeanFactory(beanClass));
-    }
-
-    protected Map getFactoryMap() {
-        if ( factoryMap == null ) {
-            factoryMap = new HashMap();
-            registerFactories();
-        }
-        return factoryMap;
     }
 }

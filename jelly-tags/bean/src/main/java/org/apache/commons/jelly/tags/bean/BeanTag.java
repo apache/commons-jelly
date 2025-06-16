@@ -44,23 +44,23 @@ public class BeanTag extends UseBeanTag {
     protected static final Object[] EMPTY_ARGUMENTS = {};
 
     /** The name of the property to create */
-    private String tagName;
+    private final String tagName;
 
     /** The name of the adder method */
     protected String addMethodName;
 
     /** If present this is used to call a doit method when the bean is constructed */
-    private Method invokeMethod;
+    private final Method invokeMethod;
 
     public BeanTag() {
         this(null, "bean", null);
     }
 
-    public BeanTag(Class defaultClass, String tagName) {
+    public BeanTag(final Class defaultClass, final String tagName) {
         this(defaultClass, tagName, null);
     }
 
-    public BeanTag(Class defaultClass, String tagName, Method invokeMethod) {
+    public BeanTag(final Class defaultClass, final String tagName, final Method invokeMethod) {
         super(defaultClass);
         this.tagName = tagName;
         this.invokeMethod = invokeMethod;
@@ -70,6 +70,30 @@ public class BeanTag extends UseBeanTag {
                 + tagName.substring(0,1).toUpperCase()
                 + tagName.substring(1);
         }
+    }
+
+    /**
+     * Finds the Method to add the new bean
+     */
+    protected Method findAddMethod(final Class beanClass, final Class valueClass) {
+        if (addMethodName == null) {
+            return null;
+        }
+        final Class[] argTypes = { valueClass };
+        return MethodUtils.getAccessibleMethod(
+            beanClass, addMethodName, argTypes
+        );
+    }
+
+    /**
+     * @return the parent bean object
+     */
+    protected Object getParentObject() throws JellyTagException {
+        final BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
+        if (tag != null) {
+            return tag.getBean();
+        }
+        return null;
     }
 
     /**
@@ -84,7 +108,7 @@ public class BeanTag extends UseBeanTag {
      * method then invoke that to register this bean with its parent.
      */
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         }
@@ -100,31 +124,29 @@ public class BeanTag extends UseBeanTag {
                 }
 
                 if (parent instanceof BeanSource) {
-                    BeanSource source = (BeanSource) parent;
-                    Object parentObject = source.getBean();
+                    final BeanSource source = (BeanSource) parent;
+                    final Object parentObject = source.getBean();
                     if (parentObject != null) {
                         if (parentObject instanceof Collection) {
-                            Collection collection = (Collection) parentObject;
+                            final Collection collection = (Collection) parentObject;
                             collection.add(bean);
                         }
                         else {
                             // lets see if there's a setter method...
-                            Method method = findAddMethod(parentObject.getClass(), bean.getClass());
+                            final Method method = findAddMethod(parentObject.getClass(), bean.getClass());
                             if (method != null) {
-                                Object[] args = { bean };
+                                final Object[] args = { bean };
                                 try {
                                     method.invoke(parentObject, args);
                                 }
-                                catch (Exception e) {
+                                catch (final Exception e) {
                                     throw new JellyTagException( "failed to invoke method: " + method + " on bean: " + parentObject + " reason: " + e, e );
                                 }
                             }
                             else {
                                 try {
                                   BeanUtils.setProperty(parentObject, tagName, bean);
-                                } catch (IllegalAccessException e) {
-                                    throw new JellyTagException(e);
-                                } catch (InvocationTargetException e) {
+                                } catch (final IllegalAccessException | InvocationTargetException e) {
                                     throw new JellyTagException(e);
                                 }
                             }
@@ -135,7 +157,7 @@ public class BeanTag extends UseBeanTag {
                     }
                 }
                 else if (parent instanceof CollectionTag) {
-                    CollectionTag tag = (CollectionTag) parent;
+                    final CollectionTag tag = (CollectionTag) parent;
                     tag.addItem(bean);
                 }
                 else {
@@ -145,44 +167,17 @@ public class BeanTag extends UseBeanTag {
             }
 
             if (invokeMethod != null) {
-                Object[] args = { bean };
+                final Object[] args = { bean };
                 try {
                     invokeMethod.invoke(bean, EMPTY_ARGUMENTS);
                 }
-                catch (Exception e) {
+                catch (final Exception e) {
                     throw new JellyTagException( "failed to invoke method: " + invokeMethod + " on bean: " + bean + " reason: " + e, e );
                 }
-            }
-            else {
-                if (parent == null && var == null) {
-                    //warn if the bean gets lost in space
-                    log.warn( "Could not add bean to parent for bean: " + bean );
-                }
+            } else if (parent == null && var == null) {
+                //warn if the bean gets lost in space
+                log.warn( "Could not add bean to parent for bean: " + bean );
             }
         }
-    }
-
-    /**
-     * Finds the Method to add the new bean
-     */
-    protected Method findAddMethod(Class beanClass, Class valueClass) {
-        if (addMethodName == null) {
-            return null;
-        }
-        Class[] argTypes = { valueClass };
-        return MethodUtils.getAccessibleMethod(
-            beanClass, addMethodName, argTypes
-        );
-    }
-
-    /**
-     * @return the parent bean object
-     */
-    protected Object getParentObject() throws JellyTagException {
-        BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
-        if (tag != null) {
-            return tag.getBean();
-        }
-        return null;
     }
 }

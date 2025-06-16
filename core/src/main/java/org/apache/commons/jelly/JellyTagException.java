@@ -28,27 +28,27 @@ public class JellyTagException extends JellyException {
     public JellyTagException() {
     }
 
-    public JellyTagException(String message) {
+    public JellyTagException(final String message) {
         super(message);
     }
 
-    public JellyTagException(String reason, String fileName, String elementName, int columnNumber, int lineNumber) {
+    public JellyTagException(final String reason, final String fileName, final String elementName, final int columnNumber, final int lineNumber) {
         super(reason, fileName, elementName, columnNumber, lineNumber);
     }
 
-    public JellyTagException(String message, Throwable cause) {
+    public JellyTagException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
-    public JellyTagException(String reason, Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
+    public JellyTagException(final String reason, final Throwable cause, final String fileName, final String elementName, final int columnNumber, final int lineNumber) {
         super(reason, cause, fileName, elementName, columnNumber, lineNumber);
     }
 
-    public JellyTagException(Throwable cause) {
+    public JellyTagException(final Throwable cause) {
         super(cause);
     }
 
-    public JellyTagException(Throwable cause, String fileName, String elementName, int columnNumber, int lineNumber) {
+    public JellyTagException(final Throwable cause, final String fileName, final String elementName, final int columnNumber, final int lineNumber) {
         super(cause, fileName, elementName, columnNumber, lineNumber);
     }
 

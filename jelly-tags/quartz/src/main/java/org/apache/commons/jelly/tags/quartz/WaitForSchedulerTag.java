@@ -1,5 +1,7 @@
 package org.apache.commons.jelly.tags.quartz;
 
+import org.apache.commons.jelly.JellyTagException;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -18,9 +20,6 @@ package org.apache.commons.jelly.tags.quartz;
  */
 
 import org.apache.commons.jelly.XMLOutput;
-
-import org.apache.commons.jelly.JellyTagException;
-
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 
@@ -46,10 +45,10 @@ public class WaitForSchedulerTag extends QuartzTagSupport
      *  @throws JellyTagException If an error occurs.
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException
+    public void doTag(final XMLOutput output) throws JellyTagException
     {
         try {
-            Scheduler sched = getScheduler();
+            final Scheduler sched = getScheduler();
 
             while ( ! sched.isShutdown() )
             {
@@ -57,13 +56,13 @@ public class WaitForSchedulerTag extends QuartzTagSupport
                 {
                     Thread.sleep( 500 );
                 }
-                catch (InterruptedException e)
+                catch (final InterruptedException e)
                 {
                     break;
                 }
             }
         }
-        catch (SchedulerException e) {
+        catch (final SchedulerException e) {
             throw new JellyTagException(e);
         }
     }

@@ -44,11 +44,23 @@ import junit.framework.TestSuite;
  */
 public class TestSwingTags extends BaseJellyTest {
 
-    /**
-     * @param name
+    /** Searches a container for a component with a given name. Searches only
+     * the immediate container, not child containers.
+     * @param container the Container to search in
+     * @param name the name to look for
+     * @return the first component with the given name
+     * @throws Exception if the name isn't found
      */
-    public TestSwingTags(String name) {
-        super(name);
+    protected static Component componentByName(final Container container, final String name) throws Exception{
+        final Component[] components = container.getComponents();
+
+        for (final Component component : components) {
+            if (component.getName().equals(name)) {
+                return component;
+            }
+        }
+
+        throw new Exception("Component " + name + " not found in container " + container);
     }
 
     public static TestSuite suite() throws Exception {
@@ -56,19 +68,62 @@ public class TestSwingTags extends BaseJellyTest {
         return GraphicsEnvironment.isHeadless() ? new TestSuite() : new TestSuite(TestSwingTags.class);
     }
 
+    /**
+     * @param name
+     */
+    public TestSwingTags(final String name) {
+        super(name);
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.commons.jelly.core.BaseJellyTest#getXMLOutput()
+     */
+    @Override
+    protected XMLOutput getXMLOutput() {
+        try {
+            return XMLOutput.createXMLOutput(System.out);
+        } catch (final UnsupportedEncodingException e) {
+            return null;
+        }
+    }
+
+    /**
+     * @return true if we are running with AWT present
+     */
+    private boolean isAWTAvailable() {
+        return !Boolean.getBoolean("java.awt.headless");
+    }
+
+    protected void runSwingScript(final String testName) throws Exception {
+        setUpScript("swingTags.jelly");
+        final Script script = getJelly().compileScript();
+        getJellyContext().getVariables().clear();
+        getJellyContext().setVariable(testName,Boolean.TRUE);
+        script.run(getJellyContext(),getXMLOutput());
+    }
+
+    public void testActionTagIsNotExecutedImmediately() throws Exception {
+        if (!isAWTAvailable()) {
+            return;
+        }
+        runSwingScript("test.actionTagImmediateExecution");
+    }
+
     /** Tests some basic Swing tag functions like creating components
      * , adding them to the parent container and setting bean values.
      * @throws Exception
      */
     public void testBasicComponentFunctions() throws Exception {
-        if (!isAWTAvailable()) return;
+        if (!isAWTAvailable()) {
+            return;
+        }
         runSwingScript("test.simple");
-        JellyContext context = getJellyContext();
-        JFrame frame = (JFrame) context.getVariable("frame");
+        final JellyContext context = getJellyContext();
+        final JFrame frame = (JFrame) context.getVariable("frame");
         assertEquals(new Dimension(100,100), frame.getSize());
         assertEquals(new Point(200,200), frame.getLocation());
-        JPanel panel = (JPanel) componentByName(frame.getContentPane(), "panel");
-        JButton button = (JButton) componentByName(panel, "button");
+        final JPanel panel = (JPanel) componentByName(frame.getContentPane(), "panel");
+        final JButton button = (JButton) componentByName(panel, "button");
         assertNotNull(button);
         assertEquals(new Color(0x11,0x22,0x33), button.getBackground());
         assertEquals(new Color(0x44,0x55,0x66), button.getForeground());
@@ -76,19 +131,48 @@ public class TestSwingTags extends BaseJellyTest {
         assertEquals(DebugGraphics.BUFFERED_OPTION, button.getDebugGraphicsOptions());
     }
 
+    public void testButtonGroup() throws Exception {
+        if (!isAWTAvailable()) {
+            return;
+        }
+        runSwingScript("test.buttonGroup");
+        final JellyContext context = getJellyContext();
+        final ButtonGroup bg = (ButtonGroup) context.getVariable("bg");
+        assertEquals(3, bg.getButtonCount());
+        assertNotNull(bg.getSelection());
+    }
+
+    public void testGridBag14() throws Exception {
+        if (!isAWTAvailable()) {
+            return;
+        }
+        if (System.getProperty("java.version").startsWith("1.4")) {
+            runSwingScript("test.gbc14");
+            final JellyContext context = getJellyContext();
+            final JFrame frame = (JFrame) context.getVariable("frame");
+            final JButton button = (JButton) componentByName(frame.getContentPane(), "button");
+            final GridBagLayout layout = (GridBagLayout) frame.getContentPane().getLayout();
+            final GridBagConstraints constraints = layout.getConstraints(button);
+            //note that 21 is the JDK 1.4 value of GridBagConstraint.LINE_START
+            assertEquals(21,constraints.anchor);
+        }
+    }
+
     /** Tests the GridbagLayout tags, making sure that the constraints are
      * set properly including inheritance and basedOn.
      * @throws Exception
      */
     public void testGridBagBasic() throws Exception {
-        if (!isAWTAvailable()) return;
+        if (!isAWTAvailable()) {
+            return;
+        }
         runSwingScript("test.gbc");
-        JellyContext context = getJellyContext();
-        JFrame frame = (JFrame) context.getVariable("frame");
-        JButton button = (JButton) componentByName(frame.getContentPane(), "button");
-        JButton button2 = (JButton) componentByName(frame.getContentPane(), "button2");
-        GridBagLayout layout = (GridBagLayout) frame.getContentPane().getLayout();
-        GridBagConstraints constraints = layout.getConstraints(button);
+        final JellyContext context = getJellyContext();
+        final JFrame frame = (JFrame) context.getVariable("frame");
+        final JButton button = (JButton) componentByName(frame.getContentPane(), "button");
+        final JButton button2 = (JButton) componentByName(frame.getContentPane(), "button2");
+        final GridBagLayout layout = (GridBagLayout) frame.getContentPane().getLayout();
+        final GridBagConstraints constraints = layout.getConstraints(button);
 
         // this is failing
         assertEquals(GridBagConstraints.NORTH,constraints.anchor);
@@ -103,7 +187,7 @@ public class TestSwingTags extends BaseJellyTest {
         assertEquals(new Insets(1,2,3,4), constraints.insets);
         assertEquals(0.6, constraints.weighty, 0);
 
-        GridBagConstraints constraints2 = layout.getConstraints(button2);
+        final GridBagConstraints constraints2 = layout.getConstraints(button2);
         assertEquals(1, constraints2.gridx);
         assertEquals(2, constraints2.gridy);
         assertEquals(2, constraints2.ipadx);
@@ -111,99 +195,28 @@ public class TestSwingTags extends BaseJellyTest {
         assertEquals(new Insets(3,4,5,6), constraints2.insets);
     }
 
-    public void testGridBag14() throws Exception {
-        if (!isAWTAvailable()) return;
-        if (System.getProperty("java.version").startsWith("1.4")) {
-            runSwingScript("test.gbc14");
-            JellyContext context = getJellyContext();
-            JFrame frame = (JFrame) context.getVariable("frame");
-            JButton button = (JButton) componentByName(frame.getContentPane(), "button");
-            GridBagLayout layout = (GridBagLayout) frame.getContentPane().getLayout();
-            GridBagConstraints constraints = layout.getConstraints(button);
-            //note that 21 is the JDK 1.4 value of GridBagConstraint.LINE_START
-            assertEquals(21,constraints.anchor);
-        }
-    }
-
     public void testGridBagFail(){
-        if (!isAWTAvailable()) return;
+        if (!isAWTAvailable()) {
+            return;
+        }
         try {
             runSwingScript("test.gbcBad");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             //success
             return;
         }
         fail("Should have thrown an exception for a bad GBC anchor");
     }
-
-    public void testButtonGroup() throws Exception {
-        if (!isAWTAvailable()) return;
-        runSwingScript("test.buttonGroup");
-        JellyContext context = getJellyContext();
-        ButtonGroup bg = (ButtonGroup) context.getVariable("bg");
-        assertEquals(3, bg.getButtonCount());
-        assertNotNull(bg.getSelection());
-    }
-
     public void testInvalidBeanProperty() throws Exception {
-        if (!isAWTAvailable()) return;
+        if (!isAWTAvailable()) {
+            return;
+        }
         try {
             runSwingScript("test.invalidProperty");
-        } catch (Exception e) {
+        } catch (final Exception e) {
             //success
             return;
         }
         fail("Should have thrown an exception due to an invalid bean property.");
-    }
-    
-    public void testActionTagIsNotExecutedImmediately() throws Exception {
-        if (!isAWTAvailable()) return;
-        runSwingScript("test.actionTagImmediateExecution");
-    }
-
-    protected void runSwingScript(String testName) throws Exception {
-        setUpScript("swingTags.jelly");
-        Script script = getJelly().compileScript();
-        getJellyContext().getVariables().clear();
-        getJellyContext().setVariable(testName,Boolean.TRUE);
-        script.run(getJellyContext(),getXMLOutput());
-    }
-
-    /** Searches a container for a component with a given name. Searches only
-     * the immediate container, not child containers.
-     * @param container the Container to search in
-     * @param name the name to look for
-     * @return the first component with the given name
-     * @throws Exception if the name isn't found
-     */
-    protected static Component componentByName(Container container, String name) throws Exception{
-        Component[] components = container.getComponents();
-
-        for (int i=0;i<components.length;i++) {
-            Component component = components[i];
-            if (component.getName().equals(name)) {
-                return component;
-            }
-        }
-
-        throw new Exception("Component " + name + " not found in container " + container);
-    }
-
-    /**
-     * @return true if we are running with AWT present
-     */
-    private boolean isAWTAvailable() {
-        return !Boolean.getBoolean("java.awt.headless");
-    }
-    /* (non-Javadoc)
-     * @see org.apache.commons.jelly.core.BaseJellyTest#getXMLOutput()
-     */
-    @Override
-    protected XMLOutput getXMLOutput() {
-        try {
-            return XMLOutput.createXMLOutput(System.out);
-        } catch (UnsupportedEncodingException e) {
-            return null;
-        }
     }
 }

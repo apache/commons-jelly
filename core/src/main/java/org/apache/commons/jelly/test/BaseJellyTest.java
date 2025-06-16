@@ -37,17 +37,17 @@ public abstract class BaseJellyTest extends TestCase {
 
     private StringWriter strOutput;
 
-    public BaseJellyTest(String name) {
+    public BaseJellyTest(final String name) {
         super(name);
     }
 
-    protected void addCustomTagLib(JellyContext context) {
+    protected void addCustomTagLib(final JellyContext context) {
     }
 
     protected Jelly getJelly() {
         return jelly;
     }
-    
+
     protected JellyContext getJellyContext() {
         return context;
     }
@@ -68,17 +68,17 @@ public abstract class BaseJellyTest extends TestCase {
         strOutput = new StringWriter();
         xmlOutput = XMLOutput.createXMLOutput(strOutput);
     }
-    protected void setUpScript(String scriptname) throws Exception {
-        URL url = this.getClass().getResource(scriptname);
+    protected void setUpScript(final String scriptname) throws Exception {
+        final URL url = this.getClass().getResource(scriptname);
         if (null == url) {
             throw new Exception("Could not find Jelly script: " + scriptname + " in package of class: " + getClass().getName());
         }
         jelly.setUrl(url);
 
-        String exturl = url.toExternalForm();
-        int lastSlash = exturl.lastIndexOf("/");
-        String extBase = exturl.substring(0, lastSlash + 1);
-        URL baseurl = new URL(extBase);
+        final String exturl = url.toExternalForm();
+        final int lastSlash = exturl.lastIndexOf("/");
+        final String extBase = exturl.substring(0, lastSlash + 1);
+        final URL baseurl = new URL(extBase);
         context.setCurrentURL(baseurl);
     }
 }

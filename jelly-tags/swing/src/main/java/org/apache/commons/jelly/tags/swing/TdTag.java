@@ -51,91 +51,20 @@ public class TdTag extends TagSupport implements ContainerTag {
      * Adds a child component to this parent
      */
     @Override
-    public void addChild(Component component, Object constraints) throws JellyTagException {
+    public void addChild(final Component component, final Object constraints) throws JellyTagException {
         // add my child component to the layout manager
-        TrTag tag = (TrTag) findAncestorWithClass( TrTag.class );
+        final TrTag tag = (TrTag) findAncestorWithClass( TrTag.class );
         if (tag == null) {
             throw new JellyTagException( "this tag must be nested within a <tr> tag" );
         }
         tag.addCell(component, createConstraints());
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-    @Override
-    public void doTag(final XMLOutput output) throws JellyTagException {
-        invokeBody(output);
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the horizontal alignment to a case insensitive value of {LEFT, CENTER, RIGHT}
-     */
-    public void setAlign(String align) {
-        this.align = align;
-    }
-
-    /**
-     * Sets the vertical alignment to a case insensitive value of {TOP, MIDDLE, BOTTOM}
-     */
-    public void setValign(String valign) {
-        this.valign = valign;
-    }
-
-    /**
-     * Sets the number of columns that this cell should span. The default value is 1
-     */
-    public void setColspan(int colspan) {
-        this.colspan = colspan;
-    }
-
-    /**
-     * Sets the number of rows that this cell should span. The default value is 1
-     */
-    public void setRowspan(int rowspan) {
-        this.rowspan = rowspan;
-    }
-
-    /**
-     * Returns the colfill.
-     * @return boolean
-     */
-    public boolean isColfill() {
-        return colfill;
-    }
-
-    /**
-     * Returns the rowfill.
-     * @return boolean
-     */
-    public boolean isRowfill() {
-        return rowfill;
-    }
-
-    /**
-     * Sets whether or not this column should allow its component to stretch to fill the space available
-     */
-    public void setColfill(boolean colfill) {
-        this.colfill = colfill;
-    }
-
-    /**
-     * Sets whether or not this row should allow its component to stretch to fill the space available
-     */
-    public void setRowfill(boolean rowfill) {
-        this.rowfill = rowfill;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     /**
      * Factory method to create a new constraints object
      */
     protected GridBagConstraints createConstraints() {
-        GridBagConstraints answer = new GridBagConstraints();
+        final GridBagConstraints answer = new GridBagConstraints();
         answer.anchor = getAnchor();
         if (colspan < 1) {
             colspan = 1;
@@ -160,46 +89,108 @@ public class TdTag extends TagSupport implements ContainerTag {
         return answer;
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
+
+    // Tag interface
+    //-------------------------------------------------------------------------
+    @Override
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        invokeBody(output);
+    }
+
     /**
      * @return the GridBagConstraints enumeration for achor
      */
     protected int getAnchor() {
-        boolean isTop = "top".equalsIgnoreCase(valign);
-        boolean isBottom = "bottom".equalsIgnoreCase(valign);
+        final boolean isTop = "top".equalsIgnoreCase(valign);
+        final boolean isBottom = "bottom".equalsIgnoreCase(valign);
 
         if ("center".equalsIgnoreCase(align)) {
             if (isTop) {
                 return GridBagConstraints.NORTH;
             }
-            else if (isBottom) {
+            if (isBottom) {
                 return GridBagConstraints.SOUTH;
             }
-            else {
-                return GridBagConstraints.CENTER;
-            }
+            return GridBagConstraints.CENTER;
         }
-        else if ("right".equalsIgnoreCase(align)) {
+        if ("right".equalsIgnoreCase(align)) {
             if (isTop) {
                 return GridBagConstraints.NORTHEAST;
             }
-            else if (isBottom) {
+            if (isBottom) {
                 return GridBagConstraints.SOUTHEAST;
             }
-            else {
-                return GridBagConstraints.EAST;
-            }
+            return GridBagConstraints.EAST;
         }
-        else {
-            // defaults to left
-            if (isTop) {
-                return GridBagConstraints.NORTHWEST;
-            }
-            else if (isBottom) {
-                return GridBagConstraints.SOUTHWEST;
-            }
-            else {
-                return GridBagConstraints.WEST;
-            }
+        if (isTop) {
+            return GridBagConstraints.NORTHWEST;
         }
+        if (isBottom) {
+            return GridBagConstraints.SOUTHWEST;
+        }
+        return GridBagConstraints.WEST;
+    }
+
+    /**
+     * Returns the colfill.
+     * @return boolean
+     */
+    public boolean isColfill() {
+        return colfill;
+    }
+
+    /**
+     * Returns the rowfill.
+     * @return boolean
+     */
+    public boolean isRowfill() {
+        return rowfill;
+    }
+
+    /**
+     * Sets the horizontal alignment to a case insensitive value of {LEFT, CENTER, RIGHT}
+     */
+    public void setAlign(final String align) {
+        this.align = align;
+    }
+
+    /**
+     * Sets whether or not this column should allow its component to stretch to fill the space available
+     */
+    public void setColfill(final boolean colfill) {
+        this.colfill = colfill;
+    }
+
+    /**
+     * Sets the number of columns that this cell should span. The default value is 1
+     */
+    public void setColspan(final int colspan) {
+        this.colspan = colspan;
+    }
+
+    /**
+     * Sets whether or not this row should allow its component to stretch to fill the space available
+     */
+    public void setRowfill(final boolean rowfill) {
+        this.rowfill = rowfill;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the number of rows that this cell should span. The default value is 1
+     */
+    public void setRowspan(final int rowspan) {
+        this.rowspan = rowspan;
+    }
+
+    /**
+     * Sets the vertical alignment to a case insensitive value of {TOP, MIDDLE, BOTTOM}
+     */
+    public void setValign(final String valign) {
+        this.valign = valign;
     }
 }

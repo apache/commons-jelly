@@ -51,14 +51,14 @@ public class AvailableTag extends TagSupport {
         }
         else if (uri != null) {
             try {
-                URL url = context.getResource(uri);
-                String fileName = url.getFile();
-                InputStream is = url.openStream();
-                available = (is != null);
+                final URL url = context.getResource(uri);
+                final String fileName = url.getFile();
+                final InputStream is = url.openStream();
+                available = is != null;
                 is.close();
-            } catch (MalformedURLException e) {
+            } catch (final MalformedURLException e) {
                 throw new JellyTagException(e);
-            } catch (IOException ioe) {
+            } catch (final IOException ioe) {
                 available = false;
             }
         }
@@ -91,7 +91,7 @@ public class AvailableTag extends TagSupport {
      * Sets the file to use to test whether it exists or not.
      * @param file the file to test for
      */
-    public void setFile(File file) {
+    public void setFile(final File file) {
         this.file = file;
     }
 
@@ -102,7 +102,7 @@ public class AvailableTag extends TagSupport {
      *
      * @param uri the URI of the file to test
      */
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 

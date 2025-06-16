@@ -17,14 +17,14 @@
 
 package org.apache.commons.jelly.tags.xmlunit;
 
+import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
+
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
 
-import org.apache.commons.jelly.tags.junit.AbstractJellyTestSuite;
-
 public class TestJelly extends AbstractJellyTestSuite {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(final String[] args) throws Exception {
         TestRunner.run(suite());
     }
 

@@ -17,24 +17,24 @@
 
 package org.apache.commons.jelly.tags.antlr;
 
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.MissingAttributeException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.security.Permission;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.MissingAttributeException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
 import antlr.Tool;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.security.Permission;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class AntlrTag extends TagSupport
 {
-    private List grammars;
+    private final List grammars;
     private File outputDir;
 
     public AntlrTag()
@@ -44,6 +44,11 @@ public class AntlrTag extends TagSupport
 
     // Tag interface
     //-------------------------------------------------------------------------
+
+    void addGrammar(final String grammar)
+    {
+        this.grammars.add( grammar );
+    }
 
     /**
      * Evaluate the body to register all the various goals and pre/post conditions
@@ -59,10 +64,10 @@ public class AntlrTag extends TagSupport
 
         invokeBody( output );
 
-        Iterator grammarIter = this.grammars.iterator();
+        final Iterator grammarIter = this.grammars.iterator();
         String eachGrammar = null;
 
-        String sourceDir = (String) getContext().getVariable( "maven.antlr.src.dir" );
+        final String sourceDir = (String) getContext().getVariable( "maven.antlr.src.dir" );
         File grammar = null;
 
         while ( grammarIter.hasNext() )
@@ -72,15 +77,12 @@ public class AntlrTag extends TagSupport
             grammar = new File( sourceDir,
                                 eachGrammar );
 
-            File generated = getGeneratedFile( grammar.getPath() );
+            final File generated = getGeneratedFile( grammar.getPath() );
 
-            if ( generated.exists() )
+            if ( generated.exists() && generated.lastModified() > grammar.lastModified() )
             {
-                if ( generated.lastModified() > grammar.lastModified() )
-                {
-                    // it's more recent, skip.
-                    return;
-                }
+                // it's more recent, skip.
+                return;
             }
 
             if ( ! generated.getParentFile().exists() )
@@ -88,14 +90,13 @@ public class AntlrTag extends TagSupport
                 generated.getParentFile().mkdirs();
             }
 
-            String[] args = new String[]
-                {
-                    "-o",
-                    generated.getParentFile().getPath(),
-                    grammar.getPath(),
-                };
+            final String[] args = {
+                "-o",
+                generated.getParentFile().getPath(),
+                grammar.getPath(),
+            };
 
-            SecurityManager oldSm = System.getSecurityManager();
+            final SecurityManager oldSm = System.getSecurityManager();
 
             System.setSecurityManager( NoExitSecurityManager.INSTANCE );
 
@@ -103,7 +104,7 @@ public class AntlrTag extends TagSupport
             {
                 Tool.main( args );
             }
-            catch (SecurityException e)
+            catch (final SecurityException e)
             {
                 if ( ! e.getMessage().equals( "exitVM-0" ) )
                 {
@@ -117,33 +118,33 @@ public class AntlrTag extends TagSupport
         }
     }
 
-    protected File getGeneratedFile(String grammar) throws JellyTagException
+    protected File getGeneratedFile(final String grammar) throws JellyTagException
     {
-        File grammarFile = new File( grammar );
+        final File grammarFile = new File( grammar );
 
         String generatedFileName = null;
 
-        String className = null;
+        final String className = null;
         String packageName = "";
 
         try {
 
-            BufferedReader in = new BufferedReader(new FileReader(grammar));
+            final BufferedReader in = new BufferedReader(new FileReader(grammar));
 
             String line;
             while ((line = in.readLine()) != null) {
                 line = line.trim();
-                int extendsIndex = line.indexOf(" extends ");
+                final int extendsIndex = line.indexOf(" extends ");
                 if (line.startsWith("class ") &&  extendsIndex > -1) {
                     generatedFileName = line.substring(6, extendsIndex).trim();
                     break;
                 }
-                else if ( line.startsWith( "package" ) ) {
+                if ( line.startsWith( "package" ) ) {
                     packageName = line.substring( 8 ).trim();
                 }
             }
             in.close();
-        } catch (Exception e) {
+        } catch (final Exception e) {
             throw new JellyTagException("Unable to determine generated class",
                                      e);
         }
@@ -173,19 +174,14 @@ public class AntlrTag extends TagSupport
         return genFile;
     }
 
-    void addGrammar(String grammar)
-    {
-        this.grammars.add( grammar );
-    }
-
-    public void setOutputDir(File outputDir)
-    {
-        this.outputDir = outputDir;
-    }
-
     public File getOutputDir()
     {
         return this.outputDir;
+    }
+
+    public void setOutputDir(final File outputDir)
+    {
+        this.outputDir = outputDir;
     }
 }
 
@@ -198,13 +194,13 @@ final class NoExitSecurityManager extends SecurityManager
     }
 
     @Override
-    public void checkPermission(Permission permission)
+    public void checkExit(final int status)
     {
+        throw new SecurityException( "exitVM-" + status );
     }
 
     @Override
-    public void checkExit(int status)
+    public void checkPermission(final Permission permission)
     {
-        throw new SecurityException( "exitVM-" + status );
     }
 }

@@ -43,32 +43,32 @@ public class DynamicTag extends DynaTagSupport {
     private Script template;
 
     /** The instance attributes */
-    private Map attributes = new HashMap();
+    private final Map attributes = new HashMap();
 
     public DynamicTag() {
     }
 
-    public DynamicTag(Script template) {
+    public DynamicTag(final Script template) {
         this.template = template;
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if ( log.isDebugEnabled() ) {
             log.debug("Invoking dynamic tag with attributes: " + attributes);
         }
         attributes.put("org.apache.commons.jelly.body", getBody());
 
         // create new context based on current attributes
-        JellyContext newJellyContext = context.newJellyContext(attributes);
-        Map attrMap = new HashMap();
-        for ( Iterator keyIter = this.attributes.keySet().iterator();
+        final JellyContext newJellyContext = context.newJellyContext(attributes);
+        final Map attrMap = new HashMap();
+        for ( final Iterator keyIter = this.attributes.keySet().iterator();
               keyIter.hasNext();) {
-            String key = (String) keyIter.next();
+            final String key = (String) keyIter.next();
             if ( key.endsWith( "Attr" ) ) {
-                Object value = this.attributes.get( key );
+                final Object value = this.attributes.get( key );
                 attrMap.put( key, value );
                 attrMap.put( key.substring( 0, key.length()-4 ), value );
             }
@@ -89,12 +89,12 @@ public class DynamicTag extends DynaTagSupport {
     // DynaTag interface
     //-------------------------------------------------------------------------
     @Override
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(final String name, final Object value) {
         attributes.put(name, value);
         attributes.put(name + "Attr", value);
     }
 
-    public void setTemplate(Script template) {
+    public void setTemplate(final Script template) {
         this.template = template;
     }
 }

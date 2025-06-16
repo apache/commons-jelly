@@ -32,7 +32,7 @@ import junit.framework.TestCase;
  */
 public class TestCData extends TestCase {
 
-    public TestCData(String arg) {
+    public TestCData(final String arg) {
         super(arg);
     }
 
@@ -42,13 +42,13 @@ public class TestCData extends TestCase {
      * @throws Exception
      */
     public void testCData() throws Exception {
-        Jelly jelly = new Jelly();
+        final Jelly jelly = new Jelly();
         jelly.setScript("file:src/test/resources/org/apache/commons/jelly/test/xml/testCData.jelly");
-        Script script = jelly.compileScript();
-        JellyContext context = new JellyContext();
+        final Script script = jelly.compileScript();
+        final JellyContext context = new JellyContext();
         script.run(context, XMLOutput.createDummyXMLOutput());
 
-        String output = (String) context.getVariable("foo");
+        final String output = (String) context.getVariable("foo");
         assertTrue("'foo' is not null", output != null);
 
         String golden = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
@@ -60,14 +60,14 @@ public class TestCData extends TestCase {
     }
 
     public void testDom4JCData() throws SAXException {
-        StringWriter writer = new StringWriter();
-        OutputFormat format = new OutputFormat();
+        final StringWriter writer = new StringWriter();
+        final OutputFormat format = new OutputFormat();
         final XMLWriter xmlWriter = new XMLWriter(writer, format);
         xmlWriter.setEscapeText(false);
 
-        XMLOutput output = new XMLOutput(xmlWriter, xmlWriter);
+        final XMLOutput output = new XMLOutput(xmlWriter, xmlWriter);
 
-        String decl = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+        final String decl = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
         String golden = "<!DOCTYPE foo [\n";
         golden += "  <!ELEMENT foo (#PCDATA)>\n";
         golden += "]><foo></foo>";

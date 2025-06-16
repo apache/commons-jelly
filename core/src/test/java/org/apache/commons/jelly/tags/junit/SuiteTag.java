@@ -44,7 +44,7 @@ public class SuiteTag extends TagSupport {
     /**
      * Adds a new Test to this suite
      */
-    public void addTest(Test test) {
+    public void addTest(final Test test) {
         getSuite().addTest(test);
     }
 
@@ -61,10 +61,10 @@ public class SuiteTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         suite = createSuite();
 
-        TestSuite parent = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
+        final TestSuite parent = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
         if ( parent == null ) {
             context.setVariable("org.apache.commons.jelly.junit.suite", suite );
         }
@@ -95,7 +95,7 @@ public class SuiteTag extends TagSupport {
     /**
      * Sets the name of this test suite
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -105,7 +105,7 @@ public class SuiteTag extends TagSupport {
     /**
      * Sets the name of the test suite whichi is exported
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

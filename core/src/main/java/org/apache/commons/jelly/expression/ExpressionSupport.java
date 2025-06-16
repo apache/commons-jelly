@@ -40,23 +40,23 @@ public abstract class ExpressionSupport implements Expression {
 
     // inherit javadoc from interface
     @Override
-    public boolean evaluateAsBoolean(JellyContext context) {
-        Object value = evaluateRecurse(context);
+    public boolean evaluateAsBoolean(final JellyContext context) {
+        final Object value = evaluateRecurse(context);
         if ( value instanceof Boolean ) {
-            Boolean b = (Boolean) value;
+            final Boolean b = (Boolean) value;
             return b.booleanValue();
         }
-        else if ( value instanceof String ) {
+        if ( value instanceof String ) {
             // return Boolean.getBoolean( (String) value );
-            String str = (String) value;
+            final String str = (String) value;
 
-            return ( str.equalsIgnoreCase( "on" )
+            return str.equalsIgnoreCase( "on" )
                  ||
                  str.equalsIgnoreCase( "yes" )
                  ||
                  str.equals( "1" )
                  ||
-                 str.equalsIgnoreCase( "true" ) );
+                 str.equalsIgnoreCase( "true" );
 
         }
         return false;
@@ -64,39 +64,45 @@ public abstract class ExpressionSupport implements Expression {
 
     // inherit javadoc from interface
     @Override
-    public Iterator evaluateAsIterator(JellyContext context) {
-        Object value = evaluateRecurse(context);
-        if ( value == null ) {
+    public Iterator evaluateAsIterator(final JellyContext context) {
+        final Object value = evaluateRecurse(context);
+        if (value == null) {
             return EMPTY_ITERATOR;
-        } else if ( value instanceof Iterator ) {
+        }
+        if (value instanceof Iterator) {
             return (Iterator) value;
-        } else if ( value instanceof List ) {
-            List list = (List) value;
+        }
+        if (value instanceof List) {
+            final List list = (List) value;
             return list.iterator();
-        } else if ( value instanceof Map ) {
-            Map map = (Map) value;
+        }
+        if (value instanceof Map) {
+            final Map map = (Map) value;
             return map.entrySet().iterator();
-        } else if ( value.getClass().isArray() ) {
+        }
+        if (value.getClass().isArray()) {
             return new ArrayIterator( value );
-        } else if ( value instanceof Enumeration ) {
+        }
+        if (value instanceof Enumeration) {
             return new EnumerationIterator((Enumeration ) value);
-        } else if ( value instanceof Collection ) {
-          Collection collection = (Collection) value;
+        }
+        if (value instanceof Collection) {
+          final Collection collection = (Collection) value;
           return collection.iterator();
-        } else if ( value instanceof String ) {
+        }
+        if (value instanceof String) {
            String[] array = StringUtils.split((String) value, "," );
            array = StringUtils.stripAll( array );
            return new ArrayIterator( array );
-        } else {
-            // XXX: should we return single iterator?
-            return new SingletonIterator( value );
         }
+        // XXX: should we return single iterator?
+        return new SingletonIterator( value );
     }
 
     // inherit javadoc from interface
     @Override
-    public String evaluateAsString(JellyContext context) {
-        Object value = evaluateRecurse(context);
+    public String evaluateAsString(final JellyContext context) {
+        final Object value = evaluateRecurse(context);
         // sometimes when Jelly is used inside Maven the value
         // of an expression can actually be an expression.
         // e.g. ${foo.bar} can lookup "foo.bar" in a Maven context
@@ -110,10 +116,10 @@ public abstract class ExpressionSupport implements Expression {
 
     // inherit javadoc from interface
     @Override
-    public Object evaluateRecurse(JellyContext context) {
-        Object value = evaluate(context);
+    public Object evaluateRecurse(final JellyContext context) {
+        final Object value = evaluate(context);
         if (value instanceof Expression) {
-            Expression expression = (Expression) value;
+            final Expression expression = (Expression) value;
             return expression.evaluateRecurse(context);
         }
         return value;

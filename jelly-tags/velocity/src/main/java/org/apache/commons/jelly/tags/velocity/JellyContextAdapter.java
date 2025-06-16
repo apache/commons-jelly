@@ -39,49 +39,23 @@ public class JellyContextAdapter implements Context
     private boolean readOnly = true;
 
     /** The JellyContext being adapted */
-    private JellyContext jellyContext;
+    private final JellyContext jellyContext;
 
     /** The store for Velocity in the event the adapter is read-only */
-    private HashMap privateContext = new HashMap();
+    private final HashMap privateContext = new HashMap();
 
     /**
      * Constructs a new instance.
      *
      * @param jellyContext The JellyContext to adapt
      */
-    public JellyContextAdapter( JellyContext jellyContext )
+    public JellyContextAdapter( final JellyContext jellyContext )
     {
         this.jellyContext = jellyContext;
     }
 
-    /**
-     * Sets the read-only flag for this adapter.  If the read-only flag
-     * is set, changes to the Velocity Context will not be propagated to
-     * the JellyContext.  Turning the read-only flag off enables changes
-     * to propagate.
-     *
-     * @param readOnly If this parameter is <code>true</code>, the adapter
-     * becomes read-only.  Setting the parameter to <code>false</code> the
-     * adapter becomes read-write.
-     */
-    public void setReadOnly(boolean readOnly)
-    {
-        this.readOnly = readOnly;
-    }
-
-    /**
-     * Tests if the adapter is read-only.
-     *
-     * @return <code>true</code> if the adapter is read-only; otherwise
-     * returns <code>false</code>.
-     */
-    public boolean isReadOnly()
-    {
-        return readOnly;
-    }
-
     @Override
-    public boolean containsKey( Object key )
+    public boolean containsKey( final Object key )
     {
         if ( key == null )
         {
@@ -97,7 +71,7 @@ public class JellyContextAdapter implements Context
     }
 
     @Override
-    public Object get( String key )
+    public Object get( final String key )
     {
         if ( key == null )
         {
@@ -119,7 +93,7 @@ public class JellyContextAdapter implements Context
 
         if ( readOnly )
         {
-            HashSet combinedKeys = new HashSet( keys );
+            final HashSet combinedKeys = new HashSet( keys );
             combinedKeys.addAll( privateContext.keySet() );
             keys = combinedKeys;
         }
@@ -127,8 +101,19 @@ public class JellyContextAdapter implements Context
         return keys.toArray();
     }
 
+    /**
+     * Tests if the adapter is read-only.
+     *
+     * @return <code>true</code> if the adapter is read-only; otherwise
+     * returns <code>false</code>.
+     */
+    public boolean isReadOnly()
+    {
+        return readOnly;
+    }
+
     @Override
-    public Object put( String key, Object value )
+    public Object put( final String key, final Object value )
     {
         Object oldValue;
 
@@ -151,7 +136,7 @@ public class JellyContextAdapter implements Context
     }
 
     @Override
-    public Object remove( Object key )
+    public Object remove( final Object key )
     {
         Object oldValue;
 
@@ -171,6 +156,21 @@ public class JellyContextAdapter implements Context
         }
 
         return oldValue;
+    }
+
+    /**
+     * Sets the read-only flag for this adapter.  If the read-only flag
+     * is set, changes to the Velocity Context will not be propagated to
+     * the JellyContext.  Turning the read-only flag off enables changes
+     * to propagate.
+     *
+     * @param readOnly If this parameter is <code>true</code>, the adapter
+     * becomes read-only.  Setting the parameter to <code>false</code> the
+     * adapter becomes read-write.
+     */
+    public void setReadOnly(final boolean readOnly)
+    {
+        this.readOnly = readOnly;
     }
 }
 

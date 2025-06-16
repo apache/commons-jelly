@@ -47,8 +47,8 @@ public abstract class AbstractJellyTestSuite {
      * @param script is the name of the script, which is typically just a name, no directory.
      * @return a newly created TestSuite
      */
-    public static TestSuite createTestSuite(Class testClass, String script) throws Exception {
-        URL url = testClass.getResource(script);
+    public static TestSuite createTestSuite(final Class testClass, final String script) throws Exception {
+        final URL url = testClass.getResource(script);
         if ( url == null ) {
             throw new Exception(
                 "Could not find Jelly script: " + script
@@ -64,11 +64,11 @@ public abstract class AbstractJellyTestSuite {
      * @param script is the URL to the script which should create a TestSuite
      * @return a newly created TestSuite
      */
-    public static TestSuite createTestSuite(URL script) throws Exception {
+    public static TestSuite createTestSuite(final URL script) throws Exception {
         JellyContext context = new JellyContext(script);
-        XMLOutput output = XMLOutput.createXMLOutput(System.out);
+        final XMLOutput output = XMLOutput.createXMLOutput(System.out);
         context = context.runScript(script, output);
-        TestSuite answer = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
+        final TestSuite answer = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
         if ( answer == null ) {
             log.warn( "Could not find a TestSuite created by Jelly for the script:" + script );
             // return an empty test suite

@@ -49,7 +49,7 @@ public class OperationTag extends TagSupport implements CollectionTag {
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
-    public void addItem(Object value) {
+    public void addItem(final Object value) {
         if (argList == null) {
             argList = new ArrayList();
         }
@@ -59,26 +59,26 @@ public class OperationTag extends TagSupport implements CollectionTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException("name");
         }
 
-        RegisterTag registerTag = (RegisterTag) findAncestorWithClass(RegisterTag.class);
+        final RegisterTag registerTag = (RegisterTag) findAncestorWithClass(RegisterTag.class);
         if (registerTag == null) {
             throw new JellyTagException("This class must be nested inside a <register> tag");
         }
-        Object bean = null;
+        final Object bean = null;
         try {
             invokeBody(output);
 
-            ObjectName objectName = registerTag.getName();
+            final ObjectName objectName = registerTag.getName();
             registerTag.getServer().invoke(objectName, getName(), getArgumentArray(), getParameters());
         }
-        catch (JellyTagException e) {
+        catch (final JellyTagException e) {
             throw e;
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException("Failed to register bean: " + bean, e);
         }
         finally {
@@ -88,6 +88,25 @@ public class OperationTag extends TagSupport implements CollectionTag {
 
     // Properties
     //-------------------------------------------------------------------------
+
+    /**
+     * Converts the argument property into an Object[] or converts the list of
+     * added argument objects (added via child tags) to an Object[] or
+     * return an empty argument array.
+     */
+    protected Object[] getArgumentArray() {
+        final Object arg = getArguments();
+        if (arg != null) {
+            if (arg instanceof Object[]) {
+                return (Object[]) arg;
+            }
+            return new Object[] { arg };
+        }
+        if (argList != null) {
+            return argList.toArray();
+        }
+        return new Object[0];
+    }
 
     /**
      * @return Object
@@ -114,7 +133,7 @@ public class OperationTag extends TagSupport implements CollectionTag {
      * Sets the arguments.
      * @param arguments The arguments to set
      */
-    public void setArguments(Object arguments) {
+    public void setArguments(final Object arguments) {
         this.arguments = arguments;
     }
 
@@ -122,41 +141,18 @@ public class OperationTag extends TagSupport implements CollectionTag {
      * Sets the name.
      * @param name The name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
-    }
-
-    /**
-     * Sets the parameters.
-     * @param parameters The parameters to set
-     */
-    public void setParameters(String[] parameters) {
-        this.parameters = parameters;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * Converts the argument property into an Object[] or converts the list of
-     * added argument objects (added via child tags) to an Object[] or
-     * return an empty argument array.
+     * Sets the parameters.
+     * @param parameters The parameters to set
      */
-    protected Object[] getArgumentArray() {
-        Object arg = getArguments();
-        if (arg != null) {
-            if (arg instanceof Object[]) {
-                return (Object[]) arg;
-            }
-            else {
-                return new Object[] { arg };
-            }
-        }
-        else if (argList != null) {
-            return argList.toArray();
-        }
-        else {
-            return new Object[0];
-        }
+    public void setParameters(final String[] parameters) {
+        this.parameters = parameters;
     }
 }

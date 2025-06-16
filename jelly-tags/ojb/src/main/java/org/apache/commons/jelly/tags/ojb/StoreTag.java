@@ -39,7 +39,7 @@ public class StoreTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if ( value == null ) {
             throw new JellyTagException( "No value is supplied!" );
         }
@@ -49,15 +49,10 @@ public class StoreTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** Sets the value to be persisted */
-    public void setValue(Object value) {
-        this.value = value;
-    }
-
     /** @return the persistence broker instance */
     public PersistenceBroker getBroker() {
         if (broker == null) {
-            BrokerTag brokerTag = (BrokerTag) findAncestorWithClass( BrokerTag.class );
+            final BrokerTag brokerTag = (BrokerTag) findAncestorWithClass( BrokerTag.class );
             if ( brokerTag != null ) {
                 broker = brokerTag.getBroker();
             }
@@ -71,8 +66,13 @@ public class StoreTag extends TagSupport {
     }
 
     /** Sets the persistence broker instance */
-    public void setBroker(PersistenceBroker broker) {
+    public void setBroker(final PersistenceBroker broker) {
         this.broker = broker;
+    }
+
+    /** Sets the value to be persisted */
+    public void setValue(final Object value) {
+        this.value = value;
     }
 }
 

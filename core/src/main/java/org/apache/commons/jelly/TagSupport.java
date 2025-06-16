@@ -37,7 +37,7 @@ public abstract class TagSupport implements Tag {
      * @param tagClass the type of the tag to find
      * @return the tag of the given type or null if it could not be found
      */
-    public static Tag findAncestorWithClass(Tag from, Class tagClass) {
+    public static Tag findAncestorWithClass(Tag from, final Class tagClass) {
         // we could implement this as
         //  return findAncestorWithClass(from,Collections.singleton(tagClass));
         // but this is so simple let's save the object creation for now
@@ -49,7 +49,7 @@ public abstract class TagSupport implements Tag {
         }
         return null;
     }
-    
+
     /**
      * Searches up the parent hierarchy from the given tag
      * for a Tag matching one or more of given types.
@@ -59,7 +59,7 @@ public abstract class TagSupport implements Tag {
      * @return the tag of the given type or null if it could not be found
      * @see #findAncestorWithClass(Tag,Collection)
      */
-    public static Tag findAncestorWithClass(Tag from, Class[] tagClasses) {
+    public static Tag findAncestorWithClass(final Tag from, final Class[] tagClasses) {
         return findAncestorWithClass(from,Arrays.asList(tagClasses));
     }
 
@@ -71,10 +71,10 @@ public abstract class TagSupport implements Tag {
      * @param tagClasses a Collection of Class types that might match
      * @return the tag of the given type or null if it could not be found
      */
-    public static Tag findAncestorWithClass(Tag from, Collection tagClasses) {
+    public static Tag findAncestorWithClass(Tag from, final Collection tagClasses) {
         while (from != null) {
-            for(Iterator iter = tagClasses.iterator();iter.hasNext();) {
-                Class klass = (Class)(iter.next());
+            for(final Iterator iter = tagClasses.iterator();iter.hasNext();) {
+                final Class klass = (Class)iter.next();
                 if (klass.isInstance(from)) {
                     return from;
                 }
@@ -105,7 +105,7 @@ public abstract class TagSupport implements Tag {
     public TagSupport() {
     }
 
-    public TagSupport(boolean shouldTrim) {
+    public TagSupport(final boolean shouldTrim) {
         setTrim( shouldTrim );
     }
 
@@ -115,7 +115,7 @@ public abstract class TagSupport implements Tag {
      * Searches up the parent hierarchy for a Tag of the given type.
      * @return the tag of the given type or null if it could not be found
      */
-    protected Tag findAncestorWithClass(Class parentClass) {
+    protected Tag findAncestorWithClass(final Class parentClass) {
         return findAncestorWithClass(getParent(), parentClass);
     }
 
@@ -124,7 +124,7 @@ public abstract class TagSupport implements Tag {
      * @return the tag of the given type or null if it could not be found
      * @see #findAncestorWithClass(Collection)
      */
-    protected Tag findAncestorWithClass(Class[] parentClasses) {
+    protected Tag findAncestorWithClass(final Class[] parentClasses) {
         return findAncestorWithClass(getParent(), parentClasses);
     }
 
@@ -132,7 +132,7 @@ public abstract class TagSupport implements Tag {
      * Searches up the parent hierarchy for a Tag of one of the given types.
      * @return the tag of the given type or null if it could not be found
      */
-    protected Tag findAncestorWithClass(Collection parentClasses) {
+    protected Tag findAncestorWithClass(final Collection parentClasses) {
         return findAncestorWithClass(getParent(), parentClasses);
     }
 
@@ -163,8 +163,8 @@ public abstract class TagSupport implements Tag {
      * @param shouldEscape Signal if the text should be escaped.
      * @return the text evaluation of the body
      */
-    protected String getBodyText(boolean shouldEscape) throws JellyTagException {
-        StringWriter writer = new StringWriter();
+    protected String getBodyText(final boolean shouldEscape) throws JellyTagException {
+        final StringWriter writer = new StringWriter();
         invokeBody(XMLOutput.createXMLOutput(writer, shouldEscape));
         return writer.toString();
     }
@@ -193,7 +193,7 @@ public abstract class TagSupport implements Tag {
      * Invokes the body of this tag using the given output
      */
     @Override
-    public void invokeBody(XMLOutput output) throws JellyTagException {
+    public void invokeBody(final XMLOutput output) throws JellyTagException {
         getBody().run(context, output);
     }
 
@@ -206,19 +206,17 @@ public abstract class TagSupport implements Tag {
 
     public boolean isTrim() {
         if ( this.shouldTrim == null ) {
-            Tag parent = getParent();
+            final Tag parent = getParent();
             if ( parent == null ) {
                 return true;
             }
-            else {
-                if ( parent instanceof TagSupport ) {
-                    TagSupport parentSupport = (TagSupport) parent;
+            if ( parent instanceof TagSupport ) {
+                final TagSupport parentSupport = (TagSupport) parent;
 
-                    this.shouldTrim = ( parentSupport.isTrim() ? Boolean.TRUE : Boolean.FALSE );
-                }
-                else {
-                    this.shouldTrim = Boolean.TRUE;
-                }
+                this.shouldTrim = parentSupport.isTrim() ? Boolean.TRUE : Boolean.FALSE;
+            }
+            else {
+                this.shouldTrim = Boolean.TRUE;
             }
         }
 
@@ -227,14 +225,14 @@ public abstract class TagSupport implements Tag {
 
     /** Sets the body of the tag */
     @Override
-    public void setBody(Script body) {
+    public void setBody(final Script body) {
         this.body = body;
         this.hasTrimmed = false;
     }
 
     /** Sets the context in which the tag will be run */
     @Override
-    public void setContext(JellyContext context) throws JellyTagException {
+    public void setContext(final JellyContext context) throws JellyTagException {
         this.context = context;
     }
 
@@ -242,13 +240,13 @@ public abstract class TagSupport implements Tag {
      * Sets whether the body of the tag should be escaped as text (so that &lt; and &gt; are
      * escaped as &amp;lt; and &amp;gt;), which is the default or leave the text as XML.
      */
-    public void setEscapeText(boolean escapeText) {
+    public void setEscapeText(final boolean escapeText) {
         this.escapeText = escapeText;
     }
 
     /** Sets the parent of this tag */
     @Override
-    public void setParent(Tag parent) {
+    public void setParent(final Tag parent) {
         this.parent = parent;
     }
 
@@ -256,9 +254,10 @@ public abstract class TagSupport implements Tag {
 	 * @see org.apache.commons.jelly.Tag#setTagLib(org.apache.commons.jelly.TagLibrary)
 	 */
 	@Override
-    public void setTagLib(TagLibrary tagLibrary) {
-		if (this.tagLibrary != null && tagLibrary != this.tagLibrary)
-			throw new IllegalArgumentException("Cannot setTagLib once set");
+    public void setTagLib(final TagLibrary tagLibrary) {
+		if (this.tagLibrary != null && tagLibrary != this.tagLibrary) {
+            throw new IllegalArgumentException("Cannot setTagLib once set");
+        }
 		this.tagLibrary = tagLibrary;
 	}
 
@@ -266,7 +265,7 @@ public abstract class TagSupport implements Tag {
      * Sets whether whitespace inside this tag should be trimmed or not.
      * Defaults to true so whitespace is trimmed
      */
-    public void setTrim(boolean shouldTrim) {
+    public void setTrim(final boolean shouldTrim) {
         if ( shouldTrim ) {
             this.shouldTrim = Boolean.TRUE;
         }

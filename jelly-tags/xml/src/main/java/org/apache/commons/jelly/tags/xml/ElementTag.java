@@ -16,7 +16,6 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
-import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -36,7 +35,7 @@ public class ElementTag extends TagSupport {
     private String name;
 
     /** The XML Attributes. */
-    private AttributesImpl attributes = new AttributesImpl();
+    private final AttributesImpl attributes = new AttributesImpl();
 
     /** Flag set if attributes are output. */
     private boolean outputAttributes;
@@ -44,104 +43,39 @@ public class ElementTag extends TagSupport {
     public ElementTag() {
     }
 
-    /**
-     * Sets the attribute of the given name to the specified value.
-     *
-     * @param name of the attribute
-     * @param value of the attribute
-     * @param uri namespace of the attribute
-     * @throws JellyTagException if the start element has already been output.
-     *   Attributes must be set on the outer element before any content
-     *   (child elements or text) is output
-     */
-    public void setAttributeValue(String name, String value, String uri) throws JellyTagException {
-        if (outputAttributes) {
-            throw new JellyTagException(
-                "Cannot set the value of attribute: "
-                + name + " as we have already output the startElement() SAX event"
-            );
-        }
-
-        // ### we'll assume that all attributes are in no namespace!
-        // ### this is severely limiting!
-        // ### we should be namespace aware
-        // NAMESPACE FIXED:
-        int idx = name.indexOf(':');
-        final String localName = (idx >= 0)
-            ? name.substring(idx + 1)
-            : name;
-        final String nsUri = (uri != null)
-            ? uri
-            : "";
-
-        int index = attributes.getIndex(nsUri, localName);
-        if (index >= 0) {
-            attributes.removeAttribute(index);
-        }
-        // treat null values as no attribute
-        if (value != null) {
-            attributes.addAttribute(nsUri, localName, name, "CDATA", value);
-        }
-    }
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        int idx = name.indexOf(':');
-        final String localName = (idx >= 0)
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final int idx = name.indexOf(':');
+        final String localName = idx >= 0
             ? name.substring(idx + 1)
             : name;
 
         outputAttributes = false;
 
-        XMLOutput newOutput = new XMLOutput(output) {
+        final XMLOutput newOutput = new XMLOutput(output) {
 
             // add an initialize hook to the core content-generating methods
 
             @Override
-            public void startElement(
-                String uri,
-                String localName,
-                String qName,
-                Attributes atts)
-                throws SAXException {
+            public void characters(final char[] ch, final int start, final int length) throws SAXException {
                 initialize();
-                super.startElement(uri, localName, qName, atts);
+                super.characters(ch, start, length);
             }
 
             @Override
-            public void endElement(String uri, String localName, String qName)
+            public void endElement(final String uri, final String localName, final String qName)
                 throws SAXException {
                 initialize();
                 super.endElement(uri, localName, qName);
             }
 
             @Override
-            public void characters(char[] ch, int start, int length) throws SAXException {
-                initialize();
-                super.characters(ch, start, length);
-            }
-
-            @Override
-            public void ignorableWhitespace(char[] ch, int start, int length)
+            public void ignorableWhitespace(final char[] ch, final int start, final int length)
                 throws SAXException {
                 initialize();
                 super.ignorableWhitespace(ch, start, length);
-            }
-
-            @Override
-            public void objectData(Object object)
-                throws SAXException {
-                initialize();
-                super.objectData(object);
-            }
-
-            @Override
-            public void processingInstruction(String target, String data)
-                throws SAXException {
-                initialize();
-                super.processingInstruction(target, data);
             }
 
             /**
@@ -153,6 +87,31 @@ public class ElementTag extends TagSupport {
                     super.startElement(namespace, localName, name, attributes);
                     outputAttributes = true;
                 }
+            }
+
+            @Override
+            public void objectData(final Object object)
+                throws SAXException {
+                initialize();
+                super.objectData(object);
+            }
+
+            @Override
+            public void processingInstruction(final String target, final String data)
+                throws SAXException {
+                initialize();
+                super.processingInstruction(target, data);
+            }
+
+            @Override
+            public void startElement(
+                final String uri,
+                final String localName,
+                final String qName,
+                final Attributes atts)
+                throws SAXException {
+                initialize();
+                super.startElement(uri, localName, qName, atts);
             }
         };
 
@@ -166,13 +125,10 @@ public class ElementTag extends TagSupport {
 
             output.endElement(namespace, localName, name);
             attributes.clear();
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             throw new JellyTagException(e);
         }
     }
-
-    // Properties
-    //-------------------------------------------------------------------------
 
     /**
      * @return the qualified name of the element
@@ -181,12 +137,8 @@ public class ElementTag extends TagSupport {
         return name;
     }
 
-    /**
-     * Sets the qualified name of the element
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+    // Properties
+    //-------------------------------------------------------------------------
 
     /**
      * @return the namespace URI of the element
@@ -196,9 +148,56 @@ public class ElementTag extends TagSupport {
     }
 
     /**
+     * Sets the attribute of the given name to the specified value.
+     *
+     * @param name of the attribute
+     * @param value of the attribute
+     * @param uri namespace of the attribute
+     * @throws JellyTagException if the start element has already been output.
+     *   Attributes must be set on the outer element before any content
+     *   (child elements or text) is output
+     */
+    public void setAttributeValue(final String name, final String value, final String uri) throws JellyTagException {
+        if (outputAttributes) {
+            throw new JellyTagException(
+                "Cannot set the value of attribute: "
+                + name + " as we have already output the startElement() SAX event"
+            );
+        }
+
+        // ### we'll assume that all attributes are in no namespace!
+        // ### this is severely limiting!
+        // ### we should be namespace aware
+        // NAMESPACE FIXED:
+        final int idx = name.indexOf(':');
+        final String localName = idx >= 0
+            ? name.substring(idx + 1)
+            : name;
+        final String nsUri = uri != null
+            ? uri
+            : "";
+
+        final int index = attributes.getIndex(nsUri, localName);
+        if (index >= 0) {
+            attributes.removeAttribute(index);
+        }
+        // treat null values as no attribute
+        if (value != null) {
+            attributes.addAttribute(nsUri, localName, name, "CDATA", value);
+        }
+    }
+
+    /**
+     * Sets the qualified name of the element
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
      * Sets the namespace URI of the element
      */
-    public void setURI(String namespace) {
+    public void setURI(final String namespace) {
         this.namespace = namespace;
     }
 }

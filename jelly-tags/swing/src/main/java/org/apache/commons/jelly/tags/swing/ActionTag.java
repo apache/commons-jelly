@@ -48,11 +48,15 @@ public class ActionTag extends UseBeanTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * @return the Action object for this tag
-     */
-    public Action getAction() {
-        return (Action) getBean();
+    protected String capitalize(final String text) {
+        final char ch = text.charAt(0);
+        if ( Character.isUpperCase( ch ) ) {
+            return text;
+        }
+        final StringBuilder buffer = new StringBuilder(text.length());
+        buffer.append( Character.toUpperCase( ch ) );
+        buffer.append( text.substring(1) );
+        return buffer.toString();
     }
 
     // Implementation methods
@@ -63,71 +67,72 @@ public class ActionTag extends UseBeanTag {
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
     @Override
-    protected Class convertToClass(Object classObject) throws MissingAttributeException, ClassNotFoundException {
+    protected Class convertToClass(final Object classObject) throws MissingAttributeException, ClassNotFoundException {
         if (classObject == null) {
             return null;
         }
-        else {
-            return super.convertToClass(classObject);
-        }
+        return super.convertToClass(classObject);
     }
+
+    /**
+     * @return the Action object for this tag
+     */
+    public Action getAction() {
+        return (Action) getBean();
+    }
+
+	@Override
+    public void invokeBody(final XMLOutput output) {
+		// do nothing
+	}
 
     /**
      * An existing Action could be specified via the 'action' attribute or an action class
      * may be specified via the 'class' attribute, otherwise a default Action class is created.
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, final XMLOutput output) throws JellyTagException {
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output) throws JellyTagException {
         Action action = (Action) attributes.remove( "action" );
         if ( action == null ) {
             if (theClass != null ) {
 
                 try {
                     return theClass.getConstructor().newInstance();
-                } catch (ReflectiveOperationException e) {
+                } catch (final ReflectiveOperationException e) {
                     throw new JellyTagException(e);
                 }
 
             }
-            else {
-                action = new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent event) {
-                        context.setVariable( "event", event );
-                        try {
-                            ActionTag.super.invokeBody(output);
-                        }
-                        catch (Exception e) {
-                            log.error( "Caught: " + e, e );
-                        }
+            action = new AbstractAction() {
+                @Override
+                public void actionPerformed(final ActionEvent event) {
+                    context.setVariable( "event", event );
+                    try {
+                        ActionTag.super.invokeBody(output);
                     }
-                };
-            }
+                    catch (final Exception e) {
+                        log.error( "Caught: " + e, e );
+                    }
+                }
+            };
         }
         return action;
     }
-	
-	@Override
-    public void invokeBody(XMLOutput output) {
-		// do nothing
-	}
 
     /**
      * Either defines a variable or adds the current component to the parent
      */
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
         if (var != null) {
             context.setVariable(var, bean);
         }
         else {
-            ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-            if ( tag != null ) {
-                tag.setAction((Action) bean);
-            }
-            else {
+            final ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+            if ( tag == null ) {
                 throw new JellyTagException( "Either the 'var' attribute must be specified to export this Action or this tag must be nested within a JellySwing widget tag" );
             }
+            tag.setAction((Action) bean);
         }
     }
 
@@ -135,43 +140,30 @@ public class ActionTag extends UseBeanTag {
      * Perform the strange setting of Action properties using its custom API
      */
     @Override
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
-        Action action = getAction();
+    protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
+        final Action action = getAction();
 
-        String enabled = "enabled";
+        final String enabled = "enabled";
         if (attributes.containsKey(enabled)) {
             try {
                 BeanUtils.copyProperty(action, enabled, attributes.get(enabled));
-            } catch (IllegalAccessException e) {
-                throw new JellyTagException("Failed to set the enabled property.", e);
-            } catch (InvocationTargetException e) {
+            } catch (final IllegalAccessException | InvocationTargetException e) {
                 throw new JellyTagException("Failed to set the enabled property.", e);
             }
 
             attributes.remove(enabled);
         }
 
-        for ( Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) iter.next();
+        for ( final Iterator iter = attributes.entrySet().iterator(); iter.hasNext(); ) {
+            final Map.Entry entry = (Map.Entry) iter.next();
             String name = (String) entry.getKey();
 
             // typically standard Action names start with upper case, so lets upper case it
             name = capitalize(name);
-            Object value = entry.getValue();
+            final Object value = entry.getValue();
 
             action.putValue( name, value );
         }
-    }
-
-    protected String capitalize(String text) {
-        char ch = text.charAt(0);
-        if ( Character.isUpperCase( ch ) ) {
-            return text;
-        }
-        StringBuilder buffer = new StringBuilder(text.length());
-        buffer.append( Character.toUpperCase( ch ) );
-        buffer.append( text.substring(1) );
-        return buffer.toString();
     }
 
 }

@@ -27,14 +27,13 @@ public class UseBeanExtendedTag extends UseBeanTag {
      * @see UseBeanTag#UseBeanTag()
      */
     public UseBeanExtendedTag() {
-        super();
         addIgnoreProperty("name");
     }
 
     /**
      * @see UseBeanTag#UseBeanTag(Class)
      */
-    public UseBeanExtendedTag(Class defaultClass) {
+    public UseBeanExtendedTag(final Class defaultClass) {
         super(defaultClass);
         addIgnoreProperty("name");
     }

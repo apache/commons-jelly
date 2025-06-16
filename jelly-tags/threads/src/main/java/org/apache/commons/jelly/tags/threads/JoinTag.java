@@ -16,9 +16,9 @@
  */
 package org.apache.commons.jelly.tags.threads;
 
-import org.apache.commons.jelly.XMLOutput;
-
 import java.util.List;
+
+import org.apache.commons.jelly.XMLOutput;
 
 /**
  * A thread join waits until a thread or threadGroup is complete.
@@ -28,20 +28,8 @@ public class JoinTag extends UseThreadTag {
     /** How long to wait */
     private long timeout = -1;
 
-    /** Perform the thread join */
-    protected void useThread(Thread thread, XMLOutput output) throws InterruptedException {
-        joinThread(thread);
-    }
-
-    /** Join all of the threads in a thread group */
-    protected void useThreadGroup(List threadGroup, XMLOutput output) throws InterruptedException {
-        for (int i = 0; i < threadGroup.size(); i++) {
-            joinThread((Thread) threadGroup.get(i));
-        }
-    }
-
     /** Join a thread */
-    private void joinThread(Thread thread) throws InterruptedException {
+    private void joinThread(final Thread thread) throws InterruptedException {
         if (timeout > 0) {
             thread.join(timeout);
         } else {
@@ -54,7 +42,21 @@ public class JoinTag extends UseThreadTag {
      * thread is dead.
      * @param timeout in millis
      */
-    public void setTimeout(long timeout) {
+    public void setTimeout(final long timeout) {
         this.timeout = timeout;
+    }
+
+    /** Perform the thread join */
+    @Override
+    protected void useThread(final Thread thread, final XMLOutput output) throws InterruptedException {
+        joinThread(thread);
+    }
+
+    /** Join all of the threads in a thread group */
+    @Override
+    protected void useThreadGroup(final List threadGroup, final XMLOutput output) throws InterruptedException {
+        for (final Object element : threadGroup) {
+            joinThread((Thread) element);
+        }
     }
 }

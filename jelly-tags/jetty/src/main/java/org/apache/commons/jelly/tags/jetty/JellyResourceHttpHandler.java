@@ -46,25 +46,36 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
     private static final String OVERRIDE_SET_HANDLED_VAR = "overrideSetHandled";
 
     /** The list of  tags registered to handle a request method  */
-    private Map _tagMap;
+    private final Map _tagMap;
 
     /** The place where to output the results of the tag body */
-    private XMLOutput _xmlOutput;
+    private final XMLOutput _xmlOutput;
 
     /** Creates a new instance of JellyResourceHttpHandler */
-    public JellyResourceHttpHandler( XMLOutput xmlOutput ) {
+    public JellyResourceHttpHandler( final XMLOutput xmlOutput ) {
         _tagMap = new HashMap();
         _xmlOutput = xmlOutput;
     }
 
-    /*
-     * register this tag as the handler for the specified method
-     *
-     * @param tag the tag to be registered
-     * @param method the name of the http method which this tag processes
-     */
-    public void registerTag(Tag tag, String method){
-        _tagMap.put(method.toLowerCase(), tag);
+    public String getRequestBody(final HttpRequest request) throws IOException {
+
+        // read the body as a string from the input stream
+        final InputStream is = request.getInputStream();
+        final InputStreamReader isr = new InputStreamReader(is);
+        final BufferedReader br = new BufferedReader(isr);
+        final StringBuilder sb = new StringBuilder();
+        final char[] buffer = new char[1024];
+        int len;
+
+        while ((len = isr.read(buffer, 0, 1024)) != -1) {
+            sb.append(buffer, 0, len);
+        }
+
+        if (sb.length() > 0) {
+            return sb.toString();
+        }
+        return null;
+
     }
 
     /*
@@ -78,16 +89,16 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
      * @throws IOException when an error occurs
      */
     @Override
-    public void handle(String pathInContext,
-                       String pathParams,
-                       HttpRequest request,
-                       HttpResponse response)
+    public void handle(final String pathInContext,
+                       final String pathParams,
+                       final HttpRequest request,
+                       final HttpResponse response)
         throws HttpException, IOException
     {
-        Tag handlerTag = (Tag) _tagMap.get(request.getMethod().toLowerCase());
+        final Tag handlerTag = (Tag) _tagMap.get(request.getMethod().toLowerCase());
         if (null != handlerTag) {
             // setup the parameters in the jelly context
-            JellyContext jellyContext = handlerTag.getContext();
+            final JellyContext jellyContext = handlerTag.getContext();
             jellyContext.setVariable( "pathInContext", pathInContext);
             jellyContext.setVariable( "pathParams", pathParams);
             jellyContext.setVariable( "request", request);
@@ -104,7 +115,7 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
                 } else {
                     jellyContext.removeVariable(OVERRIDE_SET_HANDLED_VAR);
                 }
-            } catch (Exception ex ) {
+            } catch (final Exception ex ) {
                 throw new HttpException(HttpResponse.__500_Internal_Server_Error,
                                         "Error invoking method handler tag: " + ex.getLocalizedMessage());
             }
@@ -118,24 +129,14 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
         return;
     }
 
-    public String getRequestBody(HttpRequest request) throws IOException {
-
-        // read the body as a string from the input stream
-        InputStream is = request.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
-        StringBuilder sb = new StringBuilder();
-        char[] buffer = new char[1024];
-        int len;
-
-        while ((len = isr.read(buffer, 0, 1024)) != -1)
-          sb.append(buffer, 0, len);
-
-        if (sb.length() > 0)
-          return sb.toString();
-        else
-          return null;
-
+    /*
+     * register this tag as the handler for the specified method
+     *
+     * @param tag the tag to be registered
+     * @param method the name of the http method which this tag processes
+     */
+    public void registerTag(final Tag tag, final String method){
+        _tagMap.put(method.toLowerCase(), tag);
     }
 }
 

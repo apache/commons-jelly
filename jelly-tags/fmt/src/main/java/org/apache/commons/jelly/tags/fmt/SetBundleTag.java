@@ -17,10 +17,9 @@
 package org.apache.commons.jelly.tags.fmt;
 
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import java.util.Locale;
 
 /**
  * Support for tag handlers for &lt;setLocale&gt;, the bundle setting
@@ -43,16 +42,16 @@ public class SetBundleTag extends TagSupport {
      *
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         Object basenameInput = null;
         if (this.basename != null) {
             basenameInput = this.basename.evaluate(context);
         }
 
-        LocalizationContext locCtxt = BundleTag.getLocalizationContext(
+        final LocalizationContext locCtxt = BundleTag.getLocalizationContext(
             context, (String) basenameInput);
 
-        String varname = (var != null) ? var : Config.FMT_LOCALIZATION_CONTEXT;
+        final String varname = var != null ? var : Config.FMT_LOCALIZATION_CONTEXT;
 
         if (scope != null) {
             context.setVariable(varname, scope, locCtxt);
@@ -62,15 +61,15 @@ public class SetBundleTag extends TagSupport {
         }
     }
 
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    public void setBasename(Expression basename) {
+    public void setBasename(final Expression basename) {
         this.basename = basename;
     }
 
-    public void setScope(String scope) {
+    public void setScope(final String scope) {
         this.scope = scope;
+    }
+
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

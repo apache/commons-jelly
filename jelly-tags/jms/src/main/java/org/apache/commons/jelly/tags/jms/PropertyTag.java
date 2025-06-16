@@ -35,11 +35,11 @@ public class PropertyTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( name == null ) {
             throw new MissingAttributeException("name");
         }
-        MessageTag tag = (MessageTag) findAncestorWithClass( MessageTag.class );
+        final MessageTag tag = (MessageTag) findAncestorWithClass( MessageTag.class );
         if ( tag == null ) {
             throw new JellyTagException("<jms:property> tag must be within a <jms:message> tag");
         }
@@ -56,14 +56,14 @@ public class PropertyTag extends TagSupport {
     //-------------------------------------------------------------------------
     /** Sets the name of the JMS property
       */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     /** Sets the value of the JMS property.
       * If no value is set then the body of the tag is used
       */
-    public void setValue(Object value) {
+    public void setValue(final Object value) {
         this.value = value;
     }
 }

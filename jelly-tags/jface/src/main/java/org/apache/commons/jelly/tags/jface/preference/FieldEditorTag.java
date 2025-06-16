@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class FieldEditorTag extends UseBeanTag {
 
-    public FieldEditorTag(Class arg0) {
+    public FieldEditorTag(final Class arg0) {
         super(arg0);
     }
 
@@ -40,18 +40,18 @@ public class FieldEditorTag extends UseBeanTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        PreferencePageTag tag = (PreferencePageTag) findAncestorWithClass(PreferencePageTag.class);
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        final PreferencePageTag tag = (PreferencePageTag) findAncestorWithClass(PreferencePageTag.class);
         if (tag == null) {
             throw new JellyTagException("This tag must be nested inside a <preferencePage>");
         }
 
         // get new instance of FieldEditor
-        PreferencePageTag.PreferencePageImpl page = tag.getPreferencePageImpl();
+        final PreferencePageTag.PreferencePageImpl page = tag.getPreferencePageImpl();
         getAttributes().put("parentComposite", page.getFieldEditorParent());
 
         // add fieldEditor to PreferencePage
-        Object fieldEditor = newInstance(getDefaultClass(), getAttributes(), output);
+        final Object fieldEditor = newInstance(getDefaultClass(), getAttributes(), output);
         if (fieldEditor instanceof FieldEditor) {
             page.addField((FieldEditor) fieldEditor);
         }
@@ -62,45 +62,39 @@ public class FieldEditorTag extends UseBeanTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output)
         throws JellyTagException {
 
         if (theClass == null) {
             throw new JellyTagException("No Class available to create the FieldEditor");
         }
 
-        String name = (String) attributes.get("name");
+        final String name = (String) attributes.get("name");
         if (name == null) {
             throw new MissingAttributeException("name");
         }
 
-        String labelText = (String) attributes.get("labelText");
+        final String labelText = (String) attributes.get("labelText");
         if (labelText == null) {
             throw new MissingAttributeException("labelText");
         }
 
-        Composite parentComposite = (Composite) attributes.get("parentComposite");
+        final Composite parentComposite = (Composite) attributes.get("parentComposite");
         if (parentComposite == null) {
             throw new MissingAttributeException("parentComposite");
         }
 
         // let's try to call a constructor
         try {
-            Class[] types = { String.class, String.class, Composite.class };
-            Constructor constructor = theClass.getConstructor(types);
+            final Class[] types = { String.class, String.class, Composite.class };
+            final Constructor constructor = theClass.getConstructor(types);
             if (constructor != null) {
-                Object[] arguments = { name, labelText, parentComposite };
+                final Object[] arguments = { name, labelText, parentComposite };
                 return constructor.newInstance(arguments);
             }
             return theClass.getConstructor().newInstance();
 
-        } catch (NoSuchMethodException e) {
-            throw new JellyTagException(e);
-        } catch (InstantiationException e) {
-            throw new JellyTagException(e);
-        } catch (IllegalAccessException e) {
-            throw new JellyTagException(e);
-        } catch (InvocationTargetException e) {
+        } catch (final NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new JellyTagException(e);
         }
     }

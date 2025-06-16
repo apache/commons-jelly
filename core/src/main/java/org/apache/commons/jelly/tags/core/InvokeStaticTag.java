@@ -57,8 +57,8 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
     /** The object to invoke the method on */
     private String className;
 
-    private List paramTypes = new ArrayList();
-    private List paramValues = new ArrayList();
+    private final List paramTypes = new ArrayList();
+    private final List paramValues = new ArrayList();
 
     public InvokeStaticTag() {
     }
@@ -70,7 +70,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      * @param value The value of the argument
      */
     @Override
-    public void addArgument(Class type, Object value) {
+    public void addArgument(final Class type, final Object value) {
         paramTypes.add(type);
         paramValues.add(value);
     }
@@ -81,7 +81,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      * @param e is the exception which occurred attempting to load the class
      * @return JellyTagException
      */
-    protected JellyTagException createLoadClassFailedException(Exception e) {
+    protected JellyTagException createLoadClassFailedException(final Exception e) {
         return new JellyTagException(
             "Could not load class: " + className + ". Reason: " + e, e
         );
@@ -90,43 +90,36 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         try {
             if ( null == methodName) {
                 throw new MissingAttributeException( "method" );
             }
             invokeBody(output);
 
-            Object[] values = paramValues.toArray();
-            Class[] types = (Class[])(paramTypes.toArray(new Class[paramTypes.size()]));
-            Method method = loadClass().getMethod( methodName, types );
-            Object result = method.invoke( null, values );
+            final Object[] values = paramValues.toArray();
+            final Class[] types = (Class[])paramTypes.toArray(new Class[paramTypes.size()]);
+            final Method method = loadClass().getMethod( methodName, types );
+            final Object result = method.invoke( null, values );
             if (null != var) {
                 context.setVariable(var, result);
             }
 
-            ArgTag parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
+            final ArgTag parentArg = (ArgTag)findAncestorWithClass(ArgTag.class);
             if (null != parentArg) {
                 parentArg.setValue(result);
             }
         }
-        catch (ClassNotFoundException e) {
+        catch (final ClassNotFoundException | NoSuchMethodException | IllegalAccessException e) {
             throw createLoadClassFailedException(e);
         }
-        catch (NoSuchMethodException e) {
-            throw createLoadClassFailedException(e);
-        }
-        catch (IllegalAccessException e) {
-            throw createLoadClassFailedException(e);
-        }
-        catch (InvocationTargetException e) {
-            if (null != exceptionVar) {
-                context.setVariable(exceptionVar, e.getTargetException());
-            } else {
+        catch (final InvocationTargetException e) {
+            if (null == exceptionVar) {
                 throw new JellyTagException("method " + methodName +
                     " threw exception: "+ e.getTargetException().getMessage(),
                     e.getTargetException() );
             }
+            context.setVariable(exceptionVar, e.getTargetException());
         }
         finally {
             paramTypes.clear();
@@ -147,14 +140,14 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      *
      * @param className The name of the class
      */
-    public void setClassName(String className) {
+    public void setClassName(final String className) {
         this.className = className;
     }
 
     /** Sets the name of a variable that exports the exception thrown by
      * the method's invocation (if any)
      */
-    public void setExceptionVar(String var) {
+    public void setExceptionVar(final String var) {
         this.exceptionVar = var;
     }
 
@@ -166,7 +159,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      *
      * @param methodName The method name
      */
-    public void setMethod(String methodName) {
+    public void setMethod(final String methodName) {
         this.methodName = methodName;
     }
 
@@ -175,7 +168,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
      *
      * @param var The variable name
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

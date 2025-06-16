@@ -41,8 +41,8 @@ public class HeaderTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        HttpTagSupport http = (HttpTagSupport) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final HttpTagSupport http = (HttpTagSupport) findAncestorWithClass(
             HttpTagSupport.class);
         http.addRequestHeader(getName(), getValue());
         invokeBody(xmlOutput);
@@ -61,15 +61,6 @@ public class HeaderTag extends TagSupport {
     }
 
     /**
-     * Setter for property name.
-     *
-     * @param name New value of property name.
-     */
-    public void setName(String name) {
-        _name = name;
-    }
-
-    /**
      * Getter for property value.
      *
      * @return Value of property value.
@@ -79,11 +70,20 @@ public class HeaderTag extends TagSupport {
     }
 
     /**
+     * Setter for property name.
+     *
+     * @param name New value of property name.
+     */
+    public void setName(final String name) {
+        _name = name;
+    }
+
+    /**
      * Setter for property value.
      *
      * @param value New value of property value.
      */
-    public void setValue(String value) {
+    public void setValue(final String value) {
         _value = value;
     }
 

@@ -33,14 +33,14 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * Produces a failure assertion with the given message
      */
-    protected void fail(String message) throws JellyAssertionFailedError {
+    protected void fail(final String message) throws JellyAssertionFailedError {
         throw new JellyAssertionFailedError(message);
     }
 
     /**
      * Produces a failure assertion with the given message and added detail.
      */
-    protected void fail(String message, String detail) throws JellyAssertionFailedError {
+    protected void fail(final String message, final String detail) throws JellyAssertionFailedError {
         if (message == null || message.length() == 0) {
             fail(detail);
         }
@@ -52,7 +52,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     /**
      * Produces a failure if the actual value was not equal to the expected value
      */
-    protected void failNotEquals(String message, Object expected, Object actual, String expressions) throws JellyAssertionFailedError {
+    protected void failNotEquals(final String message, final Object expected, final Object actual, final String expressions) throws JellyAssertionFailedError {
         String formatted= "";
         if (message != null) {
             formatted = message +" ";

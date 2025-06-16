@@ -45,33 +45,33 @@ public class CaseTag extends TagSupport {
     }
 
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (null == this.valueExpression) {
             throw new MissingAttributeException("value");
         }
-        SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
+        final SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
         if (null == tag) {
             throw new JellyTagException("This tag must be enclosed inside a <switch> tag" );
         }
         if (tag.hasDefaultBeenEncountered()) {
             throw new JellyTagException("<default> should be the last tag within a <switch>" );
         }
-        Object value = valueExpression.evaluate(context);
+        final Object value = valueExpression.evaluate(context);
         if (tag.isFallingThru() ||
-           (null == tag.getValue() && null == value) ||
-           (null != tag.getValue() && tag.getValue().equals(value))) {
+           null == tag.getValue() && null == value ||
+           null != tag.getValue() && tag.getValue().equals(value)) {
             tag.caseMatched();
             tag.setFallingThru(fallThru);
             invokeBody(output);
         }
     }
 
-    public void setFallThru(boolean fallThru) {
+    public void setFallThru(final boolean fallThru) {
         this.fallThru = fallThru;
     }
     // Tag interface
     //-------------------------------------------------------------------------
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.valueExpression = value;
     }
 

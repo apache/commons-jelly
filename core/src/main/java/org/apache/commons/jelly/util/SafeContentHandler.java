@@ -26,11 +26,11 @@ import org.xml.sax.SAXException;
  * ContentHandler. This object can only be used once and then discarded.
  */
 public class SafeContentHandler implements ContentHandler {
-    private ContentHandler handler;
+    private final ContentHandler handler;
     private boolean documentStarted;
     private boolean documentEnded;
 
-    public SafeContentHandler(ContentHandler handler) {
+    public SafeContentHandler(final ContentHandler handler) {
         this.handler = handler;
     }
 
@@ -41,7 +41,7 @@ public class SafeContentHandler implements ContentHandler {
      * @throws org.xml.sax.SAXException
      */
     @Override
-    public void characters(char[] arg0, int arg1, int arg2)
+    public void characters(final char[] arg0, final int arg1, final int arg2)
         throws SAXException {
         handler.characters(arg0, arg1, arg2);
     }
@@ -64,7 +64,7 @@ public class SafeContentHandler implements ContentHandler {
      * @throws org.xml.sax.SAXException
      */
     @Override
-    public void endElement(String arg0, String arg1, String arg2)
+    public void endElement(final String arg0, final String arg1, final String arg2)
         throws SAXException {
         handler.endElement(arg0, arg1, arg2);
     }
@@ -74,7 +74,7 @@ public class SafeContentHandler implements ContentHandler {
      * @throws org.xml.sax.SAXException
      */
     @Override
-    public void endPrefixMapping(String arg0) throws SAXException {
+    public void endPrefixMapping(final String arg0) throws SAXException {
         handler.endPrefixMapping(arg0);
     }
 
@@ -85,7 +85,7 @@ public class SafeContentHandler implements ContentHandler {
      * @throws org.xml.sax.SAXException
      */
     @Override
-    public void ignorableWhitespace(char[] arg0, int arg1, int arg2)
+    public void ignorableWhitespace(final char[] arg0, final int arg1, final int arg2)
         throws SAXException {
         handler.ignorableWhitespace(arg0, arg1, arg2);
     }
@@ -96,7 +96,7 @@ public class SafeContentHandler implements ContentHandler {
      * @throws org.xml.sax.SAXException
      */
     @Override
-    public void processingInstruction(String arg0, String arg1)
+    public void processingInstruction(final String arg0, final String arg1)
         throws SAXException {
         handler.processingInstruction(arg0, arg1);
     }
@@ -105,7 +105,7 @@ public class SafeContentHandler implements ContentHandler {
      * @param arg0
      */
     @Override
-    public void setDocumentLocator(Locator arg0) {
+    public void setDocumentLocator(final Locator arg0) {
         handler.setDocumentLocator(arg0);
     }
 
@@ -114,7 +114,7 @@ public class SafeContentHandler implements ContentHandler {
      * @throws org.xml.sax.SAXException
      */
     @Override
-    public void skippedEntity(String arg0) throws SAXException {
+    public void skippedEntity(final String arg0) throws SAXException {
         handler.skippedEntity(arg0);
     }
 
@@ -138,10 +138,10 @@ public class SafeContentHandler implements ContentHandler {
      */
     @Override
     public void startElement(
-        String arg0,
-        String arg1,
-        String arg2,
-        Attributes arg3)
+        final String arg0,
+        final String arg1,
+        final String arg2,
+        final Attributes arg3)
         throws SAXException {
         handler.startElement(arg0, arg1, arg2, arg3);
     }
@@ -152,7 +152,7 @@ public class SafeContentHandler implements ContentHandler {
      * @throws org.xml.sax.SAXException
      */
     @Override
-    public void startPrefixMapping(String arg0, String arg1)
+    public void startPrefixMapping(final String arg0, final String arg1)
         throws SAXException {
         handler.startPrefixMapping(arg0, arg1);
     }

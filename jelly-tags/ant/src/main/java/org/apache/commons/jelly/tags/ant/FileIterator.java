@@ -31,10 +31,10 @@ import org.apache.tools.ant.types.FileSet;
 public class FileIterator implements Iterator {
 
     /** The iterator over the FileSet objects */
-    private Iterator fileSetIterator;
+    private final Iterator fileSetIterator;
 
     /** The Ant project */
-    private Project project;
+    private final Project project;
 
     /** The directory scanner */
     private DirectoryScanner ds;
@@ -54,14 +54,14 @@ public class FileIterator implements Iterator {
     /** Return only directories? */
     private boolean iterateDirectories = false;
 
-    public FileIterator(Project project,
-                        Iterator fileSetIterator) {
+    public FileIterator(final Project project,
+                        final Iterator fileSetIterator) {
         this( project, fileSetIterator, false);
     }
 
-    public FileIterator(Project project,
-                        Iterator fileSetIterator,
-                        boolean iterateDirectories) {
+    public FileIterator(final Project project,
+                        final Iterator fileSetIterator,
+                        final boolean iterateDirectories) {
         this.project = project;
         this.fileSetIterator = fileSetIterator;
         this.iterateDirectories = iterateDirectories;
@@ -76,18 +76,14 @@ public class FileIterator implements Iterator {
         if ( nextObjectSet ) {
             return true;
         }
-        else {
-            return setNextObject();
-        }
+        return setNextObject();
     }
 
     /** @return the next object which matches the given predicate */
     @Override
     public Object next() {
-        if ( !nextObjectSet ) {
-            if (!setNextObject()) {
-                throw new NoSuchElementException();
-            }
+        if (!nextObjectSet && !setNextObject()) {
+            throw new NoSuchElementException();
         }
         nextObjectSet = false;
         return nextFile;
@@ -114,7 +110,7 @@ public class FileIterator implements Iterator {
                 if ( ! fileSetIterator.hasNext() ) {
                     return false;
                 }
-                FileSet fs = (FileSet) fileSetIterator.next();
+                final FileSet fs = (FileSet) fileSetIterator.next();
                 ds = fs.getDirectoryScanner(project);
                 ds.scan();
                 if (iterateDirectories) {
@@ -127,9 +123,7 @@ public class FileIterator implements Iterator {
                     fileIndex = -1;
                     break;
                 }
-                else {
-                    ds = null;
-                }
+                ds = null;
             }
 
             if ( ds != null && files != null ) {
@@ -138,9 +132,7 @@ public class FileIterator implements Iterator {
                     nextObjectSet = true;
                     return true;
                 }
-                else {
-                    ds = null;
-                }
+                ds = null;
             }
         }
     }

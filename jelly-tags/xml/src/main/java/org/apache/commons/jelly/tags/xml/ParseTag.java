@@ -43,16 +43,29 @@ public class ParseTag extends ParseTagSupport {
     public ParseTag() {
     }
 
+    /**
+     * Factory method to create a new SAXReader
+     */
+    @Override
+    protected SAXReader createSAXReader() {
+        return new SAXReader(validate);
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (getVar() == null) {
             throw new MissingAttributeException("The var attribute cannot be null");
         }
 
-        Document document = getXmlDocument(output);
+        final Document document = getXmlDocument(output);
         context.setVariable(getVar(), document);
+    }
+
+    /** @return whether XML validation is enabled or disabled */
+    public boolean getValidate() {
+        return validate;
     }
 
     // Properties
@@ -62,38 +75,12 @@ public class ParseTag extends ParseTagSupport {
         return this.xml;
     }
 
-    /** Sets the source of the XML which is either a String URI, a File, Reader or InputStream */
-    public void setXml(Object xml) {
-        this.xml = xml;
-    }
-
-    /** @return whether XML validation is enabled or disabled */
-    public boolean getValidate() {
-        return validate;
-    }
-
-    /** Sets whether XML validation is enabled or disabled */
-    public void setValidate(boolean validate) {
-        this.validate = validate;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a new SAXReader
-     */
-    @Override
-    protected SAXReader createSAXReader() {
-        return new SAXReader(validate);
-    }
-
-    protected Document getXmlDocument(XMLOutput output) throws JellyTagException {
+    protected Document getXmlDocument(final XMLOutput output) throws JellyTagException {
         Document document = null;
-        Object xmlObj = this.getXml();
+        final Object xmlObj = this.getXml();
 
         if (xmlObj == null) {
-            String text = getText();
+            final String text = getText();
             if (text != null) {
                 document = parseText(text);
             }
@@ -106,6 +93,19 @@ public class ParseTag extends ParseTagSupport {
         }
 
         return document;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /** Sets whether XML validation is enabled or disabled */
+    public void setValidate(final boolean validate) {
+        this.validate = validate;
+    }
+
+    /** Sets the source of the XML which is either a String URI, a File, Reader or InputStream */
+    public void setXml(final Object xml) {
+        this.xml = xml;
     }
 
 }

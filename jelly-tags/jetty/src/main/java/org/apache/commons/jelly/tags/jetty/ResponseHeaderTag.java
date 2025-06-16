@@ -20,7 +20,6 @@ package org.apache.commons.jelly.tags.jetty;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.HttpResponse;
 
 /**
@@ -42,14 +41,14 @@ public class ResponseHeaderTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
 
         if (null == getName()) {
             throw new JellyTagException("<responseHeader> tag must have a name");
         }
 
         // get the response from the context
-        HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
+        final HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
         if (null == httpResponse) {
             throw new JellyTagException("HttpResponse variable not available in Jelly context");
         }
@@ -78,15 +77,6 @@ public class ResponseHeaderTag extends TagSupport {
     }
 
     /**
-     * Setter for property context path.
-     *
-     * @param name New value of property context path.
-     */
-    public void setName(String name) {
-        _name = name;
-    }
-
-    /**
      * Getter for property value.
      *
      * @return value of property value.
@@ -96,11 +86,20 @@ public class ResponseHeaderTag extends TagSupport {
     }
 
     /**
+     * Setter for property context path.
+     *
+     * @param name New value of property context path.
+     */
+    public void setName(final String name) {
+        _name = name;
+    }
+
+    /**
      * Setter for property value.
      *
      * @param value New value of property value.
      */
-    public void setValue(String value) {
+    public void setValue(final String value) {
         _value = value;
     }
 

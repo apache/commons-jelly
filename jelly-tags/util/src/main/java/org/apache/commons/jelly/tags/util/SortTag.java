@@ -31,13 +31,13 @@ public class SortTag extends TagSupport {
 
     /** Things to sort */
     private List items;
-    
+
     /** The variable to store the result in */
     private String var;
-    
+
     /** Property of the beans to sort on, if any */
     private String property;
-    
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -46,39 +46,39 @@ public class SortTag extends TagSupport {
         {
             throw new MissingAttributeException("var");
         }
-        
+
         if (items == null) {
             throw new MissingAttributeException("items");
         }
-        
-        List sorted = new ArrayList(items);
+
+        final List sorted = new ArrayList(items);
         if (property == null) {
             Collections.sort(sorted);
         } else {
-            BeanComparator comparator = new BeanComparator(property);
+            final BeanComparator comparator = new BeanComparator(property);
             Collections.sort(sorted, comparator);
         }
         context.setVariable(var, sorted);
     }
-    
+
     /**
      * Sets the items to be sorted
      * @param newItems some collection
      */
-    public void setItems(List newItems) {
+    public void setItems(final List newItems) {
         items = newItems;
     }
-    
+
+    public void setProperty(final String newProperty)
+    {
+        property = newProperty;
+    }
+
     /**
      * The variable to hold the sorted collection.
      * @param newVar the name of the variable.
      */
-    public void setVar(String newVar) {
+    public void setVar(final String newVar) {
         var = newVar;
-    }
-    
-    public void setProperty(String newProperty)
-    {
-        property = newProperty;
     }
 }

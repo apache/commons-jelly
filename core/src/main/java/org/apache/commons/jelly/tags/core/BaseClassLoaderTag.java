@@ -64,7 +64,7 @@ public abstract class BaseClassLoaderTag extends TagSupport {
      * @param classLoader The new class loader to use, or {@code null}
      *  to revert to the standard rules
      */
-    public void setClassLoader(ClassLoader classLoader) {
+    public void setClassLoader(final ClassLoader classLoader) {
         this.classLoader = classLoader;
     }
 
@@ -77,7 +77,7 @@ public abstract class BaseClassLoaderTag extends TagSupport {
      *
      * @param use determines whether to use JellyContext ClassLoader.
      */
-    public void setUseContextClassLoader(boolean use) {
+    public void setUseContextClassLoader(final boolean use) {
         useContextClassLoader = use;
     }
 }

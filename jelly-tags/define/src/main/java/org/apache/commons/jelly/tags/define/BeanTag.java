@@ -23,17 +23,13 @@ import java.util.Map;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
-import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.impl.Attribute;
 import org.apache.commons.jelly.impl.DynamicBeanTag;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.xml.sax.Attributes;
 
 /**
  * Binds a Java bean to the given named Jelly tag so that the attributes of
@@ -65,7 +61,7 @@ public class BeanTag extends DefineTagSupport {
     /**
      * Adds a new attribute definition to this dynamic tag
      */
-    public void addAttribute(Attribute attribute) {
+    public void addAttribute(final Attribute attribute) {
         if ( attributes == null ) {
             attributes = new HashMap();
         }
@@ -75,7 +71,7 @@ public class BeanTag extends DefineTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         invokeBody(output);
 
         if (name == null) {
@@ -87,10 +83,10 @@ public class BeanTag extends DefineTagSupport {
 
         Class theClass = null;
         try {
-            ClassLoader classLoader = getClassLoader();
+            final ClassLoader classLoader = getClassLoader();
             theClass = ClassLoaderUtils.loadClass(className, getClassLoader(), getContext().getUseContextClassLoader(), getClass());
         }
-        catch (ClassNotFoundException e) {
+        catch (final ClassNotFoundException e) {
             log.error( "Could not load class: " + className + " exception: " + e, e );
             throw new JellyTagException(
                 "Could not find class: "
@@ -101,14 +97,9 @@ public class BeanTag extends DefineTagSupport {
 
         final Class beanClass = theClass;
         final Method invokeMethod = getInvokeMethod( theClass );
-        final Map beanAttributes = (attributes != null) ? attributes : EMPTY_MAP;
+        final Map beanAttributes = attributes != null ? attributes : EMPTY_MAP;
 
-        TagFactory factory = new TagFactory() {
-            @Override
-            public Tag createTag(String name, Attributes attributes) {
-                return  new DynamicBeanTag(beanClass, beanAttributes, varAttribute, invokeMethod);
-            }
-        };
+        final TagFactory factory = (name, attributes) -> new DynamicBeanTag(beanClass, beanAttributes, varAttribute, invokeMethod);
 
         getTagLibrary().registerBeanTag(name, factory);
 
@@ -120,30 +111,7 @@ public class BeanTag extends DefineTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the name of the tag to create
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Sets the Java class name to use for the tag
-     */
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    /**
-     * Sets the ClassLoader to use to load the class.
-     * If no value is set then the current threads context class
-     * loader is used.
-     */
-    public void setClassLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
-
-    /**
-     * @return the ClassLoader to use to load classes specified by this object, 
+     * @return the ClassLoader to use to load classes specified by this object,
      *  the thread context loader if the context flag is set, or the class used to load this class.
      */
     public ClassLoader getClassLoader() {
@@ -151,21 +119,44 @@ public class BeanTag extends DefineTagSupport {
     }
 
     /**
-     * Sets the name of the attribute used to define the bean variable that this dynamic
-     * tag will output its results as. This defaults to 'var' though this property
-     * can be used to change this if it conflicts with a bean property called 'var'.
+     * Extracts the invoke method for the class if one is used.
      */
-    public void setVarAttribute(String varAttribute) {
-        this.varAttribute = varAttribute;
+    protected Method getInvokeMethod( final Class theClass ) {
+        return null;
+    }
+
+    /**
+     * Sets the ClassLoader to use to load the class.
+     * If no value is set then the current threads context class
+     * loader is used.
+     */
+    public void setClassLoader(final ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
+    /**
+     * Sets the Java class name to use for the tag
+     */
+    public void setClassName(final String className) {
+        this.className = className;
+    }
+
+    /**
+     * Sets the name of the tag to create
+     */
+    public void setName(final String name) {
+        this.name = name;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * Extracts the invoke method for the class if one is used.
+     * Sets the name of the attribute used to define the bean variable that this dynamic
+     * tag will output its results as. This defaults to 'var' though this property
+     * can be used to change this if it conflicts with a bean property called 'var'.
      */
-    protected Method getInvokeMethod( Class theClass ) {
-        return null;
+    public void setVarAttribute(final String varAttribute) {
+        this.varAttribute = varAttribute;
     }
 }

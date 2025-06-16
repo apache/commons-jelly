@@ -46,19 +46,19 @@ public class PreferencePageTag extends TagSupport {
     public class PreferencePageImpl extends FieldEditorPreferencePage {
         private PreferenceStore preferenceStore;
 
-        public PreferencePageImpl(String title) {
+        public PreferencePageImpl(final String title) {
             super(title, FieldEditorPreferencePage.GRID);
             try {
                 preferenceStore = new PreferenceStore(fileName);
                 preferenceStore.load();
                 setPreferenceStore(preferenceStore);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 log.error(e);
             }
         }
 
         @Override
-        public void addField(FieldEditor editor) {
+        public void addField(final FieldEditor editor) {
             super.addField(editor);
         }
 
@@ -66,7 +66,7 @@ public class PreferencePageTag extends TagSupport {
         protected void createFieldEditors() {
             try {
                 invokeBody(output);
-            } catch (JellyTagException e) {
+            } catch (final JellyTagException e) {
                 log.error(e);
             }
         }
@@ -101,9 +101,9 @@ public class PreferencePageTag extends TagSupport {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         // check location
-        PreferenceDialogTag dialogTag =
+        final PreferenceDialogTag dialogTag =
             (PreferenceDialogTag) findAncestorWithClass(PreferenceDialogTag.class);
         if (dialogTag == null) {
             throw new JellyTagException("This tag must be nested within a <preferenceDialog>");
@@ -118,8 +118,8 @@ public class PreferencePageTag extends TagSupport {
         }
 
         // build new PreferenceNode with same title as the PreferencePage
-        PreferenceDialog dialog = dialogTag.getPreferenceDialog();
-        PreferenceNode node = new PreferenceNode(title);
+        final PreferenceDialog dialog = dialogTag.getPreferenceDialog();
+        final PreferenceNode node = new PreferenceNode(title);
 
         // build new PreferencePage
         page = new PreferencePageImpl(title);
@@ -144,7 +144,7 @@ public class PreferencePageTag extends TagSupport {
      * Sets the file name.
      * @param fileName The file name to set
      */
-    public void setFilename(String fileName) {
+    public void setFilename(final String fileName) {
         this.fileName = fileName;
     }
 
@@ -152,7 +152,7 @@ public class PreferencePageTag extends TagSupport {
      * Sets the title.
      * @param title The title to set
      */
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 

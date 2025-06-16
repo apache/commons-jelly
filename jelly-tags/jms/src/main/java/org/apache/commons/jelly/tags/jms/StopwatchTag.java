@@ -20,10 +20,8 @@ import javax.jms.MessageListener;
 
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.apache.commons.messenger.tool.StopWatchMessageListener;
 
 /**
@@ -47,14 +45,14 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         // evaluate body as it may contain child tags to register a MessageListener
         invokeBody(output);
 
-        MessageListener listener = getMessageListener();
+        final MessageListener listener = getMessageListener();
 
-        ConsumerTag tag = (ConsumerTag) findAncestorWithClass(ConsumerTag.class);
+        final ConsumerTag tag = (ConsumerTag) findAncestorWithClass(ConsumerTag.class);
         if (tag == null) {
             throw new JellyTagException("This tag must be nested within a ConsumerTag like the subscribe tag");
         }
@@ -62,7 +60,7 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
         // clear the listener for the next tag invocation, if caching is employed
         setMessageListener(null);
 
-        StopWatchMessageListener stopWatch = new StopWatchMessageListener(listener);
+        final StopWatchMessageListener stopWatch = new StopWatchMessageListener(listener);
         stopWatch.setGroupSize(groupSize);
         stopWatch.setLog(log);
 
@@ -81,24 +79,10 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
     }
 
     /**
-     * Sets the number of messages in the group before the performance statistics are logged
-     */
-    public void setGroupSize(int groupSize) {
-        this.groupSize = groupSize;
-    }
-
-    /**
      * @return the logger to which statistic messages will be sent
      */
     public Log getLog() {
         return log;
-    }
-
-    /**
-     * Sets the logger to which statistic messages will be sent
-     */
-    public void setLog(Log log) {
-        this.log = log;
     }
 
     /**
@@ -109,10 +93,24 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
     }
 
     /**
+     * Sets the number of messages in the group before the performance statistics are logged
+     */
+    public void setGroupSize(final int groupSize) {
+        this.groupSize = groupSize;
+    }
+
+    /**
+     * Sets the logger to which statistic messages will be sent
+     */
+    public void setLog(final Log log) {
+        this.log = log;
+    }
+
+    /**
      * Sets the JMS messageListener used to consume JMS messages on the given destination
      */
     @Override
-    public void setMessageListener(MessageListener messageListener) {
+    public void setMessageListener(final MessageListener messageListener) {
         this.messageListener = messageListener;
     }
 

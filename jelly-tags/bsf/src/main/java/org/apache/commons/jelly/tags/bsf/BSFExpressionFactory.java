@@ -16,27 +16,26 @@
  */
 package org.apache.commons.jelly.tags.bsf;
 
+import org.apache.bsf.BSFEngine;
+import org.apache.bsf.BSFException;
+import org.apache.bsf.BSFManager;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.bsf.BSFEngine;
-import org.apache.bsf.BSFException;
-import org.apache.bsf.BSFManager;
-
 /** Represents a factory of BSF expressions
   */
 public class BSFExpressionFactory implements ExpressionFactory {
 
     /** The logger of messages */
-    private Log log = LogFactory.getLog( getClass() );
+    private final Log log = LogFactory.getLog( getClass() );
 
     private String language = "javascript";
     private BSFManager manager;
     private BSFEngine engine;
-    private JellyContextRegistry registry = new JellyContextRegistry();
+    private final JellyContextRegistry registry = new JellyContextRegistry();
 
     public BSFExpressionFactory() {
     }
@@ -44,13 +43,26 @@ public class BSFExpressionFactory implements ExpressionFactory {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** @return the BSF language to be used */
-    public String getLanguage() {
-        return language;
+    /** Factory method */
+    protected BSFEngine createBSFEngine() throws BSFException {
+        return getBSFManager().loadScriptingEngine( getLanguage() );
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
+    /** Factory method */
+    protected BSFManager createBSFManager() {
+        final BSFManager answer = new BSFManager();
+        return answer;
+    }
+
+    // ExpressionFactory interface
+    //-------------------------------------------------------------------------
+    @Override
+    public Expression createExpression(final String text) throws JellyException {
+        try {
+            return new BSFExpression( text, getBSFEngine(), getBSFManager(), registry );
+        } catch (final BSFException e) {
+            throw new JellyException("Could not obtain BSF engine",e);
+        }
     }
 
     /** @return the BSF Engine to be used by this expression factory */
@@ -61,10 +73,6 @@ public class BSFExpressionFactory implements ExpressionFactory {
         return engine;
     }
 
-    public void setBSFEngine(BSFEngine engine) {
-        this.engine = engine;
-    }
-
     public BSFManager getBSFManager() {
         if ( manager == null ) {
             manager = createBSFManager();
@@ -73,33 +81,24 @@ public class BSFExpressionFactory implements ExpressionFactory {
         return manager;
     }
 
-    public void setBSFManager(BSFManager manager) {
-        this.manager = manager;
-        manager.setObjectRegistry( registry );
+    /** @return the BSF language to be used */
+    public String getLanguage() {
+        return language;
     }
 
-    // ExpressionFactory interface
-    //-------------------------------------------------------------------------
-    @Override
-    public Expression createExpression(String text) throws JellyException {
-        try {
-            return new BSFExpression( text, getBSFEngine(), getBSFManager(), registry );
-        } catch (BSFException e) {
-            throw new JellyException("Could not obtain BSF engine",e);
-        }
+    public void setBSFEngine(final BSFEngine engine) {
+        this.engine = engine;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
-    /** Factory method */
-    protected BSFEngine createBSFEngine() throws BSFException {
-        return getBSFManager().loadScriptingEngine( getLanguage() );
+    public void setBSFManager(final BSFManager manager) {
+        this.manager = manager;
+        manager.setObjectRegistry( registry );
     }
 
-    /** Factory method */
-    protected BSFManager createBSFManager() {
-        BSFManager answer = new BSFManager();
-        return answer;
+    public void setLanguage(final String language) {
+        this.language = language;
     }
 }

@@ -25,28 +25,28 @@ import org.apache.commons.jelly.impl.TextScript;
  */
 public class TagUtils {
     /** Trims the whitespace from a script and its children.
-     * 
+     *
      */
-    public static void trimScript(Script body) {
+    public static void trimScript(final Script body) {
         synchronized(body) {
             if ( body instanceof CompositeTextScriptBlock ) {
-                CompositeTextScriptBlock block = (CompositeTextScriptBlock) body;
+                final CompositeTextScriptBlock block = (CompositeTextScriptBlock) body;
                 block.trimWhitespace();
             }
             else
             if ( body instanceof ScriptBlock ) {
-                ScriptBlock block = (ScriptBlock) body;
+                final ScriptBlock block = (ScriptBlock) body;
                 block.trimWhitespace();
             }
             else if ( body instanceof TextScript ) {
-                TextScript textScript = (TextScript) body;
+                final TextScript textScript = (TextScript) body;
                 textScript.trimWhitespace();
             }
         }
     }
 
     private TagUtils() {
-        
+
     }
 
 }

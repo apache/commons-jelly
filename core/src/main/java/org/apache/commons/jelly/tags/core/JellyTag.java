@@ -35,7 +35,7 @@ public class JellyTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         if ( log.isDebugEnabled() ) {
             log.debug( "Running body: " + getBody() );

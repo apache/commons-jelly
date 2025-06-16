@@ -31,11 +31,31 @@ import org.apache.commons.jelly.JellyContext;
  */
 public class ExpressionTableModel extends AbstractTableModel {
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    protected static class MyTableColumnModel extends DefaultTableColumnModel {
+        public List getColumnList() {
+            return tableColumns;
+        }
+    }
     private JellyContext context;
     private List rows = new ArrayList();
-    private MyTableColumnModel columnModel = new MyTableColumnModel();
+
+    private final MyTableColumnModel columnModel = new MyTableColumnModel();
 
     public ExpressionTableModel() {
+    }
+
+    /**
+     * Adds a new column definition to the table
+     */
+    public void addColumn(final ExpressionTableColumn column) {
+        columnModel.addColumn(column);
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columnModel.getColumnCount();
     }
 
     /**
@@ -53,18 +73,25 @@ public class ExpressionTableModel extends AbstractTableModel {
         return columnModel;
     }
 
-    /**
-     * Adds a new column definition to the table
-     */
-    public void addColumn(ExpressionTableColumn column) {
-        columnModel.addColumn(column);
+    @Override
+    public String getColumnName(final int columnIndex) {
+        final String answer = null;
+        if (columnIndex < 0 || columnIndex >= columnModel.getColumnCount()) {
+            return answer;
+        }
+        final Object value = columnModel.getColumn(columnIndex).getHeaderValue();
+        if (value != null) {
+            return value.toString();
+        }
+        return answer;
     }
 
     /**
-     * Removes a column definition from the table
+     * Returns the context.
+     * @return JellyContext
      */
-    public void removeColumn(ExpressionTableColumn column) {
-        columnModel.removeColumn(column);
+    public JellyContext getContext() {
+        return context;
     }
 
     // TableModel interface
@@ -72,41 +99,6 @@ public class ExpressionTableModel extends AbstractTableModel {
     @Override
     public int getRowCount() {
         return rows.size();
-    }
-
-    @Override
-    public int getColumnCount() {
-        return columnModel.getColumnCount();
-    }
-
-    @Override
-    public String getColumnName(int columnIndex) {
-        String answer = null;
-        if (columnIndex < 0 || columnIndex >= columnModel.getColumnCount()) {
-            return answer;
-        }
-        Object value = columnModel.getColumn(columnIndex).getHeaderValue();
-        if (value != null) {
-            return value.toString();
-        }
-        return answer;
-    }
-
-    @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        Object answer = null;
-        if (rowIndex < 0 || rowIndex >= rows.size()) {
-            return answer;
-        }
-        if (columnIndex < 0 || columnIndex >= columnModel.getColumnCount()) {
-            return answer;
-        }
-        Object row = rows.get(rowIndex);;
-        ExpressionTableColumn column = (ExpressionTableColumn) columnModel.getColumn(columnIndex);
-        if (row == null || column == null) {
-            return answer;
-        }
-        return column.evaluateValue(this, row, rowIndex, columnIndex);
     }
 
     // Properties
@@ -120,36 +112,44 @@ public class ExpressionTableModel extends AbstractTableModel {
         return rows;
     }
 
-    /**
-     * Sets the list of rows.
-     * @param rows The rows to set
-     */
-    public void setRows(List rows) {
-        this.rows = rows;
+    @Override
+    public Object getValueAt(final int rowIndex, final int columnIndex) {
+        final Object answer = null;
+        if (rowIndex < 0 || rowIndex >= rows.size()) {
+            return answer;
+        }
+        if (columnIndex < 0 || columnIndex >= columnModel.getColumnCount()) {
+            return answer;
+        }
+        final Object row = rows.get(rowIndex);
+        final ExpressionTableColumn column = (ExpressionTableColumn) columnModel.getColumn(columnIndex);
+        if (row == null || column == null) {
+            return answer;
+        }
+        return column.evaluateValue(this, row, rowIndex, columnIndex);
     }
 
     /**
-     * Returns the context.
-     * @return JellyContext
+     * Removes a column definition from the table
      */
-    public JellyContext getContext() {
-        return context;
+    public void removeColumn(final ExpressionTableColumn column) {
+        columnModel.removeColumn(column);
     }
 
     /**
      * Sets the context.
      * @param context The context to set
      */
-    public void setContext(JellyContext context) {
+    public void setContext(final JellyContext context) {
         this.context = context;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected static class MyTableColumnModel extends DefaultTableColumnModel {
-        public List getColumnList() {
-            return tableColumns;
-        }
-    };
+    /**
+     * Sets the list of rows.
+     * @param rows The rows to set
+     */
+    public void setRows(final List rows) {
+        this.rows = rows;
+    }
 
 }

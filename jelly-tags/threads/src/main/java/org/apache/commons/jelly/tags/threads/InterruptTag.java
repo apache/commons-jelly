@@ -17,9 +17,9 @@
 
 package org.apache.commons.jelly.tags.threads;
 
-import org.apache.commons.jelly.XMLOutput;
-
 import java.util.List;
+
+import org.apache.commons.jelly.XMLOutput;
 
 /**
  * Interrupts a thread or thread group.
@@ -27,14 +27,16 @@ import java.util.List;
 
 public class InterruptTag extends UseThreadTag {
     /** Interrupt one thread */
-    protected void useThread(Thread thread, XMLOutput output) {
+    @Override
+    protected void useThread(final Thread thread, final XMLOutput output) {
         thread.interrupt();
     }
 
     /** Interrupt all of the threads in a group */
-    protected void useThreadGroup(List threadGroup, XMLOutput output) {
-        for (int i = 0; i < threadGroup.size(); i++) {
-            ((Thread) threadGroup.get(i)).interrupt();
+    @Override
+    protected void useThreadGroup(final List threadGroup, final XMLOutput output) {
+        for (final Object element : threadGroup) {
+            ((Thread) element).interrupt();
         }
     }
 }

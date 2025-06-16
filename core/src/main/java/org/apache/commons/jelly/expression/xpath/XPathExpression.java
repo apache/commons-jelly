@@ -33,11 +33,11 @@ import org.jaxen.XPath;
 import org.jaxen.dom4j.Dom4jXPath;
 
 /** An expression which returns an XPath object.
- */
+  */
 public class XPathExpression extends ExpressionSupport implements VariableContext {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(XPathExpression.class);
+    private final Log log = LogFactory.getLog(XPathExpression.class);
 
     private String text;
     private Expression xpathExpr;
@@ -47,13 +47,13 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     public XPathExpression() {
     }
 
-    public XPathExpression(String text,
-                           Expression xpathExpr,
-                           TagScript tagScript) {
+    public XPathExpression(final String text,
+                           final Expression xpathExpr,
+                           final TagScript tagScript) {
         this.text = text;
         this.xpathExpr = xpathExpr;
 
-        Map namespaceContext = tagScript.getNamespaceContext();
+        final Map namespaceContext = tagScript.getNamespaceContext();
 
         this.uris = createUriMap(namespaceContext);
     }
@@ -62,12 +62,12 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
      * Factory method to create a synchronized Map of non-null and non-blank
      * namespace prefixes to namespace URIs
      */
-    protected Map createUriMap(Map namespaceContext) {
+    protected Map createUriMap(final Map namespaceContext) {
         // now lets clone the Map but ignoring default or null prefixes
-        Map uris = new Hashtable(namespaceContext.size());
-        for (Iterator iter = namespaceContext.entrySet().iterator(); iter.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String prefix = (String) entry.getKey();
+        final Map uris = new Hashtable(namespaceContext.size());
+        for (final Iterator iter = namespaceContext.entrySet().iterator(); iter.hasNext(); ) {
+            final Map.Entry entry = (Map.Entry) iter.next();
+            final String prefix = (String) entry.getKey();
             if (prefix != null && prefix.length() != 0) {
                 uris.put(prefix, entry.getValue());
             }
@@ -76,12 +76,12 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     }
 
     @Override
-    public Object evaluate(JellyContext context) {
+    public Object evaluate(final JellyContext context) {
         this.context = context;
 
         try
         {
-            XPath xpath = new Dom4jXPath( this.xpathExpr.evaluateAsString( context ) );
+            final XPath xpath = new Dom4jXPath( this.xpathExpr.evaluateAsString( context ) );
 
             xpath.setVariableContext(this);
 
@@ -93,7 +93,7 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
 
             return xpath;
         }
-        catch (JaxenException e)
+        catch (final JaxenException e)
         {
             throw new IllegalStateException (e.getMessage(), e);
         }
@@ -110,11 +110,11 @@ public class XPathExpression extends ExpressionSupport implements VariableContex
     //-------------------------------------------------------------------------
     @Override
     public Object getVariableValue(
-            String namespaceURI,
-            String prefix,
-            String localName) {
+        final String namespaceURI,
+        final String prefix,
+        final String localName) {
 
-        Object value = context.getVariable(localName);
+        final Object value = context.getVariable(localName);
 
         //log.debug( "Looking up XPath variable of name: " + localName + " value is: " + value );
 

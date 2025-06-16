@@ -17,20 +17,20 @@
 
 package org.apache.commons.jelly;
 
-/** 
+/**
  * <p><code>JellyException</code> is the root of all Jelly exceptions.</p>
  */
 public class MissingAttributeException extends JellyTagException {
 
-    private String missingAttribute;
-    
+    private final String missingAttribute;
+
     // ### we may wish to implement a localized message for this error
-        
-    public MissingAttributeException(String missingAttribute) {
+
+    public MissingAttributeException(final String missingAttribute) {
         super( "You must define an attribute called '" + missingAttribute + "' for this tag." );
         this.missingAttribute = missingAttribute;
     }
-    
+
     public String getMissingAttribute() {
         return missingAttribute;
     }

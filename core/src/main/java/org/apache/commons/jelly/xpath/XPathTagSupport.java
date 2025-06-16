@@ -25,7 +25,7 @@ public abstract class XPathTagSupport extends TagSupport {
     // Implementation methods
     //-------------------------------------------------------------------------
     protected Object getXPathContext() {
-        XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );
+        final XPathSource tag = (XPathSource) findAncestorWithClass( XPathSource.class );
         if ( tag != null ) {
             return tag.getXPathSource();
         }

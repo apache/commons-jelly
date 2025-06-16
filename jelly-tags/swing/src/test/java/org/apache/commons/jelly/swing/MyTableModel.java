@@ -29,9 +29,6 @@ public class MyTableModel extends AbstractTableModel {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(MyTableModel.class);
 
-    public MyTableModel() {
-    }
-
     final String[] columnNames = {
         "First Name",
         "Last Name",
@@ -39,6 +36,7 @@ public class MyTableModel extends AbstractTableModel {
         "# of Years",
         "Vegetarian"
     };
+
     final Object[][] data = {
         {"Mary", "Campione",
          "Snowboarding", new Integer(5), new Boolean(false)},
@@ -51,25 +49,7 @@ public class MyTableModel extends AbstractTableModel {
         {"Angela", "Lih",
          "Teaching high school", new Integer(4), new Boolean(false)}
         };
-
-    @Override
-    public int getColumnCount() {
-        return columnNames.length;
-    }
-
-    @Override
-    public int getRowCount() {
-        return data.length;
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return columnNames[col];
-    }
-
-    @Override
-    public Object getValueAt(int row, int col) {
-        return data[row][col];
+    public MyTableModel() {
     }
 
     /*
@@ -79,8 +59,28 @@ public class MyTableModel extends AbstractTableModel {
      * rather than a check box.
      */
     @Override
-    public Class getColumnClass(int c) {
+    public Class getColumnClass(final int c) {
         return getValueAt(0, c).getClass();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return columnNames.length;
+    }
+
+    @Override
+    public String getColumnName(final int col) {
+        return columnNames[col];
+    }
+
+    @Override
+    public int getRowCount() {
+        return data.length;
+    }
+
+    @Override
+    public Object getValueAt(final int row, final int col) {
+        return data[row][col];
     }
 
     /*
@@ -88,14 +88,8 @@ public class MyTableModel extends AbstractTableModel {
      * editable.
      */
     @Override
-    public boolean isCellEditable(int row, int col) {
-        //Note that the data/cell address is constant,
-        //no matter where the cell appears onscreen.
-        if (col < 2) {
-            return false;
-        } else {
-            return true;
-        }
+    public boolean isCellEditable(final int row, final int col) {
+        return !(col < 2);
     }
 
     /*
@@ -103,7 +97,7 @@ public class MyTableModel extends AbstractTableModel {
      * data can change.
      */
     @Override
-    public void setValueAt(Object value, int row, int col) {
+    public void setValueAt(final Object value, final int row, final int col) {
         if (log.isDebugEnabled()) {
             log.debug("Setting value at " + row + "," + col
                                + " to " + value
@@ -123,7 +117,7 @@ public class MyTableModel extends AbstractTableModel {
             try {
                 data[row][col] = new Integer(value.toString());
                 fireTableCellUpdated(row, col);
-            } catch (NumberFormatException e) {
+            } catch (final NumberFormatException e) {
                 log.error( "The \"" + getColumnName(col)
                     + "\" column accepts only integer values.");
             }

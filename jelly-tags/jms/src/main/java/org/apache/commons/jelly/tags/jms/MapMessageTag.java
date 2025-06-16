@@ -19,9 +19,9 @@ package org.apache.commons.jelly.tags.jms;
 import java.util.Iterator;
 import java.util.Map;
 
-import javax.jms.Message;
-import javax.jms.MapMessage;
 import javax.jms.JMSException;
+import javax.jms.MapMessage;
+import javax.jms.Message;
 
 import org.apache.commons.jelly.JellyTagException;
 
@@ -32,12 +32,12 @@ public class MapMessageTag extends MessageTag {
     public MapMessageTag() {
     }
 
-    public void addEntry(String name, Object value) throws JellyTagException {
-        MapMessage message = (MapMessage) getMessage();
+    public void addEntry(final String name, final Object value) throws JellyTagException {
+        final MapMessage message = (MapMessage) getMessage();
         try {
             message.setObject(name, value);
         }
-        catch (JMSException e) {
+        catch (final JMSException e) {
             throw new JellyTagException(e);
         }
     }
@@ -45,33 +45,33 @@ public class MapMessageTag extends MessageTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * Sets the Map of entries to be used for this Map Message
-     */
-    public void setMap(Map map) throws JellyTagException {
-        MapMessage message = (MapMessage) getMessage();
-        for (Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            String name = entry.getKey().toString();
-            Object value = entry.getValue();
-
-            try {
-                message.setObject(name, value);
-            }
-            catch (JMSException e) {
-                throw new JellyTagException(e);
-            }
-        }
-    }
-
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override
     protected Message createMessage() throws JellyTagException {
         try {
             return getConnection().createMapMessage();
-        } catch (JMSException e) {
+        } catch (final JMSException e) {
             throw new JellyTagException(e);
+        }
+    }
+
+    /**
+     * Sets the Map of entries to be used for this Map Message
+     */
+    public void setMap(final Map map) throws JellyTagException {
+        final MapMessage message = (MapMessage) getMessage();
+        for (final Iterator iter = map.entrySet().iterator(); iter.hasNext(); ) {
+            final Map.Entry entry = (Map.Entry) iter.next();
+            final String name = entry.getKey().toString();
+            final Object value = entry.getValue();
+
+            try {
+                message.setObject(name, value);
+            }
+            catch (final JMSException e) {
+                throw new JellyTagException(e);
+            }
         }
     }
 }

@@ -39,7 +39,7 @@ public class TrTag extends TagSupport {
     private static final Log log = LogFactory.getLog(TrTag.class);
 
     private TableLayoutTag tableLayoutTag;
-    private List cells = new ArrayList();
+    private final List cells = new ArrayList();
     private int rowIndex;
 
     public TrTag() {
@@ -48,7 +48,7 @@ public class TrTag extends TagSupport {
     /**
      * Adds a new cell to this row
      */
-    public void addCell(Component component, GridBagConstraints constraints) throws JellyTagException {
+    public void addCell(final Component component, final GridBagConstraints constraints) throws JellyTagException {
         constraints.gridx = cells.size();
         cells.add(new Cell(constraints, component));
     }
@@ -68,9 +68,9 @@ public class TrTag extends TagSupport {
 
         // now iterate through the rows and add each one to the layout...
         int colIndex = 0;
-        for (Iterator iter = cells.iterator(); iter.hasNext(); ) {
-            Cell cell = (Cell) iter.next();
-            GridBagConstraints c = cell.getConstraints();
+        for (final Iterator iter = cells.iterator(); iter.hasNext(); ) {
+            final Cell cell = (Cell) iter.next();
+            final GridBagConstraints c = cell.getConstraints();
 
             // are we the last cell in the row
             if ( iter.hasNext() ) {

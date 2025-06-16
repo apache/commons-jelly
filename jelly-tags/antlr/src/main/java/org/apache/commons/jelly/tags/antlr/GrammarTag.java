@@ -17,9 +17,9 @@
 
 package org.apache.commons.jelly.tags.antlr;
 
-import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.JellyTagException;
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 
 public class GrammarTag extends TagSupport
 {
@@ -33,9 +33,9 @@ public class GrammarTag extends TagSupport
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException
     {
-        String grammar = getBodyText();
+        final String grammar = getBodyText();
 
-        AntlrTag antlr = (AntlrTag) findAncestorWithClass( AntlrTag.class );
+        final AntlrTag antlr = (AntlrTag) findAncestorWithClass( AntlrTag.class );
 
         if ( antlr == null )
         {

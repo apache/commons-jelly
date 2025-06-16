@@ -56,80 +56,17 @@ public class SessionTag extends TagSupport {
      * @throws JellyTagException when any error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
         if (_httpClient == null)
         {
             _httpClient = new HttpClient();
         }
-        
+
         if (isProxyAvailable()) {
             _httpClient.getHostConfiguration().setProxy(getProxyHost(), getProxyPort());
         }
 
         invokeBody(xmlOutput);
-    }
-
-    /**
-     * Getter for property httpClient.
-     *
-     * @return Value of property httpClient.
-     */
-    public HttpClient getHttpClient() {
-        return _httpClient;
-    }
-
-    /**
-     * Setter for property httpClient.
-     *
-     * @param httpClient New value of property httpClient.
-     */
-    public void setHttpClient(HttpClient httpClient) {
-        _httpClient = httpClient;
-    }
-    /**
-     * Tests whether the {@link #getProxy() proxy} is ready for use
-     *
-     * @return true if the {@link #getProxy() proxy} is configured for use
-     */
-    public boolean isProxyAvailable() {
-        return getProxy() != null && getProxy().getHost() != null
-            && getProxy().getPort() != Proxy.PORT_UNSPECIFIED;
-    }
-
-    /**
-     * Helper method for proxy host property
-     *
-     * @return the {@link #getProxy() proxy's} host property
-     */
-    public String getProxyHost() {
-        return getProxy().getHost();
-    }
-
-    /**
-     * Helper method for proxy <code>host</code> property
-     *
-     * @param host the {@link #getProxy() proxy's} host property
-     */
-    public void setProxyHost(String host) {
-        getProxy().setHost(host);
-    }
-
-    /**
-     * Helper method for proxy <code>port</code> property
-     *
-     * @return the {@link #getProxy() proxy's} port property
-     */
-    public int getProxyPort() {
-        return getProxy().getPort();
-    }
-
-    /**
-     * Helper method for proxy <code>port</code> property
-     *
-     * @param port the {@link #getProxy() proxy's} port property
-     */
-    public void setProxyPort(int port) {
-        getProxy().setPort(port);
     }
 
     /**
@@ -142,26 +79,18 @@ public class SessionTag extends TagSupport {
     }
 
     /**
-     * Setter for property host.
+     * Getter for property httpClient.
      *
-     * @param host New value of property host.
+     * @return Value of property httpClient.
      */
-    public void setHost(String host) {
-        _host = host;
+    public HttpClient getHttpClient() {
+        return _httpClient;
     }
-
     /** Getter for property port.
      * @return Value of property port.
      */
     public String getPort() {
         return _port;
-    }
-
-    /** Setter for property port.
-     * @param port New value of property port.
-     */
-    public void setPort(String port) {
-        _port = port;
     }
 
     /**
@@ -174,12 +103,38 @@ public class SessionTag extends TagSupport {
     }
 
     /**
-     * Setter for property proxy.
+     * Helper method for proxy host property
      *
-     * @param proxy New value of property proxy.
+     * @return the {@link #getProxy() proxy's} host property
      */
-    public void setProxy(Proxy proxy) {
-        _proxy = proxy;
+    public String getProxyHost() {
+        return getProxy().getHost();
+    }
+
+    /**
+     * Helper method for proxy <code>port</code> property
+     *
+     * @return the {@link #getProxy() proxy's} port property
+     */
+    public int getProxyPort() {
+        return getProxy().getPort();
+    }
+
+    /** Getter for property userAgent.
+     * @return Value of property userAgent.
+     */
+    public String getUserAgent() {
+        return _userAgent;
+    }
+
+    /**
+     * Tests whether the {@link #getProxy() proxy} is ready for use
+     *
+     * @return true if the {@link #getProxy() proxy} is configured for use
+     */
+    public boolean isProxyAvailable() {
+        return getProxy() != null && getProxy().getHost() != null
+            && getProxy().getPort() != Proxy.PORT_UNSPECIFIED;
     }
 
     /**
@@ -191,29 +146,6 @@ public class SessionTag extends TagSupport {
         return _secure;
     }
 
-    /**
-     * Setter for property secure.
-     *
-     * @param secure New value of property secure.
-     */
-    public void setSecure(boolean secure) {
-        _secure = secure;
-    }
-
-    /** Getter for property userAgent.
-     * @return Value of property userAgent.
-     */
-    public String getUserAgent() {
-        return _userAgent;
-    }
-
-    /** Setter for property userAgent.
-     * @param userAgent New value of property userAgent.
-     */
-    public void setUserAgent(String userAgent) {
-        _userAgent = userAgent;
-    }
-
     /** Getter for property strictMode.
      * @return Value of property strictMode.
      */
@@ -221,11 +153,79 @@ public class SessionTag extends TagSupport {
         return _strictMode;
     }
 
+    /**
+     * Setter for property host.
+     *
+     * @param host New value of property host.
+     */
+    public void setHost(final String host) {
+        _host = host;
+    }
+
+    /**
+     * Setter for property httpClient.
+     *
+     * @param httpClient New value of property httpClient.
+     */
+    public void setHttpClient(final HttpClient httpClient) {
+        _httpClient = httpClient;
+    }
+
+    /** Setter for property port.
+     * @param port New value of property port.
+     */
+    public void setPort(final String port) {
+        _port = port;
+    }
+
+    /**
+     * Setter for property proxy.
+     *
+     * @param proxy New value of property proxy.
+     */
+    public void setProxy(final Proxy proxy) {
+        _proxy = proxy;
+    }
+
+    /**
+     * Helper method for proxy <code>host</code> property
+     *
+     * @param host the {@link #getProxy() proxy's} host property
+     */
+    public void setProxyHost(final String host) {
+        getProxy().setHost(host);
+    }
+
+    /**
+     * Helper method for proxy <code>port</code> property
+     *
+     * @param port the {@link #getProxy() proxy's} port property
+     */
+    public void setProxyPort(final int port) {
+        getProxy().setPort(port);
+    }
+
+    /**
+     * Setter for property secure.
+     *
+     * @param secure New value of property secure.
+     */
+    public void setSecure(final boolean secure) {
+        _secure = secure;
+    }
+
     /** Setter for property strictMode.
      * @param strictMode New value of property strictMode.
      */
-    public void setStrictMode(boolean strictMode) {
+    public void setStrictMode(final boolean strictMode) {
         _strictMode = strictMode;
+    }
+
+    /** Setter for property userAgent.
+     * @param userAgent New value of property userAgent.
+     */
+    public void setUserAgent(final String userAgent) {
+        _userAgent = userAgent;
     }
 
 }

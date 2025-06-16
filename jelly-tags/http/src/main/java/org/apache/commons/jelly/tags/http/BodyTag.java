@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -44,24 +45,24 @@ public class BodyTag extends TagSupport {
      * @throws JellyTagException when any error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        HttpTagSupport httpTag = (HttpTagSupport) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final HttpTagSupport httpTag = (HttpTagSupport) findAncestorWithClass(
             HttpTagSupport.class);
 
         HttpMethod httpMethod = null;
         try {
             httpMethod = httpTag.getHttpMethod();
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyTagException(e);
         }
 
-        String bodyText = getBodyText();
+        final String bodyText = getBodyText();
         if (httpMethod instanceof PostMethod) {
-            PostMethod postMethod = (PostMethod) httpMethod;
-            postMethod.setRequestBody(bodyText);
+            final PostMethod postMethod = (PostMethod) httpMethod;
+            postMethod.setRequestEntity(new StringRequestEntity(bodyText));
         } else if (httpMethod instanceof PutMethod) {
-            PutMethod putMethod = (PutMethod) httpMethod;
-            putMethod.setRequestBody(bodyText);
+            final PutMethod putMethod = (PutMethod) httpMethod;
+            putMethod.setRequestEntity(new StringRequestEntity(bodyText));
         } else {
             throw new IllegalStateException("Http method from parent was "
                 + "not post or put");

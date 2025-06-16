@@ -31,7 +31,7 @@ public class MutexTag extends TagSupport {
 
     /** Create and set the mutex */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if (var == null) {
             throw new JellyTagException("mutexes require a var attribute");
         }
@@ -43,7 +43,7 @@ public class MutexTag extends TagSupport {
      * Sets the variable name to export
      * @param var The variable name
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

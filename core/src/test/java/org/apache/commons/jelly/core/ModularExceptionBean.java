@@ -26,44 +26,44 @@ import java.lang.reflect.Constructor;
  */
 public class ModularExceptionBean {
 
-    public static void main(String[] args) {
-        
-        ModularExceptionBean bean = new ModularExceptionBean();
+    public static void main(final String[] args) {
+
+        final ModularExceptionBean bean = new ModularExceptionBean();
         bean.setException(NullPointerException.class.getName());
-        
+
         try {
             bean.throwIt("Boooooooo");
-            
-        } catch ( Throwable e) {
+
+        } catch ( final Throwable e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    
+
+
     private String exception;
     public ModularExceptionBean(){
-        
+
     }
-    
+
     /**
      * @return the exception.
      */
     public String getException() {
         return exception;
     }
-    
-    
+
+
     /**
      * @param exception The exception to set.
      */
-    public void setException(String exception) {
+    public void setException(final String exception) {
         this.exception = exception;
     }
-    public void throwIt(String message) throws Throwable{
+    public void throwIt(final String message) throws Throwable{
         if ( exception != null ) {
-            Class clazz = Class.forName(exception);
-            Constructor c = clazz.getConstructor( new Class[] {String.class});
-            Object obj = c.newInstance(new Object[] {message});
+            final Class clazz = Class.forName(exception);
+            final Constructor c = clazz.getConstructor( new Class[] {String.class});
+            final Object obj = c.newInstance(new Object[] {message});
             throw (Throwable) obj;
         }
     }

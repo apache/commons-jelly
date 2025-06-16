@@ -28,39 +28,39 @@ public class Customer {
     private String name;
     private String city;
     private String location;
-    private List orders = new ArrayList();
+    private final List orders = new ArrayList();
 
     public Customer() {
     }
 
-    public Customer(Customer cust) {
+    public Customer(final Customer cust) {
         setName(cust.getName());
         setCity(cust.getCity());
         setLocation(cust.getLocation());
-        List list = cust.getOrders();
+        final List list = cust.getOrders();
         if (null != list) {
-            for(Iterator iter = list.iterator();iter.hasNext();) {
+            for(final Iterator iter = list.iterator();iter.hasNext();) {
                 addOrder((Order)iter.next());
             }
         }
     }
 
-    public Customer(String name) {
+    public Customer(final String name) {
         setName(name);
     }
 
-    public Customer(String name, String city) {
+    public Customer(final String name, final String city) {
         setName(name);
         setCity(city);
     }
 
-    public Customer(String name, String city, Order anOrder) {
+    public Customer(final String name, final String city, final Order anOrder) {
         setName(name);
         setCity(city);
         addOrder(anOrder);
     }
 
-    public void addOrder(Order order) {
+    public void addOrder(final Order order) {
         orders.add(order);
     }
 
@@ -99,7 +99,7 @@ public class Customer {
         return orders;
     }
 
-    public void removeOrder(Order order) {
+    public void removeOrder(final Order order) {
         orders.remove(order);
     }
 
@@ -107,7 +107,7 @@ public class Customer {
      * Sets the city.
      * @param city The city to set
      */
-    public void setCity(String city) {
+    public void setCity(final String city) {
         this.city = city;
     }
 
@@ -115,7 +115,7 @@ public class Customer {
      * Sets the location.
      * @param location The location to set
      */
-    public void setLocation(String location) {
+    public void setLocation(final String location) {
         this.location = location;
     }
 
@@ -123,7 +123,7 @@ public class Customer {
      * Sets the name.
      * @param name The name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 

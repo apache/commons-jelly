@@ -66,63 +66,15 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
     // Accessor methods
 
     /**
-     * Sets the name of the variable to hold the
-     * result.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Sets the scope of the variable to hold the
-     * result.
-     */
-    public void setScope(String scopeName) {
-        this.scope = scopeName;
-    }
-
-    /**
-     * Sets the SQL DataSource. DataSource can be
-     * a String or a DataSource object.
-     */
-    public void setDataSource(Object dataSource) {
-        this.rawDataSource = dataSource;
-        this.dataSourceSpecified = true;
-    }
-
-    /**
-     * Sets the SQL statement to use for the
-     * query. The statement may contain parameter markers
-     * (question marks, ?). If so, the parameter values must
-     * be set using nested value elements.
-     */
-    public void setSql(String sql) {
-        this.sql = sql;
-    }
-
-    //*********************************************************************
-    // Public utility methods
-
-    /**
      * Called by nested parameter elements to add PreparedStatement
      * parameter values.
      */
     @Override
-    public void addSQLParameter(Object o) {
+    public void addSQLParameter(final Object o) {
         if (parameters == null) {
             parameters = new ArrayList();
         }
         parameters.add(o);
-    }
-
-    //*********************************************************************
-    // Protected utility methods
-
-    /**
-     * @return true if there are SQL parameters
-     */
-    protected boolean hasParameters() {
-        return parameters != null && parameters.size() > 0;
     }
 
     protected void clearParameters() {
@@ -134,7 +86,7 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
         Connection conn = null;
         isPartOfTransaction = false;
 
-        TransactionTag parent =
+        final TransactionTag parent =
             (TransactionTag) findAncestorWithClass(TransactionTag.class);
         if (parent != null) {
             if (dataSourceSpecified) {
@@ -144,14 +96,14 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
             isPartOfTransaction = true;
         }
         else {
-            if ((rawDataSource == null) && dataSourceSpecified) {
+            if (rawDataSource == null && dataSourceSpecified) {
                 throw new JellyTagException(Resources.getMessage("SQL_DATASOURCE_NULL"));
             }
-            DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
+            final DataSource dataSource = DataSourceUtil.getDataSource(rawDataSource, context);
             try {
                 conn = dataSource.getConnection();
             }
-            catch (Exception ex) {
+            catch (final Exception ex) {
                 throw new JellyTagException(
                     Resources.getMessage("DATASOURCE_INVALID", ex.getMessage()));
             }
@@ -160,7 +112,29 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
         return conn;
     }
 
-    protected void setParameters(PreparedStatement ps)
+    /**
+     * @return true if there are SQL parameters
+     */
+    protected boolean hasParameters() {
+        return parameters != null && parameters.size() > 0;
+    }
+
+    //*********************************************************************
+    // Public utility methods
+
+    /**
+     * Sets the SQL DataSource. DataSource can be
+     * a String or a DataSource object.
+     */
+    public void setDataSource(final Object dataSource) {
+        this.rawDataSource = dataSource;
+        this.dataSourceSpecified = true;
+    }
+
+    //*********************************************************************
+    // Protected utility methods
+
+    protected void setParameters(final PreparedStatement ps)
         throws SQLException {
         if (parameters != null) {
             for (int i = 0; i < parameters.size(); i++) {
@@ -168,5 +142,31 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
                 ps.setObject(i + 1, parameters.get(i));
             }
         }
+    }
+
+    /**
+     * Sets the scope of the variable to hold the
+     * result.
+     */
+    public void setScope(final String scopeName) {
+        this.scope = scopeName;
+    }
+
+    /**
+     * Sets the SQL statement to use for the
+     * query. The statement may contain parameter markers
+     * (question marks, ?). If so, the parameter values must
+     * be set using nested value elements.
+     */
+    public void setSql(final String sql) {
+        this.sql = sql;
+    }
+
+    /**
+     * Sets the name of the variable to hold the
+     * result.
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

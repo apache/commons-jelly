@@ -34,11 +34,11 @@ public class MapEntryTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( name == null ) {
             throw new MissingAttributeException("name");
         }
-        MapMessageTag tag = (MapMessageTag) findAncestorWithClass( MapMessageTag.class );
+        final MapMessageTag tag = (MapMessageTag) findAncestorWithClass( MapMessageTag.class );
         if ( tag == null ) {
             throw new JellyTagException("<jms:mapEntry> tag must be within a <jms:mapMessage> tag");
         }
@@ -55,14 +55,14 @@ public class MapEntryTag extends TagSupport {
     //-------------------------------------------------------------------------
     /** Sets the name of the entry in the map message
       */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     /** Sets the value of the entry in the map message.
       * If no value is set then the body of the tag is used
       */
-    public void setValue(Object value) {
+    public void setValue(final Object value) {
         this.value = value;
     }
 }

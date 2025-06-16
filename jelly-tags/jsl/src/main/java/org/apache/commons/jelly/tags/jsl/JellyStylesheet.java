@@ -17,12 +17,8 @@
 package org.apache.commons.jelly.tags.jsl;
 
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import org.dom4j.Node;
-import org.dom4j.rule.Action;
 import org.dom4j.rule.Stylesheet;
 
 /**
@@ -32,19 +28,16 @@ import org.dom4j.rule.Stylesheet;
 public class JellyStylesheet extends Stylesheet {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(JellyStylesheet.class);
+    private final Log log = LogFactory.getLog(JellyStylesheet.class);
 
     private XMLOutput output;
 
     public JellyStylesheet() {
         setValueOfAction(
-            new Action() {
-                @Override
-                public void run(Node node) throws Exception {
-                    String text = node.getStringValue();
-                    if ( text != null && text.length() > 0 ) {
-                        getOutput().write( text );
-                    }
+            node -> {
+                final String text = node.getStringValue();
+                if ( text != null && text.length() > 0 ) {
+                    getOutput().write( text );
                 }
             }
         );
@@ -65,7 +58,7 @@ public class JellyStylesheet extends Stylesheet {
      * Sets the output.
      * @param output The output to set
      */
-    public void setOutput(XMLOutput output) {
+    public void setOutput(final XMLOutput output) {
         this.output = output;
     }
 

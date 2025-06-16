@@ -38,18 +38,18 @@ public class TestFileTag extends BaseJellyTest
         return new TestSuite(TestFileTag.class);
     }
 
-    public TestFileTag(String name)
+    public TestFileTag(final String name)
     {
         super(name);
     }
 
     public void testDom4Xmlns() throws SAXException {
-        StringWriter writer = new StringWriter();
-        OutputFormat format = new OutputFormat();
+        final StringWriter writer = new StringWriter();
+        final OutputFormat format = new OutputFormat();
         final XMLWriter xmlWriter = new HTMLWriter(writer, format);
         xmlWriter.setEscapeText(false);
 
-        XMLOutput output = new XMLOutput(xmlWriter, xmlWriter);
+        final XMLOutput output = new XMLOutput(xmlWriter, xmlWriter);
 
         String golden = "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n";
         golden += "<html>";
@@ -63,11 +63,11 @@ public class TestFileTag extends BaseJellyTest
     public void testSimpleFileTag() throws Exception
     {
         setUpScript("testFileTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         script.run(getJellyContext(), getXMLOutput());
 
-        String data = (String)getJellyContext().getVariable("testFileTag");
+        final String data = (String)getJellyContext().getVariable("testFileTag");
 
         //FIXME This doesn't take into account attribute ordering
         assertEquals("fully qualified attributes not passed",

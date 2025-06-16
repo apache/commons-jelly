@@ -17,10 +17,7 @@
 package org.apache.commons.jelly.tags.swt;
 
 import org.apache.commons.beanutils2.ConvertUtils;
-import org.apache.commons.jelly.JellyException;
-import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
-import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.tags.swt.converters.ColorConverter;
 import org.apache.commons.jelly.tags.swt.converters.PointConverter;
 import org.apache.commons.logging.Log;
@@ -71,7 +68,6 @@ import org.eclipse.swt.widgets.ToolItem;
 import org.eclipse.swt.widgets.Tracker;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.xml.sax.Attributes;
 
 /**
  * A Jelly custom tag library that creates SWT user interfaces
@@ -158,111 +154,66 @@ public class SwtTagLibrary extends TagLibrary {
     }
 
     /**
-     * Register a layout tag for the given name
-     */
-    protected void registerLayoutTag(String name, final Class layoutClass) {
-        registerTagFactory(
-            name,
-            new TagFactory() {
-                /**
-                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-                 */
-                @Override
-                public Tag createTag(String name, Attributes attributes)
-                    throws JellyException {
-                    return new LayoutTag(layoutClass);
-                }
-            }
-        );
-    }
-
-    /**
-     * Register a layout data tag for the given name
-     */
-    protected void registerLayoutDataTag(String name, final Class layoutDataClass) {
-        registerTagFactory(
-            name,
-            new TagFactory() {
-                /**
-                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-                 */
-                @Override
-                public Tag createTag(String name, Attributes attributes)
-                    throws JellyException {
-                    return new LayoutDataTag(layoutDataClass);
-                }
-            }
-        );
-    }
-
-    /**
-     * Register a widget tag for the given name
-     */
-    protected void registerWidgetTag(String name, Class widgetClass) {
-        registerWidgetTag(name, widgetClass, SWT.NULL);
-    }
-
-    /**
-     * Register a widget tag for the given name
-     */
-    protected void registerWidgetTag(String name, final Class widgetClass, final int style) {
-        registerTagFactory(
-            name,
-            new TagFactory() {
-                /**
-                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-                 */
-                @Override
-                public Tag createTag(String name, Attributes attributes)
-                    throws JellyException {
-                    return new WidgetTag(widgetClass, style);
-                }
-            }
-        );
-    }
-
-    /**
      * Register a registerDialogTag tag for the given name
      */
-    protected void registerDialogTag(String name, Class widgetClass) {
+    protected void registerDialogTag(final String name, final Class widgetClass) {
         registerDialogTag(name, widgetClass, SWT.NULL);
     }
 
     /**
        * Register a dialog tag for the given name
        */
-    protected void registerDialogTag(String name, final Class widgetClass, final int style) {
+    protected void registerDialogTag(final String name, final Class widgetClass, final int style) {
           registerTagFactory(
               name,
-              new TagFactory() {
-                  /**
-                   * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-                   */
-                  @Override
-                public Tag createTag(String name, Attributes attributes)
-                      throws JellyException {
-                      return new DialogTag(widgetClass, style);
-                  }
-              }
+              (name1, attributes) -> new DialogTag(widgetClass, style)
           );
       }
 
     /**
-     * Register a menu tag for the given name and style
+     * Register a layout data tag for the given name
      */
-    protected void registerMenuTag(String name, final int style) {
+    protected void registerLayoutDataTag(final String name, final Class layoutDataClass) {
         registerTagFactory(
             name,
-            new TagFactory() {
-                /**
-                 * @see org.apache.commons.jelly.impl.TagFactory#createTag(java.lang.String, org.xml.sax.Attributes)
-                 */
-                @Override
-                public Tag createTag(String name, Attributes attributes)
-                    throws JellyException {
-                    return new MenuTag(style);
-                }
-            }
+            (name1, attributes) -> new LayoutDataTag(layoutDataClass)
+        );
+    }
+
+    /**
+     * Register a layout tag for the given name
+     */
+    protected void registerLayoutTag(final String name, final Class layoutClass) {
+        registerTagFactory(
+            name,
+            (name1, attributes) -> new LayoutTag(layoutClass)
+        );
+    }
+
+    /**
+     * Register a menu tag for the given name and style
+     */
+    protected void registerMenuTag(final String name, final int style) {
+        registerTagFactory(
+            name,
+            (name1, attributes) -> new MenuTag(style)
+        );
+    }
+
+    /**
+     * Register a widget tag for the given name
+     */
+    protected void registerWidgetTag(final String name, final Class widgetClass) {
+        registerWidgetTag(name, widgetClass, SWT.NULL);
+    }
+
+    /**
+     * Register a widget tag for the given name
+     */
+    protected void registerWidgetTag(final String name, final Class widgetClass, final int style) {
+        registerTagFactory(
+            name,
+            (name1, attributes) -> new WidgetTag(widgetClass, style)
         );
     }
 

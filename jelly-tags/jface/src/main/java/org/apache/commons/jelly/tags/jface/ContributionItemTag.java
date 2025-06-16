@@ -28,7 +28,7 @@ import org.eclipse.jface.action.IContributionManager;
  */
 public class ContributionItemTag extends UseBeanTag {
 
-    public ContributionItemTag(Class arg0) {
+    public ContributionItemTag(final Class arg0) {
         super(arg0);
     }
 
@@ -36,14 +36,14 @@ public class ContributionItemTag extends UseBeanTag {
       * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
       */
     @Override
-    public void doTag(XMLOutput output)
+    public void doTag(final XMLOutput output)
         throws MissingAttributeException, JellyTagException {
 
         super.doTag(output);
 
-        Object bean = getBean();
+        final Object bean = getBean();
         if (bean != null && bean instanceof ContributionItem) {
-            IContributionManager cm = getParentContributionManager();
+            final IContributionManager cm = getParentContributionManager();
             if (cm != null) {
                 cm.add((ContributionItem) bean);
             }
@@ -55,7 +55,7 @@ public class ContributionItemTag extends UseBeanTag {
      * @return IContributionManager
      */
     protected IContributionManager getParentContributionManager() {
-        MenuManagerTag tag =
+        final MenuManagerTag tag =
             (MenuManagerTag) findAncestorWithClass(MenuManagerTag.class);
         if (tag != null) {
             return tag.getMenuManager();

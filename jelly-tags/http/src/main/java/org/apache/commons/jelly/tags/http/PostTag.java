@@ -18,6 +18,7 @@
 package org.apache.commons.jelly.tags.http;
 
 import java.net.MalformedURLException;
+
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
@@ -28,7 +29,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 public class PostTag extends HttpTagSupport {
 
     /** The post method */
-    protected PostMethod _postMethod;
+    private PostMethod _postMethod;
 
     /** Creates a new instance of PostTag */
     public PostTag() {
@@ -56,11 +57,10 @@ public class PostTag extends HttpTagSupport {
      *  {@link #getHttpMethod()}
      */
     @Override
-    protected void setParameters(HttpMethod method) {
-        NameValuePair nvp = null;
-        for (int index = 0; index < getParameters().size(); index++) {
-            NameValuePair parameter = (NameValuePair) getParameters().
-                    get(index);
+    protected void setParameters(final HttpMethod method) {
+        final NameValuePair nvp = null;
+        for (final Object element : getParameters()) {
+            final NameValuePair parameter = (NameValuePair) element;
             ((PostMethod) method).addParameter(parameter);
         }
     }

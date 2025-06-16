@@ -23,7 +23,7 @@ import org.apache.commons.jelly.tags.core.CoreTagLibrary;
   */
 public class BeanShellTagLibrary extends CoreTagLibrary {
 
-    private ExpressionFactory expressionFactory = new BeanShellExpressionFactory();
+    private final ExpressionFactory expressionFactory = new BeanShellExpressionFactory();
 
     public BeanShellTagLibrary() {
         registerTag("script", ScriptTag.class);

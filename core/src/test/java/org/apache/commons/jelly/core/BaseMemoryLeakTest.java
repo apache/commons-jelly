@@ -39,17 +39,17 @@ import junit.framework.TestCase;
  * To use it, extend it. Use the {@link runScriptManyTimes(String, int)}
  * method in your unit tests.
  *
- *  
+ *
  */
 public abstract class BaseMemoryLeakTest extends TestCase {
     private final static Log log = LogFactory.getLog(BaseMemoryLeakTest.class);
 
     /**
      * The JUnit constructor
-     * 
+     *
      * @param name
      */
-    public BaseMemoryLeakTest(String name) {
+    public BaseMemoryLeakTest(final String name) {
         super(name);
     }
 
@@ -59,11 +59,11 @@ public abstract class BaseMemoryLeakTest extends TestCase {
 
     /** Runs a script count times and reports the number of bytes "leaked".
      * Note that "leaked" means "not collected by the GC"
-     * and can easily be different between JVM's. This is because all 
+     * and can easily be different between JVM's. This is because all
      * freed references may not be available for GC in the short time
      * between their freeing and the completion of this test.
      * <p/>
-     * However, running a 
+     * However, running a
      * script 10,000 or 100,000 times should be a pretty good test
      * for a memory leak. If there's not too much memory "leaked",
      * you're probably OK.
@@ -74,22 +74,22 @@ public abstract class BaseMemoryLeakTest extends TestCase {
      * @throws SAXException
      * @throws JellyException
      */
-    public long runScriptManyTimes(String scriptName, int count)
+    public long runScriptManyTimes(final String scriptName, final int count)
             throws IOException, SAXException, JellyException {
-        Runtime rt = Runtime.getRuntime();
+        final Runtime rt = Runtime.getRuntime();
         JellyContext jc = new JellyContext();
         jc.setClassLoader(getClass().getClassLoader());
 
         XMLOutput output = XMLOutput.createDummyXMLOutput();
-        
-        URL url = this.getClass().getResource(scriptName);
 
-        String exturl = url.toExternalForm();
-        int lastSlash = exturl.lastIndexOf("/");
-        String extBase = exturl.substring(0,lastSlash+1);
-        URL baseurl = new URL(extBase);
+        final URL url = this.getClass().getResource(scriptName);
+
+        final String exturl = url.toExternalForm();
+        final int lastSlash = exturl.lastIndexOf("/");
+        final String extBase = exturl.substring(0,lastSlash+1);
+        final URL baseurl = new URL(extBase);
         jc.setCurrentURL(baseurl);
-        
+
         InputStream is = url.openStream();
         byte[] bytes = new byte[is.available()];
         is.read(bytes);
@@ -104,13 +104,13 @@ public abstract class BaseMemoryLeakTest extends TestCase {
         rt.runFinalization();
         rt.gc();
 
-        long start = rt.totalMemory() - rt.freeMemory();
+        final long start = rt.totalMemory() - rt.freeMemory();
         log.info("Starting memory test with used memory of " + start);
 
         XMLParser parser;
         Script script;
 
-        int outputEveryXIterations = outputEveryXIterations();
+        final int outputEveryXIterations = outputEveryXIterations();
 
         for (int i = 0; i < count; i++) {
             scriptIStream.reset();
@@ -118,10 +118,10 @@ public abstract class BaseMemoryLeakTest extends TestCase {
 
             script = parser.parse(scriptISource);
             script.run(jc, output);
-            // PL: I don't see why but removing the clear here 
+            // PL: I don't see why but removing the clear here
             //     does make the test fail!
             //     As if the WeakHashMap wasn't weak enough...
-            
+
             //Hans: The structure of the relationship
             //  between TagScript and Tag prevents WeakHashMap
             //  from working in this case, which is why I removed it.
@@ -130,15 +130,15 @@ public abstract class BaseMemoryLeakTest extends TestCase {
             if (outputEveryXIterations != 0 && i % outputEveryXIterations == 0) {
                 parser = null;
                 script = null;
-                
+
                 rt.runFinalization();
                 rt.gc();
-                long middle = rt.totalMemory() - rt.freeMemory();
+                final long middle = rt.totalMemory() - rt.freeMemory();
                 log.info("Memory test after " + i + " runs: "
                         + (middle - start));
             }
         }
-        
+
         rt.gc();
 
         jc = null;
@@ -151,10 +151,10 @@ public abstract class BaseMemoryLeakTest extends TestCase {
 
         rt.runFinalization();
         rt.gc();
-        
-        long nullsDone = rt.totalMemory() - rt.freeMemory();
+
+        final long nullsDone = rt.totalMemory() - rt.freeMemory();
         log.info("Memory test completed, memory \"leaked\": " + (nullsDone - start));
-        
+
         return nullsDone - start;
     }
 

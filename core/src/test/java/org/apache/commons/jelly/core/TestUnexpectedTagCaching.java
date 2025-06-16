@@ -60,7 +60,7 @@ public class TestUnexpectedTagCaching extends TestCase
 
     public static class WriteTag extends TagSupport
     {
-        private List m_strings = new ArrayList();
+        private final List m_strings = new ArrayList();
 
         public void addString( final String string )
         {
@@ -76,7 +76,7 @@ public class TestUnexpectedTagCaching extends TestCase
             {
                 output.write( getStrings().toString() );
             }
-            catch ( SAXException e )
+            catch ( final SAXException e )
             {
                 throw new JellyTagException( "Unable to write message", e );
             }

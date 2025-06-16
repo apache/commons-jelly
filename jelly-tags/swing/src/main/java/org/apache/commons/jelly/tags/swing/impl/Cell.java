@@ -30,7 +30,7 @@ public class Cell {
     public Cell() {
     }
 
-    public Cell(GridBagConstraints constraints, Component component) {
+    public Cell(final GridBagConstraints constraints, final Component component) {
         this.constraints = constraints;
         this.component = component;
     }
@@ -55,7 +55,7 @@ public class Cell {
      * Sets the component.
      * @param component The component to set
      */
-    public void setComponent(Component component) {
+    public void setComponent(final Component component) {
         this.component = component;
     }
 
@@ -63,7 +63,7 @@ public class Cell {
      * Sets the constraints.
      * @param constraints The constraints to set
      */
-    public void setConstraints(GridBagConstraints constraints) {
+    public void setConstraints(final GridBagConstraints constraints) {
         this.constraints = constraints;
     }
 

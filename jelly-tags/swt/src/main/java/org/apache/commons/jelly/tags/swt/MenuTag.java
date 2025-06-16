@@ -38,7 +38,7 @@ public class MenuTag extends WidgetTag {
         super(Menu.class);
     }
 
-    public MenuTag(int style) {
+    public MenuTag(final int style) {
         super(Menu.class, style);
     }
 
@@ -53,18 +53,18 @@ public class MenuTag extends WidgetTag {
      * @param widget is the new child widget to be attached to the parent
      */
     @Override
-    protected void attachWidgets(Object parent, Widget widget) {
-        Menu menu = (Menu) widget;
+    protected void attachWidgets(final Object parent, final Widget widget) {
+        final Menu menu = (Menu) widget;
         if (parent instanceof Decorations) {
-            Decorations shell = (Decorations) parent;
+            final Decorations shell = (Decorations) parent;
             shell.setMenuBar(menu);
         }
         else if (parent instanceof Control) {
-            Control control = (Control) parent;
+            final Control control = (Control) parent;
             control.setMenu(menu);
         }
         else if (parent instanceof MenuItem) {
-            MenuItem menuItem = (MenuItem) parent;
+            final MenuItem menuItem = (MenuItem) parent;
             menuItem.setMenu(menu);
         }
     }
@@ -73,26 +73,22 @@ public class MenuTag extends WidgetTag {
      * @see org.apache.commons.jelly.tags.swt.WidgetTag#createWidget(java.lang.Class, org.eclipse.swt.widgets.Widget, int)
      */
     @Override
-    protected Object createWidget(Class theClass, Widget parent, int style)
+    protected Object createWidget(final Class theClass, final Widget parent, final int style)
         throws JellyTagException {
 
         if (parent instanceof Decorations) {
             return super.createWidget(theClass, parent, style);
         }
-        else {
-            if (parent instanceof Menu) {
-                return new Menu((Menu) parent);
-            }
-            else if (parent instanceof MenuItem) {
-                return new Menu((MenuItem) parent);
-            }
-            else if (parent instanceof Control) {
-                return new Menu((Control) parent);
-            }
-            else {
-                throw new JellyTagException("This tag must be nested inside a <shell>, <menu>, <menuItem> or control tag");
-            }
+        if (parent instanceof Menu) {
+            return new Menu((Menu) parent);
         }
+        if (parent instanceof MenuItem) {
+            return new Menu((MenuItem) parent);
+        }
+        if (parent instanceof Control) {
+            return new Menu((Control) parent);
+        }
+        throw new JellyTagException("This tag must be nested inside a <shell>, <menu>, <menuItem> or control tag");
     }
 
 }

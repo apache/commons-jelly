@@ -22,7 +22,6 @@ import java.util.Map;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MapTagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -56,10 +55,24 @@ public class FontTag extends MapTagSupport {
     }
 */
 
+    /**
+     * Factory method to create a new Font based on the given properties
+     */
+    protected Font createFont(final Map map) {
+        log.info( "Creating font from properties: " + map );
+        final Font font = new Font(map);
+        //Font font = Font.getFont(map);
+        log.info( "Created font: " + font );
+        return font;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
-        Map attributes = getAttributes();
-        String var = (String) attributes.remove("var");
+        final Map attributes = getAttributes();
+        final String var = (String) attributes.remove("var");
 
         font = createFont(attributes);
 
@@ -68,37 +81,21 @@ public class FontTag extends MapTagSupport {
         }
         else {
             // now lets add this font to its parent if we have one
-            ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
-            if ( tag != null ) {
-                tag.setFont(font);
-            }
-            else {
+            final ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+            if ( tag == null ) {
                 throw new JellyTagException( "this tag must be nested within a JellySwing widget tag or the 'var' attribute must be specified" );
             }
+            tag.setFont(font);
         }
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the Font object for this tag
-     */
-    public Font getFont() {
-        return font;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * Factory method to create a new Font based on the given properties
+     * @return the Font object for this tag
      */
-    protected Font createFont(Map map) {
-        log.info( "Creating font from properties: " + map );
-        Font font = new Font(map);
-        //Font font = Font.getFont(map);
-        log.info( "Created font: " + font );
+    public Font getFont() {
         return font;
     }
 }

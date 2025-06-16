@@ -20,7 +20,7 @@ package org.apache.commons.jelly;
 import java.util.HashMap;
 import java.util.Map;
 
-/** 
+/**
  * <p><code>MapTag</code> is a DynaTag implementation which uses a Map
  * to store its attribute values in. Derived tags can then process this
  * Map, change values, add or remove attributes or perform some other form
@@ -41,7 +41,7 @@ public abstract class MapTagSupport extends DynaTagSupport {
         return new HashMap();
     }
 
-    /** 
+    /**
      * Helper method which allows derived tags to access the attributes
      * associated with this tag
      */
@@ -54,7 +54,7 @@ public abstract class MapTagSupport extends DynaTagSupport {
     /** Sets an attribute value of this tag before the tag is invoked
      */
     @Override
-    public void setAttribute(String name, Object value) {
+    public void setAttribute(final String name, final Object value) {
         getAttributes().put(name, value);
     }
 

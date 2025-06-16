@@ -32,7 +32,7 @@ public class TextScript implements Script {
     public TextScript() {
     }
 
-    public TextScript(String text) {
+    public TextScript(final String text) {
         this.text = text;
     }
 
@@ -50,18 +50,18 @@ public class TextScript implements Script {
 
     /** Evaluates the body of a tag */
     @Override
-    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
+    public void run(final JellyContext context, final XMLOutput output) throws JellyTagException {
         if (text != null) {
             try {
                 output.write(text);
-            } catch (SAXException e) {
+            } catch (final SAXException e) {
                 throw new JellyTagException("could not write to XMLOutput", e);
             }
         }
     }
 
     /** Sets the text output by this script */
-    public void setText(String text) {
+    public void setText(final String text) {
         this.text = text;
     }
 
@@ -76,7 +76,7 @@ public class TextScript implements Script {
     public void trimEndWhitespace() {
         int index = text.length();
         while (--index >= 0) {
-            char ch = text.charAt(index);
+            final char ch = text.charAt(index);
             if (!Character.isWhitespace(ch)) {
                 break;
             }
@@ -92,8 +92,8 @@ public class TextScript implements Script {
      */
     public void trimStartWhitespace() {
         int index = 0;
-        for ( int length = text.length(); index < length; index++ ) {
-            char ch = text.charAt(index);
+        for ( final int length = text.length(); index < length; index++ ) {
+            final char ch = text.charAt(index);
             if (!Character.isWhitespace(ch)) {
                 break;
             }

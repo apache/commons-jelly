@@ -20,20 +20,20 @@ package org.apache.commons.jelly;
 import org.xml.sax.SAXException;
 
 public class TJEcho extends TagSupport {
-	
+
 	public static final String TAG_NAME = "echo";
-	
+
 	private String id;
 	private String attr;
 	private String text;
 
 	@Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 		text = getBodyText();
-		String str = "id=" + id + "; attr=" + attr + "; text=" + text + "\n";
+		final String str = "id=" + id + "; attr=" + attr + "; text=" + text + "\n";
 		try {
 			output.characters(str.toCharArray(), 0, str.length());
-		}catch (SAXException e) {
+		}catch (final SAXException e) {
 			throw new JellyTagException();
 		}
 	}
@@ -55,14 +55,14 @@ public class TJEcho extends TagSupport {
 	/**
 	 * @param attr the attr to set
 	 */
-	public void setAttr(String attr) {
+	public void setAttr(final String attr) {
 		this.attr = attr;
 	}
 
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
