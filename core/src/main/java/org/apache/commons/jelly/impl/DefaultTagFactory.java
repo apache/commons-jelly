@@ -31,17 +31,17 @@ public class DefaultTagFactory implements TagFactory {
     public DefaultTagFactory() {
     }
 
-    public DefaultTagFactory(Class tagClass) {
+    public DefaultTagFactory(final Class tagClass) {
         this.tagClass = tagClass;
     }
 
     // TagFactory interface
     //-------------------------------------------------------------------------
     @Override
-    public Tag createTag(String name, Attributes attributes) throws JellyException {
+    public Tag createTag(final String name, final Attributes attributes) throws JellyException {
         try {
           return (Tag) tagClass.getConstructor().newInstance();
-        } catch (ReflectiveOperationException e) {
+        } catch (final ReflectiveOperationException e) {
             throw new JellyException(e.toString());
         }
     }
@@ -61,7 +61,7 @@ public class DefaultTagFactory implements TagFactory {
      * Sets the tagClass.
      * @param tagClass The tagClass to set
      */
-    public void setTagClass(Class tagClass) {
+    public void setTagClass(final Class tagClass) {
         this.tagClass = tagClass;
     }
 

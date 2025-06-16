@@ -21,9 +21,9 @@ package org.apache.commons.jelly.tags.swing;
  */
 public class BeanFactory implements Factory {
 
-    private Class beanClass;
+    private final Class beanClass;
 
-    public BeanFactory(Class beanClass) {
+    public BeanFactory(final Class beanClass) {
         this.beanClass = beanClass;
     }
 
@@ -34,7 +34,7 @@ public class BeanFactory implements Factory {
     public Object newInstance() throws InstantiationException {
         try {
           return beanClass.getConstructor().newInstance();
-        } catch (ReflectiveOperationException e) {
+        } catch (final ReflectiveOperationException e) {
             throw new InstantiationException(e.toString());
         }
     }

@@ -48,11 +48,11 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     // CollectionTag interface
     //-------------------------------------------------------------------------
     @Override
-    public void addItem(Object bean) throws JellyTagException {
+    public void addItem(final Object bean) throws JellyTagException {
         try {
             register(server, bean);
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException("Failed to register bean: " + bean, e);
         }
     }
@@ -60,12 +60,12 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException("name");
         }
         if (server == null) {
-            ServerTag serverTag = (ServerTag) findAncestorWithClass(ServerTag.class);
+            final ServerTag serverTag = (ServerTag) findAncestorWithClass(ServerTag.class);
             if (serverTag == null) {
                 throw new JellyTagException("This class must be nested inside a <server> tag");
             }
@@ -85,14 +85,6 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     }
 
     /**
-     * Sets the name.
-     * @param name The name to set
-     */
-    public void setName(ObjectName name) {
-        this.name = name;
-    }
-
-    /**
      * @return MBeanServer
      */
     public MBeanServer getServer() {
@@ -100,23 +92,31 @@ public class RegisterTag extends TagSupport implements CollectionTag {
     }
 
     /**
-     * Sets the MBeanServer. If this attribute is not supplied then the parent &lt;server&gt; tag
-     * is used to get the MBeanServer instance to use.
-     *
-     * @param server The MBeanServer to register the mbeans with.
+     * Registers the given bean with the MBeanServer
      */
-    public void setServer(MBeanServer server) {
-        this.server = server;
+    protected void register(final MBeanServer server, final Object bean) throws InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+        server.registerMBean(bean, getName());
+    }
+
+    /**
+     * Sets the name.
+     * @param name The name to set
+     */
+    public void setName(final ObjectName name) {
+        this.name = name;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * Registers the given bean with the MBeanServer
+     * Sets the MBeanServer. If this attribute is not supplied then the parent &lt;server&gt; tag
+     * is used to get the MBeanServer instance to use.
+     *
+     * @param server The MBeanServer to register the mbeans with.
      */
-    protected void register(MBeanServer server, Object bean) throws InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
-        server.registerMBean(bean, getName());
+    public void setServer(final MBeanServer server) {
+        this.server = server;
     }
 
 }

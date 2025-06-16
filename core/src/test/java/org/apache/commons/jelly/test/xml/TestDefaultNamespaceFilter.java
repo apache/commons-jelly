@@ -40,7 +40,7 @@ public class TestDefaultNamespaceFilter extends TestCase {
 
     XMLOutput xmlOutput = null;
 
-    public TestDefaultNamespaceFilter(String name) {
+    public TestDefaultNamespaceFilter(final String name) {
         super(name);
     }
 
@@ -51,8 +51,8 @@ public class TestDefaultNamespaceFilter extends TestCase {
 
         jelly = new Jelly();
 
-        String script = "nsFilterTest.jelly";
-        URL url = this.getClass().getResource(script);
+        final String script = "nsFilterTest.jelly";
+        final URL url = this.getClass().getResource(script);
         if ( url == null ) {
             throw new Exception(
                 "Could not find Jelly script: " + script
@@ -64,14 +64,14 @@ public class TestDefaultNamespaceFilter extends TestCase {
 
     public void testNamespaceDefined() throws Exception {
         jelly.setDefaultNamespaceURI("jelly:core");
-        Script script = jelly.compileScript();
+        final Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have set 'usedDefaultNamespace' variable",
                    context.getVariable("usedDefaultNamespace") != null);
     }
 
     public void testNamespaceNotDefined() throws Exception {
-        Script script = jelly.compileScript();
+        final Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should not have set 'usedDefaultNamespace' variable",
                    context.getVariable("usedDefaultNamespace") == null);

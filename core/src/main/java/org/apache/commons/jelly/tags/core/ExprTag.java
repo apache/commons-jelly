@@ -37,15 +37,15 @@ public class ExprTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         if (value != null) {
-            String text = value.evaluateAsString(context);
+            final String text = value.evaluateAsString(context);
             if (text != null) {
 
                 try {
                     output.write(text);
                 }
-                catch (SAXException e) {
+                catch (final SAXException e) {
                     throw new JellyTagException("could not write the XMLOutput", e);
                 }
             }
@@ -60,7 +60,7 @@ public class ExprTag extends TagSupport {
      *
      * @param value required
      */
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 }

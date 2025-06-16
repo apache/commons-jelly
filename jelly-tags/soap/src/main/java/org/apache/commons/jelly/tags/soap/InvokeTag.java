@@ -47,10 +47,17 @@ public class InvokeTag extends TagSupport {
     public InvokeTag() {
     }
 
+    /**
+     * Factory method to create a new default Service instance
+     */
+    protected Service createService() {
+        return new Service();
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (endpoint == null) {
             throw new MissingAttributeException("endpoint");
         }
@@ -76,7 +83,7 @@ public class InvokeTag extends TagSupport {
 
         Object answer = null;
         try {
-            Call call = (Call) service.createCall();
+            final Call call = (Call) service.createCall();
 
             // @todo Jelly should have native support for URL and QName
             // directly on properties
@@ -87,99 +94,17 @@ public class InvokeTag extends TagSupport {
                 call.setUsername( userName );
                 call.setPassword( password );
             }
-            
+
             answer = call.invoke(params);
-        } catch (MalformedURLException e) {
-            throw new JellyTagException(e);
-        } catch (ServiceException e) {
-            throw new JellyTagException(e);
-        } catch (RemoteException e) {
+        } catch (final MalformedURLException | ServiceException | RemoteException e) {
             throw new JellyTagException(e);
         }
 
-        if (var != null) {
-            context.setVariable(var, answer);
-        } else {
+        if (var == null) {
             // should turn the answer into XML events...
             throw new JellyTagException( "Not implemented yet; should stream results as XML events. Results: " + answer );
         }
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-    /**
-     * Sets the end point to which the invocation will occur
-     */
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    /**
-     * Sets the namespace of the operation
-     */
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
-    }
-
-    public void setMethod(String method) {
-        this.method = method;
-    }
-
-    /**
-     * Returns the service to be used by this web service invocation.
-     * @return Service
-     */
-    public Service getService() {
-        return service;
-    }
-
-    /**
-     * Sets the service to be used by this invocation.
-     * If none is specified then a default is used.
-     */
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    /**
-     * Sets the name of the variable to output the results of the SOAP call to.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Sets the parameters for this SOAP call. This can be an array or collection of
-     * SOAPBodyElements or types.
-     */
-    public void setParams(Object params) {
-        this.params = params;
-    }
-
-    /**
-     * Sets the password for the SOAP call.
-     */
-    public void setPassword(String password)
-    {
-        this.password = password;
-    }
-
-    /**
-     * Sets the user name for the SOAP call.
-     */
-    public void setUsername(String userName)
-    {
-        this.userName = userName;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a new default Service instance
-     */
-    protected Service createService() {
-        return new Service();
+        context.setVariable(var, answer);
     }
 
     /**
@@ -194,10 +119,80 @@ public class InvokeTag extends TagSupport {
             return (Object[]) params;
         }
         if (params instanceof Collection) {
-            Collection coll = (Collection) params;
+            final Collection coll = (Collection) params;
             return coll.toArray();
         }
         // lets just wrap the current object inside an array
         return new Object[] { params };
+    }
+
+    /**
+     * Returns the service to be used by this web service invocation.
+     * @return Service
+     */
+    public Service getService() {
+        return service;
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+    /**
+     * Sets the end point to which the invocation will occur
+     */
+    public void setEndpoint(final String endpoint) {
+        this.endpoint = endpoint;
+    }
+
+    public void setMethod(final String method) {
+        this.method = method;
+    }
+
+    /**
+     * Sets the namespace of the operation
+     */
+    public void setNamespace(final String namespace) {
+        this.namespace = namespace;
+    }
+
+    /**
+     * Sets the parameters for this SOAP call. This can be an array or collection of
+     * SOAPBodyElements or types.
+     */
+    public void setParams(final Object params) {
+        this.params = params;
+    }
+
+    /**
+     * Sets the password for the SOAP call.
+     */
+    public void setPassword(final String password)
+    {
+        this.password = password;
+    }
+
+    /**
+     * Sets the service to be used by this invocation.
+     * If none is specified then a default is used.
+     */
+    public void setService(final Service service) {
+        this.service = service;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * Sets the user name for the SOAP call.
+     */
+    public void setUsername(final String userName)
+    {
+        this.userName = userName;
+    }
+
+    /**
+     * Sets the name of the variable to output the results of the SOAP call to.
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

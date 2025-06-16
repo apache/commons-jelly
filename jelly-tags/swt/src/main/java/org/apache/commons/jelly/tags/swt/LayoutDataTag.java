@@ -37,7 +37,7 @@ public class LayoutDataTag extends LayoutTagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(LayoutDataTag.class);
 
-    public LayoutDataTag(Class layoutDataClass) {
+    public LayoutDataTag(final Class layoutDataClass) {
         super(layoutDataClass);
     }
 
@@ -45,21 +45,18 @@ public class LayoutDataTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Either defines a variable or adds the current component to the parent
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
     @Override
-    protected void processBean(String var, Object bean)
+    protected Object convertValue(final Object bean, final String name, final Object value)
         throws JellyTagException {
-        super.processBean(var, bean);
 
-        Widget parent = getParentWidget();
-
-        if (parent instanceof Control) {
-            Control control = (Control) parent;
-            control.setLayoutData(getBean());
-        } else {
-            throw new JellyTagException("This tag must be nested within a control widget tag");
+        if (bean instanceof GridData && name.endsWith("Alignment") && value instanceof String) {
+            final int style =
+                SwtHelper.parseStyle(bean.getClass(), (String) value);
+            return new Integer(style);
         }
+        return super.convertValue(bean, name, value);
     }
 
     /**
@@ -67,31 +64,25 @@ public class LayoutDataTag extends LayoutTagSupport {
      */
     @Override
     protected Object newInstance(
-        Class theClass,
-        Map attributes,
-        XMLOutput output)
+        final Class theClass,
+        final Map attributes,
+        final XMLOutput output)
         throws JellyTagException {
 
-        String text = (String) attributes.remove("style");
+        final String text = (String) attributes.remove("style");
         if (text != null) {
-            int style = SwtHelper.parseStyle(theClass, text);
+            final int style = SwtHelper.parseStyle(theClass, text);
 
             // now lets try invoke a constructor
-            Class[] types = { int.class };
+            final Class[] types = { int.class };
 
             try {
-                Constructor constructor = theClass.getConstructor(types);
+                final Constructor constructor = theClass.getConstructor(types);
                 if (constructor != null) {
-                    Object[] values = { new Integer(style)};
+                    final Object[] values = { new Integer(style)};
                     return constructor.newInstance(values);
                 }
-            } catch (NoSuchMethodException e) {
-                throw new JellyTagException(e);
-            } catch (InstantiationException e) {
-                throw new JellyTagException(e);
-            } catch (IllegalAccessException e) {
-                throw new JellyTagException(e);
-            } catch (InvocationTargetException e) {
+            } catch (final NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -99,20 +90,20 @@ public class LayoutDataTag extends LayoutTagSupport {
     }
 
     /**
-     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     * Either defines a variable or adds the current component to the parent
      */
     @Override
-    protected Object convertValue(Object bean, String name, Object value)
+    protected void processBean(final String var, final Object bean)
         throws JellyTagException {
+        super.processBean(var, bean);
 
-        if (bean instanceof GridData) {
-            if (name.endsWith("Alignment") && value instanceof String) {
-                int style =
-                    SwtHelper.parseStyle(bean.getClass(), (String) value);
-                return new Integer(style);
-            }
+        final Widget parent = getParentWidget();
+
+        if (!(parent instanceof Control)) {
+            throw new JellyTagException("This tag must be nested within a control widget tag");
         }
-        return super.convertValue(bean, name, value);
+        final Control control = (Control) parent;
+        control.setLayoutData(getBean());
     }
 
 }

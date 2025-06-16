@@ -38,9 +38,9 @@ public class ExtendTag extends DefineTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        DynamicTagLibrary library = getTagLibrary();
-        DynamicTagLibrary owner = library.find(getName());
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final DynamicTagLibrary library = getTagLibrary();
+        final DynamicTagLibrary owner = library.find(getName());
         if (owner == null) {
             throw new JellyTagException(
                 "Cannot extend " + getName() + ": dynamic tag not defined");
@@ -72,17 +72,17 @@ public class ExtendTag extends DefineTagSupport {
     }
 
     /**
-     * Sets the name of the tag to create
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Returns the parent implementation of this tag
      */
     public Script getSuperScript() {
         return superScript;
+    }
+
+    /**
+     * Sets the name of the tag to create
+     */
+    public void setName(final String name) {
+        this.name = name;
     }
 }
 

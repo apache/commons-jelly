@@ -17,14 +17,13 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
+import java.io.IOException;
+import java.net.URL;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.HashUserRealm;
-
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * Declare a user realm for a Jetty http server
@@ -50,8 +49,8 @@ public class RealmTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
             JettyHttpServerTag.class);
         if ( httpserver == null ) {
             throw new JellyTagException( "<realm> tag must be enclosed inside a <server> tag" );
@@ -63,9 +62,9 @@ public class RealmTag extends TagSupport {
         // convert the config string to a URL
         // (this makes URL's relative to the location of the script
         try {
-            URL configURL = getContext().getResource(getConfig());
+            final URL configURL = getContext().getResource(getConfig());
             httpserver.addRealm( new HashUserRealm(getName(), configURL.toString() ) );
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new JellyTagException(e);
         }
 
@@ -77,24 +76,6 @@ public class RealmTag extends TagSupport {
     //--------------------------------------------------------------------------
 
     /**
-     * Getter for property name.
-     *
-     * @return value of property name.
-     */
-    public String getName() {
-        return _name;
-    }
-
-    /**
-     * Setter for property name.
-     *
-     * @param name New value of property name.
-     */
-    public void setName(String name) {
-        _name = name;
-    }
-
-    /**
      * Getter for property config.
      *
      * @return value of property config.
@@ -104,12 +85,30 @@ public class RealmTag extends TagSupport {
     }
 
     /**
+     * Getter for property name.
+     *
+     * @return value of property name.
+     */
+    public String getName() {
+        return _name;
+    }
+
+    /**
      * Setter for property config.
      *
      * @param config New value of property config.
      */
-    public void setConfig(String config) {
+    public void setConfig(final String config) {
         _config = config;
+    }
+
+    /**
+     * Setter for property name.
+     *
+     * @param name New value of property name.
+     */
+    public void setName(final String name) {
+        _name = name;
     }
 
 }

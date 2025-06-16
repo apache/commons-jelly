@@ -45,7 +45,7 @@ public class TestIncludeTag extends TestCase {
          * @return
          */
         @Override
-        public TagLibrary getTagLibrary(String namespaceURI)  {
+        public TagLibrary getTagLibrary(final String namespaceURI)  {
             if (namespaceURI.equals("jelly:core")) {
                 return super.getTagLibrary(namespaceURI);
             }
@@ -63,12 +63,12 @@ public class TestIncludeTag extends TestCase {
 
     XMLOutput xmlOutput = null;
 
-    public TestIncludeTag(String name) {
+    public TestIncludeTag(final String name) {
         super(name);
     }
 
-    public void setUp(String scriptName) throws Exception {
-        URL url = this.getClass().getResource(scriptName);
+    public void setUp(final String scriptName) throws Exception {
+        final URL url = this.getClass().getResource(scriptName);
         if ( url == null ) {
             throw new Exception(
                 "Could not find Jelly script: " + scriptName
@@ -78,7 +78,7 @@ public class TestIncludeTag extends TestCase {
         setUpFromURL(url);
     }
 
-    public void setUpFromURL(URL url) throws Exception {
+    public void setUpFromURL(final URL url) throws Exception {
         context = new CoreTaglibOnlyContext();
         xmlOutput = XMLOutput.createDummyXMLOutput();
 
@@ -86,10 +86,10 @@ public class TestIncludeTag extends TestCase {
 
         jelly.setUrl(url);
 
-        String exturl = url.toExternalForm();
-        int lastSlash = exturl.lastIndexOf("/");
-        String extBase = exturl.substring(0,lastSlash+1);
-        URL baseurl = new URL(extBase);
+        final String exturl = url.toExternalForm();
+        final int lastSlash = exturl.lastIndexOf("/");
+        final String extBase = exturl.substring(0,lastSlash+1);
+        final URL baseurl = new URL(extBase);
         context.setCurrentURL(baseurl);
     }
 
@@ -102,7 +102,7 @@ public class TestIncludeTag extends TestCase {
     public void testFileInclude() throws Exception {
         // testing outermost
         setUpFromURL(new URL("file:src/test/resources/org/apache/commons/jelly/core/a.jelly"));
-        Script script = jelly.compileScript();
+        final Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have set 'c' variable to 'true'",
                    context.getVariable("c").equals("true"));
@@ -115,7 +115,7 @@ public class TestIncludeTag extends TestCase {
     public void testInnermost() throws Exception {
         // performs no includes
         setUp("c.jelly");
-        Script script = jelly.compileScript();
+        final Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have set 'c' variable to 'true'",
                    context.getVariable("c").equals("true"));
@@ -124,7 +124,7 @@ public class TestIncludeTag extends TestCase {
     public void testMiddle() throws Exception {
         // performs one include
         setUp("b.jelly");
-        Script script = jelly.compileScript();
+        final Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have set 'c' variable to 'true'",
                    context.getVariable("c").equals("true"));
@@ -135,7 +135,7 @@ public class TestIncludeTag extends TestCase {
     public void testOutermost() throws Exception {
         // performs one nested include
         setUp("a.jelly");
-        Script script = jelly.compileScript();
+        final Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have set 'c' variable to 'true'",
                    context.getVariable("c").equals("true"));

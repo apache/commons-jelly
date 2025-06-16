@@ -17,19 +17,17 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
+import java.io.IOException;
+import java.net.URL;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.HttpContext;
 import org.mortbay.http.HttpHandler;
 import org.mortbay.http.SecurityConstraint;
 import org.mortbay.http.SecurityConstraint.Authenticator;
 import org.mortbay.util.Resource;
-
-import java.io.IOException;
-import java.net.URL;
-import java.net.MalformedURLException;
 
 /**
  * Declare a context for a Jetty http server
@@ -46,12 +44,32 @@ public class HttpContextTag extends TagSupport {
     private String _realmName;
 
     /** The actual context this tag refers to */
-    private HttpContext _context;
+    private final HttpContext _context;
 
     /** Creates a new instance of HttpContextTag */
     public HttpContextTag() {
         // create an actual context for this tag
         _context = new HttpContext();
+    }
+
+    /**
+     * Add an http handler to the context instance
+     *
+     * @param httpHandler the handler to add
+     */
+    public void addHandler(final HttpHandler httpHandler) {
+        _context.addHandler(httpHandler);
+    }
+
+    /**
+     * Add a security constraint for the specified path specification
+     * to the context instance
+     *
+     * @param pathSpec the path specification for the security constraint
+     * @param sc the security constraint to add
+     */
+    public void addSecurityConstraint(final String pathSpec, final SecurityConstraint sc) {
+        _context.addSecurityConstraint(pathSpec, sc);
     }
 
     /**
@@ -62,9 +80,9 @@ public class HttpContextTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
 
-        JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
+        final JettyHttpServerTag httpserver = (JettyHttpServerTag) findAncestorWithClass(
             JettyHttpServerTag.class);
         if ( httpserver == null ) {
             throw new JellyTagException( "<httpContext> tag must be enclosed inside a <server> tag" );
@@ -78,13 +96,10 @@ public class HttpContextTag extends TagSupport {
         // convert the resource string to a URL
         // (this makes URL's relative to the location of the script
         try {
-            URL baseResourceURL = getContext().getResource(getResourceBase());
+            final URL baseResourceURL = getContext().getResource(getResourceBase());
             _context.setBaseResource(Resource.newResource(baseResourceURL));
         }
-        catch (MalformedURLException e) {
-            throw new JellyTagException(e);
-        }
-        catch (IOException e) {
+        catch (final IOException e) {
             throw new JellyTagException(e);
         }
 
@@ -93,36 +108,6 @@ public class HttpContextTag extends TagSupport {
         }
         httpserver.addContext(_context);
 
-    }
-
-    /**
-     * Add an http handler to the context instance
-     *
-     * @param httpHandler the handler to add
-     */
-    public void addHandler(HttpHandler httpHandler) {
-        _context.addHandler(httpHandler);
-    }
-
-    /**
-     * Add a security constraint for the specified path specification
-     * to the context instance
-     *
-     * @param pathSpec the path specification for the security constraint
-     * @param sc the security constraint to add
-     */
-    public void addSecurityConstraint(String pathSpec, SecurityConstraint sc) {
-        _context.addSecurityConstraint(pathSpec, sc);
-    }
-
-    /**
-     * Add an authenticator to the context instance
-     *
-     * @param authenticator the authenticator to add
-     */
-    public void setAuthenticator(Authenticator authenticator)
-    {
-        _context.setAuthenticator(authenticator);
     }
 
     //--------------------------------------------------------------------------
@@ -138,12 +123,12 @@ public class HttpContextTag extends TagSupport {
     }
 
     /**
-     * Setter for property context path.
+     * Getter for property realm name.
      *
-     * @param contextPath New resourceBase of property context path.
+     * @return value of property realm name.
      */
-    public void setContextPath(String contextPath) {
-        _contextPath = contextPath;
+    public String getRealmName() {
+        return _realmName;
     }
 
     /**
@@ -156,21 +141,22 @@ public class HttpContextTag extends TagSupport {
     }
 
     /**
-     * Setter for property resourceBase.
+     * Add an authenticator to the context instance
      *
-     * @param resourceBase New value of property resourceBase.
+     * @param authenticator the authenticator to add
      */
-    public void setResourceBase(String resourceBase) {
-        _resourceBase = resourceBase;
+    public void setAuthenticator(final Authenticator authenticator)
+    {
+        _context.setAuthenticator(authenticator);
     }
 
     /**
-     * Getter for property realm name.
+     * Setter for property context path.
      *
-     * @return value of property realm name.
+     * @param contextPath New resourceBase of property context path.
      */
-    public String getRealmName() {
-        return _realmName;
+    public void setContextPath(final String contextPath) {
+        _contextPath = contextPath;
     }
 
     /**
@@ -178,8 +164,17 @@ public class HttpContextTag extends TagSupport {
      *
      * @param realmName New realm name.
      */
-    public void setRealmName(String realmName) {
+    public void setRealmName(final String realmName) {
         _realmName = realmName;
+    }
+
+    /**
+     * Setter for property resourceBase.
+     *
+     * @param resourceBase New value of property resourceBase.
+     */
+    public void setResourceBase(final String resourceBase) {
+        _resourceBase = resourceBase;
     }
 
 }

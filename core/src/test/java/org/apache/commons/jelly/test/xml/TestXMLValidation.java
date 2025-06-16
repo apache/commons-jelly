@@ -42,18 +42,18 @@ public class TestXMLValidation extends TestCase {
 
     XMLOutput xmlOutput = null;
 
-    public TestXMLValidation(String name) {
+    public TestXMLValidation(final String name) {
         super(name);
     }
 
-    public void setUp(String scriptName) throws Exception {
+    public void setUp(final String scriptName) throws Exception {
         context = new JellyContext();
         xmlOutput = XMLOutput.createXMLOutput(new StringWriter());
 
         jelly = new Jelly();
 
-        String script = scriptName;
-        URL url = this.getClass().getResource(script);
+        final String script = scriptName;
+        final URL url = this.getClass().getResource(script);
         if ( url == null ) {
             throw new Exception(
                 "Could not find Jelly script: " + script
@@ -87,7 +87,7 @@ public class TestXMLValidation extends TestCase {
         try {
             jelly.compileScript();
             fail("Invalid scripts should throw JellyException on parse");
-        } catch (JellyException e) {
+        } catch (final JellyException e) {
         }
     }
 
@@ -95,7 +95,7 @@ public class TestXMLValidation extends TestCase {
         // with validation
         setUp("validScript1.jelly");
         jelly.setValidateXML(true);
-        Script script = jelly.compileScript();
+        final Script script = jelly.compileScript();
         script.run(context,xmlOutput);
         assertTrue("should have set 'foo' variable to 'bar'",
                    context.getVariable("foo").equals("bar"));

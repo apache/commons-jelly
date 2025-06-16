@@ -16,12 +16,12 @@
  */
 package org.apache.commons.jelly.tags.beanshell;
 
-import bsh.EvalError;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
+
+import bsh.EvalError;
 
 /** Represents a factory of <a href="http://www.beanshell.org">beanshell</a> expressions
   */
@@ -30,14 +30,14 @@ public class BeanShellExpressionFactory implements ExpressionFactory {
     /**
      * A helper method to return the JellyInterpreter for the given JellyContext
      */
-    public static JellyInterpreter getInterpreter(JellyContext context) throws EvalError {
+    public static JellyInterpreter getInterpreter(final JellyContext context) throws EvalError {
 
         /**
          * @todo when we can unify the BeanShell and Jelly variable scopes we can share a single
          * BeanShell context for each JellyContext.
          * For now lets create a new one each time, which is slower.
          */
-        JellyInterpreter interpreter = new JellyInterpreter();
+        final JellyInterpreter interpreter = new JellyInterpreter();
         interpreter.setJellyContext(context);
         return interpreter;
 /*
@@ -55,7 +55,7 @@ public class BeanShellExpressionFactory implements ExpressionFactory {
     // ExpressionFactory interface
     //-------------------------------------------------------------------------
     @Override
-    public Expression createExpression(String text) throws JellyException {
+    public Expression createExpression(final String text) throws JellyException {
         return new BeanShellExpression(text);
     }
 }

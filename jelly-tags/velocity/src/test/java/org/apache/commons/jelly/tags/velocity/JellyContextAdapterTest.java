@@ -32,7 +32,15 @@ import junit.framework.TestSuite;
  */
 public class JellyContextAdapterTest extends TestCase
 {
+    /**
+     * @return the suite of tests being tested
+     */
+    public static Test suite()
+    {
+        return new TestSuite( JellyContextAdapterTest.class );
+    }
     JellyContext jellyContext;
+
     JellyContextAdapter adapter;
 
     /**
@@ -40,17 +48,9 @@ public class JellyContextAdapterTest extends TestCase
      *
      * @param testName name of the test case
      */
-    public JellyContextAdapterTest( String testName )
+    public JellyContextAdapterTest( final String testName )
     {
         super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( JellyContextAdapterTest.class );
     }
 
     @Override
@@ -83,22 +83,50 @@ public class JellyContextAdapterTest extends TestCase
     }
 
     /**
-     * Test that items can be added and retrieved from a read-write
-     * adapter.  Also verify the key/value pair was actually inserted
-     * into the JellyContext.
+     * Test the containsKey method in a read-only adapter.
      */
-    public void testReadWritePut()
+    public void testReadOnlyContainsKey()
     {
-        Object value = new Object();
+        final Object value1= new Object();
+        final Object value2 = new Object();
 
-        adapter.setReadOnly( false );
-        adapter.put( "key", value );
+        adapter.setReadOnly( true );
+        adapter.put( "key1", value1 );
+        jellyContext.setVariable( "key2", value2 );
 
-        assertTrue( "adapter: did not return the original value",
-                adapter.get( "key" ) == value );
+        assertTrue( "adapter: did not contain the key",
+                adapter.containsKey( "key1" ) );
 
-        assertTrue( "jellyContext: did not return the original value",
-                jellyContext.getVariable( "key" ) == value );
+        assertTrue( "adapter: should not contain the key",
+                adapter.containsKey( "key2" ) );
+
+        assertTrue( "jellyContext: should not contain the key",
+                jellyContext.getVariable( "key1" ) == null );
+    }
+
+    /**
+     * Test the getKeys method of a read-only adapter.
+     */
+    public void testReadOnlyGetKeys()
+    {
+        final Object value1 = new Object();
+        final Object value2 = new Object();
+        final Object value3 = new Object();
+
+        adapter.setReadOnly( true );
+        adapter.put( "key1", value1 );
+        adapter.put( "key2", value2 );
+        jellyContext.setVariable( "key3", value3 );
+
+        final Set expectedKeys = new HashSet();
+        expectedKeys.add( "key1" );
+        expectedKeys.add( "key2" );
+
+        final Set actualKeys = new HashSet();
+        CollectionUtils.addAll(actualKeys, adapter.getKeys());
+
+        assertTrue( "adapter: does not contain the correct key set",
+                actualKeys.containsAll( expectedKeys ) );
     }
 
     /**
@@ -108,7 +136,7 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadOnlyPut()
     {
-        Object value = new Object();
+        final Object value = new Object();
 
         adapter.setReadOnly( true );
         adapter.put( "key", value );
@@ -121,42 +149,17 @@ public class JellyContextAdapterTest extends TestCase
     }
 
     /**
-     * Test that items can be removed from a read-write context.  Also
-     * verify that the item is removed from the JellyContext.
-     */
-    public void testReadWriteRemove()
-    {
-        Object value = new Object();
-
-        adapter.setReadOnly( false );
-        adapter.put( "key", value );
-        Object oldValue = adapter.remove( "key" );
-
-        assertTrue( "Value returned from remove() is not the original",
-                value == oldValue );
-
-        assertTrue( "adapter: after removal of key, value should be null",
-                adapter.get( "key" ) == null );
-
-        assertTrue( "jellyContext: after removal of key, value should be null",
-                jellyContext.getVariable( "key" ) == null );
-
-        assertTrue( "Removal of non-existent key should return null",
-                adapter.remove( "non-existent key" ) == null );
-    }
-
-    /**
      * Test that items can be removed from a read-only context.  Also
      * verify that the JellyContext is not impacted by removal of keys.
      */
     public void testReadOnlyRemove()
     {
-        Object value = new Object();
+        final Object value = new Object();
 
         adapter.setReadOnly( true );
         adapter.put( "key", value );
 
-        Object oldValue = adapter.remove( "key" );
+        final Object oldValue = adapter.remove( "key" );
 
         assertTrue( "Value returned from remove() is not the original",
                 value == oldValue );
@@ -178,8 +181,8 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadOnlyShadowingRemove()
     {
-        Object value1 = new Object();
-        Object value2 = new Object();
+        final Object value1 = new Object();
+        final Object value2 = new Object();
 
         adapter.setReadOnly( true );
         adapter.put( "key", value1 );
@@ -202,8 +205,8 @@ public class JellyContextAdapterTest extends TestCase
      */
     public void testReadWriteContainsKey()
     {
-        Object value1 = new Object();
-        Object value2 = new Object();
+        final Object value1 = new Object();
+        final Object value2 = new Object();
 
         adapter.setReadOnly( false );
         adapter.put( "key1", value1 );
@@ -220,47 +223,25 @@ public class JellyContextAdapterTest extends TestCase
     }
 
     /**
-     * Test the containsKey method in a read-only adapter.
-     */
-    public void testReadOnlyContainsKey()
-    {
-        Object value1= new Object();
-        Object value2 = new Object();
-
-        adapter.setReadOnly( true );
-        adapter.put( "key1", value1 );
-        jellyContext.setVariable( "key2", value2 );
-
-        assertTrue( "adapter: did not contain the key",
-                adapter.containsKey( "key1" ) );
-
-        assertTrue( "adapter: should not contain the key",
-                adapter.containsKey( "key2" ) );
-
-        assertTrue( "jellyContext: should not contain the key",
-                jellyContext.getVariable( "key1" ) == null );
-    }
-
-    /**
      * Test the getKeys method of a read-write adapter.
      */
     public void testReadWriteGetKeys()
     {
-        Object value1 = new Object();
-        Object value2 = new Object();
-        Object value3 = new Object();
+        final Object value1 = new Object();
+        final Object value2 = new Object();
+        final Object value3 = new Object();
 
         adapter.setReadOnly( false );
         adapter.put( "key1", value1 );
         adapter.put( "key2", value2 );
         jellyContext.setVariable( "key3", value3 );
 
-        Set expectedKeys = new HashSet();
+        final Set expectedKeys = new HashSet();
         expectedKeys.add( "key1" );
         expectedKeys.add( "key2" );
         expectedKeys.add( "key3" );
 
-        Set actualKeys = new HashSet();
+        final Set actualKeys = new HashSet();
         CollectionUtils.addAll(actualKeys, adapter.getKeys());
 
         assertTrue( "adapter: does not contain the correct key set",
@@ -268,27 +249,46 @@ public class JellyContextAdapterTest extends TestCase
     }
 
     /**
-     * Test the getKeys method of a read-only adapter.
+     * Test that items can be added and retrieved from a read-write
+     * adapter.  Also verify the key/value pair was actually inserted
+     * into the JellyContext.
      */
-    public void testReadOnlyGetKeys()
+    public void testReadWritePut()
     {
-        Object value1 = new Object();
-        Object value2 = new Object();
-        Object value3 = new Object();
+        final Object value = new Object();
 
-        adapter.setReadOnly( true );
-        adapter.put( "key1", value1 );
-        adapter.put( "key2", value2 );
-        jellyContext.setVariable( "key3", value3 );
+        adapter.setReadOnly( false );
+        adapter.put( "key", value );
 
-        Set expectedKeys = new HashSet();
-        expectedKeys.add( "key1" );
-        expectedKeys.add( "key2" );
+        assertTrue( "adapter: did not return the original value",
+                adapter.get( "key" ) == value );
 
-        Set actualKeys = new HashSet();
-        CollectionUtils.addAll(actualKeys, adapter.getKeys());
+        assertTrue( "jellyContext: did not return the original value",
+                jellyContext.getVariable( "key" ) == value );
+    }
 
-        assertTrue( "adapter: does not contain the correct key set",
-                actualKeys.containsAll( expectedKeys ) );
+    /**
+     * Test that items can be removed from a read-write context.  Also
+     * verify that the item is removed from the JellyContext.
+     */
+    public void testReadWriteRemove()
+    {
+        final Object value = new Object();
+
+        adapter.setReadOnly( false );
+        adapter.put( "key", value );
+        final Object oldValue = adapter.remove( "key" );
+
+        assertTrue( "Value returned from remove() is not the original",
+                value == oldValue );
+
+        assertTrue( "adapter: after removal of key, value should be null",
+                adapter.get( "key" ) == null );
+
+        assertTrue( "jellyContext: after removal of key, value should be null",
+                jellyContext.getVariable( "key" ) == null );
+
+        assertTrue( "Removal of non-existent key should return null",
+                adapter.remove( "non-existent key" ) == null );
     }
 }

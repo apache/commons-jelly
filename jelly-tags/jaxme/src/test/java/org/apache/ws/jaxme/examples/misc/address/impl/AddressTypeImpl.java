@@ -5,9 +5,9 @@
 * The ASF licenses this file to You under the Apache License, Version 2.0
 * (the "License"); you may not use this file except in compliance with
 * the License.  You may obtain a copy of the License at
-* 
+*
 *      https://www.apache.org/licenses/LICENSE-2.0
-* 
+*
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
     public static class NameTypeImpl implements org.apache.ws.jaxme.examples.misc.address.AddressType.NameType {
 
         private String first;
-        private java.util.List middle = new java.util.ArrayList();
+        private final java.util.List middle = new java.util.ArrayList();
         private String last;
         private String initials;
 
@@ -32,13 +32,8 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
         }
 
         @Override
-        public void setFirst(String first) {
-            this.first = first;
-        }
-
-        @Override
-        public java.util.List getMiddle() {
-            return middle;
+        public String getInitials() {
+            return initials;
         }
 
         @Override
@@ -47,18 +42,23 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
         }
 
         @Override
-        public void setLast(String last) {
-            this.last = last;
+        public java.util.List getMiddle() {
+            return middle;
         }
 
         @Override
-        public String getInitials() {
-            return initials;
+        public void setFirst(final String first) {
+            this.first = first;
         }
 
         @Override
-        public void setInitials(String initials) {
+        public void setInitials(final String initials) {
             this.initials = initials;
+        }
+
+        @Override
+        public void setLast(final String last) {
+            this.last = last;
         }
     }
 
@@ -71,17 +71,17 @@ public class AddressTypeImpl implements org.apache.ws.jaxme.examples.misc.addres
     }
 
     @Override
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Override
     public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName() {
         return name;
     }
 
     @Override
-    public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType name) {
+    public void setId(final String id) {
+        this.id = id;
+    }
+
+    @Override
+    public void setName(final org.apache.ws.jaxme.examples.misc.address.AddressType.NameType name) {
         this.name = name;
     }
 }

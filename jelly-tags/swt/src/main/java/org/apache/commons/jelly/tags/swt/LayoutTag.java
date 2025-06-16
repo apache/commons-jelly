@@ -34,7 +34,7 @@ public class LayoutTag extends LayoutTagSupport {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(LayoutTag.class);
 
-    public LayoutTag(Class layoutClass) {
+    public LayoutTag(final Class layoutClass) {
         super(layoutClass);
     }
 
@@ -42,52 +42,50 @@ public class LayoutTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the Layout if there is one otherwise null
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
      */
-    public Layout getLayout() {
-        Object bean = getBean();
-        if (bean instanceof Layout) {
-            return (Layout) bean;
+    @Override
+    protected Object convertValue(final Object bean, final String name, final Object value)
+        throws JellyTagException {
+
+        if (bean instanceof FillLayout
+            && name.equals("type")
+            && value instanceof String) {
+            final int style = SwtHelper.parseStyle(SWT.class, (String) value);
+            return new Integer(style);
         }
-        return null;
+        return super.convertValue(bean, name, value);
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * Either defines a variable or adds the current component to the parent
+     * @return the Layout if there is one otherwise null
      */
-    @Override
-    protected void processBean(String var, Object bean)
-        throws JellyTagException {
-        super.processBean(var, bean);
-
-        Widget parent = getParentWidget();
-
-        if (parent instanceof Composite) {
-            Composite composite = (Composite) parent;
-            composite.setLayout(getLayout());
-
-        } else {
-            throw new JellyTagException("This tag must be nested within a composite widget tag");
+    public Layout getLayout() {
+        final Object bean = getBean();
+        if (bean instanceof Layout) {
+            return (Layout) bean;
         }
+        return null;
     }
 
     /**
-     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     * Either defines a variable or adds the current component to the parent
      */
     @Override
-    protected Object convertValue(Object bean, String name, Object value)
+    protected void processBean(final String var, final Object bean)
         throws JellyTagException {
+        super.processBean(var, bean);
 
-        if (bean instanceof FillLayout
-            && name.equals("type")
-            && value instanceof String) {
-            int style = SwtHelper.parseStyle(SWT.class, (String) value);
-            return new Integer(style);
+        final Widget parent = getParentWidget();
+
+        if (!(parent instanceof Composite)) {
+            throw new JellyTagException("This tag must be nested within a composite widget tag");
         }
-        return super.convertValue(bean, name, value);
+        final Composite composite = (Composite) parent;
+        composite.setLayout(getLayout());
     }
 
 }

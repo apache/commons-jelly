@@ -1,5 +1,11 @@
 package org.apache.commons.jelly.tags.ant;
 
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+import java.util.Properties;
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -7,30 +13,24 @@ package org.apache.commons.jelly.tags.ant;
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      https://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.util.JavaEnvUtils;
 
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
-import java.util.Properties;
-
 /** Implements the basic {@link org.apache.commons.jelly.tags.ant.PropsHandler} functionality
  *  against an existing map.
- * 
+ *
  * <p>
- * If extending <code>DefaultPropsHandler</code>, you can 
+ * If extending <code>DefaultPropsHandler</code>, you can
  * implement <code>setProperty</code>, <code>getProperty</code>,
  * and <code>getProperties</code> to provide a complete
  * implementation of <code>PropsHandler</code>.
@@ -46,7 +46,7 @@ public class DefaultPropsHandler implements PropsHandler {
 
     /** A history of the properties marked as inherited properties. */
     protected Map inheritedProperties = new HashMap();
-    
+
     /** Initializes hte object with a blank set of properties.
      */
     public DefaultPropsHandler() {
@@ -56,78 +56,51 @@ public class DefaultPropsHandler implements PropsHandler {
     /** Initializes the object with a given <code>Map</code>
      * implementation.
      *
-     * @param properties The <code>Map</code> to use to store and retrieve properties. 
+     * @param properties The <code>Map</code> to use to store and retrieve properties.
      */
-    public DefaultPropsHandler(Map properties) {
+    public DefaultPropsHandler(final Map properties) {
         this.properties = properties;
     }
 
     /**
-     * @see PropsHandler#setProperty(String, String)
+     * @see PropsHandler#copyInheritedProperties(Project)
      */
     @Override
-    public void setProperty(String key, String value) {
-        this.properties.put(key, value);
-    }
+    public void copyInheritedProperties(final Project other) {
+        final Hashtable inheritedProps = this.getInheritedProperties();
 
-    /**
-     * @see PropsHandler#setUserProperty(String, String)
-     */
-    @Override
-    public void setUserProperty(String key, String value) {
-        this.userProperties.put(key, value);
-        this.setProperty(key, value);
-    }
-
-    /**
-     * @see PropsHandler#setNewProperty(String, String)
-     */
-    @Override
-    public void setNewProperty(String key, String value) {
-        if (this.getProperty(key) == null) {
-            this.setProperty(key, value);
+        final Enumeration e = inheritedProps.keys();
+        while (e.hasMoreElements()) {
+            final String name = e.nextElement().toString();
+            if (other.getUserProperty(name) != null) {
+                continue;
+            }
+            final Object value = inheritedProps.get(name);
+            other.setInheritedProperty(name, value.toString());
         }
     }
 
     /**
-     * @see PropsHandler#setInheritedProperty(String, String)
+     * @see PropsHandler#copyUserProperties(Project)
      */
     @Override
-    public void setInheritedProperty(String key, String value) {
-        this.inheritedProperties.put(key, value);
-        this.setUserProperty(key, value);
-    }
+    public void copyUserProperties(final Project other) {
+        final Hashtable userProps = this.getUserProperties();
+        final Hashtable inheritedProps = this.getInheritedProperties();
 
-    /**
-     * @see PropsHandler#setPropertyIfUndefinedByUser(String, String)
-     */
-    @Override
-    public void setPropertyIfUndefinedByUser(String key, String value) {
-        if (!this.getUserProperties().contains(key)) {
-            this.setProperty(key, value);
+        final Enumeration e = userProps.keys();
+        while (e.hasMoreElements()) {
+            final Object name = e.nextElement();
+            if (inheritedProps.contains(name)) {
+                continue;
+            }
+            final Object value = userProps.get(name);
+            other.setUserProperty(name.toString(), value.toString());
         }
     }
 
-    /**
-     * @see PropsHandler#getProperty(String)
-     */
-    @Override
-    public String getProperty(String key) {
-        if (key == null) {
-            return null;
-        }
-        return (String) this.properties.get(key);
-    }
-
-    /**
-     * @see PropsHandler#getUserProperty(String)
-     */
-    @Override
-    public String getUserProperty(String key) {
-        if (key == null) {
-            return null;
-        }
-        return (String) this.userProperties.get(key);
+    public Hashtable getInheritedProperties() {
+        return new Hashtable(this.inheritedProperties);
     }
 
     /**
@@ -139,66 +112,42 @@ public class DefaultPropsHandler implements PropsHandler {
     }
 
     /**
+     * @see PropsHandler#getProperty(String)
+     */
+    @Override
+    public String getProperty(final String key) {
+        if (key == null) {
+            return null;
+        }
+        return (String) this.properties.get(key);
+    }
+
+    /**
      * @see PropsHandler#getUserProperties()
      */
     @Override
     public Hashtable getUserProperties() {
         return new Hashtable(this.userProperties);
     }
-    
-    public Hashtable getInheritedProperties() {
-        return new Hashtable(this.inheritedProperties);
-    }
-    
+
     /**
-     * @see PropsHandler#copyUserProperties(Project)
+     * @see PropsHandler#getUserProperty(String)
      */
     @Override
-    public void copyUserProperties(Project other) {
-        Hashtable userProps = this.getUserProperties();
-        Hashtable inheritedProps = this.getInheritedProperties();
-        
-        Enumeration e = userProps.keys();
-        while (e.hasMoreElements()) {
-            Object name = e.nextElement();
-            if (inheritedProps.contains(name)) {
-                continue;
-            }
-            Object value = userProps.get(name);
-            other.setUserProperty(name.toString(), value.toString());
+    public String getUserProperty(final String key) {
+        if (key == null) {
+            return null;
         }
+        return (String) this.userProperties.get(key);
     }
 
     /**
-     * @see PropsHandler#copyInheritedProperties(Project)
+     * @see PropsHandler#setInheritedProperty(String, String)
      */
     @Override
-    public void copyInheritedProperties(Project other) {
-        Hashtable inheritedProps = this.getInheritedProperties();
-        
-        Enumeration e = inheritedProps.keys();
-        while (e.hasMoreElements()) {
-            String name = e.nextElement().toString();
-            if (other.getUserProperty(name) != null) {
-                continue;
-            }
-            Object value = inheritedProps.get(name);
-            other.setInheritedProperty(name, value.toString());
-        }
-    }
-    
-    /**
-     * @see PropsHandler#setSystemProperties
-     */
-    @Override
-    public void setSystemProperties() {
-        Properties systemProps = System.getProperties();
-        Enumeration e = systemProps.keys();
-        while (e.hasMoreElements()) {
-            Object name = e.nextElement();
-            String value = systemProps.get(name).toString();
-            this.setPropertyIfUndefinedByUser(name.toString(), value);
-        }
+    public void setInheritedProperty(final String key, final String value) {
+        this.inheritedProperties.put(key, value);
+        this.setUserProperty(key, value);
     }
 
     /**
@@ -206,7 +155,58 @@ public class DefaultPropsHandler implements PropsHandler {
      */
     @Override
     public void setJavaVersionProperty() {
-        String javaVersion = JavaEnvUtils.getJavaVersion();
+        final String javaVersion = JavaEnvUtils.getJavaVersion();
         this.setPropertyIfUndefinedByUser("ant.java.version", javaVersion);
+    }
+
+    /**
+     * @see PropsHandler#setNewProperty(String, String)
+     */
+    @Override
+    public void setNewProperty(final String key, final String value) {
+        if (this.getProperty(key) == null) {
+            this.setProperty(key, value);
+        }
+    }
+
+    /**
+     * @see PropsHandler#setProperty(String, String)
+     */
+    @Override
+    public void setProperty(final String key, final String value) {
+        this.properties.put(key, value);
+    }
+
+    /**
+     * @see PropsHandler#setPropertyIfUndefinedByUser(String, String)
+     */
+    @Override
+    public void setPropertyIfUndefinedByUser(final String key, final String value) {
+        if (!this.getUserProperties().contains(key)) {
+            this.setProperty(key, value);
+        }
+    }
+
+    /**
+     * @see PropsHandler#setSystemProperties
+     */
+    @Override
+    public void setSystemProperties() {
+        final Properties systemProps = System.getProperties();
+        final Enumeration e = systemProps.keys();
+        while (e.hasMoreElements()) {
+            final Object name = e.nextElement();
+            final String value = systemProps.get(name).toString();
+            this.setPropertyIfUndefinedByUser(name.toString(), value);
+        }
+    }
+
+    /**
+     * @see PropsHandler#setUserProperty(String, String)
+     */
+    @Override
+    public void setUserProperty(final String key, final String value) {
+        this.userProperties.put(key, value);
+        this.setProperty(key, value);
     }
 }

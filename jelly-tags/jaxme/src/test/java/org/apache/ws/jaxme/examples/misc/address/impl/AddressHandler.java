@@ -5,9 +5,9 @@
 * The ASF licenses this file to You under the Apache License, Version 2.0
 * (the "License"); you may not use this file except in compliance with
 * the License.  You may obtain a copy of the License at
-* 
+*
 *      https://www.apache.org/licenses/LICENSE-2.0
-* 
+*
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,7 @@ public class AddressHandler extends org.apache.ws.jaxme.examples.misc.address.im
 protected org.apache.ws.jaxme.examples.misc.address.AddressType newResult() throws org.xml.sax.SAXException {
     try {
       return (org.apache.ws.jaxme.examples.misc.address.AddressType) getData().getFactory().getElement(org.apache.ws.jaxme.examples.misc.address.Address.class);
-    } catch (javax.xml.bind.JAXBException _1) {
+    } catch (final javax.xml.bind.JAXBException _1) {
       throw new org.xml.sax.SAXException(_1);
     }
   }

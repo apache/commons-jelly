@@ -35,25 +35,25 @@ public class ObjectMessageTag extends MessageTag {
     // Properties
     //-------------------------------------------------------------------------
 
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    @Override
+    protected Message createMessage() throws JellyTagException {
+        final Serializable value = object != null ? object : getBodyText();
+        try {
+            return getConnection().createObjectMessage(value);
+        }
+        catch (final JMSException e) {
+            throw new JellyTagException(e);
+        }
+    }
+
     /**
      * Sets the body of the message, a serializable java object.
      * If this value is not set or the value is null then the content
      * of the tag will be used instead.
      */
-    public void setObject(Serializable object) {
+    public void setObject(final Serializable object) {
         this.object = object;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    @Override
-    protected Message createMessage() throws JellyTagException {
-        Serializable value = (object != null) ? object : getBodyText();
-        try {
-            return getConnection().createObjectMessage(value);
-        }
-        catch (JMSException e) {
-            throw new JellyTagException(e);
-        }
     }
 }

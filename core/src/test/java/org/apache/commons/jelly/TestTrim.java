@@ -29,7 +29,7 @@ import junit.textui.TestRunner;
  */
 public class TestTrim extends TestCase {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
 
@@ -37,7 +37,7 @@ public class TestTrim extends TestCase {
         return new TestSuite(TestTrim.class);
     }
 
-    public TestTrim(String testName) {
+    public TestTrim(final String testName) {
         super(testName);
     }
 

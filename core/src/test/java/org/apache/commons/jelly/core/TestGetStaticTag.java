@@ -31,7 +31,7 @@ public class TestGetStaticTag extends BaseJellyTest {
         return new TestSuite(TestGetStaticTag.class);
     }
 
-    public TestGetStaticTag(String name) {
+    public TestGetStaticTag(final String name) {
         super(name);
     }
 
@@ -44,7 +44,7 @@ public class TestGetStaticTag extends BaseJellyTest {
 
         setUpScript( "testGetStaticTag.jelly" );
 
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         getJellyContext().setVariable( "test.Integer.MAX_VALUE",
                                        Boolean.TRUE );
@@ -63,13 +63,13 @@ public class TestGetStaticTag extends BaseJellyTest {
 
         setUpScript( "testGetStaticTag.jelly" );
 
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         getJellyContext().setVariable( "test.InvalidGet", Boolean.TRUE );
 
         try {
             script.run( getJellyContext(), getXMLOutput() );
-        } catch (JellyTagException jte) {
+        } catch (final JellyTagException jte) {
             return;
         }
 

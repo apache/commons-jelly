@@ -30,7 +30,7 @@ public class TestInvokeStaticTag extends BaseJellyTest {
         return new TestSuite(TestInvokeStaticTag.class);
     }
 
-    public TestInvokeStaticTag(String name) {
+    public TestInvokeStaticTag(final String name) {
         super(name);
     }
 
@@ -46,12 +46,12 @@ public class TestInvokeStaticTag extends BaseJellyTest {
 
     public void testInvokeThatDoesNotHandleException() throws Exception {
         setUpScript( "testInvokeStaticTag.jelly" );
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.invokeThatDoesNotHandleException",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
-        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        final String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
         assertNotNull( exceptionMessage );
-        JellyException jellyException = (JellyException) getJellyContext().getVariable("jellyException");
+        final JellyException jellyException = (JellyException) getJellyContext().getVariable("jellyException");
         assertNotNull( jellyException );
         assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
         assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
@@ -62,14 +62,14 @@ public class TestInvokeStaticTag extends BaseJellyTest {
 
      public void testInvokeThatThrowsException() throws Exception {
         setUpScript( "testInvokeStaticTag.jelly" );
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.invokeThatThrowsException",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
-        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        final String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
         assertNotNull( exceptionMessage );
-        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
+        final Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
         assertNull( jellyException );
-        Exception exception = (Exception) getJellyContext().getVariable("exceptionThrown");
+        final Exception exception = (Exception) getJellyContext().getVariable("exceptionThrown");
         assertNotNull( exception );
         assertEquals( exceptionMessage, exception.getMessage() );
     }
@@ -81,11 +81,11 @@ public class TestInvokeStaticTag extends BaseJellyTest {
     public void testMessageFormatInvoke() throws Exception {
         System.out.println( System.getProperties() );
         setUpScript( "testInvokeStaticTag.jelly" );
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         getJellyContext().setVariable( "test.messageFormatInvoke", Boolean.TRUE );
 
-        Object[] args = new Object[3];
+        final Object[] args = new Object[3];
         args[0] = "Jelly";
         args[1] = "coolest";
         args[2] = "used";
@@ -105,7 +105,7 @@ public class TestInvokeStaticTag extends BaseJellyTest {
      */
      public void testSimpleSystemInvoke() throws Exception {
         setUpScript( "testInvokeStaticTag.jelly" );
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         getJellyContext().setVariable( "test.simpleSystemInvoke",Boolean.TRUE );
 
@@ -121,7 +121,7 @@ public class TestInvokeStaticTag extends BaseJellyTest {
      */
     public void testSystemInvoke() throws Exception {
         setUpScript( "testInvokeStaticTag.jelly" );
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         getJellyContext().setVariable( "test.systemInvoke",Boolean.TRUE );
 

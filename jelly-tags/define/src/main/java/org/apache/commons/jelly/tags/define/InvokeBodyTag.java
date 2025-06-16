@@ -41,22 +41,20 @@ public class InvokeBodyTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         // Try find find the body from the reserved 'org.apache.commons.jelly.body' variable
-        Script script = (Script) context.getVariable("org.apache.commons.jelly.body");
+        final Script script = (Script) context.getVariable("org.apache.commons.jelly.body");
         if (script != null) {
             script.run(context, output);
         }
         else {
             // note this mechanism does not work properly for arbitrarily
             // nested dynamic tags. A better way is required.
-            Tag tag = findAncestorWithClass(this, DynamicTag.class);
+            final Tag tag = findAncestorWithClass(this, DynamicTag.class);
             if (tag == null) {
                 throw new JellyTagException("Cannot invoke body, no dynamic tag is defined in this block");
             }
-            else {
-                tag.invokeBody(output);
-            }
+            tag.invokeBody(output);
         }
     }
 }

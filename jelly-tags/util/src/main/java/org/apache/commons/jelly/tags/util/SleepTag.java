@@ -36,7 +36,7 @@ public class SleepTag extends TagSupport {
         if (millis > 0) {
             try {
                 Thread.sleep(millis);
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -48,7 +48,7 @@ public class SleepTag extends TagSupport {
     /**
      * Sets the amount of time that this thread should sleep for in milliseconds.
      */
-    public void setMillis(long millis) {
+    public void setMillis(final long millis) {
         this.millis = millis;
     }
 

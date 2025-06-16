@@ -30,7 +30,7 @@ public class TestInvokeTag extends BaseJellyTest {
         return new TestSuite(TestInvokeTag.class);
     }
 
-    public TestInvokeTag(String name) {
+    public TestInvokeTag(final String name) {
         super(name);
     }
 
@@ -46,13 +46,13 @@ public class TestInvokeTag extends BaseJellyTest {
 
     public void testInvokeThatDoesNotHandleException() throws Exception {
         setUpScript("testInvokeTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.invokeThatDoesNotHandleException",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
-        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        final String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
         assertNotNull( exceptionMessage );
         assertNotNull( getJellyContext().getVariable("exceptionBean"));
-        JellyException jellyException = (JellyException) getJellyContext().getVariable("jellyException");
+        final JellyException jellyException = (JellyException) getJellyContext().getVariable("jellyException");
         assertNotNull( jellyException );
         assertTrue( "messages are the same", ! exceptionMessage.equals(jellyException.getMessage()) );
         assertTrue( "exception '" + jellyException.getMessage() + "' does not ends with '" +
@@ -63,39 +63,39 @@ public class TestInvokeTag extends BaseJellyTest {
 
     public void testInvokeThatThrowsException() throws Exception {
         setUpScript("testInvokeTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.invokeThatThrowsException",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
-        String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
+        final String exceptionMessage = (String) getJellyContext().getVariable("exceptionMessage");
         assertNotNull( exceptionMessage );
         assertNotNull( getJellyContext().getVariable("exceptionBean"));
-        Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
+        final Exception jellyException = (Exception) getJellyContext().getVariable("jellyException");
         assertNull( jellyException );
-        Exception exception = (Exception) getJellyContext().getVariable("exceptionThrown");
+        final Exception exception = (Exception) getJellyContext().getVariable("exceptionThrown");
         assertNotNull( exception );
         assertEquals( exceptionMessage, exception.getMessage() );
     }
 
     public void testInvokeWithReturnedValueAsArg() throws Exception {
         setUpScript("testInvokeTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.invokeWithReturnedValueAsArg",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("customer"));
         assertTrue(getJellyContext().getVariable("customer") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("customer"));
+        final Customer customer = (Customer)getJellyContext().getVariable("customer");
         assertEquals("Jane Doe",customer.getName());
         assertEquals("Chicago",customer.getCity());
     }
 
     public void testInvokeWithReturnedValueAsArgAndVar() throws Exception {
         setUpScript("testInvokeTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.invokeWithReturnedValueAsArgAndVar",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("customer"));
         assertTrue(getJellyContext().getVariable("customer") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("customer"));
+        final Customer customer = (Customer)getJellyContext().getVariable("customer");
         assertEquals("Jane Doe",customer.getName());
         assertEquals("Chicago",customer.getCity());
         assertNotNull(getJellyContext().getVariable("argtwo"));
@@ -104,23 +104,23 @@ public class TestInvokeTag extends BaseJellyTest {
 
     public void testInvokeWithVar() throws Exception {
         setUpScript("testInvokeTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.invokeWithVar",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("size"));
         assertTrue(getJellyContext().getVariable("size") instanceof Integer);
-        Integer size = (Integer)(getJellyContext().getVariable("size"));
+        final Integer size = (Integer)getJellyContext().getVariable("size");
         assertEquals(3,size.intValue());
     }
 
     public void testSimpleInvoke() throws Exception {
         setUpScript("testInvokeTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.simpleInvoke",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertEquals("Jane Doe",customer.getName());
         assertEquals("Chicago",customer.getCity());
         assertNotNull(customer.getOrders());

@@ -34,11 +34,6 @@ public class Order {
     public Order() {
     }
 
-    @Override
-    public String toString() {
-        return "Order[amount=" + amount + ";price=" + price + ";product=" + product + "]";
-    }
-
     /**
      * Factory method to create a new Product
     public Product createProduct() {
@@ -46,7 +41,7 @@ public class Order {
     }
      */
 
-    public void addProduct(Product product)
+    public void addProduct(final Product product)
     {
         this.product = product;
     }
@@ -68,22 +63,6 @@ public class Order {
     }
 
     /**
-     * Sets the amount.
-     * @param amount The amount to set
-     */
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
-
-    /**
-     * Sets the price.
-     * @param price The price to set
-     */
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    /**
      * Returns the product.
      * @return Product
      */
@@ -92,11 +71,32 @@ public class Order {
     }
 
     /**
+     * Sets the amount.
+     * @param amount The amount to set
+     */
+    public void setAmount(final int amount) {
+        this.amount = amount;
+    }
+
+    /**
+     * Sets the price.
+     * @param price The price to set
+     */
+    public void setPrice(final double price) {
+        this.price = price;
+    }
+
+    /**
      * Sets the product.
      * @param product The product to set
      */
-    public void setProduct(Product product) {
+    public void setProduct(final Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "Order[amount=" + amount + ";price=" + price + ";product=" + product + "]";
     }
 
 }

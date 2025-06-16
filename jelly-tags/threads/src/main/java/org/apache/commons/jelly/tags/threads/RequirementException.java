@@ -22,7 +22,7 @@ package org.apache.commons.jelly.tags.threads;
  */
 
 public class RequirementException extends RuntimeException {
-    public RequirementException(String message) {
+    public RequirementException(final String message) {
         super(message);
     }
 }

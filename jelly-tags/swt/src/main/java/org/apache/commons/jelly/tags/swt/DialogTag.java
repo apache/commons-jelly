@@ -31,17 +31,17 @@ public class DialogTag extends WidgetTag {
 
     /**
      * @param widgetClass
-     * @param style
      */
-    public DialogTag(Class widgetClass, int style) {
-        super(widgetClass, style);
+    public DialogTag(final Class widgetClass) {
+        super(widgetClass);
     }
 
     /**
      * @param widgetClass
+     * @param style
      */
-    public DialogTag(Class widgetClass) {
-        super(widgetClass);
+    public DialogTag(final Class widgetClass, final int style) {
+        super(widgetClass, style);
     }
 
     // Implementation methods
@@ -51,19 +51,19 @@ public class DialogTag extends WidgetTag {
      * Factory method to create a new dialog
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output)
         throws JellyTagException {
-        int style = getStyle(attributes);
+        final int style = getStyle(attributes);
 
         // now lets call the constructor with the parent
-        Widget parent = getParentWidget();
+        final Widget parent = getParentWidget();
 
-        boolean isParentShell = parent instanceof Shell;
+        final boolean isParentShell = parent instanceof Shell;
         if (parent == null || !isParentShell) {
             throw new JellyTagException("This tag must be nested within a Shell");
         }
 
-        Dialog dialog = (Dialog) createWidget(theClass, parent, style);
+        final Dialog dialog = (Dialog) createWidget(theClass, parent, style);
 
         return dialog;
     }

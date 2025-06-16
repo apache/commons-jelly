@@ -41,41 +41,13 @@ public class DriverTag extends TagSupport {
     //*********************************************************************
     // Accessor methods
 
-    public void setDriver(String driverClassName) {
-        this.driverClassName = driverClassName;
-    }
-
-    public void setJdbcURL(String jdbcURL) {
-        this.jdbcURL = jdbcURL;
-    }
-
-    /**
-     * Sets the scope of the variable to hold the
-     * result.
-     *
-     */
-    public void setScope(String scopeName) {
-        this.scope = scopeName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    //*********************************************************************
-    // Tag logic
-
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        DataSourceWrapper ds = new DataSourceWrapper();
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final DataSourceWrapper ds = new DataSourceWrapper();
         try {
             ds.setDriverClassName(getDriverClassName());
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException("Invalid driver class name: " + e.getMessage());
         }
         ds.setJdbcURL(getJdbcURL());
@@ -84,14 +56,15 @@ public class DriverTag extends TagSupport {
         context.setVariable(var, ds);
     }
 
-    //*********************************************************************
-    // Private utility methods
-
     private String getDriverClassName() {
         if (driverClassName != null) {
             return driverClassName;
         }
         return getInitParameter(DRIVER_CLASS_NAME);
+    }
+
+    protected String getInitParameter(final String key) {
+        return "";
     }
 
     private String getJdbcURL() {
@@ -101,6 +74,13 @@ public class DriverTag extends TagSupport {
         return getInitParameter(JDBC_URL);
     }
 
+    private String getPassword() {
+        return getInitParameter(PASSWORD);
+    }
+
+    //*********************************************************************
+    // Tag logic
+
     private String getUserName() {
         if (userName != null) {
             return userName;
@@ -108,11 +88,31 @@ public class DriverTag extends TagSupport {
         return getInitParameter(USER_NAME);
     }
 
-    private String getPassword() {
-        return getInitParameter(PASSWORD);
+    //*********************************************************************
+    // Private utility methods
+
+    public void setDriver(final String driverClassName) {
+        this.driverClassName = driverClassName;
     }
 
-    protected String getInitParameter(String key) {
-        return "";
+    public void setJdbcURL(final String jdbcURL) {
+        this.jdbcURL = jdbcURL;
+    }
+
+    /**
+     * Sets the scope of the variable to hold the
+     * result.
+     *
+     */
+    public void setScope(final String scopeName) {
+        this.scope = scopeName;
+    }
+
+    public void setUserName(final String userName) {
+        this.userName = userName;
+    }
+
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

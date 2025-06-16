@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
  */
 public class TestJUnit extends AbstractJellyTestSuite {
 
-    public static void main( String[] args ) throws Exception {
+    public static void main( final String[] args ) throws Exception {
         TestRunner.run( suite() );
     }
 

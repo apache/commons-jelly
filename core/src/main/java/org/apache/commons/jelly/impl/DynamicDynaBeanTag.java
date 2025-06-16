@@ -37,24 +37,24 @@ import org.apache.commons.jelly.expression.Expression;
 public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource {
 
     /** The bean class */
-    private DynaClass beanClass;
+    private final DynaClass beanClass;
 
     /**
      * the tag attribute name that is used to declare the name
      * of the variable to export after running this tag
      */
-    private String variableNameAttribute;
+    private final String variableNameAttribute;
 
     /** The current variable name that the bean should be exported as */
     private String var;
 
     /** The set of attribute names we've already set */
-    private Set setAttributesSet = new HashSet();
+    private final Set setAttributesSet = new HashSet();
 
     /** The attribute definitions */
-    private Map attributes;
+    private final Map attributes;
 
-    public DynamicDynaBeanTag(DynaClass beanClass, Map attributes, String variableNameAttribute) {
+    public DynamicDynaBeanTag(final DynaClass beanClass, final Map attributes, final String variableNameAttribute) {
         this.beanClass = beanClass;
         this.attributes = attributes;
         this.variableNameAttribute = variableNameAttribute;
@@ -65,9 +65,7 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
         // create a new dynabean before the attributes are set
         try {
             setDynaBean(beanClass.newInstance());
-        } catch (IllegalAccessException e) {
-            throw new JellyTagException("Could not instantiate dynabean", e);
-        } catch (InstantiationException e) {
+        } catch (final IllegalAccessException | InstantiationException e) {
             throw new JellyTagException("Could not instantiate dynabean", e);
         }
 
@@ -77,19 +75,19 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
         // lets find any attributes that are not set and
-        for ( Iterator iter = attributes.values().iterator(); iter.hasNext(); ) {
-            Attribute attribute = (Attribute) iter.next();
-            String name = attribute.getName();
+        for ( final Iterator iter = attributes.values().iterator(); iter.hasNext(); ) {
+            final Attribute attribute = (Attribute) iter.next();
+            final String name = attribute.getName();
             if ( ! setAttributesSet.contains( name ) ) {
                 if ( attribute.isRequired() ) {
                     throw new MissingAttributeException(name);
                 }
                 // lets get the default value
                 Object value = null;
-                Expression expression = attribute.getDefaultValue();
+                final Expression expression = attribute.getDefaultValue();
                 if ( expression != null ) {
                     value = expression.evaluate(context);
                 }
@@ -120,18 +118,16 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
     }
 
     @Override
-    public void setAttribute(String name, Object value) throws JellyTagException {
+    public void setAttribute(final String name, final Object value) throws JellyTagException {
         boolean isVariableName = false;
-        if (variableNameAttribute != null ) {
-            if ( variableNameAttribute.equals( name ) ) {
-                if (value == null) {
-                    var = null;
-                }
-                else {
-                    var = value.toString();
-                }
-                isVariableName = true;
+        if ( variableNameAttribute != null && variableNameAttribute.equals( name ) ) {
+            if (value == null) {
+                var = null;
             }
+            else {
+                var = value.toString();
+            }
+            isVariableName = true;
         }
         if (! isVariableName) {
 

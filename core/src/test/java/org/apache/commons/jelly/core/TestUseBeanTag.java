@@ -30,7 +30,7 @@ public class TestUseBeanTag extends BaseJellyTest {
         return new TestSuite(TestUseBeanTag.class);
     }
 
-    public TestUseBeanTag(String name) {
+    public TestUseBeanTag(final String name) {
         super(name);
     }
 
@@ -39,10 +39,10 @@ public class TestUseBeanTag extends BaseJellyTest {
      */
     public void testBadProperty() throws Exception {
         setUpScript("testUseBeanTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.badProperty",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
-        Exception e = (Exception)getJellyContext().getVariable("ex");
+        final Exception e = (Exception)getJellyContext().getVariable("ex");
         assertNotNull("Should have failed to set invalid bean property", e);
     }
 
@@ -51,12 +51,12 @@ public class TestUseBeanTag extends BaseJellyTest {
      */
     public void testExtension() throws Exception {
         setUpScript("testUseBeanTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.extension",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertNull("name set wrongly", customer.getName());
         assertEquals("city not set", "sydney", customer.getCity());
     }
@@ -66,10 +66,10 @@ public class TestUseBeanTag extends BaseJellyTest {
      */
     public void testIgnoredBadProperty() throws Exception {
         setUpScript("testUseBeanTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.badPropertyIgnored",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertNotNull("Should have ignored invalid bean property", customer);
     }
 
@@ -79,12 +79,12 @@ public class TestUseBeanTag extends BaseJellyTest {
      */
     public void testSimple() throws Exception{
         setUpScript("testUseBeanTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
         getJellyContext().setVariable("test.simple",Boolean.TRUE);
         script.run(getJellyContext(),getXMLOutput());
         assertNotNull(getJellyContext().getVariable("foo"));
         assertTrue(getJellyContext().getVariable("foo") instanceof Customer);
-        Customer customer = (Customer)(getJellyContext().getVariable("foo"));
+        final Customer customer = (Customer)getJellyContext().getVariable("foo");
         assertEquals("name not set", "testing", customer.getName());
         assertEquals("city not set", "sydney", customer.getCity());
     }

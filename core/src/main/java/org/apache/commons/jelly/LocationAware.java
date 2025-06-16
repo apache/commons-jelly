@@ -17,51 +17,51 @@
 
 package org.apache.commons.jelly;
 
-/** 
+/**
  * <p><code>LocationAware</code> represents a Tag or Exception which is location aware.
  * That is to say it is capable of recording where in a Jelly script a tag or exception
  * is used which can aid debugging and tracing.</p>
  */
 
 public interface LocationAware {
-    
-    /** 
-     * @return the column number of the tag 
+
+    /**
+     * @return the column number of the tag
      */
     int getColumnNumber();
-    
-    /** 
+
+    /**
      * @return the element name which caused the problem
      */
     String getElementName();
 
-    /** 
-     * @return the Jelly file which caused the problem 
+    /**
+     * @return the Jelly file which caused the problem
      */
     String getFileName();
-    
-    /** 
-     * @return the line number of the tag 
+
+    /**
+     * @return the line number of the tag
      */
     int getLineNumber();
 
-    /** 
-     * Sets the column number of the tag 
+    /**
+     * Sets the column number of the tag
      */
     void setColumnNumber(int columnNumber);
-    
-    /** 
+
+    /**
      * Sets the element name which caused the problem
      */
     void setElementName(String elementName);
-    
-    /** 
-     * Sets the Jelly file which caused the problem 
+
+    /**
+     * Sets the Jelly file which caused the problem
      */
     void setFileName(String fileName);
 
-    /** 
-     * Sets the line number of the tag 
+    /**
+     * Sets the line number of the tag
      */
     void setLineNumber(int lineNumber);
 }

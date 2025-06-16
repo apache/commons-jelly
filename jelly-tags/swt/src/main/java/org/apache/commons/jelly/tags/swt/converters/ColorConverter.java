@@ -35,13 +35,73 @@ public class ColorConverter implements Converter {
         return instance;
     }
 
+    // Converter interface
+    //-------------------------------------------------------------------------
+    @Override
+    public Object convert(final Class type, final Object value) {
+        Object answer = null;
+        if (value != null) {
+            final String text = value.toString();
+            answer = parse(text);
+        }
+
+        System.out.println("Converting value: " + value + " into: " + answer);
+
+        return answer;
+    }
+
+    /**
+     * Parse a String
+     */
+    public RGB parse(final String value) {
+        if (value.length() <= 1) {
+            throw new IllegalArgumentException(usageText);
+        }
+
+        if (value.charAt(0) == '#') {
+            return parseHtml(value);
+        }
+        if (value.indexOf(',') != -1) {
+            return parseRGB(value);
+        }
+        throw new IllegalArgumentException(usageText);
+    }
+
+    /**
+     * Parsers a String in the form "#xxxxxx" into an SWT RGB class
+     * @param value
+     * @return RGB
+     */
+    protected RGB parseHtml(final String value) {
+        if (value.length() != 7) {
+            throw new IllegalArgumentException(usageText);
+        }
+        int colorValue = 0;
+        try {
+            colorValue = Integer.parseInt(value.substring(1), 16);
+            final java.awt.Color swingColor = new java.awt.Color(colorValue);
+            return new RGB(
+                swingColor.getRed(),
+                swingColor.getGreen(),
+                swingColor.getBlue());
+        } catch (final NumberFormatException ex) {
+            throw new IllegalArgumentException(
+                value + "is not a valid Html color\n " + ex);
+        }
+    }
+
+    protected int parseNumber(String text) {
+        text = text.trim();
+        return Integer.parseInt(text.trim());
+    }
+
     /**
      * Parsers a String in the form "x, y, z" into an SWT RGB class
      * @param value
      * @return RGB
      */
-    protected RGB parseRGB(String value) {
-        StringTokenizer items = new StringTokenizer(value, ",");
+    protected RGB parseRGB(final String value) {
+        final StringTokenizer items = new StringTokenizer(value, ",");
         int red = 0;
         int green = 0;
         int blue = 0;
@@ -55,65 +115,5 @@ public class ColorConverter implements Converter {
             blue = parseNumber(items.nextToken());
         }
         return new RGB(red, green, blue);
-    }
-
-    /**
-     * Parsers a String in the form "#xxxxxx" into an SWT RGB class
-     * @param value
-     * @return RGB
-     */
-    protected RGB parseHtml(String value) {
-        if (value.length() != 7) {
-            throw new IllegalArgumentException(usageText);
-        }
-        int colorValue = 0;
-        try {
-            colorValue = Integer.parseInt(value.substring(1), 16);
-            java.awt.Color swingColor = new java.awt.Color(colorValue);
-            return new RGB(
-                swingColor.getRed(),
-                swingColor.getGreen(),
-                swingColor.getBlue());
-        } catch (NumberFormatException ex) {
-            throw new IllegalArgumentException(
-                value + "is not a valid Html color\n " + ex);
-        }
-    }
-
-    /**
-     * Parse a String
-     */
-    public RGB parse(String value) {
-        if (value.length() <= 1) {
-            throw new IllegalArgumentException(usageText);
-        }
-
-        if (value.charAt(0) == '#') {
-            return parseHtml(value);
-        } else if (value.indexOf(',') != -1) {
-            return parseRGB(value);
-        } else {
-            throw new IllegalArgumentException(usageText);
-        }
-    }
-
-    // Converter interface
-    //-------------------------------------------------------------------------
-    @Override
-    public Object convert(Class type, Object value) {
-        Object answer = null;
-        if (value != null) {
-            String text = value.toString();
-            answer = parse(text);
-        }
-
-        System.out.println("Converting value: " + value + " into: " + answer);
-
-        return answer;
-    }
-
-    protected int parseNumber(String text) {
-        text = text.trim();
-        return Integer.parseInt(text.trim());
     }
 }

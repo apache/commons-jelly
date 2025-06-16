@@ -32,7 +32,7 @@ public class TestForEachTag extends BaseJellyTest
         return new TestSuite(TestForEachTag.class);
     }
 
-    public TestForEachTag(String name)
+    public TestForEachTag(final String name)
     {
         super(name);
     }
@@ -40,40 +40,40 @@ public class TestForEachTag extends BaseJellyTest
     public void testForEachTag() throws Exception
     {
         setUpScript("testForEachTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
-        getJellyContext().setVariable("myList", 
-              new Object[] {"0", "VOID", "1", "VOID", "2", "VOID", 
+        getJellyContext().setVariable("myList",
+              new Object[] {"0", "VOID", "1", "VOID", "2", "VOID",
                             "3", "VOID", "4", "VOID", "5"});
         getJellyContext().setVariable("testMyList", Boolean.TRUE);
         script.run(getJellyContext(), getXMLOutput());
 
-        String resultOrdered = 
+        String resultOrdered =
                 (String) getJellyContext().getVariable("result.ordered");
         System.err.println("raw result is '" + resultOrdered + "'");
         resultOrdered = StringUtils.replace(resultOrdered, " ", "");
         resultOrdered = StringUtils.replace(resultOrdered, "\n", "");
 
-        assertEquals("result.ordered", 
+        assertEquals("result.ordered",
                        "FIRST_262_121/MIDDLE_242/LAST_363/",
                      resultOrdered);
     }
-    
+
     public void testForEachTagNumList() throws Exception
     {
         setUpScript("testForEachTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         getJellyContext().setVariable("testNumList", Boolean.TRUE);
         script.run(getJellyContext(), getXMLOutput());
 
-        String resultOrdered = 
+        String resultOrdered =
                 (String) getJellyContext().getVariable("result.ordered");
         System.err.println("raw result is '" + resultOrdered + "'");
         resultOrdered = StringUtils.replace(resultOrdered, " ", "");
         resultOrdered = StringUtils.replace(resultOrdered, "\n", "");
 
-        assertEquals("result.ordered", 
+        assertEquals("result.ordered",
                        "FIRST_262_122/MIDDLE_244/LAST_366/",
                      resultOrdered);
     }

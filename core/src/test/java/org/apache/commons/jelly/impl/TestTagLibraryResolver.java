@@ -25,7 +25,7 @@ import junit.textui.TestRunner;
   */
 public class TestTagLibraryResolver extends TestCase {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
 
@@ -33,7 +33,7 @@ public class TestTagLibraryResolver extends TestCase {
         return new TestSuite(TestTagLibraryResolver.class);
     }
 
-    public TestTagLibraryResolver(String testName) {
+    public TestTagLibraryResolver(final String testName) {
         super(testName);
     }
 

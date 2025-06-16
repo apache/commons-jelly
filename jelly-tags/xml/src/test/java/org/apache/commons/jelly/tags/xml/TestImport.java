@@ -35,20 +35,20 @@ import junit.framework.TestCase;
  */
 public class TestImport extends TestCase {
 
-    private String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+    private final String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
         + "<html xmlns=\"http://www.w3.org/TR/xhtml1/strict\" "
         + "xmlns=\"http://www.w3.org/TR/xhtml1/strict\">"
         + "<head><title>Expense Report Summary</title></head>"
         + "<body><p>Total Amount: 12</p></body></html>";
-    public TestImport(String name) {
+    public TestImport(final String name) {
         super(name);
     }
 
     public void testImportResources() throws JellyException, UnsupportedEncodingException, IOException {
-        JellyContext context = new JellyContext();
-        URL url = TestImport.class.getResource("/import.jelly");
-        StringWriter writer = new StringWriter();
-        XMLOutput out = XMLOutput.createXMLOutput(writer);
+        final JellyContext context = new JellyContext();
+        final URL url = TestImport.class.getResource("/import.jelly");
+        final StringWriter writer = new StringWriter();
+        final XMLOutput out = XMLOutput.createXMLOutput(writer);
 //         this works because of the created child context that has knowledge
 //         of the URL
         context.runScript(url, out);
@@ -57,22 +57,22 @@ public class TestImport extends TestCase {
     }
 
     public void testImportResourcesCompiled() throws JellyException, UnsupportedEncodingException, IOException {
-        JellyContext context = new JellyContext();
-        URL url = TestImport.class.getResource("/import.jelly");
-        StringWriter writer = new StringWriter();
-        XMLOutput out = XMLOutput.createXMLOutput(writer);
-        Script script = context.compileScript(url);
+        final JellyContext context = new JellyContext();
+        final URL url = TestImport.class.getResource("/import.jelly");
+        final StringWriter writer = new StringWriter();
+        final XMLOutput out = XMLOutput.createXMLOutput(writer);
+        final Script script = context.compileScript(url);
         script.run(context, out);
         out.close();
         assertEquals(expected, writer.toString());
     }
 
     public void testImportResourcesFromUncompiledScript() throws JellyException, UnsupportedEncodingException, IOException, SAXException {
-        JellyContext context = new JellyContext();
-        URL url = TestImport.class.getResource("/import.jelly");
-        StringWriter writer = new StringWriter();
-        XMLOutput out = XMLOutput.createXMLOutput(writer);
-        Script script = new XMLParser().parse(url);
+        final JellyContext context = new JellyContext();
+        final URL url = TestImport.class.getResource("/import.jelly");
+        final StringWriter writer = new StringWriter();
+        final XMLOutput out = XMLOutput.createXMLOutput(writer);
+        final Script script = new XMLParser().parse(url);
         script.run(context, out);
         out.close();
         assertEquals(expected, writer.toString());

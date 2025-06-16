@@ -17,6 +17,7 @@
 package org.apache.commons.jelly.tags.swing;
 
 import java.awt.Color;
+
 import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.border.EtchedBorder;
@@ -41,6 +42,21 @@ public class EtchedBorderTag extends BorderTagSupport {
     private Color   highlight = null;
     private Color   shadow    = null;
 
+    /**
+     * Factory method to create a new EtchedBorder instance.
+     */
+    @Override
+    protected Border createBorder() {
+        if (etchType == -1 && shadow == null && highlight == null) {
+            return BorderFactory.createEtchedBorder();
+        }
+        if (highlight != null && shadow != null && etchType > -1) {
+            return BorderFactory.createEtchedBorder( etchType, highlight, shadow );
+        }
+        return BorderFactory.createEtchedBorder( highlight, shadow );
+
+    }
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
@@ -51,8 +67,8 @@ public class EtchedBorderTag extends BorderTagSupport {
         if ( shadow != null && highlight == null) {
             throw new MissingAttributeException("highlight must be supplied when shadow is supplied");
         }
-        if ( etchType != EtchedBorder.LOWERED || etchType != EtchedBorder.RAISED ) {
-            if ( log.isDebugEnabled() ) log.debug( "etchType set to [" + etchType + "], which is invalid. Resetting to -1" );
+        if ( (etchType != EtchedBorder.LOWERED || etchType != EtchedBorder.RAISED) && log.isDebugEnabled() ) {
+            log.debug( "etchType set to [" + etchType + "], which is invalid. Resetting to -1" );
         }
         super.doTag(output);
     }
@@ -63,7 +79,7 @@ public class EtchedBorderTag extends BorderTagSupport {
      * Sets the etch type. Must be either EtchedBorder.LOWERED or EtchedBorder.RAISED
      * @param type
      */
-    public void setEtchType( int type ) {
+    public void setEtchType( final int type ) {
         etchType = type;
     }
 
@@ -71,7 +87,7 @@ public class EtchedBorderTag extends BorderTagSupport {
      * Sets the highlight color
      * @param highlight
      */
-    public void setHighlight( Color highlight ) {
+    public void setHighlight( final Color highlight ) {
         this.highlight = highlight;
     }
 
@@ -79,25 +95,8 @@ public class EtchedBorderTag extends BorderTagSupport {
      * Sets the shadow color
      * @param shadow
      */
-    public void setTop( Color shadow ) {
+    public void setTop( final Color shadow ) {
         this.shadow = shadow;
-    }
-
-    /**
-     * Factory method to create a new EtchedBorder instance.
-     */
-    @Override
-    protected Border createBorder() {
-        if ( etchType == -1 && shadow == null && highlight == null) {
-            return BorderFactory.createEtchedBorder();
-        }
-        else if ( highlight != null && shadow != null && etchType > -1 ) {
-            return BorderFactory.createEtchedBorder( etchType, highlight, shadow );
-        }
-        else {
-            return BorderFactory.createEtchedBorder( highlight, shadow );
-        }
-
     }
 
 }

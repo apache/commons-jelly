@@ -32,8 +32,8 @@ public class TraceTag extends LogTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Log log = getLog();
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final Log log = getLog();
         if ( log.isTraceEnabled() ) {
             log.trace( getBodyText(isEncode()) );
         }

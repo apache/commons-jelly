@@ -38,18 +38,18 @@ public class IfTag extends XPathTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (select == null) {
             throw new MissingAttributeException( "select" );
         }
 
-        Object xpathContext = getXPathContext();
+        final Object xpathContext = getXPathContext();
 
         try {
             if ( select.booleanValueOf(xpathContext) ) {
                 invokeBody(output);
             }
-        } catch (JaxenException e) {
+        } catch (final JaxenException e) {
             throw new JellyTagException(e);
         }
     }
@@ -57,20 +57,20 @@ public class IfTag extends XPathTagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
-        this.select = select;
-    }
-
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override
     protected Object getXPathContext() {
-        ForEachTag tag = (ForEachTag) findAncestorWithClass( ForEachTag.class );
+        final ForEachTag tag = (ForEachTag) findAncestorWithClass( ForEachTag.class );
         if ( tag != null ) {
             return tag.getXPathContext();
         }
         return null;
+    }
+
+    /** Sets the XPath expression to evaluate. */
+    public void setSelect(final XPath select) {
+        this.select = select;
     }
 
 }

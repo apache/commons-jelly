@@ -34,6 +34,23 @@ public class SwtHelper extends UseBeanTag {
     private static final Log log = LogFactory.getLog(SwtHelper.class);
 
     /**
+     * @return the code for the given word or zero if the word doesn't match a
+     * valid style
+     */
+    public static int getStyleCode(final Class constantClass,final String text) throws JellyTagException {
+        try {
+            final Field field = constantClass.getField(text);
+            if (field == null) {
+                log.warn( "Unknown style code: " + text +" will be ignored");
+                return 0;
+            }
+            return field.getInt(null);
+        } catch (final NoSuchFieldException | IllegalAccessException e) {
+            throw new JellyTagException("The value: " + text + " is not understood", e);
+        }
+    }
+
+    /**
      * Parses the comma delimited String of style codes which are or'd
      * together. The given class describes the integer static constants
      *
@@ -41,7 +58,7 @@ public class SwtHelper extends UseBeanTag {
      * @param text is a comma delimited text value such as "border, resize"
      * @return the int code
      */
-    public static int parseStyle(Class constantClass, String text) throws JellyTagException {
+    public static int parseStyle(final Class constantClass, final String text) throws JellyTagException {
         return parseStyle(constantClass, text, true);
     }
 
@@ -56,37 +73,18 @@ public class SwtHelper extends UseBeanTag {
      *
      * @return the int code
      */
-    public static int parseStyle(Class constantClass, String text, boolean toUpperCase) throws JellyTagException{
+    public static int parseStyle(final Class constantClass, String text, final boolean toUpperCase) throws JellyTagException{
         int answer = 0;
         if (text != null) {
             if (toUpperCase) {
                 text = text.toUpperCase();
             }
-            StringTokenizer items = new StringTokenizer(text, ",");
+            final StringTokenizer items = new StringTokenizer(text, ",");
             while (items.hasMoreTokens()) {
-                String token = items.nextToken().trim();
+                final String token = items.nextToken().trim();
                 answer |= getStyleCode(constantClass, token);
             }
         }
         return answer;
-    }
-
-    /**
-     * @return the code for the given word or zero if the word doesn't match a
-     * valid style
-     */
-    public static int getStyleCode(Class constantClass,String text) throws JellyTagException {
-        try {
-            Field field = constantClass.getField(text);
-            if (field == null) {
-                log.warn( "Unknown style code: " + text +" will be ignored");
-                return 0;
-            }
-            return field.getInt(null);
-        } catch (NoSuchFieldException e) {
-            throw new JellyTagException("The value: " + text + " is not understood", e);
-        } catch (IllegalAccessException e) {
-            throw new JellyTagException("The value: " + text + " is not understood", e);
-        }
     }
 }

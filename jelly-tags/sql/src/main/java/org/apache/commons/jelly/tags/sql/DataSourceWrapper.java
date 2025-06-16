@@ -45,38 +45,6 @@ public class DataSourceWrapper implements DataSource {
     private String userName;
     private String password;
 
-    public void setDriverClassName(String driverClassName)
-        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-
-        if (log.isDebugEnabled()) {
-            log.debug("Loading JDBC driver: [" + driverClassName + "]");
-        }
-
-        this.driverClassName = driverClassName;
-        ClassLoaderUtils.getClassLoader(getClass()).loadClass(driverClassName).newInstance();
-    }
-
-    public void setJdbcURL(String jdbcURL) {
-        this.jdbcURL = jdbcURL;
-    }
-
-    public <T> T unwrap(Class<T> tClass) throws SQLException {
-        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-    }
-
-    @Override
-    public boolean isWrapperFor(Class<?> aClass) throws SQLException {
-        return false;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     /**
      * Returns a Connection using the DriverManager and all
      * set properties.
@@ -111,7 +79,7 @@ public class DataSourceWrapper implements DataSource {
      * in the constructor and cannot be changed.
      */
     @Override
-    public Connection getConnection(String userName, String password)
+    public Connection getConnection(final String userName, final String password)
         throws SQLException {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
@@ -132,25 +100,58 @@ public class DataSourceWrapper implements DataSource {
         throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 
-    /**
-     * Always throws a SQLException. Not supported.
-     */
-    @Override
-    public void setLoginTimeout(int seconds) throws SQLException {
-        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-    }
-
-    /**
-     * Always throws a SQLException. Not supported.
-     */
-    @Override
-    public synchronized void setLogWriter(PrintWriter out) throws SQLException {
-        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
-    }
-
     @Override
     public Logger getParentLogger() throws SQLFeatureNotSupportedException {
         throw new SQLFeatureNotSupportedException();
+    }
+
+    @Override
+    public boolean isWrapperFor(final Class<?> aClass) throws SQLException {
+        return false;
+    }
+
+    public void setDriverClassName(final String driverClassName)
+        throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+
+        if (log.isDebugEnabled()) {
+            log.debug("Loading JDBC driver: [" + driverClassName + "]");
+        }
+
+        this.driverClassName = driverClassName;
+        ClassLoaderUtils.getClassLoader(getClass()).loadClass(driverClassName).newInstance();
+    }
+
+    public void setJdbcURL(final String jdbcURL) {
+        this.jdbcURL = jdbcURL;
+    }
+
+    /**
+     * Always throws a SQLException. Not supported.
+     */
+    @Override
+    public void setLoginTimeout(final int seconds) throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
+
+    /**
+     * Always throws a SQLException. Not supported.
+     */
+    @Override
+    public synchronized void setLogWriter(final PrintWriter out) throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
+    }
+
+    public void setPassword(final String password) {
+        this.password = password;
+    }
+
+    public void setUserName(final String userName) {
+        this.userName = userName;
+    }
+
+    @Override
+    public <T> T unwrap(final Class<T> tClass) throws SQLException {
+        throw new SQLException(Resources.getMessage("NOT_SUPPORTED"));
     }
 
 }

@@ -19,7 +19,6 @@ package org.apache.commons.jelly.tags.validate;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.tags.junit.JellyAssertionFailedError;
-
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -30,7 +29,7 @@ import org.xml.sax.SAXParseException;
  */
 public class AssertValidTag extends ValidateTag {
 
-    private StringBuffer buffer = new StringBuffer();
+    private final StringBuffer buffer = new StringBuffer();
 
 /*
     public AssertValidTag() {
@@ -68,11 +67,11 @@ public class AssertValidTag extends ValidateTag {
      * as to throw assertion exceptions etc.
      */
     @Override
-    protected void handleValid(boolean valid) {
+    protected void handleValid(final boolean valid) {
         super.handleValid(valid);
 
         if ( ! valid ) {
-            String message = buffer.toString();
+            final String message = buffer.toString();
             throw new JellyAssertionFailedError( "The XML is not valid according to the schema: " + message );
         }
     }
@@ -81,7 +80,7 @@ public class AssertValidTag extends ValidateTag {
      * Outputs the given validation exception as XML to the output
      */
     @Override
-    protected void outputException(XMLOutput output, String name, SAXParseException e) throws SAXException {
+    protected void outputException(final XMLOutput output, final String name, final SAXParseException e) throws SAXException {
         buffer.append( name );
         buffer.append( " : line: " );
         buffer.append( e.getLineNumber() );

@@ -30,11 +30,11 @@ public class SleepTag extends TagSupport {
 
     /** Put the thread to sleep */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         try {
             Thread.sleep(howLong);
         }
-        catch (InterruptedException e) {
+        catch (final InterruptedException e) {
             throw new JellyTagException(e);
         }
     }
@@ -43,7 +43,7 @@ public class SleepTag extends TagSupport {
      * How long to put the thread to sleep for
      * @param howLong in millis
      */
-    public void setFor(long howLong) {
+    public void setFor(final long howLong) {
         this.howLong = howLong;
     }
 }

@@ -49,16 +49,16 @@ public class SetPropertiesTag extends MapTagSupport  {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        Map attributes = getAttributes();
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        final Map attributes = getAttributes();
         Object bean = attributes.remove( "object" );
         if ( bean == null ) {
             // lets try find a parent bean
-            BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
+            final BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
             if (tag != null) {
                 try {
                     bean = tag.getBean();
-                } catch (JellyException e) {
+                } catch (final JellyException e) {
                     throw new JellyTagException(e);
                 }
             }
@@ -76,12 +76,10 @@ public class SetPropertiesTag extends MapTagSupport  {
      * Sets the properties on the bean. Derived tags could implement some custom
      * type conversion etc.
      */
-    protected void setBeanProperties(Object bean, Map attributes) throws JellyTagException {
+    protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
         try {
             BeanUtils.populate(bean, attributes);
-        } catch (IllegalAccessException e) {
-            throw new JellyTagException("could not set the properties on a bean", e);
-        } catch (InvocationTargetException e) {
+        } catch (final IllegalAccessException | InvocationTargetException e) {
             throw new JellyTagException("could not set the properties on a bean", e);
         }
     }

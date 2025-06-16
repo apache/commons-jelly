@@ -37,7 +37,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
      *               uri for the jelly namespace
      * @param reader XMLReader to filter
      */
-    public DefaultNamespaceFilter(String defaultNamespace, XMLReader reader) {
+    public DefaultNamespaceFilter(final String defaultNamespace, final XMLReader reader) {
         super(reader);
         this.uriDefault = defaultNamespace;
     }
@@ -52,7 +52,7 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
      * @throws SAXException
      */
     @Override
-    public void endElement(String namespaceURI, String localName, String qName)
+    public void endElement(final String namespaceURI, final String localName, final String qName)
             throws SAXException {
         if (namespaceURI.isEmpty()) {
             super.endElement(this.uriDefault, localName, qName);
@@ -71,10 +71,10 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
      * @throws SAXException
      */
     @Override
-    public void startElement(java.lang.String uri,
-                             java.lang.String localName,
-                             java.lang.String qName,
-                             Attributes atts)
+    public void startElement(final java.lang.String uri,
+                             final java.lang.String localName,
+                             final java.lang.String qName,
+                             final Attributes atts)
             throws SAXException {
 
         if (uri.isEmpty()) {
@@ -93,8 +93,8 @@ public class DefaultNamespaceFilter extends XMLFilterImpl {
      * @throws SAXException
      */
     @Override
-    public void startPrefixMapping(java.lang.String prefix,
-                                   java.lang.String uri)
+    public void startPrefixMapping(final java.lang.String prefix,
+                                   final java.lang.String uri)
     throws SAXException {
 
         if (uri.isEmpty()) {

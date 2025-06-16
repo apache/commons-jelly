@@ -39,21 +39,21 @@ public class InvokeTag extends TagSupport {
     public InvokeTag() {
     }
 
-    /**
-     * Sets the Script to be invoked by this tag, which typically has been previously
-     * defined by the use of the &lt;script&gt; tag.
-     */
-    public void setScript(Script script) {
-        this.script = script;
-    }
-
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( script == null ) {
             throw new MissingAttributeException("script");
         }
         script.run(context, output);
+    }
+
+    /**
+     * Sets the Script to be invoked by this tag, which typically has been previously
+     * defined by the use of the &lt;script&gt; tag.
+     */
+    public void setScript(final Script script) {
+        this.script = script;
     }
 }

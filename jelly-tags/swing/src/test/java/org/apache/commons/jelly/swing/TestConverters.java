@@ -19,17 +19,15 @@ package org.apache.commons.jelly.swing;
 import java.awt.Dimension;
 import java.awt.Point;
 
+import org.apache.commons.beanutils2.ConvertUtils;
+import org.apache.commons.jelly.tags.swing.SwingTagLibrary;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import junit.textui.TestRunner;
-
-import org.apache.commons.beanutils2.ConvertUtils;
-
-import org.apache.commons.jelly.tags.swing.SwingTagLibrary;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Tests the Swing converters
@@ -39,13 +37,7 @@ public class TestConverters extends TestCase {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestConverters.class);
 
-    /** Delta used to compare doubles */
-    double delta = 0.0000001;
-
-    // force the Swing converters to be loaded
-    SwingTagLibrary dummy = new SwingTagLibrary();
-
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
 
@@ -53,9 +45,44 @@ public class TestConverters extends TestCase {
         return new TestSuite(TestConverters.class);
     }
 
-    public TestConverters(String testName) {
+    /** Delta used to compare doubles */
+    double delta = 0.0000001;
+
+    // force the Swing converters to be loaded
+    SwingTagLibrary dummy = new SwingTagLibrary();
+
+    public TestConverters(final String testName) {
         super(testName);
     }
+
+    protected void assertDimension(final String expression, final Dimension expected) throws Exception {
+        final Object answer = ConvertUtils.convert(expression, Dimension.class );
+
+        assertTrue( "Returned type: "+  answer.getClass() + " is-a Dimension", answer instanceof Dimension );
+
+        final Dimension value = (Dimension) answer;
+
+        assertEquals( "width", expected.getWidth(), value.getWidth(), delta );
+        assertEquals( "height", expected.getHeight(), value.getHeight(), delta );
+
+        assertEquals( expected, value );
+    }
+
+    protected void assertPoint(final String expression, final Point expected) throws Exception {
+        final Object answer = ConvertUtils.convert(expression, Point.class );
+
+        assertTrue( "Returned type: "+  answer.getClass() + " is-a Point", answer instanceof Point );
+
+        final Point value = (Point) answer;
+
+        assertEquals( "x", expected.getX(), value.getX(), delta );
+        assertEquals( "y", expected.getY(), value.getY(), delta );
+
+        assertEquals( expected, value );
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
 
     public void testDimensions() throws Exception {
         assertDimension("100, 200", new Dimension(100, 200));
@@ -69,34 +96,5 @@ public class TestConverters extends TestCase {
         assertPoint("100", new Point(100, 0));
         assertPoint(" 100  ,  200  ", new Point(100, 200));
         assertPoint(" 0  ,  200  ", new Point(0, 200));
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    protected void assertPoint(String expression, Point expected) throws Exception {
-        Object answer = ConvertUtils.convert(expression, Point.class );
-
-        assertTrue( "Returned type: "+  answer.getClass() + " is-a Point", answer instanceof Point );
-
-        Point value = (Point) answer;
-
-        assertEquals( "x", expected.getX(), value.getX(), delta );
-        assertEquals( "y", expected.getY(), value.getY(), delta );
-
-        assertEquals( expected, value );
-    }
-
-    protected void assertDimension(String expression, Dimension expected) throws Exception {
-        Object answer = ConvertUtils.convert(expression, Dimension.class );
-
-        assertTrue( "Returned type: "+  answer.getClass() + " is-a Dimension", answer instanceof Dimension );
-
-        Dimension value = (Dimension) answer;
-
-        assertEquals( "width", expected.getWidth(), value.getWidth(), delta );
-        assertEquals( "height", expected.getHeight(), value.getHeight(), delta );
-
-        assertEquals( expected, value );
     }
 }

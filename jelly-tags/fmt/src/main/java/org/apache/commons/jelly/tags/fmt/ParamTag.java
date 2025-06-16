@@ -17,9 +17,9 @@
 package org.apache.commons.jelly.tags.fmt;
 
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
 
 /**
@@ -43,15 +43,14 @@ public class ParamTag extends TagSupport {
      *
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         MessageTag parent = null;
-        Tag t = findAncestorWithClass(this, MessageTag.class);
-        if (t != null) {
-            parent = (MessageTag) t;
-        } else {
+        final Tag t = findAncestorWithClass(this, MessageTag.class);
+        if (t == null) {
             // must be nested inside a <fmt:message> action.
             throw new JellyTagException("must be nested inside a <fmt:message> action.");
         }
+        parent = (MessageTag) t;
 
         Object valueInput = null;
         if (this.value != null) {
@@ -69,7 +68,7 @@ public class ParamTag extends TagSupport {
      * @param value New value of property value.
      *
      */
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 

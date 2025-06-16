@@ -25,13 +25,20 @@ import org.jaxen.VariableContext;
   */
 public class XPathPatternExpression extends ExpressionSupport implements VariableContext {
 
-    private String text;
-    private Pattern pattern;
+    private final String text;
+    private final Pattern pattern;
     private JellyContext context;
 
-    public XPathPatternExpression(String text, Pattern pattern) {
+    public XPathPatternExpression(final String text, final Pattern pattern) {
         this.text = text;
         this.pattern = pattern;
+    }
+
+    @Override
+    public Object evaluate(final JellyContext context) {
+        this.context = context;
+        //pattern.setVariableContext(this);
+        return pattern;
     }
 
     // Expression interface
@@ -41,22 +48,15 @@ public class XPathPatternExpression extends ExpressionSupport implements Variabl
         return text;
     }
 
-    @Override
-    public Object evaluate(JellyContext context) {
-        this.context = context;
-        //pattern.setVariableContext(this);
-        return pattern;
-    }
-
     // VariableContext interface
     //-------------------------------------------------------------------------
     @Override
     public Object getVariableValue(
-        String namespaceURI,
-        String prefix,
-        String localName) {
+        final String namespaceURI,
+        final String prefix,
+        final String localName) {
 
-        Object value = context.getVariable(localName);
+        final Object value = context.getVariable(localName);
 
         //log.info( "Looking up XPath variable of name: " + localName + " value is: " + value );
 

@@ -31,7 +31,7 @@ import org.apache.commons.jelly.XMLOutput;
 public class ScriptBlock implements Script {
 
     /** The list of scripts */
-    private List list = new ArrayList();
+    private final List list = new ArrayList();
 
     /**
      * Create a new instance.
@@ -40,7 +40,7 @@ public class ScriptBlock implements Script {
     }
 
     /** Add a new script to the end of this block */
-    public void addScript(Script script) {
+    public void addScript(final Script script) {
         list.add(script);
     }
 
@@ -48,14 +48,14 @@ public class ScriptBlock implements Script {
     //-------------------------------------------------------------------------
     @Override
     public Script compile() throws JellyException {
-        int size = list.size();
+        final int size = list.size();
         if (size == 1) {
-            Script script = (Script) list.get(0);
+            final Script script = (Script) list.get(0);
             return script.compile();
         }
         // now compile children
         for (int i = 0; i < size; i++) {
-            Script script = (Script) list.get(i);
+            final Script script = (Script) list.get(i);
             list.set(i, script.compile());
         }
         return this;
@@ -70,21 +70,21 @@ public class ScriptBlock implements Script {
     }
 
     /** Removes a script from this block */
-    public void removeScript(Script script) {
+    public void removeScript(final Script script) {
         list.remove(script);
     }
 
     /** Evaluates the body of a tag */
     @Override
-    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
+    public void run(final JellyContext context, final XMLOutput output) throws JellyTagException {
 /*
         for (int i = 0, size = scripts.length; i < size; i++) {
             Script script = scripts[i];
             script.run(context, output);
         }
 */
-        for (Iterator iter = list.iterator(); iter.hasNext(); ) {
-            Script script = (Script) iter.next();
+        for (final Iterator iter = list.iterator(); iter.hasNext(); ) {
+            final Script script = (Script) iter.next();
             script.run(context, output);
         }
     }
@@ -96,17 +96,17 @@ public class ScriptBlock implements Script {
     public String toString() {
         return super.toString() + "[scripts=" + list + "]";
     }
-    
+
     /**
      * Trim the body of the script.
      * In this case, trim all elements, removing any that are empty text.
      */
     public void trimWhitespace() {
-        List list = getScriptList();
+        final List list = getScriptList();
         for ( int i = list.size() - 1; i >= 0; i-- ) {
-            Script script = (Script) list.get(i);
+            final Script script = (Script) list.get(i);
             if ( script instanceof TextScript ) {
-                TextScript textScript = (TextScript) script;
+                final TextScript textScript = (TextScript) script;
                 String text = textScript.getText();
                 text = text.trim();
                 if ( text.length() == 0 ) {

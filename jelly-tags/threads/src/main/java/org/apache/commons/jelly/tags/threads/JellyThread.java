@@ -28,7 +28,7 @@ public class JellyThread extends Thread {
     private static final Log log = LogFactory.getLog(ThreadTag.class);
 
     /** While this thread is still running it owns this mutex */
-    private Mutex runningMutex = new Mutex();
+    private final Mutex runningMutex = new Mutex();
     /** The Runnable target */
     private Runnable target = null;
 
@@ -41,16 +41,14 @@ public class JellyThread extends Thread {
             try {
                 runningMutex.acquire();
                 break;
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
             }
         }
     }
 
-    /**
-     * Sets the Runnable target that will be run
-     */
-    public void setTarget(Runnable target) {
-        this.target = target;
+    /** Gets the status of this thread */
+    public RunnableStatus getStatus() {
+        return status;
     }
 
     /**
@@ -69,17 +67,12 @@ public class JellyThread extends Thread {
             // as long as there were no runtime exceptions set SUCCESS
             status.set(RunnableStatus.SUCCESS);
 
-        } catch (RequirementException e) {
+        } catch (final RequirementException | TimeoutException e) {
 
             status.set(RunnableStatus.AVOIDED);
             log.warn("Thread \"" + getName() + "\" avoided, " + e.getMessage());
 
-        } catch (TimeoutException e) {
-
-            status.set(RunnableStatus.AVOIDED);
-            log.warn("Thread \"" + getName() + "\" avoided, " + e.getMessage());
-
-        } catch (Exception e) {
+        } catch (final Exception e) {
 
             // runtime exceptions will cause a status of FAILURE
             status.set(RunnableStatus.FAILURE, e);
@@ -95,10 +88,17 @@ public class JellyThread extends Thread {
     }
 
     /**
+     * Sets the Runnable target that will be run
+     */
+    public void setTarget(final Runnable target) {
+        this.target = target;
+    }
+
+    /**
      * Call this method from a different thread to wait until this thread is done. This
      * is used by the {@link WaitForTag} class.
      */
-    public void waitUntilDone(long howLong) throws TimeoutException {
+    public void waitUntilDone(final long howLong) throws TimeoutException {
         if (Thread.currentThread() == this) {
             throw new IllegalStateException("This method should be called from a different thread than itself");
         }
@@ -109,19 +109,15 @@ public class JellyThread extends Thread {
                 if (howLong == -1) {
                     runningMutex.acquire();
                     break;
-                } else if (!runningMutex.attempt(howLong)) {
+                }
+                if (!runningMutex.attempt(howLong)) {
                     throw new TimeoutException("max wait time exceeded");
                 }
-            } catch (InterruptedException e) {
+            } catch (final InterruptedException e) {
             }
         }
 
         // release the lock, just needed it to get started
         runningMutex.release();
-    }
-
-    /** Gets the status of this thread */
-    public RunnableStatus getStatus() {
-        return status;
     }
 }

@@ -16,15 +16,14 @@
  */
 package org.apache.commons.jelly.tags.beanshell;
 
-import bsh.EvalError;
-import bsh.Interpreter;
-
 import java.util.Iterator;
 
 import org.apache.commons.jelly.JellyContext;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import bsh.EvalError;
+import bsh.Interpreter;
 
 /** Integrates BeanShell's interpreter with Jelly's JellyContext
   */
@@ -38,25 +37,17 @@ public class JellyInterpreter extends Interpreter {
     public JellyInterpreter() {
     }
 
-    public JellyContext getJellyContext() {
-        return context;
+    /**
+     * Converts variables to a beanshell allowable format or hides names that
+     * can't be converted, by returning null.
+     * For now lets just turn '.' into '_'
+     */
+    protected String convertVariableName(final String name) {
+        return name.replace('.', '_');
     }
 
-    public void setJellyContext(JellyContext context) throws EvalError {
-        this.context = context;
-
-        // now pass in all the variables
-        for ( Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
-            String name = (String) iter.next();
-            Object value = context.getVariable(name);
-            name = convertVariableName(name);
-            if (name != null) {
-                set( name, value );
-            }
-        }
-
-        // lets pass in the Jelly context
-        set( "context", context );
+    public JellyContext getJellyContext() {
+        return context;
     }
 
 /*
@@ -76,12 +67,20 @@ public class JellyInterpreter extends Interpreter {
     }
 */
 
-    /**
-     * Converts variables to a beanshell allowable format or hides names that
-     * can't be converted, by returning null.
-     * For now lets just turn '.' into '_'
-     */
-    protected String convertVariableName(String name) {
-        return name.replace('.', '_');
+    public void setJellyContext(final JellyContext context) throws EvalError {
+        this.context = context;
+
+        // now pass in all the variables
+        for ( final Iterator iter = context.getVariableNames(); iter.hasNext(); ) {
+            String name = (String) iter.next();
+            final Object value = context.getVariable(name);
+            name = convertVariableName(name);
+            if (name != null) {
+                set( name, value );
+            }
+        }
+
+        // lets pass in the Jelly context
+        set( "context", context );
     }
 }

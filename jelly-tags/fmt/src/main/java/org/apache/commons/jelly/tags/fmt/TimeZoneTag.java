@@ -16,17 +16,14 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
+import java.util.TimeZone;
+
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
-import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import java.util.Enumeration;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.MissingResourceException;
-import java.util.TimeZone;
 
 /**
  * Support for tag handlers for &lt;timeZone&gt;, the time zone loading
@@ -36,20 +33,58 @@ import java.util.TimeZone;
  */
 public class TimeZoneTag extends TagSupport {
 
+    /*
+     * Determines and returns the time zone to be used by the given action.
+     *
+     * <p> If the given action is nested inside a &lt;timeZone&gt; action,
+     * the time zone is taken from the enclosing &lt;timeZone&gt; action.
+     *
+     * <p> Otherwise, the time zone configuration setting
+     * <code>javax.servlet.jsp.jstl.core.Config.FMT_TIME_ZONE</code>
+     * is used.
+     *
+     * @param jc the page containing the action for which the
+     * time zone needs to be determined
+     * @param fromTag the action for which the time zone needs to be
+     * determined
+     *
+     * @return the time zone, or {@code null} if the given action is not
+     * nested inside a &lt;timeZone&gt; action and no time zone configuration
+     * setting exists
+     */
+    static TimeZone getTimeZone(final JellyContext jc, final Tag fromTag) {
+        TimeZone tz = null;
+
+        final Tag t = findAncestorWithClass(fromTag, TimeZoneTag.class);
+        if (t != null) {
+            // use time zone from parent <timeZone> tag
+            final TimeZoneTag parent = (TimeZoneTag) t;
+            tz = parent.getTimeZone();
+        } else {
+            // get time zone from configuration setting
+            final Object obj = jc.getVariable(Config.FMT_TIME_ZONE);
+            if (obj != null) {
+                if (obj instanceof TimeZone) {
+                    tz = (TimeZone) obj;
+                } else {
+                    tz = TimeZone.getTimeZone((String) obj);
+                }
+            }
+        }
+
+        return tz;
+    }
     private TimeZone timeZone;
-    private Expression value;                    // 'value' attribute
 
     //*********************************************************************
     // Constructor and initialization
 
-    public TimeZoneTag() {
-    }
+    private Expression value;                    // 'value' attribute
 
     //*********************************************************************
     // Collaboration with subtags
 
-    public TimeZone getTimeZone() {
-        return timeZone;
+    public TimeZoneTag() {
     }
 
     //*********************************************************************
@@ -60,7 +95,7 @@ public class TimeZoneTag extends TagSupport {
      *
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         Object valueInput = null;
         if (this.value != null) {
             valueInput = this.value.evaluate(context);
@@ -85,53 +120,15 @@ public class TimeZoneTag extends TagSupport {
     //*********************************************************************
     // Package-scoped utility methods
 
-    /*
-     * Determines and returns the time zone to be used by the given action.
-     *
-     * <p> If the given action is nested inside a &lt;timeZone&gt; action,
-     * the time zone is taken from the enclosing &lt;timeZone&gt; action.
-     *
-     * <p> Otherwise, the time zone configuration setting
-     * <code>javax.servlet.jsp.jstl.core.Config.FMT_TIME_ZONE</code>
-     * is used.
-     *
-     * @param jc the page containing the action for which the
-     * time zone needs to be determined
-     * @param fromTag the action for which the time zone needs to be
-     * determined
-     *
-     * @return the time zone, or {@code null} if the given action is not
-     * nested inside a &lt;timeZone&gt; action and no time zone configuration
-     * setting exists
-     */
-    static TimeZone getTimeZone(JellyContext jc, Tag fromTag) {
-        TimeZone tz = null;
-
-        Tag t = findAncestorWithClass(fromTag, TimeZoneTag.class);
-        if (t != null) {
-            // use time zone from parent <timeZone> tag
-            TimeZoneTag parent = (TimeZoneTag) t;
-            tz = parent.getTimeZone();
-        } else {
-            // get time zone from configuration setting
-            Object obj = jc.getVariable(Config.FMT_TIME_ZONE);
-            if (obj != null) {
-                if (obj instanceof TimeZone) {
-                    tz = (TimeZone) obj;
-                } else {
-                    tz = TimeZone.getTimeZone((String) obj);
-                }
-            }
-        }
-
-        return tz;
+    public TimeZone getTimeZone() {
+        return timeZone;
     }
 
     /** Setter for property value.
      * @param value New value of property value.
      *
      */
-    public void setValue(Expression value) {
+    public void setValue(final Expression value) {
         this.value = value;
     }
 }

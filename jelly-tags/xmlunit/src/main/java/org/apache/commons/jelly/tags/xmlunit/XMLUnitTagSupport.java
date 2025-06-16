@@ -35,6 +35,11 @@ public abstract class XMLUnitTagSupport extends AssertTagSupport {
     /** The SAXReader used to parser the document */
     private SAXReader saxReader;
 
+    /**
+     * Factory method to create a new SAXReader
+     */
+    protected abstract SAXReader createSAXReader();
+
     /** @return the SAXReader used for parsing, creating one lazily if need be  */
     public SAXReader getSAXReader() {
         if (saxReader == null) {
@@ -43,61 +48,59 @@ public abstract class XMLUnitTagSupport extends AssertTagSupport {
         return saxReader;
     }
 
-    /** Sets the SAXReader used for parsing */
-    public void setSAXReader(SAXReader saxReader) {
-        this.saxReader = saxReader;
-    }
-
     /**
-     * Factory method to create a new SAXReader
+     * Parses the given source
      */
-    protected abstract SAXReader createSAXReader();
+    protected Document parse(final Object source) throws JellyTagException {
+        try {
+            if (source instanceof Document) {
+                return (Document) source;
+            }
+            if (source instanceof String) {
+                final String uri = (String) source;
+                final InputStream in = context.getResourceAsStream(uri);
+                return getSAXReader().read(in, uri);
+            }
+            if (source instanceof Reader) {
+                return getSAXReader().read((Reader) source);
+            }
+            if (source instanceof InputStream) {
+                return getSAXReader().read((InputStream) source);
+            }
+            if (source instanceof URL) {
+                return getSAXReader().read((URL) source);
+            }
+            throw new IllegalArgumentException(
+                "Invalid source argument. Must be a Document, String, Reader, InputStream or URL."
+                    + " Was type: "
+                    + source.getClass().getName()
+                    + " with value: "
+                    + source);
+        }
+        catch (final DocumentException e) {
+            throw new JellyTagException(e);
+        }
+    }
 
     /**
      * Parses the body of this tag and returns the parsed document
      */
     protected Document parseBody() throws JellyTagException {
-        SAXContentHandler handler = new SAXContentHandler();
-        XMLOutput newOutput = new XMLOutput(handler);
+        final SAXContentHandler handler = new SAXContentHandler();
+        final XMLOutput newOutput = new XMLOutput(handler);
         try {
             handler.startDocument();
             invokeBody(newOutput);
             handler.endDocument();
         }
-        catch (SAXException e) {
+        catch (final SAXException e) {
             throw new JellyTagException(e);
         }
         return handler.getDocument();
     }
 
-    /**
-     * Parses the given source
-     */
-    protected Document parse(Object source) throws JellyTagException {
-        try {
-            if (source instanceof Document) {
-                return (Document) source;
-            } else if (source instanceof String) {
-                String uri = (String) source;
-                InputStream in = context.getResourceAsStream(uri);
-                return getSAXReader().read(in, uri);
-            } else if (source instanceof Reader) {
-                return getSAXReader().read((Reader) source);
-            } else if (source instanceof InputStream) {
-                return getSAXReader().read((InputStream) source);
-            } else if (source instanceof URL) {
-                return getSAXReader().read((URL) source);
-            } else {
-                throw new IllegalArgumentException(
-                    "Invalid source argument. Must be a Document, String, Reader, InputStream or URL."
-                        + " Was type: "
-                        + source.getClass().getName()
-                        + " with value: "
-                        + source);
-            }
-        }
-        catch (DocumentException e) {
-            throw new JellyTagException(e);
-        }
+    /** Sets the SAXReader used for parsing */
+    public void setSAXReader(final SAXReader saxReader) {
+        this.saxReader = saxReader;
     }
 }

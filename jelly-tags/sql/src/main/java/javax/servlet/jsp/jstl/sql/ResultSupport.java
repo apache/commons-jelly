@@ -33,10 +33,10 @@ public class ResultSupport {
      * @param resultSet the ResultSet object
      * @return the <code>Result</code> object of the result
      */
-    public static Result toResult(ResultSet resultSet) {
+    public static Result toResult(final ResultSet resultSet) {
         try {
             return new ResultImpl(resultSet, -1, -1);
-        } catch (SQLException ex) {
+        } catch (final SQLException ex) {
             return null;
         }
     }
@@ -48,10 +48,10 @@ public class ResultSupport {
      * @param maxRows the maximum number of rows
      * @return the <code>Result</code> object of the result limited by maxRows
      */
-    public static Result toResult(ResultSet resultSet, int maxRows) {
+    public static Result toResult(final ResultSet resultSet, final int maxRows) {
         try {
             return new ResultImpl(resultSet, -1, maxRows);
-        } catch (SQLException ex) {
+        } catch (final SQLException ex) {
             return null;
         }
     }

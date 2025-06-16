@@ -31,7 +31,7 @@ import org.jaxen.XPath;
 public class ApplyTemplatesTag extends TagSupport {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(ApplyTemplatesTag.class);
+    private final Log log = LogFactory.getLog(ApplyTemplatesTag.class);
 
     /** Holds value of property mode. */
     private String mode;
@@ -46,19 +46,19 @@ public class ApplyTemplatesTag extends TagSupport {
     //-------------------------------------------------------------------------
     /** By default just evaluate the body */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
         if (tag == null) {
             throw new JellyTagException(
                 "<applyTemplates> tag must be inside a <stylesheet> tag"
             );
         }
-        Stylesheet stylesheet = tag.getStylesheet();
+        final Stylesheet stylesheet = tag.getStylesheet();
 
-        XMLOutput oldOutput = tag.getStylesheetOutput();
+        final XMLOutput oldOutput = tag.getStylesheetOutput();
         tag.setStylesheetOutput(output);
 
-        Object source = tag.getXPathSource();
+        final Object source = tag.getXPathSource();
         // for some reason, these DOM4J methods only throw Exception
         try {
             if ( select != null ) {
@@ -68,7 +68,7 @@ public class ApplyTemplatesTag extends TagSupport {
                 stylesheet.applyTemplates( source, mode );
             }
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException(e);
         }
 
@@ -81,14 +81,14 @@ public class ApplyTemplatesTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    public void setSelect( XPath select ) {
-        this.select = select;
-    }
-
     /** Sets the mode.
      * @param mode New value of property mode.
      */
-    public void setMode(String mode) {
+    public void setMode(final String mode) {
         this.mode = mode;
+    }
+
+    public void setSelect( final XPath select ) {
+        this.select = select;
     }
 }

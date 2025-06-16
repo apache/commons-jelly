@@ -46,39 +46,8 @@ public class ClassLoaderTag extends BeanTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * @return the variable to store the class loader in
-     */
-    public String getVar() {
-        return this.var;
-    }
-
-    /**
-     * @param var the variable to store the class loader in
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * @return the url to load the classes from
-     */
-    public String getUrl() {
-        return this.url;
-    }
-
-    /**
-     * @param url the url to load the classes from
-     */
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( getVar() == null ) {
             throw new MissingAttributeException( "var" );
         }
@@ -96,13 +65,44 @@ public class ClassLoaderTag extends BeanTag {
         try {
             newClassLoader =
               new URLClassLoader( new URL[] { new URL(getUrl()) }, parent );
-        } catch (MalformedURLException e) {
+        } catch (final MalformedURLException e) {
             throw new JellyTagException(e);
         }
 
         log.debug("Storing the new classloader in " + getVar());
 
         context.setVariable(getVar(), newClassLoader);
+    }
+
+    /**
+     * @return the url to load the classes from
+     */
+    public String getUrl() {
+        return this.url;
+    }
+
+    /**
+     * @return the variable to store the class loader in
+     */
+    public String getVar() {
+        return this.var;
+    }
+
+    /**
+     * @param url the url to load the classes from
+     */
+    public void setUrl(final String url) {
+        this.url = url;
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    /**
+     * @param var the variable to store the class loader in
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 
 }

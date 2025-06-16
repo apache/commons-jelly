@@ -17,7 +17,6 @@
 package org.apache.commons.jelly.tags.email;
 
 import org.apache.commons.jelly.TagLibrary;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -26,7 +25,7 @@ import org.apache.commons.logging.LogFactory;
 public class EmailTagLibrary extends TagLibrary {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(EmailTagLibrary.class);
+    private final Log log = LogFactory.getLog(EmailTagLibrary.class);
 
     public EmailTagLibrary() {
         registerTag("email", EmailTag.class);

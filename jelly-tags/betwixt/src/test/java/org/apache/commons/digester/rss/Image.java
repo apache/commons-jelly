@@ -5,15 +5,15 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *      https://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */ 
+ */
 
 package org.apache.commons.digester.rss;
 
@@ -33,77 +33,53 @@ public class Image implements Serializable {
      */
     protected String description = null;
 
-    public String getDescription() {
-        return (this.description);
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     /**
      * The image height in pixels (1-400).
      */
     protected int height = 31;
-
-    public int getHeight() {
-        return (this.height);
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
 
     /**
      * The image link (1-500 characters).
      */
     protected String link = null;
 
-    public String getLink() {
-        return (this.link);
-    }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
     /**
      * The image alternate text (1-100 characters).
      */
     protected String title = null;
-
-    public String getTitle() {
-        return (this.title);
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
 
     /**
      * The image location URL (1-500 characters).
      */
     protected String url = null;
 
-    public String getURL() {
-        return (this.url);
-    }
-
-    public void setURL(String url) {
-        this.url = url;
-    }
-
     /**
      * The image width in pixels (1-400).
      */
     protected int width = 31;
 
-    public int getWidth() {
-        return (this.width);
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
+    public int getHeight() {
+        return this.height;
+    }
+
+    public String getLink() {
+        return this.link;
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public String getURL() {
+        return this.url;
+    }
+
+    public int getWidth() {
+        return this.width;
     }
 
     /**
@@ -112,7 +88,7 @@ public class Image implements Serializable {
      *
      * @param writer The writer to render output to
      */
-    void render(PrintWriter writer) {
+    void render(final PrintWriter writer) {
 
         writer.println("    <image>");
 
@@ -146,6 +122,30 @@ public class Image implements Serializable {
 
         writer.println("    </image>");
 
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
+    }
+
+    public void setHeight(final int height) {
+        this.height = height;
+    }
+
+    public void setLink(final String link) {
+        this.link = link;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public void setURL(final String url) {
+        this.url = url;
+    }
+
+    public void setWidth(final int width) {
+        this.width = width;
     }
 
 }

@@ -57,16 +57,16 @@ public class BeandefTag extends TagSupport {
     private ClassLoader classLoader;
 
     /** The library in which to define this new bean tag */
-    private BeanTagLibrary library;
+    private final BeanTagLibrary library;
 
-    public BeandefTag(BeanTagLibrary library) {
+    public BeandefTag(final BeanTagLibrary library) {
         this.library = library;
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         invokeBody(output);
 
         if (name == null) {
@@ -79,7 +79,7 @@ public class BeandefTag extends TagSupport {
         Class theClass = null;
         try {
             theClass = ClassLoaderUtils.loadClass(className, classLoader, getContext().getUseContextClassLoader(), getClass());
-        } catch (ClassNotFoundException e) {
+        } catch (final ClassNotFoundException e) {
             log.error( "Could not load class: " + className + " exception: " + e, e );
             throw new JellyTagException("Could not find class: "
                     + className
@@ -87,7 +87,7 @@ public class BeandefTag extends TagSupport {
                     + classLoader);
         }
 
-        Method invokeMethod = getInvokeMethod(theClass);
+        final Method invokeMethod = getInvokeMethod(theClass);
 
         // @todo should we allow the variable name to be specified?
         library.registerBean(name, theClass, invokeMethod);
@@ -97,34 +97,21 @@ public class BeandefTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the name of the tag to create
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Sets the Java class name to use for the tag
-     */
-    public void setClassName(String className) {
-        this.className = className;
-    }
-
-    /**
-     * Sets the ClassLoader to use to load the class.
-     * If no value is set then the current threads context class
-     * loader is used.
-     */
-    public void setClassLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
-
-    /**
      * @return the ClassLoader to use to load classes
      *  or will use the thread context loader if none is specified.
      */
     public ClassLoader getClassLoader() {
         return ClassLoaderUtils.getClassLoader(classLoader, true, getClass());
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    protected Method getInvokeMethod(final Class theClass) {
+        if (methodName != null) {
+            // lets lookup the method name
+            return MethodUtils.getAccessibleMethod(theClass, methodName, EMPTY_ARGUMENT_TYPES);
+        }
+        return null;
     }
 
     /**
@@ -135,20 +122,33 @@ public class BeandefTag extends TagSupport {
     }
 
     /**
+     * Sets the ClassLoader to use to load the class.
+     * If no value is set then the current threads context class
+     * loader is used.
+     */
+    public void setClassLoader(final ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
+    /**
+     * Sets the Java class name to use for the tag
+     */
+    public void setClassName(final String className) {
+        this.className = className;
+    }
+
+    /**
      * Sets the methodName.
      * @param methodName The methodName to set
      */
-    public void setMethodName(String methodName) {
+    public void setMethodName(final String methodName) {
         this.methodName = methodName;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected Method getInvokeMethod(Class theClass) {
-        if (methodName != null) {
-            // lets lookup the method name
-            return MethodUtils.getAccessibleMethod(theClass, methodName, EMPTY_ARGUMENT_TYPES);
-        }
-        return null;
+    /**
+     * Sets the name of the tag to create
+     */
+    public void setName(final String name) {
+        this.name = name;
     }
 }

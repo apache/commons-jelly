@@ -38,23 +38,20 @@ public class ExprTag extends XPathTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        Object xpathContext = getXPathContext();
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        final Object xpathContext = getXPathContext();
 
         if (select == null) {
             throw new MissingAttributeException( "select" );
         }
 
         try {
-            String text = select.stringValueOf(xpathContext);
+            final String text = select.stringValueOf(xpathContext);
             if ( text != null ) {
                 output.write(text);
             }
         }
-        catch (SAXException e) {
-            throw new JellyTagException(e);
-        }
-        catch (JaxenException e) {
+        catch (final SAXException | JaxenException e) {
             throw new JellyTagException(e);
         }
     }
@@ -62,7 +59,7 @@ public class ExprTag extends XPathTagSupport {
     // Properties
     //-------------------------------------------------------------------------
     /** Sets the XPath expression to evaluate. */
-    public void setSelect(XPath select) {
+    public void setSelect(final XPath select) {
         this.select = select;
     }
 }

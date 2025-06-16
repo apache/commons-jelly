@@ -36,7 +36,7 @@ public class DynabeanTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (dynaClass == null) {
             throw new MissingAttributeException( "dynaclass" );
@@ -48,13 +48,11 @@ public class DynabeanTag extends TagSupport {
 
         try {
             // Create dynabean instance for this dynaclass
-            DynaBean dynaBean = dynaClass.newInstance();
+            final DynaBean dynaBean = dynaClass.newInstance();
 
             // Place new dynabean in context as a variable
             context.setVariable(getVar(), dynaBean);
-        } catch (IllegalAccessException e) {
-            throw new JellyTagException(e);
-        } catch (InstantiationException e) {
+        } catch (final IllegalAccessException | InstantiationException e) {
             throw new JellyTagException(e);
         }
     }
@@ -62,21 +60,21 @@ public class DynabeanTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * Sets the DynaClass of the new instance to create
-     */
-    public void setDynaclass(DynaClass dynaClass) {
-        this.dynaClass = dynaClass;
-    }
-
     public String getVar() {
         return var;
     }
 
     /**
+     * Sets the DynaClass of the new instance to create
+     */
+    public void setDynaclass(final DynaClass dynaClass) {
+        this.dynaClass = dynaClass;
+    }
+
+    /**
      * Sets the name of the variable to export the new DynaBean instance to
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

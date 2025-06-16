@@ -16,8 +16,8 @@
  */
 package org.apache.commons.jelly.tags.fmt;
 
-import java.util.ResourceBundle;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * Class representing an I18N localization context.
@@ -50,6 +50,19 @@ public class LocalizationContext {
     }
 
     /**
+     * Constructs an I18N localization context from the given resource bundle.
+     *
+     * <p> The localization context's locale is taken from the given
+     * resource bundle.
+     *
+     * @param bundle The resource bundle
+     */
+    public LocalizationContext(final ResourceBundle bundle) {
+        this.bundle = bundle;
+        this.locale = bundle.getLocale();
+    }
+
+    /**
      * Constructs an I18N localization context from the given resource bundle
      * and locale.
      *
@@ -59,32 +72,9 @@ public class LocalizationContext {
      * @param bundle The localization context's resource bundle
      * @param locale The localization context's locale
      */
-    public LocalizationContext(ResourceBundle bundle, Locale locale) {
+    public LocalizationContext(final ResourceBundle bundle, final Locale locale) {
         this.bundle = bundle;
         this.locale = locale;
-    }
-
-    /**
-     * Constructs an I18N localization context from the given resource bundle.
-     *
-     * <p> The localization context's locale is taken from the given
-     * resource bundle.
-     *
-     * @param bundle The resource bundle
-     */
-    public LocalizationContext(ResourceBundle bundle) {
-        this.bundle = bundle;
-        this.locale = bundle.getLocale();
-    }
-
-    /**
-     * Gets the resource bundle of this I18N localization context.
-     *
-     * @return The resource bundle of this I18N localization context, or null
-     * if this I18N localization context is empty
-     */
-    public ResourceBundle getResourceBundle() {
-        return bundle;
     }
 
     /**
@@ -96,5 +86,15 @@ public class LocalizationContext {
      */
     public Locale getLocale() {
         return locale;
+    }
+
+    /**
+     * Gets the resource bundle of this I18N localization context.
+     *
+     * @return The resource bundle of this I18N localization context, or null
+     * if this I18N localization context is empty
+     */
+    public ResourceBundle getResourceBundle() {
+        return bundle;
     }
 }

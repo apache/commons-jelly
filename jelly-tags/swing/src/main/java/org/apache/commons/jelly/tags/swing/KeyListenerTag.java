@@ -37,61 +37,40 @@ public class KeyListenerTag extends TagSupport
 
   public KeyListenerTag()
   {
-    super();
-  }
-
-  public void setVar(String var)
-  {
-    this.var = var;
-  }
-
-  public void setPressed(Script pressed)
-  {
-    this.pressed = pressed;
-  }
-
-  public void setReleased(Script released)
-  {
-    this.released = released;
-  }
-
-  public void setTyped(Script typed)
-  {
-    this.typed = typed;
   }
 
   @Override
 public void doTag(final XMLOutput output) throws JellyTagException
   {
     // now lets add this action to its parent if we have one
-    ComponentTag tag = (ComponentTag)findAncestorWithClass(ComponentTag.class);
+    final ComponentTag tag = (ComponentTag)findAncestorWithClass(ComponentTag.class);
     if (tag != null)
     {
-      KeyListener listener = new KeyListener()
+      final KeyListener listener = new KeyListener()
       {
         @Override
-        public void keyTyped(KeyEvent e)
-        {
-          invokeScript(output, e, typed);
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e)
+        public void keyPressed(final KeyEvent e)
         {
           invokeScript(output, e, pressed);
         }
 
         @Override
-        public void keyReleased(KeyEvent e)
+        public void keyReleased(final KeyEvent e)
         {
           invokeScript(output, e, released);
+        }
+
+        @Override
+        public void keyTyped(final KeyEvent e)
+        {
+          invokeScript(output, e, typed);
         }
       };
       tag.addKeyListener(listener);
     }
   }
 
-  protected void invokeScript(XMLOutput output, KeyEvent event, Script script)
+  protected void invokeScript(final XMLOutput output, final KeyEvent event, final Script script)
   {
     if (var != null)
     {
@@ -111,10 +90,30 @@ public void doTag(final XMLOutput output) throws JellyTagException
         invokeBody(output);
       }
     }
-    catch (Exception e)
+    catch (final Exception e)
     {
       log.error("Caught exception processing window event: " + event, e);
     }
+  }
+
+  public void setPressed(final Script pressed)
+  {
+    this.pressed = pressed;
+  }
+
+  public void setReleased(final Script released)
+  {
+    this.released = released;
+  }
+
+  public void setTyped(final Script typed)
+  {
+    this.typed = typed;
+  }
+
+  public void setVar(final String var)
+  {
+    this.var = var;
   }
 
 }

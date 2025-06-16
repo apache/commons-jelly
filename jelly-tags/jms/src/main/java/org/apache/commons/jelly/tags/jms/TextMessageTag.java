@@ -16,8 +16,8 @@
  */
 package org.apache.commons.jelly.tags.jms;
 
-import javax.jms.Message;
 import javax.jms.JMSException;
+import javax.jms.Message;
 
 import org.apache.commons.jelly.JellyTagException;
 
@@ -33,23 +33,23 @@ public class TextMessageTag extends MessageTag {
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * Sets the body of the message, a String. If this value is not set or
-     * the value is null then the content of the tag will be used instead.
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
-
     // Implementation methods
     //-------------------------------------------------------------------------
     @Override
     protected Message createMessage() throws JellyTagException {
-        String value = (text != null) ? text : getBodyText();
+        final String value = text != null ? text : getBodyText();
         try {
             return getConnection().createTextMessage(value);
-        } catch (JMSException e) {
+        } catch (final JMSException e) {
             throw new JellyTagException(e);
         }
+    }
+
+    /**
+     * Sets the body of the message, a String. If this value is not set or
+     * the value is null then the content of the tag will be used instead.
+     */
+    public void setText(final String text) {
+        this.text = text;
     }
 }

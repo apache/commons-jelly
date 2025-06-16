@@ -19,7 +19,6 @@
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.xml.sax.SAXException;
 
 /*
@@ -31,12 +30,12 @@ public class DynamicTag extends TagSupport
      * @see org.apache.commons.jelly.Tag#doTag(XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException
+    public void doTag(final XMLOutput output) throws JellyTagException
     {
         try {
             output.write("output - ignored body");
         }
-        catch (SAXException e) {
+        catch (final SAXException e) {
             throw new JellyTagException(e);
         }
     }

@@ -17,13 +17,12 @@
 
 package org.apache.commons.jelly.tags.jetty;
 
+import java.util.StringTokenizer;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.handler.ResourceHandler;
-
-import java.util.StringTokenizer;
 
 /**
  * Declare a static file resource handler for a Jetty http server
@@ -45,18 +44,18 @@ public class ResourceHandlerTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
-        HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
+        final HttpContextTag httpContext = (HttpContextTag) findAncestorWithClass(
             HttpContextTag.class);
         if ( httpContext == null ) {
             throw new JellyTagException( "<resourceHandler> tag must be enclosed inside a <httpContext> tag" );
         }
-        ResourceHandler resourceHandler = new ResourceHandler();
+        final ResourceHandler resourceHandler = new ResourceHandler();
         if (getAllowedMethods() != null) {
             // split comma-separated list up into tokens and convert to an array
-            StringTokenizer tokenizer =
+            final StringTokenizer tokenizer =
                 new StringTokenizer( getAllowedMethods(), " ," );
-            String[] allowedMethods = new String[tokenizer.countTokens()];
+            final String[] allowedMethods = new String[tokenizer.countTokens()];
             for (int i = 0; i < allowedMethods.length; i++) {
                 allowedMethods[i] = tokenizer.nextToken();
             }
@@ -84,7 +83,7 @@ public class ResourceHandlerTag extends TagSupport {
      *
      * @param allowedMethods Comma separated list of allowed methods.
      */
-    public void setAllowedMethods(String allowedMethods) {
+    public void setAllowedMethods(final String allowedMethods) {
         _allowedMethods = allowedMethods;
     }
 

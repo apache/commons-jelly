@@ -19,18 +19,17 @@ package org.apache.commons.jelly.tags.interaction;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.jelly.TagSupport;
+import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import jline.ConsoleReader;
 import jline.History;
 import jline.SimpleCompletor;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.commons.jelly.TagSupport;
-import org.apache.commons.jelly.XMLOutput;
 
   /**
   * Jelly Tag that asks the user a question, and puts his answer into a variable,
@@ -62,81 +61,18 @@ public class AskTag extends TagSupport {
 
     /** A list of predefined commands for tab completion. */
     private List completor;
-    
+
     /** Whether to complete with previous completions as well. */
     private boolean useHistoryCompletor = true;
 
     /**
-     * Sets the question to ask to the user. If a "default" attribute is
-     * present, it will appear inside [].
-     * 
-     * @param question
-     *            The question to ask to the user
-     */
-    public void setQuestion(String question) {
-        this.question = question;
-    }
-
-    /**
-     * Sets the name of the variable that will hold the answer. 
-     * This defaults to "interact.answer".
-     * 
-     * @param answer
-     *            the name of the variable that will hold the answer
-     */
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    /**
-     * Sets the default answer to the question. If it is present, it will appear
-     * inside [].
-     * 
-     * @param defaultInput
-     *            the default answer to the question
-     */
-    public void setDefault(String defaultInput) {
-        this.defaultInput = defaultInput;
-    }
-
-    /**
-     * Sets the prompt that will be displayed before the user's input.
-     * 
-     * @param prompt
-     *            the prompt that will be displayed before the user's input.
-     */
-    public void setPrompt(String prompt) {
-        this.prompt = prompt;
-    }
-
-    /**
-     * Sets the list of predefined commands.
-     * 
-     * @param list
-     *            the list of commands used for tab completion.
-     */
-    public void setCompletor(List list) {
-        this.completor = list;
-    }
-    
-    /**
-     * Sets whether the completion should also happen on previously
-     * entered lines (default true).
-     *
-     * @param should whether it should
-     */
-    public void setUseHistoryCompletor(boolean should) {
-        this.useHistoryCompletor = should;
-    }
-
-    /**
      * Perform functionality provided by the tag.
-     * 
+     *
      * @param output
      *            the place to write output
      */
     @Override
-    public void doTag(XMLOutput output) {
+    public void doTag(final XMLOutput output) {
         if (question != null) {
             if (defaultInput != null) {
                 System.out.println(question + " [" + defaultInput + "]");
@@ -153,7 +89,7 @@ public class AskTag extends TagSupport {
 
         try {
             consoleReader = new ConsoleReader();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             logger.warn("couldnt create console reader", e);
             consoleReader = null;
         }
@@ -169,19 +105,19 @@ public class AskTag extends TagSupport {
                 consoleReader.setBellEnabled(false);
 
                 // add old commands as tab completion history
-                List oldCommandsAsList = useHistoryCompletor
+                final List oldCommandsAsList = useHistoryCompletor
                     ? new ArrayList(consoleHistory.getHistoryList()) : new ArrayList(0);
                 // add predefined commands if given
                 if (completor != null && !completor.isEmpty()) {
                     oldCommandsAsList.addAll(completor);
                 }
-                String[] oldCommands = new String[oldCommandsAsList.size()];
+                final String[] oldCommands = new String[oldCommandsAsList.size()];
                 oldCommandsAsList.toArray(oldCommands);
                 consoleReader.addCompletor (new SimpleCompletor (oldCommands));
 
                 // read the input!
                 input = consoleReader.readLine();
-                
+
                 // trim the input for tab completion
                 input = input.trim();
 
@@ -189,15 +125,78 @@ public class AskTag extends TagSupport {
                     input = defaultInput;
                 }
             } else {
-                BufferedReader reader = new BufferedReader(
+                final BufferedReader reader = new BufferedReader(
                         new InputStreamReader(System.in));
                 input = reader.readLine();
             }
 
-        } catch (IOException ex) {
+        } catch (final IOException ex) {
             logger.warn("error setting up the console reader", ex);
         }
 
         context.setVariable(answer, input);
+    }
+
+    /**
+     * Sets the name of the variable that will hold the answer.
+     * This defaults to "interact.answer".
+     *
+     * @param answer
+     *            the name of the variable that will hold the answer
+     */
+    public void setAnswer(final String answer) {
+        this.answer = answer;
+    }
+
+    /**
+     * Sets the list of predefined commands.
+     *
+     * @param list
+     *            the list of commands used for tab completion.
+     */
+    public void setCompletor(final List list) {
+        this.completor = list;
+    }
+
+    /**
+     * Sets the default answer to the question. If it is present, it will appear
+     * inside [].
+     *
+     * @param defaultInput
+     *            the default answer to the question
+     */
+    public void setDefault(final String defaultInput) {
+        this.defaultInput = defaultInput;
+    }
+
+    /**
+     * Sets the prompt that will be displayed before the user's input.
+     *
+     * @param prompt
+     *            the prompt that will be displayed before the user's input.
+     */
+    public void setPrompt(final String prompt) {
+        this.prompt = prompt;
+    }
+
+    /**
+     * Sets the question to ask to the user. If a "default" attribute is
+     * present, it will appear inside [].
+     *
+     * @param question
+     *            The question to ask to the user
+     */
+    public void setQuestion(final String question) {
+        this.question = question;
+    }
+
+    /**
+     * Sets whether the completion should also happen on previously
+     * entered lines (default true).
+     *
+     * @param should whether it should
+     */
+    public void setUseHistoryCompletor(final boolean should) {
+        this.useHistoryCompletor = should;
     }
 }

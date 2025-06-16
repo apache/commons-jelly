@@ -50,10 +50,10 @@ public class TokenizeTag extends TagSupport
             throw new MissingAttributeException( "delim" );
         }
 
-        StringTokenizer tokenizer = new StringTokenizer( getBodyText(),
+        final StringTokenizer tokenizer = new StringTokenizer( getBodyText(),
                                                          this.delim );
 
-        List tokens = new ArrayList();
+        final List tokens = new ArrayList();
 
         while ( tokenizer.hasMoreTokens() )
         {
@@ -64,16 +64,16 @@ public class TokenizeTag extends TagSupport
                                   tokens );
     }
 
-    /** The variable name to hold the list of tokens */
-    public void setVar(String var)
-    {
-        this.var = var;
-    }
-
     /** The delimiter that separates the tokens */
-    public void setDelim(String delim)
+    public void setDelim(final String delim)
     {
         this.delim = delim;
+    }
+
+    /** The variable name to hold the list of tokens */
+    public void setVar(final String var)
+    {
+        this.var = var;
     }
 
 }

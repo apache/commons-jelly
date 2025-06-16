@@ -23,7 +23,6 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathSource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.dom4j.Node;
 import org.dom4j.rule.Action;
 import org.dom4j.rule.Pattern;
 import org.dom4j.rule.Rule;
@@ -34,7 +33,7 @@ import org.dom4j.rule.Rule;
 public class TemplateTag extends TagSupport implements XPathSource {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(TemplateTag.class);
+    private final Log log = LogFactory.getLog(TemplateTag.class);
 
     /** Holds value of property name. */
     private String name;
@@ -54,11 +53,44 @@ public class TemplateTag extends TagSupport implements XPathSource {
     public TemplateTag() {
     }
 
+    protected Action createAction(final StylesheetTag tag, final XMLOutput output) {
+        return node -> {
+
+            // store the context for use by applyTemplates tag
+            tag.setXPathSource( node );
+
+            xpathSource = node;
+
+            if (log.isDebugEnabled()) {
+                log.debug( "Firing template body for match: " + match + " and node: " + node );
+            }
+
+            XMLOutput actualOutput = tag.getStylesheetOutput();
+            if (actualOutput == null) {
+                actualOutput = output;
+            }
+
+            invokeBody(actualOutput);
+        };
+    }
+
+    // XPathSource interface
+    //-------------------------------------------------------------------------
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+    protected Rule createRule(final StylesheetTag tag, final XMLOutput output) {
+        return new Rule( match, createAction(tag, output) );
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final StylesheetTag tag = (StylesheetTag) findAncestorWithClass( StylesheetTag.class );
         if (tag == null) {
             throw new JellyTagException( "This <template> tag must be used inside a <stylesheet> tag" );
         }
@@ -67,43 +99,11 @@ public class TemplateTag extends TagSupport implements XPathSource {
             log.debug( "adding template rule for match: " + match );
         }
 
-        Rule rule = createRule(tag, output);
+        final Rule rule = createRule(tag, output);
         if ( rule != null && tag != null) {
             rule.setMode( mode );
             tag.addTemplate( rule );
         }
-    }
-
-    // XPathSource interface
-    //-------------------------------------------------------------------------
-
-    /**
-     * @return the current XPath value on which relative paths are evaluated
-     */
-    @Override
-    public Object getXPathSource() {
-        return xpathSource;
-    }
-
-    // Properties
-    //-------------------------------------------------------------------------
-
-    public void setMatch(Pattern match) {
-        this.match = match;
-    }
-
-    /** Getter for property priority.
-     * @return Value of property priority.
-     */
-    public double getPriority() {
-        return priority;
-    }
-
-    /** Sets the priority.
-     * @param priority New value of property priority.
-     */
-    public void setPriority(double priority) {
-        this.priority = priority;
     }
 
     /** Getter for property name.
@@ -113,47 +113,43 @@ public class TemplateTag extends TagSupport implements XPathSource {
         return name;
     }
 
-    /** Sets the name.
-     * @param name New value of property name.
+    /** Getter for property priority.
+     * @return Value of property priority.
      */
-    public void setName(String name) {
-        this.name = name;
+    public double getPriority() {
+        return priority;
+    }
+
+    /**
+     * @return the current XPath value on which relative paths are evaluated
+     */
+    @Override
+    public Object getXPathSource() {
+        return xpathSource;
+    }
+
+    public void setMatch(final Pattern match) {
+        this.match = match;
     }
 
     /** Sets the mode.
      * @param mode New value of property mode.
      */
-    public void setMode(String mode) {
+    public void setMode(final String mode) {
         this.mode = mode;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-    protected Rule createRule(StylesheetTag tag, XMLOutput output) {
-        return new Rule( match, createAction(tag, output) );
+    /** Sets the name.
+     * @param name New value of property name.
+     */
+    public void setName(final String name) {
+        this.name = name;
     }
 
-    protected Action createAction(final StylesheetTag tag, final XMLOutput output) {
-        return new Action() {
-            @Override
-            public void run(Node node) throws Exception {
-
-                // store the context for use by applyTemplates tag
-                tag.setXPathSource( node );
-
-                xpathSource = node;
-
-                if (log.isDebugEnabled()) {
-                    log.debug( "Firing template body for match: " + match + " and node: " + node );
-                }
-
-                XMLOutput actualOutput = tag.getStylesheetOutput();
-                if (actualOutput == null) {
-                    actualOutput = output;
-                }
-
-                invokeBody(actualOutput);
-            }
-        };
+    /** Sets the priority.
+     * @param priority New value of property priority.
+     */
+    public void setPriority(final double priority) {
+        this.priority = priority;
     }
 }

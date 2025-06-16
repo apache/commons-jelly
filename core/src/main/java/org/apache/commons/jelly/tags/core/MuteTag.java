@@ -37,12 +37,12 @@ public class MuteTag extends TagSupport {
         public MuteXMLOutput() {
             super(new DefaultHandler());
         }
-       
+
         /**
          * Do nothing, not even invoke the toString!
          */
         @Override
-        public void objectData(Object o) {
+        public void objectData(final Object o) {
         }
     } // class MuteXMLOutput
 
@@ -57,7 +57,7 @@ public class MuteTag extends TagSupport {
      * @param output tag output, which is ignored.
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         super.invokeBody(new MuteXMLOutput());
     }
 } // class TagSupport

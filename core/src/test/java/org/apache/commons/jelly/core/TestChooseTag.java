@@ -31,7 +31,7 @@ public class TestChooseTag extends BaseJellyTest
         return new TestSuite(TestChooseTag.class);
     }
 
-    public TestChooseTag(String name)
+    public TestChooseTag(final String name)
     {
         super(name);
     }
@@ -39,12 +39,12 @@ public class TestChooseTag extends BaseJellyTest
     public void testSimpleFileTag() throws Exception
     {
         setUpScript("testChooseTag.jelly");
-        Script script = getJelly().compileScript();
+        final Script script = getJelly().compileScript();
 
         script.run(getJellyContext(), getXMLOutput());
 
-        String resultTrue = (String) getJellyContext().getVariable("result.true");
-        String resultFalse = (String) getJellyContext().getVariable("result.false");
+        final String resultTrue = (String) getJellyContext().getVariable("result.true");
+        final String resultFalse = (String) getJellyContext().getVariable("result.false");
 
         assertEquals("result.true", "AC", resultTrue);
         assertEquals("result.false", "BC", resultFalse);

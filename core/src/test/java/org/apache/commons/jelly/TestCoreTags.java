@@ -37,7 +37,7 @@ public class TestCoreTags extends TestCase {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestCoreTags.class);
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
 
@@ -45,22 +45,22 @@ public class TestCoreTags extends TestCase {
         return new TestSuite(TestCoreTags.class);
     }
 
-    public TestCoreTags(String testName) {
+    public TestCoreTags(final String testName) {
         super(testName);
     }
 
     public void testArgs() throws Exception {
-        InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/test_args.jelly");
-        XMLParser parser = new XMLParser();
+        final InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/test_args.jelly");
+        final XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
         log.debug("Found: " + script);
-        String[] args = { "one", "two", "three" };
-        JellyContext context = new JellyContext();
+        final String[] args = { "one", "two", "three" };
+        final JellyContext context = new JellyContext();
         context.setVariable("args", args);
-        StringWriter buffer = new StringWriter();
+        final StringWriter buffer = new StringWriter();
         script.run(context, XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
+        final String text = buffer.toString().trim();
         if (log.isDebugEnabled()) {
             log.debug("Evaluated script as...");
             log.debug(text);
@@ -69,15 +69,15 @@ public class TestCoreTags extends TestCase {
     }
 
     public void testStaticNamespacedAttributes() throws Exception {
-        InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/testStaticNamespacedAttributes.jelly");
-        XMLParser parser = new XMLParser();
+        final InputStream in = new FileInputStream("src/test/resources/org/apache/commons/jelly/testStaticNamespacedAttributes.jelly");
+        final XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
         log.debug("Found: " + script);
-        JellyContext context = new JellyContext();
-        StringWriter buffer = new StringWriter();
+        final JellyContext context = new JellyContext();
+        final StringWriter buffer = new StringWriter();
         script.run(context, XMLOutput.createXMLOutput(buffer));
-        String text = buffer.toString().trim();
+        final String text = buffer.toString().trim();
         if (log.isDebugEnabled()) {
             log.debug("Evaluated script as...");
             log.debug(text);

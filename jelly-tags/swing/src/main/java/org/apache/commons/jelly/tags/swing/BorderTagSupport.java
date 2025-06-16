@@ -38,12 +38,20 @@ public abstract class BorderTagSupport extends TagSupport {
     public BorderTagSupport() {
     }
 
+    /**
+     * Factory method to create a new Border instance.
+     */
+    protected abstract Border createBorder();
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
 
-        Border border = createBorder();
+        final Border border = createBorder();
 
         // allow some nested tags to set properties
         invokeBody(output);
@@ -51,18 +59,15 @@ public abstract class BorderTagSupport extends TagSupport {
         if (var != null) {
             context.setVariable(var, border);
         }
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+        final ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
         if ( tag != null ) {
             tag.setBorder(border);
-        }
-        else {
-            if (var == null) {
-                throw new JellyTagException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
-            }
+        } else if (var == null) {
+            throw new JellyTagException( "Either the 'var' attribute must be specified to export this Border or this tag must be nested within a JellySwing widget tag" );
         }
     }
 
-    // Properties
+    // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
@@ -70,15 +75,7 @@ public abstract class BorderTagSupport extends TagSupport {
      * If this attribute is not set then the parent widget tag will have its
      * border property set.
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    /**
-     * Factory method to create a new Border instance.
-     */
-    protected abstract Border createBorder();
 }

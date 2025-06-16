@@ -34,7 +34,7 @@ public class JFaceWidgetTag extends WidgetTag implements Tag {
     /**
      * @param widgetClass
      */
-    public JFaceWidgetTag(Class widgetClass) {
+    public JFaceWidgetTag(final Class widgetClass) {
         super(widgetClass);
     }
 
@@ -42,7 +42,7 @@ public class JFaceWidgetTag extends WidgetTag implements Tag {
      * @param widgetClass
      * @param style
      */
-    public JFaceWidgetTag(Class widgetClass, int style) {
+    public JFaceWidgetTag(final Class widgetClass, final int style) {
         super(widgetClass, style);
     }
 
@@ -50,18 +50,17 @@ public class JFaceWidgetTag extends WidgetTag implements Tag {
      * @see org.apache.commons.jelly.tags.swt.WidgetTag#attachWidgets(java.lang.Object, org.eclipse.swt.widgets.Widget)
      */
     @Override
-    protected void attachWidgets(Object parent, Widget widget) throws JellyTagException {
+    protected void attachWidgets(final Object parent, final Widget widget) throws JellyTagException {
         super.attachWidgets(parent, widget);
 
         // set Parent composite of wizard page
         if (getParent() instanceof WizardPageTag) {
-            WizardPageTag tag = (WizardPageTag) getParent();
+            final WizardPageTag tag = (WizardPageTag) getParent();
             if (tag.getWizardPageImpl().getParentControl() == null) {
-                if (widget instanceof Composite) {
-                    tag.getWizardPageImpl().setParentComposite((Composite) widget);
-                } else {
+                if (!(widget instanceof Composite)) {
                     throw new JellyTagException("First child of a <wizardPage> must be of type Composite");
                 }
+                tag.getWizardPageImpl().setParentComposite((Composite) widget);
             }
         }
     }
@@ -74,18 +73,18 @@ public class JFaceWidgetTag extends WidgetTag implements Tag {
         parent = super.getParentWidget();
 
         if (parent == null && getParent() instanceof WizardPageTag) {
-            WizardPageTag tag = (WizardPageTag) getParent();
+            final WizardPageTag tag = (WizardPageTag) getParent();
             if (tag != null) {
-                WizardPageTag.WizardPageImpl page = tag.getWizardPageImpl();
+                final WizardPageTag.WizardPageImpl page = tag.getWizardPageImpl();
                 return page.getControl();
             }
         }
 
         if (parent == null) {
-            ApplicationWindowTag tag =
+            final ApplicationWindowTag tag =
                 (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
             if (tag != null) {
-                Window window = tag.getWindow();
+                final Window window = tag.getWindow();
                 if (window != null && window instanceof ApplicationWindowImpl) {
                     return ((ApplicationWindowImpl) window).getContents();
                 }

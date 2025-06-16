@@ -24,12 +24,12 @@ package org.apache.commons.jelly.tags.http;
  */
 public class Proxy {
 
+    /** The port number that represents port is unassigned */
+    public static final int PORT_UNSPECIFIED = -1;
     /** The host to use as a proxy */
     private String _host;
     /** The port to send proxied requests on */
     private int _port;
-    /** The port number that represents port is unassigned */
-    public static final int PORT_UNSPECIFIED = -1;
 
     /**
      * Creates a new instance of Proxy
@@ -44,7 +44,7 @@ public class Proxy {
      * @param host the host name of the proxy to be used.
      * @param port the port to send proxied requests on.
      */
-    public Proxy(String host, int port) {
+    public Proxy(final String host, final int port) {
         setHost(host);
         setPort(port);
     }
@@ -59,15 +59,6 @@ public class Proxy {
     }
 
     /**
-     * Setter for property host.
-     *
-     * @param host the host name of the proxy to be used.
-     */
-    public void setHost(String host) {
-        _host = host;
-    }
-
-    /**
      * Getter for property port.
      *
      * @return the port to send proxied requests on.
@@ -77,11 +68,20 @@ public class Proxy {
     }
 
     /**
+     * Setter for property host.
+     *
+     * @param host the host name of the proxy to be used.
+     */
+    public void setHost(final String host) {
+        _host = host;
+    }
+
+    /**
      * Setter for property port.
      *
      * @param port the port to send proxied requests on.
      */
-    public void setPort(int port) {
+    public void setPort(final int port) {
         _port = port;
     }
 

@@ -35,13 +35,11 @@ public class RemoveTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (var != null) {
-            context.removeVariable( var.evaluateAsString(context) );
-        }
-        else {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (var == null) {
             throw new MissingAttributeException("var");
         }
+        context.removeVariable( var.evaluateAsString(context) );
     }
 
     // Properties
@@ -50,7 +48,7 @@ public class RemoveTag extends TagSupport {
     /**
      * Sets the name of the variable which will be removed by this tag.
      */
-    public void setVar(Expression var) {
+    public void setVar(final Expression var) {
         this.var = var;
     }
 }

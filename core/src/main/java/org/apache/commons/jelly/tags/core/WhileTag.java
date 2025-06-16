@@ -50,24 +50,22 @@ public class WhileTag extends TagSupport {
      * @throws RuntimeException for anything else
      */
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (test != null) {
-            try {
-                while (test.evaluateAsBoolean(getContext())) {
-                    if (log.isDebugEnabled()) {
-                        log.debug("evaluated to true! gonna keep on chuggin!");
-                    }
-                    invokeBody(output);
-                }
-            }
-            catch (BreakException e) {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (test == null) {
+            throw new MissingAttributeException("test");
+        }
+        try {
+            while (test.evaluateAsBoolean(getContext())) {
                 if (log.isDebugEnabled()) {
-                    log.debug("loop terminated by break: " + e, e);
+                    log.debug("evaluated to true! gonna keep on chuggin!");
                 }
+                invokeBody(output);
             }
         }
-        else {
-            throw new MissingAttributeException("test");
+        catch (final BreakException e) {
+            if (log.isDebugEnabled()) {
+                log.debug("loop terminated by break: " + e, e);
+            }
         }
     }
 
@@ -78,7 +76,7 @@ public class WhileTag extends TagSupport {
      * Setter for the expression
      * @param e the expression to test
      */
-    public void setTest(Expression e) {
+    public void setTest(final Expression e) {
         this.test = e;
     }
 }

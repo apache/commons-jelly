@@ -30,16 +30,30 @@ public class Manager {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(Manager.class);
 
-    private List customers = new ArrayList();
+    private final List customers = new ArrayList();
 
     boolean invoked = false;
 
     public Manager() {
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + "[customers=" + customers + "]";
+    public void addCustomer(final Customer customer) {
+        customers.add(customer);
+    }
+
+    public List getCustomers() {
+        return customers;
+    }
+
+    /**
+     * @return boolean
+     */
+    public boolean isInvoked() {
+        return invoked;
+    }
+
+    public void removeCustomer(final Customer customer) {
+        customers.remove(customer);
     }
 
     /**
@@ -51,31 +65,17 @@ public class Manager {
         log.info("Invoked the run() method with customers: " + customers);
     }
 
-    public List getCustomers() {
-        return customers;
-    }
-
-    public void addCustomer(Customer customer) {
-        customers.add(customer);
-    }
-
-    public void removeCustomer(Customer customer) {
-        customers.remove(customer);
-    }
-
-    /**
-     * @return boolean
-     */
-    public boolean isInvoked() {
-        return invoked;
-    }
-
     /**
      * Sets the invoked.
      * @param invoked The invoked to set
      */
-    public void setInvoked(boolean invoked) {
+    public void setInvoked(final boolean invoked) {
         this.invoked = invoked;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "[customers=" + customers + "]";
     }
 
 }

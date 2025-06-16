@@ -55,10 +55,10 @@ public class JellyServlet extends HttpServlet {
      * @return a new context.
      */
     protected JellyContext createContext(
-        HttpServletRequest req,
-        HttpServletResponse res) {
+        final HttpServletRequest req,
+        final HttpServletResponse res) {
 
-        JellyContext ctx = new JellyServletContext(getServletContext());
+        final JellyContext ctx = new JellyServletContext(getServletContext());
         ctx.setVariable(REQUEST, req);
         ctx.setVariable(RESPONSE, res);
         return ctx;
@@ -66,8 +66,8 @@ public class JellyServlet extends HttpServlet {
 
     @Override
     protected void doGet(
-        HttpServletRequest request,
-        HttpServletResponse response)
+        final HttpServletRequest request,
+        final HttpServletResponse response)
         throws ServletException, IOException {
 
         doRequest(request, response);
@@ -75,8 +75,8 @@ public class JellyServlet extends HttpServlet {
 
     @Override
     protected void doPost(
-        HttpServletRequest request,
-        HttpServletResponse response)
+        final HttpServletRequest request,
+        final HttpServletResponse response)
         throws ServletException, IOException {
 
         doRequest(request, response);
@@ -89,15 +89,15 @@ public class JellyServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    protected void doRequest(HttpServletRequest req, HttpServletResponse res)
+    protected void doRequest(final HttpServletRequest req, final HttpServletResponse res)
         throws ServletException, IOException {
 
-        JellyContext context = createContext(req, res);
+        final JellyContext context = createContext(req, res);
         try {
-            URL script = getScript(req);
+            final URL script = getScript(req);
             runScript(script, context, req, res);
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             error(req, res, e);
         }
     }
@@ -114,24 +114,24 @@ public class JellyServlet extends HttpServlet {
      * @param cause  Exception that was thrown by some other part of process.
      */
     protected void error(
-        HttpServletRequest request,
-        HttpServletResponse response,
-        Exception cause)
+        final HttpServletRequest request,
+        final HttpServletResponse response,
+        final Exception cause)
         throws ServletException, IOException {
 
-        StringBuilder html = new StringBuilder();
+        final StringBuilder html = new StringBuilder();
         html.append("<html>");
         html.append("<title>Error</title>");
         html.append("<body bgcolor=\"#ffffff\">");
         html.append("<h2>JellyServlet : Error processing the script</h2>");
         html.append("<pre>");
-        String why = cause.getMessage();
+        final String why = cause.getMessage();
         if (why != null && why.trim().length() > 0) {
             html.append(why);
             html.append("<br>");
         }
 
-        StringWriter sw = new StringWriter();
+        final StringWriter sw = new StringWriter();
         cause.printStackTrace(new PrintWriter(sw));
 
         html.append(sw.toString());
@@ -155,14 +155,14 @@ public class JellyServlet extends HttpServlet {
      * @return a URL.
      * @throws MalformedURLException
      */
-    protected URL getScript(HttpServletRequest req)
+    protected URL getScript(final HttpServletRequest req)
         throws MalformedURLException {
 
         String scriptUrl = req.getParameter("script");
         if (scriptUrl == null) {
             scriptUrl = req.getPathInfo();
         }
-        URL url = getServletContext().getResource(scriptUrl);
+        final URL url = getServletContext().getResource(scriptUrl);
         if (url == null) {
             throw new IllegalArgumentException("Invalid script url:" + scriptUrl);
         }
@@ -180,14 +180,14 @@ public class JellyServlet extends HttpServlet {
      * @throws JellyException
      */
     protected void runScript(
-        URL script,
-        JellyContext context,
-        HttpServletRequest req,
-        HttpServletResponse res)
+        final URL script,
+        final JellyContext context,
+        final HttpServletRequest req,
+        final HttpServletResponse res)
         throws IOException, UnsupportedEncodingException, JellyException {
 
-        ServletOutputStream output = res.getOutputStream();
-        XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
+        final ServletOutputStream output = res.getOutputStream();
+        final XMLOutput xmlOutput = XMLOutput.createXMLOutput(output);
         context.runScript(script, xmlOutput);
         xmlOutput.flush();
         xmlOutput.close();

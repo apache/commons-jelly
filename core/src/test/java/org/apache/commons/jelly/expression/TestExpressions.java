@@ -41,27 +41,27 @@ public class TestExpressions extends TestCase {
     protected JellyContext context = new JellyContext();
     protected ExpressionFactory factory = new JexlExpressionFactory();
 
-    public TestExpressions(String testName) {
+    public TestExpressions(final String testName) {
         super(testName);
     }
 
-    protected void assertExpression(String expressionText, Object expectedValue) throws Exception {
-        Expression expression = CompositeExpression.parse(expressionText, factory);
+    protected void assertExpression(final String expressionText, final Object expectedValue) throws Exception {
+        final Expression expression = CompositeExpression.parse(expressionText, factory);
         assertTrue( "Created a valid expression for: " + expressionText, expression != null );
-        Object value = expression.evaluate(context);
+        final Object value = expression.evaluate(context);
         assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
 
-        String text = expression.getExpressionText();
+        final String text = expression.getExpressionText();
         assertEquals( "Wrong textual representation for expression text: ", expressionText, text);
     }
 
-    protected void assertExpressionNotExpressionText(String expressionText, Object expectedValue) throws Exception {
-        Expression expression = CompositeExpression.parse(expressionText, factory);
+    protected void assertExpressionNotExpressionText(final String expressionText, final Object expectedValue) throws Exception {
+        final Expression expression = CompositeExpression.parse(expressionText, factory);
         assertTrue( "Created a valid expression for: " + expressionText, expression != null );
-        Object value = expression.evaluate(context);
+        final Object value = expression.evaluate(context);
         assertEquals( "Wrong result for expression: " + expressionText, expectedValue, value );
     }
-    
+
     public void testAntExpressions() throws Exception {
         context.setVariable("maven.home.foo", "cheese");
 
@@ -92,17 +92,18 @@ public class TestExpressions extends TestCase {
         try {
             assertExpression("${ some junk !< 4}", Boolean.TRUE);
             assertTrue("An illegal expression was allowed", false);
-        }catch (JellyException e) {
+        }catch (final JellyException e) {
             // Nothing, the test passed
         }
         context.setVariable("test", new TestHelper());
         try {
             assertExpression("${test.throwAnException()}", Boolean.TRUE);
             assertTrue("An exception was suppressed while processing the JEXL script", false);
-        }catch (IllegalStateException e) {
-            if (!(e.getCause() instanceof TestException))
+        }catch (final IllegalStateException e) {
+            if (!(e.getCause() instanceof TestException)) {
                 throw e;
             // Nothing, the test passed
+            }
         }
     }
 
@@ -110,10 +111,10 @@ public class TestExpressions extends TestCase {
         by several plugins to generate other jelly files or ant files.
         The maven ant plugin is one of them. */
     public void testExpressionsEvalOutput() throws Exception {
-        String expressionText = "ham and $${maven.home.foo} pizza";
-        Expression expression = CompositeExpression.parse(expressionText, factory);
+        final String expressionText = "ham and $${maven.home.foo} pizza";
+        final Expression expression = CompositeExpression.parse(expressionText, factory);
         assertTrue( "Created a valid expression for: " + expressionText, expression != null );
-        String value = (String) expression.evaluate(context);
+        final String value = (String) expression.evaluate(context);
         assertEquals("$${xx} should output ${xx}","ham and ${maven.home.foo} pizza",value);
     }
 

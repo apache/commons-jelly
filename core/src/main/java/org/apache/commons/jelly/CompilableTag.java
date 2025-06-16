@@ -22,14 +22,14 @@ package org.apache.commons.jelly;
 
 public interface CompilableTag {
 
-    /** 
-     * Called by the parser to allow a more tag to create a more efficient 
+    /**
+     * Called by the parser to allow a more tag to create a more efficient
      * format of the tag.
      * @throws JellyException on any error
      */
 
     // #### should this return Tag?
-    
+
     void compile() throws JellyException;
 
 }

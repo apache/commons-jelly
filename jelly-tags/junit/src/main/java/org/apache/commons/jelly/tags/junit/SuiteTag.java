@@ -16,12 +16,12 @@
  */
 package org.apache.commons.jelly.tags.junit;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
+import junit.framework.Test;
+import junit.framework.TestSuite;
 
 /**
  * Represents a collection of TestCases.. This tag is analagous to
@@ -44,17 +44,27 @@ public class SuiteTag extends TagSupport {
     /**
      * Adds a new Test to this suite
      */
-    public void addTest(Test test) {
+    public void addTest(final Test test) {
         getSuite().addTest(test);
+    }
+
+    /**
+     * Factory method to create a new TestSuite
+     */
+    protected TestSuite createSuite() {
+        if ( name == null ) {
+            return new TestSuite();
+        }
+        return new TestSuite(name);
     }
 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         suite = createSuite();
 
-        TestSuite parent = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
+        final TestSuite parent = (TestSuite) context.getVariable("org.apache.commons.jelly.junit.suite");
         if ( parent == null ) {
             context.setVariable("org.apache.commons.jelly.junit.suite", suite );
         }
@@ -69,19 +79,6 @@ public class SuiteTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-    public TestSuite getSuite() {
-        return suite;
-    }
-
-    /**
-     * Sets the name of the test suite whichi is exported
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
     /**
      * @return the name of this test suite
      */
@@ -89,10 +86,16 @@ public class SuiteTag extends TagSupport {
         return name;
     }
 
+    // Properties
+    //-------------------------------------------------------------------------
+    public TestSuite getSuite() {
+        return suite;
+    }
+
     /**
      * Sets the name of this test suite
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -100,14 +103,9 @@ public class SuiteTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Factory method to create a new TestSuite
+     * Sets the name of the test suite whichi is exported
      */
-    protected TestSuite createSuite() {
-        if ( name == null ) {
-            return new TestSuite();
-        }
-        else {
-            return new TestSuite(name);
-        }
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

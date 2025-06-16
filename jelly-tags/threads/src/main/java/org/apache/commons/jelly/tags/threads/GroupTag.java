@@ -17,12 +17,12 @@
 
 package org.apache.commons.jelly.tags.threads;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents a group of threads. This is not the same as Java's thread groups.
@@ -35,11 +35,16 @@ public class GroupTag extends TagSupport {
     /** Variable to place the thread group into */
     private String var = null;
     /** The thread list */
-    private List threads = new ArrayList();
+    private final List threads = new ArrayList();
+
+    /** Add a thread to the thread group list */
+    public void addThread(final Thread thread) {
+        threads.add(thread);
+    }
 
     /** Child threads will add themselves and will then all be started together */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
 
         // store the group in a jelly variable
@@ -48,15 +53,10 @@ public class GroupTag extends TagSupport {
         }
 
         // start the threads
-        for (int i = 0; i < threads.size(); i++) {
-            Thread thread = (Thread) threads.get(i);
+        for (final Object thread2 : threads) {
+            final Thread thread = (Thread) thread2;
             thread.start();
         }
-    }
-
-    /** Add a thread to the thread group list */
-    public void addThread(Thread thread) {
-        threads.add(thread);
     }
 
     /** Gets the list of threads in this thread group */
@@ -65,7 +65,7 @@ public class GroupTag extends TagSupport {
     }
 
     /** Sets the variable name to store the thread group in */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

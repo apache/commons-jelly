@@ -51,106 +51,100 @@ public class ArgTag extends BaseClassLoaderTag {
     // these inner classes should probably move to beanutils
     static {
         {
-            Converter c = new BooleanConverter();
+            final Converter c = new BooleanConverter();
             converterMap.put(Boolean.TYPE, c);
             converterMap.put(Boolean.class, c);
         }
         {
-            Converter c = new CharacterConverter();
+            final Converter c = new CharacterConverter();
             converterMap.put(Character.TYPE, c);
             converterMap.put(Character.class, c);
         }
         {
-            Converter c = new Converter() {
-                private Converter inner = new ByteConverter();
+            final Converter c = new Converter() {
+                private final Converter inner = new ByteConverter();
 
                 @Override
-                public Object convert(Class klass, Object value) {
+                public Object convert(final Class klass, final Object value) {
                     if (value instanceof Number) {
                         return Byte.valueOf(((Number) value).byteValue());
-                    } else {
-                        return inner.convert(klass, value);
                     }
+                    return inner.convert(klass, value);
                 }
             };
             converterMap.put(Byte.TYPE, c);
             converterMap.put(Byte.class, c);
         }
         {
-            Converter c = new Converter() {
-                private Converter inner = new ShortConverter();
+            final Converter c = new Converter() {
+                private final Converter inner = new ShortConverter();
 
                 @Override
-                public Object convert(Class klass, Object value) {
+                public Object convert(final Class klass, final Object value) {
                     if (value instanceof Number) {
                         return Short.valueOf(((Number) value).shortValue());
-                    } else {
-                        return inner.convert(klass, value);
                     }
+                    return inner.convert(klass, value);
                 }
             };
             converterMap.put(Short.TYPE, c);
             converterMap.put(Short.class, c);
         }
         {
-            Converter c = new Converter() {
-                private Converter inner = new IntegerConverter();
+            final Converter c = new Converter() {
+                private final Converter inner = new IntegerConverter();
 
                 @Override
-                public Object convert(Class klass, Object value) {
+                public Object convert(final Class klass, final Object value) {
                     if (value instanceof Number) {
                         return Integer.valueOf(((Number) value).intValue());
-                    } else {
-                        return inner.convert(klass, value);
                     }
+                    return inner.convert(klass, value);
                 }
             };
             converterMap.put(Integer.TYPE, c);
             converterMap.put(Integer.class, c);
         }
         {
-            Converter c = new Converter() {
-                private Converter inner = new LongConverter();
+            final Converter c = new Converter() {
+                private final Converter inner = new LongConverter();
 
                 @Override
-                public Object convert(Class klass, Object value) {
+                public Object convert(final Class klass, final Object value) {
                     if (value instanceof Number) {
                         return Long.valueOf(((Number) value).longValue());
-                    } else {
-                        return inner.convert(klass, value);
                     }
+                    return inner.convert(klass, value);
                 }
             };
             converterMap.put(Long.TYPE, c);
             converterMap.put(Long.class, c);
         }
         {
-            Converter c = new Converter() {
-                private Converter inner = new FloatConverter();
+            final Converter c = new Converter() {
+                private final Converter inner = new FloatConverter();
 
                 @Override
-                public Object convert(Class klass, Object value) {
+                public Object convert(final Class klass, final Object value) {
                     if (value instanceof Number) {
                         return Float.valueOf(((Number) value).floatValue());
-                    } else {
-                        return inner.convert(klass, value);
                     }
+                    return inner.convert(klass, value);
                 }
             };
             converterMap.put(Float.TYPE, c);
             converterMap.put(Float.class, c);
         }
         {
-            Converter c = new Converter() {
-                private Converter inner = new DoubleConverter();
+            final Converter c = new Converter() {
+                private final Converter inner = new DoubleConverter();
 
                 @Override
-                public Object convert(Class klass, Object value) {
+                public Object convert(final Class klass, final Object value) {
                     if (value instanceof Number) {
                         return Double.valueOf(((Number) value).doubleValue());
-                    } else {
-                        return inner.convert(klass, value);
                     }
+                    return inner.convert(klass, value);
                 }
             };
             converterMap.put(Double.TYPE, c);
@@ -158,22 +152,23 @@ public class ArgTag extends BaseClassLoaderTag {
         }
     }
 
-    private static Object convert(Class klass, Object value) throws JellyTagException {
+    private static Object convert(final Class klass, final Object value) throws JellyTagException {
         if (null == value) {
             return null;
-        } else if (!klass.isInstance(value)) {
-            Converter converter = (Converter) (converterMap.get(klass));
-            if (null == converter) {
-                throw new JellyTagException("Can't convert " + value + " to " + klass);
-            }
-            try {
-                return converter.convert(klass, value);
-            } catch (ConversionException e) {
-                throw new JellyTagException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")", e);
-            }
-        } else {
+        }
+        if (klass.isInstance(value)) {
             return value;
         }
+        final Converter converter = (Converter) converterMap.get(klass);
+        if (null == converter) {
+            throw new JellyTagException("Can't convert " + value + " to " + klass);
+        }
+        try {
+            return converter.convert(klass, value);
+        } catch (final ConversionException e) {
+            throw new JellyTagException("Can't convert " + value + " to " + klass + " (" + e.toString() + ")", e);
+        }
+
 
     }
 
@@ -195,47 +190,73 @@ public class ArgTag extends BaseClassLoaderTag {
     // attributes
     //-------------------------------------------------------------------------
 
-    private void assertNotNull(Object value) throws JellyTagException {
+    private void assertNotNull(final Object value) throws JellyTagException {
         if (null == value) {
             throw new JellyTagException("A " + typeString + " instance cannot be null.");
         }
     }
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
 
         Class klass = null;
-        if ("boolean".equals(typeString)) {
-            klass = Boolean.TYPE;
-            assertNotNull(value);
-        } else if ("byte".equals(typeString)) {
-            klass = Byte.TYPE;
-            assertNotNull(value);
-        } else if ("short".equals(typeString)) {
-            klass = Short.TYPE;
-            assertNotNull(value);
-        } else if ("int".equals(typeString)) {
-            klass = Integer.TYPE;
-            assertNotNull(value);
-        } else if ("char".equals(typeString)) {
-            klass = Character.TYPE;
-            assertNotNull(value);
-        } else if ("float".equals(typeString)) {
-            klass = Float.TYPE;
-            assertNotNull(value);
-        } else if ("long".equals(typeString)) {
-            klass = Long.TYPE;
-            assertNotNull(value);
-        } else if ("double".equals(typeString)) {
-            klass = Double.TYPE;
-            assertNotNull(value);
+        if (typeString != null) {
+            switch (typeString) {
+            case "boolean":
+                klass = Boolean.TYPE;
+                assertNotNull(value);
+                break;
+            case "byte":
+                klass = Byte.TYPE;
+                assertNotNull(value);
+                break;
+            case "short":
+                klass = Short.TYPE;
+                assertNotNull(value);
+                break;
+            case "int":
+                klass = Integer.TYPE;
+                assertNotNull(value);
+                break;
+            case "char":
+                klass = Character.TYPE;
+                assertNotNull(value);
+                break;
+            case "float":
+                klass = Float.TYPE;
+                assertNotNull(value);
+                break;
+            case "long":
+                klass = Long.TYPE;
+                assertNotNull(value);
+                break;
+            case "double":
+                klass = Double.TYPE;
+                assertNotNull(value);
+                break;
+            default:
+                if (null != typeString) {
+                    try {
+                      // klass = getClassLoader().loadClass(typeString);
+                      // JELLY-274: rather use the three args static class-load-method
+                      klass = Class.forName(typeString, false, getClassLoader());
+                    } catch (final ClassNotFoundException e) {
+                        throw new JellyTagException(e);
+                    }
+                } else if (null == value) { // and (by construction) null == typeString
+                    klass = Object.class;
+                } else {
+                    klass = value.getClass();
+                }
+                break;
+            }
         } else if (null != typeString) {
             try {
               // klass = getClassLoader().loadClass(typeString);
               // JELLY-274: rather use the three args static class-load-method
               klass = Class.forName(typeString, false, getClassLoader());
-            } catch (ClassNotFoundException e) {
+            } catch (final ClassNotFoundException e) {
                 throw new JellyTagException(e);
             }
         } else if (null == value) { // and (by construction) null == typeString
@@ -250,7 +271,7 @@ public class ArgTag extends BaseClassLoaderTag {
                     // value = getClassLoader().loadClass((String) value);
                     // JELLY-274: rather use three-args class.forName
                     value = Class.forName((String) value, false, getClassLoader());
-                } catch (ClassNotFoundException e) {
+                } catch (final ClassNotFoundException e) {
                     throw new JellyTagException(e);
                 }
             } else {
@@ -258,19 +279,18 @@ public class ArgTag extends BaseClassLoaderTag {
             }
         }
 
-        ArgTagParent parent = (ArgTagParent)findAncestorWithClass(ArgTagParent.class);
+        final ArgTagParent parent = (ArgTagParent)findAncestorWithClass(ArgTagParent.class);
         if (null == parent) {
             throw new JellyTagException("This tag must be enclosed inside an ArgTagParent implementation (for example, <new> or <invoke>)");
-        } else {
-            parent.addArgument(klass, value);
         }
+        parent.addArgument(klass, value);
     }
 
     // static stuff
     //-------------------------------------------------------------------------
 
-    private boolean isInstanceOf(Class klass, Object value) {
-        return (null == value || (klass.isInstance(value)));
+    private boolean isInstanceOf(final Class klass, final Object value) {
+        return null == value || klass.isInstance(value);
     }
 
     /**
@@ -279,11 +299,11 @@ public class ArgTag extends BaseClassLoaderTag {
      * a primitive type name
      * (<code>boolean</code>, <code>int</code>, <code>double</code>, etc.).
      */
-    public void setType(String type) {
+    public void setType(final String type) {
         this.typeString = type;
     }
     /** The (possibly null) value of this argument. */
-    public void setValue(Object value) {
+    public void setValue(final Object value) {
         this.value= value;
     }
 }

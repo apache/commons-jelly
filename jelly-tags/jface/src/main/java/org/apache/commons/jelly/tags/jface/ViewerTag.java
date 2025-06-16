@@ -37,7 +37,7 @@ public class ViewerTag extends WidgetTag {
     /**
      * @param tagClass
      */
-    public ViewerTag(Class tagClass) {
+    public ViewerTag(final Class tagClass) {
         super(tagClass);
     }
 
@@ -45,9 +45,20 @@ public class ViewerTag extends WidgetTag {
      * @param tagClass
      * @param style
      */
-    public ViewerTag(Class tagClass, int style) {
+    public ViewerTag(final Class tagClass, final int style) {
         super(tagClass);
         this.style = style;
+    }
+
+    /**
+     * @return the visible viewer, if there is one.
+     */
+    public Viewer getViewer() {
+        final Object bean = getBean();
+        if (bean instanceof Viewer) {
+            return (Viewer) bean;
+        }
+        return null;
     }
 
     /*
@@ -55,29 +66,18 @@ public class ViewerTag extends WidgetTag {
      */
     @Override
     protected Object newInstance(
-        Class theClass,
-        Map attributes,
-        XMLOutput output)
+        final Class theClass,
+        final Map attributes,
+        final XMLOutput output)
         throws JellyTagException {
 
-        int style = getStyle(attributes);
+        final int style = getStyle(attributes);
 
         // now lets call the constructor with the parent
-        Widget parent = getParentWidget();
-        Viewer viewer = (Viewer) createWidget(theClass, parent, style);
+        final Widget parent = getParentWidget();
+        final Viewer viewer = (Viewer) createWidget(theClass, parent, style);
 
         return viewer;
-    }
-
-    /**
-     * @return the visible viewer, if there is one.
-     */
-    public Viewer getViewer() {
-        Object bean = getBean();
-        if (bean instanceof Viewer) {
-            return (Viewer) bean;
-        }
-        return null;
     }
 
 }

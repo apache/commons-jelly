@@ -30,7 +30,7 @@ import org.apache.commons.logging.LogFactory;
 public class JUnitTagLibrary extends TagLibrary {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(JUnitTagLibrary.class);
+    private final Log log = LogFactory.getLog(JUnitTagLibrary.class);
 
     public JUnitTagLibrary() {
         registerTag("assert", AssertTag.class);
@@ -44,10 +44,10 @@ public class JUnitTagLibrary extends TagLibrary {
 
     @Override
     public Expression createExpression(
-        ExpressionFactory factory,
-        TagScript tagScript,
-        String attributeName,
-        String attributeValue) throws JellyException {
+        final ExpressionFactory factory,
+        final TagScript tagScript,
+        final String attributeName,
+        final String attributeValue) throws JellyException {
 
         // #### may need to include some namespace URI information in the XPath instance?
 
@@ -57,7 +57,7 @@ public class JUnitTagLibrary extends TagLibrary {
             }
 
             // XPath xpath = new Dom4jXPath(attributeValue);
-            Expression xpathExpr = super.createExpression( factory,
+            final Expression xpathExpr = super.createExpression( factory,
                                                            tagScript,
                                                            attributeName,
                                                            attributeValue );

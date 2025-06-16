@@ -22,7 +22,6 @@ import java.io.IOException;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-
 import org.mortbay.http.HttpResponse;
 import org.mortbay.util.ByteArrayISO8859Writer;
 
@@ -39,22 +38,22 @@ public class ResponseBodyTag extends TagSupport {
      * @throws JellyTagException when an error occurs
      */
     @Override
-    public void doTag(XMLOutput xmlOutput) throws JellyTagException {
+    public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
 
         // get the response from the context
-        HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
+        final HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
         if (null == httpResponse) {
             throw new JellyTagException("HttpResponse variable not available in Jelly context");
         }
 
-        ByteArrayISO8859Writer writer = new ByteArrayISO8859Writer(1500);
+        final ByteArrayISO8859Writer writer = new ByteArrayISO8859Writer(1500);
         try {
              writer.write(getBodyText());
              writer.flush();
              httpResponse.setContentLength(writer.size());
              writer.writeTo(httpResponse.getOutputStream());
         }
-        catch (IOException e) {
+        catch (final IOException e) {
             throw new JellyTagException(e);
         }
     }

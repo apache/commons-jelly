@@ -34,12 +34,12 @@ import org.eclipse.swt.widgets.Shell;
 public class ApplicationWindowTag extends UseBeanTag {
 
     private Shell parent;
-    private int style = SWT.NULL;
+    private final int style = SWT.NULL;
 
     /**
      * @param tagClass
      */
-    public ApplicationWindowTag(Class tagClass) {
+    public ApplicationWindowTag(final Class tagClass) {
         super(tagClass);
     }
 
@@ -47,36 +47,46 @@ public class ApplicationWindowTag extends UseBeanTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output)
+    public void doTag(final XMLOutput output)
         throws MissingAttributeException, JellyTagException {
-        Map attributes = getAttributes();
-        Object parent = attributes.remove("parent");
+        final Map attributes = getAttributes();
+        final Object parent = attributes.remove("parent");
         if (parent != null) {
-            if (parent instanceof Shell) {
-                this.parent = (Shell) parent;
-            } else {
+            if (!(parent instanceof Shell)) {
                 throw new JellyTagException(
                     "The parent attribute is not a Shell, it is of type: "
                         + parent.getClass().getName()
                         + " value: "
                         + parent);
             }
+            this.parent = (Shell) parent;
         }
 
         super.doTag(output);
 
         // set Title of applicationWindow
-        Object title = attributes.remove("title");
+        final Object title = attributes.remove("title");
         if (title != null) {
             getWindow().getShell().setText((String)title);
         }
 
         // set size of applicationWindow
-        Object size = attributes.remove("size");
+        final Object size = attributes.remove("size");
         if (size != null) {
-            Point point = new PointConverter().parse((String) size);
+            final Point point = new PointConverter().parse((String) size);
             getWindow().getShell().setSize(point);
         }
+    }
+
+    /**
+     * @return the visible window, if there is one.
+     */
+    public Window getWindow() {
+        final Object bean = getBean();
+        if (bean instanceof Window) {
+            return (Window) bean;
+        }
+        return null;
     }
 
     /*
@@ -84,23 +94,12 @@ public class ApplicationWindowTag extends UseBeanTag {
      */
     @Override
     protected Object newInstance(
-        Class theClass,
-        Map attributes,
-        XMLOutput output)
+        final Class theClass,
+        final Map attributes,
+        final XMLOutput output)
         throws JellyTagException {
 
         return new ApplicationWindowImpl(parent);
-    }
-
-    /**
-     * @return the visible window, if there is one.
-     */
-    public Window getWindow() {
-        Object bean = getBean();
-        if (bean instanceof Window) {
-            return (Window) bean;
-        }
-        return null;
     }
 
 }

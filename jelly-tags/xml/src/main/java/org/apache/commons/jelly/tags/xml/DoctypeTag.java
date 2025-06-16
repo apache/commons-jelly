@@ -20,7 +20,6 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
-
 import org.xml.sax.SAXException;
 
 /**
@@ -40,7 +39,7 @@ public class DoctypeTag extends XPathTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
             throw new MissingAttributeException( "name" );
         }
@@ -49,7 +48,7 @@ public class DoctypeTag extends XPathTagSupport {
             output.startDTD(name, publicId, systemId);
             invokeBody(output);
             output.endDTD();
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             throw new JellyTagException(e);
         }
     }
@@ -83,21 +82,21 @@ public class DoctypeTag extends XPathTagSupport {
     /**
      * Sets the document type name of the DOCTYPE
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     /**
      * Sets the declared public identifier for DTD
      */
-    public void setPublicId(String publicId) {
+    public void setPublicId(final String publicId) {
         this.publicId = publicId;
     }
 
     /**
      * Sets the declared system identifier for the DTD
      */
-    public void setSystemId(String systemId) {
+    public void setSystemId(final String systemId) {
         this.systemId = systemId;
     }
 

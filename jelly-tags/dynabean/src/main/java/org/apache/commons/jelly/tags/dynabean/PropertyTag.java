@@ -43,12 +43,12 @@ public class PropertyTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag (XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag (final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         // Check that this tag is used inside the body of
         // a DynaClass tag, so that it can access the
         // context of that tag
-        DynaclassTag parentTag = (DynaclassTag) findAncestorWithClass( DynaclassTag.class );
+        final DynaclassTag parentTag = (DynaclassTag) findAncestorWithClass( DynaclassTag.class );
         if ( parentTag == null ) {
             throw new JellyTagException( "This tag must be enclosed inside a <dynaclass> tag" );
         }
@@ -67,33 +67,36 @@ public class PropertyTag extends TagSupport {
                 throw new MissingAttributeException( "type" );
             }
 
-            if (type.equals("String")) {
-                propClass = String.class;
-            }
-            else if (type.equals("Integer")) {
-                propClass = Integer.TYPE;
-            }
-            else if (type.equals("Short")) {
-                propClass = Short.TYPE;
-            }
-            else if (type.equals("Long")) {
-                propClass = Long.TYPE;
-            }
-            else if (type.equals("Float")) {
-                propClass = Float.TYPE;
-            }
-            else if (type.equals("Double")) {
-                propClass = Double.TYPE;
-            }
-            else if (type.equals("Long")) {
-                propClass = Long.TYPE;
+            if (type != null) {
+                switch (type) {
+                case "String":
+                    propClass = String.class;
+                    break;
+                case "Integer":
+                    propClass = Integer.TYPE;
+                    break;
+                case "Short":
+                    propClass = Short.TYPE;
+                    break;
+                case "Long":
+                    propClass = Long.TYPE;
+                    break;
+                case "Float":
+                    propClass = Float.TYPE;
+                    break;
+                case "Double":
+                    propClass = Double.TYPE;
+                    break;
+                default:
+                    break;
+                }
             }
 
             if (propClass == null) {
                 try {
                     propClass = Class.forName(type);
                 }
-                catch (Exception e) {
+                catch (final Exception e) {
                     throw new JellyTagException
                             ("Class " + type +
                             " not found by Class.forName");
@@ -112,20 +115,6 @@ public class PropertyTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * Sets the name of this property
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Sets the type name of this property
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    /**
      * Returns the Class for this property
      */
     public Class getPropertyClass() {
@@ -133,10 +122,24 @@ public class PropertyTag extends TagSupport {
     }
 
     /**
+     * Sets the name of this property
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
      * Sets the Class instance for this property
      */
-    public void setPropertyClass(Class propertyClass) {
+    public void setPropertyClass(final Class propertyClass) {
         this.propertyClass = propertyClass;
+    }
+
+    /**
+     * Sets the type name of this property
+     */
+    public void setType(final String type) {
+        this.type = type;
     }
 
 }

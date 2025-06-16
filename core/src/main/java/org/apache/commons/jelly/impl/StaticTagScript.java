@@ -41,7 +41,7 @@ public class StaticTagScript extends TagScript {
     public StaticTagScript() {
     }
 
-    public StaticTagScript(TagFactory tagFactory) {
+    public StaticTagScript(final TagFactory tagFactory) {
         super(tagFactory);
     }
 
@@ -49,11 +49,11 @@ public class StaticTagScript extends TagScript {
      * Attempts to find a dynamically created tag that has been created since this
      * script was compiled
      */
-    protected Tag findDynamicTag(JellyContext context, StaticTag tag) throws JellyException {
+    protected Tag findDynamicTag(final JellyContext context, final StaticTag tag) throws JellyException {
         // lets see if there's a tag library for this URI...
-        TagLibrary taglib = context.getTagLibrary( tag.getUri() );
+        final TagLibrary taglib = context.getTagLibrary( tag.getUri() );
         if ( taglib != null ) {
-            Tag newTag = taglib.createTag( tag.getLocalName(), getSaxAttributes() );
+            final Tag newTag = taglib.createTag( tag.getLocalName(), getSaxAttributes() );
             if ( newTag != null ) {
                 newTag.setParent( tag.getParent() );
                 newTag.setBody( tag.getBody() );
@@ -66,10 +66,10 @@ public class StaticTagScript extends TagScript {
     // Script interface
     //-------------------------------------------------------------------------
     @Override
-    public void run(JellyContext context, XMLOutput output) throws JellyTagException {
+    public void run(final JellyContext context, final XMLOutput output) throws JellyTagException {
         try {
             startNamespacePrefixes(output);
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             throw new JellyTagException("could not start namespace prefixes", e);
         }
 
@@ -83,12 +83,12 @@ public class StaticTagScript extends TagScript {
             }
 
             setTag(tag, context);
-        } catch (JellyException e) {
+        } catch (final JellyException e) {
             throw new JellyTagException(e);
         }
 
-        URL rootURL = context.getRootURL();
-        URL currentURL = context.getCurrentURL();
+        final URL rootURL = context.getRootURL();
+        final URL currentURL = context.getCurrentURL();
         try {
             if (tag == null) {
                 return;
@@ -96,16 +96,17 @@ public class StaticTagScript extends TagScript {
             tag.setContext(context);
             setContextURLs(context);
 
-            DynaTag dynaTag = (DynaTag) tag;
+            final DynaTag dynaTag = (DynaTag) tag;
 
             // ### probably compiling this to 2 arrays might be quicker and smaller
-            for (Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
-                Map.Entry entry = (Map.Entry) iter.next();
+            for (final Iterator iter = attributes.entrySet().iterator(); iter.hasNext();) {
+                final Map.Entry entry = (Map.Entry) iter.next();
                 String name = (String) entry.getKey();
-                if (name.indexOf(':') != -1)
+                if (name.indexOf(':') != -1) {
                     name = name.substring(name.indexOf(':') + 1);
-                ExpressionAttribute expat = (ExpressionAttribute) entry.getValue();
-                Expression expression = expat.exp;
+                }
+                final ExpressionAttribute expat = (ExpressionAttribute) entry.getValue();
+                final Expression expression = expat.exp;
 
                 Object value;
 
@@ -123,9 +124,9 @@ public class StaticTagScript extends TagScript {
             }
 
             tag.doTag(output);
-        } catch (JellyTagException e) {
+        } catch (final JellyTagException e) {
             handleException(e);
-        } catch (RuntimeException e) {
+        } catch (final RuntimeException e) {
             handleException(e);
         } finally {
             context.setCurrentURL(currentURL);
@@ -134,7 +135,7 @@ public class StaticTagScript extends TagScript {
 
         try {
             endNamespacePrefixes(output);
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             throw new JellyTagException("could not end namespace prefixes", e);
         }
     }

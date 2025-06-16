@@ -36,8 +36,8 @@ public class AttributeTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        ElementTag tag = (ElementTag) findAncestorWithClass( ElementTag.class );
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final ElementTag tag = (ElementTag) findAncestorWithClass( ElementTag.class );
         if (tag == null) {
             throw new JellyTagException(
                     "<attribute> tag must be enclosed inside an <element> tag" );
@@ -56,13 +56,6 @@ public class AttributeTag extends TagSupport {
     }
 
     /**
-     * Sets the name of the attribute.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * @return the namespace URI of the element
      */
     public String getURI() {
@@ -70,9 +63,16 @@ public class AttributeTag extends TagSupport {
     }
 
     /**
+     * Sets the name of the attribute.
+     */
+    public void setName(final String name) {
+        this.name = name;
+    }
+
+    /**
      * Sets the namespace URI of the element
      */
-    public void setURI(String namespace) {
+    public void setURI(final String namespace) {
         this.namespace = namespace;
     }
 }

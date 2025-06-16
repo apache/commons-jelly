@@ -39,7 +39,7 @@ public class WizardDialogTag extends UseBeanTag {
      * Provide a public method getWizard
      */
     final class WizardDialogImpl extends WizardDialog {
-        public WizardDialogImpl(Shell parentShell, IWizard newWizard) {
+        public WizardDialogImpl(final Shell parentShell, final IWizard newWizard) {
             super(parentShell, newWizard);
         }
 
@@ -54,7 +54,6 @@ public class WizardDialogTag extends UseBeanTag {
       */
     final class WizardImpl extends Wizard {
         public WizardImpl() {
-            super();
             setNeedsProgressMonitor(true);
         }
 
@@ -66,7 +65,7 @@ public class WizardDialogTag extends UseBeanTag {
                 } else {
                     invokeBody(output);
                 }
-            } catch (JellyTagException e) {
+            } catch (final JellyTagException e) {
                 log.error(e);
                 return false;
             }
@@ -81,7 +80,7 @@ public class WizardDialogTag extends UseBeanTag {
                 } else {
                     invokeBody(output);
                 }
-            } catch (JellyTagException e) {
+            } catch (final JellyTagException e) {
                 log.error(e);
                 return false;
             }
@@ -104,7 +103,7 @@ public class WizardDialogTag extends UseBeanTag {
     /**
      * @param theClass
      */
-    public WizardDialogTag(Class theClass) {
+    public WizardDialogTag(final Class theClass) {
         super(theClass);
     }
 
@@ -112,25 +111,23 @@ public class WizardDialogTag extends UseBeanTag {
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         super.doTag(output);
 
         if (getAttributes().get("performCancel") != null) {
-            Object script = getAttributes().get("performCancel");
-            if (script instanceof Script) {
-                performCancel = (Script) getAttributes().get("performCancel");
-            } else {
+            final Object script = getAttributes().get("performCancel");
+            if (!(script instanceof Script)) {
                 throw new JellyTagException("AttributeValue " + script + " must be a Script");
             }
+            performCancel = (Script) getAttributes().get("performCancel");
         }
 
         if (getAttributes().get("performFinish") != null) {
-            Object script = getAttributes().get("performFinish");
-            if (script instanceof Script) {
-                performFinish = (Script) getAttributes().get("performFinish");
-            } else {
+            final Object script = getAttributes().get("performFinish");
+            if (!(script instanceof Script)) {
                 throw new JellyTagException("AttributeValue " + script + " must be a Script");
             }
+            performFinish = (Script) getAttributes().get("performFinish");
         }
 
         this.output = output;
@@ -141,20 +138,19 @@ public class WizardDialogTag extends UseBeanTag {
      * @throws JellyTagException
      */
     protected Shell getShell() throws JellyTagException {
-        ApplicationWindowTag tag =
+        final ApplicationWindowTag tag =
             (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
         if (tag == null) {
             throw new JellyTagException("This tag must be nested inside a <applicationWindow>");
-        } else {
-            return tag.getWindow().getShell();
         }
+        return tag.getWindow().getShell();
     }
 
     /**
      * @return WizardDialog
      */
     public WizardDialogImpl getWizardDialogImpl() {
-        Object bean = getBean();
+        final Object bean = getBean();
         if (bean instanceof WizardDialog) {
             return (WizardDialogImpl) bean;
         }
@@ -165,9 +161,9 @@ public class WizardDialogTag extends UseBeanTag {
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#newInstance(java.lang.Class, java.util.Map, org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output)
         throws JellyTagException {
-        Wizard wizard = new WizardImpl();
+        final Wizard wizard = new WizardImpl();
         return new WizardDialogImpl(getShell(), wizard);
     }
 
@@ -175,7 +171,7 @@ public class WizardDialogTag extends UseBeanTag {
      * Sets the Script to be executed on performCancel.
      * @param performCancel The performCancel to set
      */
-    public void setPerformCancel(Script performCancel) {
+    public void setPerformCancel(final Script performCancel) {
         this.performCancel = performCancel;
     }
 
@@ -183,7 +179,7 @@ public class WizardDialogTag extends UseBeanTag {
      * Sets the Script to be executed on performFinish.
      * @param performFinish The performFinish to set
      */
-    public void setPerformFinish(Script performFinish) {
+    public void setPerformFinish(final Script performFinish) {
         this.performFinish = performFinish;
     }
 

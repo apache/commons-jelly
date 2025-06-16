@@ -35,14 +35,14 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
     /** The class name of the object to instantiate */
     private String className;
 
-    private List paramTypes = new ArrayList();
-    private List paramValues = new ArrayList();
+    private final List paramTypes = new ArrayList();
+    private final List paramValues = new ArrayList();
 
     public NewTag() {
     }
 
     @Override
-    public void addArgument(Class type, Object value) {
+    public void addArgument(final Class type, final Object value) {
         paramTypes.add(type);
         paramValues.add(value);
     }
@@ -50,10 +50,10 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         ArgTag parentArg = null;
         if ( var == null ) {
-            parentArg = (ArgTag)(findAncestorWithClass(ArgTag.class));
+            parentArg = (ArgTag)findAncestorWithClass(ArgTag.class);
             if (null == parentArg) {
                 throw new MissingAttributeException( "var" );
             }
@@ -64,13 +64,13 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         invokeBody(output);
 
         try {
-            Class theClass = getClassLoader().loadClass( className );
+            final Class theClass = getClassLoader().loadClass( className );
             Object object = null;
             if (paramTypes.isEmpty()) {
                 object = theClass.getConstructor().newInstance();
             } else {
-                Object[] values = paramValues.toArray();
-                Class[] types = (Class[]) (paramTypes.toArray(new Class[paramTypes.size()]));
+                final Object[] values = paramValues.toArray();
+                final Class[] types = (Class[]) paramTypes.toArray(new Class[paramTypes.size()]);
                 object = ConstructorUtils.invokeConstructor(theClass, values, types);
                 paramTypes.clear();
                 paramValues.clear();
@@ -81,30 +81,18 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
                 parentArg.setValue(object);
             }
         }
-        catch (ClassNotFoundException e) {
-            throw new JellyTagException(e);
-        }
-        catch (InstantiationException e) {
-            throw new JellyTagException(e);
-        }
-        catch (NoSuchMethodException e) {
-            throw new JellyTagException(e);
-        }
-        catch (IllegalAccessException e) {
-            throw new JellyTagException(e);
-        }
-        catch (InvocationTargetException e) {
+        catch (final ClassNotFoundException | InstantiationException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             throw new JellyTagException(e);
         }
     }
 
     /** Sets the class name of the object to instantiate */
-    public void setClassName(String className) {
+    public void setClassName(final String className) {
         this.className = className;
     }
 
     /** Sets the name of the variable exported by this tag */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 }

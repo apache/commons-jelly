@@ -17,7 +17,7 @@
 
 package org.apache.commons.jelly;
 
-/** 
+/**
  * <p><code>DynaTagSupport</code> is an abstract base class
  * for any DynaTag implementation to derive from.
  * </p>
@@ -30,7 +30,7 @@ public abstract class DynaTagSupport extends TagSupport implements DynaTag {
      * Object.class if this is not known.
      */
     @Override
-    public Class getAttributeType(String name) throws JellyTagException {
+    public Class getAttributeType(final String name) throws JellyTagException {
         return Object.class;
     }
 }

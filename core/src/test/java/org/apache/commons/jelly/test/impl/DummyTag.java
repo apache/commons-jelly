@@ -38,18 +38,21 @@ public class DummyTag extends TagSupport {
      * @see org.apache.commons.jelly.tags.core.JellyTag
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        if (log.isDebugEnabled())
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        if (log.isDebugEnabled()) {
             log.debug("********Executing DummyTag Body*********");
+        }
         if (m_classToBeLoaded != null) {
             try {
                 ClassLoaderUtils.loadClass(m_classToBeLoaded, getClass());
-                if (log.isDebugEnabled())
+                if (log.isDebugEnabled()) {
                     log.debug("Class[" + m_classToBeLoaded + "] FOUND");
+                }
             }
-            catch (ClassNotFoundException cnfe) {
-                if (log.isWarnEnabled())
+            catch (final ClassNotFoundException cnfe) {
+                if (log.isWarnEnabled()) {
                     log.warn("Class[" + m_classToBeLoaded + "] NOT FOUND");
+                }
             }
 
         }
@@ -59,7 +62,7 @@ public class DummyTag extends TagSupport {
     /**
      * A Test Variable(Used for testing the TagLibraryClassloader)
      */
-    public void setLoadClass(String extraClass) {
+    public void setLoadClass(final String extraClass) {
         m_classToBeLoaded = extraClass;
     }
 

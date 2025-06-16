@@ -42,18 +42,18 @@ public class TestXMLParserCache extends TestCase {
 
     XMLOutput xmlOutput = null;
 
-    public TestXMLParserCache(String name) {
+    public TestXMLParserCache(final String name) {
         super(name);
     }
 
-    public void setUp(String scriptName) throws Exception {
+    public void setUp(final String scriptName) throws Exception {
         context = new JellyContext();
         xmlOutput = XMLOutput.createXMLOutput(new StringWriter());
 
         jelly = new Jelly();
 
-        String script = scriptName;
-        URL url = this.getClass().getResource(script);
+        final String script = scriptName;
+        final URL url = this.getClass().getResource(script);
         if ( url == null ) {
             throw new Exception(
                 "Could not find Jelly script: " + script
@@ -79,7 +79,7 @@ public class TestXMLParserCache extends TestCase {
         try {
             script = jelly.compileScript();
             fail("Invalid scripts should throw JellyException on parse, despite the cache");
-        } catch (JellyException e) {
+        } catch (final JellyException e) {
         }
     }
 

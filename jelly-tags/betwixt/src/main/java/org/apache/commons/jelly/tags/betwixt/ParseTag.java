@@ -22,22 +22,19 @@ import java.net.URL;
 
 import org.apache.commons.betwixt.XMLIntrospector;
 import org.apache.commons.betwixt.io.BeanReader;
-
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.xml.sax.SAXException;
 
 /**
  * Parses some XML specified via the given URI (which can be relative or an absolute URL) and outputs the
  * parsed object.
- * <p> 
+ * <p>
  * Typically this tag is customized by setting the introspector attribute or nesting a child
  * introspector tag inside it.
  * </p>
@@ -48,7 +45,7 @@ public class ParseTag extends TagSupport {
     private static final Log log = LogFactory.getLog(ParseTag.class);
 
     /** The BeanReader used to parse the XML */
-    private BeanReader reader = new BeanReader();
+    private final BeanReader reader = new BeanReader();
 
     private String uri;
     private String var;
@@ -78,7 +75,7 @@ public class ParseTag extends TagSupport {
         try {
             theClass = getClassLoader().loadClass( rootClass );
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             throw new JellyTagException( "Could not load class called: " + rootClass, e );
         }
 
@@ -94,7 +91,7 @@ public class ParseTag extends TagSupport {
                 reader.registerBeanClass( theClass );
             }
         }
-        catch (IntrospectionException e) {
+        catch (final IntrospectionException e) {
             throw new JellyTagException(e);
         }
 
@@ -103,18 +100,16 @@ public class ParseTag extends TagSupport {
             invokeBody(output);
 
             try {
-                URL url = context.getResource( uri );
+                final URL url = context.getResource( uri );
                 value = reader.parse( url.toString() );
-            } catch (IOException e) {
-                throw new JellyTagException(e);
-            } catch (SAXException e) {
+            } catch (final IOException | SAXException e) {
                 throw new JellyTagException(e);
             }
         }
         else {
 
             // invoke the body and pass that into the reader
-            XMLOutput newOutput = new XMLOutput( reader );
+            final XMLOutput newOutput = new XMLOutput( reader );
 
             invokeBody(newOutput);
 
@@ -127,6 +122,12 @@ public class ParseTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
+     * @return the ClassLoader to be used to load bean classes.
+     */
+    protected ClassLoader getClassLoader() {
+        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
+    }
+    /**
      * @return the introspector to be used, lazily creating one if required.
      */
     public XMLIntrospector getIntrospector() {
@@ -135,34 +136,23 @@ public class ParseTag extends TagSupport {
         }
         return introspector;
     }
+
+    /**
+     * Sets the ClassLoader to be used to load bean classes from.
+     * If this is not specified then either the ClassLoader used to load this tag library
+     * is used or, if the 'useContextClassLoader' property is true, then the
+     * current threads context class loader is used instead.
+     */
+    public void setClassLoader(final ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
     /**
      * Sets the Betwixt XMLIntrospector instance used to define the metadata for how a
      * bean should appear as XML.
      */
-    public void setIntrospector(XMLIntrospector introspector) {
+    public void setIntrospector(final XMLIntrospector introspector) {
         this.introspector = introspector;
-    }
-
-    /**
-     * Sets the URI from which XML is parsed. This can be relative to this Jelly script, use
-     * an absolute URI or a full URL
-     */
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    /**
-     * Sets the variable name to output with the result of the XML parse.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
-    /**
-     * Sets the name of the root class to use for parsing the XML
-     */
-    public void setRootClass(String rootClass) {
-        this.rootClass = rootClass;
     }
 
     /**
@@ -170,8 +160,23 @@ public class ParseTag extends TagSupport {
      * This is optional and often unnecessary though can be used to ignore some wrapping
      * elements, such as the &lt;rss&gt; element in the RSS unit test.
      */
-    public void setPath(String path) {
+    public void setPath(final String path) {
         this.path = path;
+    }
+
+    /**
+     * Sets the name of the root class to use for parsing the XML
+     */
+    public void setRootClass(final String rootClass) {
+        this.rootClass = rootClass;
+    }
+
+    /**
+     * Sets the URI from which XML is parsed. This can be relative to this Jelly script, use
+     * an absolute URI or a full URL
+     */
+    public void setUri(final String uri) {
+        this.uri = uri;
     }
 
     /**
@@ -180,27 +185,17 @@ public class ParseTag extends TagSupport {
      * This can be useful if running inside a web application or inside some
      * application server.
      */
-    public void setUseContextClassLoader(boolean useContextClassLoader) {
+    public void setUseContextClassLoader(final boolean useContextClassLoader) {
         this.useContextClassLoader = useContextClassLoader;
-    }
-
-    /**
-     * Sets the ClassLoader to be used to load bean classes from.
-     * If this is not specified then either the ClassLoader used to load this tag library
-     * is used or, if the 'useContextClassLoader' property is true, then the
-     * current threads context class loader is used instead.
-     */
-    public void setClassLoader(ClassLoader classLoader) {
-        this.classLoader = classLoader;
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * @return the ClassLoader to be used to load bean classes.
+     * Sets the variable name to output with the result of the XML parse.
      */
-    protected ClassLoader getClassLoader() {
-        return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

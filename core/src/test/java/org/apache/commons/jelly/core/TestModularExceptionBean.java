@@ -29,7 +29,7 @@ public class TestModularExceptionBean extends TestCase {
     /**
      * @param arg0
      */
-    public TestModularExceptionBean(String arg0) {
+    public TestModularExceptionBean(final String arg0) {
         super(arg0);
         // TODO Auto-generated constructor stub
     }
@@ -40,17 +40,17 @@ public class TestModularExceptionBean extends TestCase {
 
     public final void testThrowIt() {
 
-        ModularExceptionBean bean = new ModularExceptionBean();
+        final ModularExceptionBean bean = new ModularExceptionBean();
         bean.setException(NullPointerException.class.getName());
         try {
             bean.throwIt("myTest");
             fail("Exception must be caught");
-        } catch ( NullPointerException e) {
-            
-        } catch (Throwable e) {
+        } catch ( final NullPointerException e) {
+
+        } catch (final Throwable e) {
             fail("must be catched by upper tryCatch");
         }
-        
+
     }
 
 }

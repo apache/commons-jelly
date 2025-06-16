@@ -45,17 +45,17 @@ public class CompositeExpression extends ExpressionSupport {
      * @throws JellyException if there was some problem creating the underlying Expression object
      *  from the ExpressionFactory
      */
-    public static Expression parse(String text, ExpressionFactory factory) throws JellyException {
+    public static Expression parse(final String text, final ExpressionFactory factory) throws JellyException {
 
-        int len = text.length();
+        final int len = text.length();
 
-        int startIndex = text.indexOf( "${" );
+        final int startIndex = text.indexOf( "${" );
 
         if ( startIndex < 0) {
             return new ConstantExpression(text);
         }
 
-        int endIndex = text.indexOf( "}", startIndex+2 );
+        final int endIndex = text.indexOf( "}", startIndex+2 );
 
         if ( endIndex < 0 ) {
             throw new JellyException( "Missing '}' character at the end of expression: " + text );
@@ -64,20 +64,20 @@ public class CompositeExpression extends ExpressionSupport {
             return factory.createExpression(text.substring(2, endIndex));
         }
 
-        CompositeExpression answer = new CompositeExpression();
+        final CompositeExpression answer = new CompositeExpression();
 
         int cur = 0;
         char c = 0;
 
-        StringBuilder chars = new StringBuilder();
-        StringBuilder expr  = new StringBuilder();
+        final StringBuilder chars = new StringBuilder();
+        final StringBuilder expr  = new StringBuilder();
 
       MAIN:
         while ( cur < len ) {
             c = text.charAt( cur );
 
             switch ( c ) {
-                case('$'):
+                case'$':
                     if ( cur+1<len ) {
                         if ( text.charAt( cur + 1 ) == '{' ) {
                         ++cur;
@@ -94,7 +94,7 @@ public class CompositeExpression extends ExpressionSupport {
                                     while (cur<len) {
                                         c = text.charAt(cur);
                                         switch ( c ) {
-                                            case('"'):
+                                            case'"':
                                               expr.append( c );
                                               ++cur;
 
@@ -103,11 +103,11 @@ public class CompositeExpression extends ExpressionSupport {
                                                     c = text.charAt(cur);
 
                                                     switch ( c ) {
-                                                        case('\\'):
+                                                        case'\\':
                                                             ++cur;
                                                             expr.append(c);
                                                             break;
-                                                        case('"'):
+                                                        case'"':
                                                             ++cur;
                                                             expr.append(c);
                                                             break DOUBLE_QUOTE;
@@ -117,7 +117,7 @@ public class CompositeExpression extends ExpressionSupport {
                                                     } // switch
                                                 } // while
                                                 break;
-                                            case('\''):
+                                            case'\'':
                                                 expr.append( c );
                                                 ++cur;
 
@@ -126,11 +126,11 @@ public class CompositeExpression extends ExpressionSupport {
                                                     c = text.charAt(cur);
 
                                                     switch ( c ) {
-                                                        case('\\'):
+                                                        case'\\':
                                                             ++cur;
                                                             expr.append(c);
                                                             break;
-                                                        case('\''):
+                                                        case'\'':
                                                             ++cur;
                                                             expr.append(c);
                                                             break SINGLE_QUOTE;
@@ -140,7 +140,7 @@ public class CompositeExpression extends ExpressionSupport {
                                                     } // switch
                                                 } // while
                                                 break;
-                                            case('}'):
+                                            case'}':
                                                 answer.addExpression(factory.createExpression(expr.toString()));
                                                 expr.delete(0, expr.length());
                                                 ++cur;
@@ -155,12 +155,9 @@ public class CompositeExpression extends ExpressionSupport {
                         else if ( text.charAt( cur + 1 ) == '$' ) // $$
                         {
                             chars.append( c );
-                            if ( cur + 2 < len )
+                            if ( cur + 2 < len && text.charAt( cur + 2 ) == '{' ) // $${
                             {
-                                if ( text.charAt( cur + 2 ) == '{' ) // $${
-                                {
-                                    ++cur;
-                                }
+                                ++cur;
                             }
                         }
                         else
@@ -194,14 +191,14 @@ public class CompositeExpression extends ExpressionSupport {
         this.expressions = new ArrayList();
     }
 
-    public CompositeExpression(List expressions) {
+    public CompositeExpression(final List expressions) {
         this.expressions = expressions;
     }
 
     /**
      * Adds a new expression to the end of the expression list
      */
-    public void addExpression(Expression expression) {
+    public void addExpression(final Expression expression) {
         expressions.add(expression);
     }
 
@@ -211,35 +208,33 @@ public class CompositeExpression extends ExpressionSupport {
     /**
      * A helper method to add a new constant text expression
      */
-    public void addTextExpression(String text) {
+    public void addTextExpression(final String text) {
         addExpression(new ConstantExpression(text));
     }
 
     // inherit javadoc from interface
     @Override
-    public Object evaluate(JellyContext context) {
+    public Object evaluate(final JellyContext context) {
         return evaluateAsString(context);
     }
 
     // inherit javadoc from interface
     @Override
-    public Iterator evaluateAsIterator(JellyContext context) {
-        String value = evaluateAsString(context);
+    public Iterator evaluateAsIterator(final JellyContext context) {
+        final String value = evaluateAsString(context);
         if ( value == null ) {
             return Collections.EMPTY_LIST.iterator();
         }
-        else {
-            return new SingletonIterator( value );
-        }
+        return new SingletonIterator( value );
     }
 
     // inherit javadoc from interface
     @Override
-    public String evaluateAsString(JellyContext context) {
-        StringBuilder buffer = new StringBuilder();
-        for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
-            Expression expression = (Expression) iter.next();
-            String value = expression.evaluateAsString(context);
+    public String evaluateAsString(final JellyContext context) {
+        final StringBuilder buffer = new StringBuilder();
+        for (final Iterator iter = expressions.iterator(); iter.hasNext(); ) {
+            final Expression expression = (Expression) iter.next();
+            final String value = expression.evaluateAsString(context);
             if ( value != null ) {
                 buffer.append( value );
             }
@@ -261,9 +256,9 @@ public class CompositeExpression extends ExpressionSupport {
 
     @Override
     public String getExpressionText() {
-        StringBuilder buffer = new StringBuilder();
-        for (Iterator iter = expressions.iterator(); iter.hasNext(); ) {
-            Expression expression = (Expression) iter.next();
+        final StringBuilder buffer = new StringBuilder();
+        for (final Iterator iter = expressions.iterator(); iter.hasNext(); ) {
+            final Expression expression = (Expression) iter.next();
             buffer.append( expression.getExpressionText() );
         }
         return buffer.toString();
@@ -273,7 +268,7 @@ public class CompositeExpression extends ExpressionSupport {
      * Sets the Expression objects that make up this
      * composite expression
      */
-    public void setExpressions(List expressions) {
+    public void setExpressions(final List expressions) {
         this.expressions = expressions;
     }
 

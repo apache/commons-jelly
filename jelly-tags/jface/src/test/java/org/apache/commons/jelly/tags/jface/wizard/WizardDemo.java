@@ -26,22 +26,22 @@ import org.apache.commons.jelly.tags.jface.JFaceTagLibrary;
  */
 public class WizardDemo {
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         try {
 
-            JellyContext context = new JellyContext();
+            final JellyContext context = new JellyContext();
 
             /** @todo zap the following line once the Jelly core has this default */
             context.registerTagLibrary("jelly:jface", new JFaceTagLibrary());
 
-            URL url = WizardDemo.class.getResource("WizardDemo.jelly");
+            final URL url = WizardDemo.class.getResource("WizardDemo.jelly");
 
-            XMLOutput output = XMLOutput.createXMLOutput(System.out, true);
+            final XMLOutput output = XMLOutput.createXMLOutput(System.out, true);
             context.runScript( url, output );
             output.flush();
 
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             e.printStackTrace();
         }
 

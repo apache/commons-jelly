@@ -33,15 +33,27 @@ public class JFaceLayoutDataTag extends LayoutDataTag {
     /**
      * @param layoutDataClass
      */
-    public JFaceLayoutDataTag(Class layoutDataClass) {
+    public JFaceLayoutDataTag(final Class layoutDataClass) {
         super(layoutDataClass);
+    }
+
+    /**
+     * @return the parent window
+     */
+    public Window getParentWindow() {
+        final ApplicationWindowTag tag =
+            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
+        if (tag != null) {
+            return tag.getWindow();
+        }
+        return null;
     }
 
     /* (non-Javadoc)
      * @see org.apache.commons.jelly.tags.core.UseBeanTag#processBean(java.lang.String, java.lang.Object)
      */
     @Override
-    protected void processBean(String var, Object bean) throws JellyTagException {
+    protected void processBean(final String var, final Object bean) throws JellyTagException {
         Widget parent = getParentWidget();
         Window window = null;
         if (parent == null) {
@@ -51,24 +63,11 @@ public class JFaceLayoutDataTag extends LayoutDataTag {
             }
         }
 
-        if (parent instanceof Control) {
-            Control control = (Control) parent;
-            control.setLayoutData(getBean());
-        } else {
+        if (!(parent instanceof Control)) {
             throw new JellyTagException("This tag must be nested within a control widget tag");
         }
-    }
-
-    /**
-     * @return the parent window 
-     */
-    public Window getParentWindow() {
-        ApplicationWindowTag tag =
-            (ApplicationWindowTag) findAncestorWithClass(ApplicationWindowTag.class);
-        if (tag != null) {
-            return tag.getWindow();
-        }
-        return null;
+        final Control control = (Control) parent;
+        control.setLayoutData(getBean());
     }
 
 }

@@ -35,14 +35,12 @@ public class IfTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if (test != null) {
-            if (test.evaluateAsBoolean(context)) {
-                invokeBody(output);
-            }
-        }
-        else {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
+        if (test == null) {
             throw new MissingAttributeException( "test" );
+        }
+        if (test.evaluateAsBoolean(context)) {
+            invokeBody(output);
         }
 
     }
@@ -54,7 +52,7 @@ public class IfTag extends TagSupport {
      *
      * @param test the Jelly expression to evaluate
      */
-    public void setTest(Expression test) {
+    public void setTest(final Expression test) {
         this.test = test;
     }
 }

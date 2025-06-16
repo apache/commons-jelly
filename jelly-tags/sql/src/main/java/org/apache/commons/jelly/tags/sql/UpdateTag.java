@@ -65,11 +65,11 @@ public class UpdateTag extends SqlTagSupport {
      * named <code>javax.servlet.jsp.jstl.sql.dataSource</code>.
      */
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         try {
             conn = getConnection();
         }
-        catch (SQLException e) {
+        catch (final SQLException e) {
             throw new JellyTagException(sql + ": " + e.getMessage(), e);
         }
 
@@ -92,7 +92,7 @@ public class UpdateTag extends SqlTagSupport {
         int result = 0;
         try {
             if ( hasParameters() ) {
-                PreparedStatement ps = conn.prepareStatement(sqlStatement);
+                final PreparedStatement ps = conn.prepareStatement(sqlStatement);
                 statement = ps;
                 setParameters(ps);
                 result = ps.executeUpdate();
@@ -107,11 +107,11 @@ public class UpdateTag extends SqlTagSupport {
 
             // lets nullify before we close in case we get exceptions
             // while closing, we don't want to try to close again
-            Statement tempStatement = statement;
+            final Statement tempStatement = statement;
             statement = null;
             tempStatement.close();
         }
-        catch (SQLException e) {
+        catch (final SQLException e) {
             throw new JellyTagException(sqlStatement + ": " + e.getMessage(), e);
         }
         finally {
@@ -119,7 +119,7 @@ public class UpdateTag extends SqlTagSupport {
                 try {
                     statement.close();
                 }
-                catch (SQLException e) {
+                catch (final SQLException e) {
                     log.error("Caught exception while closing statement: " + e, e);
                 }
             }
@@ -127,7 +127,7 @@ public class UpdateTag extends SqlTagSupport {
                 try {
                     conn.close();
                 }
-                catch (SQLException e) {
+                catch (final SQLException e) {
                     log.error("Caught exception while closing connection: " + e, e);
                 }
             }

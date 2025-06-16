@@ -20,7 +20,7 @@ package org.apache.commons.jelly;
 import org.apache.commons.beanutils2.DynaBean;
 import org.apache.commons.beanutils2.DynaProperty;
 
-/** 
+/**
  * <p><code>DynaBeanTag</code> is a DynaTag implementation which uses a DynaBean
  * to store its attribute values in. Derived tags can then process this
  * DynaBean in any way it wishes.
@@ -34,48 +34,48 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
 
     public DynaBeanTagSupport() {
     }
-    
-    public DynaBeanTagSupport(DynaBean dynaBean) {
+
+    public DynaBeanTagSupport(final DynaBean dynaBean) {
         this.dynaBean = dynaBean;
     }
-     
+
     /**
      * Callback to allow processing to occur before the attributes are about to be set
      */
     public void beforeSetAttributes() throws JellyTagException {
     }
-    
+
     /**
      * @return the type of the given attribute. By default just return
      * Object.class if this is not known.
      */
     @Override
-    public Class getAttributeType(String name) throws JellyTagException {
-        DynaProperty property = getDynaBean().getDynaClass().getDynaProperty(name);
+    public Class getAttributeType(final String name) throws JellyTagException {
+        final DynaProperty property = getDynaBean().getDynaClass().getDynaProperty(name);
         if (property != null) {
             return property.getType();
         }
         return Object.class;
     }
 
-    /** 
+    /**
      * @return the DynaBean which is used to store the
      *  attributes of this tag
      */
     public DynaBean getDynaBean() {
         return dynaBean;
     }
-    
+
     /** Sets an attribute value of this tag before the tag is invoked
      */
     @Override
-    public void setAttribute(String name, Object value) throws JellyTagException {
+    public void setAttribute(final String name, final Object value) throws JellyTagException {
         getDynaBean().set(name, value);
     }
-    
+
     /** Sets the context in which the tag will be run. */
     @Override
-    public void setContext(JellyContext context) throws JellyTagException {
+    public void setContext(final JellyContext context) throws JellyTagException {
         this.context = context;
         beforeSetAttributes();
     }
@@ -84,8 +84,8 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
      * Sets the DynaBean which is used to store the
      *  attributes of this tag
      */
-    public void setDynaBean(DynaBean dynaBean) {
+    public void setDynaBean(final DynaBean dynaBean) {
         this.dynaBean = dynaBean;
     }
-    
+
 }

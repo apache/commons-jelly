@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.MultipartPostMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
@@ -44,14 +45,38 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 public class MultipartPostTag extends PostTag {
 
     /** The post method */
+    private PostMethod _postMethod;
+
+    /** The post method */
     private MultipartRequestEntity _multipartRequestEntity;
 
     /** List of parts as name value pairs */
-    private List<Part> _parts;
+    private final List _parts;
 
     /** Creates a new instance of MppostTag */
     public MultipartPostTag() {
-        _parts = new ArrayList<>();
+      _parts = new ArrayList();
+    }
+
+    /**
+     * Add a part to the message
+     *
+     * @param part the part
+     */
+    public void addPart(final Part part) {
+        _parts.add(part);
+    }
+
+    /**
+     * get {@link Part} as Array
+     *
+     */
+    private Part[] getParts() {
+        Part[] partArr = new Part[_parts.size()];
+        for (int i = 0; i < _parts.size(); i++) {
+            partArr[i] = (Part) _parts.get(i);
+        }
+        return partArr;
     }
 
     /**
@@ -70,15 +95,6 @@ public class MultipartPostTag extends PostTag {
     }
 
     /**
-     * Add a part to the message
-     *
-     * @param part the part
-     */
-    public void addPart(Part part) {
-        _parts.add(part);
-    }
-
-    /**
      * Sets the current parameters on the url method ready for processing
      *
      * This method basically
@@ -86,9 +102,8 @@ public class MultipartPostTag extends PostTag {
      *  {@link #getHttpMethod()}
      */
     @Override
-    protected void setParameters(HttpMethod method) {
-        _multipartRequestEntity = new MultipartRequestEntity(_parts.toArray(new Part[0]), _postMethod.getParams());
+    protected void setParameters(final HttpMethod method) {
+        _multipartRequestEntity = new MultipartRequestEntity(getParts(), _postMethod.getParams());
         _postMethod.setRequestEntity(_multipartRequestEntity);
     }
 }
-

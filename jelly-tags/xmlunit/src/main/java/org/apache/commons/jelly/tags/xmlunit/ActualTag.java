@@ -25,17 +25,17 @@ import org.dom4j.io.SAXReader;
 public class ActualTag extends XMLUnitTagSupport {
 
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
-        Document actualDocument = parseBody();
-
-        AssertDocumentsEqualTag assertTag =
-            (AssertDocumentsEqualTag) findAncestorWithClass(AssertDocumentsEqualTag
-                .class);
-        assertTag.setActual(actualDocument);
+    protected SAXReader createSAXReader() {
+        return new SAXReader();
     }
 
     @Override
-    protected SAXReader createSAXReader() {
-        return new SAXReader();
+    public void doTag(final XMLOutput output) throws JellyTagException {
+        final Document actualDocument = parseBody();
+
+        final AssertDocumentsEqualTag assertTag =
+            (AssertDocumentsEqualTag) findAncestorWithClass(AssertDocumentsEqualTag
+                .class);
+        assertTag.setActual(actualDocument);
     }
 }

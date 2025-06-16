@@ -27,13 +27,13 @@ public class ClassLoaderUtils {
 
     /** Log for debug etc output */
     private static final Log log = LogFactory.getLog(ClassLoaderUtils.class);
-    
+
     /**
-     * Gets the loader for the given class. 
+     * Gets the loader for the given class.
      * @param clazz the class to retrieve the loader for
      * @return the class loader that loaded the provided class
      */
-    public static ClassLoader getClassLoader(Class clazz) {
+    public static ClassLoader getClassLoader(final Class clazz) {
         ClassLoader callersLoader = clazz.getClassLoader();
         if (callersLoader == null) {
             callersLoader = ClassLoader.getSystemClassLoader();
@@ -51,12 +51,12 @@ public class ClassLoaderUtils {
      * <li>The System class loader.
      * </ul>
      */
-    public static ClassLoader getClassLoader(ClassLoader specifiedLoader, boolean useContextClassLoader, Class callingClass) {
+    public static ClassLoader getClassLoader(final ClassLoader specifiedLoader, final boolean useContextClassLoader, final Class callingClass) {
         if (specifiedLoader != null) {
             return specifiedLoader;
         }
         if (useContextClassLoader) {
-            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
             if (classLoader != null) {
                 return classLoader;
             }
@@ -73,7 +73,7 @@ public class ClassLoaderUtils {
      * <li>The System class loader.
      * </ul>
      */
-    public static ClassLoader getClassLoader(ClassLoader specifiedLoader, Class callingClass) {
+    public static ClassLoader getClassLoader(final ClassLoader specifiedLoader, final Class callingClass) {
         if (specifiedLoader != null) {
             return specifiedLoader;
         }
@@ -84,13 +84,12 @@ public class ClassLoaderUtils {
      * Loads the given class using the current Thread's context class loader first
      * otherwise use the class loader which loaded this class.
      */
-    public static Class loadClass(String className, Class callingClass) throws ClassNotFoundException {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    public static Class loadClass(final String className, final Class callingClass) throws ClassNotFoundException {
+        final ClassLoader loader = Thread.currentThread().getContextClassLoader();
         if (loader == null) {
             return getClassLoader(callingClass).loadClass(className);
-        } else {
-            return loader.loadClass(className);
         }
+        return loader.loadClass(className);
     }
 
     /**
@@ -101,27 +100,27 @@ public class ClassLoaderUtils {
      * <li>otherwise use the class loader which loaded this class.</li>
      * </ol>
      */
-    public static Class loadClass(String className, ClassLoader specifiedLoader, boolean useContextLoader, Class callingClass) throws ClassNotFoundException {
+    public static Class loadClass(final String className, final ClassLoader specifiedLoader, final boolean useContextLoader, final Class callingClass) throws ClassNotFoundException {
         Class clazz = null;
         if (specifiedLoader != null) {
             try {
                 clazz = specifiedLoader.loadClass(className);
-            } catch (ClassNotFoundException e) {
+            } catch (final ClassNotFoundException e) {
                 log.debug("couldn't find class in specified loader", e);
             }
         }
         if (clazz == null && useContextLoader) {
-            ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
+            final ClassLoader contextLoader = Thread.currentThread().getContextClassLoader();
             if (contextLoader != null) {
                 try {
                     clazz = contextLoader.loadClass(className);
-                } catch (ClassNotFoundException e) {
+                } catch (final ClassNotFoundException e) {
                     log.debug("couldn't find class in specified loader", e);
                 }
             }
         }
         if (clazz == null) {
-            ClassLoader loader = getClassLoader(callingClass);
+            final ClassLoader loader = getClassLoader(callingClass);
             clazz = loader.loadClass(className);
         }
         return clazz;

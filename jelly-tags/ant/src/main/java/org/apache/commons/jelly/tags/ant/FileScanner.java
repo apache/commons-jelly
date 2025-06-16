@@ -30,18 +30,23 @@ import org.apache.tools.ant.types.FileSet;
 public class FileScanner {
 
     /** FileSets */
-    private List filesets = new ArrayList();
+    private final List filesets = new ArrayList();
 
     /** The Ant project */
     private Project project;
 
-    public void setProject(Project project)
-    {
-        this.project = project;
+    /**
+     * Adds a set of files (nested fileset attribute).
+     */
+    public void addFileset(final FileSet set) {
+        filesets.add(set);
     }
 
-    public Iterator iterator() {
-        return new FileIterator(project, filesets.iterator());
+    /**
+     * Clears any file sets that have been added to this scanner
+     */
+    public void clear() {
+        filesets.clear();
     }
 
     public Iterator directories() {
@@ -52,21 +57,16 @@ public class FileScanner {
         return filesets.size() > 0;
     }
 
-    /**
-     * Clears any file sets that have been added to this scanner
-     */
-    public void clear() {
-        filesets.clear();
+    public Iterator iterator() {
+        return new FileIterator(project, filesets.iterator());
     }
 
     // Properties
     //-------------------------------------------------------------------------
 
-    /**
-     * Adds a set of files (nested fileset attribute).
-     */
-    public void addFileset(FileSet set) {
-        filesets.add(set);
+    public void setProject(final Project project)
+    {
+        this.project = project;
     }
 
 }

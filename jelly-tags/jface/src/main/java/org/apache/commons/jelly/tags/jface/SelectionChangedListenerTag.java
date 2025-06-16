@@ -44,13 +44,13 @@ public class SelectionChangedListenerTag
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
     @Override
-    public void doTag(XMLOutput output)
+    public void doTag(final XMLOutput output)
         throws MissingAttributeException, JellyTagException {
         if (var == null) {
             throw new MissingAttributeException("var");
         }
 
-        Viewer viewer = getParentViewer();
+        final Viewer viewer = getParentViewer();
         if (viewer == null) {
             throw new JellyTagException("This tag must be nested within a viewer tag");
         }
@@ -60,7 +60,7 @@ public class SelectionChangedListenerTag
     }
 
     public Viewer getParentViewer() {
-        ViewerTag tag = (ViewerTag) findAncestorWithClass(ViewerTag.class);
+        final ViewerTag tag = (ViewerTag) findAncestorWithClass(ViewerTag.class);
         if (tag != null) {
             return tag.getViewer();
         }
@@ -74,30 +74,30 @@ public class SelectionChangedListenerTag
         return var;
     }
 
-    /**
-     * Sets the var.
-     * @param var The var to set
+    /*
+     * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
      */
-    public void setVar(String var) {
-        this.var = var;
+    @Override
+    public void selectionChanged(final SelectionChangedEvent event) {
+        try {
+            context.setVariable(var, event);
+            invokeBody(output);
+        } catch (final Exception e) {
+            log.error(
+                "Caught exception: " + e + " while processing event: " + event,
+                e);
+        }
     }
 
     //  Listener interface
     //-------------------------------------------------------------------------
 
-    /*
-     * @see org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)
+    /**
+     * Sets the var.
+     * @param var The var to set
      */
-    @Override
-    public void selectionChanged(SelectionChangedEvent event) {
-        try {
-            context.setVariable(var, event);
-            invokeBody(output);
-        } catch (Exception e) {
-            log.error(
-                "Caught exception: " + e + " while processing event: " + event,
-                e);
-        }
+    public void setVar(final String var) {
+        this.var = var;
     }
 
 }

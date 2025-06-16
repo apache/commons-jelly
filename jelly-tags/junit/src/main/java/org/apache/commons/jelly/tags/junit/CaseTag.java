@@ -16,13 +16,13 @@
  */
 package org.apache.commons.jelly.tags.junit;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
+
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * Represents a single test case in a test suite; this tag is analagous to
@@ -43,12 +43,12 @@ public class CaseTag extends TagSupport {
 
         // #### we need to redirect the output to a TestListener
         // or something?
-        TestCase testCase = new TestCase(name) {
+        final TestCase testCase = new TestCase(name) {
             @Override
             protected void runTest() throws Throwable {
                 // create a new child context so that each test case
                 // will have its own variable scopes
-                JellyContext newContext = new JellyContext( context );
+                final JellyContext newContext = new JellyContext( context );
 
                 // disable inheritance of variables and tag libraries
                 newContext.setExportLibraries(false);
@@ -60,7 +60,7 @@ public class CaseTag extends TagSupport {
         };
 
         // lets find the test suite
-        TestSuite suite = getSuite();
+        final TestSuite suite = getSuite();
         if ( suite == null ) {
             throw new JellyTagException( "Could not find a TestSuite to add this test to. This tag should be inside a <test:suite> tag" );
         }
@@ -78,24 +78,24 @@ public class CaseTag extends TagSupport {
     }
 
     /**
-     * Sets the name of this test case
+     * Strategy method to find the current TestSuite to add a new Test case to
      */
-    public void setName(String name) {
-        this.name = name;
+    protected TestSuite getSuite() {
+        final SuiteTag tag = (SuiteTag) findAncestorWithClass( SuiteTag.class );
+        if ( tag != null ) {
+            return tag.getSuite();
+        }
+        return (TestSuite) context.getVariable( "org.apache.commons.jelly.junit.suite" );
     }
 
     // Implementation methods
     //-------------------------------------------------------------------------
 
     /**
-     * Strategy method to find the current TestSuite to add a new Test case to
+     * Sets the name of this test case
      */
-    protected TestSuite getSuite() {
-        SuiteTag tag = (SuiteTag) findAncestorWithClass( SuiteTag.class );
-        if ( tag != null ) {
-            return tag.getSuite();
-        }
-        return (TestSuite) context.getVariable( "org.apache.commons.jelly.junit.suite" );
+    public void setName(final String name) {
+        this.name = name;
     }
 
 }

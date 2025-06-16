@@ -33,16 +33,16 @@ public class CardLayoutTag extends LayoutTagSupport {
 
     @Override
     protected LayoutManager createLayoutManager() {
-        CardLayout cl = new CardLayout();
+        final CardLayout cl = new CardLayout();
 
         if (hgapSet) {
             cl.setHgap(hgap);
         }
-        
+
         if (vgapSet) {
             cl.setVgap(vgap);
         }
-        
+
         return cl;
     }
 
@@ -54,14 +54,6 @@ public class CardLayoutTag extends LayoutTagSupport {
     }
 
     /**
-     * @param hgap The hgap to set.
-     */
-    public void setHgap(int hgap) {
-        this.hgap = hgap;
-        hgapSet = true;
-    }
-
-    /**
      * @return the vgap.
      */
     public int getVgap() {
@@ -69,9 +61,17 @@ public class CardLayoutTag extends LayoutTagSupport {
     }
 
     /**
+     * @param hgap The hgap to set.
+     */
+    public void setHgap(final int hgap) {
+        this.hgap = hgap;
+        hgapSet = true;
+    }
+
+    /**
      * @param vgap The vgap to set.
      */
-    public void setVgap(int vgap) {
+    public void setVgap(final int vgap) {
         this.vgap = vgap;
         vgapSet = true;
     }

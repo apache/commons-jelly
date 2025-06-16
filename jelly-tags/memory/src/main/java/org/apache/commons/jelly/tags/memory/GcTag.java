@@ -29,9 +29,9 @@ public class GcTag extends TagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
 
-        Runtime r = Runtime.getRuntime();
+        final Runtime r = Runtime.getRuntime();
         r.gc();
     }
 

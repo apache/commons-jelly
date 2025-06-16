@@ -42,16 +42,24 @@ public abstract class LayoutTagSupport extends TagSupport {
     /**
      * Adds the given layout component to the container with the specified constraints
      */
-    public void addLayoutComponent(Component component, Object constraints) throws JellyTagException {
+    public void addLayoutComponent(final Component component, final Object constraints) throws JellyTagException {
         getComponentTag().addChild(component, constraints);
     }
+
+    /**
+     * Factory method to create a new LayoutManager instance.
+     */
+    protected abstract LayoutManager createLayoutManager();
+
+    // Properties
+    //-------------------------------------------------------------------------
 
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
 
-        LayoutManager layout = createLayoutManager();
+        final LayoutManager layout = createLayoutManager();
 
         if (var != null) {
             context.setVariable(var, layout);
@@ -63,18 +71,6 @@ public abstract class LayoutTagSupport extends TagSupport {
         invokeBody(output);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the name of the variable to use to expose the new LayoutManager object.
-     * If this attribute is not set then the parent widget tag will have its
-     * layout property set.
-     */
-    public void setVar(String var) {
-        this.var = var;
-    }
-
     // Implementation methods
     //-------------------------------------------------------------------------
 
@@ -82,7 +78,7 @@ public abstract class LayoutTagSupport extends TagSupport {
      * @return the parent component tag or throw an exception
      */
     protected ComponentTag getComponentTag() throws JellyTagException {
-        ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
+        final ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );
         if ( tag == null ) {
             throw new JellyTagException( "This tag must be nested within a JellySwing widget tag" );
         }
@@ -90,7 +86,11 @@ public abstract class LayoutTagSupport extends TagSupport {
     }
 
     /**
-     * Factory method to create a new LayoutManager instance.
+     * Sets the name of the variable to use to expose the new LayoutManager object.
+     * If this attribute is not set then the parent widget tag will have its
+     * layout property set.
      */
-    protected abstract LayoutManager createLayoutManager();
+    public void setVar(final String var) {
+        this.var = var;
+    }
 }

@@ -88,16 +88,15 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
         if (classObject instanceof Class) {
             return (Class) classObject;
         }
-        if (classObject == null) {
-            final Class theClass = getDefaultClass();
-            if (theClass == null) {
-                throw new MissingAttributeException("class");
-            }
-            return theClass;
-        } else {
+        if (classObject != null) {
             final String className = classObject.toString();
             return loadClass(className);
         }
+        final Class theClass = getDefaultClass();
+        if (theClass == null) {
+            throw new MissingAttributeException("class");
+        }
+        return theClass;
     }
 
     // Tag interface

@@ -35,7 +35,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 public class DynaclassTag extends TagSupport {
 
-    private ArrayList propList = new ArrayList();
+    private final ArrayList propList = new ArrayList();
     private DynaProperty[] props = null;
     private DynaClass dynaClass = null;
 
@@ -45,10 +45,17 @@ public class DynaclassTag extends TagSupport {
     public DynaclassTag() {
     }
 
+    protected void addDynaProperty(final DynaProperty prop) {
+        propList.add(prop);
+    }
+
+    // Properties
+    //-------------------------------------------------------------------------
+
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException {
+    public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
         if (name == null) {
             throw new MissingAttributeException("name");
@@ -81,28 +88,21 @@ public class DynaclassTag extends TagSupport {
         context.setVariable(getVar(), dynaClass);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
-    /**
-     * Sets the name of the new DynaClass
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getVar() {
         return var;
     }
 
     /**
-     * Sets the name of the variable to export the DynaClass instance
+     * Sets the name of the new DynaClass
      */
-    public void setVar(String var) {
-        this.var = var;
+    public void setName(final String name) {
+        this.name = name;
     }
 
-    protected void addDynaProperty(DynaProperty prop) {
-        propList.add(prop);
+    /**
+     * Sets the name of the variable to export the DynaClass instance
+     */
+    public void setVar(final String var) {
+        this.var = var;
     }
 }

@@ -20,9 +20,9 @@ package org.apache.commons.jelly.tags.junit;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import junit.framework.AssertionFailedError;
-
 import org.apache.commons.jelly.LocationAware;
+
+import junit.framework.AssertionFailedError;
 
 /**
  * <p><code>JellyAssertionFailedError</code> is
@@ -50,16 +50,16 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     public JellyAssertionFailedError() {
     }
 
-    public JellyAssertionFailedError(String message) {
+    public JellyAssertionFailedError(final String message) {
         super(message);
     }
 
-    public JellyAssertionFailedError(String message, Throwable cause) {
+    public JellyAssertionFailedError(final String message, final Throwable cause) {
         super(message);
         this.cause = cause;
     }
 
-    public JellyAssertionFailedError(Throwable cause) {
+    public JellyAssertionFailedError(final Throwable cause) {
         super(cause.getLocalizedMessage());
         this.cause = cause;
     }
@@ -67,22 +67,6 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     @Override
     public Throwable getCause() {
         return cause;
-    }
-
-    /**
-     * @return the line number of the tag
-     */
-    @Override
-    public int getLineNumber() {
-        return lineNumber;
-    }
-
-    /**
-     * Sets the line number of the tag
-     */
-    @Override
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
     }
 
     /**
@@ -94,11 +78,11 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     }
 
     /**
-     * Sets the column number of the tag
+     * @return the element name which caused the problem
      */
     @Override
-    public void setColumnNumber(int columnNumber) {
-        this.columnNumber = columnNumber;
+    public String getElementName() {
+        return elementName;
     }
 
     /**
@@ -110,27 +94,11 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     }
 
     /**
-     * Sets the Jelly file which caused the problem
+     * @return the line number of the tag
      */
     @Override
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    /**
-     * @return the element name which caused the problem
-     */
-    @Override
-    public String getElementName() {
-        return elementName;
-    }
-
-    /**
-     * Sets the element name which caused the problem
-     */
-    @Override
-    public void setElementName(String elementName) {
-        this.elementName = elementName;
+    public int getLineNumber() {
+        return lineNumber;
     }
 
     @Override
@@ -142,29 +110,6 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
         return super.getMessage();
     }
 
-    // #### overload the printStackTrace methods...
-    @Override
-    public void printStackTrace(PrintWriter s) {
-        synchronized (s) {
-            super.printStackTrace(s);
-            if  (cause != null) {
-                s.println("Root cause");
-                cause.printStackTrace(s);
-            }
-        }
-    }
-
-    @Override
-    public void printStackTrace(PrintStream s) {
-        synchronized (s) {
-            super.printStackTrace(s);
-            if  (cause != null) {
-                s.println("Root cause");
-                cause.printStackTrace(s);
-            }
-        }
-    }
-
     @Override
     public void printStackTrace() {
         super.printStackTrace();
@@ -172,5 +117,60 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
             System.out.println("Root cause");
             cause.printStackTrace();
         }
+    }
+
+    @Override
+    public void printStackTrace(final PrintStream s) {
+        synchronized (s) {
+            super.printStackTrace(s);
+            if  (cause != null) {
+                s.println("Root cause");
+                cause.printStackTrace(s);
+            }
+        }
+    }
+
+    // #### overload the printStackTrace methods...
+    @Override
+    public void printStackTrace(final PrintWriter s) {
+        synchronized (s) {
+            super.printStackTrace(s);
+            if  (cause != null) {
+                s.println("Root cause");
+                cause.printStackTrace(s);
+            }
+        }
+    }
+
+    /**
+     * Sets the column number of the tag
+     */
+    @Override
+    public void setColumnNumber(final int columnNumber) {
+        this.columnNumber = columnNumber;
+    }
+
+    /**
+     * Sets the element name which caused the problem
+     */
+    @Override
+    public void setElementName(final String elementName) {
+        this.elementName = elementName;
+    }
+
+    /**
+     * Sets the Jelly file which caused the problem
+     */
+    @Override
+    public void setFileName(final String fileName) {
+        this.fileName = fileName;
+    }
+
+    /**
+     * Sets the line number of the tag
+     */
+    @Override
+    public void setLineNumber(final int lineNumber) {
+        this.lineNumber = lineNumber;
     }
 }

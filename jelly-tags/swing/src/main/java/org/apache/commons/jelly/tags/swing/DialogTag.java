@@ -21,6 +21,7 @@ import java.awt.Container;
 import java.awt.Dialog;
 import java.awt.Frame;
 import java.util.Map;
+
 import javax.swing.JDialog;
 
 import org.apache.commons.jelly.JellyTagException;
@@ -46,18 +47,15 @@ public class DialogTag extends UseBeanTag implements ContainerTag {
     //-------------------------------------------------------------------------
 
     /**
-     * Creates a JDialog.  The constructor used depends on the value of the owner attribute.
+     * Adds a component to the dialog.
      */
     @Override
-    protected Object newInstance(Class theClass, Map attributes, XMLOutput output)
-    throws JellyTagException {
-        Object owner = attributes.remove( "owner" );
-        if (owner instanceof Frame) {
-            return new JDialog((Frame) owner);
-        } else if (owner instanceof Dialog) {
-            return new JDialog((Dialog) owner);
+    public void addChild(final Component component, final Object constraints) {
+        final Container contentPane = ((JDialog) getBean()).getContentPane();
+        if (constraints != null) {
+            contentPane.add( component, constraints );
         } else {
-            return new JDialog();
+            contentPane.add( component );
         }
     }
 
@@ -65,16 +63,19 @@ public class DialogTag extends UseBeanTag implements ContainerTag {
     //-------------------------------------------------------------------------
 
     /**
-     * Adds a component to the dialog.
+     * Creates a JDialog.  The constructor used depends on the value of the owner attribute.
      */
     @Override
-    public void addChild(Component component, Object constraints) {
-        Container contentPane = ((JDialog) getBean()).getContentPane();
-        if (constraints != null) {
-            contentPane.add( component, constraints );
-        } else {
-            contentPane.add( component );
+    protected Object newInstance(final Class theClass, final Map attributes, final XMLOutput output)
+    throws JellyTagException {
+        final Object owner = attributes.remove( "owner" );
+        if (owner instanceof Frame) {
+            return new JDialog((Frame) owner);
         }
+        if (owner instanceof Dialog) {
+            return new JDialog((Dialog) owner);
+        }
+        return new JDialog();
     }
 }
 

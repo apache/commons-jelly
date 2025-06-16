@@ -35,31 +35,31 @@ import org.xml.sax.Attributes;
   */
 
 public abstract class TagLibrary {
-	
+
 	static {
 
         // register standard converters
 
-        ConvertUtils.register(
-            new Converter() {
-                @Override
-                public Object convert(Class type, Object value) {
-                    if ( value instanceof File ) {
-                        return (File) value;
-                    }
-                    else if ( value != null ) {
-                        String text = value.toString();
-                        return new File( text );
-                    }
-                    return null;
-                }
-            },
-            File.class
-        );
+      ConvertUtils.register(
+              new Converter() {
+                  @Override
+                  public Object convert(Class type, Object value) {
+                      if ( value instanceof File ) {
+                          return (File) value;
+                      }
+                      else if ( value != null ) {
+                          String text = value.toString();
+                          return new File( text );
+                      }
+                      return null;
+                  }
+              },
+              File.class
+          );
     }
     private boolean allowUnknownTags = true;
 
-    private Map tags = new HashMap();
+    private final Map tags = new HashMap();
 
     /**
 	 * Default Constructor
@@ -71,17 +71,16 @@ public abstract class TagLibrary {
      * Constructor
 	 * @param allowUnknownTags whether unknown tags are allowed or an exception is raised
 	 */
-	public TagLibrary(boolean allowUnknownTags) {
-		super();
+	public TagLibrary(final boolean allowUnknownTags) {
 		this.allowUnknownTags = allowUnknownTags;
 	}
 
 	/** Allows taglibs to use their own expression evaluation mechanism */
     public Expression createExpression(
-        ExpressionFactory factory,
-        TagScript tagScript,
-        String attributeName,
-        String attributeValue)
+        final ExpressionFactory factory,
+        final TagScript tagScript,
+        final String attributeName,
+        final String attributeValue)
         throws JellyException {
 
         ExpressionFactory myFactory = getExpressionFactory();
@@ -97,35 +96,35 @@ public abstract class TagLibrary {
     }
 
     /** Creates a new Tag for the given tag name and attributes */
-    public Tag createTag(String name, Attributes attributes)
+    public Tag createTag(final String name, final Attributes attributes)
         throws JellyException {
 
-        Object value = tags.get(name);
+        final Object value = tags.get(name);
         if (value instanceof Class) {
-            Class type = (Class) value;
+            final Class type = (Class) value;
             try {
                 return (Tag) type.getConstructor().newInstance();
-            } catch (ReflectiveOperationException e) {
+            } catch (final ReflectiveOperationException e) {
                 throw new JellyException(e.toString());
             }
         }
-        else if (value instanceof TagFactory) {
-            TagFactory factory = (TagFactory) value;
+        if (value instanceof TagFactory) {
+            final TagFactory factory = (TagFactory) value;
             return factory.createTag(name, attributes);
         }
     	return null;
     }
 
     /** Creates a new script to execute the given tag name and attributes */
-    public TagScript createTagScript(String name, Attributes attributes)
+    public TagScript createTagScript(final String name, final Attributes attributes)
         throws JellyException {
 
-        Object value = tags.get(name);
+        final Object value = tags.get(name);
         if (value instanceof Class) {
-            Class type = (Class) value;
+            final Class type = (Class) value;
             return TagScript.newInstance(type);
         }
-        else if (value instanceof TagFactory) {
+        if (value instanceof TagFactory) {
             return new TagScript( (TagFactory) value );
         }
         return null;
@@ -153,21 +152,21 @@ public abstract class TagLibrary {
     /**
      * Registers a tag implementation Class for a given tag name
      */
-    protected void registerTag(String name, Class type) {
+    protected void registerTag(final String name, final Class type) {
         tags.put(name, type);
     }
 
 	/**
      * Registers a tag factory for a given tag name
      */
-    protected void registerTagFactory(String name, TagFactory tagFactory) {
+    protected void registerTagFactory(final String name, final TagFactory tagFactory) {
         tags.put(name, tagFactory);
     }
 
 	/**
 	 * @param allowUnknownTags the allowUnknownTags to set
 	 */
-	public void setAllowUnknownTags(boolean allowUnknownTags) {
+	public void setAllowUnknownTags(final boolean allowUnknownTags) {
 		this.allowUnknownTags = allowUnknownTags;
 	}
 

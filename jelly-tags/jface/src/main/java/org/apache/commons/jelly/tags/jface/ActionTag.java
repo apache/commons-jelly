@@ -38,11 +38,11 @@ public class ActionTag extends UseBeanTag {
      */
     final class ActionImpl extends Action {
         @Override
-        public void runWithEvent(Event event) {
+        public void runWithEvent(final Event event) {
             try {
                 context.setVariable(var, event);
                 invokeBody(output);
-            } catch (Exception e) {
+            } catch (final Exception e) {
                 log.error(
                     "Caught exception: "
                         + e
@@ -56,45 +56,45 @@ public class ActionTag extends UseBeanTag {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ActionTag.class);
     private XMLOutput output;
-    private String var = "event";
+    private final String var = "event";
 
     /**
      * @param arg0
      */
-    public ActionTag(Class arg0) {
+    public ActionTag(final Class arg0) {
         super(arg0);
-    }
-
-    /**
-     * @return IContributionManager
-     */
-    protected IContributionManager getParentContributionManager() {
-        MenuManagerTag tag =
-            (MenuManagerTag) findAncestorWithClass(MenuManagerTag.class);
-        if (tag != null) {
-            return tag.getMenuManager();
-        }
-        return null;
     }
 
     /**
       * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
       */
     @Override
-    public void doTag(XMLOutput output)
+    public void doTag(final XMLOutput output)
         throws MissingAttributeException, JellyTagException {
 
-        Map attributes = getAttributes();
+        final Map attributes = getAttributes();
 
-        Action action = new ActionImpl();
+        final Action action = new ActionImpl();
         setBeanProperties(action, attributes);
 
-        IContributionManager cm = getParentContributionManager();
+        final IContributionManager cm = getParentContributionManager();
         if (cm != null) {
             cm.add(action);
         }
 
         this.output = output;
+    }
+
+    /**
+     * @return IContributionManager
+     */
+    protected IContributionManager getParentContributionManager() {
+        final MenuManagerTag tag =
+            (MenuManagerTag) findAncestorWithClass(MenuManagerTag.class);
+        if (tag != null) {
+            return tag.getMenuManager();
+        }
+        return null;
     }
 
 }

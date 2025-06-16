@@ -17,7 +17,6 @@
 
 package org.apache.commons.jelly.tags.define;
 
-import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.impl.DynamicTagLibrary;
 
@@ -34,7 +33,7 @@ public abstract class DefineTagSupport extends TagSupport {
      * if one is not available
      */
     public DynamicTagLibrary getTagLibrary() {
-        TaglibTag tag
+        final TaglibTag tag
             = (TaglibTag) findAncestorWithClass(TaglibTag.class);
         if ( tag == null ) {
             throw new IllegalArgumentException( "<define:tag> must be inside <define:taglib>" );

@@ -49,7 +49,7 @@ public class Product {
      * Sets the id.
      * @param id The id to set
      */
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -57,7 +57,7 @@ public class Product {
      * Sets the name.
      * @param name The name to set
      */
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 

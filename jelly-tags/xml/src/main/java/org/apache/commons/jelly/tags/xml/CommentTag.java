@@ -19,7 +19,6 @@ package org.apache.commons.jelly.tags.xml;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.xpath.XPathTagSupport;
-
 import org.xml.sax.SAXException;
 
 /**
@@ -36,15 +35,15 @@ public class CommentTag extends XPathTagSupport {
     // Tag interface
     //-------------------------------------------------------------------------
     @Override
-    public void doTag(XMLOutput output) throws JellyTagException {
+    public void doTag(final XMLOutput output) throws JellyTagException {
         String text = getText();
         if (text == null) {
             text = getBodyText(false);
         }
-        char[] ch = text.toCharArray();
+        final char[] ch = text.toCharArray();
         try {
             output.comment(ch, 0, ch.length);
-        } catch (SAXException e) {
+        } catch (final SAXException e) {
             throw new JellyTagException(e);
         }
     }
@@ -65,7 +64,7 @@ public class CommentTag extends XPathTagSupport {
      *
      * @param text The comment text to use
      */
-    public void setText(String text) {
+    public void setText(final String text) {
         this.text = text;
     }
 

@@ -21,7 +21,6 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagLibrary;
 import org.apache.commons.jelly.impl.TagFactory;
 import org.apache.commons.jelly.impl.TagScript;
-
 import org.xml.sax.Attributes;
 
 /**
@@ -34,37 +33,32 @@ public class MyTagLibrary extends TagLibrary {
     public MyTagLibrary() {
     }
 
-    // TagLibrary interface
-    //-------------------------------------------------------------------------
-    @Override
-    public TagScript createTagScript(String name, Attributes attributes) throws JellyException {
-
-        TagFactory factory = new TagFactory() {
-            @Override
-            public Tag createTag(String name, Attributes attributes) throws JellyException {
-                return createBeanTag(name, attributes);
-            }
-        };
-        return new TagScript( factory );
-    }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
     /**
      * Factory method to create a Tag for the given tag and attributes. If this
      * tag matches a root bean, then a BeanTag will be created, otherwise a
      * BeanPropertyTag is created to make a nested property.
      */
-    protected Tag createBeanTag(String name, Attributes attributes) throws JellyException {
+    protected Tag createBeanTag(final String name, final Attributes attributes) throws JellyException {
         // is the name bound to a specific class
-        Class beanType = getBeanType(name, attributes);
+        final Class beanType = getBeanType(name, attributes);
         if (beanType != null) {
             return new BeanTag(beanType, name);
         }
 
         // its a property tag
         return new BeanPropertyTag(name);
+    }
+
+    // Implementation methods
+    //-------------------------------------------------------------------------
+
+    // TagLibrary interface
+    //-------------------------------------------------------------------------
+    @Override
+    public TagScript createTagScript(final String name, final Attributes attributes) throws JellyException {
+
+        final TagFactory factory = this::createBeanTag;
+        return new TagScript( factory );
     }
 
     /**
@@ -75,7 +69,7 @@ public class MyTagLibrary extends TagLibrary {
      * @return Class the bean class to use for this element or null if the tag
      * is a nested property
      */
-    protected Class getBeanType(String name, Attributes attributes) {
+    protected Class getBeanType(final String name, final Attributes attributes) {
         if (name.equals( "customer")) {
             return Customer.class;
         }

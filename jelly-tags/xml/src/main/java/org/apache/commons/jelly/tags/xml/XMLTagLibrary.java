@@ -18,13 +18,12 @@ package org.apache.commons.jelly.tags.xml;
 
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.TagLibrary;
+import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.Expression;
 import org.apache.commons.jelly.expression.ExpressionFactory;
-import org.apache.commons.jelly.expression.CompositeExpression;
 import org.apache.commons.jelly.expression.jexl.JexlExpressionFactory;
 import org.apache.commons.jelly.expression.xpath.XPathExpression;
 import org.apache.commons.jelly.impl.TagScript;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -33,9 +32,9 @@ import org.apache.commons.logging.LogFactory;
 public class XMLTagLibrary extends TagLibrary {
 
     /** The Log to which logging calls will be made. */
-    private Log log = LogFactory.getLog(XMLTagLibrary.class);
+    private final Log log = LogFactory.getLog(XMLTagLibrary.class);
 
-    private JexlExpressionFactory jexlFactory;
+    private final JexlExpressionFactory jexlFactory;
 
     public XMLTagLibrary() {
         registerTag("out", ExprTag.class);
@@ -62,10 +61,10 @@ public class XMLTagLibrary extends TagLibrary {
 
     @Override
     public Expression createExpression(
-        ExpressionFactory factory,
-        TagScript tagScript,
-        String attributeName,
-        String attributeValue) throws JellyException {
+        final ExpressionFactory factory,
+        final TagScript tagScript,
+        final String attributeName,
+        final String attributeValue) throws JellyException {
 
         // #### may need to include some namespace URI information in the XPath instance?
 
@@ -74,7 +73,7 @@ public class XMLTagLibrary extends TagLibrary {
                 log.debug( "Parsing XPath expression: " + attributeValue );
             }
 
-            Expression xpathExpr = createXPathTextExpression( attributeValue );
+            final Expression xpathExpr = createXPathTextExpression( attributeValue );
 
             return new XPathExpression(attributeValue,
                                        xpathExpr,
@@ -85,7 +84,7 @@ public class XMLTagLibrary extends TagLibrary {
         return super.createExpression(factory, tagScript, attributeName, attributeValue);
     }
 
-    protected Expression createXPathTextExpression(String exprText) throws JellyException {
+    protected Expression createXPathTextExpression(final String exprText) throws JellyException {
         return CompositeExpression.parse( exprText,
                                           this.jexlFactory );
     }

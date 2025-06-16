@@ -30,31 +30,16 @@ public class StringInputStream
     extends InputStream
 {
     /** Source string, stored as a StringReader */
-    private StringReader in;
+    private final StringReader in;
 
     /**
      * Composes a stream from a String
      *
      * @param source The string to read from. Must not be {@code null}.
      */
-    public StringInputStream( String source )
+    public StringInputStream( final String source )
     {
         in = new StringReader( source );
-    }
-
-    /**
-     * Reads from the Stringreader, returning the same value. Note that
-     * data will be lost for characters not in ISO Latin 1. Clients
-     * assuming a return value in the range -1 to 255 may even fail on
-     * such input.
-     *
-     * @return the value of the next character in the StringReader
-     * @throws IOException if the original StringReader fails to be read
-     */
-    @Override
-    public int read() throws IOException
-    {
-        return in.read();
     }
 
     /**
@@ -81,10 +66,34 @@ public class StringInputStream
         {
             in.mark( limit );
         }
-        catch ( IOException ioe )
+        catch ( final IOException ioe )
         {
             throw new UncheckedIOException( ioe.getMessage(), ioe );
         }
+    }
+
+    /**
+     * @see InputStream#markSupported
+     */
+    @Override
+    public boolean markSupported()
+    {
+        return in.markSupported();
+    }
+
+    /**
+     * Reads from the Stringreader, returning the same value. Note that
+     * data will be lost for characters not in ISO Latin 1. Clients
+     * assuming a return value in the range -1 to 255 may even fail on
+     * such input.
+     *
+     * @return the value of the next character in the StringReader
+     * @throws IOException if the original StringReader fails to be read
+     */
+    @Override
+    public int read() throws IOException
+    {
+        return in.read();
     }
 
     /**
@@ -96,15 +105,6 @@ public class StringInputStream
     public synchronized void reset() throws IOException
     {
         in.reset();
-    }
-
-    /**
-     * @see InputStream#markSupported
-     */
-    @Override
-    public boolean markSupported()
-    {
-        return in.markSupported();
     }
 }
 

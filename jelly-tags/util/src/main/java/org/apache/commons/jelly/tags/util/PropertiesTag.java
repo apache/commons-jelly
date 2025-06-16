@@ -20,8 +20,8 @@ package org.apache.commons.jelly.tags.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 
@@ -50,14 +50,14 @@ public class PropertiesTag extends TagSupport {
         }
         InputStream is = null;
         if (file != null) {
-            File f = new File(file);
+            final File f = new File(file);
             if (!f.exists()) {
                 throw new JellyTagException("file: " + file + " does not exist!");
             }
 
             try {
                 is = new FileInputStream(f);
-            } catch (FileNotFoundException e) {
+            } catch (final FileNotFoundException e) {
                 throw new JellyTagException(e);
             }
         }
@@ -67,31 +67,31 @@ public class PropertiesTag extends TagSupport {
                 throw new JellyTagException( "Could not find: " + uri );
             }
         }
-        Properties props = new Properties();
+        final Properties props = new Properties();
 
         try {
             props.load(is);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new JellyTagException("properties tag could not load from file",e);
         }
         finally {
             if (is != null) {
                 try {
                     is.close();
-                } catch (IOException ioe) {
-                    ;
-                }   
+                } catch (final IOException ioe) {
+
+                }
             }
-        }           
-        
+        }
+
         if (var != null) {
             context.setVariable(var, props);
         }
         else {
-            Enumeration propsEnum = props.propertyNames();
+            final Enumeration propsEnum = props.propertyNames();
             while (propsEnum.hasMoreElements()) {
-                String key = (String) propsEnum.nextElement();
-                String value = props.getProperty(key);
+                final String key = (String) propsEnum.nextElement();
+                final String value = props.getProperty(key);
 
                 // @todo we should parse the value in case its an Expression
                 context.setVariable(key, value);
@@ -106,7 +106,7 @@ public class PropertiesTag extends TagSupport {
     /**
      * Sets the file name to be used to load the properties file.
      */
-    public void setFile(String file) {
+    public void setFile(final String file) {
         this.file = file;
     }
 
@@ -114,7 +114,7 @@ public class PropertiesTag extends TagSupport {
      * Sets the URI of the properties file to use. This can be a full URL or a relative URI
      * or an absolute URI to the root context of this JellyContext.
      */
-    public void setUri(String uri) {
+    public void setUri(final String uri) {
         this.uri = uri;
     }
 
@@ -125,7 +125,7 @@ public class PropertiesTag extends TagSupport {
      *
      * @param var The var to set
      */
-    public void setVar(String var) {
+    public void setVar(final String var) {
         this.var = var;
     }
 

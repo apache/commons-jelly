@@ -19,11 +19,6 @@ package org.apache.commons.jelly.jsl;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
-
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
@@ -33,6 +28,11 @@ import org.apache.commons.logging.LogFactory;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXContentHandler;
+
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
+import junit.textui.TestRunner;
 
 /**
  * Tests the JSL tags.
@@ -44,7 +44,7 @@ public class TestJSL extends TestCase {
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(TestJSL.class);
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         TestRunner.run(suite());
     }
 
@@ -52,34 +52,34 @@ public class TestJSL extends TestCase {
         return new TestSuite(TestJSL.class);
     }
 
-    public TestJSL(String testName) {
+    public TestJSL(final String testName) {
         super(testName);
     }
 
-    public void testExample1() throws Exception {
-        Document document = runScript( "target/test-classes/org/apache/commons/jelly/jsl/example.jelly" );
-        Element small = (Element) document.selectSingleNode("/html/body/small");
-
-        //assertTrue( "<small> starts with 'James Elson'", small.getText().trim().startsWith("James Elson") );
-        assertEquals( "I am a title!", small.valueOf( "h2" ).trim() );
-        assertEquals( "Twas a dark, rainy night...", small.valueOf( "small" ).trim() );
-        assertEquals( "dfjsdfjsdf", small.valueOf( "p" ).trim() );
-    }
-
-    protected Document runScript(String fileName) throws Exception {
-        InputStream in = new FileInputStream(fileName);
-        XMLParser parser = new XMLParser();
+    protected Document runScript(final String fileName) throws Exception {
+        final InputStream in = new FileInputStream(fileName);
+        final XMLParser parser = new XMLParser();
         Script script = parser.parse(in);
         script = script.compile();
-        JellyContext context = parser.getContext();
+        final JellyContext context = parser.getContext();
 
-        SAXContentHandler contentHandler = new SAXContentHandler();
-        XMLOutput output = new XMLOutput( contentHandler );
+        final SAXContentHandler contentHandler = new SAXContentHandler();
+        final XMLOutput output = new XMLOutput( contentHandler );
 
         contentHandler.startDocument();
         script.run(context, output);
         contentHandler.endDocument();
 
         return contentHandler.getDocument();
+    }
+
+    public void testExample1() throws Exception {
+        final Document document = runScript( "target/test-classes/org/apache/commons/jelly/jsl/example.jelly" );
+        final Element small = (Element) document.selectSingleNode("/html/body/small");
+
+        //assertTrue( "<small> starts with 'James Elson'", small.getText().trim().startsWith("James Elson") );
+        assertEquals( "I am a title!", small.valueOf( "h2" ).trim() );
+        assertEquals( "Twas a dark, rainy night...", small.valueOf( "small" ).trim() );
+        assertEquals( "dfjsdfjsdf", small.valueOf( "p" ).trim() );
     }
 }

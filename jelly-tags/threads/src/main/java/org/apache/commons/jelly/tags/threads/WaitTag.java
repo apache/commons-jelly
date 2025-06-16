@@ -28,8 +28,18 @@ public class WaitTag extends UseMutexTag {
     /** How long should the wait last. If &lt;=0 it lasts until a notify. */
     private long timeout = -1;
 
+    /**
+     * Sets how long the wait should last. If &lt;= 0 the wait will last
+     * until a notify occurs.
+     * @param timeout in millis
+     */
+    public void setTimeout(final long timeout) {
+        this.timeout = timeout;
+    }
+
     /** Start waiting */
-    public void useMutex(Object mutex, XMLOutput output) throws JellyTagException {
+    @Override
+    public void useMutex(final Object mutex, final XMLOutput output) throws JellyTagException {
         try {
             if (timeout > 0) {
                 mutex.wait(timeout);
@@ -37,17 +47,8 @@ public class WaitTag extends UseMutexTag {
                 mutex.wait();
             }
         }
-        catch (InterruptedException e) {
+        catch (final InterruptedException e) {
             throw new JellyTagException(e);
         }
-    }
-
-    /**
-     * Sets how long the wait should last. If &lt;= 0 the wait will last
-     * until a notify occurs.
-     * @param timeout in millis
-     */
-    public void setTimeout(long timeout) {
-        this.timeout = timeout;
     }
 }
