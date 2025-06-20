@@ -188,7 +188,7 @@ public class TestXMLTags extends TestCase {
 
         // allow scripts to refer to any resource inside this project
         // using an absolute URI like /src/test/org/apache/foo.xml
-        context.setRootURL(new File(".").toURL());
+        context.setRootURL(new File(".").toURI().toURL());
 
         output.startDocument();
         context.runScript(new File(fileName), output);

@@ -24,7 +24,6 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
-import org.apache.commons.jelly.util.NestedRuntimeException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -106,7 +105,7 @@ public class ThreadTag extends TagSupport {
                 log.error(e);
 
                 // wrap the exception with a RuntimeException
-                throw new NestedRuntimeException(e);
+                throw new RuntimeException(e);
             }
             catch (final Exception e) {
                 log.error(e);
@@ -115,7 +114,7 @@ public class ThreadTag extends TagSupport {
                 if (e instanceof RuntimeException) {
                     throw (RuntimeException) e;
                 }
-                throw new NestedRuntimeException(e);
+                throw new RuntimeException(e);
             }
         });
 

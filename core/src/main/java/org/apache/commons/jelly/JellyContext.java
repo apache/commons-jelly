@@ -268,7 +268,7 @@ public class JellyContext {
         URL url = rootURL;
         if (url == null) {
             final File file = new File(System.getProperty("user.dir"));
-            url = file.toURL();
+            url = file.toURI().toURL();
         }
         final String urlText = url.toString() + relativeURI;
         if ( log.isDebugEnabled() ) {
@@ -735,7 +735,7 @@ public class JellyContext {
      */
     public JellyContext runScript(final File file, final XMLOutput output) throws JellyException {
         try {
-            return runScript(file.toURL(), output, JellyContext.DEFAULT_EXPORT,
+            return runScript(file.toURI().toURL(), output, JellyContext.DEFAULT_EXPORT,
                 JellyContext.DEFAULT_INHERIT);
         } catch (final MalformedURLException e) {
             throw new JellyException(e.toString());
@@ -750,7 +750,7 @@ public class JellyContext {
     public JellyContext runScript(final File file, final XMLOutput output,
                           final boolean export, final boolean inherit) throws JellyException {
         try {
-            return runScript(file.toURL(), output, export, inherit);
+            return runScript(file.toURI().toURL(), output, export, inherit);
         } catch (final MalformedURLException e) {
             throw new JellyException(e.toString());
         }

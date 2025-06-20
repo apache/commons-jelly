@@ -23,6 +23,8 @@ import java.util.List;
 
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.MultipartPostMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
+import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 
 /**
@@ -43,7 +45,10 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 public class MultipartPostTag extends PostTag {
 
     /** The post method */
-    private MultipartPostMethod _postMethod;
+    private PostMethod _postMethod;
+
+    /** The post method */
+    private MultipartRequestEntity _multipartRequestEntity;
 
     /** List of parts as name value pairs */
     private final List _parts;
@@ -63,6 +68,18 @@ public class MultipartPostTag extends PostTag {
     }
 
     /**
+     * get {@link Part} as Array
+     *
+     */
+    private Part[] getParts() {
+        Part[] partArr = new Part[_parts.size()];
+        for (int i = 0; i < _parts.size(); i++) {
+            partArr[i] = (Part) _parts.get(i);
+        }
+        return partArr;
+    }
+
+    /**
      * Gets a {@link HttpMethod method} to be used for multi-part post'ing
      *
      * @return a HttpUrlMethod implementation
@@ -72,7 +89,7 @@ public class MultipartPostTag extends PostTag {
     @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
         if (_postMethod == null) {
-            _postMethod = new MultipartPostMethod(getResolvedUrl());
+            _postMethod = new PostMethod(getResolvedUrl());
         }
         return _postMethod;
     }
@@ -86,8 +103,7 @@ public class MultipartPostTag extends PostTag {
      */
     @Override
     protected void setParameters(final HttpMethod method) {
-        for (final Object _part : _parts) {
-            ((MultipartPostMethod) method).addPart( (Part) _part );
-        }
+        _multipartRequestEntity = new MultipartRequestEntity(getParts(), _postMethod.getParams());
+        _postMethod.setRequestEntity(_multipartRequestEntity);
     }
 }

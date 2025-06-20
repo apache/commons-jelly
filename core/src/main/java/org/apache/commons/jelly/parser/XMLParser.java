@@ -942,7 +942,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing exception occurs
      */
     public Script parse(final File file) throws IOException, SAXException {
-        return parse(file.toURL());
+        return parse(file.toURI().toURL());
     }
 
     /**
