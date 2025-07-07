@@ -183,7 +183,7 @@ public class HomepageBuilder extends JPanel {
     protected URL resolveURL(final String name) throws MalformedURLException {
          final File file = new File(name);
          if (file.exists()) {
-             return file.toURL();
+             return file.toURI().toURL();
          }
          return new URL(name);
      }

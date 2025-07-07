@@ -159,7 +159,7 @@ public class IntrospectorTag extends TagSupport {
      * as aliases to the common name mapping strategies or specify a class name String.
      */
     public void setAttributeNameMapper(final NameMapper nameMapper) {
-        getIntrospector().setAttributeNameMapper(nameMapper);
+        getIntrospector().getConfiguration().setAttributeNameMapper(nameMapper);
     }
 
     /**

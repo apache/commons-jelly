@@ -22,7 +22,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.dom4j.rule.Stylesheet;
-import org.jaxen.XPath;
+import org.dom4j.XPath;
 
 /**
  * Implements the apply templates function in the stylesheet, similar to the XSLT equivalent.
