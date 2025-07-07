@@ -109,11 +109,6 @@ public class ThreadTag extends TagSupport {
             }
             catch (final Exception e) {
                 log.error(e);
-
-                // wrap the exception with a RuntimeException
-                if (e instanceof RuntimeException) {
-                    throw (RuntimeException) e;
-                }
                 throw new RuntimeException(e);
             }
         });

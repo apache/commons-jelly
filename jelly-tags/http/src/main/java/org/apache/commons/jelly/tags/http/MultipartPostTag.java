@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.MultipartPostMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
@@ -44,18 +43,12 @@ import org.apache.commons.httpclient.methods.multipart.Part;
  */
 public class MultipartPostTag extends PostTag {
 
-    /** The post method */
-    private PostMethod _postMethod;
-
-    /** The post method */
-    private MultipartRequestEntity _multipartRequestEntity;
-
     /** List of parts as name value pairs */
-    private final List _parts;
+    private final List<Part> _parts;
 
     /** Creates a new instance of MppostTag */
     public MultipartPostTag() {
-      _parts = new ArrayList();
+        _parts = new ArrayList<>();
     }
 
     /**
@@ -68,18 +61,6 @@ public class MultipartPostTag extends PostTag {
     }
 
     /**
-     * get {@link Part} as Array
-     *
-     */
-    private Part[] getParts() {
-        Part[] partArr = new Part[_parts.size()];
-        for (int i = 0; i < _parts.size(); i++) {
-            partArr[i] = (Part) _parts.get(i);
-        }
-        return partArr;
-    }
-
-    /**
      * Gets a {@link HttpMethod method} to be used for multi-part post'ing
      *
      * @return a HttpUrlMethod implementation
@@ -88,10 +69,7 @@ public class MultipartPostTag extends PostTag {
      */
     @Override
     protected HttpMethod getHttpMethod() throws MalformedURLException {
-        if (_postMethod == null) {
-            _postMethod = new PostMethod(getResolvedUrl());
-        }
-        return _postMethod;
+        return super.getHttpMethod();
     }
 
     /**
@@ -103,7 +81,21 @@ public class MultipartPostTag extends PostTag {
      */
     @Override
     protected void setParameters(final HttpMethod method) {
-        _multipartRequestEntity = new MultipartRequestEntity(getParts(), _postMethod.getParams());
-        _postMethod.setRequestEntity(_multipartRequestEntity);
+        try {
+            ((PostMethod)getHttpMethod()).setRequestEntity(getMultipartRequestEntity(method));
+        } catch (MalformedURLException e){
+            throw new RuntimeException("Invalid url.", e);
+        }
     }
+
+    /**
+     * Gets the multipart request entity.
+     *
+     * @return the multipart request entity
+     */
+    private MultipartRequestEntity getMultipartRequestEntity(final HttpMethod method) {
+        return new MultipartRequestEntity(_parts.toArray(new Part[0]), method.getParams());
+    }
+
 }
+

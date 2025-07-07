@@ -236,9 +236,8 @@ public class XMLParser extends DefaultHandler {
 
             final CompositeExpression compositeExpression
                 = (CompositeExpression) expression;
-            final Iterator iter = compositeExpression.getExpressions().iterator();
-            while (iter.hasNext()) {
-                addExpressionScript( newBlock, (Expression) iter.next() );
+            for (Object o : compositeExpression.getExpressions()) {
+                addExpressionScript(newBlock, (Expression) o);
             }
         }
         else {

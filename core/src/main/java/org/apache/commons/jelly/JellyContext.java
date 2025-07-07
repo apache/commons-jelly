@@ -1020,8 +1020,8 @@ public class JellyContext {
     public void setVariables(final Map variables) {
         // I have seen this fail when the passed Map contains a key, value
         // pair where the value is null
-        for (final Iterator iter = variables.entrySet().iterator(); iter.hasNext();) {
-            final Map.Entry element = (Map.Entry) iter.next();
+        for (Object o : variables.entrySet()) {
+            final Map.Entry element = (Map.Entry) o;
             if (element.getValue() != null) {
                 this.variables.put(element.getKey(), element.getValue());
             }
