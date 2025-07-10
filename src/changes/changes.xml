@@ -65,6 +65,7 @@ The <action> type attribute can be add,update,fix,remove.
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-collections:commons-collections 2.1 to org.apache.commons:commons-collections4 4.5.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-jexl:commons-jexl 1.1 to org.apache.commons:commons-jexl 2.1.1.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump javax.servlet:servlet-api from 2.3 to 2.5 #49.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump xalan from 2.3.1 to 2.7.3 in /jelly-tags/xmlunit #22.</action>
     </release>
   </body>
 </document>
