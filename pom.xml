@@ -75,11 +75,11 @@
     <commons.jira.id>JELLY</commons.jira.id>
     <commons.jira.pid>10012</commons.jira.pid>
     <moditect.skip>true</moditect.skip>
-    
     <commons.site.path>jelly</commons.site.path>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-jelly</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
+    <xalan.version>2.7.3</xalan.version>
   </properties>
 
   <issueManagement>
