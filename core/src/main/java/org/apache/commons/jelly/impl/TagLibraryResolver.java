@@ -29,5 +29,5 @@ public interface TagLibraryResolver {
      * otherwise null is returned to indicate no tag library could be found
      * so that the namespace URI should be treated as just vanilla XML.
      */
-    public TagLibrary resolveTagLibrary(String uri);
+    TagLibrary resolveTagLibrary(String uri);
 }
