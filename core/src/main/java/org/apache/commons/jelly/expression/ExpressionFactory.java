@@ -26,7 +26,6 @@ public interface ExpressionFactory {
     /**
      * Creates a new expression for the given text
      */
-
-    public Expression createExpression(String text) throws JellyException;
+    Expression createExpression(String text) throws JellyException;
 
 }
