@@ -29,9 +29,9 @@ public interface Script {
     /** Called by the parser to allow a more efficient
      * representation of the script to be used.
      */
-    public Script compile() throws JellyException;
+    Script compile() throws JellyException;
 
     /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws JellyTagException;
+    void run(JellyContext context, XMLOutput output) throws JellyTagException;
 
 }
