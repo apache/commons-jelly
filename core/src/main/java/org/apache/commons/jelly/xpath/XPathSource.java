@@ -22,6 +22,6 @@ package org.apache.commons.jelly.xpath;
  */
 public interface XPathSource {
 
-    public Object getXPathSource();
+    Object getXPathSource();
 
 }
