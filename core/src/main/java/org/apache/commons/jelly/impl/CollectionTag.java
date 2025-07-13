@@ -30,5 +30,5 @@ public interface CollectionTag {
      * @param value The item to add
      * @throws JellyTagException Thrown when the recevier cannot add the item.
      */
-    public void addItem(Object value) throws JellyTagException;
+    void addItem(Object value) throws JellyTagException;
 }
