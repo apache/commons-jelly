@@ -70,6 +70,7 @@
     -->
     <commons.componentid>jelly</commons.componentid>
     <!-- Current 3.x release series -->
+    <commons.bc.version>1.0.1</commons.bc.version>
     <commons.release.version>1.1.0</commons.release.version>
     <commons.release.desc>(Java 8 or above)</commons.release.desc>
     <commons.jira.id>JELLY</commons.jira.id>
