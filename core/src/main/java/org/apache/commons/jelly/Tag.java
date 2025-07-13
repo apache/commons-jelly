@@ -31,26 +31,26 @@ public interface Tag {
      * @throws MissingAttributeException Thrown on error.
      * @throws JellyTagException Thrown on error.
      */
-    public void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
+    void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
 
     /**
      * @return the body of the tag.
      */
-    public Script getBody();
+    Script getBody();
 
     /**
      * Gets the context in which the tag will be run.
      *
      * @return the context in which the tag will be run
      */
-    public JellyContext getContext();
+    JellyContext getContext();
 
     /**
      * Gets the parent of this tag.
      *
      * @return the parent of this tag.
      */
-    public Tag getParent();
+    Tag getParent();
 
     /**
      * Gets the TagLibrary, null if this is an unrecognized tag (for example, a StaticTag)
@@ -68,14 +68,14 @@ public interface Tag {
      * @param output XML output stream.
      * @throws JellyTagException Thrown on error.
      */
-    public void invokeBody(XMLOutput output) throws JellyTagException;
+    void invokeBody(XMLOutput output) throws JellyTagException;
 
     /**
      * Sets the body of the tag.
      *
      * @param body the body of the tag.
      */
-    public void setBody(Script body);
+    void setBody(Script body);
 
     /**
      * Sets the context in which the tag will be run.
@@ -83,14 +83,14 @@ public interface Tag {
      * @param context the context in which the tag will be run.
      * @throws JellyTagException Thrown on error.
      */
-    public void setContext(JellyContext context) throws JellyTagException;
+    void setContext(JellyContext context) throws JellyTagException;
 
     /**
      * Sets the parent of this tag.
      *
      * @param parent the parent of this tag.
      */
-    public void setParent(Tag parent);
+    void setParent(Tag parent);
 
     /**
      * Sets the tag library. Defaults to do nothing.
