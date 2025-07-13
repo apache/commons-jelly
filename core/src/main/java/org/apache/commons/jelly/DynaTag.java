@@ -37,9 +37,9 @@ public interface DynaTag extends Tag {
      * If this method returns Expression.class then the expression will not
      * be evaluated and just passed in as the attribute value.
      */
-    public Class getAttributeType(String name) throws JellyTagException;
+    Class getAttributeType(String name) throws JellyTagException;
 
     /** Sets an attribute value of this tag before the tag is invoked
      */
-    public void setAttribute(String name, Object value) throws JellyTagException;
+    void setAttribute(String name, Object value) throws JellyTagException;
 }
