@@ -68,6 +68,7 @@ The <action> type attribute can be add,update,fix,remove.
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump xalan from 2.3.1 to 2.7.3 in /jelly-tags/xmlunit #22.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump xalan from 2.3.1 to 2.7.3 in /jelly-tags/xml #21.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump commons-messenger:commons-messenger from 1.0-dev-8 to 1.0-dev-14 #57.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump mx4j:mx4j-tools from 1.1.1 to 3.0.1 #30.</action>
     </release>
   </body>
 </document>
