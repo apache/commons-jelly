@@ -53,11 +53,14 @@ public interface Tag {
     public Tag getParent();
 
     /**
-     * Gets the TagLibrary, null if this is an unrecognized tag (ie a StaticTag)
+     * Gets the TagLibrary, null if this is an unrecognized tag (for example, a StaticTag)
      *
      * @return the TagLibrary.
+     * @since 1.1.0
      */
-    public TagLibrary getTagLib();
+    default TagLibrary getTagLib() {
+        return null;
+    }
 
     /**
      * A helper method to invoke this tags body
@@ -90,9 +93,12 @@ public interface Tag {
     public void setParent(Tag parent);
 
     /**
-     * Sets the tag library.
+     * Sets the tag library. Defaults to do nothing.
      *
      * @param tagLibrary the tag library.
+     * @since 1.1.0
      */
-    public void setTagLib(TagLibrary tagLibrary);
+    default void setTagLib(TagLibrary tagLibrary) {
+        // noop
+    }
 }
