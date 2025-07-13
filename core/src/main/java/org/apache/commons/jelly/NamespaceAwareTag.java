@@ -36,5 +36,5 @@ public interface NamespaceAwareTag extends Tag {
      * @param prefixToUriMap is a Map where the keys are the namespace
      * prefixes and the values are the namespace URIs
      */
-    public void setNamespaceContext(Map prefixToUriMap);
+    void setNamespaceContext(Map prefixToUriMap);
 }
