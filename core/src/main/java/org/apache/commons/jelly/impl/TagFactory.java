@@ -31,5 +31,5 @@ public interface TagFactory {
     /**
      * Creates a Tag for the given local name and the SAX attributes
      */
-    public Tag createTag(String name, Attributes attributes) throws JellyException;
+    Tag createTag(String name, Attributes attributes) throws JellyException;
 }
