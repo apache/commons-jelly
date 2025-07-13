@@ -84,8 +84,10 @@
   </properties>
 
   <issueManagement>
-    <url>http://issues.apache.org/jira/browse/JELLY</url>
+    <system>jira</system>
+    <url>https://issues.apache.org/jira/browse/JELLY</url>
   </issueManagement>
+
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-jelly</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-jelly</developerConnection>
