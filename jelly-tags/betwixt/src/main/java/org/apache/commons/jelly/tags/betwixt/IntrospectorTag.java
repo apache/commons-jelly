@@ -159,7 +159,7 @@ public class IntrospectorTag extends TagSupport {
      * as aliases to the common name mapping strategies or specify a class name String.
      */
     public void setAttributeNameMapper(final NameMapper nameMapper) {
-        getIntrospector().setAttributeNameMapper(nameMapper);
+        getIntrospector().getConfiguration().setAttributeNameMapper(nameMapper);
     }
 
     /**
@@ -167,7 +167,7 @@ public class IntrospectorTag extends TagSupport {
      * The default is false.
      */
     public void setAttributesForPrimitives(final boolean attributesForPrimitives) {
-        getIntrospector().setAttributesForPrimitives(attributesForPrimitives);
+        getIntrospector().getConfiguration().setAttributesForPrimitives(attributesForPrimitives);
     }
 
     // Implementation methods
@@ -179,7 +179,7 @@ public class IntrospectorTag extends TagSupport {
      * as aliases to the common name mapping strategies or specify a class name String.
      */
     public void setElementNameMapper(final NameMapper nameMapper) {
-        getIntrospector().setElementNameMapper(nameMapper);
+        getIntrospector().getConfiguration().setElementNameMapper(nameMapper);
     }
 
     /**

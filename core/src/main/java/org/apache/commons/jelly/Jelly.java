@@ -185,7 +185,7 @@ public class Jelly {
      */
     public URL getRootContext() throws MalformedURLException {
         if (rootContext == null) {
-            rootContext = new File(System.getProperty("user.dir")).toURL();
+            rootContext = new File(System.getProperty("user.dir")).toURI().toURL();
         }
         return rootContext;
     }
@@ -253,7 +253,7 @@ public class Jelly {
         final JellyContext theContext = getJellyContext();
         final Properties props = new Properties();
         props.load(is);
-        final Enumeration propsEnum = props.propertyNames();
+        final Enumeration<?> propsEnum = props.propertyNames();
         while (propsEnum.hasMoreElements()) {
             final String key = (String) propsEnum.nextElement();
             final String value = props.getProperty(key);
@@ -276,7 +276,7 @@ public class Jelly {
         }
         final File file = new File(name);
         if (file.exists()) {
-            return file.toURL();
+            return file.toURI().toURL();
         }
         return new URL(name);
     }

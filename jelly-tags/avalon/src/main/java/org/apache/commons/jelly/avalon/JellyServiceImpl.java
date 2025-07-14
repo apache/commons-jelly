@@ -95,7 +95,7 @@ public class JellyServiceImpl implements JellyService, Configurable {
                 URL url = null;
                 final File file = new File( scriptName );
                 if ( file.exists() ) {
-                    url = file.toURL();
+                    url = file.toURI().toURL();
                 }
                 else {
                     try {
