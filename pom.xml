@@ -81,6 +81,7 @@
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
     <xalan.version>2.7.3</xalan.version>
+    <mx4j.version>3.0.1</mx4j.version>
   </properties>
 
   <issueManagement>

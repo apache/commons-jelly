@@ -43,7 +43,7 @@
     <dependency>
       <groupId>mx4j</groupId>
       <artifactId>mx4j-jmx</artifactId>
-      <version>3.0.1</version>
+      <version>${mx4j.version}</version>
     </dependency>
 
     <!-- END for compilation -->
@@ -65,7 +65,7 @@
     <dependency>
       <groupId>mx4j</groupId>
       <artifactId>mx4j-tools</artifactId>
-      <version>3.0.1</version>
+      <version>${mx4j.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
