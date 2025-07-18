@@ -43,7 +43,7 @@
     <dependency>
       <groupId>mx4j</groupId>
       <artifactId>mx4j-jmx</artifactId>
-      <version>1.1.1</version>
+      <version>3.0.1</version>
     </dependency>
 
     <!-- END for compilation -->
