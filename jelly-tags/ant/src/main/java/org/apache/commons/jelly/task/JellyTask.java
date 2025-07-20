@@ -30,6 +30,7 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.jelly.tags.ant.AntTagLibrary;
+import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.tools.ant.BuildException;
@@ -134,7 +135,7 @@ public class JellyTask extends Task {
      */
     public URL getRootContext() throws MalformedURLException {
         if (rootContext == null) {
-            rootContext = new File(System.getProperty("user.dir")).toURL();
+            rootContext = new File(SystemProperties.getUserDir()).toURL();
         }
         return rootContext;
     }

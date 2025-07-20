@@ -37,6 +37,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.test.BaseJellyTest;
+import org.apache.commons.lang3.SystemProperties;
 
 import junit.framework.TestSuite;
 
@@ -146,7 +147,7 @@ public class TestSwingTags extends BaseJellyTest {
         if (!isAWTAvailable()) {
             return;
         }
-        if (System.getProperty("java.version").startsWith("1.4")) {
+        if (SystemProperties.getJavaVersion().startsWith("1.4")) {
             runSwingScript("test.gbc14");
             final JellyContext context = getJellyContext();
             final JFrame frame = (JFrame) context.getVariable("frame");

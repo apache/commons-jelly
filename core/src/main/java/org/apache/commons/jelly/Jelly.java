@@ -29,6 +29,7 @@ import java.util.Properties;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.jelly.util.CommandLineParser;
+import org.apache.commons.lang3.SystemProperties;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
@@ -185,7 +186,7 @@ public class Jelly {
      */
     public URL getRootContext() throws MalformedURLException {
         if (rootContext == null) {
-            rootContext = new File(System.getProperty("user.dir")).toURL();
+            rootContext = new File(SystemProperties.getUserDir()).toURL();
         }
         return rootContext;
     }
@@ -200,22 +201,17 @@ public class Jelly {
      */
     protected void loadJellyProperties() {
         InputStream is = null;
-
-        final String userDir = System.getProperty("user.home");
+        final String userDir = SystemProperties.getUserHome();
         File f = new File(userDir + File.separator + "jelly.properties");
         loadProperties(f);
-
         f = new File("jelly.properties");
         loadProperties(f);
-
-
         is = ClassLoaderUtils.getClassLoader(getClass()).getResourceAsStream("jelly.properties");
         if (is != null) {
             try {
                 loadProperties(is);
-            }
-            catch (final Exception e) {
-                log.error( "Caught exception while loading jelly.properties from the classpath. Reason: " + e, e );
+            } catch (final Exception e) {
+                log.error("Caught exception while loading jelly.properties from the classpath. Reason: " + e, e);
             }
         }
     }
