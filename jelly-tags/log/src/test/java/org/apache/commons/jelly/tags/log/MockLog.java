@@ -61,7 +61,7 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#debug(java.lang.Object, java.lang.Throwable)
+     * @see org.apache.commons.logging.Log#debug(Object, Throwable)
      */
     @Override
     public void debug(final Object message, final Throwable exception) {
@@ -78,7 +78,7 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#error(java.lang.Object, java.lang.Throwable)
+     * @see org.apache.commons.logging.Log#error(Object, Throwable)
      */
     @Override
     public void error(final Object message, final Throwable exception) {
@@ -95,7 +95,7 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#fatal(java.lang.Object, java.lang.Throwable)
+     * @see org.apache.commons.logging.Log#fatal(Object, Throwable)
      */
     @Override
     public void fatal(final Object message, final Throwable exception) {
@@ -168,7 +168,7 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#info(java.lang.Object, java.lang.Throwable)
+     * @see org.apache.commons.logging.Log#info(Object, Throwable)
      */
     @Override
     public void info(final Object message, final Throwable exception) {
@@ -236,7 +236,7 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#trace(java.lang.Object, java.lang.Throwable)
+     * @see org.apache.commons.logging.Log#trace(Object, Throwable)
      */
     @Override
     public void trace(final Object message, final Throwable exception) {
@@ -253,7 +253,7 @@ public class MockLog implements Log {
     }
 
     /**
-     * @see org.apache.commons.logging.Log#warn(java.lang.Object, java.lang.Throwable)
+     * @see org.apache.commons.logging.Log#warn(Object, Throwable)
      */
     @Override
     public void warn(final Object message, final Throwable exception) {

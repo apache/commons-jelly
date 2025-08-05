@@ -65,7 +65,7 @@ public class ButtonGroupTag extends ComponentTag {
     /**If the child is an AbstractButton, add it to the button group. Otherwise,
      * pass through to the parent component tag.
      * @throws JellyTagException
-     * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, java.lang.Object)
+     * @see org.apache.commons.jelly.tags.swing.ContainerTag#addChild(java.awt.Component, Object)
      */
     @Override
     public void addChild(final Component component, final Object constraints) throws JellyTagException {

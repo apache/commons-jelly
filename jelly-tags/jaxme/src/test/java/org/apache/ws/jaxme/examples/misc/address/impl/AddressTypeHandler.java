@@ -90,7 +90,7 @@ public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
               _1.setInitials((java.lang.String) handler.getResult());
               break;
             default:
-              throw new java.lang.IllegalStateException("Illegal state: " + state);
+              throw new IllegalStateException("Illegal state: " + state);
           }
       }
     }
@@ -255,7 +255,7 @@ public void endElement(final String namespaceURI, final String localName, final 
             _1.setName((org.apache.ws.jaxme.examples.misc.address.AddressType.NameType) handler.getResult());
             break;
           default:
-            throw new java.lang.IllegalStateException("Illegal state: " + state);
+            throw new IllegalStateException("Illegal state: " + state);
         }
     }
   }
