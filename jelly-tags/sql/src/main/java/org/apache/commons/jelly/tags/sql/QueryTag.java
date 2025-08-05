@@ -64,17 +64,17 @@ public class QueryTag extends SqlTagSupport {
     // Accessor methods
 
     /**
-     * <p>Execute the SQL statement, set either through the <code>sql</code>
+     * <p>Execute the SQL statement, set either through the {@code sql}
      * attribute or as the body, and save the result as a variable
-     * named by the <code>var</code> attribute in the scope specified
-     * by the <code>scope</code> attribute, as an object that implements
+     * named by the {@code var} attribute in the scope specified
+     * by the {@code scope} attribute, as an object that implements
      * the Result interface.
      *
      * <p>The connection used to execute the statement comes either
-     * from the <code>DataSource</code> specified by the
-     * <code>dataSource</code> attribute, provided by a parent action
+     * from the {@code DataSource} specified by the
+     * {@code dataSource} attribute, provided by a parent action
      * element, or is retrieved from a JSP scope  attribute
-     * named <code>javax.servlet.jstl.sql.dataSource</code>.
+     * named {@code javax.servlet.jstl.sql.dataSource}.
      */
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {

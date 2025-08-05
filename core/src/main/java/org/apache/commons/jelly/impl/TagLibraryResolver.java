@@ -19,7 +19,7 @@ package org.apache.commons.jelly.impl;
 import org.apache.commons.jelly.TagLibrary;
 
 /**
- * <p><code>TagLibraryResolver</code> represents an object capable of
+ * <p>{@code TagLibraryResolver} represents an object capable of
  * resolving a URI to a TagLibrary instance.</p>
  */
 public interface TagLibraryResolver {

@@ -18,7 +18,7 @@
 package org.apache.commons.jelly;
 
 /**
- * <p><code>DynaTag</code> represents a Jelly custom tag which
+ * <p>{@code DynaTag} represents a Jelly custom tag which
  * can take its attributes dynamically and store them in some data structure.
  * Typically a DynaTag may use either a Map or a DynaBean to implement itself
  * which avoids writing explicit getter and setter methods for each possible attribute.

@@ -18,7 +18,7 @@
 package org.apache.commons.jelly;
 
 /**
- * <p><code>DynaTagSupport</code> is an abstract base class
+ * <p>{@code DynaTagSupport} is an abstract base class
  * for any DynaTag implementation to derive from.
  * </p>
  */

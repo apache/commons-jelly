@@ -17,7 +17,7 @@
 
 package org.apache.commons.jelly;
 
-/** <p><code>Compilable</code> represents a Tag that is compilable.</p>
+/** <p>{@code Compilable} represents a Tag that is compilable.</p>
   */
 
 public interface CompilableTag {

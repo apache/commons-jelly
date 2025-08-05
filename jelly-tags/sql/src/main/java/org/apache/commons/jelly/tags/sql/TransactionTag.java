@@ -61,7 +61,7 @@ public class TransactionTag extends TagSupport {
     }
 
     /**
-     * Restores the <code>Connection</code> to its initial state and
+     * Restores the {@code Connection} to its initial state and
      * closes it.
      */
     protected void doFinally() {
@@ -86,7 +86,7 @@ public class TransactionTag extends TagSupport {
 
     /**
      * Prepares for execution by setting the initial state, such as
-     * getting the <code>Connection</code> and preparing it for
+     * getting the {@code Connection} and preparing it for
      * the transaction.
      */
     @Override

@@ -36,8 +36,8 @@ package org.apache.commons.jelly.util;
 public class NestedRuntimeException extends RuntimeException {
 
     /**
-     * Constructs a new <code>NestedRuntimeException</code> with specified
-     * detail message and nested <code>Throwable</code>.
+     * Constructs a new {@code NestedRuntimeException} with specified
+     * detail message and nested {@code Throwable}.
      *
      * @param msg    the error message
      * @param cause  the exception or error that caused this exception to be
@@ -48,8 +48,8 @@ public class NestedRuntimeException extends RuntimeException {
     }
 
     /**
-     * Constructs a new <code>NestedRuntimeException</code> with specified
-     * nested <code>Throwable</code>.
+     * Constructs a new {@code NestedRuntimeException} with specified
+     * nested {@code Throwable}.
      *
      * @param cause the exception or error that caused this exception to be
      * thrown

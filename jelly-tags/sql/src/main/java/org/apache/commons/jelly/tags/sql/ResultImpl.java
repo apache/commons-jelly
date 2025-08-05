@@ -31,9 +31,9 @@ import java.util.TreeMap;
 import javax.servlet.jsp.jstl.sql.Result;
 
 /**
- * <p>This class creates a cached version of a <code>ResultSet</code>.
- * It's represented as a <code>Result</code> implementation, capable of
- * returning an array of <code>Row</code> objects containing a <code>Column</code>
+ * <p>This class creates a cached version of a {@code ResultSet}.
+ * It's represented as a {@code Result} implementation, capable of
+ * returning an array of {@code Row} objects containing a {@code Column}
  * instance for each column in the row.</p>
  *
  * <p>Note -- this is a private copy for the RI to avoid making the
@@ -96,7 +96,7 @@ public class ResultImpl implements Result {
      * This constructor reads the ResultSet and saves a cached
      * copy.
      *
-     * @param rs an open <code>ResultSet</code>, positioned before the first
+     * @param rs an open {@code ResultSet}, positioned before the first
      * row
      * @param startRow beginning row to be cached
      * @param maxRows query maximum rows limit

@@ -34,10 +34,10 @@ import org.xml.sax.SAXException;
  * see the <a href="http://my.netscape.com/publish/">My Netscape</a> site.</p>
  *
  * <p>The default implementation object returned by calling
- * <code>parse()</code> (an instance of
- * <code>org.apache.commons.digester.rss.Channel</code>)
- * knows how to render itself in XML format via the <code>render()</code>
- * method.  See the test <code>main()</code> method below for an
+ * {@code parse()} (an instance of
+ * {@code org.apache.commons.digester.rss.Channel})
+ * knows how to render itself in XML format via the {@code render()}
+ * method.  See the test {@code main()} method below for an
  * example of using these classes.</p>
  */
 
@@ -91,25 +91,25 @@ public class RSSDigester extends Digester {
     protected boolean configured = false;
 
     /**
-     * The fully qualified class name of the <code>Channel</code>
+     * The fully qualified class name of the {@code Channel}
      * implementation class.
      */
     protected String channelClass = "org.apache.commons.digester.rss.Channel";
 
     /**
-     * The fully qualified class name of the <code>Image</code>
+     * The fully qualified class name of the {@code Image}
      * implementation class.
      */
     protected String imageClass = "org.apache.commons.digester.rss.Image";
 
     /**
-     * The fully qualified class name of the <code>Item</code>
+     * The fully qualified class name of the {@code Item}
      * implementation class.
      */
     protected String itemClass = "org.apache.commons.digester.rss.Item";
 
     /**
-     * The fully qualified class name of the <code>TextInput</code>
+     * The fully qualified class name of the {@code TextInput}
      * implementation class.
      */
     protected String textInputClass =

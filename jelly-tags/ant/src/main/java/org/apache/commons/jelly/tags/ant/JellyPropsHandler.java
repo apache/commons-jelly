@@ -23,7 +23,7 @@ import java.util.Iterator;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.expression.Expression;
 
-/** Implementation of a Commons Grant <code>propsHandler</code>
+/** Implementation of a Commons Grant {@code propsHandler}
  *  to resolve through Jelly's context.
  */
 public class JellyPropsHandler extends DefaultPropsHandler {
@@ -41,7 +41,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
 
     /** Retrieve all ant properties.
      *
-     *  @return A <code>Hashtable</code> of all properties.
+     *  @return A {@code Hashtable} of all properties.
      */
     @Override
     public Hashtable getProperties() {

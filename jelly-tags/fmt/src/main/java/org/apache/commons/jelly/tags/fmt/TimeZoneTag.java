@@ -40,7 +40,7 @@ public class TimeZoneTag extends TagSupport {
      * the time zone is taken from the enclosing &lt;timeZone&gt; action.
      *
      * <p> Otherwise, the time zone configuration setting
-     * <code>javax.servlet.jsp.jstl.core.Config.FMT_TIME_ZONE</code>
+     * {@code javax.servlet.jsp.jstl.core.Config.FMT_TIME_ZONE}
      * is used.
      *
      * @param jc the page containing the action for which the

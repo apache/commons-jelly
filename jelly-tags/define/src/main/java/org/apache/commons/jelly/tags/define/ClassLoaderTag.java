@@ -29,7 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Creates a new <code>URLClassLoader</code> to dynamically
+ * Creates a new {@code URLClassLoader} to dynamically
  * load tags froms.
  */
 public class ClassLoaderTag extends BeanTag {

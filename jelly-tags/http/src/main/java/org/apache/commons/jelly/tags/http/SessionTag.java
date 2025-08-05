@@ -112,7 +112,7 @@ public class SessionTag extends TagSupport {
     }
 
     /**
-     * Helper method for proxy <code>port</code> property
+     * Helper method for proxy {@code port} property
      *
      * @return the {@link #getProxy() proxy's} port property
      */
@@ -188,7 +188,7 @@ public class SessionTag extends TagSupport {
     }
 
     /**
-     * Helper method for proxy <code>host</code> property
+     * Helper method for proxy {@code host} property
      *
      * @param host the {@link #getProxy() proxy's} host property
      */
@@ -197,7 +197,7 @@ public class SessionTag extends TagSupport {
     }
 
     /**
-     * Helper method for proxy <code>port</code> property
+     * Helper method for proxy {@code port} property
      *
      * @param port the {@link #getProxy() proxy's} port property
      */

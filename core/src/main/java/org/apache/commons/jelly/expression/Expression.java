@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import org.apache.commons.jelly.JellyContext;
 
-/** <p><code>Expression</code> represents an arbitrary expression using some pluggable
+/** <p>{@code Expression} represents an arbitrary expression using some pluggable
   * expression language.</p>
   */
 public interface Expression {

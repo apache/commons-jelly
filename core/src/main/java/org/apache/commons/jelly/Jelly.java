@@ -35,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
 
 /**
- * <p><code>Jelly</code> is a helper class which is capable of
+ * <p>{@code Jelly} is a helper class which is capable of
  * running a Jelly script. This class can be used from the command line
  * or can be used as the basis of an Ant task.</p> Command line usage is as follows:
  *

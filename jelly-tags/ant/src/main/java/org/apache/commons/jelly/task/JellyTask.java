@@ -38,7 +38,7 @@ import org.apache.tools.ant.Task;
 import org.xml.sax.SAXException;
 
 /**
- * <p><code>JellyTask</code> is an Ant task which will
+ * <p>{@code JellyTask} is an Ant task which will
  * run a given Jelly script.
  */
 

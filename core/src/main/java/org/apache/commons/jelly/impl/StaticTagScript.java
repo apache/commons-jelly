@@ -31,7 +31,7 @@ import org.apache.commons.jelly.expression.Expression;
 import org.xml.sax.SAXException;
 
 /**
- * <p><code>StaticTagScript</code> is a script that evaluates a StaticTag, a piece of static XML
+ * <p>{@code StaticTagScript} is a script that evaluates a StaticTag, a piece of static XML
  * though its attributes or element content may contain dynamic expressions.
  * The first time this tag evaluates, it may have become a dynamic tag, so it will check that
  * a new dynamic tag has not been generated.</p>

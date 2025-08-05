@@ -24,7 +24,7 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.ProjectHelper;
 
-/** A subclass of an ant <code>Project</code> which allows
+/** A subclass of an ant {@code Project} which allows
  *  installation of delegators for particular functions.
  *
  *  <p>
@@ -39,11 +39,11 @@ public class GrantProject extends Project {
     /** Properties delegate. */
     private PropsHandler propsHandler;
 
-    /** Constructs  a new, empty <code>GrantProject</code>.
+    /** Constructs  a new, empty {@code GrantProject}.
      *
      *  <p>
-     *  Immediately after initialization, a <code>GrantProject</code>
-     *  delegates <strong>all</strong> calls to the normal ant <code>Project</code>
+     *  Immediately after initialization, a {@code GrantProject}
+     *  delegates <strong>all</strong> calls to the normal ant {@code Project}
      *  super class.   Only after installing delegators will custom
      *  behavior be achieved.
      *  </p>
@@ -103,10 +103,10 @@ public class GrantProject extends Project {
         return this.propsHandler.getProperty(key);
     }
 
-    /** Retrieve the currently installed <code>PropsHandler</code>.
+    /** Retrieve the currently installed {@code PropsHandler}.
      *
-     *  @return The currently installed <code>PropsHandler</code>,
-     *          or {@code null} if no <code>PropsHandler</code>
+     *  @return The currently installed {@code PropsHandler},
+     *          or {@code null} if no {@code PropsHandler}
      *          had yet to be installed.
      */
     public PropsHandler getPropsHandler() {
@@ -187,11 +187,11 @@ public class GrantProject extends Project {
         }
     }
 
-    /** Install a <code>PropsHandler</code> delegate.
+    /** Install a {@code PropsHandler} delegate.
      *
-     *  @param propsHandler The <code>PropsHandler</code> to install,
+     *  @param propsHandler The {@code PropsHandler} to install,
      *         or {@code null} to remove any currently installed
-     *         <code>PropsHandler</code>.
+     *         {@code PropsHandler}.
      */
     public void setPropsHandler(final PropsHandler propsHandler) {
         this.propsHandler = propsHandler;

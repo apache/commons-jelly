@@ -18,7 +18,7 @@
 package org.apache.commons.jelly;
 
 /**
- * <p><code>Script</code> represents a Jelly script.
+ * <p>{@code Script} represents a Jelly script.
  * A Script <strong>must</strong> be thread safe so care should be taken on the
  * implementations of Scripts. However Tags are only used in a single thread
  * (each thread will have create its own Tags for the Script it is running)

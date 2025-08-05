@@ -36,7 +36,7 @@ import org.apache.commons.logging.LogFactory;
 
 /*
  *
- * <p><code>Embedded</code> provides easy means to embed JellyEngine
+ * <p>{@code Embedded} provides easy means to embed JellyEngine
  * and use Jelly scripts within an application</p>
  * A typical usage:
  *  <pre>

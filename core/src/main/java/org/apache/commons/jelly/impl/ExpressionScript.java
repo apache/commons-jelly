@@ -24,7 +24,7 @@ import org.apache.commons.jelly.expression.Expression;
 import org.xml.sax.SAXException;
 
 /**
- * <p><code>ExpressionScript</code> outputs the value of an expression as text.</p>
+ * <p>{@code ExpressionScript} outputs the value of an expression as text.</p>
  */
 public class ExpressionScript implements Script {
 

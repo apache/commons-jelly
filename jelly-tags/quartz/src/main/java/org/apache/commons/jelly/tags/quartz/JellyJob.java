@@ -26,7 +26,7 @@ import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
-/** Implementation of a quart <code>Job</code> to execute jellyscript.
+/** Implementation of a quart {@code Job} to execute jellyscript.
  */
 public class JellyJob implements Job
 {

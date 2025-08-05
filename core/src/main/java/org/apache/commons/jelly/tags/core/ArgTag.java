@@ -297,7 +297,7 @@ public class ArgTag extends BaseClassLoaderTag {
      * The name of the argument class or type, if any.
      * This may be a fully specified class name or
      * a primitive type name
-     * (<code>boolean</code>, <code>int</code>, <code>double</code>, etc.).
+     * ({@code boolean}, {@code int}, {@code double}, etc.).
      */
     public void setType(final String type) {
         this.typeString = type;

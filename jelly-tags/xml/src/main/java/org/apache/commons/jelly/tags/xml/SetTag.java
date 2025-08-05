@@ -224,7 +224,7 @@ public class SetTag extends XPathTagSupport {
     }
 
     /** If set, returns a string delimited by this delimiter.
-      * Implies <code>asString</code> to be true.
+      * Implies {@code asString} to be true.
       */
     public void setDelim(final String delim) {
         this.delimiter = delim;

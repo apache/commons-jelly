@@ -23,7 +23,7 @@ import java.util.Iterator;
 
 import org.apache.commons.jelly.util.TagUtils;
 
-/** <p><code>TagSupport</code> an abstract base class which is useful to
+/** <p>{@code TagSupport} an abstract base class which is useful to
   * inherit from if developing your own tag.</p>
   */
 

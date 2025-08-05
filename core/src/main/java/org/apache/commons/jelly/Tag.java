@@ -18,7 +18,7 @@
 package org.apache.commons.jelly;
 
 /**
- * <code>Tag</code> represents a Jelly custom tag. A Tag is only ever used by a single thread so that Tag developers do not need to concern themselves with
+ * {@code Tag} represents a Jelly custom tag. A Tag is only ever used by a single thread so that Tag developers do not need to concern themselves with
  * mutli-threading issues when writing a Tag. A Tag is created per custom tag in a script, per invocation. So there is no need to worry about pooling errors
  * like those caused in JSP 1.x.(
  */

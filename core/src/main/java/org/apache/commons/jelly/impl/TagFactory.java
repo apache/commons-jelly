@@ -21,7 +21,7 @@ import org.apache.commons.jelly.Tag;
 import org.xml.sax.Attributes;
 
 /**
- * <p><code>TagFactory</code> represents a Factory of {@link Tag} instances.</p>
+ * <p>{@code TagFactory} represents a Factory of {@link Tag} instances.</p>
  *
  * <strong>Note</strong> that this class should be re-entrant and used
  * concurrently by multiple threads.

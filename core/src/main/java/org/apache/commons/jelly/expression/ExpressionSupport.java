@@ -29,7 +29,7 @@ import org.apache.commons.collections4.iterators.SingletonIterator;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.lang3.StringUtils;
 
-/** <p><code>ExpressionSupport</code>
+/** <p>{@code ExpressionSupport}
   * an abstract base class for Expression implementations
   * which provides default implementations of some of the
   * typesafe evaluation methods.</p>

@@ -33,7 +33,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 /**
-  * <p><code>JellyContext</code> represents the Jelly context.</p>
+  * <p>{@code JellyContext} represents the Jelly context.</p>
   */
 public class JellyContext {
 
@@ -56,7 +56,7 @@ public class JellyContext {
      * The class loader to use for instantiating application objects.
      * If not specified, the context class loader, or the class loader
      * used to load this class itself, is used, based on the value of the
-     * <code>useContextClassLoader</code> variable.
+     * {@code useContextClassLoader} variable.
      */
     protected ClassLoader classLoader;
 
@@ -116,7 +116,7 @@ public class JellyContext {
     /**
      * Create a new context with the given parent context.
      * The parent's rootURL and currentURL are set on the child, and the parent's variables are
-     * available in the child context under the name <code>parentScope</code>.
+     * available in the child context under the name {@code parentScope}.
      *
      * @param parent the parent context for the newly created context.
      */
@@ -133,7 +133,7 @@ public class JellyContext {
     /**
      * Create a new context with the given parent context.
      * The parent's rootURL are set on the child, and the parent's variables are
-     * available in the child context under the name <code>parentScope</code>.
+     * available in the child context under the name {@code parentScope}.
      *
      * @param parentJellyContext the parent context for the newly created context.
      * @param currentURL the root URL used in resolving relative resources
@@ -145,7 +145,7 @@ public class JellyContext {
 
     /**
      * Create a new context with the given parent context.
-     * The parent's variables are available in the child context under the name <code>parentScope</code>.
+     * The parent's variables are available in the child context under the name {@code parentScope}.
      *
      * @param parentJellyContext the parent context for the newly created context.
      * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/'
@@ -319,9 +319,9 @@ public class JellyContext {
      * Gets the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
      * <ul>
-     * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
+     * <li>The class loader set by {@code setClassLoader()}, if any</li>
      * <li>The thread context class loader, if it exists and the
-     *     <code>useContextClassLoader</code> property is set to true</li>
+     *     {@code useContextClassLoader} property is set to true</li>
      * <li>The class loader used to load the XMLParser class itself.
      * </ul>
      */
@@ -578,8 +578,8 @@ public class JellyContext {
 
     /**
      * Initialize the context.
-     * This includes adding the context to itself under the name <code>context</code> and
-     * making the System Properties available as <code>systemScope</code>
+     * This includes adding the context to itself under the name {@code context} and
+     * making the System Properties available as {@code systemScope}
      */
     private void init() {
         variables.put("context", this);
@@ -975,7 +975,7 @@ public class JellyContext {
 
     /**
      * Determine whether to use the Context ClassLoader (the one found by
-     * calling <code>Thread.currentThread().getContextClassLoader()</code>)
+     * calling {@code Thread.currentThread().getContextClassLoader()})
      * to resolve/load classes.  If not
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.

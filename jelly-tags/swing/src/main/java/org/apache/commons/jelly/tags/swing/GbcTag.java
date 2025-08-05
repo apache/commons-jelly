@@ -35,7 +35,7 @@ import org.apache.commons.lang3.StringUtils;
  * the second argument of {@link Container#add(Component,Object)}.
  * It supports inheritance between such tags in the following fashion:
  * <ul>
- *     <li>either using a <code>basedOn</code> attribute which is
+ *     <li>either using a {@code basedOn} attribute which is
  *         supposed to provide a reference to another {@link GbcTag}.</li>
  *     <li>either using a parent {@link GbcTag}.</li>
  * </ul>
