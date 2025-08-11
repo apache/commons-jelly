@@ -40,7 +40,7 @@ import org.xml.sax.ext.LexicalHandler;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.DefaultHandler;
 
-/** <p><code>XMLOutput</code> is used to output XML events
+/** <p>{@code XMLOutput} is used to output XML events
   * in a SAX-like manner. This also allows pipelining to be done
   * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   */
@@ -336,7 +336,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * outside of the specified range.</p>
      *
      * <p>Individual characters may consist of more than one Java
-     * <code>char</code> value.  There are two important cases where this
+     * {@code char} value.  There are two important cases where this
      * happens, because characters can't be represented in just sixteen bits.
      * In one case, characters are represented in a <em>Surrogate Pair</em>,
      * using two special Unicode values. Such characters are in the so-called
@@ -345,7 +345,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * more accent characters.</p>
      *
      * <p> Your code should not assume that algorithms using
-     * <code>char</code>-at-a-time idioms will be working in character
+     * {@code char}-at-a-time idioms will be working in character
      * units; in some cases they will split characters.  This is relevant
      * wherever XML permits arbitrary characters, such as attribute values,
      * processing instruction data, and comments as well as in data reported
@@ -620,7 +620,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * using this method.</p>
      *
      * <p>Like {@link #characters characters()}, processing instruction
-     * data may have characters that need more than one <code>char</code>
+     * data may have characters that need more than one {@code char}
      * value.</p>
      *
      * @param target The processing instruction target.
@@ -702,9 +702,9 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * have not seen the declarations (because, for example, the
      * entity was declared in an external DTD subset).  All processors
      * may skip external entities, depending on the values of the
-     * <code>http://xml.org/sax/features/external-general-entities</code>
+     * {@code http://xml.org/sax/features/external-general-entities}
      * and the
-     * <code>http://xml.org/sax/features/external-parameter-entities</code>
+     * {@code http://xml.org/sax/features/external-parameter-entities}
      * properties.</p>
      *
      * @param name The name of the skipped entity.  If it is a
@@ -854,12 +854,12 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * #IMPLIED attributes will be omitted.  The attribute list
      * will contain attributes used for Namespace declarations
      * (xmlns* attributes) only if the
-     * <code>http://xml.org/sax/features/namespace-prefixes</code>
+     * {@code http://xml.org/sax/features/namespace-prefixes}
      * property is true (it is false by default, and support for a
      * true value is optional).</p>
      *
      * <p>Like {@link #characters characters()}, attribute values may have
-     * characters that need more than one <code>char</code> value.  </p>
+     * characters that need more than one {@code char} value.  </p>
      *
      * @param uri The Namespace URI, or the empty string if the
      *        element has no Namespace URI or if Namespace
@@ -970,7 +970,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * <p>The information from this event is not necessary for
      * normal Namespace processing: the SAX XML reader will
      * automatically replace prefixes for element and attribute
-     * names when the <code>http://xml.org/sax/features/namespaces</code>
+     * names when the {@code http://xml.org/sax/features/namespaces}
      * feature is <var>true</var> (the default).</p>
      *
      * <p>There are cases, however, when applications need to

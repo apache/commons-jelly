@@ -77,9 +77,9 @@ public class SetLocaleTag extends TagSupport {
      *
      * @param jc The context containing the formatting action
      * @param fromTag The formatting action
-     * @param format <code>true</code> if the formatting action is of type
-     * <formatXXX> (as opposed to <parseXXX>), and <code>false</code> otherwise
-     * (if set to <code>true</code>, the formatting locale that is returned by
+     * @param format {@code true} if the formatting action is of type
+     * <formatXXX> (as opposed to <parseXXX>), and {@code false} otherwise
+     * (if set to {@code true}, the formatting locale that is returned by
      * this method is used to set the response locale).
      *
      * @param avail the array of available locales
@@ -184,14 +184,14 @@ public class SetLocaleTag extends TagSupport {
     /**
      * Parses the given locale string into its language and (optionally)
      * country components, and returns the corresponding
-     * <code>java.util.Locale</code> object.
+     * {@code java.util.Locale} object.
      *
      * If the given locale string is null or empty, the runtime's default
      * locale is returned.
      *
      * @param locale the locale string to parse
      * @param variant the variant
-     * @return <code>java.util.Locale</code> object corresponding to the given
+     * @return {@code java.util.Locale} object corresponding to the given
      * locale string, or the runtime's default locale if the locale string is
      * null or empty
      *

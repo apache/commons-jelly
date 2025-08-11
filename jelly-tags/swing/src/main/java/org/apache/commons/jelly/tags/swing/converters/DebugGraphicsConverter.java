@@ -35,11 +35,11 @@ public class DebugGraphicsConverter implements Converter {
     public static void register() {
         ConvertUtils.register(
             new DebugGraphicsConverter(),
-            java.lang.Integer.class);
+            Integer.class);
     }
 
     /** Part of the Converter interface.
-     * @see org.apache.commons.beanutils2.Converter#convert(java.lang.Class, java.lang.Object)
+     * @see org.apache.commons.beanutils2.Converter#convert(Class, Object)
      */
     @Override
     public Object convert(final Class type, final Object value) {

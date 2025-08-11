@@ -32,8 +32,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>A simple <code>DataSource</code> wrapper for the standard
- * <code>DriverManager</code> class.
+ * <p>A simple {@code DataSource} wrapper for the standard
+ * {@code DriverManager} class.
  */
 public class DataSourceWrapper implements DataSource {
 

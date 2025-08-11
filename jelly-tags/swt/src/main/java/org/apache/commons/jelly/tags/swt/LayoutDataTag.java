@@ -45,7 +45,7 @@ public class LayoutDataTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(java.lang.Object, java.lang.String, java.lang.Object)
+     * @see org.apache.commons.jelly.tags.swt.LayoutTagSupport#convertValue(Object, String, Object)
      */
     @Override
     protected Object convertValue(final Object bean, final String name, final Object value)

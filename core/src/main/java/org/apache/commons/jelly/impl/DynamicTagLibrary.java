@@ -26,7 +26,7 @@ import org.apache.commons.jelly.TagLibrary;
 import org.xml.sax.Attributes;
 
 /**
- * <p><code>DynamicTagLibrary</code> represents a TagLibrary which
+ * <p>{@code DynamicTagLibrary} represents a TagLibrary which
  * gets created by running a Jelly script.</p>
  */
 public class DynamicTagLibrary extends TagLibrary {
@@ -99,7 +99,7 @@ public class DynamicTagLibrary extends TagLibrary {
      * Returns the script associated with the given tag name
      *
      * @param name The tag name
-     * @return The script associated with <code>name</code>, or
+     * @return The script associated with {@code name}, or
      *         {@code null} if the tag doesn't exist or isn't a script
      */
     public Script getDynamicTag(final String name) {

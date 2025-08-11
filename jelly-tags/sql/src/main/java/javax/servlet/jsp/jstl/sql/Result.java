@@ -38,16 +38,16 @@ public interface Result {
     /**
      * Returns an array of column names.
      *
-     * @return the column names as an array of <code>String</code> objects
+     * @return the column names as an array of {@code String} objects
      */
-    public String[] getColumnNames();
+    String[] getColumnNames();
 
     /**
      * Returns the number of rows in the cached ResultSet
      *
      * @return the number of rows in the result
      */
-    public int getRowCount();
+    int getRowCount();
 
     /**
      * Returns an array of SortedMap objects. Column name is used as the key
@@ -55,24 +55,24 @@ public interface Result {
      * Comparator so that the key is the case insensitive representation
      * of the column name.
      *
-     * @return the result rows as an array of <code>SortedMap</code> objects
+     * @return the result rows as an array of {@code SortedMap} objects
      */
-    public SortedMap[] getRows();
+    SortedMap[] getRows();
 
     /**
      * Returns an array of Objects[]. The first index
      * designates the Row, the second the Column. The array
      * stores the value at the specified row and column.
      *
-     * @return the result rows as an array of <code>Object[]</code> objects
+     * @return the result rows as an array of {@code Object[]} objects
      */
-    public Object[][] getRowsByIndex();
+    Object[][] getRowsByIndex();
 
     /**
      * Returns true of the query was limited by a maximum row setting
      *
-     * @return <code>true</code> if the query was limited by a maximum
+     * @return {@code true} if the query was limited by a maximum
      * row setting
      */
-    public boolean isLimitedByMaxRows();
+    boolean isLimitedByMaxRows();
 }

@@ -21,7 +21,7 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 
 /** Adds an XML attribute to the parent element tag like
-  * the <code>&lt;xsl:attribute&gt;</code> tag.
+  * the {@code &lt;xsl:attribute&gt;} tag.
   */
 public class AttributeTag extends TagSupport {
      /** The namespace URI. */

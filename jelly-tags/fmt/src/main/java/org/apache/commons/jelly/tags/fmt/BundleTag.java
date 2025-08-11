@@ -121,12 +121,12 @@ public class BundleTag extends TagSupport {
      * Check if a match exists between the ordered set of preferred
      * locales and the available locales, for the given base name.
      * The set of preferred locales consists of a single locale
-     * (if the <code>org.apache.commons.jelly.tags.fmt.locale</code> configuration
+     * (if the {@code org.apache.commons.jelly.tags.fmt.locale} configuration
      * setting is present).
      *
      * <p> If no match was found in the previous step, check if a match
      * exists between the fallback locale (given by the
-     * <code>org.apache.commons.jelly.tags.fmt.fallbackLocale</code> configuration
+     * {@code org.apache.commons.jelly.tags.fmt.fallbackLocale} configuration
      * setting) and the available locales, for the given base name.
      *
      * @param jellyContext Page in which the resource bundle with the

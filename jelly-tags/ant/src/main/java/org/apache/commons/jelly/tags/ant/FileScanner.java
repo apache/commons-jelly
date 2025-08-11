@@ -24,7 +24,7 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 
 /**
- * <p><code>FileScanner</code> is a bean which allows the iteration
+ * <p>{@code FileScanner} is a bean which allows the iteration
  * over a number of files from a collection of FileSet instances.
  */
 public class FileScanner {

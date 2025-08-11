@@ -30,10 +30,10 @@ import org.apache.tools.ant.util.JavaEnvUtils;
  *  against an existing map.
  *
  * <p>
- * If extending <code>DefaultPropsHandler</code>, you can
- * implement <code>setProperty</code>, <code>getProperty</code>,
- * and <code>getProperties</code> to provide a complete
- * implementation of <code>PropsHandler</code>.
+ * If extending {@code DefaultPropsHandler}, you can
+ * implement {@code setProperty}, {@code getProperty},
+ * and {@code getProperties} to provide a complete
+ * implementation of {@code PropsHandler}.
  *
  */
 public class DefaultPropsHandler implements PropsHandler {
@@ -53,10 +53,10 @@ public class DefaultPropsHandler implements PropsHandler {
         this.properties = new HashMap();
     }
 
-    /** Initializes the object with a given <code>Map</code>
+    /** Initializes the object with a given {@code Map}
      * implementation.
      *
-     * @param properties The <code>Map</code> to use to store and retrieve properties.
+     * @param properties The {@code Map} to use to store and retrieve properties.
      */
     public DefaultPropsHandler(final Map properties) {
         this.properties = properties;

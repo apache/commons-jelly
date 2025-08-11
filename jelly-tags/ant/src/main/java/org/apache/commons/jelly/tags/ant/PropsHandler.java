@@ -22,7 +22,7 @@ import java.util.Hashtable;
 import org.apache.tools.ant.Project;
 
 /** Interface for delegates supporting property management
- *  for a<code>GrantProject</code>.
+ *  for a{@code GrantProject}.
  *
  *  @see org.apache.commons.jelly.tags.ant.GrantProject#setProperty
  *  @see org.apache.commons.jelly.tags.ant.GrantProject#setNewProperty
@@ -39,21 +39,21 @@ import org.apache.tools.ant.Project;
  */
 public interface PropsHandler {
 
-    /** Copy all of the inherited properties to the other <code>Project</code>.
+    /** Copy all of the inherited properties to the other {@code Project}.
      *
-     * @param other The <code>Project</code> to copy the properties to.
+     * @param other The {@code Project} to copy the properties to.
      */
     void copyInheritedProperties(Project other);
 
-    /** Copy all of the user properties to the other <code>Project</code>.
+    /** Copy all of the user properties to the other {@code Project}.
      *
-     * @param other The <code>Project</code> to copy the properties to.
+     * @param other The {@code Project} to copy the properties to.
      */
     void copyUserProperties(Project other);
 
-    /** Retrieve a <code>Hashtable</code> of all properties.
+    /** Retrieve a {@code Hashtable} of all properties.
      *
-     *  @return A <code>Hashtable</code> of all properties.
+     *  @return A {@code Hashtable} of all properties.
      */
     Hashtable getProperties();
 
@@ -65,9 +65,9 @@ public interface PropsHandler {
      */
     String getProperty(String key);
 
-    /** Retrieve a <code>Hashtable</code> of all user properties.
+    /** Retrieve a {@code Hashtable} of all user properties.
      *
-     *  @return A <code>Hashtable</code> of all user properties.
+     *  @return A {@code Hashtable} of all user properties.
      */
     Hashtable getUserProperties();
 
@@ -86,7 +86,7 @@ public interface PropsHandler {
      */
     void setInheritedProperty(String key, String value);
 
-    /** Sets the <code>ant.java.version</code> property.
+    /** Sets the {@code ant.java.version} property.
      */
     void setJavaVersionProperty();
 
@@ -107,14 +107,14 @@ public interface PropsHandler {
     /** Sets a property that is not a user property.
      *
      * Acts as the replacement for ant's private
-     * <code>setPropertyInternal</code> method.
+     * {@code setPropertyInternal} method.
      *
      * @param key The property key.
      * @param value The value.
      */
     void setPropertyIfUndefinedByUser(String key, String value);
 
-    /** Sets the system variables for a <code>Project</code> that have
+    /** Sets the system variables for a {@code Project} that have
      * not already been assigned as user properties.
      */
     void setSystemProperties();

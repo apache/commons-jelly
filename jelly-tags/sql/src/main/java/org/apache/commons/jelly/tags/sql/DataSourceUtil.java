@@ -29,8 +29,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p>A simple <code>DataSource</code> utility for the standard
- * <code>DriverManager</code> class.
+ * <p>A simple {@code DataSource} utility for the standard
+ * {@code DriverManager} class.
  *
  * TO DO: need to cache DataSource
  */

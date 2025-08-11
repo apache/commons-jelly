@@ -29,7 +29,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p><code>DynamicTag</code> is a tag that is created from
+ * <p>{@code DynamicTag} is a tag that is created from
  * inside a Jelly script as a Jelly template and will invoke a
  * given script, passing in its instantiation attributes
  * as variables and will allow the template to invoke its instance body.</p>

@@ -66,7 +66,7 @@ final class ExpressionAttribute {
 }
 
 /**
- * <p><code>TagScript</code> is a Script that evaluates a custom tag.</p>
+ * <p>{@code TagScript} is a Script that evaluates a custom tag.</p>
  *
  * <strong>Note</strong> that this class should be re-entrant and used
  * concurrently by multiple threads.

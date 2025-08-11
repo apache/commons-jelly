@@ -28,7 +28,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 /**
- * Unit test for <code>JellyContextAdapter</code>.
+ * Unit test for {@code JellyContextAdapter}.
  */
 public class JellyContextAdapterTest extends TestCase
 {

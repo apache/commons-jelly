@@ -26,7 +26,7 @@ import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 
-/** <p><code>ScriptBlock</code> a block of scripts.</p>
+/** <p>{@code ScriptBlock} a block of scripts.</p>
   */
 public class ScriptBlock implements Script {
 

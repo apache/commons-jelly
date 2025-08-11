@@ -21,26 +21,26 @@ public interface AddressType {
 
     public interface NameType {
 
-        public String getFirst();
+        String getFirst();
 
-        public String getInitials();
+        String getInitials();
 
-        public String getLast();
+        String getLast();
 
-        public java.util.List getMiddle();
+        java.util.List getMiddle();
 
-        public void setFirst(String first);
+        void setFirst(String first);
 
-        public void setInitials(String initials);
+        void setInitials(String initials);
 
-        public void setLast(String last);
+        void setLast(String last);
     }
 
-    public String getId();
+    String getId();
 
-    public org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName();
+    org.apache.ws.jaxme.examples.misc.address.AddressType.NameType getName();
 
-    public void setId(String id);
+    void setId(String id);
 
-    public void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType name);
+    void setName(org.apache.ws.jaxme.examples.misc.address.AddressType.NameType name);
 }

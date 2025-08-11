@@ -31,5 +31,5 @@ public interface ContainerTag {
      * Adds a child component to this container with optional constraints.
      * If the constraints are null they are ignored
      */
-    public void addChild(Component component, Object constraints) throws JellyTagException;
+    void addChild(Component component, Object constraints) throws JellyTagException;
 }

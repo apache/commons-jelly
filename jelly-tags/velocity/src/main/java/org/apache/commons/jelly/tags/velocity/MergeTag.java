@@ -152,8 +152,8 @@ public class MergeTag extends VelocityTagSupport
      * modifications in the Velocity context from propagating to the
      * JellyContext.
      *
-     * @param readOnly <code>true</code> prevents modifications from
-     * propagating (the default), or <code>false</code> which permits
+     * @param readOnly {@code true} prevents modifications from
+     * propagating (the default), or {@code false} which permits
      * modifications.
      */
     public void setReadOnly( final boolean readOnly )

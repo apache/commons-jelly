@@ -26,5 +26,5 @@ public interface BeanSource {
     /**
      * @return the bean to which this tag is associated
      */
-    public Object getBean() throws JellyTagException;
+    Object getBean() throws JellyTagException;
 }

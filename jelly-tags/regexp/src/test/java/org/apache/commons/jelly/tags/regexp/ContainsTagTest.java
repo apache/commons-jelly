@@ -21,7 +21,7 @@ import org.apache.commons.jelly.XMLOutput;
 
 import junit.framework.TestCase;
 
-/*** <p><code>ContainsTagTest</code> a class that is useful to perform regexp matches
+/*** <p>{@code ContainsTagTest} a class that is useful to perform regexp matches
 * in strings.</p>
 */
 public class ContainsTagTest extends TestCase {

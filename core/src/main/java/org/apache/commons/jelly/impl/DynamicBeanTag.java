@@ -183,7 +183,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
      *
      * @param bean Bean on which <code>method</code was invoked
      * @param method Method that was invoked
-     * @param e Exception throw when <code>method</code> was invoked
+     * @param e Exception throw when {@code method} was invoked
      */
     private void methodInvocationException(final Object bean, final Method method, final Exception e) throws JellyTagException {
         log.error("Could not invoke " + method, e);

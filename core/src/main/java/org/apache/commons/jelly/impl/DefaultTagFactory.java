@@ -21,7 +21,7 @@ import org.apache.commons.jelly.Tag;
 import org.xml.sax.Attributes;
 
 /**
- * <p><code>DefaultTagFactory</code> a default implementation of TagFactory
+ * <p>{@code DefaultTagFactory} a default implementation of TagFactory
  * which creates new instances of a given class.
  */
 public class DefaultTagFactory implements TagFactory {
