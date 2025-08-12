@@ -19,6 +19,7 @@ package org.apache.commons.jelly.core;
 import org.apache.commons.jelly.JellyException;
 import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.test.BaseJellyTest;
+import org.apache.commons.lang3.SystemProperties;
 
 import junit.framework.TestSuite;
 
@@ -112,7 +113,7 @@ public class TestInvokeStaticTag extends BaseJellyTest {
         getJellyContext().setVariable( "propertyName", "java.runtime.version" );
         script.run( getJellyContext(),getXMLOutput() );
 
-        assertTrue( System.getProperty( "java.runtime.version" ).equals( getJellyContext().getVariable("propertyName" ) ) );
+        assertTrue( SystemProperties.getJavaRuntimeVersion().equals( getJellyContext().getVariable("propertyName" ) ) );
     }
 
     /**

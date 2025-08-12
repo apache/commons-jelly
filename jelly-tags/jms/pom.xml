@@ -36,7 +36,7 @@
     <dependency>
       <groupId>commons-messenger</groupId>
       <artifactId>commons-messenger</artifactId>
-      <version>1.0-dev-8</version>
+      <version>1.0-dev-14</version>
     </dependency>
     
 <!-- uncomment these to use Sun's API instead of Geronimo

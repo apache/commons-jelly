@@ -22,7 +22,7 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.XMLOutput;
 import org.xml.sax.SAXException;
 
-/** <p><code>TextScript</code> outputs some static text.</p>
+/** <p>{@code TextScript} outputs some static text.</p>
   */
 public class TextScript implements Script {
 

@@ -50,7 +50,7 @@ public class JFaceLayoutDataTag extends LayoutDataTag {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.commons.jelly.tags.core.UseBeanTag#processBean(java.lang.String, java.lang.Object)
+     * @see org.apache.commons.jelly.tags.core.UseBeanTag#processBean(String, Object)
      */
     @Override
     protected void processBean(final String var, final Object bean) throws JellyTagException {

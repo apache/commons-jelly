@@ -34,14 +34,14 @@ public class ObjectFactory {
         return (org.apache.ws.jaxme.examples.misc.address.AddressType) newInstance(org.apache.ws.jaxme.examples.misc.address.AddressType.class);
     }
 
-    public java.lang.Object getProperty(final String name) {
+    public Object getProperty(final String name) {
         if (properties == null) {
             return null;
         }
         return properties.get(name);
     }
 
-    public java.lang.Object newInstance(final Class elementInterface) throws javax.xml.bind.JAXBException {
+    public Object newInstance(final Class elementInterface) throws javax.xml.bind.JAXBException {
         return jaxbContext.getElement(elementInterface);
     }
 

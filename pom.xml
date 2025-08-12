@@ -70,21 +70,25 @@
     -->
     <commons.componentid>jelly</commons.componentid>
     <!-- Current 3.x release series -->
+    <commons.bc.version>1.0.1</commons.bc.version>
     <commons.release.version>1.1.0</commons.release.version>
     <commons.release.desc>(Java 8 or above)</commons.release.desc>
     <commons.jira.id>JELLY</commons.jira.id>
     <commons.jira.pid>10012</commons.jira.pid>
     <moditect.skip>true</moditect.skip>
-    
     <commons.site.path>jelly</commons.site.path>
     <commons.scmPubUrl>https://svn.apache.org/repos/infra/websites/production/commons/content/proper/commons-jelly</commons.scmPubUrl>
     <commons.scmPubCheckoutDirectory>site-content</commons.scmPubCheckoutDirectory>
     <commons.encoding>utf-8</commons.encoding>
+    <xalan.version>2.7.3</xalan.version>
+    <mx4j.version>3.0.1</mx4j.version>
   </properties>
 
   <issueManagement>
-    <url>http://issues.apache.org/jira/browse/JELLY</url>
+    <system>jira</system>
+    <url>https://issues.apache.org/jira/browse/JELLY</url>
   </issueManagement>
+
   <scm>
     <connection>scm:git:https://gitbox.apache.org/repos/asf/commons-jelly</connection>
     <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/commons-jelly</developerConnection>
@@ -158,12 +162,12 @@
     <dependency>
       <groupId>commons-cli</groupId>
       <artifactId>commons-cli</artifactId>
-      <version>1.9.0</version>
+      <version>1.10.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.17.0</version>
+      <version>3.18.0</version>
     </dependency>
     <dependency>
       <groupId>commons-discovery</groupId>

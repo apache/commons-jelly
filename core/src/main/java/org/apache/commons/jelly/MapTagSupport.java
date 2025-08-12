@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p><code>MapTag</code> is a DynaTag implementation which uses a Map
+ * <p>{@code MapTag} is a DynaTag implementation which uses a Map
  * to store its attribute values in. Derived tags can then process this
  * Map, change values, add or remove attributes or perform some other form
  * of processing pretty easily.

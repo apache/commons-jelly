@@ -46,7 +46,7 @@ public class ClassLoaderUtils {
      * when required.  This is determined based upon the following rules:
      * <ul>
      * <li>The specified class loader, if any</li>
-     * <li>The thread context class loader, if it exists and <code>useContextClassLoader</code> is true</li>
+     * <li>The thread context class loader, if it exists and {@code useContextClassLoader} is true</li>
      * <li>The class loader used to load the calling class.
      * <li>The System class loader.
      * </ul>

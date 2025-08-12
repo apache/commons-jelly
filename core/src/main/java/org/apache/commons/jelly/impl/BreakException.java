@@ -20,7 +20,7 @@ package org.apache.commons.jelly.impl;
 import org.apache.commons.jelly.JellyTagException;
 
 /**
- * <p><code>BreakException</code> is used to terminate loops such as
+ * <p>{@code BreakException} is used to terminate loops such as
  * &lt;forEach&gt; and &lt;while&gt; tags.</p>
  */
 

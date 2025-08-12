@@ -20,7 +20,7 @@ package org.apache.commons.jelly;
 import java.util.Map;
 
 /**
- * <p><code>NamespaceAwareTag</code> represents a Jelly custom tag which
+ * <p>{@code NamespaceAwareTag} represents a Jelly custom tag which
  * needs to be aware of the XML Namespace context in which it is used.
  * When the tag is used it will be given the namespace context which is a
  * Map keyed on the namespace prefixes and the values are the namespace URIs
@@ -36,5 +36,5 @@ public interface NamespaceAwareTag extends Tag {
      * @param prefixToUriMap is a Map where the keys are the namespace
      * prefixes and the values are the namespace URIs
      */
-    public void setNamespaceContext(Map prefixToUriMap);
+    void setNamespaceContext(Map prefixToUriMap);
 }

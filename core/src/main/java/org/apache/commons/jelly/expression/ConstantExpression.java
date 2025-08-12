@@ -18,7 +18,7 @@ package org.apache.commons.jelly.expression;
 
 import org.apache.commons.jelly.JellyContext;
 
-/** <p><code>ConstantExpression</code> represents a constant expression.</p>
+/** <p>{@code ConstantExpression} represents a constant expression.</p>
   *
   * <p>In other words, {@link #evaluate} returns a value independent of the context.</p>
   */
@@ -32,7 +32,7 @@ public class ConstantExpression extends ExpressionSupport {
     public ConstantExpression() {
     }
 
-    /** Convenience constructor sets <code>value</code> property.
+    /** Convenience constructor sets {@code value} property.
      */
     public ConstantExpression(final Object value) {
         this.value = value;
@@ -42,7 +42,7 @@ public class ConstantExpression extends ExpressionSupport {
       * Evaluate expression against given context.
       *
       * @param context evaluate expression against this context
-      * @return current value of <code>value</code> property
+      * @return current value of {@code value} property
       */
     @Override
     public Object evaluate(final JellyContext context) {

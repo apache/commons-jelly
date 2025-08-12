@@ -26,7 +26,7 @@ import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
 
 /**
- * <p><code>CompositeExpression</code> is a Composite expression made up of several
+ * <p>{@code CompositeExpression} is a Composite expression made up of several
  * Expression objects which are concatenated into a single String.</p>
  */
 public class CompositeExpression extends ExpressionSupport {

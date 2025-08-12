@@ -26,10 +26,10 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Runs its body and asserts that an exception is thrown by it.  If no
  * exception is thrown the tag fails.  By default all exceptions are caught.
- * If however <code>expected</code> was specified the body must throw
+ * If however {@code expected} was specified the body must throw
  * an exception of the given class, otherwise the assertion fails.  The
  * exception thrown by the body can also be of any subtype of the specified
- * exception class.  The optional <code>var</code> attribute can be specified if
+ * exception class.  The optional {@code var} attribute can be specified if
  * the caught exception is to be exported to a variable.
  */
 public class AssertThrowsTag extends AssertTagSupport {
@@ -86,9 +86,9 @@ public class AssertThrowsTag extends AssertTagSupport {
     }
 
     /**
-     * Returns the <code>Class</code> corresponding to the class
-     * specified by <code>expected</code>. If
-     * <code>expected</code> was either not specified then <code>java. lang.
+     * Returns the {@code Class} corresponding to the class
+     * specified by {@code expected}. If
+     * {@code expected} was either not specified then <code>java. lang.
      * Throwable</code> is returned.
      * Otherwise if the class couldn't be
      * found or doesn't denote an exception class then an exception is thrown.
@@ -134,7 +134,7 @@ public class AssertThrowsTag extends AssertTagSupport {
      * Sets the class name of exception expected to be thrown by the body.  The
      * class name must be fully qualified and can either be the expected
      * exception class itself or any supertype of it, but must be a subtype of
-     * <code>java.lang.Throwable</code>.
+     * {@code java.lang.Throwable}.
      */
     public void setExpected(final String expected) {
         this.expected = expected;

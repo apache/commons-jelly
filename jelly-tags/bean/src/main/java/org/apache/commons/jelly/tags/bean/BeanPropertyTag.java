@@ -64,7 +64,7 @@ public class BeanPropertyTag extends BeanTag {
             if (Modifier.isPublic(method.getModifiers())) {
                 final Class[] args = method.getParameterTypes();
                 if (method.getName().equals(addMethodName)
-                      && java.lang.Void.TYPE.equals(method.getReturnType())
+                      && Void.TYPE.equals(method.getReturnType())
                       && args.length == 1
                       && !java.lang.String.class.equals(args[0])
                       && !args[0].isArray()

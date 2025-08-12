@@ -23,7 +23,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.AttributesImpl;
 
 /**
- * <p><code>StaticTag</code> represents a static XML element
+ * <p>{@code StaticTag} represents a static XML element
  * which echos itself to XMLOutput when it is invoked.</p>
  */
 

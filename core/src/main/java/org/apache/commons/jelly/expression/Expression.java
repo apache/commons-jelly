@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import org.apache.commons.jelly.JellyContext;
 
-/** <p><code>Expression</code> represents an arbitrary expression using some pluggable
+/** <p>{@code Expression} represents an arbitrary expression using some pluggable
   * expression language.</p>
   */
 public interface Expression {
@@ -29,25 +29,25 @@ public interface Expression {
      * Evaluates the expression with the given context
      * and returns the result
      */
-    public Object evaluate(JellyContext context);
+    Object evaluate(JellyContext context);
 
     /**
      * Evaluates the expression with the given context
      * coercing the result to be a boolean.
      */
-    public boolean evaluateAsBoolean(JellyContext context);
+    boolean evaluateAsBoolean(JellyContext context);
 
     /**
      * Evaluates the expression with the given context
      * coercing the result to be an Iterator.
      */
-    public Iterator evaluateAsIterator(JellyContext context);
+    Iterator evaluateAsIterator(JellyContext context);
 
     /**
      * Evaluates the expression with the given context
      * coercing the result to be a String.
      */
-    public String evaluateAsString(JellyContext context);
+    String evaluateAsString(JellyContext context);
 
     /**
      * This method evaluates the expression until a value (a non-Expression) object
@@ -65,10 +65,10 @@ public interface Expression {
      * So using this method, nested expressions can be evaluated to the
      * actual underlying value object.
      */
-    public Object evaluateRecurse(JellyContext context);
+    Object evaluateRecurse(JellyContext context);
 
     /**
      * @return the textual representation of this expression
      */
-    public String getExpressionText();
+    String getExpressionText();
 }

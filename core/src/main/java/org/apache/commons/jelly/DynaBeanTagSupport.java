@@ -21,7 +21,7 @@ import org.apache.commons.beanutils2.DynaBean;
 import org.apache.commons.beanutils2.DynaProperty;
 
 /**
- * <p><code>DynaBeanTag</code> is a DynaTag implementation which uses a DynaBean
+ * <p>{@code DynaBeanTag} is a DynaTag implementation which uses a DynaBean
  * to store its attribute values in. Derived tags can then process this
  * DynaBean in any way it wishes.
  * </p>

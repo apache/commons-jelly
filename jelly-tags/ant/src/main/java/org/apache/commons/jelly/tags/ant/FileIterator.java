@@ -25,7 +25,7 @@ import org.apache.tools.ant.Project;
 import org.apache.tools.ant.types.FileSet;
 
 /**
- * <p><code>FileIterator</code> is an iterator over a
+ * <p>{@code FileIterator} is an iterator over a
  * over a number of files from a collection of FileSet instances.
  */
 public class FileIterator implements Iterator {

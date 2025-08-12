@@ -36,8 +36,7 @@ import junit.framework.TestCase;
 public class TestImport extends TestCase {
 
     private final String expected = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-        + "<html xmlns=\"http://www.w3.org/TR/xhtml1/strict\" "
-        + "xmlns=\"http://www.w3.org/TR/xhtml1/strict\">"
+        + "<html xmlns=\"http://www.w3.org/TR/xhtml1/strict\">"
         + "<head><title>Expense Report Summary</title></head>"
         + "<body><p>Total Amount: 12</p></body></html>";
     public TestImport(final String name) {

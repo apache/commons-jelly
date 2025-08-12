@@ -19,14 +19,13 @@ package org.apache.commons.jelly.expression;
 
 import org.apache.commons.jelly.JellyException;
 
-/** <p><code>ExpressionFactory</code> is a factory of Expression objects.</p>
+/** <p>{@code ExpressionFactory} is a factory of Expression objects.</p>
   */
 public interface ExpressionFactory {
 
     /**
      * Creates a new expression for the given text
      */
-
-    public Expression createExpression(String text) throws JellyException;
+    Expression createExpression(String text) throws JellyException;
 
 }

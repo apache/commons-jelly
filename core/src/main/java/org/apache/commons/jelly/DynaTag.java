@@ -18,7 +18,7 @@
 package org.apache.commons.jelly;
 
 /**
- * <p><code>DynaTag</code> represents a Jelly custom tag which
+ * <p>{@code DynaTag} represents a Jelly custom tag which
  * can take its attributes dynamically and store them in some data structure.
  * Typically a DynaTag may use either a Map or a DynaBean to implement itself
  * which avoids writing explicit getter and setter methods for each possible attribute.
@@ -37,9 +37,9 @@ public interface DynaTag extends Tag {
      * If this method returns Expression.class then the expression will not
      * be evaluated and just passed in as the attribute value.
      */
-    public Class getAttributeType(String name) throws JellyTagException;
+    Class getAttributeType(String name) throws JellyTagException;
 
     /** Sets an attribute value of this tag before the tag is invoked
      */
-    public void setAttribute(String name, Object value) throws JellyTagException;
+    void setAttribute(String name, Object value) throws JellyTagException;
 }

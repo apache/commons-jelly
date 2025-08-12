@@ -399,7 +399,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     /** Puts this tag into the context under the given name
 	 * allowing later calls to rerun().
 	 * For example, it makes sense to use ${myTag.rerun()} as a child
-	 * of an <code>action</code> element.
+	 * of an {@code action} element.
 	 *
 	 * @param name name to be used
 	 */

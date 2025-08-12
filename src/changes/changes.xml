@@ -46,6 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
     <release version="1.1.0" date="YYYY-MM-DD" description="Java 8 required.">
       <!-- ADD -->
+      <action type="add" dev="ggregory" due-to="Gary Gregory">Extract commons version into new POM property ${mx4j.version}.</action>
       <!-- FIX -->
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Throw specialized RuntimeExceptions instead of plain RuntimeExceptions.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NestedRuntimeException for RuntimeException.</action>
@@ -60,11 +61,18 @@ The <action> type attribute can be add,update,fix,remove.
       to:
       &lt;dynabean:property name="address" type="org.apache.commons.beanutils2.DynaBean"/&gt;</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump xmlunit:xmlunit from a mix of 0.8 and 1.0 to 1.6.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory. Dependabot">Bump commons-cli:commons-cli from 1.0 to 1.9.0 #24.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-lang:commons-lang 2.0 to org.apache.commons:commons-lang3 3.17.0.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory. Dependabot">Bump commons-cli:commons-cli from 1.0 to 1.10.0 #24.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-lang:commons-lang 2.0 to org.apache.commons:commons-lang3 3.18.0 #58.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-collections:commons-collections 2.1 to org.apache.commons:commons-collections4 4.5.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-jexl:commons-jexl 1.1 to org.apache.commons:commons-jexl 2.1.1.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump javax.servlet:servlet-api from 2.3 to 2.5 #49.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump xalan from 2.3.1 to 2.7.3 in /jelly-tags/xmlunit #22.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump xalan from 2.3.1 to 2.7.3 in /jelly-tags/xml #21.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump commons-messenger:commons-messenger from 1.0-dev-8 to 1.0-dev-14 #57.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump mx4j:mx4j-tools from 1.1.1 to 3.0.1 #30.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump mx4j:mx4j-jmx from 1.1.1 to 3.0.1 #60.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump msv:isorelax from 20030807 to 20050913 #61.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump quartz:quartz from 1.0.2 to 1.5.1 #59.</action> 
     </release>
   </body>
 </document>

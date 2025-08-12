@@ -26,7 +26,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * <p><code>DefaultTagLibraryResolver</code> is a default implementation
+ * <p>{@code DefaultTagLibraryResolver} is a default implementation
  * which attempts to interpret the URI as a String called 'jelly:className'
  * and class load the given Java class. Otherwise META-INF/services/jelly/uri
  * is searched for on the thread context's class path and, if found, that
@@ -43,7 +43,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * The class loader to use for instantiating application objects.
      * If not specified, the context class loader, or the class loader
      * used to load this class itself, is used, based on the value of the
-     * <code>useContextClassLoader</code> variable.
+     * {@code useContextClassLoader} variable.
      */
     private ClassLoader classLoader;
 
@@ -63,9 +63,9 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * Gets the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
      * <ul>
-     * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
+     * <li>The class loader set by {@code setClassLoader()}, if any</li>
      * <li>The thread context class loader, if it exists and the
-     *     <code>useContextClassLoader</code> property is set to true</li>
+     *     {@code useContextClassLoader} property is set to true</li>
      * <li>The class loader used to load the XMLParser class itself.
      * </ul>
      */
@@ -207,7 +207,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
 
     /**
      * Determine whether to use the Context ClassLoader (the one found by
-     * calling <code>Thread.currentThread().getContextClassLoader()</code>)
+     * calling {@code Thread.currentThread().getContextClassLoader()})
      * to resolve/load classes.  If not
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.

@@ -25,5 +25,5 @@ import org.apache.commons.messenger.Messenger;
   */
 public interface ConnectionContext {
 
-    public Messenger getConnection() throws JellyTagException, JMSException;
+    Messenger getConnection() throws JellyTagException, JMSException;
 }

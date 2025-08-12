@@ -21,7 +21,7 @@ import java.util.List;
 import org.apache.commons.jelly.Script;
 
 /**
- * <p><code>CompositeTextScriptBlock</code> represents a text body of a
+ * <p>{@code CompositeTextScriptBlock} represents a text body of a
  * a tag which contains expressions, so that whitespace trimming
  * can be handled differently.</p>
  */

@@ -18,7 +18,7 @@
 package org.apache.commons.jelly;
 
 /**
- * <p><code>Script</code> represents a Jelly script.
+ * <p>{@code Script} represents a Jelly script.
  * A Script <strong>must</strong> be thread safe so care should be taken on the
  * implementations of Scripts. However Tags are only used in a single thread
  * (each thread will have create its own Tags for the Script it is running)
@@ -29,9 +29,9 @@ public interface Script {
     /** Called by the parser to allow a more efficient
      * representation of the script to be used.
      */
-    public Script compile() throws JellyException;
+    Script compile() throws JellyException;
 
     /** Evaluates the body of a tag */
-    public void run(JellyContext context, XMLOutput output) throws JellyTagException;
+    void run(JellyContext context, XMLOutput output) throws JellyTagException;
 
 }

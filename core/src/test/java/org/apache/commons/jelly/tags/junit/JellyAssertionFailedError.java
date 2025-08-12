@@ -25,7 +25,7 @@ import org.apache.commons.jelly.LocationAware;
 import junit.framework.AssertionFailedError;
 
 /**
- * <p><code>JellyAssertionFailedError</code> is
+ * <p>{@code JellyAssertionFailedError} is
  * a JUnit AssertionFailedError which is LocationAware so that it can include
  * details of where in the JellyUnit test case that the failure occurred.</p>
  */

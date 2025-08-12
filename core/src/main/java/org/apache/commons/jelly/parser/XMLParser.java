@@ -61,7 +61,7 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.DefaultHandler;
 
-/** <p><code>XMLParser</code> parses the XML Jelly format.
+/** <p>{@code XMLParser} parses the XML Jelly format.
  * The SAXParser and XMLReader portions of this code come from Digester.</p>
  */
 public class XMLParser extends DefaultHandler {
@@ -104,7 +104,7 @@ public class XMLParser extends DefaultHandler {
      * The class loader to use for instantiating application objects.
      * If not specified, the context class loader, or the class loader
      * used to load XMLParser itself, is used, based on the value of the
-     * <code>useContextClassLoader</code> variable.
+     * {@code useContextClassLoader} variable.
      */
     protected ClassLoader classLoader = null;
 
@@ -688,9 +688,9 @@ public class XMLParser extends DefaultHandler {
      * Return the class loader to be used for instantiating application objects
      * when required.  This is determined based upon the following rules:
      * <ul>
-     * <li>The class loader set by <code>setClassLoader()</code>, if any</li>
+     * <li>The class loader set by {@code setClassLoader()}, if any</li>
      * <li>The thread context class loader, if it exists and the
-     *     <code>useContextClassLoader</code> property is set to true</li>
+     *     {@code useContextClassLoader} property is set to true</li>
      * <li>The class loader used to load the XMLParser class itself.
      * </ul>
      */
@@ -1124,7 +1124,7 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Determine whether to use the Context ClassLoader (the one found by
-     * calling <code>Thread.currentThread().getContextClassLoader()</code>)
+     * calling {@code Thread.currentThread().getContextClassLoader()})
      * to resolve/load classes.  If not
      * using Context ClassLoader, then the class-loading defaults to
      * using the calling-class' ClassLoader.
@@ -1137,7 +1137,7 @@ public class XMLParser extends DefaultHandler {
 
     /**
      * Sets the validating parser flag.  This must be called before
-     * <code>parse()</code> is called the first time.
+     * {@code parse()} is called the first time.
      *
      * @param validating The new validating parser flag.
      */
