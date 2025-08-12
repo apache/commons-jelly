@@ -22,6 +22,7 @@ import java.net.MalformedURLException;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -58,10 +59,10 @@ public class BodyTag extends TagSupport {
         final String bodyText = getBodyText();
         if (httpMethod instanceof PostMethod) {
             final PostMethod postMethod = (PostMethod) httpMethod;
-            postMethod.setRequestBody(bodyText);
+            postMethod.setRequestEntity(new StringRequestEntity(bodyText));
         } else if (httpMethod instanceof PutMethod) {
             final PutMethod putMethod = (PutMethod) httpMethod;
-            putMethod.setRequestBody(bodyText);
+            putMethod.setRequestEntity(new StringRequestEntity(bodyText));
         } else {
             throw new IllegalStateException("Http method from parent was "
                 + "not post or put");
