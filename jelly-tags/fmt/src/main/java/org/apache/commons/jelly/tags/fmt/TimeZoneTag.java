@@ -24,6 +24,7 @@ import org.apache.commons.jelly.Tag;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
+import org.apache.commons.lang3.time.TimeZones;
 
 /**
  * Support for tag handlers for &lt;timeZone&gt;, the time zone loading
@@ -102,11 +103,11 @@ public class TimeZoneTag extends TagSupport {
         }
 
         if (valueInput == null) {
-            timeZone = TimeZone.getTimeZone("GMT");
+            timeZone = TimeZones.GMT;
         }
         else if (valueInput instanceof String) {
             if (((String) valueInput).trim().isEmpty()) {
-                timeZone = TimeZone.getTimeZone("GMT");
+                timeZone = TimeZones.GMT;
             } else {
                 timeZone = TimeZone.getTimeZone((String) valueInput);
             }
