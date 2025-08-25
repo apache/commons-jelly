@@ -595,7 +595,7 @@ public class TransformTag extends ParseTag {
         }
         else if (sourceObj instanceof File) {
             try {
-                final String uri = ((File) sourceObj).toURL().toString();
+                final String uri = ((File) sourceObj).toURI().toURL().toString();
                 xmlInputSource = new InputSource(context.getResourceAsStream(uri));
             }
             catch (final MalformedURLException e) {
