@@ -25,6 +25,7 @@ import java.util.List;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.params.*;
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
@@ -164,11 +165,24 @@ public abstract class HttpTagSupport extends TagSupport {
         HttpClient client = null;
         if (session != null) {
             client = session.getHttpClient();
-            client.setStrictMode(session.isStrictMode());
+            client.setParams(getClientParams());
         } else {
             client = new HttpClient();
         }
         return client;
+    }
+
+    /**
+     * Get the default parameters for the HttpClient to make it behave
+     * similar to Strict-Mode
+     *
+     * @return a HttpClientParams object with the strict parameters set
+     */
+    private HttpClientParams getClientParams() {
+        HttpClientParams clientParams = new HttpClientParams();
+        clientParams.setParameters(new String[]{HttpClientParams.REJECT_RELATIVE_REDIRECT, HttpClientParams.ALLOW_CIRCULAR_REDIRECTS, HttpMethodParams.UNAMBIGUOUS_STATUS_LINE, HttpMethodParams.SINGLE_COOKIE_HEADER, HttpMethodParams.STRICT_TRANSFER_ENCODING, HttpMethodParams.REJECT_HEAD_BODY, HttpMethodParams.WARN_EXTRA_INPUT}, Boolean.TRUE);
+        clientParams.setIntParameter(HttpMethodParams.STATUS_LINE_GARBAGE_LIMIT, 0);
+        return clientParams;
     }
 
     /**
