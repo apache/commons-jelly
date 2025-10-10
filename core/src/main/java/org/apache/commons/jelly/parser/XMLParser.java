@@ -236,9 +236,8 @@ public class XMLParser extends DefaultHandler {
 
             final CompositeExpression compositeExpression
                 = (CompositeExpression) expression;
-            final Iterator iter = compositeExpression.getExpressions().iterator();
-            while (iter.hasNext()) {
-                addExpressionScript( newBlock, (Expression) iter.next() );
+            for (Object o : compositeExpression.getExpressions()) {
+                addExpressionScript(newBlock, (Expression) o);
             }
         }
         else {
@@ -942,7 +941,7 @@ public class XMLParser extends DefaultHandler {
      * @throws SAXException if a parsing exception occurs
      */
     public Script parse(final File file) throws IOException, SAXException {
-        return parse(file.toURL());
+        return parse(file.toURI().toURL());
     }
 
     /**

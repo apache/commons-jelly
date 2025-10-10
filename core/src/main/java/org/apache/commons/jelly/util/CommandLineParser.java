@@ -29,7 +29,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.Parser;
+import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.jelly.Jelly;
 import org.apache.commons.jelly.JellyContext;
 import org.apache.commons.jelly.JellyException;
@@ -199,7 +199,7 @@ public class CommandLineParser {
         filteredArgList.toArray(filterArgs);
 
         // parse the command line
-        final Parser parser = new org.apache.commons.cli.GnuParser();
+        final DefaultParser parser = new DefaultParser();
         return parser.parse(cmdLineOptions, filterArgs);
     }
 

@@ -135,7 +135,7 @@ public class JellyTask extends Task {
      */
     public URL getRootContext() throws MalformedURLException {
         if (rootContext == null) {
-            rootContext = new File(SystemProperties.getUserDir()).toURL();
+            rootContext = new File(SystemProperties.getUserDir()).toURI().toURL();
         }
         return rootContext;
     }
@@ -157,7 +157,7 @@ public class JellyTask extends Task {
     protected URL resolveURL(final String name) throws MalformedURLException {
         final File file = getProject().resolveFile(name);
         if (file.exists()) {
-            return file.toURL();
+            return file.toURI().toURL();
         }
         return new URL(name);
     }
@@ -166,7 +166,7 @@ public class JellyTask extends Task {
      * Sets the script file to use
      */
     public void setFile(final File file) throws MalformedURLException {
-        setUrl( file.toURL() );
+        setUrl( file.toURI().toURL() );
     }
 
     /**

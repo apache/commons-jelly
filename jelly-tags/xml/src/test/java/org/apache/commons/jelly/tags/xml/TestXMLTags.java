@@ -145,7 +145,7 @@ public class TestXMLTags extends TestCase {
 
         // allow scripts to refer to any resource inside this project
         // using an absolute URI like /src/test/org/apache/foo.xml
-        context.setRootURL(new File(".").toURL());
+        context.setRootURL(new File(".").toURI().toURL());
 
         // capture the output
         final StringWriter buffer = new StringWriter();
@@ -188,7 +188,7 @@ public class TestXMLTags extends TestCase {
 
         // allow scripts to refer to any resource inside this project
         // using an absolute URI like /src/test/org/apache/foo.xml
-        context.setRootURL(new File(".").toURL());
+        context.setRootURL(new File(".").toURI().toURL());
 
         output.startDocument();
         context.runScript(new File(fileName), output);
@@ -228,9 +228,9 @@ public class TestXMLTags extends TestCase {
         final Document document = parseUnitTest(name);
 
         final List failures = document.selectNodes( "/*/fail" );
-        for ( final Iterator iter = failures.iterator(); iter.hasNext(); ) {
-            final Node node = (Node) iter.next();
-            fail( node.getStringValue() );
+        for (Object failure : failures) {
+            final Node node = (Node) failure;
+            fail(node.getStringValue());
         }
     }
 

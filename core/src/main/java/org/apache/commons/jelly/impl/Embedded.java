@@ -69,7 +69,7 @@ public class Embedded {
     private OutputStream outputStream;
     /** Output(default System.out) */
     private XMLOutput output =
-        XMLOutput.createXMLOutput(new OutputStreamWriter(System.out));
+            XMLOutput.createXMLOutput(new OutputStreamWriter(System.out));
     /** Exception thrown during compilation of script*/
     Exception scriptCompilationException;
     /** Boolean value indicating whether the script has been successfully compiled or NOT */
@@ -185,7 +185,7 @@ public class Embedded {
     private URL resolveURL(final String name) throws MalformedURLException {
         final File file = new File(name);
         if (file.exists()) {
-            return file.toURL();
+            return file.toURI().toURL();
         }
         return new URL(name);
     }
