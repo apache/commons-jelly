@@ -279,7 +279,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     }
 
     /**
-     * Handles wierd properties that don't quite match the Java Beans contract
+     * Handles weird properties that don't quite match the Java Beans contract
      */
     @Override
     protected void setBeanProperties(final Object bean, final Map attributes) throws JellyTagException {
