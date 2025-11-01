@@ -40,7 +40,7 @@
     <dependency>
       <artifactId>jaxme</artifactId>
       <groupId>jaxme</groupId>
-      <version>0.2</version>
+      <version>0.3.1</version>
     </dependency>
     <dependency>
       <artifactId>jaxme-js</artifactId>
