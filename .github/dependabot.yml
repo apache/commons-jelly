@@ -18,7 +18,7 @@ updates:
   - package-ecosystem: "maven"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "quarterly"
       day: "friday"
   - package-ecosystem: "github-actions"
     directory: "/"
