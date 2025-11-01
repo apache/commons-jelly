@@ -52,6 +52,7 @@ The <action> type attribute can be add,update,fix,remove.
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NestedRuntimeException for RuntimeException.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix building on modern Java.</action>
       <!-- UPDATE -->
+      <action type="update" dev="sebb" >Update jaxen:jaxen 1.1.6 => 2.0.0</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump Java from 7 to 8.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-parent from 42 to 85.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-logging from 1.0.3 to 1.3.5.</action>
