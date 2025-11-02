@@ -35,11 +35,11 @@
     <module>jelly-tags</module>
   </modules>
 
-  <url>http://commons.apache.org/proper/commons-jelly/</url>
+  <url>https://commons.apache.org/proper/commons-jelly/</url>
   <inceptionYear>2002</inceptionYear>
   <organization>
     <name>The Apache Software Foundation</name>
-    <url>http://commons.apache.org/</url>
+    <url>https://commons.apache.org/</url>
   </organization>
   <mailingLists>
     <mailingList>
