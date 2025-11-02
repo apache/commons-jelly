@@ -49,7 +49,7 @@
       <groupId>jaxrpc</groupId>
       <artifactId>jaxrpc-api</artifactId>
       <version>1.1-FCS</version>
-      <url>http://java.sun.com/webservices/webservicespack.html</url>
+      <url>https://java.sun.com/webservices/webservicespack.html</url>
     </dependency>
     -->    
 
@@ -59,7 +59,7 @@
       <groupId>saaj</groupId>
       <artifactId>saaj-api</artifactId>
       <version>1.2-FCS</version>
-      <url>http://java.sun.com/webservices/webservicespack.html</url>
+      <url>https://java.sun.com/webservices/webservicespack.html</url>
     </dependency>
     -->    
 

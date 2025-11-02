@@ -36,7 +36,7 @@
       <groupId>jaf</groupId>
       <version>1.0.2</version>
       <artifactId>activation</artifactId>
-      <url>http://java.sun.com/beans/glasgow/jaf.html</url>
+      <url>https://java.sun.com/beans/glasgow/jaf.html</url>
       <properties>
         <gump.project>jaf</gump.project>
       </properties>
@@ -46,7 +46,7 @@
       <groupId>javamail</groupId>
       <artifactId>mail</artifactId>
       <version>1.2</version>
-      <url>http://java.sun.com/products/javamail/javamail-1_2.html</url>
+      <url>https://java.sun.com/products/javamail/javamail-1_2.html</url>
       <properties>
         <gump.project>javamail</gump.project>
         <gump.id>javamail</gump.id>
