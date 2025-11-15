@@ -19,9 +19,7 @@ updates:
     directory: "/"
     schedule:
       interval: "quarterly"
-      day: "friday"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "friday"
+      interval: "quarterly"
