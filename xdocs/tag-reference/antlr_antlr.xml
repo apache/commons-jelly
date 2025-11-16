@@ -26,13 +26,13 @@
 
     <section name="Home Page">
       <p>See 
-        <a href="http://commons.apache.org/jelly/libs/antlr/">https://commons.apache.org/jelly/libs/antlr/</a>
+        <a href="https://commons.apache.org/jelly/libs/antlr/">https://commons.apache.org/jelly/libs/antlr/</a>
       </p>
     </section>
 
     <section name="Description">
       <p>
-        This tag generates java code based on <a href="http://www.antlr.org/">Antlr</a>
+        This tag generates java code based on <a href="https://www.antlr.org/">Antlr</a>
         grammar files. 
       </p>
       <p>

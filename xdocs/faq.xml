@@ -144,7 +144,7 @@
           </a>
         </dt>
         <dd>
-          Use the Jelly JIRA page: <a href="http://issues.apache.org/jira/browse/JELLY">https://issues.apache.org/jira/browse/JELLY</a>
+          Use the Jelly JIRA page: <a href="https://issues.apache.org/jira/browse/JELLY">https://issues.apache.org/jira/browse/JELLY</a>
         </dd>
       </dl>
       
@@ -392,7 +392,7 @@ public class FooTag extends TagSupport {
         <dd>
           Jelly uses Maven for its build system. So you should be able to build Jelly just like
           any other Maven enabled project. Please see the
-          <a href="http://maven.apache.org/start/index.html">Maven</a>
+          <a href="https://maven.apache.org/start/index.html">Maven</a>
           documentation for details.
         </dd>
       </dl>

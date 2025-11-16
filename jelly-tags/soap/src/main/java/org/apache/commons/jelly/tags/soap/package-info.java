@@ -16,6 +16,6 @@
  */
 
 /**
- * Tags for invoking Web Services via <a href="http://xml.apache.org/axis/">Apache Axis</a>.
+ * Tags for invoking Web Services via <a href="https://xml.apache.org/axis/">Apache Axis</a>.
  */
 package org.apache.commons.jelly.tags.soap;

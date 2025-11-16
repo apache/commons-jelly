@@ -22,10 +22,10 @@
 
   <body>
     <links>
-      <item name="Jelly"               href="http://commons.apache.org/jelly/"/>
-      <item name="Commons Modeler"     href="http://commons.apache.org/modeler/"/>
-      <item name="JBoss"               href="http://jboss.org/"/>
-      <item name="mx4j"                href="http://mx4j.sourceforge.net/"/>
+      <item name="Jelly"               href="https://commons.apache.org/jelly/"/>
+      <item name="Commons Modeler"     href="https://commons.apache.org/modeler/"/>
+      <item name="JBoss"               href="https://jboss.org/"/>
+      <item name="mx4j"                href="https://mx4j.sourceforge.net/"/>
     </links>
     
     <menu name="JellyMBean">

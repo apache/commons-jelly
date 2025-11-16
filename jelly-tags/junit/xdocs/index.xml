@@ -25,7 +25,7 @@
   <body>
     <section name="Overview">
     
-      <p>A collection of <a href="http://www.junit.org">JUnit</a> tags for 
+      <p>A collection of <a href="https://www.junit.org">JUnit</a> tags for 
         performing unit tests written in Jelly script.
       </p>
   
@@ -42,7 +42,7 @@
   
       <p>
         There is an example of these tags in action 
-        <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/junit/src/test/org/apache/commons/jelly/tags/junit/suite.jelly?view=markup">here</a>
+        <a href="https://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/junit/src/test/org/apache/commons/jelly/tags/junit/suite.jelly?view=markup">here</a>
       </p>
       <p>
         See the <a href="tags.html">tags</a> for more information.

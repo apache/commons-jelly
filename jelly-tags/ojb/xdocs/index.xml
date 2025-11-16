@@ -26,7 +26,7 @@
     <section name="Overview">
       <p>
         A variety of tags for working with the 
-          <a href="http://db.apache.org/ojb/">ObjectBridge</a> persistence engine.
+          <a href="https://db.apache.org/ojb/">ObjectBridge</a> persistence engine.
         See the <a href="tags.html">tags</a> for more information.
       </p>
     </section>

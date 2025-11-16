@@ -18,10 +18,10 @@
 <project name="@pom.name@">
 
   <title>@pom.name@</title>
-  <organizationLogo href="http://jakarta.apache.org/images/jakarta-logo.gif">Jakarta</organizationLogo>
+  <organizationLogo href="https://jakarta.apache.org/images/jakarta-logo.gif">Jakarta</organizationLogo>
   
   <body><!-- note, all links will be relativized at HTML production... -->
-        <links><item name="Jelly" href="http://commons.apache.org/jelly"/></links>
+        <links><item name="Jelly" href="https://commons.apache.org/jelly"/></links>
     <menu name="@pom.name@">
       <item name="Overview"                href="/index.html"/>
       <item name="Tags"                    href="/tags.html"/>

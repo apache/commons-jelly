@@ -88,7 +88,7 @@ limitations under the License.
       </form>
 
       <p>
-        The <a href="http://www.apache.org/dist/commons/KEYS">KEYS</a>
+        The <a href="https://www.apache.org/dist/commons/KEYS">KEYS</a>
         link links to the code signing keys used to sign the product.
         The <code>PGP</code> link downloads the OpenPGP compatible signature from our main site. 
         The <code>MD5</code> link downloads the checksum from the main site.
@@ -100,13 +100,13 @@ limitations under the License.
         <table>
           <tr>
             <td><a href="[preferred]/commons/jelly/binaries/commons-jelly-1.0.1.tar.gz">commons-jelly-1.0.1.tar.gz</a></td>
-            <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.tar.gz.md5">md5</a></td>
-            <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.tar.gz.asc">pgp</a></td>
+            <td><a href="https://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.tar.gz.md5">md5</a></td>
+            <td><a href="https://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
             <td><a href="[preferred]/commons/jelly/binaries/commons-jelly-1.0.1.zip">commons-jelly-1.0.1.zip</a></td>
-            <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.zip.md5">md5</a></td>
-            <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.zip.asc">pgp</a></td>
+            <td><a href="https://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.zip.md5">md5</a></td>
+            <td><a href="https://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.1.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -114,13 +114,13 @@ limitations under the License.
         <table>
           <tr>
             <td><a href="[preferred]/commons/jelly/source/commons-jelly-1.0-src.tar.gz">commons-jelly-1.0-src.tar.gz</a></td>
-            <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.md5">md5</a></td>
-            <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.asc">pgp</a></td>
+            <td><a href="https://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.md5">md5</a></td>
+            <td><a href="https://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
             <td><a href="[preferred]/commons/jelly/source/commons-jelly-1.0-src.zip">commons-jelly-1.0-src.zip</a></td>
-            <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.md5">md5</a></td>
-            <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.asc">pgp</a></td>
+            <td><a href="https://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.md5">md5</a></td>
+            <td><a href="https://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -130,13 +130,13 @@ limitations under the License.
         <table>
           <tr>
               <td><a href="[preferred]/commons/jelly/binaries/commons-jelly-1.0.tar.gz">commons-jelly-1.0.tar.gz</a></td>
-              <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.tar.gz.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.tar.gz.asc">pgp</a></td>
+              <td><a href="https://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.tar.gz.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
               <td><a href="[preferred]/commons/jelly/binaries/commons-jelly-1.0.zip">commons-jelly-1.0.zip</a></td>
-              <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.zip.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.zip.asc">pgp</a></td>
+              <td><a href="https://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.zip.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/jelly/binaries/commons-jelly-1.0.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -144,13 +144,13 @@ limitations under the License.
         <table>
           <tr>
               <td><a href="[preferred]/commons/jelly/source/commons-jelly-1.0-src.tar.gz">commons-jelly-1.0-src.tar.gz</a></td>
-              <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.asc">pgp</a></td>
+              <td><a href="https://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.tar.gz.asc">pgp</a></td>
           </tr>
           <tr>
               <td><a href="[preferred]/commons/jelly/source/commons-jelly-1.0-src.zip">commons-jelly-1.0-src.zip</a></td>
-              <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.md5">md5</a></td>
-              <td><a href="http://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.asc">pgp</a></td>
+              <td><a href="https://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.md5">md5</a></td>
+              <td><a href="https://www.apache.org/dist/commons/jelly/source/commons-jelly-1.0-src.zip.asc">pgp</a></td>
           </tr>
         </table>
       </subsection>
@@ -161,7 +161,7 @@ limitations under the License.
         </p>
         <ul>
           <li class="download"><a href="[preferred]/commons/jelly/">browse download area</a></li>
-          <li><a href="http://archive.apache.org/dist/commons/jelly/">archives...</a></li>
+          <li><a href="https://archive.apache.org/dist/commons/jelly/">archives...</a></li>
         </ul>
     </section>
   </body>

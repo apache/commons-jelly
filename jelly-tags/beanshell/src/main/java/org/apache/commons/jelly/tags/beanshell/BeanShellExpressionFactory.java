@@ -23,7 +23,7 @@ import org.apache.commons.jelly.expression.ExpressionFactory;
 
 import bsh.EvalError;
 
-/** Represents a factory of <a href="http://www.beanshell.org">beanshell</a> expressions
+/** Represents a factory of <a href="https://www.beanshell.org">beanshell</a> expressions
   */
 public class BeanShellExpressionFactory implements ExpressionFactory {
 

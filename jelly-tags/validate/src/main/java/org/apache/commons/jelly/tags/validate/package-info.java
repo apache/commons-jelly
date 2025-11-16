@@ -17,9 +17,9 @@
 
 /**
  * A tag library for validating XML using various schema languages like DTD, XML Schema, Relax NG as well as Relax and TREX. This tag library uses the
- * <a href="http://iso-relax.sourceforge.net/JARV/">JARV</a> API to perform the validation.
+ * <a href="https://iso-relax.sourceforge.net/JARV/">JARV</a> API to perform the validation.
  * <p>
- * By default we use the <a href="http://wwws.sun.com/software/xml/developers/multischema/">MSV</a> library by Kohsuke Kawaguchi as the implementation of JARV.
+ * By default we use the <a href="https://wwws.sun.com/software/xml/developers/multischema/">MSV</a> library by Kohsuke Kawaguchi as the implementation of JARV.
  * </p>
  */
 package org.apache.commons.jelly.tags.validate;

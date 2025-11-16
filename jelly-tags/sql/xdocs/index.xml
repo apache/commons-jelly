@@ -28,7 +28,7 @@
   
       <p>
         There are some examples of these tags in action 
-        <a href="http://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/sql/src/test/org/apache/commons/jelly/tags/sql/">here</a>
+        <a href="https://svn.apache.org/viewvc/commons/proper/jelly/trunk/jelly-tags/sql/src/test/org/apache/commons/jelly/tags/sql/">here</a>
       </p>
       <p>See the <a href="tags.html">tags</a> for more information.</p>
     </section>

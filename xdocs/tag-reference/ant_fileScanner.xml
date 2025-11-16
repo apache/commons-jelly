@@ -27,14 +27,14 @@
 
     <section name="Home Page">
       <p>See 
-        <a href="http://commons.apache.org/jelly/libs/ant/">https://commons.apache.org/jelly/libs/ant/</a>
+        <a href="https://commons.apache.org/jelly/libs/ant/">https://commons.apache.org/jelly/libs/ant/</a>
       </p>
     </section>
 
     <section name="Description">
       <p>
         This tag creates a <code>FileScanner</code> object so that you can loop over the contents of an Ant
-        <a href="http://ant.apache.org/manual/CoreTypes/fileset.html">fileset</a>.
+        <a href="https://ant.apache.org/manual/CoreTypes/fileset.html">fileset</a>.
       </p>
       <p>
         The <code>FileScanner</code> object has the following useful methods:
@@ -70,7 +70,7 @@
         </tr>
         <tr>
           <td>fileset</td>
-          <td>Any valid ant <a href="http://ant.apache.org/manual/CoreTypes/fileset.html">fileset</a>.</td>
+          <td>Any valid ant <a href="https://ant.apache.org/manual/CoreTypes/fileset.html">fileset</a>.</td>
           <td>No</td>
         </tr>
       </table>

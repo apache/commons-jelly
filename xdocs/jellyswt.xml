@@ -50,7 +50,7 @@
     <section name="Running SWT"> 
       <p>
         Please be aware that SWT uses JNI and so requires a runtime library to be on your PATH for any SWT application to run.
-        You can refer to this <a href="http://eclipsewiki.swiki.net/26">FAQ</a> entry for more details.
+        You can refer to this <a href="https://eclipsewiki.swiki.net/26">FAQ</a> entry for more details.
       </p>
       <p>
         For example on my windows laptop I copied the <i>swt-win32-2116.dll</i> from Eclipse into my PATH before running the examples.
@@ -60,14 +60,14 @@
     <section name="Useful SWT Links"> 
         <ul>
       <li>
-        <a href="http://www.eclipse.org/documentation/html/plugins/org.eclipse.platform.doc.isv/doc/reference/api/index.html">SWT Javadoc</a> 
+        <a href="https://www.eclipse.org/documentation/html/plugins/org.eclipse.platform.doc.isv/doc/reference/api/index.html">SWT Javadoc</a> 
         is very handy. Its mostly the widgets package thats of most interest.
       </li>
       <li>
-        This <a href="http://eclipsewiki.swiki.net/2">SWT Wiki</a> has lots of good examples and documentation.
+        This <a href="https://eclipsewiki.swiki.net/2">SWT Wiki</a> has lots of good examples and documentation.
       </li>
       <li>
-          This <a href="http://dev.eclipse.org/viewcvs/index.cgi/%7Echeckout%7E/platform-swt-home/dev.html">page</a> also has a list of lots of little example SWT applications.
+          This <a href="https://dev.eclipse.org/viewcvs/index.cgi/%7Echeckout%7E/platform-swt-home/dev.html">page</a> also has a list of lots of little example SWT applications.
       </li>
         </ul>
     </section>

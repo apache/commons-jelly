@@ -32,7 +32,7 @@
 The easiest way to get started with Jelly is to try out the <a href="tutorial.html">tutorials</a>.    
 Before you try out any of the tutorials, you may need to install Maven-1.1 first.
 For more details on how to install Maven please refer to the 
-<a href="http://maven.apache.org/maven-1.x/">Maven documentation</a>
+<a href="https://maven.apache.org/maven-1.x/">Maven documentation</a>
 </p>
 
 <p>
@@ -53,7 +53,7 @@ Get a source distribution of Jelly.
 The easiest way to do this is (until we have nightly builds working) is to grab a CVS checkout.
 Jelly currently resides in the jelly directory inside jakarta-commons.
 There are instructions on performing CVS checkouts 
-<a href="http://jakarta.apache.org/site/cvsindex.html">here</a>
+<a href="https://jakarta.apache.org/site/cvsindex.html">here</a>
 </li>
 </ul>
 </p>

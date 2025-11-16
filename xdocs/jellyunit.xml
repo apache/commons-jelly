@@ -68,7 +68,7 @@
     <section name="Mock Tags"> 
       <p>
         In unit testing scenarios its often useful to use 
-        <a href="http://c2.com/cgi/wiki?MockObject">Mock Objects</a> to test application logic and stub the behaviour
+        <a href="https://c2.com/cgi/wiki?MockObject">Mock Objects</a> to test application logic and stub the behaviour
         of other service
       </p>
       <p>

@@ -31,7 +31,7 @@
 Rather like the Cocoon project, Jelly also supports the concept of <i>XML pipelines</i>.
 The idea in an XML pipeline is for XML events to be created by some generator and then
 flow through multiple filters, transformers or processors to some ultimate output.
-Currently XML events are implemented via <a href="http://sax.sf.net/">SAX</a>. 
+Currently XML events are implemented via <a href="https://sax.sf.net/">SAX</a>. 
 </p>
 
 

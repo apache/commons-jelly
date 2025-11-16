@@ -31,16 +31,16 @@
     JellyMBean is a Jelly library for creating, configuring and registering beans and 
     MBeans with a JMX server.
     JellyMBean uses the 
-    <a href="http://commons.apache.org/jelly/libs/bean/">JellyBean</a> library 
+    <a href="https://commons.apache.org/jelly/libs/bean/">JellyBean</a> library 
     to create and configure beans and extends it to support JMX operations.
 </p>
 
 <p>
     JellyMBean is similar to the MLET parser in 
-    <a href="http://mx4j.sourceforge.net/">mx4j</a> and 
-    <a href="http://jboss.org/">JBoss</a> and the 
-    <a href="http://ant.apache.org/">Ant</a> tasks in 
-    <a href="http://commons.apache.org/modeler/">commons-modeler</a>
+    <a href="https://mx4j.sourceforge.net/">mx4j</a> and 
+    <a href="https://jboss.org/">JBoss</a> and the 
+    <a href="https://ant.apache.org/">Ant</a> tasks in 
+    <a href="https://commons.apache.org/modeler/">commons-modeler</a>
 </p>
 
 <p>

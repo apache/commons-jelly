@@ -117,7 +117,7 @@ package org.apache.commons.jelly.tags.threads;
  *    // ...  other similar traversal and update methods ...
  * }
  * </pre>
- * <p>[<a href="http://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/intro.html"> Introduction to this package. </a>]
+ * <p>[<a href="https://gee.cs.oswego.edu/dl/classes/EDU/oswego/cs/dl/util/concurrent/intro.html"> Introduction to this package. </a>]
  *
  * --------------------------------------------------------------------------------------------
  * This Mutex is used to add the still running lock to the JellyThread tag.

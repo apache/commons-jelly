@@ -72,9 +72,9 @@ XML pipeline engine similar in some ways to Cocoon.
 some kind of processing. Here are a few examples</p>
 
 <ul>
-  <li><a href="http://jakarta.apache.org/ant/">Ant</a></li>
+  <li><a href="https://jakarta.apache.org/ant/">Ant</a></li>
   <li>XSLT</li>
-  <li><a href="http://www.w3.org/TR/xml-pipeline/">XML Pipeline language</a></li>
+  <li><a href="https://www.w3.org/TR/xml-pipeline/">XML Pipeline language</a></li>
   <li>JSTL and JSP custom tags</li>
   <li>Latka,  AntEater &amp; other similar XML based unit testing frameworks</li>
   <li>commons-workflow</li>

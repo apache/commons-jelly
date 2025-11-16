@@ -25,7 +25,7 @@
   <body>
     <section name="Overview">
       <p>
-        Compares two XML documents using <a href="http://xmlunit.sourceforge.net/">XMLUnit</a>.
+        Compares two XML documents using <a href="https://xmlunit.sourceforge.net/">XMLUnit</a>.
           See the <a href="tags.html">tags</a> for more information.
       </p>
     </section>

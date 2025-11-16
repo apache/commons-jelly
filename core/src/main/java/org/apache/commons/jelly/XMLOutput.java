@@ -42,7 +42,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /** <p>{@code XMLOutput} is used to output XML events
   * in a SAX-like manner. This also allows pipelining to be done
-  * such as in the <a href="http://xml.apache.org/cocoon/">Cocoon</a> project.</p>
+  * such as in the <a href="https://xml.apache.org/cocoon/">Cocoon</a> project.</p>
   */
 
 public class XMLOutput implements ContentHandler, LexicalHandler {

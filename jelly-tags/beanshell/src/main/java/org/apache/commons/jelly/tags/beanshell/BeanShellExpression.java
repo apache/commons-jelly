@@ -21,7 +21,7 @@ import org.apache.commons.jelly.expression.ExpressionSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-/** Represents a <a href="http://www.beanshell.org">beanshell</a> expression
+/** Represents a <a href="https://www.beanshell.org">beanshell</a> expression
   */
 public class BeanShellExpression extends ExpressionSupport {
 

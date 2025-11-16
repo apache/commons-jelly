@@ -27,14 +27,14 @@
 
     <section name="Home Page">
       <p>See 
-        <a href="http://commons.apache.org/jelly/libs/ant/">https://commons.apache.org/jelly/libs/ant/</a>
+        <a href="https://commons.apache.org/jelly/libs/ant/">https://commons.apache.org/jelly/libs/ant/</a>
       </p>
     </section>
 
     <section name="Description">
       <p>
-        This tag represents all <a href="http://ant.apache.org/manual/anttaskslist.html">Ant tasks</a>, and 
-        can create any <a href="http://ant.apache.org/">Ant</a> task, target or datatype dynamically from the
+        This tag represents all <a href="https://ant.apache.org/manual/anttaskslist.html">Ant tasks</a>, and 
+        can create any <a href="https://ant.apache.org/">Ant</a> task, target or datatype dynamically from the
         tag name you use, e.g. &lt;copy&gt;
       </p>
       <p>
@@ -57,7 +57,7 @@
       <p>
         You never code this tag directly, instead you use it by defining the ant tag library namespace 
         and the using an Ant element. For example,
-        to use the <a href="http://ant.apache.org/manual/CoreTasks/copy.html">Ant copy task</a> you would code something similar
+        to use the <a href="https://ant.apache.org/manual/CoreTasks/copy.html">Ant copy task</a> you would code something similar
         to this:
       </p>
       <source><![CDATA[

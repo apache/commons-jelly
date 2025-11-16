@@ -22,7 +22,7 @@ import org.apache.commons.jelly.TagLibrary;
 /** Tag library for the Quartz enterprise job scheduler.
  *
  *  <p>
- *  <a href="http://quartz.sf.net/">quartz @ sourceforge</a>
+ *  <a href="https://quartz.sf.net/">quartz @ sourceforge</a>
  *  </p>
  */
 public class QuartzTagLibrary extends TagLibrary

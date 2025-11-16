@@ -16,7 +16,7 @@
  */
 
 /**
- * A collection of <a href="http://www.junit.org">JUnit</a> tags for performing unit tests written in Jelly script.
+ * A collection of <a href="https://www.junit.org">JUnit</a> tags for performing unit tests written in Jelly script.
  * <p>
  * The &lt;suite&gt; tag allows a test suite to be created and then test cases can either be individually ran or the whole suite ran.
  * </p>

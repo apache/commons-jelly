@@ -36,13 +36,13 @@
 <p><em>Jelly</em> is a tool for turning XML into executable code.
 So Jelly is a Java and XML based scripting and processing engine. 
 Jelly can be used as a more flexible and powerful front end 
-to <a href="http://jakarta.apache.org/ant/">Ant</a> 
-such as in the <a href="http://maven.apache.org/">Maven</a>
+to <a href="https://jakarta.apache.org/ant/">Ant</a> 
+such as in the <a href="https://maven.apache.org/">Maven</a>
 project, as a testing framework such as <a href="jellyunit.html">JellyUnit</a>, 
 in an integration or workflow
-system such as <a href="http://werkflow.werken.com/">werkflow</a> 
+system such as <a href="https://werkflow.werken.com/">werkflow</a> 
 or as a page templating system inside engines like 
-<a href="http://cocoon.apache.org/">Cocoon</a>.
+<a href="https://cocoon.apache.org/">Cocoon</a>.
 </p>
 
 <p>
@@ -53,10 +53,10 @@ Maven or inside a Servlet, Web Service, JMS MessageListener or embedded directly
 
 <p>
 Jelly has native support for a Velocity-like expression language called
-<a href="http://commons.apache.org/jexl/">Jexl</a> 
+<a href="https://commons.apache.org/jexl/">Jexl</a> 
 which is a superset of the JSP, JSTL and JSF expression languages
 as  well as support for other pluggable expression languages like XPath via 
-<a href="http://jaxen.org">Jaxen</a>, JavaScript, beanshell and Jython.
+<a href="https://jaxen.org">Jaxen</a>, JavaScript, beanshell and Jython.
 </p>
 
 <p>
@@ -179,7 +179,7 @@ Indeed the method name can be set via &lt;define:jellybean method="doIt"/&gt;
 
 <section name="JSTL">
 <p>
-<a href="http://java.sun.com/products/jsp/jstl/">JSTL</a> 
+<a href="https://java.sun.com/products/jsp/jstl/">JSTL</a> 
 is the JSP Standard Tag Library which is standardized through the JCP process.
 </p>
 
@@ -204,7 +204,7 @@ for web applications and web services.
 <section name="Ant">
 <p>
 There is a JellyTask for calling Jelly from 
-<a href="http://jakarta.apache.org/ant/">Ant</a> 
+<a href="https://jakarta.apache.org/ant/">Ant</a> 
 as well as a Jelly tag library for using any Ant Tasks inside a Jelly script!
 </p>
 
@@ -273,7 +273,7 @@ testing web applications and web services.
 </p>
 
 <p>
-Currently Jelly is being used inside <a href="http://maven.apache.org/">Maven</a>
+Currently Jelly is being used inside <a href="https://maven.apache.org/">Maven</a>
 to provide more flexible and powerful build mechanism while still preserving investment in Ant tasks.
 </p>
 
@@ -281,9 +281,9 @@ to provide more flexible and powerful build mechanism while still preserving inv
 
 <section name="JSTL References">
   <ul>
-    <li><a href="http://java.sun.com/products/jsp/jstl/1.1/docs/tlddocs/index.html">JSTL Tag reference</a></li>
-    <li><a href="http://java.sun.com/products/jsp/jstl/1.1/docs/api/index.html">JSTL API</a></li>
-    <li><a href="http://jakarta.apache.org/taglibs/doc/standard-doc/intro.html">Apache JSTL Implementation</a></li>
+    <li><a href="https://java.sun.com/products/jsp/jstl/1.1/docs/tlddocs/index.html">JSTL Tag reference</a></li>
+    <li><a href="https://java.sun.com/products/jsp/jstl/1.1/docs/api/index.html">JSTL API</a></li>
+    <li><a href="https://jakarta.apache.org/taglibs/doc/standard-doc/intro.html">Apache JSTL Implementation</a></li>
   </ul>
 </section>
 
