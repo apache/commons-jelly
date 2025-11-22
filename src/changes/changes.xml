@@ -75,6 +75,7 @@ The <action> type attribute can be add,update,fix,remove.
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump msv:isorelax from 20030807 to 20050913 #61.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump quartz:quartz from 1.0.2 to 1.5.1 #59.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump antlr:antlr from 2.7.1 to 2.7.6 #89.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump jetty:jetty from 4.2.3 to 4.2.12 #92.</action>
     </release>
   </body>
 </document>
