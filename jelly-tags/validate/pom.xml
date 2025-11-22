@@ -63,7 +63,7 @@
     <dependency>
       <groupId>msv</groupId>
       <artifactId>relaxngDatatype</artifactId>
-      <version>20030807</version>
+      <version>20050913</version>
     </dependency>
 
     <!-- END for runtime -->
