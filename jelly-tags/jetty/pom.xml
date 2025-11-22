@@ -39,7 +39,7 @@
     <dependency>
       <groupId>jetty</groupId>
       <artifactId>jetty</artifactId>
-      <version>4.2.3</version>
+      <version>4.2.12</version>
     </dependency>
     <dependency>
       <groupId>servletapi</groupId>
