@@ -34,7 +34,7 @@
     <dependency>
       <groupId>commons-betwixt</groupId>
       <artifactId>commons-betwixt</artifactId>
-      <version>0.6</version>
+      <version>0.7</version>
     </dependency>
     <dependency>
       <groupId>commons-digester</groupId>
