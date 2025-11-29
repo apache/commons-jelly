@@ -22,7 +22,7 @@ import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.expression.Expression;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.xml.sax.SAXException;
@@ -84,7 +84,7 @@ public class ReplaceTag extends TagSupport {
 
         // set the result in the context, or output it
         if (answer != null) {
-            final String stringAnswer = StringUtils.replace(answer.toString(), oldString, newString);
+            final String stringAnswer = Strings.CS.replace(answer.toString(), oldString, newString);
             if ( var != null ) {
                 context.setVariable(var, stringAnswer);
             } else {
