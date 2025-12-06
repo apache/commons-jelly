@@ -17,3 +17,7 @@ site-content
 .classpath
 .project
 .externalToolBuilders
+
+# NetBeans files
+nb-configuration.xml
+nbactions.xml
