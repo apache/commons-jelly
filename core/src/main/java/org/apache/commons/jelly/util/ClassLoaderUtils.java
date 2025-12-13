@@ -47,8 +47,8 @@ public class ClassLoaderUtils {
      * <ul>
      * <li>The specified class loader, if any</li>
      * <li>The thread context class loader, if it exists and {@code useContextClassLoader} is true</li>
-     * <li>The class loader used to load the calling class.
-     * <li>The System class loader.
+     * <li>The class loader used to load the calling class.</li>
+     * <li>The System class loader.</li>
      * </ul>
      */
     public static ClassLoader getClassLoader(final ClassLoader specifiedLoader, final boolean useContextClassLoader, final Class callingClass) {
@@ -69,8 +69,8 @@ public class ClassLoaderUtils {
      * when a context class loader is not specified.  This is determined based upon the following rules:
      * <ul>
      * <li>The specified class loader, if any</li>
-     * <li>The class loader used to load the calling class.
-     * <li>The System class loader.
+     * <li>The class loader used to load the calling class.</li>
+     * <li>The System class loader.</li>
      * </ul>
      */
     public static ClassLoader getClassLoader(final ClassLoader specifiedLoader, final Class callingClass) {

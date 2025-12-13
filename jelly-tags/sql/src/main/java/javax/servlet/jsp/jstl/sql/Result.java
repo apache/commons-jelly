@@ -25,12 +25,12 @@ import java.util.SortedMap;
  * query result:</p>
  *
  * <ul>
- * <li> result rows
- * <li> result rows using an index
- * <li> number of rows in the result
- * <li> result meta data
+ * <li> result rows</li>
+ * <li> result rows using an index</li>
+ * <li> number of rows in the result</li>
+ * <li> result meta data</li>
  * <li> indication whether result returned is a complete set or
- *      a subset limited by a maximum row setting
+ *      a subset limited by a maximum row setting</li>
  * </ul>
  */
 public interface Result {

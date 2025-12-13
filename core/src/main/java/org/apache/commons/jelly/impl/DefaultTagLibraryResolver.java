@@ -66,7 +66,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
      * <li>The class loader set by {@code setClassLoader()}, if any</li>
      * <li>The thread context class loader, if it exists and the
      *     {@code useContextClassLoader} property is set to true</li>
-     * <li>The class loader used to load the XMLParser class itself.
+     * <li>The class loader used to load the XMLParser class itself.</li>
      * </ul>
      */
     public ClassLoader getClassLoader() {

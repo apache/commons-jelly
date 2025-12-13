@@ -72,41 +72,39 @@ import org.xml.sax.Attributes;
  * the following basic components:
  * </p>
  * <ul>
- * <li>button - JButton
-        <li>checkBox - JCheckBox
-<li>checkBoxMenuItem - JCheckBoxMenuItem
-<li>comboBox - JComboBox
-<li>desktopPane - JDesktopPane
-<li>editorPane - JEditorPane
-<li>fileChooser - JFileChooser
-<li>frame - JFrame
-<li>internalFrame - JInternalFrame
-<li>label - JLabel
-<li>list - JList
-<li>menu - JMenu
-<li>menuBar - JMenuBar
-<li>menuItem - JMenuItem
-<li>panel - JPanel
-<li>passwordField - JPasswordField
-<li>popupMenu - JPopupMenu
-<li>progressBar - JProgressBar
-<li>radioButton - JRadioButton
-<li>radioButtonMenuItem - JRadioButtonMenuItem
-<li>optionPane - JOptionPane
-<li>scrollPane - JScrollPane
-<li>separator - JSeparator
-
-<li>splitPane - JSplitPane
-<li>hbox" - Box.createHorizontalBox()
-<li>vbox - Box.createVerticalBox()
-
-<li>tabbedPane - JTabbedPane
-<li>table - JTable
-<li>textArea - JTextArea
-<li>textField - JTextField
-<li>toggleButton - JToggleButton
-<li>tree - JTree
-<li>toolBar - JToolBar
+ * <li>button - JButton</li>
+ * <li>checkBox - JCheckBox</li>
+ * <li>checkBoxMenuItem - JCheckBoxMenuItem</li>
+ * <li>comboBox - JComboBox</li>
+ * <li>desktopPane - JDesktopPane</li>
+ * <li>editorPane - JEditorPane</li>
+ * <li>fileChooser - JFileChooser</li>
+ * <li>frame - JFrame</li>
+ * <li>internalFrame - JInternalFrame</li>
+ * <li>label - JLabel</li>
+ * <li>list - JList</li>
+ * <li>menu - JMenu</li>
+ * <li>menuBar - JMenuBar</li>
+ * <li>menuItem - JMenuItem</li>
+ * <li>panel - JPanel</li>
+ * <li>passwordField - JPasswordField</li>
+ * <li>popupMenu - JPopupMenu</li>
+ * <li>progressBar - JProgressBar</li>
+ * <li>radioButton - JRadioButton</li>
+ * <li>radioButtonMenuItem - JRadioButtonMenuItem</li>
+ * <li>optionPane - JOptionPane</li>
+ * <li>scrollPane - JScrollPane</li>
+ * <li>separator - JSeparator</li>
+ * <li>splitPane - JSplitPane</li>
+ * <li>hbox" - Box.createHorizontalBox()</li>
+ * <li>vbox - Box.createVerticalBox()</li>
+ * <li>tabbedPane - JTabbedPane</li>
+ * <li>table - JTable</li>
+ * <li>textArea - JTextArea</li>
+ * <li>textField - JTextField</li>
+ * <li>toggleButton - JToggleButton</li>
+ * <li>tree - JTree</li>
+ * <li>toolBar - JToolBar</li>
  * </ul>
  */
 public class SwingTagLibrary extends TagLibrary {
