@@ -41,7 +41,7 @@ public class JellyPropsHandler extends DefaultPropsHandler {
 
     /** Retrieve all ant properties.
      *
-     *  @return A {@code Hashtable} of all properties.
+     * @return A {@code Hashtable} of all properties.
      */
     @Override
     public Hashtable getProperties() {
@@ -58,9 +58,9 @@ public class JellyPropsHandler extends DefaultPropsHandler {
 
     /** Retrieve an ant property.
      *
-     *  @param name The property name.
+     * @param name The property name.
      *
-     *  @return The property value.
+     * @return The property value.
      */
     @Override
     public String getProperty(final String name) {
@@ -79,8 +79,8 @@ public class JellyPropsHandler extends DefaultPropsHandler {
 
     /** Sets an ant property.
      *
-     *  @param name The property name.
-     *  @param value The property value.
+     * @param name The property name.
+     * @param value The property value.
      */
     @Override
     public void setProperty(final String name, final String value) {

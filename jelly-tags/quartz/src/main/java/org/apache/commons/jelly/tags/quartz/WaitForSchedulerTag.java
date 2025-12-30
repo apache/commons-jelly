@@ -40,9 +40,9 @@ public class WaitForSchedulerTag extends QuartzTagSupport
 
     /** Perform this tag.
      *
-     *  @param output Output sink.
+     * @param output Output sink.
      *
-     *  @throws JellyTagException If an error occurs.
+     * @throws JellyTagException If an error occurs.
      */
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException

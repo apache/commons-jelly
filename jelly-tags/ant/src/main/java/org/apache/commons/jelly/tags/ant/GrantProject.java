@@ -103,9 +103,10 @@ public class GrantProject extends Project {
         return this.propsHandler.getProperty(key);
     }
 
-    /** Retrieve the currently installed {@code PropsHandler}.
+    /**
+     * Retrieve the currently installed {@code PropsHandler}.
      *
-     *  @return The currently installed {@code PropsHandler},
+     * @return The currently installed {@code PropsHandler},
      *          or {@code null} if no {@code PropsHandler}
      *          had yet to be installed.
      */
@@ -187,9 +188,10 @@ public class GrantProject extends Project {
         }
     }
 
-    /** Install a {@code PropsHandler} delegate.
+    /**
+     * Install a {@code PropsHandler} delegate.
      *
-     *  @param propsHandler The {@code PropsHandler} to install,
+     * @param propsHandler The {@code PropsHandler} to install,
      *         or {@code null} to remove any currently installed
      *         {@code PropsHandler}.
      */

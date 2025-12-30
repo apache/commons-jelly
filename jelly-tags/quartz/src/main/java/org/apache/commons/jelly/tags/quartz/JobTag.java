@@ -44,10 +44,10 @@ public class JobTag extends QuartzTagSupport
 
     /** Perform this tag.
      *
-     *  @param output Output sink.
+     * @param output Output sink.
      *
-     *  @throws MissingAttributeException If an error occurs.
-     *  @throws JellyTagException If an error occurs.
+     * @throws MissingAttributeException If an error occurs.
+     * @throws JellyTagException If an error occurs.
      */
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException
@@ -93,7 +93,7 @@ public class JobTag extends QuartzTagSupport
 
     /** Retrieve the group of this job.
      *
-     *  @return The group of this job.
+     * @return The group of this job.
      */
     public String getGroup()
     {
@@ -102,7 +102,7 @@ public class JobTag extends QuartzTagSupport
 
     /** Retrieve the name of this job.
      *
-     *  @return The name of this job.
+     * @return The name of this job.
      */
     public String getName()
     {
@@ -111,7 +111,7 @@ public class JobTag extends QuartzTagSupport
 
     /** Sets the group of this job.
      *
-     *  @param group The group of this job.
+     * @param group The group of this job.
      */
     public void setGroup(final String group)
     {
@@ -124,7 +124,7 @@ public class JobTag extends QuartzTagSupport
 
     /** Sets the name of this job.
      *
-     *  @param name The name of this job.
+     * @param name The name of this job.
      */
     public void setName(final String name)
     {

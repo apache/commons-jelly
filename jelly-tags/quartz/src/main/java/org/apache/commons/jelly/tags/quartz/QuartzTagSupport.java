@@ -38,9 +38,9 @@ public abstract class QuartzTagSupport extends TagSupport
      *  created, started, and installed.  Additionally, a runtime
      *  shutdown hook will be added to cleanly shutdown the scheduler.
      *
-     *  @return The scheduler.
+     * @return The scheduler.
      *
-     *  @throws SchedulerException If there is an error creating the
+     * @throws SchedulerException If there is an error creating the
      *          scheduler.
      */
     public Scheduler getScheduler() throws SchedulerException

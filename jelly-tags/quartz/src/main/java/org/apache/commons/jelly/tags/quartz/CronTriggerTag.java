@@ -55,10 +55,10 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Perform this tag.
      *
-     *  @param output Output sink.
+     * @param output Output sink.
      *
-     *  @throws MissingAttributeException If an error occurs.
-     *  @throws JellyTagException If an error occurs.
+     * @throws MissingAttributeException If an error occurs.
+     * @throws JellyTagException If an error occurs.
      */
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException
@@ -111,7 +111,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Retrieve the group.
      *
-     *  @return The group.
+     * @return The group.
      */
     public String getGroup()
     {
@@ -120,7 +120,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Retrieve the job group.
      *
-     *  @return The job group.
+     * @return The job group.
      */
     public String getJobGroup()
     {
@@ -129,7 +129,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Retrieve the job name.
      *
-     *  @return The job name.
+     * @return The job name.
      */
     public String getJobName()
     {
@@ -138,7 +138,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Retrieve the name.
      *
-     *  @return The name.
+     * @return The name.
      */
     public String getName()
     {
@@ -154,7 +154,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Sets the group
      *
-     *  @param group The group
+     * @param group The group
      */
     public void setGroup(final String group)
     {
@@ -163,7 +163,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Sets the job group.
      *
-     *  @param jobGroup The job group.
+     * @param jobGroup The job group.
      */
     public void setJobGroup(final String jobGroup)
     {
@@ -172,7 +172,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Sets the job name.
      *
-     *  @param jobName The job name.
+     * @param jobName The job name.
      */
     public void setJobName(final String jobName)
     {
@@ -181,7 +181,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Sets the name.
      *
-     *  @param name.
+     * @param name.
      */
     public void setName(final String name)
     {
@@ -194,7 +194,7 @@ public class CronTriggerTag extends QuartzTagSupport
 
     /** Sets the cron time spec.
      *
-     *  @param spec The cron time spec.
+     * @param spec The cron time spec.
      */
     public void setSpec(final String spec)
     {

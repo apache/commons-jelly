@@ -53,7 +53,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     /** Returns the lower-case variant of the constant-name
         *    corresponding to the stored {@link #anchor} attribute.
         *
-        *    @see    #anchor
+        * @see    #anchor
         */
     public String getAnchor() {
         switch (this.anchor) {
@@ -117,7 +117,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
     /** Returns the lower-case variant of the constant-name
         *    corresponding to the stored {@link #fill} attribute.
         *
-        *    @see    #fill
+        * @see    #fill
         */
     public String getFill() {
         switch (fill) {
@@ -170,7 +170,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
         * and sets the {@link #anchor} value accordingly.
         *    The accepted strings are case-insensitive.
         *
-        *    @see #anchor
+        * @see #anchor
         */
     public void setAnchor(final String anchorString) {
         final String lcAnchorString = anchorString.toLowerCase();
@@ -284,7 +284,7 @@ public class GridBagConstraintBean extends GridBagConstraints {
         * and sets the {@link #fill} value accordingly.
         *    The accepted strings are case-insensitive.
         *
-        *    @see #fill
+        * @see #fill
         */
     public void setFill(final String fillString) {
         final String lcFillString = fillString.toLowerCase();

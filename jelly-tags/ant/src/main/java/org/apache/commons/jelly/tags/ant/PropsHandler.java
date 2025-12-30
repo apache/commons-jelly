@@ -22,20 +22,20 @@ import java.util.Hashtable;
 import org.apache.tools.ant.Project;
 
 /** Interface for delegates supporting property management
- *  for a{@code GrantProject}.
+ * for a{@code GrantProject}.
  *
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#setProperty
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#setNewProperty
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#setUserProperty
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#setInheritedProperty
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#getProperty
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#getUserProperty
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#getProperties
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#getUserProperties
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#copyUserProperties
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#copyInheritedProperties
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#setSystemProperties
- *  @see org.apache.commons.jelly.tags.ant.GrantProject#setJavaVersionProperty
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#setProperty
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#setNewProperty
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#setUserProperty
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#setInheritedProperty
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#getProperty
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#getUserProperty
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#getProperties
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#getUserProperties
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#copyUserProperties
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#copyInheritedProperties
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#setSystemProperties
+ * @see org.apache.commons.jelly.tags.ant.GrantProject#setJavaVersionProperty
  */
 public interface PropsHandler {
 
@@ -53,36 +53,36 @@ public interface PropsHandler {
 
     /** Retrieve a {@code Hashtable} of all properties.
      *
-     *  @return A {@code Hashtable} of all properties.
+     * @return A {@code Hashtable} of all properties.
      */
     Hashtable getProperties();
 
     /** Retrieve a property.
      *
-     *  @param key The property key.
+     * @param key The property key.
      *
-     *  @return The value.
+     * @return The value.
      */
     String getProperty(String key);
 
     /** Retrieve a {@code Hashtable} of all user properties.
      *
-     *  @return A {@code Hashtable} of all user properties.
+     * @return A {@code Hashtable} of all user properties.
      */
     Hashtable getUserProperties();
 
     /** Retrieve a user property.
      *
-     *  @param key The user property key.
+     * @param key The user property key.
      *
-     *  @return The value.
+     * @return The value.
      */
     String getUserProperty(String key);
 
     /** Sets an inherited property.
      *
-     *  @param key The user property key.
-     *  @param value The value.
+     * @param key The user property key.
+     * @param value The value.
      */
     void setInheritedProperty(String key, String value);
 
@@ -92,15 +92,15 @@ public interface PropsHandler {
 
     /** Sets a new property.
      *
-     *  @param key The property key.
-     *  @param value The value.
+     * @param key The property key.
+     * @param value The value.
      */
     void setNewProperty(String key, String value);
 
     /** Sets a property.
      *
-     *  @param key The property key.
-     *  @param value The value.
+     * @param key The property key.
+     * @param value The value.
      */
     void setProperty(String key, String value);
 
@@ -121,8 +121,8 @@ public interface PropsHandler {
 
     /** Sets a user property.
      *
-     *  @param key The user property key.
-     *  @param value The value.
+     * @param key The user property key.
+     * @param value The value.
      */
     void setUserProperty(String key, String value);
 

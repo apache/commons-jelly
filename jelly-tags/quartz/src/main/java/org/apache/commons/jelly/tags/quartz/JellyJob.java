@@ -43,9 +43,9 @@ public class JellyJob implements Job
 
     /** Execute this job.
      *
-     *  @param jobContext Job context data.
+     * @param jobContext Job context data.
      *
-     *  @throws JobExecutionException If an error occurs during job execution.
+     * @throws JobExecutionException If an error occurs during job execution.
      */
     @Override
     public void execute(final JobExecutionContext jobContext) throws JobExecutionException

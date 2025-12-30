@@ -68,9 +68,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
     /** Task, if this tag represents a task. */
     protected Task task;
 
-    /** Constructs  with a project and tag name.
+    /**
+     * Constructs  with a project and tag name.
      *
-     *  @param tagName The name on the tag.
+     * @param tagName The name on the tag.
      */
     public AntTag(final String tagName) {
         this.tagName = tagName;
@@ -440,9 +441,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
         return this.tagName;
     }
 
-    /** Retrieve the general object underlying this tag.
+    /*
+     * Retrieve the general object underlying this tag.
      *
-     *  @return The object underlying this tag.
+     * @return The object underlying this tag.
      */
     @Override
     public Object getTaskObject() {
@@ -527,9 +529,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
         }
     }
 
-    /** Sets the object underlying this tag.
+    /**
+     * Sets the object underlying this tag.
      *
-     *  @param object The object.
+     * @param object The object.
      */
     public void setObject(final Object object) {
         this.object = object;
