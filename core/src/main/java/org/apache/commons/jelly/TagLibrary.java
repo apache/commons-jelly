@@ -68,7 +68,7 @@ public abstract class TagLibrary {
     }
 
     /**
-     * Constructor
+     * Constructs a new instance.
 	 * @param allowUnknownTags whether unknown tags are allowed or an exception is raised
 	 */
 	public TagLibrary(final boolean allowUnknownTags) {
