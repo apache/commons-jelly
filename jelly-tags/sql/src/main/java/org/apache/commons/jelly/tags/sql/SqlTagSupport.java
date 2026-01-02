@@ -31,7 +31,7 @@ import org.apache.commons.jelly.TagSupport;
 import org.apache.commons.jelly.tags.Resources;
 
 /**
- * <p>Abstract base class for any SQL related tag in JSTL.
+ * <p>Abstrac class for any SQL related tag in JSTL.
 
  */
 
