@@ -605,8 +605,6 @@ public class XMLParser extends DefaultHandler {
         }
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
     /**
      * If this object has not been configured then register the default
      * namespaces
@@ -1157,8 +1155,6 @@ public class XMLParser extends DefaultHandler {
         // No processing required
     }
 
-    // ContentHandler interface
-    //-------------------------------------------------------------------------
     /**
      * Process notification of the beginning of the document being reached.
      *

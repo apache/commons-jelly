@@ -44,9 +44,6 @@ public abstract class LayoutTagSupport extends UseBeanTag {
         super(layoutClass);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
     /**
      * Provides a strategy method that allows values to be converted,
      * particularly to support integer enumerations and String representations.
@@ -72,8 +69,6 @@ public abstract class LayoutTagSupport extends UseBeanTag {
         return null;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
     /**
      * Either defines a variable or adds the current component to the parent
      */

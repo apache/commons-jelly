@@ -41,8 +41,6 @@ public class ResultSetTag extends TagSupport {
         rows.add(row);
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (var == null) {
@@ -57,8 +55,6 @@ public class ResultSetTag extends TagSupport {
         rows = null;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * Sets the variable to export the result set to.
      */

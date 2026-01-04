@@ -133,8 +133,6 @@ public class AssertThrowsTag extends AssertTagSupport {
         this.classLoader = classLoader;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * Sets the class name of exception expected to be thrown by the body.  The
      * class name must be fully qualified and can either be the expected
@@ -144,9 +142,6 @@ public class AssertThrowsTag extends AssertTagSupport {
     public void setExpected(final String expected) {
         this.expected = expected;
     }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /**
      * Sets the variable name to define for this expression.

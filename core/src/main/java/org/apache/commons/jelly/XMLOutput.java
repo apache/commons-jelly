@@ -266,8 +266,6 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         return output;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
     /**
      * Factory method to create a new XMLOutput from an XMLWriter
      */
@@ -285,9 +283,6 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
 
     /** The SAX ContentHandler that output goes to. */
     private ContentHandler contentHandler;
-
-    // Static helper methods
-    //-------------------------------------------------------------------------
 
     /** The SAX LexicalHandler that output goes to. */
     private LexicalHandler lexicalHandler;
@@ -542,8 +537,6 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * @return the SAX ContentHandler to use to pipe SAX events into
      */

@@ -52,8 +52,6 @@ public class DynamicTag extends DynaTagSupport {
         this.template = template;
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         if ( log.isDebugEnabled() ) {
@@ -77,8 +75,6 @@ public class DynamicTag extends DynaTagSupport {
         getTemplate().run(newJellyContext, output);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** The template to be executed by this tag which may well
      * invoke this instances body from inside the template
      */
@@ -86,8 +82,6 @@ public class DynamicTag extends DynaTagSupport {
         return template;
     }
 
-    // DynaTag interface
-    //-------------------------------------------------------------------------
     @Override
     public void setAttribute(final String name, final Object value) {
         attributes.put(name, value);

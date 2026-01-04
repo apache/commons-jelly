@@ -49,8 +49,6 @@ public class ScriptTag extends TagSupport implements LocationAware {
         this.manager = manager;
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         final String text = getBodyText();
@@ -79,8 +77,6 @@ public class ScriptTag extends TagSupport implements LocationAware {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * @return int
      */

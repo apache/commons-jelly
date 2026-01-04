@@ -36,15 +36,11 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
     public MyContainerTag() {
     }
 
-    // CollectionTag interface
-    //-------------------------------------------------------------------------
     @Override
     public void addItem(final Object value) {
         list.add(value);
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         invokeBody(output);
@@ -52,8 +48,6 @@ public class MyContainerTag extends TagSupport implements CollectionTag {
         list = new ArrayList();
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * @return String
      */

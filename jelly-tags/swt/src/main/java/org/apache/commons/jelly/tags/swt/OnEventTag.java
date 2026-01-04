@@ -44,9 +44,6 @@ public class OnEventTag extends TagSupport implements Listener {
     public OnEventTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
-
     /**
      * @see org.apache.commons.jelly.Tag#doTag(org.apache.commons.jelly.XMLOutput)
      */
@@ -83,9 +80,6 @@ public class OnEventTag extends TagSupport implements Listener {
         return SwtHelper.parseStyle(SWT.class, type, false);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
-
     /**
      * @return the parent widget which this widget will be added to.
      */
@@ -105,8 +99,6 @@ public class OnEventTag extends TagSupport implements Listener {
         return type;
     }
 
-    // Listener interface
-    //-------------------------------------------------------------------------
     /**
      * @see org.eclipse.swt.widgets.Listener#handleEvent(org.eclipse.swt.widgets.Event)
      */
@@ -129,9 +121,6 @@ public class OnEventTag extends TagSupport implements Listener {
     public void setType(final String type) {
         this.type = type;
     }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /**
      * Sets the name of the variable to use to expose the event object when

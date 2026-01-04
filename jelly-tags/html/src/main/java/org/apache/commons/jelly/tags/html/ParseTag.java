@@ -61,8 +61,6 @@ public class ParseTag extends ParseTagSupport {
         return new SAXReader( parser );
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         if (getVar() == null) {
@@ -104,11 +102,6 @@ public class ParseTag extends ParseTagSupport {
         this.element = element;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
-
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the source of the HTML which is either a String URI, Reader or InputStream */
     public void setHtml(final Object html) {
         this.html = html;

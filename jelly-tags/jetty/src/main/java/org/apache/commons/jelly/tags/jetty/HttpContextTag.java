@@ -110,9 +110,6 @@ public class HttpContextTag extends TagSupport {
 
     }
 
-    //--------------------------------------------------------------------------
-    // Property accessors/mutators
-    //--------------------------------------------------------------------------
     /**
      * Getter for property context path.
      *

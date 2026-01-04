@@ -48,8 +48,6 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     public ForEachTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         if (select != null) {
@@ -76,9 +74,6 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
             }
         }
     }
-
-    // XPathSource interface
-    //-------------------------------------------------------------------------
 
     /*
      * Override superclass so method can be access by IfTag
@@ -107,8 +102,6 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
         xpCmp.setDescending(descending);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the XPath selection expression
       */
     public void setSelect(final XPath select) {

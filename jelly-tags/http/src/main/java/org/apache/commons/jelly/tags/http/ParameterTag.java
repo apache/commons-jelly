@@ -48,9 +48,6 @@ public class ParameterTag extends TagSupport {
         invokeBody(xmlOutput);
     }
 
-    //--------------------------------------------------------------------------
-    // Property accessors/mutators
-    //--------------------------------------------------------------------------
     /**
      * Getter for property name.
      *

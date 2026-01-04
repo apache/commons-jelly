@@ -37,8 +37,6 @@ public class BrokerTag extends TagSupport {
     public BrokerTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         if ( var == null ) {
@@ -73,8 +71,6 @@ public class BrokerTag extends TagSupport {
         this.broker = broker;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the variable name to define for this expression
      */
     public void setVar(final String var) {

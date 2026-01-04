@@ -57,8 +57,6 @@ public class ImportTag extends TagSupport {
     public ImportTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     /**
      * Perform tag processing
      * @param output the destination for output
@@ -85,9 +83,6 @@ public class ImportTag extends TagSupport {
             throw new JellyTagException("could not import script", e);
         }
     }
-
-    // Properties
-    //-------------------------------------------------------------------------
 
     /**
      * @return whether property inheritance is enabled

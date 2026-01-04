@@ -125,8 +125,6 @@ public class ParseTag extends TagSupport {
         return text;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** The variable name that will be used for the Document variable created
      */
     public String getVar() {
@@ -175,9 +173,6 @@ public class ParseTag extends TagSupport {
             throw new JellyTagException(e);
         }
     }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /**
      * Sets the jellyParser.

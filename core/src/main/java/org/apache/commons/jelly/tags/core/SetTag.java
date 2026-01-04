@@ -146,8 +146,6 @@ public class SetTag extends TagSupport {
         this.property = property;
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
     protected void setPropertyValue( final Object target, final String property, final Object value ) {
         try {
             if ( target instanceof Map ) {
@@ -183,8 +181,6 @@ public class SetTag extends TagSupport {
         this.value = value;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the variable name to define for this expression
      */
     public void setVar(final String var) {

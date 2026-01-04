@@ -31,8 +31,6 @@ public class MapEntryTag extends TagSupport {
     /** Stores the value of the map entry */
     private Object value;
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( name == null ) {
@@ -51,8 +49,6 @@ public class MapEntryTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the name of the entry in the map message
       */
     public void setName(final String name) {

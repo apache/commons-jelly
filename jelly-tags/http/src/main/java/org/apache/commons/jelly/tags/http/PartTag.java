@@ -74,9 +74,6 @@ public class PartTag extends TagSupport {
         return _contentType;
     }
 
-    //--------------------------------------------------------------------------
-    // Property accessors/mutators
-    //--------------------------------------------------------------------------
     /**
      * Getter for property name.
      *

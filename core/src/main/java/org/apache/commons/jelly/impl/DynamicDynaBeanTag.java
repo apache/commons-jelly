@@ -107,8 +107,6 @@ public class DynamicDynaBeanTag extends DynaBeanTagSupport implements BeanSource
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * @return the bean that has just been created
      */

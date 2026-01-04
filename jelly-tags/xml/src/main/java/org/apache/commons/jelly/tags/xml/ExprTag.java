@@ -35,8 +35,6 @@ public class ExprTag extends XPathTagSupport {
     public ExprTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         final Object xpathContext = getXPathContext();
@@ -56,8 +54,6 @@ public class ExprTag extends XPathTagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the XPath expression to evaluate. */
     public void setSelect(final XPath select) {
         this.select = select;

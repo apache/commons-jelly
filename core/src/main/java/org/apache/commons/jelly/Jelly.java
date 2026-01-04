@@ -259,8 +259,6 @@ public class Jelly {
         }
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
     /**
      * @return the URL for the relative file name or absolute URL
      */

@@ -134,8 +134,6 @@ public class InvokeTag extends TagSupport {
         return service;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * Sets the end point to which the invocation will occur
      */

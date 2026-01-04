@@ -121,8 +121,6 @@ public class InvokeRawTag extends TagSupport
         context.setVariable(var, answer);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * Sets the end point to which the invocation will occur
      */

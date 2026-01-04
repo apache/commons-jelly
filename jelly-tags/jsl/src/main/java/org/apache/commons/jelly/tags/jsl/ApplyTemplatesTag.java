@@ -42,8 +42,6 @@ public class ApplyTemplatesTag extends TagSupport {
     public ApplyTemplatesTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     /** By default just evaluate the body */
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
@@ -77,9 +75,6 @@ public class ApplyTemplatesTag extends TagSupport {
         // #### should support MODE!!!
 
     }
-
-    // Properties
-    //-------------------------------------------------------------------------
 
     /** Sets the mode.
      * @param mode New value of property mode.

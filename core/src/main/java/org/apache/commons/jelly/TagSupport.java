@@ -109,8 +109,6 @@ public abstract class TagSupport implements Tag {
         setTrim( shouldTrim );
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
     /**
      * Searches up the parent hierarchy for a Tag of the given type.
      * @return the tag of the given type or null if it could not be found

@@ -41,8 +41,6 @@ public class ServerTag extends TagSupport {
     public ServerTag() {
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
     /**
      * Factory method to lazily create an MBeanServer if none is supplied
      *
@@ -52,8 +50,6 @@ public class ServerTag extends TagSupport {
         return MBeanServerFactory.newMBeanServer();
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
@@ -64,8 +60,6 @@ public class ServerTag extends TagSupport {
         invokeBody(output);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * @return MBeanServer
      */

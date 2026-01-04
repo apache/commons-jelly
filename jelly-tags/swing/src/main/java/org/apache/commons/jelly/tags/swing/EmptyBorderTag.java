@@ -48,8 +48,6 @@ public class EmptyBorderTag extends BorderTagSupport {
         return BorderFactory.createEmptyBorder( top, left, bottom, right);
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( left == -1) {
@@ -75,8 +73,6 @@ public class EmptyBorderTag extends BorderTagSupport {
         this.bottom = bottom;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * Sets the left inset
      * @param left

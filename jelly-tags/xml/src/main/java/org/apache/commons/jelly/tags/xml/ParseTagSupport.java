@@ -75,8 +75,6 @@ public abstract class ParseTagSupport extends TagSupport {
         return text;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** The variable name that will be used for the Document variable created
      */
     public String getVar() {

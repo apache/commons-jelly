@@ -27,8 +27,6 @@ public class Product {
     public Product() {
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * Returns the id.
      * @return String

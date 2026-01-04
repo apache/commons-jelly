@@ -51,8 +51,6 @@ public class ParseTag extends ParseTagSupport {
         return new SAXReader(validate);
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (getVar() == null) {
@@ -68,8 +66,6 @@ public class ParseTag extends ParseTagSupport {
         return validate;
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Gets the source of the XML which is either a String URI, Reader or InputStream */
     public Object getXml() {
         return this.xml;
@@ -94,9 +90,6 @@ public class ParseTag extends ParseTagSupport {
 
         return document;
     }
-
-    // Implementation methods
-    //-------------------------------------------------------------------------
 
     /** Sets whether XML validation is enabled or disabled */
     public void setValidate(final boolean validate) {

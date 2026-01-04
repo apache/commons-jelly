@@ -20,7 +20,6 @@ package org.apache.commons.jelly.tags.jetty;
 /**
  * Respond to a PUT request to a Jetty http server
  */
-/** A tag for the http PUT method */
 public class PutRequestTag extends AbstractMethodHandlerTag {
 
     /** Gets the name of the http method handled by this tag */

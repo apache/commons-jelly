@@ -75,9 +75,6 @@ public class SocketListenerTag extends TagSupport {
         return _host;
     }
 
-    //--------------------------------------------------------------------------
-    // Property accessors/mutators
-    //--------------------------------------------------------------------------
     /**
      * Getter for property port.
      *

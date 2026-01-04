@@ -253,8 +253,6 @@ public class JellyContext {
         return new JellyContext(this);
     }
 
-    // Implementation methods
-    //-------------------------------------------------------------------------
     /**
      * @return a new relative URL from the given root and with the addition of the
      * extra relative URI

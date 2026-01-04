@@ -32,8 +32,6 @@ public class PropertyTag extends TagSupport {
     /** Stores the value of the property */
     private Object value;
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( name == null ) {
@@ -52,8 +50,6 @@ public class PropertyTag extends TagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the name of the JMS property
       */
     public void setName(final String name) {

@@ -32,8 +32,6 @@ public class IfTag extends TagSupport {
     public IfTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (test == null) {
@@ -45,8 +43,6 @@ public class IfTag extends TagSupport {
 
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /** Sets the Jelly expression to evaluate. If this returns true, the body of
      * the tag is evaluated
      *

@@ -36,8 +36,6 @@ public class DoctypeTag extends XPathTagSupport {
     public DoctypeTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if (name == null) {
@@ -53,8 +51,6 @@ public class DoctypeTag extends XPathTagSupport {
         }
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * Returns the name.
      * @return String

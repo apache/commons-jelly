@@ -41,8 +41,6 @@ public class CopyTag extends XPathTagSupport {
     public CopyTag() {
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         final Object xpathContext = getXPathContext();
@@ -81,8 +79,7 @@ public class CopyTag extends XPathTagSupport {
     public void setLexical(final boolean lexical) {
         this.lexical = lexical;
     }
-    // Properties
-    //-------------------------------------------------------------------------
+
     /** Sets the XPath expression to evaluate. */
     public void setSelect(final XPath select) {
         this.select = select;

@@ -57,8 +57,6 @@ public class EtchedBorderTag extends BorderTagSupport {
 
     }
 
-    // Tag interface
-    //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
         if ( highlight != null && shadow == null ) {
@@ -73,8 +71,6 @@ public class EtchedBorderTag extends BorderTagSupport {
         super.doTag(output);
     }
 
-    // Properties
-    //-------------------------------------------------------------------------
     /**
      * Sets the etch type. Must be either EtchedBorder.LOWERED or EtchedBorder.RAISED
      * @param type
