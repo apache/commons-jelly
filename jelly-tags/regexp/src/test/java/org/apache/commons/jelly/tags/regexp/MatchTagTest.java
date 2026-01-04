@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.jelly.tags.regexp;
 
 import org.apache.commons.jelly.JellyContext;
@@ -21,37 +22,31 @@ import org.apache.commons.jelly.XMLOutput;
 
 import junit.framework.TestCase;
 
-/*** <p>{@code MatchTagTest} a class that is useful to perform regexp matches
-* in strings.</p>
-*/
+/**
+ * Performs regexp matches in strings.
+ */
 public class MatchTagTest extends TestCase {
 
-  public MatchTagTest(final String name)
-  {
-    super(name);
-  }
+    public MatchTagTest(final String name) {
+        super(name);
+    }
 
-  @Override
-public void setUp() throws Exception
-  {
-  }
+    @Override
+    public void setUp() throws Exception {
+    }
 
-  @Override
-public void tearDown()
-  {
-  }
+    @Override
+    public void tearDown() {
+    }
 
-  public void testDoTag() throws Exception
-  {
-    final MatchTag matchExpTag = new MatchTag();
-    final XMLOutput xmlOutput = new XMLOutput();
-
-    matchExpTag.setText("ID1234");
-    matchExpTag.setExpr("[A-Z][A-Z][0-9]{4}");
-    matchExpTag.setVar("testvar");
-    matchExpTag.setContext(new JellyContext());
-    matchExpTag.doTag(xmlOutput);
-
-    assertEquals("TRUE", matchExpTag.getContext().getVariable("testvar").toString().toUpperCase());
-  }
+    public void testDoTag() throws Exception {
+        final MatchTag matchExpTag = new MatchTag();
+        final XMLOutput xmlOutput = new XMLOutput();
+        matchExpTag.setText("ID1234");
+        matchExpTag.setExpr("[A-Z][A-Z][0-9]{4}");
+        matchExpTag.setVar("testvar");
+        matchExpTag.setContext(new JellyContext());
+        matchExpTag.doTag(xmlOutput);
+        assertEquals("TRUE", matchExpTag.getContext().getVariable("testvar").toString().toUpperCase());
+    }
 }

@@ -14,6 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.apache.commons.jelly.tags.regexp;
 
 import org.apache.commons.jelly.JellyContext;
@@ -21,38 +22,31 @@ import org.apache.commons.jelly.XMLOutput;
 
 import junit.framework.TestCase;
 
-/*** <p>{@code ContainsTagTest} a class that is useful to perform regexp matches
-* in strings.</p>
-*/
+/**
+ * Performs regexp matches in strings.
+ */
 public class ContainsTagTest extends TestCase {
 
-    public ContainsTagTest(final String name)
-    {
-      super(name);
+    public ContainsTagTest(final String name) {
+        super(name);
     }
 
     @Override
-    public void setUp() throws Exception
-    {
+    public void setUp() throws Exception {
     }
 
     @Override
-    public void tearDown()
-    {
+    public void tearDown() {
     }
 
-    public void testDoTag() throws Exception
-    {
-      final ContainsTag containsExpTag = new ContainsTag();
-      final XMLOutput xmlOutput = new XMLOutput();
-
-      containsExpTag.setText("Hello World");
-      containsExpTag.setExpr("World");
-      containsExpTag.setVar("testvar");
-      containsExpTag.setContext(new JellyContext());
-      containsExpTag.doTag(xmlOutput);
-
-      assertEquals("TRUE", containsExpTag.getContext().getVariable("testvar").toString().toUpperCase());
+    public void testDoTag() throws Exception {
+        final ContainsTag containsExpTag = new ContainsTag();
+        final XMLOutput xmlOutput = new XMLOutput();
+        containsExpTag.setText("Hello World");
+        containsExpTag.setExpr("World");
+        containsExpTag.setVar("testvar");
+        containsExpTag.setContext(new JellyContext());
+        containsExpTag.doTag(xmlOutput);
+        assertEquals("TRUE", containsExpTag.getContext().getVariable("testvar").toString().toUpperCase());
     }
-
 }
