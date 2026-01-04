@@ -32,8 +32,10 @@ import org.apache.commons.jelly.XMLOutput;
  */
 
 public class GroupTag extends TagSupport {
+
     /** Variable to place the thread group into */
     private String var = null;
+
     /** The thread list */
     private final List threads = new ArrayList();
 

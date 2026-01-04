@@ -100,8 +100,10 @@ public class FormatDateTag extends TagSupport {
 
     /** Holds value of property scope. */
     private String scope;
+
     /** Evaluated type */
     private String etype;
+
     /** Evaluated dateStyle */
     private String edateStyle;
 

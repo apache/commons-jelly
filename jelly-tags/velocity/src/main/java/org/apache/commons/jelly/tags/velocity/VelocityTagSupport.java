@@ -31,6 +31,7 @@ import org.apache.velocity.runtime.RuntimeConstants;
  */
 public abstract class VelocityTagSupport extends TagSupport
 {
+
     /** The VelocityEngine variable name in the JellyContext.  */
     public static final String VELOCITY_ENGINE_VAR_NAME =
             "org.apache.maven.jelly.tags.velocity.VelocityEngine";

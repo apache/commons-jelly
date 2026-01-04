@@ -128,6 +128,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(message, expected == actual);
     }
+
     /**
      * @see #assertEquals(String, Object, Object)
      */
@@ -145,6 +146,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(message, expected == actual);
     }
+
     /**
      * @see #assertEquals(String, Object, Object)
      */
@@ -153,6 +155,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(message, expected == actual);
     }
+
     /**
      * @see #assertEquals(String, Object, Object)
      */
@@ -161,6 +164,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(message, expected == actual);
     }
+
     /**
      * @see #assertEquals(String, Object, Object)
      */
@@ -169,6 +173,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(message, expected == actual);
     }
+
     /**
      * Fail if !expected.equals(actual). If expected is null, actual must be.
      * @param message failure message.
@@ -188,6 +193,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
             assertTrue(message, expected.equals(actual));
         }
     }
+
     /**
      * @see #assertEquals(String, Object, Object)
      */
@@ -196,6 +202,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(message, expected == actual);
     }
+
     /**
      * Fail if actual is true
      * @param actual value to test
@@ -205,6 +212,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertFalse(DEFAULT_MESSAGE, actual);
     }
+
     /**
      * Fail if actual is true
      * @param message failure message
@@ -217,6 +225,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
             fail(message);
         }
     }
+
     /**
      * @see #assertNotNull(String, Object)
      */
@@ -224,6 +233,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertNotNull(DEFAULT_MESSAGE, actual);
     }
+
     /**
      * Fail if actual is null
      * @param message failure message
@@ -234,6 +244,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(message, actual != null);
     }
+
     /**
      * @see #assertNotSame(String, Object, Object)
      */
@@ -243,6 +254,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertNotSame(DEFAULT_MESSAGE, expected, actual);
     }
+
     /**
      * Fail if expected == actual. If expected is null, actual must be.
      * @param message failure message.
@@ -255,6 +267,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(message, expected != actual);
     }
+
     /**
      * @see #assertNull(String, Object)
      */
@@ -262,6 +275,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertNull(DEFAULT_MESSAGE, actual);
     }
+
     /**
      * Fail if actual is not null
      * @param message failure message
@@ -282,6 +296,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertSame(DEFAULT_MESSAGE, expected, actual);
     }
+
     /**
      * Fail if expected != actual. If expected is null, actual must not be.
      * @param message failure message.
@@ -304,6 +319,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     {
         assertTrue(DEFAULT_MESSAGE, actual);
     }
+
     /**
      * Fail if actual is not true
      * @param message failure message
@@ -324,6 +340,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
     protected void fail() throws JellyAssertionFailedError {
         throw new JellyAssertionFailedError(DEFAULT_MESSAGE);
     }
+
     /**
      * Produces a failure assertion with the given message
      * @throws JellyAssertionFailedError to signify failure
@@ -344,6 +361,7 @@ public abstract class AssertTagSupport extends XPathTagSupport {
             fail(message + ". Assertion failed while " + detail);
         }
     }
+
     /**
      * Produces a failure if the actual value was not equal to the expected value
      * @throws JellyAssertionFailedError if expected != actual.

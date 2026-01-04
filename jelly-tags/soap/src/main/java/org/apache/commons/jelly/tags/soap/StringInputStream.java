@@ -29,6 +29,7 @@ import java.io.UncheckedIOException;
 public class StringInputStream
     extends InputStream
 {
+
     /** Source string, stored as a StringReader */
     private final StringReader in;
 

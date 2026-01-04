@@ -31,6 +31,7 @@ import org.quartz.SchedulerException;
  */
 public class CronTriggerTag extends QuartzTagSupport
 {
+
     /** Cron time spec. */
     private String spec;
 

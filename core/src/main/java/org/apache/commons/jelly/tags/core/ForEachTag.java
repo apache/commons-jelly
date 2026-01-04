@@ -56,6 +56,7 @@ public class ForEachTag extends TagSupport {
             this.end = end;
             this.step = step;
         }
+
         /**
          * @return the begin.
          */
@@ -63,6 +64,7 @@ public class ForEachTag extends TagSupport {
         public Integer getBegin() {
             return begin;
         }
+
         /**
          * @return the count.
          */
@@ -70,6 +72,7 @@ public class ForEachTag extends TagSupport {
         public int getCount() {
             return count;
         }
+
         /**
          * @return the current.
          */
@@ -77,6 +80,7 @@ public class ForEachTag extends TagSupport {
         public Object getCurrent() {
             return current;
         }
+
         /**
          * @return the end.
          */
@@ -84,6 +88,7 @@ public class ForEachTag extends TagSupport {
         public Integer getEnd() {
             return end;
         }
+
         /**
          * @return the index.
          */
@@ -91,6 +96,7 @@ public class ForEachTag extends TagSupport {
         public int getIndex() {
             return index;
         }
+
         /**
          * @return the step.
          */
@@ -98,6 +104,7 @@ public class ForEachTag extends TagSupport {
         public Integer getStep() {
             return step;
         }
+
         /**
          * @return the first.
          */
@@ -105,6 +112,7 @@ public class ForEachTag extends TagSupport {
         public boolean isFirst() {
             return first;
         }
+
         /**
          * @return the last.
          */
@@ -112,30 +120,35 @@ public class ForEachTag extends TagSupport {
         public boolean isLast() {
             return last;
         }
+
         /**
          * @param count The count to set.
          */
         public void setCount(final int count) {
             this.count = count;
         }
+
         /**
          * @param current The current to set.
          */
         public void setCurrent(final Object current) {
             this.current = current;
         }
+
         /**
          * @param first The first to set.
          */
         public void setFirst(final boolean first) {
             this.first = first;
         }
+
         /**
          * @param index The index to set.
          */
         public void setIndex(final int index) {
             this.index = index;
         }
+
         /**
          * @param last The last to set.
          */

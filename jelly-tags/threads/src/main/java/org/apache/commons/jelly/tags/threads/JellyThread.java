@@ -24,11 +24,13 @@ import org.apache.commons.logging.LogFactory;
  */
 
 public class JellyThread extends Thread {
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ThreadTag.class);
 
     /** While this thread is still running it owns this mutex */
     private final Mutex runningMutex = new Mutex();
+
     /** The Runnable target */
     private Runnable target = null;
 

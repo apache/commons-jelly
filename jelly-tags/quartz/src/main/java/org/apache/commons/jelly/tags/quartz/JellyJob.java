@@ -30,6 +30,7 @@ import org.quartz.JobExecutionException;
  */
 public class JellyJob implements Job
 {
+
     /** Construct.
      */
     public JellyJob()

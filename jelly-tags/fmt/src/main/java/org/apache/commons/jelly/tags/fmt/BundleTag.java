@@ -86,6 +86,7 @@ public class BundleTag extends TagSupport {
 
         return match;
     }
+
     /**
      * Gets the default I18N localization context.
      *
@@ -108,6 +109,7 @@ public class BundleTag extends TagSupport {
 
         return locCtxt;
     }
+
     /**
      * Gets the resource bundle with the given base name, whose locale is
      * determined as follows:

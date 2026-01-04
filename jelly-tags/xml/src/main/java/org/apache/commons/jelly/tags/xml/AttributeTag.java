@@ -24,6 +24,7 @@ import org.apache.commons.jelly.XMLOutput;
   * the {@code &lt;xsl:attribute&gt;} tag.
   */
 public class AttributeTag extends TagSupport {
+
      /** The namespace URI. */
     private String namespace;
 

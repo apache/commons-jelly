@@ -33,6 +33,7 @@ import org.apache.commons.logging.LogFactory;
  * can wait on another thread or another thread group to finish before starting.
  */
 public class ThreadTag extends TagSupport {
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ThreadTag.class);
 
@@ -41,18 +42,25 @@ public class ThreadTag extends TagSupport {
 
     /** Variable to place the thread into */
     private String var = null;
+
     /** Thread Name */
     private String name = null;
+
     /** Thread priority, defaults to Thread.NORM_PRIORITY */
     private int priority = Thread.NORM_PRIORITY;
+
     /** Sets if the thread should be a daemon or not */
     private boolean daemon = false;
+
     /** The destination of output */
     private XMLOutput xmlOutput;
+
     /** Should we close the underlying output */
     private boolean closeOutput;
+
     /** Should a new context be created */
     private boolean newContext = false;
+
     /** Keep a reference to the thread */
     private final JellyThread thread = new JellyThread();
 

@@ -414,6 +414,7 @@ public class TagScript implements Script {
     public Script getTagBody() {
         return tagBody;
     }
+
     /**
      * Returns the Factory of Tag instances.
      * @return the factory

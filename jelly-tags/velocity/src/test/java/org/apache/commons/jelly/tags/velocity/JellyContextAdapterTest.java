@@ -32,6 +32,7 @@ import junit.framework.TestSuite;
  */
 public class JellyContextAdapterTest extends TestCase
 {
+
     /**
      * @return the suite of tests being tested
      */

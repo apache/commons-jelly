@@ -36,6 +36,7 @@ public class CatchTag extends TagSupport {
 	 *
 	 */
 	private Class[] exceptionArray;
+
 	/**
 	 * Var to store cause exception class
 	 */
@@ -167,6 +168,7 @@ public class CatchTag extends TagSupport {
         }
         return false;
     }
+
 	/**
      * @param cause The cause to set.
      */

@@ -89,6 +89,7 @@ public class SwitchTag extends TagSupport {
     protected void setFallingThru(final boolean fallingThru) {
         this.fallingThru = fallingThru;
     }
+
     /**
      * Sets the value to switch on.
      * Note that the {@link Expression} is evaluated only once, when the

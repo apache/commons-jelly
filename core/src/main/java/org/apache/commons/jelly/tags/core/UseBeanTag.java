@@ -48,12 +48,15 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
 
     /** The current bean instance */
     private Object bean;
+
     /** The default class to use if no Class is specified */
     private Class defaultClass;
+
     /**
      * a Set of Strings of property names to ignore (remove from the Map of attributes before passing to ConvertUtils)
      */
     private Set ignoreProperties;
+
     /**
      * If this tag finds an attribute in the XML that's not ignored by {@link #ignoreProperties} and isn't a bean property, should it throw an exception?
      *

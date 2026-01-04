@@ -51,6 +51,7 @@ public abstract class MapTagSupport extends DynaTagSupport {
         }
         return map;
     }
+
     /** Sets an attribute value of this tag before the tag is invoked
      */
     @Override

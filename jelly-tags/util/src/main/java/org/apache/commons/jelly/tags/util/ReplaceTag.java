@@ -32,6 +32,7 @@ import org.xml.sax.SAXException;
  * (or value) and places the result into the context
  */
 public class ReplaceTag extends TagSupport {
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ReplaceTag.class);
 

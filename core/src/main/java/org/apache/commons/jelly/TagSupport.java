@@ -83,8 +83,10 @@ public abstract class TagSupport implements Tag {
         }
         return null;
     }
+
     /** The parent of this tag */
     protected Tag parent;
+
     /** The TagLibrary which defines this tag */
     protected TagLibrary tagLibrary;
 

@@ -110,6 +110,7 @@ public class LoadTextTag extends TagSupport {
     public String getEncoding() {
         return encoding;
     }
+
     /**
      * Returns the file.
      * @return File

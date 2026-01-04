@@ -37,6 +37,7 @@ public class BSFExpression extends ExpressionSupport {
 
     /** The BSF Engine to evaluate expressions */
     private final BSFEngine engine;
+
     /** The BSF Manager to evaluate expressions */
     private final BSFManager manager;
 

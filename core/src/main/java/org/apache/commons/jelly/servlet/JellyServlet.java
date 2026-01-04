@@ -38,6 +38,7 @@ import org.apache.commons.jelly.XMLOutput;
  * Servlet for handling display of Jelly-fied XML files. Modeled after VelocityServlet.
  */
 public class JellyServlet extends HttpServlet {
+
     /**
      * The HTTP request object context key.
      */

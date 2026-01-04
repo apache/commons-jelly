@@ -55,25 +55,35 @@ import org.apache.commons.logging.LogFactory;
  *  </pre>
  */
 public class Embedded {
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(Embedded.class);
+
     /** Jelly Engine */
     Jelly jellyEngine = new Jelly();
+
     /** JellyContext*/
     private JellyContext context = new JellyContext();
+
     /** Compiled Script Object*/
     private Script script;
+
     /** Input script as stream*/
     private InputStream inputStream;
+
     /** Output Stream */
     private OutputStream outputStream;
+
     /** Output(default System.out) */
     private XMLOutput output =
         XMLOutput.createXMLOutput(new OutputStreamWriter(System.out));
+
     /** Exception thrown during compilation of script*/
     Exception scriptCompilationException;
+
     /** Boolean value indicating whether the script has been successfully compiled or NOT */
     boolean scriptCompiled = false;
+
     /** ErrorMsg*/
     private String errorMsg;
 

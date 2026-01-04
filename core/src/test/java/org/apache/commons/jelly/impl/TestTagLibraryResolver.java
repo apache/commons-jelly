@@ -38,6 +38,7 @@ public class TestTagLibraryResolver extends TestCase {
     }
 
     public void testResolver() throws Exception {
+
         /**
          * TODO temporary disabled test case until I can figure out how to get
          * it to work with commons-discovery

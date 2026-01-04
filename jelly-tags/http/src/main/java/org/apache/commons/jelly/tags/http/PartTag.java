@@ -26,6 +26,7 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag to hold a part of a multiPartPost
  */
 public class PartTag extends TagSupport {
+
     /**
      * Extend StringPart so that I can specify the content type (ex: text/plain)
      */
@@ -38,8 +39,10 @@ public class PartTag extends TagSupport {
       @Override
     public String getContentType() { return _contentType; }
     }
+
     /** Parameter name */
     private String _name;
+
     /** Parameter value */
     private String _value;
 

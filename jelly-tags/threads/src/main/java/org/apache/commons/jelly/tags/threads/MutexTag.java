@@ -26,6 +26,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 
 public class MutexTag extends TagSupport {
+
     /** The variable name of the mutex */
     private String var = null;
 

@@ -26,6 +26,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 
 public abstract class UseMutexTag extends TagSupport {
+
     /** The mutex to use in some way. */
     private Object mutex = null;
 

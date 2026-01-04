@@ -302,6 +302,7 @@ public class ArgTag extends BaseClassLoaderTag {
     public void setType(final String type) {
         this.typeString = type;
     }
+
     /** The (possibly null) value of this argument. */
     public void setValue(final Object value) {
         this.value= value;

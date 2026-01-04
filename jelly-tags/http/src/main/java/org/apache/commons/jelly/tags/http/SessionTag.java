@@ -29,14 +29,19 @@ public class SessionTag extends TagSupport {
 
     /** Default host for requests */
     private String _host;
+
     /** Default port for requests */
     private String _port;
+
     /** Proxy details for requests */
     private Proxy _proxy = new Proxy();
+
     /** Whether the default is for secure comms */
     private boolean _secure;
+
     /** The browser identifier */
     private String _userAgent;
+
     /** Strict compliance */
     private boolean _strictMode = false;
 
@@ -86,6 +91,7 @@ public class SessionTag extends TagSupport {
     public HttpClient getHttpClient() {
         return _httpClient;
     }
+
     /** Getter for property port.
      * @return Value of property port.
      */

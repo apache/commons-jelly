@@ -28,10 +28,13 @@ import org.apache.commons.jelly.XMLOutput;
  */
 
 public abstract class UseThreadTag extends TagSupport {
+
     /** The thread to use in some way. */
     private Thread thread = null;
+
     /** Threads can be grouped and acted on as a set */
     private List threadGroup = null;
+
     /** If true doTag will search for a parent thread to use if setThread was not called */
     private boolean searchForParent = true;
 

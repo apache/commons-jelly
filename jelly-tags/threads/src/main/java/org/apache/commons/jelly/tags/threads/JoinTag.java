@@ -25,6 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 
 public class JoinTag extends UseThreadTag {
+
     /** How long to wait */
     private long timeout = -1;
 

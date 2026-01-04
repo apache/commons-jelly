@@ -54,10 +54,13 @@ public abstract class HttpTagSupport extends TagSupport {
      * must be provided.
      */
     private String _uri;
+
     /** Whether or not to follow redirects */
     private boolean _followRedirects = false;
+
     /** List of parameters as name value pairs */
     private List _parameters;
+
     /** List of headers as name value pairs */
     private List _requestHeaders;
 

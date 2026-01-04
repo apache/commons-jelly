@@ -29,6 +29,7 @@ import org.quartz.SchedulerException;
  */
 public class JobTag extends QuartzTagSupport
 {
+
     /** Group of the job. */
     private String group;
 

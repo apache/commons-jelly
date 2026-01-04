@@ -35,6 +35,7 @@ import org.apache.velocity.context.Context;
  */
 public class JellyContextAdapter implements Context
 {
+
     /** Flag to indicate read-only or read-write mode */
     private boolean readOnly = true;
 

@@ -26,6 +26,7 @@ import org.quartz.impl.StdSchedulerFactory;
  */
 public abstract class QuartzTagSupport extends TagSupport
 {
+
     /** The scheduler variable name in the JellyContext. */
     public static final String SCHED_VAR_NAME = "org.apache.commons.jelly.quartz.Scheduler";
 

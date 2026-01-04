@@ -26,6 +26,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 
 public class InterruptTag extends UseThreadTag {
+
     /** Interrupt one thread */
     @Override
     protected void useThread(final Thread thread, final XMLOutput output) {

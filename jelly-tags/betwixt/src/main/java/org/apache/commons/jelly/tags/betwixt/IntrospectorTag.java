@@ -64,6 +64,7 @@ public class IntrospectorTag extends TagSupport {
                 NameMapper.class
             );
     }
+
     /**
      * Static helper method which will convert the given string into
      * standard named strategies such as 'lowercase', 'uppercase' or 'hyphenated'

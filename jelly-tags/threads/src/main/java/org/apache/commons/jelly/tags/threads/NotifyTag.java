@@ -25,6 +25,7 @@ import org.apache.commons.jelly.XMLOutput;
  */
 
 public class NotifyTag extends UseMutexTag {
+
     /** True means mutex.notifyAll() will be called */
     private boolean notifyAll = false;
 

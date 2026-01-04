@@ -25,8 +25,10 @@ import org.apache.commons.jelly.XMLOutput;
  * A tag to hold parameters
  */
 public class ParameterTag extends TagSupport {
+
     /** Parameter name */
     private String _name;
+
     /** Parameter value */
     private String _value;
 

@@ -18,6 +18,7 @@ package org.apache.ws.jaxme.examples.misc.address.impl;
 
 public class AddressTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
   public static class NameTypeHandler extends org.apache.ws.jaxme.impl.JMHandlerImpl {
+
     /** The current level of nested elements. 0, if outside the root element.
      *
      */

@@ -27,6 +27,7 @@ import org.quartz.SchedulerException;
  */
 public class WaitForSchedulerTag extends QuartzTagSupport
 {
+
     /** Construct.
      */
     public WaitForSchedulerTag()

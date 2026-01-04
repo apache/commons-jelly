@@ -35,8 +35,10 @@ public class TaglibTag extends TagSupport {
 
     /** The namespace URI */
     private String uri;
+
     /** The new tags being added */
     private DynamicTagLibrary tagLibrary;
+
     /** Whether or not inheritance is enabled */
     private boolean inherit = true;
 

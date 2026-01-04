@@ -26,8 +26,10 @@ public class Proxy {
 
     /** The port number that represents port is unassigned */
     public static final int PORT_UNSPECIFIED = -1;
+
     /** The host to use as a proxy */
     private String _host;
+
     /** The port to send proxied requests on */
     private int _port;
 

@@ -30,12 +30,16 @@ import org.apache.commons.logging.LogFactory;
 /** A tag that spawns the contained script in a separate thread
   */
 public class ThreadTag extends TagSupport  {
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(ThreadTag.class);
+
     /** Thread Name */
     private String name = null;
+
     /** The destination of output */
     private XMLOutput xmlOutput;
+
     /** Should we close the underlying output */
     private boolean closeOutput;
 

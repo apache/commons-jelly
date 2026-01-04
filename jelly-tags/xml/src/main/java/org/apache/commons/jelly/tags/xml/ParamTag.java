@@ -58,6 +58,7 @@ public class ParamTag extends TagSupport {
     public String getName() {
         return name;
     }
+
     /**
      * @return the value of the attribute.
      */
@@ -71,6 +72,7 @@ public class ParamTag extends TagSupport {
     public void setName(final String name) {
         this.name = name;
     }
+
     /**
      * Sets the value of the attribute
      */

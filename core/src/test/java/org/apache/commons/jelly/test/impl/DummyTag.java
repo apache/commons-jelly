@@ -27,8 +27,10 @@ import org.apache.commons.logging.LogFactory;
  * Simple Test Tag
  */
 public class DummyTag extends TagSupport {
+
     /** The Log to which logging calls will be made. */
     private static final Log log = LogFactory.getLog(DummyTag.class);
+
     /** A test class to be loaded by the Tag*/
     private String m_classToBeLoaded = null;
 

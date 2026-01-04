@@ -127,6 +127,7 @@ public class ParseTag extends TagSupport {
     protected ClassLoader getClassLoader() {
         return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
     }
+
     /**
      * @return the introspector to be used, lazily creating one if required.
      */

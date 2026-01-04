@@ -48,6 +48,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class XMLOutput implements ContentHandler, LexicalHandler {
 
     private final class NamespaceStack {
+
         /** A list of maps: Each map contains prefix to uri mapping */
         private final List nsStack;
 
