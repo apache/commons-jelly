@@ -56,9 +56,6 @@ public class ParamTag extends TagSupport {
         parent.addSQLParameter(paramValue);
     }
 
-    //*********************************************************************
-    // Tag logic
-
     public void setValue(final Object value) {
         this.value = value;
     }

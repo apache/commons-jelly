@@ -33,29 +33,17 @@ import org.apache.commons.jelly.tags.Resources;
 
 public class TransactionTag extends TagSupport {
 
-    //*********************************************************************
-    // Private constants
-
     private static final String TRANSACTION_READ_COMMITTED = "read_committed";
     private static final String TRANSACTION_READ_UNCOMMITTED = "read_uncommitted";
     private static final String TRANSACTION_REPEATABLE_READ = "repeatable_read";
     private static final String TRANSACTION_SERIALIZABLE = "serializable";
 
-    //*********************************************************************
-    // Protected state
-
     protected Object rawDataSource;
     protected boolean dataSourceSpecified;
-
-    //*********************************************************************
-    // Private state
 
     private Connection conn;
     private int isolation = Connection.TRANSACTION_NONE;
     private int origIsolation;
-
-    //*********************************************************************
-    // Constructor and initialization
 
     public TransactionTag() {
     }
@@ -80,9 +68,6 @@ public class TransactionTag extends TagSupport {
         }
         conn = null;
     }
-
-    //*********************************************************************
-    // Tag logic
 
     /**
      * Prepares for execution by setting the initial state, such as
@@ -146,9 +131,6 @@ public class TransactionTag extends TagSupport {
         }
     }
 
-    //*********************************************************************
-    // Public utility methods
-
     /**
      * Called by nested parameter elements to get a reference to
      * the Connection.
@@ -165,9 +147,6 @@ public class TransactionTag extends TagSupport {
         this.rawDataSource = dataSource;
         this.dataSourceSpecified = true;
     }
-
-    //*********************************************************************
-    // Implementation methods methods
 
     /**
      * Sets the transaction isolation level.

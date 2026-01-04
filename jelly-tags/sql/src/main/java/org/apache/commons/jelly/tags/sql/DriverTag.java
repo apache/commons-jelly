@@ -38,9 +38,6 @@ public class DriverTag extends TagSupport {
     private String userName;
     private String var;
 
-    //*********************************************************************
-    // Accessor methods
-
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         final DataSourceWrapper ds = new DataSourceWrapper();
@@ -78,18 +75,12 @@ public class DriverTag extends TagSupport {
         return getInitParameter(PASSWORD);
     }
 
-    //*********************************************************************
-    // Tag logic
-
     private String getUserName() {
         if (userName != null) {
             return userName;
         }
         return getInitParameter(USER_NAME);
     }
-
-    //*********************************************************************
-    // Private utility methods
 
     public void setDriver(final String driverClassName) {
         this.driverClassName = driverClassName;

@@ -55,15 +55,9 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
     private List parameters;
     protected boolean isPartOfTransaction;
 
-    //*********************************************************************
-    // Constructor and initialization
-
     public SqlTagSupport() {
 		super.setEscapeText(false);
     }
-
-    //*********************************************************************
-    // Accessor methods
 
     /**
      * Called by nested parameter elements to add PreparedStatement
@@ -119,9 +113,6 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
         return parameters != null && parameters.size() > 0;
     }
 
-    //*********************************************************************
-    // Public utility methods
-
     /**
      * Sets the SQL DataSource. DataSource can be
      * a String or a DataSource object.
@@ -130,9 +121,6 @@ public abstract class SqlTagSupport extends TagSupport implements SQLExecutionTa
         this.rawDataSource = dataSource;
         this.dataSourceSpecified = true;
     }
-
-    //*********************************************************************
-    // Protected utility methods
 
     protected void setParameters(final PreparedStatement ps)
         throws SQLException {

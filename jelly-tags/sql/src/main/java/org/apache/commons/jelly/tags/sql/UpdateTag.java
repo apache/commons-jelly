@@ -42,14 +42,8 @@ public class UpdateTag extends SqlTagSupport {
      */
     private Connection conn;
 
-    //*********************************************************************
-    // Constructor and initialization
-
     public UpdateTag() {
     }
-
-    //*********************************************************************
-    // Tag logic
 
     /**
      * <p>Execute the SQL statement, set either through the {@code sql}

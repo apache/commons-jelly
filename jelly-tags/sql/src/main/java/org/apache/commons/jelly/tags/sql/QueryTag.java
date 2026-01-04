@@ -54,14 +54,8 @@ public class QueryTag extends SqlTagSupport {
      */
     private Connection conn;
 
-    //*********************************************************************
-    // Constructor and initialization
-
     public QueryTag() {
     }
-
-    //*********************************************************************
-    // Accessor methods
 
     /**
      * <p>Execute the SQL statement, set either through the {@code sql}
@@ -209,9 +203,6 @@ public class QueryTag extends SqlTagSupport {
         this.maxRows = maxRows;
         this.maxRowsSpecified = true;
     }
-
-    //*********************************************************************
-    // Tag logic
 
     /**
      * The index of the first row returned can be

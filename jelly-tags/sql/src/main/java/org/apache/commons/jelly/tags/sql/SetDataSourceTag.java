@@ -45,14 +45,8 @@ public class SetDataSourceTag extends TagSupport {
     private String scope = "page";
     private String var;
 
-    //*********************************************************************
-    // Constructor and initialization
-
     public SetDataSourceTag() {
     }
-
-    //*********************************************************************
-    // Accessor methods
 
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
@@ -121,9 +115,6 @@ public class SetDataSourceTag extends TagSupport {
     public void setUser(final String userName) {
         this.userName = userName;
     }
-
-    //*********************************************************************
-    // Tag logic
 
     public void setVar(final String var) {
         this.var = var;

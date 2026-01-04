@@ -32,27 +32,15 @@ import org.apache.commons.jelly.tags.Resources;
 
 public class DateParamTag extends TagSupport {
 
-    //*********************************************************************
-    // Private constants
-
     private static final String TIMESTAMP_TYPE = "timestamp";
     private static final String TIME_TYPE = "time";
     private static final String DATE_TYPE = "date";
 
-    //*********************************************************************
-    // Protected state
-
     protected String type;
     protected java.util.Date value;
 
-    //*********************************************************************
-    // Constructor
-
     public DateParamTag() {
     }
-
-    //*********************************************************************
-    // Properties
 
     private void convertValue() throws JellyTagException {
 
@@ -92,15 +80,9 @@ public class DateParamTag extends TagSupport {
         parent.addSQLParameter(value);
     }
 
-    //*********************************************************************
-    // Tag logic
-
     public void setType(final String type) {
         this.type = type;
     }
-
-    //*********************************************************************
-    // Private utility methods
 
     public void setValue(final Date value) {
         this.value = value;
