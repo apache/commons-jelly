@@ -240,9 +240,6 @@ public class SetLocaleTag extends TagSupport {
 
     private String scope;
 
-    //*********************************************************************
-    // Public utility methods
-
     /** Creates a new instance of SetLocaleTag */
     public SetLocaleTag() {
     }

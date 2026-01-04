@@ -77,19 +77,10 @@ public class TimeZoneTag extends TagSupport {
     }
     private TimeZone timeZone;
 
-    //*********************************************************************
-    // Constructor and initialization
-
     private Expression value;                    // 'value' attribute
-
-    //*********************************************************************
-    // Collaboration with subtags
 
     public TimeZoneTag() {
     }
-
-    //*********************************************************************
-    // Tag logic
 
     /**
      * Evaluates this tag after all the tags properties have been initialized.
@@ -117,9 +108,6 @@ public class TimeZoneTag extends TagSupport {
 
         invokeBody(output);
     }
-
-    //*********************************************************************
-    // Package-scoped utility methods
 
     public TimeZone getTimeZone() {
         return timeZone;

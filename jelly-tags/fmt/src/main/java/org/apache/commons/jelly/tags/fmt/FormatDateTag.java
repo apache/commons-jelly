@@ -303,9 +303,6 @@ public class FormatDateTag extends TagSupport {
         this.type = type;
     }
 
-    //*********************************************************************
-    // Private utility methods
-
     /** Setter for property value.
      * @param value New value of property value.
      *

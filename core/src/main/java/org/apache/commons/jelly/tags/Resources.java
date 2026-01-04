@@ -40,9 +40,6 @@ import java.util.ResourceBundle;
  */
 public class Resources {
 
-    //*********************************************************************
-    // Static data
-
     /** The location of our resources. */
     private static final String RESOURCE_LOCATION
     = "org.apache.commons.jelly.tags.Resources";
@@ -50,9 +47,6 @@ public class Resources {
     /** Our class-wide ResourceBundle. */
     private static ResourceBundle rb =
     ResourceBundle.getBundle(RESOURCE_LOCATION);
-
-    //*********************************************************************
-    // Public static methods
 
     /** Gets a message with no arguments. */
     public static String getMessage(final String name)

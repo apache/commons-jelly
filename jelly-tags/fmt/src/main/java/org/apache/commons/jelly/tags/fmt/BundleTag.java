@@ -35,13 +35,7 @@ import org.apache.commons.jelly.expression.Expression;
  */
 public class BundleTag extends TagSupport {
 
-    //*********************************************************************
-    // Private constants
-
     private static final Locale EMPTY_LOCALE = new Locale("", "");
-
-    //*********************************************************************
-    // Protected state
 
     /*
      * Gets the resource bundle with the given base name and preferred locale.
@@ -204,33 +198,18 @@ public class BundleTag extends TagSupport {
     }
     private Expression basename;                  // 'basename' attribute
 
-    //*********************************************************************
-    // Private state
-
     private Expression prefix;                    // 'prefix' attribute
-
-    //*********************************************************************
-    // Constructor and initialization
 
     /** Evaluated basename */
     private String ebasename;
-
-    //*********************************************************************
-    // Collaboration with subtags
 
     /** Evaluated prefix */
     private String eprefix;
 
     private LocalizationContext locCtxt;
 
-    //*********************************************************************
-    // Tag logic
-
     public BundleTag() {
     }
-
-    //*********************************************************************
-    // Public utility methods
 
     /**
      * Evaluates this tag after all the tags properties have been initialized.
