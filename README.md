@@ -51,7 +51,7 @@ Documentation
 -------------
 
 More information can be found on the [Apache Commons Jelly homepage](https://commons.apache.org/proper/commons-jelly).
-The [JavaDoc](https://commons.apache.org/proper/commons-jelly/javadocs/api-release) can be browsed.
+The [Javadoc](https://commons.apache.org/proper/commons-jelly/javadocs/api-release) can be browsed.
 Questions related to the usage of Apache Commons Jelly should be posted to the [user mailing list](https://commons.apache.org/mail-lists.html).
 
 Where can I get the latest release?
