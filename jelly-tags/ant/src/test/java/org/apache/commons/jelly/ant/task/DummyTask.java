@@ -106,7 +106,7 @@ public class DummyTask extends Task {
     @Override
     public void execute() throws BuildException {
         if (!force) {
-            throw new BuildException("Should have set force to be true!");
+            throw new BuildException("Should have set force to be true.");
         }
     }
 

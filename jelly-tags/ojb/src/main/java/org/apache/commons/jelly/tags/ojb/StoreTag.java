@@ -41,7 +41,7 @@ public class StoreTag extends TagSupport {
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         if ( value == null ) {
-            throw new JellyTagException( "No value is supplied!" );
+            throw new JellyTagException( "No value is supplied." );
         }
         getBroker().store( value );
     }

@@ -47,7 +47,7 @@ public class DestinationTag extends TagSupport {
         try {
             final Messenger messenger = messengerTag.getConnection();
             if (messenger == null) {
-                throw new JellyTagException("No JMS Connection could be found!" );
+                throw new JellyTagException("No JMS Connection could be found." );
             }
             final String subject = name != null ? name : getBodyText();
             destination = messenger.getDestination( subject );

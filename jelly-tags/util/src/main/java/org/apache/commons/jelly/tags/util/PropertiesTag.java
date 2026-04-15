@@ -52,7 +52,7 @@ public class PropertiesTag extends TagSupport {
         if (file != null) {
             final File f = new File(file);
             if (!f.exists()) {
-                throw new JellyTagException("file: " + file + " does not exist!");
+                throw new JellyTagException("file: " + file + " does not exist.");
             }
 
             try {
