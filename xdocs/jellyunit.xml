@@ -68,7 +68,7 @@
     <section name="Mock Tags"> 
       <p>
         In unit testing scenarios its often useful to use 
-        <a href="https://c2.com/cgi/wiki?MockObject">Mock Objects</a> to test application logic and stub the behaviour
+        <a href="https://c2.com/cgi/wiki?MockObject">Mock Objects</a> to test application logic and stub the behavior
         of other service
       </p>
       <p>
@@ -76,7 +76,7 @@
         Mock Tags were invented by by Joe Walnes.
       </p>
       <p>
-        Essentially the technique is to mock, or stub the behaviour of Jelly tags so that they give the results that you expect
+        Essentially the technique is to mock, or stub the behavior of Jelly tags so that they give the results that you expect
         from services.
         For example imagine you had a Jelly script with tags which worked with databases or web services.
         You could use mock tags to stub what the tags are meant to do, to test your script invokes them correctly
