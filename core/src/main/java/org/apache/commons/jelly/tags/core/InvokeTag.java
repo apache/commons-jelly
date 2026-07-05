@@ -91,10 +91,10 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
         }
 
         final ArgTag parentArg = (ArgTag)findAncestorWithClass(ArgTag.class);
-        if (null != parentArg) {
+        if (parentArg != null) {
             parentArg.setValue(result);
         }
-        if (null != var) {
+        if (var != null) {
             context.setVariable(var, result);
         }
     }

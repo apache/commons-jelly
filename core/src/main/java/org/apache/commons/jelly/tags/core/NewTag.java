@@ -75,7 +75,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
                 paramTypes.clear();
                 paramValues.clear();
             }
-            if (null != var) {
+            if (var != null) {
                 context.setVariable(var, object);
             } else {
                 parentArg.setValue(object);

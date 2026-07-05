@@ -103,7 +103,7 @@ public class HttpContextTag extends TagSupport {
             throw new JellyTagException(e);
         }
 
-        if (null != getRealmName()) {
+        if (getRealmName() != null) {
             _context.setRealmName(getRealmName());
         }
         httpserver.addContext(_context);

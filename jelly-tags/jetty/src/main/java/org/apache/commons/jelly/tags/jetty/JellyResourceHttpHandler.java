@@ -96,7 +96,7 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
         throws HttpException, IOException
     {
         final Tag handlerTag = (Tag) _tagMap.get(request.getMethod().toLowerCase());
-        if (null != handlerTag) {
+        if (handlerTag != null) {
             // setup the parameters in the jelly context
             final JellyContext jellyContext = handlerTag.getContext();
             jellyContext.setVariable( "pathInContext", pathInContext);

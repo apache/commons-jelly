@@ -622,7 +622,7 @@ public class TransformTag extends ParseTag {
      */
     protected SAXSource getObjAsSAXSource(final Object saxSourceObj) {
         SAXSource saxSource = null;
-        if (null != saxSourceObj) {
+        if (saxSourceObj != null) {
             if (saxSourceObj instanceof Document) {
                 saxSource =  new DocumentSource((Document) saxSourceObj);
             } else {

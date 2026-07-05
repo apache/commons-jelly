@@ -55,7 +55,7 @@ public class ResponseHeaderTag extends TagSupport {
 
         // if value is valid then set it
         // otherwise remove the field
-        if (null != getValue()) {
+        if (getValue() != null) {
             httpResponse.setField(getName(), getValue());
         } else {
             httpResponse.removeField(getName());

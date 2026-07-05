@@ -59,7 +59,7 @@ public class CaseTag extends TagSupport {
         final Object value = valueExpression.evaluate(context);
         if (tag.isFallingThru() ||
            null == tag.getValue() && null == value ||
-           null != tag.getValue() && tag.getValue().equals(value)) {
+           tag.getValue() != null && tag.getValue().equals(value)) {
             tag.caseMatched();
             tag.setFallingThru(fallThru);
             invokeBody(output);

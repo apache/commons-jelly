@@ -36,7 +36,7 @@ public class Customer {
         setName(cust.getName());
         setLocation(cust.getLocation());
         final List list = cust.getOrders();
-        if (null != list) {
+        if (list != null) {
             for(final Iterator iter = list.iterator();iter.hasNext();) {
                 addOrder((Order)iter.next());
             }

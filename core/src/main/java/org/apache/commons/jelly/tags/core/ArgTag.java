@@ -236,7 +236,7 @@ public class ArgTag extends BaseClassLoaderTag {
                 assertNotNull(value);
                 break;
             default:
-                if (null != typeString) {
+                if (typeString != null) {
                     try {
                       // klass = getClassLoader().loadClass(typeString);
                       // JELLY-274: rather use the three args static class-load-method
@@ -251,7 +251,7 @@ public class ArgTag extends BaseClassLoaderTag {
                 }
                 break;
             }
-        } else if (null != typeString) {
+        } else if (typeString != null) {
             try {
               // klass = getClassLoader().loadClass(typeString);
               // JELLY-274: rather use the three args static class-load-method

@@ -101,12 +101,12 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
             final Class[] types = (Class[])paramTypes.toArray(new Class[paramTypes.size()]);
             final Method method = loadClass().getMethod( methodName, types );
             final Object result = method.invoke( null, values );
-            if (null != var) {
+            if (var != null) {
                 context.setVariable(var, result);
             }
 
             final ArgTag parentArg = (ArgTag)findAncestorWithClass(ArgTag.class);
-            if (null != parentArg) {
+            if (parentArg != null) {
                 parentArg.setValue(result);
             }
         }
