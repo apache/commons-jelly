@@ -153,14 +153,14 @@ public class ArgTag extends BaseClassLoaderTag {
     }
 
     private static Object convert(final Class klass, final Object value) throws JellyTagException {
-        if (null == value) {
+        if (value == null) {
             return null;
         }
         if (klass.isInstance(value)) {
             return value;
         }
         final Converter converter = (Converter) converterMap.get(klass);
-        if (null == converter) {
+        if (converter == null) {
             throw new JellyTagException("Can't convert " + value + " to " + klass);
         }
         try {
@@ -191,7 +191,7 @@ public class ArgTag extends BaseClassLoaderTag {
     //-------------------------------------------------------------------------
 
     private void assertNotNull(final Object value) throws JellyTagException {
-        if (null == value) {
+        if (value == null) {
             throw new JellyTagException("A " + typeString + " instance cannot be null.");
         }
     }
@@ -244,7 +244,7 @@ public class ArgTag extends BaseClassLoaderTag {
                     } catch (final ClassNotFoundException e) {
                         throw new JellyTagException(e);
                     }
-                } else if (null == value) { // and (by construction) null == typeString
+                } else if (value == null) { // and (by construction) typeString == null
                     klass = Object.class;
                 } else {
                     klass = value.getClass();
@@ -259,7 +259,7 @@ public class ArgTag extends BaseClassLoaderTag {
             } catch (final ClassNotFoundException e) {
                 throw new JellyTagException(e);
             }
-        } else if (null == value) { // and (by construction) null == typeString
+        } else if (value == null) { // and (by construction) typeString == null
             klass = Object.class;
         } else {
             klass = value.getClass();
@@ -280,7 +280,7 @@ public class ArgTag extends BaseClassLoaderTag {
         }
 
         final ArgTagParent parent = (ArgTagParent)findAncestorWithClass(ArgTagParent.class);
-        if (null == parent) {
+        if (parent == null) {
             throw new JellyTagException("This tag must be enclosed inside an ArgTagParent implementation (for example, <new> or <invoke>)");
         }
         parent.addArgument(klass, value);
@@ -290,7 +290,7 @@ public class ArgTag extends BaseClassLoaderTag {
     //-------------------------------------------------------------------------
 
     private boolean isInstanceOf(final Class klass, final Object value) {
-        return null == value || klass.isInstance(value);
+        return value == null || klass.isInstance(value);
     }
 
     /**

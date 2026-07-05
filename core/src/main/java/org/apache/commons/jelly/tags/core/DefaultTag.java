@@ -45,7 +45,7 @@ public class DefaultTag extends TagSupport {
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         final SwitchTag tag = (SwitchTag)findAncestorWithClass(SwitchTag.class);
-        if (null == tag) {
+        if (tag == null) {
             throw new JellyTagException("This tag must be enclosed inside a <switch> tag" );
         }
         if (tag.hasDefaultBeenEncountered()) {

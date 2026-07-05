@@ -64,7 +64,7 @@ public class SwitchTag extends TagSupport {
         this.someCaseMatched = false;
         this.fallingThru = false;
 
-        if (null == on) {
+        if (on == null) {
             throw new MissingAttributeException("on");
         }
         value = on.evaluate(context);

@@ -46,7 +46,7 @@ public class ResponseCodeTag extends TagSupport {
 
         // get the response from the context
         final HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
-        if (null == httpResponse) {
+        if (httpResponse == null) {
             throw new JellyTagException("HttpResponse variable not available in Jelly context");
         }
 

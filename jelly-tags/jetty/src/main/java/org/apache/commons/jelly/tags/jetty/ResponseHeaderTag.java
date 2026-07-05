@@ -43,13 +43,13 @@ public class ResponseHeaderTag extends TagSupport {
     @Override
     public void doTag(final XMLOutput xmlOutput) throws JellyTagException {
 
-        if (null == getName()) {
+        if (getName() == null) {
             throw new JellyTagException("<responseHeader> tag must have a name");
         }
 
         // get the response from the context
         final HttpResponse httpResponse = (HttpResponse) getContext().getVariable("response");
-        if (null == httpResponse) {
+        if (httpResponse == null) {
             throw new JellyTagException("HttpResponse variable not available in Jelly context");
         }
 

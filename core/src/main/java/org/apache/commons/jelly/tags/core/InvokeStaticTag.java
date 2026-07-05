@@ -92,7 +92,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
     @Override
     public void doTag(final XMLOutput output) throws JellyTagException {
         try {
-            if ( null == methodName) {
+            if ( methodName == null) {
                 throw new MissingAttributeException( "method" );
             }
             invokeBody(output);
@@ -114,7 +114,7 @@ public class InvokeStaticTag extends TagSupport implements ArgTagParent {
             throw createLoadClassFailedException(e);
         }
         catch (final InvocationTargetException e) {
-            if (null == exceptionVar) {
+            if (exceptionVar == null) {
                 throw new JellyTagException("method " + methodName +
                     " threw exception: "+ e.getTargetException().getMessage(),
                     e.getTargetException() );

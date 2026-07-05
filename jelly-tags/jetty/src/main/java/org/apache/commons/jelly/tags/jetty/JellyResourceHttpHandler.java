@@ -109,7 +109,7 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
                 handlerTag.invokeBody(_xmlOutput);
                 // only call set handled if tag has not requested an override
                 // if it has requested an override then reset the request
-                if (null == jellyContext.getVariable(OVERRIDE_SET_HANDLED_VAR)) {
+                if (jellyContext.getVariable(OVERRIDE_SET_HANDLED_VAR) == null) {
                     request.setHandled(true);
                     response.commit();
                 } else {

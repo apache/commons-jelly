@@ -65,7 +65,7 @@ public class TestNamespacePrefixes extends BaseJellyTest {
 		reader = parser.getXMLReader();
 
         final URL url = this.getClass().getResource("testNamespacePrefixes.xml");
-        if (null == url) {
+        if (url == null) {
             throw new Exception("Could not find Jelly script: testNamespacePrefixes.xml in package of class: " + getClass().getName());
         }
 		final InputSource inSrc = new InputSource(new FileReader(new File(url.getPath())));

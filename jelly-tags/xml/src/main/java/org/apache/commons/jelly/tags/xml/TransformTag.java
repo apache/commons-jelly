@@ -439,7 +439,7 @@ public class TransformTag extends ParseTag {
         }
 
         // pass if we don't have a systemId
-        if (null == href) {
+        if (href == null) {
             return null;
         }
 
@@ -470,7 +470,7 @@ public class TransformTag extends ParseTag {
         final Object xmlReaderSourceObj = this.getXml();
         // if no XML source specified then get from body
         // otherwise convert it to a SAX source
-        if (null == xmlReaderSourceObj) {
+        if (xmlReaderSourceObj == null) {
             xmlReader = new TagBodyXMLReader(this);
         }
         else {
@@ -521,7 +521,7 @@ public class TransformTag extends ParseTag {
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
 
-        if (null == this.getXslt()) {
+        if (this.getXslt() == null) {
             throw new MissingAttributeException("The xslt attribute cannot be null");
         }
 
@@ -547,7 +547,7 @@ public class TransformTag extends ParseTag {
 
             // handle result differently, depending on if var is specified
             final String varName = this.getVar();
-            if (null == varName) {
+            if (varName == null) {
                 // pass the result of the transform out as SAX events
                 this.transformerHandler.setResult(this.createSAXResult(output));
                 xmlReader.parse(this.getXMLInputSource());
@@ -647,7 +647,7 @@ public class TransformTag extends ParseTag {
         final Object xmlInputSourceObj = this.getXml();
         // if no XML source specified then get from tag body
         // otherwise convert it to an input source
-        if (null == xmlInputSourceObj) {
+        if (xmlInputSourceObj == null) {
             xmlInputSource = new TagBodyInputSource();
         } else {
             xmlInputSource = this.getInputSourceFromObj(xmlInputSourceObj);

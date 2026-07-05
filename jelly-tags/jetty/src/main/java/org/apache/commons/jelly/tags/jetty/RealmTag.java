@@ -55,7 +55,7 @@ public class RealmTag extends TagSupport {
         if ( httpserver == null ) {
             throw new JellyTagException( "<realm> tag must be enclosed inside a <server> tag" );
         }
-        if (null == getName() || null == getConfig()) {
+        if (getName() == null || getConfig() == null) {
             throw new JellyTagException( "<realm> tag must have a name and a config" );
         }
 

@@ -60,10 +60,10 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
     //-------------------------------------------------------------------------
     @Override
     public void doTag(final XMLOutput output) throws MissingAttributeException, JellyTagException {
-        if ( null == methodName) {
+        if ( methodName == null) {
             throw new MissingAttributeException( "method" );
         }
-        if ( null == onInstance ) {
+        if ( onInstance == null ) {
             throw new MissingAttributeException( "on" );
         }
 
@@ -80,7 +80,7 @@ public class InvokeTag extends TagSupport implements ArgTagParent {
             throw new JellyTagException(e);
         }
         catch (final InvocationTargetException e) {
-            if (null == exceptionVar) {
+            if (exceptionVar == null) {
                 throw new JellyTagException("method " + methodName + " threw exception: " + e.getTargetException().getMessage(), e.getTargetException());
             }
             context.setVariable(exceptionVar,e.getTargetException());

@@ -54,7 +54,7 @@ public class NewTag extends BaseClassLoaderTag implements ArgTagParent {
         ArgTag parentArg = null;
         if ( var == null ) {
             parentArg = (ArgTag)findAncestorWithClass(ArgTag.class);
-            if (null == parentArg) {
+            if (parentArg == null) {
                 throw new MissingAttributeException( "var" );
             }
         }
