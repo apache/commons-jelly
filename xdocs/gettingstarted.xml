@@ -75,7 +75,7 @@ compile all the code and build and run the unit test cases.
 <section name="Tag-libraries">
 <p> 
   Your next task is to choose the tag-libraries you are interested to and to
-  build them. For all of them, you can build using <code>maven jar</code>.
+  build them. For all of them, you can build using <code>mvn jar</code>.
   </p>
 <p>
   Beware that some tag-libraries have dependencies that cannot be distributed
@@ -86,11 +86,11 @@ compile all the code and build and run the unit test cases.
   are known to require such.
   Please browse to their dependency-list in order to download the
   named jars, rename-them, and put them at the appropriate place
-  in the maven repository. (you could also delete these directories)
+  in the Maven repository. (you could also delete these directories)
   </p>
   <p>
-    Once all dependencies are honoured, you can also build it all using
-    <code>maven dist</code>, however, maven may become out of resources;
+    Once all dependencies are honored, you can also build it all using
+    <code>mvn dist</code>, however, Maven may become out of resources;
     changing the environment variable MAVEN_OPTS (e.g. to -Xmx768m...) might help.
     </p>
 <p>
