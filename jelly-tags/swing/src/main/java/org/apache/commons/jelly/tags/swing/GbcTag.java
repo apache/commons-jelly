@@ -73,8 +73,8 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
      * <p>
      * TODO constraints looks like it's ignored
      * </p>
-     * @param component the child to add
-     * @param constraints the constraints to use
+     * @param component The child to add
+     * @param constraints The constraints to use
      */
     @Override
     public void addChild(final Component component, final Object constraints) throws JellyTagException {
@@ -90,7 +90,7 @@ public class GbcTag extends UseBeanTag implements ContainerTag {
 
     /**
      * A class may be specified otherwise the Factory will be used.
-     * @param classObject the object to be converted
+     * @param classObject The object to be converted
      */
     @Override
     protected Class convertToClass(final Object classObject)

@@ -89,7 +89,7 @@ public class ClassLoaderTag extends BeanTag {
     }
 
     /**
-     * @param url the url to load the classes from
+     * @param url The url to load the classes from
      */
     public void setUrl(final String url) {
         this.url = url;
@@ -99,7 +99,7 @@ public class ClassLoaderTag extends BeanTag {
     //-------------------------------------------------------------------------
 
     /**
-     * @param var the variable to store the class loader in
+     * @param var The variable to store the class loader in
      */
     public void setVar(final String var) {
         this.var = var;

@@ -33,7 +33,7 @@ public class AssertFileNotFoundTag extends AssertTagSupport
 
     /**
      * Do the tag functionality: check the file can't be found.
-     * @param output a place to write text output
+     * @param output A place to write text output
      * @throws JellyTagException if the file exists.
      */
     @Override
@@ -55,7 +55,7 @@ public class AssertFileNotFoundTag extends AssertTagSupport
 
     /**
      * The file to be tested. If this file exists, the test will pass.
-     * @param aFile the file to test.
+     * @param aFile The file to test.
      */
     public void setFile(final File aFile)
     {

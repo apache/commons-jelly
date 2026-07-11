@@ -46,7 +46,7 @@ public class IfTag extends TagSupport {
     /** Sets the Jelly expression to evaluate. If this returns true, the body of
      * the tag is evaluated
      *
-     * @param test the Jelly expression to evaluate
+     * @param test The Jelly expression to evaluate
      */
     public void setTest(final Expression test) {
         this.test = test;

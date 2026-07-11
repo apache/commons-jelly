@@ -30,7 +30,7 @@ public class ClassLoaderUtils {
 
     /**
      * Gets the loader for the given class.
-     * @param clazz the class to retrieve the loader for
+     * @param clazz The class to retrieve the loader for
      * @return The class loader that loaded the provided class
      */
     public static ClassLoader getClassLoader(final Class clazz) {

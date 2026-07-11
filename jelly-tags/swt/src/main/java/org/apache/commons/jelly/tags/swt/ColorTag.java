@@ -114,7 +114,7 @@ public class ColorTag extends TagSupport {
     /**
      * Sets the variable name
      *
-     * @param var the variable name of this {@link Color} instance
+     * @param var The variable name of this {@link Color} instance
      */
     public void setVar(final String var) {
         this.var = var;

@@ -65,7 +65,7 @@ public class MyTagLibrary extends TagLibrary {
      * Gets the bean class that we should use for the given element name
      *
      * @param name is the XML element name
-     * @param attributes the XML attributes
+     * @param attributes The XML attributes
      * @return Class the bean class to use for this element or null if the tag
      * is a nested property
      */

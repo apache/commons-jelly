@@ -59,7 +59,7 @@ public class ImportTag extends TagSupport {
 
     /**
      * Perform tag processing
-     * @param output the destination for output
+     * @param output The destination for output
      * @throws MissingAttributeException if a required attribute is missing
      * @throws JellyTagException on any other errors
      */

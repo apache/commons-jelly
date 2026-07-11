@@ -75,8 +75,8 @@ public abstract class HttpTagSupport extends TagSupport {
     /**
      * Add a parameter to the list
      *
-     * @param name the parameter name
-     * @param value the parameter value
+     * @param name The parameter name
+     * @param value The parameter value
      */
     public void addParameter(final String name, final String value) {
         getParameters().add(new NameValuePair(name, value));
@@ -85,8 +85,8 @@ public abstract class HttpTagSupport extends TagSupport {
     /**
      * Add a request header to the list
      *
-     * @param name the header name
-     * @param value the header value
+     * @param name The header name
+     * @param value The header value
      */
     public void addRequestHeader(final String name, final String value) {
         getRequestHeaders().add(new NameValuePair(name, value));
@@ -284,7 +284,7 @@ public abstract class HttpTagSupport extends TagSupport {
     /**
      * Sets the current parameters on the url method ready for processing
      *
-     * @param method the {@link HttpMethod method} to configure
+     * @param method The {@link HttpMethod method} to configure
      * @throws MalformedURLException Never thrown here but can be from a subclass.
      */
     protected void setParameters(final HttpMethod method) throws MalformedURLException {

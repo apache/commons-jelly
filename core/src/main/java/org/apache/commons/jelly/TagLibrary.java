@@ -164,7 +164,7 @@ public abstract class TagLibrary {
     }
 
 	/**
-	 * @param allowUnknownTags the allowUnknownTags to set
+	 * @param allowUnknownTags The allowUnknownTags to set
 	 */
 	public void setAllowUnknownTags(final boolean allowUnknownTags) {
 		this.allowUnknownTags = allowUnknownTags;

@@ -94,7 +94,7 @@ public class SwitchTag extends TagSupport {
      * Sets the value to switch on.
      * Note that the {@link Expression} is evaluated only once, when the
      * &lt;switch&gt; tag is evaluated.
-     * @param on the value to switch on
+     * @param on The value to switch on
      */
     public void setOn(final Expression on) {
         this.on = on;

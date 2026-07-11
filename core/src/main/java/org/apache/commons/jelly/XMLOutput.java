@@ -587,7 +587,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
       * Subclasses are invited to use this as a way for children tags to
       * pass data to their parent.
       *
-      * @param object the data to pass
+      * @param object The data to pass
       * @throws SAXException The application may raise an exception.
       */
     public void objectData(final Object object) throws SAXException {

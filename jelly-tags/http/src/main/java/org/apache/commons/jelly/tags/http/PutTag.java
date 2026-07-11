@@ -37,8 +37,8 @@ public class PutTag extends HttpTagSupport {
     /**
      * Fail as PUT requests don't have parameters
      *
-     * @param name the parameter name
-     * @param value the parameter value
+     * @param name The parameter name
+     * @param value The parameter value
      */
     @Override
     public void addParameter(final String name, final String value) {

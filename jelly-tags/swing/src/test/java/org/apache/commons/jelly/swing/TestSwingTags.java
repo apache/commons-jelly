@@ -47,8 +47,8 @@ public class TestSwingTags extends BaseJellyTest {
 
     /** Searches a container for a component with a given name. Searches only
      * the immediate container, not child containers.
-     * @param container the Container to search in
-     * @param name the name to look for
+     * @param container The Container to search in
+     * @param name The name to look for
      * @return The first component with the given name
      * @throws Exception if the name isn't found
      */

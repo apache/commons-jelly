@@ -293,8 +293,8 @@ public class XMLParser extends DefaultHandler {
     /**
      * Configure a newly created TagScript instance before any Expressions are created;
      * see configureTagScript(TagScript) for StaticTags
-     * @param tagLibrary the TagLibrary that created the TagScript
-     * @param aTagScript the TagScript that's just been created
+     * @param tagLibrary The TagLibrary that created the TagScript
+     * @param aTagScript The TagScript that's just been created
      */
     protected void configureTagScript(final TagLibrary tagLibrary,  final TagScript aTagScript) {
         // Set the TagLibrary that created the script

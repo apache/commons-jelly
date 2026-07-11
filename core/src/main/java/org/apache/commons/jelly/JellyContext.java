@@ -118,7 +118,7 @@ public class JellyContext {
      * The parent's rootURL and currentURL are set on the child, and the parent's variables are
      * available in the child context under the name {@code parentScope}.
      *
-     * @param parent the parent context for the newly created context.
+     * @param parent The parent context for the newly created context.
      */
     public JellyContext(final JellyContext parent) {
         this.parent = parent;
@@ -135,8 +135,8 @@ public class JellyContext {
      * The parent's rootURL are set on the child, and the parent's variables are
      * available in the child context under the name {@code parentScope}.
      *
-     * @param parentJellyContext the parent context for the newly created context.
-     * @param currentURL the root URL used in resolving relative resources
+     * @param parentJellyContext The parent context for the newly created context.
+     * @param currentURL The root URL used in resolving relative resources
      */
     public JellyContext(final JellyContext parentJellyContext, final URL currentURL) {
         this(parentJellyContext);
@@ -147,9 +147,9 @@ public class JellyContext {
      * Create a new context with the given parent context.
      * The parent's variables are available in the child context under the name {@code parentScope}.
      *
-     * @param parentJellyContext the parent context for the newly created context.
-     * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/'
-     * @param currentURL the root URL used in resolving relative resources
+     * @param parentJellyContext The parent context for the newly created context.
+     * @param rootURL The root URL used in resolving absolute resources i.e. those starting with '/'
+     * @param currentURL The root URL used in resolving relative resources
      */
     public JellyContext(final JellyContext parentJellyContext, final URL rootURL, final URL currentURL) {
         this(parentJellyContext, currentURL);
@@ -158,7 +158,7 @@ public class JellyContext {
 
     /**
      * Create a new context with the given rootURL
-     * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/'
+     * @param rootURL The root URL used in resolving absolute resources i.e. those starting with '/'
      */
     public JellyContext(final URL rootURL) {
         this( rootURL, rootURL );
@@ -166,8 +166,8 @@ public class JellyContext {
 
     /**
      * Create a new context with the given rootURL and currentURL
-     * @param rootURL the root URL used in resolving absolute resources i.e. those starting with '/'
-     * @param currentURL the root URL used in resolving relative resources
+     * @param rootURL The root URL used in resolving absolute resources i.e. those starting with '/'
+     * @param currentURL The root URL used in resolving relative resources
      */
     public JellyContext(final URL rootURL, final URL currentURL) {
         this.rootURL = rootURL;
@@ -442,7 +442,7 @@ public class JellyContext {
 
     /**
      * Gets a system property and handle security exceptions
-     * @param name the name of the property to retrieve
+     * @param name The name of the property to retrieve
      * @return The value of the property, or null if a SecurityException occurs
      */
     private Object getSystemProperty(final String name) {
@@ -928,7 +928,7 @@ public class JellyContext {
 
     /**
      * Change the parent context to the one provided
-     * @param context the new parent context
+     * @param context The new parent context
      */
     protected void setParent(final JellyContext context)
     {
@@ -963,7 +963,7 @@ public class JellyContext {
     }
 
     /**
-	 * @param suppressExpressionExceptions the suppressExpressionExceptions to set
+	 * @param suppressExpressionExceptions The suppressExpressionExceptions to set
 	 * @deprecated after v1.1, exceptions will never be suppressed
 	 */
 	@Deprecated

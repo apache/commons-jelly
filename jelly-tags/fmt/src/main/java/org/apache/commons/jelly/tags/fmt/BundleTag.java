@@ -44,8 +44,8 @@ public class BundleTag extends TagSupport {
      * its return value unless its locale represents an exact or language match
      * with the given preferred locale.
      *
-     * @param basename the resource bundle base name
-     * @param pref the preferred locale
+     * @param basename The resource bundle base name
+     * @param pref The preferred locale
      * @param cl   classloader used to find resource bundle
      * @return The requested resource bundle, or {@code null} if no resource
      * bundle with the given base name exists or if there is no exact- or

@@ -43,8 +43,8 @@ public class Proxy {
     /**
      * Create a proxy given a host name and port number.
      *
-     * @param host the host name of the proxy to be used.
-     * @param port the port to send proxied requests on.
+     * @param host The host name of the proxy to be used.
+     * @param port The port to send proxied requests on.
      */
     public Proxy(final String host, final int port) {
         setHost(host);
@@ -72,7 +72,7 @@ public class Proxy {
     /**
      * Setter for property host.
      *
-     * @param host the host name of the proxy to be used.
+     * @param host The host name of the proxy to be used.
      */
     public void setHost(final String host) {
         _host = host;
@@ -81,7 +81,7 @@ public class Proxy {
     /**
      * Setter for property port.
      *
-     * @param port the port to send proxied requests on.
+     * @param port The port to send proxied requests on.
      */
     public void setPort(final int port) {
         _port = port;

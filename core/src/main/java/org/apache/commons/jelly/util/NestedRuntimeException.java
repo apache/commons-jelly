@@ -39,8 +39,8 @@ public class NestedRuntimeException extends RuntimeException {
      * Constructs a new {@code NestedRuntimeException} with specified
      * detail message and nested {@code Throwable}.
      *
-     * @param msg    the error message
-     * @param cause  the exception or error that caused this exception to be
+     * @param msg    The error message
+     * @param cause  The exception or error that caused this exception to be
      * thrown
      */
     public NestedRuntimeException(final String msg, final Throwable cause) {
@@ -51,7 +51,7 @@ public class NestedRuntimeException extends RuntimeException {
      * Constructs a new {@code NestedRuntimeException} with specified
      * nested {@code Throwable}.
      *
-     * @param cause the exception or error that caused this exception to be
+     * @param cause The exception or error that caused this exception to be
      * thrown
      */
     public NestedRuntimeException(final Throwable cause) {

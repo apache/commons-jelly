@@ -155,7 +155,7 @@ public class FontTag extends TagSupport {
     /**
      * Sets the style of this {@link Font} (eg. bold, normal, italics)
      *
-     * @param style the style of this {@link Font}
+     * @param style The style of this {@link Font}
      */
     public void setStyle(final String style) {
         this.style = style;
@@ -176,7 +176,7 @@ public class FontTag extends TagSupport {
     /**
      * Sets the variable name
      *
-     * @param var the variable name of this {@link Font} instance
+     * @param var The variable name of this {@link Font} instance
      */
     public void setVar(final String var) {
         this.var = var;

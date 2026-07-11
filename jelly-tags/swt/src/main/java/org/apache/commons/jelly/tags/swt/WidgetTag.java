@@ -90,7 +90,7 @@ public class WidgetTag extends UseBeanTag {
      *
      * @param theClass is the type of widget to create
      * @param parent is the parent widget
-     * @param style the SWT style code
+     * @param style The SWT style code
      * @return The new Widget
      */
     protected Object createWidget(final Class theClass, final Widget parent, final int style)

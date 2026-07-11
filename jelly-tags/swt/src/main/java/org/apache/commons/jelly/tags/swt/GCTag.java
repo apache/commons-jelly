@@ -85,7 +85,7 @@ public class GCTag extends TagSupport {
     /**
      * Sets the {@link Drawable} name for this {@link GC}.
      *
-     * @param drawable a {@link GC} {@link Drawable}
+     * @param drawable A {@link GC} {@link Drawable}
      */
     public void setDrawable(final Drawable drawable) {
         this.drawable = drawable;
@@ -97,7 +97,7 @@ public class GCTag extends TagSupport {
     /**
      * Sets the variable name.
      *
-     * @param var the variable name of this {@link GC} instance
+     * @param var The variable name of this {@link GC} instance
      */
     public void setVar(final String var) {
         this.var = var;

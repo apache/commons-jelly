@@ -44,9 +44,9 @@ public class TimeZoneTag extends TagSupport {
      * {@code javax.servlet.jsp.jstl.core.Config.FMT_TIME_ZONE}
      * is used.
      *
-     * @param jc the page containing the action for which the
+     * @param jc The page containing the action for which the
      * time zone needs to be determined
-     * @param fromTag the action for which the time zone needs to be
+     * @param fromTag The action for which the time zone needs to be
      * determined
      *
      * @return The time zone, or {@code null} if the given action is not

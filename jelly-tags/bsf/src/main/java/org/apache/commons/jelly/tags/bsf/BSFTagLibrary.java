@@ -45,7 +45,7 @@ public class BSFTagLibrary extends CoreTagLibrary {
      * Factory method to create a new ScriptTag with a BSFEngine
      *
      * @param name is the name of the tag (typically 'script')
-     * @param attributes the attributes of the tag
+     * @param attributes The attributes of the tag
      * @return Tag
      */
     protected Tag createScriptTag(final String name, final Attributes attributes) throws JellyException {

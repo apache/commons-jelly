@@ -225,7 +225,7 @@ public class TagScript implements Script {
      * Converts the given value to the required type.
      *
      * @param value is the value to be converted. This will not be null
-     * @param requiredType the type that the value should be converted to
+     * @param requiredType The type that the value should be converted to
      */
     protected Object convertType(final Object value, final Class requiredType)
         throws JellyException {
@@ -709,7 +709,7 @@ public class TagScript implements Script {
     }
 
     /**
-	 * @param tagLibrary the tagLibrary to set
+	 * @param tagLibrary The tagLibrary to set
 	 */
 	public void setTagLibrary(final TagLibrary tagLibrary) {
 		this.tagLibrary = tagLibrary;

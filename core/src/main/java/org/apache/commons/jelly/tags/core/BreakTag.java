@@ -62,7 +62,7 @@ public class BreakTag extends TagSupport {
      * If this is {@code null} or evaluates to
      * {@code true} then the loop is terminated
      *
-     * @param test the Jelly expression to evaluate
+     * @param test The Jelly expression to evaluate
      */
     public void setTest(final Expression test) {
         this.test = test;

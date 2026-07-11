@@ -30,7 +30,7 @@ public class ResultSupport {
     /**
      * Returns an array of Row objects.
      *
-     * @param resultSet the ResultSet object
+     * @param resultSet The ResultSet object
      * @return The {@code Result} object of the result
      */
     public static Result toResult(final ResultSet resultSet) {
@@ -44,8 +44,8 @@ public class ResultSupport {
     /**
      * Returns the Result object of the cached ResultSet limited by maxRows
      *
-     * @param resultSet the ResultSet object
-     * @param maxRows the maximum number of rows
+     * @param resultSet The ResultSet object
+     * @param maxRows The maximum number of rows
      * @return The {@code Result} object of the result limited by maxRows
      */
     public static Result toResult(final ResultSet resultSet, final int maxRows) {

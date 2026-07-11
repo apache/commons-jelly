@@ -76,7 +76,7 @@ public class SortTag extends TagSupport {
 
     /**
      * The variable to hold the sorted collection.
-     * @param newVar the name of the variable.
+     * @param newVar The name of the variable.
      */
     public void setVar(final String newVar) {
         var = newVar;

@@ -64,9 +64,9 @@ public class TestXMLTags extends TestCase {
      * Checks an XML fragment with a namespace expression. Namespaces are
      * generated in arbitrary order. Therefore, they cannot be checked
      * directly.
-     * @param s the fragment to be checked
-     * @param pre the part before the namespace expression
-     * @param post the part after the namespace expression
+     * @param s The fragment to be checked
+     * @param pre The part before the namespace expression
+     * @param post The part after the namespace expression
      * @return The extracted namespace expression
      */
     private static String checkNamespaceFragment(final String s, final String pre, final String post) {
@@ -79,10 +79,10 @@ public class TestXMLTags extends TestCase {
     /**
      * Tries to find a fragment with the specified namespaces in the given
      * string.
-     * @param s the string
-     * @param pre the part before the namespace expression
-     * @param post the part after the namespace expression
-     * @param ns the namespaces to be matched in the fragment
+     * @param s The string
+     * @param pre The part before the namespace expression
+     * @param post The part after the namespace expression
+     * @param ns The namespaces to be matched in the fragment
      */
     private static void findNamespaceFragment(final String s, final String pre, final String post,
                                                 final String... ns) {
@@ -102,9 +102,9 @@ public class TestXMLTags extends TestCase {
 
     /**
      * Returns a matcher for a namespace XML fragment.
-     * @param s the fragment to be checked
-     * @param pre the part before the namespace expression
-     * @param post the part after the namespace expression
+     * @param s The fragment to be checked
+     * @param pre The part before the namespace expression
+     * @param post The part after the namespace expression
      * @return The matcher
      */
     private static Matcher matcherForNamespaceFragment(final String s, final String pre, final String post) {

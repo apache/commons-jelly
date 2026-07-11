@@ -53,14 +53,14 @@ public class TJEcho extends TagSupport {
 	}
 
 	/**
-	 * @param attr the attr to set
+	 * @param attr The attr to set
 	 */
 	public void setAttr(final String attr) {
 		this.attr = attr;
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id The id to set
 	 */
 	public void setId(final String id) {
 		this.id = id;

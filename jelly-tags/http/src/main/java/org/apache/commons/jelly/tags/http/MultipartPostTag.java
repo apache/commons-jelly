@@ -56,7 +56,7 @@ public class MultipartPostTag extends PostTag {
     /**
      * Add a part to the message
      *
-     * @param part the part
+     * @param part The part
      */
     public void addPart(final Part part) {
         _parts.add(part);

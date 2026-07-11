@@ -158,8 +158,8 @@ public class SecurityHandlerTag extends TagSupport {
      * Process a parsed XML node to setup the authenticator and realm
      * for an http server
      *
-     * @param node the parsed XML starting node of the login configuration
-     * @param httpContext the tag to add the authenticator and realm to
+     * @param node The parsed XML starting node of the login configuration
+     * @param httpContext The tag to add the authenticator and realm to
     */
     protected void initLoginConfig(final XmlParser.Node node,
                                    final HttpContextTag httpContext)
@@ -230,8 +230,8 @@ public class SecurityHandlerTag extends TagSupport {
      * Process a parsed XML node to setup the security constraints
      * for an http server
      *
-     * @param node the parsed XML starting node of the constraints
-     * @param httpContext the tag to add the security constraint to
+     * @param node The parsed XML starting node of the constraints
+     * @param httpContext The tag to add the security constraint to
     */
     protected void initSecurityConstraint(final XmlParser.Node node,
                                           final HttpContextTag httpContext)

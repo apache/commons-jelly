@@ -74,7 +74,7 @@ public class WhileTag extends TagSupport {
 
     /**
      * Setter for the expression
-     * @param e the expression to test
+     * @param e The expression to test
      */
     public void setTest(final Expression e) {
         this.test = e;

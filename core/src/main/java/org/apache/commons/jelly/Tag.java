@@ -73,14 +73,14 @@ public interface Tag {
     /**
      * Sets the body of the tag.
      *
-     * @param body the body of the tag.
+     * @param body The body of the tag.
      */
     void setBody(Script body);
 
     /**
      * Sets the context in which the tag will be run.
      *
-     * @param context the context in which the tag will be run.
+     * @param context The context in which the tag will be run.
      * @throws JellyTagException Thrown on error.
      */
     void setContext(JellyContext context) throws JellyTagException;
@@ -88,14 +88,14 @@ public interface Tag {
     /**
      * Sets the parent of this tag.
      *
-     * @param parent the parent of this tag.
+     * @param parent The parent of this tag.
      */
     void setParent(Tag parent);
 
     /**
      * Sets the tag library. Defaults to do nothing.
      *
-     * @param tagLibrary the tag library.
+     * @param tagLibrary The tag library.
      * @since 1.1.0
      */
     default void setTagLib(TagLibrary tagLibrary) {

@@ -96,7 +96,7 @@ public class ResultImpl implements Result {
      * This constructor reads the ResultSet and saves a cached
      * copy.
      *
-     * @param rs an open {@code ResultSet}, positioned before the first
+     * @param rs An open {@code ResultSet}, positioned before the first
      * row
      * @param startRow beginning row to be cached
      * @param maxRows query maximum rows limit

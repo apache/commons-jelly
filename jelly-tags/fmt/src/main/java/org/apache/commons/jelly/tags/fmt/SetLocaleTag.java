@@ -47,8 +47,8 @@ public class SetLocaleTag extends TagSupport {
      * matches the preferred locale's language component and does not have any
      * country component ("language match").
      *
-     * @param pref the preferred locale
-     * @param avail the available formatting locales
+     * @param pref The preferred locale
+     * @param avail The available formatting locales
      * @return Available locale that best matches the given preferred locale,
      * or {@code null} if no match exists
      */
@@ -82,7 +82,7 @@ public class SetLocaleTag extends TagSupport {
      * (if set to {@code true}, the formatting locale that is returned by
      * this method is used to set the response locale).
      *
-     * @param avail the array of available locales
+     * @param avail The array of available locales
      * @return The formatting locale to use
      */
     static Locale getFormattingLocale(final JellyContext jc,
@@ -150,9 +150,9 @@ public class SetLocaleTag extends TagSupport {
      * attribute exists in any of the scopes, the locale is taken from the
      * named context configuration parameter.
      *
-     * @param jc the page in which to search for the named scoped
+     * @param jc The page in which to search for the named scoped
      * attribute or context configuration parameter
-     * @param name the name of the scoped attribute or context configuration
+     * @param name The name of the scoped attribute or context configuration
      * parameter
      *
      * @return The locale specified by the named scoped attribute or context
@@ -189,8 +189,8 @@ public class SetLocaleTag extends TagSupport {
      * If the given locale string is null or empty, the runtime's default
      * locale is returned.
      *
-     * @param locale the locale string to parse
-     * @param variant the variant
+     * @param locale The locale string to parse
+     * @param variant The variant
      * @return {@code java.util.Locale} object corresponding to the given
      * locale string, or the runtime's default locale if the locale string is
      * null or empty

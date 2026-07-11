@@ -50,7 +50,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      *
      * @param bean is the bean on which the property is to be set
      * @param name is the name of the property
-     * @param value the value of the property
+     * @param value The value of the property
      * @return The new value
      */
     protected Object convertValue(final Object bean, final String name, final Object value)

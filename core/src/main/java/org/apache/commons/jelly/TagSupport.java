@@ -33,8 +33,8 @@ public abstract class TagSupport implements Tag {
      * Searches up the parent hierarchy from the given tag
      * for a Tag of the given type
      *
-     * @param from the tag to start searching from
-     * @param tagClass the type of the tag to find
+     * @param from The tag to start searching from
+     * @param tagClass The type of the tag to find
      * @return The tag of the given type or null if it could not be found
      */
     public static Tag findAncestorWithClass(Tag from, final Class tagClass) {
@@ -54,8 +54,8 @@ public abstract class TagSupport implements Tag {
      * Searches up the parent hierarchy from the given tag
      * for a Tag matching one or more of given types.
      *
-     * @param from the tag to start searching from
-     * @param tagClasses an array of types that might match
+     * @param from The tag to start searching from
+     * @param tagClasses An array of types that might match
      * @return The tag of the given type or null if it could not be found
      * @see #findAncestorWithClass(Tag,Collection)
      */
@@ -67,8 +67,8 @@ public abstract class TagSupport implements Tag {
      * Searches up the parent hierarchy from the given tag
      * for a Tag matching one or more of given types.
      *
-     * @param from the tag to start searching from
-     * @param tagClasses a Collection of Class types that might match
+     * @param from The tag to start searching from
+     * @param tagClasses A Collection of Class types that might match
      * @return The tag of the given type or null if it could not be found
      */
     public static Tag findAncestorWithClass(Tag from, final Collection tagClasses) {

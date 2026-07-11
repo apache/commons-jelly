@@ -55,7 +55,7 @@ public class HttpContextTag extends TagSupport {
     /**
      * Add an http handler to the context instance
      *
-     * @param httpHandler the handler to add
+     * @param httpHandler The handler to add
      */
     public void addHandler(final HttpHandler httpHandler) {
         _context.addHandler(httpHandler);
@@ -65,8 +65,8 @@ public class HttpContextTag extends TagSupport {
      * Add a security constraint for the specified path specification
      * to the context instance
      *
-     * @param pathSpec the path specification for the security constraint
-     * @param sc the security constraint to add
+     * @param pathSpec The path specification for the security constraint
+     * @param sc The security constraint to add
      */
     public void addSecurityConstraint(final String pathSpec, final SecurityConstraint sc) {
         _context.addSecurityConstraint(pathSpec, sc);
@@ -140,7 +140,7 @@ public class HttpContextTag extends TagSupport {
     /**
      * Add an authenticator to the context instance
      *
-     * @param authenticator the authenticator to add
+     * @param authenticator The authenticator to add
      */
     public void setAuthenticator(final Authenticator authenticator)
     {

@@ -57,7 +57,7 @@ public class StringInputStream
     /**
      * Marks the read limit of the StringReader.
      *
-     * @param limit the maximum limit of bytes that can be read before the
+     * @param limit The maximum limit of bytes that can be read before the
      *              mark position becomes invalid
      */
     @Override

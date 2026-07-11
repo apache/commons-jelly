@@ -99,7 +99,7 @@ public class JettyHttpServerTag extends TagSupport {
     /**
      * Add an http context to the server instance
      *
-     * @param context the context to add
+     * @param context The context to add
      */
     public void addContext(final HttpContext context) {
         _server.addContext(context);
@@ -108,7 +108,7 @@ public class JettyHttpServerTag extends TagSupport {
     /**
      * Add an http listener to the server instance
      *
-     * @param listener the listener to add
+     * @param listener The listener to add
      */
     public void addListener(final HttpListener listener) {
         _server.addListener(listener);
@@ -117,7 +117,7 @@ public class JettyHttpServerTag extends TagSupport {
     /**
      * Add a user authentication realm to the server instance
      *
-     * @param realm the realm to add
+     * @param realm The realm to add
      * @return The realm added
      */
     public UserRealm addRealm(final UserRealm realm)

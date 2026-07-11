@@ -233,8 +233,8 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
      * If {@link #isIgnoreUnknownProperties()} returns true, make sure that every non-ignored ({@link #addIgnoreProperty(String)}) property matches a writable
      * property on the target bean.
      *
-     * @param bean       the bean to validate
-     * @param attributes the list of properties to validate
+     * @param bean       The bean to validate
+     * @param attributes The list of properties to validate
      * @throws JellyTagException when a property is not writeable
      */
     protected void validateBeanProperties(final Object bean, final Map attributes) throws JellyTagException {

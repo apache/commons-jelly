@@ -79,10 +79,10 @@ public class AntTag extends MapTagSupport implements TaskSource {
 
     /**
      * @return An object create with the given constructor and args.
-     * @param ctor a constructor to use creating the object
-     * @param args the arguments to pass to the constructor
-     * @param name the name of the data type being created
-     * @param argDescription a human readable description of the args passed
+     * @param ctor A constructor to use creating the object
+     * @param args The arguments to pass to the constructor
+     * @param name The name of the data type being created
+     * @param argDescription A human readable description of the args passed
      */
     private Object createDataType(final Constructor ctor, final Object[] args, final String name, final String argDescription) {
         try {

@@ -89,7 +89,7 @@ public class AvailableTag extends TagSupport {
 
     /**
      * Sets the file to use to test whether it exists or not.
-     * @param file the file to test for
+     * @param file The file to test for
      */
     public void setFile(final File file) {
         this.file = file;
@@ -100,7 +100,7 @@ public class AvailableTag extends TagSupport {
      * The URI can be a full file based URL or a relative URI
      * or an absolute URI from the root context.
      *
-     * @param uri the URI of the file to test
+     * @param uri The URI of the file to test
      */
     public void setUri(final String uri) {
         this.uri = uri;

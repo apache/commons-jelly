@@ -81,10 +81,10 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
     /*
      * handle an http request
      *
-     * @param pathInContext the path of the http request
-     * @param pathParams the parameters (if any) of the http request
-     * @param request the actual http request
-     * @param response the place for any response
+     * @param pathInContext The path of the http request
+     * @param pathParams The parameters (if any) of the http request
+     * @param request The actual http request
+     * @param response The place for any response
      * @throws HttpException when an error occurs
      * @throws IOException when an error occurs
      */
@@ -132,8 +132,8 @@ final class JellyResourceHttpHandler extends AbstractHttpHandler {
     /*
      * register this tag as the handler for the specified method
      *
-     * @param tag the tag to be registered
-     * @param method the name of the http method which this tag processes
+     * @param tag The tag to be registered
+     * @param method The name of the http method which this tag processes
      */
     public void registerTag(final Tag tag, final String method){
         _tagMap.put(method.toLowerCase(), tag);

@@ -196,7 +196,7 @@ public class SessionTag extends TagSupport {
     /**
      * Helper method for proxy {@code host} property
      *
-     * @param host the {@link #getProxy() proxy's} host property
+     * @param host The {@link #getProxy() proxy's} host property
      */
     public void setProxyHost(final String host) {
         getProxy().setHost(host);
@@ -205,7 +205,7 @@ public class SessionTag extends TagSupport {
     /**
      * Helper method for proxy {@code port} property
      *
-     * @param port the {@link #getProxy() proxy's} port property
+     * @param port The {@link #getProxy() proxy's} port property
      */
     public void setProxyPort(final int port) {
         getProxy().setPort(port);
