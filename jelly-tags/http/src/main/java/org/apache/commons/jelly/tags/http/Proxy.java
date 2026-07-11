@@ -54,7 +54,7 @@ public class Proxy {
     /**
      * Getter for property host.
      *
-     * @return the host name of the proxy to be used.
+     * @return The host name of the proxy to be used.
      */
     public String getHost() {
         return _host;
@@ -63,7 +63,7 @@ public class Proxy {
     /**
      * Getter for property port.
      *
-     * @return the port to send proxied requests on.
+     * @return The port to send proxied requests on.
      */
     public int getPort() {
         return _port;

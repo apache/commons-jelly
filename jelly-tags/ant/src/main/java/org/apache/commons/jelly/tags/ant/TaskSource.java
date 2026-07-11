@@ -24,7 +24,7 @@ import org.apache.commons.jelly.JellyTagException;
 public interface TaskSource {
 
     /**
-     * @return the Ant object which may be an Ant Task or nested element
+     * @return The Ant object which may be an Ant Task or nested element
      */
     Object getTaskObject() throws JellyTagException;
 

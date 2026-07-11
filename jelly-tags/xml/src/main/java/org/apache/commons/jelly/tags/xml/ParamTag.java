@@ -53,14 +53,14 @@ public class ParamTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the name of the attribute.
+     * @return The name of the attribute.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return the value of the attribute.
+     * @return The value of the attribute.
      */
     public Object getValue() {
         return value;

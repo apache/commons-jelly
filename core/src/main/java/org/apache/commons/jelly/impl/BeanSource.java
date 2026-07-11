@@ -24,7 +24,7 @@ import org.apache.commons.jelly.JellyTagException;
 public interface BeanSource {
 
     /**
-     * @return the bean to which this tag is associated
+     * @return The bean to which this tag is associated
      */
     Object getBean() throws JellyTagException;
 }

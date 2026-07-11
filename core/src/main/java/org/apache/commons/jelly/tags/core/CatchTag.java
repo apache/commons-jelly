@@ -119,7 +119,7 @@ public class CatchTag extends TagSupport {
     }
 
     /**
-	 * @return the exceptions.
+	 * @return The exceptions.
 	 */
 	public String getExceptions() {
 		return exceptions;
@@ -129,7 +129,7 @@ public class CatchTag extends TagSupport {
 	/**
      * Dissect Exception stack to get the real exception throughout the JellyTagException wrapping
      * @param t
-     * @return the first exception in stack that's not a JellyTagException
+     * @return The first exception in stack that's not a JellyTagException
      */
     protected Throwable getRealException(final Throwable t) {
         final Throwable c = t.getCause();

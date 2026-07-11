@@ -32,7 +32,7 @@ package org.apache.commons.jelly;
 public interface DynaTag extends Tag {
 
     /**
-     * @return the type of the given attribute. By default just return
+     * @return The type of the given attribute. By default just return
      * Object.class if this is not known.
      * If this method returns Expression.class then the expression will not
      * be evaluated and just passed in as the attribute value.

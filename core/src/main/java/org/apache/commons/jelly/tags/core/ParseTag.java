@@ -131,7 +131,7 @@ public class ParseTag extends TagSupport {
         return var;
     }
 
-    /** @return the XMLReader used for parsing, creating one lazily if need be  */
+    /** @return The XMLReader used for parsing, creating one lazily if need be  */
     public XMLReader getXMLReader() throws ParserConfigurationException, SAXException {
         if (xmlReader == null) {
             xmlReader = createXMLReader();

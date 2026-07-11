@@ -86,7 +86,7 @@ public class BeanTag extends UseBeanTag {
     }
 
     /**
-     * @return the parent bean object
+     * @return The parent bean object
      */
     protected Object getParentObject() throws JellyTagException {
         final BeanSource tag = (BeanSource) findAncestorWithClass(BeanSource.class);
@@ -97,7 +97,7 @@ public class BeanTag extends UseBeanTag {
     }
 
     /**
-     * @return the local name of the XML tag to which this tag is bound
+     * @return The local name of the XML tag to which this tag is bound
      */
     public String getTagName() {
         return tagName;

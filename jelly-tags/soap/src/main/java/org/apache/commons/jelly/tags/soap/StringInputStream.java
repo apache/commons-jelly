@@ -88,7 +88,7 @@ public class StringInputStream
      * assuming a return value in the range -1 to 255 may even fail on
      * such input.
      *
-     * @return the value of the next character in the StringReader
+     * @return The value of the next character in the StringReader
      * @throws IOException if the original StringReader fails to be read
      */
     @Override

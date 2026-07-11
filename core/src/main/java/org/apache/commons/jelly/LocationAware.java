@@ -26,22 +26,22 @@ package org.apache.commons.jelly;
 public interface LocationAware {
 
     /**
-     * @return the column number of the tag
+     * @return The column number of the tag
      */
     int getColumnNumber();
 
     /**
-     * @return the element name which caused the problem
+     * @return The element name which caused the problem
      */
     String getElementName();
 
     /**
-     * @return the Jelly file which caused the problem
+     * @return The Jelly file which caused the problem
      */
     String getFileName();
 
     /**
-     * @return the line number of the tag
+     * @return The line number of the tag
      */
     int getLineNumber();
 

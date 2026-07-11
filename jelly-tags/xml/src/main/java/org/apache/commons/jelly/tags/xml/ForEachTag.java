@@ -84,7 +84,7 @@ public class ForEachTag extends XPathTagSupport implements XPathSource {
     }
 
     /**
-     * @return the current XPath iteration value
+     * @return The current XPath iteration value
      *  so that any other XPath aware child tags to use
      */
     @Override

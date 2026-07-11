@@ -160,7 +160,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * return a HttpClient shared on the session tag, or a new one if no
      * session tag exists
      *
-     * @return the shared http client from the session tag, or create a new one.
+     * @return The shared http client from the session tag, or create a new one.
      */
     private HttpClient getHttpClient() {
         final SessionTag session = getSessionTag();
@@ -217,7 +217,7 @@ public abstract class HttpTagSupport extends TagSupport {
     //--------------------------------------------------------------------------
 
     /**
-     * @return the url specified by the tag, either the url if not null, or
+     * @return The url specified by the tag, either the url if not null, or
      * a combination of the host, port and path
      */
     public String getResolvedUrl() {
@@ -236,7 +236,7 @@ public abstract class HttpTagSupport extends TagSupport {
     /**
      * retrieve the optional parent session tag
      *
-     * @return the ancestor tag with class {@link SessionTag} or null if
+     * @return The ancestor tag with class {@link SessionTag} or null if
      *      not found
      */
     private SessionTag getSessionTag() {

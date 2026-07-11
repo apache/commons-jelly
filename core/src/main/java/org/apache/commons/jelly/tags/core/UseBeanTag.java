@@ -127,7 +127,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     // -------------------------------------------------------------------------
 
     /**
-     * @return the bean that has just been created
+     * @return The bean that has just been created
      */
     @Override
     public Object getBean() {
@@ -142,7 +142,7 @@ public class UseBeanTag extends MapTagSupport implements BeanSource {
     }
 
     /**
-     * @return the Set of property names that should be ignored when setting the properties of the bean.
+     * @return The Set of property names that should be ignored when setting the properties of the bean.
      */
     protected Set getIgnorePropertySet() {
         if (ignoreProperties == null) {

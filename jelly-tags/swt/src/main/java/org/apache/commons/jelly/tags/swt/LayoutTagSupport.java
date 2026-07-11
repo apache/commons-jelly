@@ -51,7 +51,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
      * @param bean is the bean on which the property is to be set
      * @param name is the name of the property
      * @param value the value of the property
-     * @return the new value
+     * @return The new value
      */
     protected Object convertValue(final Object bean, final String name, final Object value)
         throws JellyTagException {
@@ -59,7 +59,7 @@ public abstract class LayoutTagSupport extends UseBeanTag {
     }
 
     /**
-     * @return the parent widget which this widget will be added to.
+     * @return The parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
         final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);

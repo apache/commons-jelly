@@ -45,7 +45,7 @@ public class ExpressionScript implements Script {
         return this;
     }
 
-    /** @return the expression evaluated as a String and output by this script */
+    /** @return The expression evaluated as a String and output by this script */
     public Expression getExpression() {
         return expression;
     }

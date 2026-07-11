@@ -288,7 +288,7 @@ public class JellyContext {
      * If this context does not contain the variable, then its parent is used and then its parent
      * and so forth until the context with no parent is found.
      *
-     * @return the value of the variable in this or one of its descendant contexts or null
+     * @return The value of the variable in this or one of its descendant contexts or null
      *  if the variable could not be found.
      */
     public Object findVariable(final String name) {
@@ -328,7 +328,7 @@ public class JellyContext {
     }
 
     /**
-     * @return the current URL context of the current script that is executing.
+     * @return The current URL context of the current script that is executing.
      *  This URL context is used to deduce relative scripts when relative URIs are
      *  used in calls to {@link #getResource} to process relative scripts.
      */
@@ -361,7 +361,7 @@ public class JellyContext {
     }
 
     /**
-     * @return the parent context for this context
+     * @return The parent context for this context
      */
     public JellyContext getParent() {
         return parent;
@@ -420,7 +420,7 @@ public class JellyContext {
     }
 
     /**
-     * @return the current root context URL from which all absolute resource URIs
+     * @return The current root context URL from which all absolute resource URIs
      *  will be relative to. For example in a web application the root URL will
      *  map to the web directory which contains the WEB-INF directory.
      */
@@ -429,7 +429,7 @@ public class JellyContext {
     }
 
     /**
-     * @return the scope of the given name, such as the 'parent' scope.
+     * @return The scope of the given name, such as the 'parent' scope.
      * If Jelly is used in a Servlet situation then 'request', 'session' and 'application' are other names
      * for scopes
      */
@@ -443,7 +443,7 @@ public class JellyContext {
     /**
      * Gets a system property and handle security exceptions
      * @param name the name of the property to retrieve
-     * @return the value of the property, or null if a SecurityException occurs
+     * @return The value of the property, or null if a SecurityException occurs
      */
     private Object getSystemProperty(final String name) {
         try {
@@ -456,7 +456,7 @@ public class JellyContext {
     }
 
     /**
-     * @return the TagLibrary for the given namespace URI or null if one could not be found
+     * @return The TagLibrary for the given namespace URI or null if one could not be found
      */
     public TagLibrary getTagLibrary(final String namespaceURI) {
 
@@ -512,7 +512,7 @@ public class JellyContext {
         return useContextClassLoader;
     }
 
-    /** @return the value of the given variable name */
+    /** @return The value of the given variable name */
     public Object getVariable(final String name) {
         Object value = variables.get(name);
         final boolean definedHere = value != null || variables.containsKey(name);
@@ -537,7 +537,7 @@ public class JellyContext {
     }
 
     /**
-     * @return the value of the given variable name in the given variable scope
+     * @return The value of the given variable name in the given variable scope
      * @param name is the name of the variable
      * @param scopeName is the optional scope name such as 'parent'. For servlet environments
      * this could be 'application', 'session' or 'request'.
@@ -559,7 +559,7 @@ public class JellyContext {
     }
 
     /**
-     * @return the Map of variables in this scope
+     * @return The Map of variables in this scope
      */
     public Map getVariables() {
         return variables;
@@ -630,7 +630,7 @@ public class JellyContext {
     }
 
     /**
-	 * @return the suppressExpressionExceptions
+	 * @return The suppressExpressionExceptions
 	 * @deprecated after v1.1, exceptions will never be suppressed
 	 */
 	@Deprecated
@@ -729,7 +729,7 @@ public class JellyContext {
     /**
      * Parses the script from the given File then compiles it and runs it.
      *
-     * @return the new child context that was used to run the script
+     * @return The new child context that was used to run the script
      */
     public JellyContext runScript(final File file, final XMLOutput output) throws JellyException {
         try {
@@ -743,7 +743,7 @@ public class JellyContext {
     /**
      * Parses the script from the given file then compiles it and runs it.
      *
-     * @return the new child context that was used to run the script
+     * @return The new child context that was used to run the script
      */
     public JellyContext runScript(final File file, final XMLOutput output,
                           final boolean export, final boolean inherit) throws JellyException {
@@ -757,7 +757,7 @@ public class JellyContext {
     /**
      * Parses the script from the given InputSource then compiles it and runs it.
      *
-     * @return the new child context that was used to run the script
+     * @return The new child context that was used to run the script
      */
     public JellyContext runScript(final InputSource source, final XMLOutput output) throws JellyException {
         return runScript(source, output, JellyContext.DEFAULT_EXPORT,
@@ -767,7 +767,7 @@ public class JellyContext {
     /**
      * Parses the script from the given InputSource then compiles it and runs it.
      *
-     * @return the new child context that was used to run the script
+     * @return The new child context that was used to run the script
      */
     public JellyContext runScript(final InputSource source, final XMLOutput output,
                           final boolean export, final boolean inherit) throws JellyException {
@@ -806,7 +806,7 @@ public class JellyContext {
      * Parses the script from the given uri using the
      * JellyContext.getResource() API then compiles it and runs it.
      *
-     * @return the new child context that was used to run the script
+     * @return The new child context that was used to run the script
      */
     public JellyContext runScript(final String uri, final XMLOutput output) throws JellyException {
         URL url = null;
@@ -827,7 +827,7 @@ public class JellyContext {
      * Parses the script from the given uri using the
      * JellyContext.getResource() API then compiles it and runs it.
      *
-     * @return the new child context that was used to run the script
+     * @return The new child context that was used to run the script
      */
     public JellyContext runScript(final String uri, final XMLOutput output,
                           final boolean export, final boolean inherit) throws JellyException {
@@ -848,7 +848,7 @@ public class JellyContext {
     /**
      * Parses the script from the given URL then compiles it and runs it.
      *
-     * @return the new child context that was used to run the script
+     * @return The new child context that was used to run the script
      */
     public JellyContext runScript(final URL url, final XMLOutput output) throws JellyException {
         return runScript(url, output, JellyContext.DEFAULT_EXPORT,
@@ -858,7 +858,7 @@ public class JellyContext {
     /**
      * Parses the script from the given URL then compiles it and runs it.
      *
-     * @return the new child context that was used to run the script
+     * @return The new child context that was used to run the script
      */
     public JellyContext runScript(final URL url, final XMLOutput output,
                           final boolean export, final boolean inherit) throws JellyException {

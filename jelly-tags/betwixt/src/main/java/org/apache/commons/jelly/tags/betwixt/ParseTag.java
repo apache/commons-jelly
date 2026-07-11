@@ -122,14 +122,14 @@ public class ParseTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the ClassLoader to be used to load bean classes.
+     * @return The ClassLoader to be used to load bean classes.
      */
     protected ClassLoader getClassLoader() {
         return ClassLoaderUtils.getClassLoader(classLoader, useContextClassLoader, getClass());
     }
 
     /**
-     * @return the introspector to be used, lazily creating one if required.
+     * @return The introspector to be used, lazily creating one if required.
      */
     public XMLIntrospector getIntrospector() {
         if (introspector == null) {

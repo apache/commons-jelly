@@ -147,7 +147,7 @@ public class TransformTag extends ParseTag {
         /**
          * Gets the SAX ContentHandler to feed SAX events into
          *
-         * @return the SAX ContentHandler to use to feed SAX events into
+         * @return The SAX ContentHandler to use to feed SAX events into
          */
         @Override
         public ContentHandler getContentHandler() {
@@ -160,7 +160,7 @@ public class TransformTag extends ParseTag {
         /**
          * Gets the DTD Handler to feed SAX events into
          *
-         * @return the DTD Handler to use to feed SAX events into
+         * @return The DTD Handler to use to feed SAX events into
          */
         @Override
         public DTDHandler getDTDHandler() {
@@ -170,7 +170,7 @@ public class TransformTag extends ParseTag {
         /**
          * Gets the Entity Resolver to feed SAX events into
          *
-         * @return the Entity Resolver to use to feed SAX events into
+         * @return The Entity Resolver to use to feed SAX events into
          */
         @Override
         public EntityResolver getEntityResolver() {
@@ -183,7 +183,7 @@ public class TransformTag extends ParseTag {
         /**
          * Gets the Error Handler to feed SAX events into
          *
-         * @return the Error Handler to use to feed SAX events into
+         * @return The Error Handler to use to feed SAX events into
          */
         @Override
         public ErrorHandler getErrorHandler() {

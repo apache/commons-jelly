@@ -64,7 +64,7 @@ public class IncludeTag extends TagSupport {
     /**
      * Gets the file.
      *
-     * @return the file.
+     * @return The file.
      */
     public File getFile() {
         return file;

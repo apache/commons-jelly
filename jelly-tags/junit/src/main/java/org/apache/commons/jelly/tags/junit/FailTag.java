@@ -45,7 +45,7 @@ public class FailTag extends AssertTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the failure message
+     * @return The failure message
      */
     public String getMessage() {
         return message;

@@ -46,7 +46,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
     }
 
     /**
-     * @return the type of the given attribute. By default just return
+     * @return The type of the given attribute. By default just return
      * Object.class if this is not known.
      */
     @Override
@@ -59,7 +59,7 @@ public abstract class DynaBeanTagSupport extends DynaTagSupport {
     }
 
     /**
-     * @return the DynaBean which is used to store the
+     * @return The DynaBean which is used to store the
      *  attributes of this tag
      */
     public DynaBean getDynaBean() {

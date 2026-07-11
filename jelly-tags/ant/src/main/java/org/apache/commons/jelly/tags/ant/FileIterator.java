@@ -79,7 +79,7 @@ public class FileIterator implements Iterator {
         return setNextObject();
     }
 
-    /** @return the next object which matches the given predicate */
+    /** @return The next object which matches the given predicate */
     @Override
     public Object next() {
         if (!nextObjectSet && !setNextObject()) {

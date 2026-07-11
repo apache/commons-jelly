@@ -65,7 +65,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
         }
     }
 
-    /** @return the BSF Engine to be used by this expression factory */
+    /** @return The BSF Engine to be used by this expression factory */
     public BSFEngine getBSFEngine() throws BSFException {
         if ( engine == null ) {
             engine = createBSFEngine();
@@ -81,7 +81,7 @@ public class BSFExpressionFactory implements ExpressionFactory {
         return manager;
     }
 
-    /** @return the BSF language to be used */
+    /** @return The BSF language to be used */
     public String getLanguage() {
         return language;
     }

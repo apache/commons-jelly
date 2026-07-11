@@ -68,7 +68,7 @@ public interface Expression {
     Object evaluateRecurse(JellyContext context);
 
     /**
-     * @return the textual representation of this expression
+     * @return The textual representation of this expression
      */
     String getExpressionText();
 }

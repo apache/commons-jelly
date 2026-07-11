@@ -186,7 +186,7 @@ public class SwingTagLibrary extends TagLibrary {
     }
 
     /**
-     * @return the Factory of the Swing component for the given element name
+     * @return The Factory of the Swing component for the given element name
      */
     public Factory getFactory(final String elementName) {
         return (Factory) getFactoryMap().get(elementName);

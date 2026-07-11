@@ -61,7 +61,7 @@ public class LayoutTag extends LayoutTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the Layout if there is one otherwise null
+     * @return The Layout if there is one otherwise null
      */
     public Layout getLayout() {
         final Object bean = getBean();

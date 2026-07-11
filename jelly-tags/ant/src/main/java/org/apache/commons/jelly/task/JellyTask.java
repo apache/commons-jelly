@@ -152,7 +152,7 @@ public class JellyTask extends Task {
     }
 
     /**
-     * @return the URL for the relative file name or absolute URL
+     * @return The URL for the relative file name or absolute URL
      */
     protected URL resolveURL(final String name) throws MalformedURLException {
         final File file = getProject().resolveFile(name);

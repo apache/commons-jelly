@@ -97,7 +97,7 @@ public class BeandefTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the ClassLoader to use to load classes
+     * @return The ClassLoader to use to load classes
      *  or will use the thread context loader if none is specified.
      */
     public ClassLoader getClassLoader() {

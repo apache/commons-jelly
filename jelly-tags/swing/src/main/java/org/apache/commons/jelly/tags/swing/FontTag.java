@@ -93,7 +93,7 @@ public class FontTag extends MapTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the Font object for this tag
+     * @return The Font object for this tag
      */
     public Font getFont() {
         return font;

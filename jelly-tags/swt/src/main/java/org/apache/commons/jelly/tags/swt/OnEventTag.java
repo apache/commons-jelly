@@ -74,14 +74,14 @@ public class OnEventTag extends TagSupport implements Listener {
      * Parses the given event type String and returns the SWT event type code
      *
      * @param type is the String event type
-     * @return the SWT integer event type
+     * @return The SWT integer event type
      */
     protected int getEventType(final String type) throws JellyTagException {
         return SwtHelper.parseStyle(SWT.class, type, false);
     }
 
     /**
-     * @return the parent widget which this widget will be added to.
+     * @return The parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
         final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);

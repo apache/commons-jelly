@@ -38,7 +38,7 @@ public class JFaceLayoutTag extends LayoutTag {
     }
 
     /**
-     * @return the parent window
+     * @return The parent window
      */
     public Window getParentWindow() {
         final ApplicationWindowTag tag =

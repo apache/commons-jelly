@@ -43,7 +43,7 @@ public class TextScript implements Script {
         return this;
     }
 
-    /** @return the text output by this script */
+    /** @return The text output by this script */
     public String getText() {
         return text;
     }

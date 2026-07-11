@@ -35,7 +35,7 @@ public abstract class LogTagSupport extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the Log being used by this tag. If none is returned then a new one will be created.
+     * @return The Log being used by this tag. If none is returned then a new one will be created.
      */
     public Log getLog() {
         if ( log == null ) {

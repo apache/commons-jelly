@@ -100,7 +100,7 @@ public class TdTag extends TagSupport implements ContainerTag {
     }
 
     /**
-     * @return the GridBagConstraints enumeration for achor
+     * @return The GridBagConstraints enumeration for achor
      */
     protected int getAnchor() {
         final boolean isTop = "top".equalsIgnoreCase(valign);

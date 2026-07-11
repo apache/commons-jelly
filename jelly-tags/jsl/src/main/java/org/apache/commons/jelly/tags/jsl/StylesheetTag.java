@@ -113,7 +113,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
         return mode;
     }
 
-    /** @return the source on which the stylesheet should run
+    /** @return The source on which the stylesheet should run
      */
     protected Object getSource() throws JaxenException {
         final Object source = getXPathContext();
@@ -131,7 +131,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     }
 
     /**
-     * @return the XMLOutput from the stylesheet if available
+     * @return The XMLOutput from the stylesheet if available
      */
     public XMLOutput getStylesheetOutput() {
         if (stylesheet instanceof JellyStylesheet) {
@@ -142,7 +142,7 @@ public class StylesheetTag extends XPathTagSupport implements XPathSource {
     }
 
     /**
-     * @return the current XPath iteration value
+     * @return The current XPath iteration value
      *  so that any other XPath aware child tags to use
      */
     @Override

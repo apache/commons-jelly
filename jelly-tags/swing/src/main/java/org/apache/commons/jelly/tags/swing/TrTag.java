@@ -94,7 +94,7 @@ public class TrTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the row index of this row
+     * @return The row index of this row
      */
     public int getRowIndex() {
         return rowIndex;

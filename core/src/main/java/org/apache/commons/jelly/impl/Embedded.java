@@ -190,7 +190,7 @@ public class Embedded {
     }
 
     /**
-     * @return the URL for the relative file name or absolute URL
+     * @return The URL for the relative file name or absolute URL
      */
     private URL resolveURL(final String name) throws MalformedURLException {
         final File file = new File(name);

@@ -167,7 +167,7 @@ public class DynamicBeanTag extends DynaBeanTagSupport implements BeanSource {
     }
 
     /**
-     * @return the bean that has just been created
+     * @return The bean that has just been created
      */
     @Override
     public Object getBean() {

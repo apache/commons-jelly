@@ -26,7 +26,7 @@ package org.apache.commons.jelly;
 public abstract class DynaTagSupport extends TagSupport implements DynaTag {
 
     /**
-     * @return the type of the given attribute. By default just return
+     * @return The type of the given attribute. By default just return
      * Object.class if this is not known.
      */
     @Override

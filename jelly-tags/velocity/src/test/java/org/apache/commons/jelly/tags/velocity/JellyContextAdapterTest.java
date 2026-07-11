@@ -34,7 +34,7 @@ public class JellyContextAdapterTest extends TestCase
 {
 
     /**
-     * @return the suite of tests being tested
+     * @return The suite of tests being tested
      */
     public static Test suite()
     {

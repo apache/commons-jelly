@@ -62,7 +62,7 @@ public class JFaceImageTag extends ImageTag {
     }
 
     /**
-     * @return the parent window
+     * @return The parent window
      */
     public Window getParentWindow() {
         final ApplicationWindowTag tag =

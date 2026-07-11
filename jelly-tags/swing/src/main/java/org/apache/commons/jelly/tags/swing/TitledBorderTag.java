@@ -47,7 +47,7 @@ public class TitledBorderTag extends BorderTagSupport {
     private Color color;
 
     /**
-     * @return the enumeration for the title justification
+     * @return The enumeration for the title justification
      */
     protected int asTitleJustification(final String text) {
         if (text.equalsIgnoreCase("LEFT")) {
@@ -72,7 +72,7 @@ public class TitledBorderTag extends BorderTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the enumeration for the title position
+     * @return The enumeration for the title position
      */
     protected int asTitlePosition(final String text) {
         if (text.equalsIgnoreCase("ABOVE_TOP")) {

@@ -72,21 +72,21 @@ public class StopwatchTag extends MessageOperationTag implements ConsumerTag {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the number of messages in the group before the performance statistics are logged
+     * @return The number of messages in the group before the performance statistics are logged
      */
     public int getGroupSize() {
         return groupSize;
     }
 
     /**
-     * @return the logger to which statistic messages will be sent
+     * @return The logger to which statistic messages will be sent
      */
     public Log getLog() {
         return log;
     }
 
     /**
-     * @return the MessageListener which this listener delegates to
+     * @return The MessageListener which this listener delegates to
      */
     public MessageListener getMessageListener() {
         return messageListener;

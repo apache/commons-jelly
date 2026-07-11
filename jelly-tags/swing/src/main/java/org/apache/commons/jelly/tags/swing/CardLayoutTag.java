@@ -47,14 +47,14 @@ public class CardLayoutTag extends LayoutTagSupport {
     }
 
     /**
-     * @return the hgap.
+     * @return The hgap.
      */
     public int getHgap() {
         return hgap;
     }
 
     /**
-     * @return the vgap.
+     * @return The vgap.
      */
     public int getVgap() {
         return vgap;

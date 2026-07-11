@@ -45,7 +45,7 @@ public class TagTag extends DefineTagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** @return the name of the tag to create */
+    /** @return The name of the tag to create */
     public String getName() {
         return name;
     }

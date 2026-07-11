@@ -35,7 +35,7 @@ public abstract class TagSupport implements Tag {
      *
      * @param from the tag to start searching from
      * @param tagClass the type of the tag to find
-     * @return the tag of the given type or null if it could not be found
+     * @return The tag of the given type or null if it could not be found
      */
     public static Tag findAncestorWithClass(Tag from, final Class tagClass) {
         // we could implement this as
@@ -56,7 +56,7 @@ public abstract class TagSupport implements Tag {
      *
      * @param from the tag to start searching from
      * @param tagClasses an array of types that might match
-     * @return the tag of the given type or null if it could not be found
+     * @return The tag of the given type or null if it could not be found
      * @see #findAncestorWithClass(Tag,Collection)
      */
     public static Tag findAncestorWithClass(final Tag from, final Class[] tagClasses) {
@@ -69,7 +69,7 @@ public abstract class TagSupport implements Tag {
      *
      * @param from the tag to start searching from
      * @param tagClasses a Collection of Class types that might match
-     * @return the tag of the given type or null if it could not be found
+     * @return The tag of the given type or null if it could not be found
      */
     public static Tag findAncestorWithClass(Tag from, final Collection tagClasses) {
         while (from != null) {
@@ -113,7 +113,7 @@ public abstract class TagSupport implements Tag {
 
     /**
      * Searches up the parent hierarchy for a Tag of the given type.
-     * @return the tag of the given type or null if it could not be found
+     * @return The tag of the given type or null if it could not be found
      */
     protected Tag findAncestorWithClass(final Class parentClass) {
         return findAncestorWithClass(getParent(), parentClass);
@@ -121,7 +121,7 @@ public abstract class TagSupport implements Tag {
 
     /**
      * Searches up the parent hierarchy for a Tag of one of the given types.
-     * @return the tag of the given type or null if it could not be found
+     * @return The tag of the given type or null if it could not be found
      * @see #findAncestorWithClass(Collection)
      */
     protected Tag findAncestorWithClass(final Class[] parentClasses) {
@@ -130,13 +130,13 @@ public abstract class TagSupport implements Tag {
 
     /**
      * Searches up the parent hierarchy for a Tag of one of the given types.
-     * @return the tag of the given type or null if it could not be found
+     * @return The tag of the given type or null if it could not be found
      */
     protected Tag findAncestorWithClass(final Collection parentClasses) {
         return findAncestorWithClass(getParent(), parentClasses);
     }
 
-    /** @return the body of the tag */
+    /** @return The body of the tag */
     @Override
     public Script getBody() {
         if (! hasTrimmed) {
@@ -151,7 +151,7 @@ public abstract class TagSupport implements Tag {
     /**
      * Executes the body of the tag and returns the result as a String.
      *
-     * @return the text evaluation of the body
+     * @return The text evaluation of the body
      */
     protected String getBodyText() throws JellyTagException {
         return getBodyText(escapeText);
@@ -161,7 +161,7 @@ public abstract class TagSupport implements Tag {
      * Executes the body of the tag and returns the result as a String.
      *
      * @param shouldEscape Signal if the text should be escaped.
-     * @return the text evaluation of the body
+     * @return The text evaluation of the body
      */
     protected String getBodyText(final boolean shouldEscape) throws JellyTagException {
         final StringWriter writer = new StringWriter();
@@ -169,13 +169,13 @@ public abstract class TagSupport implements Tag {
         return writer.toString();
     }
 
-	/** @return the context in which the tag will be run */
+	/** @return The context in which the tag will be run */
     @Override
     public JellyContext getContext() {
         return context;
     }
 
-    /** @return the parent of this tag */
+    /** @return The parent of this tag */
     @Override
     public Tag getParent() {
         return parent;

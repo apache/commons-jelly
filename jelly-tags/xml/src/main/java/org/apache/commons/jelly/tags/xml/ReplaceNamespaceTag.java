@@ -102,14 +102,14 @@ public class ReplaceNamespaceTag extends TagSupport {
     }
 
     /**
-     * @return the source namespace URI to replace
+     * @return The source namespace URI to replace
      */
     public String getFromURI() {
         return fromNamespace;
     }
 
     /**
-     * @return the destination namespace URI to replace
+     * @return The destination namespace URI to replace
      */
     public String getToURI() {
         return toNamespace;

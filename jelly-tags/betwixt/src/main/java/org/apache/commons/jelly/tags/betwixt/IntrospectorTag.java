@@ -145,7 +145,7 @@ public class IntrospectorTag extends TagSupport {
     }
 
     /**
-     * @return the current XMLIntrospector, lazily creating one if required
+     * @return The current XMLIntrospector, lazily creating one if required
      */
     public XMLIntrospector getIntrospector() {
         if ( introspector == null ) {

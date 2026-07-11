@@ -76,7 +76,7 @@ public class GCTag extends TagSupport {
     /**
      * Obtain the variable name.
      *
-     * @return the variable name of this {@link GC} instance
+     * @return The variable name of this {@link GC} instance
      */
     public String getVar() {
         return this.var;

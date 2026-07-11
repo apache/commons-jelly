@@ -539,14 +539,14 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
     }
 
     /**
-     * @return the SAX ContentHandler to use to pipe SAX events into
+     * @return The SAX ContentHandler to use to pipe SAX events into
      */
     public ContentHandler getContentHandler() {
         return contentHandler;
     }
 
     /**
-     * @return the SAX LexicalHandler to use to pipe SAX events into
+     * @return The SAX LexicalHandler to use to pipe SAX events into
      */
     public LexicalHandler getLexicalHandler() {
         return lexicalHandler;

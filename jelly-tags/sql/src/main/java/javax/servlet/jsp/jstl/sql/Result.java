@@ -38,14 +38,14 @@ public interface Result {
     /**
      * Returns an array of column names.
      *
-     * @return the column names as an array of {@code String} objects
+     * @return The column names as an array of {@code String} objects
      */
     String[] getColumnNames();
 
     /**
      * Returns the number of rows in the cached ResultSet
      *
-     * @return the number of rows in the result
+     * @return The number of rows in the result
      */
     int getRowCount();
 
@@ -55,7 +55,7 @@ public interface Result {
      * Comparator so that the key is the case insensitive representation
      * of the column name.
      *
-     * @return the result rows as an array of {@code SortedMap} objects
+     * @return The result rows as an array of {@code SortedMap} objects
      */
     SortedMap[] getRows();
 
@@ -64,7 +64,7 @@ public interface Result {
      * designates the Row, the second the Column. The array
      * stores the value at the specified row and column.
      *
-     * @return the result rows as an array of {@code Object[]} objects
+     * @return The result rows as an array of {@code Object[]} objects
      */
     Object[][] getRowsByIndex();
 

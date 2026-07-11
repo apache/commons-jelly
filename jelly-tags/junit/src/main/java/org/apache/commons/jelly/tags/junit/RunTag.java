@@ -212,7 +212,7 @@ public class RunTag extends TagSupport {
     }
 
     /**
-     * @return the stack trace as a String
+     * @return The stack trace as a String
      */
     protected String stackTraceToString(final Throwable t) {
         final StringWriter writer = new StringWriter();

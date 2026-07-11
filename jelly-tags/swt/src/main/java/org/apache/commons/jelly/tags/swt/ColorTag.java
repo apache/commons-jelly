@@ -71,7 +71,7 @@ public class ColorTag extends TagSupport {
     }
 
     /**
-     * @return the parent widget which this widget will be added to.
+     * @return The parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
         final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
@@ -84,7 +84,7 @@ public class ColorTag extends TagSupport {
     /**
      * Obtain the RGB value for this {@link Color} instance
      *
-     * @return the RGB value (eg. #666666)
+     * @return The RGB value (eg. #666666)
      */
     public String getRgb() {
         return this.rgb;
@@ -93,7 +93,7 @@ public class ColorTag extends TagSupport {
     /**
      * Obtain the variable name.
      *
-     * @return the variable name of this {@link Color} instance
+     * @return The variable name of this {@link Color} instance
      */
     public String getVar() {
         return this.var;

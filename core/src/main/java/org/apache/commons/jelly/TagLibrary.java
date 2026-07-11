@@ -143,7 +143,7 @@ public abstract class TagLibrary {
     }
 
     /**
-	 * @return the allowUnknownTags
+	 * @return The allowUnknownTags
 	 */
 	public boolean isAllowUnknownTags() {
 		return allowUnknownTags;

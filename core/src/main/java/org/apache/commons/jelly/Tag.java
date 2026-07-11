@@ -34,28 +34,28 @@ public interface Tag {
     void doTag(XMLOutput output) throws MissingAttributeException, JellyTagException;
 
     /**
-     * @return the body of the tag.
+     * @return The body of the tag.
      */
     Script getBody();
 
     /**
      * Gets the context in which the tag will be run.
      *
-     * @return the context in which the tag will be run
+     * @return The context in which the tag will be run
      */
     JellyContext getContext();
 
     /**
      * Gets the parent of this tag.
      *
-     * @return the parent of this tag.
+     * @return The parent of this tag.
      */
     Tag getParent();
 
     /**
      * Gets the TagLibrary, null if this is an unrecognized tag (for example, a StaticTag)
      *
-     * @return the TagLibrary.
+     * @return The TagLibrary.
      * @since 1.1.0
      */
     default TagLibrary getTagLib() {

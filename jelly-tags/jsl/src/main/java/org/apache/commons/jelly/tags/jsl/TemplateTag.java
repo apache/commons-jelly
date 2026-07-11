@@ -121,7 +121,7 @@ public class TemplateTag extends TagSupport implements XPathSource {
     }
 
     /**
-     * @return the current XPath value on which relative paths are evaluated
+     * @return The current XPath value on which relative paths are evaluated
      */
     @Override
     public Object getXPathSource() {

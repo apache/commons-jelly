@@ -39,14 +39,14 @@ public class TJEcho extends TagSupport {
 	}
 
 	/**
-	 * @return the attr
+	 * @return The attr
 	 */
 	public String getAttr() {
 		return attr;
 	}
 
 	/**
-	 * @return the id
+	 * @return The id
 	 */
 	public String getId() {
 		return id;

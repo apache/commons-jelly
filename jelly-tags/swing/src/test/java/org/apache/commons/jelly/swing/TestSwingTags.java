@@ -49,7 +49,7 @@ public class TestSwingTags extends BaseJellyTest {
      * the immediate container, not child containers.
      * @param container the Container to search in
      * @param name the name to look for
-     * @return the first component with the given name
+     * @return The first component with the given name
      * @throws Exception if the name isn't found
      */
     protected static Component componentByName(final Container container, final String name) throws Exception{

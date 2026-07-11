@@ -40,7 +40,7 @@ public class CompositeExpression extends ExpressionSupport {
      * @param factory is the Factory of Expression objects used to create expressions for the contents
      *  of the String "foo" inside expressions such as "${foo}"
      *
-     * @return the Expression for the given String.
+     * @return The Expression for the given String.
      * @throws JellyException if the text is invalid (such as missing '}' character).
      * @throws JellyException if there was some problem creating the underlying Expression object
      *  from the ExpressionFactory
@@ -247,7 +247,7 @@ public class CompositeExpression extends ExpressionSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the Expression objects that make up this
+     * @return The Expression objects that make up this
      * composite expression
      */
     public List getExpressions() {

@@ -79,7 +79,7 @@ public class ApplicationWindowTag extends UseBeanTag {
     }
 
     /**
-     * @return the visible window, if there is one.
+     * @return The visible window, if there is one.
      */
     public Window getWindow() {
         final Object bean = getBean();

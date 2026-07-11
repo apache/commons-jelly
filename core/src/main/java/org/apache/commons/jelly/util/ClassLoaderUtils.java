@@ -31,7 +31,7 @@ public class ClassLoaderUtils {
     /**
      * Gets the loader for the given class.
      * @param clazz the class to retrieve the loader for
-     * @return the class loader that loaded the provided class
+     * @return The class loader that loaded the provided class
      */
     public static ClassLoader getClassLoader(final Class clazz) {
         ClassLoader callersLoader = clazz.getClassLoader();

@@ -61,7 +61,7 @@ public class BrokerTag extends TagSupport {
         }
     }
 
-    /** @return the persistence broker instance */
+    /** @return The persistence broker instance */
     public PersistenceBroker getBroker() {
         return broker;
     }

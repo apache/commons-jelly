@@ -131,7 +131,7 @@ public class ElementTag extends TagSupport {
     }
 
     /**
-     * @return the qualified name of the element
+     * @return The qualified name of the element
      */
     public String getName() {
         return name;
@@ -141,7 +141,7 @@ public class ElementTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the namespace URI of the element
+     * @return The namespace URI of the element
      */
     public String getURI() {
         return namespace;

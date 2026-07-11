@@ -111,7 +111,7 @@ final class ResultImpl implements Result {
     /**
      * Returns the number of rows in the cached ResultSet
      *
-     * @return the number of cached rows, or -1 if the Result could
+     * @return The number of cached rows, or -1 if the Result could
      *    not be initialized due to SQLExceptions
      */
     @Override

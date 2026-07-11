@@ -59,7 +59,7 @@ public abstract class ParseTagSupport extends TagSupport {
      */
     protected abstract SAXReader createSAXReader() throws SAXException;
 
-    /** @return the SAXReader used for parsing, creating one lazily if need be  */
+    /** @return The SAXReader used for parsing, creating one lazily if need be  */
     public SAXReader getSAXReader() throws SAXException {
         if (saxReader == null) {
             saxReader = createSAXReader();

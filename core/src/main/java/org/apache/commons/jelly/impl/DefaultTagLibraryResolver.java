@@ -77,7 +77,7 @@ public class DefaultTagLibraryResolver implements TagLibraryResolver {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the DiscoverClasses instance to use to locate services.
+     * @return The DiscoverClasses instance to use to locate services.
      *  This object is lazily created if it has not been configured.
      */
     public DiscoverClasses getDiscoverClasses() {

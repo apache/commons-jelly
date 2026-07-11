@@ -68,7 +68,7 @@ public class MenuManagerTag extends UseBeanTag {
     }
 
     /**
-     * @return the parent window which this widget will be added to.
+     * @return The parent window which this widget will be added to.
      */
     public Window getParentWindow() {
 

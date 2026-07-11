@@ -115,7 +115,7 @@ public class ValidateTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the ErrorHandler used when validating
+     * @return The ErrorHandler used when validating
      */
     public ErrorHandler getErrorHandler() {
         return errorHandler;

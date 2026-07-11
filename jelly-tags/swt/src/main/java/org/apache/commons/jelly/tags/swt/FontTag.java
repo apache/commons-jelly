@@ -97,7 +97,7 @@ public class FontTag extends TagSupport {
     }
 
     /**
-     * @return the parent widget which will deliver us a {@link Device} reference
+     * @return The parent widget which will deliver us a {@link Device} reference
      */
     public Widget getParentWidget() {
         final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
@@ -110,7 +110,7 @@ public class FontTag extends TagSupport {
     /**
      * Obtain the {@link Font} size
      *
-     * @return the {@link Font} size
+     * @return The {@link Font} size
      */
     public int getSize() {
         return this.size;
@@ -119,7 +119,7 @@ public class FontTag extends TagSupport {
     /**
      * Obtain the style of this {@link Font}
      *
-     * @return the style of this {@link Font}
+     * @return The style of this {@link Font}
      */
     public String getStyle() {
         return this.style;
@@ -128,7 +128,7 @@ public class FontTag extends TagSupport {
     /**
      * Obtain the {@link Font} type name
      *
-     * @return the {@link Font} type name
+     * @return The {@link Font} type name
      */
     public String getType() {
         return this.type;
@@ -137,7 +137,7 @@ public class FontTag extends TagSupport {
     /**
      * Obtain the variable name.
      *
-     * @return the variable name of this {@link Font} instance
+     * @return The variable name of this {@link Font} instance
      */
     public String getVar() {
         return this.var;

@@ -75,14 +75,14 @@ public class ClassLoaderTag extends BeanTag {
     }
 
     /**
-     * @return the url to load the classes from
+     * @return The url to load the classes from
      */
     public String getUrl() {
         return this.url;
     }
 
     /**
-     * @return the variable to store the class loader in
+     * @return The variable to store the class loader in
      */
     public String getVar() {
         return this.var;

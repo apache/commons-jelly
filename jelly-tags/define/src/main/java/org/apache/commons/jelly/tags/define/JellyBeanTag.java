@@ -56,7 +56,7 @@ public class JellyBeanTag extends BeanTag {
     }
 
     /**
-     * @return the method name to use, which defaults to 'run' for Runnable
+     * @return The method name to use, which defaults to 'run' for Runnable
      * objects
      */
     public String getMethod() {

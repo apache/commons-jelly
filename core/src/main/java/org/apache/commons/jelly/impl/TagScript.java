@@ -299,21 +299,21 @@ public class TagScript implements Script {
     }
 
     /**
-     * @return the column number of the tag
+     * @return The column number of the tag
      */
     public int getColumnNumber() {
         return columnNumber;
     }
 
     /**
-     * @return the element name which caused the problem
+     * @return The element name which caused the problem
      */
     public String getElementName() {
         return elementName;
     }
 
 	/**
-     * @return the Jelly file which caused the problem
+     * @return The Jelly file which caused the problem
      */
     public String getFileName() {
         return fileName;
@@ -331,7 +331,7 @@ public class TagScript implements Script {
     }
 
     /**
-     * @return the line number of the tag
+     * @return The line number of the tag
      */
     public int getLineNumber() {
         return lineNumber;
@@ -392,7 +392,7 @@ public class TagScript implements Script {
     }
 
     /**
-     * @return the tag to be evaluated, creating it lazily if required.
+     * @return The tag to be evaluated, creating it lazily if required.
      */
     public Tag getTag(final JellyContext context) throws JellyException {
         final Thread t = Thread.currentThread();
@@ -417,14 +417,14 @@ public class TagScript implements Script {
 
     /**
      * Returns the Factory of Tag instances.
-     * @return the factory
+     * @return The factory
      */
     public TagFactory getTagFactory() {
         return tagFactory;
     }
 
     /**
-	 * @return the tagLibrary
+	 * @return The tagLibrary
 	 */
 	public TagLibrary getTagLibrary() {
 		return tagLibrary;

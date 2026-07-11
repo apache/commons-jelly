@@ -105,7 +105,7 @@ public class LoadTextTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /** Returns the encoding set.
-    * @return the encoding set with {@link #setEncoding(String)}
+    * @return The encoding set with {@link #setEncoding(String)}
       */
     public String getEncoding() {
         return encoding;

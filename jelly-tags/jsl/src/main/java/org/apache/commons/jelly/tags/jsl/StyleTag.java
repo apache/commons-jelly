@@ -74,7 +74,7 @@ public class StyleTag extends XPathTagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** @return the source on which the stylesheet should run
+    /** @return The source on which the stylesheet should run
      */
     protected Object getSource() throws JaxenException {
         final Object source = getXPathContext();

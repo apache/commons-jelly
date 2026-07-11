@@ -67,7 +67,7 @@ public class TestXMLTags extends TestCase {
      * @param s the fragment to be checked
      * @param pre the part before the namespace expression
      * @param post the part after the namespace expression
-     * @return the extracted namespace expression
+     * @return The extracted namespace expression
      */
     private static String checkNamespaceFragment(final String s, final String pre, final String post) {
         final Matcher matcher = matcherForNamespaceFragment(s, pre, post);
@@ -105,7 +105,7 @@ public class TestXMLTags extends TestCase {
      * @param s the fragment to be checked
      * @param pre the part before the namespace expression
      * @param post the part after the namespace expression
-     * @return the matcher
+     * @return The matcher
      */
     private static Matcher matcherForNamespaceFragment(final String s, final String pre, final String post) {
         final Pattern pattern = Pattern.compile(Pattern.quote(pre) + REG_NS + Pattern.quote(post));

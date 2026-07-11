@@ -83,7 +83,7 @@ public class SetLocaleTag extends TagSupport {
      * this method is used to set the response locale).
      *
      * @param avail the array of available locales
-     * @return the formatting locale to use
+     * @return The formatting locale to use
      */
     static Locale getFormattingLocale(final JellyContext jc,
     final Tag fromTag,
@@ -155,7 +155,7 @@ public class SetLocaleTag extends TagSupport {
      * @param name the name of the scoped attribute or context configuration
      * parameter
      *
-     * @return the locale specified by the named scoped attribute or context
+     * @return The locale specified by the named scoped attribute or context
      * configuration parameter, or {@code null} if no scoped attribute or
      * configuration parameter with the given name exists
      */

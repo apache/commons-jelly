@@ -56,7 +56,7 @@ public class BeanPropertyTag extends BeanTag {
      * matches the add{tag name} pattern, whose return type is void and which takes
      * one argument only.
      * @param parentClass
-     * @return the class of the first and only parameter
+     * @return The class of the first and only parameter
      */
     protected Class findAddMethodClass(final Class parentClass) {
         final Method[] methods = parentClass.getMethods();

@@ -49,7 +49,7 @@ public class StoreTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** @return the persistence broker instance */
+    /** @return The persistence broker instance */
     public PersistenceBroker getBroker() {
         if (broker == null) {
             final BrokerTag brokerTag = (BrokerTag) findAncestorWithClass( BrokerTag.class );

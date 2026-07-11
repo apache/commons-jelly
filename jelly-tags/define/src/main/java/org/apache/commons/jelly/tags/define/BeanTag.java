@@ -111,7 +111,7 @@ public class BeanTag extends DefineTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the ClassLoader to use to load classes specified by this object,
+     * @return The ClassLoader to use to load classes specified by this object,
      *  the thread context loader if the context flag is set, or the class used to load this class.
      */
     public ClassLoader getClassLoader() {

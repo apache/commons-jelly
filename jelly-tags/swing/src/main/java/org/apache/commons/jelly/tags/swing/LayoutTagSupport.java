@@ -75,7 +75,7 @@ public abstract class LayoutTagSupport extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the parent component tag or throw an exception
+     * @return The parent component tag or throw an exception
      */
     protected ComponentTag getComponentTag() throws JellyTagException {
         final ComponentTag tag = (ComponentTag) findAncestorWithClass( ComponentTag.class );

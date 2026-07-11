@@ -355,7 +355,7 @@ public class XMLParser extends DefaultHandler {
      * Create a SAX exception which also understands about the location in
      * the digester file where the exception occurs
      *
-     * @return the new exception
+     * @return The new exception
      */
     protected SAXException createSAXException(final Exception e) {
         return createSAXException(e.getMessage(), e);
@@ -365,7 +365,7 @@ public class XMLParser extends DefaultHandler {
      * Create a SAX exception which also understands about the location in
      * the digester file where the exception occurs
      *
-     * @return the new exception
+     * @return The new exception
      */
     protected SAXException createSAXException(final String message) {
         return createSAXException(message, null);
@@ -375,7 +375,7 @@ public class XMLParser extends DefaultHandler {
      * Create a SAX exception which also understands about the location in
      * the file where the exception occurs
      *
-     * @return the new exception
+     * @return The new exception
      */
     protected SAXException createSAXException(final String message, final Exception e) {
         log.warn("Underlying exception: " + e);
@@ -702,7 +702,7 @@ public class XMLParser extends DefaultHandler {
     }
 
     /**
-     * @return the current context URI as a String or null if there is no
+     * @return The current context URI as a String or null if there is no
      * current context defined on the JellyContext
      */
     protected String getCurrentURI() {
@@ -722,7 +722,7 @@ public class XMLParser extends DefaultHandler {
      * tag and falling back by creating one.  If the current tag is a StaticTag (IE
      * has no TagLibrary) then continues up the stack looking for a valid one.
      * @param tagScript
-     * @return the expression factory used to evaluate tag attributes
+     * @return The expression factory used to evaluate tag attributes
      */
     public ExpressionFactory getExpressionFactory(final TagScript tagScript) {
     	// Check the tag library
@@ -847,7 +847,7 @@ public class XMLParser extends DefaultHandler {
      * Returns the script that has just been created if this class is used
      * as a SAX ContentHandler and passed into some XML processor or parser.
      *
-     * @return the ScriptBlock created if SAX events are piped into this class,
+     * @return The ScriptBlock created if SAX events are piped into this class,
      * which must include a startDocument() and endDocument()
      */
     public ScriptBlock getScript() {

@@ -86,7 +86,7 @@ public class JellyException extends Exception implements LocationAware {
 
 
     /**
-     * @return the column number of the tag
+     * @return The column number of the tag
      */
     @Override
     public int getColumnNumber() {
@@ -94,7 +94,7 @@ public class JellyException extends Exception implements LocationAware {
     }
 
     /**
-     * @return the element name which caused the problem
+     * @return The element name which caused the problem
      */
     @Override
     public String getElementName() {
@@ -102,7 +102,7 @@ public class JellyException extends Exception implements LocationAware {
     }
 
     /**
-     * @return the Jelly file which caused the problem
+     * @return The Jelly file which caused the problem
      */
     @Override
     public String getFileName() {
@@ -110,7 +110,7 @@ public class JellyException extends Exception implements LocationAware {
     }
 
     /**
-     * @return the line number of the tag
+     * @return The line number of the tag
      */
     @Override
     public int getLineNumber() {

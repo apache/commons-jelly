@@ -91,7 +91,7 @@ public class WidgetTag extends UseBeanTag {
      * @param theClass is the type of widget to create
      * @param parent is the parent widget
      * @param style the SWT style code
-     * @return the new Widget
+     * @return The new Widget
      */
     protected Object createWidget(final Class theClass, final Widget parent, final int style)
         throws JellyTagException {
@@ -170,7 +170,7 @@ public class WidgetTag extends UseBeanTag {
     }
 
     /**
-     * @return the parent widget which this widget will be added to.
+     * @return The parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
 
@@ -186,7 +186,7 @@ public class WidgetTag extends UseBeanTag {
 
     /**
      * Creates the SWT style code for the current attributes
-     * @return the SWT style code
+     * @return The SWT style code
      */
     protected int getStyle(final Map attributes) throws JellyTagException {
         final String text = (String) attributes.remove("style");
@@ -197,7 +197,7 @@ public class WidgetTag extends UseBeanTag {
     }
 
     /**
-     * @return the visible widget, if there is one.
+     * @return The visible widget, if there is one.
      */
     public Widget getWidget() {
         final Object bean = getBean();

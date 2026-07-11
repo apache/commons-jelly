@@ -67,7 +67,7 @@ public class ExpressionTableModel extends AbstractTableModel {
     }
 
     /**
-     * @return the TableColumnModel
+     * @return The TableColumnModel
      */
     public TableColumnModel getColumnModel() {
         return columnModel;

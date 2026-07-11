@@ -50,7 +50,7 @@ public class AntJellyContext extends JellyContext {
         return new AntJellyContext(project, this);
     }
 
-    /** @return the value of the given variable name */
+    /** @return The value of the given variable name */
     @Override
     public Object getVariable(final String name) {
         // look in parent first
@@ -84,7 +84,7 @@ public class AntJellyContext extends JellyContext {
     }
 
     /**
-     * @return the Map of variables in this scope
+     * @return The Map of variables in this scope
      */
     @Override
     public Map getVariables() {

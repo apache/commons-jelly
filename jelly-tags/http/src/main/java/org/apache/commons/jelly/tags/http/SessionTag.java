@@ -111,7 +111,7 @@ public class SessionTag extends TagSupport {
     /**
      * Helper method for proxy host property
      *
-     * @return the {@link #getProxy() proxy's} host property
+     * @return The {@link #getProxy() proxy's} host property
      */
     public String getProxyHost() {
         return getProxy().getHost();
@@ -120,7 +120,7 @@ public class SessionTag extends TagSupport {
     /**
      * Helper method for proxy {@code port} property
      *
-     * @return the {@link #getProxy() proxy's} port property
+     * @return The {@link #getProxy() proxy's} port property
      */
     public int getProxyPort() {
         return getProxy().getPort();

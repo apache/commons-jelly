@@ -80,7 +80,7 @@ public class SuiteTag extends TagSupport {
     }
 
     /**
-     * @return the name of this test suite
+     * @return The name of this test suite
      */
     public String getName() {
         return name;

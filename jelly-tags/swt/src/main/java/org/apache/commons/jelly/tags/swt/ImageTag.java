@@ -78,7 +78,7 @@ public class ImageTag extends TagSupport {
     }
 
     /**
-     * @return the parent widget which this widget will be added to.
+     * @return The parent widget which this widget will be added to.
      */
     public Widget getParentWidget() {
         final WidgetTag tag = (WidgetTag) findAncestorWithClass(WidgetTag.class);
@@ -90,7 +90,7 @@ public class ImageTag extends TagSupport {
 
     /**
      * Obtains the resource
-     * @return the image resource
+     * @return The image resource
      */
     public String getResource() {
         return resource;

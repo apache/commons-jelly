@@ -50,14 +50,14 @@ public class AttributeTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the name of the attribute.
+     * @return The name of the attribute.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * @return the namespace URI of the element
+     * @return The namespace URI of the element
      */
     public String getURI() {
         return namespace;

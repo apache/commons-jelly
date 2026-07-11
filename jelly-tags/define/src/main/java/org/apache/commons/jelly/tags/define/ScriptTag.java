@@ -48,7 +48,7 @@ public class ScriptTag extends TagSupport {
     // Properties
     //-------------------------------------------------------------------------
 
-    /** @return the variable name of the script to create */
+    /** @return The variable name of the script to create */
     public String getVar() {
         return var;
     }

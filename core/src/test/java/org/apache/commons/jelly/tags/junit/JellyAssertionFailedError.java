@@ -70,7 +70,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     }
 
     /**
-     * @return the column number of the tag
+     * @return The column number of the tag
      */
     @Override
     public int getColumnNumber() {
@@ -78,7 +78,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     }
 
     /**
-     * @return the element name which caused the problem
+     * @return The element name which caused the problem
      */
     @Override
     public String getElementName() {
@@ -86,7 +86,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     }
 
     /**
-     * @return the Jelly file which caused the problem
+     * @return The Jelly file which caused the problem
      */
     @Override
     public String getFileName() {
@@ -94,7 +94,7 @@ public class JellyAssertionFailedError extends AssertionFailedError implements L
     }
 
     /**
-     * @return the line number of the tag
+     * @return The line number of the tag
      */
     @Override
     public int getLineNumber() {

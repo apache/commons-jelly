@@ -51,7 +51,7 @@ public class ViewerTag extends WidgetTag {
     }
 
     /**
-     * @return the visible viewer, if there is one.
+     * @return The visible viewer, if there is one.
      */
     public Viewer getViewer() {
         final Object bean = getBean();

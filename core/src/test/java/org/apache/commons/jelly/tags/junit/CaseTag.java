@@ -71,7 +71,7 @@ public class CaseTag extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the name of this test case
+     * @return The name of this test case
      */
     public String getName() {
         return name;

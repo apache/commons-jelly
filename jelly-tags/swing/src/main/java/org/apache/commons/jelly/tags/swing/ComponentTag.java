@@ -198,7 +198,7 @@ public class ComponentTag extends UseBeanTag implements ContainerTag {
     }
 
     /**
-     * @return the visible component, if there is one.
+     * @return The visible component, if there is one.
      */
     public Component getComponent() {
         final Object bean = getBean();

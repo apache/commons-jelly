@@ -118,7 +118,7 @@ public class JettyHttpServerTag extends TagSupport {
      * Add a user authentication realm to the server instance
      *
      * @param realm the realm to add
-     * @return the realm added
+     * @return The realm added
      */
     public UserRealm addRealm(final UserRealm realm)
     {

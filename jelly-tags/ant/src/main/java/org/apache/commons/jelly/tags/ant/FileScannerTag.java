@@ -60,7 +60,7 @@ public class FileScannerTag extends TagSupport implements TaskSource {
     }
 
     /**
-     * @return the Ant task
+     * @return The Ant task
      */
     public FileScanner getFileScanner() {
         return fileScanner;

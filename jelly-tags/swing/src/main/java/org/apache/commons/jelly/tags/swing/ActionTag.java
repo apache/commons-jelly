@@ -75,7 +75,7 @@ public class ActionTag extends UseBeanTag {
     }
 
     /**
-     * @return the Action object for this tag
+     * @return The Action object for this tag
      */
     public Action getAction() {
         return (Action) getBean();

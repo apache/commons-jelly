@@ -65,7 +65,7 @@ public class ExtendTag extends DefineTagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the name of the tag to create
+     * @return The name of the tag to create
      */
     public String getName() {
         return name;

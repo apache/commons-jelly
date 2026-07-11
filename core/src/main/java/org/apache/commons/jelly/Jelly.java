@@ -260,7 +260,7 @@ public class Jelly {
     }
 
     /**
-     * @return the URL for the relative file name or absolute URL
+     * @return The URL for the relative file name or absolute URL
      */
     protected URL resolveURL(final String name) throws MalformedURLException {
 

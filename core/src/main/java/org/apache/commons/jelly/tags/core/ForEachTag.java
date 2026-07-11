@@ -58,7 +58,7 @@ public class ForEachTag extends TagSupport {
         }
 
         /**
-         * @return the begin.
+         * @return The begin.
          */
         @Override
         public Integer getBegin() {
@@ -66,7 +66,7 @@ public class ForEachTag extends TagSupport {
         }
 
         /**
-         * @return the count.
+         * @return The count.
          */
         @Override
         public int getCount() {
@@ -74,7 +74,7 @@ public class ForEachTag extends TagSupport {
         }
 
         /**
-         * @return the current.
+         * @return The current.
          */
         @Override
         public Object getCurrent() {
@@ -82,7 +82,7 @@ public class ForEachTag extends TagSupport {
         }
 
         /**
-         * @return the end.
+         * @return The end.
          */
         @Override
         public Integer getEnd() {
@@ -90,7 +90,7 @@ public class ForEachTag extends TagSupport {
         }
 
         /**
-         * @return the index.
+         * @return The index.
          */
         @Override
         public int getIndex() {
@@ -98,7 +98,7 @@ public class ForEachTag extends TagSupport {
         }
 
         /**
-         * @return the step.
+         * @return The step.
          */
         @Override
         public Integer getStep() {
@@ -106,7 +106,7 @@ public class ForEachTag extends TagSupport {
         }
 
         /**
-         * @return the first.
+         * @return The first.
          */
         @Override
         public boolean isFirst() {
@@ -114,7 +114,7 @@ public class ForEachTag extends TagSupport {
         }
 
         /**
-         * @return the last.
+         * @return The last.
          */
         @Override
         public boolean isLast() {

@@ -40,7 +40,7 @@ public abstract class XMLUnitTagSupport extends AssertTagSupport {
      */
     protected abstract SAXReader createSAXReader();
 
-    /** @return the SAXReader used for parsing, creating one lazily if need be  */
+    /** @return The SAXReader used for parsing, creating one lazily if need be  */
     public SAXReader getSAXReader() {
         if (saxReader == null) {
             saxReader = createSAXReader();

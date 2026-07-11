@@ -29,7 +29,7 @@ public abstract class DefineTagSupport extends TagSupport {
     //-------------------------------------------------------------------------
 
     /**
-     * @return the current dynamic tag library instance or throws a JellyException
+     * @return The current dynamic tag library instance or throws a JellyException
      * if one is not available
      */
     public DynamicTagLibrary getTagLibrary() {
