@@ -77,7 +77,7 @@ public class TagScript implements Script {
     private static final Log log = LogFactory.getLog(TagScript.class);
 
     /**
-     * @return a new TagScript based on whether
+     * @return A new TagScript based on whether
      * the given Tag class is a bean tag or DynaTag
      */
     public static TagScript newInstance(final Class tagClass) {
@@ -350,7 +350,7 @@ public class TagScript implements Script {
      * in scope in the document where this tag is used which are mapped to
      * their namespace URIs.
      *
-     * @return a Map with the keys are namespace prefixes and the values are
+     * @return A Map with the keys are namespace prefixes and the values are
      * namespace URIs.
      */
     public synchronized Map getNamespaceContext() {

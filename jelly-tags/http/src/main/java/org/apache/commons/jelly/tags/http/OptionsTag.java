@@ -37,7 +37,7 @@ public class OptionsTag extends HttpTagSupport {
     }
 
     /**
-     * @return a url method for an options request
+     * @return A url method for an options request
      * @throws MalformedURLException when the url is bad
      */
     @Override

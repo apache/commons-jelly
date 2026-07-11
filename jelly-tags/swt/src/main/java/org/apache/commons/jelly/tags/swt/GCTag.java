@@ -67,7 +67,7 @@ public class GCTag extends TagSupport {
     /**
      * Obtain the {@link Drawable} name for this {@link GC}.
      *
-     * @return a {@link GC} {@link Drawable}
+     * @return A {@link GC} {@link Drawable}
      */
     public Drawable getDrawable() {
         return this.drawable;

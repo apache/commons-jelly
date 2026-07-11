@@ -37,7 +37,7 @@ public class GetTag extends HttpTagSupport {
     }
 
     /**
-     * @return a url method for a get request
+     * @return A url method for a get request
      * @throws MalformedURLException when the url is bad
      */
     @Override

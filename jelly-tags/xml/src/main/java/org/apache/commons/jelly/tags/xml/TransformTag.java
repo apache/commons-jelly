@@ -429,7 +429,7 @@ public class TransformTag extends ParseTag {
      * Creates a new URI Resolver so that URIs inside the XSLT document can be
      * resolved using the JellyContext
      *
-     * @return a URI Resolver for the JellyContext
+     * @return A URI Resolver for the JellyContext
      */
     protected URIResolver createURIResolver() {
         return (href, base) -> {

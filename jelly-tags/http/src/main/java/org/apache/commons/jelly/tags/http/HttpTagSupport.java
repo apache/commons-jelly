@@ -128,7 +128,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * retrieve the {@link HttpUrlMethod method} from the subclass and
      * configure it ready for execution
      *
-     * @return a configured {@link HttpUrlMethod method}
+     * @return A configured {@link HttpUrlMethod method}
      * @throws MalformedURLException when retrieving the URL fails
      */
     private HttpMethod getConfiguredHttpMethod() throws
@@ -178,7 +178,7 @@ public abstract class HttpTagSupport extends TagSupport {
      * A method that must be implemented by subclasses to provide the
      * {@link HttpMethod url method} implementation
      *
-     * @return a HttpUrlMethod implementation
+     * @return A HttpUrlMethod implementation
      * @throws MalformedURLException when the {@link #getUri() uri} or
      * {@link #getPath() path} is invalid
      */

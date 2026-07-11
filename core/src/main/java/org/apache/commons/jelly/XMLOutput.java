@@ -190,7 +190,7 @@ public class XMLOutput implements ContentHandler, LexicalHandler {
      * tag-generated XML events.  Useful when tag output is not expected
      * or not significant.
      *
-     * @return a no-op XMLOutput
+     * @return A no-op XMLOutput
      */
     public static XMLOutput createDummyXMLOutput() {
         return new XMLOutput(new DefaultHandler());

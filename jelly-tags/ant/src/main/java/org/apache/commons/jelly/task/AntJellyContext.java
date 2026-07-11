@@ -75,7 +75,7 @@ public class AntJellyContext extends JellyContext {
     }
 
     /**
-     * @return an Iterator over the current variable names in this
+     * @return An Iterator over the current variable names in this
      * context
      */
     @Override

@@ -254,7 +254,7 @@ public class JellyContext {
     }
 
     /**
-     * @return a new relative URL from the given root and with the addition of the
+     * @return A new relative URL from the given root and with the addition of the
      * extra relative URI
      *
      * @param rootURL is the root context from which the relative URI will be applied
@@ -551,7 +551,7 @@ public class JellyContext {
     }
 
     /**
-     * @return an Iterator over the current variable names in this
+     * @return An Iterator over the current variable names in this
      * context
      */
     public Iterator getVariableNames() {
@@ -566,7 +566,7 @@ public class JellyContext {
     }
 
     /**
-     * @return a thread pooled XMLParser to avoid the startup overhead
+     * @return A thread pooled XMLParser to avoid the startup overhead
      * of the XMLParser
      */
     protected XMLParser getXMLParser() {

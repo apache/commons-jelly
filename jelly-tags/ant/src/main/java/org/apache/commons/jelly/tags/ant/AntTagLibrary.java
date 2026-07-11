@@ -132,7 +132,7 @@ public class AntTagLibrary extends TagLibrary {
     }
 
     /**
-     * @return a new TagScript for any custom, statically defined tags, like 'fileScanner'
+     * @return A new TagScript for any custom, statically defined tags, like 'fileScanner'
      */
     public TagScript createCustomTagScript(final String name, final Attributes attributes) {
         // custom Ant tags

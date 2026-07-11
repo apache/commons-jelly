@@ -78,7 +78,7 @@ public class AntTag extends MapTagSupport implements TaskSource {
     }
 
     /**
-     * @return an object create with the given constructor and args.
+     * @return An object create with the given constructor and args.
      * @param ctor a constructor to use creating the object
      * @param args the arguments to pass to the constructor
      * @param name the name of the data type being created

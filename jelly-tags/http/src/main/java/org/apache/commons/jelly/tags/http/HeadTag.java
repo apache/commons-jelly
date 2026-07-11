@@ -37,7 +37,7 @@ public class HeadTag extends HttpTagSupport {
     }
 
     /**
-     * @return a url method for a Head request
+     * @return A url method for a Head request
      * @throws MalformedURLException when the url is bad
      */
     @Override

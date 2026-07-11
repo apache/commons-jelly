@@ -45,7 +45,7 @@ public abstract class AbstractJellyTestSuite {
      *
      * @param testClass is the test class used to load the script via the classpath
      * @param script is the name of the script, which is typically just a name, no directory.
-     * @return a newly created TestSuite
+     * @return A newly created TestSuite
      */
     public static TestSuite createTestSuite(final Class testClass, final String script) throws Exception {
         final URL url = testClass.getResource(script);
@@ -62,7 +62,7 @@ public abstract class AbstractJellyTestSuite {
      * Helper method to create a test suite from the given Jelly script
      *
      * @param script is the URL to the script which should create a TestSuite
-     * @return a newly created TestSuite
+     * @return A newly created TestSuite
      */
     public static TestSuite createTestSuite(final URL script) throws Exception {
         JellyContext context = new JellyContext(script);

@@ -153,7 +153,7 @@ public class ResultImpl implements Result {
      * the names of the columns arranged in the same order as in
      * the getRowsByIndex() method.
      *
-     * @return an array of String[]
+     * @return An array of String[]
      */
     @Override
     public String[] getColumnNames() {
@@ -181,7 +181,7 @@ public class ResultImpl implements Result {
      * Comparator so the key is the case insensitive representation
      * of the ColumnName.
      *
-     * @return an array of Map, or null if there are no rows
+     * @return An array of Map, or null if there are no rows
      */
     @Override
     public SortedMap[] getRows() {
@@ -198,7 +198,7 @@ public class ResultImpl implements Result {
      * designates the Row, the second the Column. The array
      * stores the value at the specified row and column.
      *
-     * @return an array of Object[], or null if there are no rows
+     * @return An array of Object[], or null if there are no rows
      */
     @Override
     public Object[][] getRowsByIndex() {
