@@ -51,6 +51,7 @@ import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.xml.secure.SecureSAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
@@ -810,12 +811,17 @@ public class XMLParser extends DefaultHandler {
         // Create and return a new parser
         synchronized (this) {
             try {
-                if (factory == null) {
-                    factory = SAXParserFactory.newInstance();
+                SAXParserFactory parserFactory = factory;
+                if (parserFactory == null) {
+                    // The secure factory's resolver floor would ignore external entities, so the
+                    // documented opt-in keeps using a plain factory; do not cache the per-instance choice.
+                    parserFactory = allowDtdToCallExternalEntities
+                        ? SAXParserFactory.newInstance()
+                        : SecureSAXParserFactory.newInstance();
                 }
-                factory.setNamespaceAware(true);
-                factory.setValidating(validating);
-                parser = factory.newSAXParser();
+                parserFactory.setNamespaceAware(true);
+                parserFactory.setValidating(validating);
+                parser = parserFactory.newSAXParser();
                 return parser;
             }
             catch (final Exception e) {

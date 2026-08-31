@@ -27,6 +27,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Result;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
@@ -48,6 +49,7 @@ import org.apache.commons.jelly.impl.StaticTagScript;
 import org.apache.commons.jelly.impl.TagScript;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.xml.secure.SecureSAXParserFactory;
 import org.dom4j.Document;
 import org.dom4j.io.DocumentResult;
 import org.dom4j.io.DocumentSource;
@@ -61,7 +63,6 @@ import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.ext.LexicalHandler;
-import org.xml.sax.helpers.XMLReaderFactory;
 
 /** A tag which parses some XML, applies an xslt transform to it
   * and defines a variable with the transformed Document.
@@ -129,7 +130,7 @@ public class TransformTag extends ParseTag {
         private void doInvokeBody() throws SAXException {
             try {
                 if (this.shouldParseBody()) {
-                    final XMLReader anXMLReader = XMLReaderFactory.createXMLReader();
+                    final XMLReader anXMLReader = newSecureXMLReader();
                     anXMLReader.setContentHandler(this.xmlOutput);
                     anXMLReader.setProperty(LEXICAL_HANDLER_PROPERTY,this.xmlOutput);
                     final StringWriter writer = new StringWriter();
@@ -408,6 +409,10 @@ public class TransformTag extends ParseTag {
      * Constructor for TransformTag.
      */
     public TransformTag() {
+        // Not the secure factory: Xalan (on the class path here) drops the attributes of
+        // xsl:namespace-alias literal result elements under secure processing (XSLTElementProcessor
+        // rejects "foreign" attributes), silently breaking stylesheets like the Schematron skeleton.
+        // The stylesheet is part of the script; the readers parsing the transform INPUT are secured.
         this.tf = (SAXTransformerFactory) TransformerFactory.newInstance();
     }
 
@@ -462,9 +467,19 @@ public class TransformTag extends ParseTag {
      *
      * @return XMLReader for the transform input
      * @throws SAXException
-     *             If the value of the "org.xml.sax.driver" system property
-     *             is null, or if the class cannot be loaded and instantiated.
+     *             If the reader cannot be created.
      */
+    /**
+     * Creates a namespace-aware XMLReader through the secure SAX parser factory.
+     */
+    private static XMLReader newSecureXMLReader() throws SAXException {
+        try {
+            return SecureSAXParserFactory.newNSInstance().newSAXParser().getXMLReader();
+        } catch (final ParserConfigurationException e) {
+            throw new SAXException(e);
+        }
+    }
+
     protected XMLReader createXMLReader() throws SAXException {
         XMLReader xmlReader = null;
         final Object xmlReaderSourceObj = this.getXml();
@@ -474,7 +489,7 @@ public class TransformTag extends ParseTag {
             xmlReader = new TagBodyXMLReader(this);
         }
         else {
-            xmlReader = XMLReaderFactory.createXMLReader();
+            xmlReader = newSecureXMLReader();
         }
 
         return xmlReader;

@@ -48,6 +48,7 @@ The <action> type attribute can be add,update,fix,remove.
       <!-- ADD -->
       <action type="add" dev="ggregory" due-to="Gary Gregory">Extract commons version into new POM property ${mx4j.version}.</action>
       <!-- FIX -->
+      <action type="fix" dev="pkarwasz">Create XML parsers and readers through org.apache.commons:commons-secure-xml, so external entities and DTDs are no longer fetched unless JellyContext.setAllowDtdToCallExternalEntities(true) is used.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Throw specialized RuntimeExceptions instead of plain RuntimeExceptions.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Deprecate NestedRuntimeException for RuntimeException.</action>
       <action type="fix" dev="ggregory" due-to="Gary Gregory">Fix building on modern Java.</action>

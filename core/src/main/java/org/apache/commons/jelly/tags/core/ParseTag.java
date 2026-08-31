@@ -30,6 +30,7 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.xml.secure.SecureSAXParserFactory;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -76,7 +77,7 @@ public class ParseTag extends TagSupport {
      * Factory method to create a new XMLReader
      */
     protected XMLReader createXMLReader() throws ParserConfigurationException, SAXException {
-        final SAXParserFactory factory = SAXParserFactory.newInstance();
+        final SAXParserFactory factory = SecureSAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
         final SAXParser parser = factory.newSAXParser();
         return parser.getXMLReader();
