@@ -814,13 +814,12 @@ public class XMLParser extends DefaultHandler {
         // Create and return a new parser
         synchronized (this) {
             try {
-                SAXParserFactory parserFactory = factory;
-                if (parserFactory == null) {
-                    parserFactory = SecureSAXParserFactory.newInstance();
+                if (factory == null) {
+                    factory = SecureSAXParserFactory.newInstance();
                 }
-                parserFactory.setNamespaceAware(true);
-                parserFactory.setValidating(validating);
-                parser = parserFactory.newSAXParser();
+                factory.setNamespaceAware(true);
+                factory.setValidating(validating);
+                parser = factory.newSAXParser();
                 return parser;
             }
             catch (final Exception e) {
