@@ -815,9 +815,8 @@ public class XMLParser extends DefaultHandler {
         synchronized (this) {
             try {
                 if (factory == null) {
-                    factory = SecureSAXParserFactory.newInstance();
+                    factory = SecureSAXParserFactory.newNSInstance();
                 }
-                factory.setNamespaceAware(true);
                 factory.setValidating(validating);
                 parser = factory.newSAXParser();
                 return parser;
