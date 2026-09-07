@@ -77,7 +77,7 @@ public class ParseTag extends TagSupport {
      * Factory method to create a new XMLReader
      */
     protected XMLReader createXMLReader() throws ParserConfigurationException, SAXException {
-        final SAXParserFactory factory = SecureSAXParserFactory.newInstance();
+        final SAXParserFactory factory = SecureSAXParserFactory.newNSInstance();
         factory.setNamespaceAware(true);
         final SAXParser parser = factory.newSAXParser();
         return parser.getXMLReader();
