@@ -17,12 +17,16 @@
 
 package org.apache.commons.jelly.tags.xmlunit;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.XMLOutput;
+import org.apache.commons.xml.secure.SecureSAXParserFactory;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
+import org.xml.sax.SAXException;
 
 /**
  * Compares two XML documents using XMLUnit (http://xmlunit.sourceforge.net/).
@@ -46,7 +50,12 @@ public class AssertDocumentsEqualTag extends XMLUnitTagSupport {
 
     @Override
     protected SAXReader createSAXReader() {
-        return new SAXReader();
+        // dom4j builds its reader through JAXP internally; hand it one from the secure factory instead.
+        try {
+            return new SAXReader(SecureSAXParserFactory.newNSInstance().newSAXParser().getXMLReader());
+        } catch (final ParserConfigurationException | SAXException e) {
+            throw new IllegalStateException("Unable to create a new XML reader", e);
+        }
     }
 
     @Override

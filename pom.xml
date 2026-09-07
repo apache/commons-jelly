@@ -153,6 +153,15 @@
       <url>scp://people.apache.org/www/commons.apache.org/${pom.artifactId.substring(8)}/</url>
     </site>
   </distributionManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-secure-xml</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>javax.servlet</groupId>

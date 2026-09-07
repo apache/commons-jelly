@@ -16,13 +16,17 @@
  */
 package org.apache.commons.jelly.tags.xml;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.jelly.JellyTagException;
 import org.apache.commons.jelly.MissingAttributeException;
 import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.xml.secure.SecureSAXParserFactory;
 import org.dom4j.Document;
 import org.dom4j.io.SAXReader;
+import org.xml.sax.SAXException;
 
 /** A tag which parses some XML and defines a variable with the parsed Document.
   * The XML can either be specified as its body or can be passed in via the
@@ -47,8 +51,13 @@ public class ParseTag extends ParseTagSupport {
      * Factory method to create a new SAXReader
      */
     @Override
-    protected SAXReader createSAXReader() {
-        return new SAXReader(validate);
+    protected SAXReader createSAXReader() throws SAXException {
+        // dom4j builds its reader through JAXP internally; hand it one from the secure factory instead.
+        try {
+            return new SAXReader(SecureSAXParserFactory.newNSInstance().newSAXParser().getXMLReader(), validate);
+        } catch (final ParserConfigurationException e) {
+            throw new SAXException(e);
+        }
     }
 
     @Override

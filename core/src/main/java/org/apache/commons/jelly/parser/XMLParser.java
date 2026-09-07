@@ -51,7 +51,9 @@ import org.apache.commons.jelly.impl.TextScript;
 import org.apache.commons.jelly.util.ClassLoaderUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.xml.secure.SecureSAXParserFactory;
 import org.xml.sax.Attributes;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.Locator;
@@ -75,6 +77,8 @@ public class XMLParser extends DefaultHandler {
      * The SAXParserFactory that is created the first time we need it.
      */
     protected static SAXParserFactory factory = null;
+
+    private static final EntityResolver ALLOW_ALL_RESOLVER = (publicId, systemId) -> new InputSource(systemId);
 
     /** JellyContext which is used to locate tag libraries*/
     private JellyContext context = new JellyContext();
@@ -811,9 +815,8 @@ public class XMLParser extends DefaultHandler {
         synchronized (this) {
             try {
                 if (factory == null) {
-                    factory = SAXParserFactory.newInstance();
+                    factory = SecureSAXParserFactory.newNSInstance();
                 }
-                factory.setNamespaceAware(true);
                 factory.setValidating(validating);
                 parser = factory.newSAXParser();
                 return parser;
@@ -876,10 +879,8 @@ public class XMLParser extends DefaultHandler {
     public synchronized XMLReader getXMLReader() throws SAXException {
         if (reader == null) {
             reader = getParser().getXMLReader();
-            if (!allowDtdToCallExternalEntities) {
-                reader.setFeature("http://xml.org/sax/features/external-general-entities", false);
-                reader.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
-                reader.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            if (isAllowDtdToCallExternalEntities()) {
+                reader.setEntityResolver(ALLOW_ALL_RESOLVER);
             }
             if (this.defaultNamespaceURI != null) {
                 reader = new DefaultNamespaceFilter(this.defaultNamespaceURI, reader);
