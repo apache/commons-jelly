@@ -78,7 +78,6 @@ public class ParseTag extends TagSupport {
      */
     protected XMLReader createXMLReader() throws ParserConfigurationException, SAXException {
         final SAXParserFactory factory = SecureSAXParserFactory.newNSInstance();
-        factory.setNamespaceAware(true);
         final SAXParser parser = factory.newSAXParser();
         return parser.getXMLReader();
     }
