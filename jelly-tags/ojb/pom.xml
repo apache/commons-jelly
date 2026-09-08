@@ -38,6 +38,7 @@
       <artifactId>ojb</artifactId>
       <version>0.9.6</version>
     </dependency>
+    <!-- ojb depends on commons-lang by extending org.apache.commons.lang.exception.NestableRuntimeException -->
     <dependency>
       <groupId>commons-lang</groupId>
       <artifactId>commons-lang</artifactId>
