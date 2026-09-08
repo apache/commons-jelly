@@ -28,6 +28,7 @@ import org.apache.commons.jelly.Script;
 import org.apache.commons.jelly.TJTagLibrary;
 import org.apache.commons.jelly.parser.XMLParser;
 import org.apache.commons.jelly.test.BaseJellyTest;
+import org.apache.commons.xml.secure.SecureSAXParserFactory;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
 
@@ -56,9 +57,8 @@ public class TestNamespacePrefixes extends BaseJellyTest {
 
 
 	public void testNamespacePrefixes() throws Exception {
-		final SAXParserFactory pf = SAXParserFactory.newInstance();
+		final SAXParserFactory pf = SecureSAXParserFactory.newNSInstance();
 		pf.setValidating(false);
-		pf.setNamespaceAware(true);
 		pf.setFeature("http://xml.org/sax/features/namespace-prefixes", true);
 		XMLReader reader = null;
 		final SAXParser parser = pf.newSAXParser();
