@@ -27,9 +27,10 @@ import org.apache.commons.jelly.XMLOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import jline.ConsoleReader;
-import jline.History;
-import jline.SimpleCompletor;
+import jline.console.ConsoleReader;
+import jline.console.completer.StringsCompleter;
+import jline.console.history.History;
+import jline.console.history.MemoryHistory;
 
   /**
   * Jelly Tag that asks the user a question, and puts his answer into a variable,
@@ -42,7 +43,7 @@ public class AskTag extends TagSupport {
     private static Log logger = LogFactory.getLog(AskTag.class);
 
     /** The history of previous user-inputs.*/
-    private static History consoleHistory = new History();
+    private static History consoleHistory = new MemoryHistory();
 
     /** The question to ask to the user. */
     private String question;
@@ -105,15 +106,19 @@ public class AskTag extends TagSupport {
                 consoleReader.setBellEnabled(false);
 
                 // add old commands as tab completion history
-                final List oldCommandsAsList = useHistoryCompletor
-                    ? new ArrayList(consoleHistory.getHistoryList()) : new ArrayList(0);
+                final List<String> oldCommandsAsList = new ArrayList<>();
+                if (useHistoryCompletor) {
+                    for (final History.Entry entry : consoleHistory) {
+                        oldCommandsAsList.add(entry.value().toString());
+                    }
+                }
                 // add predefined commands if given
                 if (completor != null && !completor.isEmpty()) {
                     oldCommandsAsList.addAll(completor);
                 }
                 final String[] oldCommands = new String[oldCommandsAsList.size()];
                 oldCommandsAsList.toArray(oldCommands);
-                consoleReader.addCompletor (new SimpleCompletor (oldCommands));
+                consoleReader.addCompleter(new StringsCompleter(oldCommands));
 
                 // read the input!
                 input = consoleReader.readLine();
