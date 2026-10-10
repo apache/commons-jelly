@@ -16,6 +16,8 @@
 github:
   description: "Apache Commons Jelly"
   homepage: https://commons.apache.org/jelly/
+  autolink_jira:
+    - JELLY
   
   pull_requests:
     # allow auto-merge
