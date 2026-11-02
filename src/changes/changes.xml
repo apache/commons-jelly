@@ -46,7 +46,7 @@ The <action> type attribute can be add,update,fix,remove.
   <body>
     <release version="1.1.0" date="YYYY-MM-DD" description="Java 8 required.">
       <!-- ADD -->
-      <action type="add" dev="ggregory" due-to="Gary Gregory">Extract commons version into new POM property ${mx4j.version}.</action>
+      <action type="add" dev="ggregory" due-to="Gary Gregory">Extract MX4J version into new POM property ${mx4j.version}.</action>
       <!-- FIX -->
       <action type="fix" dev="pkarwasz" due-to="Piotr P. Karwasz, Gary Gregory">Create XML parsers and readers through org.apache.commons:commons-secure-xml, so external entities and DTDs are no longer fetched unless JellyContext.setAllowDtdToCallExternalEntities(true) is used (#108).</action>
       <action type="fix" dev="pkarwasz" due-to="Piotr P. Karwasz">Compare documents in &lt;xu:assertDocumentsEqual&gt; through DOM trees built with commons-secure-xml, so XMLUnit no longer re-parses them with a parser that fetches external DTDs.</action>
@@ -66,7 +66,7 @@ The <action> type attribute can be add,update,fix,remove.
       to:
       &lt;dynabean:property name="address" type="org.apache.commons.beanutils2.DynaBean"/&gt;</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump xmlunit:xmlunit from a mix of 0.8 and 1.0 to 1.6.</action>
-      <action type="update" dev="ggregory" due-to="Gary Gregory. Dependabot">Bump commons-cli:commons-cli from 1.0 to 1.11.0 #24.</action>
+      <action type="update" dev="ggregory" due-to="Gary Gregory, Dependabot">Bump commons-cli:commons-cli from 1.0 to 1.11.0 #24.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-lang:commons-lang 2.0 to org.apache.commons:commons-lang3 3.21.0 #58.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-collections:commons-collections 2.1 to org.apache.commons:commons-collections4 4.6.0.</action>
       <action type="update" dev="ggregory" due-to="Gary Gregory">Bump commons-jexl:commons-jexl 1.1 to org.apache.commons:commons-jexl 2.1.1.</action>
