@@ -41,7 +41,7 @@ public abstract class HttpTagSupport extends TagSupport {
     private String _var;
 
     /**
-     * the path to be tested relative to the host/port specifed on the parent
+     * the path to be tested relative to the host/port specified on the parent
      * {@link SuiteTag suite tag}.
      * Either this property and the suite's host
      * must be provided, or the {@link #getUrl() url} property must be specifed
